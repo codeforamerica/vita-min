@@ -38,14 +38,18 @@ module StateFile
       private
 
       def invalid_income_form?(intake)
-        intake.allows_w2_editing? && @w2s.any? do |w2|
+        has_invalid_w2 = intake.allows_w2_editing? && @w2s.any? do |w2|
           w2.check_box14_limits = true
-          !w2.valid?(:state_file_edit)
+          !w2.valid?(:state_file_income_review)
         end
+        has_invalid_1099r = intake.allows_1099_r_editing? && intake.state_file1099_rs.any? do |form1099r|
+          !form1099r.valid?(:income_review)
+        end
+        has_invalid_w2 || has_invalid_1099r
       end
 
       def should_show_warning?(w2, w2_count_for_filer)
-        return true if w2.wages.positive? && !w2.state_wages_amount.positive?
+        return true unless w2.valid?(:state_file_income_review)
 
         return false if StateFile::StateInformationService
           .w2_supported_box14_codes(w2.state_file_intake.state_code)

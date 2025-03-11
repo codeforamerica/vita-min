@@ -1,39 +1,42 @@
 module StateFile
   class MdPermanentlyDisabledForm < QuestionsForm
-    set_attributes_for :intake, :primary_disabled, :spouse_disabled, :proof_of_disability_submitted
+    set_attributes_for :intake, :mfj_disability, :primary_disabled, :spouse_disabled, :primary_proof_of_disability_submitted, :spouse_proof_of_disability_submitted
 
-    attr_accessor :mfj_disability
-    validates_presence_of :mfj_disability, if: -> { intake.filing_status_mfj?}
+    validates_presence_of :mfj_disability, if: -> { intake.filing_status_mfj? }
     validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, unless: -> { intake.filing_status_mfj? }
-    validates :proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: :disability_selected?
-
+    validates :primary_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: :primary_requires_proof?
+    validates :spouse_proof_of_disability_submitted, inclusion: { in: %w[yes no], message: :blank }, if: :spouse_requires_proof?
 
     def save
-      if intake.filing_status_mfj?
-        case mfj_disability
-        when "me"
-          @intake.update(primary_disabled: "yes", spouse_disabled: "no",  proof_of_disability_submitted: proof_of_disability_submitted)
-        when "spouse"
-          @intake.update(primary_disabled: "no", spouse_disabled: "yes", proof_of_disability_submitted: proof_of_disability_submitted)
-        when "both"
-          @intake.update(primary_disabled: "yes", spouse_disabled: "yes", proof_of_disability_submitted: proof_of_disability_submitted)
-        when "none"
-          @intake.update(primary_disabled: "no", spouse_disabled: "no", proof_of_disability_submitted: nil)
-        end
-      elsif primary_disabled == "no"
-        @intake.update(
-            primary_disabled: "no",
-            proof_of_disability_submitted: nil
-          )
-      else
-        @intake.update(attributes_for(:intake))
+      attributes_to_save = attributes_for(:intake).except(:mfj_disability)
+      if mfj_disability.present?
+        attributes_to_save = case mfj_disability
+                             when "primary"
+                               attributes_to_save.merge(primary_disabled: "yes", spouse_disabled: "no")
+                             when "spouse"
+                               attributes_to_save.merge(primary_disabled: "no", spouse_disabled: "yes")
+                             when "both"
+                               attributes_to_save.merge(primary_disabled: "yes", spouse_disabled: "yes")
+                             when "none"
+                               attributes_to_save.merge(primary_disabled: "no", spouse_disabled: "no")
+                             end
       end
+
+      @intake.update(attributes_to_save)
     end
 
     private
 
-    def disability_selected?
-      mfj_disability.in?(%w[me spouse both]) || primary_disabled == "yes"
+    def primary_requires_proof?
+      return false unless intake.should_warn_about_pension_exclusion?
+
+      mfj_disability.in?(%w[primary both]) || primary_disabled == "yes"
+    end
+
+    def spouse_requires_proof?
+      return false unless intake.should_warn_about_pension_exclusion?
+
+      mfj_disability.in?(%w[spouse both])
     end
   end
 end

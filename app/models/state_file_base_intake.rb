@@ -39,6 +39,26 @@ class StateFileBaseIntake < ApplicationRecord
     where.not(raw_direct_file_data: nil)
          .where(federal_submission_id: nil)
   }
+  scope :messaging_eligible, lambda {
+    where(<<~SQL)
+      (
+        phone_number IS NOT NULL
+        AND sms_notification_opt_in = 1
+        AND phone_number_verified_at IS NOT NULL
+      )
+      OR
+      (
+        email_address IS NOT NULL
+        AND email_notification_opt_in = 1
+        AND email_address_verified_at IS NOT NULL
+      )
+    SQL
+  }
+  scope :no_prior_message_history_of, lambda { |state_code, message_name|
+    # this only checks for messages tracked on the intake and not the efile submission
+    where("state_file_#{state_code.downcase}_intakes.message_tracker #> '{#{message_name}}' IS NULL")
+  }
+
   before_save :save_nil_enums_with_unfilled
   before_save :sanitize_bank_details
 
@@ -236,6 +256,22 @@ class StateFileBaseIntake < ApplicationRecord
     Person.new(self, :spouse)
   end
 
+  def filer_1099_rs(primary_or_spouse)
+    state_file1099_rs.filter do |state_file_1099_r|
+      state_file_1099_r.recipient_ssn == send(primary_or_spouse).ssn
+    end
+  end
+
+  def sum_1099_r_followup_type_for_filer(primary_or_spouse, followup_type)
+    filer_1099_rs(primary_or_spouse).sum do |state_file_1099_r|
+      if state_file_1099_r.state_specific_followup&.send(followup_type)
+        state_file_1099_r.taxable_amount&.round
+      else
+        0
+      end
+    end
+  end
+
   def ask_for_signature_pin?
     false
   end
@@ -282,6 +318,14 @@ class StateFileBaseIntake < ApplicationRecord
 
   def allows_w2_editing?
     true
+  end
+
+  def allows_1099_r_editing?
+    true
+  end
+
+  def has_banking_information_in_financial_resolution?
+    false
   end
 
   class Person
@@ -433,5 +477,11 @@ class StateFileBaseIntake < ApplicationRecord
 
   def unsubscribed_from_sms?
     self.sms_notification_opt_in == "no"
+  end
+
+  def eligible_1099rs
+    @eligible_1099rs ||= self.state_file1099_rs.select do |form1099r|
+      form1099r.taxable_amount&.to_f&.positive?
+    end
   end
 end

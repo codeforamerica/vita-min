@@ -55,7 +55,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502Su, required_sch
           end
 
           it "outputs the XML for the subtractions total" do
-            expect(xml.search("Form502SU Subtractions Total").text.to_i).to eq(200)
+            expect(xml.search("Form502SU Subtractions Total").text.to_i).to eq(300)
           end
         end
       end

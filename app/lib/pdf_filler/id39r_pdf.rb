@@ -8,6 +8,7 @@ module PdfFiller
 
     def initialize(submission)
       @submission = submission
+      @intake = submission.data_source
 
       # Most PDF fields are grabbed right off the XML
       builder = StateFile::StateInformationService.submission_builder_class(:id)
@@ -16,10 +17,16 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
+        "Names" => formatted_display_name,
+        "SSN" => @xml_document.at('Primary TaxpayerSSN')&.text,
         "AL7" => @xml_document.at('Form39R TotalAdditions')&.text,
         "BL3" => @xml_document.at('Form39R IncomeUSObligations')&.text,
         "BL6" => @xml_document.at('Form39R ChildCareCreditAmt')&.text,
         "BL7" => @xml_document.at('Form39R TxblSSAndRRBenefits')&.text,
+        "BL8a" => @xml_document.at('Form39R PensionFilingStatusAmount')&.text,
+        "BL8c" => @xml_document.at('Form39R SocialSecurityBenefits')&.text,
+        "BL8d" => calculated_fields.fetch(:ID39R_B_LINE_8d),
+        "BL8e" => @xml_document.at('Form39R PensionExclusions')&.text,
         "BL8f" => @xml_document.at('Form39R RetirementBenefitsDeduction')&.text,
         "BL18" => @xml_document.at('Form39R HealthInsurancePaid')&.text,
         "BL24" => @xml_document.at('Form39R TotalSubtractions')&.text,
@@ -34,6 +41,27 @@ module PdfFiller
           )
       end
       answers
+    end
+
+    private
+    def calculated_fields
+      @calculated_fields ||= @submission.data_source.tax_calculator.calculate
+    end
+
+    def formatted_display_name
+      primary_capitalized_first_name = @intake.primary.first_name.capitalize
+      primary_capitalized_last_name = @intake.primary.last_name.capitalize
+      if @intake.filing_status_mfj?
+        spouse_capitalized_first_name = @intake.spouse.first_name.capitalize
+        spouse_capitalized_last_name = @intake.spouse.last_name.capitalize
+        if primary_capitalized_last_name == spouse_capitalized_last_name
+          primary_capitalized_first_name + " & " + spouse_capitalized_first_name + " " + spouse_capitalized_last_name
+        else
+          "#{primary_capitalized_first_name} #{primary_capitalized_last_name} & #{spouse_capitalized_first_name} #{spouse_capitalized_last_name}"
+        end
+      else
+        "#{primary_capitalized_first_name} #{primary_capitalized_last_name}"
+      end
     end
   end
 end

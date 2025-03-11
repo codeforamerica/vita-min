@@ -55,14 +55,13 @@ RSpec.feature "Logging in" do
       expect(twilio_service).to have_received(:send_text_message).with(
         to: phone_number,
         body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 10 minutes.",
-        status_callback: twilio_update_status_url(OutgoingMessageStatus.last.id, locale: nil, host: 'test.host')
       )
 
       expect(page).to have_text "Enter the code to continue"
       fill_in "Enter the 6-digit code", with: verification_code
       click_on "Verify code"
 
-      expect(page).to have_text "Code verified! Authentication needed to continue."
+      expect(page).to have_text I18n.t("state_file.intake_logins.edit.title")
       fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
       click_on "Continue"
 
@@ -87,7 +86,7 @@ RSpec.feature "Logging in" do
       fill_in "Enter the 6-digit code", with: verification_code
       click_on "Verify code"
 
-      expect(page).to have_text "Code verified! Authentication needed to continue."
+      expect(page).to have_text I18n.t("state_file.intake_logins.edit.title")
       fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
       click_on "Continue"
 

@@ -124,6 +124,124 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
+  describe "Line 29a" do
+    context "has qualifying pension plan" do
+      before do
+        allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
+      end
+
+      context "primary has pension plan amount over 2500" do
+        before do
+          allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_pension_plan?).and_return 10_000
+        end
+
+        it "returns max subtraction allowed (2500)" do
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_29A].value).to eq(2500)
+        end
+      end
+
+      context "primary has pension plan amount under 2500" do
+        before do
+          allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_pension_plan?).and_return 2455
+        end
+
+        it "returns primary pension plan amount" do
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_29A].value).to eq(2455)
+        end
+      end
+
+      context "mfj" do
+        before do
+          allow_any_instance_of(StateFileAzIntake).to receive(:filing_status_mfj?).and_return true
+          allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_pension_plan?).and_return 100
+        end
+
+        context "spouse has pension plan amount over 2500" do
+          before do
+            allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_pension_plan?).and_return 2501
+          end
+
+          it "returns max subtraction allowed (2500) + primary pension subtraction" do
+            instance.calculate
+            expect(instance.lines[:AZ140_LINE_29A].value).to eq(2600)
+          end
+        end
+
+        context "spouse has pension plan amount under 2500" do
+          before do
+            allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_pension_plan?).and_return 2499
+          end
+
+          it "returns max subtraction allowed (2500) + primary pension subtraction" do
+            instance.calculate
+            expect(instance.lines[:AZ140_LINE_29A].value).to eq(2599)
+          end
+        end
+      end
+    end
+
+    describe "Line 29b" do
+      context "has retirement income from uniformed services" do
+        before do
+          allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
+        end
+
+        context "single" do
+          before do
+            allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_uniformed_services?).and_return 199
+          end
+
+          it "returns sum of uniformed services retirement income" do
+            instance.calculate
+            expect(instance.lines[:AZ140_LINE_29B].value).to eq(199)
+          end
+        end
+
+        context "mfj" do
+          before do
+            allow_any_instance_of(StateFileAzIntake).to receive(:filing_status_mfj?).and_return true
+            allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_uniformed_services?).and_return 100
+            allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_uniformed_services?).and_return 300
+          end
+
+          it "returns sum of both retirement incomes" do
+            instance.calculate
+            expect(instance.lines[:AZ140_LINE_29B].value).to eq(400)
+          end
+        end
+      end
+
+      context "has no qualifying retirement income from uniformed services" do
+        before do
+          allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
+          allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_uniformed_services?).and_return 0
+          allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_uniformed_services?).and_return 0
+        end
+
+        it "returns 0" do
+          instance.calculate
+          expect(instance.lines[:AZ140_LINE_29B].value).to eq(0)
+        end
+      end
+    end
+
+
+    context "has qualifying no qualifying pension plan" do
+      before do
+        allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).and_call_original
+        allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_uniformed_services?).and_return 0
+        allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_uniformed_services?).and_return 0
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_29B].value).to eq(0)
+      end
+    end
+  end
+
   describe "Line 35" do
     before do
       intake.direct_file_data.fed_taxable_ssb = 100
@@ -131,8 +249,8 @@ describe Efile::Az::Az140Calculator do
     it "subtracts lines 24 through 34c from line 19" do
       allow(instance).to receive(:calculate_line_19).and_return 700
       allow(instance).to receive(:calculate_line_28).and_return 100
-      allow(instance).to receive(:calculate_line_29A).and_return 100
-      allow(instance).to receive(:calculate_line_29B).and_return 100
+      allow(instance).to receive(:calculate_line_29a).and_return 100
+      allow(instance).to receive(:calculate_line_29b).and_return 100
       allow(instance).to receive(:calculate_line_31).and_return 100
       allow(instance).to receive(:calculate_line_32).and_return 100
       instance.calculate
@@ -274,6 +392,28 @@ describe Efile::Az::Az140Calculator do
       instance.calculate
       expect(instance.lines[:AZ140_LINE_53].value).to eq(900 + 50 + 100)
     end
+
+    context "with nil state_income_tax_amount for W2" do
+      before do
+        intake.state_file_w2s.first&.update(state_income_tax_amount: nil)
+      end
+
+      it "sums up all relevant values without error" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_53].value).to eq(50 + 100)
+      end
+    end
+
+    context "with nil state_income_tax_amount for W2" do
+      before do
+        intake.state_file1099_rs.first&.update(state_tax_withheld_amount: nil)
+      end
+
+      it "sums up all relevant values without error" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_53].value).to eq(900 + 100)
+      end
+    end
   end
 
   describe "Line 56: Increased Excise Tax Credit" do
@@ -370,7 +510,7 @@ describe Efile::Az::Az140Calculator do
         intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = true
 
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_56].value).to eq(50) # (1 filers + 1 dependent) * 25
+        expect(instance.lines[:AZ140_LINE_56].value).to eq(0) # an inelegible primary sets credit to 0
       end
 
       it "sets the credit to the correct amount when spouse has ssn_not_valid_for_employment" do

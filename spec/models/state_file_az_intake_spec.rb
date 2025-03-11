@@ -357,8 +357,8 @@ describe StateFileAzIntake do
       context "primary has valid-for-employment SSN but spouse does not" do
         before do
           allow(intake).to receive(:filing_status_mfj?).and_return(true)
-          intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = true
-          intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment = false
+          intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = false
+          intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment = true
         end
 
         it "they are not disqualified" do
@@ -369,12 +369,12 @@ describe StateFileAzIntake do
       context "spouse has valid-for-employment SSN but primary does not" do
         before do
           allow(intake).to receive(:filing_status_mfj?).and_return(true)
-          intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = false
-          intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment = true
+          intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment = true
+          intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment = false
         end
 
-        it "they are not disqualified" do
-          expect(intake).not_to be_disqualified_from_excise_credit_df
+        it "they are disqualified" do
+          expect(intake).to be_disqualified_from_excise_credit_df
         end
       end
 
@@ -385,7 +385,7 @@ describe StateFileAzIntake do
           intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment = true
         end
 
-        it "they are not disqualified" do
+        it "they are disqualified" do
           expect(intake).to be_disqualified_from_excise_credit_df
         end
       end
@@ -420,6 +420,42 @@ describe StateFileAzIntake do
         intake = create(:state_file_az_intake)
         expect(intake.state_code).to eq "az"
       end
+    end
+  end
+
+  describe "#messaging_eligible scope" do
+    context "when there is an intake with a phone_number, sms_notification_opt_in is yes and phone_number_verified_at is present" do
+      let!(:intake) { create(:state_file_az_intake, phone_number: "+14155551212", sms_notification_opt_in: "yes", phone_number_verified_at: Time.now) }
+      it "includes the intake in the scope" do
+        expect(StateFileAzIntake.messaging_eligible).to include(intake)
+      end
+    end
+
+    context "when there is an intake with a email_address, email_notification_opt_in is yes and email_address_verified_at is present" do
+      let!(:intake) { create(:state_file_az_intake, email_address: "email@example.com", email_notification_opt_in: "yes", email_address_verified_at: Time.now) }
+      it "includes the intake in the scope" do
+        expect(StateFileAzIntake.messaging_eligible).to include(intake)
+      end
+    end
+
+    context "when there is are intake that contact methods are not verified" do
+      let!(:phone_intake) { create(:state_file_az_intake, email_address: "email@example.com", email_notification_opt_in: "yes", email_address_verified_at: nil) }
+      let!(:email_intake) { create(:state_file_az_intake, phone_number: "+14155551212", sms_notification_opt_in: "yes", phone_number_verified_at: nil) }
+      it "excludes the intake in the scope" do
+        expect(StateFileAzIntake.messaging_eligible).not_to include(phone_intake, email_intake)
+      end
+    end
+  end
+
+  describe "#no_prior_message_history_of scope" do
+    let!(:intake_with_finish_return_message) { create(:state_file_az_intake, message_tracker: {"messages.state_file.finish_return" => "2024-11-06 21:14:49 UTC"}) }
+    let!(:intake_with_welcome_message) { create(:state_file_az_intake, message_tracker: {"messages.state_file.welcome" => "2024-11-06 21:14:49 UTC"}) }
+    let!(:intake_with_no_messages) { create(:state_file_az_intake, message_tracker: {}) }
+
+    it "includes and excludes the correct intakes" do
+      expect(StateFileAzIntake.no_prior_message_history_of('az', StateFile::AutomatedMessage::FinishReturn.name)).not_to include(intake_with_finish_return_message)
+      expect(StateFileAzIntake.no_prior_message_history_of('az', StateFile::AutomatedMessage::FinishReturn.name)).to include(intake_with_welcome_message, intake_with_no_messages)
+      expect(StateFileAzIntake.no_prior_message_history_of('az', StateFile::AutomatedMessage::Welcome.name)).not_to include(intake_with_welcome_message)
     end
   end
 end

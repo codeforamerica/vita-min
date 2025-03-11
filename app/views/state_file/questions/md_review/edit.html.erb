@@ -23,6 +23,39 @@
 <% content_for :card do %>
   <%= render "state_file/questions/shared/review_header" %>
 
+  <% if current_intake.state_file1099_rs.length.positive? && Flipper.enabled?(:show_retirement_ui) %>
+    <section id="permanently-disabled" class="white-group">
+      <div class="spacing-below-5">
+        <p class="text--bold spacing-below-5"><%=t(".disability_status") %></p>
+        <% if current_intake.filing_status_mfj? %>
+          <p>
+            <% if current_intake.primary_disabled_yes? && current_intake.spouse_disabled_yes? %>
+              <%= t("state_file.questions.md_permanently_disabled.edit.yes_both") %>
+            <% elsif current_intake.primary_disabled_yes? %>
+              <%= t("state_file.questions.md_permanently_disabled.edit.yes_me") %>
+            <% elsif current_intake.spouse_disabled_yes? %>
+              <%= t("state_file.questions.md_permanently_disabled.edit.yes_spouse") %>
+            <% else %>
+              <%= t("state_file.questions.md_permanently_disabled.edit.no_neither") %>
+            <% end %>
+          </p>
+        <% else %>
+          <p><%=current_intake.primary_disabled_yes? ? t("general.affirmative") : t("general.negative") %></p>
+        <% end %>
+        <% unless current_intake.primary_proof_of_disability_submitted_unfilled? %>
+          <p class="text--bold spacing-below-5"><%=t(".primary_proof_of_disability") %></p>
+          <p><%=current_intake.primary_proof_of_disability_submitted_yes? ? t("general.affirmative") : t("general.negative") %></p>
+        <% end %>
+        <% unless current_intake.spouse_proof_of_disability_submitted_unfilled? %>
+          <p class="text--bold spacing-below-5"><%=t(".spouse_proof_of_disability") %></p>
+          <p><%=current_intake.spouse_proof_of_disability_submitted_yes? ? t("general.affirmative") : t("general.negative") %></p>
+        <% end %>
+        <%= link_to t("general.review_and_edit"), StateFile::Questions::MdPermanentlyDisabledController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+        <span class="sr-only"><%= t(".disability_status") %></span>
+      </div>
+    </section>
+  <% end %>
+
   <div id="details" class="reveal">
     <p><button class="reveal__button"><%= t("state_file.general.see_detailed_return") %></button></p>
     <div class="reveal__content">

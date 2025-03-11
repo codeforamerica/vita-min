@@ -1,8 +1,19 @@
 <% title = t("state_file.questions.primary_state_id.edit.title") %>
 <% content_for :page_title, title %>
 
+<% content_for :info_box do %>
+  <div class="reveal">
+    <p><button class="reveal__button"><%= t('.why_are_you_asking') %></button></p>
+    <div class="reveal__content">
+      <p><%= t('.ongoing_effort') %></p>
+      <p><%= t('.learn_more_html') %></p>
+    </div>
+  </div>
+<% end %>
+
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
+  <p><%= t(".requests_drivers_license")%></p>
   <%= render 'state_file/questions/primary_state_id/state_id', options: {
     info_link: "https://azdot.gov/mvd/services/driver-services/driver-license-information/license-features"
   } %>

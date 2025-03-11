@@ -1,0 +1,52 @@
+<% content_for :card do %>
+  <h1 class="form-question"><%= t("state_file.questions.w2.edit.instructions_1_html", employer: @w2.employer_name) %></h1>
+  <div class="white-group">
+    <p class="text--bold spacing-below-5"><%= @w2.employee_name %></p>
+    <p class="spacing-below-25"><%= @w2.employer_name %></p>
+
+    <dl>
+      <% if box_14_codes_and_values.present? %>
+        <p class="text--small spacing-below-0"><%= t("state_file.questions.w2.edit.box14_html") %></p>
+        <ul>
+          <% box_14_codes_and_values.each do |box_14_item| %>
+            <% box_14_item => { code_name:, field_name:, value: } %>
+            <li class="list--padded unbulleted">
+              <div class="spacing-below-25">
+                <dt><%= t("state_file.questions.w2.edit.box14_#{code_name}_html") %></dt>
+                <dd>$<%= value %></dd>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <div class="spacing-below-25">
+        <dt><%= t("state_file.questions.w2.edit.box15_html") %></dt>
+        <dd><%= @w2.employer_state_id_num %></dd>
+      </div>
+      <div class="spacing-below-25">
+        <dt><%= t("state_file.questions.w2.edit.box16_html") %></dt>
+        <dd>$<%= @w2.state_wages_amount %></dd>
+      </div>
+      <div class="spacing-below-25">
+        <dt><%= t("state_file.questions.w2.edit.box17_html") %></dt>
+        <dd>$<%= @w2.state_income_tax_amount %></dd>
+      </div>
+      <% if StateFile::StateInformationService.w2_include_local_income_boxes(current_state_code) %>
+        <div class="spacing-below-25">
+          <dt><%= t("state_file.questions.w2.edit.box18_html") %></dt>
+          <dd>$<%= @w2.local_wages_and_tips_amount %></dd>
+        </div>
+        <div class="spacing-below-25">
+          <dt><%= t("state_file.questions.w2.edit.box19_html") %></dt>
+          <dd>$<%= @w2.local_income_tax_amount %></dd>
+        </div>
+        <div class="spacing-below-25">
+          <dt><%= t("state_file.questions.w2.edit.box20_locality_name_html") %></dt>
+          <dd><%= @w2.locality_nm %></dd>
+        </div>
+      <% end %>
+    </dl>
+  </div>
+
+  <%= link_to t('general.continue'), questions_income_review_path(return_to_review: params[:return_to_review]), class: "button button--primary button--wide text--centered" %>
+<% end %>

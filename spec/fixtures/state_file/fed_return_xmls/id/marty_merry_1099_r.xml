@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>4be83768</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400003654</PrimarySSN>
+            <SpouseSSN>400001073</SpouseSSN>
+            <NameLine1Txt>MARTY J &amp; TERRY&lt;MERRY</NameLine1Txt>
+            <PrimaryNameControlTxt>MERR</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>MERR</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>55 Happy Drive</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83706</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000365-4832-4c75-9aa2-f8ad4288aba1@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="5">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">30001</WagesAmt>
+            <WagesSalariesAndTipsAmt>30001</WagesSalariesAndTipsAmt>
+            <TotalTaxablePensionsAmt>8000</TotalTaxablePensionsAmt>
+            <SocSecBnftAmt>21000</SocSecBnftAmt>
+            <TaxableSocSecAmt>9826</TaxableSocSecAmt>
+            <TotalIncomeAmt>47827</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>47827</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>15527</TaxableIncomeAmt>
+            <TaxAmt>1553</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>1553</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>1553</TaxLessCreditsAmt>
+            <TotalTaxAmt>1553</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>5000</FormW2WithheldTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">4900</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>9900</WithholdingTaxAmt>
+            <TotalPaymentsAmt>9900</TotalPaymentsAmt>
+            <OverpaidAmt>8347</OverpaidAmt>
+            <RefundAmt>8347</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Retired</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Retired</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>FARM</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Farmer Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>10 Crops Circle</AddressLine1Txt>
+                <CityNm>Colorado Springs</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80908</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>361287510</PayerEIN>
+            <RecipientSSN>400003654</RecipientSSN>
+            <RecipientNm>Marty J Merry</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>55 Happy Drive</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83706</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>5000</GrossDistributionAmt>
+            <TaxableAmt>5000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>2000</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRS1099R documentId="IRS1099R0002">
+            <PayerNameControlTxt>FARM</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Farmer Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>10 Crops Circle</AddressLine1Txt>
+                <CityNm>Colorado Springs</CityNm>
+                <StateAbbreviationCd>CO</StateAbbreviationCd>
+                <ZIPCd>80908</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>361287510</PayerEIN>
+            <RecipientSSN>400001073</RecipientSSN>
+            <RecipientNm>Terry Merry</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>55 Happy Drive</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83706</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>3000</GrossDistributionAmt>
+            <TaxableAmt>3000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>800</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <OtherDistributionAmt>0</OtherDistributionAmt>
+            <IRRAllocatedAmt>0</IRRAllocatedAmt>
+            <F1099RStateLocalTaxGrp>
+                <F1099RStateTaxGrp>
+                    <StateTaxWithheldAmt>200</StateTaxWithheldAmt>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <PayerStateIdNum>1234321</PayerStateIdNum>
+                    <StateDistributionAmt>3000</StateDistributionAmt>
+                </F1099RStateTaxGrp>
+            </F1099RStateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400003654</EmployeeSSN>
+            <EmployerEIN>568912333</EmployerEIN>
+            <EmployerNameControlTxt>SPUD</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Spud Incorporated</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>30 Potato Lane</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83638</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Marty J Merry</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>55 Happy Drive</AddressLine1Txt>
+                <CityNm>Boise</CityNm>
+                <StateAbbreviationCd>ID</StateAbbreviationCd>
+                <ZIPCd>83706</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>30001</WagesAmt>
+            <WithholdingAmt>5000</WithholdingAmt>
+            <SocialSecurityWagesAmt>30001</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1860</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>30001</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>435</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>ID</StateAbbreviationCd>
+                    <EmployerStateIdNum>12345</EmployerStateIdNum>
+                    <StateWagesAmt>30001</StateWagesAmt>
+                    <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <WithholdingAmt>1000</WithholdingAmt>
+            </OtherWithholdingStmt>
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <WithholdingAmt>1100</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

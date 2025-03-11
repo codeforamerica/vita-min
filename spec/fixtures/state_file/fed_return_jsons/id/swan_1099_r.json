@@ -1,0 +1,54 @@
+{
+  "filers": [
+    {
+      "tin": "400-00-7711",
+      "suffix": null,
+      "lastName": "Swan",
+      "firstName": "Charlie",
+      "isStudent": false,
+      "isDisabled": false,
+      "dateOfBirth": "1960-12-31",
+      "middleInitial": null,
+      "isPrimaryFiler": true,
+      "form1099GsTotal": "0.00",
+      "educatorExpenses": "0.00",
+      "interestReportsTotal": "0.00",
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "formW2s": [
+    {
+      "usedTin": "400-00-7711",
+      "unionDuesAmount": null
+    },
+    {
+      "usedTin": "400-00-7711",
+      "unionDuesAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "interestReports": [],
+  "familyAndHousehold": [
+    {
+      "tin": "400-00-8834",
+      "suffix": null,
+      "lastName": "Swan",
+      "firstName": "Isabella",
+      "dateOfBirth": "2013-04-21",
+      "relationship": "biologicalChild",
+      "middleInitial": null,
+      "qualifyingChild": true,
+      "eligibleDependent": true,
+      "residencyDuration": "allYear",
+      "isClaimedDependent": true,
+      "hohQualifyingPerson": true,
+      "scheduleEicLine4aNo": false,
+      "scheduleEicLine4aYes": false,
+      "scheduleEicLine4bYes": false,
+      "monthsLivedWithTPInUS": "twelve",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "socialSecurityReports": []
+}

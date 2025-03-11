@@ -16,17 +16,17 @@ module StateFile
       end
 
       def self.show?(intake)
-        Flipper.enabled?(:show_retirement_ui) && intake.state_file1099_rs.length.positive?
+        Flipper.enabled?(:show_retirement_ui) && intake.eligible_1099rs.present?
       end
 
       private
 
       def num_items
-        current_intake.state_file1099_rs.count
+        current_intake.eligible_1099rs.count
       end
 
       def load_item(index)
-        @state_file_1099r = current_intake.state_file1099_rs[index]
+        @state_file_1099r = current_intake.eligible_1099rs[index]
         if @state_file_1099r.nil?
           render "public_pages/page_not_found", status: 404
         end

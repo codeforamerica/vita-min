@@ -35,17 +35,6 @@ RSpec.describe StateFile::Questions::W2Controller do
       end
     end
 
-    context "when a Box 14 value is nil" do
-      let(:intake) { create :state_file_nj_intake }
-      let(:state_file_w2) { create :state_file_w2, state_file_intake: intake, box14_ui_wf_swf: nil }
-    
-      it "displays 0 in the form for Box 14 fields" do
-        get :edit, params: params
-    
-        expect(response.body).to include 'value="0"'
-      end
-    end
-
     context "when state does not have Box 14 codes" do
       let(:intake) { create :state_file_az_intake }
 
@@ -230,7 +219,7 @@ RSpec.describe StateFile::Questions::W2Controller do
         post :update, params: params
     
         expect(response).to render_template(:edit)
-        expect(response.body).to include "This amount can't exceed $179.78."
+        expect(response.body).to include "This amount can't exceed $180.00."
       end
     end
   end

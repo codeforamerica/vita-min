@@ -69,9 +69,6 @@ module PdfFiller
         "form1[0].page1[0].mailingState[0]" => @intake.state&.upcase,
         "form1[0].page1[0].mailingZIPCode[0]" => @intake.zip_code,
       )
-      answers.merge!(
-        yes_no_checkboxes("form1[0].page1[0].q11HaveYouOr[0]", collective_yes_no_unsure(@intake.issued_identity_pin, @intake.spouse_issued_identity_pin))
-      )
 
       answers.merge!({
         "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => @intake.written_language_preference_english? ? '1' : nil,
@@ -91,10 +88,8 @@ module PdfFiller
               "statusWidowed[0].statusWidowed[0]" => @intake.widowed_yes?,
               "liveWithSpouse[0].liveWithYes[0]" => @intake.lived_with_spouse_yes?,
               "liveWithSpouse[0].liveWithNo[0]" => @intake.lived_with_spouse_no?,
-              # TODO: Not enough info for these fields
-              #
-              # "marriedForAll[0].forAllYes[0]" => @intake,
-              # "marriedForAll[0].forAllNo[0]" => @intake,
+              "marriedForAll[0].forAllYes[0]" => @intake.married_for_all_of_tax_year_yes?,
+              "marriedForAll[0].forAllNo[0]" => @intake.married_for_all_of_tax_year_no?,
             }
           end
         )
@@ -142,26 +137,6 @@ module PdfFiller
       )
 
       answers["form1[0].page2[0].receivedMoneyFrom[0].howManyJobs[0]"] = @intake.job_count.to_s
-
-      # PAGE 2: INCOME
-      answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q3Scholarships[0]", @intake.had_scholarships, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q8CashCheckPayments[0]", @intake.had_cash_check_digital_assets, include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part3[0].q10DisabilityIncome[0]", @intake.had_disability_income, include_unsure: true),
-
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0]", fetch_gated_value(@intake, :paid_alimony), include_unsure: true),
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q1Alimony[0].IfYes[0]", @intake.has_ssn_of_alimony_recipient),
-      )
-      answers.merge!(
-        "form1[0].page2[0].Part4[0].q2Contributions[0].IRA[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_ira),
-        "form1[0].page2[0].Part4[0].q2Contributions[0].RothIRA[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_roth_ira),
-        "form1[0].page2[0].Part4[0].q2Contributions[0]._401K[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_401k),
-        "form1[0].page2[0].Part4[0].q2Contributions[0].Other[0]" => yes_no_unfilled_to_checkbox(@intake.contributed_to_other_retirement_account),
-      )
-
-      answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part4[0].q3PostSecondary[0]", @intake.paid_post_secondary_educational_expenses, include_unsure: true),
-        )
 
       # PAGE TWO: right-side certified volunteer section
       answers.merge!(
@@ -328,32 +303,13 @@ module PdfFiller
       )
 
       answers.merge!(
-        "form1[0].page2[0].Part5[0].q4HaveEarnedIncome[0].WhichTaxYear[0]" => @intake.tax_credit_disallowed_year
-      )
-      answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part5[0].q6ReceiveTheFirst[0]", fetch_gated_value(@intake, :received_homebuyer_credit), include_unsure: true),
-      )
-      answers.merge!(
-        "form1[0].page2[0].Part5[0].q7MakeEstimatedTax[0].HowMuch[0]" => @intake.made_estimated_tax_payments_amount,
-      )
-      answers.merge!(
-        yes_no_checkboxes("form1[0].page2[0].Part5[0].q8FileAFederal[0]", @intake.had_capital_loss_carryover, include_unsure: true),
-      )
-
-      answers.merge!(
         keep_and_normalize(
           {
             "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundYou[0]" => (@intake.presidential_campaign_fund_donation_primary? || @intake.presidential_campaign_fund_donation_primary_and_spouse?),
-            "form1[0].page3[0].q2[0].spouse[0]" => (@intake.presidential_campaign_fund_donation_spouse? || @intake.presidential_campaign_fund_donation_primary_and_spouse?),
+            "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundSpouse[0]" => (@intake.presidential_campaign_fund_donation_spouse? || @intake.presidential_campaign_fund_donation_primary_and_spouse?),
             "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundNo[0]" => (!(@intake.presidential_campaign_fund_donation_spouse? || @intake.presidential_campaign_fund_donation_primary_and_spouse?) && !(@intake.presidential_campaign_fund_donation_primary? || @intake.presidential_campaign_fund_donation_primary_and_spouse?)),
           }
         )
-      )
-      answers.merge!(
-        yes_no_checkboxes("form1[0].page3[0].q4[0]", @intake.balance_pay_from_bank),
-      )
-      answers.merge!(
-        "form1[0].page3[0].q5[0].IfYesWhere[0]" => @intake.had_disaster_loss_where,
       )
       answers.merge!(demographic_info) if @intake.demographic_questions_opt_in_yes? || @intake.demographic_questions_hub_edit
 
@@ -363,23 +319,21 @@ module PdfFiller
 
       # end - ty2024 page 5
 
-      answers.merge!(vita_consent_to_disclose_info) if @intake.client&.consent&.disclose_consented_at
       answers
     end
-
 
     def vita_consent_to_disclose_info
       # aka form 15080 on page 4 info
       return {} unless @intake.primary_consented_to_service_at.present?
 
       data = {
-        "form1[0].page4[0].primaryTaxpayer[0]" => @intake.primary.first_and_last_name,
-        "form1[0].page4[0].primarydateSigned[0]" => strftime_date(@intake.primary_consented_to_service_at),
+        "form1[0].page6[0].primaryTaxpayer[0]" => @intake.primary.first_and_last_name,
+        "form1[0].page6[0].primaryDateSigned[0]" => strftime_date(@intake.primary_consented_to_service_at),
       }
       if @intake.spouse_consented_to_service_at.present?
         data.merge!(
-          "form1[0].page4[0].secondaryTaxpayer[0]" => @intake.spouse.first_and_last_name,
-          "form1[0].page4[0].secondaryDateSigned[0]" => strftime_date(@intake.spouse_consented_to_service_at),
+          "form1[0].page6[0].secondaryTaxpayer[0]" => @intake.spouse.first_and_last_name,
+          "form1[0].page6[0].secondaryDateSigned[0]" => strftime_date(@intake.spouse_consented_to_service_at),
           )
       end
       data
@@ -407,8 +361,9 @@ module PdfFiller
       }.merge(
         keep_and_normalize(
           {
-            # People who have digital assets are considered out of scope
-            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsNo[0]" => true,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsYou[0]" => @intake.primary_owned_or_held_any_digital_currencies_yes?,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsSpouse[0]" => @intake.spouse_owned_or_held_any_digital_currencies_yes?,
+            "form1[0].page1[0].youSpouseWereIn[0].column2[0].holdDigitalAssets[0].digitalAssetsNo[0]" => @intake.primary_owned_or_held_any_digital_currencies_no? && !@intake.spouse_owned_or_held_any_digital_currencies_yes?,
           },
           with_prefix("form1[0].page1[0].liveWorkStates[0]") do
             {
@@ -460,9 +415,9 @@ module PdfFiller
           end,
           with_prefix("form1[0].page1[0].dueARefund[0]") do
             {
-              "refundOther[0]" => @intake.savings_purchase_bond_yes?,
-              "refundDirectDeposit[0]" => @intake.refund_payment_method_direct_deposit?,
-              "refundCheckMail[0]" => @intake.refund_payment_method_check?,
+              'refundOther[0]' => @intake.refund_other_cb_yes?,
+              "refundDirectDeposit[0]" => @intake.refund_direct_deposit_yes?,
+              "refundCheckMail[0]" => @intake.refund_check_by_mail_yes?,
               "refundSplitAccounts[0]" => @intake.savings_split_refund_yes?,
             }
           end,
@@ -475,11 +430,7 @@ module PdfFiller
         )
       )
 
-      # TODO: How do we handle alternate languages?
-
-      if @intake.savings_purchase_bond_yes?
-        hash["form1[0].page1[0].dueARefund[0].refundOtherExplain[0]"] = "Purchase United States Savings Bond"
-      end
+      hash['form1[0].page1[0].dueARefund[0].refundOtherExplain[0]'] = @intake.refund_other
 
       hash
     end
@@ -495,20 +446,6 @@ module PdfFiller
         result["#{pdf_key_base}.optionUnsure[0]"] = enum_value == "unsure" ? "1" : "Off"
       end
       result
-    end
-
-    def fetch_gated_value(intake, field)
-      gating_question_columns = GATES.select do |_gating_question, gated_values|
-        gated_values.any?(field)
-      end.map(&:first)
-
-      gating_question_values = gating_question_columns.map { |c| intake.send(c) }
-      gated_question_value = intake.send(field)
-      if gating_question_values.any?("no") && gated_question_value == "unfilled"
-        "no"
-      else
-        gated_question_value
-      end
     end
 
     def dependents_info
@@ -672,13 +609,6 @@ module PdfFiller
       end.join()
 
       s
-    end
-
-    def determine_direct_deposit(intake)
-      return "yes" if intake.refund_payment_method_direct_deposit?
-      return "no" if intake.refund_payment_method_check?
-
-      "unfilled"
     end
 
     def yes_no_unfilled_to_YN(yes_no_unfilled)

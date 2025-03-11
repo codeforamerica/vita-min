@@ -31,5 +31,12 @@ class StateId < ApplicationRecord
     if non_expiring_changed?(to: true)
       self.expiration_date = nil
     end
+    if id_number.present?
+      self.id_number = remove_long_dashes_and_spaces(id_number)
+    end
+  end
+
+  def remove_long_dashes_and_spaces(input)
+    input.gsub(/[\u2013\u2014|\s]+/, '')
   end
 end

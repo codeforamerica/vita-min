@@ -1,0 +1,56 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Miyazaki",
+      "hohQualifyingPerson": true,
+      "isClaimedDependent": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2020-02-02",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Mononoke",
+      "middleInitial": null,
+      "tin": "400-00-2108",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": true,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "socialSecurityReports": [
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "400-00-2107",
+      "netBenefits": "8500.00"
+    }
+  ],
+  "filers": [
+    {
+      "lastName": "Miyazaki",
+      "dateOfBirth": "1960-08-01",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Totoro",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-2107",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "400-00-2107",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

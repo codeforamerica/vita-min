@@ -62,13 +62,13 @@
 #  primary_first_name                         :string
 #  primary_last_name                          :string
 #  primary_middle_initial                     :string
+#  primary_proof_of_disability_submitted      :integer          default("unfilled"), not null
 #  primary_signature                          :string
 #  primary_signature_pin                      :text
-#  primary_ssb_amount                         :decimal(12, 2)   default(0.0), not null
+#  primary_ssb_amount                         :decimal(12, 2)
 #  primary_ssn                                :string
 #  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
-#  proof_of_disability_submitted              :integer          default("unfilled"), not null
 #  raw_direct_file_data                       :text
 #  raw_direct_file_intake_data                :jsonb
 #  referrer                                   :string
@@ -85,8 +85,9 @@
 #  spouse_first_name                          :string
 #  spouse_last_name                           :string
 #  spouse_middle_initial                      :string
+#  spouse_proof_of_disability_submitted       :integer          default("unfilled"), not null
 #  spouse_signature_pin                       :text
-#  spouse_ssb_amount                          :decimal(12, 2)   default(0.0), not null
+#  spouse_ssb_amount                          :decimal(12, 2)
 #  spouse_ssn                                 :string
 #  spouse_student_loan_interest_ded_amount    :decimal(12, 2)   default(0.0), not null
 #  spouse_suffix                              :string
@@ -115,6 +116,7 @@ FactoryBot.define do
     transient do
       filing_status { 'single' }
     end
+    state_file_analytics { StateFileAnalytics.create }
 
     factory :state_file_md_refund_intake do
       after(:build) do |intake|
@@ -124,6 +126,19 @@ FactoryBot.define do
         intake.account_type = "savings"
         intake.routing_number = 111111111
         intake.account_number = 222222222
+      end
+    end
+
+    factory :state_file_md_owed_intake do
+      after(:build) do |intake|
+        intake.direct_file_data.fed_agi = 120000
+        intake.raw_direct_file_data = intake.direct_file_data.to_s
+        intake.payment_or_deposit_type = "direct_deposit"
+        intake.account_type = "checking"
+        intake.routing_number = 111111111
+        intake.account_number = 222222222
+        intake.date_electronic_withdrawal = Date.new(Rails.configuration.statefile_current_tax_year, 4, 15)
+        intake.withdraw_amount = 5
       end
     end
 
@@ -244,6 +259,11 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_frodo_hoh_cdcc') }
 
       after(:create, &:synchronize_df_dependents_to_database)
+    end
+
+    trait :with_social_security_reports do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_tiger_55') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_tiger_55') }
     end
   end
 end

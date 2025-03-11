@@ -359,9 +359,9 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
       context "when w2 wages exist" do
         it "includes the sum in WagesSalariesTips item" do
-          expected_sum = 50000 + 50000 + 50000 + 50000
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_sum
-          expect(xml.at("WagesSalariesTips").text).to eq(expected_sum.to_s)
+          expected = 200_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected
+          expect(xml.at("WagesSalariesTips").text).to eq(expected.to_s)
         end
       end
     end
@@ -422,15 +422,74 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "disabled show_retirement_ui flag" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(false)
+      end
+
+      it "does not show line 20a PensAnnuitAndIraWithdraw even when there is a value" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return 300
+        expect(xml.at("PensAnnuitAndIraWithdraw")).to eq(nil)
+      end
+
+      it "does not show line 20b TaxExemptPensAnnuit even when there is a value" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20b).and_return 300
+        expect(xml.at("TaxExemptPensAnnuit")).to eq(nil)
+      end
+
+      it "does not show line 28a PensionExclusion even when there is a value" do
+        allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return 300
+        expect(xml.at("PensionExclusion")).to eq(nil)
+      end
+    end
+
+    describe "taxable retirement income - line 20a" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      context "when applicable taxable retirement income exists" do
+        it "fills PensAnnuitAndIraWithdraw with the values from calculator" do
+          expected_total = 30_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return expected_total
+          expect(xml.at("PensAnnuitAndIraWithdraw").text).to eq(expected_total.to_s)
+        end
+      end
+
+      context "when filer does not have applicable retirement income" do
+        it "does not include PensAnnuitAndIraWithdraw in the XML" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20a).and_return 0
+          expect(xml.at("PensAnnuitAndIraWithdraw")).to eq(nil)
+        end
+      end
+    end
+
+    describe "excludable retirement income - line 20b" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      context "when applicable excludable retirement income exists" do
+        it "fills TaxExemptPensAnnuit with the values from calculator" do
+          expected_total = 30_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20b).and_return expected_total
+          expect(xml.at("TaxExemptPensAnnuit").text).to eq(expected_total.to_s)
+        end
+      end
+
+      context "when filer does not have applicable retirement income" do
+        it "does not include TaxExemptPensAnnuit in the XML" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_20b).and_return 0
+          expect(xml.at("TaxExemptPensAnnuit")).to eq(nil)
+        end
+      end
+    end
+
     describe "total income - line 27" do
       context "when filer submits w2 wages" do
-        it "fills TotalIncome with the values from Line 15 and line 16A" do
-          expected_line_15_w2_wages = 200_000
-          expected_line_16a = 500
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return expected_line_16a
-          expected_total = expected_line_15_w2_wages + expected_line_16a
-          expect(xml.at("WagesSalariesTips").text).to eq(expected_line_15_w2_wages.to_s)
+        it "fills TotalIncome with the values from calculator" do
+          expected_total = 150_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_27).and_return expected_total
           expect(xml.at("TotalIncome").text).to eq(expected_total.to_s)
         end
       end
@@ -443,16 +502,67 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
       end
     end
 
+    describe "Pension/Retirement Exclusion - line 28a" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      context "when line 28a has a value" do
+        it 'sets PensionExclusion to the line 28a value' do
+          expected = 5_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return expected
+          expect(xml.at("PensionExclusion").text).to eq(expected.to_s)
+        end
+      end
+
+      context "when line 28a is 0" do
+        it 'does not set the PensionExclusion value in the XML' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28a).and_return 0
+          expect(xml.at("PensionExclusion")).to be_nil
+        end
+      end
+    end
+
+    describe "Other Retirement Income Exclusion - line 28b" do
+      context "when line 28b has a value" do
+        it 'sets OtherRetireIncomeExclus to the line 28b value' do
+          expected = 1_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28b).and_return expected
+          expect(xml.at("OtherRetireIncomeExclus").text).to eq(expected.to_s)
+        end
+      end
+
+      context "wwhen line 28b is 0" do
+        it "does not include TotalIncome in the XML" do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28b).and_return 0
+          expect(xml.at("OtherRetireIncomeExclus")).to eq(nil)
+        end
+      end
+    end
+
+    describe "Other Retirement Income Exclusion - line 28c" do
+      context "when line 28c has a value" do
+        it 'sets TotalExclusionAmount to the line 28c value' do
+          expected = 2_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28c).and_return expected
+          expect(xml.at("TotalExclusionAmount").text).to eq(expected.to_s)
+        end
+      end
+
+      context "when Line 28c is 0" do
+        it 'does not set the TotalExclusionAmount value in the XML' do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_28c).and_return 0
+          expect(xml.at("TotalExclusionAmount")).to be_nil
+        end
+      end
+    end
+
     describe "gross income - line 29" do
       context "when filer submits w2 wages" do
         it "fills TotalIncome with the value from Line 15" do
-          expected_line_15_w2_wages = 200_000
-          expected_line_16a = 500
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_15).and_return expected_line_15_w2_wages
-          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_16a).and_return expected_line_16a
-          expected_total = expected_line_15_w2_wages + expected_line_16a
-          expect(xml.at("WagesSalariesTips").text).to eq(expected_line_15_w2_wages.to_s)
-          expect(xml.at("GrossIncome").text).to eq(expected_total.to_s)
+          expected = 200_000
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_29).and_return expected
+          expect(xml.at("GrossIncome").text).to eq(expected.to_s)
         end
       end
 
@@ -831,17 +941,19 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
     end
 
     describe "total income tax withheld - line 55" do
-      context 'when has w2s' do
+      context 'when has tax withheld' do
         before do
           allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_55).and_return 12_345
         end
-        it 'sets TaxWithheld to sum of state_income_tax_amount' do
+        it 'sets TaxWithheld to total of tax withheld' do
           expect(xml.at("TaxWithheld").text).to eq(12_345.to_s)
         end
       end
 
-      context 'when no w2s' do
-        let(:intake) { create(:state_file_nj_intake, :df_data_minimal)}
+      context 'when no tax withheld' do
+        before do
+          allow_any_instance_of(Efile::Nj::Nj1040Calculator).to receive(:calculate_line_55).and_return nil
+        end
         it 'sets TaxWithheld to nil' do
           expect(xml.at("TaxWithheld")).to eq(nil)
         end

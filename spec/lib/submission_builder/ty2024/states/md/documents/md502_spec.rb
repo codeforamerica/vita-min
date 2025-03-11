@@ -365,12 +365,18 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         let(:two_income_subtraction_amount) { 1200 }
         let(:total_subtractions) { 150 }
         let(:state_adjusted_income) { 300 }
+        let(:primary_pension) { 200 }
+        let(:spouse_pension) { 250 }
         context "when all relevant values are present in the DF XML" do
           before do
+            allow(Flipper).to receive(:enabled?).and_call_original
+            allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_13).and_return other_subtractions
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_14).and_return two_income_subtraction_amount
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_15).and_return total_subtractions
             allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_16).and_return state_adjusted_income
+            allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11a).and_return primary_pension
+            allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return spouse_pension
             intake.direct_file_data.total_qualifying_dependent_care_expenses_or_limit_amt = 1200
             intake.direct_file_data.fed_taxable_ssb = 240
           end
@@ -395,8 +401,26 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             expect(xml.at("Form502 Subtractions Total").text.to_i).to eq(total_subtractions)
           end
 
-          it 'outputs the state adjusted income' do
+          it "outputs the state adjusted income" do
             expect(xml.at("Form502 Subtractions StateAdjustedGrossIncome").text.to_i).to eq(state_adjusted_income)
+          end
+
+          context "with pension exclusion values" do
+            it "outputs the pension exclusions" do
+              expect(xml.at("Form502 Subtractions PriPensionExclusionInd").text).to eq("X")
+              expect(xml.at("Form502 Subtractions SecPensionExclusionInd").text).to eq("X")
+              expect(xml.at("Form502 Subtractions PensionExclusions").text.to_i).to eq(450)
+            end
+          end
+
+          context "without pension exclusion values" do
+            let(:primary_pension) { 0 }
+            let(:spouse_pension) { 0 }
+            it "does not output the pension exclusions" do
+              expect(xml.at("Form502 Subtractions PriPensionExclusionInd")).to be_nil
+              expect(xml.at("Form502 Subtractions SecPensionExclusionInd")).to be_nil
+              expect(xml.at("Form502 Subtractions PensionExclusions")).to be_nil
+            end
           end
         end
       end
@@ -697,6 +721,22 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         end
         it "fill in email address" do
           expect(xml.document.at('EmailAddress')&.text).to eq "test@email.com"
+        end
+      end
+    end
+
+    describe "resubmission" do
+      context "when intake has one submission" do
+        it "does not fill in exception code" do
+          expect(xml.document.at('ExceptionCodes')).not_to be_present
+        end
+      end
+
+      context "when intake has more than one submission" do
+        let!(:previous_submission) { create :efile_submission, :failed, data_source: intake }
+
+        it "it fills in exception code" do
+          expect(xml.at("Form502 ExceptionCodes")&.text).to eq('247')
         end
       end
     end

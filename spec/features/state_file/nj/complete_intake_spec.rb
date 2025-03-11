@@ -24,7 +24,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       continue
 
       expect(page).to be_axe_clean if check_a11y
-      step_through_initial_authentication(contact_preference: :email)
+      step_through_initial_authentication(contact_preference: :email, check_a11y: check_a11y)
       expect(page).to be_axe_clean if check_a11y
 
       check "Email"
@@ -97,6 +97,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
           check I18n.t('state_file.questions.nj_college_dependents_exemption.edit.filer_pays_tuition_books')
         end
       end
+      expect_programmatically_associated_help_text
       continue
     end
 
@@ -278,7 +279,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on I18n.t("state_file.questions.nj_review.edit.reveal.header")
       amounts_in_calculation_details = page.all(:xpath, '//*[contains(@class,"main-content-inner")]/section[last()]//p[contains(text(),"$")]')
-      expect(amounts_in_calculation_details.count).to eq(19)
+      expect(amounts_in_calculation_details.count).to eq(21)
       expect(page).to be_axe_clean
       continue
 
@@ -459,7 +460,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
         choose_household_rent_own("homeowner")
         select_homeowner_eligibility(["homeowner_home_subject_to_property_taxes"])
         # skips property tax paid page
@@ -471,7 +471,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
         choose_household_rent_own("tenant")
         select_tenant_eligibility(["tenant_home_subject_to_property_taxes"])
         # skips rent paid page
@@ -483,7 +482,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
         choose_household_rent_own("both")
         select_homeowner_eligibility(["homeowner_home_subject_to_property_taxes"])
         # skips property tax paid page
@@ -496,7 +494,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(true) # disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
         choose_household_rent_own("both")
         select_homeowner_eligibility([])
         expect_ineligible_page("on_home", "property_taxes")
@@ -512,7 +509,6 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(false) # does NOT meet disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
         choose_household_rent_own("homeowner")
         expect_ineligible_page(nil, "income_single_mfs")
         expect_page_after_property_tax
@@ -569,7 +565,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect_municipality_question_exists
 
         # unselect county
-        within find('#county-question') do
+        within find_by_id('county-question') do
           select I18n.t('general.select_prompt')
         end
         expect_county_question_exists
@@ -580,7 +576,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_to_start_of_intake("Minimal", expect_income_review: false)
 
         select "Atlantic"
-        within find('#municipality-question') do
+        within find_by_id('municipality-question') do
           expect(page.all("option").length).to eq(24) # 23 municipalities + 1 "- Select -"
           expect(page).to have_text "Absecon City"
           expect(page).to have_text "Atlantic City"
@@ -589,7 +585,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         end
 
         select "Mercer"
-        within find('#municipality-question') do
+        within find_by_id('municipality-question') do
           expect(page.all("option").length).to eq(13) # 12 municipalities + 1 "- Select -"
           expect(page).to have_text "East Windsor Township"
           expect(page).to have_text "Hopewell Township"
@@ -602,10 +598,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
         select "Atlantic"
         select "Absecon City"
-        expect(find("#state_file_nj_county_municipality_form_municipality_code").value).to eq("0101")
+        expect(find_by_id('state_file_nj_county_municipality_form_municipality_code').value).to eq("0101")
 
         select "Mercer"
-        expect(find("#state_file_nj_county_municipality_form_municipality_code").value).to eq("")
+        expect(find_by_id('state_file_nj_county_municipality_form_municipality_code').value).to eq("")
       end
 
     end

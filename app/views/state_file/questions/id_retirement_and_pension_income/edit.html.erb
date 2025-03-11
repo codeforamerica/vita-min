@@ -1,0 +1,38 @@
+<%
+  title = t("state_file.questions.retirement_income_subtraction.title", state_name: current_state_name)
+  content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".subtitle") %></p>
+  <p><%= t("state_file.questions.retirement_income_subtraction.doc_1099r_label") %>: <b><%= @state_file_1099r.payer_name %></b></p>
+  <p><%= t("state_file.questions.retirement_income_subtraction.taxpayer_name_label") %>: <b><%= @state_file_1099r.recipient_name %></b></p>
+  <p><%= t("state_file.questions.retirement_income_subtraction.taxable_amount_label") %>: <b><%= number_to_currency(@state_file_1099r.taxable_amount, precision: 0) %></b>
+  </p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= t(".question_html") %>
+      <ul>
+        <li><%= t(".question_b1") %></li>
+        <li><%= t(".question_b2") %></li>
+        <li><%= t(".question_b3") %></li>
+        <li><%= t(".question_b4") %></li>
+        <li><%= t(".question_b5") %></li>
+      </ul>
+      <%= f.cfa_radio_set(:eligible_income_source, collection: [
+        { value: "yes", label: t("general.affirmative") },
+        { value: "no", label: t("general.negative") }
+      ], legend_class: "sr-only") %>
+    </div>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <% if params[:index].present? %>
+      <%= hidden_field_tag "index", params[:index] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>
