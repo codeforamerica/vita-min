@@ -4307,7 +4307,7 @@ es:
           ¿Ya presentaste tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración de impuestos estatales hasta el 31 de diciembre de 2024</strong><br /><br />
         faq_prior_year_returns: Visita nuestra sección de preguntas frecuentes si tienes dudas sobre declaraciones de años anteriores.
         header: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
-        helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
+        helper_heading: "¿Cómo funciona este servicio?"
         looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong> <a href='%{link}'>Inicia sesión</a> para descargar una copia de tu declaración estatal."
         section1_html: |
           <ol class="list--numbered" style="padding-left: 2rem">

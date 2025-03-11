@@ -4321,7 +4321,7 @@ en:
           Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
         faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
-        helper_heading_html: "<strong>How does this service work? </strong>"
+        helper_heading: "How does this service work?"
         looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong> <a href='%{link}'>Sign in</a> to download a copy of your state return."
         section1_html: |
           <ol class="list--numbered"  style="padding-left: 2rem">
