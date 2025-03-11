@@ -41,7 +41,7 @@ module StateFile
     private
 
     def date_electronic_withdrawal
-      if (app_time || Time.current).before?(state_specific_payment_deadline(@intake&.state_code))
+      if app_time.before?(state_specific_payment_deadline(@intake&.state_code))
         # TODO: set the time to be within the State's timezone on the selected day
         parse_date_params(date_electronic_withdrawal_year, date_electronic_withdrawal_month, date_electronic_withdrawal_day)
       else
@@ -72,6 +72,8 @@ module StateFile
 
     def withdrawal_date_within_range
       payment_deadline = state_specific_payment_deadline(intake&.state_code)
+      return true if app_time.after?(payment_deadline)
+
       if date_electronic_withdrawal < app_time || date_electronic_withdrawal > payment_deadline
         self.errors.add(:date_electronic_withdrawal,
                         I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline",

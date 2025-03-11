@@ -1,273 +1,178 @@
 require "rails_helper"
 
 RSpec.describe StateFile::TaxesOwedForm do
-  let(:withdraw_amount) { 68 }
-  let(:intake) {
-    create :state_file_id_intake,
-           payment_or_deposit_type: "unfilled",
-           withdraw_amount: withdraw_amount
-  }
-  let(:current_year) { (MultiTenantService.new(:statefile).current_tax_year + 1).to_s }
-  let(:pre_deadline_withdrawal_time) { DateTime.parse("April 15th, #{current_year} 11pm EST") }
-  let(:post_deadline_withdrawal_time) { DateTime.parse("April 16th, #{current_year} 1am EST") }
-  let(:valid_params) do
-    {
-      payment_or_deposit_type: "mail",
-      app_time: DateTime.parse(pre_deadline_withdrawal_time.to_s)
-    }
+  let(:intake) { create :state_file_id_intake }
+  let(:taxes_owed) { 100 }
+  let(:current_year) { MultiTenantService.new(:statefile).current_tax_year + 1 }
+  let(:app_time) { DateTime.new(current_year, 3, 15) }
+
+  before do
+    allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(taxes_owed)
   end
 
-  describe "#save" do
-    context "when params valid and payment type is mail" do
-      it "updates the intake" do
-        form = described_class.new(intake, valid_params)
-        expect(form).to be_valid
-        form.save
+  describe "when paying via mail" do
+    let(:params) { { payment_or_deposit_type: "mail", app_time: app_time } }
 
-        intake.reload
-        expect(intake.payment_or_deposit_type).to eq "mail"
-        expect(intake.account_type).to eq "unfilled"
-      end
+    it "updates the intake with only mail data" do
+      form = described_class.new(intake, params)
+      expect(form).to be_valid
+      form.save
+
+      intake.reload
+      expect(intake.payment_or_deposit_type).to eq "mail"
+      expect(intake.routing_number).to eq nil
+      expect(intake.account_number).to eq nil
+      expect(intake.account_type).to eq "unfilled"
+      expect(intake.withdraw_amount).to eq nil
+      expect(intake.date_electronic_withdrawal).to eq nil
     end
+  end
 
-    context "when params valid and payment type is deposit" do
-      let(:bank_info_params) do
+  StateFile::StateInformationService.active_state_codes.each do |state_code|
+    describe "when paying via direct deposit in #{state_code}" do
+      let(:intake) { create "state_file_#{state_code}_intake".to_sym }
+      let(:timezone) { StateFile::StateInformationService.timezone(state_code) }
+      let(:routing_number) { "019456124" }
+      let(:account_number) { "12345" }
+      let(:account_type) { "checking" }
+      let(:withdraw_amount) { taxes_owed }
+      let(:payment_deadline_month) { StateFile::StateInformationService.payment_deadline(state_code)[:month] }
+      let(:payment_deadline_day) { StateFile::StateInformationService.payment_deadline(state_code)[:day] }
+      let(:withdrawal_month) { app_time.month }
+      let(:params) {
         {
           payment_or_deposit_type: "direct_deposit",
-          routing_number: "019456124",
-          routing_number_confirmation: "019456124",
-          account_number: "12345",
-          account_number_confirmation: "12345",
-          account_type: "checking",
+          routing_number: routing_number,
+          routing_number_confirmation: routing_number,
+          account_number: account_number,
+          account_number_confirmation: account_number,
+          account_type: account_type,
           withdraw_amount: withdraw_amount,
+          date_electronic_withdrawal_month: withdrawal_month&.to_s,
+          date_electronic_withdrawal_day: withdrawal_day&.to_s,
+          date_electronic_withdrawal_year: app_time.year.to_s,
+          app_time: app_time
         }
-      end
-
-      context "before withdrawal date deadline" do
-        let(:valid_params) do
-          {
-            date_electronic_withdrawal_month: '4',
-            date_electronic_withdrawal_year: (MultiTenantService.new(:statefile).current_tax_year + 1).to_s,
-            date_electronic_withdrawal_day: '14',
-            app_time: DateTime.parse(pre_deadline_withdrawal_time.to_s)
-          }.merge(bank_info_params)
-        end
-
-        it "updates the intake" do
-          form = described_class.new(intake, valid_params)
-          expect(form).to be_valid
-          form.save
-
-          intake.reload
-          expect(intake.payment_or_deposit_type).to eq "direct_deposit"
-          expect(intake.account_type).to eq "checking"
-          expect(intake.routing_number).to eq "019456124"
-          expect(intake.account_number).to eq "12345"
-          expect(intake.date_electronic_withdrawal).to eq Date.parse("April 15th, #{current_year}")
-        end
-
-        context "after NY's deadline and before AZ's for AZ intake" do
-          let(:pre_deadline_withdrawal_time) { DateTime.parse("April 15th, #{current_year} 11:30pm MST") }
-          let!(:intake) {
-            create :state_file_az_intake,
-                   payment_or_deposit_type: "unfilled",
-                   withdraw_amount: withdraw_amount
-          }
-
-          it "updates the intake" do
-            form = described_class.new(intake, valid_params)
-            expect(form).to be_valid
-            form.save
-
-            intake.reload
-            expect(intake.payment_or_deposit_type).to eq "direct_deposit"
-            expect(intake.account_type).to eq "checking"
-            expect(intake.routing_number).to eq "019456124"
-            expect(intake.account_number).to eq "12345"
-            expect(intake.date_electronic_withdrawal).to eq Date.parse("April 15th, #{current_year}")
-          end
-        end
-
-        context "after other states' deadline and before MD's for MD intake" do
-          before do
-            allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(100)
-          end
-
-          let(:valid_params) do
-            {
-              date_electronic_withdrawal_month: '4',
-              date_electronic_withdrawal_year: (MultiTenantService.new(:statefile).current_tax_year + 1).to_s,
-              date_electronic_withdrawal_day: '30',
-              app_time: DateTime.parse(pre_deadline_withdrawal_time.to_s)
-            }.merge(bank_info_params)
-          end
-
-          let!(:intake) {
-            create :state_file_md_intake,
-                   payment_or_deposit_type: "unfilled",
-                   withdraw_amount: withdraw_amount
-          }
-
-          it "updates the intake" do
-            form = described_class.new(intake, valid_params)
-            expect(form).to be_valid
-            form.save
-
-            intake.reload
-            expect(intake.payment_or_deposit_type).to eq "direct_deposit"
-            expect(intake.account_type).to eq "checking"
-            expect(intake.routing_number).to eq "019456124"
-            expect(intake.account_number).to eq "12345"
-            expect(intake.date_electronic_withdrawal).to eq Date.parse("April 30th, #{current_year}")
-          end
-        end
-      end
-
-      context "after withdrawal date deadline" do
-        let(:valid_params) do
-          {
-            app_time: DateTime.parse(post_deadline_withdrawal_time.to_s)
-          }.merge(bank_info_params)
-        end
-
-        it "updates the intake and updates electronic withdrawal date with the current date" do
-          form = described_class.new(intake, valid_params)
-          expect(form).to be_valid
-          form.save
-
-          intake.reload
-          expect(intake.payment_or_deposit_type).to eq "direct_deposit"
-          expect(intake.account_type).to eq "checking"
-          expect(intake.routing_number).to eq "019456124"
-          expect(intake.account_number).to eq "12345"
-          expect(intake.date_electronic_withdrawal).to eq Date.parse("April 16th, #{current_year}")
-        end
-      end
-
-    end
-
-    context "when params are not valid" do
-      let(:invalid_params) do
-        {
-          payment_or_deposit_type: "direct_deposit",
-          routing_number: "111",
-          routing_number_confirmation: "123456789",
-          account_number: "123",
-          account_number_confirmation: "",
-          account_type: nil,
-          withdraw_amount: nil,
-          date_electronic_withdrawal_month: '3',
-          date_electronic_withdrawal_year: current_year,
-          date_electronic_withdrawal_day: '31',
-          app_time: DateTime.parse(pre_deadline_withdrawal_time.to_s)
-        }
-      end
-
-      it "returns errors" do
-        form = described_class.new(intake, invalid_params)
-        expect(form).not_to be_valid
-
-        expect(form.errors[:routing_number_confirmation]).to be_present
-        expect(form.errors[:account_number_confirmation]).to be_present
-        expect(form.errors[:account_type]).to be_present
-        expect(form.errors[:withdraw_amount]).to be_present
-        expect(form.errors[:date_electronic_withdrawal]).to be_present
-      end
-
-      it "rejects withdraw amount value 0" do
-        form = described_class.new(intake, invalid_params.merge(withdraw_amount: 0))
-        expect(form).not_to be_valid
-        expect(form.errors[:withdraw_amount]).to be_present
-      end
-    end
-  end
-
-  describe "#valid?" do
-    let(:payment_or_deposit_type) { "direct_deposit" }
-    let(:routing_number) { "019456124" }
-    let(:routing_number_confirmation) { "019456124" }
-    let(:account_number) { "12345" }
-    let(:account_number_confirmation) { "12345" }
-    let(:account_type) { "checking" }
-    let(:month) { "3" }
-    let(:day) { "15" }
-    let(:year) { current_year }
-    let(:params) do
-      {
-        payment_or_deposit_type: payment_or_deposit_type,
-        routing_number: routing_number,
-        routing_number_confirmation: routing_number_confirmation,
-        account_number: account_number,
-        account_number_confirmation: account_number_confirmation,
-        account_type: account_type,
-        withdraw_amount: withdraw_amount,
-        date_electronic_withdrawal_month: month,
-        date_electronic_withdrawal_year: year,
-        date_electronic_withdrawal_day: day,
-        app_time: DateTime.parse("March 10th, #{current_year} 11pm EST")
       }
-    end
 
-    context "when the payment_or_deposit_type is mail and no other params" do
-      let(:params) { { payment_or_deposit_type: "mail" } }
-      it "is valid" do
-        form = described_class.new(intake, params)
+      context "when the current time is before the payment deadline" do
+        let(:app_time) { DateTime.new(current_year, payment_deadline_month, payment_deadline_day - 5) }
 
-        expect(form).to be_valid
+        context "when the withdrawal date is after the current time and before the payment deadline" do
+          let(:withdrawal_month) { (app_time + 1.day).month }
+          let(:withdrawal_day) { (app_time + 1.day).day }
+
+          it "updates the intake" do
+            form = described_class.new(intake, params)
+            expect(form).to be_valid
+            form.save
+
+            intake.reload
+            expect(intake.payment_or_deposit_type).to eq "direct_deposit"
+            expect(intake.routing_number).to eq routing_number
+            expect(intake.account_number).to eq account_number
+            expect(intake.account_type).to eq account_type
+            expect(intake.withdraw_amount).to eq withdraw_amount
+            expect(intake.date_electronic_withdrawal).to eq DateTime.new(current_year, withdrawal_month, withdrawal_day)
+          end
+        end
+
+        context "when the withdrawal date is after the payment deadline" do
+          let(:withdrawal_month) { payment_deadline_month + 1 }
+          let(:withdrawal_day) { payment_deadline_day }
+
+          it "is not valid" do
+            form = described_class.new(intake, params)
+            expect(form).not_to be_valid
+            expect(form.errors).to include :date_electronic_withdrawal
+          end
+        end
+
+        context "when withdrawal date is before the current time" do
+          let(:withdrawal_month) { (app_time - 2.days).month }
+          let(:withdrawal_day) { (app_time - 2.days).day }
+
+          it "is not valid" do
+            form = described_class.new(intake, params)
+            expect(form).not_to be_valid
+            expect(form.errors).to include :date_electronic_withdrawal
+          end
+        end
+
+        context "when the withdrawal date is not a real date" do
+          let(:withdrawal_month) { 2 }
+          let(:withdrawal_day) { 31 }
+
+          it "is not valid" do
+            form = described_class.new(intake, params)
+            expect(form).not_to be_valid
+            expect(form.errors).to include :date_electronic_withdrawal
+          end
+        end
       end
-    end
 
-    context "when the payment_or_deposit_type is direct_deposit" do
-      context "all other params present" do
-        it "is valid" do
-          form = described_class.new(intake, params)
+      context "when the current time is on or after the payment deadline" do
+        let(:app_time) { DateTime.new(current_year, payment_deadline_month + 1, payment_deadline_day).in_time_zone(timezone) }
+        let(:withdrawal_month) { nil }
+        let(:withdrawal_day) { nil }
+        let(:post_deadline_params) {
+          params.except(
+            :date_electronic_withdrawal_month,
+            :date_electronic_withdrawal_day,
+            :date_electronic_withdrawal_year
+          )
+        }
+
+        it "sets the withdrawal date to the current date" do
+          form = described_class.new(intake, post_deadline_params)
           expect(form).to be_valid
+          form.save
+
+          intake.reload
+          expect(intake.payment_or_deposit_type).to eq "direct_deposit"
+          expect(intake.account_type).to eq "checking"
+          expect(intake.routing_number).to eq "019456124"
+          expect(intake.account_number).to eq "12345"
+          expect(intake.date_electronic_withdrawal).to eq DateTime.new(current_year, app_time.month, app_time.day)
         end
+
       end
 
-      context "electronic withdrawal date is not valid" do
-        let(:month) { "2" }
-        let(:day) { "31" }
-        let(:year) { current_year }
+      context "when banking info params are not valid" do
+        let(:invalid_params) do
+          {
+            payment_or_deposit_type: "direct_deposit",
+            routing_number: "111",
+            routing_number_confirmation: "123456789",
+            account_number: "123",
+            account_number_confirmation: "",
+            account_type: nil,
+            withdraw_amount: nil,
+            app_time: app_time
+          }
+        end
 
-        it "is valid" do
-          form = described_class.new(intake, params)
+        it "returns errors" do
+          form = described_class.new(intake, invalid_params)
           expect(form).not_to be_valid
+          expect(form.errors).to include :routing_number_confirmation
+          expect(form.errors).to include :account_number_confirmation
+          expect(form.errors).to include :account_type
+          expect(form.errors).to include :withdraw_amount
           expect(form.errors).to include :date_electronic_withdrawal
         end
-      end
 
-      context "electronic withdrawal date is after deadline and current time is before April 15th" do
-        let(:month) { "08" }
-        let(:day) { "15" }
-        let(:year) { current_year }
-
-        it "is not valid" do
-          form = described_class.new(intake, params)
-          expect(form).not_to be_valid
-          expect(form.errors).to include :date_electronic_withdrawal
-        end
-      end
-
-      context "withdraw amount is higher than owed amount" do
-        before do
-          allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(50)
-        end
-
-        it "is not valid" do
-          form = described_class.new(intake, params)
+        it "rejects withdraw amount value 0" do
+          form = described_class.new(intake, invalid_params.merge(withdraw_amount: 0))
           expect(form).not_to be_valid
           expect(form.errors).to include :withdraw_amount
         end
-      end
-    end
 
-    context "when withdrawal date is in the past" do
-      let(:day) { "9" }
-
-      it "is valid" do
-        form = described_class.new(intake, params)
-        expect(form).not_to be_valid
+        it "rejects withdraw amount greater than taxes owed" do
+          form = described_class.new(intake, invalid_params.merge(withdraw_amount: taxes_owed + 10))
+          expect(form).not_to be_valid
+          expect(form.errors).to include :withdraw_amount
+        end
       end
     end
   end
