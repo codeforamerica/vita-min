@@ -793,6 +793,7 @@ Lint/MissingSuper:
     - 'app/forms/hub/zip_code_routing_form.rb'
     - 'app/services/initial_tax_returns_service.rb'
     - 'app/services/update_client_vita_partner_service.rb'
+    - 'app/components/*.rb'
 
 # Offense count: 2
 Lint/MixedRegexpCaptureTypes:
