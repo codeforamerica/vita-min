@@ -3,6 +3,7 @@ module StateFile
     after_perform do |job|
       # let any connected clients know the pdf is ready
       intake = EfileSubmission.find(job.arguments.first).data_source
+      sleep 5 # don't ship this to prod
       StateFileSubmissionPdfStatusChannel.broadcast_status(intake, :ready)
     end
 
