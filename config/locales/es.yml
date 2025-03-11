@@ -2681,7 +2681,9 @@ es:
           sub10: Crédito tributario para Personas Mayores
           sub11: Crédito Estatal y Local por Nivel de Pobreza
           sub12: Crédito por Gastos de cuidado de Niños y Dependientes
-          sub2: Exclusión de pensiones (si tienes 65 años o más, o si tienes menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
+          sub2:
+            one: Exclusión de pensiones (si tienes 65 años o más, o si tienes menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
+            other: Exclusión de pensiones (si tú o tu cónyuge tienen 65 años o más, o si tú o tu cónyuge tienen menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
           sub3: Jubilación militar
           sub4: Jubilación de seguridad pública
           sub5: Beneficios de Seguridad Social y Jubilación de Ferrocarriles sujetos a impuestos
