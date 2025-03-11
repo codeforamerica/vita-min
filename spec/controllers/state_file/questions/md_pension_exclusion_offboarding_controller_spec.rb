@@ -14,7 +14,7 @@ RSpec.describe StateFile::Questions::MdPensionExclusionOffboardingController do
             allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
 
             allow(intake).to receive(:filing_status).and_return(filing_status)
-            allow(intake).to receive(:filer_disabled?).and_return(true)
+            allow(intake).to receive(:has_at_least_one_disabled_filer?).and_return(true)
             allow(intake).to receive(:has_filer_under_65?).and_return(true)
             allow(intake).to receive(:no_proof_of_disability_submitted?).and_return(true)
           end
@@ -32,7 +32,7 @@ RSpec.describe StateFile::Questions::MdPensionExclusionOffboardingController do
           end
 
           context "except filer is not disabled" do
-            before { allow(intake).to receive(:filer_disabled?).and_return(false) }
+            before { allow(intake).to receive(:has_at_least_one_disabled_filer?).and_return(false) }
 
             it "does not show" do
               expect(described_class.show?(intake)).to eq false

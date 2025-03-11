@@ -225,7 +225,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       expect(page).to have_text I18n.t('state_file.questions.income_review.edit.title')
       within('#w2s') do
-        expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.no_info_needed'))
+        expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.review_state_info'))
       end
       within('#form1099gs') do
         expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.state_info_to_be_collected'))

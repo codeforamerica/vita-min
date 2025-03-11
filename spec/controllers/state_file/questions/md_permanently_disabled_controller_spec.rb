@@ -62,87 +62,123 @@ RSpec.describe StateFile::Questions::MdPermanentlyDisabledController do
     context "proof followup" do
       context "mfj filers" do
         let(:intake) { create :state_file_md_intake, :with_spouse }
+        context "with an eligible 1099r" do
+          let!(:state_file1099_r) { create :state_file1099_r, intake: intake }
 
-        it "has all followups when spouse is not senior" do
-          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
-          intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
-          get :edit
+          it "has all followups when spouse is not senior" do
+            intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
+            intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+            get :edit
 
-          html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).to be_present
-          expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
-          expect(html.at_css("input[data-follow-up='#both-disability-proof']")).to be_present
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).to be_present
+            expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
+            expect(html.at_css("input[data-follow-up='#both-disability-proof']")).to be_present
+          end
+
+          it "has all followups primary is not senior" do
+            intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+            intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
+            get :edit
+
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
+            expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).to be_present
+            expect(html.at_css("input[data-follow-up='#both-disability-proof']")).to be_present
+          end
+
+          it "has all followups when neither are senior" do
+            intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+            intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+            get :edit
+
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
+            expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).to be_present
+            expect(html.at_css("input[data-follow-up='#both-disability-proof']")).to be_present
+          end
+
+          it "has no followup id when both are senior" do
+            intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
+            intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
+            get :edit
+
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).not_to be_present
+            expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).not_to be_present
+            expect(html.at_css("input[data-follow-up='#both-disability-proof']")).not_to be_present
+          end
+
+          it "does not have the pension exclusion warning when follow ups are shown but filing status is mfj" do
+            intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+            intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+            get :edit
+
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
+            expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).to be_present
+            expect(html.at_css("input[data-follow-up='#both-disability-proof']")).to be_present
+            expect(html.to_s).not_to include('data-follow-up="#disability-warning"')
+          end
         end
 
-        it "has all followups primary is not senior" do
-          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
-          intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
-          get :edit
+        context "without an eligible 1099rs" do
+          let!(:state_file1099_r) { create :state_file1099_r, intake: intake, taxable_amount: 0}
 
-          html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
-          expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).to be_present
-          expect(html.at_css("input[data-follow-up='#both-disability-proof']")).to be_present
-        end
+          it "has no followups when neither are senior" do
+            intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+            intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+            get :edit
 
-        it "has all followups when neither are senior" do
-          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
-          intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
-          get :edit
-
-          html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
-          expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).to be_present
-          expect(html.at_css("input[data-follow-up='#both-disability-proof']")).to be_present
-        end
-
-        it "has no followup id when both are senior" do
-          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
-          intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
-          get :edit
-
-          html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).not_to be_present
-          expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).not_to be_present
-          expect(html.at_css("input[data-follow-up='#both-disability-proof']")).not_to be_present
-        end
-
-        it "does not have the pension exclusion warning when follow ups are shown but filing status is mfj" do
-          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
-          intake.update(spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
-          get :edit
-
-          html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
-          expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).to be_present
-          expect(html.at_css("input[data-follow-up='#both-disability-proof']")).to be_present
-          expect(html.to_s).not_to include('data-follow-up="#disability-warning"')
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).not_to be_present
+            expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).not_to be_present
+            expect(html.at_css("input[data-follow-up='#both-disability-proof']")).not_to be_present
+          end
         end
       end
 
       context "not mfj" do
         let(:intake) { create :state_file_md_intake, filing_status: "single" }
 
-        it "has primary data followup and warning when primary is not senior" do
-          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
-          get :edit
+        context "with an eligible 1099rs" do
+          let!(:state_file1099_r) { create :state_file1099_r, intake: intake }
+          it "has primary data followup and warning when primary is not senior" do
+            intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+            get :edit
 
-          html = Nokogiri::HTML.parse(response.body)
+            html = Nokogiri::HTML.parse(response.body)
 
-          expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
-          expect(html.to_s).to include('data-follow-up="#disability-warning"')
-          expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).not_to be_present
-          expect(html.at_css("input[data-follow-up='#both-disability-proof']")).not_to be_present
+            expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).to be_present
+            expect(html.to_s).to include('data-follow-up="#disability-warning"')
+            expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).not_to be_present
+            expect(html.at_css("input[data-follow-up='#both-disability-proof']")).not_to be_present
+          end
+
+          it "does not have primary data followup when primary is senior" do
+            intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
+            get :edit
+
+            html = Nokogiri::HTML.parse(response.body)
+            expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).not_to be_present
+            expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).not_to be_present
+            expect(html.at_css("input[data-follow-up='#both-disability-proof']")).not_to be_present
+          end
         end
 
-        it "does not have primary data followup when primary is senior" do
-          intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 66), 1, 1))
-          get :edit
+        context "without an eligible 1099rs" do
+          let!(:state_file1099_r) { create :state_file1099_r, intake: intake, taxable_amount: 0}
 
-          html = Nokogiri::HTML.parse(response.body)
-          expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).not_to be_present
-          expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).not_to be_present
-          expect(html.at_css("input[data-follow-up='#both-disability-proof']")).not_to be_present
+          it "has no followups and warning when primary is not senior" do
+            intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1))
+            get :edit
+
+            html = Nokogiri::HTML.parse(response.body)
+
+            expect(html.at_css("input[data-follow-up='#primary-disability-proof']")).not_to be_present
+            expect(html.at_css("input[data-follow-up='#spouse-disability-proof']")).not_to be_present
+            expect(html.at_css("input[data-follow-up='#both-disability-proof']")).not_to be_present
+          end
         end
       end
     end

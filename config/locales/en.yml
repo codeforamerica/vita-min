@@ -265,6 +265,9 @@ en:
           presence: Please select a county
         subdivision_code:
           presence: Please select a political subdivision
+      nc_county:
+        county:
+          presence: Please select a county
       nc_eligibility_form:
         at_most_one_option_selected: You must either select none or the above options
       need_exactly_one_communication_method: Please enter only one form of contact.
@@ -3211,14 +3214,21 @@ en:
           zip_label: Zip Code
       md_permanently_disabled:
         edit:
-          help_text_html: You are considered totally disabled if you have a mental or physical condition that stops you from working and earning a living. <br><br>This condition is expected to last a long time, for an indefinite period, or to result in your death. If you are under 65 and want to claim the pension exclusion, you must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return.
-          help_title: What is considered totally and permanently disabled?
+          help_text: You are considered totally disabled if you have a mental or physical condition that stops you from working and earning a living.
+          help_text_2: This condition is expected to last a long time, for an indefinite period, or to result in your death. If you are under 65 and want to claim the pension exclusion, you must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return.
           no_neither: No, neither of us is
           primary_proof_question_html: Have <strong>you</strong> provided proof of your disability for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a>in the previous tax years?
           spouse_proof_question_html: Has <strong>your spouse</strong> provided proof of your disability for the  <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a> in the previous tax years?
           title: Are you totally and permanently disabled?
           title_spouse: Are you or your spouse totally and permanently disabled?
           unfortunately_dont_support_html: Unfortunately, our service doesn’t support the Maryland Pension Exclusion if you haven’t provided proof of your disability in a previous tax year.<br><br> If you want to claim the pension exclusion, <a href='%{path}'>learn more here</a>.
+          why: Why are you asking this?
+          why_explained_1: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income. If you are over 65, you automatically qualify for the pension exclusion.
+          why_explained_2_html: If you are under 65 and want to claim the pension exclusion, you <strong>must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return</strong>.
+          why_explained_html: If you are age 65 or older, we need this information to complete Form 502R. If you are under 65, we need this information to determine if you qualify for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php" target="_blank" rel="noopener">Maryland Pension Exclusion</a>.
+          why_explained_mfj_1: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income. If you or your spouse are over 65, you automatically qualify for the pension exclusion.
+          why_explained_mfj_2_html: If you or your spouse are under 65 and want to claim the pension exclusion, you or your spouse <strong>must have attached a certification from a qualified physician stating the nature of your or their impairment and that you or they are totally disabled to a previously filed tax return</strong>.
+          why_explained_mfj_html: If you and your spouse are age 65 or older, we need this information to complete Form 502R. If you or your spouse are under 65, we need this information to determine if you qualify for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php" target="_blank" rel="noopener">Maryland Pension Exclusion</a>.
           yes_both: Yes, we both are
           yes_me: Yes, I am
           yes_spouse: Yes, my spouse is
@@ -4285,7 +4295,7 @@ en:
           box17_html: "<strong>Box 17,</strong> State income tax"
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"
-          box20_locality_name: "<strong>Box 20,</strong> Locality name"
+          box20_locality_name_html: "<strong>Box 20,</strong> Locality name"
           employer_state_id_error: EIN cannot be more than 16 characters.
           instructions_1_html: Please review your job (W-2) details for <strong>%{employer}</strong>
           local_income_tax_amt_error: Cannot be greater than local wages and tips.
