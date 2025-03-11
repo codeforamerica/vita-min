@@ -478,6 +478,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
   def submit(value, options = {})
     options[:data] ||= {}
     options[:data][:disable_with] = value
+    options[:role] = "link"
     super(value, **options)
   end
 
