@@ -1,10 +1,13 @@
-<% @title = @site.name %>
+<% @title = "Edit #{@site.name}" %>
 <% content_for :page_title, @title %>
 <% content_for :card do %>
   <section class="slab slab--padded">
+    <p><%= link_to t("general.all_organizations"), hub_organizations_path %></p>
+
     <% if @site.parent_organization %>
-      <%= link_to(@site.parent_organization.name, edit_hub_organization_path(id: @site.parent_organization)) %>
+      <p class="grid spacing-below-0"><%= link_to(@site.parent_organization.name, edit_hub_organization_path(id: @site.parent_organization)) %></p>
     <% end %>
+
     <div class="grid">
       <div class="grid--item width-one-half">
         <%= render "form", url: hub_site_path(id: @site.id), http_method: :patch %>
