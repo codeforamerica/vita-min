@@ -50,6 +50,15 @@ module StateFile
         I18n.t("state_file.state_information_service.#{state_code}.department_of_taxation")
       end
 
+      def payment_deadline_datetime(state_code)
+        payment_deadline = StateInformationService.payment_deadline(state_code)
+        payment_deadline ||= { month: 4, day: 15 } # Default to April 15th
+        DateTime.new(MultiTenantService.statefile.current_tax_year.to_i + 1,
+                     payment_deadline[:month],
+                     payment_deadline[:day])
+                .beginning_of_day.in_time_zone(StateFile::StateInformationService.timezone(state_code))
+      end
+
       def active_state_codes
         @_active_state_codes ||= STATES_INFO.keys.map(&:to_s).freeze
       end

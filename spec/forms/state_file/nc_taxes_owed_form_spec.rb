@@ -2,8 +2,9 @@ require "rails_helper"
 
 RSpec.describe StateFile::NcTaxesOwedForm do
   let(:intake) { create :state_file_nc_intake }
+  let(:timezone) { StateFile::StateInformationService.timezone(intake.state_code) }
   let(:current_year) { 2024 } # using weekend & holiday dates from 2024
-  let(:app_time) { DateTime.new(current_year, 3, 5) }
+  let(:app_time) { DateTime.new(current_year, 3, 5, 12, 0, 0).in_time_zone(timezone) }
   let(:withdrawal_month) { app_time.month }
   let(:withdrawal_day) { app_time.day }
   let(:params) {
@@ -25,7 +26,6 @@ RSpec.describe StateFile::NcTaxesOwedForm do
   describe "when paying via direct deposit and scheduling a payment in NC" do
 
     context "when the withdrawal date is in the future, on a weekday, and not on a holiday" do
-      let(:app_time) { DateTime.new(current_year, 3, 5) }
       let(:withdrawal_month) { app_time.month }
       let(:withdrawal_day) { app_time.day + 1 }
 
@@ -36,7 +36,6 @@ RSpec.describe StateFile::NcTaxesOwedForm do
     end
 
     context "when the withdrawal date is in the past" do
-      let(:app_time) { DateTime.new(current_year, 3, 5) }
       let(:withdrawal_month) { app_time.month }
       let(:withdrawal_day) { app_time.day - 1 }
 
@@ -49,7 +48,6 @@ RSpec.describe StateFile::NcTaxesOwedForm do
     end
 
     context "when withdrawal date is on a weekend day" do
-      let(:app_time) { DateTime.new(current_year, 3, 5) }
       let(:withdrawal_month) { 3 }
       let(:withdrawal_day) { 16 } # Saturday, March 16th, 2024
 
@@ -62,7 +60,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
     end
 
     context "when the date is a federal holiday and not on Sunday" do
-      let(:app_time) { DateTime.new(current_year, 2, 16) }
+      let(:app_time) { DateTime.new(current_year, 2, 16).in_time_zone(timezone) }
       let(:withdrawal_month) { 2 }
       let(:withdrawal_day) { 19 } # Monday, Feb 19th, 2024 ~ President's day
 
@@ -75,9 +73,9 @@ RSpec.describe StateFile::NcTaxesOwedForm do
     end
 
     context "when it's 5pm EST and withdrawal date is less than 2 business days from today" do
-      let(:app_time) { DateTime.new(current_year, 3, 8) } # Friday
+      let(:app_time) { DateTime.new(current_year, 3, 15, 17, 0, 0) } # Friday, March 15th, 2024
       let(:withdrawal_month) { 3 }
-      let(:withdrawal_day) { 11 } # Monday, March 11th, 2024
+      let(:withdrawal_day) { 18 } # Monday
 
       it "is not valid" do
         form = described_class.new(intake, params)
@@ -88,7 +86,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
     end
 
     context "when it's 5 PM on a Sunday and the withdrawal date is more 2 days from today" do
-      let(:app_time) { DateTime.new(current_year, 2, 25) } # Sunday
+      let(:app_time) { DateTime.new(current_year, 2, 25, 17, 0, 0).in_time_zone(timezone) } # Sunday
       let(:withdrawal_month) { 2 }
       let(:withdrawal_day) { 27 }
 
