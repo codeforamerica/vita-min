@@ -18,9 +18,15 @@ module StateFile
     end
 
     def faq_state_filing_options_link
-      product_type = FaqCategory.state_to_product_type(current_state_code)
-      if FaqCategory.where(slug: "other_state_filing_options", product_type: product_type).present?
-        state_faq_section_path(section_key: "other_state_filing_options", us_state: current_state_code)
+      case current_state_code
+      when 'az'
+        state_faq_section_path(us_state: :az, section_key: "other_state_filing_options")
+      when 'nc'
+        state_faq_section_path(us_state: :nc, section_key: "what_are_my_other_state_filing_options_this_year")
+      when 'id'
+        state_faq_section_path(us_state: :id, section_key: "what_are_my_other_state_filing_options_this_year_53")
+      when 'md'
+        state_faq_section_path(us_state: :md, section_key: "what_are_my_other_state_filing_options_this_year_46")
       else
         state_faq_path(us_state: current_state_code)
       end

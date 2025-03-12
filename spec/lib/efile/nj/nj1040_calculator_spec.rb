@@ -478,6 +478,14 @@ describe Efile::Nj::Nj1040Calculator do
         expected_sum = 50000 + 50000 + 50000 + 50000
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
       end
+
+      it "rounds to nearest whole number" do
+        w2 = intake.state_file_w2s.first
+        w2.update_attribute(:state_wages_amount, 50000.51)
+        instance.calculate
+        expected = 200_001 # 50000.51 + 50000 + 50000 + 50000
+        expect(instance.lines[:NJ1040_LINE_15].value).to eq expected
+      end
     end
   end
 
@@ -724,12 +732,20 @@ describe Efile::Nj::Nj1040Calculator do
   describe 'line 29 - gross income' do
     let(:intake) { create(:state_file_nj_intake) }
 
-    it 'sets line 29 to the sum of all state wage amounts minus 28c' do
-      allow(instance).to receive(:calculate_line_15).and_return 50_000
-      allow(instance).to receive(:calculate_line_16a).and_return 1_000
-      allow(instance).to receive(:calculate_line_28c).and_return 3_000
+    it 'sets line 29 to line 27 minus line 28c' do
+      allow(instance).to receive(:calculate_line_27).and_return 3_000
+      allow(instance).to receive(:calculate_line_28c).and_return 1_000
       instance.calculate
-      expect(instance.lines[:NJ1040_LINE_29].value).to eq(48_000)
+      expect(instance.lines[:NJ1040_LINE_29].value).to eq(2_000)
+    end
+
+    context 'when 28c is larger than line 27' do
+      it 'sets line 29 to zero' do
+        allow(instance).to receive(:calculate_line_27).and_return 1_000
+        allow(instance).to receive(:calculate_line_28c).and_return 1_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_29].value).to eq(0)
+      end
     end
   end
 
@@ -800,6 +816,15 @@ describe Efile::Nj::Nj1040Calculator do
     it 'sets line 39 to line 29 gross income minus line 38 total exemptions/deductions' do
       expected_total = instance.lines[:NJ1040_LINE_29].value - instance.lines[:NJ1040_LINE_38].value
       expect(instance.lines[:NJ1040_LINE_39].value).to eq(expected_total)
+    end
+
+    context 'when line 38 is larger than line 29' do
+      it 'sets line 39 to zero' do
+        allow(instance).to receive(:calculate_line_29).and_return 1_000
+        allow(instance).to receive(:calculate_line_38).and_return 1_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_39].value).to eq(0)
+      end
     end
   end
 
@@ -2428,6 +2453,15 @@ describe Efile::Nj::Nj1040Calculator do
       allow(instance).to receive(:calculate_line_78).and_return 10
       instance.calculate
       expect(instance.lines[:NJ1040_LINE_80].value).to eq(20)
+    end
+
+    context 'when line 78 is larger than line 68' do
+      it 'sets line 80 to zero' do
+        allow(instance).to receive(:calculate_line_68).and_return 1_000
+        allow(instance).to receive(:calculate_line_78).and_return 1_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_80].value).to eq(0)
+      end
     end
   end
 

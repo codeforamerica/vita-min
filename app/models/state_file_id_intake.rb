@@ -120,17 +120,36 @@ class StateFileIdIntake < StateFileBaseIntake
   end
 
   def has_filer_between_62_and_65_years_old?
+    return primary_between_62_and_65_years_old? unless filing_status_mfj?
+
+    primary_between_62_and_65_years_old? || spouse_between_62_and_65_years_old?
+  end
+  def all_filers_between_62_and_65_years_old?
+    return primary_between_62_and_65_years_old? unless filing_status_mfj?
+
+    primary_between_62_and_65_years_old? && spouse_between_62_and_65_years_old?
+  end
+
+  def show_mfj_disability_options?
+    filing_status_mfj? && all_filers_between_62_and_65_years_old?
+  end
+
+  def primary_between_62_and_65_years_old?
     primary_age = calculate_age(primary_birth_date, inclusive_of_jan_1: true)
-    if filing_status_mfj? && spouse_birth_date.present?
+    primary_age >= 62 && primary_age < 65
+  end
+
+  def spouse_between_62_and_65_years_old?
+    if spouse_birth_date.present?
       spouse_age = calculate_age(spouse_birth_date, inclusive_of_jan_1: true)
-      (primary_age >= 62 && primary_age < 65) || (spouse_age >= 62 && spouse_age < 65)
+      spouse_age >= 62 && spouse_age < 65
     else
-      primary_age >= 62 && primary_age < 65
+      false
     end
   end
 
   def eligible_1099rs
-    state_file1099_rs.select do |form1099r|
+    @eligible_1099rs ||= state_file1099_rs.select do |form1099r|
       form1099r.taxable_amount&.to_f&.positive? && person_qualifies?(form1099r)
     end
   end

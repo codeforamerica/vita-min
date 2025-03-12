@@ -197,15 +197,11 @@ RSpec.describe StateFileIdIntake, type: :model do
     end
   end
 
-  describe "#has_filer_between_62_and_65_years_old?" do
+  describe "#primary_between_62_and_65_years_old?" do
     let(:intake) { create(:state_file_id_intake) }
 
-    context "with a 1099R but zero taxable amount" do
-      let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
-
-      it "is false" do
-        expect(intake.has_filer_between_62_and_65_years_old?).to eq false
-      end
+    before do
+      intake.primary_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 60, 1, 1)
     end
 
     context "when filer is under 62" do
@@ -214,7 +210,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       end
 
       it "is false" do
-        expect(intake.has_filer_between_62_and_65_years_old?).to eq false
+        expect(intake.primary_between_62_and_65_years_old?).to eq false
       end
     end
 
@@ -224,7 +220,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       end
 
       it "is true" do
-        expect(intake.has_filer_between_62_and_65_years_old?).to eq true
+        expect(intake.primary_between_62_and_65_years_old?).to eq true
       end
     end
 
@@ -234,7 +230,229 @@ RSpec.describe StateFileIdIntake, type: :model do
       end
 
       it "is false" do
-        expect(intake.has_filer_between_62_and_65_years_old?).to eq false
+        expect(intake.primary_between_62_and_65_years_old?).to eq false
+      end
+    end
+  end
+
+  describe "#spouse_between_62_and_65_years_old?" do
+    let(:intake) { create(:state_file_id_intake, :with_spouse) }
+
+    before do
+      intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 60, 1, 1)
+    end
+
+    context "when filer is under 62" do
+      before do
+        intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 60, 1, 1)
+      end
+
+      it "is false" do
+        expect(intake.spouse_between_62_and_65_years_old?).to eq false
+      end
+    end
+
+    context "when filer is within the age range qualifications" do
+      before do
+        intake.spouse_birth_date = Date.new(MultiTenantService.statefile.current_tax_year - 62, 1, 1)
+      end
+
+      it "is true" do
+        expect(intake.spouse_between_62_and_65_years_old?).to eq true
+      end
+    end
+  end
+
+  describe "#all_filers_bewteen_62_and_65_years_old?" do
+    let(:primary_between) { false }
+    let(:spouse_between) { false }
+
+    before do
+      allow(intake).to receive(:primary_between_62_and_65_years_old?).and_return(primary_between)
+      allow(intake).to receive(:spouse_between_62_and_65_years_old?).and_return(spouse_between)
+    end
+
+    context "single" do
+      let(:intake) { create(:state_file_id_intake) }
+
+      context "primary between 62 and 65 years old" do
+        let(:primary_between) { true }
+        it "is true" do
+          expect(intake.all_filers_between_62_and_65_years_old?).to eq true
+        end
+      end
+
+      context "spouse between 62 and 65 years old" do
+        let(:spouse_between) { true }
+        it "is true" do
+          expect(intake.all_filers_between_62_and_65_years_old?).to eq false
+        end
+      end
+
+      context "both between 62 and 65 years old" do
+        let(:primary_between) { true }
+        let(:spouse_between) { true }
+
+        it "is true" do
+          expect(intake.all_filers_between_62_and_65_years_old?).to eq true
+        end
+      end
+
+      context "neither" do
+        it "is true" do
+          expect(intake.all_filers_between_62_and_65_years_old?).to eq false
+        end
+      end
+    end
+
+    context "mfj" do
+      let(:intake) { create(:state_file_id_intake, filing_status: :married_filing_jointly) }
+
+      context "primary between 62 and 65 years old" do
+        let(:primary_between) { true }
+        it "is true" do
+          expect(intake.all_filers_between_62_and_65_years_old?).to eq false
+        end
+      end
+
+      context "spouse between 62 and 65 years old" do
+        let(:spouse_between) { true }
+        it "is true" do
+          expect(intake.all_filers_between_62_and_65_years_old?).to eq false
+        end
+      end
+
+      context "both between 62 and 65 years old" do
+        let(:primary_between) { true }
+        let(:spouse_between) { true }
+
+        it "is true" do
+          expect(intake.all_filers_between_62_and_65_years_old?).to eq true
+        end
+      end
+
+      context "neither" do
+        it "is true" do
+          expect(intake.all_filers_between_62_and_65_years_old?).to eq false
+        end
+      end
+    end
+  end
+
+  describe "#has_filer_between_62_and_65_years_old?" do
+    let(:primary_between) { false }
+    let(:spouse_between) { false }
+
+    before do
+      allow(intake).to receive(:primary_between_62_and_65_years_old?).and_return(primary_between)
+      allow(intake).to receive(:spouse_between_62_and_65_years_old?).and_return(spouse_between)
+    end
+
+    context "single" do
+      let(:intake) { create(:state_file_id_intake) }
+
+      context "primary between 62 and 65 years old" do
+        let(:primary_between) { true }
+        it "is true" do
+          expect(intake.has_filer_between_62_and_65_years_old?).to eq true
+        end
+      end
+
+      context "spouse between 62 and 65 years old" do
+        let(:spouse_between) { true }
+        it "is true" do
+          expect(intake.has_filer_between_62_and_65_years_old?).to eq false
+        end
+      end
+
+      context "both between 62 and 65 years old" do
+        let(:primary_between) { true }
+        let(:spouse_between) { true }
+
+        it "is true" do
+          expect(intake.has_filer_between_62_and_65_years_old?).to eq true
+        end
+      end
+
+      context "neither" do
+        it "is true" do
+          expect(intake.has_filer_between_62_and_65_years_old?).to eq false
+        end
+      end
+    end
+
+    context "mfj" do
+      let(:intake) { create(:state_file_id_intake, filing_status: :married_filing_jointly) }
+
+      context "primary between 62 and 65 years old" do
+        let(:primary_between) { true }
+        it "is true" do
+          expect(intake.has_filer_between_62_and_65_years_old?).to eq true
+        end
+      end
+
+      context "spouse between 62 and 65 years old" do
+        let(:primary_between) { false }
+        let(:spouse_between) { true }
+
+        it "is true" do
+          expect(intake.has_filer_between_62_and_65_years_old?).to eq true
+        end
+      end
+
+      context "both between 62 and 65 years old" do
+        let(:primary_between) { true }
+        let(:spouse_between) { true }
+
+        it "is true" do
+          expect(intake.has_filer_between_62_and_65_years_old?).to eq true
+        end
+      end
+
+      context "neither" do
+        it "is true" do
+          expect(intake.has_filer_between_62_and_65_years_old?).to eq false
+        end
+      end
+    end
+  end
+
+  describe "show_mfj_disability_options?" do
+    let(:filing_status) { "married_filing_jointly" }
+    let(:all_filers_between) { true }
+    let(:intake) { create(:state_file_id_intake, filing_status: filing_status) }
+    before do
+      allow(intake).to receive(:all_filers_between_62_and_65_years_old?).and_return(all_filers_between)
+    end
+
+    context "mfj and all filers between 62-65" do
+      it "is true" do
+        expect(intake.show_mfj_disability_options?).to eq true
+      end
+    end
+
+    context "mfj and not all filers between 62-65" do
+      let(:all_filers_between) { false }
+
+      it "is false" do
+        expect(intake.show_mfj_disability_options?).to eq false
+      end
+    end
+
+    context "not mfj and all filers between 62-65" do
+      let(:filing_status) { "single" }
+
+      it "is false" do
+        expect(intake.show_mfj_disability_options?).to eq false
+      end
+    end
+
+    context "not mfj and not all filers between 62-65" do
+      let(:filing_status) { "head_of_household" }
+      let(:all_filers_between) { false}
+
+      it "is false" do
+        expect(intake.show_mfj_disability_options?).to eq false
       end
     end
   end

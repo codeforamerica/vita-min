@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.0">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>40c57bdc</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400002058</PrimarySSN>
+            <NameLine1Txt>LESLIE&lt;FEIST</NameLine1Txt>
+            <PrimaryNameControlTxt>FEIS</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1234 Changing Heart Blvd</AddressLine1Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </USAddress>
+            <PhoneNum>2225554444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000205-889d-4193-a25e-bb2c323ac243@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">23000</WagesAmt>
+            <WagesSalariesAndTipsAmt>23000</WagesSalariesAndTipsAmt>
+            <PensionsAnnuitiesAmt>45000</PensionsAnnuitiesAmt>
+            <TotalTaxablePensionsAmt pensionsAnnuitiesLiteralCd="ROLLOVER">0</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>23000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>23000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>8400</TaxableIncomeAmt>
+            <TaxAmt>843</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>843</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>843</TaxLessCreditsAmt>
+            <TotalTaxAmt>843</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2400</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2400</WithholdingTaxAmt>
+            <TotalPaymentsAmt>2400</TotalPaymentsAmt>
+            <OverpaidAmt>1557</OverpaidAmt>
+            <RefundAmt>1557</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Musician</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>MUSH</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Mushaboom</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>123 Main Street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21223</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>823967259</PayerEIN>
+            <RecipientSSN>400002058</RecipientSSN>
+            <RecipientNm>Leslie Feist</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>1234 Changing Heart Blvd</AddressLine1Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>45000</GrossDistributionAmt>
+            <F1099RDistributionCd>G</F1099RDistributionCd>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400002058</EmployeeSSN>
+            <EmployerEIN>841564926</EmployerEIN>
+            <EmployerNameControlTxt>HIDI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Hiding out in the open</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>972 Mission Street</AddressLine1Txt>
+                <CityNm>San Francisco</CityNm>
+                <StateAbbreviationCd>CA</StateAbbreviationCd>
+                <ZIPCd>94103</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Leslie Feist</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1234 Changing Heart Blvd</AddressLine1Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>23000</WagesAmt>
+            <WithholdingAmt>2400</WithholdingAmt>
+            <SocialSecurityWagesAmt>23000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1900</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>23000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1100</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>123456789</EmployerStateIdNum>
+                    <StateWagesAmt>23000</StateWagesAmt>
+                    <StateIncomeTaxAmt>750</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

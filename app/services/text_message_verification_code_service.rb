@@ -1,6 +1,4 @@
 class TextMessageVerificationCodeService
-  include Rails.application.routes.url_helpers
-
   def initialize(phone_number:, locale: :en, visitor_id:, client_id: nil, service_type:)
     @service_data = MultiTenantService.new(service_type)
     @phone_number = phone_number
@@ -12,15 +10,16 @@ class TextMessageVerificationCodeService
   def request_code
     verification_code, access_token = TextMessageAccessToken.generate!(sms_phone_number: @phone_number, client_id: @client_id)
     outgoing_message_status = OutgoingMessageStatus.find_or_create_by!(message_type: :sms, parent: access_token)
-    twilio_response = TwilioService.new(@service_data.service_type).send_text_message(
+    message_arguments = {
       to: @phone_number,
       body: I18n.t("verification_code_sms.with_code",
                    service_name: @service_data.service_name,
                    locale: @locale,
                    verification_code: verification_code
       ).strip,
-      status_callback: twilio_update_status_url(outgoing_message_status.id, locale: nil),
-    )
+      status_callback: @service_data.twilio_status_webhook_url(outgoing_message_status.id)
+    }.compact
+    twilio_response = TwilioService.new(@service_data.service_type).send_text_message(**message_arguments)
     VerificationTextMessage.create!(
       text_message_access_token: access_token,
       visitor_id: @visitor_id,
@@ -30,8 +29,7 @@ class TextMessageVerificationCodeService
   end
 
   private
-
-
+  
   def self.request_code(**args)
     new(**args).request_code
   end
