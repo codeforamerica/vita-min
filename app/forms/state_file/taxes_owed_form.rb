@@ -53,8 +53,8 @@ module StateFile
     private
 
     def form_submitted_before_payment_deadline?
-      # Important to compare time here
-      @form_submitted_time.before?(StateInformationService.payment_deadline_datetime(intake.state_code))
+      # TODO: verify time/timezone is handled correctly
+      @form_submitted_time.before?(StateInformationService.payment_deadline_date(intake.state_code))
     end
 
     def date_electronic_withdrawal
@@ -82,7 +82,7 @@ module StateFile
       return true unless form_submitted_before_payment_deadline?
       return false if date_electronic_withdrawal.nil?
 
-      payment_deadline = StateInformationService.payment_deadline_datetime(intake.state_code)
+      payment_deadline = StateInformationService.payment_deadline_date(intake.state_code)
       if date_electronic_withdrawal.before?(@form_submitted_time) || date_electronic_withdrawal.after?(payment_deadline)
         self.errors.add(:date_electronic_withdrawal,
                         I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline",
