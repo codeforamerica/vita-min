@@ -86,7 +86,9 @@ module Efile
         {
           dependent_tax_credit: line_or_zero(:AZ140_LINE_49),
           family_income_tax_credit: line_or_zero(:AZ140_LINE_50),
-          excise_credit: line_or_zero(:AZ140_LINE_56)
+          excise_credit: line_or_zero(:AZ140_LINE_56),
+          az_pension_exclusion_government: line_or_zero(:AZ140_LINE_29A),
+          az_pension_exclusion_uniformed_services: line_or_zero(:AZ140_LINE_29B)
         }
       end
 

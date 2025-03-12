@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_04_145229) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_11_235131) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1757,6 +1757,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_04_145229) do
   end
 
   create_table "state_file_analytics", force: :cascade do |t|
+    t.integer "az_pension_exclusion_government"
+    t.integer "az_pension_exclusion_uniformed_services"
     t.integer "canceled_data_transfer_count", default: 0
     t.datetime "created_at", null: false
     t.integer "dependent_tax_credit"
@@ -1767,9 +1769,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_04_145229) do
     t.integer "fed_refund_amt"
     t.integer "filing_status"
     t.integer "household_fed_agi"
+    t.integer "id_retirement_benefits_deduction"
     t.datetime "initiate_data_transfer_first_visit_at"
     t.integer "initiate_df_data_transfer_clicks", default: 0
     t.datetime "name_dob_first_visit_at"
+    t.integer "nc_retirement_benefits_bailey"
+    t.integer "nc_retirement_benefits_uniformed_services"
     t.integer "nyc_eitc"
     t.integer "nyc_household_credit"
     t.integer "nyc_school_tax_credit"
