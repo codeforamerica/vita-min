@@ -85,10 +85,6 @@ RSpec.describe StateFile::Questions::NjRetirementWarningController do
   end
 
   describe "eligibility_offboarding_concern" do
-    # the disqualifying param here is permanent_address_outside_md but this is set in the form based on:
-    # * whether they are using the address from DF
-    # * if so, whether that address is in MD
-    # so we have to mock the DF data
     it_behaves_like :eligibility_offboarding_concern, intake_factory: :state_file_nj_intake do
       let(:eligible_params) do
         {
