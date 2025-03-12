@@ -18,9 +18,7 @@ module Hub
       return false unless valid?
 
       coalition.assign_attributes(attributes_for(:coalition))
-      if states
-        UpdateStateRoutingTargetsService.update(coalition, states.split(","))
-      end
+      UpdateStateRoutingTargetsService.update(coalition, states&.split(","))
       coalition.save
     end
   end
