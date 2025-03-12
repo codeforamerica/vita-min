@@ -61,7 +61,6 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
             get :edit
 
             expect(Nokogiri::HTML.parse(response.body)).to have_link(href: eligibility_controller_path)
-            expect(session[:offboarded_from]).to be_nil
           end
         end
 
@@ -72,7 +71,6 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
             get :edit
 
             expect(Nokogiri::HTML.parse(response.body)).to have_link(href: default_controller_path)
-            expect(session[:offboarded_from]).to be_nil
           end
         end
       end

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe StateFile::Questions::MdPermanentAddressController do
+describe StateFile::Questions::MdEligibilityFilingStatusController do
   let(:intake) { create :state_file_md_intake }
   before do
     sign_in intake
@@ -12,7 +12,7 @@ describe StateFile::Questions::MdPermanentAddressController do
     it "succeeds" do
       get :edit
       expect(response).to be_successful
-      expect(response_html).to have_text "Did you live at this address"
+      expect(response_html).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: MultiTenantService.statefile.current_tax_year)
     end
   end
 
@@ -23,19 +23,23 @@ describe StateFile::Questions::MdPermanentAddressController do
     # so we have to mock the DF data
     it_behaves_like :eligibility_offboarding_concern, intake_factory: :state_file_md_intake do
       let(:eligible_params) do
-        allow_any_instance_of(DirectFileData).to receive(:mailing_state).and_return "MD"
         {
-          state_file_md_permanent_address_form: {
-            confirmed_permanent_address: "yes",
+          state_file_md_eligibility_filing_status_form: {
+            eligibility_filing_status_mfj: "yes",
+            eligibility_homebuyer_withdrawal: "no",
+            eligibility_homebuyer_withdrawal_mfj: "no",
+            eligibility_home_different_areas: "no"
           }
         }
       end
 
       let(:ineligible_params) do
-        allow_any_instance_of(DirectFileData).to receive(:mailing_state).and_return "NC"
         {
-          state_file_md_permanent_address_form: {
-            confirmed_permanent_address: "yes",
+          state_file_md_eligibility_filing_status_form: {
+            eligibility_filing_status_mfj: "yes",
+            eligibility_homebuyer_withdrawal: "yes",
+            eligibility_homebuyer_withdrawal_mfj: "yes",
+            eligibility_home_different_areas: "no"
           }
         }
       end
