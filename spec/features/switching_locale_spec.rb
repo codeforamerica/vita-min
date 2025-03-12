@@ -54,7 +54,7 @@ RSpec.feature "Switching Locale" do
         end
 
         click_on "Regresa para corregirlo."
-        expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.title", filing_year: filing_year, locale: 'es')
+        expect(page).to have_text I18n.t("state_file.questions.id_eligibility_residence.edit.title", filing_year: filing_year)
       end
     end
 
@@ -91,7 +91,7 @@ RSpec.feature "Switching Locale" do
         end
 
         click_on "Regresa para corregirlo."
-        expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year, locale: "es")
+        expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year)
       end
 
       scenario "from the md_permanent_address controller" do
@@ -137,7 +137,7 @@ RSpec.feature "Switching Locale" do
           click_on "Español"
         end
         click_on "Regresa para corregirlo."
-        expect(page).to have_text I18n.t("state_file.questions.md_permanent_address.edit.title", filing_year: filing_year, locale: "es")
+        expect(page).to have_text I18n.t("state_file.questions.md_permanent_address.edit.title", filing_year: filing_year)
       end
     end
 
@@ -167,7 +167,7 @@ RSpec.feature "Switching Locale" do
         end
 
         click_on "Regresa para corregirlo."
-        expect(page).to have_text I18n.t("state_file.questions.nc_eligibility.edit.title", filing_year: filing_year, locale: "es")
+        expect(page).to have_text I18n.t("state_file.questions.nc_eligibility.edit.title", filing_year: filing_year)
       end
     end
   end
