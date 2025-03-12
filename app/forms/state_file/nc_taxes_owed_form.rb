@@ -1,26 +1,11 @@
 module StateFile
   class NcTaxesOwedForm < TaxesOwedForm
-    include DateHelper
-    set_attributes_for :intake,
-                       :payment_or_deposit_type,
-                       :routing_number,
-                       :account_number,
-                       :account_type,
-                       :withdraw_amount
 
-    set_attributes_for :confirmation, :routing_number_confirmation, :account_number_confirmation
-    set_attributes_for :date,
-                       :date_electronic_withdrawal_month,
-                       :date_electronic_withdrawal_year,
-                       :date_electronic_withdrawal_day,
-                       :app_time
-
-    with_options unless: -> { payment_or_deposit_type == "mail" } do
-      validate :date_electronic_withdrawal_nc_validations, if: -> { date_electronic_withdrawal.present? }
+    with_options unless: -> { payment_or_deposit_type == "mail" || !form_submitted_before_payment_deadline? } do
+      validate :withdrawal_date_validations
     end
 
-
-    def date_electronic_withdrawal_nc_validations
+    def withdrawal_date_validations
       five_pm_et = app_time_eastern.change(hour: 17, min: 0, sec: 0)
       if (app_time_eastern >= five_pm_et) && less_than_two_business_days_in_future?
         errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.post_five_pm"))
@@ -39,7 +24,7 @@ module StateFile
     private
 
     def app_time_eastern
-      app_time.in_time_zone('Eastern Time (US & Canada)')
+      @form_submitted_time.in_time_zone('Eastern Time (US & Canada)')
     end
 
     def add_business_days(num_days)

@@ -18,7 +18,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
       date_electronic_withdrawal_month: withdrawal_month.to_s,
       date_electronic_withdrawal_day: withdrawal_day.to_s,
       date_electronic_withdrawal_year: app_time.year.to_s,
-      app_time: app_time
+      app_time: app_time.to_s
     }
   }
 

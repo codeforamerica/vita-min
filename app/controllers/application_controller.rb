@@ -453,11 +453,9 @@ class ApplicationController < ActionController::Base
   end
 
   def app_time
-    if Rails.env.production?
-      Time.current
-    else
-      SessionToggle.new(session, 'app_time').value || Time.current
-    end
+    return Time.current if Rails.env.production?
+
+    SessionToggle.new(session, 'app_time').value || Time.current
   end
   helper_method :app_time
 

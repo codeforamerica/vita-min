@@ -11,7 +11,7 @@ RSpec.describe StateFile::TaxesOwedForm do
   end
 
   describe "when paying via mail" do
-    let(:params) { { payment_or_deposit_type: "mail", app_time: app_time } }
+    let(:params) { { payment_or_deposit_type: "mail", app_time: app_time.to_s } }
 
     it "updates the intake with only mail data" do
       form = described_class.new(intake, params)
@@ -51,7 +51,7 @@ RSpec.describe StateFile::TaxesOwedForm do
           date_electronic_withdrawal_month: withdrawal_month&.to_s,
           date_electronic_withdrawal_day: withdrawal_day&.to_s,
           date_electronic_withdrawal_year: app_time.year.to_s,
-          app_time: app_time
+          app_time: app_time.to_s
         }
       }
 
@@ -148,7 +148,7 @@ RSpec.describe StateFile::TaxesOwedForm do
             account_number_confirmation: "",
             account_type: nil,
             withdraw_amount: nil,
-            app_time: app_time
+            app_time: app_time.to_s
           }
         end
 
