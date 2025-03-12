@@ -1757,6 +1757,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_11_235131) do
   end
 
   create_table "state_file_analytics", force: :cascade do |t|
+    t.integer "az_credit_for_contributions_to_public_schools"
+    t.integer "az_credit_for_contributions_to_qcos"
     t.integer "az_pension_exclusion_government"
     t.integer "az_pension_exclusion_uniformed_services"
     t.integer "canceled_data_transfer_count", default: 0

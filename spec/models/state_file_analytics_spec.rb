@@ -2,35 +2,37 @@
 #
 # Table name: state_file_analytics
 #
-#  id                                        :bigint           not null, primary key
-#  az_pension_exclusion_government           :integer
-#  az_pension_exclusion_uniformed_services   :integer
-#  canceled_data_transfer_count              :integer          default(0)
-#  dependent_tax_credit                      :integer
-#  empire_state_child_credit                 :integer
-#  excise_credit                             :integer
-#  family_income_tax_credit                  :integer
-#  fed_eitc_amount                           :integer
-#  fed_refund_amt                            :integer
-#  filing_status                             :integer
-#  household_fed_agi                         :integer
-#  id_retirement_benefits_deduction          :integer
-#  initiate_data_transfer_first_visit_at     :datetime
-#  initiate_df_data_transfer_clicks          :integer          default(0)
-#  name_dob_first_visit_at                   :datetime
-#  nc_retirement_benefits_bailey             :integer
-#  nc_retirement_benefits_uniformed_services :integer
-#  nyc_eitc                                  :integer
-#  nyc_household_credit                      :integer
-#  nyc_school_tax_credit                     :integer
-#  nys_eitc                                  :integer
-#  nys_household_credit                      :integer
-#  record_type                               :string           not null
-#  refund_or_owed_amount                     :integer
-#  zip_code                                  :string
-#  created_at                                :datetime         not null
-#  updated_at                                :datetime         not null
-#  record_id                                 :bigint           not null
+#  id                                            :bigint           not null, primary key
+#  az_credit_for_contributions_to_public_schools :integer
+#  az_credit_for_contributions_to_qcos           :integer
+#  az_pension_exclusion_government               :integer
+#  az_pension_exclusion_uniformed_services       :integer
+#  canceled_data_transfer_count                  :integer          default(0)
+#  dependent_tax_credit                          :integer
+#  empire_state_child_credit                     :integer
+#  excise_credit                                 :integer
+#  family_income_tax_credit                      :integer
+#  fed_eitc_amount                               :integer
+#  fed_refund_amt                                :integer
+#  filing_status                                 :integer
+#  household_fed_agi                             :integer
+#  id_retirement_benefits_deduction              :integer
+#  initiate_data_transfer_first_visit_at         :datetime
+#  initiate_df_data_transfer_clicks              :integer          default(0)
+#  name_dob_first_visit_at                       :datetime
+#  nc_retirement_benefits_bailey                 :integer
+#  nc_retirement_benefits_uniformed_services     :integer
+#  nyc_eitc                                      :integer
+#  nyc_household_credit                          :integer
+#  nyc_school_tax_credit                         :integer
+#  nys_eitc                                      :integer
+#  nys_household_credit                          :integer
+#  record_type                                   :string           not null
+#  refund_or_owed_amount                         :integer
+#  zip_code                                      :string
+#  created_at                                    :datetime         not null
+#  updated_at                                    :datetime         not null
+#  record_id                                     :bigint           not null
 #
 # Indexes
 #
@@ -48,6 +50,8 @@ describe StateFileAnalytics do
       allow_any_instance_of(DirectFileData).to receive(:filing_status).and_return(2)
       allow_any_instance_of(DirectFileData).to receive(:mailing_zip).and_return("10128")
 
+      allow_any_instance_of(Efile::Az::Az301Calculator).to receive(:calculate_line_6a).and_return(50)
+      allow_any_instance_of(Efile::Az::Az301Calculator).to receive(:calculate_line_7a).and_return(60)
       allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29a).and_return(100)
       allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_29b).and_return(200)
       allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_50).and_return(80)
@@ -80,6 +84,8 @@ describe StateFileAnalytics do
           family_income_tax_credit: 80,
           az_pension_exclusion_government: 100,
           az_pension_exclusion_uniformed_services: 200,
+          az_credit_for_contributions_to_qcos: 50,
+          az_credit_for_contributions_to_public_schools: 60,
         },
         ny: {
           nys_eitc: 600,
