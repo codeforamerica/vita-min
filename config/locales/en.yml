@@ -2108,8 +2108,9 @@ en:
         az_dor: Arizona Department of Revenue
         ny_dor: NY State Tax Department
         return_to_home: Return to Homepage
-        subtitle: Please visit your state's tax agency website to request your %{year} tax return
+        subtitle_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
         title: Sorry, we were not able to verify your account
+        locked_due_to_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
     faq:
       index:
         title: Common questions from %{state} taxpayers
