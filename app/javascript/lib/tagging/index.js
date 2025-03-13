@@ -64,6 +64,19 @@ export function initMultiSelectVitaPartner() {
         }
     });
 
+    input.addEventListener("change", (event) => {
+
+        let { value } = event.target;
+        if (value) {
+            value = JSON.stringify(JSON.parse(event.target.value).map(v => v.id));
+        }
+
+        const hiddenInput = document.querySelector("#vita_partners");
+        if (hiddenInput) {
+            hiddenInput.value = value;
+        }
+    });
+
     const clickableContainer = document.querySelector(".tagify-clickable-dropdown-wrapper");
 
     if (clickableContainer) {
@@ -76,13 +89,13 @@ export function initMultiSelectVitaPartner() {
                 tagify.dropdown.show();
             }
         });
-    }
 
-    document.addEventListener("click", (event) => {
-        if (!clickableContainer.contains(event.target) && tagify.state.dropdown.visible) {
-            tagify.dropdown.hide();
-        }
-    });
+        document.addEventListener("click", (event) => {
+            if (!clickableContainer.contains(event.target) && tagify.state.dropdown.visible) {
+                tagify.dropdown.hide();
+            }
+        });
+    }
 }
 
 export function initSelectVitaPartner() {
