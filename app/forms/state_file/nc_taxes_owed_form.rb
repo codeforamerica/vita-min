@@ -11,8 +11,7 @@ module StateFile
     private
 
     def withdrawal_date_is_not_today
-      # TODO: is this only checking time, not date?
-      unless date_electronic_withdrawal.after?(@form_submitted_time)
+      unless date_electronic_withdrawal.after?(@form_submitted_time.to_date)
         errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.past"))
       end
     end

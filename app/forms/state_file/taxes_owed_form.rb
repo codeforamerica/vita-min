@@ -28,10 +28,9 @@ module StateFile
     end
 
     def initialize(intake = nil, params = nil)
-      time_zone = StateFile::StateInformationService.timezone(intake.state_code)
-      @form_submitted_time = params[:app_time].present? ? DateTime.parse(params[:app_time]) : DateTime.current
-      # TODO: not quite sure how this handles an app time in a different timezone
-      @form_submitted_time.in_time_zone(time_zone).to_date
+      @timezone = StateFile::StateInformationService.timezone(intake.state_code)
+      app_time = params[:app_time].present? ? params[:app_time] : Time.current
+      @form_submitted_time = app_time.in_time_zone(@timezone)
       super(intake, params)
     end
 
@@ -53,20 +52,16 @@ module StateFile
     private
 
     def form_submitted_before_payment_deadline?
-      # TODO: verify time/timezone is handled correctly
-      @form_submitted_time.before?(StateInformationService.payment_deadline_date(intake.state_code))
+      @form_submitted_time.to_date.before?(StateInformationService.payment_deadline_date(intake.state_code))
     end
 
     def date_electronic_withdrawal
-      if form_submitted_before_payment_deadline?
-        date_electronic_withdrawal = parse_date_params(date_electronic_withdrawal_year,
-                                                       date_electronic_withdrawal_month,
-                                                       date_electronic_withdrawal_day)
-        date_electronic_withdrawal&.to_date
-      else
-        # TODO: set this during submission bundle instead, using submission time
-        @form_submitted_time.in_time_zone(StateFile::StateInformationService.timezone(@intake&.state_code)).to_date
-      end
+      # Future story: set this during submission bundle instead, using submission date
+      return @form_submitted_time.to_date unless form_submitted_before_payment_deadline?
+
+      parse_date_params(date_electronic_withdrawal_year,
+                        date_electronic_withdrawal_month,
+                        date_electronic_withdrawal_day)&.to_date
     end
 
     def date_electronic_withdrawal_is_valid_date
@@ -83,7 +78,8 @@ module StateFile
       return false if date_electronic_withdrawal.nil?
 
       payment_deadline = StateInformationService.payment_deadline_date(intake.state_code)
-      if date_electronic_withdrawal.before?(@form_submitted_time) || date_electronic_withdrawal.after?(payment_deadline)
+      if date_electronic_withdrawal.before?(@form_submitted_time.to_date) ||
+         date_electronic_withdrawal.after?(payment_deadline)
         self.errors.add(:date_electronic_withdrawal,
                         I18n.t("forms.errors.taxes_owed.withdrawal_date_deadline",
                                payment_deadline_date: I18n.l(payment_deadline.to_date, format: :medium, locale: intake&.locale),
@@ -96,8 +92,7 @@ module StateFile
       return unless self.withdraw_amount.to_i > owed_amount
 
       self.errors.add(:withdraw_amount,
-                      I18n.t("forms.errors.taxes_owed.withdraw_amount_higher_than_owed", owed_amount: owed_amount)
-      )
+                      I18n.t("forms.errors.taxes_owed.withdraw_amount_higher_than_owed", owed_amount: owed_amount))
     end
   end
 end

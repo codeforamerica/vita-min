@@ -4,7 +4,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
   let(:intake) { create :state_file_nc_intake }
   let(:timezone) { StateFile::StateInformationService.timezone(intake.state_code) }
   let(:current_year) { 2024 } # using weekend & holiday dates from 2024
-  let(:app_time) { DateTime.new(current_year, 3, 5, 12, 0, 0).in_time_zone(timezone) }
+  let(:app_time) { DateTime.new(current_year, 3, 5) }
   let(:withdrawal_month) { app_time.month }
   let(:withdrawal_day) { app_time.day }
   let(:params) {
@@ -25,9 +25,10 @@ RSpec.describe StateFile::NcTaxesOwedForm do
 
   describe "when paying via direct deposit and scheduling a payment in NC" do
 
-    context "when the withdrawal date is in the future, on a weekday, and not on a holiday" do
+    context "when the withdrawal date is one day in the future, on a weekday, not on a holiday, and filing before 5pm" do
       let(:withdrawal_month) { app_time.month }
       let(:withdrawal_day) { app_time.day + 1 }
+      let(:app_time) { DateTime.new(current_year, 3, 5, 12, 0, 0) }
 
       it "is valid and saves the intake" do
         form = described_class.new(intake, params)
@@ -38,6 +39,18 @@ RSpec.describe StateFile::NcTaxesOwedForm do
     context "when the withdrawal date is in the past" do
       let(:withdrawal_month) { app_time.month }
       let(:withdrawal_day) { app_time.day - 1 }
+
+      it "is not valid" do
+        form = described_class.new(intake, params)
+        expect(form).not_to be_valid
+        expect(form.errors).to include :date_electronic_withdrawal
+        expect(form.errors[:date_electronic_withdrawal]).to include I18n.t("errors.attributes.nc_withdrawal_date.past")
+      end
+    end
+
+    context "when the withdrawal date is today" do
+      let(:withdrawal_month) { app_time.in_time_zone(timezone).month }
+      let(:withdrawal_day) { app_time.in_time_zone(timezone).day }
 
       it "is not valid" do
         form = described_class.new(intake, params)
@@ -73,15 +86,26 @@ RSpec.describe StateFile::NcTaxesOwedForm do
     end
 
     context "when it's 5pm EST and withdrawal date is less than 2 business days from today" do
-      let(:app_time) { DateTime.new(current_year, 3, 15, 17, 0, 0) } # Friday, March 15th, 2024
+      let(:app_time) { DateTime.new(current_year, 3, 15, 21, 0, 0) } # UTC offset = -4; March 15th is DST
       let(:withdrawal_month) { 3 }
-      let(:withdrawal_day) { 18 } # Monday
+      let(:withdrawal_day) { 18 } # the following Monday
 
       it "is not valid" do
         form = described_class.new(intake, params)
         expect(form).not_to be_valid
         expect(form.errors).to include :date_electronic_withdrawal
         expect(form.errors[:date_electronic_withdrawal]).to include I18n.t("errors.attributes.nc_withdrawal_date.post_five_pm")
+      end
+    end
+
+    context "when it's 4:59pm EST and withdrawal date is less than 2 business days from today" do
+      let(:app_time) { DateTime.new(current_year, 3, 15, 20, 59, 0) } # UTC offset = -4; March 15th is DST
+      let(:withdrawal_month) { 3 }
+      let(:withdrawal_day) { 18 } # the following Monday
+
+      it "is valid" do
+        form = described_class.new(intake, params)
+        expect(form).to be_valid
       end
     end
 
