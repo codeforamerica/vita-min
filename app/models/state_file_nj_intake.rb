@@ -221,7 +221,9 @@ class StateFileNjIntake < StateFileBaseIntake
 
   def validate_state_specific_w2_requirements(w2)
     super
-    if w2.wages.positive? && (w2.state_wages_amount.nil? || w2.state_wages_amount <= 0)
+    if w2.wages.positive? && 
+       (w2.state_wages_amount.nil? || w2.state_wages_amount <= 0) && 
+       !w2.taxpayer_reviewed
       w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
     end
   end

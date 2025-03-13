@@ -305,6 +305,23 @@ RSpec.describe StateFileNjIntake, type: :model do
       expect(w2).to be_valid
       expect(w2.errors[:state_wages_amount]).not_to be_present
     end
+
+    it "permits state_wages_amount to be 0 if w2.WagesAmt is non-zero and taxpayer has reviewed the w2" do
+      w2.taxpayer_reviewed = true
+      w2.state_wages_amount = 0
+      w2.state_income_tax_amount = 0
+      intake.validate_state_specific_w2_requirements(w2)
+      expect(w2.errors[:state_wages_amount]).not_to be_present
+      expect(w2.valid?(:state_file_income_review)).to eq true
+    end
+
+    it "does not permit state_wages_amount to be 0 if w2.WagesAmt is non-zero and taxpayer has not reviewed the w2" do
+      w2.taxpayer_reviewed = false
+      w2.state_wages_amount = 0
+      intake.validate_state_specific_w2_requirements(w2)
+      expect(w2.errors[:state_wages_amount]).to be_present
+      expect(w2.valid?(:state_file_edit)).to eq false
+    end
   end
 
   describe "#medical_expenses_threshold" do

@@ -29,7 +29,7 @@
 #  index_state_file_w2s_on_state_file_intake  (state_file_intake_type,state_file_intake_id)
 #
 class StateFileW2 < ApplicationRecord
-  attr_accessor :check_box14_limits
+  attr_accessor :check_box14_limits, :taxpayer_reviewed
 
   include XmlMethods
   STATE_TAX_GRP_TEMPLATE = <<~XML
@@ -124,10 +124,8 @@ class StateFileW2 < ApplicationRecord
           errors.add(:local_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
           errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
         end
-      else
-        if state_income_tax_amount.present? && state_income_tax_amount > w2.WagesAmt
-          errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
-        end
+      elsif state_income_tax_amount.present? && state_income_tax_amount > w2.WagesAmt
+        errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
       end
     end
   end
@@ -174,7 +172,7 @@ class StateFileW2 < ApplicationRecord
 
   def supported_box14_codes
     box14_codes = StateFile::StateInformationService.w2_supported_box14_codes(state_file_intake.state_code)
-    box14_codes.map{ |code| code[:name] }
+    box14_codes.map { |code| code[:name] }
   end
 
   def validate_box14_limits

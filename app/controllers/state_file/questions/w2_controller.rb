@@ -23,10 +23,13 @@ module StateFile
       def update
         @w2.assign_attributes(form_params)
         @w2.check_box14_limits = true
+        @w2.taxpayer_reviewed = true
+        @w2.errors.clear
 
         if @w2.valid?(:state_file_edit)
           @w2.box14_ui_hc_wd = nil
-          @w2.save(context: :state_file_edit)
+          @w2.save(context: [:state_file_edit, :state_file_income_review])
+          binding.pry # w2 is valid in both contexts here, taxpayer_reviewed is true
           redirect_to StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else
           render :edit

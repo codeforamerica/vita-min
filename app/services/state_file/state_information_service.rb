@@ -92,6 +92,7 @@ module StateFile
         voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
         w2_supported_box14_codes: [],
+        check_box_16: false,
         w2_include_local_income_boxes: false
       },
       id: {
@@ -119,6 +120,7 @@ module StateFile
         voucher_form_name: "Form ID-VP",
         voucher_path: "/pdfs/idformIDVP-TY2024.pdf",
         w2_supported_box14_codes: [],
+        check_box_16: false,
         w2_include_local_income_boxes: false
       },
       md: {
@@ -147,6 +149,7 @@ module StateFile
         voucher_form_name: "Form PV",
         voucher_path: "/pdfs/md-pv-TY2024.pdf",
         w2_supported_box14_codes: [{name: "STPICKUP"}],
+        check_box_16: false,
         w2_include_local_income_boxes: true
       },
       nc: {
@@ -174,6 +177,7 @@ module StateFile
         voucher_form_name: "Form D-400V",
         voucher_path: "https://eservices.dor.nc.gov/vouchers/d400v.jsp?year=2024",
         w2_supported_box14_codes: [],
+        check_box_16: false,
         w2_include_local_income_boxes: false
       },
       nj: {
@@ -202,6 +206,7 @@ module StateFile
         voucher_form_name: "NJ-1040-V (NJ Gross Income Tax Resident Payment Voucher)",
         voucher_path: "/pdfs/nj1040v-TY2024.pdf",
         w2_supported_box14_codes: [{name: "UI_WF_SWF", limit: 180}, {name: "FLI", limit: 145.26}],
+        check_box_16: true,
         w2_include_local_income_boxes: false
       },
       ny: {
@@ -230,6 +235,7 @@ module StateFile
         voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
         w2_supported_box14_codes: [],
+        check_box_16: false,
         w2_include_local_income_boxes: false
       }
     }.with_indifferent_access)

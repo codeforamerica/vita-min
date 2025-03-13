@@ -93,8 +93,35 @@ RSpec.describe StateFile::Questions::W2Controller do
         expect(state_file_w2.local_wages_and_tips_amount).to eq 40
         expect(state_file_w2.local_income_tax_amount).to eq 30
         expect(state_file_w2.locality_nm).to eq "BOOPVILLE"
+        expect(state_file_w2.taxpayer_reviewed).to eq true
 
         expect(response).to redirect_to(StateFile::Questions::IncomeReviewController.to_path_helper)
+      end
+
+      context "with NJ state wages amount error" do
+        let(:intake) { create(:state_file_nj_intake) }
+        let!(:state_file_w2) { create :state_file_w2, state_file_intake: intake, box14_ui_hc_wd: 10 }
+        let(:params) do
+          {
+            id: state_file_w2.id,
+            state_file_w2: {
+              employer_state_id_num: "12345",
+              state_wages_amount: 0,
+              state_income_tax_amount: 0,
+              box14_ui_wf_swf: 0,
+              box14_fli: 0
+            }
+          }
+        end
+        before do
+          state_file_w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
+        end
+
+        it "removes the state_wages_amount error when user updates the page" do
+          post :update, params: params
+          binding.pry # after the update action is complete, w2.taxpayer_reviewed is nil here
+          expect(state_file_w2.reload.errors).to eq []
+        end
       end
 
       context "with MD Box 14 fields" do

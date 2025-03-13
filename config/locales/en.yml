@@ -4306,6 +4306,8 @@ en:
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
+          nj_box_16_warning: Are you sure box 16 is $0 on every copy of your W-2? To avoid any issues or penalties, please review.
+          nj_box_16_helper_text: On your transferred federal return, you entered $0. Confirm this is accurate by checking box 16 is $0 on every copy of your W-2.
           what_is_box14_md: What could be in Box 14?
           what_is_box14_nj: What should I put in these Box 14 fields?
       waiting_to_load_data:
