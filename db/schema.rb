@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_04_145229) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_12_001141) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1757,6 +1757,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_04_145229) do
   end
 
   create_table "state_file_analytics", force: :cascade do |t|
+    t.integer "az_credit_for_contributions_to_public_schools"
+    t.integer "az_credit_for_contributions_to_qcos"
     t.integer "canceled_data_transfer_count", default: 0
     t.datetime "created_at", null: false
     t.integer "dependent_tax_credit"

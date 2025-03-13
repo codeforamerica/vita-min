@@ -86,7 +86,9 @@ module Efile
         {
           dependent_tax_credit: line_or_zero(:AZ140_LINE_49),
           family_income_tax_credit: line_or_zero(:AZ140_LINE_50),
-          excise_credit: line_or_zero(:AZ140_LINE_56)
+          excise_credit: line_or_zero(:AZ140_LINE_56),
+          az_credit_for_contributions_to_qcos: line_or_zero(:AZ301_LINE_6a),
+          az_credit_for_contributions_to_public_schools: line_or_zero(:AZ301_LINE_7a)
         }
       end
 
