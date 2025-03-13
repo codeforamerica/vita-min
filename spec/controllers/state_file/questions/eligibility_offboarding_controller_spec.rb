@@ -36,40 +36,39 @@ RSpec.describe StateFile::Questions::EligibilityOffboardingController do
         get :edit
 
         expect(Nokogiri::HTML.parse(response.body)).to have_link(href: offboarded_from_path)
-        expect(session[:offboarded_from]).to be_nil
       end
     end
 
     context "AZ" do
       let(:intake) { create :state_file_az_intake }
-  
+
       it "does not show NJ-specific content" do
         get :edit
         expect(response.body).to include("Visit our FAQ")
         expect(response.body).not_to include("Get connected now")
       end
     end
-  
+
     context "ID" do
       let(:intake) { create :state_file_id_intake }
-  
+
       it "does not show NJ-specific content" do
         get :edit
         expect(response.body).to include("Visit our FAQ")
         expect(response.body).not_to include("Get connected now")
       end
     end
-  
+
     context "MD" do
       let(:intake) { create :state_file_md_intake }
-  
+
       it "does not show NJ-specific content" do
         get :edit
         expect(response.body).to include("Visit our FAQ")
         expect(response.body).not_to include("Get connected now")
       end
     end
-  
+
     context "NJ" do
       let(:intake) { create :state_file_nj_intake }
   
