@@ -2,10 +2,11 @@ require "rails_helper"
 
 RSpec.describe Hub::UserNotificationsController, type: :controller do
   let(:user) { create :team_member_user }
-  let!(:notification_first) { create :user_notification, user: user, read: false, created_at: DateTime.new(2021, 3, 11, 8, 1).utc }
-  let!(:notification_second) { create :user_notification, user: user, read: false, created_at: DateTime.new(2021, 3, 12, 8, 1).utc }
-  let!(:notification_third) { create :user_notification, user: user, read: true, created_at: DateTime.new(2021, 3, 13, 8, 1).utc }
-  let!(:other_notification) { create :user_notification, user: create(:user), read: false, created_at: DateTime.new(2021, 3, 13, 8, 1).utc }
+  let!(:notification_first) { create :user_notification, user: user, read: false, created_at: DateTime.new(Rails.configuration.product_year, 3, 11, 8, 1).utc }
+  let!(:notification_second) { create :user_notification, user: user, read: false, created_at: DateTime.new(Rails.configuration.product_year, 3, 12, 8, 1).utc }
+  let!(:notification_third) { create :user_notification, user: user, read: true, created_at: DateTime.new(Rails.configuration.product_year, 3, 13, 8, 1).utc }
+  let!(:other_notification) { create :user_notification, user: create(:user), read: false, created_at: DateTime.new(Rails.configuration.product_year, 3, 13, 8, 1).utc }
+  let!(:past_year_notification) { create :user_notification, user: user, read: false, created_at: DateTime.new(2024, 3, 13, 8, 1).utc }
 
   describe "#index" do
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
@@ -19,6 +20,7 @@ RSpec.describe Hub::UserNotificationsController, type: :controller do
 
         expect(response).to be_ok
         expect(assigns(:user_notifications)).not_to include other_notification
+        expect(assigns(:user_notifications)).not_to include past_year_notification
         expect(assigns(:user_notifications)).to eq [notification_third, notification_second, notification_first]
       end
 
