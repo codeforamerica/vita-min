@@ -72,8 +72,8 @@
         <hr style="margin: 5px;"/>
 
         <!-- NOTES PART 1 -->
-        <div class="grid" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_input_field(:cv_14c_page_3_notes_part_1, "Notes/Comments", classes: ["form-width--long"]) %>
+        <div class="additional-notes spacing-below-15">
+          <%= f.cfa_textarea :cv_14c_page_3_notes_part_1, "Notes/Comments" %>
         </div>
 
         <!-- *********************************** SECTION TWO ******************************** -->
@@ -151,8 +151,8 @@
         <hr style="margin: 5px;"/>
 
         <!-- NOTES PART 2 -->
-        <div class="grid" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_input_field(:cv_14c_page_3_notes_part_2, "Notes/Comments", classes: ["form-width--long"]) %>
+        <div class="additional-notes spacing-below-15">
+          <%= f.cfa_textarea :cv_14c_page_3_notes_part_2, "Notes/Comments" %>
         </div>
 
         <!-- *********************************** SECTION THREE ******************************** -->
@@ -329,9 +329,10 @@ child tax credit, or American opportunity credit)", yes_no_options_for_select) %
         <hr style="margin: 5px;"/>
 
         <!-- NOTES PART 3 -->
-        <div class="grid" style="background-color:#e5e5e5; padding: 10px; display: block; align-items: flex-start; justify-content: space-between; margin-bottom: 20px;">
-            <%= f.cfa_input_field(:cv_14c_page_3_notes_part_3, "Notes/Comments", classes: ["form-width--long"]) %>
+        <div class="additional-notes spacing-below-15">
+          <%= f.cfa_textarea :cv_14c_page_3_notes_part_3, "Notes/Comments" %>
         </div>
+
       </div>
 
       <div style="display: flex; justify-content: space-between;">
