@@ -2697,7 +2697,9 @@ en:
           sub10: Senior Tax Credit
           sub11: State and local Poverty Level Credits
           sub12: Credit for Child and Dependent Care Expenses
-          sub2: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
+          sub2:
+            one: Pension exclusion (if you are 65 years or older, or if you are under 65 and previously qualified for the exclusion based on a permanent disability)
+            other: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
           sub3: Military retirement
           sub4: Public safety retirement
           sub5: Taxable Social Security and Railroad Retirement benefits
