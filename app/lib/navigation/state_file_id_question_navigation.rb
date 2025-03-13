@@ -34,6 +34,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::IdDisabilityController),
         Navigation::NavigationStep.new(StateFile::Questions::IdRetirementAndPensionIncomeController),
+        Navigation::NavigationStep.new(StateFile::Questions::IdRetirementSecondController),
         Navigation::NavigationStep.new(StateFile::Questions::IdHealthInsurancePremiumController),
         Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditController),
         Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditReviewController),

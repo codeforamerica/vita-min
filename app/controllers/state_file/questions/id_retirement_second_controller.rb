@@ -1,26 +1,22 @@
 module StateFile
   module Questions
-    class IdRetirementAndPensionIncomeController < RetirementIncomeSubtractionController
+    class IdRetirementSecondController < RetirementIncomeSubtractionController
       def self.show?(intake)
-        super && !intake.filing_status_mfs?
+        false
       end
 
       private
 
-      def index_increment
+      def index_decrement
         0
       end
 
       def prev_question_controller_class
-        IdRetirementSecondController
+        IdRetirementAndPensionIncomeController
       end
 
       def next_question_controller_class
-        # if @state_file_1099r.has_some_condition
-          IdRetirementSecondController
-        # else
-        #   super
-        # end
+        IdRetirementAndPensionIncomeController
       end
 
       def review_all_items_before_returning_to_review

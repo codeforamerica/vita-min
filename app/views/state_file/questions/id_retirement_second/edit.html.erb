@@ -1,0 +1,17 @@
+<%
+  title = "hello second 1099r page ok"
+  content_for :page_title, title
+%>
+
+<% content_for :card do %>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+
+    <% if params[:return_to_review].present? %>
+      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
+    <% end %>
+    <% if params[:index].present? %>
+      <%= hidden_field_tag "index", params[:index] %>
+    <% end %>
+    <%= f.continue %>
+  <% end %>
+<% end %>
