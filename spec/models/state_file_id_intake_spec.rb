@@ -417,6 +417,46 @@ RSpec.describe StateFileIdIntake, type: :model do
     end
   end
 
+  describe "show_mfj_disability_options?" do
+    let(:filing_status) { "married_filing_jointly" }
+    let(:all_filers_between) { true }
+    let(:intake) { create(:state_file_id_intake, filing_status: filing_status) }
+    before do
+      allow(intake).to receive(:all_filers_between_62_and_65_years_old?).and_return(all_filers_between)
+    end
+
+    context "mfj and all filers between 62-65" do
+      it "is true" do
+        expect(intake.show_mfj_disability_options?).to eq true
+      end
+    end
+
+    context "mfj and not all filers between 62-65" do
+      let(:all_filers_between) { false }
+
+      it "is false" do
+        expect(intake.show_mfj_disability_options?).to eq false
+      end
+    end
+
+    context "not mfj and all filers between 62-65" do
+      let(:filing_status) { "single" }
+
+      it "is false" do
+        expect(intake.show_mfj_disability_options?).to eq false
+      end
+    end
+
+    context "not mfj and not all filers between 62-65" do
+      let(:filing_status) { "head_of_household" }
+      let(:all_filers_between) { false}
+
+      it "is false" do
+        expect(intake.show_mfj_disability_options?).to eq false
+      end
+    end
+  end
+
   context "when married filing jointly" do
     let(:intake) { create :state_file_id_intake, :mfj_filer_with_json}
     let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 25) }

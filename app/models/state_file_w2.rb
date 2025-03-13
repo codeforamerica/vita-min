@@ -30,7 +30,6 @@
 #
 class StateFileW2 < ApplicationRecord
   attr_accessor :check_box14_limits
-  self.ignored_columns = %w[state_wages_amt state_income_tax_amt local_wages_and_tips_amt local_income_tax_amt]
 
   include XmlMethods
   STATE_TAX_GRP_TEMPLATE = <<~XML

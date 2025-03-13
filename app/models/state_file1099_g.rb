@@ -30,7 +30,6 @@
 #  index_state_file1099_gs_on_intake  (intake_type,intake_id)
 #
 class StateFile1099G < ApplicationRecord
-  self.ignored_columns = %w[unemployment_compensation federal_income_tax_withheld state_income_tax_withheld]
   belongs_to :intake, polymorphic: true
   before_validation :update_conditional_attributes
   auto_strip_attributes :payer_name, :payer_street_address, :payer_city, :payer_zip, :recipient_street_address, :recipient_street_address_apartment, :recipient_city, :recipient_zip

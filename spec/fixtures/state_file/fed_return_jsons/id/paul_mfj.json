@@ -5,7 +5,6 @@
       "firstName": "Paul",
       "middleInitial": "S",
       "lastName": "Revere",
-      "suffix": "JR",
       "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": true,
       "tin": "400-00-0030"
@@ -14,7 +13,6 @@
       "firstName": "Sydney",
       "middleInitial": null,
       "lastName": "Revere",
-      "suffix": "SR",
       "dateOfBirth": "1980-01-01",
       "isPrimaryFiler": false,
       "tin": "600-00-0030"
