@@ -16,7 +16,7 @@ RSpec.describe "Filtering clients for bulk actions", active_job: true do
 
     visit hub_clients_path
 
-    fill_in_tagify('.multi-select-vita-partner', "Orange Organization").native.send_keys(:return)
+    fill_in_tagify('.multi-select-vita-partner', "Orange Organization")
     click_on "Filter results"
 
     find("#bulk-edit-select-all").click

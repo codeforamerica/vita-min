@@ -65,31 +65,28 @@ export function initMultiSelectVitaPartner() {
     });
 
     input.addEventListener("change", (event) => {
-
+        // extracts just the vita partner ids and stores in hidden field
         let { value } = event.target;
         if (value) {
             value = JSON.stringify(JSON.parse(event.target.value).map(v => v.id));
         }
 
-        const hiddenInput = document.querySelector("#vita_partners");
-        if (hiddenInput) {
-            hiddenInput.value = value;
+        const hiddenField = document.querySelector("#vita_partners");
+        if (hiddenField) {
+            hiddenField.value = value;
         }
     });
 
     const clickableContainer = document.querySelector(".tagify-clickable-dropdown-wrapper");
-
     if (clickableContainer) {
         clickableContainer.addEventListener("click", (event) => {
             event.stopPropagation();
-
             if (tagify.state.dropdown.visible) {
                 tagify.dropdown.hide();
             } else {
                 tagify.dropdown.show();
             }
         });
-
         document.addEventListener("click", (event) => {
             if (!clickableContainer.contains(event.target) && tagify.state.dropdown.visible) {
                 tagify.dropdown.hide();
