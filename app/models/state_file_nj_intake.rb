@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
+#  confirmed_w2_indexes                                   :integer          default([]), is an Array
 #  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
@@ -223,7 +224,7 @@ class StateFileNjIntake < StateFileBaseIntake
     super
     if w2.wages.positive? && 
        (w2.state_wages_amount.nil? || w2.state_wages_amount <= 0) && 
-       !w2.taxpayer_reviewed
+       !confirmed_w2_indexes.include?(w2.w2_index)
       w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
     end
   end

@@ -25,6 +25,7 @@ module StateFile
       :voucher_form_name,
       :voucher_path,
       :w2_supported_box14_codes,
+      :check_box_16,
       :w2_include_local_income_boxes,
     ].freeze
 

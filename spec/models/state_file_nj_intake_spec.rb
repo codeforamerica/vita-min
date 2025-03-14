@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
+#  confirmed_w2_indexes                                   :integer          default([]), is an Array
 #  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
@@ -284,7 +285,6 @@ RSpec.describe StateFileNjIntake, type: :model do
   end
 
   describe "#validate_state_specific_w2_requirements" do
-    let(:intake) { create :state_file_nj_intake }
     let(:w2) {
       create(:state_file_w2,
              employer_state_id_num: "001245788",
@@ -298,29 +298,36 @@ RSpec.describe StateFileNjIntake, type: :model do
              w2_index: 0
       )
     }
+    context "taxpayer has not reviewed the w2" do
+      let(:intake) { create :state_file_nj_intake }
 
-    it "permits state_wages_amount to be greater than w2.WagesAmt" do
-      w2.state_wages_amount = 1000000
-      intake.validate_state_specific_w2_requirements(w2)
-      expect(w2).to be_valid
-      expect(w2.errors[:state_wages_amount]).not_to be_present
+      it "permits state_wages_amount to be greater than w2.WagesAmt" do
+        w2.state_wages_amount = 1000000
+        intake.validate_state_specific_w2_requirements(w2)
+        expect(w2).to be_valid
+        expect(w2.errors[:state_wages_amount]).not_to be_present
+      end
+
+      it "does not permit state_wages_amount to be 0 if w2.WagesAmt is non-zero and taxpayer has not reviewed the w2" do
+        w2.taxpayer_reviewed = false
+        w2.state_wages_amount = 0
+        intake.validate_state_specific_w2_requirements(w2)
+        expect(w2.errors[:state_wages_amount]).to be_present
+        expect(w2.valid?(:state_file_edit)).to eq false
+      end
     end
 
-    it "permits state_wages_amount to be 0 if w2.WagesAmt is non-zero and taxpayer has reviewed the w2" do
-      w2.taxpayer_reviewed = true
-      w2.state_wages_amount = 0
-      w2.state_income_tax_amount = 0
-      intake.validate_state_specific_w2_requirements(w2)
-      expect(w2.errors[:state_wages_amount]).not_to be_present
-      expect(w2.valid?(:state_file_income_review)).to eq true
-    end
+    context "taxpayer has reviewed the w2" do
+      let(:intake) { create :state_file_nj_intake, confirmed_w2_indexes: [0]}
 
-    it "does not permit state_wages_amount to be 0 if w2.WagesAmt is non-zero and taxpayer has not reviewed the w2" do
-      w2.taxpayer_reviewed = false
-      w2.state_wages_amount = 0
-      intake.validate_state_specific_w2_requirements(w2)
-      expect(w2.errors[:state_wages_amount]).to be_present
-      expect(w2.valid?(:state_file_edit)).to eq false
+      it "permits state_wages_amount to be 0 if w2.WagesAmt is non-zero" do
+        w2.taxpayer_reviewed = true
+        w2.state_wages_amount = 0
+        w2.state_income_tax_amount = 0
+        intake.validate_state_specific_w2_requirements(w2)
+        expect(w2.errors[:state_wages_amount]).not_to be_present
+        expect(w2.valid?(:state_file_income_review)).to eq true
+      end
     end
   end
 
