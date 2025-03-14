@@ -303,7 +303,7 @@ RSpec.describe StateFileNjIntake, type: :model do
     context "taxpayer has not reviewed the w2" do
 
       it "does not permit state_wages_amount to be 0 if federal wages is non-zero" do
-        w2.taxpayer_reviewed = false
+        intake.confirmed_w2_ids = []
         w2.state_wages_amount = 0
         intake.validate_state_specific_w2_requirements(w2)
         expect(w2.errors[:state_wages_amount]).to be_present
@@ -316,7 +316,6 @@ RSpec.describe StateFileNjIntake, type: :model do
         intake.confirmed_w2_ids = [w2.id]
       end
       it "permits state_wages_amount to be 0 if federal wages is non-zero" do
-        w2.taxpayer_reviewed = true
         w2.state_wages_amount = 0
         w2.state_income_tax_amount = 0
         intake.validate_state_specific_w2_requirements(w2)
