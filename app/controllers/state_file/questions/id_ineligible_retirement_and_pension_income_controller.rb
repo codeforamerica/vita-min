@@ -18,6 +18,11 @@ module StateFile
         current_intake.touch(:clicked_to_file_with_other_service_at)
       end
 
+      def continue_filing
+        current_intake.update(clicked_to_file_with_other_service_at: nil)
+        redirect_to next_path
+      end
+
       private
 
       def index_decrement
