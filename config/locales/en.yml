@@ -3052,23 +3052,23 @@ en:
           what_is_title: What is a health insurance premium?
       id_ineligible_retirement_and_pension_income:
         edit:
-          how_much_title: How much money is the deduction?
-          how_much_content: The total amount paid by the US Civil Service Retirement System (CSRS) for this 1099-R would reduce the amount of retirement income you are taxed on.
-          how_much_b1: To find this amount, refer to the Notice of Annuity Adjustment that you received from the Office of Personnel Management
-          how_much_b2_html: "If you do not have your Notice of Annuity Adjustment visit: <a href='https://www.servicesonline.opm.gov/' target='_blank' rel='noopener noreferrer'>https://www.servicesonline.opm.gov/</a>"
           another_service: Fie With Another Service
           file_without_claiming: File Without Claiming
+          go_back: go back to correct.
+          how_much_b1: To find this amount, refer to the Notice of Annuity Adjustment that you received from the Office of Personnel Management
+          how_much_b2_html: 'If you do not have your Notice of Annuity Adjustment visit: <a href=''https://www.servicesonline.opm.gov/'' target=''_blank'' rel=''noopener noreferrer''>https://www.servicesonline.opm.gov/</a>'
+          how_much_content: The total amount paid by the US Civil Service Retirement System (CSRS) for this 1099-R would reduce the amount of retirement income you are taxed on.
+          how_much_title: How much money is the deduction?
           subtitle: You answered that your %{sample_name} 1099-R for %{taxpayer_name} account number starts with an 8.
           subtitle_html: "<b>Our service doesn’t support this type of account right now.</b> If this was a mistake, "
-          go_back: go back to correct.
           title: Unfortunately, we don't support your 1099-R account type for claiming the Idaho retirement income deduction
           warning_1: Your taxes owed/refund amount will be affected if you continue without claiming the deduction for this 1099-R.
           warning_2: To claim this deduction you will need to use a different tax service. It could take up to 3 weeks to file.
         file_with_another_service:
           continue_filing: Continue filing with this service.
-          title: Here are some other filing services you can use to claim the Idaho retirement income deduction
           subtitle_1: You cannot continue filing with FileYourStateTaxes because you would like to claim the Idaho retirement income deduction, and we do not support your account type
           subtitle_2: Want to file without claiming this deduction?
+          title: Here are some other filing services you can use to claim the Idaho retirement income deduction
           vita_service: You can still file a free state tax return using the IRS VITA service.
       id_permanent_building_fund:
         edit:

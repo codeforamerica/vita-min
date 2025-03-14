@@ -3021,13 +3021,24 @@ es:
           what_is_title: "¿Qué es una prima de seguro médico?"
       id_ineligible_retirement_and_pension_income:
         edit:
-          another_service: Archivo con otro servicio
-          file_without_claiming: Archivo sin reclamar
-          subtitle: Usted respondió que su número de cuenta 1099-R %{sample_name} para %{taxpayer_name} comienza con un 8.
-          subtitle_html: "<b>Nuestro servicio no admite este tipo de cuenta en este momento.</b> Si esto fue un error, regrese para corregirlo."
-          title: Desafortunadamente, no admitimos su tipo de cuenta 1099-R para reclamar la deducción de ingresos por jubilación de Idaho
+          another_service: Presentar Con Otro Servicio
+          file_without_claiming: Presentar Sin Reclamar
+          go_back: regrese para corregir.
+          how_much_b1: Para encontrar esta cantidad, consulte el Aviso de Ajuste de Anualidad que recibió de la Oficina de Administración de Personal
+          how_much_b2_html: 'Si no tiene su Aviso de Ajuste de Anualidad, visite: <a href=''https://www.servicesonline.opm.gov/'' target=''_blank'' rel=''noopener noreferrer''>https://www.servicesonline.opm.gov/</a>'
+          how_much_content: El monto total pagado por el Sistema de Jubilación del Servicio Civil de EE. UU. (CSRS) para este 1099-R reduciría la cantidad de ingresos de jubilación sobre los que se le grava.
+          how_much_title: "¿Cuánto dinero es la deducción?"
+          subtitle: Respondió que el número de cuenta de su 1099-R %{sample_name} para %{taxpayer_name} comienza con un 8.
+          subtitle_html: "<b>Nuestro servicio no admite este tipo de cuenta en este momento.</b> Si esto fue un error, "
+          title: Desafortunadamente, no admitimos su tipo de cuenta 1099-R para reclamar la deducción de ingresos de jubilación de Idaho
           warning_1: Su cantidad de impuestos adeudados/reembolso se verá afectada si continúa sin reclamar la deducción para este 1099-R.
-          warning_2: Para reclamar esta deducción, necesitará usar un servicio de impuestos diferente. Podría tomar hasta 3 semanas para presentar la declaración.
+          warning_2: Para reclamar esta deducción, deberá utilizar un servicio de impuestos diferente. Podría tomar hasta 3 semanas para presentar.
+        file_with_another_service:
+          continue_filing: Continuar presentando con este servicio.
+          subtitle_1: No puede continuar presentando con FileYourStateTaxes porque desea reclamar la deducción de ingresos de jubilación de Idaho, y no admitimos su tipo de cuenta
+          subtitle_2: "¿Desea presentar sin reclamar esta deducción?"
+          title: Aquí hay otros servicios de presentación que puede utilizar para reclamar la deducción de ingresos de jubilación de Idaho
+          vita_service: Todavía puede presentar una declaración de impuestos estatales gratuita utilizando el servicio VITA del IRS.
       id_permanent_building_fund:
         edit:
           receive_public_assistance_explanation: Los pagos de asistencia pública no incluyen cupones de alimentos ni pagos de WIC.
