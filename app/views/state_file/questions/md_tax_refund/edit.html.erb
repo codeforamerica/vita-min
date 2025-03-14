@@ -27,7 +27,7 @@
       <div class="question-with-follow-up__follow-up" id="deposit-to-bank">
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
-            <%= render 'state_file/questions/md_tax_refund/md_bank_details', form: f, owe_taxes: false %>
+            <%= render partial: 'state_file/questions/md_tax_refund/md_bank_details', locals: { form: f, owe_taxes: false } %>
           </div>
           <%= f.cfa_checkbox(:bank_authorization_confirmed, t(".bank_authorization_confirmation"), options: { checked_value: "yes", unchecked_value: "no" }) %>
         </div>
