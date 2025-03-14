@@ -70,6 +70,18 @@ RSpec.describe StateFile::Questions::IdRetirementAndPensionIncomeController do
         expect(response).to be_successful
       end
 
+
+      context "when a user clicks to offboard but clicks back to continues again filing" do
+        before do
+          intake.clicked_to_file_with_other_service_at = DateTime.now
+          intake.save
+        end
+        it "resets the clicked_to_file_with_other_service_at to nil" do
+          get :edit
+          expect(intake.reload.clicked_to_file_with_other_service_at).to eq nil
+        end
+      end
+
       context "when an index is not provided" do
         it "renders the data for the first eligible 1099R" do
           get :edit
