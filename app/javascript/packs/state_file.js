@@ -64,11 +64,3 @@ if (actionMap[controllerAction]) {
   const { channelName, channelEvents } = actionMap[controllerAction]
   createConsumer().subscriptions.create(channelName, channelEvents)
 }
-
-window.addEventListener("pageshow", function(event) {
-  console.log("Re-subscribing to ActionCable channel after back navigation");
-  if (actionMap[controllerAction]) {
-    const { channelName, channelEvents } = actionMap[controllerAction];
-    createConsumer().subscriptions.create(channelName, channelEvents);
-  }
-});
