@@ -243,7 +243,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # estimated tax payments
       expect(page).to be_axe_clean
-      fill_in I18n.t('state_file.questions.nj_estimated_tax_payments.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
+      choose I18n.t('general.affirmative')
+      fill_in I18n.t('state_file.questions.nj_estimated_tax_payments.edit.input_label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
+      continue
+
+      # overpayments
+      expect(page).to be_axe_clean
+      choose I18n.t('general.affirmative')
+      fill_in I18n.t('state_file.questions.nj_estimated_tax_payments.edit.input_label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
       continue
 
       # Driver License
@@ -285,7 +292,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # Tax Refund
       expect(page).to be_axe_clean
-      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 4619, state_name: "New Jersey"))
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 5619, state_name: "New Jersey"))
       choose I18n.t('state_file.questions.tax_refund.edit.mail')
       continue
 
