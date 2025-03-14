@@ -95,7 +95,7 @@ RSpec.describe StateFile::Questions::W2Controller do
           state_file_w2.valid?(:state_file_edit)
           expect(intake.reload.confirmed_w2_ids).to eq [state_file_w2.id]
           expect(state_file_w2.errors).not_to include(:state_wages_amount)
-          expect(response.body).to have_text(I18n.t("state_file.questions.w2.edit.nj_box_16_warning"))
+          expect(response.body).to have_text(I18n.t("state_file.questions.w2.edit.box16_warning_nj"))
         end
       end
 
@@ -110,7 +110,7 @@ RSpec.describe StateFile::Questions::W2Controller do
           get :edit, params: params
           expect(intake.reload.confirmed_w2_ids).to eq [state_file_w2.id]
           expect(state_file_w2.errors).not_to include(:state_wages_amount)
-          expect(response.body).not_to have_text(I18n.t("state_file.questions.w2.edit.nj_box_16_warning"))
+          expect(response.body).not_to have_text(I18n.t("state_file.questions.w2.edit.box16_warning_nj"))
         end
       end
 

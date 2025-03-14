@@ -4292,6 +4292,7 @@ en:
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box15_html: "<strong>Box 15,</strong> Employer’s state ID number"
           box16_html: "<strong>Box 16,</strong> State wages, tips, etc."
+          box16_warning_nj: 'Warning: If this is incorrect, you could end up underpaying state taxes. If box 16 has a number in it, enter that number here. If it''s blank or 0, click "Chat with us" and let''s make sure this is correct.'
           box17_html: "<strong>Box 17,</strong> State income tax"
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"
@@ -4306,7 +4307,6 @@ en:
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
-          nj_box_16_warning: ⚠️ If Box 16 has a number in it, enter that number here. If it's blank or 0, click "Chat with us" and let's make sure this is correct.
           what_is_box14_md: What could be in Box 14?
           what_is_box14_nj: What should I put in these Box 14 fields?
       waiting_to_load_data:
