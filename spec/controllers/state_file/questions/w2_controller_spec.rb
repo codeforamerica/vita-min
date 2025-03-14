@@ -75,6 +75,74 @@ RSpec.describe StateFile::Questions::W2Controller do
 
       expect(response.body).to include(state_file_w2.employer_state_id_num)
     end
+
+    context "NJ intake" do
+      let(:intake) { create(:state_file_nj_intake) }
+      let!(:state_file_w2) { create :state_file_w2, state_file_intake: intake, box14_ui_hc_wd: 10 }
+
+      context "with NJ invalid state wages" do
+        before do
+          allow_any_instance_of(StateFileNjIntake).to receive(:state_wages_invalid?).and_return true
+          
+        end
+
+        it "adds w2 index to the list of verified W2s and removes the state_wages_amount error when user opens the page" do
+          expect(state_file_w2.valid?(:state_file_edit)).to eq false
+          expect(intake.confirmed_w2_ids.size).to eq 0
+          expect(state_file_w2.errors).to include(:state_wages_amount)
+          get :edit, params: params
+          state_file_w2.reload
+          state_file_w2.valid?(:state_file_edit)
+          expect(intake.reload.confirmed_w2_ids).to eq [state_file_w2.id]
+          expect(state_file_w2.errors).not_to include(:state_wages_amount)
+          expect(response.body).to have_text(I18n.t("state_file.questions.w2.edit.box16_warning_nj"))
+        end
+      end
+
+      context "with NJ valid state wages" do
+        before do
+          allow_any_instance_of(StateFileNjIntake).to receive(:state_wages_invalid?).and_return false
+        end
+
+        it "adds w2 id to the list of verified W2s" do
+          expect(intake.confirmed_w2_ids.size).to eq 0
+          expect(state_file_w2.errors).not_to include(:state_wages_amount)
+          get :edit, params: params
+          expect(intake.reload.confirmed_w2_ids).to eq [state_file_w2.id]
+          expect(state_file_w2.errors).not_to include(:state_wages_amount)
+          expect(response.body).not_to have_text(I18n.t("state_file.questions.w2.edit.box16_warning_nj"))
+        end
+      end
+
+    end
+
+    context "non NJ intake" do
+      StateFile::StateInformationService.active_state_codes.excluding("nj").each do |state_code|
+        let(:intake) { create("state_file_#{state_code}_intake".to_sym) }
+        let!(:state_file_w2) { create :state_file_w2, state_file_intake: intake, box14_ui_hc_wd: 10 }
+        let(:params) do
+          {
+            id: state_file_w2.id,
+            state_file_w2: {
+              employer_state_id_num: "12345",
+              box14_stpickup: 230,
+              wages: 100,
+              state_wages_amount: 0,
+              state_income_tax_amount: 0,
+              local_wages_and_tips_amount: 40,
+              local_income_tax_amount: 0,
+              locality_nm: "Boopville"
+            }
+          }
+        end
+  
+        it "does not show an error if state wages is 0 and federal wages is nonzero" do
+          get :edit, params: params
+          expect(subject.state_wages_invalid?).to eq false
+          expect(state_file_w2.errors).not_to include(:state_wages_amount)
+        end
+      end
+    end
   end
 
   describe "#update" do

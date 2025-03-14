@@ -5,6 +5,7 @@ module StateFile
     GETTER_METHODS = [
       :intake_class,
       :calculator_class,
+      :check_box_16,
       :filing_years,
       :mail_voucher_address,
       :navigation_class,
@@ -70,6 +71,7 @@ module StateFile
       az: {
         intake_class: StateFileAzIntake,
         calculator_class: Efile::Az::Az140Calculator,
+        check_box_16: false,
         filing_years: [2024, 2023],
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
                               "PO Box 29085<br/>" \
@@ -97,6 +99,7 @@ module StateFile
       id: {
         intake_class: StateFileIdIntake,
         calculator_class: Efile::Id::Id40Calculator,
+        check_box_16: false,
         filing_years: [2024],
         mail_voucher_address: "Idaho State Tax Commission<br/>" \
                               "PO Box 83784<br/>" \
@@ -124,6 +127,7 @@ module StateFile
       md: {
         intake_class: StateFileMdIntake,
         calculator_class: Efile::Md::Md502Calculator,
+        check_box_16: false,
         filing_years: [2024],
         mail_voucher_address: "Comptroller of Maryland<br/>" \
                               "Payment Processing<br/>" \
@@ -152,6 +156,7 @@ module StateFile
       nc: {
         intake_class: StateFileNcIntake,
         calculator_class: Efile::Nc::D400Calculator,
+        check_box_16: false,
         filing_years: [2024],
         mail_voucher_address: "North Carolina Department of Revenue<br/>" \
                               "PO Box 25000<br/>" \
@@ -179,6 +184,7 @@ module StateFile
       nj: {
         intake_class: StateFileNjIntake,
         calculator_class: Efile::Nj::Nj1040Calculator,
+        check_box_16: true,
         filing_years: [2024],
         navigation_class: Navigation::StateFileNjQuestionNavigation,
         review_controller_class: StateFile::Questions::NjReviewController,
@@ -207,6 +213,7 @@ module StateFile
       ny: {
         intake_class: StateFileNyIntake,
         calculator_class: Efile::Ny::It201,
+        check_box_16: false,
         filing_years: [2023],
         mail_voucher_address: "NYS Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
