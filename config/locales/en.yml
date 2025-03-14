@@ -3014,6 +3014,11 @@ en:
           title: Good news! You're eligible for $%{grocery_credit_amount} from the Idaho Grocery Credit!
           title_html: Good news! You're eligible for <strong>$%{grocery_credit_amount}</strong> from the Idaho Grocery Credit!
           would_you_like_to_donate: Would you like to donate your entire credit to the Cooperative Welfare Fund?
+      id_ineligible_retirement_and_pension_income:
+        edit:
+          subtitle: You answered that your %{sample_name] 1099-R for ${taxpayer_name} account number starts with an 8.
+          subtitle_html: <b>Our service doesn’t support this type of account right now.</b> If this was a mistake, go back to correct.
+          title: Unfortunately, we don't support your 1099-R account type for claiming the Idaho retirement income deduction
       id_health_insurance_premium:
         edit:
           amount_paid_helper_text: Total amount paid in %{year}
@@ -3066,13 +3071,26 @@ en:
           why_ask_this: Why are you asking for this information?
       id_retirement_and_pension_income:
         edit:
-          question_b1: Your service as a civil service employee
-          question_b2: Your service as an Idaho firefighter
-          question_b3: Your service as a police officer of an Idaho city
-          question_b4: Your service as a member of the U.S. military
-          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above
-          question_html: Does this retirement income come from any of the following sources and does it meet the qualifications on <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">pages 7-8 of the instruction booklet?</a>?
-          subtitle: We need more information about your 1099-R to check your eligibility.
+          civil_servant: Service as a Civil Service employee
+          civil_servant_follow_up: What number does the account number on this 1099R start with?
+          details_content: If you’re unsure about your retirement plan details, contact your plan payer at the phone number listed on your 1099-R
+          details_title: What if I don’t know the details of my 1099-R?
+          eight: 8
+          firefighter: Service as an Idaho firefighter
+          firefighter_follow_up: "¿Alguna de las siguientes afirmaciones aplica a tus ingresos de jubilación como bombero de Idaho?"
+          firefighter_frf: The 1099-R account number includes the FRF (Firemen’s Retirement Fund) designation
+          firefighter_persi: Benefits were paid out of the Public Employee Retirement System of Idaho (PERSI)
+          military: Service as a member of the U.S. military
+          none_apply: None of these were true
+          police_officer: Service as an Idaho city Police officer
+          police_officer_follow_up: Were any of the following true for your retirement income as a police officer of an Idaho city?
+          police_persi: Benefits were paid out of the Public Employee Retirement System of Idaho (PERSI)
+          police_retirement_fund: Benefits were paid from the Policemen’s Retirement Fund that no longer admits new members as of Jan 2012
+          question_html: 'Select the source of this retirement income:'
+          seven_or_nine: 7 o 9
+          subtitle: Some 1099-Rs with a taxable amount listed may qualify for this deduction. We need more information about this 1099-R to check your eligibility and file your state return.
+          subtitle_2: If you reported multiple 1099-Rs, you’ll be asked to complete this step for each one with a taxable amount.
+          zero_to_four: 0, 1, 2, 3, 4
       id_review:
         edit:
           donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.

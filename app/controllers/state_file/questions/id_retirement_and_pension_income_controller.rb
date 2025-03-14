@@ -6,7 +6,7 @@ module StateFile
       end
 
       private
-
+      
       def review_all_items_before_returning_to_review
         true
       end

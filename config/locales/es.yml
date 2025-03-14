@@ -3035,13 +3035,26 @@ es:
           why_ask_this: "¿Por qué están pidiendo esta información?"
       id_retirement_and_pension_income:
         edit:
-          question_b1: Tu servicio como empleado del servicio civil
-          question_b2: Tu servicio como bombero de Idaho
-          question_b3: Tu servicio como policía de una ciudad en Idaho
-          question_b4: Tu servicio como miembro de las fuerzas armadas de los Estados unidos
-          question_b5: Beneficios de sobreviviente de la pensión de tu cónyuge fallecido que proviene de una de las fuentes enumeradas anteriormente
-          question_html: ¿Este ingreso de jubilación proviene de alguna de las siguientes fuentes y cumple con los requisitos de <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">las páginas 7 y 8 del folleto de instrucciones</a>?
-          subtitle: Necesitamos más información de tu formulario 1099-R para confirmar tu elegibilidad.
+          civil_servant: Servicio como empleado del Servicio Civil
+          civil_servant_follow_up: "¿Con qué número comienza el número de cuenta en este 1099R?"
+          details_content: Si no estás seguro de los detalles de tu plan de jubilación, contacta a quien paga tu plan al número de teléfono que aparece en tu 1099-R.
+          details_title: ¿Qué pasa si no sé los detalles de mi 1099-R?
+          eight: 8
+          firefighter: Servicio como bombero de Idaho
+          firefighter_follow_up: Were any of the following true for your retirement income as an Idaho firefighter?
+          firefighter_frf: El número de cuenta del 1099-R incluye la designación Fondo de Jubilación de Bomberos (FRF, por sus siglas en inglés)
+          firefighter_persi: Los beneficios fueron pagados por el Sistema de Jubilación de Empleados Públicos de Idaho (PERSI)
+          military: Servicio como miembro del ejército de los Estados Unidos
+          none_apply: Ninguna de estas afirmaciones aplica
+          police_officer: Servicio como oficial de policía de la ciudad de Idaho
+          police_officer_follow_up: "¿Alguna de las siguientes afirmaciones aplica a tus ingresos de jubilación como oficial de policía de una ciudad de Idaho?"
+          police_persi: Los beneficios fueron pagados por el Sistema de Jubilación de Empleados Públicos de Idaho (PERSI)
+          police_retirement_fund: Los beneficios fueron pagados por el Fondo de Jubilación de Policías que ya no admite nuevos miembros desde enero de 2012
+          question_html: 'Selecciona la fuente de este ingreso:'
+          seven_or_nine: 7 or 9
+          subtitle: Algunos Formularios 1099-R con un monto imponible podrán calificar para esta deducción. Necesitamos más información sobre este 1099-R para verificar tu elegibilidad y presentar tu declaración estatal.
+          subtitle_2: Si tienes varios 1099-R, se te pedirá completar este paso para cada uno cantidad sujeta a impuestos
+          zero_to_four: 0, 1, 2, 3, 4
       id_review:
         edit:
           donations_optional: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatal.
