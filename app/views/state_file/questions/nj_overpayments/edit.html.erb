@@ -1,5 +1,5 @@
 <%
-  title = t(".title", filing_year: current_tax_year, prior_year: current_tax_year - 1)
+  title = t(".title_html", filing_year: current_tax_year, prior_year: current_tax_year - 1)
   content_for :page_title, title
 %>
 
@@ -10,9 +10,9 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
 
-    <div class="question-with-follow-up spacing-below-25">
-      <div class="question-with-follow-up__question">
-        <div class="white-group">
+    <div class="white-group">
+      <div class="question-with-follow-up">
+        <div class="question-with-follow-up__question spacing-below-25">
           <%=
             f.cfa_radio_set(
               :has_overpayments,
@@ -24,12 +24,10 @@
             )
           %>
         </div>
-      </div>
-      <div class="question-with-follow-up__follow-up" id="overpayments-field">
-        <div class="white-group">
+        <div class="question-with-follow-up__follow-up" id="overpayments-field">
           <%= f.vita_min_money_field(
                 :overpayments,
-                t('.input_label', filing_year: current_tax_year),
+                t('.input_label_html', filing_year: current_tax_year),
                 classes: ["form-width--long"],
                 options: { placeholder: "0" }
               ) %>

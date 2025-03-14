@@ -3523,10 +3523,10 @@ en:
       nj_estimated_tax_payments:
         edit:
           description_html: "<p>Most people <strong>do not</strong> make <a href=\"https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf\" target=\"_blank\" rel=\"noopener nofollow\">these payments</a>.</p> \n<p>They are typically made in April, June, September, and January. You make them if your employer doesn't withhold taxes in your paycheck or if you are self-employed.</p>\n<p>If you don’t remember making these, you probably didn't do so. (If you would like to check, you can <a href=\"https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp\" target=\"_blank\" rel=\"noopener nofollow\">log on here</a>.)</p>\n<p><strong>This does not include:</strong></p>\n<ul class=\"list--bulleted\">\n  <li>Withholdings in your paycheck</li>\n  <li>Property taxes</li>\n</ul>\n"
-          input_label: 'Total payments made in %{filing_year}:'
+          input_label_html: '<strong>Total payments made in %{filing_year}:</strong>'
           no_text: No (this is the common option)
           radio_label: Did you make estimated quarterly payments for your %{filing_year} state income taxes?
-          title: Please tell us if you made estimated quarterly payments towards your %{filing_year} state income taxes.
+          title_html: Please tell us if you <strong>made estimated quarterly payments</strong> towards your %{filing_year} state income taxes.
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>You may have heard this referred to as \"public financing\" of campaigns.</p> \n<p>You can contribute $1 of where your taxes go to the <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Gubernatorial Elections Fund</a>.</p>\n<p>FYI: Your taxes won’t increase and your refund won't be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this Fund.</p>\n"
@@ -3649,10 +3649,10 @@ en:
               <li>Withholdings in your paycheck</li>
               <li>Property taxes</li>
             </ul>
-          input_label: 'Total payments made in %{filing_year}:'
+          input_label_html: '<strong>Total payments made in %{filing_year}:</strong>'
           no_text: No (this is the common option)
           radio_label: Did you choose to apply overpayments on your %{prior_year} tax return to your %{filing_year} state income taxes?
-          title: Please tell us if you decided to apply an overpayment on your %{prior_year} taxes to your %{filing_year} income taxes.
+          title_html: Please tell us if you <strong>decided to apply an overpayment</strong> on your %{prior_year} taxes to your %{filing_year} income taxes.
       nj_primary_state_id:
         nj_primary:
           dmv_bmv: Non-driver identification card
