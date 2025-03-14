@@ -587,7 +587,7 @@ describe Efile::Id::Id40Calculator do
       context "which have nil state tax withheld" do
         let(:intake) {
           create(:state_file_id_intake,
-                 :with_eligible_1099r_income,
+                 :with_civil_service_1099r_income,
                  raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r'),
           )
         }
@@ -605,7 +605,7 @@ describe Efile::Id::Id40Calculator do
         # Miranda has two W-2s with state tax withheld amount (507, 1502) and 1099R with 200 amount
         let(:intake) {
           create(:state_file_id_intake,
-                 :with_w2s_synced, :with_eligible_1099r_income,
+                 :with_w2s_synced, :with_civil_service_1099r_income,
                  raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('id_miranda_1099r'))
         }
         let!(:state_file1099_g) { create(:state_file1099_g, intake: intake, state_income_tax_withheld_amount: 10) }
@@ -644,6 +644,7 @@ describe Efile::Id::Id40Calculator do
         context 'state_tax_withheld is nil' do
           before do
             intake.state_file1099_rs.first.update(state_tax_withheld_amount: nil)
+            intake.state_file1099_rs.second.update(state_tax_withheld_amount: nil)
           end
 
           it 'sums the ID tax withheld from w2s, 1099gs and 1099rs' do

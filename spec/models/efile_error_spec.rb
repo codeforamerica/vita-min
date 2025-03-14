@@ -60,6 +60,7 @@ describe 'EfileError' do
       "id-grocery-credit",
       "id-grocery-credit-review",
       "id-health-insurance-premium",
+      "id-ineligible-retirement-and-pension-income",
       "id-permanent-building-fund",
       "id-retirement-and-pension-income",
       "id-review",

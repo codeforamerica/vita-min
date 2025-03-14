@@ -6,18 +6,27 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
   <p><%= t(".subtitle", taxpayer_name: @state_file_1099r.recipient_name, sample_name: @state_file_1099r.payer_name) %></p>
-  <p><%= t(".subtitle_html") %></p>
+  <p><%= t(".subtitle_html") %> <%= link_to t(".go_back"), prev_path %></p>
 
-  <div class="warning box">
+  <div class="box warning spacing-below-25">
     <p><b><%= t(".warning_1") %></b></p>
-    <p><%= t(".warning_2") %></p>
+    <%= t(".warning_2") %>
+  </div>
+
+  <div class="white-group">
+    <p><b><%= t(".how_much_title") %></b></p>
+    <p><%= t(".how_much_content") %></p>
+    <ul class="list--padded">
+      <li class="spacing-below-15"><%= t(".how_much_b1") %></li>
+      <li><%= t(".how_much_b2_html") %></li>
+    </ul>
   </div>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= link_to next_path, class: "button button--wide spacing-above-15" do %>
       <%= t(".file_without_claiming") %>
     <% end %>
-    <%= link_to next_path, class: "button button--wide spacing-above-15" do %>
+    <%= link_to StateFile::Questions::IdIneligibleRetirementAndPensionIncomeController.to_path_helper(action: :file_with_another_service), class: "button button--wide spacing-above-15" do %>
       <%= t(".another_service") %>
     <% end %>
 

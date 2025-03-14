@@ -7,6 +7,7 @@
 #  account_type                                   :integer          default("unfilled"), not null
 #  american_red_cross_fund_donation               :decimal(12, 2)
 #  childrens_trust_fund_donation                  :decimal(12, 2)
+#  clicked_to_file_with_other_service_at          :datetime
 #  consented_to_sms_terms                         :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions              :integer          default("unfilled"), not null
 #  contact_preference                             :integer          default("unfilled"), not null
@@ -235,7 +236,7 @@ FactoryBot.define do
 
     trait :with_ineligible_1099r_income do
       after(:create) do |intake|
-        create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 200) do |form_1099r|
+        create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 100) do |form_1099r|
           create(:state_file_id1099_r_followup,
                  state_file1099_r: form_1099r,
                  income_source: "civil_service_employee",
@@ -243,7 +244,7 @@ FactoryBot.define do
           )
         end
 
-        create(:state_file1099_r, intake: intake, taxable_amount: 5000, state_tax_withheld_amount: 500) do |form_1099r|
+        create(:state_file1099_r, intake: intake, taxable_amount: 5000, state_tax_withheld_amount: 100) do |form_1099r|
           create(:state_file_id1099_r_followup,
                  state_file1099_r: form_1099r,
                  income_source: "none",

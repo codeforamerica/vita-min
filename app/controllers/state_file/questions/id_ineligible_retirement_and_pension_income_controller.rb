@@ -1,6 +1,7 @@
 module StateFile
   module Questions
     class IdIneligibleRetirementAndPensionIncomeController < RetirementIncomeSubtractionController
+      include OtherOptionsLinksConcern
       def self.show?(intake)
         false
       end
@@ -10,6 +11,11 @@ module StateFile
           redirect_to next_path and return
         end
         super
+      end
+
+      def file_with_another_service
+        load_links
+        current_intake.touch(:clicked_to_file_with_other_service_at)
       end
 
       private

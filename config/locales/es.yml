@@ -3023,7 +3023,7 @@ es:
         edit:
           another_service: Archivo con otro servicio
           file_without_claiming: Archivo sin reclamar
-          subtitle: Usted respondió que su número de cuenta 1099-R %{sample_name} para ${taxpayer_name} comienza con un 8.
+          subtitle: Usted respondió que su número de cuenta 1099-R %{sample_name} para %{taxpayer_name} comienza con un 8.
           subtitle_html: "<b>Nuestro servicio no admite este tipo de cuenta en este momento.</b> Si esto fue un error, regrese para corregirlo."
           title: Desafortunadamente, no admitimos su tipo de cuenta 1099-R para reclamar la deducción de ingresos por jubilación de Idaho
           warning_1: Su cantidad de impuestos adeudados/reembolso se verá afectada si continúa sin reclamar la deducción para este 1099-R.
