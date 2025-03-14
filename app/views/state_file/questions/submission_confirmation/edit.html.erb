@@ -7,26 +7,24 @@
 <% content_for :page_title, title %>
 <% content_for :card do %>
 
-
-  <% # i18n-tasks-use t("state_file.questions.return_status.additional_content.#{current_state_code}_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-  <% additional_content_key = "state_file.questions.return_status.additional_content.#{current_state_code}_html" %>
-  <% if I18n.exists?(additional_content_key) %>
-    <p><%= t(additional_content_key) %></p>
-  <% end %>
-
-  <%= render partial: "state_file/questions/submission_confirmation/#{current_state_code}_additional_content" rescue nil %>
+  <%= link_to t(".download_state_return_pdf"),
+              StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission),
+              id: "pdf-download-link",
+              class: "button button--primary button--wide",
+              target: "_blank",
+              rel: "noopener noreferrer" %>
 
   <div class="loading-container">
     <div class='return-status'>
       <p>
         <%= image_tag "loading.svg", alt: "" %>
       </p>
-    </div>
-    <p>
-      <h1 class="h2"><%= t('.just_a_moment', state: current_state_name ) %></h1>
-    </p>
+      <p>
+        <h1 class="h2"><%= t('.just_a_moment', state: current_state_name ) %></h1>
+      </p>
 
-    <%= t('.takes_a_few') %>
+      <%= t('.takes_a_few') %>
+    </div>
   </div>
 
   <div class="download-link-container" style="display: none;">
