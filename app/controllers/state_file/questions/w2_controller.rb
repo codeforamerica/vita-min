@@ -15,6 +15,11 @@ module StateFile
       end
 
       def edit
+        if StateFile::StateInformationService.check_box_16(current_state_code)
+          current_intake.confirmed_w2_indexes.append(@w2.w2_index)
+          current_intake.save
+        end
+
         @w2.valid?(:state_file_edit)
       end
 
@@ -23,11 +28,6 @@ module StateFile
       def update
         @w2.assign_attributes(form_params)
         @w2.check_box14_limits = true
-
-        if StateFile::StateInformationService.check_box_16(current_state_code)
-          current_intake.confirmed_w2_indexes.append(@w2.w2_index)
-          current_intake.save
-        end
 
         if @w2.valid?(:state_file_edit)
           @w2.box14_ui_hc_wd = nil
