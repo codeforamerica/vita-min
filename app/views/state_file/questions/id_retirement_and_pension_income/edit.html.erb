@@ -82,4 +82,49 @@
     <% end %>
     <%= f.continue %>
   <% end %>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          let uncheckOthers = function (noneCheckbox, otherCheckboxes) {
+              if (noneCheckbox.checked) {
+                  otherCheckboxes.forEach(function (checkbox) {
+                      checkbox.checked = false;
+                  })
+              }
+          };
+          let uncheckNone = function (currentCheckbox, noneCheckbox) {
+              if (currentCheckbox.checked) {
+                  noneCheckbox.checked = false;
+              }
+          };
+          let checkboxSets = [
+              {
+                  none: document.getElementById("state_file_id_retirement_and_pension_income_form_police_none_apply"),
+                  others: [
+                      document.getElementById("state_file_id_retirement_and_pension_income_form_police_retirement_fund"),
+                      document.getElementById("state_file_id_retirement_and_pension_income_form_police_persi")
+                  ]
+              },
+              {
+                  none: document.getElementById("state_file_id_retirement_and_pension_income_form_firefighter_none_apply"),
+                  others: [
+                      document.getElementById("state_file_id_retirement_and_pension_income_form_firefighter_persi"),
+                      document.getElementById("state_file_id_retirement_and_pension_income_form_firefighter_frf")
+                  ]
+              }
+          ];
+          checkboxSets.forEach(function (checkboxSet) {
+              let noneCheckbox = checkboxSet.none;
+              let otherCheckboxes = checkboxSet.others;
+              noneCheckbox.addEventListener("change", function () {
+                  uncheckOthers(noneCheckbox, otherCheckboxes);
+              });
+              otherCheckboxes.forEach(function (checkbox) {
+                  checkbox.addEventListener("change", function () {
+                      uncheckNone(this, noneCheckbox);
+                  });
+              });
+          });
+      })
+  </script>
 <% end %>

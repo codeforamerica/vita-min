@@ -5,6 +5,11 @@ module StateFile
         super && !intake.filing_status_mfs?
       end
 
+      def edit
+        super
+        current_intake.update(clicked_to_file_with_other_service_at: nil)
+      end
+
       private
       def index_increment
         0
