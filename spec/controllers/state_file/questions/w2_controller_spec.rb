@@ -83,6 +83,7 @@ RSpec.describe StateFile::Questions::W2Controller do
       context "with NJ invalid state wages" do
         before do
           allow_any_instance_of(StateFileNjIntake).to receive(:state_wages_invalid?).and_return true
+          
         end
 
         it "adds w2 index to the list of verified W2s and removes the state_wages_amount error when user opens the page" do
@@ -94,6 +95,7 @@ RSpec.describe StateFile::Questions::W2Controller do
           state_file_w2.valid?(:state_file_edit)
           expect(intake.reload.confirmed_w2_ids).to eq [state_file_w2.id]
           expect(state_file_w2.errors).not_to include(:state_wages_amount)
+          expect(response.body).to have_text(I18n.t("state_file.questions.w2.edit.nj_box_16_warning"))
         end
       end
 
@@ -108,6 +110,7 @@ RSpec.describe StateFile::Questions::W2Controller do
           get :edit, params: params
           expect(intake.reload.confirmed_w2_ids).to eq [state_file_w2.id]
           expect(state_file_w2.errors).not_to include(:state_wages_amount)
+          expect(response.body).not_to have_text(I18n.t("state_file.questions.w2.edit.nj_box_16_warning"))
         end
       end
 
