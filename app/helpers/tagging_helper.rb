@@ -15,7 +15,8 @@ module TaggingHelper
   end
 
   def taggable_sites(vita_partners)
-    taggable_vita_partners = vita_partners.sites.includes(:parent_organization).map do |site|
+    taggable_vita_partners = vita_partners.sites.includes(:parent_organization).filter_map do |site|
+      next unless site.parent_organization.present?
       { id: site.id, name: site.name, parentName: site.parent_organization.name, value: site.id }
     end
     taggable_format(taggable_vita_partners)

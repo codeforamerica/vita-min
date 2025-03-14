@@ -38,7 +38,7 @@
       <% end %>
 
       <% if (params[:role] == SiteCoordinatorRole::TYPE) || (params[:role] == TeamMemberRole::TYPE) %>
-        <div class="form-group">
+        <div class="form-group tagify-clickable-dropdown-wrapper">
           <%= label_tag(:sites, t(".site_label"), class: "form-question") %>
 
           <div class="select form-width--long">

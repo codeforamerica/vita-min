@@ -33,12 +33,14 @@ export function initTaggableNote() {
 export function initMultiSelectVitaPartner() {
     const input = document.querySelector('.multi-select-vita-partner');
 
-    new Tagify(input, {
+    if (!input) return;
+
+    const tagify = new Tagify(input, {
         tagTextProp: 'name',  // <-- defines which attr is used as the tag display value
         // Array for initial interpolation, which allows only these tags to be used
         whitelist: window.taggableItems,
         enforceWhitelist: true,
-        dropdown : {
+        dropdown: {
             classname: "multi-select-dropdown",
             enabled: 0,
             mapValueTo: 'name', // <-- defines which attr is used to display dropdown items
@@ -57,30 +59,53 @@ export function initMultiSelectVitaPartner() {
                     role="option">
                         <div class='${item.parentName ? "parent" : ""}'>${html`${item.parentName || ''}`}</div>
                         <div class='${item.parentName ? "site" : "org"}'>${html`${item.value}`}</div>
-                    </div>`
+                    </div>`;
             },
         }
     });
 
     input.addEventListener("change", (event) => {
-        let { value } = event.target
+        // extracts just the vita partner ids and stores in hidden field
+        let { value } = event.target;
         if (value) {
-            value = JSON.stringify(JSON.parse(event.target.value).map(v => v.id))
+            value = JSON.stringify(JSON.parse(event.target.value).map(v => v.id));
         }
-        document.querySelector("#vita_partners").value = value
-    })
+
+        const hiddenField = document.querySelector("#vita_partners");
+        if (hiddenField) {
+            hiddenField.value = value;
+        }
+    });
+
+    const clickableContainer = document.querySelector(".tagify-clickable-dropdown-wrapper");
+    if (clickableContainer) {
+        clickableContainer.addEventListener("click", (event) => {
+            event.stopPropagation();
+            if (tagify.state.dropdown.visible) {
+                tagify.dropdown.hide();
+            } else {
+                tagify.dropdown.show();
+            }
+        });
+        document.addEventListener("click", (event) => {
+            if (!clickableContainer.contains(event.target) && tagify.state.dropdown.visible) {
+                tagify.dropdown.hide();
+            }
+        });
+    }
 }
 
 export function initSelectVitaPartner() {
     const input = document.querySelector('.select-vita-partner');
+    if (!input) return;
 
     new Tagify(input, {
         tagTextProp: 'name',  // <-- defines which attr is used as the tag display value
         // Array for initial interpolation, which allows only these tags to be used
         whitelist: window.taggableItems,
         enforceWhitelist: true,
-        mode : "select",
-        dropdown : {
+        mode: "select",
+        dropdown: {
             classname: "multi-select-dropdown",
             enabled: 0,
             mapValueTo: 'name', // <-- defines which attr is used to display dropdown items
@@ -91,7 +116,7 @@ export function initSelectVitaPartner() {
             position: 'input', // <-- render the suggestions list under the input element
         },
         templates: {
-            dropdownItem: function(item){
+            dropdownItem: function (item) {
                 // using html`` below b/c item.parentName must be treated as plain text not raw HTML
                 return `<div ${this.getAttributes(item)}
                     class='${this.settings.classNames.dropdownItem}'
@@ -104,6 +129,7 @@ export function initSelectVitaPartner() {
         }
     });
 }
+
 
 export function initMultiSelectState() {
     const input = document.querySelector('.multi-select-state');
