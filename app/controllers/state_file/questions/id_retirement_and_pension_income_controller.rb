@@ -6,7 +6,18 @@ module StateFile
       end
 
       private
-      
+      def index_increment
+        0
+      end
+
+      def prev_question_controller_class
+        IdIneligibleRetirementAndPensionIncomeController
+      end
+
+      def next_question_controller_class
+        IdIneligibleRetirementAndPensionIncomeController
+      end
+
       def review_all_items_before_returning_to_review
         true
       end
