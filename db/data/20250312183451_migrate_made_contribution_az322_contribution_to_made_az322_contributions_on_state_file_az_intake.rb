@@ -7,7 +7,8 @@ class MigrateMadeContributionAz322ContributionToMadeAz322ContributionsOnStateFil
     az_intakes_with_contributions_created_before_feb_7 = StateFileAzIntake
                                         .left_joins(:efile_submissions)
                                         .left_joins(:az322_contributions)
-                                        .where('state_file_az_intakes.created_at < ?', time_of_release_of_contribution_update) # make this time more specific
+                                        .where('state_file_az_intakes.created_at < ?', time_of_release_of_contribution_update)
+                                        .where(made_az322_contributions: 0)
                                         .where.not(az322_contributions: { id: nil })
 
     Sentry.capture_message "There are #{az_intakes_with_contributions_created_before_feb_7.count} intakes created before February 7, 2025 at 6:26 PM EST that have az322 contributions"
@@ -19,6 +20,7 @@ class MigrateMadeContributionAz322ContributionToMadeAz322ContributionsOnStateFil
                                                       .left_joins(:az322_contributions)
                                                       .where.not(efile_submissions: { id: nil })
                                                       .where('state_file_az_intakes.created_at < ?', time_of_release_of_contribution_update)
+                                                      .where(made_az322_contributions: 0)
                                                       .where(az322_contributions: { id: nil })
 
     Sentry.capture_message "There are #{az_intakes_with_contributions_created_before_feb_7.count} intakes created before February 7, 2025 at 6:26 PM that do not have az322 contributions"
