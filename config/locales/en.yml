@@ -4137,9 +4137,11 @@ en:
           title_html: We need some details from <strong>your spouse’s</strong> state-issued ID, if they have one
       submission_confirmation:
         edit:
+          just_a_moment: Just a moment, we’re submitting your %{state} state tax return
           download_state_return_pdf: Download your state return
           email_text_update: You'll receive an email and text update when your state tax return is accepted.
           email_update: You'll receive an email update when your state tax return is accepted.
+          takes_a_few: This usually takes a few seconds. Don't close this page.
           text_update: You'll receive an sms update when your state tax return is accepted.
           title: Your %{filing_year} %{state_name} state tax return is now submitted!
           title_resubmit: Your %{filing_year} %{state_name} state tax return is now resubmitted!
