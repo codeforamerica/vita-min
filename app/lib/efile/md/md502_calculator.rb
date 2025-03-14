@@ -125,7 +125,27 @@ module Efile
       end
 
       def analytics_attrs
-        {}
+        {
+          md_stpickup_addition: line_or_zero(:MD502_LINE_3),
+          md_child_dep_care_subtraction: line_or_zero(:MD502_LINE_9),
+          md_total_pension_exclusion: line_or_zero(:MD502_LINE_10A),
+          md_primary_pension_exclusion: line_or_zero(:MD502R_LINE_11A),
+          md_spouse_pension_exclusion: line_or_zero(:MD502R_LINE_11B),
+          md_ssa_benefits_subtraction: line_or_zero(:MD502_LINE_11),
+          md_two_income_subtraction: line_or_zero(:MD502_LINE_14),
+          md_income_us_gov_subtraction: line_or_zero(:MD502_SU_LINE_AB),
+          md_military_retirement_subtraction: line_or_zero(:MD502_SU_LINE_U),
+          md_public_safety_subtraction: line_or_zero(:MD502_SU_LINE_V),
+          md_eic: line_or_zero(:MD502_LINE_22),
+          md_poverty_credit: line_or_zero(:MD502_LINE_23),
+          md_local_eic: line_or_zero(:MD502_LINE_29),
+          md_local_poverty_credit: line_or_zero(:MD502_LINE_30),
+          md_refundable_eic: line_or_zero(:MD502_LINE_42),
+          md_child_dep_care_credit: line_or_zero(:MD502CR_PART_B_LINE_4),
+          md_senior_tax_credit: line_or_zero(:MD502CR_PART_M_LINE_1),
+          md_refundable_child_dep_care_credit: line_or_zero(:MD502CR_PART_CC_LINE_7),
+          md_ctc: line_or_zero(:MD502CR_PART_CC_LINE_8),
+        }
       end
 
       private
