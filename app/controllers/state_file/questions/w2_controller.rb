@@ -16,7 +16,7 @@ module StateFile
 
       def edit
         if StateFile::StateInformationService.check_box_16(current_state_code)
-          current_intake.confirmed_w2_indexes.append(@w2.w2_index)
+          current_intake.confirmed_w2_ids.append(@w2.id)
           current_intake.save
         end
 
@@ -54,7 +54,7 @@ module StateFile
       end
 
       def state_wages_invalid?
-        current_intake.state_wages_invalid?(@w2) if StateFile::StateInformationService.check_box_16(current_state_code)
+        StateFile::StateInformationService.check_box_16(current_state_code) && current_intake.state_wages_invalid?(@w2)
       end
 
       def load_w2

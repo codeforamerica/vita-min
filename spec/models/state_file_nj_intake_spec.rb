@@ -7,7 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
-#  confirmed_w2_indexes                                   :integer          default([]), is an Array
+#  confirmed_w2_ids                                       :integer          default([]), is an Array
 #  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
@@ -318,7 +318,7 @@ RSpec.describe StateFileNjIntake, type: :model do
     end
 
     context "taxpayer has reviewed the w2" do
-      let(:intake) { create :state_file_nj_intake, confirmed_w2_indexes: [0]}
+      let(:intake) { create :state_file_nj_intake, confirmed_w2_ids: [w2.id]}
 
       it "permits state_wages_amount to be 0 if w2.WagesAmt is non-zero" do
         w2.taxpayer_reviewed = true
