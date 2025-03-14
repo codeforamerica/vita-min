@@ -3522,7 +3522,7 @@ en:
           title: We need information about your health insurance status.
       nj_estimated_tax_payments:
         edit:
-          description_html: "<p>Most people <strong>do not</strong> make <a href=\"https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf\" target=\"_blank\" rel=\"noopener nofollow\">these payments</a>.</p> \n<p>They are typically made in April, June, September, and January. You make them if your employer doesn't withhold taxes in your paycheck or if you are self-employed.</p>\n<p>If you don’t remember making these, you probably didn't do so.</p>\n<p><strong>This does not include:</strong></p>\n<ul class=\"list--bulleted\">\n  <li>Withholdings in your paycheck</li>\n  <li>Property taxes</li>\n</ul>\n"
+          description_html: "<p>Most people <strong>do not</strong> make <a href=\"https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf\" target=\"_blank\" rel=\"noopener nofollow\">these payments</a>.</p> \n<p>They are typically made in April, June, September, and January. You make them if your employer doesn't withhold taxes in your paycheck or if you are self-employed.</p>\n<p>If you don’t remember making these, you probably didn't do so. (If you would like to check, you can <a href=\"https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp\" target=\"_blank\" rel=\"noopener nofollow\">log on here</a>.)</p>\n<p><strong>This does not include:</strong></p>\n<ul class=\"list--bulleted\">\n  <li>Withholdings in your paycheck</li>\n  <li>Property taxes</li>\n</ul>\n"
           input_label: 'Total payments made in %{filing_year}:'
           no_text: No (this is the common option)
           radio_label: Did you make estimated quarterly payments for your %{filing_year} state income taxes?
@@ -3643,7 +3643,7 @@ en:
           description_html: |
             <p><strong>This is not common.</strong> It is something you would have selected when you did your taxes last year.</p>
             <p>If you don’t remember choosing to do this, you probably didn't do so.</p>
-            <p>If you need to check, we recommend looking back at your %{prior_year} tax return.</p>
+            <p>If you need to check, we recommend looking back at your %{prior_year} tax return (line 69 of %{prior_year} NJ-1040).</p>
             <p><strong>This does not include:</strong></p>
             <ul class="list--bulleted">
               <li>Withholdings in your paycheck</li>
@@ -3709,9 +3709,9 @@ en:
           edit_disability: disability status
           edit_veteran: veteran status
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
-          estimated_tax_payments: Estimated quarterly payments amount
-          has_estimated_payments: Made estimated quarterly payments
-          has_overpayments: Applied overpayments
+          estimated_tax_payments: Amount of estimated quarterly payments
+          has_estimated_payments: Estimated quarterly payments
+          has_overpayments: Overpayments carried forward from %{prior_year}
           household_rent_own: Living situation in %{filing_year}
           household_rent_own_both: Owned and rented
           household_rent_own_neither: Neither owned or rented
@@ -3719,7 +3719,7 @@ en:
           household_rent_own_rent: Rented
           medical_expenses: Total medical expenses
           missing_health_insurance: Dependents who DO NOT have health insurance
-          overpayments: Overpayments amount
+          overpayments: Amount of overpayments
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
           primary_disabled: Disability exemption (you)
           primary_veteran: Veteran exemption (you)
