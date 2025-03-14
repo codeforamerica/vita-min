@@ -3494,23 +3494,11 @@ es:
           title: Necesitamos información sobre tu estado de seguro médico.
       nj_estimated_tax_payments:
         edit:
-          continue: Si aún no has realizado ningún pago, haz clic en "Continuar".
-          description_html: |
-            <p>Incluye la suma de lo siguiente:</p>
-            <ul class="list--bulleted">
-              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Pagos estimados de impuestos sobre tus ingresos</a> que hiciste durante el año para tus impuestos estatales de New Jersey
-                <ul class="list--bulleted">
-                  <li><strong>Esto no incluye las retenciones de tu cheque/recibo de pago (paycheck)</strong></li>
-                </ul>
-              </li>
-              <li>Pagos en exceso en tu declaración de %{prior_year} que elegiste aplicar a tus impuestos estatales de New Jersey en %{filing_year}
-                <ul class="list--bulleted">
-                  <li>Nota: habrías seleccionado esta opción al presentar tu declaración de %{prior_year}</li>
-                </ul>
-              </li>
-            </ul>
-          label: 'Total:'
-          title: Por favor, dinos si ya pagaste parte de tus impuestos estatales sobre los ingresos de New Jersey de %{filing_year}.
+          description_html: "<p>La mayoría de las personas <strong>no</strong> <a href=\"https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">hacen estos pagos</a>.</p> \n<p>Por lo general, se realizan en abril, junio, septiembre y enero. Los pagas si tu empleador/a no retiene impuestos en tu talón/cheque de pago o si trabajas como independiente (como self-employed).</p>\n<p>Si no recuerdas haberlos realizado, probablemente no lo hiciste.</p>\n<p><strong>Esto no incluye:</strong></p>\n<ul class=\"list--bulleted\">\n  <li>Retenciones en tu talón/cheque de pago</li>\n  <li>Impuestos sobre la propiedad</li>\n</ul>\n"
+          input_label: 'Pagos totales realizados en %{filing_year}:'
+          no_text: No (esta es la opción común)
+          radio_label: "¿Pagaste impuestos estimados trimestralmente en %{filing_year}?"
+          title: Indica si hiciste pagos trimestrales estimados para tus impuestos estatales sobre la renta de %{filing_year}.
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>Puede que conozcas esto como \"financiamiento público\" de campañas.</p> \n<p>Puedes contribuir con $1 de lo que va a tus impuestos al <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Fondo de Elecciones para Gobernador</a> (link en inglés).</p>\n<p>Para tu información: Tus impuestos no aumentarán y tu reembolso no se reducirá. Esto autoriza a New Jersey usar $1 de tus dólares de impuestos para este Fondo.</p>\n"
@@ -3622,6 +3610,21 @@ es:
             </ul>
           learn_more_title: "¿Qué son los gastos médicos?"
           title: Puedes deducir gastos médicos.
+      nj_overpayments:
+        edit:
+          description_html: |
+            <p><strong>Hacerlo no es común.</strong> Es algo que hubieras seleccionado cuando hiciste tus impuestos el año pasado.</p>
+            <p>Si no recuerdas haber elegido esto, probablemente es porque no lo hiciste.</p>
+            <p>Si necesitas verificar, revisa tu declaración de impuestos de %{prior_year}.</p>
+            <p><strong>Esto no incluye:</strong></p>
+            <ul class="list--bulleted">
+              <li>Retenciones en tu cheque de pago</li>
+              <li>Impuestos sobre la propiedad</li>
+            </ul>
+          input_label: 'Pagos totales realizados en %{filing_year}:'
+          no_text: No (esta opción es más común)
+          radio_label: "¿Optaste por aplicar pagos en exceso de tu declaración de impuestos de %{prior_year} a tus impuestos estatales sobre la renta de %{filing_year}?"
+          title: Dinos si deseas hacer un pago extra (un saldo a favor) de tus impuestos de %{prior_year} a tus impuestos sobre la renta de %{filing_year}.
       nj_primary_state_id:
         nj_primary:
           dmv_bmv: Tarjeta de identificación estatal
@@ -3678,7 +3681,9 @@ es:
           edit_disability: estado de discapacidad
           edit_veteran: estado de veterano/a de guerra
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
-          estimated_tax_payments: Pagos ya realizados a impuestos de New Jersey
+          estimated_tax_payments: Estimated quarterly payments amount
+          has_estimated_payments: Made estimated quarterly payments
+          has_overpayments: Applied overpayments
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
           household_rent_own_neither: Ni dueño/a ni inquilino/a
@@ -3686,6 +3691,7 @@ es:
           household_rent_own_rent: Inquilino/a
           medical_expenses: Gastos médicos totales
           missing_health_insurance: Dependientes que NO tienen seguro médico
+          overpayments: Overpayments amount
           primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
           primary_disabled: Exención por discapacidad (tuya)
           primary_veteran: Exención para veteranos/as de guerra (tuya)

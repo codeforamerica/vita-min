@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
+RSpec.describe StateFile::Questions::NjOverpaymentsController do
   let(:intake) { create :state_file_nj_intake }
   before do
     sign_in intake
@@ -14,12 +14,12 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
     end
 
     describe "#update" do
-      context "when a user has estimated tax payments" do
+      context "when a user has overpayments" do
         let(:form_params) {
           {
-            state_file_nj_estimated_tax_payments_form: {
-              has_estimated_payments: "yes",
-              estimated_tax_payments: 1000
+            state_file_nj_overpayments_form: {
+              has_overpayments: "yes",
+              overpayments: 1000
             }
           }
         }
@@ -27,17 +27,17 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
         it "saves the correct value for renter" do
           post :update, params: form_params
           intake.reload
-          expect(intake.has_estimated_payments).to eq "yes"
-          expect(intake.estimated_tax_payments).to eq 1000
+          expect(intake.has_overpayments).to eq "yes"
+          expect(intake.overpayments).to eq 1000
         end
       end
 
       it_behaves_like :return_to_review_concern do
         let(:form_params) do
           {
-            state_file_nj_estimated_tax_payments_form: {
-              has_estimated_payments: "yes",
-              estimated_tax_payments: 1000,
+            state_file_nj_overpayments_form: {
+              has_overpayments: "yes",
+              overpayments: 1000,
             }
           }
         end
