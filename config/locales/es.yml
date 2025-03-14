@@ -3019,6 +3019,13 @@ es:
               <li>El Formulario 1095-A, restando el total de la columna C del total de la columna A.</li>
             </ul>
           what_is_title: "¿Qué es una prima de seguro médico?"
+      id_ineligible_retirement_and_pension_income:
+        edit:
+          subtitle: Usted respondió que su número de cuenta 1099-R %{sample_name} para ${taxpayer_name} comienza con un 8.
+          subtitle_html: "<b>Nuestro servicio no admite este tipo de cuenta en este momento.</b> Si esto fue un error, regrese para corregirlo."
+          title: Desafortunadamente, no admitimos su tipo de cuenta 1099-R para reclamar la deducción de ingresos por jubilación de Idaho
+          warning_1: Su cantidad de impuestos adeudados/reembolso se verá afectada si continúa sin reclamar la deducción para este 1099-R.
+          warning_2: Para reclamar esta deducción, necesitará usar un servicio de impuestos diferente. Podría tomar hasta 3 semanas para presentar la declaración.
       id_permanent_building_fund:
         edit:
           receive_public_assistance_explanation: Los pagos de asistencia pública no incluyen cupones de alimentos ni pagos de WIC.
@@ -3038,7 +3045,7 @@ es:
           civil_servant: Servicio como empleado del Servicio Civil
           civil_servant_follow_up: "¿Con qué número comienza el número de cuenta en este 1099R?"
           details_content: Si no estás seguro de los detalles de tu plan de jubilación, contacta a quien paga tu plan al número de teléfono que aparece en tu 1099-R.
-          details_title: ¿Qué pasa si no sé los detalles de mi 1099-R?
+          details_title: "¿Qué pasa si no sé los detalles de mi 1099-R?"
           eight: 8
           firefighter: Servicio como bombero de Idaho
           firefighter_follow_up: Were any of the following true for your retirement income as an Idaho firefighter?
