@@ -3495,10 +3495,10 @@ es:
       nj_estimated_tax_payments:
         edit:
           description_html: "<p>La mayoría de las personas <strong>no</strong> <a href=\"https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">hacen estos pagos</a>.</p> \n<p>Por lo general, se realizan en abril, junio, septiembre y enero. Los pagas si tu empleador/a no retiene impuestos en tu talón/cheque de pago o si trabajas como independiente (como self-employed).</p>\n<p>Si no recuerdas haberlos realizado, probablemente no lo hiciste. (Si deseas verificarlas, puedes <a href=\"https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp\" target=\"_blank\" rel=\"noopener nofollow\">acceder aquí</a>. (link en inglés))</p>\n<p><strong>Esto no incluye:</strong></p>\n<ul class=\"list--bulleted\">\n  <li>Retenciones en tu talón/cheque de pago</li>\n  <li>Impuestos sobre la propiedad</li>\n</ul>\n"
-          input_label: 'Pagos totales realizados en %{filing_year}:'
+          input_label_html: '<strong>Pagos totales realizados en %{filing_year}:</strong>'
           no_text: No (esta es la opción común)
           radio_label: "¿Pagaste impuestos estimados trimestralmente en %{filing_year}?"
-          title: Indica si hiciste pagos trimestrales estimados para tus impuestos estatales sobre la renta de %{filing_year}.
+          title_html: Indica si <strong>hiciste pagos trimestrales estimados</strong> para tus impuestos estatales sobre la renta de 2024.
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>Puede que conozcas esto como \"financiamiento público\" de campañas.</p> \n<p>Puedes contribuir con $1 de lo que va a tus impuestos al <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Fondo de Elecciones para Gobernador</a> (link en inglés).</p>\n<p>Para tu información: Tus impuestos no aumentarán y tu reembolso no se reducirá. Esto autoriza a New Jersey usar $1 de tus dólares de impuestos para este Fondo.</p>\n"
@@ -3621,10 +3621,10 @@ es:
               <li>Retenciones en tu cheque de pago</li>
               <li>Impuestos sobre la propiedad</li>
             </ul>
-          input_label: 'Pagos totales realizados en %{filing_year}:'
+          input_label_html: '<strong>Pagos totales realizados en %{filing_year}:</strong>'
           no_text: No (esta opción es más común)
           radio_label: "¿Optaste por aplicar pagos en exceso de tu declaración de impuestos de %{prior_year} a tus impuestos estatales sobre la renta de %{filing_year}?"
-          title: Dinos si deseas hacer un pago extra (un saldo a favor) de tus impuestos de %{prior_year} a tus impuestos sobre la renta de %{filing_year}.
+          title_html: Indica si <strong>decidió aplicar un pago en exceso</strong> de tus impuestos de %{prior_year} a tus impuestos sobre la renta de %{filing_year}.
       nj_primary_state_id:
         nj_primary:
           dmv_bmv: Tarjeta de identificación estatal
