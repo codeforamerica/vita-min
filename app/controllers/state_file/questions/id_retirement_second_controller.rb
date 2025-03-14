@@ -5,6 +5,13 @@ module StateFile
         false
       end
 
+      def edit
+        if current_index == 0
+          redirect_to next_path and return
+        end
+        super
+      end
+
       private
 
       def index_decrement

@@ -16,11 +16,7 @@ module StateFile
       end
 
       def next_question_controller_class
-        # if @state_file_1099r.has_some_condition
-          IdRetirementSecondController
-        # else
-        #   super
-        # end
+        IdRetirementSecondController
       end
 
       def review_all_items_before_returning_to_review
