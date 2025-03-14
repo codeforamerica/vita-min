@@ -3522,23 +3522,11 @@ en:
           title: We need information about your health insurance status.
       nj_estimated_tax_payments:
         edit:
-          continue: If you did not already make any payments, click "Continue".
-          description_html: |
-            <p>Please include the sum of the following:</p>
-            <ul class="list--bulleted">
-              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Estimated income tax payments</a> you made throughout the year for your New Jersey state taxes
-                <ul class="list--bulleted">
-                  <li><strong>This does not include withholdings in your paycheck</strong></li>
-                </ul>
-              </li>
-              <li>Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
-                <ul class="list--bulleted">
-                  <li>Note: you would have selected this option when filing your %{prior_year} return</li>
-                </ul>
-              </li>
-            </ul>
-          label: 'Total:'
-          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey state income taxes.
+          description_html: "<p>Most people <strong>do not</strong> make <a href=\"https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf\" target=\"_blank\" rel=\"noopener nofollow\">these payments</a>.</p> \n<p>They are typically made in April, June, September, and January. You make them if your employer doesn't withhold taxes in your paycheck or if you are self-employed.</p>\n<p>If you don’t remember making these, you probably didn't do so.</p>\n<p><strong>This does not include:</strong></p>\n<ul class=\"list--bulleted\">\n  <li>Withholdings in your paycheck</li>\n  <li>Property taxes</li>\n</ul>\n"
+          input_label: 'Total payments made in %{filing_year}:'
+          no_text: No (this is the common option)
+          radio_label: Did you make estimated quarterly payments for your %{filing_year} state income taxes?
+          title: Please tell us if you made estimated quarterly payments towards your %{filing_year} state income taxes.
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>You may have heard this referred to as \"public financing\" of campaigns.</p> \n<p>You can contribute $1 of where your taxes go to the <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Gubernatorial Elections Fund</a>.</p>\n<p>FYI: Your taxes won’t increase and your refund won't be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this Fund.</p>\n"
@@ -3650,6 +3638,21 @@ en:
             </ul>
           learn_more_title: What are medical expenses?
           title: You may be able to deduct medical expenses.
+      nj_overpayments:
+        edit:
+          description_html: |
+            <p><strong>This is not common.</strong> It is something you would have selected when you did your taxes last year.</p>
+            <p>If you don’t remember choosing to do this, you probably didn't do so.</p>
+            <p>If you need to check, we recommend looking back at your %{prior_year} tax return.</p>
+            <p><strong>This does not include:</strong></p>
+            <ul class="list--bulleted">
+              <li>Withholdings in your paycheck</li>
+              <li>Property taxes</li>
+            </ul>
+          input_label: 'Total payments made in %{filing_year}:'
+          no_text: No (this is the common option)
+          radio_label: Did you choose to apply overpayments on your %{prior_year} tax return to your %{filing_year} state income taxes?
+          title: Please tell us if you decided to apply an overpayment on your %{prior_year} taxes to your %{filing_year} income taxes.
       nj_primary_state_id:
         nj_primary:
           dmv_bmv: Non-driver identification card
@@ -3706,7 +3709,9 @@ en:
           edit_disability: disability status
           edit_veteran: veteran status
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
-          estimated_tax_payments: Payments already made towards New Jersey taxes
+          estimated_tax_payments: Estimated quarterly payments amount
+          has_estimated_payments: Made estimated quarterly payments
+          has_overpayments: Applied overpayments
           household_rent_own: Living situation in %{filing_year}
           household_rent_own_both: Owned and rented
           household_rent_own_neither: Neither owned or rented
@@ -3714,6 +3719,7 @@ en:
           household_rent_own_rent: Rented
           medical_expenses: Total medical expenses
           missing_health_insurance: Dependents who DO NOT have health insurance
+          overpayments: Overpayments amount
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
           primary_disabled: Disability exemption (you)
           primary_veteran: Veteran exemption (you)
