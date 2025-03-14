@@ -8,12 +8,15 @@
   <p><%= t(".subtitle", taxpayer_name: @state_file_1099r.recipient_name, sample_name: @state_file_1099r.payer_name) %></p>
   <p><%= t(".subtitle_html") %></p>
 
-  <div class="highlight-box highlight-box--yellow">
+  <div class="warning box">
     <p><b><%= t(".warning_1") %></b></p>
     <p><%= t(".warning_2") %></p>
   </div>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= link_to next_path, class: "button button--wide spacing-above-15" do %>
+      <%= t(".file_without_claiming") %>
+    <% end %>
 
   <% end %>
 <% end %>

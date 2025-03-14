@@ -3052,6 +3052,8 @@ en:
           what_is_title: What is a health insurance premium?
       id_ineligible_retirement_and_pension_income:
         edit:
+          another_service: Fie With Another Service
+          file_without_claiming: File Without Claiming
           subtitle: You answered that your %{sample_name} 1099-R for ${taxpayer_name} account number starts with an 8.
           subtitle_html: "<b>Our service doesn’t support this type of account right now.</b> If this was a mistake, go back to correct."
           title: Unfortunately, we don't support your 1099-R account type for claiming the Idaho retirement income deduction

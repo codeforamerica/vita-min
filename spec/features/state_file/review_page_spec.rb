@@ -377,10 +377,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       @intake.update(primary_disabled: "no")
       first_1099r = @intake.state_file1099_rs.first
       first_1099r.update(taxable_amount: 200, recipient_ssn: @intake.primary.ssn)
-      StateFileId1099RFollowup.create(state_file1099_r: @intake.state_file1099_rs.first, eligible_income_source: "yes")
+      StateFileId1099RFollowup.create(state_file1099_r: @intake.state_file1099_rs.first, income_source: "civil_service_employee", civil_service_account_number: "zero_to_four")
 
       second_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Couch Potato Cafe", taxable_amount: 50, recipient_ssn: @intake.primary.ssn)
-      StateFileId1099RFollowup.create(state_file1099_r: second_1099r, eligible_income_source: "yes")
+      StateFileId1099RFollowup.create(state_file1099_r: second_1099r, income_source: "civil_service_employee", civil_service_account_number: "zero_to_four")
 
       # making this value always greater than 8e so 8f value always gets used
       allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8d).and_return(first_1099r.taxable_amount + second_1099r.taxable_amount + 1)
@@ -416,7 +416,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
             expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
             expect(page).to have_text("Couch Potato Cafe")
             expect(page).to have_text("$50")
-            choose "No"
+            choose "None of the above"
             click_on I18n.t("general.continue")
 
             expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
@@ -452,7 +452,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
           expect(page).to have_text("Couch Potato Cafe")
           expect(page).to have_text("$50")
-          choose "No"
+          choose "None of the above"
           click_on I18n.t("general.continue")
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
