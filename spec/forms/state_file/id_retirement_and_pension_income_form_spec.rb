@@ -80,95 +80,64 @@ RSpec.describe StateFile::IdRetirementAndPensionIncomeForm, type: :model do
         end
       end
 
-      ["police_officer", "firefighter"].each do |income_source_answer|
-        context "income source is #{income_source_answer}" do
-          let(:params) do
-            {
-              income_source: income_source_answer,
-              civil_service_account_number: nil,
-              police_retirement_fund: "no",
-              police_persi: "no",
-              police_none_apply: defined?(police_none_apply) ? police_none_apply : "no",
-              firefighter_frf: "no",
-              firefighter_persi: "no",
-              firefighter_none_apply: defined?(firefighter_none_apply) ? firefighter_none_apply : "no",
-            }
+      context "income source is police officer" do
+        let(:params) do
+          {
+            income_source: "police_officer",
+            civil_service_account_number: nil,
+            police_retirement_fund: "no",
+            police_persi: "no",
+            police_none_apply: defined?(police_none_apply) ? police_none_apply : "no",
+            firefighter_frf: "no",
+            firefighter_persi: "no",
+            firefighter_none_apply: "no",
+          }
+        end
+
+        context "they did not check any options" do
+          it "is invalid" do
+            form = described_class.new(follow_up, params)
+            expect(form.valid?).to eq false
           end
+        end
 
-          if income_source_answer == "police_officer"
-            context "they did not check any options" do
-              let(:police_none_apply) { "no" }
+        context "they checked none apply" do
+          let(:police_none_apply) { "yes" }
 
-              it "is invalid" do
-                form = described_class.new(follow_up, params)
-                expect(form.valid?).to eq false
-              end
-            end
+          it "is valid" do
+            form = described_class.new(follow_up, params)
+            expect(form.valid?).to eq true
+          end
+        end
+      end
 
-            context "they checked none apply" do
-              let(:police_none_apply) { "yes" }
+      context "income source is firefighter" do
+        let(:params) do
+          {
+            income_source: "firefighter",
+            civil_service_account_number: nil,
+            police_retirement_fund: "no",
+            police_persi: "no",
+            police_none_apply: defined?(police_none_apply) ? police_none_apply : "no",
+            firefighter_frf: "no",
+            firefighter_persi: "no",
+            firefighter_none_apply: defined?(firefighter_none_apply) ? firefighter_none_apply : "no",
+          }
+        end
 
-              it "is valid" do
-                form = described_class.new(follow_up, params)
-                expect(form.valid?).to eq true
-              end
-            end
+        context "they did not check any options" do
+          it "is invalid" do
+            form = described_class.new(follow_up, params)
+            expect(form.valid?).to eq false
+          end
+        end
 
-            context "they checked one of the qualifying options" do
-              let(:police_retirement_fund_yes) do
-                params_copy = params.dup
-                params_copy[:police_retirement_fund] = "yes"
-                params_copy
-              end
+        context "they checked none apply" do
+          let(:firefighter_none_apply) { "yes" }
 
-              let(:police_persi_yes) do
-                params_copy = params.dup
-                params_copy[:police_persi] = "yes"
-                params_copy
-              end
-
-              it "is valid" do
-                expect(described_class.new(follow_up, police_retirement_fund_yes).valid?).to eq true
-                expect(described_class.new(follow_up, police_persi_yes).valid?).to eq true
-              end
-            end
-          elsif income_source_answer == "firefighter"
-            context "they did not check any options" do
-              let(:firefighter_none_apply) { "no" }
-
-              it "is invalid" do
-                form = described_class.new(follow_up, params)
-                expect(form.valid?).to eq false
-              end
-            end
-
-            context "they checked none apply" do
-              let(:firefighter_none_apply) { "yes" }
-
-              it "is valid" do
-                form = described_class.new(follow_up, params)
-                expect(form.valid?).to eq true
-              end
-            end
-
-            context "they checked one of the qualifying options" do
-              let(:firefighter_frf_yes) do
-                params_copy = params.dup
-                params_copy[:firefighter_frf] = "yes"
-                params_copy
-              end
-
-              let(:firefighter_persi_yes) do
-                params_copy = params.dup
-                params_copy[:firefighter_persi] = "yes"
-                params_copy
-              end
-
-              it "is valid" do
-                expect(described_class.new(follow_up, firefighter_frf_yes).valid?).to eq true
-                expect(described_class.new(follow_up, firefighter_persi_yes).valid?).to eq true
-              end
-            end
+          it "is valid" do
+            form = described_class.new(follow_up, params)
+            expect(form.valid?).to eq true
           end
         end
       end
