@@ -3,15 +3,14 @@ require "rails_helper"
 RSpec.describe StateFile::TaxesOwedForm do
   let(:intake) { create :state_file_id_intake }
   let(:taxes_owed) { 100 }
-  let(:current_year) { MultiTenantService.new(:statefile).current_tax_year + 1 }
-  let(:app_time) { DateTime.new(current_year, 3, 15).in_time_zone('UTC') } # March 14th in US timezones
+  let(:filing_year) { MultiTenantService.new(:statefile).current_tax_year + 1 }
 
   before do
     allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(taxes_owed)
   end
 
   describe "when paying via mail" do
-    let(:params) { { payment_or_deposit_type: "mail", app_time: app_time.to_s } }
+    let(:params) { { payment_or_deposit_type: "mail", app_time: DateTime.new(filing_year, 3, 15).to_s } }
 
     it "updates the intake with only mail data" do
       form = described_class.new(intake, params)
@@ -32,11 +31,13 @@ RSpec.describe StateFile::TaxesOwedForm do
     describe "when paying via direct deposit in #{state_code}" do
       let(:intake) { create "state_file_#{state_code}_intake".to_sym }
       let(:timezone) { StateFile::StateInformationService.timezone(state_code) }
+      let(:utc_offset_hours) { Time.now.in_time_zone(timezone).utc_offset / 1.hour }
+      let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date(state_code) }
+      let(:payment_deadline_datetime) { payment_deadline_date - utc_offset_hours.hours }
       let(:routing_number) { "019456124" }
       let(:account_number) { "12345" }
       let(:account_type) { "checking" }
       let(:withdraw_amount) { taxes_owed }
-      let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date(state_code) }
       let(:withdrawal_month) { app_time.month }
       let(:params) {
         {
@@ -54,12 +55,12 @@ RSpec.describe StateFile::TaxesOwedForm do
         }
       }
 
-      context "when the current time is before the payment deadline" do
-        let(:app_time) { payment_deadline_date - 1.day }
+      context "when the form is submitted before the payment deadline" do
+        let(:app_time) { payment_deadline_datetime - 1.day }
 
         context "when the withdrawal date is in the future and before the payment deadline" do
-          let(:withdrawal_month) { (app_time + 1.day).in_time_zone(timezone).month }
-          let(:withdrawal_day) { (app_time + 1.day).in_time_zone(timezone).day }
+          let(:withdrawal_month) { (app_time + 1.day).month }
+          let(:withdrawal_day) { (app_time + 1.day).day }
 
           it "updates the intake" do
             form = described_class.new(intake, params)
@@ -72,13 +73,13 @@ RSpec.describe StateFile::TaxesOwedForm do
             expect(intake.account_number).to eq account_number
             expect(intake.account_type).to eq account_type
             expect(intake.withdraw_amount).to eq withdraw_amount
-            expect(intake.date_electronic_withdrawal).to eq DateTime.new(current_year, withdrawal_month, withdrawal_day)
+            expect(intake.date_electronic_withdrawal).to eq DateTime.new(filing_year, withdrawal_month, withdrawal_day)
           end
         end
 
         context "when the withdrawal date is today" do
-          let(:withdrawal_month) { app_time.in_time_zone(timezone).month }
-          let(:withdrawal_day) { app_time.in_time_zone(timezone).day }
+          let(:withdrawal_month) { app_time.month }
+          let(:withdrawal_day) { app_time.day }
 
           it "updates the intake" do
             form = described_class.new(intake, params)
@@ -91,13 +92,13 @@ RSpec.describe StateFile::TaxesOwedForm do
             expect(intake.account_number).to eq account_number
             expect(intake.account_type).to eq account_type
             expect(intake.withdraw_amount).to eq withdraw_amount
-            expect(intake.date_electronic_withdrawal).to eq DateTime.new(current_year, withdrawal_month, withdrawal_day)
+            expect(intake.date_electronic_withdrawal).to eq DateTime.new(filing_year, withdrawal_month, withdrawal_day)
           end
         end
 
         context "when the withdrawal date is after the payment deadline" do
-          let(:withdrawal_month) { (payment_deadline_date + 1.day).in_time_zone(timezone).month }
-          let(:withdrawal_day) { (payment_deadline_date + 1.day).in_time_zone(timezone).day }
+          let(:withdrawal_month) { (payment_deadline_date + 1.day).month }
+          let(:withdrawal_day) { (payment_deadline_date + 1.day).day }
 
           it "is not valid" do
             form = described_class.new(intake, params)
@@ -106,9 +107,32 @@ RSpec.describe StateFile::TaxesOwedForm do
           end
         end
 
+        context "when it is the very last minute before the payment deadline" do
+          let(:app_time) { payment_deadline_datetime - 1.minute }
+          let(:withdrawal_month) { (payment_deadline_date + 1.day).month }
+          let(:withdrawal_day) { (payment_deadline_date + 1.day).day }
+
+          it "it rejects an invalid withdrawal date" do
+            form = described_class.new(intake, params)
+            expect(form).not_to be_valid
+            expect(form.errors).to include :date_electronic_withdrawal
+          end
+        end
+
+        context "when it is the very first minute on the payment deadline" do
+          let(:app_time) { payment_deadline_datetime }
+          let(:withdrawal_month) { (payment_deadline_date + 1.day).month }
+          let(:withdrawal_day) { (payment_deadline_date + 1.day).day }
+
+          it "it ignores an invalid withdrawal date" do
+            form = described_class.new(intake, params)
+            expect(form).to be_valid
+          end
+        end
+
         context "when the withdrawal date is in the past" do
-          let(:withdrawal_month) { (app_time - 1.days).in_time_zone(timezone).month }
-          let(:withdrawal_day) { (app_time - 1.days).in_time_zone(timezone).day }
+          let(:withdrawal_month) { (app_time - 1.days).month }
+          let(:withdrawal_day) { (app_time - 1.days).day }
 
           it "is not valid" do
             form = described_class.new(intake, params)
@@ -129,8 +153,8 @@ RSpec.describe StateFile::TaxesOwedForm do
         end
       end
 
-      context "when the current time is on or after the payment deadline" do
-        let(:app_time) { payment_deadline_date }
+      context "when the form is submitted on or after the payment deadline" do
+        let(:app_time) { payment_deadline_datetime + 1.day }
         let(:withdrawal_month) { nil }
         let(:withdrawal_day) { nil }
         let(:post_deadline_params) {
@@ -151,7 +175,7 @@ RSpec.describe StateFile::TaxesOwedForm do
           expect(intake.account_type).to eq "checking"
           expect(intake.routing_number).to eq "019456124"
           expect(intake.account_number).to eq "12345"
-          expect(intake.date_electronic_withdrawal).to eq DateTime.new(current_year, app_time.month, app_time.day).to_date
+          expect(intake.date_electronic_withdrawal).to eq DateTime.new(filing_year, app_time.month, app_time.day).to_date
         end
 
       end
@@ -166,7 +190,7 @@ RSpec.describe StateFile::TaxesOwedForm do
             account_number_confirmation: "",
             account_type: nil,
             withdraw_amount: nil,
-            app_time: app_time.to_s
+            app_time: DateTime.new(filing_year, 3, 15).to_s
           }
         end
 
