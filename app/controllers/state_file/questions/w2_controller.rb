@@ -4,7 +4,7 @@ module StateFile
       before_action :allows_w2_editing, only: [:edit, :update]
       before_action :load_w2
 
-      helper_method :box_14_codes_and_values
+      helper_method :box_14_codes_and_values, :state_wages_invalid?
 
       def self.show?(intake) # only accessed via button, not navigator
         false
@@ -51,6 +51,10 @@ module StateFile
           value = code_name == "uiwfswf" ? @w2.get_box14_ui_overwrite : @w2.send(field_name)
           { code_name:, field_name:, value: }
         end
+      end
+
+      def state_wages_invalid?
+        current_intake.state_wages_invalid?(@w2) if StateFile::StateInformationService.check_box_16(current_state_code)
       end
 
       def load_w2
