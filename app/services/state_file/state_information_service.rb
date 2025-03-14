@@ -5,6 +5,7 @@ module StateFile
     GETTER_METHODS = [
       :intake_class,
       :calculator_class,
+      :check_box_16,
       :filing_years,
       :mail_voucher_address,
       :navigation_class,
@@ -25,7 +26,6 @@ module StateFile
       :voucher_form_name,
       :voucher_path,
       :w2_supported_box14_codes,
-      :check_box_16,
       :w2_include_local_income_boxes,
     ].freeze
 
@@ -71,6 +71,7 @@ module StateFile
       az: {
         intake_class: StateFileAzIntake,
         calculator_class: Efile::Az::Az140Calculator,
+        check_box_16: false,
         filing_years: [2024, 2023],
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
                               "PO Box 29085<br/>" \
@@ -93,12 +94,12 @@ module StateFile
         voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
         w2_supported_box14_codes: [],
-        check_box_16: false,
         w2_include_local_income_boxes: false
       },
       id: {
         intake_class: StateFileIdIntake,
         calculator_class: Efile::Id::Id40Calculator,
+        check_box_16: false,
         filing_years: [2024],
         mail_voucher_address: "Idaho State Tax Commission<br/>" \
                               "PO Box 83784<br/>" \
@@ -121,12 +122,12 @@ module StateFile
         voucher_form_name: "Form ID-VP",
         voucher_path: "/pdfs/idformIDVP-TY2024.pdf",
         w2_supported_box14_codes: [],
-        check_box_16: false,
         w2_include_local_income_boxes: false
       },
       md: {
         intake_class: StateFileMdIntake,
         calculator_class: Efile::Md::Md502Calculator,
+        check_box_16: false,
         filing_years: [2024],
         mail_voucher_address: "Comptroller of Maryland<br/>" \
                               "Payment Processing<br/>" \
@@ -150,12 +151,12 @@ module StateFile
         voucher_form_name: "Form PV",
         voucher_path: "/pdfs/md-pv-TY2024.pdf",
         w2_supported_box14_codes: [{name: "STPICKUP"}],
-        check_box_16: false,
         w2_include_local_income_boxes: true
       },
       nc: {
         intake_class: StateFileNcIntake,
         calculator_class: Efile::Nc::D400Calculator,
+        check_box_16: false,
         filing_years: [2024],
         mail_voucher_address: "North Carolina Department of Revenue<br/>" \
                               "PO Box 25000<br/>" \
@@ -178,12 +179,12 @@ module StateFile
         voucher_form_name: "Form D-400V",
         voucher_path: "https://eservices.dor.nc.gov/vouchers/d400v.jsp?year=2024",
         w2_supported_box14_codes: [],
-        check_box_16: false,
         w2_include_local_income_boxes: false
       },
       nj: {
         intake_class: StateFileNjIntake,
         calculator_class: Efile::Nj::Nj1040Calculator,
+        check_box_16: true,
         filing_years: [2024],
         navigation_class: Navigation::StateFileNjQuestionNavigation,
         review_controller_class: StateFile::Questions::NjReviewController,
@@ -207,12 +208,12 @@ module StateFile
         voucher_form_name: "NJ-1040-V (NJ Gross Income Tax Resident Payment Voucher)",
         voucher_path: "/pdfs/nj1040v-TY2024.pdf",
         w2_supported_box14_codes: [{name: "UI_WF_SWF", limit: 180}, {name: "FLI", limit: 145.26}],
-        check_box_16: true,
         w2_include_local_income_boxes: false
       },
       ny: {
         intake_class: StateFileNyIntake,
         calculator_class: Efile::Ny::It201,
+        check_box_16: false,
         filing_years: [2023],
         mail_voucher_address: "NYS Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
@@ -236,7 +237,6 @@ module StateFile
         voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
         w2_supported_box14_codes: [],
-        check_box_16: false,
         w2_include_local_income_boxes: false
       }
     }.with_indifferent_access)

@@ -31,7 +31,7 @@ module StateFile
 
         if @w2.valid?(:state_file_edit)
           @w2.box14_ui_hc_wd = nil
-          @w2.save(context: [:state_file_edit, :state_file_income_review])
+          @w2.save(context: :state_file_edit)
           redirect_to StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
         else
           render :edit

@@ -29,7 +29,7 @@
 #  index_state_file_w2s_on_state_file_intake  (state_file_intake_type,state_file_intake_id)
 #
 class StateFileW2 < ApplicationRecord
-  attr_accessor :check_box14_limits, :taxpayer_reviewed
+  attr_accessor :check_box14_limits
 
   include XmlMethods
   STATE_TAX_GRP_TEMPLATE = <<~XML

@@ -296,6 +296,7 @@ RSpec.describe StateFileNjIntake, type: :model do
              state_file_intake: intake,
              state_income_tax_amount: 600,
              state_wages_amount: 8000,
+             w2_index: 0,
              wages: 1000
             )
     }
