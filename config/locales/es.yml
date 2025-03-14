@@ -3494,7 +3494,7 @@ es:
           title: Necesitamos información sobre tu estado de seguro médico.
       nj_estimated_tax_payments:
         edit:
-          description_html: "<p>La mayoría de las personas <strong>no</strong> <a href=\"https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">hacen estos pagos</a>.</p> \n<p>Por lo general, se realizan en abril, junio, septiembre y enero. Los pagas si tu empleador/a no retiene impuestos en tu talón/cheque de pago o si trabajas como independiente (como self-employed).</p>\n<p>Si no recuerdas haberlos realizado, probablemente no lo hiciste.</p>\n<p><strong>Esto no incluye:</strong></p>\n<ul class=\"list--bulleted\">\n  <li>Retenciones en tu talón/cheque de pago</li>\n  <li>Impuestos sobre la propiedad</li>\n</ul>\n"
+          description_html: "<p>La mayoría de las personas <strong>no</strong> <a href=\"https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">hacen estos pagos</a>.</p> \n<p>Por lo general, se realizan en abril, junio, septiembre y enero. Los pagas si tu empleador/a no retiene impuestos en tu talón/cheque de pago o si trabajas como independiente (como self-employed).</p>\n<p>Si no recuerdas haberlos realizado, probablemente no lo hiciste. (Si deseas verificarlas, puedes <a href=\"https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp\" target=\"_blank\" rel=\"noopener nofollow\">acceder aquí</a>. (link en inglés))</p>\n<p><strong>Esto no incluye:</strong></p>\n<ul class=\"list--bulleted\">\n  <li>Retenciones en tu talón/cheque de pago</li>\n  <li>Impuestos sobre la propiedad</li>\n</ul>\n"
           input_label: 'Pagos totales realizados en %{filing_year}:'
           no_text: No (esta es la opción común)
           radio_label: "¿Pagaste impuestos estimados trimestralmente en %{filing_year}?"
@@ -3615,7 +3615,7 @@ es:
           description_html: |
             <p><strong>Hacerlo no es común.</strong> Es algo que hubieras seleccionado cuando hiciste tus impuestos el año pasado.</p>
             <p>Si no recuerdas haber elegido esto, probablemente es porque no lo hiciste.</p>
-            <p>Si necesitas verificar, revisa tu declaración de impuestos de %{prior_year}.</p>
+            <p>Si necesitas verificar, revisa tu declaración de impuestos de %{prior_year} (línea 69 de %{prior_year} NJ-1040).</p>
             <p><strong>Esto no incluye:</strong></p>
             <ul class="list--bulleted">
               <li>Retenciones en tu cheque de pago</li>
@@ -3681,9 +3681,9 @@ es:
           edit_disability: estado de discapacidad
           edit_veteran: estado de veterano/a de guerra
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
-          estimated_tax_payments: Estimated quarterly payments amount
-          has_estimated_payments: Made estimated quarterly payments
-          has_overpayments: Applied overpayments
+          estimated_tax_payments: Monto de los pagos trimestrales estimados
+          has_estimated_payments: Pagos trimestrales estimados
+          has_overpayments: Pagos en exceso trasladados desde %{prior_year}
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
           household_rent_own_neither: Ni dueño/a ni inquilino/a
@@ -3691,7 +3691,7 @@ es:
           household_rent_own_rent: Inquilino/a
           medical_expenses: Gastos médicos totales
           missing_health_insurance: Dependientes que NO tienen seguro médico
-          overpayments: Overpayments amount
+          overpayments: Monto de los pagos en exceso
           primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
           primary_disabled: Exención por discapacidad (tuya)
           primary_veteran: Exención para veteranos/as de guerra (tuya)

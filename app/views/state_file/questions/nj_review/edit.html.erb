@@ -235,7 +235,7 @@
 
   <section id="overpayments" class="white-group">
     <div class="spacing-below-5">
-      <h2 class="text--body text--bold spacing-below-5"><%=t(".has_overpayments") %></h2>
+      <h2 class="text--body text--bold spacing-below-5"><%=t(".has_overpayments", prior_year: current_tax_year - 1) %></h2>
       <p><%=current_intake.has_overpayments_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <% if current_intake.has_overpayments_yes? %>
         <p class="text--bold spacing-below-5"><%=t(".overpayments") %></p>
