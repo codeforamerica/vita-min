@@ -11,15 +11,17 @@ module StateFile
       end
       helper_method :taxes_owed
 
-      def payment_deadline
+      def state_specific_payment_deadline
+        # NOTE: Intentionally not converted to the State's timezone because this is used to display the date visually
+        # Converting it from UTC to another timezone changes the day
         StateInformationService.payment_deadline_date(current_intake.state_code)
       end
-      helper_method :payment_deadline
+      helper_method :state_specific_payment_deadline
 
-      def before_payment_deadline?
-        app_time.before?(payment_deadline.in_time_zone(StateInformationService.timezone(current_intake.state_code)))
+      def current_time_before_payment_deadline?
+        StateInformationService.before_payment_deadline?(app_time, current_intake.state_code)
       end
-      helper_method :before_payment_deadline?
+      helper_method :current_time_before_payment_deadline?
     end
   end
 end

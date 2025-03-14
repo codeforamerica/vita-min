@@ -5,14 +5,14 @@
     <% if owe_taxes %>
       <%= form.hidden_field :app_time, value: app_time %>
       <%= form.vita_min_money_field(:withdraw_amount, t('state_file.questions.tax_refund.bank_details.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
-      <% if before_payment_deadline? %>
+      <% if current_time_before_payment_deadline? %>
         <div class="date-select">
           <% year = current_tax_year + 1 %>
           <%= form.cfa_date_select(
                 :date_electronic_withdrawal,
                 t("state_file.questions.tax_refund.bank_details.date_withdraw_text",
-                  payment_deadline_date: I18n.l(payment_deadline.to_date, format: :medium, locale: locale),
-                  payment_deadline_year: payment_deadline.year),
+                  payment_deadline_date: I18n.l(state_specific_payment_deadline.to_date, format: :medium, locale: locale),
+                  payment_deadline_year: state_specific_payment_deadline.year),
                 options: {
                   start_year: year,
                   end_year: year,
@@ -62,11 +62,11 @@
     <%= form.cfa_input_field(:account_number, t("state_file.questions.tax_refund.bank_details.account_number"), classes: %w[form-width--long disablecopy]) %>
     <%= form.cfa_input_field(:account_number_confirmation, t("state_file.questions.tax_refund.bank_details.confirm_account_number"), classes: %w[form-width--long disablepaste disablecopy]) %>
   </div>
-  <% if owe_taxes && !before_payment_deadline? %>
+  <% if owe_taxes && !current_time_before_payment_deadline? %>
     <p>
       <%= t("state_file.questions.tax_refund.bank_details.after_deadline_default_withdrawal_info",
-            payment_deadline_date: I18n.l(payment_deadline.to_date, format: :medium, locale: locale),
-            payment_deadline_year: payment_deadline.year) %>
+            payment_deadline_date: I18n.l(state_specific_payment_deadline.to_date, format: :medium, locale: locale),
+            payment_deadline_year: state_specific_payment_deadline.year) %>
     </p>
   <% end %>
 </div>

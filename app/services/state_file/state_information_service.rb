@@ -51,9 +51,16 @@ module StateFile
       end
 
       def payment_deadline_date(state_code)
-        payment_deadline = StateInformationService.payment_deadline(state_code)
         current_filing_year = MultiTenantService.statefile.current_tax_year.to_i + 1
+        payment_deadline = StateInformationService.payment_deadline(state_code)
         DateTime.new(current_filing_year, payment_deadline[:month], payment_deadline[:day]).to_date
+      end
+
+      def before_payment_deadline?(datetime, state_code)
+        payment_deadline = StateInformationService.payment_deadline_date(state_code)
+        timezone = StateInformationService.timezone(state_code)
+        # uses the time in the government timezone for the given State
+        datetime.in_time_zone(timezone).to_date.before?(payment_deadline.in_time_zone(timezone).to_date)
       end
 
       def active_state_codes
