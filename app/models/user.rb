@@ -67,8 +67,8 @@ class User < ApplicationRecord
   validates :email, 'valid_email_2/email': { mx: true }
   validates_length_of :password, maximum: Devise.password_length.end, allow_blank: true
   validates :password, password_strength: true
-  validates_confirmation_of :password, message: -> (_object, _data) { I18n.t("errors.attributes.password.not_matching") }
-  validates_presence_of :password, if: -> (r) { !r.persisted? || !r.password.nil? || !r.password_confirmation.nil? }
+  validates_confirmation_of :password, message: ->(_object, _data) { I18n.t("errors.attributes.password.not_matching") }
+  validates_presence_of :password, if: ->(r) { !r.persisted? || !r.password.nil? || !r.password_confirmation.nil? }
 
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_many :access_logs
@@ -126,10 +126,18 @@ class User < ApplicationRecord
     when AdminRole::TYPE, ClientSuccessRole::TYPE
       VitaPartner.all
     when OrganizationLeadRole::TYPE
-      VitaPartner.organizations.where(id: role.organization).or(VitaPartner.sites.where(parent_organization: role.organization))
+      # VitaPartner.organizations.where(id: role.organization).or(VitaPartner.sites.where(parent_organization: role.organization))
+      organization = OrganizationLeadRole.includes(:organization).find(role_id).organization
+      VitaPartner.organizations.where(id: organization).or(VitaPartner.sites.where(parent_organization: organization))
     when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
+      # sites = role.class.find(role_id).sites
+      # VitaPartner.sites.where(id: sites)
       VitaPartner.sites.where(id: role.sites)
     when CoalitionLeadRole::TYPE
+      # coalition = CoalitionLeadRole.includes(:coalition).find(role_id).coalition
+      # organizations = VitaPartner.organizations.includes(parent_organization: :coalition).where(parent_organization: { coalition: coalition })
+      # sites = VitaPartner.sites.includes(parent_organization: :coalition).where(parent_organization: organizations)
+      # organizations.or(sites)
       organizations = VitaPartner.organizations.where(coalition: role.coalition)
       sites = VitaPartner.sites.where(parent_organization: organizations)
       organizations.or(sites)
