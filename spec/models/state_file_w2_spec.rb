@@ -97,12 +97,20 @@ describe StateFileW2 do
 
     context "NJ" do
       let(:intake) { create :state_file_nj_intake }
-      it "permits state_wages_amount to be zero if wages is positive" do
-        w2.taxpayer_reviewed = true
+      it "permits state_wages_amount to be zero if wages is positive and w2 has been visited" do
+        intake.confirmed_w2_ids = [w2.id]
         w2.wages = 10
         w2.state_wages_amount = 0
         w2.state_income_tax_amount = 0
         expect(w2).to be_valid(:state_file_edit)
+      end
+
+      it "does not permit state_wages_amount to be zero if wages is positive and w2 has NOT been visited" do
+        intake.confirmed_w2_ids = []
+        w2.wages = 10
+        w2.state_wages_amount = 0
+        w2.state_income_tax_amount = 0
+        expect(w2).not_to be_valid(:state_file_edit)
       end
 
       it "does not permit state_wages_amount to be nil if wages is positive" do
