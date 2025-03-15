@@ -7,13 +7,15 @@
       <h2 class="text--body text--bold spacing-below-5"><%=t("state_file.questions.shared.review_header.state_details_title") %></h2>
     </div>
 
-    <div id="health-insurance-premium" class="white-group">
-      <div class="spacing-below-5">
-        <p class="text--bold spacing-below-5"><%=t(".health_insurance_premium_title") %></p>
-        <p><%=number_to_currency(current_intake.health_insurance_paid_amount || 0, precision: 2)%></p>
-        <%= link_to t("general.review_and_edit"), StateFile::Questions::IdHealthInsurancePremiumController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    <% if current_intake.health_insurance_paid_amount&.positive?%>
+      <div id="health-insurance-premium" class="white-group">
+        <div class="spacing-below-5">
+          <p class="text--bold spacing-below-5"><%=t(".health_insurance_premium_title") %></p>
+          <p><%=number_to_currency(current_intake.health_insurance_paid_amount || 0, precision: 2)%></p>
+          <%= link_to t("general.review_and_edit"), StateFile::Questions::IdHealthInsurancePremiumController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <% if current_intake.total_purchase_amount.present? %>
       <div id="sales-use-tax" class="white-group">
