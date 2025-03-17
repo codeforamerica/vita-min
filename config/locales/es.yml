@@ -4278,7 +4278,7 @@ es:
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box15_html: "<strong>Casilla 15,</strong> Número de identificación estatal del empleador"
           box16_html: "<strong>Casilla 16</strong>, Salarios estatales, propinas, etc."
-          box16_warning_nj: '⚠️ Advertencia: Si esto es incorrecto, podrías terminar pagando menos impuestos estatales de lo que te corresponde. Si la casilla 16 tiene un número, ingresa ese número aquí. Si está en blanco o tiene un 0, haz clic en el chat para verificar si esto es correcto.'
+          box16_warning_nj: "⚠️ Advertencia: Si esto es incorrecto, podrías terminar pagando menos impuestos estatales de lo que te corresponde. Si la casilla 16 tiene un número, ingresa ese número aquí. Si está en blanco o tiene un 0, haz clic en el chat para verificar si esto es correcto."
           box17_html: "<strong>Casilla 17</strong>, Impuesto estatal sobre los ingresos"
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"
