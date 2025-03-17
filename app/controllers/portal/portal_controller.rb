@@ -22,7 +22,6 @@ module Portal
 
       def initialize(intake:)
         @intake = intake
-        binding.pry
         @client = intake.client
       end
 
