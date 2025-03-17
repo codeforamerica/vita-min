@@ -263,6 +263,7 @@
       font-weight: normal;
       margin: 0;
       min-height: auto;
+      max-width: none;
       padding: 1rem 0 1rem 3.5rem;
 
       input[type="radio"] {
@@ -365,12 +366,24 @@
       list-style-type: disc;
       padding-left: 2rem;
       margin: 1rem 0;
+
+      .unbulleted {
+        list-style-type: none;
+      }
     }
 
     li {
       font-size: 1.6rem;
       line-height: 2.4rem;
       margin-bottom: 0.5rem;
+    }
+
+    dt {
+      font-size: 1.3rem;
+    }
+
+    dd {
+      margin-left: 0;
     }
   }
 
@@ -387,7 +400,6 @@
     border-radius: 0.4rem;
     font-size: 2.2rem;
     font-weight: 700;
-    height: 6rem;
     letter-spacing: 0;
     line-height: 2.5rem;
     padding: 1.6rem 2.4rem;
@@ -442,6 +454,10 @@
 
   .form-card {
     background-color: transparent;
+
+    p {
+      max-width: none;
+    }
 
     .white-group {
       .form-group:last-child {

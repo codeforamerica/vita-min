@@ -9,6 +9,8 @@ RSpec.describe PdfFiller::Md502CrPdf do
 
   describe "#hash_for_pdf" do
     before do
+      intake.primary_suffix = "JR"
+      intake.spouse_suffix = "SR"
       intake.direct_file_data.fed_agi = 100
       intake.direct_file_data.fed_credit_for_child_and_dependent_care_amount = 10
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_deduction_method).and_return "S"
@@ -30,10 +32,10 @@ RSpec.describe PdfFiller::Md502CrPdf do
             expect(pdf_fields["Spouses Social Security Number"]).to eq(intake.spouse.ssn)
             expect(pdf_fields["Your First Name"]).to eq(intake.primary.first_name)
             expect(pdf_fields["Primary MI"]).to eq(intake.primary.middle_initial)
-            expect(pdf_fields["Your Last Name"]).to eq(intake.primary.last_name)
+            expect(pdf_fields["Your Last Name"]).to eq(intake.primary.last_name_and_suffix)
             expect(pdf_fields["Spouses First Name"]).to eq(intake.spouse.first_name)
             expect(pdf_fields["Spouse MI"]).to eq(intake.spouse.middle_initial)
-            expect(pdf_fields["Spouses Last Name"]).to eq(intake.spouse.last_name)
+            expect(pdf_fields["Spouses Last Name"]).to eq(intake.spouse.last_name_and_suffix)
           end
         end
 

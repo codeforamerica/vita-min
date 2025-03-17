@@ -7,11 +7,11 @@
   <% if @w2s.present? %>
     <div class="white-group" id="w2s">
       <h2 class="text--body text--bold spacing-below-0"><%= t(".w2s_title") %></h2>
-      <% if current_intake.allows_w2_editing? %>
-        <% @w2s.each do |w2| %>
-          <div class="spacing-above-25">
-            <p class="text--bold spacing-below-5"><%= w2.employee_name %></p>
-            <p class="spacing-below-5"><%= w2.employer_name %></p>
+      <% @w2s.each do |w2| %>
+        <div class="spacing-above-25">
+          <p class="text--bold spacing-below-5"><%= w2.employee_name %></p>
+          <p class="spacing-below-5"><%= w2.employer_name %></p>
+          <% if current_intake.allows_w2_editing? %>
             <%= link_to t(".review_and_edit_state_info"),
                         StateFile::Questions::W2Controller.to_path_helper(
                           action: :edit,
@@ -20,17 +20,22 @@
                         ),
                         class: "button--small"
             %>
-          </div>
-          <% if @w2_warnings[w2.id] %>
-            <div class="notice--warning spacing-above-5">
-              <p><%= t(".warning") %></p>
-            </div>
+            <% if @w2_warnings[w2.id] %>
+              <div class="notice--warning spacing-above-5">
+                <p><%= t(".warning") %></p>
+              </div>
+            <% end %>
+          <% else %>
+            <%= link_to t(".review_state_info"),
+                        StateFile::Questions::W2Controller.to_path_helper(
+                          action: :show,
+                          id: w2.id,
+                          return_to_review: params[:return_to_review]
+                        ),
+                        class: "button--small"
+            %>
           <% end %>
-        <% end %>
-      <% else %>
-        <p class="text--grey-bold spacing-above-15 spacing-below-0">
-          <%= t(".no_info_needed") %>
-        </p>
+        </div>
       <% end %>
     </div>
   <% end %>
@@ -83,6 +88,11 @@
                         ),
                         class: "button--small"
             %>
+            <% if !state_1099r.valid?(:income_review) %>
+              <div class="notice--warning spacing-above-5">
+                <p><%= t(".warning") %></p>
+              </div>
+            <% end %>
           <% else %>
             <%= link_to t(".review_state_info"),
                         StateFile::Questions::RetirementIncomeController.to_path_helper(

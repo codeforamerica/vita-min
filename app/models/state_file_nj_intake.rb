@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
+#  confirmed_w2_ids                                       :integer          default([]), is an Array
 #  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
@@ -137,7 +138,7 @@ class StateFileNjIntake < StateFileBaseIntake
   enum spouse_contribution_gubernatorial_elections: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_contribution_gubernatorial_elections
 
   enum eligibility_all_members_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_all_members_health_insurance
-  enum eligibility_retirement_warning_continue: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_retirement_warning_continue
+  enum eligibility_retirement_warning_continue: { unfilled: 0, yes: 1, no: 2, shown: 3 }, _prefix: :eligibility_retirement_warning_continue
 
   # checkboxes - "unfilled" means not-yet-seen because it saves as "no" when unchecked
   enum homeowner_home_subject_to_property_taxes: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_home_subject_to_property_taxes
@@ -154,8 +155,11 @@ class StateFileNjIntake < StateFileBaseIntake
   enum tenant_shared_rent_not_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_shared_rent_not_spouse
   enum tenant_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_same_home_spouse
 
+  def nj_gross_income
+    calculator.lines[:NJ1040_LINE_29].value
+  end
+
   def calculate_sales_use_tax
-    nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
     calculator.calculate_use_tax(nj_gross_income)
   end
 
@@ -178,7 +182,6 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def eligibility_made_less_than_threshold?
-    nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
     threshold = self.filing_status_single? || self.filing_status_mfs? ? 10_000 : 20_000
     nj_gross_income <= threshold
   end
@@ -214,13 +217,16 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def medical_expenses_threshold
-    nj_gross_income = calculator.lines[:NJ1040_LINE_29].value
     (nj_gross_income * 0.02).floor
+  end
+
+  def state_wages_invalid?(w2)
+    w2.wages.positive? && (w2.state_wages_amount.nil? || w2.state_wages_amount <= 0)
   end
 
   def validate_state_specific_w2_requirements(w2)
     super
-    if w2.wages.positive? && (w2.state_wages_amount.nil? || w2.state_wages_amount <= 0)
+    if state_wages_invalid?(w2) && !confirmed_w2_ids.include?(w2.id)
       w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
     end
   end

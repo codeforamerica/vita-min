@@ -259,6 +259,14 @@ describe StateFileBaseIntake do
         expect(intake.controller_for_current_step).to eq StateFile::Questions::IncomeReviewController
       end
     end
+
+    context "step is retirement_income" do
+      let(:current_step) { "/en/questions/retirement-income" }
+
+      it "returns the income review controller" do
+        expect(intake.controller_for_current_step).to eq StateFile::Questions::IncomeReviewController
+      end
+    end
   end
 
   describe "#sum_1099_r_followup_type_for_filer" do
@@ -316,4 +324,15 @@ describe StateFileBaseIntake do
     end
   end
 
+  describe "#eligible_1099rs" do
+    %w[az md nc nj].each do |state_code|
+      let(:intake) { create "state_file_#{state_code}_intake".to_sym }
+      let!(:eligible_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 200) }
+      let!(:ineligible_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+      it "should only return the 1099R with taxable_amount" do
+        expect(intake.eligible_1099rs).to contain_exactly(eligible_1099r)
+      end
+    end
+  end
 end

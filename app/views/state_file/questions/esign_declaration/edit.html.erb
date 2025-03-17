@@ -31,10 +31,12 @@
           <% end %>
         </div>
       <% end %>
-      <%= f.cfa_checkbox(:primary_esigned, t(".primary_esign"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <% if current_intake.ask_spouse_esign? %>
-        <%= f.cfa_checkbox(:spouse_esigned, t(".spouse_esign"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-      <% end %>
+      <div class="tight-checkboxes"
+        <%= f.cfa_checkbox(:primary_esigned, t(".primary_esign"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <% if current_intake.ask_spouse_esign? %>
+          <%= f.cfa_checkbox(:spouse_esigned, t(".spouse_esign"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <% end %>
+    </div>
 
       <% submission_btn_text = current_intake.efile_submissions.count > 0 ? t(".resubmit") : t(".submit") %>
       <% if @form.intake_already_submitted? %>

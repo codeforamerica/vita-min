@@ -65,7 +65,7 @@
 #  primary_proof_of_disability_submitted      :integer          default("unfilled"), not null
 #  primary_signature                          :string
 #  primary_signature_pin                      :text
-#  primary_ssb_amount                         :decimal(12, 2)   default(0.0), not null
+#  primary_ssb_amount                         :decimal(12, 2)
 #  primary_ssn                                :string
 #  primary_student_loan_interest_ded_amount   :decimal(12, 2)   default(0.0), not null
 #  primary_suffix                             :string
@@ -87,7 +87,7 @@
 #  spouse_middle_initial                      :string
 #  spouse_proof_of_disability_submitted       :integer          default("unfilled"), not null
 #  spouse_signature_pin                       :text
-#  spouse_ssb_amount                          :decimal(12, 2)   default(0.0), not null
+#  spouse_ssb_amount                          :decimal(12, 2)
 #  spouse_ssn                                 :string
 #  spouse_student_loan_interest_ded_amount    :decimal(12, 2)   default(0.0), not null
 #  spouse_suffix                              :string
@@ -452,6 +452,249 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:is_disabled) { false }
       it "returns true" do
         expect(intake.qualifies_for_pension_exclusion?(:spouse)).to eq(false)
+      end
+    end
+  end
+
+  describe "has_filer_under_65?" do
+    let(:filing_status) { "single" }
+    let(:intake) { create :state_file_md_intake, primary_birth_date: dob, spouse_birth_date: spouse_dob, filing_status: filing_status }
+
+    context "not mfj" do
+      let(:spouse_dob) { nil }
+
+      context "under 65" do
+        let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+
+        it "returns true" do
+          expect(intake.has_filer_under_65?).to eq(true)
+        end
+      end
+
+      context "over 65" do
+        let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+
+        it "returns true" do
+          expect(intake.has_filer_under_65?).to eq(false)
+        end
+      end
+    end
+
+    context "mfj" do
+      let(:filing_status) { "married_filing_jointly" }
+      let(:spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 70), 1, 1) }
+
+      context "primary" do
+        context "under 65" do
+          let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+
+          it "returns true" do
+            expect(intake.has_filer_under_65?).to eq(true)
+          end
+        end
+
+        context "over 65" do
+          let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+
+          it "returns true" do
+            expect(intake.has_filer_under_65?).to eq(false)
+          end
+        end
+      end
+
+      context "spouse" do
+        let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 70), 1, 1) }
+
+        context "under 65" do
+          let(:spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+
+          it "returns true" do
+            expect(intake.has_filer_under_65?).to eq(true)
+          end
+        end
+
+        context "over 65" do
+          let(:spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+
+          it "returns true" do
+            expect(intake.has_filer_under_65?).to eq(false)
+          end
+        end
+      end
+    end
+  end
+
+  describe "no_proof_of_disability_submitted?" do
+    let(:intake) { create :state_file_md_intake, filing_status: filing_status }
+
+    before do
+      intake.update(primary_proof_of_disability_submitted: primary_proof)
+      intake.update(spouse_proof_of_disability_submitted: spouse_proof)
+    end
+
+    context "not mfj" do
+      let(:filing_status) { "single" }
+      let(:spouse_proof) { "unfilled" }
+
+      context "with primary_proof_of_disability_submitted_no?" do
+        let(:primary_proof) { "no"}
+
+        it "should return true" do
+          expect(intake.no_proof_of_disability_submitted?).to eq(true)
+        end
+      end
+
+      context "with primary_proof_of_disability_submitted_yes?" do
+        let(:primary_proof) { "yes"}
+
+        it "should return false" do
+          expect(intake.no_proof_of_disability_submitted?).to eq(false)
+        end
+      end
+    end
+
+    context "mfj" do
+      let(:filing_status) { "married_filing_jointly" }
+      let(:primary_proof) { "yes" }
+      let(:spouse_proof) { "yes" }
+
+      context "both with proof" do
+        it "should return false" do
+          expect(intake.no_proof_of_disability_submitted?).to eq(false)
+        end
+      end
+
+      context "with primary_proof_of_disability_submitted_no?" do
+        let(:primary_proof) { "no"}
+
+        it "should return true" do
+          expect(intake.no_proof_of_disability_submitted?).to eq(false)
+        end
+      end
+
+      context "With spouse_proof_of_disability_submitted_no?" do
+        let(:spouse_proof) { "no"}
+
+        it "should return true" do
+          expect(intake.no_proof_of_disability_submitted?).to eq(false)
+        end
+      end
+
+      context "without any submitted proof" do
+        let(:primary_proof) { "no"}
+        let(:spouse_proof) { "no"}
+
+        it "should return true" do
+          expect(intake.no_proof_of_disability_submitted?).to eq(true)
+        end
+      end
+    end
+  end
+
+  describe "has_at_least_one_disabled_filer?" do
+    let(:intake) { create :state_file_md_intake }
+
+    before do
+      intake.update(primary_disabled: primary_disabled)
+      intake.update(spouse_disabled: spouse_disabled)
+    end
+
+    context "with disabled primary" do
+      let(:primary_disabled) { "yes" }
+      let(:spouse_disabled) { "unfilled" }
+
+      it "should return true" do
+        expect(intake.has_at_least_one_disabled_filer?).to eq(true)
+      end
+    end
+
+    context "with disabled spouse" do
+      let(:primary_disabled) { "unfilled" }
+      let(:spouse_disabled) { "yes" }
+
+      it "should return true" do
+        expect(intake.has_at_least_one_disabled_filer?).to eq(true)
+      end
+    end
+
+    context "with no one disabled" do
+      let(:primary_disabled) { "no" }
+      let(:spouse_disabled) { "no" }
+
+      it "should return false" do
+        expect(intake.has_at_least_one_disabled_filer?).to eq(false)
+      end
+    end
+
+    context "with disabled spouse not disabled primary" do
+      let(:primary_disabled) { "no" }
+      let(:spouse_disabled) { "yes" }
+
+      it "should return true" do
+        expect(intake.has_at_least_one_disabled_filer?).to eq(true)
+      end
+    end
+  end
+
+  describe "should_warn_about_pension_exclusion?" do
+    let(:intake) { create :state_file_md_intake }
+    context "with a filler under 65" do
+      before do
+        allow_any_instance_of(StateFileMdIntake).to receive(:has_filer_under_65?).and_return true
+      end
+
+      context "with eligible 1099r"  do
+        let!(:first_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 200) }
+        let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+        it "should return true" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(true)
+        end
+      end
+
+      context "with only ineligible 1099rs"  do
+        let!(:first_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+        let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
+        end
+      end
+
+      context "with no 1099rs"  do
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
+        end
+      end
+    end
+
+    context "with no filers under 65" do
+      before do
+        allow_any_instance_of(StateFileMdIntake).to receive(:has_filer_under_65?).and_return false
+      end
+
+      context "with eligible 1099r"  do
+        let!(:first_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 200) }
+        let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
+        end
+      end
+
+      context "with only ineligible 1099rs"  do
+        let!(:first_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+        let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
+        end
+      end
+
+      context "with no 1099rs"  do
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
+        end
       end
     end
   end

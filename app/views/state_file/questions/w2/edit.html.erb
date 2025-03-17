@@ -8,27 +8,22 @@
       <p class="text--bold spacing-below-5"><%= @w2.employee_name %></p>
       <p class="spacing-below-25"><%= @w2.employer_name %></p>
 
-      <% if @box14_codes.present? %>
+      <% if box_14_codes_and_values.present? %>
         <% box14_intro_key = "state_file.questions.w2.edit.box14_intro_#{current_state_code}_html" %>
         <% if I18n.exists?(box14_intro_key) %>
           <p><%= t(box14_intro_key) %></p>
         <% end %>
         <fieldset>
           <legend class="spacing-below-5"><%= t(".box14_html") %></legend>
-          <% @box14_codes.each do |code| %>
+          <% box_14_codes_and_values.each do |box_14_item| %>
+            <% box_14_item => { code_name:, field_name:, value: } %>
             <div class="form-question spacing-below-25">
-              <% field_name = "box14_#{code['name'].downcase}" %>
-              <% value = if code['name'] == "UIWFSWF"
-                @w2.get_box14_ui_overwrite
-              else
-                @w2.send(field_name)
-              end %>
               <%= f.vita_min_money_field(
                     field_name.to_sym,
-                    t(".box14_#{code['name'].downcase}_html"),
+                    t(".box14_#{code_name}_html"),
                     options: { value: value },
                     classes: ["form-width--long"],
-                    help_text: t(".box14_#{code['name'].downcase}_help_text_html", year: MultiTenantService.statefile.current_tax_year, default: nil)
+                    help_text: t(".box14_#{code_name}_help_text_html", year: MultiTenantService.statefile.current_tax_year, default: nil)
                   ) %>
             </div>
           <% end %>
@@ -40,6 +35,11 @@
       <div class="form-question spacing-below-25">
         <%= f.vita_min_money_field(:state_wages_amount, t(".box16_html"), classes: ["form-width--long"]) %>
       </div>
+      <% if state_wages_invalid? %>
+        <div class="notice--warning spacing-above-5">
+          <p><%= t(".box16_warning_nj") %></p>
+        </div>
+      <% end %>
       <div class="form-question spacing-below-25">
         <%= f.vita_min_money_field(:state_income_tax_amount, t(".box17_html"), classes: ["form-width--long"]) %>
       </div>
@@ -51,7 +51,7 @@
           <%= f.vita_min_money_field(:local_income_tax_amount, t(".box19_html"), classes: ["form-width--long"]) %>
         </div>
         <div class="form-question spacing-below-25 ny-w2-locality-nm">
-          <%= f.cfa_input_field(:locality_nm, t(".box20_locality_name"), classes: ["form-width--long"]) %>
+          <%= f.cfa_input_field(:locality_nm, t(".box20_locality_name_html"), classes: ["form-width--long"]) %>
         </div>
       <% end %>
     </div>

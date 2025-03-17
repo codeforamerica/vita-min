@@ -599,6 +599,9 @@ Rails.application.routes.draw do
       get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
       get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
 
+      get '/az/questions/return-status', to: redirect('/')
+      get '/az/questions/submission-confirmation', to: redirect('/')
+
       resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
         put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
         get "locked", to: "intake_logins#account_locked", as: :account_locked, on: :collection
@@ -608,7 +611,7 @@ Rails.application.routes.draw do
 
       match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
       match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
-      resources :w2, only: [:edit, :update], module: 'state_file/questions', path: 'questions/w2'
+      resources :w2, only: [:show, :edit, :update], module: 'state_file/questions', path: 'questions/w2'
 
       active_state_codes.each do |code|
         navigation_class = StateFile::StateInformationService.navigation_class(code)
