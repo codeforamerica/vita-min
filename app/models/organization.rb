@@ -43,7 +43,7 @@ class Organization < VitaPartner
   has_many :state_routing_targets, as: :target, dependent: :destroy
   validate :no_state_routing_targets_if_in_coalition
 
-  default_scope -> { includes(:child_sites).order(name: :asc) }
+  # default_scope -> { includes(:child_sites).order(name: :asc) }
   alias_attribute :allows_greeters?, :allows_greeters
   scope :with_computed_client_count, -> do
     clients_with_tax_returns_included_in_capacity = TaxReturn.
