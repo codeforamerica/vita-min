@@ -2106,9 +2106,10 @@ en:
           verify: Verify code
       verification_error:
         az_dor: Arizona Department of Revenue
+        locked_due_to_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
         ny_dor: NY State Tax Department
         return_to_home: Return to Homepage
-        subtitle: Please visit your state's tax agency website to request your %{year} tax return
+        subtitle_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
         title: Sorry, we were not able to verify your account
     faq:
       index:
@@ -2696,7 +2697,9 @@ en:
           sub10: Senior Tax Credit
           sub11: State and local Poverty Level Credits
           sub12: Credit for Child and Dependent Care Expenses
-          sub2: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
+          sub2:
+            one: Pension exclusion (if you are 65 years or older, or if you are under 65 and previously qualified for the exclusion based on a permanent disability)
+            other: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
           sub3: Military retirement
           sub4: Public safety retirement
           sub5: Taxable Social Security and Railroad Retirement benefits
@@ -3221,7 +3224,6 @@ en:
           spouse_proof_question_html: Has <strong>your spouse</strong> provided proof of your disability for the  <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a> in the previous tax years?
           title: Are you totally and permanently disabled?
           title_spouse: Are you or your spouse totally and permanently disabled?
-          unfortunately_dont_support_html: Unfortunately, our service doesn’t support the Maryland Pension Exclusion if you haven’t provided proof of your disability in a previous tax year.<br><br> If you want to claim the pension exclusion, <a href='%{path}'>learn more here</a>.
           why: Why are you asking this?
           why_explained_1: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income. If you are over 65, you automatically qualify for the pension exclusion.
           why_explained_2_html: If you are under 65 and want to claim the pension exclusion, you <strong>must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return</strong>.
@@ -4292,6 +4294,7 @@ en:
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box15_html: "<strong>Box 15,</strong> Employer’s state ID number"
           box16_html: "<strong>Box 16,</strong> State wages, tips, etc."
+          box16_warning_nj: '⚠️ Warning: If this is incorrect, you could end up underpaying state taxes. If box 16 has a number in it, enter that number here. If it''s blank or 0, click "Chat with us" and let''s make sure this is correct.'
           box17_html: "<strong>Box 17,</strong> State income tax"
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"

@@ -2089,9 +2089,10 @@ es:
           verify: Verificar el código
       verification_error:
         az_dor: Departamento de Ingresos de Arizona
+        locked_due_to_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
         ny_dor: Departamento de Impuestos del Estado de Nueva York
         return_to_home: Regresar al inicio
-        subtitle: Por favor, visita el sitio web de la agencia fiscal de tu estado para solicitar tu declaración de impuestos de %{year}
+        subtitle_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
         title: Lo sentimos, no nos fue posible verificar tu cuenta
     faq:
       index:
@@ -2681,7 +2682,9 @@ es:
           sub10: Crédito tributario para Personas Mayores
           sub11: Crédito Estatal y Local por Nivel de Pobreza
           sub12: Crédito por Gastos de cuidado de Niños y Dependientes
-          sub2: Exclusión de pensiones (si tienes 65 años o más, o si tienes menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
+          sub2:
+            one: Exclusión de pensiones (si tienes 65 años o más, o si tienes menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
+            other: Exclusión de pensiones (si tú o tu cónyuge tienen 65 años o más, o si tú o tu cónyuge tienen menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
           sub3: Jubilación militar
           sub4: Jubilación de seguridad pública
           sub5: Beneficios de Seguridad Social y Jubilación de Ferrocarriles sujetos a impuestos
@@ -3191,7 +3194,6 @@ es:
           spouse_proof_question_html: ¿Ha presentado prueba de <strong>tu cónyuge</strong> discapacidad para <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">la Exclusión de Pensiones de Maryland </a> en años fiscales anteriores?
           title: "¿Estás total y permanentemente discapacitado?"
           title_spouse: "¿Tú o tu cónyuge están total y permanentemente discapacitados?"
-          unfortunately_dont_support_html: Desafortunadamente, nuestro servicio no puede incluir la Exclusión de Pensiones de Maryland si no has presentado prueba de tu discapacidad en un año fiscal anterior.<br><br> Si quieres reclamar la exclusión de pensiones, <a href='%{path}'>obtén más información aquí</a>.
           why: "¿Por qué están preguntando esto?"
           why_explained_1: La Exclusión de Pensiones de Maryland puede ahorrarte cientos a miles de dólares en impuestos estatales y locales al reducir la cantidad de impuestos que deberás pagar de tus ingresos de jubilación. Si tú tienen más de 65 años, califican automáticamente para la exclusión de pensiones.
           why_explained_2_html: Si tú tienen menos de 65 años y deseas reclamar la exclusión de pensiones utilizando este servicio, tú haber <strong>adjuntado una certificación de un médico calificado que indique la naturaleza de su discapacidad y que tú estén totalmente discapacitados a una declaración de impuestos presentada anteriormente</strong>.
@@ -4278,6 +4280,7 @@ es:
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box15_html: "<strong>Casilla 15,</strong> Número de identificación estatal del empleador"
           box16_html: "<strong>Casilla 16</strong>, Salarios estatales, propinas, etc."
+          box16_warning_nj: "⚠️ Advertencia: Si esto es incorrecto, podrías terminar pagando menos impuestos estatales de lo que te corresponde. Si la casilla 16 tiene un número, ingresa ese número aquí. Si está en blanco o tiene un 0, haz clic en el chat para verificar si esto es correcto."
           box17_html: "<strong>Casilla 17</strong>, Impuesto estatal sobre los ingresos"
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"
