@@ -15,7 +15,7 @@ module StateFile
       end
 
       def edit
-        if StateFile::StateInformationService.check_box_16(current_state_code)
+        if StateFile::StateInformationService.check_box_16(current_state_code) && !current_intake.confirmed_w2_ids.include?(@w2.id)
           current_intake.confirmed_w2_ids.append(@w2.id)
           current_intake.save
         end

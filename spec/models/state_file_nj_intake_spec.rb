@@ -308,6 +308,7 @@ RSpec.describe StateFileNjIntake, type: :model do
         intake.validate_state_specific_w2_requirements(w2)
         expect(w2.errors[:state_wages_amount]).to be_present
         expect(w2.valid?(:state_file_edit)).to eq false
+        expect(w2.valid?(:state_file_income_review)).to eq false
       end
     end
 
