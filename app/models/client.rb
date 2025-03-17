@@ -253,6 +253,7 @@ class Client < ApplicationRecord
   end
 
   def forward_message_to_intercom?
+    binding.pry
     return false unless AdminToggle.current_value_for(AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, default: false)
 
     !online_ctc? && tax_returns.map(&:current_state).all? { |state| TaxReturnStateMachine::FORWARD_TO_INTERCOM.include? state&.to_sym }
