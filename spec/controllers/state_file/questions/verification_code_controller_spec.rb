@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe StateFile::Questions::VerificationCodeController do
-  # making sure this one doesn't match
-  let!(:first_existing_intake) { create(:state_file_az_intake, email_address: "shouldntmatchanything@please.org") }
   before do
     sign_in intake
   end
@@ -56,6 +54,8 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
   end
 
   describe "#update" do
+    # making sure this one doesn't match
+    let!(:existing_intake_with_df_data) { create(:state_file_az_intake, email_address: "shouldntmatchanything@please.org", raw_direct_file_data: "something") }
     context "with an intake matching an existing intake in the same state" do
       let!(:existing_intake) { create(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com") }
       let(:intake) do
