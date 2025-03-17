@@ -296,6 +296,8 @@ RSpec.describe StateFileNjIntake, type: :model do
              state_file_intake: intake,
              state_income_tax_amount: 600,
              state_wages_amount: 8000,
+             box14_fli: 0,
+             box14_ui_wf_swf: 0,
              w2_index: 0,
              wages: 1000
             )
@@ -321,6 +323,7 @@ RSpec.describe StateFileNjIntake, type: :model do
         w2.state_income_tax_amount = 0
         intake.validate_state_specific_w2_requirements(w2)
         expect(w2.errors[:state_wages_amount]).not_to be_present
+        expect(w2.valid?(:state_file_edit)).to eq true
         expect(w2.valid?(:state_file_income_review)).to eq true
       end
     end
