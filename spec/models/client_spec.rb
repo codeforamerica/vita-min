@@ -99,11 +99,12 @@ describe Client do
 
   describe ".refresh_filterable_properties" do
     let(:organization) { create(:organization) }
-    let!(:client) { create(:client, vita_partner: organization) }
+    let(:client) { create(:client, vita_partner: organization) }
     let(:user) { create(:user) }
     let!(:tr1) { create(:tax_return, year: 2019, client: client, assigned_user: user) }
     let!(:tr2) { create(:tax_return, :file_needs_review, year: 2020, client: client) }
-    let!(:tr3) { create(:tax_return, year: 2018, client: client) }
+    let(:tr3_record) { create(:tax_return, year: 2018, client: client) }
+    let!(:tr3) { TaxReturn.includes(:tax_return_transitions).find(tr3_record.id) }
 
     before do
       # some (old?) tax returns don't have any transitions and a nil current_state
@@ -418,7 +419,7 @@ describe Client do
       let(:vita_partner) { create :site }
       let(:user) { create :user }
       let(:organization_lead_role) { create :organization_lead_role, user: user, organization: vita_partner }
-      let(:client) { create :client, vita_partner: vita_partner }
+      let(:client_record) { create :client, vita_partner: vita_partner }
       let(:intake) { create :intake, client: client, vita_partner: vita_partner }
       let!(:unrelated_intake) { create :intake }
       let(:attachment) { fixture_file_upload("test-pattern.png") }
@@ -428,6 +429,9 @@ describe Client do
       let(:bulk_client_message) { BulkClientMessage.create }
       let!(:outgoing_text_message) { create(:outgoing_text_message, client: client) }
       let!(:bulk_client_sms) { BulkClientMessageOutgoingTextMessage.create(outgoing_text_message: outgoing_text_message) }
+      let!(:client) do
+        Client.includes(:documents, :documents_requests, intake: [:documents, :triage, :dependents, :tax_returns]).find(client_record.id)
+      end
       before do
         doc_request = DocumentsRequest.create(client: client)
         create :document, client: client, intake: intake, documents_request_id: doc_request.id
@@ -449,6 +453,14 @@ describe Client do
       end
 
       it "destroys everything associated with the client" do
+        client = Client.includes(
+          :documents,
+          :documents_requests,
+          intake: [
+            :completed_w2s, :documents, :triage, :dependents, :intake_archive, :w2s_including_incomplete,
+            {tax_returns: [:tax_return_transitions, :assignments, :tax_return_selection_tax_returns, :efile_submissions]}
+          ]
+        ).find(client_record.id)
         client.destroy
         expect(Client.count).to eq 1
         expect(EfileSecurityInformation.count).to eq 1
@@ -530,7 +542,8 @@ describe Client do
     let!(:gyr_client_accessible_no_ssn_match) { create :client, :with_gyr_return, intake: build(:intake, product_year: product_year, primary_ssn: "123456789", primary_consented_to_service: "yes"), tax_returns: [(build :tax_return, service_type: "drop_off", year: 2019)] }
 
     context "GYR client" do
-      let!(:client) { create :client, filterable_product_year: product_year, intake: build(:intake, primary_ssn: primary_ssn, product_year: product_year) }
+      let(:client_record) { create :client, filterable_product_year: product_year, intake: build(:intake, primary_ssn: primary_ssn, product_year: product_year) }
+      let(:client) { Client.includes(:documents, :documents_requests, intake: [:completed_w2s, :documents, :triage, :dependents, :intake_archive, :w2s_including_incomplete, :tax_returns]).find(client_record.id) }
 
       context "looking for CTC matches" do
         let(:display_type) { Intake::CtcIntake }
@@ -657,12 +670,15 @@ describe Client do
     end
 
     context "a dropoff client" do
+      let(:tr1) { build(:tax_return, status1.to_sym, year: "2019") }
+      let(:tr2) { build(:tax_return, status2.to_sym, year: "2020") }
+      let(:tax_returns) { [tr1, tr2] }
       let(:client) { create :client, intake: build(:intake), tax_returns: tax_returns }
-      let(:tax_returns) { [build(:tax_return, status1.to_sym, year: "2019"), build(:tax_return, status2.to_sym, year: "2020")] }
 
       context "when the FORWARD_MESSAGES_TO_INTERCOM admin toggle is true" do
+        let(:admin_user) { create(:admin_user) }
         before do
-          AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: create(:admin_user))
+          AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: admin_user)
         end
 
         context "some of the tax returns have FORWARD_TO_INTERCOM statuses" do
@@ -688,6 +704,7 @@ describe Client do
           let(:status2) { "file_accepted" }
 
           it "returns true" do
+            binding.pry
             expect(client.forward_message_to_intercom?).to eq(true)
           end
         end
@@ -857,7 +874,8 @@ describe Client do
 
   describe "#number_of_required_documents" do
     context "for a single filer" do
-      let(:minimal_intake) { create(:intake, {}) }
+      let(:minimal_intake_record) { create(:intake, {}) }
+      let(:minimal_intake) { Intake::GyrIntake.includes(:client, :dependents).find(minimal_intake_record.id) }
 
       it "includes the documents that are required for everyone" do
         expect(minimal_intake.client.number_of_required_documents).to eq(3)
@@ -865,7 +883,8 @@ describe Client do
     end
 
     context "filing jointly" do
-      let(:joint_intake) { create(:intake, filing_joint: "yes") }
+      let(:joint_intake_record) { create(:intake, filing_joint: "yes") }
+      let(:joint_intake) { Intake::GyrIntake.includes(:client, :dependents).find(joint_intake_record.id) }
 
       it "returns at least six, for the three required documents for each filer" do
         expect(joint_intake.client.number_of_required_documents).to eq(6)
@@ -873,9 +892,10 @@ describe Client do
     end
 
     context "filing with dependents" do
-      let(:dependents_intake) { create(:intake, {}) }
+      let(:dependents_intake_record) { create(:intake, {}) }
       let!(:dependent1) { create :dependent, intake: dependents_intake }
       let!(:dependent2) { create :dependent, intake: dependents_intake }
+      let(:dependents_intake) { Intake::GyrIntake.includes(:client, :dependents).find(dependents_intake_record.id) }
 
       it "requires an additional document (SSN) for each dependent" do
         expect(dependents_intake.client.number_of_required_documents).to eq(5)
@@ -883,7 +903,8 @@ describe Client do
     end
 
     context "when answering questions that require additional forms" do
-      let(:health_and_wages_intake) { create(:intake, bought_marketplace_health_insurance: "yes", had_wages: "yes") }
+      let(:health_and_wages_intake_record) { create(:intake, bought_marketplace_health_insurance: "yes", had_wages: "yes") }
+      let(:health_and_wages_intake) { Intake::GyrIntake.includes(:client, :dependents).find(health_and_wages_intake_record.id) }
 
       it "returns expected documents for particular intake forms" do
         expect(health_and_wages_intake.client.number_of_required_documents).to eq(5)
@@ -892,13 +913,15 @@ describe Client do
   end
 
   describe "#number_of_required_documents_uploaded" do
-    let(:intake) { create(:intake) }
-
+    let(:record) { create(:intake) }
+    let(:intake) { Intake::GyrIntake.includes(:client, :dependents).find(record.id) }
     it "returns zero when no required documents are uploaded" do
       expect(intake.client.number_of_required_documents_uploaded).to eq(0)
     end
 
     context "with uploaded documents" do
+      let(:record) { create(:intake) }
+      let(:intake) { Intake::GyrIntake.includes(:client, :dependents).find(record.id) }
       it "returns the number of uploaded documents" do
         expect do
           create :document, intake: intake, document_type: DocumentTypes::Selfie.key
@@ -943,7 +966,9 @@ describe Client do
              treatment: treatment,
              record: client.intake
     end
-    let!(:client) { create :client, intake: build(:intake) }
+    let(:intake) { build(:intake) }
+    let(:record) { create :client, intake: intake }
+    let(:client) { Client.includes(intake: :dependents).find(record.id) }
 
     context "client is in the ID Verification Experiment" do
       context "has control treatment" do
@@ -996,7 +1021,7 @@ describe Client do
         let!(:driver_license_doc) { create :document, client: client, intake: client.intake, document_type: DocumentTypes::PrimaryIdentification::DriversLicense.key }
 
         it "counts the drivers license as an ID document" do
-          expect(client.required_document_counts).to match(hash_including("ID"=>{:clamped_provided_count=>1, :provided_count=>1, :required_count=>1}))
+          expect(client.required_document_counts).to match(hash_including("ID" => {:clamped_provided_count => 1, :provided_count => 1, :required_count => 1}))
         end
       end
 
@@ -1004,7 +1029,7 @@ describe Client do
         let!(:w2_doc) { create :document, client: client, intake: client.intake, document_type: DocumentTypes::SecondaryIdentification::W2.key }
 
         it "counts it as an 'SSN or ITIN' document" do
-          expect(client.required_document_counts).to match(hash_including("SSN or ITIN" => {:clamped_provided_count=>1, :provided_count=>1, :required_count=>1}))
+          expect(client.required_document_counts).to match(hash_including("SSN or ITIN" => {:clamped_provided_count => 1, :provided_count => 1, :required_count => 1}))
         end
       end
     end
