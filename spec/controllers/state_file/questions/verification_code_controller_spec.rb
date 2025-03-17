@@ -75,6 +75,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
           )
         )
         expect(response).to redirect_to(login_location)
+        expect(StateFileAzIntake.where(id: intake.id)).to be_empty
       end
     end
 
@@ -97,6 +98,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
           )
         )
         expect(response).to redirect_to(login_location)
+        expect(StateFileAzIntake.where(id: intake.id)).to be_empty
       end
     end
 
@@ -119,6 +121,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
       it "redirects to the next path" do
         post :update, params: { state_file_verification_code_form: { verification_code: token[0] }}
         expect(response).to redirect_to(questions_code_verified_path)
+        expect(intake.reload).not_to be_destroyed
       end
     end
   end
