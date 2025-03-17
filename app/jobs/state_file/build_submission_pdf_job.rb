@@ -1,7 +1,6 @@
 module StateFile
   class BuildSubmissionPdfJob < ApplicationJob
     after_perform do |job|
-      # let any connected clients know the pdf is ready
       intake = EfileSubmission.find(job.arguments.first).data_source
       StateFileSubmissionPdfStatusChannel.broadcast_status(intake, :ready)
     end

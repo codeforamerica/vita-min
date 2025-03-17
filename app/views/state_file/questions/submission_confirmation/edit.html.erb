@@ -6,14 +6,6 @@
 
 <% content_for :page_title, title %>
 <% content_for :card do %>
-
-  <%= link_to t(".download_state_return_pdf"),
-              StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission),
-              id: "pdf-download-link",
-              class: "button button--primary button--wide",
-              target: "_blank",
-              rel: "noopener noreferrer" %>
-
   <div class="loading-container">
     <div class='return-status'>
       <p>

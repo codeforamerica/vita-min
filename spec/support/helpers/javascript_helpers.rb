@@ -17,4 +17,10 @@ module JavascriptHelpers
     end
   end
 
+  def simulate_submission_pdf_ready
+    page.execute_script(<<~JS)
+      document.querySelector('.loading-container').style.display = 'none';
+      document.querySelector('.download-link-container').style.display = 'block';
+    JS
+  end
 end

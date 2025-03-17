@@ -495,7 +495,16 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       wait_for_device_info("esign_declaration")
 
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
 
+      allow(StateFileSubmissionPdfStatusChannel).to receive(:broadcast_status) do
+        simulate_submission_pdf_ready
+      end
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(current_intake, :ready)
+
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
 
       click_on "Main XML Doc"

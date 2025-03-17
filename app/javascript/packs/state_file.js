@@ -38,8 +38,6 @@ const actionMap = {
       },
 
       connected () {
-        console.log(`channel connected, status: ${this.pdfStatus}`)
-        // wait for a half second, then ask for an update
         setTimeout(() => {
           this.perform("status_update")
         }, 500)
@@ -47,12 +45,10 @@ const actionMap = {
 
       disconnected () {
         this.pdfStatus = 'disconnected'
-        console.log(`channel disconnected, status: ${this.pdfStatus}`)
       },
 
       received ({status}) {
         this.pdfStatus = status
-        console.log(`received event, new status: ${this.pdfStatus}`)
         this.handleStatusChange()
       }
     },
