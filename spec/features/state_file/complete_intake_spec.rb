@@ -155,7 +155,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "state_file_tax_refund_form_account_number_confirmation", with: "2222222222"
       click_on I18n.t("general.continue")
 
-      expect(page).not_to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))
+
       expect(page).to have_text("Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return")
       check "state_file_esign_declaration_form_primary_esigned"
 
@@ -163,8 +163,18 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year)
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year)
+      expect(page).not_to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Arizona")
+
+      allow(StateFileSubmissionPdfStatusChannel).to receive(:broadcast_status) do
+        simulate_submission_pdf_ready
+      end
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileAzIntake.last, :ready)
+
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
 
       click_on "Main XML Doc"
 
@@ -301,7 +311,18 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
+
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "North Carolina")
+
+      allow(StateFileSubmissionPdfStatusChannel).to receive(:broadcast_status) do
+        simulate_submission_pdf_ready
+      end
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileNcIntake.last, :ready)
+
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "North Carolina")
 
       click_on "Main XML Doc"
 
@@ -643,8 +664,19 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year)
+      expect(page).not_to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Maryland")
+
+      allow(StateFileSubmissionPdfStatusChannel).to receive(:broadcast_status) do
+        simulate_submission_pdf_ready
+      end
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileMdIntake.last, :ready)
+
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year)
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Maryland")
 
       click_on "Main XML Doc"
 
