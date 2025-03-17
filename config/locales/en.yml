@@ -4122,9 +4122,15 @@ en:
           title: Arizona retirement income deductions
           uniformed_services: Retired or retainer pay of the uniformed services of the United States
         id_retirement_income_deductions_review_header:
-          qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
-          qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
-          qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
+          civil_servant_employee: Retirement income from %{taxpayer_name}’s service as a Civil Service employee
+          police_officer: Retirement income from %{taxpayer_name}’s service an Idaho city Police officer
+          firefighter: Retirement income from %{taxpayer_name}’s service an Idaho city Police officer
+          subtitle: These allow people to deduct all or a portion of their retirement income from their taxes.
+          title: Idaho retirement income deductions
+          none_apply: None apply
+          zero_to_four: Account number starts with 0, 1,2, 3 or 4
+          seven_or_nine: Account number starts with 7 or 9
+          eight: Account number starts with 8.
         md_retirement_income_deductions_review_header:
           military: Benefits from your military service or benefits received for the military service of your deceased spouse or ex-spouse
           none: None apply
