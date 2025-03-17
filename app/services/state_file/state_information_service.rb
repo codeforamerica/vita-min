@@ -50,6 +50,11 @@ module StateFile
         I18n.t("state_file.state_information_service.#{state_code}.department_of_taxation")
       end
 
+      def survey_link(state_code, locale: nil)
+        raise InvalidStateCodeError, state_code unless STATES_INFO.key?(state_code)
+        I18n.t("state_file.state_information_service.#{state_code}.survey_link", locale: locale || I18n.locale)
+      end
+
       def active_state_codes
         @_active_state_codes ||= STATES_INFO.keys.map(&:to_s).freeze
       end

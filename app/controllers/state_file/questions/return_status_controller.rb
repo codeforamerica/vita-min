@@ -17,7 +17,7 @@ module StateFile
         @voucher_form_name = StateFile::StateInformationService.voucher_form_name(current_state_code)
         @mail_voucher_address = StateFile::StateInformationService.mail_voucher_address(current_state_code)
         @voucher_path = StateFile::StateInformationService.voucher_path(current_state_code)
-        @survey_link = StateFile::StateInformationService.survey_link(current_state_code)
+        @survey_link = StateFile::StateInformationService.survey_link(current_state_code, locale: I18n.locale)
         @tax_form_number = StateFile::StateInformationService.return_type(current_state_code).gsub("Form", "")
       end
 
