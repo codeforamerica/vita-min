@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe StateFile::Questions::VerificationCodeController do
+  let!(:first_existing_intake) { create(:state_file_az_intake, email_address: "hellodarkness@myoldfriend.org") }
   before do
     sign_in intake
   end
