@@ -704,7 +704,6 @@ describe Client do
           let(:status2) { "file_accepted" }
 
           it "returns true" do
-            binding.pry
             expect(client.forward_message_to_intercom?).to eq(true)
           end
         end
