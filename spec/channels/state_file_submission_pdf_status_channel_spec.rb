@@ -2,10 +2,6 @@ require 'rails_helper'
 
 RSpec.describe DfDataTransferJobChannel, type: :channel do
   let(:intake) { create(:state_file_az_intake) }
-  before do
-    intake.update(raw_direct_file_data: direct_file_data)
-    stub_connection current_state_file_intake: intake
-  end
 
   context "without direct file data" do
     let(:direct_file_data) { nil }
