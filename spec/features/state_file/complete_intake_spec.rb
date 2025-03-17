@@ -502,7 +502,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         simulate_submission_pdf_ready
       end
 
-      StateFileSubmissionPdfStatusChannel.broadcast_status(current_intake, :ready)
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileIdIntake.last, :ready)
 
       expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
