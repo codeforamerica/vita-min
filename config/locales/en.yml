@@ -3522,11 +3522,28 @@ en:
           title: We need information about your health insurance status.
       nj_estimated_tax_payments:
         edit:
-          description_html: "<p>Most people <strong>do not</strong> make <a href=\"https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf\" target=\"_blank\" rel=\"noopener nofollow\">these payments</a>.</p> \n<p>They are typically made in April, June, September, and January. You make them if your employer doesn't withhold taxes in your paycheck or if you are self-employed.</p>\n<p>If you don’t remember making these, you probably didn't do so. (If you would like to check, you can <a href=\"https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp\" target=\"_blank\" rel=\"noopener nofollow\">log on here</a>.)</p>\n<p><strong>This does not include:</strong></p>\n<ul class=\"list--bulleted\">\n  <li>Withholdings in your paycheck</li>\n  <li>Property taxes</li>\n</ul>\n"
-          input_label_html: '<strong>Total payments made in %{filing_year}:</strong>'
+          description_html: |
+            <p>Most people do <strong>not</strong> make these payments.</p>
+            <p>You are most likely to have made them if your employer <strong>doesn't</strong> withhold taxes in your paycheck or if you are self-employed.</p>
+            <p>These payments include:</p>
+            <ul class="list--bulleted">
+              <li><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Estimated quarterly payments</a> that you made. These were due on April 15, June 16, and September 15 last year and January 15 this year. You would have paid these <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or by mail.</li>
+              <li>(If applicable) A refund that you decided to carry forward from your %{prior_year} state taxes to your %{filing_year} state taxes.</li>
+            </ul>
+            <p>These payments do <strong>not</strong> include:</p>
+            <ul class="list--bulleted">
+              <li>Payments made for a prior tax year</li>
+              <li>Withholdings in your paycheck</li>
+              <li>Property taxes</li>
+            </ul>
+          estimated_taxes_input_helper_html: Add up your quarterly payments and enter the total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">you can check how much you paid here</a>).
+          estimated_taxes_input_label_html: "<strong>Total estimated payments made for %{filing_year} taxes</strong>"
           no_text: No (this is the common option)
-          radio_label: Did you make estimated quarterly payments for your %{filing_year} state income taxes?
-          title_html: Please tell us if you <strong>made estimated quarterly payments</strong> towards your %{filing_year} state income taxes.
+          overpayments_input_helper_html: "(do not include any amount applied to estimated payments). You can find this on line 69 of your %{prior_year} NJ-1040. Enter that number if you did not apply it to estimated payments."
+          overpayments_input_label_html: "<strong>(If applicable) Refund from %{prior_year} taxes carried forward to %{filing_year} taxes</strong>"
+          question_box: Please share the amounts paid.
+          radio_label: Did you make estimated or other payments for your %{filing_year} state income taxes?
+          title_html: Did you make <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">estimated or other payments</a> toward your %{filing_year} New Jersey income taxes?
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>You may have heard this referred to as \"public financing\" of campaigns.</p> \n<p>You can contribute $1 of where your taxes go to the <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Gubernatorial Elections Fund</a>.</p>\n<p>FYI: Your taxes won’t increase and your refund won't be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this Fund.</p>\n"
@@ -3638,21 +3655,6 @@ en:
             </ul>
           learn_more_title: What are medical expenses?
           title: You may be able to deduct medical expenses.
-      nj_overpayments:
-        edit:
-          description_html: |
-            <p><strong>This is not common.</strong> It is something you would have selected when you did your taxes last year.</p>
-            <p>If you don’t remember choosing to do this, you probably didn't do so.</p>
-            <p>If you need to check, we recommend looking back at your %{prior_year} tax return (line 69 of %{prior_year} NJ-1040).</p>
-            <p><strong>This does not include:</strong></p>
-            <ul class="list--bulleted">
-              <li>Withholdings in your paycheck</li>
-              <li>Property taxes</li>
-            </ul>
-          input_label_html: '<strong>Total payments made in %{filing_year}:</strong>'
-          no_text: No (this is the common option)
-          radio_label: Did you choose to apply overpayments on your %{prior_year} tax return to your %{filing_year} state income taxes?
-          title_html: Please tell us if you <strong>decided to apply an overpayment</strong> on your %{prior_year} taxes to your %{filing_year} income taxes.
       nj_primary_state_id:
         nj_primary:
           dmv_bmv: Non-driver identification card
@@ -3710,8 +3712,7 @@ en:
           edit_veteran: veteran status
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
           estimated_tax_payments: Amount of estimated quarterly payments
-          has_estimated_payments: Estimated quarterly payments
-          has_overpayments: Overpayments carried forward from %{prior_year}
+          has_estimated_payments: Estimated or other payments
           household_rent_own: Living situation in %{filing_year}
           household_rent_own_both: Owned and rented
           household_rent_own_neither: Neither owned or rented
@@ -3719,7 +3720,7 @@ en:
           household_rent_own_rent: Rented
           medical_expenses: Total medical expenses
           missing_health_insurance: Dependents who DO NOT have health insurance
-          overpayments: Amount of overpayments
+          overpayments: Amount of refund carried forward
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
           primary_disabled: Disability exemption (you)
           primary_veteran: Veteran exemption (you)

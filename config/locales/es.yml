@@ -3494,11 +3494,28 @@ es:
           title: Necesitamos información sobre tu estado de seguro médico.
       nj_estimated_tax_payments:
         edit:
-          description_html: "<p>La mayoría de las personas <strong>no</strong> <a href=\"https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">hacen estos pagos</a>.</p> \n<p>Por lo general, se realizan en abril, junio, septiembre y enero. Los pagas si tu empleador/a no retiene impuestos en tu talón/cheque de pago o si trabajas como independiente (como self-employed).</p>\n<p>Si no recuerdas haberlos realizado, probablemente no lo hiciste. (Si deseas verificarlas, puedes <a href=\"https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp\" target=\"_blank\" rel=\"noopener nofollow\">acceder aquí</a>. (link en inglés))</p>\n<p><strong>Esto no incluye:</strong></p>\n<ul class=\"list--bulleted\">\n  <li>Retenciones en tu talón/cheque de pago</li>\n  <li>Impuestos sobre la propiedad</li>\n</ul>\n"
-          input_label_html: '<strong>Pagos totales realizados en %{filing_year}:</strong>'
-          no_text: No (esta es la opción común)
-          radio_label: "¿Pagaste impuestos estimados trimestralmente en %{filing_year}?"
-          title_html: Indica si <strong>hiciste pagos trimestrales estimados</strong> para tus impuestos estatales sobre la renta de 2024.
+          description_html: |
+            <p>Most people do <strong>not</strong> make these payments.</p>
+            <p>You are most likely to have made them if your employer <strong>doesn't</strong> withhold taxes in your paycheck or if you are self-employed.</p>
+            <p>These payments include:</p>
+            <ul class="list--bulleted">
+              <li><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Estimated quarterly payments</a> that you made. These were due on April 15, June 16, and September 15 last year and January 15 this year. You would have paid these <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or by mail.</li>
+              <li>(If applicable) A refund that you decided to carry forward from your %{prior_year} state taxes to your %{filing_year} state taxes.</li>
+            </ul>
+            <p>These payments do <strong>not</strong> include:</p>
+            <ul class="list--bulleted">
+              <li>Payments made for a prior tax year</li>
+              <li>Withholdings in your paycheck</li>
+              <li>Property taxes</li>
+            </ul>
+          estimated_taxes_input_helper_html: Add up your quarterly payments and enter the total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">you can check how much you paid here</a>).
+          estimated_taxes_input_label_html: "<strong>Total estimated payments made for %{filing_year} taxes</strong>"
+          no_text: No (this is the common option)
+          overpayments_input_helper_html: "(do not include any amount applied to estimated payments). You can find this on line 69 of your %{prior_year} NJ-1040. Enter that number if you did not apply it to estimated payments."
+          overpayments_input_label_html: "<strong>(If applicable) Refund from %{prior_year} taxes carried forward to %{filing_year} taxes</strong>"
+          question_box: Please share the amounts paid.
+          radio_label: Did you make estimated or other payments for your %{filing_year} state income taxes?
+          title_html: Did you make <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">estimated or other payments</a> toward your %{filing_year} New Jersey income taxes?
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>Puede que conozcas esto como \"financiamiento público\" de campañas.</p> \n<p>Puedes contribuir con $1 de lo que va a tus impuestos al <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Fondo de Elecciones para Gobernador</a> (link en inglés).</p>\n<p>Para tu información: Tus impuestos no aumentarán y tu reembolso no se reducirá. Esto autoriza a New Jersey usar $1 de tus dólares de impuestos para este Fondo.</p>\n"
@@ -3610,21 +3627,6 @@ es:
             </ul>
           learn_more_title: "¿Qué son los gastos médicos?"
           title: Puedes deducir gastos médicos.
-      nj_overpayments:
-        edit:
-          description_html: |
-            <p><strong>Hacerlo no es común.</strong> Es algo que hubieras seleccionado cuando hiciste tus impuestos el año pasado.</p>
-            <p>Si no recuerdas haber elegido esto, probablemente es porque no lo hiciste.</p>
-            <p>Si necesitas verificar, revisa tu declaración de impuestos de %{prior_year} (línea 69 de %{prior_year} NJ-1040).</p>
-            <p><strong>Esto no incluye:</strong></p>
-            <ul class="list--bulleted">
-              <li>Retenciones en tu cheque de pago</li>
-              <li>Impuestos sobre la propiedad</li>
-            </ul>
-          input_label_html: '<strong>Pagos totales realizados en %{filing_year}:</strong>'
-          no_text: No (esta opción es más común)
-          radio_label: "¿Optaste por aplicar pagos en exceso de tu declaración de impuestos de %{prior_year} a tus impuestos estatales sobre la renta de %{filing_year}?"
-          title_html: Indica si <strong>decidió aplicar un pago en exceso</strong> de tus impuestos de %{prior_year} a tus impuestos sobre la renta de %{filing_year}.
       nj_primary_state_id:
         nj_primary:
           dmv_bmv: Tarjeta de identificación estatal
@@ -3682,8 +3684,7 @@ es:
           edit_veteran: estado de veterano/a de guerra
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
           estimated_tax_payments: Monto de los pagos trimestrales estimados
-          has_estimated_payments: Pagos trimestrales estimados
-          has_overpayments: Pagos en exceso trasladados desde %{prior_year}
+          has_estimated_payments: Estimated or other payments
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
           household_rent_own_neither: Ni dueño/a ni inquilino/a
@@ -3691,7 +3692,7 @@ es:
           household_rent_own_rent: Inquilino/a
           medical_expenses: Gastos médicos totales
           missing_health_insurance: Dependientes que NO tienen seguro médico
-          overpayments: Monto de los pagos en exceso
+          overpayments: Amount of refund carried forward
           primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
           primary_disabled: Exención por discapacidad (tuya)
           primary_veteran: Exención para veteranos/as de guerra (tuya)

@@ -241,16 +241,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t('general.negative')
       continue
 
-      # estimated tax payments
+      # estimated tax payments & overpayments
       expect(page).to be_axe_clean
       choose I18n.t('general.affirmative')
-      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
-      continue
-
-      # overpayments
-      expect(page).to be_axe_clean
-      choose I18n.t('general.affirmative')
-      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
+      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.estimated_taxes_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
+      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year-1)), with: 1000
       continue
 
       # Driver License

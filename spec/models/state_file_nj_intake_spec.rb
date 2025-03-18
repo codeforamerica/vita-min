@@ -31,7 +31,6 @@
 #  fed_wages                                              :integer
 #  federal_return_status                                  :string
 #  has_estimated_payments                                 :integer          default("unfilled"), not null
-#  has_overpayments                                       :integer          default("unfilled"), not null
 #  hashed_ssn                                             :string
 #  homeowner_home_subject_to_property_taxes               :integer          default("unfilled"), not null
 #  homeowner_main_home_multi_unit                         :integer          default("unfilled"), not null

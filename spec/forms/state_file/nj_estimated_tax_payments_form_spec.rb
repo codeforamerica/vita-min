@@ -10,7 +10,18 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
       let(:form_params) do
         {
           has_estimated_payments: "yes",
+          overpayments: 0,
           estimated_tax_payments: money_field_value
+        }
+      end
+    end
+
+    it_behaves_like :nj_money_field_concern, field: :overpayments, can_be_empty: false do
+      let(:form_params) do
+        {
+          has_estimated_payments: "yes",
+          overpayments: money_field_value,
+          estimated_tax_payments: 0
         }
       end
     end
@@ -31,6 +42,7 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         let(:params) do
           {
             has_estimated_payments: "yes",
+            overpayments: 0,
             estimated_tax_payments: nil
           }
         end
@@ -40,12 +52,27 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
           expect(form.errors[:estimated_tax_payments]).to include "Can't be blank."
         end
       end
+
+      context "overpayments is required if has_estimated_payments=yes" do
+        let(:params) do
+          {
+            has_estimated_payments: "yes",
+            overpayments: nil,
+            estimated_tax_payments: 0
+          }
+        end
+
+        it "is invalid" do
+          expect(form.valid?).to eq false
+          expect(form.errors[:overpayments]).to include "Can't be blank."
+        end
+      end
     end
   end
 
   describe ".save" do
     let(:intake) {
-      create :state_file_nj_intake, has_estimated_payments: nil, estimated_tax_payments: 0
+      create :state_file_nj_intake, has_estimated_payments: nil, estimated_tax_payments: 0, overpayments: 0
     }
     let(:form) { described_class.new(intake, valid_params) }
 
@@ -53,7 +80,8 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
       let(:valid_params) do
         {
           has_estimated_payments: "yes",
-          estimated_tax_payments: 12345
+          estimated_tax_payments: 12345,
+          overpayments: 54321
         }
       end
 
@@ -62,6 +90,7 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         form.save
         expect(intake.has_estimated_payments).to eq "yes"
         expect(intake.estimated_tax_payments).to eq 12345
+        expect(intake.overpayments).to eq 54321
       end
     end
   end

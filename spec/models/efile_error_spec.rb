@@ -100,7 +100,6 @@ describe 'EfileError' do
       "nj-household-rent-own",
       "nj-ineligible-property-tax",
       "nj-medical-expenses",
-      "nj-overpayments",
       "nj-retirement-income-source",
       "nj-retirement-warning",
       "nj-review",

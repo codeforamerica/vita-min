@@ -6,30 +6,43 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <%= t(".description_html", filing_year: current_tax_year) %>
+  <%= t(".description_html", filing_year: current_tax_year, prior_year: current_tax_year-1) %>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
 
-    <div class="white-group">
-      <div class="question-with-follow-up">
-        <div class="question-with-follow-up__question spacing-below-25">
+    <div class="question-with-follow-up spacing-below-25">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
           <%=
             f.cfa_radio_set(
               :has_estimated_payments,
               label_text: t('.radio_label', filing_year: current_tax_year),
               collection: [
                 { value: :no, label: t(".no_text") },
-                { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#estimated-payments-field" } },
+                { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#numeric-fields" } },
               ],
+              legend_class: "sr-only"
             )
           %>
         </div>
-        <div class="question-with-follow-up__follow-up" id="estimated-payments-field">
+      </div>
+      <div class="question-with-follow-up__follow-up" id="numeric-fields">
+        <div class="white-group">
+          <p><%= t('.question_box') %></p>
           <%= f.vita_min_money_field(
                 :estimated_tax_payments,
-                t('.input_label_html', filing_year: current_tax_year),
+                t('.estimated_taxes_input_label_html', filing_year: current_tax_year),
                 classes: ["form-width--long"],
-                options: { placeholder: "0" }
+                options: { placeholder: "0" },
+                help_text: t('.estimated_taxes_input_helper_html')
+              ) %>
+
+          <%= f.vita_min_money_field(
+                :overpayments,
+                t('.overpayments_input_label_html', filing_year: current_tax_year, prior_year: current_tax_year-1),
+                classes: ["form-width--long"],
+                options: { placeholder: "0" },
+                help_text: t('.overpayments_input_helper_html', prior_year: current_tax_year-1)
               ) %>
         </div>
       </div>

@@ -14,12 +14,13 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
     end
 
     describe "#update" do
-      context "when a user has estimated tax payments" do
+      context "when a user has estimated tax payments and overpayments" do
         let(:form_params) {
           {
             state_file_nj_estimated_tax_payments_form: {
               has_estimated_payments: "yes",
-              estimated_tax_payments: 1000
+              estimated_tax_payments: 1000,
+              overpayments: 2000
             }
           }
         }
@@ -29,6 +30,7 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
           intake.reload
           expect(intake.has_estimated_payments).to eq "yes"
           expect(intake.estimated_tax_payments).to eq 1000
+          expect(intake.overpayments).to eq 2000
         end
       end
 
@@ -38,6 +40,7 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
             state_file_nj_estimated_tax_payments_form: {
               has_estimated_payments: "yes",
               estimated_tax_payments: 1000,
+              overpayments: 2000,
             }
           }
         end
