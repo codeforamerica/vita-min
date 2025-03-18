@@ -39,7 +39,7 @@
 
           <%= f.vita_min_money_field(
                 :overpayments,
-                t('.overpayments_input_label_html', filing_year: current_tax_year, prior_year: current_tax_year-1),
+                t('.overpayments_input_label_html', filing_year: current_tax_year),
                 classes: ["form-width--long"],
                 options: { placeholder: "0" },
                 help_text: t('.overpayments_input_helper_html', prior_year: current_tax_year-1)

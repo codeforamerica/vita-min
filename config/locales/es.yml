@@ -3511,8 +3511,8 @@ es:
           estimated_taxes_input_helper_html: Add up your quarterly payments and enter the total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">you can check how much you paid here</a>).
           estimated_taxes_input_label_html: "<strong>Total estimated payments made for %{filing_year} taxes</strong>"
           no_text: No (this is the common option)
-          overpayments_input_helper_html: "(do not include any amount applied to estimated payments). You can find this on line 69 of your %{prior_year} NJ-1040. Enter that number if you did not apply it to estimated payments."
-          overpayments_input_label_html: "<strong>(If applicable) Refund from %{prior_year} taxes carried forward to %{filing_year} taxes</strong>"
+          overpayments_input_helper_html: If applicable, you can find this on line 69 of your %{prior_year} NJ-1040. Only enter an amount here if you did not apply it to estimated payments.
+          overpayments_input_label_html: <strong>Refund carried forward to %{filing_year} taxes (exclude estimated payments)</strong>
           question_box: Please share the amounts paid.
           radio_label: Did you make estimated or other payments for your %{filing_year} state income taxes?
           title_html: Did you make <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">estimated or other payments</a> toward your %{filing_year} New Jersey income taxes?
