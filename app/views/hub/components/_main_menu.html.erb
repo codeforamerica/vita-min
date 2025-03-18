@@ -5,10 +5,17 @@
         <img src="<%= image_path("icons/toggle.svg") %>" alt="toggle menu"/>
       </span>
       <div>
-        <div class="logo">
-          <img src="<%= image_path("icons/logo-white.svg") %>" alt=""/>
-          <div class="logo-text">The Hub</div>
-        </div>
+        <% if Rails.env.demo? %>
+          <div class="demo-logo logo">
+            <img src="<%= image_path("icons/hub-logo-demo-closed.svg") %>" alt="" class="logo-no-text"/>
+            <img src="<%= image_path("icons/hub-logo-demo-expanded.svg") %>" alt="" class="logo-text"/>
+          </div>
+        <% else %>
+          <div class="logo">
+            <img src="<%= image_path("icons/logo-white.svg") %>" alt=""/>
+            <div class="logo-text">The Hub</div>
+          </div>
+        <% end %>
 
         <% if current_user %>
           <% if Flipper.enabled?(:hub_dashboard) && (current_user.site_coordinator? || current_user.coalition_lead? || current_user.org_lead?) %>
