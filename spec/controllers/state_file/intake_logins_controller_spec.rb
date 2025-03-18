@@ -13,6 +13,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
   before do
     allow(DatadogApi).to receive(:increment)
+    allow(Rails.logger).to receive(:error)
   end
 
   describe "#new" do
@@ -420,6 +421,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           end
 
           it "signs in the intake, updates the session, and redirects to post-data-transfer page" do
+            expect(Rails.logger).not_to receive(:error).with("Failed state file intake login attempt with 1 matching records: #{intake.state_code} #{intake.id}")
             post :update, params: params
 
             expect(subject.current_state_file_az_intake).to eq(intake)
@@ -428,6 +430,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           end
 
           it "signs in the intake, updates the session, and redirects to the current step" do
+            expect(Rails.logger).not_to receive(:error).with("Failed state file intake login attempt with 1 matching records: #{intake.state_code} #{intake.id}")
             intake.update(current_step: "/en/questions/az-prior-last-names")
             post :update, params: params
 
@@ -442,6 +445,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             end
 
             it "redirects to the return status page" do
+              expect(Rails.logger).not_to receive(:error).with("Failed state file intake login attempt with 1 matching records: #{intake.state_code} #{intake.id}")
               post :update, params: params
 
               expect(subject.current_state_file_az_intake).to eq(intake)
@@ -465,6 +469,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
               it "logs in the accepted intake" do
                 create(:efile_submission, :accepted, :for_state, data_source: second_intake)
                 create(:efile_submission, :rejected, :for_state, data_source: second_intake)
+                expect(Rails.logger).not_to receive(:error).with("Failed state file intake login attempt with 1 matching records: #{intake.state_code} #{intake.id}")
 
                 post :update, params: params
 
@@ -478,6 +483,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
               let(:intake_query) { StateFileAzIntake.where(phone_number: "+15105551234") }
 
               it "chooses the one with an ssn" do
+                expect(Rails.logger).not_to receive(:error).with("Failed state file intake login attempt with 1 matching records: #{intake.state_code} #{intake.id}")
                 intake.update(hashed_ssn: nil)
 
                 post :update, params: params
@@ -489,6 +495,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             end
 
             it "otherwise picks the first one" do
+              expect(Rails.logger).not_to receive(:error).with("Failed state file intake login attempt with 1 matching records: #{intake.state_code} #{intake.id}")
               post :update, params: params
 
               expect(subject.current_state_file_az_intake).to eq(intake)
@@ -567,6 +574,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           end
 
           it "renders the :edit template and increments a lockout number" do
+            expect(Rails.logger).to receive(:error).with("Failed state file intake login attempt with 1 matching records: #{intake.state_code} #{intake.id}")
             expect do
               post :update, params: params
             end.to change { intake.reload.failed_attempts }.by 1
@@ -581,6 +589,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             end
 
             it "locks the intake and redirects to a lockout page" do
+              expect(Rails.logger).to receive(:error).with("Failed state file intake login attempt with 1 matching records: #{intake.state_code} #{intake.id}")
               expect do
                 post :update, params: params
               end.to change { intake.reload.failed_attempts }.by 1
@@ -596,6 +605,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         before { allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).and_return(StateFileAzIntake.none) }
 
         it "redirects to the login page" do
+          expect(Rails.logger).not_to receive(:error).with("Failed state file intake login attempt with 1 matching records: #{intake.state_code} #{intake.id}")
           post :update, params: params
 
           expect(response).to redirect_to(intake_logins_path)

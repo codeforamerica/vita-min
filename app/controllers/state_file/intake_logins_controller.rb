@@ -39,6 +39,10 @@ module StateFile
       if @form.valid?
         sign_in_and_redirect
       else
+        failed_matching_records_log = @records.map { |record| "#{record&.state_code} #{record&.id}" }.join(",")
+        Rails.logger.error(
+          "Failed state file intake login attempt with #{@records.count} matching records: #{failed_matching_records_log}"
+        )
         @records.each(&:increment_failed_attempts)
 
         # Re-checking if account is locked after incrementing
