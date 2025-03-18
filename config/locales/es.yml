@@ -4108,9 +4108,16 @@ es:
           title: La deducción de ingresos por jubilación de Arizona
           uniformed_services: Pago de jubilación o retención de los servicios uniformados de los Estados Unidos
         id_retirement_income_deductions_review_header:
-          qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
-          qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
-          qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
+          civil_servant_employee: Retirement income from %{taxpayer_name}’s service as a Civil Service employee
+          eight: Account number starts with 8.
+          firefighter: Retirement income from %{taxpayer_name}’s service as an Idaho city Police officer
+          military: Retirement income from %{taxpayer_name}’s service as a member of the U.S. military
+          none_apply: None apply
+          police_officer: Retirement income from %{taxpayer_name}’s service as an Idaho city Police officer
+          seven_or_nine: Account number starts with 7 or 9
+          subtitle: These allow people to deduct all or a portion of their retirement income from their taxes.
+          title: Idaho retirement income deductions
+          zero_to_four: Account number starts with 0, 1,2, 3 or 4
         md_retirement_income_deductions_review_header:
           military: Tu servicio en el ejército o los beneficios por fallecimiento militar recibidos en nombre de un cónyuge o ex-cónyuge
           none: Ninguno aplica.

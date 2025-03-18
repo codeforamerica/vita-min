@@ -106,7 +106,7 @@ module Efile
           followup.income_source_firefighter? &&
           (followup.firefighter_frf_yes? || followup.firefighter_persi_yes?)
 
-        civil_service_qualified || police_qualified || firefighter_qualified
+        civil_service_qualified || police_qualified || firefighter_qualified || followup.income_source_military?
       end
 
       def calculate_sec_b_line_8f
