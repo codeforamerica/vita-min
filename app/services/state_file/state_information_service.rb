@@ -201,7 +201,7 @@ module StateFile
         submission_type: "Resident",
         tax_payment_info_text: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
         tax_payment_info_url: "https://www.state.nj.us/treasury/taxation/payments-notices.shtml",
-        tax_refund_url: "https://www20.state.nj.us/TYTR_TGI_INQ/jsp/prompt.jsp",
+        tax_refund_url: "https://www.nj.gov/treasury/taxation/checkrefundstatus.shtml",
         timezone: 'America/New_York',
         vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pag9EUHzAZzfRIwUn/form",
         vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagVcLm52Stg9p4hY/form",
