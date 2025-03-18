@@ -25,6 +25,9 @@
         <%= image_tag("icons/check.svg", alt: "") %>
       </p>
     </div>
+
+    <h1 class="h2"><%= title %></h1>
+
     <p>
       <% if current_intake.email_notification_opt_in_yes? && current_intake.sms_notification_opt_in_yes? %>
         <%= t('.email_text_update') %>
@@ -46,7 +49,6 @@
 
     <%= render partial: "state_file/questions/submission_confirmation/#{current_state_code}_additional_content" rescue nil %>
 
-    <h1 class="h2"><%= title %></h1>
     <%= link_to t(".download_state_return_pdf"),
                 StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission),
                 id: "pdf-download-link",
