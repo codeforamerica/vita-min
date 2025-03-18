@@ -41,7 +41,7 @@ module StateFile
       else
         failed_matching_records_log = @records.map { |record| "#{record&.state_code} #{record&.id}" }.join(",")
         Rails.logger.error(
-          "Failed state file intake login attempt with #{@records.count} matching records: #{failed_matching_records_log}"
+          "Failed state file intake login attempt for token #{params[:id]} with #{@records.count} matching records: #{failed_matching_records_log}"
         )
         @records.each(&:increment_failed_attempts)
 
