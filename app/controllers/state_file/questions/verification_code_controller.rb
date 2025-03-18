@@ -55,8 +55,8 @@ module StateFile
         state_intake_classes.each do |intake_class|
           key = intake.contact_preference == "text" ? :phone_number : :email_address
           search = intake_class.where.not(raw_direct_file_data: nil) # has a successful df import...
-          search.where(key => intake[key]) # ...using the same contact info
-          search.where.not(id: intake.id) if intake_class == intake.class # ...unless it's literally the same intake
+          search = search.where(key => intake[key]) # ...using the same contact info
+          search = search.where.not(id: intake.id) if intake_class == intake.class # ...unless it's literally the same intake
 
           existing_intake = search.first
           return existing_intake if existing_intake
