@@ -65,7 +65,10 @@ module Efile
       end
 
       def analytics_attrs
-        {}
+        {
+          nc_retirement_benefits_bailey: line_or_zero(:NCD400_S_LINE_20),
+          nc_retirement_benefits_uniformed_services: line_or_zero(:NCD400_S_LINE_21),
+        }
       end
 
       def calculate_gov_payments
@@ -109,6 +112,7 @@ module Efile
         qualifying_widow: 25500,
         single: 12750,
       }.freeze
+
       def calculate_line_11
         STANDARD_DEDUCTIONS[@intake.filing_status]
       end

@@ -455,6 +455,10 @@
   .form-card {
     background-color: transparent;
 
+    p {
+      max-width: none;
+    }
+
     .white-group {
       .form-group:last-child {
         margin-bottom: 0;

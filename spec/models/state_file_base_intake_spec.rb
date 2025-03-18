@@ -259,6 +259,14 @@ describe StateFileBaseIntake do
         expect(intake.controller_for_current_step).to eq StateFile::Questions::IncomeReviewController
       end
     end
+
+    context "step is retirement_income" do
+      let(:current_step) { "/en/questions/retirement-income" }
+
+      it "returns the income review controller" do
+        expect(intake.controller_for_current_step).to eq StateFile::Questions::IncomeReviewController
+      end
+    end
   end
 
   describe "#sum_1099_r_followup_type_for_filer" do
