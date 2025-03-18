@@ -62,7 +62,9 @@ module Efile
       end
 
       def analytics_attrs
-        {}
+        {
+          id_retirement_benefits_deduction: line_or_zero(:ID39R_B_LINE_8f)
+        }
       end
 
       private
