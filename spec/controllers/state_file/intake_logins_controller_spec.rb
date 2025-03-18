@@ -598,6 +598,30 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
               expect(response).to redirect_to(account_locked_intake_logins_path)
             end
           end
+
+          context "has multiple matching intakes" do
+            let!(:another_matching_intake) do
+              create(
+                :state_file_az_intake,
+                email_address: "client@example.com",
+                phone_number: "+15105551234",
+                hashed_ssn: "hashed_ssn"
+              )
+            end
+            let(:intake_query) { StateFileAzIntake.where(hashed_ssn: "hashed_ssn") }
+
+            it "renders the :edit template and increments a lockout number for both matching intakes" do
+              expect(Rails.logger).to receive(:error).with(
+                "Failed state file intake login attempt for token #{params[:id]} with 2 matching records: #{intake.state_code} #{intake.id}, #{another_matching_intake.state_code} #{another_matching_intake.id}"
+              )
+              expect do
+                post :update, params: params
+              end.to change { intake.reload.failed_attempts }.by(1).and change { another_matching_intake.reload.failed_attempts }.by(1)
+
+              expect(subject.current_state_file_az_intake).to eq(nil)
+              expect(response).to render_template(:edit)
+            end
+          end
         end
       end
 
