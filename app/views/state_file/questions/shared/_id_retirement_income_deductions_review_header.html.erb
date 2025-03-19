@@ -1,4 +1,4 @@
-<% if current_intake.eligible_1099rs.length.positive? %>
+<% if current_intake.eligible_1099rs.present? %>
   <section id="qualified-retirement-benefits-deduction" class="white-group">
     <div class="spacing-below-5">
       <p class="text--bold spacing-below-10"><%= t(".title") %></p>

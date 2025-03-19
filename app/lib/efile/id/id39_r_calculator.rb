@@ -86,27 +86,9 @@ module Efile
 
       def calculate_sec_b_line_8e
         @intake.eligible_1099rs.sum do |form1099r|
-          next 0 unless qualifying_retirement_income?(form1099r)
+          next 0 unless form1099r.state_specific_followup.qualifying_retirement_income?
           form1099r.taxable_amount.round
         end
-      end
-
-      def qualifying_retirement_income?(form)
-        followup = form.state_specific_followup
-
-        civil_service_qualified =
-          followup.income_source_civil_service_employee? &&
-          !followup.civil_service_account_number_eight?
-
-        police_qualified =
-          followup.income_source_police_officer? &&
-          (followup.police_retirement_fund_yes? || followup.police_persi_yes?)
-
-        firefighter_qualified =
-          followup.income_source_firefighter? &&
-          (followup.firefighter_frf_yes? || followup.firefighter_persi_yes?)
-
-        civil_service_qualified || police_qualified || firefighter_qualified || followup.income_source_military?
       end
 
       def calculate_sec_b_line_8f

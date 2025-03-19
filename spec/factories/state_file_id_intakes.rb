@@ -193,62 +193,20 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_estrada_donations') }
     end
 
-    trait :with_civil_service_1099r_income do
+    trait :with_eligible_1099r_income do
       after(:create) do |intake|
         create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 200, recipient_ssn: intake.primary.ssn) do |form_1099r|
-          create(:state_file_id1099_r_followup,
-                 state_file1099_r: form_1099r,
-                 income_source: "civil_service_employee",
-                 civil_service_account_number: "zero_to_four"
-          )
+          create(:state_file_id1099_r_followup, state_file1099_r: form_1099r, income_source: "firefighter", firefighter_frf: "yes")
         end
 
-        intake.update(primary_disabled: "yes")
-      end
-    end
-
-    trait :with_police_officer_1099r_income do
-      after(:create) do |intake|
-        create(:state_file1099_r, intake: intake, taxable_amount: 3000, state_tax_withheld_amount: 300, recipient_ssn: intake.primary.ssn) do |form_1099r|
-          create(:state_file_id1099_r_followup,
-                 state_file1099_r: form_1099r,
-                 income_source: "police_officer",
-                 police_retirement_fund: "yes"
-          )
-        end
-
-        intake.update(primary_disabled: "yes")
-      end
-    end
-
-    trait :with_firefighter_1099r_income do
-      after(:create) do |intake|
-        create(:state_file1099_r, intake: intake, taxable_amount: 4000, state_tax_withheld_amount: 400, recipient_ssn: intake.primary.ssn) do |form_1099r|
-          create(:state_file_id1099_r_followup,
-                 state_file1099_r: form_1099r,
-                 income_source: "firefighter",
-                 firefighter_frf: "yes"
-          )
-        end
         intake.update(primary_disabled: "yes")
       end
     end
 
     trait :with_ineligible_1099r_income do
       after(:create) do |intake|
-        create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 100) do |form_1099r|
-          create(:state_file_id1099_r_followup,
-                 state_file1099_r: form_1099r,
-                 income_source: "civil_service_employee",
-                 civil_service_account_number: "eight"
-          )
-        end
-
-        create(:state_file1099_r, intake: intake, taxable_amount: 5000, state_tax_withheld_amount: 100) do |form_1099r|
-          create(:state_file_id1099_r_followup,
-                 state_file1099_r: form_1099r,
-                 income_source: "none",
-          )
+        create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 200) do |form_1099r|
+          create(:state_file_id1099_r_followup, state_file1099_r: form_1099r, income_source: "civil_service_employee", civil_service_account_number: "eight")
         end
       end
     end

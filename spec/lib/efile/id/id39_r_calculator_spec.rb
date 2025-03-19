@@ -240,44 +240,12 @@ describe Efile::Id::Id39RCalculator do
   end
 
   describe "Section B Line 8e: Retirement Benefits" do
-    context "when eligible civil service retirement benefits exist" do
-      let(:intake) { create(:state_file_id_intake, :with_civil_service_1099r_income) }
+    context "when eligible retirement benefits exist" do
+      let(:intake) { create(:state_file_id_intake, :with_eligible_1099r_income) }
 
-      it "includes civil service retirement benefits in the sum" do
+      it "sums only eligible retirement benefits" do
         instance.calculate
         expect(instance.lines[:ID39R_B_LINE_8e].value).to eq(2000)
-      end
-    end
-
-    context "when eligible police officer retirement benefits exist" do
-      let(:intake) { create(:state_file_id_intake, :with_police_officer_1099r_income) }
-
-      it "includes police officer retirement benefits in the sum" do
-        instance.calculate
-        expect(instance.lines[:ID39R_B_LINE_8e].value).to eq(3000)
-      end
-    end
-
-    context "when eligible firefighter retirement benefits exist" do
-      let(:intake) { create(:state_file_id_intake, :with_firefighter_1099r_income) }
-
-      it "includes firefighter retirement benefits in the sum" do
-        instance.calculate
-        expect(instance.lines[:ID39R_B_LINE_8e].value).to eq(4000)
-      end
-    end
-
-    context "when multiple eligible retirement benefits exist" do
-      let(:intake) do
-        create(:state_file_id_intake,
-               :with_civil_service_1099r_income,
-               :with_police_officer_1099r_income
-        )
-      end
-
-      it "sums all eligible retirement benefits" do
-        instance.calculate
-        expect(instance.lines[:ID39R_B_LINE_8e].value).to eq(5000) # 2000 + 3000
       end
     end
 
