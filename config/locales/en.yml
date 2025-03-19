@@ -2512,25 +2512,6 @@ en:
           subtitle: You can log back in to your account at any time using the phone number or email you add.
           text_message_option: Text me a code
           title: Next, create your account with a quick code
-      md_data_transfer_offboarding:
-        edit:
-          title: Unfortunately, you can’t use this service this year. Don’t worry, there are other filing options.
-          reason: You cannot use this service this year because you didn’t include your spouse’s SSN or ITIN in your federal return.
-          not_allowed: Maryland does not allow Married Filing Separately taxpayers to electronically file their state tax return without their spouse’s SSN or ITIN.
-          reveal_one: What are my free state filing options?
-          other_options: "You have other free options for filing your state return:"
-          file_for_free: File for free with IRS-Certified Volunteer Income Tax Assistance (VITA) tax preparers in Maryland.
-          if_you_choose: If you choose this option, you’ll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
-          get_started_vita_html: <a href="https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form">Get started with VITA now</a>
-          learn_more_html: Learn more about this process and other filing options <a href="https://www.fileyourstatetaxes.org/en/md/faq/what_are_my_other_state_filing_options_this_year_46">here</a>.
-          get_started_comptroller_html: Get started with the Comptroller of Maryland’s <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php"> Free Income Tax Preparation</a> service.
-          reveal_two: What are my other state filing options?
-          quick_tips: "Many commercial tax preparation services offer state-only filing. Here are some quick tips:"
-          just_state_return: Confirm that the service lets you file just your state return. You might need to check with customer support.
-          ready_reenter: Be ready to reenter info from your federal return, as it’s needed for your state return.
-          only_state_return: When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.
-          fees_may_apply: Fees may apply.
-          learn_more_here_html: Learn more <a href="https://www.fileyourstatetaxes.org/en/md/faq/what_are_my_other_state_filing_options_this_year_46">here</a>.
       data_transfer_offboarding:
         edit:
           ineligible_reason:
@@ -3166,6 +3147,25 @@ en:
           political_subdivision_label_html: If you did not live within an incorporated city or area, choose “All other areas.”
           title: Select the county and political subdivision where you lived on December 31, %{filing_year}
           title_html: Select the <strong>county</strong> and <strong>political subdivision</strong> where you lived on December 31, %{filing_year}
+      md_data_transfer_offboarding:
+        edit:
+          fees_may_apply: Fees may apply.
+          file_for_free: File for free with IRS-Certified Volunteer Income Tax Assistance (VITA) tax preparers in Maryland.
+          get_started_comptroller_html: Get started with the Comptroller of Maryland’s <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php"> Free Income Tax Preparation</a> service.
+          get_started_vita_html: <a href="https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form">Get started with VITA now</a>
+          if_you_choose: If you choose this option, you’ll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
+          just_state_return: Confirm that the service lets you file just your state return. You might need to check with customer support.
+          learn_more_here_html: Learn more <a href="https://www.fileyourstatetaxes.org/en/md/faq/what_are_my_other_state_filing_options_this_year_46">here</a>.
+          learn_more_html: Learn more about this process and other filing options <a href="https://www.fileyourstatetaxes.org/en/md/faq/what_are_my_other_state_filing_options_this_year_46">here</a>.
+          not_allowed: Maryland does not allow Married Filing Separately taxpayers to electronically file their state tax return without their spouse’s SSN or ITIN.
+          only_state_return: When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.
+          other_options: 'You have other free options for filing your state return:'
+          quick_tips: 'Many commercial tax preparation services offer state-only filing. Here are some quick tips:'
+          ready_reenter: Be ready to reenter info from your federal return, as it’s needed for your state return.
+          reason: You cannot use this service this year because you didn’t include your spouse’s SSN or ITIN in your federal return.
+          reveal_one: What are my free state filing options?
+          reveal_two: What are my other state filing options?
+          title: Unfortunately, you can’t use this service this year. Don’t worry, there are other filing options.
       md_eligibility_filing_status:
         edit:
           eligibility_filing_status_label_text: Are you married and filing a joint state return?

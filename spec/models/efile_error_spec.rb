@@ -67,6 +67,7 @@ describe 'EfileError' do
       "income-review",
       "initiate-data-transfer",
       "md-county",
+      "md-data-transfer-offboarding",
       "md-eligibility-filing-status",
       "md-had-health-insurance",
       "md-pension-exclusion-offboarding",
