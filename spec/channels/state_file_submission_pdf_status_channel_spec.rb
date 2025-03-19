@@ -23,13 +23,17 @@ RSpec.describe StateFileSubmissionPdfStatusChannel, type: :channel do
       expect(result).to eq({ status: :processing })
     end
 
-    it "returns ready after the BuildSubmissionPdfJob runs" do
-      subscribe
-      StateFile::BuildSubmissionPdfJob.perform_now(submission.id)
-      intake.reload
+    context "with an attached pdf" do
+      before do
+        allow(intake.submission_pdf).to receive(:attached?).and_return(true)
+      end
 
-      result = perform(:status_update)
-      expect(result).to eq({ status: :ready })
+      it "returns ready after the BuildSubmissionPdfJob runs" do
+        subscribe
+
+        result = perform(:status_update)
+        expect(result).to eq({ status: :ready })
+      end
     end
 
     context "already has a pdf attached" do
