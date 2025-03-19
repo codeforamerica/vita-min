@@ -3,7 +3,7 @@ module StateFile
     include FormAttributes
 
     set_attributes_for :state_file_id1099_r_followup,
-                       :eligible_income_source, :income_source,
+                       :income_source,
                        :civil_service_account_number,
                        :police_retirement_fund,
                        :police_persi,
@@ -22,16 +22,6 @@ module StateFile
 
     def save
       attributes_to_save = attributes_for(:state_file_id1099_r_followup).excluding(:police_none_apply, :firefighter_none_apply)
-
-      # if they're in the middle of the flow when this is deployed, this would save the old values
-      if eligible_income_source.present?
-        attributes_to_save[:eligible_income_source] = eligible_income_source
-        attributes_to_save[:income_source] = "unfilled"
-      end
-
-      if attributes_to_save[:eligible_income_source].nil?
-        attributes_to_save[:eligible_income_source] = "unfilled"
-      end
 
       [:police_retirement_fund, :police_persi, :firefighter_frf, :firefighter_persi].each do |attr|
         attributes_to_save[attr] = "no" if attributes_to_save[attr].nil?
