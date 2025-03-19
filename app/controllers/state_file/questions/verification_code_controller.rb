@@ -79,7 +79,10 @@ module StateFile
         @form.intake = existing_intake
 
         unless is_same_intake?(intake, existing_intake)
-          existing_intake.update(unfinished_intake_ids: existing_intake.unfinished_intake_ids << intake.id)
+          existing_unfinished_intake_ids = existing_intake.unfinished_intake_ids
+          unless existing_unfinished_intake_ids.include?(intake.id.to_s)
+            existing_intake.update(unfinished_intake_ids: existing_unfinished_intake_ids << intake.id)
+          end
           intake.destroy
         end
 
