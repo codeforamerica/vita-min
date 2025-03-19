@@ -995,6 +995,7 @@ $state-colors: (
 @media (forced-colors: active) {
   .text-input:focus,
   a:focus,
+  .reveal__button:focus,
   .button:focus,
   .button:hover,
   .radio-button input[type="radio"]:focus,
