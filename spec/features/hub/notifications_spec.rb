@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.feature "View user notifications" do
   context "As an authenticated user" do
-    let!(:notification) { create :user_notification, read: false, created_at: DateTime.new(2021, 3, 15), user: user, notifiable: tax_return_assignment }
-    let!(:note_notification) { create :user_notification, created_at: DateTime.new(2021, 3,14), user: user, notifiable: note }
+    let!(:notification) { create :user_notification, read: false, created_at: DateTime.new(Rails.configuration.product_year, 3, 15), user: user, notifiable: tax_return_assignment }
+    let!(:note_notification) { create :user_notification, created_at: DateTime.new(Rails.configuration.product_year, 3,14), user: user, notifiable: note }
 
     let(:intake) { build(:intake, preferred_name: "Jenny Odell") }
     let(:client) { create :client, intake: intake }
