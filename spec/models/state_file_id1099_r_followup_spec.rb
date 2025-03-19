@@ -17,6 +17,13 @@ require 'rails_helper'
 
 RSpec.describe StateFileId1099RFollowup, type: :model do
   describe '#qualifying_retirement_income?' do
+    context 'when eligible income source is present and yes' do
+      let(:followup) { build(:state_file_id1099_r_followup, eligible_income_source: "yes") }
+
+      it 'returns true for' do
+        expect(followup.qualifying_retirement_income?).to be true
+      end
+    end
     context 'when income source is civil service employee' do
       let(:followup) { build(:state_file_id1099_r_followup, income_source: "civil_service_employee") }
 

@@ -169,5 +169,27 @@ RSpec.describe StateFile::IdRetirementAndPensionIncomeForm, type: :model do
       expect(follow_up.firefighter_frf).to eq "no"
       expect(follow_up.firefighter_persi).to eq "no"
     end
+    
+    context "if user is in the flow of the old question prompt" do
+      it "saves the old param" do
+        follow_up = create(:state_file_id1099_r_followup)
+
+        params = {
+          eligible_income_source: "yes"
+        }
+
+        form = described_class.new(follow_up, params)
+        form.save
+
+        expect(follow_up.eligible_income_source).to eq "yes"
+        expect(follow_up.income_source).to eq "unfilled"
+        expect(follow_up.civil_service_account_number).to eq "unfilled"
+        expect(follow_up.police_retirement_fund).to eq "no"
+        expect(follow_up.police_persi).to eq "no"
+        expect(follow_up.firefighter_frf).to eq "no"
+        expect(follow_up.firefighter_persi).to eq "no"
+      end
+      
+    end
   end
 end

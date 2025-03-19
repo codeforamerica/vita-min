@@ -26,6 +26,9 @@ class StateFileId1099RFollowup < ApplicationRecord
   enum firefighter_persi: { unfilled: 0, yes: 1, no: 2}, _prefix: :firefighter_persi
 
   def qualifying_retirement_income?
+    if income_source_unfilled?
+      return eligible_income_source_yes?
+    end
     civil_service_qualified = income_source_civil_service_employee? && !civil_service_account_number_eight?
 
     police_qualified = income_source_police_officer? &&
