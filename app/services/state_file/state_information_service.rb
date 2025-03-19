@@ -202,7 +202,7 @@ module StateFile
                               "Revenue Processing Center - Payments<br/>" \
                               "PO Box 643 Trenton, NJ 08646-0643".html_safe,
         pay_taxes_link: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
-        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_82CJgtfW0HFEPIi",
+        survey_link: I18n.t("state_file.state_information_service.nj.survey_link"),
         submission_type: "Resident",
         tax_payment_info_text: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
         tax_payment_info_url: "https://www.state.nj.us/treasury/taxation/payments-notices.shtml",
@@ -232,7 +232,7 @@ module StateFile
         schema_file_name: "NYSIndividual2023V4.0.zip",
         software_id_key: "sin",
         submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::NyReturnXml,
-        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
+        survey_link: I18n.t("state_file.state_information_service.ny.survey_link"),
         tax_payment_info_text: "Tax.NY.gov",
         tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
         tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",

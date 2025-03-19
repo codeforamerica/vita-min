@@ -4469,9 +4469,11 @@ es:
       nj:
         department_of_taxation: División de Impuestos de New Jersey
         state_name: New Jersey
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_82CJgtfW0HFEPIi
       ny:
         department_of_taxation: Departamento de Impuestos y Finanzas de Nueva York
         state_name: Nueva York
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
