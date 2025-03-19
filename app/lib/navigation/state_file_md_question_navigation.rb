@@ -29,7 +29,6 @@ module Navigation
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_5", [
         Navigation::NavigationStep.new(StateFile::Questions::PostDataTransferController),
-        Navigation::NavigationStep.new(StateFile::Questions::MdDataTransferOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::DataTransferOffboardingController, false),
         # Federal info does not show to users
         Navigation::NavigationStep.new(StateFile::Questions::FederalInfoController),

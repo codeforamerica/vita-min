@@ -4,7 +4,7 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <p><%= t('.offboarding_reason', reason: ineligible_reason) %></p>
+  <p><%= t('.offboarding_reason', reason: ineligible_reason).html_safe %></p>
 
   <% # i18n-tasks-use t('state_file.questions.eligible.vita_option.vita_introduction.nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
   <% vita_introduction_key = "state_file.questions.eligible.vita_option.vita_introduction.#{current_state_code}" %>
