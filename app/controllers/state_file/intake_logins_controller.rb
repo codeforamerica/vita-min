@@ -108,9 +108,7 @@ module StateFile
 
       unfinished_logged_in_intake_ids.each do |unfinished_logged_in_intake_id|
         if unfinished_logged_in_intake_id[0] != intake.id
-          unless intake.unfinished_intake_ids.include?(unfinished_logged_in_intake_id[0].to_s)
-            intake.update(unfinished_intake_ids: intake.unfinished_intake_ids + unfinished_logged_in_intake_id)
-          end
+          intake.update(unfinished_intake_ids: intake.unfinished_intake_ids + unfinished_logged_in_intake_id)
         end
       end
 
