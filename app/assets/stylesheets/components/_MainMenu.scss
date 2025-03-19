@@ -41,6 +41,19 @@
     }
   }
 
+  .demo-logo {
+    padding: 35px 10px 35px 10px;
+    .logo-no-text {
+      display: none;
+    }
+  }
+
+  &.collapsed .demo-logo {
+    .logo-no-text {
+      display: revert;
+    }
+  }
+
   .container {
     display: flex;
     flex-direction: column;

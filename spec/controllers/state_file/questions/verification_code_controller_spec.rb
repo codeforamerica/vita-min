@@ -54,6 +54,8 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
   end
 
   describe "#update" do
+    # making sure this one doesn't match
+    let!(:existing_intake_with_df_data) { create(:state_file_az_intake, email_address: "shouldntmatchanything@please.org", raw_direct_file_data: "something") }
     context "with an intake matching an existing intake in the same state" do
       let!(:existing_intake) { create(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com") }
       let(:intake) do
@@ -73,6 +75,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
           )
         )
         expect(response).to redirect_to(login_location)
+        expect(StateFileAzIntake.where(id: intake.id)).to be_empty
       end
     end
 
@@ -95,6 +98,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
           )
         )
         expect(response).to redirect_to(login_location)
+        expect(StateFileAzIntake.where(id: intake.id)).to be_empty
       end
     end
 
@@ -117,6 +121,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
       it "redirects to the next path" do
         post :update, params: { state_file_verification_code_form: { verification_code: token[0] }}
         expect(response).to redirect_to(questions_code_verified_path)
+        expect(intake.reload).not_to be_destroyed
       end
     end
   end

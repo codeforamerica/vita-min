@@ -94,8 +94,7 @@ module Efile
       end
 
       def analytics_attrs
-        {
-        }
+        {}
       end
 
       def get_tax_rate_and_subtraction_amount(income)

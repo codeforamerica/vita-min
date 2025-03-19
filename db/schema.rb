@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_14_175912) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1757,6 +1757,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_175912) do
   end
 
   create_table "state_file_analytics", force: :cascade do |t|
+    t.integer "az_credit_for_contributions_to_public_schools"
+    t.integer "az_credit_for_contributions_to_qcos"
+    t.integer "az_pension_exclusion_government"
+    t.integer "az_pension_exclusion_uniformed_services"
     t.integer "canceled_data_transfer_count", default: 0
     t.datetime "created_at", null: false
     t.integer "dependent_tax_credit"
@@ -1767,9 +1771,31 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_175912) do
     t.integer "fed_refund_amt"
     t.integer "filing_status"
     t.integer "household_fed_agi"
+    t.integer "id_retirement_benefits_deduction"
     t.datetime "initiate_data_transfer_first_visit_at"
     t.integer "initiate_df_data_transfer_clicks", default: 0
+    t.integer "md_child_dep_care_credit"
+    t.integer "md_child_dep_care_subtraction"
+    t.integer "md_ctc"
+    t.integer "md_eic"
+    t.integer "md_income_us_gov_subtraction"
+    t.integer "md_local_eic"
+    t.integer "md_local_poverty_credit"
+    t.integer "md_military_retirement_subtraction"
+    t.integer "md_poverty_credit"
+    t.integer "md_primary_pension_exclusion"
+    t.integer "md_public_safety_subtraction"
+    t.integer "md_refundable_child_dep_care_credit"
+    t.integer "md_refundable_eic"
+    t.integer "md_senior_tax_credit"
+    t.integer "md_spouse_pension_exclusion"
+    t.integer "md_ssa_benefits_subtraction"
+    t.integer "md_stpickup_addition"
+    t.integer "md_total_pension_exclusion"
+    t.integer "md_two_income_subtraction"
     t.datetime "name_dob_first_visit_at"
+    t.integer "nc_retirement_benefits_bailey"
+    t.integer "nc_retirement_benefits_uniformed_services"
     t.integer "nyc_eitc"
     t.integer "nyc_household_credit"
     t.integer "nyc_school_tax_credit"
@@ -2313,6 +2339,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_175912) do
     t.string "bank_name"
     t.integer "claimed_as_dep"
     t.integer "claimed_as_eitc_qualifying_child", default: 0, null: false
+    t.integer "confirmed_w2_ids", default: [], array: true
     t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false

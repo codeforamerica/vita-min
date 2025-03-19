@@ -418,7 +418,7 @@ class StateFileBaseIntake < ApplicationRecord
       StateFile::Questions::ReturnStatusController
     else
       step_name = current_step.split('/').last
-      if step_name == "w2"
+      if ["w2", "retirement-income"].include?(step_name)
         StateFile::Questions::IncomeReviewController
       else
         "StateFile::Questions::#{step_name.underscore.camelize}Controller".constantize

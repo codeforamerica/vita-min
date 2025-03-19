@@ -2697,7 +2697,9 @@ en:
           sub10: Senior Tax Credit
           sub11: State and local Poverty Level Credits
           sub12: Credit for Child and Dependent Care Expenses
-          sub2: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
+          sub2:
+            one: Pension exclusion (if you are 65 years or older, or if you are under 65 and previously qualified for the exclusion based on a permanent disability)
+            other: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
           sub3: Military retirement
           sub4: Public safety retirement
           sub5: Taxable Social Security and Railroad Retirement benefits
@@ -4067,6 +4069,8 @@ en:
               You'll need to enter your Social Security Number and the exact refund amount.
               <br/><br/>
               You can also call the North Carolina Department of Revenue's toll-free refund inquiry line at 1-877-252-4052, available 24/7.
+          nj:
+            refund_details_html: Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. You can check the status of your refund by visiting the NJ Taxation <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Check Your Refund Status</a> page and clicking on “Where is my Refund?"
           pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
           refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Where’s my Refund?</a>'
           title: Your %{filing_year} %{state_name} state tax return is accepted
@@ -4330,6 +4334,7 @@ en:
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box15_html: "<strong>Box 15,</strong> Employer’s state ID number"
           box16_html: "<strong>Box 16,</strong> State wages, tips, etc."
+          box16_warning_nj: '⚠️ Warning: If this is incorrect, you could end up underpaying state taxes. If box 16 has a number in it, enter that number here. If it''s blank or 0, click "Chat with us" and let''s make sure this is correct.'
           box17_html: "<strong>Box 17,</strong> State income tax"
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"

@@ -55,7 +55,7 @@
   <%= button_to(StateFile::Questions::AzQualifyingOrganizationContributionsController.to_path_helper(action: :new), params: { return_to_review: params[:return_to_review] }, class: "button button--wide spacing-below-10", method: :get, disabled: (@contribution_count >= 10)) do %>
     <%= t('.add_another') %>
   <% end %>
-  <%= link_to(next_path, class: "button button--primary button--wide") do %>
+  <%= link_to(next_path, class: "button button--primary button--wide", role: "button") do %>
     <%= t('general.continue') %>
   <% end %>
 

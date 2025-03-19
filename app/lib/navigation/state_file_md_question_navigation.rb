@@ -5,6 +5,7 @@ module Navigation
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
         Navigation::NavigationStep.new(StateFile::Questions::MdEligibilityFilingStatusController),
+        Navigation::NavigationStep.new(StateFile::Questions::EligibilityOffboardingController, false),
         Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
       ]),
       Navigation::NavigationSection.new("state_file.navigation.section_2", [

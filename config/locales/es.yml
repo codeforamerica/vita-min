@@ -2682,7 +2682,9 @@ es:
           sub10: Crédito tributario para Personas Mayores
           sub11: Crédito Estatal y Local por Nivel de Pobreza
           sub12: Crédito por Gastos de cuidado de Niños y Dependientes
-          sub2: Exclusión de pensiones (si tienes 65 años o más, o si tienes menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
+          sub2:
+            one: Exclusión de pensiones (si tienes 65 años o más, o si tienes menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
+            other: Exclusión de pensiones (si tú o tu cónyuge tienen 65 años o más, o si tú o tu cónyuge tienen menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
           sub3: Jubilación militar
           sub4: Jubilación de seguridad pública
           sub5: Beneficios de Seguridad Social y Jubilación de Ferrocarriles sujetos a impuestos
@@ -4053,6 +4055,8 @@ es:
               Necesitarás ingresar tu número de seguro social y la cantidad exacta del reembolso.
               <br/><br/>
               También puedes llamar a la línea de consulta de reembolsos sin cargo del Departamento de Ingresos de Carolina del Norte al 1-877-252-4052, disponible las 24 horas del día, los 7 días de la semana.
+          nj:
+            refund_details_html: Generalmente los reembolsos tardan de 7 a 8 semanas para las declaraciones electrónicas y de 10 a 11 semanas para las declaraciones en papel. Hay algunas excepciones. Puedes verificar el estado de tu reembolso visitando <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Check Your Refund Status</a> y haciendo clic en “Where is my Refund?”
           pay_by_mail_or_moneyorder: 'Si vas a enviar tu pago por correo, usando un cheque o giro postal, necesitarás:'
           refund_details_html: 'Generalmente los reembolsos tardan de 7 a 8 semanas para las declaraciones electrónicas y de 10 a 11 semanas para las declaraciones en papel. Hay algunas excepciones. Para más información, visita el sitio web %{website_name} : <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">¿Dónde está mi reembolso?</a>'
           title: Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido aceptada
@@ -4316,6 +4320,7 @@ es:
           box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
           box15_html: "<strong>Casilla 15,</strong> Número de identificación estatal del empleador"
           box16_html: "<strong>Casilla 16</strong>, Salarios estatales, propinas, etc."
+          box16_warning_nj: "⚠️ Advertencia: Si esto es incorrecto, podrías terminar pagando menos impuestos estatales de lo que te corresponde. Si la casilla 16 tiene un número, ingresa ese número aquí. Si está en blanco o tiene un 0, haz clic en el chat para verificar si esto es correcto."
           box17_html: "<strong>Casilla 17</strong>, Impuesto estatal sobre los ingresos"
           box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
           box19_html: "<strong>Box 19,</strong> Local income tax"
