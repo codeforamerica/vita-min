@@ -991,3 +991,17 @@ $state-colors: (
     .hub-searchbar__input {}
   }
 }
+
+@media (forced-colors: active) {
+  .text-input:focus,
+  a:focus,
+  .reveal__button:focus,
+  .button:focus,
+  .button:hover,
+  .radio-button input[type="radio"]:focus,
+  .select__element:focus,
+  .checkbox input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 7px Highlight;
+    outline: 2px Highlight solid;
+  }
+}
