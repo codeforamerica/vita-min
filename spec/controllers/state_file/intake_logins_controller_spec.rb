@@ -629,6 +629,16 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         expect(response).to redirect_to questions_post_data_transfer_path
         expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
       end
+
+      it "signs in the intake, updates the session, does not save intake id if it already exists, and redirects to the appropriate page" do
+        intake.update(unfinished_intake_ids: [current_unfinished_intake.id])
+        post :update, params: params
+
+        expect(subject.current_state_file_az_intake).to eq(intake)
+        expect(intake.reload.unfinished_intake_ids).to match_array [current_unfinished_intake.id.to_s]
+        expect(response).to redirect_to questions_post_data_transfer_path
+        expect(session["warden.user.state_file_az_intake.key"].first.first).to eq intake.id
+      end
     end
   end
 end
