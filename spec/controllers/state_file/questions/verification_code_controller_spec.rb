@@ -6,6 +6,10 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
   end
 
   describe "#edit" do
+    before do
+      sign_in intake
+    end
+
     it_behaves_like :df_data_required, false, :az
 
     context "with an intake that prefers text message" do
@@ -76,6 +80,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
         )
         expect(response).to redirect_to(login_location)
         expect(StateFileAzIntake.where(id: intake.id)).to be_empty
+        expect(existing_intake.reload.unfinished_intake_ids).to include(intake.id.to_s)
       end
     end
 
@@ -99,6 +104,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
         )
         expect(response).to redirect_to(login_location)
         expect(StateFileAzIntake.where(id: intake.id)).to be_empty
+        expect(existing_intake.reload.unfinished_intake_ids).to include(intake.id.to_s)
       end
     end
 

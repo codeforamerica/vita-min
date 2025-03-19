@@ -77,11 +77,23 @@ module StateFile
           contact_info, @form.verification_code
         )
         @form.intake = existing_intake
-        intake.destroy unless intake.id == existing_intake.id
+
+        unless is_same_intake?(intake, existing_intake)
+          existing_intake.update(unfinished_intake_ids: existing_intake.unfinished_intake_ids << intake.id)
+          intake.destroy
+        end
+
         redirect_to IntakeLoginsController.to_path_helper(
           action: :edit,
           id: hashed_verification_code
         )
+      end
+
+      def is_same_intake?(intake, existing_intake)
+        same_state = intake.state_code == existing_intake.state_code
+        same_id = intake.id == existing_intake.id
+
+        same_state && same_id
       end
     end
   end
