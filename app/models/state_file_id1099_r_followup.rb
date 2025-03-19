@@ -24,4 +24,16 @@ class StateFileId1099RFollowup < ApplicationRecord
   enum police_persi: { unfilled: 0, yes: 1, no: 2}, _prefix: :police_persi
   enum firefighter_frf: { unfilled: 0, yes: 1, no: 2}, _prefix: :firefighter_frf
   enum firefighter_persi: { unfilled: 0, yes: 1, no: 2}, _prefix: :firefighter_persi
+
+  def qualifying_retirement_income?
+    civil_service_qualified = income_source_civil_service_employee? && !civil_service_account_number_eight?
+
+    police_qualified = income_source_police_officer? &&
+                       (police_retirement_fund_yes? || police_persi_yes?)
+
+    firefighter_qualified = income_source_firefighter? &&
+                            (firefighter_frf_yes? || firefighter_persi_yes?)
+
+    civil_service_qualified || police_qualified || firefighter_qualified || income_source_military?
+  end
 end

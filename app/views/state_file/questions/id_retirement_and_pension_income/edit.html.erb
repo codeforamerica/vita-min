@@ -31,9 +31,9 @@
     <div class="question-with-follow-up__follow-up" id="civil_servant">
       <div class="white-group">
         <%= f.cfa_radio_set(:civil_service_account_number, label_text: t(".civil_servant_follow_up"), collection: [
-          { value: "zero_to_four", label: t(".zero_to_four") },
+          { value: "zero_to_four", label: "0, 1, 2, 3, 4" },
           { value: "seven_or_nine", label: t(".seven_or_nine") },
-          { value: "eight", label: t(".eight") },
+          { value: "eight", label: "8" },
         ]) %>
       </div>
       <div class="reveal">

@@ -3090,7 +3090,6 @@ en:
           civil_servant_follow_up: What number does the account number on this 1099R start with?
           details_content: If you’re unsure about your retirement plan details, contact your plan payer at the phone number listed on your 1099-R
           details_title: What if I don’t know the details of my 1099-R?
-          eight: 8
           firefighter: Service as an Idaho firefighter
           firefighter_follow_up: "¿Alguna de las siguientes afirmaciones aplica a tus ingresos de jubilación como bombero de Idaho?"
           firefighter_frf: The 1099-R account number includes the FRF (Firemen’s Retirement Fund) designation
@@ -3105,7 +3104,6 @@ en:
           seven_or_nine: 7 or 9
           subtitle: Some 1099-Rs with a taxable amount listed may qualify for this deduction. We need more information about this 1099-R to check your eligibility and file your state return.
           subtitle_2: If you reported multiple 1099-Rs, you’ll be asked to complete this step for each one with a taxable amount.
-          zero_to_four: 0, 1, 2, 3, 4
       id_review:
         edit:
           donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
