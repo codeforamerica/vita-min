@@ -6,10 +6,6 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
   end
 
   describe "#edit" do
-    before do
-      sign_in intake
-    end
-
     it_behaves_like :df_data_required, false, :az
 
     context "with an intake that prefers text message" do
