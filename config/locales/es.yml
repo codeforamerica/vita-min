@@ -4116,6 +4116,9 @@ es:
           military: Retirement income from %{taxpayer_name}’s service as a member of the U.S. military
           none_apply: None apply
           police_officer: Retirement income from %{taxpayer_name}’s service as an Idaho city Police officer
+          qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
+          qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
+          qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
           seven_or_nine: Account number starts with 7 or 9
           subtitle: These allow people to deduct all or a portion of their retirement income from their taxes.
           title: Idaho retirement income deductions

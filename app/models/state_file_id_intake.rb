@@ -155,6 +155,12 @@ class StateFileIdIntake < StateFileBaseIntake
     end
   end
 
+  def has_old_1099r_income_params?
+    eligible_1099rs.select do |form1099r|
+      (form1099r.state_specific_followup&.eligible_income_source_yes? || form1099r.state_specific_followup&.eligible_income_source_no?) && form1099r.state_specific_followup&.income_source_unfilled?
+    end.present?
+  end
+
   private
 
   def person_qualifies?(form1099r)

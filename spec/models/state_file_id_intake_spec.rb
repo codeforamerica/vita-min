@@ -198,6 +198,47 @@ RSpec.describe StateFileIdIntake, type: :model do
     end
   end
 
+  describe "#has_old_1099r_income_params" do
+    let(:intake) {
+      create(
+        :state_file_id_intake, :with_spouse,
+        primary_disabled: "no",
+        spouse_disabled: "no",
+        primary_birth_date: 66.years.ago,
+        spouse_birth_date: 66.years.ago,
+        )
+    }
+    let!(:first_1099_r) { create(:state_file1099_r, intake: intake, recipient_ssn: intake.primary.ssn) }
+    let!(:second_1099_r) { create(:state_file1099_r, intake: intake, recipient_ssn: intake.spouse.ssn) }
+
+    context "when there is a 1099r with old params" do
+      let!(:first_followup) { create(:state_file_id1099_r_followup, state_file1099_r: first_1099_r, eligible_income_source: "yes") }
+      let!(:second_followup) { create(:state_file_id1099_r_followup, state_file1099_r: second_1099_r, eligible_income_source: "yes") }
+
+      it "returns true" do
+        expect(intake.has_old_1099r_income_params?).to eq true
+      end
+
+      context "when user re-answers question with new params for one 1099r" do
+        let!(:second_followup) { create(:state_file_id1099_r_followup, state_file1099_r: second_1099_r, eligible_income_source: "yes", income_source: "military") }
+
+        it "returns true" do
+          expect(intake.has_old_1099r_income_params?).to eq true
+        end
+      end
+    end
+
+    context "when there is no 1099r with old params" do
+      let!(:first_followup) { create(:state_file_id1099_r_followup, state_file1099_r: first_1099_r, income_source: "military") }
+      let!(:second_followup) { create(:state_file_id1099_r_followup, state_file1099_r: second_1099_r, income_source: "military") }
+
+      it "returns false" do
+        expect(intake.has_old_1099r_income_params?).to eq false
+      end
+    end
+
+  end
+
   describe "#primary_between_62_and_65_years_old?" do
     let(:intake) { create(:state_file_id_intake) }
 
