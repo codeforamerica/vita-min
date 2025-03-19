@@ -4252,6 +4252,25 @@ es:
           subtitle_html: Si no recibiste un código, <a class="open-intercom">por favor chatea con nosotros</a>.
           title_html: Te enviamos tu código a <strong>%{contact_info}</strong>
           verification_code_label: Ingresa el código de 6 dígitos
+      md_data_transfer_offboarding:
+        edit:
+          title: Desafortunadamente, no puedes utilizar este servicio este año. No te preocupes, aquí tienes otras opciones para declarar.
+          reason: No puedes usar este servicio este año porque didn’t include your spouse’s SSN or ITIN in your federal return.
+          not_allowed: Maryland does not allow Married Filing Separately taxpayers to electronically file their state tax return without their spouse’s SSN or ITIN.
+          reveal_one: ¿Qué opciones gratuitas tengo para declarar mis impuestos estatales?
+          other_options: "Tienes otras opciones gratuitas para presentar tu declaración estatal:"
+          file_for_free: Declara gratis con voluntarios VITA certificados por el IRS en Maryland.
+          if_you_choose: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos ( VITA) en Maryland. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea. Este proceso puede tardar de 2 a 3 semanas en completarse.
+          get_started_vita_html: <a href="https://airtable.com/appAgBw351Iig0YI4/pagpUP2HSWNXzPlIz/form">Comienza con VITA ahora</a>
+          learn_more_html: Aprende más sobre este proceso y otras opciones de declaración <a href="https://www.fileyourstatetaxes.org/es/md/faq/what_are_my_other_state_filing_options_this_year_46">aquí</a>.
+          get_started_comptroller_html: Comienza con el servicio <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php">gratuito de preparación de impuestos sobre ingresos</a> del Contralor de Maryland.
+          reveal_two: "¿Cuáles son mis otras opciones para declarar mis impuestos estatales?"
+          quick_tips: "Muchos servicios comerciales de preparación de impuestos ofrecen la opción de declarar sólo los impuestos estatales. Aquí tienes algunos consejos rápidos:"
+          just_state_return: Confirma que el servicio te permita presentar sólo tu declaración estatal. Es posible que necesites consultar con el soporte al cliente.
+          ready_reenter: Prepárate para volver a ingresar la información de tu declaración federal, ya que se necesita para tu declaración estatal.
+          only_state_return: Al declarar, envía sólo tu declaración estatal. Si vuelves a enviar tu declaración federal, puede ser rechazada.
+          fees_may_apply: Es posible que apliquen costos.
+          learn_more_here_html: Obtén más información <a href="https://www.fileyourstatetaxes.org/es/md/faq/what_are_my_other_state_filing_options_this_year_46">aquí.</a>
       w2:
         edit:
           box14_explanation_md_html: Para el año fiscal %{year}, solo procesaremos el código <strong>STPICKUP</strong> que representa las contribuciones que hiciste al sistema de jubilación estatal.

@@ -272,4 +272,8 @@ class StateFileMdIntake < StateFileBaseIntake
   def should_warn_about_pension_exclusion?
     eligible_1099rs.present? && has_filer_under_65?
   end
+
+  def nra_spouse?
+    filing_status == :married_filing_separately && !spouse.ssn.present?
+  end
 end
