@@ -50,18 +50,13 @@ module StateFile
       def get_existing_intake(intake)
         return nil if intake.email_address.nil? && intake.phone_number.nil?
 
-        #we don't help new york any more
-        state_intake_classes = StateFile::StateInformationService.state_intake_classes.reject do |klass|
-          klass == StateFileNyIntake
-        end
-
+        # we don't help new york any more
+        state_intake_classes = StateFile::StateInformationService.state_intake_classes.without(StateFileNyIntake)
         state_intake_classes.each do |intake_class|
-          search = case intake.contact_preference
-            when "text"
-              intake_class.where.not(id: intake.id).where.not(raw_direct_file_data: nil).where(phone_number: intake.phone_number)
-            when "email"
-              intake_class.where.not(id: intake.id).where.not(raw_direct_file_data: nil).where(email_address: intake.email_address)
-            end
+          key = intake.contact_preference == "text" ? :phone_number : :email_address
+          search = intake_class.where.not(raw_direct_file_data: nil) # has a successful df import...
+          search = search.where(key => intake[key]) # ...using the same contact info
+          search = search.where.not(id: intake.id) if intake_class == intake.class # ...unless it's literally the same intake
 
           existing_intake = search.first
           return existing_intake if existing_intake

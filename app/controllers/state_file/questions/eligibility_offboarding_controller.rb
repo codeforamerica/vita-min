@@ -17,7 +17,7 @@ module StateFile
       end
 
       def set_prev_path
-        @prev_path = session.delete(:offboarded_from)
+        @prev_path = session[:offboarded_from]
       end
 
       def prev_path

@@ -1,7 +1,7 @@
 <h3 class="h3"><%= t('.heading1') %></h3>
 <ul class="list--bulleted">
   <li><%= t('.sub1') %></li>
-  <li><%= t('.sub2') %></li>
+  <li><%= t('.sub2', count: current_intake.eligibility_filing_status_mfj_yes? ? 2 : 1) %></li>
   <li><%= t('.sub3') %></li>
   <li><%= t('.sub4') %></li>
   <li><%= t('.sub5') %></li>

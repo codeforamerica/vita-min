@@ -8,6 +8,7 @@ describe StateFile::Questions::MdPermanentAddressController do
 
   describe "#edit" do
     render_views
+
     it "succeeds" do
       get :edit
       expect(response).to be_successful
@@ -15,7 +16,7 @@ describe StateFile::Questions::MdPermanentAddressController do
     end
   end
 
-  describe "#update" do
+  describe "eligibility_offboarding_concern" do
     # the disqualifying param here is permanent_address_outside_md but this is set in the form based on:
     # * whether they are using the address from DF
     # * if so, whether that address is in MD

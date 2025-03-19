@@ -14,7 +14,7 @@ module Navigation
       Documents::Form1095asController,
       Documents::EmploymentController,
       Documents::Form1099rsController,
-      Documents::AdditionalDocumentsController, # Advances statuses to Ready
+      Documents::AdditionalDocumentsController,
       Documents::OverviewController,
     ].freeze
 

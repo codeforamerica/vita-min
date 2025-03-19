@@ -417,6 +417,9 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
         click_on "Submit"
       }.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
 
+      # ID, secondary ID, and selfie were all uploaded.
+      expect(intake.tax_returns.all? { |tr| tr.current_state == :intake_ready })
+
       expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
       expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
       expect(page).to have_text("Client ID number: #{intake.client_id}")
@@ -456,6 +459,76 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       visit "/questions/work-situations"
       expect(intake.reload.current_step).to end_with("/questions/demographic-primary-race")
       expect(page).to have_selector("h1", text: I18n.t("portal.client_logins.new.title"))
+    end
+
+    # This scenario has to do with state machine transitions and the intake status.
+    scenario "when not uploading required docs (i.e., ID, secondary ID, and selfie) sets state to intake_needs_doc_help" do
+      intake = intake_up_to_documents
+
+      # IRS guidance page
+      expect(intake.reload.current_step).to end_with('/documents/id-guidance')
+      click_on I18n.t('general.continue')
+
+      # Upload ID page
+      expect(intake.reload.current_step).to end_with('/documents/ids')
+      click_on I18n.t('views.layouts.document_upload.dont_have')
+
+      # Help page
+      # `intake.reload.current_step` does not yield the Help page's URL
+      expect(page).to have_text(I18n.t('documents.documents_help.show.header'))
+      click_on I18n.t('documents.documents_help.show.reminder_link')
+
+      # Selfie instructions page
+      expect(intake.reload.current_step).to end_with('/documents/selfie-instructions')
+      click_on I18n.t('views.documents.selfie_instructions.submit_photo')
+
+      # Upload selfie page
+      expect(intake.reload.current_step).to end_with('/documents/selfies')
+      click_on I18n.t('views.layouts.document_upload.dont_have')
+
+      # Help page
+      expect(page).to have_text(I18n.t('documents.documents_help.show.header'))
+      click_on I18n.t('documents.documents_help.show.reminder_link')
+
+      # Upload secondary ID doc page
+      expect(intake.reload.current_step).to end_with('/documents/ssn-itins')
+      click_on I18n.t('views.layouts.document_upload.dont_have')
+
+      # Help page
+      expect(page).to have_text(I18n.t('documents.documents_help.show.header'))
+      click_on I18n.t('documents.documents_help.show.reminder_link')
+
+      # Documents: Intro page
+      # As of ty2024, header is "Now, let's collect your tax documents!"
+      expect(intake.reload.current_step).to end_with('/documents/intro')
+      click_on I18n.t('general.continue')
+
+      # Share your employment documents page
+      expect(intake.reload.current_step).to end_with('/documents/employment')
+      click_on I18n.t('views.layouts.document_upload.dont_have')
+
+      # Help page
+      expect(page).to have_text(I18n.t('documents.documents_help.show.header'))
+      click_on I18n.t('documents.documents_help.show.reminder_link')
+
+      # Additional documents page
+      expect(intake.reload.current_step).to end_with('/documents/additional-documents')
+      click_on I18n.t('general.continue')
+
+      # List of what we've collected page
+      expect(intake.reload.current_step).to end_with('/documents/overview')
+      click_on I18n.t('views.documents.overview.finished') # i.e., "I've shared all my documents"
+
+      # "Anything else" page
+      expect(intake.reload.current_step).to end_with('/questions/final-info')
+      expect {
+        click_on I18n.t('general.submit')
+      }.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
+
+      # Success! page
+      expect(intake.reload.current_step).to end_with('/questions/successfully-submitted')
+      # This next `expect` is the whole point of this particular spec test.
+      expect(intake.tax_returns.all? { |tr| tr.current_state == :intake_needs_doc_help })
     end
   end
 

@@ -7,6 +7,8 @@ RSpec.describe StateFile::EligibilityOffboardingConcern, type: :controller do
     def index
       redirect_to next_path
     end
+
+    def edit; end
   end
 
   let(:intake) { create(:state_file_az_intake) }

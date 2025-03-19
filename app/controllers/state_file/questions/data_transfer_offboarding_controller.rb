@@ -21,6 +21,10 @@ module StateFile
 
       private
 
+      def prev_path
+        nil
+      end
+
       def card_postscript; end
 
     end
