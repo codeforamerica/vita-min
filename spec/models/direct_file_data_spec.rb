@@ -418,17 +418,16 @@ describe DirectFileData do
 
   describe '#dependents' do
     context "when there are dependents in the xml" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_five_dependents') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
       it 'returns an array of DirectFileData::Dependent objects' do
-
-        expect(described_class.new(xml).dependents.count).to eq(5)
+        expect(described_class.new(xml).dependents.count).to eq(8)
         expect(described_class.new(xml).dependents.first).to be_an_instance_of DirectFileData::Dependent
-        expect(described_class.new(xml).dependents.first.ssn).to eq('444444444')
+        expect(described_class.new(xml).dependents.first.ssn).to eq('300000006')
       end
     end
 
     context "when there are no dependents in the xml" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_javier') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_atticus_itin_single.json') }
       it 'returns blank array' do
 
         expect(described_class.new(xml).dependents).to eq []

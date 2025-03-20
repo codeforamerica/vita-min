@@ -217,7 +217,7 @@ module StateFile
       },
       ny: {
         intake_class: StateFileNyIntake,
-        calculator_class: Efile::Ny::It201,
+        calculator_class: "",
         check_box_16: false,
         filing_years: [2023],
         mail_voucher_address: "NYS Personal Income Tax<br/>" \
