@@ -4,13 +4,11 @@ class FlowsController < ApplicationController
     ctc: { emoji: "👶", name: "CTC Flow", host: :ctc },
     diy: { emoji: "📝", name: "DIY Flow", host: :gyr },
     state_file_az: { emoji: "🌵", name: "State File - Arizona", host: :statefile },
-    state_file_ny: { emoji: "🍎", name: "State File - New York", host: :statefile },
   }
   SAMPLE_GENERATOR_TYPES = {
     ctc: [:single, :married_filing_jointly],
     gyr: [:single, :married_filing_jointly],
     state_file_az: [:single, :married_filing_jointly, :qualifying_widow, :married_filing_separately, :head_of_household],
-    state_file_ny: [:head_of_household],
   }.freeze
 
   def index
@@ -31,14 +29,12 @@ class FlowsController < ApplicationController
       intake = SampleGyrIntakeGenerator.new.generate_gyr_intake(params)
     elsif type == :state_file_az
       intake = SampleStateFileIntakeGenerator.new('az').generate_state_file_intake(params)
-    elsif type == :state_file_ny
-      intake = SampleStateFileIntakeGenerator.new('ny').generate_state_file_intake(params)
     end
 
     if intake
       if intake.respond_to?(:client)
         sign_in(intake.client)
-      elsif [:state_file_az, :state_file_ny].include?(type)
+      elsif type == :state_file_az
         intake.create_state_file_analytics!
         sign_in intake
       end
@@ -70,7 +66,7 @@ class FlowsController < ApplicationController
   end
 
   def current_intake
-    if %w[state_file_az state_file_ny].include?(params[:id] || params[:type])
+    if %w[state_file_az].include?(params[:id] || params[:type])
       send("current_#{params[:id] || params[:type]}_intake")
     else
       super
