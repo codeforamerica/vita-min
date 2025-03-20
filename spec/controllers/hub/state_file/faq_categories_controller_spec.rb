@@ -4,7 +4,6 @@ describe Hub::StateFile::FaqCategoriesController do
   let(:user) { create :state_file_admin_user }
   let(:faq_category) { create :faq_category, position: 1, product_type: :state_file_az }
   let(:faq_category_2) { create :faq_category, name_en: "what what?", slug: "what_what", position: 2, product_type: :state_file_az }
-  let(:faq_category_ny) { create :faq_category, name_en: "new york category", slug: "new_york_category", position: 2, product_type: :state_file_ny }
   let(:faq_category_nc) { create :faq_category, name_en: "nc category", slug: "north_carolina_category", position: 1, product_type: :state_file_nc }
   let(:faq_category_md) { create :faq_category, name_en: "md category", slug: "maryland_category", position: 1, product_type: :state_file_md }
   let(:faq_category_id) { create :faq_category, name_en: "id category", slug: "idaho_category", position: 1, product_type: :state_file_id }
@@ -24,7 +23,6 @@ describe Hub::StateFile::FaqCategoriesController do
       state_faq_categories = assigns(:state_faq_categories)
       expect(state_faq_categories.keys.to_set).to eq(StateFile::StateInformationService.active_state_codes.to_set)
       expect(state_faq_categories["az"]).to match_array [faq_category, faq_category_2]
-      expect(state_faq_categories["ny"]).to match_array [faq_category_ny]
       expect(state_faq_categories["nc"]).to match_array [faq_category_nc]
       expect(state_faq_categories["md"]).to match_array [faq_category_md]
       expect(state_faq_categories["id"]).to match_array [faq_category_id]

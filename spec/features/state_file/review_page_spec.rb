@@ -8,7 +8,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
 
-  StateFile::StateInformationService.active_state_codes.without("ny").each do |state_code|
+  StateFile::StateInformationService.active_state_codes.each do |state_code|
     context "#{state_code.upcase}" do
       it "allows user to navigate to income review page, edit an income form, and then navigate back to final review page", required_schema: state_code do
         set_up_intake_and_associated_records(state_code)
