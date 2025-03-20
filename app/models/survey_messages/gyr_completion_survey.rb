@@ -31,7 +31,7 @@ module SurveyMessages
       true
     end
 
-    def self.survey_link(client)
+    def self.survey_link(client, locale: nil)
       "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_cBCciMO9tvDpDX8?ExternalDataReference=#{client.id}"
     end
 
