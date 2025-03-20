@@ -56,7 +56,7 @@ module StateFile
       end
 
       def active_state_codes
-        @_active_state_codes ||= STATES_INFO.keys.map(&:to_s).freeze
+          @_active_state_codes ||= STATES_INFO.filter_map {|state, state_data| state if state_data["filing_years"].include? MultiTenantService.statefile.current_tax_year }
       end
 
       def state_code_to_name_map

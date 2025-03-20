@@ -2,8 +2,8 @@ require "rails_helper"
 
 describe StateFile::StateInformationService do
   describe ".active_state_codes" do
-    it "returns the list of state codes as strings" do
-      expect(described_class.active_state_codes).to match_array ["az", "id", "md", "nc", "nj", "ny"]
+    it "returns the list of state codes as strings within the current tax year" do
+      expect(described_class.active_state_codes).to match_array ["az", "id", "md", "nc", "nj"]
     end
   end
 
@@ -14,7 +14,6 @@ describe StateFile::StateInformationService do
         "md" => "Maryland",
         "nc" => "North Carolina",
         "nj" => "New Jersey",
-        "ny" => "New York",
         "id" => "Idaho",
       }
       expect(described_class.state_code_to_name_map).to eq result
