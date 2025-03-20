@@ -1984,14 +1984,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
   end
 
   create_table "state_file_id1099_r_followups", force: :cascade do |t|
-    t.integer "civil_service_account_number", default: 0, null: false
     t.datetime "created_at", null: false
     t.integer "eligible_income_source", default: 0, null: false
-    t.integer "firefighter_frf", default: 0, null: false
-    t.integer "firefighter_persi", default: 0, null: false
-    t.integer "income_source", default: 0, null: false
-    t.integer "police_persi", default: 0, null: false
-    t.integer "police_retirement_fund", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -2001,7 +1995,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
     t.decimal "american_red_cross_fund_donation", precision: 12, scale: 2
     t.string "bank_name"
     t.decimal "childrens_trust_fund_donation", precision: 12, scale: 2
-    t.datetime "clicked_to_file_with_other_service_at"
     t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
