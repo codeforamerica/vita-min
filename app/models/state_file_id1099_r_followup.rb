@@ -35,7 +35,7 @@ class StateFileId1099RFollowup < ApplicationRecord
                        (police_retirement_fund_yes? || police_persi_yes?)
 
     firefighter_qualified = income_source_firefighter? &&
-                            (firefighter_frf_yes? || firefighter_persi_yes?)
+                            (firefighter_frf_yes? && firefighter_persi_yes?)
 
     civil_service_qualified || police_qualified || firefighter_qualified || income_source_military?
   end
