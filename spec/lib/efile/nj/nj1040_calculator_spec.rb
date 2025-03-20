@@ -1339,6 +1339,34 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'calculate line 42 when filer is at or below threshold' do
+    [
+      { traits: [:single], line_29_total_income: 9_999 },
+      { traits: [:single], line_29_total_income: 10_000 },
+      { traits: [:head_of_household], line_29_total_income: 19_999 },
+      { traits: [:head_of_household], line_29_total_income: 20_000 },
+      { traits: [:qualifying_widow], line_29_total_income: 19_999 },
+      { traits: [:qualifying_widow], line_29_total_income: 20_000 },
+      { traits: [:married_filing_jointly], line_29_total_income: 19_999 },
+      { traits: [:married_filing_jointly], line_29_total_income: 20_000 },
+      { traits: [:married_filing_separately], line_29_total_income: 9_999 },
+      { traits: [:married_filing_separately], line_29_total_income: 10_000 },
+    ].each do |test_case|
+      context "when filing with #{test_case}" do
+        before do
+          allow(intake).to receive(:nj_gross_income).and_return test_case[:line_29_total_income]
+        end
+        let(:intake) do
+          create(:state_file_nj_intake, *test_case[:traits])
+        end
+        it "returns 0" do
+          instance.calculate
+          expect(instance.lines[:NJ1040_LINE_42].value).to eq(0)
+        end
+      end
+    end
+  end
+
   describe 'lines 41, 42, 43, 56 - property tax deduction' do
     context 'when without_deduction - with_deduction >= $50' do
       let(:intake) {

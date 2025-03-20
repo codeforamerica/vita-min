@@ -426,6 +426,8 @@ module Efile
       end
 
       def calculate_line_42
+        return 0 if @intake.eligibility_made_less_than_threshold?
+
         if should_use_property_tax_deduction
           [line_or_zero(:NJ1040_LINE_39) - calculate_property_tax_deduction, 0].max
         else
