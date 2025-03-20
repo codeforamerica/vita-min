@@ -3093,7 +3093,7 @@ en:
           details_content: If you’re unsure about your retirement plan details, contact your plan payer at the phone number listed on your 1099-R
           details_title: What if I don’t know the details of my 1099-R?
           firefighter: Service as an Idaho firefighter
-          firefighter_follow_up: "¿Alguna de las siguientes afirmaciones aplica a tus ingresos de jubilación como bombero de Idaho?"
+          firefighter_follow_up: Were any of the following true for your retirement income as an Idaho firefighter?
           firefighter_frf: The 1099-R account number includes the FRF (Firemen’s Retirement Fund) designation
           firefighter_persi: Benefits were paid out of the Public Employee Retirement System of Idaho (PERSI)
           military: Service as a member of the U.S. military
@@ -4126,7 +4126,7 @@ en:
         id_retirement_income_deductions_review_header:
           civil_servant_employee: Retirement income from %{taxpayer_name}’s service as a Civil Service employee
           eight: Account number starts with 8.
-          firefighter: Retirement income from %{taxpayer_name}’s service as an Idaho city Police officer
+          firefighter: Retirement income from %{taxpayer_name}’s service as an Idaho firefighter
           military: Retirement income from %{taxpayer_name}’s service as a member of the U.S. military
           none_apply: None apply
           police_officer: Retirement income from %{taxpayer_name}’s service as an Idaho city Police officer
