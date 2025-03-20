@@ -167,10 +167,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       expect(page).not_to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Arizona")
 
-      allow(StateFileSubmissionPdfStatusChannel).to receive(:broadcast_status) do
-        simulate_submission_pdf_ready
-      end
-
       StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileAzIntake.last, :ready)
 
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")

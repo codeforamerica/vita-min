@@ -6,20 +6,26 @@
 
 <% content_for :page_title, title %>
 <% content_for :card do %>
-  <div class="loading-container">
-    <div class='return-status'>
-      <p>
-        <%= image_tag "loading.svg", alt: "" %>
-      </p>
-      <p>
-        <h1 class="h2"><%= t('.just_a_moment', state_name: current_state_name ) %></h1>
-      </p>
+  <% unless @show_download_button %>
+    <div class="loading-container">
+      <div class='return-status'>
+        <p>
+          <%= image_tag "loading.svg", alt: "" %>
+        </p>
+        <p>
+          <h1 class="h2"><%= t('.just_a_moment', state_name: current_state_name ) %></h1>
+        </p>
 
-      <%= t('.takes_a_few') %>
+        <%= t('.takes_a_few') %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
-  <div class="download-link-container" style="display: none;">
+  <% if @show_download_button %>
+    <div>
+  <% else %>
+    <div class="download-link-container" style="display: none;">
+  <% end %>
     <div class='return-status'>
       <p>
         <%= image_tag("icons/check.svg", alt: "") %>
@@ -49,12 +55,7 @@
 
     <%= render partial: "state_file/questions/submission_confirmation/#{current_state_code}_additional_content" rescue nil %>
 
-    <%= link_to t(".download_state_return_pdf"),
-                StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission),
-                id: "pdf-download-link",
-                class: "button button--primary button--wide",
-                target: "_blank",
-                rel: "noopener noreferrer" %>
+    <%= link_to t(".download_state_return_pdf"), StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission), class: "button button--primary button--wide", role: "button" %>
   </div>
   <% if show_xml? %>
     <p>

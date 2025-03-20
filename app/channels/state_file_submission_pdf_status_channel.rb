@@ -1,10 +1,10 @@
 class StateFileSubmissionPdfStatusChannel < ApplicationCable::Channel
   def subscribed
     @intake = current_state_file_intake
-    stream_for @intake
-
     if @intake.submission_pdf.attached?
-      StateFileSubmissionPdfStatusChannel.broadcast_status(@intake, :ready)
+      reject
+    else
+      stream_for @intake
     end
   end
 
