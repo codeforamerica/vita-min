@@ -1,6 +1,8 @@
 module StateFile
   module Questions
     class IdDisabilityController < QuestionsController
+      include ReturnToReviewConcern
+
       def self.show?(intake)
         Flipper.enabled?(:show_retirement_ui) &&
           intake.state_file1099_rs.any? { |form1099r| form1099r.taxable_amount&.to_f&.positive? } &&
