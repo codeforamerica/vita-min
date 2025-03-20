@@ -234,7 +234,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           }
         }
       }
-      let!(:intake) { create :state_file_ny_intake, email_address: email_address }
+      let!(:intake) { create :state_file_az_intake, email_address: email_address }
 
       context "with clients matching the contact info but invalid verification code" do
         let(:verification_code) { "000005" }
@@ -242,7 +242,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
         before do
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_wrong_verification_code)
-          allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_wrong_verification_code).and_return(StateFileNyIntake.none)
+          allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_wrong_verification_code).and_return(StateFileAzIntake.none)
         end
 
         it "increments their lockout counter & shows an error in the form" do

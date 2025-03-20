@@ -231,7 +231,7 @@ module StateFile
         submission_type: "IT201",
         schema_file_name: "NYSIndividual2023V4.0.zip",
         software_id_key: "sin",
-        submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::NyReturnXml,
+        submission_builder_class: "",
         survey_link: I18n.t("state_file.state_information_service.ny.survey_link"),
         tax_payment_info_text: "Tax.NY.gov",
         tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
