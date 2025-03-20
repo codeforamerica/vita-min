@@ -2506,7 +2506,7 @@ es:
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2024.
             married_filing_separately: estás presentando una declaración de impuestos "casado, declarando por separado".
             spouse_nra_html: |
-              You didn’t include your spouse’s SSN or ITIN in your federal return.<br><br>
+              you didn’t include your spouse’s SSN or ITIN in your federal return.<br><br>
               Maryland does not allow Married Filing Separately taxpayers to electronically file their state tax return without their spouse’s SSN or ITIN.
           offboarding_reason: No puedes utilizar este servicio este año porque %{reason}
           title: Desafortunadamente, después de transferir tus datos, descubrimos que no puedes usar este servicio este año. No te preocupes, aquí tienes otras opciones para declarar.
