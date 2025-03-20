@@ -519,7 +519,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(false) # does NOT meet disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
+        # skips medical expenses page
         choose_household_rent_own("tenant")
         expect_ineligible_page(nil, "income_mfj_qss_hoh")
         expect_page_after_property_tax
@@ -530,7 +530,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(false) # does NOT meet disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
+        # skips medical expenses page
         choose_household_rent_own("both")
         expect_ineligible_page(nil, "income_mfj_qss_hoh")
         expect_page_after_property_tax
