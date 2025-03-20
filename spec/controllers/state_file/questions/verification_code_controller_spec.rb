@@ -124,5 +124,19 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
         expect(intake.reload).not_to be_destroyed
       end
     end
+
+    context "with an invalid form" do
+      let(:intake) { create(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com", visitor_id: "v1s1t1n9") }
+
+      it "renders the edit page" do
+        post :update, params: { state_file_verification_code_form: { verification_code: "invalid" }}
+        expect(response).to render_template(:edit)
+      end
+
+      it "sets @contact_info to the contact info" do
+        post :update, params: { state_file_verification_code_form: { verification_code: "invalid", contact_info: "someone@example.com" }}
+        expect(assigns(:contact_info)).to eq "someone@example.com"
+      end
+    end
   end
 end
