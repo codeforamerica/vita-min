@@ -102,6 +102,23 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
       end
     end
 
+    context "with an intake matching an existing intake in the same state but with different login methods" do
+      let!(:existing_intake) { create(:state_file_az_intake, contact_preference: "text", email_address: "someone@example.com") }
+      let(:intake) do
+        build(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com", visitor_id: "v1s1t1n9").tap do |intake|
+          intake.raw_direct_file_data = nil
+          intake.save!
+        end
+      end
+      let(:token) { EmailAccessToken.generate!(email_address: "someone@example.com") }
+
+      it "redirects to the next path" do
+        post :update, params: { state_file_verification_code_form: { verification_code: token[0] }}
+        expect(response).to redirect_to(questions_code_verified_path)
+        expect(intake.reload).not_to be_destroyed
+      end
+    end
+
     context "without an intake matching an existing intake" do
       let(:intake) do
         build(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com", visitor_id: "v1s1t1n9").tap do |intake|
