@@ -38,9 +38,20 @@ const actionMap = {
       },
 
       connected () {
+        this.subscription = this
+
         setTimeout(() => {
           this.perform("status_update")
         }, 500)
+
+        setTimeout(() => {
+          const loadingBlock = document.querySelector('.loading-container')
+          const linkBlock = document.querySelector('.download-link-container')
+          loadingBlock.style.display = "none"
+          linkBlock.style.display = "block"
+
+          this.subscription.unsubscribe()
+        }, 15000)
       },
 
       disconnected () {

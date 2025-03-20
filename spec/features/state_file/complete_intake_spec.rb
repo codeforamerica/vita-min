@@ -311,10 +311,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "North Carolina")
 
-      allow(StateFileSubmissionPdfStatusChannel).to receive(:broadcast_status) do
-        simulate_submission_pdf_ready
-      end
-
       StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileNcIntake.last, :ready)
 
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
@@ -515,10 +511,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
 
-      allow(StateFileSubmissionPdfStatusChannel).to receive(:broadcast_status) do
-        simulate_submission_pdf_ready
-      end
-
       StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileIdIntake.last, :ready)
 
       expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
@@ -663,10 +655,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year)
       expect(page).not_to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Maryland")
-
-      allow(StateFileSubmissionPdfStatusChannel).to receive(:broadcast_status) do
-        simulate_submission_pdf_ready
-      end
 
       StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileMdIntake.last, :ready)
 
