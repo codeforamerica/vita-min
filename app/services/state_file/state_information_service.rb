@@ -56,7 +56,7 @@ module StateFile
       end
 
       def active_state_codes
-          @_active_state_codes ||= STATES_INFO.filter_map {|state, state_data| state if state_data["filing_years"].include? MultiTenantService.statefile.current_tax_year }
+        @_active_state_codes ||= STATES_INFO.filter_map {|state, attrs| state if attrs["filing_years"].include? MultiTenantService.statefile.current_tax_year }.freeze
       end
 
       def state_code_to_name_map
@@ -64,7 +64,7 @@ module StateFile
       end
 
       def state_intake_classes
-        @_state_intake_classes ||= STATES_INFO.map { |_, attrs| attrs[:intake_class] }.freeze
+        @_state_intake_classes ||= STATES_INFO.filter_map { |_, attrs| attrs[:intake_class] if attrs["filing_years"].include? MultiTenantService.statefile.current_tax_year}.freeze
       end
 
       def state_intake_class_names

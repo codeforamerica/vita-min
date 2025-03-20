@@ -22,13 +22,13 @@ describe StateFile::StateInformationService do
 
   describe ".state_intake_classes" do
     it "returns an array of the intake classes" do
-      expect(described_class.state_intake_classes).to match_array [StateFileAzIntake, StateFileIdIntake, StateFileMdIntake, StateFileNcIntake, StateFileNjIntake, StateFileNyIntake]
+      expect(described_class.state_intake_classes).to match_array [StateFileAzIntake, StateFileIdIntake, StateFileMdIntake, StateFileNcIntake, StateFileNjIntake]
     end
   end
 
   describe ".state_intake_class_names" do
     it "returns an array of the intake classes as strings" do
-      expect(described_class.state_intake_class_names).to match_array ["StateFileAzIntake", "StateFileIdIntake", "StateFileMdIntake", "StateFileNcIntake", "StateFileNjIntake", "StateFileNyIntake"]
+      expect(described_class.state_intake_class_names).to match_array ["StateFileAzIntake", "StateFileIdIntake", "StateFileMdIntake", "StateFileNcIntake", "StateFileNjIntake"]
     end
   end
 

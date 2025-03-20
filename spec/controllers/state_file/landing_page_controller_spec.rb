@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe StateFile::LandingPageController do
-  StateFile::StateInformationService.active_state_codes.excluding("ny").each do |state_code|
+  StateFile::StateInformationService.active_state_codes.each do |state_code|
     describe "#update" do
       it_behaves_like :start_intake_concern, intake_class: StateFile::StateInformationService.intake_class(state_code) do
         let(:valid_params) do
