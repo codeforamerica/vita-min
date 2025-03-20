@@ -113,6 +113,7 @@
 #
 class StateFileMdIntake < StateFileBaseIntake
   include MdResidenceCountyConcern
+  include StateFile::PatternMatchingHelper
 
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
@@ -271,5 +272,11 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def should_warn_about_pension_exclusion?
     eligible_1099rs.present? && has_filer_under_65?
+  end
+
+  def direct_file_address_is_po_box?
+    return false if direct_file_data.blank?
+
+    contains_po_box(direct_file_data&.mailing_street) || contains_po_box(direct_file_data&.mailing_apartment)
   end
 end
