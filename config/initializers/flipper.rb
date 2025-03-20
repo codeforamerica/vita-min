@@ -12,12 +12,14 @@ begin
   Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
   Flipper.disable :hub_dashboard unless Flipper.exist?(:hub_dashboard)
   Flipper.disable :get_your_pdf unless Flipper.exist?(:get_your_pdf)
+  Flipper.disable :extension_period unless Flipper.exist?(:extension_period)
+  Flipper.disable :income_review_v2 unless Flipper.exist?(:income_review_v2)
   if Rails.env.heroku? || Rails.env.demo?
     Flipper.disable :prevent_duplicate_accepted_statefile_submissions unless Flipper.exist?(:prevent_duplicate_accepted_statefile_submissions)
   else
     Flipper.enable :prevent_duplicate_accepted_statefile_submissions unless Flipper.exist?(:prevent_duplicate_accepted_statefile_submissions)
   end
-rescue
+rescue StandardError
   # make sure we can still run rake tasks before table has been created
   nil
 end
