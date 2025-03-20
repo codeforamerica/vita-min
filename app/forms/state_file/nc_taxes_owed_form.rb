@@ -1,5 +1,18 @@
 module StateFile
   class NcTaxesOwedForm < TaxesOwedForm
+    set_attributes_for :intake,
+                       :payment_or_deposit_type,
+                       :routing_number,
+                       :account_number,
+                       :account_type,
+                       :withdraw_amount
+    set_attributes_for :confirmation, :routing_number_confirmation, :account_number_confirmation
+    set_attributes_for :date,
+                       :date_electronic_withdrawal_month,
+                       :date_electronic_withdrawal_year,
+                       :date_electronic_withdrawal_day,
+                       :post_deadline_withdrawal_date,
+                       :app_time
 
     with_options unless: -> { payment_or_deposit_type == "mail" || !form_submitted_before_payment_deadline? } do
       validate :withdrawal_date_is_not_today
@@ -41,7 +54,7 @@ module StateFile
     def add_business_days_to_date(date, num_days)
       while num_days.positive?
         date += 1.day
-        num_days -= 1 if date.wday.between?(1, 5)
+        num_days -= 1 if date.wday.between?(1, 5) # Check if the current date is a business day (Mon-Fri)
       end
       date
     end

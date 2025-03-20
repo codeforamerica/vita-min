@@ -64,17 +64,12 @@ describe StateFile::Questions::TaxesOwedController do
             end
           end
 
-          it "shows the withdrawal date selector" do
+          it "shows the withdrawal date selector and does not explain when your payment will be withdrawn" do
             get :edit
             expect(response).to be_successful
             expect(response_html).to have_text(
               "When would you like the funds withdrawn from your account? (must be on or before #{stringified_deadline}):"
             )
-          end
-
-          it "does not explain when your payment will be withdrawn" do
-            get :edit
-            expect(response).to be_successful
             expect(response_html).not_to have_text(
               "Because you are submitting your return on or after #{stringified_deadline}, " \
               "the state will withdraw your payment as soon as they process your return."
@@ -89,17 +84,12 @@ describe StateFile::Questions::TaxesOwedController do
             end
           end
 
-          it "does not show the withdrawal date selector" do
+          it "does not show the withdrawal date selector and explains when your payment will be withdrawn" do
             get :edit
             expect(response).to be_successful
             expect(response_html).not_to have_text(
               "When would you like the funds withdrawn from your account? (must be on or before #{stringified_deadline}):"
             )
-          end
-
-          it "explains when your payment will be withdrawn" do
-            get :edit
-            expect(response).to be_successful
             expect(response_html).to have_text(
               "Because you are submitting your return on or after #{stringified_deadline}, " \
               "the state will withdraw your payment as soon as they process your return."

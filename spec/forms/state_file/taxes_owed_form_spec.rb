@@ -138,6 +138,7 @@ RSpec.describe StateFile::TaxesOwedForm do
             form = described_class.new(intake, params)
             expect(form).not_to be_valid
             expect(form.errors).to include :date_electronic_withdrawal
+            expect(form.errors.first&.type).to start_with "Please enter a date between today and on or before "
           end
         end
 
@@ -149,6 +150,7 @@ RSpec.describe StateFile::TaxesOwedForm do
             form = described_class.new(intake, params)
             expect(form).not_to be_valid
             expect(form.errors).to include :date_electronic_withdrawal
+            expect(form.errors.first&.type).to eq "Please enter a valid date."
           end
         end
       end

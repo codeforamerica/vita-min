@@ -6,11 +6,9 @@ module StateFile
                        :account_number,
                        :account_type,
                        :withdraw_amount
-
     set_attributes_for :confirmation,
                        :routing_number_confirmation,
                        :account_number_confirmation
-
     set_attributes_for :date,
                        :date_electronic_withdrawal_month,
                        :date_electronic_withdrawal_year,

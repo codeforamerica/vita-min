@@ -50,12 +50,16 @@ module StateFile
         I18n.t("state_file.state_information_service.#{state_code}.department_of_taxation")
       end
 
+      # Returns the state-specific date in the current filing year only - no time or timezone.
+      # If later converted to a DateTime, the time will be in UTC.
+      # Ex: 2025-04-15
       def payment_deadline_date(state_code)
         current_filing_year = MultiTenantService.statefile.current_tax_year.to_i + 1
         payment_deadline = StateInformationService.payment_deadline(state_code)
         DateTime.new(current_filing_year, payment_deadline[:month], payment_deadline[:day]).to_date
       end
 
+      # Use state-specific timezone to check if a given DateTime is before midnight the morning of the deadline
       def before_payment_deadline?(datetime, state_code)
         payment_deadline = StateInformationService.payment_deadline_date(state_code)
         timezone = StateInformationService.timezone(state_code)
@@ -164,7 +168,7 @@ module StateFile
         voucher_path: "/pdfs/md-pv-TY2024.pdf",
         w2_supported_box14_codes: [{name: "STPICKUP"}],
         w2_include_local_income_boxes: true,
-        payment_deadline: { month: 4, day: 30 } # April 30th every year
+        payment_deadline: { month: 4, day: 30 }
       },
       nc: {
         intake_class: StateFileNcIntake,
