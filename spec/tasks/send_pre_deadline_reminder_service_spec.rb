@@ -16,8 +16,8 @@ describe 'state_file:pre_deadline_reminder' do
 
   context 'Sends the notification to all state-filing' do
     let!(:az_intake) { create :state_file_az_intake, email_address: 'test@example.com', email_address_verified_at: 1.minute.ago, created_at: 25.hours.ago }
-    let!(:ny_intake) { create :state_file_ny_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago, created_at: 25.hours.ago }
-    let!(:submitted_intake) { create :state_file_ny_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago }
+    let!(:md_intake) { create :state_file_md_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago, created_at: 25.hours.ago }
+    let!(:submitted_intake) { create :state_file_md_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago }
     let!(:efile_submission) { create :efile_submission, :for_state, data_source: submitted_intake }
 
     it 'intakes without submissions & without reminders' do
