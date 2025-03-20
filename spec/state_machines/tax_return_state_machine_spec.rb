@@ -78,6 +78,36 @@ describe TaxReturnStateMachine do
     end
   end
 
+  describe ".states_to_show_for_filter" do
+    context "when role_type is GreeterRole type" do
+      it "only provides limited not including the excluded few" do
+        result = described_class.states_to_show_for_filter(role_type: GreeterRole::TYPE)
+        expect(result.keys.length).to eq 2
+        expect(result.keys.first).to eq "intake"
+        expect(result.keys.last).to eq "file"
+        expect(result["intake"]).to eq [
+                                         "intake_ready",
+                                         "intake_greeter_info_requested",
+                                         "intake_needs_doc_help"
+                                       ]
+        expect(result["file"]).to eq ["file_not_filing", "file_hold"]
+        expect(result.values.flatten).not_to include("file_fraud_hold", "file_needs_review")
+      end
+    end
+
+    context "when role is anything else" do
+      it "provides all statuses except the excluded few" do
+        result = described_class.states_to_show_for_filter(role_type: AdminRole::TYPE)
+
+        expect(result["file"]).to eq ["file_ready_to_file", "file_efiled", "file_mailed", "file_rejected", "file_accepted", "file_not_filing", "file_hold"]
+        expect(result["intake"]).to eq ["intake_in_progress", "intake_ready", "intake_reviewing", "intake_ready_for_call", "intake_info_requested", "intake_greeter_info_requested", "intake_needs_doc_help"]
+        expect(result["prep"]).to eq ["prep_ready_for_prep", "prep_preparing", "prep_info_requested"]
+        expect(result["review"]).to eq ["review_ready_for_qr", "review_reviewing", "review_ready_for_call", "review_signature_requested", "review_info_requested"]
+        expect(result.values.flatten).not_to include("file_fraud_hold", "file_needs_review")
+      end
+    end
+  end
+
   context "transitions" do
     let(:tax_return) { create(:gyr_tax_return) }
 
