@@ -265,6 +265,7 @@ en:
           presence: Please select a county
         subdivision_code:
           presence: Please select a political subdivision
+      address_is_not_po_box: A PO box cannot be listed as your physical address. Please enter where you lived on December 31, %{tax_year}
       nc_county:
         county:
           presence: Please select a county
