@@ -74,8 +74,11 @@ if (actionMap[controllerAction]) {
 
 if (controllerAction === "StateFile::Questions::SubmissionConfirmationController#edit") {
   window.addEventListener("pageshow", function (event) {
+    console.log("pageshow fired", event);
     if (event.persisted) {
+      console.log("reloading due to bfcache restore");
       window.location.reload();
     }
   });
 }
+
