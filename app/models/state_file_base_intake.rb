@@ -63,6 +63,10 @@ class StateFileBaseIntake < ApplicationRecord
   before_save :save_nil_enums_with_unfilled
   before_save :sanitize_bank_details
 
+  def self.maximum_attempts
+    3
+  end
+
   def self.state_code
     state_code, = StateFile::StateInformationService::STATES_INFO.find do |_, state_info|
       state_info[:intake_class] == self
