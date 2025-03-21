@@ -16,5 +16,4 @@ module JavascriptHelpers
       device_id_input_element.value.present?
     end
   end
-
 end

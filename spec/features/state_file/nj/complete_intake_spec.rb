@@ -310,7 +310,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       
       expect(page).to be_axe_clean
       expect(page).not_to have_css(".progress-steps")
+
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "New Jersey")
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileNjIntake.last, :ready)
+
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "New Jersey")
 
       check_xml_results
     end
