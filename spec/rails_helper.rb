@@ -135,7 +135,8 @@ RSpec.configure do |config|
         intercom_access_token: "fake_access_token",
         secure_mode_secret_key: "a-fake-key-to-use-for-hashing",
         statefile_secure_mode_secret_key: "a-fake-key-to-use-for-hashing"
-      }
+      },
+      mixpanel_token: "fake_mixpanel_token"
     }
     allow(Rails.application).to receive(:credentials).and_return(@test_environment_credentials)
     allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return(true)
