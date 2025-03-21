@@ -4,37 +4,40 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <p>
-    <%= t('.mark_no_hint_html', filing_year: current_tax_year) %>
-  </p>
-
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <% if params[:return_to_review].present? %>
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
     <div class="question-with-follow-up spacing-below-15">
-      <div class="question-with-follow-up__question">
-        <div class="white-group">
-          <div class="form-question spacing-below-15">
-            <div class="text--bold"><%=t(".address_header") %></div>
-            <div><%= current_intake.direct_file_data.mailing_street %> <%= current_intake.direct_file_data.mailing_apartment %></div>
-            <div><%= current_intake.direct_file_data.mailing_city %>, <%= current_intake.direct_file_data.mailing_state %> <%= current_intake.direct_file_data.mailing_zip %></div>
-          </div>
-          <div>
-            <%=
-              f.cfa_radio_set(
-                :confirmed_permanent_address,
-                collection: [
-                  { value: :yes, label: t("general.affirmative") },
-                  { value: :no, label: t("general.negative"), input_html: { "data-follow-up": "#permanent-address-fields" } },
-                ]
-              )
-            %>
+      <% if current_intake.direct_file_address_is_po_box? %>
+        <p class="spacing-below-15"><%= t(".df_address_is_po_box.p1") %></p>
+        <p class="spacing-below-0"><strong>PO Box 123</strong></p>
+        <p class="spacing-below-15"><strong>Baltimore, MD 21201</strong></p>
+        <p><%= t(".df_address_is_po_box.p2", tax_year: current_tax_year) %></p>
+      <% else %>
+        <p><%= t('.mark_no_hint_html', filing_year: current_tax_year) %></p>
+        <div class="question-with-follow-up__question">
+          <div class="white-group">
+            <div class="form-question spacing-below-15">
+              <div class="text--bold"><%= t(".address_header") %></div>
+              <div><%= current_intake.direct_file_data.mailing_street %> <%= current_intake.direct_file_data.mailing_apartment %></div>
+              <div><%= current_intake.direct_file_data.mailing_city %>, <%= current_intake.direct_file_data.mailing_state %> <%= current_intake.direct_file_data.mailing_zip %></div>
+            </div>
+            <div>
+              <%=
+                f.cfa_radio_set(
+                  :confirmed_permanent_address,
+                  collection: [
+                    { value: :yes, label: t("general.affirmative") },
+                    { value: :no, label: t("general.negative"), input_html: { "data-follow-up": "#permanent-address-fields" } },
+                  ]
+                )
+              %>
+            </div>
           </div>
         </div>
-      </div>
-
-      <div class="question-with-follow-up__follow-up" id="permanent-address-fields">
+      <% end %>
+      <div class=<%= "question-with-follow-up__follow-up" unless current_intake.direct_file_address_is_po_box? %> id="permanent-address-fields">
         <div class="white-group">
           <div class="form-question spacing-below-10">
             <%= t(".where_did_you_live", filing_year: current_tax_year) %>
