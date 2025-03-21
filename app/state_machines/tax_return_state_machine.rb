@@ -126,4 +126,11 @@ class TaxReturnStateMachine
     # TODO: Defaulting to 'all' for unknown roles feels bad
     ALLOWABLE_STATES_BY_ROLE.fetch(role_type, STATES_BY_STAGE)
   end
+
+  def self.states_to_show_for_filter(role_type:)
+    available_states = available_states_for(role_type:)
+
+    excluded_states = ["file_fraud_hold", "file_needs_review"]
+    available_states.transform_values { |states| states - excluded_states }
+  end
 end
