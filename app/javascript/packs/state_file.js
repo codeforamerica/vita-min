@@ -71,3 +71,11 @@ if (actionMap[controllerAction]) {
   const { channelName, channelEvents } = actionMap[controllerAction]
   createConsumer().subscriptions.create(channelName, channelEvents)
 }
+
+if (controllerAction === "StateFile::Questions::SubmissionConfirmationController#edit") {
+  window.addEventListener("pageshow", function (event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  });
+}
