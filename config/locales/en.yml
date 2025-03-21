@@ -2520,6 +2520,9 @@ en:
             has_out_of_state_w2: you earned income in another state in %{filing_year}.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
             married_filing_separately: you are filing “married filing separately”.
+            spouse_nra_html: |
+              you didn’t include your spouse’s SSN or ITIN in your federal return.<br><br>
+              Maryland does not allow Married Filing Separately taxpayers to electronically file their state tax return without their spouse’s SSN or ITIN.
           offboarding_reason: You cannot use this service this year because %{reason}
           title: Unfortunately, after transferring your data, we found that you can’t use this service this year. Don’t worry, here are other filing options.
       declined_terms_and_conditions:
@@ -2818,7 +2821,7 @@ en:
                           <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Get started with VITA now</a>
                         </li>
                         <li>
-                          Learn more about this process and other filing options <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
+                          Learn more about this process and other filing options <a href="https://www.fileyourstatetaxes.org/en/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">here.</a>
                         </li>
                       </ul>
                       <li>
