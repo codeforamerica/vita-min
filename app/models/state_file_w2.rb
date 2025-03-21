@@ -152,7 +152,7 @@ class StateFileW2 < ApplicationRecord
     xml_template.at(:StateIncomeTaxAmt).content = state_income_tax_amount&.round
     xml_template.at(:LocalWagesAndTipsAmt).content = local_wages_and_tips_amount&.round
     xml_template.at(:LocalIncomeTaxAmt).content = local_income_tax_amount&.round
-    xml_template.at(:LocalityNm).content = locality_nm
+    xml_template.at(:LocalityNm).content = sanitize_for_xml(locality_nm)
     delete_blank_nodes(xml_template)
     result = xml_template.at(:W2StateTaxGrp)
     result.nil? ? "" : result.to_xml
