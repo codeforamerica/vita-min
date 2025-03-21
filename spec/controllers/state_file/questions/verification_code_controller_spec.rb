@@ -102,6 +102,25 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
         expect(StateFileAzIntake.where(id: intake.id)).to be_empty
         expect(existing_intake.reload.unfinished_intake_ids).to include(intake.id.to_s)
       end
+
+      context "with the same intake ids" do
+        before do
+          allow(existing_intake).to receive(:id).and_return(intake.id)
+        end
+
+        it "redirects to login and deletes the existing intake" do
+          post :update, params: { state_file_verification_code_form: { verification_code: token[0] }}
+          login_location = StateFile::IntakeLoginsController.to_path_helper(
+            action: :edit,
+            id: VerificationCodeService.hash_verification_code_with_contact_info(
+              "someone@example.com", token[0]
+            )
+          )
+          expect(response).to redirect_to(login_location)
+          expect(StateFileAzIntake.where(id: intake.id)).to be_empty
+          expect(existing_intake.reload.unfinished_intake_ids).to include(intake.id.to_s)
+        end
+      end
     end
 
     context "without an intake matching an existing intake" do
