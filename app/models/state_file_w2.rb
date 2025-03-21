@@ -29,6 +29,7 @@
 #  index_state_file_w2s_on_state_file_intake  (state_file_intake_type,state_file_intake_id)
 #
 class StateFileW2 < ApplicationRecord
+  include SubmissionBuilder::FormattingMethods
   attr_accessor :check_box14_limits
 
   include XmlMethods
@@ -146,7 +147,7 @@ class StateFileW2 < ApplicationRecord
 
     xml_template = Nokogiri::XML(STATE_TAX_GRP_TEMPLATE)
     xml_template.at(:StateAbbreviationCd).content = state_code&.upcase
-    xml_template.at(:EmployerStateIdNum).content = employer_state_id_num&.delete("\u00AD")
+    xml_template.at(:EmployerStateIdNum).content = sanitize_for_xml(employer_state_id_num.delete("\u00AD")) if employer_state_id_num.present?
     xml_template.at(:StateWagesAmt).content = state_wages_amount&.round
     xml_template.at(:StateIncomeTaxAmt).content = state_income_tax_amount&.round
     xml_template.at(:LocalWagesAndTipsAmt).content = local_wages_and_tips_amount&.round
