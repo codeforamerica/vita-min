@@ -293,6 +293,14 @@ describe StateFileW2 do
         expect(xml.at("EmployerStateIdNum").text).to eq "862124319"
       end
     end
+
+    context "when EmployerStateIdNum contains consecutive (adjacent) spaces" do
+      it "removes adjacent spaces when generating XML" do
+        w2.employer_state_id_num = "86  2124319"
+        xml = Nokogiri::XML(w2.state_tax_group_xml_node)
+        expect(xml.at("EmployerStateIdNum").text).to eq "86 2124319"
+      end
+    end
   end
 
   describe "box14_ui_wf_swf getter override" do
