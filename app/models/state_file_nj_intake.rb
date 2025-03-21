@@ -30,6 +30,7 @@
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
 #  federal_return_status                                  :string
+#  has_estimated_payments                                 :integer          default("unfilled"), not null
 #  hashed_ssn                                             :string
 #  homeowner_home_subject_to_property_taxes               :integer          default("unfilled"), not null
 #  homeowner_main_home_multi_unit                         :integer          default("unfilled"), not null
@@ -46,6 +47,7 @@
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
+#  overpayments                                           :decimal(12, 2)
 #  payment_or_deposit_type                                :integer          default("unfilled"), not null
 #  permanent_apartment                                    :string
 #  permanent_city                                         :string
@@ -154,6 +156,8 @@ class StateFileNjIntake < StateFileBaseIntake
   enum tenant_more_than_one_main_home_in_nj: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_more_than_one_main_home_in_nj
   enum tenant_shared_rent_not_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_shared_rent_not_spouse
   enum tenant_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_same_home_spouse
+
+  enum has_estimated_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_estimated_payments
 
   def nj_gross_income
     calculator.lines[:NJ1040_LINE_29].value
