@@ -4,7 +4,7 @@ module StateFile
       include ReturnToReviewConcern
 
       def self.show?(intake)
-        intake.nj_gross_income.positive?
+        !intake.eligibility_made_less_than_threshold?
       end
     end
   end
