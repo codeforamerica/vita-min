@@ -1,8 +1,9 @@
 class StateFileBaseIntake < ApplicationRecord
   self.ignored_columns = [:df_data_import_failed_at, :bank_name]
 
-  devise :lockable, :trackable
-  devise :timeoutable, :timeout_in => 15.minutes, :unlock_strategy => :time
+  devise :lockable, :unlock_strategy => :time
+  devise :trackable
+  devise :timeoutable, :timeout_in => 15.minutes
 
   self.abstract_class = true
   has_one_attached :submission_pdf
