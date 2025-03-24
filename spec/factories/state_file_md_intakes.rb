@@ -221,6 +221,16 @@ FactoryBot.define do
       spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
     end
 
+    trait :with_spouse_ssn_nil do
+      filing_status { 'married_filing_jointly' }
+
+      spouse_first_name { "Marty" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Lando" }
+      spouse_ssn { nil }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
+    end
+
     trait :with_senior_spouse do
       with_spouse
       spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 70 }

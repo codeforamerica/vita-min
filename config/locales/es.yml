@@ -2505,6 +2505,9 @@ es:
             has_out_of_state_w2: recibiste ingresos en otro estado en el %{filing_year}
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2024.
             married_filing_separately: estás presentando una declaración de impuestos "casado, declarando por separado".
+            spouse_nra_html: |
+              no incluiste el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de tu cónyuge en tu declaración federal.<br><br>
+              Maryland no permite contribuyentes con el estado Casado declarando por separado presentar la declaración estatal de forma electrónica sin el SSN o ITIN de su cónyuge.
           offboarding_reason: No puedes utilizar este servicio este año porque %{reason}
           title: Desafortunadamente, después de transferir tus datos, descubrimos que no puedes usar este servicio este año. No te preocupes, aquí tienes otras opciones para declarar.
       declined_terms_and_conditions:
@@ -2785,7 +2788,7 @@ es:
                           <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
                         </li>
                         <li>
-                          Aprende más sobre este proceso y otras opciones de declaración <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>
+                          Aprende más sobre este proceso y otras opciones de declaración <a href="https://www.fileyourstatetaxes.org/es/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">aquí.</a>
                         </li>
                       </ul>
                       <li>
