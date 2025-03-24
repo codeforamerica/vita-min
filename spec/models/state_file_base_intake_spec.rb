@@ -3,7 +3,7 @@ require "rails_helper"
 describe StateFileBaseIntake do
   describe "#increment_failed_attempts" do
     let!(:intake) { create :state_file_az_intake, failed_attempts: 2 }
-    it "locks access when failed attempts is incremented to 2" do
+    it "locks access when failed attempts is incremented to 3" do
       expect(intake.access_locked?).to eq(false)
 
       intake.increment_failed_attempts
