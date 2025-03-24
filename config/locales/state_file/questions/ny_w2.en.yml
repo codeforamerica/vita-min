@@ -1,0 +1,7 @@
+---
+en:
+  state_file:
+    questions:
+      ny_w2:
+        edit:
+          locality_nm_error: Please type in “NYC” if the locality name on your W-2 is New York City or any of the five boroughs.

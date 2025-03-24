@@ -1,0 +1,71 @@
+---
+es:
+  state_file:
+    general:
+      fed_agi: Ingreso bruto federal ajustado
+      id_adjusted_income: Ingreso total ajustado de Idaho
+      id_building_fund_tax: Impuesto del Fondo Permanente para Edificios
+      id_child_care_expenses: Deducción por gastos de cuidado de niños y dependientes
+      id_child_tax_credit: Crédito Tributario de Idaho por Hijos
+      id_fed_agi: Ingreso bruto federal ajustado
+      id_grocery_credit: Crédito reembolsable por comestibles
+      id_health_insurance: Resta de Primas de Seguro Médico
+      id_interest_income: Ingresos por intereses de bonos de EE. UU. (no gravados en Idaho)
+      id_retirement_benefits: Deducción por beneficios de jubilación
+      id_social_security_income: Ingresos del Seguro Social (no gravados en Idaho)
+      id_standard_deduction: Deducción estándar
+      id_tax: Impuesto de Idaho
+      id_tax_after_credits: Impuesto después de créditos no reembolsables
+      id_tax_withheld: Impuesto retenido de Idaho
+      id_taxable_income: Ingreso imponible de Idaho
+      id_total_payments: Total de pagos y créditos reembolsables
+      id_total_tax_plus_donations: Impuestos totales más donaciones
+      id_use_tax: Impuesto por uso
+      md_adjusted_gross_income: Ingreso bruto ajustado de Maryland
+      md_child_tax_credit: Crédito Tributario por Hijos de Maryland
+      md_local_poverty_level_credit: Crédito Local por Nivel de Pobreza
+      md_local_tax: Impuesto local
+      md_military_retirement_income_exclusion: Exclusión de ingresos de jubilación militar
+      md_nonrefundable_credit_child_dependent_care: Crédito no Reembolsable de Maryland por Gastos de Cuidado de Niños y Dependientes
+      md_nonrefundable_earned_income_tax_credit: Crédito Tributario no Reembolsable por Ingreso del Trabajo de Maryland
+      md_nonrefundable_local_earned_income_tax_credit: Crédito tributario local no reembolsable por ingreso del trabajo
+      md_pension_income_exclusion: Exclusión de ingresos de pensión
+      md_poverty_level_credit: Crédito de Maryland por Nivel de Pobreza
+      md_public_safety_retirement_income_exclusion: Exclusión de ingresos de jubilación de seguridad pública
+      md_refundable_child_dependent_care_credit: Crédito reembolsable por cuidado de niños y dependientes
+      md_refundable_earned_income_tax_credit: Crédito Tributario Reembolsable de Maryland Ganado
+      md_return_type: Tipo de declaración
+      md_senior_tax_credit: Crédito tributario para Personas Mayores
+      md_social_security_income_not_taxed: Ingresos del Seguro Social (a los que no aplican impuestos en Maryland)
+      md_standard_deduction: Deducción estándar
+      md_state_retirement_pickup_addition: Adición estatal por jubilación
+      md_subtraction_child_dependent_care_expenses: 'Resta por Gastos de Cuidado de Niños y Dependientes '
+      md_subtraction_income_us_gov_bonds: Deducción por ingresos de bonos del gobierno de los Estados Unidos
+      md_tax: Impuesto de Maryland
+      md_tax_withheld: Retenciones de impuestos de Maryland y locales
+      md_taxable_net_income: Ingreso neto al que aplican impuestos de Maryland
+      md_total_exemptions_people_household: Exenciones totales para las personas en tu hogar
+      md_total_payments_refundable_credits: Total de pagos y créditos reembolsables
+      md_total_tax_after_nonrefundable_credits: Total de impuestos después de créditos no reembolsables
+      md_two_income_subtraction_married_taxpayers: Resta por ingresos de dos personas para contribuyentes casados que declaran juntos
+      md_type_of_return_nontaxable: Exento de impuestos (no se requiere que presentes una declaración de Maryland, lo que aumenta tu reembolso)
+      md_type_of_return_standard: Estándar
+      nc_income_tax: Impuesto estatal de Carolina del Norte
+      nc_tax_withheld: Impuesto retenido en Carolina del Norte
+      nc_taxable_income: Ingreso tributable en Carolina del Norte
+      nc_use_tax: Impuesto sobre el uso de Carolina del Norte
+      nj_minimal_essential_health_coverage_html: |-
+        <p>La mayoría de las personas que tienen seguro de salud tienen cobertura mínima esencial. "Cobertura mínima esencial" se refiere a cuánto cubre tu plan. Si tienes alguno de los siguientes, lo más probable es que lo tengas:</p>
+        <ul>
+          <li>Un plan a través de tu trabajo</li>
+          <li>Un plan comprado a través de <a href="https://nj.gov/getcoverednj/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a></li>
+          <li>Medicare</li>
+          <li>Medicaid (NJ FamilyCare)</li>
+        </ul>
+        <p><a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">Aquí está la lista completa de opciones de seguro que tienen cobertura mínima esencial (en inglés)</a></p>
+        <p>Debes responder no si tú o alguien en tu hogar solo tuvo plan de visión o dental independientes, cobertura de compensación laboral o un plan limitado a una enfermedad o dolencia específica. En New Jersey, a partir de 2018, necesitas cobertura mínima esencial, o podrías tener que pagar impuestos adicionales.</p>
+      register_to_vote: Regístrate para votar
+      see_detailed_return: Ver información detallada de la declaración
+      standard_deduction: Deducción estándar
+      title: Declaración estatal gratuita de impuestos | FileYourStateTaxes
+      total_tax: Impuesto total

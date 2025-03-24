@@ -1,0 +1,10 @@
+---
+es:
+  state_file:
+    questions:
+      nj_gubernatorial_elections:
+        edit:
+          description_html: "<p>Puede que conozcas esto como \"financiamiento público\" de campañas.</p> \n<p>Puedes contribuir con $1 de lo que va a tus impuestos al <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Fondo de Elecciones para Gobernador</a> (link en inglés).</p>\n<p>Para tu información: Tus impuestos no aumentarán y tu reembolso no se reducirá. Esto autoriza a New Jersey usar $1 de tus dólares de impuestos para este Fondo.</p>\n"
+          primary_contribute: "¿Te gustaría contribuir con $1 al fondo?"
+          spouse_contribute: "¿Le gustaría a tu cónyuge contribuir con $1 al fondo?"
+          title: El Fondo para Elecciones de Gobernador/a ayuda a las personas calificadas que se postulan como gobernador/a de New Jersey y que necesitan ayuda financiera.

@@ -1,0 +1,52 @@
+---
+es:
+  state_file:
+    questions:
+      az_public_school_contributions:
+        destroy:
+          removed: Contribución eliminada para %{school_name}
+        edit:
+          additional_info: Por favor ingresa la información de cada escuela pública a la que le pagaste tarifas o donaste dinero.
+          amount: Cantidad de las donaciones/pagos en %{year}
+          amount_help_text:
+            many: Arizona acreditará hasta  $400
+            one: Arizona acreditará hasta $200
+            other: Arizona acreditará hasta  $400
+          ctds_code: Código de la escuela/CTDS
+          date_of_contribution: Fecha del pago en %{year}
+          district_name: Nombre del distrito escolar
+          school_name: Nombre de la escuela
+          school_name_help_text: Por favor ingresa el nombre oficial
+          title_html: ¡Podrías ser elegible para el <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">crédito tributario de las escuelas públicas de Arizona! </a>!
+        form:
+          donations_this_year: "¿Qué pasa con las donaciones hechas en %{current_year}?"
+          donations_this_year_details_html: |
+            FileYourStateTaxes sólo te permite agregar donaciones del período fiscal correspondiente.
+            <br/><br/>
+            Puedes reportar cualquier donación hecha en %{current_year} en la declaración de impuestos del próximo año.
+          made_az322_contributions:
+            many: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
+            one: "¿Pagaste tarifas o hiciste contribuciones en efectivo a una escuela pública en %{year}? No incluyas cantidades reclamadas en la declaración de impuestos del año pasado."
+            other: "¿Tú o tu cónyuge pagaron alguna tarifa o donaron dinero a una escuela pública de Arizona en  %{year}?"
+          more_details_html: Visita el <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Departamento de Ingresos de Arizona</a>para más detalles.
+          qualifying_list:
+          - Actividades extracurriculares
+          - Educación en valores
+          - Pruebas estandarizadas y sus tarifas
+          - Evaluación de educación técnica y profesional
+          - Entrenamiento de Reanimación Cardiopulmonar (RCP)
+          school_details_answer_html: |
+            Puedes encontrar esta información en el recibo que te entregaron en la escuela.
+            <br/><br/>
+            O
+            <br/><br/>
+            Visita el <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Departamento de Ingresos de Arizona</a> para encontrar la información.
+            <br/><br/>
+            Para evitar errores, resalte el texto en el PDF, luego cópielo (Ctrl + C) y péguelo (Ctrl + V) directamente en esta página.
+          school_details_question: "¿Dónde puedo encontrar la información de la escuela?"
+          which_qualify: "¿Qué donaciones y tarifas califican?"
+        index:
+          add_another: Agregar otra donación
+          delete_confirmation: "¿Estás seguro de que quieres eliminar esta contribución?"
+          maximum_records: Ha proporcionado la cantidad máxima de registros.
+          title: 'Esta es la información que agregaste:'

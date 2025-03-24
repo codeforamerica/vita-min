@@ -1,0 +1,14 @@
+---
+en:
+  state_file:
+    questions:
+      phone_number:
+        edit:
+          action: Send code
+          helper_text: Enter numbers only
+          message_body_one: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply.
+          message_body_two_html: Text HELP to 46207 for help. Text STOP to 46207 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a target="_blank" href=%{sms_terms_link}>SMS Terms and Conditions</a> and <a target="_blank" href=%{privacy_link}>Privacy Policy</a>.
+          messaging_details: Messaging details
+          phone_number_label: Your phone number
+          subtitle_html: To create a new account, provide a phone number that isn't already in use.<br><br>Use a phone number you can access.
+          title: Enter your phone number

@@ -1,0 +1,33 @@
+---
+es:
+  state_file:
+    questions:
+      ny_review:
+        edit:
+          empire_state_child_credit: Crédito Empire State por hijos
+          fed_agi: Ingreso bruto federal ajustado
+          ny_agi: Ingreso bruto ajustado de Nueva York
+          nyc_eic: Crédito por ingreso del trabajo de la ciudad de Nueva York
+          nyc_full_year_resident: Residente a tiempo completo de la ciudad de Nueva York
+          nyc_household_credit: Crédito de la Ciudad de Nueva York por unidad familiar
+          nyc_resident_tax: Impuesto sobre la renta personal de la Ciudad de Nueva York
+          nyc_school_tax_credit_fixed: Crédito tributario escolar de la ciudad de Nueva York (fijo)
+          nyc_school_tax_credit_rate_reduction: Crédito tributario escolar de la ciudad de Nueva York (reducción de tasa)
+          nys_eic: Crédito tributario por ingreso del trabajo (del Estado de Nueva York)
+          nys_household_credit: Crédito por Unidad Familiar (del Estado de Nueva York)
+          nys_tax: Impuesto estatal de Nueva York
+          out_of_state_purchases: Compras fuera del estado/Impuesto de Uso Aplicado
+          residence_county: Condado
+          sales_or_use_tax: Impuestos de venta o de uso
+          school_district: Distrito Escolar
+          see_detailed_return: Ver información detallada de la declaración
+          standard_deduction: Deducción estándar
+          taxable_income: Ingreso gravable
+          third_party_designee: Designado por un tercero
+          total_dependent_exemptions: Total de exenciones por dependientes
+          total_new_york_additions: Total de adiciones de Nueva York
+          total_new_york_subtractions: Total de sustracciones de Nueva York
+          total_ny_tax: Total de impuestos de Nueva York
+          total_nyc_tax_withheld: Total retenido de impuestos municipales de la ciudad de Nueva York
+          total_nys_tax_withheld: Total retenido de impuestos estatales de Nueva York
+          total_payments: Total de pagos

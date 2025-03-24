@@ -1,0 +1,37 @@
+---
+es:
+  state_file:
+    archived_intakes:
+      email_address:
+        edit:
+          enter_email: Ingresa la dirección de correo electrónico asociada a tu cuenta.
+      identification_number:
+        edit:
+          error_message: Por favor ingresa el SSN/ITIN correcto
+          help_text: Para mantener segura tu identidad, necesitamos confirmar tu número de Seguro Social.
+          ssn_label: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
+          title: "¡Encontramos tu cuenta! Por favor confirma tu identidad"
+      mailing_address_validation:
+        edit:
+          identity_safe: Para proteger su identidad, necesitamos confirmar la dirección en su declaración de impuestos de 2023.
+          radio_button_title: 'Seleccione la dirección postal para su declaración de impuestos de 2023:'
+          title: Confirme su dirección para acceder a su declaración de impuestos
+      pdfs:
+        index:
+          download: Descargar la declaración de 2023
+          subtitle: Para acceder a tu declaración de impuestos de %{state} de 2023 haz clic en el siguiente botón.
+          title: "¡Tu cuenta fue verificada exitosamente!"
+      verification_code:
+        edit:
+          error_message: Por favor ingresa un código válido
+          subtitle_2_html: Si aún necesitas ayuda, <a class="open-intercom">chatea con nosotros</a>.
+          subtitle_html: Si no recibiste un código por favor revisa tu carpeta de spam.
+          title_html: Enviamos el código a <strong>%{email_address}</strong>
+          verify: Verificar el código
+      verification_error:
+        az_dor: Departamento de Ingresos de Arizona
+        locked_due_to_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
+        ny_dor: Departamento de Impuestos del Estado de Nueva York
+        return_to_home: Regresar al inicio
+        subtitle_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
+        title: Lo sentimos, no nos fue posible verificar tu cuenta

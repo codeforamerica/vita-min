@@ -1,0 +1,76 @@
+---
+es:
+  state_file:
+    landing_page:
+      edit:
+        already_filed_html: "¿Ya presentaste tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración de impuestos estatales hasta el 31 de diciembre de 2024.</strong>"
+        already_started_html: ¿Ya comenzaste a presentar tu declaración de impuestos estatales? <a href="%{sign_in_url}">Inicia sesión</a>.
+        az:
+          closed_html: |
+            Ya cerramos por esta temporada de impuestos. <br /><br />
+            <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con el servicio Direct File del IRS.<br /><br />
+            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+          supported_by: Respaldada por el estado de Arizona
+          title: Declara tus impuestos estatales de Arizona sin costo
+        built_with_html: "Te tomará alrededor de 10 y 15 minutos completar tu declaración con <strong>FileYourStateTaxes</strong>. \n<br/><br/>\nEste servicio ha sido creado en colaboración con el estado de %{state_name} para conectarse con el servicio Direct File del IRS.\n"
+        continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
+        download_your_record: Descarga tu declaración
+        help_text_html: |
+          <ul class="list--bulleted">
+            <li>Una declaración federal de impuestos de %{filing_year} <strong>aceptada</strong> a través de <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí)
+            <li>Una dirección de correo electrónico o un número de teléfono</li>
+            <li>Tu licencia de conducir o identificación emitida por el estado, si la tienes</li>
+            <li>El formulario 1099-G (si recibiste beneficios de desempleo en %{filing_year})</li>
+            <li>Los números de ruta y cuenta bancaria (si deseas recibir tu reembolso o hacer un pago de impuestos electrónicamente)</li>
+          </ul>
+        help_text_title: "¿Qué necesito para completar mi declaración de impuestos estatales?"
+        id:
+          closed_html: |
+            Ya cerramos por esta temporada de impuestos. <br /><br />
+            <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Idaho para integrarse con el servicio Direct File del IRS.<br /><br />
+            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+          supported_by: Respaldada por el estado de Idaho
+          title: Declara tus impuestos estatales de Idaho sin costo
+        md:
+          closed_html: |
+            Ya cerramos por esta temporada de impuestos. <br /><br />
+            <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Maryland para integrarse con el servicio Direct File del IRS.<br /><br />
+            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+          supported_by: Respaldada por el estado de Maryland
+          title: Declara tus impuestos estatales de Maryland sin costo
+        nc:
+          closed_html: |
+            Ya cerramos por esta temporada de impuestos. <br /><br />
+            <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Carolina del Norte para integrarse con el servicio Direct File del IRS.<br /><br />
+            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+          supported_by: Respaldada por el estado de Carolina del Norte
+          title: Declara tus impuestos estatales de Carolina del Norte sin costo
+        nj:
+          built_with_html: |
+            Presentar tus impuestos con <strong>FileYourStateTaxes</strong> toma entre 10 y 15 minutos. Comienza creando tu cuenta.
+            <br/><br/>
+            Este servicio se creó en colaboración con la Oficina de Innovación de New Jersey para integrarse con el servicio IRS Direct File.
+          closed_html: |
+            <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de New Jersey Office of Innovation para integrarse con el servicio Direct File del IRS.<br /><br />
+            Ya cerramos por esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+          help_text_html: |
+            <ul class="list--bulleted">
+              <li>Haber presentado tu declaración federal de 2024 usando <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode" target="_blank" rel="noopener nofollow">IRS Direct File</a></li>
+              <li>Un email o un número de teléfono para recibir un código de verificación único</li>
+              <li>Números de ruta y cuenta bancaria (si deseas recibir tu reembolso o realizar un pago de impuestos electrónicamente)</li>
+              <li>(opcional) Licencia de conducir o identificación emitida por el estado</li>
+            </ul>
+          help_text_title: 'Necesitarás:'
+          supported_by: Respaldado por la División de Impuestos de New Jersey
+          title: "¡Presenta gratis tus impuestos de New Jersey!"
+        not_you: "¿No es %{user_name}?"
+        start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
+        title_closed: Nuestro servicio gratuito para declarar tus impuestos estatales de %{state_name} está cerrado por la temporada
+        welcome_back: "¡Bienvenido de nuevo %{user_name}!"
+      ny_closed:
+        body_html: |
+          Este servicio no acepta declaraciones de impuestos del estado de Nueva York para 2024. Puedes declarar usando el servicio Direct File del IRS y Direct File del Estado de Nueva York. Para ver si eres elegible y comenzar tu declaración federal, visita <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Direct File del IRS</a>.
+          <br /><br />
+          Para descargar tu declaración de impuestos del estado de Nueva York de 2023, <a href="https://www.fileyourstatetaxes.org/es/az/faq/how_can_i_access_my_2023_state_tax_return">visita nuestras preguntas frecuentes</a>.
+        supported_by: Respaldada por el estado de Nueva York
+        title: Gracias por visitar FileYourStateTaxes

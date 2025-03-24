@@ -1,0 +1,20 @@
+---
+en:
+  state_file:
+    questions:
+      id_donations:
+        edit:
+          add_the_amount: Add the amount you would like to donate to any organization below
+          american_red_cross_fund_donation: American Red Cross of Idaho Fund
+          childrens_trust_fund_donation: Idaho Children's Trust Fund
+          donate_warning_p1: Your donation will be deducted from your total state refund.
+          donate_warning_p2: Your choice to donate is final and cannot be changed through an amended return.
+          food_bank_fund_donation: Idaho Food Bank Fund
+          guard_reserve_family_donation: Idaho Guard & Reserve Family
+          nongame_wildlife_fund_donation: Idaho Nongame Wildlife Fund
+          opportunity_scholarship_program_donation: Opportunity Scholarship Program
+          save_and_continue: Save and Continue
+          special_olympics_donation: Special Olympics Idaho
+          tax_payers_can_donate: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
+          title: Donate some or all of your state refund to charitable organizations
+          veterans_support_fund_donation: Veterans Support Fund

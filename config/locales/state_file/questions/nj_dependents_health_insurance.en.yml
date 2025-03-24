@@ -1,0 +1,10 @@
+---
+en:
+  state_file:
+    questions:
+      nj_dependents_health_insurance:
+        edit:
+          continue: Click "Continue" if all these people had health insurance.
+          coverage_heading: What is health insurance with minimum essential coverage?
+          label: 'Check all the people that did NOT have health insurance:'
+          title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in %{filing_year}.

@@ -1,0 +1,16 @@
+---
+es:
+  state_file:
+    questions:
+      md_two_income_subtractions:
+        edit:
+          description: Para saber si calificas y calcular la resta, necesitamos más información sobre la deducción de intereses de préstamos estudiantiles que se aplicó a tu declaración de impuestos federales.
+          spouse_portion_label: La porción de tu cónyuge de la deducción en intereses de los préstamos estudiantiles.
+          student_loan_deduction_copy: Esta cantidad se basa en los intereses pagados sobre préstamos estudiantiles y está limitado a $2,500 por declaración de impuestos.
+          student_loan_deduction_copy2: Para más información, puedes revisar lo(s) formulario(s) 1098-E.
+          student_loan_deduction_heading: "¿Qué es la deducción de intereses de préstamos federales para estudiantes?"
+          subtitle: Ingresa las porciones de la deducción federal de los intereses de los préstamos estudiantiles aplicadas a ti y tu cónyuge.
+          sum_form_error: El total de la deducción de intereses de préstamos estudiantiles de usted y/o su cónyuge debe ser igual al %{total_deduction}
+          title: Podrías calificar para la resta por dos ingresos de Maryland
+          total_html: La deducción total de intereses de préstamos estudiantiles aplicados para ti y tu cónyuge en tu declaración federal es de <strong>%{total_deduction}</strong>.
+          your_portion_label: Tu porción de la deducción de intereses de los préstamos estudiantiles.

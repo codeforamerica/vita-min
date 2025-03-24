@@ -1,0 +1,7 @@
+---
+es:
+  state_file:
+    questions:
+      review:
+        county: Condado donde vivías el 31 de diciembre de %{filing_year}
+        county_during_hurricane: Otro condado donde vivías (o actualmente vives) entre el 25 de septiembre y la fecha de hoy

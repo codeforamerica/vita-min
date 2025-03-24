@@ -1,0 +1,31 @@
+---
+es:
+  state_file:
+    intake_logins:
+      account_locked:
+        body_html: Esta cuenta ha sido bloqueada debido a demasiados intentos fallidos de inicio de sesión. Si necesitas ayuda para desbloquear esta cuenta, por favor envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        title: Esta cuenta ha sido bloqueada
+      edit:
+        help_text: Para mantener segura tu identidad, necesitamos confirmar tu número de Seguro Social.
+        ssn_label: Ingresa tu número de Seguro Social o ITIN. Por ejemplo, 123-45-6789.
+        title: "¡Encontramos tu cuenta! Por favor confirma tu identidad para terminar de iniciar sesión."
+      enter_verification_code:
+        code_sent_to_closed_html: Hemos enviado su código a %{contact_info}. Si no recibió un código y necesita ayuda para volver a suscribirse, envíenos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        code_sent_to_html: Te enviamos tu código a %{contact_info}. Si no recibiste un código y necesitas ayuda para volver a suscribirte, chatea con nosotros.
+        enter_6_digit_code: Ingresa el código de 6 dígitos
+        title: Ingresa el código para continuar
+        verify: Verificar el código
+      form:
+        errors:
+          bad_input: Número completo de Seguro Social (SSN)/Número de Identificación del Contribuyente (ITIN) incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
+      new:
+        email_address:
+          label: Tu dirección de correo electrónico
+          not_found_html: Lo siento, no tenemos una cuenta registrada para esa dirección de correo electrónico. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Haz clic aquí</a> para comenzar con FileYourStateTaxes.
+          title: Inicia sesión con tu dirección de correo electrónico
+        sms_phone_number:
+          label: Tu número de teléfono
+          not_found_html: Lo sentimos, no tenemos una cuenta registrada para ese número de teléfono. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Haz clic aquí</a> para comenzar con FileYourStateTaxes.
+          title: Inicia sesión con tu número de teléfono
+        to_continue: Para continuar presentando tu declaración de impuestos estatal de manera segura, te enviaremos un código seguro.
+      no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.

@@ -1,0 +1,8 @@
+---
+en:
+  state_file:
+    questions:
+      canceled_data_transfer:
+        edit:
+          subtitle: Unfortunately, to continue filing with FileYourStateTaxes, you must transfer your federal return to complete parts of your state return.
+          title: You canceled the transfer of your federal return.

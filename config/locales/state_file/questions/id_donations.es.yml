@@ -1,0 +1,20 @@
+---
+es:
+  state_file:
+    questions:
+      id_donations:
+        edit:
+          add_the_amount: Ingresa el valor que te gustaría donar a cualquiera de las organizaciones a continuación
+          american_red_cross_fund_donation: Fondo de la Cruz Roja Americana de Idaho
+          childrens_trust_fund_donation: Fondo Fiduciario para Niños de Idaho
+          donate_warning_p1: Tu donación se deducirá del total de tu reembolso estatal.
+          donate_warning_p2: Tu decisión de donar es definitiva y no se puede cambiar mediante una declaración enmendada.
+          food_bank_fund_donation: Fondo del Banco de Alimentos de Idaho
+          guard_reserve_family_donation: Familia de la Guardia y Reserva de Idaho
+          nongame_wildlife_fund_donation: Fondo para la Vida Silvestre No Cinegética de Idaho
+          opportunity_scholarship_program_donation: Programa de Becas de Oportunidad
+          save_and_continue: Guardar y Continuar
+          special_olympics_donation: Olimpiadas Especiales de Idaho
+          tax_payers_can_donate: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatal.
+          title: Dona parte o la totalidad de tu reembolso estatal a organizaciones benéficas
+          veterans_support_fund_donation: Fondo de Apoyo a los Veteranos

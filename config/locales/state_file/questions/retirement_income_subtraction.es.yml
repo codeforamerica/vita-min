@@ -1,0 +1,11 @@
+---
+es:
+  state_file:
+    questions:
+      retirement_income_subtraction:
+        doc_1099r_label: 1099-R
+        income_source_question: 'Seleccione la fuente de este ingreso:'
+        none_apply: Ninguna de estas opciones aplica
+        taxable_amount_label: Cantidad sujeta a impuestos
+        taxpayer_name_label: Nombre del contribuyente
+        title: "¡Podrías ser elegible para la deducción de ingresos por jubilación de %{state_name}!"

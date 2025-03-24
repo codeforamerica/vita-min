@@ -18,15 +18,32 @@ data:
     ## Default:
     - config/locales/%{locale}.yml
     ## More files:
-    # - config/locales/**/*.%{locale}.yml
+    - config/locales/**/*.%{locale}.yml
+    - config/locales/**/*.%{locale}.yml
 
   # Locale files to write new keys to, based on a list of key pattern => file rules. Matched from top to bottom:
   # `i18n-tasks normalize -p` will force move the keys according to these rules
   write:
+    # - ["general.*", "config/locales/general/%{locale}.yml"]
+    # - [
+    #     "views.ctc.questions.{:}.*",
+    #     'config/locales/views/ctc/questions/\1.%{locale}.yml',
+    #   ]
+    # - ["views.{:}.*", 'config/locales/views/\1.%{locale}.yml']
+    - [
+        "state_file.questions.{:}.*",
+        'config/locales/state_file/questions/\1.%{locale}.yml',
+      ]
+    # - ["messages.{:}.*", 'config/locales/messages/\1.%{locale}.yml']
+    # - ["messages.*", "config/locales/messages/%{locale}.yml"]
+    # - ["hub.{:}.*", 'config/locales/hub/\1.%{locale}.yml']
+    # - ["hub.*", "config/locales/hub/%{locale}.yml"]
+    - ["state_file.{:}.*", 'config/locales/state_file/\1.%{locale}.yml']
+    # - ["{:}.*", 'config/locales/\1.%{locale}.yml']
     ## For example, write devise and simple form keys to their respective files:
     # - ['{devise, simple_form}.*', 'config/locales/\1.%{locale}.yml']
     ## Catch-all default:
-    # - config/locales/%{locale}.yml
+    - config/locales/%{locale}.yml
 
   # External locale data (e.g. gems).
   # This data is not considered unused and is never written to.
@@ -85,8 +102,8 @@ search:
 
 ## Translation Services
 translation:
-#   # Google Translate
-#   # Get an API key and set billing info at https://code.google.com/apis/console to use Google Translate
+  #   # Google Translate
+  #   # Get an API key and set billing info at https://code.google.com/apis/console to use Google Translate
   google_translate_api_key: <%#Rails.application.credentials.dig(:google_translate_api_key)%>
 #   # DeepL Pro Translate
 #   # Get an API key and subscription at https://www.deepl.com/pro to use DeepL Pro
@@ -94,33 +111,33 @@ translation:
 
 ## Do not consider these keys missing:
 ignore_missing:
-  - 'date.formats.medium'
-  - 'errors.*'
-  - 'views.public_pages.faq.*'
-  - 'devise.omniauth_callbacks.{failure,success}'
+  - "date.formats.medium"
+  - "errors.*"
+  - "views.public_pages.faq.*"
+  - "devise.omniauth_callbacks.{failure,success}"
 # - 'errors.messages.{accepted,blank,invalid,too_short,too_long}'
 # - '{devise,simple_form}.*'
 
 ## Consider these keys used:
 ignore_unused:
-  - 'date.formats.*'
-  - 'general.*'
-  - 'errors.*'
-  - 'devise.invitations.*'
-  - 'devise.failure.*'
-  - 'devise.omniauth_callbacks.*'
-  - 'hub.tax_returns.stage.*'
-  - 'hub.tax_returns.status.*'
-  - 'hub.bank_accounts.*'
-  - 'hub.status_macros.*'
-  - 'hub.user_notifications.bulk_client_message.*'
-  - 'hub.user_notifications.bulk_tax_return_update.*'
-  - 'activemodel.*'
-  - 'number.currency.format.*'
-  - 'state_file.navigation.*'
-  - 'activerecord.errors.models.*'
-  - 'state_file.questions.az_retirement_income.edit.received_military_retirement_payment.*'
-  - 'state_file.questions.eligible.other_filing_options.vita_option.content_html.*'
+  - "date.formats.*"
+  - "general.*"
+  - "errors.*"
+  - "devise.invitations.*"
+  - "devise.failure.*"
+  - "devise.omniauth_callbacks.*"
+  - "hub.tax_returns.stage.*"
+  - "hub.tax_returns.status.*"
+  - "hub.bank_accounts.*"
+  - "hub.status_macros.*"
+  - "hub.user_notifications.bulk_client_message.*"
+  - "hub.user_notifications.bulk_tax_return_update.*"
+  - "activemodel.*"
+  - "number.currency.format.*"
+  - "state_file.navigation.*"
+  - "activerecord.errors.models.*"
+  - "state_file.questions.az_retirement_income.edit.received_military_retirement_payment.*"
+  - "state_file.questions.eligible.other_filing_options.vita_option.content_html.*"
 # - 'activerecord.attributes.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

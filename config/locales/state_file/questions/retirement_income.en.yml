@@ -1,0 +1,11 @@
+---
+en:
+  state_file:
+    questions:
+      retirement_income:
+        edit:
+          box14_html: "<b>Box 14</b>, State tax withheld"
+          box15_html: "<b>Box 15</b>, State/Payer’s State Number"
+          box16_html: "<b>Box 16</b>, State distribution"
+          state_tax_withheld_absent_warning: Please confirm that the amount in Box 14 on your 1099-R is 0
+          title_html: Please review your retirement income (1099-R) details for <strong>%{payer_name}</strong>.

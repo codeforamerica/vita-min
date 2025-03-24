@@ -1,0 +1,10 @@
+---
+en:
+  state_file:
+    questions:
+      ny_school_district:
+        edit:
+          helper_description_html: You can try searching for your school district <a href="https://www.greatschools.org/school-district-boundaries-map/" target="_blank" rel="noopener nofollow">here</a>. If you’re still unsure, you may need to contact your nearest public school to ask for the school district name.
+          helper_heading: How do I find my school district?
+          school_district_name: School District Name
+          title: Select the school district where you lived on December 31, %{filing_year}

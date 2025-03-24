@@ -1,0 +1,47 @@
+---
+es:
+  state_file:
+    questions:
+      unemployment:
+        destroy:
+          removed: Eliminado el formulario 1099-G para %{name}
+        edit:
+          apartment: Número de apartamento/unidad
+          box_10b_html: "<strong>Casilla 10b</strong>, Número de identificación estatal"
+          city: Ciudad
+          confirm_address_html: "¿Tenemos la dirección de correo postal correcta según lo que aparece en tu formulario 1099-G?<br><br>Ten en cuenta que esta puede ser diferente de tu dirección actual. Por favor, edita la dirección para que coincida con la que aparece en tu formulario."
+          confirm_address_no: No, necesito editar la dirección
+          confirm_address_yes: Sí, esa es la dirección correcta
+          dont_worry: Si tienes más de un 1099-G, no te preocupes, podrás agregarlo en la siguiente página.
+          federal_income_tax_withheld_html: "<strong>Casilla 4</strong>, Impuesto federal sobre los ingresos retenido"
+          had_box_11: "¿Aparece una cantidad por impuesto estatal sobre ingresos (casilla 11) en tu compensación por desempleo (Formulario 1099-G)?"
+          information_content_html: |
+            Busca el 1099-G que usaste para declarar tus ingresos por desempleo en tu declaración de impuestos federales. Si tienes varios 1099-G, puedes agregarlos.<br><br>
+            A continuación, te compartimos dónde encontrar la información que necesitamos:</br>
+            <ol class="list--numbered">
+              <li><strong>A quién pertenece el formulario</strong> se puede encontrar en el lado izquierdo del formulario, si corresponde. Busca “nombre del beneficiario” (“recipient’s name.”)</li>
+              <li><strong>Tu dirección de correo</strong> aparece bajo “nombre del beneficiario” (“recipient’s name”) en el lado izquierdo del formulario. Asegúrate de que la dirección en el formulario coincida con la que ingreses aquí.</li>
+              <li><strong>La información del pagador</strong> o la agencia gubernamental que emitió el formulario, aparece en la esquina superior izquierda de la página. Ingresa el nombre, dirección y TIN como se muestra en el formulario.</li>
+              <li><strong>Las casillas 1, 4, 10b y 11</strong> están etiquetadas con los mismos números en el lado derecho del formulario. Ingresa la información exactamente como aparece en esas casillas.</li>
+            </ol>
+          information_html: "<strong>¿Cómo encuentro esta información?</strong>"
+          money_boxes_label: Por favor, completa las siguientes casillas según lo que aparece en el Formulario 1099-G.
+          payer_address: Dirección del pagador
+          payer_name: Nombre del pagador
+          payer_question_html: 'Por favor ingresa la información del pagador que se encuentra en la <strong>esquina superior izquierda</strong> del formulario:'
+          payer_tin: Número TIN del pagador (número de 9 dígitos)
+          recipient_my_spouse: Para mi cónyuge
+          recipient_myself: Para mí
+          recipient_question: "¿Para quién es este formulario?"
+          state: Estado
+          state_income_tax_withheld_html: "<strong>Casilla 11</strong>, impuesto estatal sobre los ingresos retenido"
+          street_address: Dirección
+          title: Necesitamos información adicional de tu formulario 1099-G
+          unemployment_compensation_html: "<strong>Casilla 1</strong>, Compensación por desempleo"
+          zip_code: Código postal
+        index:
+          1099_label: 1099-G para %{name}
+          add_another: Agregar otro formulario 1099-G
+          delete_confirmation: "¿Estás seguro de que quieres eliminar este formulario 1099-G?"
+          lets_review: Gracias por compartirnos esa información. Revisémosla.
+          unemployment_compensation: 'Compensación por desempleo: %{amount}'

@@ -1,0 +1,6 @@
+---
+es:
+  state_file:
+    notification_mailer:
+      user_message:
+        unsubscribe: Para dejar de recibir los correos electrónicos, <a href="%{unsubscribe_link}">haz clic aquí</a>.

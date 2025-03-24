@@ -1,0 +1,26 @@
+---
+es:
+  state_file:
+    questions:
+      az_retirement_income_subtraction:
+        edit:
+          federal: Federales
+          federal_bullet_points:
+          - Fondo de Jubilación y Discapacidad del Servicio del Gobierno de los Estados Unidos.
+          - Sistema de Jubilación y Discapacidad del Servicio Exterior de los Estados Unidos.
+          - Otros sistemas o planes de jubilación federales establecidos por la ley federal.
+          pension_plan: Plan de pensiones calificado del gobierno federal, de Arizona o gubernamental
+          state_local: Estatal/local
+          state_local_bullet_points:
+          - Sistema de Jubilación del Estado de Arizona
+          - Plan de Jubilación del Estado de Arizona
+          - Plan de Jubilación para Oficiales de Correccionales
+          - Sistema de Jubilación del Personal de Seguridad Pública
+          - Plan de Jubilación para Funcionarios Electos
+          - Programa de Jubilación establecido por la Junta de Regentes de Arizona
+          - Programa de Jubilación establecido por el distrito de colegios comunitarios de Arizona
+          - Plan de Jubilación establecido para empleados de un condado, ciudad o pueblo en Arizona
+          subtitle: Necesitamos más información sobre este 1099-R para verificar tu elegibilidad y presentar tu declaración estatal.
+          subtitle_2: Si tienes varios 1099-R, se te pedirá completar este paso para cada uno cantidad sujeta a impuestos.
+          uniformed_services: Pago de jubilación o retención de los servicios uniformados de los Estados Unidos
+          which_pensions: "¿Qué pensiones gubernamentales califican?"

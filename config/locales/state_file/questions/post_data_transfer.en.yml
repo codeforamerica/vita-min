@@ -1,0 +1,8 @@
+---
+en:
+  state_file:
+    questions:
+      post_data_transfer:
+        edit:
+          subtitle: Next, we’ll review your state details and ask any remaining questions to complete your %{state_name} state tax return.
+          title: We have successfully transferred your federal tax return!

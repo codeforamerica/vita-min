@@ -1,0 +1,12 @@
+---
+es:
+  state_file:
+    questions:
+      nj_eitc_qualifying_child:
+        edit:
+          helper_contents_html: "<p>Eres el hijo/a calificado/a de otro contribuyente para el Crédito Tributario por Ingresos del Trabajo de New Jersey (NJEITC) en %{filing_year} si se cumplen todas estas condiciones:</p>\n<ol class=\"list--numbered\">\n  <li>Eres:\n    <ul class=\"list--bulleted\">\n      <li>el/la hijo/a, hijastro/a, hijo/a adoptivo/a o descendiente de alguno de ellos, o</li>\n      <li>Hermano/a, medio hermano/a, hermanastro/a o descendiente de alguno de ellos</li>\n    </ul>\n  </li>\n  <li>Tú eras: \n    <ul class=\"list--bulleted\">\n      <li>Menor de 19 años al final del año y menor que esa persona (o el cónyuge de esa persona, si presentaron una declaración conjunta), o</li>\n      <li>Menor de 24 años al final del año, estudiante y menor que esa persona (o el cónyuge de esa persona, si presentaron una declaración conjunta), o</li>\n      <li>De cualquier edad y tuviste una discapacidad permanente que te impidió trabajar y ganar dinero</li>\n    </ul>\n  </li>\n  <li>Viviste con esa persona en los Estados Unidos durante más de 6 meses en %{filing_year}.</li>\n  <li>No estás presentando una declaración conjunta con tu cónyuge para el año. O estás presentando una declaración conjunta con tu cónyuge solo para obtener un reembolso del dinero que pagaste por impuestos.</li>\n</ol>\n<p>Si todas estas afirmaciones son ciertas, eres el hijo/a calificado/a de otro contribuyente para el NJEITC. Esto es así incluso si no reclaman el crédito o no cumplen con todas las reglas para reclamarlo.</p>\n<p>Si solo algunas de estas afirmaciones son ciertas, NO eres el hijo/a calificado/a de otro contribuyente para el NJEITC.</p>"
+          helper_heading: "¿Cómo sé si podría ser el hijo/a calificado/a de otra persona para el NJEITC?"
+          instructions: 'Nota: podrías obtener el crédito estatal incluso si no calificaste para el federal.'
+          primary_eitc_qualifying_child_question: En %{filing_year}, ¿podrías ser el hijo/a calificado/a de otra persona para el Crédito Tributario por Ingresos del Trabajo de New Jersey (NJEITC)?
+          spouse_eitc_qualifying_child_question: En %{filing_year}, ¿podría tu cónyuge ser el hijo/a calificado/a de otra persona para el NJEITC?
+          title: Puedes ser elegible para el Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por sus siglas en inglés).

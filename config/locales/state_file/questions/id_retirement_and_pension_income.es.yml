@@ -1,0 +1,13 @@
+---
+es:
+  state_file:
+    questions:
+      id_retirement_and_pension_income:
+        edit:
+          question_b1: Tu servicio como empleado del servicio civil
+          question_b2: Tu servicio como bombero de Idaho
+          question_b3: Tu servicio como policía de una ciudad en Idaho
+          question_b4: Tu servicio como miembro de las fuerzas armadas de los Estados unidos
+          question_b5: Beneficios de sobreviviente de la pensión de tu cónyuge fallecido que proviene de una de las fuentes enumeradas anteriormente
+          question_html: ¿Este ingreso de jubilación proviene de alguna de las siguientes fuentes y cumple con los requisitos de <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">las páginas 7 y 8 del folleto de instrucciones</a>?
+          subtitle: Necesitamos más información de tu formulario 1099-R para confirmar tu elegibilidad.

@@ -1,0 +1,17 @@
+---
+es:
+  state_file:
+    questions:
+      initiate_data_transfer:
+        data_transfer_buttons:
+          from_fake_df_page: Transferir datos desde una página falsa de transferencia de DF.
+          from_irs: Transferir información desde el sitio del IRS
+          from_irs_testing: Transferir datos desde el sitio de prueba del IRS (No hagas clic a menos que te lo hayan pedido)
+        edit:
+          button_help_text: No te preocupes, regresarás aquí después de que transfiramos tus datos
+          description_html: |
+            <p>Primero, <strong>asegúrate de que tu declaración federal haya sido aceptada.</strong></p>
+            <p><strong>¿Cómo sé si fue aceptada?</strong></p>
+            <p>Recibirás dos correos electrónicos del IRS: uno al enviar tu declaración federal de impuestos y otro cuando tu declaración haya sido aceptada. Revisa tu correo electrónico y carpeta de spam para confirmar si recibiste uno de aceptación. </p>
+            <p>La transferencia segura desde el servicio de Direct File del IRS generalmente toma 3 minutos o menos.</p>
+          title: Ahora completemos tu declaración de impuestos estatal

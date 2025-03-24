@@ -1,0 +1,12 @@
+---
+en:
+  state_file:
+    questions:
+      nj_veterans_exemption:
+        edit:
+          instructions_html: |
+            <p>You are considered a veteran if you are an <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">honorably discharged</a> former member of the United States Armed Forces.</p>
+            <p>If this is the first time you’re claiming <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">this exemption</a>, you have to provide <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">documentation</a> and <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">a form</a> to the New Jersey Division of Taxation. It can be done <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>. You can provide it after you finish going through this tool and submitting your return.
+          primary_veteran_question: Are you a veteran?
+          spouse_veteran_question: Is your spouse a veteran?
+          title: In New Jersey, veterans are eligible for a tax exemption.

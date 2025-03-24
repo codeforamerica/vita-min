@@ -1,0 +1,18 @@
+---
+es:
+  state_file:
+    questions:
+      md_tax_refund:
+        edit:
+          bank_authorization_confirmation: Selecciona aquí para confirmar que autorizas al Estado de Maryland a enviar tu reembolso mediante depósito directo.
+          subtitle: "¿Cómo te gustaría recibirlo?"
+        md_bank_details:
+          account_holder_name: Nombre del titular de la cuenta
+          bank_account_details: Detalles de la cuenta bancaria
+          bank_account_type: Tipo de cuenta bancaria
+          bank_authorization_confirmation_error: Por favor confirme la autorización o seleccione pagar por correo
+          check_if_joint_account: Selecciona aquí si tienes una cuenta conjunta
+          joint_account_holder_name: Nombre del titular de la cuenta conjunta
+          last_name: Apellido
+          middle_initial: Inicial del segundo nombre
+          suffix: Sufijo

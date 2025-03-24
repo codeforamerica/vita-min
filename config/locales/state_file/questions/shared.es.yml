@@ -1,0 +1,51 @@
+---
+es:
+  state_file:
+    questions:
+      shared:
+        abstract_review_header:
+          amount_rounding_notice_html: "<strong>Hemos redondeado automáticamente todas las cantidades en dólares al número entero más cercano.</strong> La %{state_agency_name} sólo aceptará números enteros en la declaración de impuestos final."
+          dependent_dob: Su fecha de nacimiento
+          dependent_months_in_home: Número de meses que vivieron contigo
+          dependent_name: Nombre de tu dependiente
+          household_info: Detalles del hogar
+          nth_dependent_name: Nombre de tu %{ordinal} dependiente
+          spouse_name: Nombre de tu cónyuge
+          taxes_owed_header: Tu reembolso o deuda de impuestos
+          taxes_owed_html: Tu reembolso es $0. Esto significa <strong>que no</strong> recibirás un reembolso estatal y <strong>no</strong> debes pagar impuestos estatales. Debes completar tu declaración, es posible que tengas que presentarla aunque no recibirás ningún dinero.
+          title: "¡Ya casi terminas! Por favor revisa la información que tenemos."
+          your_name: Tu nombre
+        az_retirement_income_deductions_review_header:
+          government_pension: Plan de pensiones calificado del gobierno federal, de Arizona o gubernamental
+          none_apply: Ninguno aplica
+          subtitle: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
+          title: La deducción de ingresos por jubilación de Arizona
+          uniformed_services: Pago de jubilación o retención de los servicios uniformados de los Estados Unidos
+        id_retirement_income_deductions_review_header:
+          qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
+          qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
+          qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
+        md_retirement_income_deductions_review_header:
+          military: Tu servicio en el ejército o los beneficios por fallecimiento militar recibidos en nombre de un cónyuge o ex-cónyuge
+          none: Ninguno aplica.
+          other: Otros ingresos de jubilación (por ejemplo, un plan Keogh)
+          pension_annuity_endowment: Una pensión, renta vitalicia o dotación de un “sistema de jubilación para empleados”
+          public_safety: Tu servicio como empleado de seguridad pública.
+          retirement_income_deductions: Detalles sobre los ingresos de jubilación de Maryland
+        nc_retirement_income_deductions_review_header:
+          bailey_settlement_at_least_five_years: Al menos cinco años de servicio acreditable antes del 12 de agosto de 1989
+          bailey_settlement_from_retirement_plan: Recibiste beneficios de jubilación del plan 401(k) o 457 de NC y contribuiste al plan antes del 12 de agosto de 1989
+          none_apply: No aplica ninguno
+          retirement_income_deductions: Deducciones por ingresos de jubilación en Carolina del Norte
+          retirement_income_deductions_explanation: Estas permiten a las personas deducir de sus impuestos todo o parte de sus ingresos de jubilación.
+          retirement_income_source_bailey_settlement: Beneficios de jubilación como parte del Acuerdo Bailey
+          retirement_income_source_review_and_edit: Revisar y editar 1099-R %{index}
+          retirement_income_source_uniformed_services: Beneficios de jubilación de los Servicios Uniformados
+          uniformed_survivor_benefit_plan: Pagos de un Plan de Beneficios para Sobrevivientes calificado a un beneficiario de un miembro retirado que prestó servicio al menos 20 años o que fue retirado por razones médicas de los Servicios Uniformados
+          uniformed_twenty_years_medical_retired: Miembro retirado que prestó servicio al menos 20 años o fue retirado por razones médicas de los Servicios Uniformados
+        review_header:
+          income_details: Detalles de ingresos
+          income_forms_collected: 'Formulario(s) de ingresos recogidos:'
+          state_details_title: Detalles estatales
+          your_refund: La cantidad de tu reembolso
+          your_tax_owed: Los impuestos que debes

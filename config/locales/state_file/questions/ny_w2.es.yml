@@ -1,0 +1,7 @@
+---
+es:
+  state_file:
+    questions:
+      ny_w2:
+        edit:
+          locality_nm_error: Escribe "NYC" si el nombre de la localidad en tu W-2 es Nueva York o cualquiera de los cinco distritos.

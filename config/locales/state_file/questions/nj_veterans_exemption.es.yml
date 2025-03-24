@@ -1,0 +1,12 @@
+---
+es:
+  state_file:
+    questions:
+      nj_veterans_exemption:
+        edit:
+          instructions_html: |
+            <p>Se considera veterano a ex miembros de las Fuerzas Armadas de los Estados Unidos que hayan recibido una <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">baja honorable</a>.</p>
+            <p>Si esta es la primera vez que reclamas <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">esta exención</a>, debes presentar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">documentación</a> y <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">un formulario</a> a la División de Impuestos del Estado de New Jersey. Puedes hacerlo <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>. Puedes presentarlo después de terminar de usar esta herramienta y enviar tu declaración.
+          primary_veteran_question: "¿Eres veterano/a de guerra?"
+          spouse_veteran_question: "¿Tu cónyuge es veterano/a de guerra?"
+          title: En New Jersey, los veteranos/as de guerra son elegibles para una exención de impuestos.

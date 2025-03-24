@@ -1,0 +1,14 @@
+---
+es:
+  state_file:
+    questions:
+      id_eligibility_residence:
+        edit:
+          emergency_rental_assistance: En %{filing_year}, ¿Tú, o tu cónyuge si están declarando juntos, recibieron asistencia de emergencia para el pago de alquiler?
+          emergency_rental_assistance_explanation: El programa de Asistencia de Emergencia para el Pago de Alquiler (ERA, por sus siglas en inglés) es un programa federal que da dinero para ayudar a los hogares a pagar el alquiler y las facturas de servicios públicos. Se creó en respuesta a la pandemia de Covid-19.
+          subtitle_1: Para esta temporada de impuestos, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usar el servicio responde las siguientes preguntas.
+          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del %{filing_year} de Idaho
+          withdrew_msa_fthb: En %{filing_year}, ¿retiró usted (o su cónyuge si presentan juntos) dinero de alguno de los siguientes?
+          withdrew_msa_fthb_list:
+            bullet_1_html: Retiraste dinero de tu Cuenta de Ahorros Médicos de Idaho y lo usaste para un <a href="%{link}" target="_blank" rel="noopener noreferrer">gasto no calificado</a>.
+            bullet_2_html: Retiraste dinero tu Cuenta de Comprador de Vivienda por Primera Vez y lo usaste para un <a href="%{link}" target="_blank" rel="noopener noreferrer">gasto no calificado</a>.

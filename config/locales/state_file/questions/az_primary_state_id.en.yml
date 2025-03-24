@@ -1,0 +1,14 @@
+---
+en:
+  state_file:
+    questions:
+      az_primary_state_id:
+        az_primary:
+          learn_more_html: |
+            To learn more, visit:<br>
+            <a href="https://azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft" target="_blank">
+            azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft
+            </a>
+          ongoing_effort: In an ongoing effort to protect taxpayers from identity theft, the IRS, state tax agencies, and the tax industry are asking you to provide your driver’s license or state-issued identification number.
+          requests_drivers_license: The Arizona Department of Revenue requests the Driver’s License/Identification card to be included with the return but won’t reject the return if it’s not included.
+          why_are_you_asking: Why are you asking for this information?

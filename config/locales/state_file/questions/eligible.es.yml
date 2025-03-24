@@ -1,0 +1,307 @@
+---
+es:
+  state_file:
+    questions:
+      eligible:
+        az_credits_unsupported:
+          other_credits_301_html: Créditos no reembolsables enumerados en el <a href="https://azdor.gov/sites/default/files/document/FORMS_CREDIT_2024_301_f.pdf" target="_blank" rel="noopener nofollow">Formulario AZ 301</a>
+          other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Deducción por contribuciones al plan 529 de Arizona</a>
+          other_credits_add_dependents: Agregar dependientes no reclamados en la declaración federal
+          other_credits_change_filing_status: Cambio en el estado civil tributario de la declaración federal a estatal
+          other_credits_heading: 'Otros créditos y deducciones no admitidos este año:'
+          other_credits_itemized_deductions: Deducciones detalladas
+          property_tax_credit_age: Tener 65 años o más, o recibir pagos de Seguridad de Ingreso Suplementario
+          property_tax_credit_heading_html: '<a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow">Crédito por impuestos a la propiedad. </a>. Para calificar para este crédito debes:'
+          property_tax_credit_income: Tener un ingreso total del hogar menor a $3,751 si vives solo; o un ingreso total del hogar menor a $5,501 si vives con otros, y
+          property_tax_credit_paid: Haber pagado impuestos a la propiedad o alquiler de una vivienda en Arizona durante el año
+        az_supported:
+          charitable_contributions_credit: Crédito por Contribuciones a Organizaciones Caritativas Calificadas
+          dependent_credit: Crédito por Dependientes
+          family_income_credit: Crédito por ingresos familiares
+          increased_deduction: Una deducción aumentada por donaciones caritativas
+          increased_excise_credit: Crédito por Aumento de Impuestos Especiales
+          public_school_credit: Crédito Tributario para Escuelas Públicas de Arizona
+        edit:
+          credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
+          faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
+          faq_link_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="%{url}">aquí</a>.
+          md_title2_html: |
+            Asegurémonos de que este servicio es el indicado para ti.<br><br>
+            Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
+          not_supported: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
+          title1: Puedes usar este servicio para declarar tus impuestos estatales de %{state} de %{year}
+          title2_html: |
+            Asegurémonos de que este servicio es el indicado para ti.<br><br>
+            Estos son los créditos y las deducciones que <strong>puedes</strong> reclamar para maximizar tu reembolso.
+          warning: Por favor, revisa las restas y créditos que puedes incluir este año y asegúrate de que este servicio sea adecuado para tus necesidades fiscales.
+        faq_link: Visita nuestras Preguntas Frecuentes
+        id_credits_unsupported:
+          change_in_filing_status: Cambio en el estado civil tributario de la declaración federal a estatal
+          dependents_not_claimed_fed_return: Agregar dependientes no reclamados en la declaración federal
+          earned_on_reservation: Ingresos Obtenidos en una Reserva por un Indígena Estadounidense
+          education_contribution_credit: Crédito de Aportes a Entidades Educativas
+          id_college_savings_program: Resta del Programa de Idaho Para el Ahorro Universitario
+          id_youth_rehab_contributions: Crédito de Idaho por Contribuciones a Centros de Rehabilitación y Jóvenes
+          itemized_deductions: Deducciones detalladas
+          long_term_care_insurance_subtraction: Resta del Seguro de Atención a Largo Plazo
+          maintaining_elderly_disabled_credit: Crédito por Mantener un Hogar para Personas Mayores o Discapacitadas
+          not_supported_this_year: 'Créditos y deducciones no admitidos este año:'
+        id_supported:
+          child_care_deduction: Resta de Idaho por Gastos de Cuidado Niños y Dependientes
+          health_insurance_premiums_subtraction: Resta de primas de seguro médico
+          id_child_tax_credit: Crédito Tributario de Idaho por Hijos
+          id_grocery_credit: Crédito de Idaho por Compras de Alimentos
+          interest_from_obligations: Resta de intereses de obligaciones del gobierno de los Estados Unidos
+          retirement_benefits_deduction: Deducciones por Beneficios de Jubilación
+          social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
+        md_reveals:
+          body1_html: |
+            <ul>
+              <li>
+                Restas:
+                <ul>
+                  <li>Suministros para el aula para maestros de grados K a 12</li>
+                  <li>Cuotas sindicales</li>
+                  <li>Pagos de un sistema de pensiones a bomberos y policías por lesiones o discapacidades relacionadas con el trabajo</li>
+                  <li>Gastos de hasta $5,000 de una persona ciega para un lector, o hasta $1,000 de un empleador para comprar un lector para un empleado ciego</li>
+                  <li>Contribuciones a cuentas ABLE</li>
+                  <li>Exclusión de pensiones (si tienes menos de 65 años y quieres incluirla debido a una discapacidad permanente, por primera vez)</li>
+                  <li>Cualquier otra deducción de Maryland no mencionada aquí (consulta <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">el formulario 502SU</a>)</li>
+                </ul>
+              </li>
+              <li>
+                Créditos:
+                <ul>
+                  <li>Crédito Tributario para el Alivio de Deuda de Préstamos para Estudiantes</li>
+                  <li>Crédito para Incentivar la Calidad de los Maestros</li>
+                  <li>Crédito por Seguro de Cuidado a Largo Plazo</li>
+                  <li>Crédito Tributario por Vida Independiente</li>
+                  <li>Crédito Tributario por Hijos de Maryland (si lo incluyes con base en la discapacidad del niño)</li>
+                  <li>Crédito Tributario por Ingresos del Trabajo de Maryland (si no reclamaste el Crédito Tributario por Ingresos del Trabajo Federal)</li>
+                  <li>Cualquier otro crédito de Maryland no mencionado <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(consulta el formulario 502CR</a>)</li>
+                </ul>
+              </li>
+
+              <li>
+                Situaciones del hogar:
+                <ul>
+                  <li>Declarar impuestos federales y estatales utilizando diferentes estados civiles tributarios (por ejemplo, presentar sus impuestos como casados declarando juntos en su declaración federal y querer presentar tu declaración estatal como casado declarando por separado)</li>
+                  <li>Agregar o quitar dependientes incluídos en tu declaración federal en el caso de tu declaración estatal</li>
+                  <li>Dividir el reembolso entre varias cuentas</li>
+                  <li>Estar casado y declarando conjuntamente con un cónyuge fallecido</li>
+                </ul>
+              </li>
+
+              <li>
+                Pagos:
+                <ul>
+                  <li>Pagos de impuestos estimados</li>
+                  <li>Pagos de impuestos por extensión</li>
+                </ul>
+              </li>
+            </ul>
+            <p>
+            Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
+            </p>
+          body2_html: |
+            <p>
+              Este año, <strong>no puedes reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland utilizando este servicio</strong> en los siguientes escenarios:
+            </p>
+            <ul>
+              <li>Si tú u otras personas en tu familia tienen un Número de Identificación del Contribuyente Individual (ITIN) en lugar de un número de Seguro Social y han recibido ingresos de un trabajo</li>
+              <li>Si tienes menos de 25 años, has ganado menos de $18,600 (o $25,600 si presentas una declaración conjunta), y no has sido incluído como dependiente por otra persona, y no agregaste a ninguna persona como dependiente en tu declaración</li>
+            </ul>
+            <p>
+            En el caso del Crédito Tributario por Hijos de Maryland, <strong>no puedes reclamar a un niño con una discapacidad permanente que tenga entre 6 y 17 años utilizando este servicio</strong> este año.
+            </p>
+          body3_html: |
+            <p>
+              Tienes otras opciones gratuitas para presentar tu declaración estatal:
+              <ul>
+                <li>
+                  Puedes presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS en Maryland. Este proceso puede tardar de 2 a 3 semanas en completarse.
+                  <ul>
+                    <li>
+                      <a href="https://airtable.com/appAgBw351Iig0YI4/pagpUP2HSWNXzPlIz/form" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
+                    </li>
+                    <li>
+                      Obtén más información sobre este proceso y otras opciones para presentar tu declaración <a href="https://www.fileyourstatetaxes.org/es/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">aquí</a>.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Comienza con el servicio <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">gratuito de preparación de impuestos sobre ingresos</a>del Contralor de Maryland.
+                </li>
+              </ul>
+            </p>
+          credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
+          title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland y/o el Crédito Tributario por Hijos no admite este servicio?"
+          title3: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
+        md_supported:
+          heading1: 'Restas:'
+          heading2: 'Créditos:'
+          sub1: Deducción por gastos de cuidado de niños y Dependientes
+          sub10: Crédito tributario para Personas Mayores
+          sub11: Crédito Estatal y Local por Nivel de Pobreza
+          sub12: Crédito por Gastos de cuidado de Niños y Dependientes
+          sub2:
+            one: Exclusión de pensiones (si tienes 65 años o más, o si tienes menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
+            other: Exclusión de pensiones (si tú o tu cónyuge tienen 65 años o más, o si tú o tu cónyuge tienen menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
+          sub3: Jubilación militar
+          sub4: Jubilación de seguridad pública
+          sub5: Beneficios de Seguridad Social y Jubilación de Ferrocarriles sujetos a impuestos
+          sub6: Ingresos por intereses de obligaciones de EE. UU. o posesiones de EE. UU.
+          sub7: Resta por ingresos de dos personas para contribuyentes casados que declaran juntos
+          sub8: Crédito Tributario Estatal y Local por Ingresos de Trabajo (si reclamaste el Crédito Tributario Federal por Ingreso de Trabajo)
+          sub9: Crédito Tributario Estatal por Hijos (para niños menores de 6 años)
+          subject_to_eligibility: Todas las restas y créditos están sujetos a requisitos de elegibilidad.
+        nc_credits_unsupported:
+          college_savings_account: Contribuciones a cuentas de ahorro 529 para la universidad
+          credits_carried: Créditos acumulados de años anteriores
+          credits_for_rehabilitating: Créditos por la rehabilitación de estructuras históricas
+          credits_not_supported: "¿Cuáles créditos y deducciones no podrán procesarse con este servicio este año?"
+          estimated_income_tax_payments: Pagos de impuestos sobre el ingreso estimado
+          extension_payment: Pagos por extensión
+          personal_education: Deducción por depósitos en cuentas de estudiante de educación personal
+        nc_supported:
+          deduction_for_income: Deducción por ingresos de miembros de una tribu indígena reconocida por el gobierno federal
+          deduction_for_qualifying_children: Crédito por hijos calificados
+          deduction_for_retirement_income_bailey: Deducción por ingresos de jubilación como parte del acuerdo Bailey
+          deduction_for_retirement_income_uniformed: Deducción por ingresos de jubilación de los servicios uniformados
+          deduction_for_taxable_portion: Deducción por la parte imponible de los beneficios del Seguro Social y de Beneficios de Jubilación Ferroviaria
+        nj_credits_unsupported:
+          also_unsupported_html: |
+            <li>Solicitud de prórrogas </li>
+            <li>Contribuciones caritativas a varias organizaciones de NJ a través de tu declaración</li>
+            <li>Declaraciones con distintos estados civiles: debes usar el mismo estado civil en tus declaraciones de impuestos federales y estatales. Por ejemplo, no puedes presentarte como casado/a declarando conjuntamente en los impuestos federales y luego como casado/a declarando separadamente en los estatales.</li>
+            <li>Repetición de dependientes: No debes agregar ni quitar dependientes en tu declaración de impuestos estatales si ya los reclamaste en tu declaración de impuestos federales</li>
+            <li>Aplicar una parte de tu reembolso de 2024 a tus estimaciones de impuestos de 2025</li>
+          also_unsupported_title: 'Tampoco admitimos:'
+          unsupported_html: |
+            <li>Deducción por comidas, alojamiento, gastos de mudanza, otros gastos de negocio reembolsados o compensación por lesiones o enfermedades reportadas como salarios en tu W-2</li>
+            <li>Deducción por pagos de pensión alimenticia</li>
+            <li>Exclusión de ingresos de pensión para contribuyentes que nunca serán elegibles para el Seguro Social (“Special Exclusion”)</li>
+            <li>Deducciones por contribuciones a cuentas de ahorro para la universidad NJBEST 529 o por costos de matrícula de educación superior</li>
+            <li>Deducción por capital e intereses pagados sobre un préstamo estudiantil de NJCLASS</li>
+            <li>Deducción por contribuciones calificadas para la conservación</li>
+            <li>Deducción por zonas de empresas de salud</li>
+            <li>Crédito Gold Star para asesoramiento familiar</li>
+            <li>Crédito para empleadores de donantes de órganos o médula ósea</li>
+            <li>Crédito para Cuidadores de Guerreros/Veteranos Heridos</li>
+        nj_supported:
+          supported_credits_html: |
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/eitc/eitcinfo.shtml">Crédito por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/individuals/childtaxcredit.shtml">Crédito por Hijos de New Jersey</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/depcarecred.shtml">Crédito por Cuidado de Menores y Dependientes de New Jersey</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit13.shtml#:~:text=Medical%20Expenses%0AYou,TAM%202011%2D14.">Deducción de Gastos Médicos</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit7.shtml">Exclusión de Pensión/Jubilación y Otros Ingresos de Jubilación</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit16.shtml">Créditos por Contribuciones Excedentes del Seguro de Desempleo (UI por las siglas en inglés) y del Seguro de Licencia Familiar (FLI por las siglas en inglés)</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit35.shtml">Crédito o Deducción de Impuestos sobre la Propiedad</a> (aplicable para inquilinos/as y dueños/as)</li>
+        ny_credits_unsupported:
+          college_tuition_credit: College tuition credit or itemized deduction
+          firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
+          long_term_care_credit: Long-term care insurance credit
+          non_custodial_nys_eic_html: Non-custodial NYS Earned Income Credit (for <a href="https://www.tax.ny.gov/pit/credits/nceic.htm" target="_blank" rel="noopener nofollow">parents who do not live with their children</a>)
+          nys_child_dependent_care_credit: NYS Child and Dependent Care Credit
+          other_credits_change_filing_status: Change in filing status from federal to state
+          other_credits_est_tax_etc: Estimated tax, extension payments, and prior year credit forward
+          other_credits_heading: 'Other credits, deductions and resources not supported this year:'
+          other_credits_itemized_deductions: Deducciones detalladas
+          real_property_tax_credit: Real Property Tax Credit
+          subtractions_225_heading_html: 'All NY <a href="https://www.tax.ny.gov/forms/current-forms/it/it225i.htm#subtraction-modifications-chart" target="_blank" rel="noopener nofollow">subtractions claimed on IT-225 including</a>:'
+          subtractions_225_health_care_worker: Health care and mental hygiene worker bonuses
+          subtractions_225_help_loan: HELP loan interest
+          subtractions_225_military: Military combat pay
+          subtractions_225_native_american: Native American Income Exclusion
+          subtractions_225_student_loan: Student loan forgiveness award
+        ny_supported:
+          empire_state_ctc: Crédito Empire State por hijos
+          nyc_school_tax_credit: Crédito tributario escolar de la ciudad de Nueva York
+          nys_eic: Crédito tributario por ingreso del trabajo (Estado de Nueva York)
+          nys_hh_credit: Crédito por Unidad Familiar (Estado de Nueva York)
+        other_filing_options:
+          other_options:
+            content_html:
+              nj: "<p>\n También puedes presentar tu declaración online mediante <a href=\"https://www.njportal.com/Taxation/NJ1040/\" target=\"_blank\" rel=\"noopener noreferrer\">eFile del estado de New Jersey</a>, o por correo postal. <a href=\"https://nj.gov/treasury/taxation/contact.shtml\" target=\"_blank\" rel=\"noopener noreferrer\">Comunícate con la División de Impuestos del Tesoro de NJ si tienes preguntas.</a> \n</p>\n<p>\n  Existen varios servicios comerciales de preparación de impuestos que ofrecen la presentación de impuestos solo para el estado. Algunos consejos para elegir una opción:\n  <ul>\n    <li>\n      Dado que enviaste tu declaración de impuestos federales, asegúrate de que el servicio o el software que utilizas te permita presentar una declaración de impuestos solo para el estado. Puede que tenga que contactar el servicio de atención al cliente para confirmarlo.\n    </li>\n    <li>\n      Se te pedirá que vuelvas a dar la misma información que dio en su declaración federal. Esta es necesaria para completar partes de tu declaración estatal.\n    </li>\n    <li>\n      Cuando presentes tu declaración, asegúrate de enviar solo tu declaración de impuestos estatales. Si envías tu declaración federal nuevamente, esta puede ser rechazada.\n    </li>\n  </ul>\n</p>\nPuede que haya tarifas.\n"
+            fees: Puede que apliquen tarifas.
+            learn_more_here_html: Obtén más información <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>
+            list:
+              body: 'Muchos servicios comerciales de preparación de impuestos ofrecen la opción de declarar sólo los impuestos estatales. Aquí tienes algunos consejos rápidos:'
+              list1: Confirma que el servicio te permita presentar sólo tu declaración estatal. Es posible que necesites consultar con el soporte al cliente.
+              list2: Prepárate para volver a ingresar la información de tu declaración federal, ya que se necesita para tu declaración estatal.
+              list3: Al declarar, envía sólo tu declaración estatal. Si vuelves a enviar tu declaración federal, puede ser rechazada.
+            title: "¿Cuáles son mis otras opciones para declarar mis impuestos estatales?"
+          vita_option:
+            content_html:
+              md: |
+                <p>
+                  Tienes otras opciones gratuitas para presentar tu declaración estatal:
+                  <ul>
+                    <li>
+                      Declara gratis con voluntarios VITA certificados por el IRS en Maryland.
+                      <ul>
+                        <li>
+                          Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en Maryland. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea. Este proceso puede tardar de 2 a 3 semanas en completarse.
+                        </li>
+                        <li>
+                          <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
+                        </li>
+                        <li>
+                          Aprende más sobre este proceso y otras opciones de declaración <a href="https://www.fileyourstatetaxes.org/es/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">aquí.</a>
+                        </li>
+                      </ul>
+                      <li>
+                        Comienza con el servicio <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">gratuito de preparación de impuestos sobre ingresos</a> del Contralor de Maryland.
+                      </li>
+                    </li>
+                  </ul>
+                </p>
+              nj: |
+                <p>
+                  Los preparadores de impuestos certificados en Simplify CT pueden ayudarte a preparar y presentar electrónicamente tu declaración de impuestos estatales de forma gratuita en un plazo de aproximadamente 2-3 semanas.
+                </p>
+                <p>
+                  El proceso:
+                  <ul>
+                    <li>
+                      Completa un formulario corto para solicitar asistencia solo para el estado. (Recibirás un email automático confirmando que lo enviaste).
+                    </li>
+                    <li>
+                      Un preparador de impuestos certificado compartirá un enlace para cargar de forma segura tu formulario de impuestos federales (1040), documentos fiscales e identificación.
+                    </li>
+                    <li>
+                      Te llamarán para pedirte más datos.
+                    </li>
+                    <li>
+                      Una vez que tu declaración esté lista, programarán una llamada para revisarla y responder tus preguntas.
+                    </li>
+                    <li>
+                      Firmarás tu formulario de impuestos estatales en línea.
+                    </li>
+                    <li>
+                      El preparador de impuestos presentará electrónicamente tus impuestos estatales.
+                    </li>
+                  </ul>
+                </p>
+                <p>
+                  Si tienes preguntas, usa el chat o envía un email a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>. Si tienes preguntas después de que Simplify CT se haya comunicado contigo, escribe a <a href="mailto:help@simplifyct.org">help@simplifyct.org</a>.
+                </p>
+            title:
+              default: "¿Qué opciones gratuitas tengo para declarar mis impuestos estatales?"
+              nj: Lee más sobre el proceso de VITA
+        vita_option:
+          connect_to_vita:
+            nj: |
+              <p>
+                <a href="%{faq_link_href}" target="_blank" rel="noopener noreferrer">
+                  Visita nuestras Preguntas Frecuentes
+                </a>
+              </p>
+              <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
+                Conéctate ahora
+              </a>
+          vita_introduction:
+            nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
+          vita_link: Comienza con VITA ahora
+          want_to_claim_learn_more_html: Obtén más información <a href="%{link}" target="_blank">aquí</a>.
+          want_to_claim_vita_1: Es posible que puedas presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS, pero puede tardar de 2 a 3 semanas en completarse.

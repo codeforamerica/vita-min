@@ -1,0 +1,20 @@
+---
+es:
+  state_file:
+    questions:
+      notification_preferences:
+        edit:
+          email_address_label: Tu correo electrónico
+          email_notification_opt_in: Correo electrónico
+          message_body_one: No compartiremos tu información con terceros. La frecuencia de los mensajes puede variar. Puede que apliquen tarifas por mensajes y datos.
+          message_body_two_html: Envía un mensaje de texto con la palabra HELP al 46207 para obtener ayuda. Envía un mensaje de texto con la palabra STOP al 46207 para no recibir más mensajes. Los proveedores de telefonía móvil (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de mensajes no entregados o retrasados. Consulta nuestros <a target="_blank" href=%{sms_terms_link}>Términos y condiciones de SMS</a> y <a target="_blank" href=%{privacy_link}>Política de privacidad</a>.
+          message_title: Detalles de mensajería
+          opt_in_label: 'Selecciona cómo te gustaría recibir notificaciones:'
+          phone_number: Tu número de teléfono
+          phone_number_help_text: Ingresa números únicamente
+          provided_contact: Te enviaremos actualizaciones sobre tu declaración de impuestos a %{contact_info}.
+          sms_notification_opt_in: Mensaje de texto
+          subtitle: Nos pondremos en contacto contigo con preguntas y actualizaciones sobre el estado de tu declaración de impuestos.
+          title: "¿Cómo quieres recibir las actualizaciones de tu declaración de impuestos?"
+        form:
+          at_least_one: Se requiere al menos una preferencia de notificación

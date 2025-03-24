@@ -1,0 +1,55 @@
+---
+es:
+  state_file:
+    questions:
+      esign_declaration:
+        edit:
+          already_submitted: Ya has enviado tu declaración.
+          az:
+            body_html: |
+              <p>Bajo pena de perjurio, declaro que he revisado una copia de mi declaración electrónica de impuestos personales de Arizona, así como los anexos y declaraciones adjuntas, para el año que finaliza el 31 de diciembre de %{filing_year} y la información es verdadera, correcta y completa a mi mejor conocimiento y creencia.</p>
+              <ul class="list--bulleted">
+              <li><em>Si me deben un reembolso y compartí información para depósito directo,</em> doy mi consentimiento para que mi reembolso se deposite directamente según lo designado en la parte electrónica de mi declaración de impuestos de ingresos personales de Arizona de %{filing_year}. Si he presentado una declaración conjunta, esta es una designación irrevocable del otro cónyuge como agente para recibir el reembolso.</li>
+              <li><em>Si no me deben un reembolso o si elegí recibir mi reembolso mediante un cheque enviado por correo,</em> no deseo el depósito directo de mi reembolso o no estoy recibiendo un reembolso.</li>
+              <li><em>Si debo impuestos y compartí información para débito directo,</em> autorizo al Departamento de Ingresos de Arizona (ADOR) y a su Agente Financiero designado a iniciar un retiro de fondos electrónico ACH (débito directo) en la cuenta del instituto financiero indicada en el software de preparación de impuestos para el pago de mis impuestos de Arizona adeudados en esta declaración. También autorizo a las instituciones financieras involucradas en el procesamiento del pago electrónico de impuestos a recibir información confidencial necesaria para responder a consultas y resolver problemas relacionados con el pago.</li>
+              </ul>
+              <p>Si he presentado una declaración de saldo adeudado, entiendo que si el ADOR no recibe el pago completo y oportuno de mi responsabilidad tributaria antes del 15 de abril de 2025, seguiré siendo responsable de la responsabilidad tributaria y todos los intereses y penalidades aplicables.</p><p>Consiento que mi Originador de Declaraciones Electrónicas (ERO) o Proveedor de Servicios en Línea (OLSP) envíe mi declaración electrónica de impuestos sobre el ingreso individual de Arizona y los horarios y declaraciones adjuntas a ADOR, y consiento que mi ERO o OLSP envíe dicha información a ADOR a través de un transmisor. Consiento que ADOR envíe a mi ERO, OLSP y/o transmisor un acuse de recibo de la transmisión y una indicación de si se acepta o no la transmisión de mi declaración, y, si se rechaza, la razón o razones del rechazo. Si se retrasa el procesamiento de mi declaración o reembolso, autorizo a ADOR a divulgar a mi ERO, OLSP y/ o transmisor la razón o razones del retraso, o cuando se envió el reembolso. Si ADOR se comunica con mi ERO para obtener una copia de mi declaración, cualquier documento o horario de mi declaración, y/o este formulario de autorización, autorizo a mi ERO a proporcionar copias de los documentos solicitados a ADOR.</p>
+              <p>Al utilizar un sistema informático y software para preparar y/o presentar mi(s) declaracion(es) de impuestos electrónicamente, doy mi consentimiento para la transmisión de mi(s) declaración(es) y para la divulgación de toda la información sobre mi uso del sistema y del software al Departamento de Ingresos de Arizona.</p>
+              <p>Yo declaro bajo pena de perjurio que, según mi leal saber y entender, la declaración es verdadera, correcta y completa.</p>
+          id:
+            body_html: |
+              <p>Al utilizar un sistema informático y software para preparar y/o presentar mis declaraciones de impuestos electrónicamente, doy mi consentimiento para la transmisión de mi(s) declaración(es) y para la divulgación de toda la información sobre mi uso del sistema y del software a la Comisión de Impuestos del Estado de Idaho.</p>
+              <p>Bajo pena de perjurio, declaro que, según mi mejor conocimiento y creencia, esta declaración es verdadera, correcta y completa.</p>
+          md:
+            body_html: |
+              <p>Al utilizar un sistema informático y software para preparar y/o presentar mi(s) declaracion(es) de impuestos electrónicamente, consiento la transmisión de mis declaraciones y la divulgación de toda la información sobre mi uso del sistema y software al Contralor de Maryland.</p>
+              <p>
+                Bajo pena de perjurio, declaro que he:
+                <ul class="list--bulleted">
+                  <li>Comparado la información contenida en mi declaración electrónica con la información que proporcioné a mi Originador de Declaraciones Electrónicas (ERO) o que ingresé en línea y que los nombre(s) y montos descritos arriba concuerdan con los montos mostrados en las líneas correspondientes de mi declaración de impuestos sobre el ingreso electrónica de Maryland de %{filing_year}, y </li>
+                  <li>A mi leal saber y entender, mi declaración es verdadera, correcta y completa. </li>
+                </ul>
+              Consiento que mi declaración, incluidos los anexos y estados acompañantes, sea enviada a la División de Administración de Ingresos de Maryland por mi Originador de Declaraciones Electrónicas o por mi proveedor de software de declaración electrónica.
+              </p>
+          nc:
+            body_html: |
+              <p>Al utilizar un sistema informático y software para preparar y/o presentar mi(s) declaracion(es) de impuestos electrónicamente, consiento la transmisión de mis declaraciones y la divulgación de toda la información sobre mi uso del sistema y software al Departamento de Ingresos de Carolina del Norte.</p>
+              <p>Al marcar la casilla a continuación, declaro y certifico que he examinado esta declaración y los anexos y estados acompañantes, y que, a mi leal saber y entender, son verdaderos, correctos y completos.</p>
+          nj:
+            body_html: |
+              <p>Bajo pena de perjurio, declaro que he examinado esta Declaración de Impuestos sobre los Ingresos, incluyendo los anexos y declaraciones adjuntas, y que, según mi leal saber y entender, mi declaración es verdadera, correcta y completa. (N.J.S.A. 2C:28-1)</p>
+              <p>Al usar un sistema informático y software para preparar y/o presentar electrónicamente mi(s) declaración(es) de impuestos, doy mi consentimiento para la transmisión de mi(s) declaración(es) y para la divulgación de toda la información sobre mi uso del sistema y el software a la División de Ingresos y Servicios Empresariales de New Jersey.</p>
+          ny:
+            body_html: |
+              <p>Al marcar la(s) casilla(s) que se muestran a continuación y presionar "Enviar", entiendo y acepto que estoy presentando para la presentación mi declaración de impuestos electrónica del impuesto sobre la renta personal del estado de Nueva York (NYS) para el año 2023. Declaro, bajo pena de perjurio, que he examinado la información en mi declaración de impuestos electrónica de NYS, incluida toda la información transferida a mi declaración de NYS desde mi declaración federal, y todas las programaciones, anexos y declaraciones adjuntas proporcionadas con la declaración, y certifico que mi declaración electrónica de NYS es verdadera, correcta y completa. Al ejecutar el Formulario TR-579-IT y proporcionarlo al ERO, he autorizado al ERO (Code for America) a presentar mi declaración de impuestos electrónica de NYS para el año 2023 ante el Departamento de Impuestos de NYS a través del Sistema de Presentación Electrónica Modernizada del IRS (Servicio de Impuestos Internos).</p>
+              <p>Además, entiendo y acepto que al utilizar un sistema informático y software para preparar y transmitir mi declaración de impuestos electrónicamente, he consentido a la divulgación a NYS de toda la información relacionada con la transmisión de mi declaración de impuestos de NYS electrónicamente. Si estoy pagando mis impuestos personales del estado de Nueva York adeudados o recibiendo un reembolso de impuestos mediante transferencia electrónica de fondos, certifico que el titular de la cuenta autoriza al Departamento de Impuestos de NYS y a sus agentes financieros designados a iniciar una transferencia electrónica de fondos desde la cuenta de la institución financiera indicada en la declaración electrónica de NYS 2023, y autoriza a la institución financiera a debitar la cantidad de esa cuenta (si se debe impuestos) o acreditar la cuenta con un depósito directo (si se debe un reembolso).</p>
+              <p>Dado que Nueva York no admite Transacciones ACH Internacionales (IAT), atestiguo que la fuente de estos fondos se encuentra dentro de los Estados Unidos. Entiendo y acepto que puedo revocar esta autorización de pago comunicándome con el Departamento de Impuestos en no más de cinco (5) días hábiles antes de la fecha de pago.</p>
+          pin:
+            primary_signature_pin: "<strong>PIN de 5 dígitos de %{primary_name}</strong>"
+            spouse_signature_pin: "<strong>PIN de 5 dígitos de %{spouse_name}</strong>"
+            title: Elige un PIN de firma de 5 dígitos. Este número será tu firma electrónica personal.
+          primary_esign: He leído la certificación anterior y estoy de acuerdo
+          resubmit: Volver a enviar tu declaración estatal
+          spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
+          submit: Envía tu declaración estatal
+          title: Firma electrónicamente tu declaración de impuestos del estado de %{state_name}

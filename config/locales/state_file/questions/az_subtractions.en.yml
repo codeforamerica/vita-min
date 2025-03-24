@@ -1,0 +1,29 @@
+---
+en:
+  state_file:
+    questions:
+      az_subtractions:
+        edit:
+          armed_forces_member_label:
+            one: You are a member of the Reserves, the National Guard, or the U.S. Armed Forces and received pay for active duty military service.
+            other: You or your spouse are a member of the Reserves, the National Guard, or the U.S. Armed Forces and received pay for active duty military service.
+          armed_forces_wages_label:
+            one: How much did you receive in active duty pay?
+            other: How much did you or your spouse receive in active duty pay?
+          learn_more_content_html: |
+            If you are a member of the <strong>U.S. Armed Forces</strong>, enter the amount of active duty pay that you reported on your federal tax return.<br><br>
+            If you are a member of <strong>the Reserves or the National Guard</strong>, enter pay received for weekend or two-week training periods that you reported on your federal tax return.<br><br>
+            You may <strong>not</strong> include any income you received for full-time civil service employment as a “military technician (dual status)”.
+          learn_more_title: Learn more
+          should_not_exceed_wages: This should not exceed %{wages}
+          subtitle: Check every box that applies. If it does not apply, leave blank and continue.
+          title:
+            one: Did any of the following scenarios apply to you in %{year}?
+            other: Did any of the following scenarios apply to you or your spouse in %{year}?
+          tribal_member_label:
+            one: You are an enrolled member of a <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">federally recognized American Indian tribe</a> and you earned wages while living and working on that tribe’s reservation.
+            other: You or your spouse are an enrolled member of a <u>federally recognized American Indian tribe</u> and you earned wages while living and working on that tribe’s reservation.
+          tribal_wages_label:
+            one: How much did you earn while living and working on your tribe’s reservation?
+            other: How much did you or your spouse earn while living and working on your or their tribe’s reservation?
+          wages_tip: Enter amount earned

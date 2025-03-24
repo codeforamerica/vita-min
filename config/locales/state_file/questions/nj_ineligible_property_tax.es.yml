@@ -1,0 +1,18 @@
+---
+es:
+  state_file:
+    questions:
+      nj_ineligible_property_tax:
+        edit:
+          continue_text: Haz clic en continuar para seguir trabajando en tus impuestos.
+          go_back_link: Corregir.
+          mistake_text: "¿Es esto un error?"
+          on_home: en la vivienda en la que viviste y fuiste dueño/a.
+          on_rental: en la vivienda que alquilaste.
+          reason_html: No eres elegible para esto porque <b>%{reason}</b>
+          reason_income_mfj_qss_hoh: no cumpliste con el límite de ingresos para la presentación de $20,000.
+          reason_income_single_mfs: no cumpliste con el límite de ingresos para la presentación de $10,000.
+          reason_multi_unit_conditions: esta vivienda principal, en un edificio de varias unidades, no cumplió con los requisitos para reclamar este crédito o deducción.
+          reason_neither: ya que debes haber alquilado o haber tenido una vivienda principal en %{filing_year} para recibir este crédito o deducción.
+          reason_property_taxes: no pagaste impuestos sobre la propiedad (a través del alquiler) en esta vivienda principal.
+          title_html: Parece que no eres elegible para la Deducción o Crédito por Impuestos sobre la Propiedad <strong>%{property}</strong>

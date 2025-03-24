@@ -1,0 +1,37 @@
+---
+es:
+  state_file:
+    questions:
+      nc_retirement_income_subtraction:
+        edit:
+          bailey_description: El Acuerdo Bailey es un fallo de la Corte Suprema de Carolina del Norte que establece que ciertos planes de jubilación son libres de impuestos en Carolina del Norte.
+          bailey_more_info_html: Visita el <a target="_blank" href="https://www.ncdor.gov/bailey-decision-concerning-federal-state-and-local-retirement-benefits">Departamento de Ingresos de Carolina del Norte</a> for more information.
+          bailey_reveal_bullets:
+          - Sistema de Jubilación de Maestros y Empleados del Estado de Carolina del Norte
+          - Sistema de Jubilación de Empleados Gubernamentales Locales de Carolina del Norte
+          - Sistema de Jubilación Judicial Consolidado de Carolina del Norte
+          - Sistema de Jubilación de Empleados Federales
+          - Sistema de Jubilación del Servicio Civil de los Estados Unidos
+          bailey_settlement_at_least_five_years: "¿Prestaste tú o tu cónyuge prestaron al menos cinco años de servicio acreditable antes del 12 de agosto de 1989?"
+          bailey_settlement_checkboxes: Por favor, marca todas las casillas sobre el Acuerdo Bailey que te apliquen a ti o a tu cónyuge.
+          bailey_settlement_from_retirement_plan: "¿Recibiste tú o tu cónyuge recibieron beneficios de jubilación del plan 401(k) y estabas contratado o contribuiste al plan antes del 12 de agosto de 1989?"
+          doc_1099r_label: 1099-R
+          income_source_bailey_settlement_html: Beneficios de jubilación como parte del <strong>Acuerdo Bailey</strong>
+          income_source_question: 'Selecciona la fuente de este ingreso:'
+          other: Ninguna de estas opciones aplican
+          subtitle: Necesitamos más información de tu formulario 1099-R para confirmar tu elegibilidad.
+          taxable_amount_label: 'Cantidad sujeta a impuestos:'
+          taxpayer_name_label: 'Nombre del declarante:'
+          title: "¡Podrías ser elegible para la deducción de ingresos de jubilación de Carolina del Norte!"
+          uniformed_services_bullets:
+          - Las Fuerzas Armadas
+          - El cuerpo comisionado de la Administración Nacional Oceánica y Atmosférica (NOAA)
+          - El cuerpo comisionado del Servicio de Salud Pública de los Estados Unidos (USPHS)
+          uniformed_services_checkboxes: Por favor, marca todas las casillas sobre los servicios uniformados que apliquen a ti o a tu cónyuge.
+          uniformed_services_description: 'Los Servicios Uniformados son grupos de personas en roles militares y relacionados. Estos incluyen:'
+          uniformed_services_html: Beneficios de jubilación de los <strong>Servicios Uniformados</strong>
+          uniformed_services_more_info_html: Puedes <a target="_blank" href="https://deploymentpsych.org/system/files/member_resource/TheUniformedServices_1.pdf"> leer más sobre los servicios uniformados aquí.</a>
+          uniformed_services_qualifying_plan: "¿Estos fueron pagos de un Plan de Beneficios para Sobrevivientes calificado para un beneficiario de un miembro retirado que prestó servicio al menos 20 años o que fue retirado por motivos médicos de los Servicios Uniformados?"
+          uniformed_services_retired: "¿Eres tú o tu cónyuge son un miembro retirado que prestó al menos 20 años de servicio o fue retirado por motivos médicos de los Servicios Uniformados?"
+          what_are_uniformed_services: "¿Qué son los Servicios Uniformados?"
+          what_is_bailey: "¿Qué es el Acuerdo Bailey?"

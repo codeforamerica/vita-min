@@ -1,0 +1,34 @@
+---
+es:
+  state_file:
+    questions:
+      id_grocery_credit:
+        edit:
+          answers_confidential_html: Tus respuestas son privadas y se utilizan sólo para determinar si calificas para el crédito fiscal.
+          example_months: Por ejemplo, si tuvieron 2 situaciones en abril, eso cuenta como 1 mes.
+          need_to_know_html: "¿Durante cuántos meses estas situaciones afectaron a esta %{name} en %{filing_year}?"
+          need_to_know_you_html: "¿En cuántos meses te afectaron estas situaciones %{filing_year}?"
+          see_if_you_qualify:
+            many: Para ver si califica, necesitamos más información sobre usted y su hogar.
+            one: Para ver si usted califica, necesitamos más información sobre usted.
+            other: Para ver si calificas, necesitamos más información sobre ti y tu hogar.
+          select_a_household_member_error: Por favor, seleccione una persona en su casa
+          select_household_members: 'Selecciona a las personas de tu hogar para quienes aplican estas situaciones en %{tax_year}:'
+          situation_incarceration: Estuvo encarcelado
+          situation_snap: Recibir cupones de alimentos / SNAP-EBT
+          situation_undocumented: Vivir en los Estados Unidos sin documentación
+          situations_question:
+            many: "¿Alguna de las siguientes situaciones aplicó a ti o tu hogar en %{year}?"
+            one: "¿Alguna de las siguientes situaciones aplicó a ti en %{year}?"
+            other: "¿Alguna de las siguientes situaciones aplicó a ti o tu hogar %{year}?"
+          title: "¡Podrías ser elegible para el Crédito de Idaho por Compras de Alimentos!"
+          title_html: "¡Podrías ser elegible para el<a href=https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit/>Crédito de Idaho por Compras de Alimentos</a>!"
+          total_number_months: Número total de meses
+          why_are_you_asking_heading: "¿Por qué te preguntamos esto?"
+          why_are_you_asking_li1: Recibió cupones de alimentos
+          why_are_you_asking_li2: Estuvo encarcelado
+          why_are_you_asking_li3: Vivió en los Estados Unidos sin documentación
+          why_are_you_asking_p1: 'Algunas restricciones mensuales aplican para este crédito. Una persona no calificará para los meses en los que:'
+          why_are_you_asking_p2: La cantidad del crédito se reduce por cada mes que haya tenido alguna de estas situaciones.
+          why_are_you_asking_p3: Las respuestas se utilizan únicamente para calcular la cantidad del crédito y se mantendrán confidenciales.
+          you_example_months: Por ejemplo, si tuviste 2 situaciones en abril, eso cuenta como 1 mes.

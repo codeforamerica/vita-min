@@ -1,0 +1,69 @@
+---
+en:
+  state_file:
+    questions:
+      nj_review:
+        edit:
+          amount_calculated: Calculated Amount
+          amount_entered: Entered Amount
+          college_dependents: Dependent(s) attending college exemption
+          college_dependents_none: Not applicable
+          continue_helper: Click "Continue" if all this looks right to you.
+          county: "%{county} County"
+          county_municipality: Where you lived as of Dec 31, %{filing_year}
+          edit_disability: disability status
+          edit_veteran: veteran status
+          eitc: New Jersey Earned Income Tax Credit (NJEITC)
+          estimated_tax_payments: Amount of estimated quarterly payments
+          has_estimated_payments: Estimated or other payments
+          household_rent_own: Living situation in %{filing_year}
+          household_rent_own_both: Owned and rented
+          household_rent_own_neither: Neither owned or rented
+          household_rent_own_own: Owned
+          household_rent_own_rent: Rented
+          medical_expenses: Total medical expenses
+          missing_health_insurance: Dependents who DO NOT have health insurance
+          overpayments: Amount of refund carried forward
+          primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
+          primary_disabled: Disability exemption (you)
+          primary_veteran: Veteran exemption (you)
+          property_tax_credit_deduction: New Jersey Property Tax Deduction or Credit
+          property_tax_paid: Property taxes paid in %{filing_year}
+          rent_paid: Rent paid in %{filing_year}
+          retirement_income_source: 1099-R Retirement Income
+          retirement_income_source_doc_1099r_label: '1099-R:'
+          retirement_income_source_label: 'Source:'
+          retirement_income_source_military_pension: U.S. military pension
+          retirement_income_source_military_survivor_benefit: U.S. military survivor's benefits
+          retirement_income_source_other: Neither U.S. military pension nor U.S. military survivor's benefits
+          retirement_income_source_taxable_amount_label: 'Taxable Amount:'
+          retirement_income_source_taxpayer_name_label: 'Taxpayer Name:'
+          reveal:
+            15_wages_salaries_tips: Wages, salaries, tips
+            16a_interest_income: Interest income
+            20a_retirement_income: Retirement income
+            27_total_income: Total income
+            28c_retirement_excluded_from_taxation: Retirement income excluded from Taxation
+            29_nj_gross_income: New Jersey Gross Income
+            30_exemptions: Exemptions (based on the size of your family, disability status, veteran status)
+            31_medical: Medical expenses deducted
+            41_property: Property Tax Deduction
+            42_nj_taxable: New Jersey Taxable Income
+            43_income_tax: Income tax
+            51_use_tax: Use tax
+            54_total_tax: Total tax
+            55_tax_withheld: New Jersey Tax withheld
+            56_property_tax_credit: Property Tax Credit
+            58_nj_eitc: New Jersey Earned Income Tax Credit (NJEITC)
+            59_excess_uiwfswf: Excess UI/WF/SWF withheld
+            61_excess_fli: Excess FLI withheld
+            64_child_dep_care: Child and Dependent Care Tax Credit
+            65_nj_ctc: New Jersey Child Tax Credit
+            66_total_payments_refundable_credits: Total payments and refundable credits
+            header: See detailed return information
+          review_and_edit: Review and Edit
+          spouse_claimed_as_eitc_qualifying_child: Your spouse could be someone's qualifying child
+          spouse_disabled: Disability exemption (spouse)
+          spouse_veteran: Veteran exemption (spouse)
+          use_tax_applied: Out-of-State Purchases/Use Tax Applied
+          year_of_death: Year of spouse's passing

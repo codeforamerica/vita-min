@@ -1,0 +1,10 @@
+---
+en:
+  state_file:
+    questions:
+      ny_eligibility_residence:
+        edit:
+          lived_in_state_html: Did you (and your spouse, if you’re filing together) live in  %{state} for <strong>all</strong> of 2023?
+          lived_or_income_in_yonkers_html: Did you (and your spouse, if you’re filing together) <strong>live, earn income, or maintain a home</strong> in Yonkers at any time in 2023?
+          subtitle: For the 2024 tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this service to file your taxes

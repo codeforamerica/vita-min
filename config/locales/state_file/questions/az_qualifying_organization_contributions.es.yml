@@ -1,0 +1,22 @@
+---
+es:
+  state_file:
+    questions:
+      az_qualifying_organization_contributions:
+        destroy:
+          removed: Se eliminó AZ 321 para %{charity_name}
+        form:
+          amount: Cantidad de la donación/tarifas pagadas en %{filing_year}
+          charity_code: Código de beneficencia
+          charity_name: Nombre de la organización calificada
+          date_of_contribution: Fecha del pago en %{filing_year}
+          main_heading_html: ¿Alguna de tus donaciones fue hecha a <a href="https://azdor.gov/tax-credits/credits-contributions-qcos-and-qfcos" target="_blank">una organización benéfica calificada</a> que ofrece necesidades básicas inmediatas a los residentes de Arizona?
+          org_details_answer_html: "Puedes encontrar esta información en el recibo que te entregó la organización\n<br/><br/>\nO\n<br/><br/>\nVisita el <a href=\"https://azdor.gov/sites/default/files/2024-01/CREDITS_2024_qco.pdf\" target=\"_blank\">Departamento de Ingresos de Arizona</a>para encontrar los detalles. \n"
+          org_details_question: "¿Dónde encuentro los detalles de la organización?"
+          question_header: Por favor, añade detalles sobre la donación en efectivo a organizaciones benéficas calificadas.
+        index:
+          add_another: Agregar otra donación
+          credit_limit: El límite del crédito es $%{credit_limit}
+          delete_confirmation: "¿Estás seguro de que deseas eliminar esta contribución?"
+          maximum_records: Ha proporcionado la cantidad máxima de registros.
+          title: Aquí están las donaciones benéficas calificadas que registramos

@@ -1,0 +1,20 @@
+---
+en:
+  state_file:
+    questions:
+      nyc_residency:
+        edit:
+          full_year:
+            one: I lived in New York City <strong>all year</strong> in %{year}
+            other: My spouse and I lived in New York City <strong>all year</strong> in %{year}
+          maintained_home:
+            one: Did you maintain a home in New York City at any time during %{year}?
+            other: Did you or your spouse maintain a home in New York City at any time during %{year}?
+          none:
+            one: I <strong>did not</strong> live in New York City at all in %{year}
+            other: My spouse and I <strong>did not</strong> live in New York City at all in %{year}
+          nyc_includes_html: "<strong>Note:</strong> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island."
+          part_year:
+            one: I lived in New York City for <strong>some of the year</strong>
+            other: My spouse and I lived in New York City for <strong>some of the year</strong>, or we lived in New York City for different amounts of time.
+          title: 'Select your New York City residency status during %{year}:'

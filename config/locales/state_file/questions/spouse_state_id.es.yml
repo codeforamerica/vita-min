@@ -1,0 +1,7 @@
+---
+es:
+  state_file:
+    questions:
+      spouse_state_id:
+        edit:
+          title_html: Necesitamos algunos detalles del documento de identidad emitida por el estado de <strong>tu cónyuge</strong>, si tiene una

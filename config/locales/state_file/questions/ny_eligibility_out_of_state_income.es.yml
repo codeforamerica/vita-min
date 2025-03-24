@@ -1,0 +1,9 @@
+---
+es:
+  state_file:
+    questions:
+      ny_eligibility_out_of_state_income:
+        edit:
+          out_of_state_income_html: "¿Recibiste (o tu cónyuge, si presentan la declaración juntos) algún ingreso en otro estado en el 2023? (Esto incluye ingresos por desempleo <strong>recibidos</strong> de otro estado.)"
+          part_year_nyc_resident_html: "¿Fuiste (o tu cónyuge, si presentan la declaración juntos) residente de la ciudad de Nueva York durante algún momento del 2023? (¿Te mudaste dentro o fuera de la ciudad durante el 2023?) <br><br> La ciudad de Nueva York incluye el Bronx, Brooklyn, Manhattan, Queens y Staten Island."
+          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos

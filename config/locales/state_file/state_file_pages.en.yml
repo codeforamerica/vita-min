@@ -1,0 +1,151 @@
+---
+en:
+  state_file:
+    state_file_pages:
+      about_page:
+        check_back_for_prior_year_returns: Check back at the start of filing season to download your 2023 Arizona or New York State tax return.
+        closed_subheader_html: |
+          <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
+          <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
+          Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
+        faq_prior_year_returns: Visit our FAQ for questions about prior year returns
+        header: A free state filing service for taxpayers using IRS Direct File
+        helper_heading_html: "<strong>How does this service work? </strong>"
+        looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong> <a href='%{link}'>Sign in</a> to download a copy of your state return."
+        section1_html: |
+          <ol class="list--numbered"  style="padding-left: 2rem">
+            <li>First, file and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> before using this service.</li>
+            <li>Follow the link from Direct File to FileYourStateTaxes.</li>
+            <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Learn more</a> about who is eligible for this tax year.</li>
+            <li>Transfer your federal return to fill in most of your state return.</li>
+            <li>Answer a few additional questions to help maximize your state tax refund.</li>
+            <li>E-file your return for free!</li>
+          </ol>
+          <br /><br />
+          <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
+        subheader_1_html: |
+          FileYourStateTaxes connects with IRS Direct File to help you complete your state tax return for free.
+          <br /><br />
+          This site will open at the start of the 2025 tax filing season and remain open until October 15, 2025 for you to file your state tax returns.
+          <br /><br />
+          <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
+        subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
+        subheader_3_html: "<strong>Already started your state return and need to complete it?</strong> <a href=%{login_path}>Sign in here</a>."
+      card_postscript:
+        responses_saved_html: Your responses are saved. You can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> anytime.
+      coming_soon:
+        title: Coming soon
+      data_import_failed:
+        help_text_html: Don’t worry, you can try again or <a class="open-intercom">chat with us</a> to connect with a tax specialist.
+        title: Unfortunately, your federal tax return failed to transfer.
+      footer:
+        faq: FAQ
+        privacy_policy: Privacy Policy
+        sms_terms: SMS Terms
+        state_file_description_html: FileYourStateTaxes is built by <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> in partnership with state tax agencies to integrate with IRS Direct File.
+      login_options:
+        email_signin: Sign in with email
+        help_text_html: New to FileYourStateTaxes? <a href=%{link}>Get Started</a>
+        phone_number_signin: Sign in with phone number
+        title: Sign in to FileYourStateTaxes
+        title_sign_in_closed: Sign in to download a copy of your state tax return.
+      privacy_policy:
+        access_request_1_html: FileYourStateTaxes.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        access_request_2: Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity—which determined the means and purposes of processing—all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.
+        access_request_header: Access Request
+        additional_services: We may provide additional links to resources we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information.
+        additional_services_header: Additional Services and Resources
+        analytics_header: Analytics
+        analytics_html: We use MixPanel and Google Analytics to understand how visitors use our site and to gather aggregate performance metrics. To learn more about MixPanel’s privacy practices and any opt-out choices it offers, click <a href="https://mixpanel.com/legal/privacy-policy/">HERE</a>. To learn more about Google Analytics privacy practices and any opt-out choices it offers, click <a href="https://policies.google.com/privacy?hl=en-US">HERE</a>. You can also email <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> for additional information.
+        changes: We may change this Privacy Policy from time to time. Please check this page frequently for updates as your continued use of our Services after any changes in this Privacy Policy will constitute your acceptance of the changes. For material changes, we will notify you via email, or other means consistent with applicable law.
+        changes_header: Changes
+        collect_info_third_parties_html: |
+          <p>We may also collect your information from third parties such as</p>
+          <ul class="list--bulleted">
+            <li>Our partners who are assisting you with tax preparation services or any other benefit programs that you apply for</li>
+            <li>The Internal Revenue Service (“IRS”), state departments of revenue, or other government agencies relating to our Services</li>
+          </ul>
+        cookies_1: We use cookies and other technologies to gather data during your use of our Site. Your use of our Site indicates your consent to such use of cookies.
+        cookies_2: Cookies are small text files that websites place on the computers and mobile devices of people who visit those websites. Pixel tags (also called web beacons) are small blocks of code placed on websites and emails.
+        cookies_3: We use cookies and other technologies like pixel tags to remember your preferences, enhance your online experience, and to gather data on how you use our Site to improve the way we promote our content and programs.
+        cookies_4: Most browsers are initially set up to accept HTTP cookies. If you want to restrict or block the cookies that are set by our Site, or any other site, you can do so through your browser setting. The ‘Help’ function in your browser should explain how. Alternatively, you can visit www.aboutcookies.org, which contains comprehensive information on how to do this on a wide variety of browsers. You will find general information about cookies and details on how to delete cookies from your machine.
+        cookies_header: Cookies
+        data_retention_1: 'We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations.'
+        data_retention_2: If you no longer wish to proceed with the FileYourStateTaxes application and request to remove your information from our Services prior to application submission, we will delete or de-identify your information within 90 days of when the Services are terminated unless we are required by law to retain your information. In that case, we will only retain your information as long as required by such law.
+        data_retention_header: Data Retention
+        effective_date: This version of the policy is effective January 15, 2024.
+        effective_date_header: Effective Date
+        header: Privacy Policy
+        header_1_html: <a href='%{link}' target='_blank' rel='noopener nofollow'>FileYourStateTaxes.org</a> is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help households file their state taxes after using the federal IRS Direct File service.
+        header_2_html: This Privacy Policy describes how we collect, use, share, and protect your personal information. By using our Services, you agree to the terms in this Privacy Policy. This Privacy Notice applies regardless of the type of device you use to access our Services.
+        header_3_html: If you have any questions or concerns about this Privacy Notice, please contact us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
+        how_we_collect_your_info: 'We collect your information from various sources, such as when you or your household members:'
+        how_we_collect_your_info_header: How we collect your information
+        how_we_collect_your_info_item_1: Visit our Site, fill out forms on our Site, or use our Services
+        how_we_collect_your_info_item_2: Provide us with documents to use our Services
+        how_we_collect_your_info_item_3: Communicate with us (for instance through email, chat, social media, or otherwise)
+        independent_recourse_body_html: If you have an unresolved privacy or data use concern that we have not addressed satisfactorily, please contact our U.S.-based third party dispute resolution provider (free of charge) at <a href="https://feedback-form.truste.com/watchdog/request">https://feedback-form.truste.com/watchdog/request</a>.
+        independent_recourse_header: How to appeal a decision
+        info_collect_1_html: We do not sell your personal information. We do not share your personal information with any third party, except as provided in this Privacy Policy, and consistent with <a href="https://www.law.cornell.edu/cfr/text/26/301.7216-2" target="_blank" rel="noopener nofollow">26 CFR 301.7216-2.</a> Consistent with regulation, we may use or disclose your information in the following instances&#58;
+        info_collect_item_1: For analysis and reporting, we may share limited aggregate information with government agencies or other third parties, including the IRS or state departments of revenue, to analyze the use of our Services, in order to improve and expand our services. Such analysis is always performed using anonymized data, and data is never disclosed in cells smaller than ten returns.
+        info_collect_item_2: 'For research to improve our tax filing products, including:'
+        info_collect_item_2_1: To invite you to complete questionnaires regarding your experience using our product.
+        info_collect_item_2_2: To send you opportunities to participate in paid user research sessions, to learn more about your experience using our product and to guide the development of future free tax filing products.
+        info_collect_item_3_html: To notify you of the availability of free tax filing services in the future.
+        info_collect_item_4: If necessary, we may disclose your information to contractors who help us provide our services. We require our third parties acting on our behalf to keep your personal information secure, and do not allow these third parties to use or share your personal information for any purpose other than providing services on our behalf.
+        info_collect_item_5: 'Legal Compliance: In certain situations, we may be required to disclose personal data in response to lawful requests by public authorities, including to meet national security or law enforcement requirements. We may also disclose your personal information as required by law, such as to comply with a subpoena or other legal process, when we believe in good faith that disclosure is necessary to protect our rights, protect your safety or the safety of others, investigate fraud, or respond to a government request.'
+        info_we_collect_1: 'We follow the Data Minimization principle in the collection and use of your personal information. We may collect the following information about you, your dependents, or members of your household:'
+        info_we_collect_header: Information we collect
+        info_we_collect_item_1: Personal identifiers such as name, addresses, phone numbers, and email addresses
+        info_we_collect_item_10: Household information and information about your spouse, if applicable
+        info_we_collect_item_11: Information from your computer or device, such as IP address, operating system, browser, date and time of visit, and click-stream data (the website or domain you came from, the pages you visit, and the items you click on during your session)
+        info_we_collect_item_2: Date of birth
+        info_we_collect_item_3: Demographic information, such as age and marital status
+        info_we_collect_item_4: Characteristics of protected classifications, such as gender, race, and ethnicity
+        info_we_collect_item_5: Tax information, such as social security number or individual taxpayer identification number (ITIN)
+        info_we_collect_item_6: State-issued identification, such as driver’s license number
+        info_we_collect_item_7: Financial information, such as employment, income, and income sources
+        info_we_collect_item_8: Banking details for direct deposit of refunds or payment of tax due via direct debit
+        info_we_collect_item_9: Demographic and financial details of dependents
+        overview: Overview
+        postal_mail_1: To update your preferences or contact information, you may
+        postal_mail_3: Please note that even if you unsubscribe from promotional email offers and updates, we may still contact you for transactional purposes. For example, we may send communications regarding your tax return status, reminders, or to alert you of additional information needed.
+        postal_mail_header: Postal mail, email, and promotions
+        postal_mail_item_1_html: contact us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> and request removal from the FileYourStateTaxes update emails
+        postal_mail_item_2: follow the opt-out instructions provided in emails or postal mail
+        protect_info_1: Protecting your personal information is extremely important to us so we take reasonable administrative, technical, and physical precautions to protect your information both online and offline.
+        protect_info_2: Still, no system can be guaranteed to be 100% secure.
+        protect_info_3_html: In the event of a security system breach, you will be notified pursuant to applicable state statutes regarding breach notifications.
+        protect_info_4: If you have questions about the security of your personal information, or if you have reason to believe that the personal information that we hold about you is no longer secure, please contact us immediately by email at help@fileyourstatetaxes.org.
+        protect_info_header: How we protect your information
+        questions_1_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> or by mail at:'
+        questions_2: We will do our best to resolve the issue.
+        questions_header: Questions
+        transactional_sms_header: Transactional SMS (Text) Messages
+        transactional_sms_html: You may unsubscribe to transactional messages by texting back STOP at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see FileYourStateTaxes’s <a href='%{link}' target="_blank" rel="noopener nofollow">SMS terms</a> for additional details and opt-out instructions for these services. Data obtained through the SMS program will not be shared with any third-parties for their marketing reasons/purposes.
+        using_info_collected_html: |
+          <h3>Using information we have collected</h3>
+          <p>We use your information for our business purposes, such as</p>
+          <ul class="list--bulleted">
+            <li>To complete forms required for use of the Services or filing of your taxes</li>
+            <li>To provide support to you through the process and communicate with you</li>
+            <li>To monitor and understand how the Site and our Services are used</li>
+            <li>To improve the quality or scope of the Site or our Services</li>
+            <li>To suggest other services or assistance programs that may be useful to you</li>
+            <li>For fraud detection, prevention, and security purposes</li>
+            <li>To comply with legal requirements and obligations</li>
+          </ul>
+        your_info: We value and respect your privacy and offer you choices over how we collect, use, and share your information.
+        your_info_header: Your choices regarding your information
+      sms_terms:
+        body_1: When you opt-in to the service, we will send you an SMS message to confirm your signup. We will also text you updates on your tax return (message frequency will vary) and/or OTP/2FA codes (one message per request).
+        body_2_html: You can cancel the SMS service at any time. Just <strong>text "STOP" to 46207</strong>. After you send the SMS message "STOP" to us, we will send you an SMS message to confirm that you have been unsubscribed. After this, you will no longer receive SMS messages from us. If you want to join again, just <strong>reply "START"</strong> and we will start sending SMS messages to you again.
+        body_3_html: If at any time you forget what keywords are supported, just <strong>text "HELP" to 46207</strong>. After you send the SMS message "HELP" to us, we will respond with instructions on how to use our service as well as how to unsubscribe.
+        body_4: 'We are able to deliver messages to the following mobile phone carriers:'
+        body_5a: As always, message and data rates may apply for any messages sent to you from us and to us from you. If you have any questions about your text plan or data plan, it is best to contact your wireless provider.
+        body_5b_html: For all questions about the services provided by this short code, you can send an email to <strong><a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a></strong>.
+        body_6_html: 'If you have any questions regarding privacy, please read our privacy policy: <a href="%{link}" target="_blank" rel="noopener nofollow">https://FileYourStateTaxes.org/privacy-policy</a>'
+        carrier_disclaimer: Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages.
+        header: FileYourStateTaxes text messaging terms and conditions
+        major_carriers: 'Major carriers: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel, and Virgin Mobile.'
+        minor_carriers: 'Minor carriers: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated or CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, and West Central (WCC or 5 Star Wireless).'

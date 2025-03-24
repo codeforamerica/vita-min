@@ -1,0 +1,18 @@
+---
+es:
+  state_file:
+    questions:
+      nj_sales_use_tax:
+        edit:
+          followup_radio_label: 'Selecciona una de las siguientes:'
+          helper_description_html: "<p>Esto se aplica a las compras online donde no se aplicó el impuesto sobre ventas o uso. (Amazon y muchos otros minoristas aplican impuestos).</p> \n<p>También se aplica a los artículos o servicios comprados fuera del estado, en un estado donde no había impuesto sobre las ventas o la tasa del impuesto sobre las ventas era inferior a la tasa de New Jersey del 6.625%.</p>\n<p>(<a href=\"https://nj.gov/treasury/taxation/su_10.shtml\" target=\"_blank\" rel=\"noopener nofollow\">Revisa esta página para obtener más detalles.</a>)</p>\n"
+          helper_heading: "¿A qué tipo de artículos o servicios se aplica esto?"
+          manual_use_tax_label_html: "<strong>Ingresa el monto total del impuesto sobre uso (Use Tax)</strong>"
+          no_text: No (esta es la opción común)
+          subtitle_html: |-
+            <p>Si hiciste compras sin pagar los Impuestos sobre Venta (Sales Tax), puede que debas Impuesto sobre Uso (Use Tax) por esas compras. Te ayudaremos a calcular el monto.</p>
+            <p>Nota: Tu hogar fiscal/tributable te incluye a ti, a tu cónyuge y a tus dependientes.</p>
+          title: "¿Tu hogar fiscal/tributable hizo compras fuera del estado en %{filing_year} sin pagar el total del Impuesto sobre Ventas (Sales Tax) de New Jersey?"
+          use_tax_method_automated: Cada una de mis compras fue menos de $1000. Calcula el monto del impuesto de uso por mí.
+          use_tax_method_manual: Realicé al menos una compra superior a $1000, o prefiero calcular manualmente mi impuesto de uso.
+          use_tax_radio_label: "¿Realizó alguna compra fuera del estado que no pagó impuestos?"

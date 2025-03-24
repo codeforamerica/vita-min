@@ -1,0 +1,9 @@
+---
+en:
+  state_file:
+    questions:
+      az_senior_dependents:
+        edit:
+          assistance_label: Did %{name} need assistance with daily living activities such as dressing, eating, taking medication, shopping, or preparing their food?
+          passed_away_label: Did %{name} pass away in %{filing_year}?
+          title: We need additional information about %{dependents_name_list}

@@ -1,0 +1,27 @@
+---
+es:
+  state_file:
+    questions:
+      md_had_health_insurance:
+        edit:
+          authorize_follow_up: Si respondes que sí, compartiremos tu información y la dirección de correo electrónico registrada con Maryland Health Connection.
+          authorize_share_health_information: "¿Quieres autorizar al Contralor de Maryland a compartir información de esta declaración de impuestos con Maryland Health Connection para determinar la pre-elegibilidad para cobertura de salud sin costo o de bajo costo?"
+          authorize_to_share_info:
+          - Nombre, SSN/ITIN y fecha de nacimiento de cada persona identificada en tu declaración
+          - Tu dirección de correspondencia, correo electrónico y número de teléfono
+          - Tu estado civil tributario
+          - Número total de personas en tu hogar incluidas en tu declaración
+          - Estado asegurado/no asegurado de cada persona incluida en tu declaración
+          - Si eres una persona ciega
+          - Relación (titular, cónyuge o dependiente) con el contribuyente principal de cada persona incluida en tu declaración
+          - El ingreso bruto ajustado de tu declaración federal (Line 1)
+          following_will_be_shared: 'Si lo permites, el Contralor de Maryland compartirá estos detalles con Maryland Health Connection (MHC):'
+          information_use: Esta información ayuda a MHC a verificar si calificas para un seguro asequible o para ayudarte a inscribirte en la cobertura de salud.
+          more_info: 'Para más detalles sobre programas de seguros o inscripción, visita el sitio web de Maryland Health Connection: <a href="%{link}" target="_blank" rel="noopener noreferrer">marylandhealthconnection.gov/easyenrollment/</a>.'
+          no_insurance_question: "¿Algún miembro de tu hogar incluido en esta declaración <strong>no</strong> tuvo cobertura de salud durante el año?"
+          subtitle: Compartir esta información <strong>no</strong> afectará tu declaración de impuestos.
+          title: Antes de que envíes, tenemos algunas preguntas sobre la cobertura de seguro de salud
+          what_will_be_shared: "¿Qué información se compartirá con Maryland Health Connection?"
+          which_members_not_have_insurance: Selecciona al(los) miembro(s) de tu hogar que <strong>no tenía(n)</strong> cobertura de salud al finalizar %{tax_year}.
+          why_ask_explanation: Esta información ayudará a Maryland Health Connection a determinar la elegibilidad para miembros de tu hogar que no tienen seguro médico para que reciban cobertura de salud sin costo o de bajo costo. Compartir esta información<strong>no afectará</strong>tu declaración de impuestos y no generará penalizaciones.
+          why_ask_this: "¿Por qué te preguntamos esto?"

@@ -1,0 +1,24 @@
+---
+es:
+  state_file:
+    questions:
+      nj_household_rent_own:
+        edit:
+          both_html: "<b>Ambas</b>: Fui dueño/a de vivienda durante parte del año y fui inquilino/a durante parte del año."
+          description_html: Tu "vivienda principal" es donde viviste principalmente en un momento dado (por ejemplo, una casa, un condominio o un apartamento). <strong>No puedes tener varias viviendas principales al mismo tiempo, pero puedes tener diferentes viviendas principales a lo largo del año si te mudaste. </strong>
+          helper_1_description: Sí. Esta exención fiscal está diseñada para apoyar a las personas en New Jersey cuyo dinero contribuye a los impuestos sobre la propiedad. (Los inquilinos lo hacen pagando el alquiler, contribuyendo al costo de los impuestos sobre la propiedad pagados por los propietarios).
+          helper_1_header: "¿Confirmas que esto se aplica al alquiler pagado?"
+          helper_2_description: No. Responde las preguntas en esta sección solo para tu vivienda principal. No puedes reclamar esta exención fiscal para una casa de vacaciones, una "segunda vivienda" o una propiedad que posees y alquilas a otra persona.
+          helper_2_header: "¿Puedo reclamar una casa de vacaciones o una propiedad que alquilo a alguien?"
+          helper_3_description: Si eras dueño/a de una casa móvil/rodante en un parque de casas móviles, se te considera inquilino/a. Las tarifas del sitio son lo que pagaste de alquiler.
+          helper_3_header: "¿Qué pasa si vivía en una casa móvil/rodante?"
+          helper_4_description_html: |
+            <p><strong>La Deducción</strong> por Impuestos sobre la Propiedad reduce tus ingresos imponibles. Deduciremos tu parte de los impuestos sobre la propiedad pagados o $15,000, lo que sea menor. Para inquilinos, consideraremos el 18% del alquiler pagado como tu parte.</p>
+            <p><strong>El Crédito</strong> por Impuestos sobre la Propiedad es un crédito de $50 que reducirá tu responsabilidad tributaria o aumentará tu reembolso.</p>
+            <p>Determinaremos si la deducción o el crédito te ahorra más dinero.</p>
+          helper_4_header: "¿De cuánto es esta deducción o crédito?"
+          homeowner_html: Fui <b>dueño/a de vivienda</b> durante al menos parte del año
+          label_html: "¿Cómo describirías tu situación de vivienda en %{filing_year} <strong>en lo que respecta a tu(s) vivienda(s) principal(es)</strong>?"
+          neither_html: Otra
+          tenant_html: Fui <b>inquilino/a</b> durante al menos parte del año
+          title: Puedes calificar para una Deducción o Crédito por impuestos sobre la propiedad en tu vivienda principal, ya sea que la hayas comprado o alquilado.

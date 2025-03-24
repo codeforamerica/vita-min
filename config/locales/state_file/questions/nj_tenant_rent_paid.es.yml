@@ -1,0 +1,12 @@
+---
+es:
+  state_file:
+    questions:
+      nj_tenant_rent_paid:
+        edit:
+          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> opor las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (ANCHOR ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
+          helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
+          helper_description: Ingresa las tarifas de tu sitio pagadas en %{filing_year}.
+          helper_heading: Dueños/as de casas móviles/rodantes
+          label_html: "<strong>Ingresa tu parte total del alquiler que pagaste en %{filing_year}</strong>"
+          title: Buenas noticias—calificas para una deducción o crédito

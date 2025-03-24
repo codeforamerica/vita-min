@@ -1,0 +1,10 @@
+---
+en:
+  state_file:
+    questions:
+      verification_code:
+        edit:
+          action: Verify code
+          subtitle_html: If you didn’t receive a code, please <a class="open-intercom">chat with us</a>.
+          title_html: We’ve sent your code to <strong>%{contact_info}</strong>
+          verification_code_label: Enter the 6-digit code

@@ -1,0 +1,10 @@
+---
+es:
+  state_file:
+    questions:
+      id_spouse_state_id:
+        id_spouse:
+          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor comparte la información que solicitamos de la misma. La declaración no será rechazada si no compartes una licencia de conducir o una identificación emitida por el estado.<br><br>Si compartes esta información, puede ayudar a que te identifiquen como el contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluido Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por robo de identidad y protegerte a ti y a tu reembolso de impuestos.
+          title_html: Necesitamos algunos detalles del documento de identidad emitida por el estado de <strong>tu cónyuge</strong>, si tiene una
+          why_ask_this: "¿Por qué están pidiendo esta información?"

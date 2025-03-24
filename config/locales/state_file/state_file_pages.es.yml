@@ -1,0 +1,151 @@
+---
+es:
+  state_file:
+    state_file_pages:
+      about_page:
+        check_back_for_prior_year_returns: Vuelve a consultar al inicio de la temporada de impuestos para descargar tu declaración estatal de Arizona o Nueva York de 2023.
+        closed_subheader_html: |
+          <strong>FileYourStateTaxes</strong> se conecta con <strong>el servicio Direct File del IRS</strong> para ayudarte a completar tu declaración de impuestos estatal <strong>sin costo.</strong><br/><br/>
+          <strong>Ya cerramos por esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año</strong><br /><br />
+          ¿Ya presentaste tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración de impuestos estatales hasta el 31 de diciembre de 2024</strong><br /><br />
+        faq_prior_year_returns: Visita nuestra sección de preguntas frecuentes si tienes dudas sobre declaraciones de años anteriores.
+        header: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
+        helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
+        looking_for_return_html: "<strong>¿Necesitas tu declaración de impuestos de Arizona o Nueva York de 2023?</strong> <a href='%{link}'>Inicia sesión</a> para descargar una copia de tu declaración estatal."
+        section1_html: |
+          <ol class="list--numbered" style="padding-left: 2rem">
+            <li>Primero, presenta y envía tu declaración federal con el servicio <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Direct File del IRS</a> antes de usar este servicio.</li>
+            <li>Sigue el enlace de Direct File a FileYourStateTaxes.</li>
+            <li>Responde algunas preguntas para asegurarte de que este servicio sea adecuado para ti. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Obtén más información</a> sobre quién es elegible este año fiscal.</li>
+            <li>Transfiere tu declaración federal para completar automáticamente la mayor parte de tu declaración estatal.</li>
+            <li>Responde algunas preguntas adicionales para aumentar tu reembolso de impuestos estatales.</li>
+            <li>¡Presenta tu declaración electrónicamente sin costo!</li>
+          </ol>
+          <br /><br />
+          <strong>Para saber más, consulta las <a href=%{faq_link}>preguntas frecuentes</a>.</strong>
+        subheader_1_html: |
+          FileYourStateTaxes se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.
+          <br /><br />
+          Este sitio empezará a funcionar al inicio de la temporada de impuestos de 2025 y estará activo hasta el 15 de octubre de 2025 para que puedas presentar tus declaraciones de impuestos estatales.
+          <br /><br />
+          <strong>En 2025, este servicio funcionará para presentar los impuestos estatales en Arizona, Idaho, Carolina del Norte, New Jersey y Maryland.</strong>
+        subheader_2_html: Para declarar tus declaración de impuestos federales, visita <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
+        subheader_3_html: "<strong>¿Ya comenzaste declaración de impuestos estatales y quieres completarla?</strong> <a href=%{login_path}>Inicia sesión aquí</a>."
+      card_postscript:
+        responses_saved_html: Tus respuestas fueron guardadas. Puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> en cualquier momento.
+      coming_soon:
+        title: Próximamente
+      data_import_failed:
+        help_text_html: No te preocupes, puedes intentarlo de nuevo o <a class="open-intercom">chatear con nosotros</a> para conectarte con un especialista en impuestos.
+        title: Lamentablemente, la transferencia de tu declaración de impuestos federales no se completó.
+      footer:
+        faq: Preguntas Frecuentes
+        privacy_policy: Política de Privacidad
+        sms_terms: Términos y Condiciones de SMS
+        state_file_description_html: FileYourStateTaxes ha sido creado por <a target="_blank" rel="noopener nofollow" href="https://www.codeforamerica.org">Code for America</a> en colaboración con estados para integrarse con el servicio Direct File del IRS.
+      login_options:
+        email_signin: Iniciar sesión con correo electrónico
+        help_text_html: "¿Eres nuevo en FileYourStateTaxes? <a href=%{link}>Comienza aquí</a>"
+        phone_number_signin: Iniciar sesión con número de teléfono
+        title: Iniciar sesión en FileYourStateTaxes
+        title_sign_in_closed: Inicie sesión para descargar una copia de tu declaración de impuestos estatales.
+      privacy_policy:
+        access_request_1_html: FileYourStateTaxes.org respeta tu control sobre tu información y, a pedido, confirmaremos si tenemos o estamos procesando información que hemos recopilado de ti. También tienes derecho a corregir o actualizar información personal inexacta o incompleta, solicitar una copia portable o la eliminación de tu información personal o solicitar que dejemos de usarla. En ciertas circunstancias, no podremos cumplir con tu solicitud, como si interfiere con nuestras obligaciones regulatorias, afecta asuntos legales, no podemos verificar tu identidad o implica un costo o esfuerzo desproporcionados, pero de todos modos responderemos a tu solicitud en un plazo razonable y te daremos una explicación. Para hacer tal solicitud, envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        access_request_2: Ten en cuenta que para la información personal sobre ti que hemos obtenido o recibido para procesar en nombre de una entidad separada y no afiliada, que determinó los medios y fines del procesamiento, todas esas solicitudes deben hacerse directamente a esa entidad. Honraremos y apoyaremos cualquier instrucción que nos compartan con respecto a tu información personal.
+        access_request_header: Solicitud de Acceso
+        additional_services: Podemos proporcionar enlaces adicionales a recursos que creemos que te resultarán útiles. Estos enlaces pueden llevarte a sitios que no están afiliados a nosotros y/o que pueden operar bajo prácticas de privacidad diferentes. No somos responsables del contenido o las prácticas de privacidad de dichos sitios. Invitamos a nuestros visitantes y usuarios a estar al tanto cuando abandonen nuestro sitio y leer las declaraciones de privacidad de cualquier otro sitio, ya que no controlamos cómo otros sitios recopilan la información personal.
+        additional_services_header: Servicios y Recursos Adicionales
+        analytics_header: Analítica
+        analytics_html: Utilizamos MixPanel y Google Analytics para entender cómo los visitantes usan nuestro sitio y para recopilar métricas de rendimiento agregadas. Haz clic <a href="https://mixpanel.com/legal/privacy-policy/">AQUÍ</a>, para obtener más información sobre las prácticas de privacidad de MixPanel y las opciones de exclusión que ofrece. Haz clic <a href="https://policies.google.com/privacy?hl=en-US">AQUÍ</a>, para obtener más información sobre las prácticas de privacidad de Google Analytics y las opciones de exclusión que ofrece. También puedes enviar un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org"> help@fileyourstatetaxes.org</a> para obtener información adicional.
+        changes: Es posible que cambiemos esta Política de Privacidad de vez en cuando. Consulta esta página con frecuencia para obtener actualizaciones, ya que continuar usando nuestros servicios después de cualquier cambio en esta Política de Privacidad constituirá tu aceptación de los cambios. Para cambios importantes, te notificaremos por correo electrónico u otros medios consistentes con la ley aplicable.
+        changes_header: Cambios
+        collect_info_third_parties_html: |
+          <p>También podemos recopilar tu información de terceros como</p>
+          <ul class="list--bulleted">
+          <li>Nuestros socios que te están ayudando con servicios de preparación de impuestos u otros programas de beneficios para los que apliques</li>
+          <li>El Servicio de Impuestos Internos (“IRS”, por sus siglas en inglés), los departamentos estatales de ingresos u otras agencias gubernamentales relacionadas con nuestros Servicios</li>
+          </ul>
+        cookies_1: Usamos cookies y otras tecnologías para recoger datos durante el uso de nuestro sitio. Tu uso de nuestro sitio indica tu consentimiento para dicho uso de cookies.
+        cookies_2: Las cookies son archivos de texto pequeños que los sitios web colocan en las computadoras y dispositivos móviles de las personas que visitan esos sitios web. Las etiquetas de píxeles (también llamadas web beacons) son pequeños bloques de código colocados en sitios web y correos electrónicos.
+        cookies_3: Usamos cookies y otras tecnologías como etiquetas de píxeles para recordar tus preferencias, mejorar tu experiencia en línea y recopilar datos sobre cómo usas nuestro sitio para mejorar la forma en que brindamos nuestro contenido y programas.
+        cookies_4: La mayoría de los navegadores están configurados inicialmente para aceptar cookies HTTP. Si deseas restringir o bloquear las cookies que establece nuestro sitio, u cualquier otro sitio, puedes hacerlo a través de la configuración de tu navegador. La función 'Ayuda' de tu navegador debería explicar cómo hacerlo. Alternativamente, puedes visitar www.aboutcookies.org, que contiene información completa sobre cómo hacerlo en una amplia variedad de navegadores. Encontrarás información general sobre cookies y detalles sobre cómo eliminar cookies de tu máquina.
+        cookies_header: Cookies
+        data_retention_1: 'Retendremos tu información mientras sea necesario para: proporcionarte servicios, operar nuestro negocio de acuerdo con esta Notificación, o demostrar el cumplimiento de las leyes y obligaciones legales.'
+        data_retention_2: Si ya no deseas continuar con la aplicación con FileYourStateTaxes y solicitas eliminar tu información de nuestros servicios antes de enviar la solicitud, eliminaremos o desidentificaremos tu información dentro de los 90 días posteriores a la terminación de los servicios, a menos que la ley nos exija retener tu información. En ese caso, solo retendremos tu información durante el tiempo requerido por dicha ley.
+        data_retention_header: Retención de datos
+        effective_date: Esta versión de la política es efectiva a partir del 15 de enero de 2024.
+        effective_date_header: Fecha de entrada en vigor
+        header: Política de Privacidad
+        header_1_html: <a href='%{link}' target='_blank' rel='noopener nofollow'>FileYourStateTaxes.org</a> es un servicio creado por Code for America Labs, Inc. ("Code for America", "nosotros", "nos", "nuestro") para ayudar a los contribuyentes a presentar sus impuestos estatales después de usar el servicio Direct File del IRS.
+        header_2_html: Esta Política de Privacidad describe cómo recopilamos, usamos, compartimos y protegemos tu información personal. Al usar nuestros servicios, aceptas los términos de esta Política de Privacidad. Esta Notificación de Privacidad se aplica independientemente del tipo de dispositivo que utilices para acceder a nuestros servicios.
+        header_3_html: Si tienes alguna pregunta sobre esta Notificación de Privacidad, contáctanos en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
+        how_we_collect_your_info: 'Recogemos tu información de diversas fuentes, como cuando tú o los miembros de tu hogar:'
+        how_we_collect_your_info_header: Cómo recogemos tu información
+        how_we_collect_your_info_item_1: Visitan nuestro Sitio, completan formularios en nuestro Sitio o usan nuestros Servicios
+        how_we_collect_your_info_item_2: Nos comparten documentos para usar nuestros servicios
+        how_we_collect_your_info_item_3: Se comunican con nosotros (por ejemplo, a través de correo electrónico, chat, redes sociales o de otra manera)
+        independent_recourse_body_html: 'Si tienes una inquietud no resuelta sobre privacidad o uso de datos que no hayamos respondido satisfactoriamente, comunícate con nuestro proveedor de resolución de disputas de terceros con sede en EE. UU. (sin costo) usando este formulario, disponible en inglés: <a href="https://feedback-form.truste.com/watchdog/request">https://feedback-form.truste.com/watchdog/request</a>.'
+        independent_recourse_header: Cómo apelar una decisión
+        info_collect_1_html: 'No vendemos tu información personal. No compartimos tu información personal con ningún tercero, excepto según se establece en esta Política de Privacidad y de conformidad con el <a href="https://www.law.cornell.edu/cfr/text/26/301.7216-2" target="_blank" rel="noopener nofollow">26 CFR 301.7216-2.</a> De conformidad con la regulación, podemos usar o divulgar tu información en los siguientes casos:'
+        info_collect_item_1: Para análisis e informes, es posible que compartamos información agregada limitada con agencias gubernamentales u otros terceros, incluido el IRS o los departamentos estatales de ingresos, para analizar el uso de nuestros servicios, con el fin de mejorar y ampliar nuestros servicios. Dicho análisis siempre se realiza usando datos anonimados, y la información nunca se divulga en conjuntos menores a diez declaraciones.
+        info_collect_item_2: 'Para investigación que buscan mejorar nuestros productos de declaración de impuestos, incluido:'
+        info_collect_item_2_1: Para invitarte a completar cuestionarios sobre tu experiencia usando nuestro servicio.
+        info_collect_item_2_2: Para enviarte oportunidades para participar en sesiones pagas de investigación de usuarios, para aprender más sobre tu experiencia usando nuestro servicio y para orientar el desarrollo de futuros productos sin costo de declaración de impuestos.
+        info_collect_item_3_html: Para notificarte sobre la disponibilidad de servicios gratuitos de declaración de impuestos en el futuro.
+        info_collect_item_4: Si es necesario, es posible que divulguemos tu información a contratistas que nos ayuden a brindar nuestros servicios. Exigimos que nuestros terceros que actúan en nuestro nombre mantengan segura tu información personal y no permitimos que estos terceros utilicen o compartan tu información personal para ningún otro fin que no sea brindar servicios en nuestro nombre.
+        info_collect_item_5: 'Cumplimiento legal: En ciertas situaciones, es posible que se nos requiera compartir datos personales en respuesta a solicitudes legítimas de autoridades públicas, incluyendo para cumplir con requisitos de seguridad nacional o de aplicación de la ley. También puede que compartamos tu información personal según lo exigido por la ley, como para cumplir con una citación u otro proceso legal, cuando creamos de buena fe que la divulgación es necesaria para proteger nuestros derechos, proteger tu seguridad o la seguridad de otros, investigar fraudes o responder a una solicitud gubernamental.'
+        info_we_collect_1: 'Seguimos el principio de Minimización de Datos en la recolección y uso de tu información personal. Puede que obtengamos la siguiente información sobre ti, tus dependientes o miembros de tu hogar:'
+        info_we_collect_header: Información que recogemos
+        info_we_collect_item_1: Identificadores personales como nombre, direcciones, números de teléfono y direcciones de correo electrónico
+        info_we_collect_item_10: Información del hogar y información sobre tu cónyuge, si corresponde
+        info_we_collect_item_11: Información de tu computadora o dispositivo, como dirección IP, sistema operativo, navegador, fecha y hora de visita, y datos de clics (el sitio web o dominio del que vienes, las páginas que visitas y los elementos en los que haces clic durante tu sesión)
+        info_we_collect_item_2: Fecha de nacimiento
+        info_we_collect_item_3: Información demográfica, como edad y estado civil
+        info_we_collect_item_4: Características de clasificaciones protegidas, como género, raza y etnia
+        info_we_collect_item_5: Información tributaria, como número de seguro social o número de identificación de contribuyente individual (ITIN)
+        info_we_collect_item_6: Identificación emitida por el estado, como número de licencia de conducir
+        info_we_collect_item_7: Información financiera, como empleo, ingresos y fuentes de ingresos
+        info_we_collect_item_8: Detalles bancarios para depósito directo de reembolsos o pago de impuestos adeudados mediante débito directo
+        info_we_collect_item_9: Detalles demográficos y financieros de dependientes
+        overview: Descripción general
+        postal_mail_1: Para actualizar tus preferencias o información de contacto, puedes
+        postal_mail_3: Ten en cuenta que incluso si te das de baja de las ofertas de correo electrónico promocional y actualizaciones, es posible que aún te contactemos con fines transaccionales. Por ejemplo, podemos enviar comunicaciones sobre el estado de tu declaración de impuestos, recordatorios o para alertarte sobre información adicional necesaria.
+        postal_mail_header: Correo postal, correo electrónico y promociones
+        postal_mail_item_1_html: Ponte en contacto con nosotros enviando un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> y solicitando que te excluyan de los correos electrónicos de actualización de FileYourStateTaxes
+        postal_mail_item_2: Sigue las instrucciones para darte de baja que compartimos en correos electrónicos o correo postal.
+        protect_info_1: Proteger tu información personal es extremadamente importante para nosotros, por lo que tomamos precauciones administrativas, técnicas y físicas razonables para proteger tu información tanto en línea como fuera de línea. Sin embargo, ningún sistema puede garantizar su seguridad al 100%.
+        protect_info_2: Sin embargo, ningún sistema puede garantizarse al 100% seguro.
+        protect_info_3_html: En caso de una violación del sistema de seguridad, se te notificará de acuerdo con las leyes estatales aplicables sobre notificaciones de violaciones de seguridad.
+        protect_info_4: Si tienes preguntas sobre la seguridad de tu información personal, o si tienes motivos para creer que la información personal que tenemos sobre ti ya no es segura, contáctanos de inmediato un correo electrónico a help@fileyourstatetaxes.org para obtener información adicional.
+        protect_info_header: Cómo protegemos tu información
+        questions_1_html: 'Si tienes alguna pregunta, comentario, inquietud o queja sobre el Sitio, contáctanos por correo electrónico en <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> o por correo postal a:'
+        questions_2: Haremos todo lo posible para resolver el problema.
+        questions_header: Preguntas
+        transactional_sms_header: Mensajes de texto transaccionales (SMS)
+        transactional_sms_html: Puedes darte de baja de los mensajes transaccionales enviando STOP en cualquier momento. Después de recibir tu solicitud de exclusión, te enviaremos un mensaje de texto final para confirmar que te quieres dar de baja. Consulta los <a href='%{link}' target="_blank" rel="noopener nofollow">términos de SMS</a> de FileYourStateTaxes para obtener detalles adicionales e instrucciones para darte de baja de estos servicios. Los datos obtenidos a través del programa de SMS no se compartirán con terceros para sus razones/propósitos de marketing.
+        using_info_collected_html: |
+          <h3>Uso de la información que hemos recogido</h3>
+          <p>Usamos tu información para nuestros fines empresariales, como</p>
+          <ul class="list--bulleted">
+          <li>Completar formularios requeridos para el uso de los servicios o la declaración de tus impuestos</li>
+          <li>Brindarte apoyo durante el proceso y comunicarnos contigo</li>
+          <li>Monitorear y comprender cómo se usa el Sitio y nuestros Servicios</li>
+          <li>Mejorar la calidad o alcance del Sitio o nuestros Servicios</li>
+          <li>Sugerir otros servicios o programas de asistencia que puedan ser útiles para ti</li>
+          <li>Para la detección, prevención y seguridad contra fraudes</li>
+          <li>Para cumplir con requisitos y obligaciones legales</li>
+          </ul>
+        your_info: Valoramos y respetamos tu privacidad y te ofrecemos opciones sobre cómo recogemos, usamos y compartimos tu información.
+        your_info_header: Tus opciones con respecto a tu información
+      sms_terms:
+        body_1: Cuando optes por el servicio, te enviaremos un mensaje SMS para confirmar tu registro. También le enviaremos mensajes de texto con actualizaciones sobre su declaración de impuestos (la frecuencia de los mensajes variará) y/o códigos OTP/2FA (un mensaje por solicitud).
+        body_2_html: Puedes cancelar el servicio de SMS en cualquier momento. Simplemente <strong>envíe "STOP" al 46207</strong>. Después de enviarnos el mensaje SMS "STOP", le enviaremos un mensaje SMS para confirmar que se ha cancelado su suscripción. Después de esto, ya no recibirás más mensajes SMS de nuestra parte. Si desea unirse nuevamente, simplemente <strong>responda "START"</strong> y comenzaremos a enviarle mensajes SMS nuevamente.
+        body_3_html: Si en algún momento olvida qué palabras clave son compatibles, simplemente <strong>envíe "HELP" al 46207</strong>. Después de enviarnos el mensaje SMS "HELP", le responderemos con instrucciones sobre cómo utilizar nuestro servicio y cómo cancelar la suscripción.
+        body_4: 'Podemos entregar mensajes a los siguientes proveedores de telefonía móvil:'
+        body_5a: Como siempre, pueden aplicar tarifas por mensajes y datos para cualquier mensaje que te enviemos y que nos envíes. Si tiene alguna pregunta sobre tu plan de mensajes de texto o de datos, es mejor contactar a tu proveedor de telefonía móvil.
+        body_5b_html: Para todas las preguntas sobre los servicios proporcionados por este código corto, puede enviar un correo electrónico a <strong><a href="mailto:help@fileyourstatetaxes.org" target="_blank" rel="noopener nofollow">help@fileyourstatetaxes.org</a></strong>.
+        body_6_html: 'Si tienes alguna pregunta sobre la privacidad, por favor lee nuestra política de privacidad: <a href="%{link}" target="_blank" rel="noopener nofollow">https://FileYourStateTaxes.org/privacy-policy</a>'
+        carrier_disclaimer: Los proveedores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes no entregados o retrasados.
+        header: FileYourStateTaxes términos y condiciones de mensajería de texto
+        major_carriers: 'Proveedores principales: AT&T, Verizon Wireless, Sprint, T-Mobile, U.S. Cellular, Alltel, Boost Mobile, Nextel y Virgin Mobile.'
+        minor_carriers: 'Proveedores menores: Alaska Communications Systems (ACS), Appalachian Wireless (EKN), Bluegrass Cellular, Cellular One of East Central IL (ECIT), Cellular One of Northeast Pennsylvania, Cincinnati Bell Wireless, Cricket, Coral Wireless (Mobi PCS), COX, Cross, Element Mobile (Flat Wireless), Epic Touch (Elkhart Telephone), GCI, Golden State, Hawkeye (Chat Mobility), Hawkeye (NW Missouri), Illinois Valley Cellular, Inland Cellular, iWireless (Iowa Wireless), Keystone Wireless (Immix Wireless/PC Man), Mosaic (Consolidated o CTC Telecom), Nex-Tech Wireless, NTelos, Panhandle Communications, Pioneer, Plateau (Texas RSA 3 Ltd), Revol, RINA, Simmetry (TMP Corporation), Thumb Cellular, Union Wireless, United Wireless, Viaero Wireless, y West Central (WCC o 5 Star Wireless).'

@@ -1,0 +1,14 @@
+---
+en:
+  state_file:
+    questions:
+      id_eligibility_residence:
+        edit:
+          emergency_rental_assistance: In %{filing_year}, did you (or your spouse if filing together) receive emergency rental assistance?
+          emergency_rental_assistance_explanation: The Emergency Rental Assistance (ERA) program is a federal program that gives money to help households pay for rent and utility bills. It was created in response to the Covid-19 pandemic.
+          subtitle_1: For this tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
+          title: First, let's see if you can use this service to file your %{filing_year} Idaho taxes
+          withdrew_msa_fthb: Did any of the following scenarios apply to you or your spouse in %{filing_year}
+          withdrew_msa_fthb_list:
+            bullet_1_html: Withdrew money from your Idaho Medical Savings Account and used it for a <a href="%{link}" target="_blank" rel="noopener noreferrer">non-qualifying expense</a>.
+            bullet_2_html: Withdrew money from your First-Time Homebuyer Account and used it for <a href="%{link}" target="_blank" rel="noopener noreferrer">non-eligible home costs</a>.

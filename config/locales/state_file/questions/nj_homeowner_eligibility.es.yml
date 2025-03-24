@@ -1,0 +1,23 @@
+---
+es:
+  state_file:
+    questions:
+      nj_homeowner_eligibility:
+        edit:
+          helper_description_html: |
+            <ul class="list--bulleted">
+              <li>Eres un/a veterano/a discapacitado/a con una exención del 100% de los impuestos sobre la propiedad en tu vivienda principal; o si</li>
+              <li>Realizaste Pagos en Lugar de Impuestos (P.I.L.O.T. por las siglas en inglés)</li>
+              <li><a href="https://www.nj.gov/treasury/taxation/questions/propertyd2.shtml" target="_blank" rel="noopener nofollow">Otros motivos (en inglés)</a></li>
+            </ul>
+          helper_header: Deja la casilla anterior sin marcar si
+          homeowner_home_subject_to_property_taxes: Pagué impuestos sobre la propiedad
+          homeowner_main_home_multi_unit: Mi vivienda principal era una unidad en una propiedad de varias unidades que yo poseía
+          homeowner_main_home_multi_unit_max_four_one_commercial: La propiedad tenía de dos a cuatro unidades y no más de una de ellas era una unidad comercial
+          homeowner_more_than_one_main_home_in_nj: Viví en más de una vivienda principal en New Jersey en la que pagué impuestos sobre la propiedad (es decir, me mudé durante el año)
+          homeowner_same_home_spouse: Viví con mi cónyuge
+          homeowner_shared_ownership_not_spouse: Compartí la propiedad de mi vivienda principal con alguien que no era mi cónyuge
+          label_html: |
+            <p><strong>Marca las opciones que correspondan a la vivienda principal que tenías.</strong></p>
+            <p>(Si no deseas reclamar esta deducción o crédito, deja estas casillas sin marcar y haz clic en <strong>"Continuar."</strong>)</p>
+          title: Dijiste que fuiste dueña/o de vivienda en %{filing_year}.

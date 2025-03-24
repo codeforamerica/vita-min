@@ -1,0 +1,14 @@
+---
+es:
+  state_file:
+    questions:
+      nj_primary_state_id:
+        nj_primary:
+          dmv_bmv: Tarjeta de identificación estatal
+          helper_description_html: |
+            <p>Muchas agencias de ingresos estatales, incluyendo la de New Jersey, combaten el fraude fiscal por robo de identidad para protegerte a ti y a tu reembolso de impuestos. Dar algunos detalles sobre tu identificación estatal, si la tienes, ayudará a identificarte como contribuyente.</p>
+            <p>NO es necesario que des esta información para presentar tus impuestos. La declaración no será rechazada si no tienes una identificación o prefieres no compartirla.</p>
+          helper_heading: "¿Por qué piden esta información?"
+          no_id: No tiene licencia de conducir ni identificación estatal/ Prefiere no compartirla
+          subtitle: Si tienes una identificación emitida por el estado (state-issued ID), ayudará a New Jersey a combatir el fraude fiscal por robo de identidad y a protegerte a ti y a tu reembolso de impuestos.
+          title: Confirma tu Identidad (Opcional)

@@ -1,0 +1,12 @@
+---
+en:
+  state_file:
+    questions:
+      md_review:
+        edit:
+          county_html: "<strong> County lived in on December 31, %{filing_year}</strong>"
+          disability_status: Totally and permanently disabled status
+          political_subdivision_html: "<strong>Political subdivision lived in on December 31, %{filing_year}</strong>"
+          primary_proof_of_disability: Proof provided of disability for the pension exclusion in past tax years
+          spouse_proof_of_disability: Spouse's proof provided of disability for the pension exclusion in past tax years
+          your_address: Address lived at on December 31, %{filing_year}

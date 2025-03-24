@@ -1,0 +1,24 @@
+---
+en:
+  state_file:
+    questions:
+      nj_household_rent_own:
+        edit:
+          both_html: "<b>Both</b>: I was a homeowner for part of the year, and I was a renter for part of the year."
+          description_html: Your "main home" is where you primarily lived at any given time (e.g., a house, a condo, or an apartment). <strong>You can't have multiple main homes at the same time, but you may have different main homes throughout the year if you moved.</strong>
+          helper_1_description: Yes. This tax break is designed to support people in New Jersey whose money contributes to property taxes. (Renters do this by paying rent, contributing to the cost of property taxes paid by the property owners.)
+          helper_1_header: Are you sure this applies to rent paid?
+          helper_2_description: No. Please answer the questions in this section for your main home only. You can’t claim this tax break for a vacation home, a "second home," or a property you own and rent to someone else.
+          helper_2_header: Can I claim for a vacation home or a property I rent out to someone?
+          helper_3_description: If you owned a mobile home in a mobile home park, you are considered a renter. Your site fees are what you paid in rent.
+          helper_3_header: What if I lived in a mobile home?
+          helper_4_description_html: |
+            <p>The Property Tax <strong>Deduction</strong> reduces your taxable income. We will deduct your share of property taxes paid or $15,000, whichever is less. For renters, we’ll consider 18% of rent paid as your share.</p>
+            <p>The Property Tax <strong>Credit</strong> is a $50 credit that will reduce your tax liability or increase your refund.</p>
+            <p>We will determine if the deduction or the credit saves you the most money.</p>
+          helper_4_header: How much is this deduction or credit worth?
+          homeowner_html: I was a <b>homeowner</b> for at least part of the year
+          label_html: How would you describe your living situation in %{filing_year} <strong>as it pertains to your main home(s)</strong>?
+          neither_html: Other
+          tenant_html: I was a <b>renter</b> for at least part of the year
+          title: You may qualify for a Property Tax Deduction or Credit on your main home, whether you owned or rented it.

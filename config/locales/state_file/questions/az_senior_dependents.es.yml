@@ -1,0 +1,9 @@
+---
+es:
+  state_file:
+    questions:
+      az_senior_dependents:
+        edit:
+          assistance_label: "¿%{name} necesitaba ayuda con actividades diarias como vestirse, comer, beber, tomar medicamentos, ir de compras o preparar la comida?"
+          passed_away_label: "%{name} falleció en %{filing_year}?"
+          title: Necesitamos información adicional sobre %{dependents_name_list}

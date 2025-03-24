@@ -1,0 +1,8 @@
+---
+es:
+  state_file:
+    questions:
+      pending_federal_return:
+        edit:
+          body_html: Lamentamos hacerte esperar.<br><br>Recibirás un correo electrónico de IRS Direct File cuando tu declaración de impuestos federales sea aceptada, con un enlace para traerte de regreso aquí. Revisa tu carpeta de spam.
+          title: Tu declaración de impuestos federales debe ser aceptada antes de que puedas presentar tu declaración de impuestos estatales

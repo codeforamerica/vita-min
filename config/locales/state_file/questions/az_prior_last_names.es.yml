@@ -1,0 +1,11 @@
+---
+es:
+  state_file:
+    questions:
+      az_prior_last_names:
+        edit:
+          prior_last_names_label: 'Ingresa todos los apellidos que usaste en los últimos cuatro años. (Ejemplo: Smith, Jones, Brown)'
+          subtitle: Esto incluye los años fiscales del %{start_year} al %{end_year}
+          title:
+            one: "¿Declaraste con un apellido diferente en los últimos cuatro años?"
+            other: "¿Tú o tu cónyuge presentaron una declaración con un apellido diferente en los últimos cuatro años?"

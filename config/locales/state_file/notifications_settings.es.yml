@@ -1,0 +1,9 @@
+---
+es:
+  state_file:
+    notifications_settings:
+      unsubscribe_from_emails:
+        help_text_html: Si cambias de opinión y deseas suscribirte más tarde, <a class="open-intercom">chatea con nosotros</a> o envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
+        link_text: Vuelve a suscribirte.
+        mistake: "¿Fue un error?"
+        title: Has optado por no recibir notificaciones por correo electrónico de FileYourStateTaxes.

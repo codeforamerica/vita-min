@@ -1,0 +1,8 @@
+---
+en:
+  state_file:
+    questions:
+      code_verified:
+        edit:
+          continue_to_set_up: Continue to finish setting up your account.
+          title: Code verified!

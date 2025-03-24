@@ -1,0 +1,14 @@
+---
+es:
+  state_file:
+    questions:
+      nj_eligibility_health_insurance:
+        edit:
+          coverage_heading: "¿Qué es el seguro de salud con cobertura mínima esencial?"
+          label_html: |
+            <p><strong>¿Tuvieron seguro de salud (<a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener noreferrer">con cobertura médica mínima esencial</a>) todos los meses de %{filing_year}, tú y todas las personas en tu hogar tributable?</strong><p>
+            <p><strong><em>Debes responder sí </em></strong>si todas las personas en tu hogar tuvieron un plan de seguro a través de un trabajo, compraron un plan de seguro a través de <a href="https://nj.gov/getcoverednj/espanol/" target="_blank" rel="noopener nofollow">GetCoveredNJ</a>, o tuvieron Medicare o Medicaid (NJ Family Care). También debes responder sí si tu cobertura está <a href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml" target="_blank" rel="noopener nofollow">en esta lista (link en inglés).</a></p>
+            <p class="spacing-below-0"><strong><em>Debes responder no</em></strong> si tú o alguien en tu hogar solo tuvo plan de visión o dental independientes, cobertura de compensación laboral o un plan limitado a una enfermedad o dolencia específica.</p>
+          tax_household_description_html: Un hogar tributable/fiscal te incluye a ti, tu cónyuge (si presentas una declaración conjunta) y a todas las personas que podrías reclamar como dependientes, aunque no lo hagas.
+          tax_household_heading: "¿Qué se considera un hogar tributable/fiscal?"
+          title: Necesitamos información sobre tu estado de seguro médico.

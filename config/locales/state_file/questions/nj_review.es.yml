@@ -1,0 +1,69 @@
+---
+es:
+  state_file:
+    questions:
+      nj_review:
+        edit:
+          amount_calculated: Monto calculado
+          amount_entered: Monto ingresado
+          college_dependents: Exención para dependientes que asisten a la universidad
+          college_dependents_none: No aplica
+          continue_helper: Revisa y haz clic en "Continuar" si está todo correcto.
+          county: "%{county} Condado"
+          county_municipality: Lugar donde vivías hasta el 31 de diciembre de %{filing_year}
+          edit_disability: estado de discapacidad
+          edit_veteran: estado de veterano/a de guerra
+          eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
+          estimated_tax_payments: Monto de los pagos trimestrales estimados
+          has_estimated_payments: Estimated or other payments
+          household_rent_own: Situación de vivienda en %{filing_year}
+          household_rent_own_both: Dueño/a e inquilino/a
+          household_rent_own_neither: Ni dueño/a ni inquilino/a
+          household_rent_own_own: Dueño/a de vivienda
+          household_rent_own_rent: Inquilino/a
+          medical_expenses: Gastos médicos totales
+          missing_health_insurance: Dependientes que NO tienen seguro médico
+          overpayments: Amount of refund carried forward
+          primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
+          primary_disabled: Exención por discapacidad (tuya)
+          primary_veteran: Exención para veteranos/as de guerra (tuya)
+          property_tax_credit_deduction: Deducción o Crédito por Impuestos a la Propiedad
+          property_tax_paid: Impuestos sobre la propiedad pagados en %{filing_year}
+          rent_paid: Alquiler pagado en %{filing_year}
+          retirement_income_source: 1099-R Ingresos por Jubilación
+          retirement_income_source_doc_1099r_label: '1099-R:'
+          retirement_income_source_label: 'Fuente:'
+          retirement_income_source_military_pension: Pensión militar de EE. UU.
+          retirement_income_source_military_survivor_benefit: Beneficios de supervivencia militar de EE. UU.
+          retirement_income_source_other: Ni la pensión militar de EE. UU. ni los beneficios de supervivencia militar de EE. UU.
+          retirement_income_source_taxable_amount_label: 'Monto imponible:'
+          retirement_income_source_taxpayer_name_label: 'Nombre del contribuyente:'
+          reveal:
+            15_wages_salaries_tips: Salarios, sueldos, propinas
+            16a_interest_income: Ingreso total
+            20a_retirement_income: Retirement income
+            27_total_income: Ingreso total
+            28c_retirement_excluded_from_taxation: Ingresos de jubilación excluidos del impuesto
+            29_nj_gross_income: Ingreso Bruto de New Jersey
+            30_exemptions: Exenciones (según el tamaño de tu familia, estado de discapacidad, estado de veterano/a de guerra)
+            31_medical: Gastos médicos deducidos
+            41_property: Deducción por Impuestos sobre la Propiedad
+            42_nj_taxable: Ingreso Tributable/Imponible de New Jersey
+            43_income_tax: Impuesto a los ingresos
+            51_use_tax: Impuesto sobre uso (Use Tax)
+            54_total_tax: Impuesto total
+            55_tax_withheld: Impuesto retenido de New Jersey
+            56_property_tax_credit: Crédito de Impuestos sobre la Propiedad
+            58_nj_eitc: Crédito por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
+            59_excess_uiwfswf: Exceso de UI/WF/SWF retenido
+            61_excess_fli: Exceso de FLI retenido
+            64_child_dep_care: Crédito Tributario por Cuidado de Niños y Dependientes
+            65_nj_ctc: Crédito Tributario por Hijos de New Jersey
+            66_total_payments_refundable_credits: Pagos y créditos reembolsables en total
+            header: Ver información detallada de la declaración
+          review_and_edit: Revisar y editar
+          spouse_claimed_as_eitc_qualifying_child: Tu cónyuge podría ser hijo/a calificado/a de otra persona
+          spouse_disabled: Exención por discapacidad (de tu cónyuge)
+          spouse_veteran: Exención para veteranos/as de guerra (de tu cónyuge)
+          use_tax_applied: Compras fuera del estado/ Impuesto sobre el uso (Use Tax)
+          year_of_death: Año de fallecimiento del cónyuge

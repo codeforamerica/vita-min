@@ -1,0 +1,11 @@
+---
+en:
+  state_file:
+    questions:
+      retirement_income_subtraction:
+        doc_1099r_label: 1099-R
+        income_source_question: 'Select the source of this income:'
+        none_apply: None of these apply
+        taxable_amount_label: Taxable amount
+        taxpayer_name_label: Taxpayer name
+        title: You might be eligible for a %{state_name} retirement income deduction!

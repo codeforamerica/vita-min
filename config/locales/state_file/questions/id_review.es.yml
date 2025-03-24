@@ -1,0 +1,13 @@
+---
+es:
+  state_file:
+    questions:
+      id_review:
+        edit:
+          donations_optional: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatal.
+          health_insurance_premium_title: Resta de Primas de Seguro de Salud de Idaho
+          idaho_grocery_credit: Crédito de Idaho por Compras de Alimentos
+          no_donations_selected: "<strong>No hay donaciones seleccionadas</strong>"
+          permanent_building_fund_tax: Impuesto sobre el Fondo de Edificios Permanentes
+          purchases_without_sales_tax: Compras sin pagar impuesto de ventas
+          voluntary_charitable_donations: Donaciones caritativas voluntarias

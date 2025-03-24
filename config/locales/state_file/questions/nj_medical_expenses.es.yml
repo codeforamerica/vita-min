@@ -1,0 +1,39 @@
+---
+es:
+  state_file:
+    questions:
+      nj_medical_expenses:
+        edit:
+          description_html: |-
+            <p>Si tuviste al menos %{medical_expenses_threshold} en gastos médicos no reembolsados, eres elegible para una deducción. Ingresa el monto total de tus gastos no reembolsados ​​aquí. Reduciremos el monto correcto para tu situación.</p>
+            <p>Si sus gastos médicos fueron inferiores a %{medical_expenses_threshold}, no es elegible para la deducción. Haga clic en "Continuar."</p>
+
+            <p>Estos gastos incluyen:</p>
+            <ul class="list--bulleted">
+              <li>Gastos para ti, tu cónyuge y tus dependientes.</li>
+              <li>Para tu información: Si tienes una Cuenta de Ahorros para la Salud (HSA por las siglas en inglés) o una Cuenta de Gastos Flexible (FSA por las siglas en inglés), puede que hayas presentado un gasto médico y recibido una distribución para cubrir ese gasto. Para fines fiscales, aún puedes deducir ese gasto.</li>
+              <li>Lee debajo más información sobre los gastos médicos.</li>
+            </ul>
+
+            <p>Estos gastos no pueden incluir:</p>
+            <ul class="list--bulleted">
+              <li>Gastos para hijos/as que no reclamaste como dependiente en tu declaración, incluso si estás pagando su seguro médico.</li>
+              <li>Gastos que fueron reembolsados por tu plan de seguro médico.</li>
+            </ul>
+          do_not_claim: Si no deseas reclamar esta deducción, haz clic en "Continuar".
+          label: 'Ingresa el total de gastos médicos no reembolsados pagados en %{filing_year}:'
+          learn_more_html: |-
+            <p>"Gastos médicos" significa pagos no reembolsados por costos como:</p>
+            <ul class="list--bulleted">
+              <li>Honorarios de doctores, dentistas y otros gastos médicos</li>
+              <li>Anteojos recetados y lentes de contacto</li>
+              <li>Atención hospitalaria</li>
+              <li>Cuidados de enfermería</li>
+              <li>Medicinas y medicamentos</li>
+              <li>Prótesis</li>
+              <li>Rayos X y otros servicios de diagnóstico realizados por o dirigidos por un médico o dentista</li>
+              <li>Cantidades pagadas por transporte para la atención médica esencial</li>
+              <li>Beneficios ("premiums") del seguro médico (incluyendo las de Medicare)</li>
+            </ul>
+          learn_more_title: "¿Qué son los gastos médicos?"
+          title: Puedes deducir gastos médicos.

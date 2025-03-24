@@ -1,0 +1,15 @@
+---
+es:
+  state_file:
+    questions:
+      az_charitable_contributions:
+        edit:
+          amount_cannot_exceed: La cantidad no puede ser mayor a $500
+          charitable_cash_html: 'Cantidad total de las donaciones/pagos en efectivo '
+          charitable_noncash_html: Cantidad total de las donaciones no monetarias
+          help_text: Por ejemplo, el valor comercial razonable de los artículos donados.
+          question:
+            many: "¿Tú y tu cónyuge donaron a organizaciones sin fines de lucro exentas de impuestos?"
+            one: "¿Donaste tú a organizaciones sin fines de lucro exentas de impuestos?"
+            other: "¿Tú y tu cónyuge donaron a organizaciones sin fines de lucro exentas de impuestos?"
+          title: "¡Podrías ser elegible para recibir créditos y deducciones adicionales de Arizona!"

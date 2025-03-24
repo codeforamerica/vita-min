@@ -1,0 +1,24 @@
+---
+es:
+  state_file:
+    questions:
+      md_pension_exclusion_offboarding:
+        edit:
+          commercial_tax_prep_html: Declara con un servicio de preparación de impuestos comercial. Obtén más información <a href='%{path}' target='_blank' rel='noopener noreferrer'>aquí</a>.
+          contact_info_html: Si tienes alguna pregunta o deseas que tu información sea eliminada de este servicio, por favor envíanos un correo electrónico a <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
+          description: La Exclusión de Pensiones de Maryland puede ahorrarte de cientos a miles de dólares en impuestos estatales y locales al reducir la cantidad de impuestos que deberás pagar de tus ingresos de jubilación.
+          free_in_md: Declara gratis con voluntarios VITA certificados por el IRS en Maryland.
+          free_income_tax_prep_html: Comienza con el <a href='https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php' target='_blank' rel='noopener noreferrer'>servicio gratuito de preparación de impuestos sobre ingresos del Contralor de Maryland</a>.
+          go_back_html: "<strong>¿Has presentado prueba de tu discapacidad en años fiscales anteriores?</strong> <a href='%{path}'>Regresa para corregir.</a>"
+          if_choose_this_option: Si eliges esta opción, te conectarás con un socio de Asistencia Voluntaria para la Declaración de Impuestos (VITA) en Maryland. Recibirás una llamada en los próximos días. Tendrás que responder algunas preguntas adicionales sobre tu situación tributaria y enviar de forma segura tus documentos en línea. Este proceso puede tardar de 2 a 3 semanas en completarse.
+          if_you_want_to_html: Si deseas reclamar la Exclusión de Pensiones de Maryland utilizando un servicio diferente, tienes algunas opciones. Ten en cuenta que <strong>no podrás transferir ninguna información de FileYourStateTaxes a estos servicios:</strong>
+          like_to_claim: Si deseas reclamar esta exclusión utilizando un servicio diferente, puedes obtener más información a continuación.
+          like_to_continue: Si deseas continuar utilizando este servicio y no reclamar esta exclusión, puedes hacer clic en 'Continuar.'
+          other_filing_options_html: Obtén más información sobre este proceso y otras opciones de declaración <a href='%{path}' target='_blank' rel='noopener noreferrer'>aquí</a>.
+          title_html:
+            one: Parece que podrías calificar para la <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Exclusión de Pensiones de Maryland</a>.
+            other: Parece que tú y tu cónyuge podrían calificar para la  <a href='https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php' target='_blank' rel='noopener noreferrer'>Exclusión de Pensiones de Maryland</a>.
+          unfortunately: Desafortunadamente, nuestro servicio no admite la exclusión máxima si tú o tu cónyuge no han presentado prueba de su discapacidad en un año anterior.
+          vita_option_html: "<a href='%{link}' rel='noopener noreferrer'>Comienza con VITA ahora</a>."
+          what_if_i_want_to_claim: "¿Qué pasa si quiero reclamar la Exclusión de Pensiones de Maryland?"
+          what_to_expect_next: 'Qué sigue:'

@@ -1,0 +1,9 @@
+---
+en:
+  state_file:
+    questions:
+      nj_year_of_death:
+        edit:
+          question: What was the year of your spouse's passing?
+          subtitle: In order to continue, we need to confirm additional information.
+          title: It looks like your filing status is Qualifying Surviving Spouse.

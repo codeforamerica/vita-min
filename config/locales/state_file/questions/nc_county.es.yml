@@ -1,0 +1,10 @@
+---
+es:
+  state_file:
+    questions:
+      nc_county:
+        edit:
+          county: Condado
+          county_during_hurricane: Selecciona el condado donde vivías (o actualmente vives) entre el 25 de septiembre y la fecha de hoy
+          moved_after_hurricane_html: "¿Vivías (o actualmente vives) en un condado <strong>diferente</strong> en cualquier momento entre el 25 de septiembre y la fecha de hoy? "
+          title: Selecciona el condado donde vivías el 31 de diciembre de %{filing_year}

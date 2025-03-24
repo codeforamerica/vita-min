@@ -1,0 +1,20 @@
+---
+es:
+  state_file:
+    questions:
+      ny_eligibility_college_savings_withdrawal:
+        edit:
+          non_qualifying_expenses:
+            reveal_info_html: |
+              <p>Los gastos que califican incluyen matrículas, libros, equipo (incluyendo computadoras y otras tecnologías), alojamiento y comida, programas de aprendizaje y matrícula para K-12 hasta $10,000.</p>
+
+              <p>La mayoría de los otros usos son gastos que no califican, incluyendo costos de aplicaciones y exámenes universitarios, costos de transporte, seguro médico y costos extracurriculares.</p>
+
+              <p><strong>Selecciona 'no' si:</strong></p>
+              <ul>
+              <li>Retiraste dinero de una cuenta 529 y lo utilizaste para gastos que califican, o</li>
+              <li>No retiraste dinero de una cuenta 529 en absoluto.</li>
+              </ul>
+            title: "¿Cuáles son los gastos que califican y los que no califican?"
+          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos
+          withdraw_529: En el %{filing_year}, ¿contribuiste a una <u>cuenta de ahorros universitarios 529</u>, o retiraste dinero de una cuenta 529 y los usaste para gastos no calificados?

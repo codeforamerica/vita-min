@@ -1,0 +1,17 @@
+---
+en:
+  state_file:
+    navigation:
+      nj:
+        section_1: Income
+        section_2: Your household
+        section_3: Deductions and credits
+        section_4: Your %{filing_year} taxes
+        section_5: Review and submit
+      section_1: Can you use this service
+      section_2: Create account
+      section_3: Terms and conditions
+      section_4: Transfer your data
+      section_5: Complete your state tax return
+      section_6: Submit your state taxes
+      step_description: 'Section %{current_step} of %{total_steps}: '

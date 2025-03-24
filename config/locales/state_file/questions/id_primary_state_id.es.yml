@@ -1,0 +1,12 @@
+---
+es:
+  state_file:
+    questions:
+      id_primary_state_id:
+        id_primary:
+          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor comparte la información que solicitamos de la misma. La declaración no será rechazada si no compartes una licencia de conducir o una identificación emitida por el estado.<br><br>Si compartes esta información, puede ayudar a que te identifiquen como el contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluido Idaho, están solicitando información adicional en un esfuerzo por combatir el fraude fiscal por robo de identidad y protegerte a ti y a tu reembolso de impuestos.
+          read_more_here_html: Puedes leer más <a href="https://tax.idaho.gov/taxes/income-tax/individual-income/refund/" target="_blank" rel="noopener noreferrer">aquí</a>.
+          subtitle: Ingresa el número de licencia de conducir o tarjeta de identificación al presentar tu declaración electrónicamente para ayudar a que tu reembolso se procese más rápido.
+          title: Necesitamos algunos detalles de tu identificación emitida por el estado, si tienes una
+          why_ask_this: "¿Por qué están pidiendo esta información?"

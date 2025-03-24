@@ -1,0 +1,10 @@
+---
+es:
+  state_file:
+    questions:
+      id_permanent_building_fund:
+        edit:
+          receive_public_assistance_explanation: Los pagos de asistencia pública no incluyen cupones de alimentos ni pagos de WIC.
+          receive_public_assistance_single: "¿Tú estaban recibiendo pagos de asistencia pública de Idaho al final del año fiscal?"
+          receive_public_assistance_spouse: "¿Tú o tu cónyuge estaban recibiendo pagos de asistencia pública de Idaho al final del año fiscal?"
+          title: "¡Podrías ser elegible para una excepción al Impuesto del Fondo Permanente para Edificios!"

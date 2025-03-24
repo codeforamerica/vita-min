@@ -1,0 +1,9 @@
+---
+en:
+  state_file:
+    questions:
+      ny_eligibility_out_of_state_income:
+        edit:
+          out_of_state_income_html: Did you (or your spouse, if you’re filing together) earn any income in another state in 2023? (This includes unemployment income <strong>received</strong> from another state.)
+          part_year_nyc_resident_html: Were you (or your spouse, if you’re filing together) a part-year New York City resident in 2023? (Moved in or out of NYC during 2023) <br><br> New York City includes the Bronx, Brooklyn, Manhattan, Queens, and Staten Island.
+          title: First, let's see if you can use this service to file your taxes

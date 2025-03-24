@@ -1,0 +1,21 @@
+---
+es:
+  state_file:
+    questions:
+      nj_college_dependents_exemption:
+        edit:
+          birthdate_label: Fecha de nacimiento
+          college_helper_description: '"Universidad" es una universidad o escuela post-secundaria acreditada, que mantiene una facultad y un plan de estudios regulares, y tiene estudiantes activos.'
+          college_helper_heading: ¿Qué cuenta como "universidad"?
+          dependent_attends_accredited_program: "%{dependent_first}asiste a una universidad o escuela post-secundaria acreditada."
+          dependent_enrolled_full_time: "%{dependent_first} asiste allí a tiempo completo."
+          dependent_five_months_in_college: "%{dependent_first} pasa al menos alguna parte de cada uno de los cinco meses calendario en esa universidad."
+          dependent_header: "(dependiente)"
+          filer_pays_tuition_books: Yo (o mi cónyuge, si presentamos una declaración conjunta) pago al menos la mitad de la matrícula y los costos universitarios de %{dependent_first}.
+          full_time_college_helper_description: '"Tiempo completo" (full time) es lo que la universidad considere como tiempo completo. Esto se puede encontrar en el estado de cuenta de matrícula 1098 T.'
+          full_time_college_helper_heading: ¿Qué cuenta como "asistir a la universidad a tiempo completo"?
+          reminder: 'Recordatorio: marca las casillas correspondientes a continuación para cada dependiente, si corresponde.'
+          subtitle_html: "<p>Solo puedes reclamar esto para los dependientes que figuran en tu declaración.</p> \n<p>Marca las casillas para cada dependiente, si corresponde.</p>\n<p>Luego, reclamaremos una exención de $1,000 por cada estudiante dependiente que califique.</p>\n"
+          title: Puedes calificar para exenciones de impuestos por cualquier dependiente menor de 22 años que asista a la universidad.
+          tuition_books_helper_description_html: Para calcular el monto total, suma el costo de la matrícula universitaria, el costo de los libros (y materiales) y cualquier dinero ganado por el/la estudiante en programas de trabajo y estudio universitarios. No incluyas otra ayuda financiera recibida.
+          tuition_books_helper_heading: "¿Cómo debo calcular el monto total de la matrícula y los costos universitarios?"

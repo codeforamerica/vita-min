@@ -1,0 +1,12 @@
+---
+es:
+  state_file:
+    questions:
+      nc_eligibility:
+        edit:
+          eligibility_ed_loan_cancelled: Se te canceló un préstamo estudiantil deuda bajo la Ley del Plan de Rescate Estadounidense
+          eligibility_ed_loan_emp_payment: Recibiste un Pago de Préstamo Educativo Calificado pagado por tu empleador
+          none: Ninguna de estas opciones aplica
+          question: "¿Alguna de las siguientes situaciones menos comunes aplicó en tu caso (o el de tu cónyuge, si casado presentando conjunta) en %{filing_year}?"
+          subtitle: Para esta temporada de impuestos, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usar el servicio responde las siguientes preguntas.
+          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del %{filing_year} de Carolina del Norte

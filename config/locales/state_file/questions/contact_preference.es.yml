@@ -1,0 +1,10 @@
+---
+es:
+  state_file:
+    questions:
+      contact_preference:
+        edit:
+          email_option: Enviar código por correo electrónico
+          subtitle: Puedes volver a ingresar a tu cuenta en cualquier momento usando el número de teléfono o el correo electrónico que agregues.
+          text_message_option: Enviar código por mensaje de texto
+          title: Ahora crea tu cuenta con un código rápido

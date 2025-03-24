@@ -1,0 +1,12 @@
+---
+es:
+  state_file:
+    questions:
+      nc_subtractions:
+        edit:
+          title_html:
+            many: ¿Es usted o su cónyuge un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibieron ingresos mientras vivían en una reserva?
+            one: ¿Es usted un miembro inscrito de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena reconocida federalmente</a> y recibió ingresos mientras vivía en una reserva?
+            other: ¿Tú o tu cónyuge son miembros inscritos de una <a href="https://biamaps.geoplatform.gov/Tribal-Leaders-Directory/" target="_blank">tribu indígena estadounidense reconocida por el gobierno federal</a> recibiendo salario mientras vivía y trabajaba en la reserva?
+          tribal_wages_field: Ingresa la cantidad ganada
+          tribal_wages_question_html: Ingresa el monto de los ingresos recibidos de actividades en la reserva reconocida federalmente. <br><br> Esta cantidad no debe ser mayor que $%{amount_limit}.

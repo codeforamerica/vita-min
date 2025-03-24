@@ -1,0 +1,10 @@
+---
+es:
+  state_file:
+    questions:
+      ny_eligibility_residence:
+        edit:
+          lived_in_state_html: "¿Viviste (y tu cónyuge, si presentan la declaración juntos) en %{state} durante <strong>todo</strong> el 2023?"
+          lived_or_income_in_yonkers_html: "¿<strong>Viviste, recibiste ingresos o mantuviste un hogar</strong> (y tu cónyuge, si presentan la declaración juntos) en Yonkers en algún momento del 2023?"
+          subtitle: Para la temporada de 2024, este servicio solo podrá servir a personas con situaciones tributarias específicas. Para saber si puedes usar el servicio responde las siguientes preguntas.
+          title: Primero, veamos si puedes usar este servicio para declarar tus impuestos

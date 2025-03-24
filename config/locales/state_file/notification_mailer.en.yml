@@ -1,0 +1,6 @@
+---
+en:
+  state_file:
+    notification_mailer:
+      user_message:
+        unsubscribe: To unsubscribe from emails, <a href="%{unsubscribe_link}">click here</a>.

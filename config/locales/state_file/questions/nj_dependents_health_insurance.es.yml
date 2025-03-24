@@ -1,0 +1,10 @@
+---
+es:
+  state_file:
+    questions:
+      nj_dependents_health_insurance:
+        edit:
+          continue: Haz clic en "Continuar" si todas estas personas tenían seguro médico.
+          coverage_heading: "¿Qué es el seguro de salud con cobertura mínima esencial?"
+          label: 'Marca todas las personas que NO tuvieron seguro médico:'
+          title_html: Por favor, dinos qué dependientes no tuvieron seguro médico (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">con cobertura médica mínima esencial</a>) en %{filing_year}.

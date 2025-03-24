@@ -1,0 +1,8 @@
+---
+es:
+  state_file:
+    questions:
+      code_verified:
+        edit:
+          continue_to_set_up: Continua para terminar de crear tu cuenta.
+          title: "¡Código verificado!"

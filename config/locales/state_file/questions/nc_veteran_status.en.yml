@@ -1,0 +1,9 @@
+---
+en:
+  state_file:
+    questions:
+      nc_veteran_status:
+        primary_veteran_question: Are you a veteran?
+        spouse_veteran_question: Is your spouse a veteran?
+        title: Are you a veteran of the United States Armed Forces?
+        title_spouse: Are you or your spouse a veteran of the United States Armed Forces?

@@ -1,0 +1,10 @@
+---
+es:
+  state_file:
+    questions:
+      email_address:
+        edit:
+          action: Enviar el código
+          email_address_label: Tu correo electrónico
+          subtitle_html: Para crear una cuenta nueva, ingresa una dirección de correo electrónico que aún no esté en uso.<br><br>Utiliza un correo electrónico al que puedas acceder.
+          title: Ingresa tu dirección de correo electrónico

@@ -1,0 +1,51 @@
+---
+en:
+  state_file:
+    questions:
+      shared:
+        abstract_review_header:
+          amount_rounding_notice_html: "<strong>We have automatically rounded all dollar amounts to the nearest whole number.</strong> The %{state_agency_name} will only accept whole numbers on the final tax return."
+          dependent_dob: Their date of birth
+          dependent_months_in_home: Number of months they lived with you
+          dependent_name: Your dependent's name
+          household_info: Household Details
+          nth_dependent_name: Your %{ordinal} dependent's name
+          spouse_name: Your spouse's name
+          taxes_owed_header: Your refund or taxes owed
+          taxes_owed_html: Your refund is $0. This means that you <strong>will not</strong> receive a state refund and you <strong>do not</strong> owe state taxes. You should finish filing your return, since you may be required to file even though you won’t get or receive any money.
+          title: You're almost done! Please review the information we have.
+          your_name: Your name
+        az_retirement_income_deductions_review_header:
+          government_pension: Qualifying federal, Arizona, or local government pension plan
+          none_apply: None apply
+          subtitle: These allow people to deduct all or a portion of their retirement income for the taxes.
+          title: Arizona retirement income deductions
+          uniformed_services: Retired or retainer pay of the uniformed services of the United States
+        id_retirement_income_deductions_review_header:
+          qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
+          qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
+          qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
+        md_retirement_income_deductions_review_header:
+          military: Benefits from your military service or benefits received for the military service of your deceased spouse or ex-spouse
+          none: None apply
+          other: Other retirement income (For example, a Keogh plan)
+          pension_annuity_endowment: Money from a pension, annuity, or other retirement plan from your job
+          public_safety: Your service as a public safety employee
+          retirement_income_deductions: Maryland retirement income details
+        nc_retirement_income_deductions_review_header:
+          bailey_settlement_at_least_five_years: At least five years of creditable service by August 12, 1989
+          bailey_settlement_from_retirement_plan: Received retirement benefits from NC’s 401(k) or 457 plan, and contributed to the plan before August 12, 1989
+          none_apply: None apply
+          retirement_income_deductions: North Carolina retirement income deductions
+          retirement_income_deductions_explanation: These allow people to deduct all or a portion of their retirement income from their taxes.
+          retirement_income_source_bailey_settlement: Retirement benefits as part of the Bailey Settlement
+          retirement_income_source_review_and_edit: Review and edit 1099-R %{index}
+          retirement_income_source_uniformed_services: Retirement benefits from the Uniformed Services
+          uniformed_survivor_benefit_plan: Payments from a qualifying Survivor Benefit Plan to a beneficiary of a retired member who served at least 20 years or who was medically retired from the Uniformed Services
+          uniformed_twenty_years_medical_retired: Retired member who served at least 20 years or were medically retired from the Uniformed Services
+        review_header:
+          income_details: Income Details
+          income_forms_collected: 'Income form(s) collected:'
+          state_details_title: State Details
+          your_refund: Your refund amount
+          your_tax_owed: Your taxes owed

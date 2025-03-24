@@ -1,0 +1,10 @@
+---
+en:
+  state_file:
+    questions:
+      email_address:
+        edit:
+          action: Send code
+          email_address_label: Your email address
+          subtitle_html: To create a new account, provide an email address that isn't already in use.<br><br>Use an email account you can access.
+          title: Enter your email address

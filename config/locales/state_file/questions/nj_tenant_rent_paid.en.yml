@@ -1,0 +1,12 @@
+---
+en:
+  state_file:
+    questions:
+      nj_tenant_rent_paid:
+        edit:
+          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
+          helper_anchor_heading: What if I received ANCHOR benefits?
+          helper_description: Enter your site fees paid for %{filing_year}.
+          helper_heading: Mobile homeowners
+          label_html: "<strong>Enter your share of total rent paid in %{filing_year}</strong>"
+          title: Good news – you qualify for a deduction or credit.

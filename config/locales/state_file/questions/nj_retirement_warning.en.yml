@@ -1,0 +1,23 @@
+---
+en:
+  state_file:
+    questions:
+      nj_retirement_warning:
+        edit:
+          continue_heading: Do you want to continue with FileYourStateTaxes?
+          continue_no: No, I need a different solution to file my taxes
+          continue_yes: Yes, continue
+          description_html: |-
+            <p>New Jersey taxes some, but not all, of your retirement income.</p>
+            <p>If this is your first year filing taxes with retirement income, we recommend you review this <a href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf" target="_blank" rel="noopener nofollow">guide</a>. It talks about the different methods to calculate what portion of your retirement income is subject to taxes.</p>
+            <p>Using the right method matters — it could save you money.</p>
+            <p>This tool uses the simplest, most common method: we use what's reported as the taxable amount on your 1099-R.</p>
+            <p><b>You Should NOT Continue Using This Tool If:</b></p>
+            <ul class="list--bulleted">
+              <li>You used the “three-year method” or the “general” method in a previous year.</li>
+              <li>You reviewed the guide and think one of those methods is right for you.</li>
+              <li>The retirement income you received is from a 401(k) account that you first contributed to prior to 1984. (Before 1984, New Jersey’s treatment of 401(k) plans differed from the federal government.)</li>
+            </ul>
+            <p>This tool can’t help with those scenarios, so you should not continue.</p>
+            <p>If you want to use what’s reported as the taxable amount on your 1099-R, you should continue.</p>
+          title: Let’s make sure we’re calculating your retirement income correctly.

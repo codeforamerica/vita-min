@@ -1,0 +1,21 @@
+---
+es:
+  state_file:
+    questions:
+      income_review:
+        edit:
+          help_text: Te pediremos que ingreses la información que pueda faltar.
+          interest_income_body: No se necesita información adicional.
+          interest_income_title: Ingresos por intereses (1099-INT)
+          invalid_income_form_error: Hay un problema con la información del estado en uno o más de sus formularios de ingresos. Revíselo y edítelo antes de continuar.
+          no_info_needed: No se necesita información estatal adicional
+          no_info_needed_nj: Este ingreso no es tributable en New Jersey.
+          retirement_income_title: Jubilación (1099-R)
+          review_and_edit_state_info: Revisar y editar la información estatal
+          review_state_info: Revisar la información estatal
+          ssa_title: Beneficios del Seguro Social (SSA-1099)
+          state_info_to_be_collected: Información estatal que se recogerá
+          title: Estos son los formularios de ingresos que transferimos de tu declaración de impuestos federales.
+          unemployment_title: Beneficios de desempleo (1099-G)
+          w2s_title: Empleos (W-2)
+          warning: "⚠️ Necesitamos verificar de nuevo cierta información"

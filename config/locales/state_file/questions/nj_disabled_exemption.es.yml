@@ -1,0 +1,10 @@
+---
+es:
+  state_file:
+    questions:
+      nj_disabled_exemption:
+        edit:
+          instructions_html: "<p>En New Jersey, se considera que una persona tiene una discapacidad si tiene una \"incapacidad <strong>total y permanente</strong> para realizar cualquier actividad lucrativa sustancial debido a cualquier discapacidad física o mental, incluida la ceguera.\"</p>  \n<p>(Esto es diferente de la definición de impuestos federales. New Jersey no considera tu edad ni la recepción de ingresos por discapacidad imponibles).</p>\n"
+          primary_disabled_question: "¿Eres discapacitado/a según la definición de New Jersey?"
+          spouse_disabled_question: "¿Tu cónyuge es discapacitado/a según la definición de New Jersey?"
+          title: Las personas con discapacidad son elegibles para una exención de impuestos.

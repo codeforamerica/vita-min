@@ -1,0 +1,18 @@
+---
+en:
+  state_file:
+    questions:
+      nj_sales_use_tax:
+        edit:
+          followup_radio_label: 'Select one of the following:'
+          helper_description_html: "<p>This applies to online purchases where sales or use tax was not applied. (Amazon and many other online retailers apply tax.)</p> \n<p>It also applies to items or services purchased out-of-state, in a state where there was no sales tax or the sales tax rate was below the NJ rate of 6.625%.</p>\n<p>(<a href=\"https://nj.gov/treasury/taxation/su_10.shtml\" target=\"_blank\" rel=\"noopener nofollow\">Review this page for more details.</a>)</p>\n"
+          helper_heading: What kind of items or services does this apply to?
+          manual_use_tax_label_html: "<strong>Enter total use tax</strong>"
+          no_text: No (this is the common option)
+          subtitle_html: |-
+            <p>If you made any purchases without paying sales tax, you may owe use tax on those purchases. We'll help you figure out the right amount.</p>
+            <p>Note: Your tax household includes you, your spouse and your dependents.</p>
+          title: Did your tax household make any out-of-state purchases in %{filing_year} without paying full New Jersey Sales Tax?
+          use_tax_method_automated: All of my purchases were less than $1000 each. Calculate the amount of use tax for me.
+          use_tax_method_manual: I had at least one purchase over $1000, or I would prefer to calculate my use tax manually.
+          use_tax_radio_label: Did you have any untaxed out-of-state purchases?

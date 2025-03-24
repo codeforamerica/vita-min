@@ -1,0 +1,49 @@
+---
+en:
+  state_file:
+    questions:
+      w2:
+        edit:
+          box14_explanation_md_html: For tax year %{year}, we will only process the <strong>STPICKUP</strong> code, which represents any contributions you made to the state retirement system.
+          box14_explanation_nj_html: |
+            <p>For this year, we will only need the amounts for <strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) <strong>and FLI</strong>.
+            <p><strong>If you do not see these, please enter 0.</strong></p>
+            <p><strong>Definitions:</strong></p>
+            <ul class="list--bulleted">
+              <li><strong>UI/WF/SWF</strong> (may also appear as <strong>"UI/HC/WD"</strong> on your W2) represents:</li>
+              <ul class="list--bulleted">
+                <li><strong>UI</strong> refers to unemployment insurance contributions</li>
+                <li><strong>WF</strong> or <strong>WD</strong> refer to workforce development partnership fund contributions</li>
+                <li><strong>SWF</strong> refers to supplemental workforce fund contributions</li>
+                <li><strong>HC</strong> refers to healthcare contributions</li>
+              </ul>
+              <li><strong>FLI</strong>: Represents contributions withheld for Family Leave Insurance. Family Leave Insurance (FLI) provides paid leave benefits to bond with a new child, care for a loved one, or cope with domestic/sexual violence. If you have a number for this on your paycheck, it means you have paid into this program and may be eligible to receive cash benefits.</li>
+            </ul>
+            <p>We use the amounts to determine if you <a href="https://www.nj.gov/treasury/taxation/njit16.shtml" target="_blank" rel="noopener nofollow">might be eligible for a credit</a>.</p>
+            <p>There may be other information in Box 14. That's ok. That information doesn't need to be reported with this tool. </p>
+          box14_fli_html: "<strong>FLI</strong>"
+          box14_html: "<strong>Box 14,</strong> Other"
+          box14_intro_nj_html: "<p>Employers may use Box 14 to report anything that doesn't fit somewhere else on a Form W-2.</p>\n<p>For this year, we will only need any amounts listed for <strong>UI/WF/SWF</strong> (may also appear as <strong>\"UI/HC/WD\"</strong> on your W2) <strong>and FLI</strong>.</p> \n<p><strong>If you do not see these, please enter 0.</strong></p> \n<p>There may be other information in Box 14. That information doesn't need to be reported with this tool.</p>\n"
+          box14_stpickup_help_text_html: For %{year}, we will only process the STPICKUP code. If you do not see this code or have other codes in Box 14, please enter 0.
+          box14_stpickup_html: "<strong>STPICKUP</strong>"
+          box14_ui_wf_swf_help_text_html: "(This may also appear on your W2 as <strong>UI/HC/WD.</strong>)"
+          box14_ui_wf_swf_html: "<strong>UI/WF/SWF</strong>"
+          box15_html: "<strong>Box 15,</strong> Employer’s state ID number"
+          box16_html: "<strong>Box 16,</strong> State wages, tips, etc."
+          box16_warning_nj: '⚠️ Warning: If this is incorrect, you could end up underpaying state taxes. If box 16 has a number in it, enter that number here. If it''s blank or 0, click "Chat with us" and let''s make sure this is correct.'
+          box17_html: "<strong>Box 17,</strong> State income tax"
+          box18_html: "<strong>Box 18,</strong> Local wages, tips, etc."
+          box19_html: "<strong>Box 19,</strong> Local income tax"
+          box20_locality_name_html: "<strong>Box 20,</strong> Locality name"
+          employer_state_id_error: EIN cannot be more than 16 characters.
+          instructions_1_html: Please review your job (W-2) details for <strong>%{employer}</strong>
+          local_income_tax_amt_error: Cannot be greater than local wages and tips.
+          local_wages_and_tips_amt_error: Please enter local wages and tips
+          locality_nm_missing_error: Please select locality name
+          no_money_amount: Please enter an amount. If amount is blank, enter $0.
+          save_and_continue: Save and Continue
+          state_income_tax_amt_error: Cannot be greater than State wages and tips.
+          state_wages_amt_error: Please enter State wages and tips
+          wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
+          what_is_box14_md: What could be in Box 14?
+          what_is_box14_nj: What should I put in these Box 14 fields?

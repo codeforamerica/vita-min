@@ -1,0 +1,8 @@
+---
+es:
+  state_file:
+    questions:
+      use_different_service:
+        body: Antes de escoger una opción, asegúrate de que te permita presentar tu declaración de impuestos sólo a nivel estatal. Es probable que necesites volver a ingresar la información de tu declaración de impuestos federales para preparar tu declaración de impuestos estatales. Puede que apliquen tarifas.
+        faq_link: Visita nuestras Preguntas Frecuentes
+        title: "¿Quieres presentar tus impuestos usando un producto o servicio diferente?"

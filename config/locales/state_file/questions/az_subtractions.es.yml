@@ -1,0 +1,34 @@
+---
+es:
+  state_file:
+    questions:
+      az_subtractions:
+        edit:
+          armed_forces_member_label:
+            many: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibieron un salario por el servicio activo.
+            one: Eres miembro de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibiste un salario por el servicio activo.
+            other: Tú o tu cónyuge son miembros de las Reservas, la Guardia Nacional o las Fuerzas Armadas de los Estados Unidos y recibieron un salario por el servicio activo.
+          armed_forces_wages_label:
+            many: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
+            one: "¿Cuánto recibiste en salario por servicio activo?"
+            other: "¿Cuánto recibiste tú o tu cónyuge en salario por servicio activo?"
+          learn_more_content_html: |
+            Si eres miembro de las <strong>Fuerzas Armadas de Estados Unidos</strong>, ingresa el salario que recibiste por servicio activo que reportaste en declaración de impuestos federales.<br><br>
+            Si eres miembro de <strong>la Reserva o la Guardia Nacional</strong>, ingresa el salario que recibiste por entrenamientos durante fines de semana o de dos semanas que hayas reportado en tu declaración de impuestos federal.<br><br>
+            <strong>No</strong> puedes incluir ningún ingreso que hayas recibido por empleo a tiempo completo en el servicio civil como "técnico militar (doble estatus)".
+          learn_more_title: Obtener más información
+          should_not_exceed_wages: Esto no debe superar %{wages}
+          subtitle: Marca cada casilla que te aplique a ti. Si no te aplica, déjala en blanco y continúa.
+          title:
+            many: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en el %{year}?"
+            one: "¿Alguna de las siguientes situaciones te aplican a ti en el %{year}?"
+            other: "¿Alguna de las siguientes situaciones te aplican a ti o su cónyuge en %{year}?"
+          tribal_member_label:
+            many: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y ganaron salario mientras vivían y trabajaban en la reserva.
+            one: Eres un miembro inscrito de <a href="https://www.bia.gov/service/tribal-leaders-directory/federally-recognized-tribes" target="_blank" rel="noopener nofollow">una tribu indígena estadounidense reconocida por el gobierno federal</a> y ganó un salario mientras vivía y trabajaba en la reserva.
+            other: Tú o tu cónyuge son miembros inscritos de una <u>tribu indígena estadounidense reconocida por el gobierno federal</u> y recibieron ingresos mientras vivían y trabajaban en la reserva.
+          tribal_wages_label:
+            many: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
+            one: "¿Cuánto recibiste en salario mientras vivías y trabajabas en la reserva de tu tribu?"
+            other: "¿Cuánto ganaste tú o tu cónyuge mientras vivían y trabajaban en la reserva de tu tribu o la de tu cónyuge?"
+          wages_tip: Ingresa la cantidad que recibiste

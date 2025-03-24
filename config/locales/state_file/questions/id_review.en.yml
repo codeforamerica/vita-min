@@ -1,0 +1,13 @@
+---
+en:
+  state_file:
+    questions:
+      id_review:
+        edit:
+          donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
+          health_insurance_premium_title: Idaho Health Insurance Premium Subtraction
+          idaho_grocery_credit: Idaho Grocery Credit
+          no_donations_selected: "<strong>No donations selected</strong>"
+          permanent_building_fund_tax: Permanent Building Fund Tax
+          purchases_without_sales_tax: Purchases without paying sales tax
+          voluntary_charitable_donations: Voluntary Charitable Donations

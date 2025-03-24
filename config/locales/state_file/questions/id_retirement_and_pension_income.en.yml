@@ -1,0 +1,13 @@
+---
+en:
+  state_file:
+    questions:
+      id_retirement_and_pension_income:
+        edit:
+          question_b1: Your service as a civil service employee
+          question_b2: Your service as an Idaho firefighter
+          question_b3: Your service as a police officer of an Idaho city
+          question_b4: Your service as a member of the U.S. military
+          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above
+          question_html: Does this retirement income come from any of the following sources and does it meet the qualifications on <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">pages 7-8 of the instruction booklet?</a>?
+          subtitle: We need more information about your 1099-R to check your eligibility.

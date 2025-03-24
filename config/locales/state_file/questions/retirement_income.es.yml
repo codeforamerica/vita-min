@@ -1,0 +1,11 @@
+---
+es:
+  state_file:
+    questions:
+      retirement_income:
+        edit:
+          box14_html: "<b>Casilla 14</b>, Impuesto estatal retenido"
+          box15_html: "<b>Casilla 15</b>, Número estatal del pagador"
+          box16_html: "<b>Casilla 16</b>, Distribución estatal"
+          state_tax_withheld_absent_warning: Please confirm that the amount in Box 14 on your 1099-R is 0
+          title_html: Por favor, revisa los detalles de los ingresos estatales (1099-R) que recibiste de <strong>%{payer_name}</strong>.

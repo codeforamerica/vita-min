@@ -1,0 +1,7 @@
+---
+en:
+  state_file:
+    questions:
+      review:
+        county: County where you resided on December 31, %{filing_year}
+        county_during_hurricane: Other county where you resided (or currently reside) between September 25th, 2024 and today

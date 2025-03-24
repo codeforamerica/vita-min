@@ -1,0 +1,22 @@
+---
+es:
+  state_file:
+    questions:
+      primary_state_id:
+        edit:
+          ny_subtitle: Esta información es necesaria para todos los residentes de Nueva York con una identificación emitida por el estado.
+          title: Necesitamos algunos detalles de tu identificación emitida por el estado, si tienes una
+        state_id:
+          id_details:
+            expiration: Fecha de vencimiento
+            first_three_doc_num_html: "<strong>Para identificaciones de Nueva York:</strong> Los primeros tres caracteres del número de documento (ubicado en la parte posterior de tu identificación)"
+            issue: Fecha de emisión
+            issue_state: Estado de emisión
+            no_expiration_date: Sin fecha de expiración
+            number: Número de identificación
+          id_type_question:
+            dmv: Identificación estatal del DMV/BMV
+            drivers_license: Licencia de conducir
+            label: Tipo de Identificación
+            no_id: No tiene licencia de conducir ni identificación estatal/ Prefiere no compartirla
+          info_link: "¿Dónde encuentro esta información?"

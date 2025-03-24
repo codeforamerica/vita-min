@@ -1,0 +1,9 @@
+---
+es:
+  state_file:
+    questions:
+      nj_year_of_death:
+        edit:
+          question: "¿En qué año falleció tu cónyuge?"
+          subtitle: Para continuar, necesitamos confirmar información adicional.
+          title: Parece que tu estado civil tributario es Cónyuge Sobreviviente Calificado/a.

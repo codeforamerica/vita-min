@@ -1,0 +1,8 @@
+---
+en:
+  state_file:
+    questions:
+      waiting_to_load_data:
+        edit:
+          subtitle_html: This usually takes a few minutes. Don’t close this page.<br><br> We’ll use your federal tax return information to complete sections of your state return.
+          title_html: Just a moment, we’re transferring your federal tax return to complete parts of your state return.

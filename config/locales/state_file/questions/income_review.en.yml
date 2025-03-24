@@ -1,0 +1,21 @@
+---
+en:
+  state_file:
+    questions:
+      income_review:
+        edit:
+          help_text: We will collect any missing information.
+          interest_income_body: No additional information needed.
+          interest_income_title: Interest income (1099-INT)
+          invalid_income_form_error: There is an issue with the state information on one or more of your income forms. Please review and edit before proceeding.
+          no_info_needed: No additional state info needed
+          no_info_needed_nj: This income is not taxed in New Jersey.
+          retirement_income_title: Retirement income (1099-R)
+          review_and_edit_state_info: Review and edit state info
+          review_state_info: Review state info
+          ssa_title: Social Security benefits (SSA-1099)
+          state_info_to_be_collected: State info to be collected
+          title: Here are the income forms we transferred from your federal tax return.
+          unemployment_title: Unemployment benefits (1099-G)
+          w2s_title: Jobs (W-2)
+          warning: "⚠️ We need to double-check some information"

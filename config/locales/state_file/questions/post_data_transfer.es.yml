@@ -1,0 +1,8 @@
+---
+es:
+  state_file:
+    questions:
+      post_data_transfer:
+        edit:
+          subtitle: A continuación, revisaremos los detalles de tu declaración estatal y te pediremos información para completar tu declaración de impuestos estatal de %{state_name}.
+          title: "¡Hemos transferido tu declaración de impuestos federales exitosamente!"

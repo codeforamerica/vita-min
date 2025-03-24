@@ -1,0 +1,69 @@
+---
+en:
+  state_file:
+    questions:
+      return_status:
+        accepted:
+          check_payable_html: |
+            <li>
+              Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
+            </li>
+          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
+          download_voucher: Download and print the completed payment voucher.
+          feedback: We value your feedback—let us know what you think of this service.
+          include_payment: Fill out your payment voucher
+          mail_voucher_and_payment: 'Mail the voucher form and payment to:'
+          md:
+            refund_details_html: |
+              You can check the status of your refund by visiting <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov">www.marylandtaxes.gov</a> and clicking on "Where's my refund?" You can also call the automated refund inquiry hotline at 1-800-218-8160 (toll-free) or 410-260-7701.
+              <br/><br/>
+              Please wait at least 10 days after your return is accepted before calling the Taxpayer Services Division at 1-800-638-2937 (toll-free) or 410-260-7980.
+          nc:
+            check_payable_html: |
+              <li>Make your check or money order payable to %{payable_to}</li>
+              <li>
+                Write “2024 D-400” and your name, address, and the last 4 digits of your Social Security number on your payment.
+                <ul class="list--bulleted">
+                  <li>
+                    If you are filing a joint return, write the last 4 digits of both Social Security numbers on your payment in the order that they appear on the return.
+                  </li>
+                </ul>
+              </li>
+            refund_details_html: |
+              For the latest information on refund processing and to check your refund status, visit <a target="_blank" rel="noopener nofollow" href="https://www.ncdor.gov/file-pay/refund-process">www.ncdor.gov/file-pay/refund-process</a>.
+              <br/><br/>
+              You'll need to enter your Social Security Number and the exact refund amount.
+              <br/><br/>
+              You can also call the North Carolina Department of Revenue's toll-free refund inquiry line at 1-877-252-4052, available 24/7.
+          nj:
+            refund_details_html: Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. You can check the status of your refund by visiting the NJ Taxation <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Check Your Refund Status</a> page and clicking on “Where is my Refund?"
+          pay_by_mail_or_moneyorder: 'If you are paying by mail via check or money order:'
+          refund_details_html: 'Typical refund time frames are 7-8 weeks for e-Filed returns and 10-11 weeks for paper returns. There are some exceptions. For more information, please visit %{website_name} website: <a target="_blank" rel="noopener nofollow" href="%{tax_refund_url}">Where’s my Refund?</a>'
+          title: Your %{filing_year} %{state_name} state tax return is accepted
+        additional_content:
+          md_html: <a target="_blank" rel="noopener nofollow" href="https://www.donatelifemaryland.org/">Register to make an anatomical gift at DonateLifeMaryland.org.</a>
+        edit:
+          download_state_return_pdf: Download your state return
+          explain_calcs: Explain Calculations
+          show_xml: Show XML
+        intake_closed:
+          download_title: Download a copy of your %{filing_year} %{state_name} state tax return until December 31, %{year}
+          thank_you_html: Thank you for filing your return with <strong>FileYourStateTaxes</strong>, built in partnership with the state of %{state_name} to integrate with IRS Direct File.
+        pending:
+          check_spam: If it's been more than two days since you submitted your state taxes and you still haven’t heard from us, check your spam folder.
+          title: You have submitted your %{filing_year} %{state_name} state tax return
+          waiting_for acceptance: Your state tax return is still waiting to be accepted.
+        rejected:
+          edit_return: Edit your state return
+          email_us_html: Email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
+          have_questions: Have questions?
+          next_steps:
+            can_edit:
+              body: You can edit and resubmit your state return by clicking the button below.
+              title: What's next?
+            no_edit:
+              body_html: Unfortunately, there has been an issue with filing your state return that cannot be resolved on our tool. We recommend you download your return to assist you in next steps. Chat with us or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a> for guidance on next steps.
+              title: What can I do next?
+          reject_code: 'Reject Code:'
+          reject_desc: 'Reject Description:'
+          title: Unfortunately, your %{filing_year} %{state_name} state tax return was rejected

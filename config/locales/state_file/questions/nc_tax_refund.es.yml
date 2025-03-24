@@ -1,0 +1,21 @@
+---
+es:
+  state_file:
+    questions:
+      nc_tax_refund:
+        edit:
+          how_to_recieve: "¿Cómo te gustaría recibirlo?"
+          title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de Carolina del Norte de <strong>$%{refund_amount}.</strong>
+        nc_bank_details:
+          account_number: Número de cuenta
+          account_type:
+            label: Tipo de cuenta bancaria
+          after_deadline_default_withdrawal_info: Debido a que está presentando su declaración el o después del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, el estado retirará su pago tan pronto como procesen su declaración.
+          bank_title: 'Por favor, comparte los detalles de tu cuenta bancaria:'
+          confirm_account_number: Confirma el número de cuenta
+          confirm_routing_number: Confirma el número de ruta bancaria (routing number)
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el día del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
+          foreign_accounts_owed: No están permitidos los depósitos directos internacionales.
+          foreign_accounts_refund: No están permitidos los depósitos directos internacionales.
+          routing_number: Número de ruta bancaria (routing number)
+          withdraw_amount: "¿Cuánto autorizas que sea retirado de tu cuenta? (La cantidad total que debes es $%{owed_amount}.)"

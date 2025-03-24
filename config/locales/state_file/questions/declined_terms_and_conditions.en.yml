@@ -1,0 +1,10 @@
+---
+en:
+  state_file:
+    questions:
+      declined_terms_and_conditions:
+        edit:
+          action_html: "<strong>Is this a mistake?</strong>"
+          go_back_link: Go back to correct.
+          subtitle: Unfortunately, in order to continue filing with FileYourStateTaxes, you must accept the terms and conditions.
+          title: You’ve declined the terms and conditions.

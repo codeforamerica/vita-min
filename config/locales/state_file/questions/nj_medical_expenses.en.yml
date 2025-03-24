@@ -1,0 +1,39 @@
+---
+en:
+  state_file:
+    questions:
+      nj_medical_expenses:
+        edit:
+          description_html: |-
+            <p>If you had at least %{medical_expenses_threshold} in non-reimbursed medical expenses, you are eligible for a deduction. Enter the full amount of your non-reimbursed expenses here. We’ll deduct the right amount for your situation.</p>
+            <p>If your medical expenses were less than %{medical_expenses_threshold}, you are not eligible for the deduction. Click "Continue."</p>
+
+            <p>These expenses include:</p>
+            <ul class="list--bulleted">
+              <li>Expenses for yourself, your spouse and your dependents.</li>
+              <li>FYI: If you have a Health Savings Account (HSA) or Flexible Spending Account (FSA), you may have submitted a medical expense and gotten a distribution to cover that expense. For tax purposes, you can still deduct that expense.</li>
+              <li>See below for more on the definition of medical expenses.</li>
+            </ul>
+
+            <p>These expenses cannot include:</p>
+            <ul class="list--bulleted">
+              <li>Expenses for a child you didn't claim as a dependent on your return, even if you are paying for their health insurance.</li>
+              <li>Expenses for which you were reimbursed through your health insurance plan.</li>
+            </ul>
+          do_not_claim: If you do not want to claim this deduction, click “Continue”.
+          label: 'Enter total non-reimbursed medical expenses paid in %{filing_year}:'
+          learn_more_html: |-
+            <p>"Medical expenses" means non-reimbursed payments for costs such as:</p>
+            <ul class="list--bulleted">
+              <li>Physicians, dental, and other medical fees</li>
+              <li>Prescription eyeglasses and contact lenses</li>
+              <li>Hospital care</li>
+              <li>Nursing care</li>
+              <li>Medicines and drugs</li>
+              <li>Prosthetic devices</li>
+              <li>X‑rays and other diagnostic services conducted by or directed by a physician or dentist</li>
+              <li>Amounts paid for transportation primarily for and essential to medical care</li>
+              <li>Health insurance premiums (including for Medicare)</li>
+            </ul>
+          learn_more_title: What are medical expenses?
+          title: You may be able to deduct medical expenses.

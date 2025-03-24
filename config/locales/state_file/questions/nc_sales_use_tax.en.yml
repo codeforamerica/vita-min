@@ -1,0 +1,22 @@
+---
+en:
+  state_file:
+    questions:
+      nc_sales_use_tax:
+        edit:
+          calculated_use_tax: Enter calculated use tax
+          explanation_html: If you made any purchases without paying sales tax, you may owe <strong>use tax</strong> on those purchases. We’ll help you figure out the right amount.
+          select_one: 'Select one of the following:'
+          state_specific:
+            nc:
+              manual_instructions_html: (<a href="https://www.ncdor.gov/2024-d-401-individual-income-tax-instructions/open" target="_blank" rel="noopener noreferrer">Learn more here</a> and search for 'consumer use worksheet').
+          subtitle_html: This includes online purchases where sales tax was <b>not</b> applied.
+          title:
+            one: Did you make any out-of-state purchases in %{year} without paying sales tax?
+            other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales tax?
+          use_tax_method_automated: I did not keep a complete record of all purchases. <b>Calculate the amount of use tax for me.</b>
+          use_tax_method_manual: I kept a complete record of all purchases and will calculate my use tax manually.
+          what_are_sales_taxes: What are sales taxes?
+          what_are_sales_taxes_body: 'Sales Tax: This is a tax collected at the point of sale when you buy goods within your state.'
+          what_are_use_taxes: What are use taxes?
+          what_are_use_taxes_body: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.

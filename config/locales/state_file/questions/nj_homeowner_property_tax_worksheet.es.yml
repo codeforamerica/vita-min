@@ -1,0 +1,13 @@
+---
+es:
+  state_file:
+    questions:
+      nj_homeowner_property_tax_worksheet:
+        edit:
+          description_html: "<p>Completa esta<a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
+          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> por las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (ANCHOR ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
+          helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR u Homestead?"
+          helper_description: Puedes revisar tus facturas de impuestos trimestrales y sumar el total pagado a tu municipio.
+          helper_heading: "¿Dónde puedo encontrar los impuestos sobre la propiedad pagados?"
+          label_html: "<strong>Ingresa la Línea 4 de la Hoja de Trabajo</strong><br/>(Tu parte del total de impuestos sobre la propiedad pagados)"
+          title: Buenas noticias—calificas para una deducción o crédito

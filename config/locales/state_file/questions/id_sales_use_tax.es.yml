@@ -1,0 +1,17 @@
+---
+es:
+  state_file:
+    questions:
+      id_sales_use_tax:
+        edit:
+          sales_tax_content: 'Impuesto sobre ventas: Este es un impuesto recaudado en el punto de venta cuando compras bienes dentro de tu estado.'
+          sales_tax_title: "¿Qué son los impuestos sobre ventas?"
+          sales_use_tax_helper_text: Ingrese el monto total
+          subtitle_html: Esto incluye compras en línea donde <strong>no</strong> se aplicó el impuesto sobre ventas. Si hiciste alguna compra sin pagar impuestos sobre la venta, puede que debas el impuesto sobre el uso de esas compras. Te ayudaremos a saber la cantidad exacta.
+          title:
+            many: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
+            one: "¿Hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
+            other: "¿Tú o tu cónyuge hiciste alguna compra fuera del estado en %{year} sin pagar impuestos sobre ventas?"
+          unpaid_sales_use_tax_label_html: Ingresa la <strong>cantidad total de compras</strong> a las que no se les aplicaron impuestos sobre las ventas o el uso %{year}.
+          use_tax_content: Si compras algo de otro estado (como compras en línea o en una tienda ubicada en otro estado) y no pagas el impuesto sobre ventas, generalmente se requiere que pagues el impuesto sobre uso a tu estado de residencia.
+          use_tax_title: "¿Qué son los impuestos sobre uso?"

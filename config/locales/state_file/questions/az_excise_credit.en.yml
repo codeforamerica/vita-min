@@ -1,0 +1,12 @@
+---
+en:
+  state_file:
+    questions:
+      az_excise_credit:
+        edit:
+          household_excise_credit_claimed_amt: Enter the total amount of Increased Excise Tax Credit claimed by your household members
+          household_excise_credit_claimed_amt_help_text: You can look this up by looking at Line 56 of their Arizona return.
+          household_excise_credit_html: Did anyone in your household file a tax return separately from you and claim the Arizona Increased Excise Tax Credit? <br><br> (Your household is everyone that you lived with, even if they aren’t listed on your return.)
+          primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+          spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
+          title: You might be eligible for the Increased Excise Tax Credit.

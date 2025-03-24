@@ -1,0 +1,23 @@
+---
+en:
+  state_file:
+    questions:
+      nj_homeowner_eligibility:
+        edit:
+          helper_description_html: |
+            <ul class="list--bulleted">
+              <li>You are a disabled veteran with a 100% exemption from property taxes on your main home; or if</li>
+              <li>You made P.I.L.O.T. (Payments-In-Lieu-of-Tax) payments</li>
+              <li><a href="https://www.nj.gov/treasury/taxation/questions/propertyd2.shtml" target="_blank" rel="noopener nofollow">Another reason applies</a></li>
+            </ul>
+          helper_header: 'Leave first box unchecked if:'
+          homeowner_home_subject_to_property_taxes: I paid property taxes
+          homeowner_main_home_multi_unit: My main home was a unit in a multi-unit property I owned
+          homeowner_main_home_multi_unit_max_four_one_commercial: The property had two to four units and no more than one of those was a commercial unit
+          homeowner_more_than_one_main_home_in_nj: I lived in more than one main home in New Jersey that I paid property taxes on (i.e., I moved during the year)
+          homeowner_same_home_spouse: I lived with my spouse
+          homeowner_shared_ownership_not_spouse: I shared ownership of my main home with someone who was not my spouse
+          label_html: |
+            <p><strong>Check all that apply to the main home you owned.</strong></p>
+            <p>(If you do not want to claim this deduction or credit, leave these checkboxes blank and click <strong>"Continue."</strong>)</p>
+          title: You said you were a homeowner in %{filing_year}.

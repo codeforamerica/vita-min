@@ -1,0 +1,7 @@
+---
+en:
+  state_file:
+    questions:
+      spouse_state_id:
+        edit:
+          title_html: We need some details from <strong>your spouse’s</strong> state-issued ID, if they have one

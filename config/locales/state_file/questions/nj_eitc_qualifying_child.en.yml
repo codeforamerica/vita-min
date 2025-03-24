@@ -1,0 +1,12 @@
+---
+en:
+  state_file:
+    questions:
+      nj_eitc_qualifying_child:
+        edit:
+          helper_contents_html: "<p>You are the qualifying child of another taxpayer for the New Jersey Earned Income Tax Credit (NJEITC) in %{filing_year} if all of these are true.</p>\n<ol class=\"list--numbered\">\n  <li>You are that person's:\n    <ul class=\"list--bulleted\">\n      <li>Child, stepchild, foster child, or a descendant of any of them, or</li>\n      <li>Sibling, half sibling, step sibling, or a descendant of any of them</li>\n    </ul>\n  </li>\n  <li>You were: \n    <ul class=\"list--bulleted\">\n      <li>Under age 19 at the end of the year and younger than that person (or that person's spouse, if they filed jointly), or</li>\n      <li>Under age 24 at the end of the year, a student, and younger than that person (or that person’s spouse, if they filed jointly), or</li>\n      <li>Any age and had a permanent disability that prevented you from working and making money</li>\n    </ul>\n  </li>\n  <li>You lived with that person in the United States for more than 6 months in %{filing_year}.</li>\n  <li>You aren’t filing a joint return with your spouse for the year. Or you’re filing a joint return with your spouse only to get a refund of money you paid toward taxes.</li>\n</ol>\n<p>If all of these statements are true, you are the qualifying child of another taxpayer for NJEITC. This is the case even if they don’t claim the credit or don’t meet all of the rules to claim it.</p>\n<p> If only some of these statements are true, you are NOT the qualifying child of another taxpayer for NJEITC.</p>"
+          helper_heading: How do I know if I could be someone else’s qualifying child for NJEITC?
+          instructions: 'Note: You might be able to get the state credit even if you didn’t qualify for the federal credit.'
+          primary_eitc_qualifying_child_question: In %{filing_year}, could you be someone else's qualifying child for the New Jersey Earned Income Tax Credit (NJEITC)?
+          spouse_eitc_qualifying_child_question: In %{filing_year}, could your spouse be someone else’s qualifying child for the NJEITC?
+          title: You may be eligible for the New Jersey Earned Income Tax Credit (NJEITC).

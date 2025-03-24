@@ -1,0 +1,14 @@
+---
+es:
+  state_file:
+    questions:
+      az_primary_state_id:
+        az_primary:
+          learn_more_html: |
+            Para obtener más información, visita: <br>
+            <a href="https://azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft" target="_blank">
+            azdor.gov/individuals/income-tax-filing-assistance/verifying-identity-and-avoiding-identity-theft
+            </a>
+          ongoing_effort: Como parte de un esfuerzo continuo para proteger a los contribuyentes del robo de identidad, el IRS, las agencias fiscales estatales y la industria fiscal te piden que compartas tu número de licencia de conducir o de identificación emitida por el estado.
+          requests_drivers_license: El Departamento de Ingresos de Arizona pide que se incluya la licencia de conducir o tarjeta de identificación con la declaración, pero no rechazará la declaración si no se incluye.
+          why_are_you_asking: "¿Por qué estamos pidiéndote esta información?"

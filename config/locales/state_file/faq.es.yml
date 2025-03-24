@@ -1,0 +1,6 @@
+---
+es:
+  state_file:
+    faq:
+      index:
+        title: 'Preguntas frecuentes de los contribuyentes de %{state}:'

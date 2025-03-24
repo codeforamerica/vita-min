@@ -1,0 +1,325 @@
+---
+en:
+  state_file:
+    questions:
+      eligible:
+        az_credits_unsupported:
+          other_credits_301_html: Nonrefundable credits listed on <a href="https://azdor.gov/sites/default/files/document/FORMS_CREDIT_2024_301_f.pdf" target="_blank" rel="noopener nofollow">AZ Form 301</a>
+          other_credits_529_html: <a href="https://az529.gov/what-is-a-529-plan/az-tax-incentives/" target="_blank" rel="noopener nofollow">Arizona 529 plan contributions deduction</a>
+          other_credits_add_dependents: Adding dependents not claimed on the federal return
+          other_credits_change_filing_status: Change in filing status from federal to state return
+          other_credits_heading: 'Other credits and deductions not supported this year:'
+          other_credits_itemized_deductions: Itemized deductions
+          property_tax_credit_age: Be 65 or older; or receive Supplemental Security Income
+          property_tax_credit_heading_html: '<a href="https://azdor.gov/individuals/income-tax-filing-assistance/tax-credits" target="_blank" rel="noopener nofollow">Property Tax Credit</a>. To qualify for this credit you must:'
+          property_tax_credit_income: have total household income less than $3,751 if you live alone; or total household income less than $5,501 if you live with others; and
+          property_tax_credit_paid: have paid property taxes or rent on a home in Arizona during the year
+        az_supported:
+          charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
+          dependent_credit: Dependent Credit
+          family_income_credit: Family Income Credit
+          increased_deduction: An increased deduction for charitable contributions
+          increased_excise_credit: Increased Excise Credit
+          public_school_credit: Public School Tax Credit
+        edit:
+          credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
+          faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
+          faq_link_html: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations <a href="%{url}">here</a>.
+          md_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
+          not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
+          title1: You can use this service to file your %{year} %{state} taxes
+          title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits and deductions you <strong>may</strong> be able to claim to maximize your refund.
+          warning: Please review the subtractions and credits that are supported this year to ensure this service is right for your tax needs.
+        faq_link: Visit our FAQ
+        id_credits_unsupported:
+          change_in_filing_status: Change in filing status from federal to state return
+          dependents_not_claimed_fed_return: Adding dependents not claimed on the federal return
+          earned_on_reservation: Income earned on a reservation by an American Indian
+          education_contribution_credit: Educational Entity Contributions credit
+          id_college_savings_program: Idaho College Savings Program Subtraction
+          id_youth_rehab_contributions: Credit for Idaho Youth and Rehabilitation Facility Contributions
+          itemized_deductions: Itemized deductions
+          long_term_care_insurance_subtraction: Long-term Care Insurance Subtraction
+          maintaining_elderly_disabled_credit: Credit for Maintaining a Home for the Elderly or Disabled
+          not_supported_this_year: 'Credits and deductions not supported this year:'
+        id_supported:
+          child_care_deduction: Idaho Child and Dependent Care Subtraction
+          health_insurance_premiums_subtraction: Health Insurance Premiums subtraction
+          id_child_tax_credit: Idaho Child Tax Credit
+          id_grocery_credit: Idaho Grocery Credit
+          interest_from_obligations: Interest from U.S government obligations subtraction
+          retirement_benefits_deduction: Retirement Benefits deductions
+          social_security_retirement_deduction: Social Security and Railroad Retirement subtraction
+        md_reveals:
+          body1_html: |
+            <ul>
+              <li>
+                Subtractions:
+                <ul>
+                  <li>Classroom supplies for K-12 teachers</li>
+                  <li>Union dues</li>
+                  <li>Payments from a pension system to firemen and policemen for job-related injuries or disabilities</li>
+                  <li>Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee</li>
+                  <li>ABLE account contributions</li>
+                  <li>Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)</li>
+                  <li>Any other Maryland subtractions not listed here (see <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">Form 502SU</a>)</li>
+                </ul>
+              </li>
+              <li>
+                Credits:
+                <ul>
+                  <li>Student loan debt relief tax credit</li>
+                  <li>Quality Teacher Incentive Credit</li>
+                  <li>Long-term care insurance credit</li>
+                  <li>Independent living tax credit</li>
+                  <li>Maryland Child Tax Credit (if claimed based on disability of the child)</li>
+                  <li>Maryland Earned Income Tax Credit (if you did not claim the federal Earned Income Tax Credit)</li>
+                  <li>Any other Maryland credits not listed <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(see Form 502CR</a>)</li>
+                </ul>
+              </li>
+
+              <li>
+                Household situations:
+                <ul>
+                  <li>Filing your federal and state tax returns using different filing statuses (for example you file as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
+                  <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
+                  <li>Splitting refunds between accounts</li>
+                  <li>Married and filing jointly with a deceased spouse</li>
+                </ul>
+              </li>
+
+              <li>
+                Payments:
+                <ul>
+                  <li>Estimated tax payments</li>
+                  <li>Extension tax payments</li>
+                </ul>
+              </li>
+            </ul>
+            <p>
+              Find a more detailed breakdown of unsupported credits and subtractions this year <a href="https://www.fileyourstatetaxes.org/en/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">here</a>.
+            </p>
+          body2_html: |
+            <p>
+              This year, you <strong>can't claim the Maryland EITC using this service</strong> in these scenarios:
+            </p>
+            <ul>
+              <li>If you or other people in your family have an Individual Taxpayer Identification Number (ITIN) instead of a Social Security Number and you earned income from a job</li>
+              <li>If you are less than 25 years old, you earned less than $18,600 (or $25,600 if you’re filing a joint return), you were not claimed as a dependent by somebody else, and you didn’t claim anyone on your return</li>
+            </ul>
+            <p>
+              For the Maryland CTC, you <strong>can't claim a child with a permanent disability that is between the ages of 6 and 17 using this service</strong> this year.
+            </p>
+          body3_html: |
+            <p>
+              You have other free options for filing your state return:
+              <ul>
+                <li>
+                  Filing your state return for free with IRS-certified VITA volunteers in Maryland, but it may take 2-3 weeks to complete.
+                  <ul>
+                    <li>
+                      <a href="https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form" rel="noopener nofollow" target="_blank">Get started with VITA now</a>
+                    </li>
+                    <li>
+                      Learn more about this process and other filing options <a href="https://www.fileyourstatetaxes.org/en/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">here</a>.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Get started with the Comptroller of Maryland's <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">Free Income Tax Preparation</a>service.
+                </li>
+              </ul>
+            </p>
+          credits_not_supported: What subtractions, credits, and other situations does this service NOT support this year?
+          title2: What scenarios for claiming the Maryland Earned Income Tax Credit and/or Child Tax Credit aren't supported by this service?
+          title3: What if I have a situation not yet supported by FileYourStateTaxes?
+        md_supported:
+          heading1: 'Subtractions:'
+          heading2: 'Credits:'
+          sub1: Subtraction for Child and Dependent Care Expenses
+          sub10: Senior Tax Credit
+          sub11: State and local Poverty Level Credits
+          sub12: Credit for Child and Dependent Care Expenses
+          sub2:
+            one: Pension exclusion (if you are 65 years or older, or if you are under 65 and previously qualified for the exclusion based on a permanent disability)
+            other: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
+          sub3: Military retirement
+          sub4: Public safety retirement
+          sub5: Taxable Social Security and Railroad Retirement benefits
+          sub6: Interest income from obligations of the US or US possessions
+          sub7: Two-income subtraction for married filing jointly taxpayers
+          sub8: State and local Earned Income Tax credits (if you claimed the federal Earned Income Tax Credit)
+          sub9: State Child Tax Credit (for children under 6)
+          subject_to_eligibility: All subtractions and credits are subject to eligibility requirements.
+        nc_credits_unsupported:
+          college_savings_account: 529 College Savings Account Contributions
+          credits_carried: Credits carried forward from previous years
+          credits_for_rehabilitating: Credits for Rehabilitating Historic Structures
+          credits_not_supported: What credits and deductions does this service not support this year?
+          estimated_income_tax_payments: Estimated income tax payments
+          extension_payment: Extension payments
+          personal_education: Personal Education Student Account Deposits Deduction
+        nc_supported:
+          deduction_for_income: Deduction for income by members of a Federally recognized Indian tribe
+          deduction_for_qualifying_children: Deduction for qualifying children
+          deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
+          deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
+          deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
+        nj_credits_unsupported:
+          also_unsupported_html: |
+            <li>Applying for an extension</li>
+            <li>Making charitable contributions to various NJ organizations through your return</li>
+            <li>Filing your federal and state tax returns using different filing statuses (for example you filed as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
+            <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
+            <li>Applying a portion of your 2024 refund toward your 2025 estimated taxes</li>
+          also_unsupported_title: 'We also do not support:'
+          unsupported_html: |
+            <li>Subtraction for meals, lodging, moving expenses, other reimbursed business expenses, or compensation for injuries or sickness reported as wages on your W-2</li>
+            <li>Subtraction for alimony payments you made</li>
+            <li>Pension income exclusion for taxpayers who will never be eligible for Social Security ("Special Exclusion")</li>
+            <li>Deductions for NJBEST 529 college savings accounts contributions, or for higher education tuition costs</li>
+            <li>Deduction for principal and interest paid on an NJCLASS student loan</li>
+            <li>Deduction for qualified conservation contributions</li>
+            <li>Deduction for health enterprise zones</li>
+            <li>Gold Star Family Counseling Credit</li>
+            <li>Credit for Employer of Organ/Bone Marrow Donor</li>
+            <li>Wounded Warrior Caregivers Credit</li>
+        nj_supported:
+          supported_credits_html: |
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/eitc/eitcinfo.shtml">New Jersey Earned Income Tax Credit (NJEITC)</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/individuals/childtaxcredit.shtml">New Jersey Child Tax Credit</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/depcarecred.shtml">New Jersey Child and Dependent Care Tax Credit</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit13.shtml#:~:text=Medical%20Expenses%0AYou,TAM%202011%2D14.">New Jersey Medical Expenses Deduction</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit7.shtml">Pension/Retirement and Other Retirement Income Exclusion</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit16.shtml">Credits for Excess Unemployment Insurance (UI) and Family Leave Insurance (FLI) Contributions</a></li>
+            <li><a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/njit35.shtml">Property Tax Credit or Deduction</a> (applicable to renters and homeowners)</li>
+        ny_credits_unsupported:
+          college_tuition_credit: College tuition credit or itemized deduction
+          firefighter_ambulance_credit: Volunteer firefighters’ and ambulance workers’ credit
+          long_term_care_credit: Long-term care insurance credit
+          non_custodial_nys_eic_html: Non-custodial NYS Earned Income Credit (for <a href="https://www.tax.ny.gov/pit/credits/nceic.htm" target="_blank" rel="noopener nofollow">parents who do not live with their children</a>)
+          nys_child_dependent_care_credit: NYS Child and Dependent Care Credit
+          other_credits_change_filing_status: Change in filing status from federal to state
+          other_credits_est_tax_etc: Estimated tax, extension payments, and prior year credit forward
+          other_credits_heading: 'Other credits, deductions and resources not supported this year:'
+          other_credits_itemized_deductions: Itemized deductions
+          real_property_tax_credit: Real Property Tax Credit
+          subtractions_225_heading_html: 'All NY <a href="https://www.tax.ny.gov/forms/current-forms/it/it225i.htm#subtraction-modifications-chart" target="_blank" rel="noopener nofollow">subtractions claimed on IT-225 including</a>:'
+          subtractions_225_health_care_worker: Health care and mental hygiene worker bonuses
+          subtractions_225_help_loan: HELP loan interest
+          subtractions_225_military: Military combat pay
+          subtractions_225_native_american: Native American Income Exclusion
+          subtractions_225_student_loan: Student loan forgiveness award
+        ny_supported:
+          empire_state_ctc: Empire State Child Credit
+          nyc_school_tax_credit: NYC School Tax Credit
+          nys_eic: NYS/NYC Earned Income Credit
+          nys_hh_credit: NYS/NYC Household Credit
+        other_filing_options:
+          other_options:
+            content_html:
+              nj: |
+                <p>
+                  You can also file your return online through <a href="https://www.njportal.com/Taxation/NJ1040/" target="_blank" rel="noopener noreferrer">the State of New Jersey's eFile system</a>, or by mail. Contact <a href="https://nj.gov/treasury/taxation/contact.shtml" target="_blank" rel="noopener noreferrer">NJ Treasury's Division of Taxation</a> if you have questions.
+                </p>
+                <p>
+                  There are several commercial tax preparation services that offer state-only tax filing. Here are a few tips and tricks when choosing an option:
+                  <ul>
+                    <li>
+                      Since you've already submitted your federal tax return, make sure the service or software you use allows you to file a state-only tax return. You may need to reach out to their customer support to confirm.
+                    </li>
+                    <li>
+                      You'll be asked to reenter or provide the same information you reported on your federal return. This information is needed to complete parts of your state return.
+                    </li>
+                    <li>
+                      When you file, make sure you only submit your state tax return. If you submit your federal return again, your federal return may be rejected.
+                    </li>
+                  </ul>
+                </p>
+                Fees may apply.
+            fees: Fees may apply.
+            learn_more_here_html: Learn more <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
+            list:
+              body: 'Many commercial tax preparation services offer state-only tax filing. Here are some quick tips:'
+              list1: Confirm that the service lets you file just your state return. You might need to check with customer support.
+              list2: Be ready to reenter info from your federal return, as it's needed for your state return.
+              list3: When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.
+            title: What are my other state filing options?
+          vita_option:
+            content_html:
+              md: |
+                <p>
+                  You have other free options for filing your state return:
+                  <ul>
+                    <li>
+                      File for free with IRS-Certified VITA volunteers in Maryland.
+                      <ul>
+                        <li>
+                          If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
+                        </li>
+                        <li>
+                          <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Get started with VITA now</a>
+                        </li>
+                        <li>
+                          Learn more about this process and other filing options <a href="https://www.fileyourstatetaxes.org/en/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">here.</a>
+                        </li>
+                      </ul>
+                      <li>
+                        Get started with the Comptroller of Maryland's <a href="https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php" rel="noopener nofollow" target="_blank">Free Income Tax Preparation</a>service.
+                      </li>
+                    </li>
+                  </ul>
+                </p>
+              nj: |
+                <p>
+                  Certified tax preparers at Simplify CT can help prepare and e-file your state tax return for free over the course of about 2-3 weeks.
+                </p>
+                <p>
+                  The process:
+                  <ul>
+                    <li>
+                      You complete a short form to request state-only assistance. (You will get an automated email confirming you submitted the form.)
+                    </li>
+                    <li>
+                      A certified tax preparer will share a link to securely upload your federal tax form (1040), tax documents, and ID.
+                    </li>
+                    <li>
+                      They will give you a call to ask for additional information.
+                    </li>
+                    <li>
+                      Once your return is ready, they'll schedule a call to review and answer any of your questions.
+                    </li>
+                    <li>
+                      You'll sign your state tax form online.
+                    </li>
+                    <li>
+                      The tax preparer will e-file your state taxes.
+                    </li>
+                  </ul>
+                </p>
+                <p>
+                  If you have questions in the meantime, please use the chat or email <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>. If you have questions after Simplify CT has contacted you, email <a href="mailto:help@simplifyct.org">help@simplifyct.org</a>.
+                </p>
+            title:
+              default: What are my free state filing options?
+              nj: Learn more about the VITA process
+        vita_option:
+          connect_to_vita:
+            nj: |
+              <p>
+                <a href="%{faq_link_href}" target="_blank" rel="noopener noreferrer">
+                  Visit our FAQ
+                </a>
+              </p>
+              <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
+                Get connected now
+              </a>
+          vita_introduction:
+            nj: You can file your state taxes for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers at Simplify CT.
+          vita_link: Get started with VITA now
+          want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
+          want_to_claim_vita_1: You may be able to file your state return for free with IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.

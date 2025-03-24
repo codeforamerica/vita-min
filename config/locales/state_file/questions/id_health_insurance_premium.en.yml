@@ -1,0 +1,40 @@
+---
+en:
+  state_file:
+    questions:
+      id_health_insurance_premium:
+        edit:
+          amount_paid_helper_text: Total amount paid in %{year}
+          do_not_include_notice_html: |
+            Some health insurance premiums do not qualify for this subtraction. <b>Do not include</b> any premiums paid using the following:
+
+            <ul class="list--bulleted">
+              <li><b>Idaho medical savings account:</b> Funds used from this account cannot be deducted again.</li>
+              <li><b>Salary reduction plans:</b> Premiums deducted from your paycheck before taxes do not qualify.</li>
+              <li><b>Social Security Medicare A and B:</b> No deduction for employer-required Medicare A payments.</li>
+            </ul>
+          health_insurance_premium_question:
+            one: Did you pay health insurance premiums for yourself in %{year}?
+            other: Did you pay health insurance premiums for yourself and your household in %{year}?
+          medicaid_content: Yes, if you are on Medicaid, your health insurance premium counts.  Check your monthly letter from the Idaho Department of Health and Welfare for your premium amount. It could be as low as $0, depending on your income and other factors.
+          medicaid_title: Do Medicaid and Medicare payments count?
+          qualifications_content_html: |
+            You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including medical, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
+            <br/><br/>
+            If you have Medicare you can deduct Medicare A (if you are voluntarily enrolled and not covered under Social Security), as well as Medicare B and D if you are voluntarily enrolled. Medicare Advantage also qualifies.
+          qualifications_title: Which health coverage premiums qualify?
+          qualifying_amount_help_text_html: Enter the <strong>total amount</strong> of qualifying health insurance premiums your household paid in %{year}.
+          subtitle:
+            one: To see if you qualify, we need more information about you.
+            other: To see if you qualify, we need more information about you and your household.
+          title: You might be eligible for the Idaho Health Insurance Premium Deduction!
+          what_is_content_html: |
+            A health insurance premium is the monthly fee you pay for your health coverage.
+
+            You can find your premium amounts on your:
+            <ul>
+              <li>Monthly pay stub</li>
+              <li>Form 1095-C</li>
+              <li>Form 1095-A, by subtracting the total of column C from the total of column A.</li>
+            </ul>
+          what_is_title: What is a health insurance premium?

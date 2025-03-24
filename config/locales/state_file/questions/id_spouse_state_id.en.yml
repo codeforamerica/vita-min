@@ -1,0 +1,10 @@
+---
+en:
+  state_file:
+    questions:
+      id_spouse_state_id:
+        id_spouse:
+          encourage_sharing_html: If you and your spouse have a driver’s license or state issued identification card please provide the requested information from it. The return will not be rejected if you do not provide a driver’s license or state-issued identification. <br><br> If you provide this information, it may help to identify you as the taxpayer.
+          protect_identity: Many state revenue agencies, including Idaho, are requesting additional information in an effort to combat stolen-identity tax fraud and to protect you and your tax refund.
+          title_html: We need some details from <strong>your spouse’s</strong> state-issued ID, if they have one
+          why_ask_this: Why are you asking for this information?

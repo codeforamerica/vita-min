@@ -1,0 +1,9 @@
+---
+es:
+  state_file:
+    questions:
+      nc_qss_info:
+        edit:
+          question: "¿En qué año falleció tu cónyuge?"
+          subtitle: Para continuar, necesitamos confirmar información adicional sobre tu cónyuge fallecido.
+          title: Parece que tu estado civil es "Cónyuge sobreviviente calificado"

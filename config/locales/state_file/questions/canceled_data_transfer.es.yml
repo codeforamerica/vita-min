@@ -1,0 +1,8 @@
+---
+es:
+  state_file:
+    questions:
+      canceled_data_transfer:
+        edit:
+          subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes, debes transferir declaración de impuestos federales para completar ciertas secciones de tu declaración de impuestos estatales.
+          title: Cancelaste la transferencia de tu declaración federal de impuestos.

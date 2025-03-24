@@ -1,0 +1,8 @@
+---
+es:
+  state_file:
+    questions:
+      waiting_to_load_data:
+        edit:
+          subtitle_html: Esto suele tardar unos minutos. No cierres esta página.<br><br> Usaremos la información de tu declaración de impuestos federales para completar algunas secciones de tu declaración estatal.
+          title_html: Un momento, estamos transfiriendo tu declaración de impuestos federales.

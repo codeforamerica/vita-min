@@ -1,0 +1,9 @@
+---
+es:
+  state_file:
+    questions:
+      nc_primary_state_id:
+        nc_primary:
+          encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
+          protect_identity: Para proteger tu identidad y prevenir el fraude fiscal, muchas agencias estatales piden tu número de licencia de conducir o de identificación estatal.
+          why_ask_this: "¿Por qué estamos pidiéndote esta información?"

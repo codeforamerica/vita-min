@@ -1,0 +1,8 @@
+---
+en:
+  state_file:
+    questions:
+      pending_federal_return:
+        edit:
+          body_html: Sorry to keep you waiting.<br><br>You’ll receive an email from IRS Direct File when your federal tax return is accepted with a link to bring you back here. Check your spam folder.
+          title: Your federal tax return must be accepted before you can file your state tax return

@@ -1,0 +1,11 @@
+---
+es:
+  state_file:
+    questions:
+      md_primary_state_id:
+        md_primary:
+          dmv_bmv_label: Identificación estatal del MVA
+          encourage_sharing_html: Si tú y tu cónyuge tienen una licencia de conducir o una tarjeta de identificación emitida por el estado, por favor ingresa la información solicitada de ella. La declaración no será rechazada si no se ingresa un número de licencia de conducir o identificación emitida por el estado. <br><br> Compartir esta información puede ayudar a identificarte como la persona contribuyente.
+          protect_identity: Muchas agencias de ingresos estatales, incluido Maryland, están solicitando información adicional como un esfuerzo para combatir el fraude fiscal por robo de identidad y para protegerte a ti y tu reembolso de impuestos.
+          subtitle: El Contralor de Maryland solicita que la información de tu licencia de conducir o tarjeta de identificación emitida por el estado se incluya con la declaración, pero no rechazará la declaración si no está incluida.
+          why_ask_this: "¿Por qué están pidiendo esta información?"

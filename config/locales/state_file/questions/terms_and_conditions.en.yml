@@ -1,0 +1,35 @@
+---
+en:
+  state_file:
+    questions:
+      terms_and_conditions:
+        edit:
+          accept: Accept
+          body_text_closer_html: <strong>By using FileYourStateTaxes, you're letting us know that you've read, understood, and agreed to these terms as well as our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a>. Thanks for choosing us for your tax filing needs!</strong>
+          body_text_opener_html: "<strong>When you use the FileYourStateTaxes service, here's what you're agreeing to:</strong>"
+          decline: Decline
+          list_item_10_html: "<strong>Data Removal:</strong> You have the right to ask us to remove your personal data and tax-related information from FileYourStateTaxes whenever you want. Just contact us or use the data removal function in the software. But keep in mind, this might affect your access to the service."
+          list_item_11_html: "<strong>Links to Third Party Sites:</strong> Links in the software will let you leave FileYourStateTaxes. The linked sites are not under the control of FileYourStateTaxes and FileYourStateTaxes is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. FileYourStateTaxes is providing these links to you only as a convenience, and the inclusion of any link does not imply endorsement by FileYourStateTaxes of the site."
+          list_item_12_html: "<strong>Governing Law:</strong> This Agreement will be governed by and construed in accordance with the laws of the state of California."
+          list_item_13_html: <strong>Questions and Concerns:</strong> If you have any questions or concerns about these terms, feel free to reach out to us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+          list_item_1_html: "<strong>Easy Tax Filing:</strong> FileYourStateTaxes is a free and easy to use service built by %{owner} to help you file your state tax return conveniently after you've completed your federal return."
+          list_item_2_html: "<strong>Data Transfer:</strong> You're letting us use your federal return data as the starting point for your state tax return."
+          list_item_3_html: "<strong>Questions for Accuracy:</strong> Sometimes we might ask you a few more questions to make sure your state tax return is complete and accurate."
+          list_item_4_html: "<strong>Modernized eFile:</strong> We'll submit your state tax return using the Modernized eFile (MeF) system, which links it to your federal return."
+          list_item_5_html: "<strong>Your Responsibility:</strong> You're responsible for making sure the information you provide is accurate and that you follow all federal and state tax laws."
+          list_item_6_html: "<strong>No Guarantees:</strong> We do our best, but we can't guarantee the accuracy or success of your state tax return when you use FileYourStateTaxes."
+          list_item_7_html: <strong>Privacy and Security:</strong> We're serious about protecting your privacy and data. Check out our <a href="%{privacy_policy_link}" target="_blank" rel="noopener nofollow">Privacy Policy</a> for all the details.
+          list_item_8_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either text message (SMS) or email. This includes status updates, reminders, and important information."
+          list_item_9_html: "<strong>Your Choice:</strong> You can change your preferred communication method or opt out of these updates anytime by following the instructions in the messages or through your account settings."
+          list_item_no_sms_html: "<strong>Stay Updated:</strong> We'll send you updates about your state tax return through your preferred communication method - either SMS or email. This includes status updates, reminders, and important information."
+          ny_text_html: |
+            <strong>E-file your New York State income tax return at no extra charge.</strong><br><br>
+            Before you print and mail your return, please note that there is no additional fee for filing it electronically. Other reasons to e-file:
+            <ul class="list--bulleted">
+             <li>90% of New Yorkers e-file their income tax returns.</li>
+             <li>E-filing is fast, easy, and secure.</li>
+             <li>E-filers get their refunds faster than paper filers.</li>
+             <li>Not only is free e-filing a good value, it’s also the law: New York State requires most taxpayers to file electronically if they are using tax software to prepare their return.</li>
+            </ul>
+          read_text: Please read terms and conditions before making your decision.
+          title: Next, review and accept the terms and conditions

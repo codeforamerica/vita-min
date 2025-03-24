@@ -1,0 +1,9 @@
+---
+es:
+  state_file:
+    questions:
+      nc_veteran_status:
+        primary_veteran_question: "¿Eres un veterano?"
+        spouse_veteran_question: "¿Es su cónyuge un veterano?"
+        title: "¿Eres veterano de las Fuerzas Armadas de los Estados Unidos?"
+        title_spouse: "¿Tú o tu cónyuge son veteranos de las Fuerzas Armadas de los Estados Unidos?"

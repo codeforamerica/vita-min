@@ -1,0 +1,10 @@
+---
+es:
+  state_file:
+    questions:
+      declined_terms_and_conditions:
+        edit:
+          action_html: "<strong>¿Fue un error?</strong>"
+          go_back_link: Regresa para corregirlo.
+          subtitle: Lamentablemente, para continuar presentando tus impuestos estatales con FileYourStateTaxes, debes aceptar los términos y condiciones.
+          title: Has rechazado los términos y condiciones.

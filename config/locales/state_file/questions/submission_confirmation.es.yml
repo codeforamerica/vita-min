@@ -1,0 +1,16 @@
+---
+es:
+  state_file:
+    questions:
+      submission_confirmation:
+        edit:
+          download_state_return_pdf: Descarga tu declaración estatal
+          email_text_update: Recibirás una actualización por correo electrónico y mensaje de texto cuando tu declaración de impuestos estatal sea aceptada.
+          email_update: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatal sea aceptada.
+          text_update: Recibirás una actualización por SMS cuando una vez tu declaración de impuestos haya sido aceptada.
+          title: "¡Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido enviada! "
+          title_resubmit: "¡Tu declaración de impuestos de %{filing_year} de %{state_name} ha sido enviada de nuevo!"
+        nj_additional_content:
+          body_html: Dijiste que tú están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey. Puedes cargarlos <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">aquí</a>.
+          body_mfj_html: Dijiste que tú o tu cónyuge están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey. Puedes cargarlos <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">aquí</a>.
+          header: 'Atención: si está reclamando la exención de veterano/a de guerra por primera vez'

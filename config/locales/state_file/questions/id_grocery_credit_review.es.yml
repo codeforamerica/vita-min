@@ -1,0 +1,16 @@
+---
+es:
+  state_file:
+    questions:
+      id_grocery_credit_review:
+        edit:
+          body_p1: Esta cantidad de crédito será parte de tus cálculos fiscales finales. Si se te debe un reembolso de impuestos estatales, la cantidad del crédito aumentará tu reembolso final. Si debes impuestos, el crédito reducirá la cantidad que debes.
+          body_p2: Puedes revisar la cantidad  total de tu reembolso estatal de Idaho al final.
+          donate_impact_content_p1: Tu decisión de donar es final una vez que envíes tu declaración de impuestos y no puede ser cambiada a través de una declaración enmendada.
+          donate_impact_content_p2: El Fondo de Bienestar Cooperativo es un fondo fiduciario en el tesoro estatal y todo el dinero se destina a la asistencia pública y a fines de bienestar.
+          donate_impact_heading: "¿Cómo afectará la donación de mi crédito a mi declaración de impuestos?"
+          donate_warning_p1: Tu donación se deducirá del total de tu reembolso estatal.
+          donate_warning_p2: Tu decisión de donar es definitiva y no se puede cambiar mediante una declaración enmendada.
+          title: Eres elegible para recibir $%{grocery_credit_amount} del crédito por compras de alimentos de Idaho!
+          title_html: Eres elegible para recibir <strong>$%{grocery_credit_amount}</strong> del crédito por compras de alimentos de Idaho!"
+          would_you_like_to_donate: "¿Te gustaría donar tu crédito completo al Fondo de Bienestar Cooperativo?"

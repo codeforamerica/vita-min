@@ -1,0 +1,10 @@
+---
+en:
+  state_file:
+    questions:
+      id_permanent_building_fund:
+        edit:
+          receive_public_assistance_explanation: Public assistance payments do not include food stamps nor WIC payments.
+          receive_public_assistance_single: Were you receiving Idaho public assistance payments at the end of the tax year?
+          receive_public_assistance_spouse: Were you or your spouse receiving Idaho public assistance payments at the end of the tax year?
+          title: You might be eligible for an exception to the permanent building fund tax!

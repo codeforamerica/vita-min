@@ -1,0 +1,10 @@
+---
+en:
+  state_file:
+    questions:
+      nc_county:
+        edit:
+          county: County
+          county_during_hurricane: Select the other county where you resided (or currently reside) between September 25, 2024 and today
+          moved_after_hurricane_html: Did you reside (or currently reside) in a <strong>different</strong> county anytime between September 25th, 2024 and today?
+          title: Select the county where you resided on December 31, %{filing_year}

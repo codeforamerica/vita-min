@@ -1,0 +1,11 @@
+---
+en:
+  state_file:
+    questions:
+      az_prior_last_names:
+        edit:
+          prior_last_names_label: 'Enter all last names used in the last four years. (Ex: Smith, Jones, Brown)'
+          subtitle: This includes tax years %{start_year}-%{end_year}.
+          title:
+            one: Did you file with a different last name in the last four years?
+            other: Did you or your spouse file with a different last name in the last four years?
