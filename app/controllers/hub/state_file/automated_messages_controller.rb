@@ -31,12 +31,12 @@ module Hub::StateFile
     def message_params(locale)
       intake = get_intake
       state_code = intake.state_code
-      locale = locale || I18n.locale
+      locale ||= I18n.locale
       submitted_key = intake.efile_submissions.count > 1 ? "resubmitted" : "submitted"
       {
         primary_first_name: intake.primary_first_name,
         intake_id: intake.id || "CLIENT_ID",
-        survey_link: StateFile::StateInformationService.survey_link(intake.state_code),
+        survey_link: StateFile::StateInformationService.survey_link(intake.state_code, locale: locale),
         submitted_or_resubmitted: I18n.t("messages.state_file.successful_submission.email.#{submitted_key}", locale: locale),
         state_name: intake.state_name,
         return_status_link: SendRejectResolutionReminderNotificationJob.return_status_link(locale),

@@ -29,7 +29,7 @@
     <% else %>
       <div>
         <%= t(".closed_subheader_html") %>
-        <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", id: "firstCta" do %>
+        <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", role: "button", id: "firstCta" do %>
           <%= t("general.sign_in") %>
         <% end %>
       </div>

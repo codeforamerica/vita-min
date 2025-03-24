@@ -18,7 +18,7 @@ class SurveySender
     if contact_methods.include?(:email)
       ClientMessagingService.send_system_email(
         client: client,
-        body: message.email_body(locale: locale, survey_link: message_class.survey_link(client)),
+        body: message.email_body(locale: locale, survey_link: message_class.survey_link(client, locale: locale)),
         subject: message.email_subject(locale: locale),
         locale: locale
       )
@@ -27,7 +27,7 @@ class SurveySender
     if contact_methods.include?(:sms_phone_number)
       ClientMessagingService.send_system_text_message(
         client: client,
-        body: message.sms_body(locale: locale, survey_link: message_class.survey_link(client)),
+        body: message.sms_body(locale: locale, survey_link: message_class.survey_link(client, locale: locale)),
         locale: locale
       )
     end

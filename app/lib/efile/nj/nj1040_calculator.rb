@@ -477,7 +477,8 @@ module Efile
       end
 
       def calculate_line_57
-        @intake.estimated_tax_payments&.round
+        return nil if @intake.estimated_tax_payments.nil? && @intake.overpayments.nil?
+        ((@intake.estimated_tax_payments || 0) + (@intake.overpayments || 0)).round
       end
 
       def calculate_line_58

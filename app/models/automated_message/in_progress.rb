@@ -18,7 +18,7 @@ module AutomatedMessage
       'messages.in_progress'.freeze
     end
 
-    def self.survey_link(_client)
+    def self.survey_link(_client, locale: nil)
       nil
     end
 

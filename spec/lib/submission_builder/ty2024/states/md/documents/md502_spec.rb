@@ -709,17 +709,29 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
     end
 
     describe "email address" do
-      context "if intake has no email adress" do
+      # Shouldn't happen, but included for the sake of completeness
+      context "if intake has no email address and none exists in direct_file_data" do
+        before do
+          allow_any_instance_of(DirectFileData).to receive(:tax_payer_email).and_return nil
+        end
+
         it "doesn't fill in email address" do
-          expect(xml.document.at('EmailAddress')).not_to be_present
+          expect(xml.document.at('EmailAddress')&.text).not_to be_present
         end
       end
 
-      context "if intake has an email adress" do
+      context "if intake has no email address but one exists in direct_file_data" do
+        it "fills in the email address" do
+          expect(xml.document.at('EmailAddress')&.text).to eq 'beaches@bigtoddsyarnmats.com'
+        end
+      end
+
+      context "if intake has an email address" do
         before do
           intake.email_address = "test@email.com"
         end
-        it "fill in email address" do
+
+        it "fills in the email address" do
           expect(xml.document.at('EmailAddress')&.text).to eq "test@email.com"
         end
       end

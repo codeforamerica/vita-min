@@ -697,6 +697,32 @@ RSpec.describe StateFileMdIntake, type: :model do
         end
       end
     end
+
+    describe "#nra_spouse?" do
+      context "when filing status is not mfs" do
+        let(:intake) { create :state_file_md_intake, filing_status: "single" }
+        it "should return false" do
+          expect(intake.nra_spouse?).to eq(false)
+        end
+      end
+
+      context "when filing status is mfs" do
+        let(:intake) { create :state_file_md_intake, :with_spouse }
+        context "with a spouse ssn" do
+          it "should return false" do
+            expect(intake.nra_spouse?).to eq(false)
+          end
+        end
+
+        context "with spouse ssn nil" do
+          let(:intake) { create :state_file_md_intake, :with_spouse_ssn_nil, filing_status: "married_filing_separately"}
+
+          it "should return true" do
+            expect(intake.nra_spouse?).to eq(true)
+          end
+        end
+      end
+    end
   end
 
   describe "#direct_file_address_is_po_box?" do
