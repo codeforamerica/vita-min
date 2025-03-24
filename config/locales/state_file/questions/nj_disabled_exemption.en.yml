@@ -5,6 +5,6 @@ en:
       nj_disabled_exemption:
         edit:
           instructions_html: "<p>In New Jersey, you are considered disabled if you have a \"<strong>total and permanent</strong> inability to engage in any substantial gainful activity because of any physical or mental impairment, including blindness.\"</p>  \n<p>(This is different from the federal tax definition. New Jersey doesn’t consider your age or your receipt of taxable disability income.)</p>\n"
-          primary_disabled_question: Are you disabled according to the New Jersey definition?
-          spouse_disabled_question: Is your spouse disabled according to the New Jersey definition?
+          primary_disabled_question: "Are you disabled according to the New Jersey definition?"
+          spouse_disabled_question: "Is your spouse disabled according to the New Jersey definition?"
           title: People with disabilities are eligible for a tax exemption.
