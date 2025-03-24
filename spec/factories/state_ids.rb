@@ -17,7 +17,7 @@ FactoryBot.define do
   factory :state_id do
     id_type {"driver_license"}
     id_number { "123456789" }
-    state { "NY" }
+    state { "NC" }
     issue_date { Date.new(2020, 11, 11) }
     expiration_date { Date.new(2028, 11, 11) }
     first_three_doc_num { "123" }

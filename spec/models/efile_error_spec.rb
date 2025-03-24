@@ -120,7 +120,6 @@ describe 'EfileError' do
       "ny-sales-use-tax",
       "ny-school-district",
       "ny-spouse-state-id",
-      "ny-third-party-designee",
       "nyc-residency",
       "phone-number",
       "post-data-transfer",

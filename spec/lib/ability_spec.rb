@@ -38,8 +38,9 @@ describe Ability do
       let(:role) { create :admin_role, state_file: true }
 
       it "can manage state file intakes" do
-        expect(subject.can?(:manage, StateFileAzIntake.new)).to eq true
-        expect(subject.can?(:manage, StateFileNyIntake.new)).to eq true
+        StateFile::StateInformationService.state_intake_classes.each do |state_class|
+          expect(subject.can?(:manage, state_class.new)).to eq true
+        end
         expect(subject.can?(:manage, StateFile1099G.new)).to eq true
         expect(subject.can?(:manage, StateFileDependent.new)).to eq true
         expect(subject.can?(:manage, StateId.new)).to eq true
@@ -54,7 +55,7 @@ describe Ability do
       end
 
 
-      %w[state_file unfilled state_file_az state_file_ny state_file_md state_file_nc state_file_id].each do |service_type|
+      %w[state_file unfilled state_file_az state_file_md state_file_nc state_file_id].each do |service_type|
         context "with state efile error" do
           let!(:state_efile_error) { create :efile_error, service_type: service_type }
           it "can manage the state efile error" do
@@ -73,8 +74,9 @@ describe Ability do
 
     context "state_file false" do
       it "cannot manage state file intakes" do
-        expect(subject.can?(:manage, StateFileAzIntake.new)).to eq false
-        expect(subject.can?(:manage, StateFileNyIntake.new)).to eq false
+        StateFile::StateInformationService.state_intake_classes.each do |state_class|
+          expect(subject.can?(:manage, state_class.new)).to eq false
+        end
         expect(subject.can?(:manage, StateFile1099G.new)).to eq false
         expect(subject.can?(:manage, StateFileDependent.new)).to eq false
         expect(subject.can?(:manage, StateId.new)).to eq false
@@ -139,8 +141,9 @@ describe Ability do
     end
 
     it "cannot manage state file intakes" do
-      expect(subject.can?(:manage, StateFileAzIntake.new)).to eq false
-      expect(subject.can?(:manage, StateFileNyIntake.new)).to eq false
+      StateFile::StateInformationService.state_intake_classes.each do |state_class|
+        expect(subject.can?(:manage, state_class.new)).to eq false
+      end
       expect(subject.can?(:manage, StateFile1099G.new)).to eq false
       expect(subject.can?(:manage, StateFileDependent.new)).to eq false
       expect(subject.can?(:manage, StateId.new)).to eq false

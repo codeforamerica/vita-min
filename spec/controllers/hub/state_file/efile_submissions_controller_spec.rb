@@ -68,7 +68,7 @@ describe Hub::StateFile::EfileSubmissionsController do
   end
 
   describe '#show_xml' do
-    let(:intake) { create :state_file_ny_intake, :with_efile_device_infos }
+    let(:intake) { create :state_file_md_intake, :with_efile_device_infos }
     let!(:state_efile_submission) { create :efile_submission, :for_state, data_source: intake }
     let(:params) do
       { efile_submission_id: state_efile_submission.id }
@@ -78,7 +78,7 @@ describe Hub::StateFile::EfileSubmissionsController do
       render_views
       before { sign_in(create(:state_file_admin_user)) }
 
-      it "shows the state efile submission xml", required_schema: "ny" do
+      it "shows the state efile submission xml", required_schema: "md" do
         get :show_xml, params: params
         expect(response).to be_successful
         xml = Nokogiri::XML(response.body)

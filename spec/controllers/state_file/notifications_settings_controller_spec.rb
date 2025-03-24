@@ -4,7 +4,7 @@ RSpec.describe StateFile::NotificationsSettingsController do
   describe "#unsubscribe_from_emails" do
     render_views
 
-    let!(:intake) { create :state_file_ny_intake, email_address: "unsubscribe_me@example.com", unsubscribed_from_email: false }
+    let!(:intake) { create :state_file_nc_intake, email_address: "unsubscribe_me@example.com", unsubscribed_from_email: false }
     let(:verifier) { ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base) }
     let(:signed_email) { verifier.generate("unsubscribe_me@example.com") }
     let(:signed_email_without_intake) { verifier.generate("rando@example.com") }
@@ -44,7 +44,7 @@ RSpec.describe StateFile::NotificationsSettingsController do
   end
 
   describe "#subscribe_email" do
-    let!(:intake) { create :state_file_ny_intake, email_address: "unsubscribe_me@example.com", unsubscribed_from_email: true }
+    let!(:intake) { create :state_file_nc_intake, email_address: "unsubscribe_me@example.com", unsubscribed_from_email: true }
     let!(:matching_intake) { create :state_file_az_intake, email_address: "unsubscribe_me@example.com", unsubscribed_from_email: true }
     let(:verifier) { ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base) }
     let(:signed_email) { verifier.generate("unsubscribe_me@example.com") }
