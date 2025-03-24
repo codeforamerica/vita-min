@@ -3,29 +3,29 @@ en:
   state_file:
     intake_logins:
       account_locked:
-        body_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
+        body_html: "This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href=\"mailto:help@fileyourstatetaxes.org\">help@fileyourstatetaxes.org</a>."
         title: This account has been locked
       edit:
-        help_text: To keep your identity safe, we need to confirm your social security number.
-        ssn_label: Enter your Social Security number or ITIN. For example, 123-45-6789.
+        help_text: "To keep your identity safe, we need to confirm your social security number."
+        ssn_label: "Enter your Social Security number or ITIN. For example, 123-45-6789."
         title: We found your account! Please confirm your identity to finish signing in.
       enter_verification_code:
-        code_sent_to_closed_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
-        code_sent_to_html: We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, chat with us.
+        code_sent_to_closed_html: "We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, email us at <a href=\"mailto:help@fileyourstatetaxes.org\">help@fileyourstatetaxes.org</a>."
+        code_sent_to_html: "We’ve sent your code to %{contact_info}. If you didn’t receive a code, and need help resubscribing, chat with us."
         enter_6_digit_code: Enter the 6-digit code
         title: Enter the code to continue
         verify: Verify code
       form:
         errors:
-          bad_input: Incorrect SSN/ITIN. After 5 failed attempts, accounts are locked.
+          bad_input: "Incorrect SSN/ITIN. After 5 failed attempts, accounts are locked."
       new:
         email_address:
           label: Your email address
-          not_found_html: Sorry, we don’t have an account registered for that email address. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Click here</a> to get started with FileYourStateTaxes.
+          not_found_html: "Sorry, we don’t have an account registered for that email address. <a href=\"https://www.fileyourstatetaxes.org/en/us/faq\">Click here</a> to get started with FileYourStateTaxes."
           title: Sign in with your email address.
         sms_phone_number:
           label: Your phone number
-          not_found_html: Sorry, we don’t have an account registered for that phone number. <a href="https://www.fileyourstatetaxes.org/en/us/faq">Click here</a> to get started with FileYourStateTaxes.
+          not_found_html: "Sorry, we don’t have an account registered for that phone number. <a href=\"https://www.fileyourstatetaxes.org/en/us/faq\">Click here</a> to get started with FileYourStateTaxes."
           title: Sign in with your phone number.
-        to_continue: To continue filing your state tax return safely, we’ll send you a secure code.
-      no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
+        to_continue: "To continue filing your state tax return safely, we’ll send you a secure code."
+      no_match_sms: "Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started."
