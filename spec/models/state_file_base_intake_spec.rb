@@ -12,6 +12,31 @@ describe StateFileBaseIntake do
     end
   end
 
+  describe "#reset_failed_attempts_if_unlocked!" do
+    let!(:intake) { create :state_file_az_intake, failed_attempts: 2 }
+
+    before do
+      allow(intake).to receive(:access_locked?).and_return(access_locked)
+      intake.reset_failed_attempts_if_unlocked!
+    end
+
+    context "when access locked" do
+      let(:access_locked) { true }
+
+      it "should reset failed_attempts" do
+        expect(intake.failed_attempts).to eq(2)
+      end
+    end
+
+    context "when access not locked" do
+      let(:access_locked) { false }
+
+      it "should not reset failed_attempts" do
+        expect(intake.failed_attempts).to eq(0)
+      end
+    end
+  end
+
   describe "#synchronize_filers_to_database" do
     context "when filing status is single" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }

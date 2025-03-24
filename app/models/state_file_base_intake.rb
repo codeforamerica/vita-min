@@ -418,6 +418,10 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
+  def reset_failed_attempts_if_unlocked!
+    reset_failed_attempts! unless access_locked?
+  end
+
   def controller_for_current_step
     if efile_submissions.present?
       StateFile::Questions::ReturnStatusController

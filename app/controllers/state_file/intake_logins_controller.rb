@@ -77,9 +77,7 @@ module StateFile
     def reset_failed_attempts_on_matching_records_if_access_unlocked
       return unless @records.present?
 
-      @records.each do |record|
-        record.reset_failed_attempts! unless record.access_locked?
-      end
+      @records.each(&:reset_failed_attempts_if_unlocked!)
     end
 
     def request_login_form_class
