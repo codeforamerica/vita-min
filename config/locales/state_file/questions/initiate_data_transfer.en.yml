@@ -8,10 +8,10 @@ en:
           from_irs: Transfer data from IRS site
           from_irs_testing: Transfer Data from IRS testing site (Don't click this unless you've been asked to do so)
         edit:
-          button_help_text: Don’t worry, you'll return here after you transfer your data
+          button_help_text: "Don’t worry, you'll return here after you transfer your data"
           description_html: |
             <p>First, <strong>make sure your federal return is accepted.</strong></p>
             <p><strong>How do I know if it’s accepted?</strong></p>
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email and spam folder for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
-          title: Now, let’s complete your state tax return
+          title: "Now, let’s complete your state tax return"
