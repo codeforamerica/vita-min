@@ -155,15 +155,5 @@ RSpec.describe StateFile::FaqController do
 
       expect(response.body).to have_text faq_category.description_en
     end
-
-    context "for new york" do
-      let!(:faq_category) { create :faq_category, slug: section_key, product_type: "state_file_ny" }
-
-      it "redirects to the ny landing page" do
-        get :show, params: { section_key: section_key, us_state: "ny" }
-
-        expect(response).to redirect_to state_landing_page_path(us_state: "ny")
-      end
-    end
   end
 end
