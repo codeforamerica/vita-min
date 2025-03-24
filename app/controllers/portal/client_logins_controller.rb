@@ -45,7 +45,7 @@ module Portal
           update_existing_token_with_magic_code(hashed_verification_code)
         end
         @records = client_login_service.login_records_for_token(hashed_verification_code)
-        reset_failed_attempts_on_matching_records
+        reset_failed_attempts_on_matching_records_if_access_unlocked
         return if redirect_locked_clients # check if any records are already locked
 
         if @records.present? # we have at least one match and none are locked
@@ -64,7 +64,7 @@ module Portal
     end
 
     # only adding resetting logic for FYST at this time
-    def reset_failed_attempts_on_matching_records; end
+    def reset_failed_attempts_on_matching_records_if_access_unlocked; end
 
     def account_locked; end
 

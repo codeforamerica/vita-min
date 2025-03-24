@@ -74,7 +74,7 @@ module StateFile
       @records.map(&:increment_failed_attempts)
     end
 
-    def reset_failed_attempts_on_matching_records
+    def reset_failed_attempts_on_matching_records_if_access_unlocked
       return unless @records.present?
 
       @records.each do |record|
