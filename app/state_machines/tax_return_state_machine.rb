@@ -127,7 +127,7 @@ class TaxReturnStateMachine
     ALLOWABLE_STATES_BY_ROLE.fetch(role_type, STATES_BY_STAGE)
   end
 
-  def self.states_to_show_for_filter(role_type:)
+  def self.states_to_show_for_client_filter(role_type:)
     available_states = available_states_for(role_type:)
 
     excluded_states = ["file_fraud_hold", "file_needs_review"]
