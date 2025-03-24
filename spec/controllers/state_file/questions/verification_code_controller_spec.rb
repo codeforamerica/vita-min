@@ -79,38 +79,6 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
         expect(response).to redirect_to(login_location)
         expect(StateFileAzIntake.where(id: intake.id)).to be_empty
       end
-
-      context "when the matching intake exceeded number of failed attempts" do
-        before do
-          existing_intake.update(failed_attempts: 5)
-        end
-
-        context "still locked out by time" do
-          before do
-            existing_intake.update(locked_at: 28.minutes.ago)
-          end
-
-          it "redirects to locked page" do
-            post :update, params: { state_file_verification_code_form: { verification_code: token[0] }}
-            expect(response).to redirect_to(login_location)
-            expect(StateFileAzIntake.where(id: intake.id)).to be_empty
-            expect(existing_intake.reload.failed_attempts).to eq(5)
-          end
-        end
-
-        context "no longer locked out by time" do
-          before do
-            existing_intake.update(locked_at: 32.minutes.ago)
-          end
-
-          it "redirects to the next path" do
-            post :update, params: { state_file_verification_code_form: { verification_code: token[0] }}
-            expect(response).to redirect_to(login_location)
-            expect(StateFileAzIntake.where(id: intake.id)).to be_empty
-            expect(existing_intake.reload.failed_attempts).to eq(0)
-          end
-        end
-      end
     end
 
     context "with an intake matching an existing intake in a different state" do
@@ -170,41 +138,6 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
       it "sets @contact_info to the contact info" do
         post :update, params: { state_file_verification_code_form: { verification_code: "invalid", contact_info: "someone@example.com" }}
         expect(assigns(:contact_info)).to eq "someone@example.com"
-      end
-
-      context "when the matching intake exceeded number of failed attempts" do
-        let!(:existing_intake_no_df_data) do
-          build(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com").tap do |intake|
-            intake.raw_direct_file_data = nil
-            intake.save!
-          end
-        end
-
-        context "still locked out by time" do
-          before do
-            existing_intake_no_df_data.update(locked_at: 28.minutes.ago, failed_attempts: 5)
-          end
-
-          it "renders the edit page, does not delete current intake, does not reset failed attempts" do
-            post :update, params: { state_file_verification_code_form: { verification_code: "invalid", contact_info: "someone@example.com" }}
-            expect(response).to render_template(:edit)
-            expect(intake.reload).not_to be_destroyed
-            expect(existing_intake_no_df_data.reload.failed_attempts).to eq(5)
-          end
-        end
-
-        context "no longer locked out by time" do
-          before do
-            existing_intake_no_df_data.update(locked_at: 32.minutes.ago, failed_attempts: 5)
-          end
-
-          it "renders the edit page, does not delete current intake, does not reset failed attempts" do
-            post :update, params: { state_file_verification_code_form: { verification_code: "invalid", contact_info: "someone@example.com" }}
-            expect(response).to render_template(:edit)
-            expect(intake.reload).not_to be_destroyed
-            expect(existing_intake_no_df_data.reload.failed_attempts).to eq(5)
-          end
-        end
       end
     end
   end

@@ -32,6 +32,9 @@ module StateFile
       if @records.all? { |intake| intake.hashed_ssn.nil? }
         sign_in_and_redirect
       end
+      if @records.any?
+        @records.each { |record| record.reset_failed_attempts_if_unlocked! }
+      end
     end
 
     def update
@@ -72,12 +75,6 @@ module StateFile
         intake_class.where(email_address: contact_info).or(intake_class.where(phone_number: contact_info))
       end
       @records.map(&:increment_failed_attempts)
-    end
-
-    def reset_failed_attempts_on_matching_records_if_access_unlocked
-      return unless @records.present?
-
-      @records.each(&:reset_failed_attempts_if_unlocked!)
     end
 
     def request_login_form_class
