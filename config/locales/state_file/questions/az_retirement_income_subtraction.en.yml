@@ -9,7 +9,7 @@ en:
           - US Government Service Retirement and Disability Fund
           - US Foreign Service Retirement and Disability System
           - Other federal retirement systems or plans established by federal law
-          pension_plan: Qualifying federal, Arizona, or government pension plan
+          pension_plan: "Qualifying federal, Arizona, or government pension plan"
           state_local: State/local
           state_local_bullet_points:
           - Arizona State Retirement System
@@ -19,8 +19,8 @@ en:
           - Elected Officials Retirement Plan
           - Retirement program established by the Arizona Board of Regents
           - Retirement program established by Arizona community college district
-          - Retirement plan established for employees of a county, city, or town in Arizona
+          - "Retirement plan established for employees of a county, city, or town in Arizona"
           subtitle: We need more information about this 1099-R to check your eligibility and file your state return.
-          subtitle_2: If you reported multiple 1099-Rs, you’ll be asked to complete this step for each one with a taxable amount.
+          subtitle_2: "If you reported multiple 1099-Rs, you’ll be asked to complete this step for each one with a taxable amount."
           uniformed_services: Retired or retainer pay of the uniformed services of the United States
-          which_pensions: Which government pensions qualify?
+          which_pensions: "Which government pensions qualify?"
