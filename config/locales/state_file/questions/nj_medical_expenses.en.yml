@@ -20,7 +20,7 @@ en:
               <li>Expenses for a child you didn't claim as a dependent on your return, even if you are paying for their health insurance.</li>
               <li>Expenses for which you were reimbursed through your health insurance plan.</li>
             </ul>
-          do_not_claim: If you do not want to claim this deduction, click “Continue”.
+          do_not_claim: "If you do not want to claim this deduction, click “Continue”."
           label: 'Enter total non-reimbursed medical expenses paid in %{filing_year}:'
           learn_more_html: |-
             <p>"Medical expenses" means non-reimbursed payments for costs such as:</p>
@@ -35,5 +35,5 @@ en:
               <li>Amounts paid for transportation primarily for and essential to medical care</li>
               <li>Health insurance premiums (including for Medicare)</li>
             </ul>
-          learn_more_title: What are medical expenses?
+          learn_more_title: "What are medical expenses?"
           title: You may be able to deduct medical expenses.
