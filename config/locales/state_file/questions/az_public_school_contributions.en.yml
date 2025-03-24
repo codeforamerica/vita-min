@@ -4,21 +4,21 @@ en:
     questions:
       az_public_school_contributions:
         destroy:
-          removed: Removed contribution for %{school_name}
+          removed: "Removed contribution for %{school_name}"
         edit:
           additional_info: Please add details for each public school you paid fees or made donations to.
-          amount: Amount of donations/fees paid in %{year}
+          amount: "Amount of donations/fees paid in %{year}"
           amount_help_text:
             one: Arizona credits up to $200
             other: Arizona credits up to $400
           ctds_code: School Code/CTDS
-          date_of_contribution: Date of payment in %{year}
+          date_of_contribution: "Date of payment in %{year}"
           district_name: School District Name
           school_name: School Name
           school_name_help_text: Please use the official school name
-          title_html: You might be eligible for the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Public School Credit</a>!
+          title_html: "You might be eligible for the <a href=\"https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf\" target=\"_blank\">Arizona Public School Credit</a>!"
         form:
-          donations_this_year: What about donations made in %{current_year}?
+          donations_this_year: "What about donations made in %{current_year}?"
           donations_this_year_details_html: |
             FileYourStateTaxes only allows you to add payment to the corresponding tax period.
             <br/><br/>
@@ -26,7 +26,7 @@ en:
           made_az322_contributions:
             one: Did you pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
             other: Did you or your spouse pay any fees or make any qualified cash donation to an Arizona public school in %{year}?
-          more_details_html: Visit the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Department of Revenue Guide</a> for more details.
+          more_details_html: "Visit the <a href=\"https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf\" target=\"_blank\">Arizona Department of Revenue Guide</a> for more details."
           qualifying_list:
           - Extracurricular Activities
           - Character Education
@@ -41,10 +41,10 @@ en:
             Visit the <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">Arizona Department of Revenue</a> to find the details.
             <br/><br/>
             To avoid any errors, highlight the text in the pdf then copy (Ctrl + C) and paste (Ctrl + V) directly to this page.
-          school_details_question: Where can I find the school details?
-          which_qualify: Which donations and fees qualify?
+          school_details_question: "Where can I find the school details?"
+          which_qualify: "Which donations and fees qualify?"
         index:
           add_another: Add another donation
-          delete_confirmation: Are you sure you want to delete this contribution?
+          delete_confirmation: "Are you sure you want to delete this contribution?"
           maximum_records: You have provided the maximum amount of records.
           title: 'Here are the public school donations/fees you added:'
