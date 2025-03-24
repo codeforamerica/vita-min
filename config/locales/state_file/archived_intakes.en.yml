@@ -8,30 +8,30 @@ en:
       identification_number:
         edit:
           error_message: Please enter the correct SSN/ITIN
-          help_text: To keep your identity safe, we need to confirm your social security number.
+          help_text: "To keep your identity safe, we need to confirm your social security number."
           ssn_label: Social Security Number or ITIN
           title: We found your account! Please confirm your identity
       mailing_address_validation:
         edit:
-          identity_safe: To keep your identity safe, we need to confirm the address on your 2023 tax return.
+          identity_safe: "To keep your identity safe, we need to confirm the address on your 2023 tax return."
           radio_button_title: 'Select the mailing address for your 2023 tax return:'
           title: Confirm your address to access your tax return
       pdfs:
         index:
           download: Download 2023 Tax Return
-          subtitle: To access your 2023 %{state} tax return, click the link below.
+          subtitle: "To access your 2023 %{state} tax return, click the link below."
           title: Your account has been successfully verified!
       verification_code:
         edit:
           error_message: Please enter a valid code
-          subtitle_2_html: If you still need help, <a class="open-intercom">chat with us</a>.
-          subtitle_html: If you didn’t receive a code, please check your spam folder.
-          title_html: We’ve sent a code to <strong>%{email_address}</strong>
+          subtitle_2_html: "If you still need help, <a class=\"open-intercom\">chat with us</a>."
+          subtitle_html: "If you didn’t receive a code, please check your spam folder."
+          title_html: "We’ve sent a code to <strong>%{email_address}</strong>"
           verify: Verify code
       verification_error:
         az_dor: Arizona Department of Revenue
-        locked_due_to_html: This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
+        locked_due_to_html: "This account has been locked due to too many failed login attempts. If you need help unlocking this account, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>."
         ny_dor: NY State Tax Department
         return_to_home: Return to Homepage
-        subtitle_html: You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>.
-        title: Sorry, we were not able to verify your account
+        subtitle_html: "You can also visit your state’s tax agency website to request your %{year} tax return. For more information, click on the links below or visit our <a href='https://www.fileyourstatetaxes.org/en/az/faq/how_can_i_access_my_2023_state_tax_return'>FAQ page</a>."
+        title: "Sorry, we were not able to verify your account"
