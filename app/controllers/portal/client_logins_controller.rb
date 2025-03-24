@@ -45,7 +45,9 @@ module Portal
           update_existing_token_with_magic_code(hashed_verification_code)
         end
         @records = client_login_service.login_records_for_token(hashed_verification_code)
+        reset_failed_attempts_on_matching_records
         return if redirect_locked_clients # check if any records are already locked
+
         if @records.present? # we have at least one match and none are locked
           DatadogApi.increment("#{self.controller_name}.verification_codes.right_code")
           redirect_to self.class.to_path_helper(action: :edit, id: hashed_verification_code)
@@ -60,6 +62,9 @@ module Portal
 
       render :enter_verification_code
     end
+
+    # only adding resetting logic for FYST at this time
+    def reset_failed_attempts_on_matching_records; end
 
     def account_locked; end
 

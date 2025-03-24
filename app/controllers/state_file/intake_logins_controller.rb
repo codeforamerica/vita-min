@@ -74,6 +74,14 @@ module StateFile
       @records.map(&:increment_failed_attempts)
     end
 
+    def reset_failed_attempts_on_matching_records
+      return unless @records.present?
+
+      @records.each do |record|
+        record.reset_failed_attempts! unless record.access_locked?
+      end
+    end
+
     def request_login_form_class
       RequestIntakeLoginForm
     end

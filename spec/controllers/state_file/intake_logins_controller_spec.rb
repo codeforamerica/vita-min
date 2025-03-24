@@ -222,6 +222,32 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           expect(DatadogApi).to have_received(:increment).with("intake_logins.verification_codes.right_code")
         end
       end
+
+      context "with clients who are locked out by failed_attempts" do
+        before do
+          intake.update(failed_attempts: 5)
+        end
+
+        it "redirects to the next page for login and resets failed attempts" do
+          post :check_verification_code, params: params
+
+          expect(response).to redirect_to(edit_intake_login_path(id: hashed_verification_code))
+          expect(intake.reload.failed_attempts).to eq 0
+        end
+
+        context "but within their lockout period" do
+          before do
+            intake.update(locked_at: 28.minutes.ago)
+          end
+
+          it "takes them to the lockout page and does not reset failed attempt" do
+            post :check_verification_code, params: params
+
+            expect(response).to redirect_to(account_locked_intake_logins_path)
+            expect(intake.reload.failed_attempts).to eq 5
+          end
+        end
+      end
     end
 
     context "with invalid params" do
@@ -248,7 +274,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         it "increments their lockout counter & shows an error in the form" do
           expect {
             post :check_verification_code, params: params
-          }.to change { intake.reload.failed_attempts }
+          }.to change { intake.reload.failed_attempts }.from(0).to(1)
 
           expect(response).to be_ok
           expect(assigns[:verification_code_form]).to be_present
