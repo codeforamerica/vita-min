@@ -32,6 +32,7 @@ module StateFile
           intake = current_intake
           existing_intake = get_existing_intake(intake)
           if existing_intake.present?
+            existing_intake.reset_failed_attempts_if_unlocked!
             redirect_into_login(intake, existing_intake) and return
           end
           @form.save

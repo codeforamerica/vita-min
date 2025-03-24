@@ -223,6 +223,31 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         end
       end
 
+      context "with clients who are locked out by failed_attempts" do
+        before do
+          intake.update(failed_attempts: 5)
+        end
+
+        it "redirects to the next page for login and resets failed attempts" do
+          post :check_verification_code, params: params
+
+          expect(response).to redirect_to(edit_intake_login_path(id: hashed_verification_code))
+          expect(intake.reload.failed_attempts).to eq 0
+        end
+
+        context "but within their lockout period" do
+          before do
+            intake.update(locked_at: 28.minutes.ago)
+          end
+
+          it "takes them to the lockout page and does not reset failed attempt" do
+            post :check_verification_code, params: params
+
+            expect(response).to redirect_to(account_locked_intake_logins_path)
+            expect(intake.reload.failed_attempts).to eq 5
+          end
+        end
+      end
     end
 
     context "with invalid params" do
@@ -357,34 +382,6 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
             expect(response).to redirect_to questions_terms_and_conditions_path
             expect(intake.reload.unfinished_intake_ids).to match_array([stub_intake.id.to_s])
-          end
-        end
-
-        context "when the intake has failed_attempt of 5" do
-          before do
-            intake.update(failed_attempts: 5, locked_at: locked_at)
-          end
-
-          context "if within lock out period" do
-            let(:locked_at) { 28.minutes.ago }
-
-            it "should redirect to lock out page" do
-              get :edit, params: params
-
-              expect(response).to redirect_to account_locked_intake_logins_path
-              expect(intake.reload.failed_attempts).to eq(5)
-            end
-          end
-
-          context "if outside lock out period" do
-            let(:locked_at) { 31.minutes.ago }
-
-            it "should redirect to lock out page" do
-              get :edit, params: params
-
-              expect(response).to be_ok
-              expect(intake.reload.failed_attempts).to eq(0)
-            end
           end
         end
       end
