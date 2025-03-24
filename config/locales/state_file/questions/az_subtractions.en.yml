@@ -15,8 +15,8 @@ en:
             If you are a member of <strong>the Reserves or the National Guard</strong>, enter pay received for weekend or two-week training periods that you reported on your federal tax return.<br><br>
             You may <strong>not</strong> include any income you received for full-time civil service employment as a “military technician (dual status)”.
           learn_more_title: Learn more
-          should_not_exceed_wages: This should not exceed %{wages}
-          subtitle: Check every box that applies. If it does not apply, leave blank and continue.
+          should_not_exceed_wages: "This should not exceed %{wages}"
+          subtitle: "Check every box that applies. If it does not apply, leave blank and continue."
           title:
             one: Did any of the following scenarios apply to you in %{year}?
             other: Did any of the following scenarios apply to you or your spouse in %{year}?
