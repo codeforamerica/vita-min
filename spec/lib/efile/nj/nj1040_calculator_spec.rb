@@ -1339,7 +1339,7 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
-  describe 'calculate lines 39, 42, 43, 50, 79 when filer is at or below threshold' do
+  describe 'calculate lines 39, 42, 43, 50, and 79 when filer is at or below threshold' do
     [
       { traits: [:single], line_29_total_income: 9_999 },
       { traits: [:single], line_29_total_income: 10_000 },
