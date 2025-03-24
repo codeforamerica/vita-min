@@ -8,7 +8,7 @@ en:
           helper_description_html: |
             <p>Many state revenue agencies, including New Jersey, are trying to combat stolen-identity tax fraud and to protect you and your tax refund. Providing some details about your state-issued identification will help identify you as the taxpayer.</p>
             <p>You do NOT need to supply this information to file your taxes. The return will not be rejected if you do not have an ID or prefer not to share.</p>
-          helper_heading: Why are you asking for this information?
+          helper_heading: "Why are you asking for this information?"
           no_id: No driver's license or state ID / Prefer not to share
-          subtitle: Details from your state-issued ID, if you have one, will help New Jersey combat stolen-identity tax fraud and protect you and your tax refund.
+          subtitle: "Details from your state-issued ID, if you have one, will help New Jersey combat stolen-identity tax fraud and protect you and your tax refund."
           title: Confirm Your Identity (Optional)
