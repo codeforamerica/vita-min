@@ -185,7 +185,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
             existing_intake_no_df_data.update(locked_at: 28.minutes.ago, failed_attempts: 5)
           end
 
-          it "redirects to locked page" do
+          it "renders the edit page, does not delete current intake, does not reset failed attempts" do
             post :update, params: { state_file_verification_code_form: { verification_code: "invalid", contact_info: "someone@example.com" }}
             expect(response).to render_template(:edit)
             expect(intake.reload).not_to be_destroyed
@@ -198,7 +198,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
             existing_intake_no_df_data.update(locked_at: 32.minutes.ago, failed_attempts: 5)
           end
 
-          it "redirects to the next path" do
+          it "renders the edit page, does not delete current intake, does not reset failed attempts" do
             post :update, params: { state_file_verification_code_form: { verification_code: "invalid", contact_info: "someone@example.com" }}
             expect(response).to render_template(:edit)
             expect(intake.reload).not_to be_destroyed
