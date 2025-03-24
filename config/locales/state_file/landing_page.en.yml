@@ -3,8 +3,8 @@ en:
   state_file:
     landing_page:
       edit:
-        already_filed_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024.</strong>
-        already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
+        already_filed_html: "Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024.</strong>"
+        already_started_html: "Already started filing your state return? <a href=\"%{sign_in_url}\">Sign in</a>."
         az:
           closed_html: |
             We're closed for the tax season.<br /><br />
@@ -16,7 +16,7 @@ en:
           <strong>FileYourStateTaxes</strong> takes about 10 to 15 minutes to complete. Get started by setting up your account.
           <br/><br/>
           This service is built in partnership with the state of %{state_name} to integrate with IRS Direct File.
-        continue: To continue filing your %{state_name} State return, please sign in below
+        continue: "To continue filing your %{state_name} State return, please sign in below"
         download_your_record: Download Your Record
         help_text_html: |
           <ul class="list--bulleted">
@@ -26,7 +26,7 @@ en:
             <li>Form 1099-G (If you received unemployment benefits in %{filing_year}.)</li>
             <li>Bank routing and account numbers (if you want to receive your refund or make a tax payment electronically)</li>
           </ul>
-        help_text_title: What will I need to complete my state tax return?
+        help_text_title: "What will I need to complete my state tax return?"
         id:
           closed_html: |
             We're closed for the tax season.<br /><br />
@@ -64,10 +64,10 @@ en:
           help_text_title: 'What you’ll need:'
           supported_by: Supported by the New Jersey Division of Taxation
           title: File your New Jersey taxes for free
-        not_you: Not %{user_name}?
-        start_new: Click here to start a new %{state_name} State return.
-        title_closed: Our free %{state_name} tax filing service is closed for the season
-        welcome_back: Welcome back %{user_name}!
+        not_you: "Not %{user_name}?"
+        start_new: "Click here to start a new %{state_name} State return."
+        title_closed: "Our free %{state_name} tax filing service is closed for the season"
+        welcome_back: "Welcome back %{user_name}!"
       ny_closed:
         body_html: |
           This service doesn’t support New York State tax returns for 2024. You can still file with IRS Direct File and New York State Direct File. To see if you’re eligible and start your federal return, visit <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>.
