@@ -1339,35 +1339,50 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
-  describe 'calculate lines 39, 42, 43, 50, and 79 when filer is at or below threshold' do
+  describe 'filer_below_income_eligibility_threshold?' do
     [
-      { traits: [:single], line_29_total_income: 9_999 },
-      { traits: [:single], line_29_total_income: 10_000 },
-      { traits: [:head_of_household], line_29_total_income: 19_999 },
-      { traits: [:head_of_household], line_29_total_income: 20_000 },
-      { traits: [:qualifying_widow], line_29_total_income: 19_999 },
-      { traits: [:qualifying_widow], line_29_total_income: 20_000 },
-      { traits: [:married_filing_jointly], line_29_total_income: 19_999 },
-      { traits: [:married_filing_jointly], line_29_total_income: 20_000 },
-      { traits: [:married_filing_separately], line_29_total_income: 9_999 },
-      { traits: [:married_filing_separately], line_29_total_income: 10_000 },
+      { traits: [:single], line_29_total_income: 9_999, expected: true },
+      { traits: [:single], line_29_total_income: 10_000, expected: true },
+      { traits: [:single], line_29_total_income: 10_001, expected: false },
+      { traits: [:head_of_household], line_29_total_income: 19_999, expected: true },
+      { traits: [:head_of_household], line_29_total_income: 20_000, expected: true },
+      { traits: [:head_of_household], line_29_total_income: 20_001, expected: false },
+      { traits: [:qualifying_widow], line_29_total_income: 19_999, expected: true },
+      { traits: [:qualifying_widow], line_29_total_income: 20_000,  expected: true },
+      { traits: [:qualifying_widow], line_29_total_income: 20_001,  expected: false },
+      { traits: [:married_filing_jointly], line_29_total_income: 19_999, expected: true },
+      { traits: [:married_filing_jointly], line_29_total_income: 20_000, expected: true },
+      { traits: [:married_filing_jointly], line_29_total_income: 20_001, expected: false },
+      { traits: [:married_filing_separately], line_29_total_income: 9_999, expected: true },
+      { traits: [:married_filing_separately], line_29_total_income: 10_000, expected: true },
+      { traits: [:married_filing_separately], line_29_total_income: 10_001, expected: false }
     ].each do |test_case|
       context "when filing with #{test_case}" do
         before do
-          allow(intake).to receive(:nj_gross_income).and_return test_case[:line_29_total_income]
+          allow(instance).to receive(:calculate_line_29).and_return test_case[:line_29_total_income]
+          instance.calculate
         end
         let(:intake) do
           create(:state_file_nj_intake, *test_case[:traits])
         end
-        it "returns 0" do
-          instance.calculate
-          expect(instance.lines[:NJ1040_LINE_39].value).to eq(0)
-          expect(instance.lines[:NJ1040_LINE_42].value).to eq(0)
-          expect(instance.lines[:NJ1040_LINE_43].value).to eq(0)
-          expect(instance.lines[:NJ1040_LINE_50].value).to eq(0)
-          expect(instance.lines[:NJ1040_LINE_79].value).to eq(0)
+        it "returns the correct boolean" do
+          expect(instance.filer_below_income_eligibility_threshold?).to eq(test_case[:expected])
         end
       end
+    end
+  end
+
+  describe 'when filer is at or below income eligibility threshold' do
+    before do
+      allow(instance).to receive(:filer_below_income_eligibility_threshold?).and_return true
+    end
+    it "sets lines 39, 42, 43, 50, and 79 to 0" do
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_39].value).to eq(0)
+      expect(instance.lines[:NJ1040_LINE_42].value).to eq(0)
+      expect(instance.lines[:NJ1040_LINE_43].value).to eq(0)
+      expect(instance.lines[:NJ1040_LINE_50].value).to eq(0)
+      expect(instance.lines[:NJ1040_LINE_79].value).to eq(0)
     end
   end
 

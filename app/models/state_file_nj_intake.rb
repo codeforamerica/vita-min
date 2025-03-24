@@ -182,8 +182,7 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def eligibility_made_less_than_threshold?
-    threshold = self.filing_status_single? || self.filing_status_mfs? ? 10_000 : 20_000
-    nj_gross_income <= threshold
+    calculator.filer_below_income_eligibility_threshold?
   end
 
   def has_health_insurance_requirement_exception?
