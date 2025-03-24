@@ -1339,7 +1339,7 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
-  describe 'calculate line 43 when filer is at or below threshold' do
+  describe 'calculate lines 39, 42, 43, 50, 79 when filer is at or below threshold' do
     [
       { traits: [:single], line_29_total_income: 9_999 },
       { traits: [:single], line_29_total_income: 10_000 },
@@ -1361,7 +1361,11 @@ describe Efile::Nj::Nj1040Calculator do
         end
         it "returns 0" do
           instance.calculate
+          expect(instance.lines[:NJ1040_LINE_39].value).to eq(0)
+          expect(instance.lines[:NJ1040_LINE_42].value).to eq(0)
           expect(instance.lines[:NJ1040_LINE_43].value).to eq(0)
+          expect(instance.lines[:NJ1040_LINE_50].value).to eq(0)
+          expect(instance.lines[:NJ1040_LINE_79].value).to eq(0)
         end
       end
     end

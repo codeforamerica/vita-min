@@ -370,7 +370,9 @@ module Efile
         line_or_zero(:NJ1040_LINE_13) + line_or_zero(:NJ1040_LINE_31)
       end
 
-      def calculate_line_39 
+      def calculate_line_39
+        return 0 if @intake.eligibility_made_less_than_threshold?
+
         [line_or_zero(:NJ1040_LINE_29) - line_or_zero(:NJ1040_LINE_38), 0].max
       end
 
@@ -434,8 +436,6 @@ module Efile
       end
 
       def calculate_line_43
-        return 0 if @intake.eligibility_made_less_than_threshold?
-
         should_use_property_tax_deduction ? calculate_tax_liability_with_deduction.round : calculate_tax_liability_without_deduction.round
       end
 
