@@ -8,4 +8,4 @@ en:
         none_apply: None of these apply
         taxable_amount_label: Taxable amount
         taxpayer_name_label: Taxpayer name
-        title: You might be eligible for a %{state_name} retirement income deduction!
+        title: "You might be eligible for a %{state_name} retirement income deduction!"
