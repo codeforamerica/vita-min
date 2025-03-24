@@ -379,7 +379,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
           context "if outside lock out period" do
             let(:locked_at) { 31.minutes.ago }
 
-            it "should redirect to lock out page" do
+            it "shows the edit page and resets the failed attempts on the intake" do
               get :edit, params: params
 
               expect(response).to be_ok
