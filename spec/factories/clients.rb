@@ -71,7 +71,6 @@ FactoryBot.define do
     # the `tax_return_transitions` because Statesman does not allow us to set up the association
     # to `autosave`
     after :create do |client, _evaluator|
-      client = Client.includes(tax_returns: :tax_return_transitions).find(client.id)
       if client.tax_returns.loaded
         client.tax_returns.each do |tr|
           tr.tax_return_transitions.each(&:save!)
