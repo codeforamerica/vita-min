@@ -282,6 +282,6 @@ class StateFileMdIntake < StateFileBaseIntake
   def direct_file_address_is_po_box?
     return false if direct_file_data.blank?
 
-    contains_po_box(direct_file_data&.mailing_street) || contains_po_box(direct_file_data&.mailing_apartment)
+    contains_po_box(direct_file_data.mailing_street) || contains_po_box(direct_file_data.mailing_apartment)
   end
 end
