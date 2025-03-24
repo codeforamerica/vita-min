@@ -2712,11 +2712,12 @@ es:
           deduction_for_taxable_portion: Deducción por la parte imponible de los beneficios del Seguro Social y de Beneficios de Jubilación Ferroviaria
         nj_credits_unsupported:
           also_unsupported_html: |
-            <li>Solicitud de prórrogas </li>
+            <li>Solicitud de prórrogas</li>
             <li>Contribuciones caritativas a varias organizaciones de NJ a través de tu declaración</li>
             <li>Declaraciones con distintos estados civiles: debes usar el mismo estado civil en tus declaraciones de impuestos federales y estatales. Por ejemplo, no puedes presentarte como casado/a declarando conjuntamente en los impuestos federales y luego como casado/a declarando separadamente en los estatales.</li>
             <li>Repetición de dependientes: No debes agregar ni quitar dependientes en tu declaración de impuestos estatales si ya los reclamaste en tu declaración de impuestos federales</li>
             <li>Aplicar una parte de tu reembolso de 2024 a tus estimaciones de impuestos de 2025</li>
+            <li>La “regla de los tres años” o la “regla general” para calcular la parte imponible de sus ingresos de pensión/jubilación. Para más datos, consulte la publicación sobre <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf">Ingresos de Jubilación de New Jersey (PDF en inglés).</a></li>
           also_unsupported_title: 'Tampoco admitimos:'
           unsupported_html: |
             <li>Deducción por comidas, alojamiento, gastos de mudanza, otros gastos de negocio reembolsados o compensación por lesiones o enfermedades reportadas como salarios en tu W-2</li>
@@ -2833,19 +2834,15 @@ es:
         vita_option:
           connect_to_vita:
             nj: |
-              <p>
-                <a href="%{faq_link_href}" target="_blank" rel="noopener noreferrer">
-                  Visita nuestras Preguntas Frecuentes
-                </a>
-              </p>
-              <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
-                Conéctate ahora
-              </a>
+              <ul class="list--bulleted">
+                <li><a href="https://airtable.com/appqG5OGbTLBiQ408/pag9EUHzAZzfRIwUn/form" target="_blank" rel="noopener noreferrer">Comience a utilizar VITA ahora (link en inglés).</a></li>
+                <li>Obtén más información sobre este proceso y otras opciones de presentación <a href="https://www.fileyourstatetaxes.org/en/nj/faq/other_filing_options" target="_blank" rel="noopener noreferrer">aquí (en inglés)</a>.</li>
+              </ul>
           vita_introduction:
             nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
           vita_link: Comienza con VITA ahora
           want_to_claim_learn_more_html: Obtén más información <a href="%{link}" target="_blank">aquí</a>.
-          want_to_claim_vita_1: Es posible que puedas presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS, pero puede tardar de 2 a 3 semanas en completarse.
+          want_to_claim_vita_1:  Puedes presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS (VITA). Ten en cuenta que esta opción puede tardar de 2 a 3 semanas en completarse.
       email_address:
         edit:
           action: Enviar el código
@@ -3803,7 +3800,7 @@ es:
         edit:
           instructions_html: |
             <p>Se considera veterano a ex miembros de las Fuerzas Armadas de los Estados Unidos que hayan recibido una <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">baja honorable</a>.</p>
-            <p>Si esta es la primera vez que reclamas <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">esta exención</a>, debes presentar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">documentación</a> y <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">un formulario</a> a la División de Impuestos del Estado de New Jersey. Puedes hacerlo <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>. Puedes presentarlo después de terminar de usar esta herramienta y enviar tu declaración.
+            <p>Si es la primera vez que solicitas <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">esta exención (links en inglés)</a>, debes presentar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">documentación</a> y un formulario a la División de Impuestos de New Jersey. (Sigue las instrucciones que aparecen en la parte inferior del formulario para enviarlo por fax, correo postal o cargarlo online). Puedes presentarlo después de terminar de usar esta herramienta y enviar tu declaración.</p>
           primary_veteran_question: "¿Eres veterano/a de guerra?"
           spouse_veteran_question: "¿Tu cónyuge es veterano/a de guerra?"
           title: En New Jersey, los veteranos/as de guerra son elegibles para una exención de impuestos.
