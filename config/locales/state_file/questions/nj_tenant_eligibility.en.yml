@@ -10,14 +10,14 @@ en:
               <li>A tax-exempt property, e.g. subsidized and campus housing, property owned by nonprofit organizations.</li>
               <li>A residence on which Payments-In-Lieu-of-Tax (P.I.L.O.T) payments were made. (If you think your building may have been subject to P.I.L.O.T payments, you can contact your building owner or the municipal tax office to confirm.)</li>
             </ul>
-          helper_heading: How do I know if the home I rented was subject to property taxes?
+          helper_heading: "How do I know if the home I rented was subject to property taxes?"
           label_html: |
             <p><strong>Check all that apply to the main home you rented.</strong></p>
             <p>(If you do not want to claim this deduction or credit, leave these checkboxes blank and click <strong>"Continue."</strong>)</p>
           tenant_access_kitchen_bath: I had my own kitchen and bathroom that I didn't share with other units in the building
-          tenant_building_multi_unit: It was in a building that had more than one dwelling unit (e.g. apartments, condominiums, dormitories)
+          tenant_building_multi_unit: "It was in a building that had more than one dwelling unit (e.g. apartments, condominiums, dormitories)"
           tenant_home_subject_to_property_taxes: It was subject to property taxes paid by my landlord (this is typical for most renters)
           tenant_more_than_one_main_home_in_nj: I lived in more than one main home in New Jersey that I paid rent for (i.e. I moved during the year)
           tenant_same_home_spouse: I lived with my spouse
           tenant_shared_rent_not_spouse: I lived with and shared rent with someone who was not my spouse
-          title: You said you were a renter in %{filing_year}.
+          title: "You said you were a renter in %{filing_year}."
