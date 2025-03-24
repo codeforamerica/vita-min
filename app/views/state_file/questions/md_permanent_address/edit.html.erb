@@ -11,8 +11,8 @@
     <div class="question-with-follow-up spacing-below-15">
       <% if current_intake.direct_file_address_is_po_box? %>
         <p class="spacing-below-15"><%= t(".df_address_is_po_box.p1") %></p>
-        <p class="spacing-below-0"><strong>PO Box 123</strong></p>
-        <p class="spacing-below-15"><strong>Baltimore, MD 21201</strong></p>
+        <p class="spacing-below-0"><strong><%= "#{current_intake&.direct_file_data&.mailing_street} #{current_intake&.direct_file_data&.mailing_apartment}" %></strong></p>
+        <p class="spacing-below-15"><strong><%= "#{current_intake&.direct_file_data&.mailing_city}, #{current_intake&.direct_file_data&.mailing_state} #{current_intake&.direct_file_data&.mailing_zip}" %></strong></p>
         <p><%= t(".df_address_is_po_box.p2", tax_year: current_tax_year) %></p>
       <% else %>
         <p><%= t('.mark_no_hint_html', filing_year: current_tax_year) %></p>
