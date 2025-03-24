@@ -2505,6 +2505,9 @@ es:
             has_out_of_state_w2: recibiste ingresos en otro estado en el %{filing_year}
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2024.
             married_filing_separately: estás presentando una declaración de impuestos "casado, declarando por separado".
+            spouse_nra_html: |
+              no incluiste el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de tu cónyuge en tu declaración federal.<br><br>
+              Maryland no permite contribuyentes con el estado Casado declarando por separado presentar la declaración estatal de forma electrónica sin el SSN o ITIN de su cónyuge.
           offboarding_reason: No puedes utilizar este servicio este año porque %{reason}
           title: Desafortunadamente, después de transferir tus datos, descubrimos que no puedes usar este servicio este año. No te preocupes, aquí tienes otras opciones para declarar.
       declined_terms_and_conditions:
@@ -2785,7 +2788,7 @@ es:
                           <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
                         </li>
                         <li>
-                          Aprende más sobre este proceso y otras opciones de declaración <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>
+                          Aprende más sobre este proceso y otras opciones de declaración <a href="https://www.fileyourstatetaxes.org/es/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">aquí.</a>
                         </li>
                       </ul>
                       <li>
@@ -3494,23 +3497,28 @@ es:
           title: Necesitamos información sobre tu estado de seguro médico.
       nj_estimated_tax_payments:
         edit:
-          continue: Si aún no has realizado ningún pago, haz clic en "Continuar".
           description_html: |
-            <p>Incluye la suma de lo siguiente:</p>
+            <p>Most people do <strong>not</strong> make these payments.</p>
+            <p>You are most likely to have made them if your employer <strong>doesn't</strong> withhold taxes in your paycheck or if you are self-employed.</p>
+            <p>These payments include:</p>
             <ul class="list--bulleted">
-              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Pagos estimados de impuestos sobre tus ingresos</a> que hiciste durante el año para tus impuestos estatales de New Jersey
-                <ul class="list--bulleted">
-                  <li><strong>Esto no incluye las retenciones de tu cheque/recibo de pago (paycheck)</strong></li>
-                </ul>
-              </li>
-              <li>Pagos en exceso en tu declaración de %{prior_year} que elegiste aplicar a tus impuestos estatales de New Jersey en %{filing_year}
-                <ul class="list--bulleted">
-                  <li>Nota: habrías seleccionado esta opción al presentar tu declaración de %{prior_year}</li>
-                </ul>
-              </li>
+              <li><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Estimated quarterly payments</a> that you made. These were due on April 15, June 17, and September 16 last year and January 15 this year. You would have paid these <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or by mail.</li>
+              <li>(If applicable) A refund that you decided to carry forward from your %{prior_year} state taxes to your %{filing_year} state taxes.</li>
             </ul>
-          label: 'Total:'
-          title: Por favor, dinos si ya pagaste parte de tus impuestos estatales sobre los ingresos de New Jersey de %{filing_year}.
+            <p>These payments do <strong>not</strong> include:</p>
+            <ul class="list--bulleted">
+              <li>Payments made for a prior tax year</li>
+              <li>Withholdings in your paycheck</li>
+              <li>Property taxes</li>
+            </ul>
+          estimated_taxes_input_helper_html: Add up your quarterly payments and enter the total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">you can check how much you paid here</a>).
+          estimated_taxes_input_label_html: "<strong>Total estimated payments made for %{filing_year} taxes</strong>"
+          no_text: No (this is the common option)
+          overpayments_input_helper_html: If applicable, you can find this on line 69 of your %{prior_year} NJ-1040. Only enter an amount here if you did not apply it to estimated payments.
+          overpayments_input_label_html: "<strong>Refund carried forward to %{filing_year} taxes (exclude estimated payments)</strong>"
+          question_box: Please share the amounts paid.
+          radio_label: Did you make estimated or other payments for your %{filing_year} state income taxes?
+          title_html: Did you make <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">estimated or other payments</a> toward your %{filing_year} New Jersey income taxes?
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>Puede que conozcas esto como \"financiamiento público\" de campañas.</p> \n<p>Puedes contribuir con $1 de lo que va a tus impuestos al <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Fondo de Elecciones para Gobernador</a> (link en inglés).</p>\n<p>Para tu información: Tus impuestos no aumentarán y tu reembolso no se reducirá. Esto autoriza a New Jersey usar $1 de tus dólares de impuestos para este Fondo.</p>\n"
@@ -3678,7 +3686,8 @@ es:
           edit_disability: estado de discapacidad
           edit_veteran: estado de veterano/a de guerra
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
-          estimated_tax_payments: Pagos ya realizados a impuestos de New Jersey
+          estimated_tax_payments: Monto de los pagos trimestrales estimados
+          has_estimated_payments: Estimated or other payments
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
           household_rent_own_neither: Ni dueño/a ni inquilino/a
@@ -3686,6 +3695,7 @@ es:
           household_rent_own_rent: Inquilino/a
           medical_expenses: Gastos médicos totales
           missing_health_insurance: Dependientes que NO tienen seguro médico
+          overpayments: Amount of refund carried forward
           primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
           primary_disabled: Exención por discapacidad (tuya)
           primary_veteran: Exención para veteranos/as de guerra (tuya)
@@ -4455,21 +4465,27 @@ es:
       az:
         department_of_taxation: Departamento de Ingresos de Arizona
         state_name: Arizona
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0v0BnYNRoLIqzhY?Q_Language=ES-ES
       id:
         department_of_taxation: Comisión Estatal de Impuestos de Idaho
         state_name: Idaho
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0URdKLyW7K53rZc?Q_Language=ES-ES
       md:
         department_of_taxation: Contralor de Maryland
         state_name: Maryland
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_24BAmNMNrpkhLwy?Q_Language=ES-ES
       nc:
         department_of_taxation: Departamento de Ingresos de Carolina del Norte
         state_name: Carolina del Norte
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_1MM0vBfZ5N2OMLA?Q_Language=ES-ES
       nj:
         department_of_taxation: División de Impuestos de New Jersey
         state_name: New Jersey
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_82CJgtfW0HFEPIi
       ny:
         department_of_taxation: Departamento de Impuestos y Finanzas de Nueva York
         state_name: Nueva York
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.

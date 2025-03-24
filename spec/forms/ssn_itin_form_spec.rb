@@ -4,8 +4,8 @@ RSpec.describe SsnItinForm do
   let(:intake) { create :intake }
   let(:valid_params) do
     {
-        primary_ssn: "123456789",
-        primary_ssn_confirmation: "123456789",
+        primary_ssn: "900500011",
+        primary_ssn_confirmation: "900500011",
         primary_tin_type: "ssn"
       }
   end
@@ -66,7 +66,7 @@ RSpec.describe SsnItinForm do
       form.save
       intake.reload
 
-      expect(intake.primary.ssn).to eq "123456789"
+      expect(intake.primary.ssn).to eq "900500011"
       expect(intake.primary.tin_type).to eq "ssn"
     end
   end

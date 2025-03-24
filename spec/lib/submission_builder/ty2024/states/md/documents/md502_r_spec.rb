@@ -73,50 +73,83 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502R, required_sche
         end
 
         context "without income" do
-          it "should have empty nodes for this section" do
-            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxpayer EmployeeRetirementSystem").text).to eq("0")
-            expect(xml.at("Form502R SourceRetirementIncome PrimaryTaxpayer OtherAndForeign").text).to eq("0")
-            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxpayer EmployeeRetirementSystem").text).to eq("0")
-            expect(xml.at("Form502R SourceRetirementIncome SecondaryTaxpayer OtherAndForeign").text).to eq("0")
-            expect(xml.at("Form502R SourceRetirementIncome TotalPensionsIRAsAnnuities").text).to eq("0")
+          it "should have no nodes for this section" do
+            expect(xml.at("Form502R SourceRetirementIncome")).to be_nil
           end
         end
       end
 
       context "PriMilLawEnforceIncSub and SecMilLawEnforceIncSub" do
-        before do
+        it "outputs all relevant values" do
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10a).and_return 33
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10b).and_return 66
-        end
-
-        it "outputs all relevant values" do
           expect(xml.at("Form502R PriMilLawEnforceIncSub").text).to eq("33")
           expect(xml.at("Form502R SecMilLawEnforceIncSub").text).to eq("66")
+        end
+
+        it "omits nodes when values are 0" do
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10a).and_return 0
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10b).and_return 0
+          expect(xml.at("Form502R PriMilLawEnforceIncSub")).to be_nil
+          expect(xml.at("Form502R SecMilLawEnforceIncSub")).to be_nil
+        end
+
+        it "omits nodes when values are nil" do
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10a).and_return nil
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_10b).and_return nil
+          expect(xml.at("Form502R PriMilLawEnforceIncSub")).to be_nil
+          expect(xml.at("Form502R SecMilLawEnforceIncSub")).to be_nil
         end
       end
 
       context "PriPensionExclusion and SecPensionExclusion" do
-        before do
+        it "outputs all relevant values" do
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11a).and_return 100
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return 200
-        end
-
-        it "outputs all relevant values" do
           expect(xml.at("Form502R PriPensionExclusion").text).to eq("100")
           expect(xml.at("Form502R SecPensionExclusion").text).to eq("200")
+        end
+
+        it "omits nodes when values are 0" do
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11a).and_return 0
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return 0
+          expect(xml.at("Form502R PriPensionExclusion")).to be_nil
+          expect(xml.at("Form502R SecPensionExclusion")).to be_nil
+        end
+
+        it "omits nodes when values are nil" do
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11a).and_return nil
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_11b).and_return nil
+          expect(xml.at("Form502R PriPensionExclusion")).to be_nil
+          expect(xml.at("Form502R SecPensionExclusion")).to be_nil
         end
       end
     end
 
     context "SSA benefit amounts" do
       context "Line 9" do
-        before do
+        it "outputs all relevant values" do
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return 100
           allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9b).and_return 200
-        end
-        it "outputs all relevant values" do
+
           expect(xml.at("Form502R PriSSecurityRailRoadBenefits").text.to_i).to eq(100)
           expect(xml.at("Form502R SecSSecurityRailRoadBenefits").text.to_i).to eq(200)
+        end
+
+        it "omits nodes when values are 0" do
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return 0
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9b).and_return 0
+
+          expect(xml.at("Form502R PriSSecurityRailRoadBenefits")).to be_nil
+          expect(xml.at("Form502R SecSSecurityRailRoadBenefits")).to be_nil
+        end
+
+        it "omits nodes when values are nil" do
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9a).and_return nil
+          allow_any_instance_of(Efile::Md::Md502RCalculator).to receive(:calculate_line_9b).and_return nil
+
+          expect(xml.at("Form502R PriSSecurityRailRoadBenefits")).to be_nil
+          expect(xml.at("Form502R SecSSecurityRailRoadBenefits")).to be_nil
         end
       end
     end

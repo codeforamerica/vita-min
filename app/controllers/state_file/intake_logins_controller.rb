@@ -17,6 +17,7 @@ module StateFile
       if @form.valid?
         intake_classes = client_login_service.intake_classes
         @records = intake_classes.map { |intake_class| @form.filter_records(intake_class) }.flatten
+
         if @records.blank?
           @form.errors.add(@contact_method, I18n.t("state_file.intake_logins.new.#{@contact_method}.not_found_html"))
           render :new and return
