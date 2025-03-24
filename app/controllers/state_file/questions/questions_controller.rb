@@ -24,6 +24,7 @@ module StateFile
       helper_method :question_navigator
 
       def redirect_if_no_intake
+        Rails.logger.info "no intake"
         unless current_intake.present?
           flash[:notice] = I18n.t("devise.failure.timeout")
           redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
@@ -31,6 +32,7 @@ module StateFile
       end
 
       def redirect_if_df_data_required
+        Rails.logger.info "ding"
         return if current_state_code == "nj"
         return unless question_navigator&.get_section(self.class)&.df_data_required
 
@@ -41,6 +43,7 @@ module StateFile
       end
 
       def redirect_if_in_progress_intakes_ended
+        Rails.logger.info "end of in progress"
         if app_time.after?(Rails.configuration.state_file_end_of_in_progress_intakes)
           if current_intake.efile_submissions.empty?
             redirect_to root_path
