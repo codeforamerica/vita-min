@@ -435,75 +435,26 @@ describe DirectFileData do
     end
 
     context "when there are CTC dependents in the xml" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_8_deps') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('az_johnny_mfj_8_deps') }
       it 'sets ctc_qualifying on those dependents' do
 
-        expect(described_class.new(xml).dependents.select{ |d| d.ctc_qualifying }.length).to eq(3)
-        expect(described_class.new(xml).dependents.select{ |d| d.ctc_qualifying == false }.length).to eq(5)
+        expect(described_class.new(xml).dependents.select{ |d| d.ctc_qualifying }.length).to eq(4)
+        expect(described_class.new(xml).dependents.select{ |d| d.ctc_qualifying == false }.length).to eq(4)
         expect(described_class.new(xml).dependents.length).to eq(8)
       end
-    end
-
-    context "when there are EIC dependents in the xml" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_8_deps') }
-      it 'sets eic_qualifying on those dependents' do
-        dependents = described_class.new(xml).dependents
-        expect(dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
-        expect(dependents.select{ |d| d.eic_qualifying == false }.length).to eq(5)
-        expect(dependents.select { |d| d.months_in_home == 7}.length).to eq(3)
-
-        expect(described_class.new(xml).dependents.length).to eq(8)
-      end
-    end
-
-    context "when there is a eic dependent with a disability" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_robert_mfj') }
-
-      it "sets eic_disability on those dependents" do
-        expect(described_class.new(xml).dependents.select{ |d| d.eic_qualifying }.length).to eq(3)
-        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability == 'yes' }.length).to eq(1)
-      end
-    end
-
-    context 'when there are dependents with missing tags' do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_batman') }
-      it 'still sets the dependents' do
-        expect(described_class.new(xml).dependents.length).to eq(1)
-      end
-    end
-
-    context 'when there are dependents with missing eic tags' do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_depdropping') }
-      it 'returns the correct array of DirectFileData::Dependent objects' do
-        expect(described_class.new(xml).dependents.count).to eq(8)
-        expect(described_class.new(xml).eitc_eligible_dependents.count).to eq(3)
-        expect(described_class.new(xml).dependents.select{ |d| d.eic_student == 'yes' }.length).to eq(1)
-        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability == 'no' }.length).to eq(1)
-        expect(described_class.new(xml).dependents.select{ |d| d.eic_student == 'unfilled' }.length).to eq(7)
-        expect(described_class.new(xml).dependents.select{ |d| d.eic_disability == 'unfilled' }.length).to eq(7)
-      end
-    end
-  end
-
-  describe '#determine_eic_attribute' do
-    let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_zeus_depdropping') }
-    it 'returns yes for true' do
-      expect(described_class.new(xml).determine_eic_attribute('true')).to eq('yes')
-      expect(described_class.new(xml).determine_eic_attribute('false')).to eq('no')
-      expect(described_class.new(xml).determine_eic_attribute(nil)).to eq('unfilled')
     end
   end
 
   describe '#surviving_spouse?' do
     context "when federal XML SurvivingSpouseInd has a value of 'X'" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_deceased_spouse') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('id_white_spouse_deceased') }
       it 'returns true' do
         expect(described_class.new(xml).spouse_deceased?).to eq(true)
       end
     end
 
     context "when federal XML SurvivingSpouseInd node not present" do
-      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('ny_john_jane_no_eic') }
+      let(:xml) { StateFile::DirectFileApiResponseSampleService.new.read_xml('md_helly_single_1099R') }
       it 'returns false' do
         expect(described_class.new(xml).spouse_deceased?).to eq(false)
       end

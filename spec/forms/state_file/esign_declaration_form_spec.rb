@@ -33,9 +33,9 @@ RSpec.describe StateFile::EsignDeclarationForm do
       end
     end
 
-    context "when has agreed to esign in new york" do
+    context "when has agreed to esign in north carolina" do
       let!(:intake) {
-        create :state_file_ny_intake,
+        create :state_file_nc_intake,
                primary_esigned: "unfilled",
                primary_esigned_at: nil,
                spouse_esigned: "unfilled",
