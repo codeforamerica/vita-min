@@ -12,19 +12,20 @@ module StateFile
     attr_reader :current_index
 
     def prev_path
-      prev_index = current_index - 1
+      prev_index = current_index - index_decrement
       if prev_index.negative?
         super
       else
         options = { index: prev_index }
-        self.class.to_path_helper(options)
+        prev_question_controller_class.to_path_helper(options)
       end
     end
 
     def next_path
       return super if params[:return_to_review].present? && !review_all_items_before_returning_to_review
 
-      next_index = current_index + 1
+      next_index = current_index + index_increment
+
       if next_index >= num_items
         super
       else
@@ -32,11 +33,28 @@ module StateFile
         if params[:return_to_review].present? && review_all_items_before_returning_to_review
           options[:return_to_review] = params[:return_to_review]
         end
-        self.class.to_path_helper(options)
+
+        next_question_controller_class.to_path_helper(options)
       end
     end
 
     private
+
+    def index_decrement
+      1
+    end
+
+    def index_increment
+      1
+    end
+
+    def prev_question_controller_class
+      self.class
+    end
+
+    def next_question_controller_class
+      self.class
+    end
 
     def set_index_and_load_item
       @current_index = params[:index].present? ? params[:index].to_i : 0
