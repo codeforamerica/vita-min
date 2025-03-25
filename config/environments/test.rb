@@ -9,7 +9,7 @@ Rails.application.configure do
   config.after_initialize do
     Bullet.enable        = true
     Bullet.bullet_logger = true
-    Bullet.raise         = false # note - change to true to raise on n+1 queries
+    Bullet.raise         = true # NOTE: - change to true to raise on n+1 queries
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
