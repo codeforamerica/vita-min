@@ -74,8 +74,8 @@ module StateFile
       @records.map(&:increment_failed_attempts)
     end
 
-    def reset_failed_attempts_on_matching_records_for_login!
-      @records.each(&:reset_failed_attempts_for_login!)
+    def unlock_matching_records_for_login!
+      @records.each(&:unlock_for_login!)
     end
 
     def request_login_form_class
