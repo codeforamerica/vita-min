@@ -36,6 +36,7 @@
 #  household_rent_amount              :integer
 #  household_rent_own                 :integer          default("unfilled"), not null
 #  household_ssi                      :integer
+#  last_failed_attempt_at             :datetime
 #  last_sign_in_at                    :datetime
 #  last_sign_in_ip                    :inet
 #  locale                             :string           default("en")

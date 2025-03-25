@@ -32,6 +32,7 @@
 #  hashed_ssn                             :string
 #  household_excise_credit_claimed        :integer          default("unfilled"), not null
 #  household_excise_credit_claimed_amount :decimal(12, 2)
+#  last_failed_attempt_at                 :datetime
 #  last_sign_in_at                        :datetime
 #  last_sign_in_ip                        :inet
 #  locale                                 :string           default("en")

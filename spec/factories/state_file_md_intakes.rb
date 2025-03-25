@@ -40,6 +40,7 @@
 #  joint_account_holder_last_name             :string
 #  joint_account_holder_middle_initial        :string
 #  joint_account_holder_suffix                :string
+#  last_failed_attempt_at                     :datetime
 #  last_sign_in_at                            :datetime
 #  last_sign_in_ip                            :inet
 #  locale                                     :string           default("en")

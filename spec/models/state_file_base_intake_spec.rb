@@ -10,14 +10,42 @@ describe StateFileBaseIntake do
 
       expect(intake.access_locked?).to eq(true)
     end
+
+    context "when failed previously" do
+      before do
+        intake.update(last_failed_attempt_at: last_failed_attempt_at)
+      end
+
+      context "last_failed_attempt_at is before the unlock_in time" do
+        let(:last_failed_attempt_at) { 32.minutes.ago }
+
+        it "reset_failed_attempts and updates last_failed_attempt_at" do
+          intake.increment_failed_attempts
+
+          expect(intake.reload.failed_attempts).to eq(1)
+          expect(intake.last_failed_attempt_at).to be_within(2.seconds).of(Time.current)
+        end
+      end
+
+      context "last_failed_attempt_at is after the unlock_in time" do
+        let(:last_failed_attempt_at) { 29.minutes.ago }
+
+        it "does not reset_failed_attempts and updates last_failed_attempt_at" do
+          intake.increment_failed_attempts
+
+          expect(intake.reload.failed_attempts).to eq(3)
+          expect(intake.last_failed_attempt_at).to be_within(2.seconds).of(Time.current)
+        end
+      end
+    end
   end
 
-  describe "#reset_failed_attempts_if_unlocked!" do
+  describe "#reset_failed_attempts_for_login!" do
     let!(:intake) { create :state_file_az_intake, failed_attempts: 2 }
 
     before do
       allow(intake).to receive(:access_locked?).and_return(access_locked)
-      intake.reset_failed_attempts_if_unlocked!
+      intake.reset_failed_attempts_for_login!
     end
 
     context "when access locked" do

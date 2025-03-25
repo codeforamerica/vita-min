@@ -412,13 +412,21 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def increment_failed_attempts
+    # If unlock_in time has passed, reset the failed_attempts. Otherwise, the intakes' failed_attempts will
+    # remain unchanged until the verification code is answered correctly (see: reset_failed_attempts_for_login!)
+    # taken from https://github.com/heartcombo/devise/issues/4679#issuecomment-1453450974
+    if last_failed_attempt_at && last_failed_attempt_at < self.class.unlock_in.ago
+      reset_failed_attempts!
+    end
+    update(last_failed_attempt_at: Time.current)
+
     super
     if attempts_exceeded? && !access_locked?
       lock_access!
     end
   end
 
-  def reset_failed_attempts_if_unlocked!
+  def reset_failed_attempts_for_login!
     reset_failed_attempts! unless access_locked?
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_25_052127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1890,6 +1890,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
     t.string "hashed_ssn"
     t.integer "household_excise_credit_claimed", default: 0, null: false
     t.decimal "household_excise_credit_claimed_amount", precision: 12, scale: 2
+    t.datetime "last_failed_attempt_at"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -2022,6 +2023,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
     t.string "hashed_ssn"
     t.decimal "health_insurance_paid_amount", precision: 12, scale: 2
     t.integer "household_has_grocery_credit_ineligible_months", default: 0, null: false
+    t.datetime "last_failed_attempt_at"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -2125,6 +2127,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
     t.string "joint_account_holder_last_name"
     t.string "joint_account_holder_middle_initial"
     t.string "joint_account_holder_suffix"
+    t.datetime "last_failed_attempt_at"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -2231,6 +2234,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.string "hashed_ssn"
+    t.datetime "last_failed_attempt_at"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -2367,6 +2371,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
     t.integer "homeowner_same_home_spouse", default: 0, null: false
     t.integer "homeowner_shared_ownership_not_spouse", default: 0, null: false
     t.integer "household_rent_own", default: 0, null: false
+    t.datetime "last_failed_attempt_at"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
@@ -2512,6 +2517,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
     t.integer "household_rent_amount"
     t.integer "household_rent_own", default: 0, null: false
     t.integer "household_ssi"
+    t.datetime "last_failed_attempt_at"
     t.datetime "last_sign_in_at"
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
