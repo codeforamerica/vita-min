@@ -1,4 +1,4 @@
-<% title = t(".title", filing_year: current_tax_year) %>
+<% title = current_intake.direct_file_address_is_po_box? ? t(".title_df_po_box", filing_year: current_tax_year) : t(".title", filing_year: current_tax_year) %>
 <% content_for :page_title, title %>
 
 <% content_for :card do %>
