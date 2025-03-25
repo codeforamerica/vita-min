@@ -123,6 +123,31 @@ RSpec.feature "Logging in" do
             expect(page).to have_text I18n.t("state_file.intake_logins.account_locked.title")
           end
         end
+
+        context "get verification code wrong" do
+          scenario "gets account locked page" do
+            visit "/login-options"
+            expect(page).to have_text "Sign in to FileYourStateTaxes"
+            click_on "Sign in with phone number"
+
+            expect(page).to have_text "Sign in with your phone number"
+            fill_in "Your phone number", with: phone_number
+            perform_enqueued_jobs do
+              click_on I18n.t("state_file.questions.email_address.edit.action")
+            end
+
+            expect(twilio_service).to have_received(:send_text_message).with(
+              to: phone_number,
+              body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 10 minutes.",
+              )
+
+            expect(page).to have_text "Enter the code to continue"
+            fill_in "Enter the 6-digit code", with: "999999"
+            click_on "Verify code"
+
+            expect(page).to have_text I18n.t("state_file.intake_logins.account_locked.title")
+          end
+        end
       end
 
       context "after unlocked_in time" do
