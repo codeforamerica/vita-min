@@ -12,7 +12,11 @@ module Navigation
     end
 
     def controllers
-      @steps.map(&:controllers).flatten
+      @steps.flat_map(&:controllers)
+    end
+
+    def pages(object_for_flow)
+      @steps.flat_map { |step| step.pages(object_for_flow) }
     end
   end
 end

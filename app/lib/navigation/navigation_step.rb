@@ -13,8 +13,8 @@ module Navigation
       [@controller]
     end
 
-    def steps
-      [@controller]
+    def pages(object_for_flow)
+      [{controller: @controller}]
     end
     
   end

@@ -34,10 +34,11 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::IdDisabilityController),
-        Navigation::RepeatedSteps.new([
-                                        StateFile::Questions::IdRetirementAndPensionIncomeController,
-                                        StateFile::Questions::IdIneligibleRetirementAndPensionIncomeController
-                                      ]) { StateFile::StateFileCurrentIntakeConcern.current_intake&.eligible_1099rs&.count },
+        Navigation::RepeatedMultiPageStep.new(
+          [
+            StateFile::Questions::IdRetirementAndPensionIncomeController,
+            StateFile::Questions::IdIneligibleRetirementAndPensionIncomeController
+          ], ->(intake) { intake&.eligible_1099rs&.count }),
         Navigation::NavigationStep.new(StateFile::Questions::IdHealthInsurancePremiumController),
         Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditController),
         Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditReviewController),
@@ -58,7 +59,11 @@ module Navigation
     ].freeze
 
     def self.controllers
-      SECTIONS.map(&:controllers).flatten
+      sections.flat_map(&:controllers)
+    end
+
+    def self.pages(object_for_flow)
+      sections.flat_map { |section| section.pages(object_for_flow) }
     end
   end
 end

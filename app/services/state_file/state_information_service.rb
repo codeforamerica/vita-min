@@ -29,8 +29,6 @@ module StateFile
       :w2_include_local_income_boxes,
     ].freeze
 
-    puts "OKKKK WH"
-
     STATES_INFO = IceNine.deep_freeze!(
       {
         az: {
@@ -206,12 +204,8 @@ module StateFile
         # }
       }.with_indifferent_access)
 
-    puts "hwats"
-
     class << self
-      puts "ehlo"
       GETTER_METHODS.each do |attribute|
-        puts attribute
         define_method(attribute) do |state_code|
           unless STATES_INFO.key?(state_code)
             raise InvalidStateCodeError, state_code

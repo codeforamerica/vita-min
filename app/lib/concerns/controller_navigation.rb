@@ -8,6 +8,10 @@ module ControllerNavigation
       def controllers
         const_get("FLOW")
       end
+
+      def pages(object_for_flow)
+        controllers
+      end
     end
 
     delegate :controllers, to: :class
