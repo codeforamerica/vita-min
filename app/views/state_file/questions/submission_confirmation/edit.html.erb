@@ -55,7 +55,11 @@
 
     <%= render partial: "state_file/questions/submission_confirmation/#{current_state_code}_additional_content" rescue nil %>
 
-    <%= link_to t(".download_state_return_pdf"), StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission), class: "button button--primary button--wide", role: "button" %>
+  <%= link_to t(".download_state_return_pdf"),
+              StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission),
+              class: "button button--primary button--wide",
+              role: "button",
+              target: "_blank" %>
   </div>
   <% if show_xml? %>
     <p>
