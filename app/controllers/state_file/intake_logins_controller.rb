@@ -75,8 +75,6 @@ module StateFile
     end
 
     def reset_failed_attempts_on_matching_records_for_login!
-      return unless @records.present?
-
       @records.each(&:reset_failed_attempts_for_login!)
     end
 
