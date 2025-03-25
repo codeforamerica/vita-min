@@ -1359,14 +1359,13 @@ describe Efile::Nj::Nj1040Calculator do
     ].each do |test_case|
       context "when filing with #{test_case}" do
         before do
-          allow(instance).to receive(:calculate_line_29).and_return test_case[:line_29_total_income]
           instance.calculate
         end
         let(:intake) do
           create(:state_file_nj_intake, *test_case[:traits])
         end
         it "returns the correct boolean" do
-          expect(instance.filer_below_income_eligibility_threshold?).to eq(test_case[:expected])
+          expect(instance.filer_below_income_eligibility_threshold?(test_case[:line_29_total_income])).to eq(test_case[:expected])
         end
       end
     end
