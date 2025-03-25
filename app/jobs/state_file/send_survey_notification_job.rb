@@ -7,7 +7,7 @@ module StateFile
         intake: intake,
         submission: submission,
         message: StateFile::AutomatedMessage::SurveyNotification,
-        body_args: { survey_link: StateFile::StateInformationService.survey_link(intake.state_code) }
+        body_args: { survey_link: StateFile::StateInformationService.survey_link(intake.state_code, locale: intake.locale) }
       ).send_message
     end
 
