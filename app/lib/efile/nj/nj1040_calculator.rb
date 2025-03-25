@@ -282,6 +282,11 @@ module Efile
         @excess_fli_max ||= StateFileW2.find_limit("FLI", "nj")
       end
 
+      def filer_below_income_eligibility_threshold?(gross_income)
+        threshold = @intake.filing_status_single? || @intake.filing_status_mfs? ? 10_000 : 20_000
+        gross_income <= threshold
+      end
+
       private
 
       def line_6_spouse_checkbox
@@ -371,6 +376,8 @@ module Efile
       end
 
       def calculate_line_39
+        return 0 if filer_below_income_eligibility_threshold?(line_or_zero(:NJ1040_LINE_29))
+
         [line_or_zero(:NJ1040_LINE_29) - line_or_zero(:NJ1040_LINE_38), 0].max
       end
 
