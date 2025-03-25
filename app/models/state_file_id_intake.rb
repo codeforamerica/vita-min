@@ -31,7 +31,6 @@
 #  hashed_ssn                                     :string
 #  health_insurance_paid_amount                   :decimal(12, 2)
 #  household_has_grocery_credit_ineligible_months :integer          default("unfilled"), not null
-#  last_failed_attempt_at                         :datetime
 #  last_sign_in_at                                :datetime
 #  last_sign_in_ip                                :inet
 #  locale                                         :string           default("en")

@@ -27,7 +27,6 @@
 #  failed_attempts                   :integer          default(0), not null
 #  federal_return_status             :string
 #  hashed_ssn                        :string
-#  last_failed_attempt_at            :datetime
 #  last_sign_in_at                   :datetime
 #  last_sign_in_ip                   :inet
 #  locale                            :string           default("en")

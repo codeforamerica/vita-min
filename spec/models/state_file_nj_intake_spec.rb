@@ -39,7 +39,6 @@
 #  homeowner_same_home_spouse                             :integer          default("unfilled"), not null
 #  homeowner_shared_ownership_not_spouse                  :integer          default("unfilled"), not null
 #  household_rent_own                                     :integer          default("unfilled"), not null
-#  last_failed_attempt_at                                 :datetime
 #  last_sign_in_at                                        :datetime
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
