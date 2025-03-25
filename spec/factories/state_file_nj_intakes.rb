@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
+#  confirmed_w2_ids                                       :integer          default([]), is an Array
 #  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
@@ -29,6 +30,7 @@
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
 #  federal_return_status                                  :string
+#  has_estimated_payments                                 :integer          default("unfilled"), not null
 #  hashed_ssn                                             :string
 #  homeowner_home_subject_to_property_taxes               :integer          default("unfilled"), not null
 #  homeowner_main_home_multi_unit                         :integer          default("unfilled"), not null
@@ -45,6 +47,7 @@
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
+#  overpayments                                           :decimal(12, 2)
 #  payment_or_deposit_type                                :integer          default("unfilled"), not null
 #  permanent_apartment                                    :string
 #  permanent_city                                         :string

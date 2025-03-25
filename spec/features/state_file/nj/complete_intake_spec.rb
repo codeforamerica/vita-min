@@ -241,9 +241,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t('general.negative')
       continue
 
-      # estimated tax payments
+      # estimated tax payments & overpayments
       expect(page).to be_axe_clean
-      fill_in I18n.t('state_file.questions.nj_estimated_tax_payments.edit.label', filing_year: MultiTenantService.statefile.current_tax_year), with: 1000
+      choose I18n.t('general.affirmative')
+      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.estimated_taxes_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
+      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year-1)), with: 1000
       continue
 
       # Driver License
@@ -285,7 +287,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # Tax Refund
       expect(page).to be_axe_clean
-      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 4619, state_name: "New Jersey"))
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 5619, state_name: "New Jersey"))
       choose I18n.t('state_file.questions.tax_refund.edit.mail')
       continue
 
@@ -519,7 +521,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(false) # does NOT meet disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
+        # skips medical expenses page
         choose_household_rent_own("tenant")
         expect_ineligible_page(nil, "income_mfj_qss_hoh")
         expect_page_after_property_tax
@@ -530,7 +532,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_county_and_municipality
         advance_disabled_exemption(false) # does NOT meet disabled exemption
         advance_veterans_exemption
-        advance_medical_expenses
+        # skips medical expenses page
         choose_household_rent_own("both")
         expect_ineligible_page(nil, "income_mfj_qss_hoh")
         expect_page_after_property_tax

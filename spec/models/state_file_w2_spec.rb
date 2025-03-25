@@ -97,9 +97,19 @@ describe StateFileW2 do
 
     context "NJ" do
       let(:intake) { create :state_file_nj_intake }
-      it "does not permit state_wages_amount to be zero if wages is positive" do
+      it "permits state_wages_amount to be zero if wages is positive and w2 has been visited" do
+        intake.confirmed_w2_ids = [w2.id]
         w2.wages = 10
         w2.state_wages_amount = 0
+        w2.state_income_tax_amount = 0
+        expect(w2).to be_valid(:state_file_edit)
+      end
+
+      it "does not permit state_wages_amount to be zero if wages is positive and w2 has NOT been visited" do
+        intake.confirmed_w2_ids = []
+        w2.wages = 10
+        w2.state_wages_amount = 0
+        w2.state_income_tax_amount = 0
         expect(w2).not_to be_valid(:state_file_edit)
       end
 
@@ -209,9 +219,9 @@ describe StateFileW2 do
         w2.check_box14_limits = true
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-            { name: "UI_WF_SWF", limit: NjTestConstHelper::UI_WF_SWF_AT_LIMIT },
-            { name: "FLI", limit: NjTestConstHelper::FLI_AT_LIMIT }
-          ])
+                        { name: "UI_WF_SWF", limit: NjTestConstHelper::UI_WF_SWF_AT_LIMIT },
+                        { name: "FLI", limit: NjTestConstHelper::FLI_AT_LIMIT }
+                      ])
       end
   
       it "is invalid when box14_ui_wf_swf exceeds the state limit" do
@@ -283,6 +293,22 @@ describe StateFileW2 do
         expect(xml.at("EmployerStateIdNum").text).to eq "862124319"
       end
     end
+
+    context "when EmployerStateIdNum contains consecutive (adjacent) spaces" do
+      it "removes adjacent spaces when generating XML" do
+        w2.employer_state_id_num = "86  2124319"
+        xml = Nokogiri::XML(w2.state_tax_group_xml_node)
+        expect(xml.at("EmployerStateIdNum").text).to eq "86 2124319"
+      end
+    end
+
+    context "when LocalityNm contains consecutive (adjacent) spaces" do
+      it "removes adjacent spaces when generating XML" do
+        w2.locality_nm = "Berry     Fields"
+        xml = Nokogiri::XML(w2.state_tax_group_xml_node)
+        expect(xml.at("LocalityNm").text).to eq "Berry Fields"
+      end
+    end
   end
 
   describe "box14_ui_wf_swf getter override" do
@@ -316,9 +342,9 @@ describe StateFileW2 do
       before do
         allow(StateFile::StateInformationService).to receive(:w2_supported_box14_codes)
           .and_return([
-            { name: "UI_WF_SWF", limit: NjTestConstHelper::UI_WF_SWF_AT_LIMIT },
-            { name: "FLI", limit: NjTestConstHelper::FLI_AT_LIMIT }
-          ])
+                        { name: "UI_WF_SWF", limit: NjTestConstHelper::UI_WF_SWF_AT_LIMIT },
+                        { name: "FLI", limit: NjTestConstHelper::FLI_AT_LIMIT }
+                      ])
       end
 
       it "returns the correct limit for a valid name" do

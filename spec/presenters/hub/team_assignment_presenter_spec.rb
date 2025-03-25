@@ -34,20 +34,31 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
       let(:selected_model) { coalition_lead.role.coalition }
 
       it "returns no users" do
-        expect(subject.ordered_by_tr_count_users).to eq nil
+        expect(subject.team_assignment_users).to eq nil
       end
     end
 
     context "when selecting an org" do
       it "shows org leads, team members and site coordinators belonging to selected org or child sites and their number of assigned tax returns in desc order" do
-        expect(subject.ordered_by_tr_count_users).to eq [site_coordinator, team_member, org_lead, other_team_member]
+        expect(subject.team_assignment_users).to eq [site_coordinator, team_member, org_lead, other_team_member]
       end
 
       context "when there are tax returns with archived clients" do
         it "doesn't count their tax returns" do
           create(:gyr_tax_return, assigned_user: site_coordinator, client: create(:client, filterable_product_year: 2023))
 
-          expect(subject.ordered_by_tr_count_users.first.tax_returns_count).to eq 2
+          expect(subject.team_assignment_users.first.tax_returns_count).to eq 2
+          expect(subject.team_assignment_users.first).to eq site_coordinator
+        end
+      end
+
+      context "when the team member only has archived clients" do
+        it "returns 0 for their count of tax returns" do
+          create(:gyr_tax_return, assigned_user: other_team_member, client: create(:client, filterable_product_year: 2023))
+
+          expect(subject.team_assignment_users).to eq [site_coordinator, team_member, org_lead, other_team_member]
+          expect(subject.team_assignment_users[3]).to eq other_team_member
+          expect(subject.team_assignment_users[3].tax_returns_count).to eq 0
         end
       end
 
@@ -55,7 +66,7 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
         it "doesn't include them in the user group" do
           create(:user, role: (create :team_member_role, sites: [site]), suspended_at: Time.now)
 
-          expect(subject.ordered_by_tr_count_users).to eq [site_coordinator, team_member, org_lead, other_team_member]
+          expect(subject.team_assignment_users).to eq [site_coordinator, team_member, org_lead, other_team_member]
         end
       end
     end
@@ -64,7 +75,7 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
       let(:selected_model) { other_org }
 
       it "doesn't show users from the other org" do
-        expect(subject.ordered_by_tr_count_users).to eq [other_org_lead, other_site_coordinator]
+        expect(subject.team_assignment_users).to eq [other_org_lead, other_site_coordinator]
       end
     end
   end
@@ -74,7 +85,7 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
 
     context "when selecting an organization in the drop down" do
       it "shows team members, org leads, site coordinators under that selected org or its child sites and their number of assigned tax returns in desc order" do
-        expect(subject.ordered_by_tr_count_users).to eq [site_coordinator, team_member, org_lead, other_team_member]
+        expect(subject.team_assignment_users).to eq [site_coordinator, team_member, org_lead, other_team_member]
       end
     end
 
@@ -82,7 +93,7 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
       let(:selected_model) { site }
 
       it "shows team members, org leads, site coordinators under that site or with its parent org" do
-        expect(subject.ordered_by_tr_count_users).to eq [site_coordinator, team_member, org_lead]
+        expect(subject.team_assignment_users).to eq [site_coordinator, team_member, org_lead]
       end
     end
   end
@@ -94,7 +105,7 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
       let(:selected_model) { site }
 
       it "Site coordinators and team members that are assigned to selected site" do
-        expect(subject.ordered_by_tr_count_users).to eq [site_coordinator, team_member]
+        expect(subject.team_assignment_users).to eq [site_coordinator, team_member]
       end
     end
   end

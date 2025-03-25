@@ -39,6 +39,7 @@ module StateFile
           track_question_answer
           redirect_to(next_path)
         else
+          @contact_info = params.dig(:state_file_verification_code_form, :contact_info)
           after_update_failure
           track_validation_error
           render :edit
@@ -50,18 +51,15 @@ module StateFile
       def get_existing_intake(intake)
         return nil if intake.email_address.nil? && intake.phone_number.nil?
 
-        #we don't help new york any more
-        state_intake_classes = StateFile::StateInformationService.state_intake_classes.reject do |klass|
-          klass == StateFileNyIntake
-        end
-
+        # we don't help new york any more
+        state_intake_classes = StateFile::StateInformationService.state_intake_classes.without(StateFileNyIntake)
         state_intake_classes.each do |intake_class|
-          search = case intake.contact_preference
-            when "text"
-              intake_class.where.not(id: intake.id).where.not(raw_direct_file_data: nil).where(phone_number: intake.phone_number)
-            when "email"
-              intake_class.where.not(id: intake.id).where.not(raw_direct_file_data: nil).where(email_address: intake.email_address)
-            end
+          key = intake.contact_preference == "text" ? :phone_number : :email_address
+          search = intake_class
+                     .where.not(raw_direct_file_data: nil) # has a successful df import...
+                     .where(contact_preference: intake.contact_preference) # ...used the same login method
+                     .where(key => intake[key]) # ...with the same contact info
+          search = search.where.not(id: intake.id) if intake_class == intake.class # ...unless it's literally the same intake
 
           existing_intake = search.first
           return existing_intake if existing_intake
@@ -72,21 +70,33 @@ module StateFile
 
       def redirect_into_login(intake, existing_intake)
         contact_info = (
-          if intake.contact_preference == "email"
-            intake.email_address
+          if existing_intake.contact_preference == "email"
+            existing_intake.email_address
           else
-            intake.phone_number
+            existing_intake.phone_number
           end
         )
         hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(
           contact_info, @form.verification_code
         )
         @form.intake = existing_intake
-        intake.destroy unless intake.id == existing_intake.id
+
+        unless is_same_intake?(intake, existing_intake)
+          existing_intake.update(unfinished_intake_ids: existing_intake.unfinished_intake_ids << intake.id)
+          intake.destroy
+        end
+
         redirect_to IntakeLoginsController.to_path_helper(
           action: :edit,
           id: hashed_verification_code
         )
+      end
+
+      def is_same_intake?(intake, existing_intake)
+        same_state = intake.state_code == existing_intake.state_code
+        same_id = intake.id == existing_intake.id
+
+        same_state && same_id
       end
     end
   end

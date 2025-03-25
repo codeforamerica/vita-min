@@ -5,10 +5,12 @@ module StateFile
     GETTER_METHODS = [
       :intake_class,
       :calculator_class,
+      :check_box_16,
       :filing_years,
       :mail_voucher_address,
       :navigation_class,
       :pay_taxes_link,
+      :payment_deadline,
       :return_type,
       :review_controller_class,
       :schema_file_name,
@@ -26,7 +28,6 @@ module StateFile
       :voucher_path,
       :w2_supported_box14_codes,
       :w2_include_local_income_boxes,
-      :payment_deadline,
     ].freeze
 
     class << self
@@ -48,6 +49,11 @@ module StateFile
       def department_of_taxation(state_code)
         raise InvalidStateCodeError, state_code unless STATES_INFO.key?(state_code)
         I18n.t("state_file.state_information_service.#{state_code}.department_of_taxation")
+      end
+
+      def survey_link(state_code, locale: nil)
+        raise InvalidStateCodeError, state_code unless STATES_INFO.key?(state_code)
+        I18n.t("state_file.state_information_service.#{state_code}.survey_link", locale: locale || I18n.locale)
       end
 
       # Returns the state-specific date in the current filing year only - no time or timezone.
@@ -88,6 +94,7 @@ module StateFile
       az: {
         intake_class: StateFileAzIntake,
         calculator_class: Efile::Az::Az140Calculator,
+        check_box_16: false,
         filing_years: [2024, 2023],
         mail_voucher_address: "Arizona Department of Revenue<br/>" \
                               "PO Box 29085<br/>" \
@@ -99,7 +106,7 @@ module StateFile
         schema_file_name: "AZIndividual2024v2.0.zip",
         software_id_key: "sin",
         submission_builder_class: SubmissionBuilder::Ty2022::States::Az::AzReturnXml,
-        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0v0BnYNRoLIqzhY",
+        survey_link: I18n.t("state_file.state_information_service.az.survey_link"),
         submission_type: "Form140",
         tax_payment_info_text: "https://azdor.gov/make-payment-online",
         tax_payment_info_url: "https://azdor.gov/making-payments-late-payments-and-filing-extensions",
@@ -116,6 +123,7 @@ module StateFile
       id: {
         intake_class: StateFileIdIntake,
         calculator_class: Efile::Id::Id40Calculator,
+        check_box_16: false,
         filing_years: [2024],
         mail_voucher_address: "Idaho State Tax Commission<br/>" \
                               "PO Box 83784<br/>" \
@@ -128,7 +136,7 @@ module StateFile
         software_id_key: "sin",
         submission_type: "Form40",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Id::IdReturnXml,
-        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0URdKLyW7K53rZc",
+        survey_link: I18n.t("state_file.state_information_service.id.survey_link"),
         tax_payment_info_text: "https://tax.idaho.gov/e-pay/",
         tax_payment_info_url: "https://tax.idaho.gov/online-services/e-pay/",
         tax_refund_url: "https://tax.idaho.gov/taxes/income-tax/individual-income/refund/",
@@ -144,6 +152,7 @@ module StateFile
       md: {
         intake_class: StateFileMdIntake,
         calculator_class: Efile::Md::Md502Calculator,
+        check_box_16: false,
         filing_years: [2024],
         mail_voucher_address: "Comptroller of Maryland<br/>" \
                               "Payment Processing<br/>" \
@@ -157,7 +166,7 @@ module StateFile
         software_id_key: "md_sin", # MD assigned us a unique software id only in use for MD
         submission_type: "MD502",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Md::MdReturnXml,
-        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_24BAmNMNrpkhLwy",
+        survey_link: I18n.t("state_file.state_information_service.md.survey_link"),
         tax_payment_info_text: "Marylandtaxes.gov",
         tax_payment_info_url: "https://www.marylandtaxes.gov/individual/individual-payments.php",
         tax_refund_url: "https://interactive.marylandtaxes.gov/INDIV/refundstatus/home.aspx",
@@ -173,6 +182,7 @@ module StateFile
       nc: {
         intake_class: StateFileNcIntake,
         calculator_class: Efile::Nc::D400Calculator,
+        check_box_16: false,
         filing_years: [2024],
         mail_voucher_address: "North Carolina Department of Revenue<br/>" \
                               "PO Box 25000<br/>" \
@@ -185,7 +195,7 @@ module StateFile
         software_id_key: "sin",
         submission_type: "FormNCD400",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
-        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_1MM0vBfZ5N2OMLA",
+        survey_link: I18n.t("state_file.state_information_service.nc.survey_link"),
         tax_payment_info_text: "NCDOR.gov",
         tax_payment_info_url: "https://www.ncdor.gov/file-pay/pay-individual-income-tax",
         tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
@@ -201,6 +211,7 @@ module StateFile
       nj: {
         intake_class: StateFileNjIntake,
         calculator_class: Efile::Nj::Nj1040Calculator,
+        check_box_16: true,
         filing_years: [2024],
         navigation_class: Navigation::StateFileNjQuestionNavigation,
         review_controller_class: StateFile::Questions::NjReviewController,
@@ -213,11 +224,11 @@ module StateFile
                               "Revenue Processing Center - Payments<br/>" \
                               "PO Box 643 Trenton, NJ 08646-0643".html_safe,
         pay_taxes_link: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
-        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_82CJgtfW0HFEPIi",
+        survey_link: I18n.t("state_file.state_information_service.nj.survey_link"),
         submission_type: "Resident",
         tax_payment_info_text: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
         tax_payment_info_url: "https://www.state.nj.us/treasury/taxation/payments-notices.shtml",
-        tax_refund_url: "https://www20.state.nj.us/TYTR_TGI_INQ/jsp/prompt.jsp",
+        tax_refund_url: "https://www.nj.gov/treasury/taxation/checkrefundstatus.shtml",
         timezone: 'America/New_York',
         vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pag9EUHzAZzfRIwUn/form",
         vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagVcLm52Stg9p4hY/form",
@@ -230,6 +241,7 @@ module StateFile
       ny: {
         intake_class: StateFileNyIntake,
         calculator_class: Efile::Ny::It201,
+        check_box_16: false,
         filing_years: [2023],
         mail_voucher_address: "NYS Personal Income Tax<br/>" \
                               "Processing Center<br/>" \
@@ -243,7 +255,7 @@ module StateFile
         schema_file_name: "NYSIndividual2023V4.0.zip",
         software_id_key: "sin",
         submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::NyReturnXml,
-        survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
+        survey_link: I18n.t("state_file.state_information_service.ny.survey_link"),
         tax_payment_info_text: "Tax.NY.gov",
         tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
         tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
