@@ -23,7 +23,7 @@ describe StateFileBaseIntake do
     context "when access locked" do
       let(:access_locked) { true }
 
-      it "should reset failed_attempts" do
+      it "should not reset failed_attempts" do
         expect(intake.failed_attempts).to eq(2)
       end
     end
@@ -31,7 +31,7 @@ describe StateFileBaseIntake do
     context "when access not locked" do
       let(:access_locked) { false }
 
-      it "should not reset failed_attempts" do
+      it "should reset failed_attempts" do
         expect(intake.failed_attempts).to eq(0)
       end
     end
