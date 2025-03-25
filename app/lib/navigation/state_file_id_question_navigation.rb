@@ -1,6 +1,7 @@
 module Navigation
   class StateFileIdQuestionNavigation < Navigation::StateFileBaseQuestionNavigation
     include ControllerNavigation
+    include StateFile::StateFileCurrentIntakeConcern
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
@@ -33,8 +34,10 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::IdDisabilityController),
-        Navigation::NavigationStep.new(StateFile::Questions::IdRetirementAndPensionIncomeController),
-        Navigation::NavigationStep.new(StateFile::Questions::IdIneligibleRetirementAndPensionIncomeController),
+        Navigation::RepeatedSteps.new([
+                                        StateFile::Questions::IdRetirementAndPensionIncomeController,
+                                        StateFile::Questions::IdIneligibleRetirementAndPensionIncomeController
+                                      ]) { StateFile::StateFileCurrentIntakeConcern.current_intake&.eligible_1099rs&.count },
         Navigation::NavigationStep.new(StateFile::Questions::IdHealthInsurancePremiumController),
         Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditController),
         Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditReviewController),
@@ -53,6 +56,9 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::ReturnStatusController),
       ], true, true),
     ].freeze
-    FLOW = SECTIONS.map(&:controllers).flatten.freeze
+
+    def self.controllers
+      SECTIONS.map(&:controllers).flatten
+    end
   end
 end

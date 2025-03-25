@@ -12,7 +12,7 @@ module Navigation
     end
 
     def controllers
-      @steps.map(&:controller)
+      @steps.map(&:controllers).flatten
     end
   end
 end
