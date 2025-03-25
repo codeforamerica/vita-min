@@ -6964,7 +6964,6 @@ es:
           diy: menos de $84,000
           full_service: menos de $67,000
           title: Guía de ingresos
-        itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
         mobile_friendly: Adaptable para dispositivos móviles
         required_information: Información obligatoria
         select_service_html: "<i>Selecciona la opción en la que estás interesado para obtener más información sobre la lista completa de requisitos.</i>"
