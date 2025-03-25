@@ -3939,13 +3939,6 @@ en:
           helper_heading: How do I find my school district?
           school_district_name: School District Name
           title: Select the school district where you lived on December 31, %{filing_year}
-      ny_third_party_designee:
-        edit:
-          reveal:
-            body_html: 'By selecting a third-party designee, you are authorizing NY Department of Taxation and Finance to discuss with the designee any questions related to this return. You are also authorizing the designee to give and receive confidential taxpayer information relating to: <br> <b><ul class="list--bulleted">  <li>this return, including missing information  <li>any notices or bills arising from this filing that you share with the designee (they will not be sent to the designee)  <li>any payments and collection activity arising from this filing, and   <li>the status of your return or refund. </ul>'
-            title: What is the NY Department of Taxation and Finance allowed to discuss with my third-party designee?
-          subtitle: By selecting yes, you are making this person your third-party designee for your state return.
-          title_html: It looks like you gave permission for the IRS to discuss your federal tax return with %{name}.<br /><br /> Would you like to allow this same person to discuss your New York State tax return with the NY Department of Taxation and Finance?
       ny_w2:
         edit:
           locality_nm_error: Please type in “NYC” if the locality name on your W-2 is New York City or any of the five boroughs.

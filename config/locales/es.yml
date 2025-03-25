@@ -3921,13 +3921,6 @@ es:
           helper_heading: "¿Cómo encuentro mi distrito escolar?"
           school_district_name: Nombre del Distrito Escolar
           title: Selecciona el distrito escolar donde vivías el 31 de diciembre de %{filing_year}
-      ny_third_party_designee:
-        edit:
-          reveal:
-            body_html: 'Al seleccionar un designado por un tercero, estás autorizando al Departamento de Impuestos y Finanzas de Nueva York a discutir con el designado cualquier pregunta relacionada con esta declaración. También estás autorizando al designado a dar y recibir información tributaria confidencial relacionada con: <br><b><ul class="list--bulleted"> <li>esta declaración, incluida información faltante <li>cualquier aviso o factura derivada de esta presentación que compartas con el designado (no se enviarán al designado) <li>cualquier pago y actividad de cobro derivada de esta presentación, y  <li>el estado de tu declaración o reembolso. </ul>'
-            title: "¿Qué puede discutir el Departamento de Impuestos de Nueva York con mi designado por terceros?"
-          subtitle: Al seleccionar sí, estás designando a esta persona como tu representante para tu declaración estatal.
-          title_html: Parece que diste permiso para que el IRS discuta tu declaración de impuestos federales con %{name}.<br /><br /> ¿Te gustaría permitir que esta misma persona discuta tu declaración de impuestos estatales de Nueva York con el Departamento de Impuestos y Finanzas de Nueva York?
       ny_w2:
         edit:
           locality_nm_error: Escribe "NYC" si el nombre de la localidad en tu W-2 es Nueva York o cualquiera de los cinco distritos.
