@@ -8,9 +8,9 @@ en:
           apartment_number_label: Apartment/Unit Number
           city_label: City
           follow_up_help_text: PO Boxes are not accepted
-          mark_no_hint_html: Mark &quot;no&quot; if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, %{filing_year}.
+          mark_no_hint_html: "Mark &quot;no&quot; if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, %{filing_year}."
           state_label: State
           street_address_label: Street Address
-          title: Did you live at this address on December 31, %{filing_year}?
-          where_did_you_live: Where did you live on December 31, %{filing_year}?
+          title: "Did you live at this address on December 31, %{filing_year}?"
+          where_did_you_live: "Where did you live on December 31, %{filing_year}?"
           zip_label: Zip Code
