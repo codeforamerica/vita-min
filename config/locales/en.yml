@@ -246,6 +246,7 @@ en:
       whole_number: must be a whole number
   forms:
     errors:
+      address_is_not_po_box: A PO box cannot be listed as your physical address. Please enter where you lived on December 31, %{tax_year}
       at_least_one_year: Please pick at least one year.
       general: Please fix indicated errors before continuing.
       healthcare:
@@ -3211,11 +3212,15 @@ en:
           address_header: Address
           apartment_number_label: Apartment/Unit Number
           city_label: City
+          df_address_is_po_box:
+            p1: 'The address we have on file for you is a PO Box:'
+            p2: Since a PO Box cannot be listed as your physical address, we need you to tell us where you lived on December 31, %{tax_year}.
           follow_up_help_text: PO Boxes are not accepted
           mark_no_hint_html: Mark &quot;no&quot; if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, %{filing_year}.
           state_label: State
           street_address_label: Street Address
           title: Did you live at this address on December 31, %{filing_year}?
+          title_df_po_box: We need to know where you lived on December 31, %{filing_year}?
           where_did_you_live: Where did you live on December 31, %{filing_year}?
           zip_label: Zip Code
       md_permanently_disabled:
