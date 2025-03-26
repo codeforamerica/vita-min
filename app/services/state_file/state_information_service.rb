@@ -87,121 +87,121 @@ module StateFile
           w2_supported_box14_codes: [],
           w2_include_local_income_boxes: false
         },
-        # md: {
-        #   intake_class: StateFileMdIntake,
-        #   calculator_class: Efile::Md::Md502Calculator,
-        #   check_box_16: false,
-        #   filing_years: [2024],
-        #   mail_voucher_address: "Comptroller of Maryland<br/>" \
-        #     "Payment Processing<br/>" \
-        #     "PO Box 8888<br/>" \
-        #     "Annapolis, MD 21401-8888".html_safe,
-        #   navigation_class: Navigation::StateFileMdQuestionNavigation,
-        #   pay_taxes_link: "https://www.marylandtaxes.gov/individual/individual-payments.php",
-        #   return_type: "502",
-        #   review_controller_class: StateFile::Questions::MdReviewController,
-        #   schema_file_name: "MDIndividual2024v1.0.zip",
-        #   software_id_key: "md_sin", # MD assigned us a unique software id only in use for MD
-        #   submission_type: "MD502",
-        #   submission_builder_class: SubmissionBuilder::Ty2024::States::Md::MdReturnXml,
-        #   survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_24BAmNMNrpkhLwy",
-        #   tax_payment_info_text: "Marylandtaxes.gov",
-        #   tax_payment_info_url: "https://www.marylandtaxes.gov/individual/individual-payments.php",
-        #   tax_refund_url: "https://interactive.marylandtaxes.gov/INDIV/refundstatus/home.aspx",
-        #   timezone: 'America/New_York',
-        #   vita_link_en: "https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form",
-        #   vita_link_es: "https://airtable.com/appAgBw351Iig0YI4/pagpUP2HSWNXzPlIz/form",
-        #   voucher_form_name: "Form PV",
-        #   voucher_path: "/pdfs/md-pv-TY2024.pdf",
-        #   w2_supported_box14_codes: [{ name: "STPICKUP" }],
-        #   w2_include_local_income_boxes: true
-        # },
-        # nc: {
-        #   intake_class: StateFileNcIntake,
-        #   calculator_class: Efile::Nc::D400Calculator,
-        #   check_box_16: false,
-        #   filing_years: [2024],
-        #   mail_voucher_address: "North Carolina Department of Revenue<br/>" \
-        #     "PO Box 25000<br/>" \
-        #     "Raleigh, NC 27640-0640".html_safe,
-        #   navigation_class: Navigation::StateFileNcQuestionNavigation,
-        #   pay_taxes_link: "https://www.nc.gov/working/taxes",
-        #   return_type: "FormNCD400",
-        #   review_controller_class: StateFile::Questions::NcReviewController,
-        #   schema_file_name: "NCIndividual2024v1.0.zip",
-        #   software_id_key: "sin",
-        #   submission_type: "FormNCD400",
-        #   submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
-        #   survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_1MM0vBfZ5N2OMLA",
-        #   tax_payment_info_text: "NCDOR.gov",
-        #   tax_payment_info_url: "https://www.ncdor.gov/file-pay/pay-individual-income-tax",
-        #   tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
-        #   timezone: 'America/New_York',
-        #   vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pagJPN5iPinERGb3Q/form",
-        #   vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagS982AjKEml809R/form",
-        #   voucher_form_name: "Form D-400V",
-        #   voucher_path: "https://eservices.dor.nc.gov/vouchers/d400v.jsp?year=2024",
-        #   w2_supported_box14_codes: [],
-        #   w2_include_local_income_boxes: false
-        # },
-        # nj: {
-        #   intake_class: StateFileNjIntake,
-        #   calculator_class: Efile::Nj::Nj1040Calculator,
-        #   check_box_16: true,
-        #   filing_years: [2024],
-        #   navigation_class: Navigation::StateFileNjQuestionNavigation,
-        #   review_controller_class: StateFile::Questions::NjReviewController,
-        #   submission_builder_class: SubmissionBuilder::Ty2024::States::Nj::NjReturnXml,
-        #   software_id_key: "sin",
-        #   return_type: "Resident",
-        #   schema_file_name: "NJIndividual2024V0.1.zip",
-        #   mail_voucher_address: "State of New Jersey<br/>" \
-        #     "Division of Taxation<br/>" \
-        #     "Revenue Processing Center - Payments<br/>" \
-        #     "PO Box 643 Trenton, NJ 08646-0643".html_safe,
-        #   pay_taxes_link: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
-        #   survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_82CJgtfW0HFEPIi",
-        #   submission_type: "Resident",
-        #   tax_payment_info_text: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
-        #   tax_payment_info_url: "https://www.state.nj.us/treasury/taxation/payments-notices.shtml",
-        #   tax_refund_url: "https://www.nj.gov/treasury/taxation/checkrefundstatus.shtml",
-        #   timezone: 'America/New_York',
-        #   vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pag9EUHzAZzfRIwUn/form",
-        #   vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagVcLm52Stg9p4hY/form",
-        #   voucher_form_name: "NJ-1040-V (NJ Gross Income Tax Resident Payment Voucher)",
-        #   voucher_path: "/pdfs/nj1040v-TY2024.pdf",
-        #   w2_supported_box14_codes: [{ name: "UI_WF_SWF", limit: 180 }, { name: "FLI", limit: 145.26 }],
-        #   w2_include_local_income_boxes: false
-        # },
-        # ny: {
-        #   intake_class: StateFileNyIntake,
-        #   calculator_class: Efile::Ny::It201,
-        #   check_box_16: false,
-        #   filing_years: [2023],
-        #   mail_voucher_address: "NYS Personal Income Tax<br/>" \
-        #     "Processing Center<br/>" \
-        #     "Box 4124<br/>" \
-        #     "Binghamton, NY 13902-4124".html_safe,
-        #   navigation_class: Navigation::StateFileNyQuestionNavigation,
-        #   pay_taxes_link: "https://www.tax.ny.gov/pay/",
-        #   return_type: "IT201",
-        #   review_controller_class: StateFile::Questions::NyReviewController,
-        #   submission_type: "IT201",
-        #   schema_file_name: "NYSIndividual2023V4.0.zip",
-        #   software_id_key: "sin",
-        #   submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::NyReturnXml,
-        #   survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
-        #   tax_payment_info_text: "Tax.NY.gov",
-        #   tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
-        #   tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
-        #   timezone: 'America/New_York',
-        #   vita_link_en: "",
-        #   vita_link_es: "",
-        #   voucher_form_name: "Form IT-201-V",
-        #   voucher_path: "/pdfs/it201v_1223.pdf",
-        #   w2_supported_box14_codes: [],
-        #   w2_include_local_income_boxes: false
-        # }
+        md: {
+          intake_class: StateFileMdIntake,
+          calculator_class: Efile::Md::Md502Calculator,
+          check_box_16: false,
+          filing_years: [2024],
+          mail_voucher_address: "Comptroller of Maryland<br/>" \
+            "Payment Processing<br/>" \
+            "PO Box 8888<br/>" \
+            "Annapolis, MD 21401-8888".html_safe,
+          navigation_class: Navigation::StateFileMdQuestionNavigation,
+          pay_taxes_link: "https://www.marylandtaxes.gov/individual/individual-payments.php",
+          return_type: "502",
+          review_controller_class: StateFile::Questions::MdReviewController,
+          schema_file_name: "MDIndividual2024v1.0.zip",
+          software_id_key: "md_sin", # MD assigned us a unique software id only in use for MD
+          submission_type: "MD502",
+          submission_builder_class: SubmissionBuilder::Ty2024::States::Md::MdReturnXml,
+          survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_24BAmNMNrpkhLwy",
+          tax_payment_info_text: "Marylandtaxes.gov",
+          tax_payment_info_url: "https://www.marylandtaxes.gov/individual/individual-payments.php",
+          tax_refund_url: "https://interactive.marylandtaxes.gov/INDIV/refundstatus/home.aspx",
+          timezone: 'America/New_York',
+          vita_link_en: "https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form",
+          vita_link_es: "https://airtable.com/appAgBw351Iig0YI4/pagpUP2HSWNXzPlIz/form",
+          voucher_form_name: "Form PV",
+          voucher_path: "/pdfs/md-pv-TY2024.pdf",
+          w2_supported_box14_codes: [{ name: "STPICKUP" }],
+          w2_include_local_income_boxes: true
+        },
+        nc: {
+          intake_class: StateFileNcIntake,
+          calculator_class: Efile::Nc::D400Calculator,
+          check_box_16: false,
+          filing_years: [2024],
+          mail_voucher_address: "North Carolina Department of Revenue<br/>" \
+            "PO Box 25000<br/>" \
+            "Raleigh, NC 27640-0640".html_safe,
+          navigation_class: Navigation::StateFileNcQuestionNavigation,
+          pay_taxes_link: "https://www.nc.gov/working/taxes",
+          return_type: "FormNCD400",
+          review_controller_class: StateFile::Questions::NcReviewController,
+          schema_file_name: "NCIndividual2024v1.0.zip",
+          software_id_key: "sin",
+          submission_type: "FormNCD400",
+          submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
+          survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_1MM0vBfZ5N2OMLA",
+          tax_payment_info_text: "NCDOR.gov",
+          tax_payment_info_url: "https://www.ncdor.gov/file-pay/pay-individual-income-tax",
+          tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
+          timezone: 'America/New_York',
+          vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pagJPN5iPinERGb3Q/form",
+          vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagS982AjKEml809R/form",
+          voucher_form_name: "Form D-400V",
+          voucher_path: "https://eservices.dor.nc.gov/vouchers/d400v.jsp?year=2024",
+          w2_supported_box14_codes: [],
+          w2_include_local_income_boxes: false
+        },
+        nj: {
+          intake_class: StateFileNjIntake,
+          calculator_class: Efile::Nj::Nj1040Calculator,
+          check_box_16: true,
+          filing_years: [2024],
+          navigation_class: Navigation::StateFileNjQuestionNavigation,
+          review_controller_class: StateFile::Questions::NjReviewController,
+          submission_builder_class: SubmissionBuilder::Ty2024::States::Nj::NjReturnXml,
+          software_id_key: "sin",
+          return_type: "Resident",
+          schema_file_name: "NJIndividual2024V0.1.zip",
+          mail_voucher_address: "State of New Jersey<br/>" \
+            "Division of Taxation<br/>" \
+            "Revenue Processing Center - Payments<br/>" \
+            "PO Box 643 Trenton, NJ 08646-0643".html_safe,
+          pay_taxes_link: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
+          survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_82CJgtfW0HFEPIi",
+          submission_type: "Resident",
+          tax_payment_info_text: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
+          tax_payment_info_url: "https://www.state.nj.us/treasury/taxation/payments-notices.shtml",
+          tax_refund_url: "https://www.nj.gov/treasury/taxation/checkrefundstatus.shtml",
+          timezone: 'America/New_York',
+          vita_link_en: "https://airtable.com/appqG5OGbTLBiQ408/pag9EUHzAZzfRIwUn/form",
+          vita_link_es: "https://airtable.com/appqG5OGbTLBiQ408/pagVcLm52Stg9p4hY/form",
+          voucher_form_name: "NJ-1040-V (NJ Gross Income Tax Resident Payment Voucher)",
+          voucher_path: "/pdfs/nj1040v-TY2024.pdf",
+          w2_supported_box14_codes: [{ name: "UI_WF_SWF", limit: 180 }, { name: "FLI", limit: 145.26 }],
+          w2_include_local_income_boxes: false
+        },
+        ny: {
+          intake_class: StateFileNyIntake,
+          calculator_class: Efile::Ny::It201,
+          check_box_16: false,
+          filing_years: [2023],
+          mail_voucher_address: "NYS Personal Income Tax<br/>" \
+            "Processing Center<br/>" \
+            "Box 4124<br/>" \
+            "Binghamton, NY 13902-4124".html_safe,
+          navigation_class: Navigation::StateFileNyQuestionNavigation,
+          pay_taxes_link: "https://www.tax.ny.gov/pay/",
+          return_type: "IT201",
+          review_controller_class: StateFile::Questions::NyReviewController,
+          submission_type: "IT201",
+          schema_file_name: "NYSIndividual2023V4.0.zip",
+          software_id_key: "sin",
+          submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::NyReturnXml,
+          survey_link: "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu",
+          tax_payment_info_text: "Tax.NY.gov",
+          tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
+          tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
+          timezone: 'America/New_York',
+          vita_link_en: "",
+          vita_link_es: "",
+          voucher_form_name: "Form IT-201-V",
+          voucher_path: "/pdfs/it201v_1223.pdf",
+          w2_supported_box14_codes: [],
+          w2_include_local_income_boxes: false
+        }
       }.with_indifferent_access)
 
     class << self
