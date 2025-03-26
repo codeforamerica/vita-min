@@ -2841,7 +2841,7 @@ es:
             nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
           vita_link: Comienza con VITA ahora
           want_to_claim_learn_more_html: Obtén más información <a href="%{link}" target="_blank">aquí</a>.
-          want_to_claim_vita_1:  Puedes presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS (VITA). Ten en cuenta que esta opción puede tardar de 2 a 3 semanas en completarse.
+          want_to_claim_vita_1: Puedes presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS (VITA). Ten en cuenta que esta opción puede tardar de 2 a 3 semanas en completarse.
       email_address:
         edit:
           action: Enviar el código
@@ -4141,7 +4141,7 @@ es:
           title: "¡Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido enviada! "
           title_resubmit: "¡Tu declaración de impuestos de %{filing_year} de %{state_name} ha sido enviada de nuevo!"
         nj_additional_content:
-          body_html: |- 
+          body_html: |-
             <p>Dijiste que tú están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey.</p>
             <p>Para enviar la documentación y el formulario, tienes algunas opciones:</p>
             <ol class="list--numbered">
@@ -4149,7 +4149,7 @@ es:
               <li>Envíalas por fax al 609-633-8427.</li>
               <li>Envíelas en línea a través del <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">Administrador de correspondencia fiscal de New Jersey (link en inglés)</a>.</li>
             </ol>
-          body_mfj_html: |- 
+          body_mfj_html: |-
             <p>Dijiste que tú o tu cónyuge están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey.</p>
             <p>Para enviar la documentación y el formulario, tienes algunas opciones:</p>
             <ol class="list--numbered">
@@ -4157,6 +4157,7 @@ es:
               <li>Envíalas por fax al 609-633-8427.</li>
               <li>Envíelas en línea a través del <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">Administrador de correspondencia fiscal de New Jersey (link en inglés)</a>.</li>
             </ol>
+          header: 'Atención: si está reclamando la exención de veterano/a de guerra por primera vez'
           veterans_reveal: Consejos para enviar tus documentos de veterano de guerra en línea
           veterans_reveal_html: |-
             <p>Puedes enviar tus documentos mediante el <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">Administrador de correspondencia fiscal de New Jersey (link en inglés)</a>.</p>
@@ -4167,7 +4168,6 @@ es:
               <li>Selecciona “VET” en el menú desplegable debajo de Código de notificación (en inglés “Notice Code”).</li>
               <li>Ingresa el resto de tu información, incluido tu número de Seguro Social, para asegurar que los documentos se vinculen con tu declaración de impuestos.</li>
             </ol>
-          header: 'Atención: si está reclamando la exención de veterano/a de guerra por primera vez'
       tax_refund:
         bank_details:
           account_number: Número de cuenta

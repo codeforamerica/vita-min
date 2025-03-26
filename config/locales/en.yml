@@ -4155,7 +4155,7 @@ en:
           title: Your %{filing_year} %{state_name} state tax return is now submitted!
           title_resubmit: Your %{filing_year} %{state_name} state tax return is now resubmitted!
         nj_additional_content:
-          body_html: |- 
+          body_html: |-
             <p>You said you are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation.</p>
             <p>To submit the documentation and form, you have a few options:</p>
             <ol class="list--numbered">
@@ -4163,7 +4163,7 @@ en:
               <li>Fax them to 609-633-8427.</li>
               <li>Submit them online via the <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">New Jersey Tax Correspondence Manager</a>.</li>
             </ol>
-          body_mfj_html: |- 
+          body_mfj_html: |-
             <p>You said you or your spouse are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation.</p>
             <p>To submit the documentation and form, you have a few options:</p>
             <ol class="list--numbered">
@@ -4171,6 +4171,7 @@ en:
               <li>Fax them to 609-633-8427.</li>
               <li>Submit them online via the <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">New Jersey Tax Correspondence Manager</a>.</li>
             </ol>
+          header: 'Attention: if you are claiming the veteran exemption for the first time'
           veterans_reveal: Tips for submitting your veteran documents online
           veterans_reveal_html: |-
             <p>As mentioned, you can upload your documents via the <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">New Jersey Tax Correspondence Manager</a>.</p>
@@ -4181,7 +4182,6 @@ en:
               <li>Select “VET” from the dropdown menu under Notice Code.</li>
               <li>Enter the rest of your information, including your Social Security Number, to make sure that the documents get linked to your tax return.</li>
             </ol>
-          header: 'Attention: if you are claiming the veteran exemption for the first time'
       tax_refund:
         bank_details:
           account_number: Account Number
