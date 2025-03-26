@@ -246,6 +246,7 @@ en:
       whole_number: must be a whole number
   forms:
     errors:
+      address_is_not_po_box: A PO box cannot be listed as your physical address. Please enter where you lived on December 31, %{tax_year}
       at_least_one_year: Please pick at least one year.
       general: Please fix indicated errors before continuing.
       healthcare:
@@ -2520,6 +2521,9 @@ en:
             has_out_of_state_w2: you earned income in another state in %{filing_year}.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
             married_filing_separately: you are filing “married filing separately”.
+            spouse_nra_html: |
+              you didn’t include your spouse’s SSN or ITIN in your federal return.<br><br>
+              Maryland does not allow Married Filing Separately taxpayers to electronically file their state tax return without their spouse’s SSN or ITIN.
           offboarding_reason: You cannot use this service this year because %{reason}
           title: Unfortunately, after transferring your data, we found that you can’t use this service this year. Don’t worry, here are other filing options.
       declined_terms_and_conditions:
@@ -2818,7 +2822,7 @@ en:
                           <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Get started with VITA now</a>
                         </li>
                         <li>
-                          Learn more about this process and other filing options <a href="%{link}" rel="noopener nofollow" target="_blank">here.</a>
+                          Learn more about this process and other filing options <a href="https://www.fileyourstatetaxes.org/en/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">here.</a>
                         </li>
                       </ul>
                       <li>
@@ -3208,17 +3212,21 @@ en:
           address_header: Address
           apartment_number_label: Apartment/Unit Number
           city_label: City
+          df_address_is_po_box:
+            p1: 'The address we have on file for you is a PO Box:'
+            p2: Since a PO Box cannot be listed as your physical address, we need you to tell us where you lived on December 31, %{tax_year}.
           follow_up_help_text: PO Boxes are not accepted
           mark_no_hint_html: Mark &quot;no&quot; if the address listed is a PO Box <strong>or</strong> if you lived at a different address on December 31, %{filing_year}.
           state_label: State
           street_address_label: Street Address
           title: Did you live at this address on December 31, %{filing_year}?
+          title_df_po_box: We need to know where you lived on December 31, %{filing_year}?
           where_did_you_live: Where did you live on December 31, %{filing_year}?
           zip_label: Zip Code
       md_permanently_disabled:
         edit:
           help_text: You are considered totally disabled if you have a mental or physical condition that stops you from working and earning a living.
-          help_text_2: This condition is expected to last a long time, for an indefinite period, or to result in your death. If you are under 65 and want to claim the pension exclusion, you must have attached a certification from a qualified physician stating the nature of your impairment and that you are totally disabled to a previously filed tax return.
+          help_text_2: This condition is expected to last a long time, for an indefinite period, or to result in your death.
           no_neither: No, neither of us is
           primary_proof_question_html: Have <strong>you</strong> provided proof of your disability for the <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a>in the previous tax years?
           spouse_proof_question_html: Has <strong>your spouse</strong> provided proof of your disability for the  <a href="https://www.marylandtaxes.gov/individual/income/filing/pension-exclusion.php">Maryland Pension Exclusion</a> in the previous tax years?
@@ -3522,23 +3530,28 @@ en:
           title: We need information about your health insurance status.
       nj_estimated_tax_payments:
         edit:
-          continue: If you did not already make any payments, click "Continue".
           description_html: |
-            <p>Please include the sum of the following:</p>
+            <p>Most people do <strong>not</strong> make these payments.</p>
+            <p>You are most likely to have made them if your employer <strong>doesn't</strong> withhold taxes in your paycheck or if you are self-employed.</p>
+            <p>These payments include:</p>
             <ul class="list--bulleted">
-              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Estimated income tax payments</a> you made throughout the year for your New Jersey state taxes
-                <ul class="list--bulleted">
-                  <li><strong>This does not include withholdings in your paycheck</strong></li>
-                </ul>
-              </li>
-              <li>Overpayments on your %{prior_year} return that you chose to apply to your %{filing_year} New Jersey taxes
-                <ul class="list--bulleted">
-                  <li>Note: you would have selected this option when filing your %{prior_year} return</li>
-                </ul>
-              </li>
+              <li><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Estimated quarterly payments</a> that you made. These were due on April 15, June 17, and September 16 last year and January 15 this year. You would have paid these <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or by mail.</li>
+              <li>(If applicable) A refund that you decided to carry forward from your %{prior_year} state taxes to your %{filing_year} state taxes.</li>
             </ul>
-          label: 'Total:'
-          title: Please tell us if you already made any payments toward your %{filing_year} New Jersey state income taxes.
+            <p>These payments do <strong>not</strong> include:</p>
+            <ul class="list--bulleted">
+              <li>Payments made for a prior tax year</li>
+              <li>Withholdings in your paycheck</li>
+              <li>Property taxes</li>
+            </ul>
+          estimated_taxes_input_helper_html: Add up your quarterly payments and enter the total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">you can check how much you paid here</a>).
+          estimated_taxes_input_label_html: "<strong>Total estimated payments made for %{filing_year} taxes</strong>"
+          no_text: No (this is the common option)
+          overpayments_input_helper_html: If applicable, you can find this on line 69 of your %{prior_year} NJ-1040. Only enter an amount here if you did not apply it to estimated payments.
+          overpayments_input_label_html: "<strong>Refund carried forward to %{filing_year} taxes (exclude estimated payments)</strong>"
+          question_box: Please share the amounts paid.
+          radio_label: Did you make estimated or other payments for your %{filing_year} state income taxes?
+          title_html: Did you make <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">estimated or other payments</a> toward your %{filing_year} New Jersey income taxes?
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>You may have heard this referred to as \"public financing\" of campaigns.</p> \n<p>You can contribute $1 of where your taxes go to the <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Gubernatorial Elections Fund</a>.</p>\n<p>FYI: Your taxes won’t increase and your refund won't be reduced. This just gives New Jersey permission to use $1 of your tax dollars for this Fund.</p>\n"
@@ -3706,7 +3719,8 @@ en:
           edit_disability: disability status
           edit_veteran: veteran status
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
-          estimated_tax_payments: Payments already made towards New Jersey taxes
+          estimated_tax_payments: Amount of estimated quarterly payments
+          has_estimated_payments: Estimated or other payments
           household_rent_own: Living situation in %{filing_year}
           household_rent_own_both: Owned and rented
           household_rent_own_neither: Neither owned or rented
@@ -3714,6 +3728,7 @@ en:
           household_rent_own_rent: Rented
           medical_expenses: Total medical expenses
           missing_health_insurance: Dependents who DO NOT have health insurance
+          overpayments: Amount of refund carried forward
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
           primary_disabled: Disability exemption (you)
           primary_veteran: Veteran exemption (you)
@@ -4471,21 +4486,27 @@ en:
       az:
         department_of_taxation: Arizona Department of Revenue
         state_name: Arizona
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0v0BnYNRoLIqzhY
       id:
         department_of_taxation: Idaho State Tax Commission
         state_name: Idaho
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0URdKLyW7K53rZc
       md:
         department_of_taxation: Comptroller of Maryland
         state_name: Maryland
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_24BAmNMNrpkhLwy
       nc:
         department_of_taxation: N.C. Department of Revenue
         state_name: North Carolina
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_1MM0vBfZ5N2OMLA
       nj:
         department_of_taxation: New Jersey Division of Taxation
         state_name: New Jersey
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_82CJgtfW0HFEPIi
       ny:
         department_of_taxation: Department of Taxation and Finance
         state_name: New York
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
     alpha: Only letters A-Z and a-z are accepted.
@@ -6900,7 +6921,6 @@ en:
           diy: under $84,000
           full_service: under $67,000
           title: 'Income guidance:'
-        itin_assistance: ITIN application assistance
         mobile_friendly: Mobile-friendly
         required_information: Required information
         select_service_html: "<i>Please select the option you're interested in to learn more about the full list of requirements.</i>"

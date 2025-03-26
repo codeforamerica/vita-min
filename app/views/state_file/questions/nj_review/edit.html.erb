@@ -142,7 +142,7 @@
     </section>
   <% end %>
 
-  <% if current_intake.nj_gross_income.positive? %>
+  <% if !current_intake.eligibility_made_less_than_threshold? %>
     <section id="medical_expenses" class="white-group">
       <div class="spacing-below-5">
         <h2 class="text--body text--bold spacing-below-5"><%=t(".medical_expenses") %></h2>
@@ -201,17 +201,6 @@
     </section>
   <% end %>
 
-  <section id="estimated-tax-payments" class="white-group">
-    <div class="spacing-below-5">
-      <h2 class="text--body text--bold spacing-below-5"><%=t(".estimated_tax_payments") %></h2>
-      <p><%= number_to_currency(current_intake.estimated_tax_payments || 0, precision: 0) %></p>
-      <%= link_to StateFile::Questions::NjEstimatedTaxPaymentsController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
-        <%= t(".review_and_edit") %>
-        <span class="sr-only"><%= t(".estimated_tax_payments") %></span>
-      <% end %>
-    </div>
-  </section>
-
   <section id="use-tax" class="white-group">
     <div class="spacing-below-5">
       <h2 class="text--body text--bold spacing-below-5"><%=t(".use_tax_applied") %></h2>
@@ -225,6 +214,23 @@
       <%= link_to StateFile::Questions::NjSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
         <%= t(".review_and_edit") %>
         <span class="sr-only"><%= t(".use_tax_applied") %></span>
+      <% end %>
+    </div>
+  </section>
+
+  <section id="estimated-tax-payments" class="white-group">
+    <div class="spacing-below-5">
+      <h2 class="text--body text--bold spacing-below-5"><%=t(".has_estimated_payments") %></h2>
+      <p><%=current_intake.has_estimated_payments_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.has_estimated_payments_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".estimated_tax_payments") %></p>
+        <p><%=number_to_currency(current_intake.estimated_tax_payments || 0, precision: 0)%></p>
+        <p class="text--bold spacing-below-5"><%=t(".overpayments") %></p>
+        <p><%=number_to_currency(current_intake.overpayments || 0, precision: 0)%></p>
+      <% end %>
+      <%= link_to StateFile::Questions::NjEstimatedTaxPaymentsController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= t(".review_and_edit") %>
+        <span class="sr-only"><%= t(".has_estimated_payments") %></span>
       <% end %>
     </div>
   </section>

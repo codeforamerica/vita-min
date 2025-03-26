@@ -246,6 +246,7 @@ es:
       whole_number: Debe ser un número entero
   forms:
     errors:
+      address_is_not_po_box: No puedes declarar un apartado postal como la dirección donde vivías. Por favor indica donde vivías el 31 de diciembre del %{tax_year}
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
       healthcare:
@@ -2505,6 +2506,9 @@ es:
             has_out_of_state_w2: recibiste ingresos en otro estado en el %{filing_year}
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2024.
             married_filing_separately: estás presentando una declaración de impuestos "casado, declarando por separado".
+            spouse_nra_html: |
+              no incluiste el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de tu cónyuge en tu declaración federal.<br><br>
+              Maryland no permite contribuyentes con el estado Casado declarando por separado presentar la declaración estatal de forma electrónica sin el SSN o ITIN de su cónyuge.
           offboarding_reason: No puedes utilizar este servicio este año porque %{reason}
           title: Desafortunadamente, después de transferir tus datos, descubrimos que no puedes usar este servicio este año. No te preocupes, aquí tienes otras opciones para declarar.
       declined_terms_and_conditions:
@@ -2785,7 +2789,7 @@ es:
                           <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
                         </li>
                         <li>
-                          Aprende más sobre este proceso y otras opciones de declaración <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>
+                          Aprende más sobre este proceso y otras opciones de declaración <a href="https://www.fileyourstatetaxes.org/es/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">aquí.</a>
                         </li>
                       </ul>
                       <li>
@@ -3178,11 +3182,15 @@ es:
           address_header: Dirección
           apartment_number_label: Número de apartamento/unidad
           city_label: Cuidad
+          df_address_is_po_box:
+            p1: 'La dirección que tenemos registrada para ti es un apartado postal:'
+            p2: Ya que no puedes declarar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
           follow_up_help_text: No se aceptan PO Boxes
           mark_no_hint_html: Marca “no” si la dirección que aparece es un PO Box <strong>o</strong> si vivías en una dirección distinta el 31 de diciembre de %{filing_year}.
           state_label: Estado
           street_address_label: Dirección
           title: "¿Vivías en esta dirección el 31 de diciembre de %{filing_year}?"
+          title_df_po_box: Necesitamos saber dónde vivías el 31 de diciembre del %{filing_year}?
           where_did_you_live: "¿Dónde vivías el 31 de diciembre de %{filing_year}?"
           zip_label: Código postal
       md_permanently_disabled:
@@ -3494,23 +3502,28 @@ es:
           title: Necesitamos información sobre tu estado de seguro médico.
       nj_estimated_tax_payments:
         edit:
-          continue: Si aún no has realizado ningún pago, haz clic en "Continuar".
           description_html: |
-            <p>Incluye la suma de lo siguiente:</p>
+            <p>La mayoría de las personas <strong>no</strong> realizan estos pagos.</p>
+            <p>Es más probable que los hayas pagado si tu empleador/a <strong>no retiene</strong> impuestos de tu talón de pago o si trabajas como independiente (self-employed).</p>
+            <p>Estos pagos incluyen:</p>
             <ul class="list--bulleted">
-              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Pagos estimados de impuestos sobre tus ingresos</a> que hiciste durante el año para tus impuestos estatales de New Jersey
-                <ul class="list--bulleted">
-                  <li><strong>Esto no incluye las retenciones de tu cheque/recibo de pago (paycheck)</strong></li>
-                </ul>
-              </li>
-              <li>Pagos en exceso en tu declaración de %{prior_year} que elegiste aplicar a tus impuestos estatales de New Jersey en %{filing_year}
-                <ul class="list--bulleted">
-                  <li>Nota: habrías seleccionado esta opción al presentar tu declaración de %{prior_year}</li>
-                </ul>
-              </li>
+              <li><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Pagos trimestrales estimados (PDF en inglés)</a> que hiciste. Estos vencieron el 15 de abril, el 17 de junio y el 16 de septiembre del año pasado, y el 15 de enero de este año. Los habrías pagado <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">en línea</a> o por correo.</li>
+              <li>(Si aplica) Un reembolso que decidiste transferir de tus impuestos estatales de %{prior_year} a tus impuestos estatales de %{filing_year}.</li>
             </ul>
-          label: 'Total:'
-          title: Por favor, dinos si ya pagaste parte de tus impuestos estatales sobre los ingresos de New Jersey de %{filing_year}.
+            <p>Estos pagos <strong>no</strong> incluyen:</p>
+            <ul class="list--bulleted">
+              <li>Pagos realizados para un año fiscal anterior</li>
+              <li>Retenciones de tu talón de pago (paycheck)</li>
+              <li>Impuestos sobre la propiedad</li>
+            </ul>
+          estimated_taxes_input_helper_html: Suma tus pagos trimestrales e ingresa el total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">verifica cuánto pagaste</a>).
+          estimated_taxes_input_label_html: "<strong>Total de pagos estimados realizados para los impuestos de %{filing_year}</strong>"
+          no_text: No (más común)
+          overpayments_input_helper_html: Si aplica, puedes encontrar esto en la línea 69 de tu NJ-1040 de %{prior_year}. Ingresa un monto aquí solo si no lo incluiste en el cálculo del cuadro anterior.
+          overpayments_input_label_html: "<strong>Reembolso transferido a los impuestos de %{filing_year} (no incluyas los pagos estimados)</strong>"
+          question_box: Ingrese los montos pagados.
+          radio_label: "¿Hiciste pagos estimados u otros pagos para los impuestos sobre los ingresos de New Jersey de %{filing_year}?"
+          title_html: ¿Hiciste <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">pagos estimados u otros pagos</a> para los impuestos sobre los ingresos de New Jersey de %{filing_year}?
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>Puede que conozcas esto como \"financiamiento público\" de campañas.</p> \n<p>Puedes contribuir con $1 de lo que va a tus impuestos al <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Fondo de Elecciones para Gobernador</a> (link en inglés).</p>\n<p>Para tu información: Tus impuestos no aumentarán y tu reembolso no se reducirá. Esto autoriza a New Jersey usar $1 de tus dólares de impuestos para este Fondo.</p>\n"
@@ -3678,7 +3691,8 @@ es:
           edit_disability: estado de discapacidad
           edit_veteran: estado de veterano/a de guerra
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
-          estimated_tax_payments: Pagos ya realizados a impuestos de New Jersey
+          estimated_tax_payments: Monto de los pagos trimestrales estimados
+          has_estimated_payments: Estimated or other payments
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
           household_rent_own_neither: Ni dueño/a ni inquilino/a
@@ -3686,6 +3700,7 @@ es:
           household_rent_own_rent: Inquilino/a
           medical_expenses: Gastos médicos totales
           missing_health_insurance: Dependientes que NO tienen seguro médico
+          overpayments: Amount of refund carried forward
           primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
           primary_disabled: Exención por discapacidad (tuya)
           primary_veteran: Exención para veteranos/as de guerra (tuya)
@@ -4457,21 +4472,27 @@ es:
       az:
         department_of_taxation: Departamento de Ingresos de Arizona
         state_name: Arizona
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0v0BnYNRoLIqzhY?Q_Language=ES-ES
       id:
         department_of_taxation: Comisión Estatal de Impuestos de Idaho
         state_name: Idaho
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0URdKLyW7K53rZc?Q_Language=ES-ES
       md:
         department_of_taxation: Contralor de Maryland
         state_name: Maryland
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_24BAmNMNrpkhLwy?Q_Language=ES-ES
       nc:
         department_of_taxation: Departamento de Ingresos de Carolina del Norte
         state_name: Carolina del Norte
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_1MM0vBfZ5N2OMLA?Q_Language=ES-ES
       nj:
         department_of_taxation: División de Impuestos de New Jersey
         state_name: New Jersey
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_82CJgtfW0HFEPIi
       ny:
         department_of_taxation: Departamento de Impuestos y Finanzas de Nueva York
         state_name: Nueva York
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
@@ -6950,7 +6971,6 @@ es:
           diy: menos de $84,000
           full_service: menos de $67,000
           title: Guía de ingresos
-        itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
         mobile_friendly: Adaptable para dispositivos móviles
         required_information: Información obligatoria
         select_service_html: "<i>Selecciona la opción en la que estás interesado para obtener más información sobre la lista completa de requisitos.</i>"
