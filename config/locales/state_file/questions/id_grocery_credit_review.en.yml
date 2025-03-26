@@ -4,13 +4,13 @@ en:
     questions:
       id_grocery_credit_review:
         edit:
-          body_p1: This credit amount will be part of your final tax calculations. If you are owed a state tax refund, the credit amount will increase your final refund amount. If you owe taxes, the credit will lower the amount you owe.
+          body_p1: "This credit amount will be part of your final tax calculations. If you are owed a state tax refund, the credit amount will increase your final refund amount. If you owe taxes, the credit will lower the amount you owe."
           body_p2: You can review your total Idaho state refund amount at the end.
           donate_impact_content_p1: Your choice to donate is final once you submit your tax return and cannot be changed through an amended return.
-          donate_impact_content_p2: The Cooperative Welfare Fund is a trust fund in the state treasury, and all money goes toward public assistance and welfare purposes.
-          donate_impact_heading: How will donating my credit impact my tax return?
+          donate_impact_content_p2: "The Cooperative Welfare Fund is a trust fund in the state treasury, and all money goes toward public assistance and welfare purposes."
+          donate_impact_heading: "How will donating my credit impact my tax return?"
           donate_warning_p1: Your donation will be deducted from your total state refund.
           donate_warning_p2: Your choice to donate is final and cannot be changed through an amended return.
-          title: Good news! You're eligible for $%{grocery_credit_amount} from the Idaho Grocery Credit!
-          title_html: Good news! You're eligible for <strong>$%{grocery_credit_amount}</strong> from the Idaho Grocery Credit!
-          would_you_like_to_donate: Would you like to donate your entire credit to the Cooperative Welfare Fund?
+          title: "Good news! You're eligible for $%{grocery_credit_amount} from the Idaho Grocery Credit!"
+          title_html: "Good news! You're eligible for <strong>$%{grocery_credit_amount}</strong> from the Idaho Grocery Credit!"
+          would_you_like_to_donate: "Would you like to donate your entire credit to the Cooperative Welfare Fund?"
