@@ -3,7 +3,7 @@ en:
   state_file:
     notifications_settings:
       unsubscribe_from_emails:
-        help_text_html: If you change your mind and would like to opt in later, <a class="open-intercom">chat with us</a> or email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org.</a>
+        help_text_html: "If you change your mind and would like to opt in later, <a class=\"open-intercom\">chat with us</a> or email us at <a href=\"mailto:help@fileyourstatetaxes.org\">help@fileyourstatetaxes.org.</a>"
         link_text: Opt in again.
-        mistake: Is this a mistake?
+        mistake: "Is this a mistake?"
         title: You've opted out of email notifications from FileYourStateTaxes.
