@@ -29,6 +29,7 @@
 #  index_state_file_w2s_on_state_file_intake  (state_file_intake_type,state_file_intake_id)
 #
 class StateFileW2 < ApplicationRecord
+  include SubmissionBuilder::FormattingMethods
   attr_accessor :check_box14_limits
 
   include XmlMethods
@@ -124,10 +125,8 @@ class StateFileW2 < ApplicationRecord
           errors.add(:local_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
           errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
         end
-      else
-        if state_income_tax_amount.present? && state_income_tax_amount > w2.WagesAmt
-          errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
-        end
+      elsif state_income_tax_amount.present? && state_income_tax_amount > w2.WagesAmt
+        errors.add(:state_income_tax_amount, I18n.t("state_file.questions.w2.edit.wages_amt_error", wages_amount: w2.WagesAmt))
       end
     end
   end
@@ -148,12 +147,12 @@ class StateFileW2 < ApplicationRecord
 
     xml_template = Nokogiri::XML(STATE_TAX_GRP_TEMPLATE)
     xml_template.at(:StateAbbreviationCd).content = state_code&.upcase
-    xml_template.at(:EmployerStateIdNum).content = employer_state_id_num&.delete("\u00AD")
+    xml_template.at(:EmployerStateIdNum).content = sanitize_for_xml(employer_state_id_num.delete("\u00AD")) if employer_state_id_num.present?
     xml_template.at(:StateWagesAmt).content = state_wages_amount&.round
     xml_template.at(:StateIncomeTaxAmt).content = state_income_tax_amount&.round
     xml_template.at(:LocalWagesAndTipsAmt).content = local_wages_and_tips_amount&.round
     xml_template.at(:LocalIncomeTaxAmt).content = local_income_tax_amount&.round
-    xml_template.at(:LocalityNm).content = locality_nm
+    xml_template.at(:LocalityNm).content = sanitize_for_xml(locality_nm)
     delete_blank_nodes(xml_template)
     result = xml_template.at(:W2StateTaxGrp)
     result.nil? ? "" : result.to_xml
@@ -174,7 +173,7 @@ class StateFileW2 < ApplicationRecord
 
   def supported_box14_codes
     box14_codes = StateFile::StateInformationService.w2_supported_box14_codes(state_file_intake.state_code)
-    box14_codes.map{ |code| code[:name] }
+    box14_codes.map { |code| code[:name] }
   end
 
   def validate_box14_limits

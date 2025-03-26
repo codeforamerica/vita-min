@@ -29,17 +29,6 @@
   <div class="spacing-below-25">
     <h2 class="text--body text--bold spacing-below-5"><%=t("state_file.questions.shared.review_header.state_details_title") %></h2>
   </div>
-  <div id="use-tax" class="white-group">
-    <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%=t(".use_tax_applied", filing_year: current_tax_year) %></p>
-      <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
-      <% if current_intake.untaxed_out_of_state_purchases_yes? %>
-        <p class="text--bold spacing-below-5"><%=t(".use_tax_amount") %></p>
-        <p id="use-tax-amount"><%=number_to_currency(current_intake.sales_use_tax, precision: 2)%></p>
-      <% end %>
-      <%= link_to t("general.edit"), StateFile::Questions::NcSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
-    </div>
-  </div>
 
   <div id="state-credits" class="white-group">
     <div class="spacing-below-5">
@@ -50,6 +39,18 @@
         <p><%=number_to_currency(current_intake.tribal_wages_amount, precision: 2)%></p>
       <% end %>
       <%= link_to t("general.edit"), StateFile::Questions::NcSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+    </div>
+  </div>
+
+  <div id="use-tax" class="white-group">
+    <div class="spacing-below-5">
+      <p class="text--bold spacing-below-5"><%=t(".use_tax_applied", filing_year: current_tax_year) %></p>
+      <p><%=current_intake.untaxed_out_of_state_purchases_yes? ? t("general.affirmative") : t("general.negative") %></p>
+      <% if current_intake.untaxed_out_of_state_purchases_yes? %>
+        <p class="text--bold spacing-below-5"><%=t(".use_tax_amount") %></p>
+        <p id="use-tax-amount"><%=number_to_currency(current_intake.sales_use_tax, precision: 2)%></p>
+      <% end %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
     </div>
   </div>
 

@@ -83,4 +83,24 @@ RSpec.describe StateFile::Questions::NjRetirementWarningController do
       end
     end
   end
+
+  describe "eligibility_offboarding_concern" do
+    it_behaves_like :eligibility_offboarding_concern, intake_factory: :state_file_nj_intake do
+      let(:eligible_params) do
+        {
+          state_file_nj_retirement_warning_form: {
+            eligibility_retirement_warning_continue: "yes",
+          }
+        }
+      end
+
+      let(:ineligible_params) do
+        {
+          state_file_nj_retirement_warning_form: {
+            eligibility_retirement_warning_continue: "no",
+          }
+        }
+      end
+    end
+  end
 end

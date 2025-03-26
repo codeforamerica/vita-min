@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
+#  confirmed_w2_ids                                       :integer          default([]), is an Array
 #  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
@@ -29,6 +30,7 @@
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
 #  federal_return_status                                  :string
+#  has_estimated_payments                                 :integer          default("unfilled"), not null
 #  hashed_ssn                                             :string
 #  homeowner_home_subject_to_property_taxes               :integer          default("unfilled"), not null
 #  homeowner_main_home_multi_unit                         :integer          default("unfilled"), not null
@@ -45,6 +47,7 @@
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
+#  overpayments                                           :decimal(12, 2)
 #  payment_or_deposit_type                                :integer          default("unfilled"), not null
 #  permanent_apartment                                    :string
 #  permanent_city                                         :string
@@ -154,6 +157,8 @@ class StateFileNjIntake < StateFileBaseIntake
   enum tenant_shared_rent_not_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_shared_rent_not_spouse
   enum tenant_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_same_home_spouse
 
+  enum has_estimated_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_estimated_payments
+
   def nj_gross_income
     calculator.lines[:NJ1040_LINE_29].value
   end
@@ -181,8 +186,7 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def eligibility_made_less_than_threshold?
-    threshold = self.filing_status_single? || self.filing_status_mfs? ? 10_000 : 20_000
-    nj_gross_income <= threshold
+    calculator.filer_below_income_eligibility_threshold?(nj_gross_income)
   end
 
   def has_health_insurance_requirement_exception?
@@ -219,9 +223,13 @@ class StateFileNjIntake < StateFileBaseIntake
     (nj_gross_income * 0.02).floor
   end
 
+  def state_wages_invalid?(w2)
+    w2.wages.positive? && (w2.state_wages_amount.nil? || w2.state_wages_amount <= 0)
+  end
+
   def validate_state_specific_w2_requirements(w2)
     super
-    if w2.wages.positive? && (w2.state_wages_amount.nil? || w2.state_wages_amount <= 0)
+    if state_wages_invalid?(w2) && !confirmed_w2_ids.include?(w2.id)
       w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
     end
   end

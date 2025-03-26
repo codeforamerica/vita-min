@@ -4,7 +4,17 @@ module StateFile
     # to the eligibility offboarding page if given a disqualifying answer
     extend ActiveSupport::Concern
 
+    included do
+      before_action :clear_offboarded_from, only: :edit
+    end
+
     private
+
+    def clear_offboarded_from
+      if session[:offboarded_from].present?
+        session.delete(:offboarded_from)
+      end
+    end
 
     def offboarding_path
       StateFile::Questions::EligibilityOffboardingController.to_path_helper

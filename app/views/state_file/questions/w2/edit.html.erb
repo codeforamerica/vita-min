@@ -35,6 +35,11 @@
       <div class="form-question spacing-below-25">
         <%= f.vita_min_money_field(:state_wages_amount, t(".box16_html"), classes: ["form-width--long"]) %>
       </div>
+      <% if state_wages_invalid? %>
+        <div class="notice--warning spacing-above-5">
+          <p><%= t(".box16_warning_nj") %></p>
+        </div>
+      <% end %>
       <div class="form-question spacing-below-25">
         <%= f.vita_min_money_field(:state_income_tax_amount, t(".box17_html"), classes: ["form-width--long"]) %>
       </div>

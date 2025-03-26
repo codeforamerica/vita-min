@@ -9,7 +9,7 @@
   </div>
   <h1 class="h2" id="main-question"><%= title %></h1>
   <p><%= t(".subtitle", state_name: current_state_name) %></p>
-  <%= link_to t("general.continue"), next_path, class: "button button--wide button--primary text--centered" %>
+  <%= link_to t("general.continue"), next_path, class: "button button--wide button--primary text--centered", role: "button" %>
 
   <% unless acts_like_production? %>
     <%=

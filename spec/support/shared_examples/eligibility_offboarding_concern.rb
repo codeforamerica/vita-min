@@ -1,12 +1,25 @@
 require "rails_helper"
 
 shared_examples :eligibility_offboarding_concern do |intake_factory:|
+  before do
+    sign_in create(intake_factory)
+  end
+
+  describe "#edit" do
+    context "if session has offboarded_from" do
+      before do
+        session[:offboarded_from] = "somewhere over the rainbow"
+      end
+
+      it "should delete the session offboarded_from data" do
+        get :edit
+        expect(session[:offboarded_from]).to be_nil
+      end
+    end
+  end
+
   # requires ineligible_params and eligible_params to be defined
   describe "#next_path" do
-    before do
-      sign_in create(intake_factory)
-    end
-
     context "with eligible params" do
       it "does not redirect to the eligibility offboarding page" do
         post :update, params: eligible_params
