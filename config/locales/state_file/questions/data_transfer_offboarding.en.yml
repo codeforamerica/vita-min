@@ -5,13 +5,13 @@ en:
       data_transfer_offboarding:
         edit:
           ineligible_reason:
-            exempt_interest_exceeds_10k: you had more than $10,000 in tax-exempt interest income.
+            exempt_interest_exceeds_10k: "you had more than $10,000 in tax-exempt interest income."
             has_irc_125_code: W2 lists IRC 125 benefit plan amounts.
-            has_out_of_state_w2: you earned income in another state in %{filing_year}.
-            has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
+            has_out_of_state_w2: "you earned income in another state in %{filing_year}."
+            has_yonkers_income: "lived, earned income, or maintained a home in Yonkers in 2024."
             married_filing_separately: you are filing “married filing separately”.
             spouse_nra_html: |
               you didn’t include your spouse’s SSN or ITIN in your federal return.<br><br>
               Maryland does not allow Married Filing Separately taxpayers to electronically file their state tax return without their spouse’s SSN or ITIN.
-          offboarding_reason: You cannot use this service this year because %{reason}
-          title: Unfortunately, after transferring your data, we found that you can’t use this service this year. Don’t worry, here are other filing options.
+          offboarding_reason: "You cannot use this service this year because %{reason}"
+          title: "Unfortunately, after transferring your data, we found that you can’t use this service this year. Don’t worry, here are other filing options."
