@@ -11,5 +11,5 @@ en:
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales or use tax?
             other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales or use tax?
-          use_tax_method_automated: All of my purchases were less than $1,000 each. Calculate the amount of use tax for me.
-          use_tax_method_manual_html: I had an untaxed purchase over $1,000, or I would prefer to calculate my use tax manually. (<a href="https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf" target="_blank" rel="noopener noreferrer">Learn more</a> and search ‘exact calculation method’)
+          use_tax_method_automated: "All of my purchases were less than $1,000 each. Calculate the amount of use tax for me."
+          use_tax_method_manual_html: "I had an untaxed purchase over $1,000, or I would prefer to calculate my use tax manually. (<a href=\"https://www.tax.ny.gov/pdf/current_forms/st/st140.pdf\" target=\"_blank\" rel=\"noopener noreferrer\">Learn more</a> and search ‘exact calculation method’)"
