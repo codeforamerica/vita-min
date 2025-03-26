@@ -3721,8 +3721,8 @@ en:
           missing_health_insurance: Dependents who DO NOT have health insurance
           overpayments: Amount of refund carried forward
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
-          primary_disabled: Disability exemption (you)
-          primary_veteran: Veteran exemption (you)
+          primary_disabled: Disability exemption
+          primary_veteran: Veteran exemption
           property_tax_credit_deduction: New Jersey Property Tax Deduction or Credit
           property_tax_paid: Property taxes paid in %{filing_year}
           rent_paid: Rent paid in %{filing_year}
@@ -3737,9 +3737,10 @@ en:
           reveal:
             15_wages_salaries_tips: Wages, salaries, tips
             16a_interest_income: Interest income
-            20a_retirement_income: Retirement income
+            20a_retirement_income: 1099-R income (pensions/annuities)
             27_total_income: Total income
-            28c_retirement_excluded_from_taxation: Retirement income excluded from Taxation
+            28a_pensions_annuities_excluded_from_taxation: 1099-R income (pensions/annuities) excluded from taxation
+            28b_other_income_excluded_because_of_retirement: Other income excluded from taxation due to your retirement status
             29_nj_gross_income: New Jersey Gross Income
             30_exemptions: Exemptions (based on the size of your family, disability status, veteran status)
             31_medical: Medical expenses deducted

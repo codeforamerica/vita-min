@@ -3693,8 +3693,8 @@ es:
           missing_health_insurance: Dependientes que NO tienen seguro médico
           overpayments: Amount of refund carried forward
           primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
-          primary_disabled: Exención por discapacidad (tuya)
-          primary_veteran: Exención para veteranos/as de guerra (tuya)
+          primary_disabled: Exención por discapacidad
+          primary_veteran: Exención para veteranos/as de guerra
           property_tax_credit_deduction: Deducción o Crédito por Impuestos a la Propiedad
           property_tax_paid: Impuestos sobre la propiedad pagados en %{filing_year}
           rent_paid: Alquiler pagado en %{filing_year}
@@ -3709,9 +3709,10 @@ es:
           reveal:
             15_wages_salaries_tips: Salarios, sueldos, propinas
             16a_interest_income: Ingreso total
-            20a_retirement_income: Retirement income
+            20a_retirement_income: Ingresos 1099-R (pensiones/anualidades)
             27_total_income: Ingreso total
-            28c_retirement_excluded_from_taxation: Ingresos de jubilación excluidos del impuesto
+            28a_pensions_annuities_excluded_from_taxation: Ingresos 1099-R (pensiones/anualidades) excluidos de impuestos
+            28b_other_income_excluded_because_of_retirement: Otros ingresos excluidos de impuestos debido a su estado de jubilación
             29_nj_gross_income: Ingreso Bruto de New Jersey
             30_exemptions: Exenciones (según el tamaño de tu familia, estado de discapacidad, estado de veterano/a de guerra)
             31_medical: Gastos médicos deducidos
