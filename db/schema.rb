@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_04_145229) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_12_142038) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -458,7 +458,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_04_145229) do
     t.string "ctds_code"
     t.date "date_of_contribution"
     t.string "district_name"
-    t.integer "made_contribution", default: 0, null: false
     t.string "school_name"
     t.bigint "state_file_az_intake_id"
     t.datetime "updated_at", null: false
