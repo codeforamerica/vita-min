@@ -4140,8 +4140,32 @@ es:
           title: "¡Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido enviada! "
           title_resubmit: "¡Tu declaración de impuestos de %{filing_year} de %{state_name} ha sido enviada de nuevo!"
         nj_additional_content:
-          body_html: Dijiste que tú están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey. Puedes cargarlos <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">aquí</a>.
-          body_mfj_html: Dijiste que tú o tu cónyuge están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey. Puedes cargarlos <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">aquí</a>.
+          body_html: |- 
+            <p>Dijiste que tú están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey.</p>
+            <p>Para enviar la documentación y el formulario, tienes algunas opciones:</p>
+            <ol class="list--numbered">
+              <li>Envía copias impresas por correo New Jersey Division of Taxation, Veteran Exemption, PO Box 440, Trenton NJ 08646-0440.</li>
+              <li>Envíalas por fax al 609-633-8427.</li>
+              <li>Envíelas en línea a través del <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">Administrador de correspondencia fiscal de New Jersey (link en inglés)</a>.</li>
+            </ol>
+          body_mfj_html: |- 
+            <p>Dijiste que tú o tu cónyuge están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey.</p>
+            <p>Para enviar la documentación y el formulario, tienes algunas opciones:</p>
+            <ol class="list--numbered">
+              <li>Envía copias impresas por correo New Jersey Division of Taxation, Veteran Exemption, PO Box 440, Trenton NJ 08646-0440.</li>
+              <li>Envíalas por fax al 609-633-8427.</li>
+              <li>Envíelas en línea a través del <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">Administrador de correspondencia fiscal de New Jersey (link en inglés)</a>.</li>
+            </ol>
+          veterans_reveal: Consejos para enviar tus documentos de veterano de guerra en línea
+          veterans_reveal_html: |-
+            <p>Puedes enviar tus documentos mediante el <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">Administrador de correspondencia fiscal de New Jersey (link en inglés)</a>.</p>
+            <p>Una vez en <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">esa página</a>:</p>
+            <ol class="list--numbered">
+              <li>Selecciona “Impuesto sobre la renta personal” (en inglés “Personal Income Tax” para el tipo de cuenta.)</li>
+              <li>Luego, selecciona “PO Box 440” para el campo de casilla postal (en inglés “zip code”).</li>
+              <li>Selecciona “VET” en el menú desplegable debajo de Código de notificación (en inglés “Notice Code”).</li>
+              <li>Ingresa el resto de tu información, incluido tu número de Seguro Social, para asegurar que los documentos se vinculen con tu declaración de impuestos.</li>
+            </ol>
           header: 'Atención: si está reclamando la exención de veterano/a de guerra por primera vez'
       tax_refund:
         bank_details:
