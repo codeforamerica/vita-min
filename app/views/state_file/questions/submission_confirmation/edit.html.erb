@@ -55,12 +55,16 @@
 
     <%= render partial: "state_file/questions/submission_confirmation/#{current_state_code}_additional_content" rescue nil %>
 
-  <%= link_to t(".download_state_return_pdf"),
-              StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission),
+  <%= link_to StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission),
               class: "button button--primary button--wide",
               role: "button",
-              target: "_blank" %>
-  </div>
+              target: "_blank" do %>
+    <%= t(".download_state_return_pdf") %>
+    <%= image_tag("icons/link-white.svg", alt: "", class: "button__icon") %>
+  <% end %>
+
+
+
   <% if show_xml? %>
     <p>
       <% xml_bundle = EfileSubmission.where(data_source: current_intake).last&.submission_bundle %>

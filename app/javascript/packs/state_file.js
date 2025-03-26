@@ -5,12 +5,7 @@ const actionMap = {
     channelName: { channel: "DfDataTransferJobChannel" },
     channelEvents: {
       connected() {
-        console.log("We're connected!")
         document.querySelector('[data-after-data-transfer-button]').setAttribute('data-subscribed', 'true')
-      },
-
-      disconnected() {
-        console.log("We're disconnected!")
       },
 
       received(data) {
@@ -72,12 +67,3 @@ if (actionMap[controllerAction]) {
   createConsumer().subscriptions.create(channelName, channelEvents)
 }
 
-if (controllerAction === "StateFile::Questions::SubmissionConfirmationController#edit") {
-  window.addEventListener("pageshow", function (event) {
-    console.log("pageshow fired", event);
-    if (event.persisted) {
-      console.log("reloading due to bfcache restore");
-      window.location.reload();
-    }
-  });
-}
