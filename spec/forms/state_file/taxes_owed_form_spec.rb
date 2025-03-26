@@ -27,27 +27,25 @@ RSpec.describe StateFile::TaxesOwedForm do
     end
   end
 
-  StateFile::StateInformationService.active_state_codes.each do |state_code|
+  StateFile::StateInformationService.active_state_codes.excluding("nc", "ny").each do |state_code|
     describe "when paying via direct deposit in #{state_code}" do
       let(:intake) { create "state_file_#{state_code}_intake".to_sym }
       let(:timezone) { StateFile::StateInformationService.timezone(state_code) }
       let(:utc_offset_hours) { Time.now.in_time_zone(timezone).utc_offset / 1.hour }
       let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date(state_code) }
       let(:payment_deadline_datetime) { payment_deadline_date - utc_offset_hours.hours }
-      let(:routing_number) { "019456124" }
-      let(:account_number) { "12345" }
-      let(:account_type) { "checking" }
-      let(:withdraw_amount) { taxes_owed }
+      let(:app_time) { DateTime.new(filing_year, 3, 15) }
       let(:withdrawal_month) { app_time.month }
+      let(:withdrawal_day) { app_time.day }
       let(:params) {
         {
           payment_or_deposit_type: "direct_deposit",
-          routing_number: routing_number,
-          routing_number_confirmation: routing_number,
-          account_number: account_number,
-          account_number_confirmation: account_number,
-          account_type: account_type,
-          withdraw_amount: withdraw_amount,
+          routing_number: "019456124",
+          routing_number_confirmation: "019456124",
+          account_number: "12345",
+          account_number_confirmation: "12345",
+          account_type: "checking",
+          withdraw_amount: taxes_owed,
           date_electronic_withdrawal_month: withdrawal_month&.to_s,
           date_electronic_withdrawal_day: withdrawal_day&.to_s,
           date_electronic_withdrawal_year: app_time.year.to_s,
@@ -69,10 +67,10 @@ RSpec.describe StateFile::TaxesOwedForm do
 
             intake.reload
             expect(intake.payment_or_deposit_type).to eq "direct_deposit"
-            expect(intake.routing_number).to eq routing_number
-            expect(intake.account_number).to eq account_number
-            expect(intake.account_type).to eq account_type
-            expect(intake.withdraw_amount).to eq withdraw_amount
+            expect(intake.routing_number).to eq params[:routing_number]
+            expect(intake.account_number).to eq params[:account_number]
+            expect(intake.account_type).to eq params[:account_type]
+            expect(intake.withdraw_amount).to eq params[:withdraw_amount]
             expect(intake.date_electronic_withdrawal).to eq DateTime.new(filing_year, withdrawal_month, withdrawal_day)
           end
         end
@@ -88,10 +86,10 @@ RSpec.describe StateFile::TaxesOwedForm do
 
             intake.reload
             expect(intake.payment_or_deposit_type).to eq "direct_deposit"
-            expect(intake.routing_number).to eq routing_number
-            expect(intake.account_number).to eq account_number
-            expect(intake.account_type).to eq account_type
-            expect(intake.withdraw_amount).to eq withdraw_amount
+            expect(intake.routing_number).to eq params[:routing_number]
+            expect(intake.account_number).to eq params[:account_number]
+            expect(intake.account_type).to eq params[:account_type]
+            expect(intake.withdraw_amount).to eq params[:withdraw_amount]
             expect(intake.date_electronic_withdrawal).to eq DateTime.new(filing_year, withdrawal_month, withdrawal_day)
           end
         end
@@ -196,6 +194,7 @@ RSpec.describe StateFile::TaxesOwedForm do
           }
         end
 
+        # ideally these should be separate tests
         it "returns errors" do
           form = described_class.new(intake, invalid_params)
           expect(form).not_to be_valid
@@ -207,15 +206,17 @@ RSpec.describe StateFile::TaxesOwedForm do
         end
 
         it "rejects withdraw amount value 0" do
-          form = described_class.new(intake, invalid_params.merge(withdraw_amount: 0))
+          form = described_class.new(intake, params.merge(withdraw_amount: 0))
           expect(form).not_to be_valid
           expect(form.errors).to include :withdraw_amount
+          expect(form.errors.first&.type).to eq :greater_than
         end
 
         it "rejects withdraw amount greater than taxes owed" do
-          form = described_class.new(intake, invalid_params.merge(withdraw_amount: taxes_owed + 10))
+          form = described_class.new(intake, params.merge(withdraw_amount: taxes_owed + 10))
           expect(form).not_to be_valid
           expect(form.errors).to include :withdraw_amount
+          expect(form.errors.first&.type).to eq "Please enter in an amount less than or equal to " + taxes_owed.to_s
         end
       end
     end

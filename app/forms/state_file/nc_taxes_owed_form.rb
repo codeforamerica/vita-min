@@ -11,7 +11,6 @@ module StateFile
                        :date_electronic_withdrawal_month,
                        :date_electronic_withdrawal_year,
                        :date_electronic_withdrawal_day,
-                       :post_deadline_withdrawal_date,
                        :app_time
 
     with_options unless: -> { payment_or_deposit_type == "mail" || !form_submitted_before_payment_deadline? } do

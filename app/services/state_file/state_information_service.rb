@@ -59,10 +59,10 @@ module StateFile
       # Returns the state-specific date in the current filing year only - no time or timezone.
       # If later converted to a DateTime, the time will be in UTC.
       # Ex: 2025-04-15
-      def payment_deadline_date(state_code)
-        current_filing_year = MultiTenantService.statefile.current_tax_year.to_i + 1
+      def payment_deadline_date(state_code, filing_year: nil)
+        filing_year ||= MultiTenantService.statefile.current_tax_year.to_i + 1
         payment_deadline = StateInformationService.payment_deadline(state_code)
-        DateTime.new(current_filing_year, payment_deadline[:month], payment_deadline[:day]).to_date
+        DateTime.new(filing_year, payment_deadline[:month], payment_deadline[:day]).to_date
       end
 
       # Use state-specific timezone to check if a given DateTime is before midnight the morning of the deadline
