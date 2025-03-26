@@ -53,4 +53,4 @@ en:
           resubmit: Resubmit your state return
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
-          title: Electronically sign your %{state_name} state tax return
+          title: "Electronically sign your %{state_name} state tax return"
