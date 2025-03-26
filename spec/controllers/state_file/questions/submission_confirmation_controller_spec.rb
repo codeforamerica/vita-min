@@ -4,14 +4,14 @@ describe StateFile::Questions::SubmissionConfirmationController do
   StateFile::StateInformationService.active_state_codes.excluding("ny", "nj").each do |state_code|
     it_behaves_like :df_data_required, true, state_code
   end
-  it_behaves_like :df_data_required, false, :nj
-
-  let(:intake) { create :state_file_az_refund_intake}
   let!(:submission) { create :efile_submission, :for_state, data_source: intake }
+  let(:intake) { create :state_file_az_refund_intake}
   before do
     sign_in intake
     allow(subject).to receive(:current_intake).and_return(intake)
   end
+  it_behaves_like :df_data_required, false, :nj
+
 
   describe '#edit' do
     render_views
@@ -23,8 +23,8 @@ describe StateFile::Questions::SubmissionConfirmationController do
   end
 
   describe "nj veteran content" do
-    let(:mfj_body_html) { I18n.t('state_file.questions.submission_confirmation.nj_additional_content.body_mfj_html')[0..30] }
-    let(:body_html) { I18n.t('state_file.questions.submission_confirmation.nj_additional_content.body_html')[0..30] }
+    let(:mfj_body_html) { I18n.t('state_file.questions.submission_confirmation.nj_additional_content.body_mfj_html')[3..30].delete("\n") }
+    let(:body_html) { I18n.t('state_file.questions.submission_confirmation.nj_additional_content.body_html')[3..30].delete("\n") }
     render_views
 
     context "single veteran" do
