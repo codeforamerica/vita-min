@@ -7,7 +7,7 @@ en:
           amount_cannot_exceed: This amount may not exceed $500
           charitable_cash_html: Total amount of cash donations
           charitable_noncash_html: Total amount of non-cash donations
-          help_text: For example, the fair market value of donated items.
+          help_text: "For example, the fair market value of donated items."
           question:
             one: Did you make any donations to tax-exempt nonprofits?
             other: Did you or your spouse make any donations to tax-exempt nonprofits?
