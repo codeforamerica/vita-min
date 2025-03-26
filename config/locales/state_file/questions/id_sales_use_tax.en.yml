@@ -4,13 +4,13 @@ en:
     questions:
       id_sales_use_tax:
         edit:
-          sales_tax_content: This is a tax collected at the point of sale when you buy goods within your state. However, if you purchased items through an out-of-state seller, they may not have collected Idaho sales tax at the time.
-          sales_tax_title: What are sales taxes?
+          sales_tax_content: "This is a tax collected at the point of sale when you buy goods within your state. However, if you purchased items through an out-of-state seller, they may not have collected Idaho sales tax at the time."
+          sales_tax_title: "What are sales taxes?"
           sales_use_tax_helper_text: Enter total amount
-          subtitle_html: This includes online purchases where sales tax was <strong>not</strong> applied. If you made any purchases without paying sales tax, you may owe use tax on those purchases. We’ll help you figure out the right amount
+          subtitle_html: "This includes online purchases where sales tax was <strong>not</strong> applied. If you made any purchases without paying sales tax, you may owe use tax on those purchases. We’ll help you figure out the right amount"
           title:
             one: Did you make any out-of-state purchases in %{year} without paying sales tax?
             other: Did you or your spouse make any out-of-state purchases in %{year} without paying sales tax?
-          unpaid_sales_use_tax_label_html: Enter the <strong>total amount of purchases</strong> that didn’t have sales tax applied in %{year}.
-          use_tax_content: If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state.
-          use_tax_title: What are use taxes?
+          unpaid_sales_use_tax_label_html: "Enter the <strong>total amount of purchases</strong> that didn’t have sales tax applied in %{year}."
+          use_tax_content: "If you buy something from another state (like online shopping or purchases from a store located in another state) and you don’t pay sales tax on it, you are generally required to pay use tax to your home state."
+          use_tax_title: "What are use taxes?"
