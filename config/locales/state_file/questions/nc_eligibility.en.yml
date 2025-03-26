@@ -7,6 +7,6 @@ en:
           eligibility_ed_loan_cancelled: Had student loan debt canceled under the American Rescue Plan Act
           eligibility_ed_loan_emp_payment: Received a Qualified Education Loan Payment paid by your employer
           none: None of these apply
-          question: Did any of the following less common scenarios apply to you (or your spouse, if married filing jointly) in %{filing_year}?
-          subtitle: For this tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
-          title: First, let's see if you can use this service to file your %{filing_year} North Carolina taxes
+          question: "Did any of the following less common scenarios apply to you (or your spouse, if married filing jointly) in %{filing_year}?"
+          subtitle: "For this tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it."
+          title: "First, let's see if you can use this service to file your %{filing_year} North Carolina taxes"
