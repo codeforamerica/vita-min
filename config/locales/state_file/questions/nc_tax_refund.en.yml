@@ -4,13 +4,13 @@ en:
     questions:
       nc_tax_refund:
         edit:
-          how_to_recieve: How would you like to receive your refund?
-          title_html: Good news, you’re getting a North Carolina state refund of <strong>$%{refund_amount}.</strong>
+          how_to_recieve: "How would you like to receive your refund?"
+          title_html: "Good news, you’re getting a North Carolina state refund of <strong>$%{refund_amount}.</strong>"
         nc_bank_details:
           account_number: Account number
           account_type:
             label: Bank Account Type
-          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          after_deadline_default_withdrawal_info: "Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return."
           bank_title: 'Please provide your bank account details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
@@ -18,4 +18,4 @@ en:
           foreign_accounts_owed: International ACH payments are not allowed.
           foreign_accounts_refund: International ACH direct deposit refunds are not allowed.
           routing_number: Routing Number
-          withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is $%{owed_amount}.)
+          withdraw_amount: "How much do you authorize to be withdrawn from your account? (Your total amount due is $%{owed_amount}.)"
