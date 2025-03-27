@@ -85,7 +85,8 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
       let(:intake) do
         build(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com", visitor_id: "v1s1t1n9").tap do |intake|
           intake.raw_direct_file_data = nil
-          intake.id = 52322
+          unused_id = ([StateFileAzIntake.last&.id, StateFileIdIntake.last&.id].compact.max || 0) + 1
+          intake.id = unused_id
           intake.save!
         end
       end
