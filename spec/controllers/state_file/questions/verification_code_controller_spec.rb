@@ -105,7 +105,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
 
       context "with the same intake ids" do
         before do
-          allow(existing_intake).to receive(:id).and_return(intake.id)
+          existing_intake.update(id: intake.id)
         end
 
         it "redirects to login and deletes the existing intake" do
