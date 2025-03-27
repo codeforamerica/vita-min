@@ -53,12 +53,12 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "state_file_az_prior_last_names_form_prior_last_names", with: "Jordan, Pippen, Rodman"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text "Here are the income forms we transferred from your federal tax return."
-
+      expect(page).to have_current_path("/en/questions/income-review")
+      expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
       wait_for_device_info("income_review")
-
       click_on I18n.t("general.continue")
 
+      expect(page).to have_current_path("/en/questions/unemployment")
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
       fill_in I18n.t('state_file.questions.unemployment.edit.payer_name'), with: "Business Name"
