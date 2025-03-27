@@ -100,7 +100,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
         )
         expect(response).to redirect_to(login_location)
         expect(StateFileAzIntake.where(id: intake.id)).to be_empty
-        expect(StateFileIdIntake.find(existing_intake.id).unfinished_intake_ids).to include(intake.id.to_s)
+        expect(existing_intake.reload.unfinished_intake_ids).to include(intake.id.to_s)
       end
 
       context "with the same intake ids" do
@@ -118,7 +118,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
           )
           expect(response).to redirect_to(login_location)
           expect(StateFileAzIntake.where(id: intake.id)).to be_empty
-          expect(StateFileIdIntake.find(existing_intake.id).unfinished_intake_ids).to include(intake.id.to_s)
+          expect(existing_intake.reload.unfinished_intake_ids).to include(intake.id.to_s)
         end
       end
     end
