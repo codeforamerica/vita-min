@@ -416,6 +416,30 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
+  describe "Line 55: Extension Payments" do
+    context "when there are no extension payments" do
+      before do
+        allow(intake).to receive(:extension_payments_amount).and_return nil
+      end
+
+      it "returns nil" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_55].value).to eq(nil)
+      end
+    end
+
+    context "when there are extension payments" do
+      before do
+        allow(intake).to receive(:extension_payments_amount).and_return 2112
+      end
+
+      it "returns the amount of the payment" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_55].value).to eq(2112)
+      end
+    end
+  end
+
   describe "Line 56: Increased Excise Tax Credit" do
     before do
       allow(intake).to receive(:disqualified_from_excise_credit_fyst?).and_return false

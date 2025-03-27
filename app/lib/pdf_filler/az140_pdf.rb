@@ -101,6 +101,7 @@ module PdfFiller
         "44C" => charitable_contributions,
         "48" => @xml_document.at('Form140/DeductionAmt/SubTotal')&.text,
         "53" => @xml_document.at('AzIncTaxWithheld')&.text,
+        "55" => @xml_document.at('ExtPayment')&.text,
         "56" => @xml_document.at('IncrExciseTaxCr')&.text,
         "59" => @xml_document.at('TotalPayments')&.text,
         "60" => @xml_document.at('TaxDue')&.text,
