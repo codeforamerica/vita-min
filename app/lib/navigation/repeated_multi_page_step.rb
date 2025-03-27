@@ -10,8 +10,8 @@ module Navigation
       @item_count_proc = item_count_proc
     end
 
-    def pages(object_for_flow)
-      num_items = @item_count_proc.call(object_for_flow)
+    def pages(visitor_record)
+      num_items = @item_count_proc.call(visitor_record)
       num_items.times.flat_map do |i|
         @controllers.map { |controller| { item_index: i, controller: controller } }
       end

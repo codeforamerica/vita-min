@@ -33,13 +33,23 @@ module Questions
     end
 
     def next_path
-      next_step = form_navigation.next
-      next_step&.to_path_helper(action: next_step.navigation_actions.first)
+      next_page_info = form_navigation.next
+      return unless next_page_info.present?
+      next_page_controller = next_page_info[:controller]
+
+      options = { action: next_page_controller.navigation_actions.first }
+      options[:item_index] = next_page_info[:item_index] if next_page_info&.key? :item_index
+      next_page_controller.to_path_helper(options)
     end
 
     def prev_path
-      prev_step = form_navigation&.prev
-      prev_step&.to_path_helper(action: prev_step.navigation_actions.first)
+      prev_page_info = form_navigation.prev
+      return unless prev_page_info.present?
+      prev_page_controller = prev_page_info[:controller]
+
+      options = { action: prev_page_controller.navigation_actions.first }
+      options[:item_index] = prev_page_info[:item_index] if prev_page_info&.key? :item_index
+      prev_page_controller.to_path_helper(options)
     end
 
     def has_unsure_option?
@@ -82,8 +92,10 @@ module Questions
       Navigation::GyrQuestionNavigation
     end
 
+    def item_index; end
+
     def form_navigation
-      question_navigator.new(self)
+      question_navigator.new(self, item_index: item_index)
     end
     helper_method :form_navigation
 

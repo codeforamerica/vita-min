@@ -61,6 +61,18 @@ RSpec.describe Questions::QuestionsController do
     it "returns the path to the previous controller in the flow" do
       expect(subject.prev_path).to eq Questions::HadDependentsController.to_path_helper
     end
+
+    context "when form_navigation.prev includes an item index" do
+      before do
+        allow_any_instance_of(Navigation::GyrQuestionNavigation).to receive(:prev).and_return(
+          { controller: Questions::HadDependentsController, item_index: 1 }
+        )
+      end
+
+      it "includes the item index in the path" do
+        expect(subject.prev_path).to eq Questions::HadDependentsController.to_path_helper(item_index: 1)
+      end
+    end
   end
 
   describe "#next_path" do
@@ -79,6 +91,18 @@ RSpec.describe Questions::QuestionsController do
 
     it "returns the path to the previous controller in the flow" do
       expect(subject.next_path).to eq Questions::FinalInfoController.to_path_helper
+    end
+
+    context "when form_navigation.next includes an item index" do
+      before do
+        allow_any_instance_of(Navigation::GyrQuestionNavigation).to receive(:next).and_return(
+          { controller: Questions::HadDependentsController, item_index: 1 }
+        )
+      end
+
+      it "includes the item index in the path" do
+        expect(subject.next_path).to eq Questions::HadDependentsController.to_path_helper(item_index: 1)
+      end
     end
   end
 end

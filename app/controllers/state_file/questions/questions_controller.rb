@@ -55,12 +55,16 @@ module StateFile
       end
 
       def next_path
-        step_for_next_path = next_step
-        options = { action: step_for_next_path.navigation_actions.first }
-        if step_for_next_path.resource_name.present? && step_for_next_path.resource_name == self.class.resource_name
+        next_page_info = next_step
+        return unless next_page_info.present?
+        next_page_controller = next_page_info[:controller]
+
+        options = { action: next_page_controller.navigation_actions.first }
+        options[:item_index] = next_page_info[:item_index] if next_page_info&.key? :item_index
+        if next_page_controller.resource_name.present? && next_page_controller.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end
-        step_for_next_path.to_path_helper(options)
+        next_page_controller.to_path_helper(options)
       end
 
       def prev_step
@@ -79,17 +83,17 @@ module StateFile
         if prev_action
           self.class.to_path_helper({ action: prev_action })
         else
-          path_for_step(prev_step)
-        end
-      end
+          prev_page_info = prev_step
+          return unless prev_page_info.present?
+          prev_page_controller = prev_page_info[:controller]
 
-      def path_for_step(step)
-        return unless step
-        options = { action: step.navigation_actions.first }
-        if step.resource_name
-          options[:id] = step.model_for_show_check(self)&.id
+          options = { action: prev_page_controller.navigation_actions.first }
+          options[:item_index] = prev_page_info[:item_index] if prev_page_info&.key? :item_index
+          if prev_page_controller.resource_name
+            options[:id] = prev_page_controller.model_for_show_check(self)&.id
+          end
+          prev_page_controller.to_path_helper(options)
         end
-        step.to_path_helper(options)
       end
 
       # by default, most state file questions have no illustration

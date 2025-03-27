@@ -6,7 +6,7 @@ RSpec.describe Navigation::NavigationSection do
   let(:second_controller_class) { Class.new }
   let(:first_repeated_controller_class) { Class.new }
   let(:second_repeated_controller_class) { Class.new }
-  let(:object_for_flow) { double }
+  let(:visitor_record) { double }
   let(:num_items) { 2 }
   let!(:steps) do
     [
@@ -16,13 +16,13 @@ RSpec.describe Navigation::NavigationSection do
         [
           first_repeated_controller_class,
           second_repeated_controller_class
-        ], ->(object_for_flow) { object_for_flow.count }
+        ], ->(visitor_record) { visitor_record.count }
       )
     ]
   end
 
   before do
-    allow(object_for_flow).to receive(:count).and_return(num_items)
+    allow(visitor_record).to receive(:count).and_return(num_items)
   end
 
   it "initializes correctly" do
@@ -51,7 +51,7 @@ RSpec.describe Navigation::NavigationSection do
 
   it "produces an array of potentially non-unique pages" do
     section = Navigation::NavigationSection.new("a_section", steps)
-    expect(section.pages(object_for_flow)).to eq([
+    expect(section.pages(visitor_record)).to eq([
                                                    { controller: first_controller_class },
                                                    { controller: second_controller_class },
                                                    { item_index: 0, controller: first_repeated_controller_class },

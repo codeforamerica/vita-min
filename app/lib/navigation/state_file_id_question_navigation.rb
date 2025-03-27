@@ -62,8 +62,8 @@ module Navigation
       sections.flat_map(&:controllers)
     end
 
-    def self.pages(object_for_flow)
-      sections.flat_map { |section| section.pages(object_for_flow) }
+    def self.pages(visitor_record)
+      sections.flat_map { |section| section.pages(visitor_record) }
     end
   end
 end

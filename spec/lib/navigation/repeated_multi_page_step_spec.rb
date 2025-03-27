@@ -4,11 +4,11 @@ RSpec.describe Navigation::RepeatedMultiPageStep do
 
   let(:first_controller_class) { Class.new }
   let(:second_controller_class) { Class.new }
-  let(:object_for_flow) { double }
-  let(:instance) { described_class.new(controllers, ->(object_for_flow) { object_for_flow.count }) }
+  let(:visitor_record) { double }
+  let(:instance) { described_class.new(controllers, ->(visitor_record) { visitor_record.count }) }
 
   before do
-    allow(object_for_flow).to receive(:count).and_return(num_items)
+    allow(visitor_record).to receive(:count).and_return(num_items)
   end
 
   describe "#pages" do
@@ -24,7 +24,7 @@ RSpec.describe Navigation::RepeatedMultiPageStep do
         ]
       }
       it "returns the correct sequence of pages" do
-        expect(instance.pages(object_for_flow)).to eq(expected_pages)
+        expect(instance.pages(visitor_record)).to eq(expected_pages)
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe Navigation::RepeatedMultiPageStep do
       let(:controllers) { [first_controller_class, second_controller_class] }
       let(:expected_pages) { [] }
       it "returns the correct sequence of pages" do
-        expect(instance.pages(object_for_flow)).to eq(expected_pages)
+        expect(instance.pages(visitor_record)).to eq(expected_pages)
       end
     end
 

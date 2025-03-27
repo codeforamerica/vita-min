@@ -13,7 +13,7 @@ module Navigation
       [@controller]
     end
 
-    def pages(object_for_flow)
+    def pages(visitor_record)
       [{controller: @controller}]
     end
     

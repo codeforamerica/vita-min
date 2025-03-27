@@ -15,8 +15,8 @@ module Navigation
       @steps.flat_map(&:controllers)
     end
 
-    def pages(object_for_flow)
-      @steps.flat_map { |step| step.pages(object_for_flow) }
+    def pages(visitor_record)
+      @steps.flat_map { |step| step.pages(visitor_record) }
     end
   end
 end
