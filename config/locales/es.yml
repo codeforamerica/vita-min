@@ -2834,8 +2834,18 @@ es:
         vita_option:
           connect_to_vita:
             nj: |
+              <p>
+                <a href="%{faq_link_href}" target="_blank" rel="noopener noreferrer">
+                  Visita nuestras Preguntas Frecuentes
+                </a>
+              </p>
+              <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
+                Conéctate ahora
+              </a>
+          vita_eligibility_reveal:
+            nj: |
               <ul class="list--bulleted">
-                <li><a href="https://airtable.com/appqG5OGbTLBiQ408/pag9EUHzAZzfRIwUn/form" target="_blank" rel="noopener noreferrer">Comience a utilizar VITA ahora (link en inglés).</a></li>
+                <li><a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer">Comience a utilizar VITA ahora (link en inglés).</a></li>
               </ul>
           vita_introduction:
             nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
@@ -3800,7 +3810,7 @@ es:
         edit:
           instructions_html: |
             <p>Se considera veterano a ex miembros de las Fuerzas Armadas de los Estados Unidos que hayan recibido una <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">baja honorable</a>.</p>
-            <p>Si es la primera vez que solicitas <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">esta exención (links en inglés)</a>, debes presentar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">documentación</a> y un formulario a la División de Impuestos de New Jersey. (Sigue las instrucciones que aparecen en la parte inferior del formulario para enviarlo por fax, correo postal o cargarlo online). Puedes presentarlo después de terminar de usar esta herramienta y enviar tu declaración.</p>
+            <p>Si es la primera vez que solicitas <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">esta exención (links en inglés)</a>, debes proporcionar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">la documentación</a> y un formulario a la División de Impuestos de New Jersey. Al finalizar el proceso y enviar tu declaración, te enviaremos el link para el formulario e instrucciones para enviarlo en línea, por fax, o por correo postal.</p>
           primary_veteran_question: "¿Eres veterano/a de guerra?"
           spouse_veteran_question: "¿Tu cónyuge es veterano/a de guerra?"
           title: En New Jersey, los veteranos/as de guerra son elegibles para una exención de impuestos.

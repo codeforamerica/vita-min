@@ -2867,8 +2867,18 @@ en:
         vita_option:
           connect_to_vita:
             nj: |
+              <p>
+                <a href="%{faq_link_href}" target="_blank" rel="noopener noreferrer">
+                  Visit our FAQ
+                </a>
+              </p>
+              <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
+                Get connected now
+              </a>
+          vita_eligibility_reveal:
+            nj: |
               <ul class="list--bulleted">
-                <li><a href="https://airtable.com/appqG5OGbTLBiQ408/pag9EUHzAZzfRIwUn/form" target="_blank" rel="noopener noreferrer">Get started with VITA now.</a></li>
+                <li><a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer">Get started with VITA now.</a></li>
               </ul>
           vita_introduction:
             nj: You can file your state taxes for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers at Simplify CT.
