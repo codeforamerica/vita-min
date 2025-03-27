@@ -85,6 +85,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
       let(:intake) do
         build(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com", visitor_id: "v1s1t1n9").tap do |intake|
           intake.raw_direct_file_data = nil
+          intake.id = 52322
           intake.save!
         end
       end
@@ -105,7 +106,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
 
       context "with the same intake ids" do
         before do
-          existing_intake.update(id: intake.id)
+          existing_intake.update!(id: intake.id)
         end
 
         it "redirects to login and deletes the existing intake" do
