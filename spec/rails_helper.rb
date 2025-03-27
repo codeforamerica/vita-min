@@ -18,7 +18,7 @@ else
   Capybara.javascript_driver = :selenium_chrome_headless
 end
 
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 10
 Capybara.server = :puma, { Silent: true }
 Capybara.server_port = 9887 + ENV['TEST_ENV_NUMBER'].to_i
 if ENV['DOCKER']
@@ -228,6 +228,9 @@ RSpec.configure do |config|
         end
 
         browser_console_logs = page.driver.browser.logs.get(:browser)
+        browser_console_logs.reject! do |log_entry|
+          log_entry.message.include?('intercom')
+        end
         if browser_console_logs.length > 0
           STDERR.puts "\n\nvv During this test failure, there was some output in the browser's console vv"
           STDERR.puts browser_console_logs.map(&:message).join("\n")

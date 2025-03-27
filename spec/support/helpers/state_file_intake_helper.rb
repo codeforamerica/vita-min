@@ -54,6 +54,7 @@ module StateFileIntakeHelper
       choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
       click_on I18n.t("general.continue")
     when "nc"
+      expect(page).to have_current_path("/en/questions/nc-eligibility")
       expect(page).to have_text I18n.t("state_file.questions.nc_eligibility.edit.title", filing_year: filing_year)
       check I18n.t("state_file.questions.nc_eligibility.edit.none")
       click_on I18n.t("general.continue")
@@ -89,7 +90,7 @@ module StateFileIntakeHelper
       fill_in "Your phone number", with: "4153334444"
       click_on "Send code"
 
-      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.verification_code.edit.title_html", contact_info: '(415) 333-4444'))
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.verification_code.edit.title_html", contact_info: '(415) 333-4444'))
       expect(page).to have_text "We’ve sent your code to (415) 333-4444"
 
       perform_enqueued_jobs
@@ -98,11 +99,13 @@ module StateFileIntakeHelper
     when :email
       click_on "Email me a code"
 
+      expect(page).to have_current_path("/en/questions/email-address")
       expect(page).to have_text "Enter your email address"
       expect_programmatically_associated_help_text if check_a11y
       fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
       click_on "Send code"
 
+      expect(page).to have_current_path("/en/questions/verification-code")
       expect(page).to have_text "We’ve sent your code to someone@example.com"
 
       perform_enqueued_jobs
@@ -118,6 +121,7 @@ module StateFileIntakeHelper
   end
 
   def step_through_df_data_transfer(sample_name = "Transfer my #{filing_year} federal tax return to FileYourStateTaxes", expect_success = true)
+    expect(page).to have_current_path("/en/questions/initiate-data-transfer")
     expect(page).to have_text I18n.t('state_file.questions.initiate_data_transfer.edit.title')
     click_on I18n.t('state_file.questions.initiate_data_transfer.data_transfer_buttons.from_fake_df_page')
 

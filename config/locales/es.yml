@@ -2341,7 +2341,7 @@ es:
           district_name: Nombre del distrito escolar
           school_name: Nombre de la escuela
           school_name_help_text: Por favor ingresa el nombre oficial
-          title_html: ¡Podrías ser elegible para el <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">crédito tributario de las escuelas públicas de Arizona! </a>!
+          title_html: ¡Podrías ser elegible para el <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">crédito tributario de las escuelas públicas de Arizona</a>!
         form:
           donations_this_year: "¿Qué pasa con las donaciones hechas en %{current_year}?"
           donations_this_year_details_html: |

@@ -80,13 +80,14 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("state_file.questions.retirement_income_subtraction.none_apply")
       click_on I18n.t("general.continue")
 
-      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
+      expect(page).to have_current_path("/en/questions/az-public-school-contributions")
+      expect(page).to have_text(I18n.t('state_file.questions.az_public_school_contributions.form.made_az322_contributions.one', year: filing_year))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
       expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title")
       click_on I18n.t("general.back")
 
-      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
+      expect(page).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
       choose I18n.t("general.affirmative")
       fill_in "az322_contribution_school_name", with: "Tax Elementary"
       fill_in "az322_contribution_ctds_code", with: "123456789"
@@ -95,7 +96,8 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       select_cfa_date "az322_contribution_date_of_contribution", Date.new(filing_year, 6, 21)
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t('state_file.questions.az_public_school_contributions.index.title')
+      expect(page).to have_current_path("/en/questions/az-public-school-contributions")
+      expect(page).to have_text(I18n.t('state_file.questions.az_public_school_contributions.index.title'))
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title")
@@ -104,7 +106,8 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in I18n.t("state_file.questions.az_charitable_contributions.edit.charitable_noncash_html"), with: "123"
       click_on I18n.t("general.continue")
 
-      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading_html', filing_year: filing_year))
+      expect(page).to have_current_path("/en/questions/az-qualifying-organization-contributions")
+      expect(page).to have_text(strip_html_tags(I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading_html', filing_year: filing_year)))
       choose I18n.t("general.affirmative")
       fill_in "az321_contribution_charity_name", with: "Center for Ants"
       fill_in "az321_contribution_charity_code", with: "21134"
@@ -124,6 +127,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
+      expect(page).to have_current_path("/en/questions/primary-state-id")
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
@@ -140,9 +144,12 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       end
       expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
       click_on I18n.t("general.continue")
+
+      expect(page).to have_current_path("/en/questions/az-review")
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_current_path("/en/questions/tax-refund")
       expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Arizona", refund_amount: 1239))
       expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
 
@@ -155,6 +162,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "state_file_tax_refund_form_account_number_confirmation", with: "2222222222"
       click_on I18n.t("general.continue")
 
+      expect(page).to have_current_path("/en/questions/esign-declaration")
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))
       expect(page).to have_text("Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return")
       check "state_file_esign_declaration_form_primary_esigned"
@@ -262,7 +270,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
 
-      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.nc_subtractions.edit.title_html.other"))
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nc_subtractions.edit.title_html.other"))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
@@ -289,10 +297,11 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(strip_html_tags(page.body)).to include strip_html_tags(I18n.t("state_file.questions.nc_tax_refund.edit.title_html", refund_amount: 1000))
+      expect(page).to have_text(strip_html_tags(I18n.t("state_file.questions.nc_tax_refund.edit.title_html", refund_amount: 1000)))
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_current_path("/en/questions/esign-declaration")
       expect(page).to have_text I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "North Carolina")
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
       check I18n.t("state_file.questions.esign_declaration.edit.spouse_esign")
@@ -333,6 +342,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
 
+      expect(page).to have_current_path("/en/questions/sms-terms")
       click_on I18n.t("general.accept")
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
@@ -598,7 +608,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       click_on I18n.t("general.continue")
 
-      expect(strip_html_tags(page.body)).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Maryland", refund_amount: 1000))
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Maryland", refund_amount: 1000))
       choose I18n.t('state_file.questions.tax_refund.edit.direct_deposit')
       choose I18n.t("views.questions.bank_details.account_type.checking")
       check "Check here if you have a joint account"
