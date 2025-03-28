@@ -38,6 +38,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::AzQualifyingOrganizationContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzExciseCreditController),
+        Navigation::NavigationStep.new(StateFile::Questions::AzExtensionPaymentsController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::AzReviewController),

@@ -37,6 +37,7 @@ describe 'EfileError' do
     expect(EfileError.paths).to eq [
       "az-charitable-contributions",
       "az-excise-credit",
+      "az-extension-payments",
       "az-prior-last-names",
       "az-public-school-contributions",
       'az-qualifying-organization-contributions',
