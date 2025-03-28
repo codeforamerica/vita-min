@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class RetirementIncomeController < QuestionsController
-      before_action :allows_1099_r_editing, only: [:edit, :update]
       before_action :load_1099_r
       before_action :load_warnings, only: [:edit]
 
