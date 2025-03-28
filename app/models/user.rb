@@ -134,11 +134,8 @@ class User < ApplicationRecord
       # VitaPartner.sites.where(id: sites)
       VitaPartner.sites.where(id: role.sites)
     when CoalitionLeadRole::TYPE
-      # coalition = CoalitionLeadRole.includes(:coalition).find(role_id).coalition
-      # organizations = VitaPartner.organizations.includes(parent_organization: :coalition).where(parent_organization: { coalition: coalition })
-      # sites = VitaPartner.sites.includes(parent_organization: :coalition).where(parent_organization: organizations)
-      # organizations.or(sites)
-      organizations = VitaPartner.organizations.where(coalition: role.coalition)
+      coalition = CoalitionLeadRole.includes(:coalition).find(role_id).coalition
+      organizations = VitaPartner.organizations.where(coalition: coalition)
       sites = VitaPartner.sites.where(parent_organization: organizations)
       organizations.or(sites)
     when GreeterRole::TYPE
