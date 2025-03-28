@@ -13,6 +13,10 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
     let(:untaxed_out_of_state_purchases) { "yes" }
 
+    after do
+      expect(build_response.errors).to be_empty
+    end
+
     # the single filer block tests all answers that are not specific to filing status
     # the other blocks test only what is specific to that filing status
     context "single filer" do
@@ -136,24 +140,39 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
     context "mfs filers" do
       let(:intake) { create(:state_file_nc_intake, :with_filers_synced, :with_spouse, filing_status: "married_filing_separately") }
 
-      before do
-        intake.direct_file_data.spouse_ssn = "111100030"
-      end
-
-      it "correctly fills spouse-specific answers" do
-        expect(xml.document.at('FilingStatus')&.text).to eq "MFS"
-        expect(xml.document.at('MFSSpouseName FirstName')&.text).to eq "Susie"
-        expect(xml.document.at('MFSSpouseName MiddleInitial')&.text).to eq "B"
-        expect(xml.document.at('MFSSpouseName LastName')&.text).to eq "Spouse"
-        expect(xml.document.at('MFSSpouseSSN')&.text).to eq "111100030"
-      end
-
-      context "filer has spouse with NRA status" do
+      context "has spouse_ssn" do
         before do
-          intake.direct_file_data.non_resident_alien = "NRA"
+          intake.direct_file_data.spouse_ssn = "111100030"
         end
 
-        it 'does not fill out spouse ssn' do
+        it "correctly fills spouse-specific answers" do
+          expect(xml.document.at('FilingStatus')&.text).to eq "MFS"
+          expect(xml.document.at('MFSSpouseName FirstName')&.text).to eq "Susie"
+          expect(xml.document.at('MFSSpouseName MiddleInitial')&.text).to eq "B"
+          expect(xml.document.at('MFSSpouseName LastName')&.text).to eq "Spouse"
+          expect(xml.document.at('MFSSpouseSSN')&.text).to eq "111100030"
+        end
+
+        context "filer has spouse with NRA status" do
+          before do
+            intake.direct_file_data.non_resident_alien = "NRA"
+          end
+
+          it 'does not fill out spouse ssn' do
+            expect(xml.document.at('MFSSpouseSSN')).to be_nil
+          end
+        end
+      end
+
+      context "has no spouse_ssn" do
+        before do
+          intake.direct_file_data.spouse_ssn = nil
+        end
+        it "should fill out spouse-specific answers without MFSSpouseSSN" do
+          expect(xml.document.at('FilingStatus')&.text).to eq "MFS"
+          expect(xml.document.at('MFSSpouseName FirstName')&.text).to eq "Susie"
+          expect(xml.document.at('MFSSpouseName MiddleInitial')&.text).to eq "B"
+          expect(xml.document.at('MFSSpouseName LastName')&.text).to eq "Spouse"
           expect(xml.document.at('MFSSpouseSSN')).to be_nil
         end
       end
