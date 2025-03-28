@@ -5,7 +5,7 @@ module Hub
     layout "hub"
 
     def index
-      @state_routings = StateRoutingTarget.order(state_abbreviation: :asc).all.group_by(&:state_abbreviation).sort
+      @state_routings = StateRoutingTarget.includes(:state_routing_fractions).order(state_abbreviation: :asc).all.group_by(&:state_abbreviation).sort
     end
 
     def edit
