@@ -124,10 +124,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.az_extension_payments.edit.title")
-      choose I18n.t("general.negative")
-      click_on I18n.t("general.continue")
-
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
