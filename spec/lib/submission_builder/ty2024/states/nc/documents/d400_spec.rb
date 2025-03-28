@@ -136,29 +136,31 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
     context "mfs filers" do
       let(:intake) { create(:state_file_nc_intake, :with_filers_synced, :with_spouse, filing_status: "married_filing_separately") }
 
-      before do
-        intake.direct_file_data.spouse_ssn = "111100030"
-      end
-
-      it "correctly fills spouse-specific answers" do
-        expect(xml.document.at('FilingStatus')&.text).to eq "MFS"
-        expect(xml.document.at('MFSSpouseName FirstName')&.text).to eq "Susie"
-        expect(xml.document.at('MFSSpouseName MiddleInitial')&.text).to eq "B"
-        expect(xml.document.at('MFSSpouseName LastName')&.text).to eq "Spouse"
-        expect(xml.document.at('MFSSpouseSSN')&.text).to eq "111100030"
-      end
-
-      context "filer has spouse with NRA status" do
+      context "has spouse_ssn" do
         before do
-          intake.direct_file_data.non_resident_alien = "NRA"
+          intake.direct_file_data.spouse_ssn = "111100030"
         end
 
-        it 'does not fill out spouse ssn' do
-          expect(xml.document.at('MFSSpouseSSN')).to be_nil
+        it "correctly fills spouse-specific answers" do
+          expect(xml.document.at('FilingStatus')&.text).to eq "MFS"
+          expect(xml.document.at('MFSSpouseName FirstName')&.text).to eq "Susie"
+          expect(xml.document.at('MFSSpouseName MiddleInitial')&.text).to eq "B"
+          expect(xml.document.at('MFSSpouseName LastName')&.text).to eq "Spouse"
+          expect(xml.document.at('MFSSpouseSSN')&.text).to eq "111100030"
+        end
+
+        context "filer has spouse with NRA status" do
+          before do
+            intake.direct_file_data.non_resident_alien = "NRA"
+          end
+
+          it 'does not fill out spouse ssn' do
+            expect(xml.document.at('MFSSpouseSSN')).to be_nil
+          end
         end
       end
 
-      context "filer has non-NRA spouse with no SSN" do
+      context "has no spouse_ssn" do
         before do
           intake.direct_file_data.spouse_ssn = nil
         end
