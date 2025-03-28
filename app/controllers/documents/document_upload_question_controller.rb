@@ -65,7 +65,7 @@ module Documents
     private
 
     def documents
-      current_intake.documents.of_type(self.class.displayed_document_types)
+      current_intake.documents.includes(:upload_attachment).of_type(self.class.displayed_document_types)
     end
 
     def destroy_document_path(document)
@@ -102,8 +102,7 @@ module Documents
       document_path(self.class.to_param, params)
     end
 
-    def selectable_document_types
-    end
+    def selectable_document_types; end
 
     def user_for_paper_trail
       current_client&.id
