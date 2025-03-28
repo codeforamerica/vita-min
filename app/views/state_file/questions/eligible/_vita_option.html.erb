@@ -6,4 +6,9 @@
 <% faq_link_href = state_faq_path(us_state: current_state_code) %>
 <% vita_link = t(vita_link_key, faq_link_href: faq_link_href, vita_link_href: vita_link_href, default: '') %>
 <%= vita_link.html_safe if vita_link.present? %>
-<%=t('state_file.questions.eligible.vita_option.want_to_claim_learn_more_html', link: @faq_other_options_link) %>
+<ul class="list--bulleted">
+  <% unless vita_link.present? %>
+    <li><%= link_to t("state_file.questions.eligible.vita_option.vita_link"), @vita_link, target: "_blank", rel: "noopener noreferrer" %></li>
+  <% end %>
+    <li><%=t('state_file.questions.eligible.vita_option.want_to_claim_learn_more_html', link: @faq_other_options_link) %></li>
+</ul>
