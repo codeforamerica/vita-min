@@ -12,6 +12,9 @@ Rails.application.configure do
     Bullet.raise         = true # NOTE: - change to true to raise on n+1 queries
     # Detect unnecessary COUNT queries which could be avoided with a counter_cache
     Bullet.counter_cache_enable = false
+
+    # Detect eager-loaded associations which are not used
+    Bullet.unused_eager_loading_enable = false
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
