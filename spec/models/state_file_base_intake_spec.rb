@@ -1,6 +1,72 @@
 require "rails_helper"
 
 describe StateFileBaseIntake do
+  describe "#increment_failed_attempts" do
+    let!(:intake) { create :state_file_az_intake, failed_attempts: 2 }
+    it "locks access when failed attempts is incremented to 3" do
+      expect(intake.access_locked?).to eq(false)
+
+      intake.increment_failed_attempts
+
+      expect(intake.access_locked?).to eq(true)
+    end
+
+    context "when failed previously" do
+      before do
+        intake.update(locked_at: locked_at)
+      end
+
+      context "last_failed_attempt_at is before the unlock_in time" do
+        let(:locked_at) { 32.minutes.ago }
+
+        it "reset_failed_attempts and updates last_failed_attempt_at" do
+          expect {
+            intake.increment_failed_attempts
+          }.to change(intake, :locked_at).to nil
+
+          expect(intake.reload.failed_attempts).to eq(1)
+        end
+      end
+
+      context "last_failed_attempt_at is after the unlock_in time" do
+        let(:locked_at) { 29.minutes.ago }
+
+        it "does not reset_failed_attempts and updates last_failed_attempt_at" do
+          expect {
+            intake.increment_failed_attempts
+          }.not_to change(intake, :locked_at)
+
+          expect(intake.reload.failed_attempts).to eq(3)
+        end
+      end
+    end
+  end
+
+  describe "#unlock_for_login!" do
+    let!(:intake) { create :state_file_az_intake, failed_attempts: 2 }
+
+    before do
+      allow(intake).to receive(:access_locked?).and_return(access_locked)
+      intake.unlock_for_login!
+    end
+
+    context "when access locked" do
+      let(:access_locked) { true }
+
+      it "should not reset failed_attempts" do
+        expect(intake.failed_attempts).to eq(2)
+      end
+    end
+
+    context "when access not locked" do
+      let(:access_locked) { false }
+
+      it "should reset failed_attempts" do
+        expect(intake.failed_attempts).to eq(0)
+      end
+    end
+  end
+
   describe "#synchronize_filers_to_database" do
     context "when filing status is single" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
