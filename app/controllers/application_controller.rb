@@ -582,7 +582,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_vita_partners
-    @vita_partners = VitaPartner.accessible_by(current_ability)
+    @vita_partners ||= VitaPartner.includes(:parent_organization).accessible_by(current_ability)
   end
 
   def load_users
