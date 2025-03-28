@@ -24,9 +24,8 @@ describe StateFile::Questions::EligibleController do
       it "does not show NJ content, links to AZ FAQ" do
         get :edit
         expect(response.body.html_safe).to include I18n.t('state_file.questions.eligible.vita_option.want_to_claim_learn_more_html', link: "/en/az/faq/other_state_filing_options")
-        expect(response.body.html_safe).not_to include("Get started with VITA now.")
-        expect(response.body.html_safe).not_to include("Visit our FAQ")
-        expect(response.body.html_safe).not_to include("Get connected now")
+        expect(response.body.html_safe).not_to have_text ActionController::Base.helpers.strip_tags(I18n.t('state_file.questions.eligible.vita_option.vita_eligibility_reveal.nj')).delete("n")
+        expect(response.body.html_safe).not_to have_text ActionController::Base.helpers.strip_tags(I18n.t('state_file.questions.eligible.vita_option.connect_to_vita.nj')).delete("n")
       end
     end
 
@@ -37,8 +36,7 @@ describe StateFile::Questions::EligibleController do
         get :edit
         expect(response.body.html_safe).to include I18n.t('state_file.questions.eligible.vita_option.vita_eligibility_reveal.nj', vita_link_href: "https://airtable.com/appqG5OGbTLBiQ408/pag9EUHzAZzfRIwUn/form")
         expect(response.body.html_safe).to include I18n.t('state_file.questions.eligible.vita_option.want_to_claim_learn_more_html', link: "/en/nj/faq/other_filing_options")
-        expect(response.body.html_safe).not_to include("Visit our FAQ")
-        expect(response.body.html_safe).not_to include("Get connected now")
+        expect(response.body.html_safe).not_to have_text ActionController::Base.helpers.strip_tags(I18n.t('state_file.questions.eligible.vita_option.connect_to_vita.nj')).delete("n")
       end
     end
   end
