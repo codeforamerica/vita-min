@@ -35,10 +35,10 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
         Navigation::NavigationStep.new(StateFile::Questions::IdDisabilityController),
         Navigation::RepeatedMultiPageStep.new(
-          [
-            StateFile::Questions::IdRetirementAndPensionIncomeController,
-            StateFile::Questions::IdIneligibleRetirementAndPensionIncomeController
-          ], ->(intake) { intake&.eligible_1099rs&.count }),
+          "retirement_income_deduction",
+          [StateFile::Questions::IdRetirementAndPensionIncomeController,
+           StateFile::Questions::IdIneligibleRetirementAndPensionIncomeController],
+          ->(intake) { intake&.eligible_1099rs&.count }),
         Navigation::NavigationStep.new(StateFile::Questions::IdHealthInsurancePremiumController),
         Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditController),
         Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditReviewController),

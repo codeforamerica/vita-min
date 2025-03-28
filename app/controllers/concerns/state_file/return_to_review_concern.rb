@@ -4,18 +4,18 @@ module StateFile
   module ReturnToReviewConcern
     extend ActiveSupport::Concern
 
-    def review_step
-      "StateFile::Questions::#{current_intake.state_code.titleize}ReviewController".constantize
-    end
-
-    private
-
-    def next_step
-      params[:return_to_review].nil? ? super : { controller: review_step }
-    end
-
-    def prev_step
-      params[:return_to_review].nil? ? super : { controller: review_step }
-    end
+    # def review_step
+    #   "StateFile::Questions::#{current_intake.state_code.titleize}ReviewController".constantize
+    # end
+    #
+    # private
+    #
+    # def next_step
+    #   params[:return_to_review].nil? ? super : { controller: review_step }
+    # end
+    #
+    # def prev_step
+    #   params[:return_to_review].nil? ? super : { controller: review_step }
+    # end
   end
 end

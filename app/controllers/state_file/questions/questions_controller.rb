@@ -15,6 +15,20 @@ module StateFile
         end
       end
 
+      def return_to_review_after
+        params[:return_to_review]
+      end
+      helper_method :return_to_review_aafter
+
+      def return_to_review_before
+        params[:return_to_review_before] || return_to_review_after
+      end
+      helper_method :return_to_review_before
+
+      def review_controller
+        "StateFile::Questions::#{current_state_code.titleize}ReviewController".constantize
+      end
+
       private
 
       def question_navigator

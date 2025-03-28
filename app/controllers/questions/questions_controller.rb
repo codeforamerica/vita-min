@@ -93,6 +93,7 @@ module Questions
     end
 
     def item_index; end
+    helper_method :item_index
 
     def form_navigation
       question_navigator.new(self, item_index: item_index)
