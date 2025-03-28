@@ -163,6 +163,9 @@ GEM
       thor (~> 1.0)
     brow (0.4.1)
     builder (3.3.0)
+    bullet (8.0.1)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     bundle-audit (0.1.0)
       bundler-audit
     bundler-audit (0.9.1)
@@ -699,6 +702,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    uniform_notifier (1.16.0)
     valid_email2 (4.0.6)
       activemodel (>= 3.2)
       mail (~> 2.5)
@@ -745,6 +749,7 @@ DEPENDENCIES
   axe-core-capybara
   axe-core-rspec
   bootsnap (>= 1.5.1)
+  bullet
   bundle-audit
   business_time
   byebug

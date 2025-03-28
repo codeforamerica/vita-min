@@ -18,6 +18,7 @@ RSpec.describe ClientSorter do
     allow(clients_query_double).to receive(:delegated_order).and_return clients_query_double
     allow(clients_query_double).to receive(:where).and_return clients_query_double
     allow(clients_query_double).to receive(:not).and_return clients_query_double
+    allow(clients_query_double).to receive(:includes).and_return clients_query_double
     allow(Intake).to receive(:search).and_return intakes_query_double
   end
 
