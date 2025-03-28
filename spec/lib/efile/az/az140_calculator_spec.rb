@@ -419,12 +419,12 @@ describe Efile::Az::Az140Calculator do
   describe "Line 55: Extension Payments" do
     context "when there are no extension payments" do
       before do
-        allow(intake).to receive(:extension_payments_amount).and_return nil
+        allow(intake).to receive(:extension_payments_amount).and_return 0
       end
 
       it "returns nil" do
         instance.calculate
-        expect(instance.lines[:AZ140_LINE_55].value).to eq(nil)
+        expect(instance.lines[:AZ140_LINE_55].value).to eq(0)
       end
     end
 

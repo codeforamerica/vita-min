@@ -2309,6 +2309,12 @@ es:
           primary_was_incarcerated: "¿Estuviste encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           spouse_was_incarcerated: "¿Tu cónyuge estuvo encarcelado en una prisión del condado, estatal o federal durante al menos 60 días en %{tax_year}?"
           title: Es posible que seas elegible para el Crédito Tributario por Aumento de Impuestos Especiales.
+      az_extension_payments:
+        edit:
+          amount: Amount of extension payments
+          enter_amount: Enter the amount of extension payments...
+          more_info: More info here...
+          title: Did you make any extension payments?
       az_primary_state_id:
         az_primary:
           learn_more_html: |

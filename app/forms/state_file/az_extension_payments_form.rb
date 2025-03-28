@@ -13,7 +13,7 @@ module StateFile
 
     def save
       if paid_extension_payments == "no"
-        @intake.update(paid_extension_payments: "no", extension_payments_amount: nil)
+        @intake.update(paid_extension_payments: "no", extension_payments_amount: 0)
       else
         @intake.update(attributes_for(:intake))
       end
