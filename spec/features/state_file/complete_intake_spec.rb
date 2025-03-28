@@ -14,9 +14,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     before do
       allow(Flipper).to receive(:enabled?).and_call_original
       allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
-      allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
-      allow(Time).to receive(:zone).and_return(ActiveSupport::TimeZone["Arizona"])
-      allow(Time.zone).to receive(:now).and_return(Time.zone.parse("2025-04-15 23:59:59"))
     end
 
     it "has content", required_schema: "az" do
