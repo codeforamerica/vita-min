@@ -16,7 +16,7 @@ module Questions
     end
 
     def visitor_record
-      Intake.find_by(id: session[:intake_id]) || current_intake
+      Intake.includes(:dependents).find_by(id: session[:intake_id]) || eager_loaded_current_intake
     end
 
     private
