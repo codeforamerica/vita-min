@@ -27,6 +27,8 @@ module StateFile
         state_faq_section_path(us_state: :id, section_key: "what_are_my_other_state_filing_options_this_year_53")
       when 'md'
         state_faq_section_path(us_state: :md, section_key: "what_are_my_other_state_filing_options_this_year_46")
+      when 'nj'
+        state_faq_section_path(us_state: :nj, section_key: "other_filing_options")
       else
         state_faq_path(us_state: current_state_code)
       end

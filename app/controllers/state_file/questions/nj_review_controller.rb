@@ -10,7 +10,8 @@ module StateFile
             { text_key: '16a_interest_income', value: line_or_zero(:NJ1040_LINE_16A) },
             { text_key: '20a_retirement_income', value: line_or_zero(:NJ1040_LINE_20A) },
             { text_key: '27_total_income', value: line_or_zero(:NJ1040_LINE_27) },
-            { text_key: '28c_retirement_excluded_from_taxation', value: line_or_zero(:NJ1040_LINE_28C) },
+            { text_key: '28a_pensions_annuities_excluded_from_taxation', value: line_or_zero(:NJ1040_LINE_28A) },
+            { text_key: '28b_other_income_excluded_because_of_retirement', value: line_or_zero(:NJ1040_LINE_28B) },
             { text_key: '29_nj_gross_income', value: line_or_zero(:NJ1040_LINE_29) },
             { text_key: '30_exemptions', value: line_or_zero(:NJ1040_LINE_13) }, # same value for 13 and 30
             { text_key: '31_medical', value: line_or_zero(:NJ1040_LINE_31) },
