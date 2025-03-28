@@ -25,9 +25,5 @@ module Hub
     def ensure_always_current_user_assigned
       @always_current_user_assigned = true
     end
-
-    def load_vita_partners
-      @vita_partners = VitaPartner.accessible_by(current_ability)
-    end
   end
 end

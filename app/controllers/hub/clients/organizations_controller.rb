@@ -30,10 +30,6 @@ module Hub
         params.require(:client).permit(:vita_partners).merge(change_initiated_by: current_user)
       end
 
-      def load_vita_partners
-        @vita_partners = VitaPartner.accessible_by(current_ability)
-      end
-
       def load_vita_partner
         begin
           id = JSON.parse(client_params[:vita_partners]).pluck("id").first
