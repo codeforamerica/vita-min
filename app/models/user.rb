@@ -178,9 +178,9 @@ class User < ApplicationRecord
       organization_leads.or(site_coordinators).or(team_members)
     when SiteCoordinatorRole::TYPE, TeamMemberRole::TYPE
       sites = if role_type == SiteCoordinatorRole::TYPE
-                role.class.includes(:site_coordinator_roles_vita_partners, :sites).find(role_id).sites
-              else
                 role.class.includes(:sites).find(role_id).sites
+              else
+                role.class.includes(:site_coordinator_roles_vita_partners, :sites).find(role_id).sites
               end
       organization_leads = User.where(role: OrganizationLeadRole.where(organization: sites.map(&:parent_organization)))
       site_coordinators = User.where(role: SiteCoordinatorRole.assignable_to_sites(sites))
