@@ -12,7 +12,7 @@ module Hub
 
       return head 404 unless ALLOWED_ACTION_TYPES.include? action_type
 
-      selection = TaxReturnSelection.create!(tax_returns: TaxReturn.accessible_by(current_ability).where(id: create_params[:tr_ids]))
+      selection = TaxReturnSelection.create!(tax_returns: TaxReturn.includes(:client).accessible_by(current_ability).where(id: create_params[:tr_ids]))
 
       case action_type
       when "change-organization"
