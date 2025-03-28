@@ -127,64 +127,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     end
   end
 
-  context "AZ" do
-    it "allows user to navigate to az public school contributions page, edit a contribution form, and then navigate back to final review page, and then to 1099r edit page and back", required_schema: "az" do
-      Flipper.enable(:show_retirement_ui)
-      state_code = "az"
-      set_up_intake_and_associated_records(state_code)
-
-      intake = StateFile::StateInformationService.intake_class(state_code).last
-
-      create :az322_contribution, state_file_az_intake: intake
-
-      visit "/questions/#{state_code}-review"
-
-      # Final review page
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      within "#public-school-contributions" do
-        click_on I18n.t("general.edit")
-      end
-
-      # public school contribution review page edit navigates to public school contribution index page
-      expect(page).to have_text(I18n.t('state_file.questions.az_public_school_contributions.index.title'))
-      click_on I18n.t("general.continue")
-
-      # Back on final review page
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      within "#public-school-contributions" do
-        click_on I18n.t("general.edit")
-      end
-
-      # click Edit on the public school contribution index page (there's only one)
-      click_on I18n.t("general.edit")
-
-      # public school contribution edit page
-      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.edit.title_html"))
-      fill_in strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.edit.school_name")), with: "beepboop"
-      click_on I18n.t("general.continue")
-
-      # takes them to the az public school contributions index page first
-      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.index.title"))
-      expect(page).to have_text ("beepboop")
-      click_on "Continue"
-
-      # Back on final review page
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-
-      # 1099R edit page
-      within "#retirement-income-subtractions" do
-        click_on I18n.t("general.edit")
-      end
-
-      expect(page).to have_text intake.state_file1099_rs.first.payer_name
-      choose I18n.t("state_file.questions.az_retirement_income_subtraction.edit.uniformed_services")
-      click_on I18n.t("general.continue")
-
-      # Back on final review page
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-    end
-  end
-
   context "NC" do
     before do
       allow(Flipper).to receive(:enabled?).and_call_original
@@ -249,6 +191,64 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         expect(page).to have_text "Boone Community Garden"
         expect(page).to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.none_apply")
       end
+    end
+  end
+
+  context "AZ" do
+    it "allows user to navigate to az public school contributions page, edit a contribution form, and then navigate back to final review page, and then to 1099r edit page and back", required_schema: "az" do
+      Flipper.enable(:show_retirement_ui)
+      state_code = "az"
+      set_up_intake_and_associated_records(state_code)
+
+      intake = StateFile::StateInformationService.intake_class(state_code).last
+
+      create :az322_contribution, state_file_az_intake: intake
+
+      visit "/questions/#{state_code}-review"
+
+      # Final review page
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      within "#public-school-contributions" do
+        click_on I18n.t("general.edit")
+      end
+
+      # public school contribution review page edit navigates to public school contribution index page
+      expect(page).to have_text(I18n.t('state_file.questions.az_public_school_contributions.index.title'))
+      click_on I18n.t("general.continue")
+
+      # Back on final review page
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      within "#public-school-contributions" do
+        click_on I18n.t("general.edit")
+      end
+
+      # click Edit on the public school contribution index page (there's only one)
+      click_on I18n.t("general.edit")
+
+      # public school contribution edit page
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.edit.title_html"))
+      fill_in strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.edit.school_name")), with: "beepboop"
+      click_on I18n.t("general.continue")
+
+      # takes them to the az public school contributions index page first
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.index.title"))
+      expect(page).to have_text ("beepboop")
+      click_on "Continue"
+
+      # Back on final review page
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+
+      # 1099R edit page
+      within "#retirement-income-subtractions" do
+        click_on I18n.t("general.edit")
+      end
+
+      expect(page).to have_text intake.state_file1099_rs.first.payer_name
+      choose I18n.t("state_file.questions.az_retirement_income_subtraction.edit.uniformed_services")
+      click_on I18n.t("general.continue")
+
+      # Back on final review page
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
     end
   end
 
