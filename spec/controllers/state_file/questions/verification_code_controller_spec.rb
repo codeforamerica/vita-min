@@ -85,8 +85,6 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
       let(:intake) do
         build(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com", visitor_id: "v1s1t1n9").tap do |intake|
           intake.raw_direct_file_data = nil
-          unused_id = ([StateFileAzIntake.last&.id, StateFileIdIntake.last&.id].max || 0) + 1
-          intake.id = unused_id
           intake.save!
         end
       end
@@ -107,7 +105,9 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
 
       context "with the same intake ids" do
         before do
-          existing_intake.update!(id: intake.id)
+          # save off the original id to find it correctly again (reload will try to find record using the stubbed id)
+          @original_existing_intake_id = existing_intake.id
+          allow(existing_intake).to receive(:id).and_return(intake.id)
         end
 
         it "redirects to login and deletes the existing intake" do
@@ -120,7 +120,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
           )
           expect(response).to redirect_to(login_location)
           expect(StateFileAzIntake.where(id: intake.id)).to be_empty
-          expect(existing_intake.reload.unfinished_intake_ids).to include(intake.id.to_s)
+          expect(StateFileIdIntake.find(@original_existing_intake_id).unfinished_intake_ids).to include(intake.id.to_s)
         end
       end
     end
