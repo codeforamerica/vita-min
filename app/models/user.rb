@@ -180,7 +180,11 @@ class User < ApplicationRecord
       team_members = User.where(role: TeamMemberRole.assignable_to_sites(sites))
       organization_leads.or(site_coordinators).or(team_members)
     when SiteCoordinatorRole::TYPE, TeamMemberRole::TYPE
-      sites = role.class.includes(:team_member_roles_vita_partners, :sites).find(role_id).sites
+      sites = if role_type == SiteCoordinatorRole::TYPE
+                role.class.includes(:site_coordinator_roles_vita_partners, :sites).find(role_id).sites
+              else
+                role.class.includes(:sites).find(role_id).sites
+              end
       organization_leads = User.where(role: OrganizationLeadRole.where(organization: sites.map(&:parent_organization)))
       site_coordinators = User.where(role: SiteCoordinatorRole.assignable_to_sites(sites))
       team_members = User.where(role: TeamMemberRole.assignable_to_sites(sites))
