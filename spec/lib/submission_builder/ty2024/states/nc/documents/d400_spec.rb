@@ -13,6 +13,10 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
     let(:untaxed_out_of_state_purchases) { "yes" }
 
+    after do
+      expect(build_response.errors).to be_empty
+    end
+
     # the single filer block tests all answers that are not specific to filing status
     # the other blocks test only what is specific to that filing status
     context "single filer" do
