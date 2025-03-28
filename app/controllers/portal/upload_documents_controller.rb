@@ -6,12 +6,10 @@ module Portal
     helper_method :document_type_keys
     before_action :set_paper_trail_whodunnit
 
-    def prev_path
-      @prev_path
-    end
+    attr_reader :prev_path
 
     def index
-      @documents = current_client.documents.active
+      @documents = current_client.documents.includes(:upload_attachment).active
       @can_add_documents = !current_client.tax_returns.all? { |tr| tr.current_state == "file_accepted" }
       @prev_path = portal_root_path
       render layout: "intake"
@@ -21,10 +19,10 @@ module Portal
       @prev_path = portal_overview_documents_path
       @form = form_class.new(current_client.intake)
       if params[:document_type].present?
-        @documents = current_client.documents.active.where(document_type: params[:document_type])
+        @documents = current_client.documents.includes(:upload_attachment).active.where(document_type: params[:document_type])
         @document_type = DocumentTypes::ALL_TYPES.find { |doc_type| doc_type.key == params[:document_type] }
       else
-        @documents = current_client.documents.active
+        @documents = current_client.documents.includes(:upload_attachment).active
       end
     end
 
