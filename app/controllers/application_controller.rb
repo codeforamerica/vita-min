@@ -78,6 +78,11 @@ class ApplicationController < ActionController::Base
     current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
   end
 
+  def eager_loaded_current_intake
+    record ||= current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
+    @eager_loaded_current_intake ||= record.class.includes(:dependents).find(record.id) if record.present?
+  end
+
   def intake_from_completed_session
     Intake.find_by_id(session[:completed_intake_id]) unless session[:completed_intake_id].nil?
   end
@@ -98,7 +103,7 @@ class ApplicationController < ActionController::Base
   end
 
   def visitor_record
-    current_intake
+    eager_loaded_current_intake
   end
 
   def ip_for_irs
@@ -274,7 +279,7 @@ class ApplicationController < ActionController::Base
       distinct_id: visitor_id,
       event_name: event_name,
       data: data,
-      subject: subject || visitor_record,
+      subject: subject || eager_loaded_current_intake,
       user: current_user,
       request: request,
       source: self,
