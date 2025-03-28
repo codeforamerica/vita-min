@@ -248,7 +248,6 @@ RSpec.describe StateFile::Questions::W2Controller do
         context "flipper flag is enabled" do
           before do
             allow(Flipper).to receive(:enabled?).and_call_original
-            allow(Flipper).to receive(:enabled?).with(:nc_flip_flop).and_return(true)
           end
 
           it "updates the w2 information and redirects to the income review page" do
