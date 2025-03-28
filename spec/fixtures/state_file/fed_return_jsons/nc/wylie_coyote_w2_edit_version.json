@@ -1,0 +1,46 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Coyote",
+      "dateOfBirth": null,
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Wilma",
+      "middleInitial": "D",
+      "educatorExpenses": "0.00",
+      "tin": "146-00-4913",
+      "interestReportsTotal": "0.00",
+      "isDisabled": null,
+      "form1099GsTotal": "0.00",
+      "isStudent": null,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Coyote",
+      "dateOfBirth": "1985-05-21",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Wylie",
+      "middleInitial": "E",
+      "educatorExpenses": "0.00",
+      "tin": "146-00-4912",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "146-00-4912",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}
