@@ -157,6 +157,19 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
           expect(xml.document.at('MFSSpouseSSN')).to be_nil
         end
       end
+
+      context "filer has non-NRA spouse with no SSN" do
+        before do
+          intake.direct_file_data.spouse_ssn = nil
+        end
+        it "should fill out spouse-specific answers without MFSSpouseSSN" do
+          expect(xml.document.at('FilingStatus')&.text).to eq "MFS"
+          expect(xml.document.at('MFSSpouseName FirstName')&.text).to eq "Susie"
+          expect(xml.document.at('MFSSpouseName MiddleInitial')&.text).to eq "B"
+          expect(xml.document.at('MFSSpouseName LastName')&.text).to eq "Spouse"
+          expect(xml.document.at('MFSSpouseSSN')).to be_nil
+        end
+      end
     end
 
     context "hoh filers" do
