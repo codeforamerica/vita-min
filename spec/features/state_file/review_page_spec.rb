@@ -28,45 +28,15 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           click_on I18n.t("general.edit")
         end
 
-        if intake.allows_w2_editing?
-          # Income review page
-          expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-          within "#w2s" do
-            click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
-          end
-
-          # W2 edit page
-          expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.w2.edit.instructions_1_html", employer: intake.state_file_w2s.first.employer_name))
-          fill_in strip_html_tags(I18n.t("state_file.questions.w2.edit.box15_html")), with: "987654321"
-          click_on I18n.t("general.continue")
-        end
-
-        # Back on income review page
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info("income_review")
-        click_on I18n.t("general.continue")
-
-        # Final review page
-        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-        within "#income-info" do
-          click_on I18n.t("general.edit")
-        end
-
         # Income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        within "#form1099rs" do
-          if intake.allows_1099_r_editing?
-            click_link I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
-          else
-            click_link I18n.t("state_file.questions.income_review.edit.review_state_info")
-          end
+        within "#w2s" do
+          click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
         end
 
-        # 1099R edit or show page
-        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title_html", payer_name: intake.state_file1099_rs.first.payer_name))
-        if intake.allows_1099_r_editing?
-          fill_in strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.box15_html")), with: "123456789"
-        end
+        # W2 edit page
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.w2.edit.instructions_1_html", employer: intake.state_file_w2s.first.employer_name))
+        fill_in strip_html_tags(I18n.t("state_file.questions.w2.edit.box15_html")), with: "987654321"
         click_on I18n.t("general.continue")
 
         # Back on income review page
@@ -83,18 +53,34 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         # Income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
         within "#form1099rs" do
-          if intake.allows_1099_r_editing?
-            click_link I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
-          else
-            click_link I18n.t("state_file.questions.income_review.edit.review_state_info")
-          end
+          click_link I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
         end
 
         # 1099R edit or show page
         expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title_html", payer_name: intake.state_file1099_rs.first.payer_name))
-        if intake.allows_1099_r_editing?
-          fill_in strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.box15_html")), with: "123456789"
+        fill_in strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.box15_html")), with: "123456789"
+        click_on I18n.t("general.continue")
+
+        # Back on income review page
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        wait_for_device_info("income_review")
+        click_on I18n.t("general.continue")
+
+        # Final review page
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+        within "#income-info" do
+          click_on I18n.t("general.edit")
         end
+
+        # Income review page
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        within "#form1099rs" do
+          click_link I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+        end
+
+        # 1099R edit or show page
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title_html", payer_name: intake.state_file1099_rs.first.payer_name))
+        fill_in strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.box15_html")), with: "123456789"
         click_on I18n.t("general.continue")
 
         # Back on income review page

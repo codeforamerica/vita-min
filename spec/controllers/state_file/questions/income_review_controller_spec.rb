@@ -477,7 +477,6 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
     context "when flipper flag is enabled" do
       before do
         allow(Flipper).to receive(:enabled?).and_call_original
-        allow(Flipper).to receive(:enabled?).with(:nc_flip_flop).and_return(true)
       end
 
       it "shows links to edit w2s and 1099Rs" do

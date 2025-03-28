@@ -42,12 +42,6 @@ module StateFile
           :state_distribution_amount
         )
       end
-
-      def allows_1099_r_editing
-        unless current_intake.allows_1099_r_editing?
-          redirect_to prev_path
-        end
-      end
     end
   end
 end

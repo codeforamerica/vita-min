@@ -152,7 +152,6 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
       context "flipper flag is enabled" do
         before do
           allow(Flipper).to receive(:enabled?).and_call_original
-          allow(Flipper).to receive(:enabled?).with(:nc_flip_flop).and_return(true)
         end
 
         it "updates the 1099R information and redirects to the income review page" do
