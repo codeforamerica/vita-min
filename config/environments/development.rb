@@ -8,6 +8,8 @@ Rails.application.configure do
     Bullet.console       = true
     Bullet.rails_logger  = true
     Bullet.add_footer    = true
+    # Detect unnecessary COUNT queries which could be avoided with a counter_cache
+    Bullet.counter_cache_enable = true
   end
 
   # Settings specified here will take precedence over those in config/application.rb.

@@ -10,6 +10,8 @@ Rails.application.configure do
     Bullet.enable        = true
     Bullet.bullet_logger = true
     Bullet.raise         = true # NOTE: - change to true to raise on n+1 queries
+    # Detect unnecessary COUNT queries which could be avoided with a counter_cache
+    Bullet.counter_cache_enable = false
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
