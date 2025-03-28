@@ -76,7 +76,10 @@ module Hub
     def sorted_documents
       @sort_order = sort_order
       @sort_column = sort_column
-      @documents.except(:order).order({ @sort_column => @sort_order })
+      @documents
+        .includes(:tax_return, :uploaded_by, upload_attachment: :blob)
+        .except(:order)
+        .order({ @sort_column => @sort_order })
     end
 
     def log_document_access!
