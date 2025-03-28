@@ -111,7 +111,7 @@ RSpec.describe StateFile::AzExtensionPaymentsForm do
     end
   end
 
-  describe "going back and removing prior last names" do
+  describe "going back and removing amount" do
     let(:intake) { create :state_file_az_intake, extension_payments_amount: 2112 }
     let(:valid_params) do
       {
@@ -120,7 +120,7 @@ RSpec.describe StateFile::AzExtensionPaymentsForm do
       }
     end
 
-    it "proceeds with nil prior last names" do
+    it "proceeds with nil amount" do
       form = described_class.new(intake, valid_params)
       expect(form).to be_valid
       expect do
