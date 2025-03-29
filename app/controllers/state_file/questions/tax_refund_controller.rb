@@ -10,7 +10,6 @@ module StateFile
       end
       helper_method :refund_amount
 
-
       private
 
       def card_postscript; end

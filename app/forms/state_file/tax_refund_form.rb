@@ -6,19 +6,17 @@ module StateFile
                        :routing_number,
                        :account_number,
                        :account_type
-    set_attributes_for :confirmation, :routing_number_confirmation, :account_number_confirmation
+    set_attributes_for :confirmation,
+                       :routing_number_confirmation,
+                       :account_number_confirmation
 
     validates :payment_or_deposit_type, presence: true
-
     with_options unless: -> { payment_or_deposit_type == "mail" } do
       validates :account_type, presence: true
-
       validates :account_number, presence: true, confirmation: true, length: { in: 5..17 }, numericality: true
       validates :account_number_confirmation, presence: true
-
       validates :routing_number, presence: true, confirmation: true, routing_number: true
       validates :routing_number_confirmation, presence: true
-
       with_options if: -> { account_number.present? && routing_number.present? } do
         validate :bank_numbers_not_equal
       end
