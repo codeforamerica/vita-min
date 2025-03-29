@@ -86,7 +86,7 @@ module Efile
 
       def calculate_sec_b_line_8e
         @intake.eligible_1099rs.sum do |form1099r|
-          next 0 unless form1099r.state_specific_followup.qualifying_retirement_income?
+          next 0 unless form1099r&.state_specific_followup&.qualifying_retirement_income?
           form1099r.taxable_amount.round
         end
       end

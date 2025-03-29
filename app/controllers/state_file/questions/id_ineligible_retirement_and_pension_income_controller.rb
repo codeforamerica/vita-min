@@ -6,7 +6,7 @@ module StateFile
         state_file_1099r = load_1099r(intake, item_index)
         super &&
           !intake.filing_status_mfs? &&
-          state_file_1099r.state_specific_followup.civil_service_account_number_eight?
+          state_file_1099r&.state_specific_followup&.civil_service_account_number_eight?
       end
 
       def file_with_another_service

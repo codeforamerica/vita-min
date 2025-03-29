@@ -9,19 +9,6 @@ module StateFile
           !intake.filing_status_mfs? && intake.has_filer_between_62_and_65_years_old?
       end
 
-      def next_path
-        if params[:return_to_review] == "y"
-          @eligible_1099rs ||= current_intake.eligible_1099rs
-          if @eligible_1099rs.any?
-            StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: params[:return_to_review])
-          else
-            StateFile::Questions::IdReviewController.to_path_helper
-          end
-        else
-          super
-        end
-      end
-
       private
 
       def form_params

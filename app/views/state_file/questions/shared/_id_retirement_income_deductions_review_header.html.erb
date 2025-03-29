@@ -1,3 +1,14 @@
+<% if current_intake.has_filer_between_62_and_65_years_old? %>
+  <section id="disability-info" class="white-group">
+    <p>DISABILITY QUESTION</p>
+    <div class="spacing-below-5">
+      <%= link_to t("general.review_and_edit"), StateFile::Questions::IdDisabilityController.to_path_helper(
+        return_to_review_before: StateFile::Questions::IdDisabilityController.name.demodulize.underscore,
+        return_to_review_after: "retirement_income_deduction"), class: "button--small" %>
+    </div>
+  </section>
+<% end %>
+
 <% if current_intake.eligible_1099rs.present? %>
   <section id="qualified-retirement-benefits-deduction" class="white-group">
     <div class="spacing-below-5">
@@ -28,7 +39,7 @@
                       <li><%= t(".eight") %></li>
                     <% end %>
                   <% elsif followup.income_source_police_officer? %>
-                    <li><%=  t(".police_officer", taxpayer_name: state_file1099_r.recipient_name)  %></li>
+                    <li><%= t(".police_officer", taxpayer_name: state_file1099_r.recipient_name) %></li>
                     <% if followup.police_retirement_fund_yes? %>
                       <li><%= t("state_file.questions.id_retirement_and_pension_income.edit.police_retirement_fund") %></li>
                     <% end %>
@@ -39,7 +50,7 @@
                       <li><%= t(".none_apply") %></li>
                     <% end %>
                   <% elsif followup.income_source_firefighter? %>
-                    <li><%=  t(".firefighter", taxpayer_name: state_file1099_r.recipient_name)  %></li>
+                    <li><%= t(".firefighter", taxpayer_name: state_file1099_r.recipient_name) %></li>
                     <% if followup.firefighter_frf_yes? %>
                       <li><%= t("state_file.questions.id_retirement_and_pension_income.edit.firefighter_frf") %></li>
                     <% end %>
@@ -50,18 +61,23 @@
                       <li><%= t(".none_apply") %></li>
                     <% end %>
                   <% elsif followup.income_source_military? %>
-                    <li><%=  t(".military", taxpayer_name: state_file1099_r.recipient_name)  %></li>
+                    <li><%= t(".military", taxpayer_name: state_file1099_r.recipient_name) %></li>
                   <% else %>
                     <li><%= t(".none_apply") %></li>
                   <% end %>
                 </ul>
               </div>
+              <div class="spacing-below-5">
+                <%= link_to t("general.review_and_edit"), StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(
+                  item_index: index,
+                  return_to_review_before: "retirement_income_deduction_#{index}",
+                  return_to_review_after: "retirement_income_deduction_#{index}"), class: "button--small" %>
+              </div>
+
             </div>
           <% end %>
         <% end %>
       <% end %>
-      <% id_disability_or_retirement_link = current_intake.has_filer_between_62_and_65_years_old? ? StateFile::Questions::IdDisabilityController.to_path_helper(return_to_review: "y") : StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: "y", index: 0) %>
-      <%= link_to t("general.review_and_edit"), id_disability_or_retirement_link, class: "button--small" %>
     </div>
   </section>
 <% end %>

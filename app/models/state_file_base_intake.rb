@@ -180,6 +180,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def calculator
+    return unless raw_direct_file_data.present?
     unless @calculator.present?
       @calculator = tax_calculator
       @calculator.calculate
@@ -196,7 +197,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def calculated_refund_or_owed_amount
-    calculator.refund_or_owed_amount
+    calculator&.refund_or_owed_amount
   end
 
   def refund_or_owe_taxes_type

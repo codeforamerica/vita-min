@@ -14,7 +14,7 @@ module Navigation
     end
 
     def pages(visitor_record)
-      [{ controller: @controller, step: @controller.name.demodulize.underscore }]
+      [{ controller: @controller }]
     end
 
   end
