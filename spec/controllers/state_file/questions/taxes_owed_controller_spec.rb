@@ -52,8 +52,8 @@ describe StateFile::Questions::TaxesOwedController do
       describe "when paying with direct deposit in #{state_code}" do
         let(:intake) { create "state_file_#{state_code}_intake".to_sym }
         let(:timezone) { StateFile::StateInformationService.timezone(state_code) }
-        let(:utc_offset_hours) { Time.now.in_time_zone(timezone).utc_offset / 1.hour }
         let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date(state_code) }
+        let(:utc_offset_hours) { payment_deadline_date.in_time_zone(timezone).utc_offset / 1.hour }
         let(:payment_deadline_datetime) { payment_deadline_date - utc_offset_hours.hours }
         let(:stringified_deadline) { payment_deadline_date.to_date.strftime("%B #{payment_deadline_date.day.ordinalize}, %Y") }
 

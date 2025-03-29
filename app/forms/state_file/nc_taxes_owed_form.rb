@@ -14,7 +14,7 @@ module StateFile
                        :app_time
 
     with_options unless: -> { payment_or_deposit_type == "mail" || !form_submitted_before_payment_deadline? } do
-      validate :withdrawal_date_is_not_today
+      validate :withdrawal_date_is_after_today
       validate :withdrawal_date_is_not_on_a_weekend
       validate :withdrawal_date_is_not_a_federal_holiday
       validate :withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
@@ -22,7 +22,7 @@ module StateFile
 
     private
 
-    def withdrawal_date_is_not_today
+    def withdrawal_date_is_after_today
       unless date_electronic_withdrawal.after?(@form_submitted_time.to_date)
         errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.past"))
       end

@@ -24,8 +24,8 @@ RSpec.describe StateFile::NcTaxesOwedForm do
 
   describe "when paying via direct deposit and scheduling a payment in NC" do
     let(:timezone) { StateFile::StateInformationService.timezone("nc") }
-    let(:utc_offset_hours) { Time.now.in_time_zone(timezone).utc_offset / 1.hour }
     let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date("nc", filing_year: filing_year) }
+    let(:utc_offset_hours) { payment_deadline_date.in_time_zone(timezone).utc_offset / 1.hour }
     let(:payment_deadline_datetime) { payment_deadline_date - utc_offset_hours.hours }
     let(:withdrawal_month) { app_time.month }
     let(:withdrawal_day) { app_time.day }
@@ -49,9 +49,9 @@ RSpec.describe StateFile::NcTaxesOwedForm do
       let(:app_time) { payment_deadline_datetime - 1.day }
 
       context "when the withdrawal date is one day in the future, on a weekday, not on a holiday, and filing before 5pm" do
-        let(:withdrawal_month) { app_time.month }
-        let(:withdrawal_day) { app_time.day + 1 }
         let(:app_time) { DateTime.new(filing_year, 3, 5, 12, 0, 0) }
+        let(:withdrawal_month) { (app_time + 1.day).month }
+        let(:withdrawal_day) { (app_time + 1.day).day }
 
         it "is valid and saves the intake" do
           form = described_class.new(intake, params)

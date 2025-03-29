@@ -74,7 +74,7 @@ module StateFile
     end
 
     def date_electronic_withdrawal_within_range
-      return true unless form_submitted_before_payment_deadline?
+      return true unless form_submitted_before_payment_deadline? # ignore the selected date if submitted after deadline
       return false if date_electronic_withdrawal.nil?
 
       # NOTE: Only the date matters for this comparison (not the time) so do not use the timezone here
