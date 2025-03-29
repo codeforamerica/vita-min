@@ -208,6 +208,17 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       # Final review page
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+      # 1099R edit page
+      within "#retirement-income-subtractions" do
+        click_on I18n.t("general.edit")
+      end
+
+      expect(page).to have_text intake.state_file1099_rs.first.payer_name
+      choose I18n.t("state_file.questions.az_retirement_income_subtraction.edit.uniformed_services")
+      click_on I18n.t("general.continue")
+
+      # Back on final review page
+      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       within "#public-school-contributions" do
         click_on I18n.t("general.edit")
       end
@@ -234,18 +245,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.az_public_school_contributions.index.title"))
       expect(page).to have_text ("beepboop")
       click_on "Continue"
-
-      # Back on final review page
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-
-      # 1099R edit page
-      within "#retirement-income-subtractions" do
-        click_on I18n.t("general.edit")
-      end
-
-      expect(page).to have_text intake.state_file1099_rs.first.payer_name
-      choose I18n.t("state_file.questions.az_retirement_income_subtraction.edit.uniformed_services")
-      click_on I18n.t("general.continue")
 
       # Back on final review page
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
