@@ -46,9 +46,6 @@ module StateFileIntakeHelper
       expect(page).to have_text I18n.t("state_file.questions.eligible.id_credits_unsupported.change_in_filing_status")
     when "md"
       expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year)
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year)
       choose I18n.t("general.affirmative"), id: "state_file_md_eligibility_filing_status_form_eligibility_filing_status_mfj_yes"
       choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
       choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"

@@ -128,17 +128,19 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
   end
 
   context "AZ" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+    end
+
     it "allows user to navigate to az public school contributions page, edit a contribution form, and then navigate back to final review page, and then to 1099r edit page and back", required_schema: "az" do
-      Flipper.enable(:show_retirement_ui)
       state_code = "az"
       set_up_intake_and_associated_records(state_code)
 
       intake = StateFile::StateInformationService.intake_class(state_code).last
 
       create :az322_contribution, state_file_az_intake: intake
-
       visit "/questions/#{state_code}-review"
-
       # Final review page
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       within "#public-school-contributions" do
