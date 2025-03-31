@@ -105,6 +105,8 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
 
       context "with the same intake ids" do
         before do
+          # save off the original id to find it correctly again (reload will try to find record using the stubbed id)
+          @original_existing_intake_id = existing_intake.id
           allow(existing_intake).to receive(:id).and_return(intake.id)
         end
 
@@ -118,7 +120,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
           )
           expect(response).to redirect_to(login_location)
           expect(StateFileAzIntake.where(id: intake.id)).to be_empty
-          expect(existing_intake.reload.unfinished_intake_ids).to include(intake.id.to_s)
+          expect(StateFileIdIntake.find(@original_existing_intake_id).unfinished_intake_ids).to include(intake.id.to_s)
         end
       end
     end
