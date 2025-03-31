@@ -13,7 +13,7 @@ describe Hub::StateFile::AutomatedMessagesController do
         expected_text = StateFile::AutomatedMessage::AcceptedRefund.new.sms_body(
           primary_first_name: "Cornelius",
           state_name: "Arizona",
-          return_status_link: SendRejectResolutionReminderNotificationJob.return_status_link(:en),
+          return_status_link: StateFile::SendRejectResolutionReminderNotificationJob.return_status_link(:en),
         )
         expect(response.body).to have_text(expected_text)
       end

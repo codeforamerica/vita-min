@@ -1705,7 +1705,7 @@ en:
           resubmitted: resubmitted
           subject: "%{state_name} State Return Submitted"
           submitted: submitted
-        sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Email us at help@fileyourstatetaxes.org.
+        sms: Hi %{primary_first_name} - You successfully %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Email us at help@fileyourstatetaxes.org.
       survey_notification:
         email:
           body: |
