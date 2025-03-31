@@ -1,8 +1,9 @@
 module StateFile
   class NotificationMailer < ApplicationMailer
-    def user_message(notification_email:)
+    def user_message(notification_email:, locale: nil)
       service = MultiTenantService.new(:statefile)
       @body = notification_email.body
+      @locale = locale || I18n.locale
       attachments.inline['logo.png'] = service.email_logo
 
       verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
@@ -13,7 +14,7 @@ module StateFile
           host: MultiTenantService.new(:statefile).host,
           controller: "state_file/notifications_settings",
           action: :unsubscribe_from_emails,
-          locale: I18n.locale,
+          locale: @locale,
           _recall: {},
           email_address: signed_email
         }

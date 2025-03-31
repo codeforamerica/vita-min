@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.1">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>59f6c8d4</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>146004914</PrimarySSN>
+            <NameLine1Txt>LEONA&lt;LEWIS</NameLine1Txt>
+            <PrimaryNameControlTxt>LEWI</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>500 Alston Avenue</AddressLine1Txt>
+                <CityNm>Durham</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27517</ZIPCd>
+            </USAddress>
+            <PhoneNum>2125569999</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+14600491-498d-4523-a804-d4bf346bc17c@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <TotalTaxablePensionsAmt>15000</TotalTaxablePensionsAmt>
+            <TotalIncomeAmt>15000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>15000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>16550</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>16550</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <Form1099WithheldTaxAmt>1500</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>1500</WithholdingTaxAmt>
+            <TotalPaymentsAmt>1500</TotalPaymentsAmt>
+            <OverpaidAmt>1500</OverpaidAmt>
+            <RefundAmt>1500</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Singer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1099R documentId="IRS1099R0001">
+            <PayerNameControlTxt>BLEE</PayerNameControlTxt>
+            <PayerName>
+                <BusinessNameLine1Txt>Bleeding Love Retirement</BusinessNameLine1Txt>
+            </PayerName>
+            <PayerUSAddress>
+                <AddressLine1Txt>1 NBC Court</AddressLine1Txt>
+                <CityNm>Chicago</CityNm>
+                <StateAbbreviationCd>IL</StateAbbreviationCd>
+                <ZIPCd>60604</ZIPCd>
+            </PayerUSAddress>
+            <PayerEIN>821233909</PayerEIN>
+            <RecipientSSN>146004914</RecipientSSN>
+            <RecipientNm>Leona Lewis</RecipientNm>
+            <RecipientUSAddress>
+                <AddressLine1Txt>500 Alston Avenue</AddressLine1Txt>
+                <CityNm>Durham</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27517</ZIPCd>
+            </RecipientUSAddress>
+            <GrossDistributionAmt>15000</GrossDistributionAmt>
+            <TaxableAmt>15000</TaxableAmt>
+            <FederalIncomeTaxWithheldAmt>1500</FederalIncomeTaxWithheldAmt>
+            <F1099RDistributionCd>7</F1099RDistributionCd>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRS1099R>
+    </ReturnData>
+</Return>

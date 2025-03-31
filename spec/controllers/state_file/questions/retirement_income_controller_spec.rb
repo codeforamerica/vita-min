@@ -90,14 +90,6 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
         end
       end
     end
-
-    context "when the intake's 1099R is not editable" do
-      let(:intake) { create :state_file_nc_intake, :with_spouse }
-      it "renders information about the existing retirement income" do
-        get :edit, params: params
-        expect(response).to redirect_to(questions_income_review_path)
-      end
-    end
   end
 
   describe "#update" do
@@ -118,7 +110,6 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
         }
       }
     end
-
 
     it "does not update the 1099R information and redirects to the income review page" do
       post :update, params: params
@@ -157,15 +148,36 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
 
     context "when the intake's 1099R is not editable" do
       let(:intake) { create :state_file_nc_intake, :with_spouse }
-      it "updates the 1099R information and redirects to the income review page" do
-        post :update, params: params
 
-        expect(response).to redirect_to(questions_income_review_path)
+      context "flipper flag is enabled" do
+        before do
+          allow(Flipper).to receive(:enabled?).and_call_original
+          allow(Flipper).to receive(:enabled?).with(:nc_flip_flop).and_return(true)
+        end
 
-        form1099r.reload
-        expect(form1099r.state_distribution_amount).to eq 15
-        expect(form1099r.payer_state_identification_number).to eq 'NC3456767'
-        expect(form1099r.state_tax_withheld_amount).to eq 100
+        it "updates the 1099R information and redirects to the income review page" do
+          post :update, params: params
+
+          expect(response).to redirect_to(questions_income_review_path)
+
+          form1099r.reload
+          expect(form1099r.state_distribution_amount).to eq 20
+          expect(form1099r.payer_state_identification_number).to eq 'Az3456789'
+          expect(form1099r.state_tax_withheld_amount).to eq 50
+        end
+      end
+
+      context "flipper flag is disabled" do
+        it "does not update the 1099R information" do
+          post :update, params: params
+
+          expect(response).to redirect_to(questions_income_review_path)
+
+          form1099r.reload
+          expect(form1099r.state_distribution_amount).to eq 15
+          expect(form1099r.payer_state_identification_number).to eq 'NC3456767'
+          expect(form1099r.state_tax_withheld_amount).to eq 100
+        end
       end
     end
   end
