@@ -3,6 +3,7 @@ module StateFile
     class SubmissionConfirmationController < QuestionsController
       def edit
         raise ActiveRecord::RecordNotFound unless EfileSubmission.where(data_source: current_intake).present?
+        @show_download_button = current_intake.submission_pdf.attached?
       end
 
       def prev_path

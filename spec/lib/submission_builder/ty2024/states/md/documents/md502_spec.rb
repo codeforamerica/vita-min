@@ -47,6 +47,7 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
       end
 
       context "Physical address" do
+        let(:intake) { create(:state_file_md_intake, :with_permanent_address, confirmed_permanent_address: "yes") }
         before do
           intake.direct_file_data.mailing_street = "312 Poppy Street"
           intake.direct_file_data.mailing_apartment = "Apt B"
@@ -58,10 +59,6 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
         context "when user confirms that address from DF is correct" do
           before do
             intake.confirmed_permanent_address_yes!
-            intake.direct_file_data.mailing_street = "312 Poppy Street"
-            intake.direct_file_data.mailing_apartment = "Apt B"
-            intake.direct_file_data.mailing_city = "Annapolis"
-            intake.direct_file_data.mailing_zip = "21401-1234"
           end
 
           it "outputs their DF address as their physical address" do
@@ -72,24 +69,49 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502, required_schem
             expect(xml.at("MarylandAddress ZIPCd").text).to eq "214011234"
           end
 
-          context "when user had an out-of-state permanent address from DF and enters a new address in MD" do
+          context "mailing street from direct file is a PO box" do
             before do
-              intake.direct_file_data.mailing_city = "Denver"
-              intake.direct_file_data.mailing_state = "CO"
-              intake.direct_file_data.mailing_zip = "80212-1234"
-              intake.confirmed_permanent_address_no!
-              intake.permanent_street = "313 Poppy Street"
-              intake.permanent_apartment = "Apt A"
-              intake.permanent_city = "Baltimore"
-              intake.permanent_zip = "21201-1234"
+              intake.direct_file_data.mailing_street = "PO Box 123"
             end
-
-            it "outputs their entered address as their physical address" do
-              expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq "313 Poppy Street"
-              expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq "Apt A"
+            it "uses the address provided on the intake" do
+              expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq "123 Main St"
+              expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq "Apt 1"
               expect(xml.at("MarylandAddress CityNm").text).to eq "Baltimore"
               expect(xml.at("MarylandAddress StateAbbreviationCd").text).to eq "MD"
-              expect(xml.at("MarylandAddress ZIPCd").text).to eq "212011234"
+              expect(xml.at("MarylandAddress ZIPCd").text).to eq "21201"
+            end
+          end
+        end
+
+        context "when user had an out-of-state permanent address from DF and enters a new address in MD" do
+          before do
+            intake.confirmed_permanent_address_no!
+            intake.direct_file_data.mailing_city = "Denver"
+            intake.direct_file_data.mailing_state = "CO"
+            intake.direct_file_data.mailing_zip = "80212-1234"
+          end
+          it "uses the address provided on the intake" do
+            expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq "123 Main St"
+            expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq "Apt 1"
+            expect(xml.at("MarylandAddress CityNm").text).to eq "Baltimore"
+            expect(xml.at("MarylandAddress StateAbbreviationCd").text).to eq "MD"
+            expect(xml.at("MarylandAddress ZIPCd").text).to eq "21201"
+          end
+        end
+
+        context "when confirmed permanent address is unfilled" do
+          before do
+            intake.confirmed_permanent_address_unfilled!
+            intake.direct_file_data.mailing_apartment = "PO Box 123"
+          end
+
+          context "when direct file address is a po box" do
+            it "uses the address provided on the intake" do
+              expect(xml.at("MarylandAddress AddressLine1Txt").text).to eq "123 Main St"
+              expect(xml.at("MarylandAddress AddressLine2Txt").text).to eq "Apt 1"
+              expect(xml.at("MarylandAddress CityNm").text).to eq "Baltimore"
+              expect(xml.at("MarylandAddress StateAbbreviationCd").text).to eq "MD"
+              expect(xml.at("MarylandAddress ZIPCd").text).to eq "21201"
             end
           end
         end
