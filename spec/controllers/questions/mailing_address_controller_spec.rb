@@ -80,7 +80,7 @@ RSpec.describe Questions::MailingAddressController do
       end
 
       it "enqueues a job to generate F13614cPdf" do
-        expect(GenerateF13614cPdfJob).to receive(:perform_later).with(intake.client.id, "Preliminary 13614-C.pdf")
+        expect(GenerateF13614cPdfJob).to receive(:perform_later).with(intake.id, "Preliminary 13614-C.pdf")
 
         subject.after_update_success
       end

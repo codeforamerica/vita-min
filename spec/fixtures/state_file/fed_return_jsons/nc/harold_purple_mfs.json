@@ -1,0 +1,46 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Purple",
+      "dateOfBirth": null,
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Crayola",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": null,
+      "interestReportsTotal": "0.00",
+      "isDisabled": null,
+      "form1099GsTotal": "0.00",
+      "isStudent": null,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    },
+    {
+      "lastName": "Purple",
+      "dateOfBirth": "1990-05-21",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Harold",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "146-00-4811",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "usedTin": "146-00-4811",
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}

@@ -32,13 +32,17 @@ module Hub
 
         @user_count = accessible_users_by_role.count
 
-        ordered_users = accessible_users_by_role
-                            .select("users.*, COUNT(CASE WHEN clients.filterable_product_year = '#{Rails.configuration.product_year}' THEN tax_returns.id ELSE NULL END) AS tax_returns_count")
-                            .left_joins(assigned_tax_returns: :client)
-                            .group('users.id, users.name, users.role_type')
-                            .order('tax_returns_count DESC')
+        accessible_users_by_role.paginate(page: @page, per_page: 5)
+      end
 
-        ordered_users.paginate(page: @page, per_page: 5)
+      def ordered_by_tr_count_users
+        return unless team_assignment_users.present?
+
+        team_assignment_users
+          .select("users.*, COUNT(CASE WHEN clients.filterable_product_year = '#{Rails.configuration.product_year}' THEN tax_returns.id ELSE NULL END) AS tax_returns_count")
+          .left_joins(assigned_tax_returns: :client)
+          .group('users.id, users.name, users.role_type')
+          .order('tax_returns_count DESC')
       end
     end
   end
