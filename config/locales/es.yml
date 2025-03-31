@@ -246,6 +246,7 @@ es:
       whole_number: Debe ser un número entero
   forms:
     errors:
+      address_is_not_po_box: No puedes declarar un apartado postal como la dirección donde vivías. Por favor indica donde vivías el 31 de diciembre del %{tax_year}
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
       healthcare:
@@ -3181,11 +3182,15 @@ es:
           address_header: Dirección
           apartment_number_label: Número de apartamento/unidad
           city_label: Cuidad
+          df_address_is_po_box:
+            p1: 'La dirección que tenemos registrada para ti es un apartado postal:'
+            p2: Ya que no puedes declarar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
           follow_up_help_text: No se aceptan PO Boxes
           mark_no_hint_html: Marca “no” si la dirección que aparece es un PO Box <strong>o</strong> si vivías en una dirección distinta el 31 de diciembre de %{filing_year}.
           state_label: Estado
           street_address_label: Dirección
           title: "¿Vivías en esta dirección el 31 de diciembre de %{filing_year}?"
+          title_df_po_box: Necesitamos saber dónde vivías el 31 de diciembre del %{filing_year}?
           where_did_you_live: "¿Dónde vivías el 31 de diciembre de %{filing_year}?"
           zip_label: Código postal
       md_permanently_disabled:
@@ -3498,27 +3503,27 @@ es:
       nj_estimated_tax_payments:
         edit:
           description_html: |
-            <p>Most people do <strong>not</strong> make these payments.</p>
-            <p>You are most likely to have made them if your employer <strong>doesn't</strong> withhold taxes in your paycheck or if you are self-employed.</p>
-            <p>These payments include:</p>
+            <p>La mayoría de las personas <strong>no</strong> realizan estos pagos.</p>
+            <p>Es más probable que los hayas pagado si tu empleador/a <strong>no retiene</strong> impuestos de tu talón de pago o si trabajas como independiente (self-employed).</p>
+            <p>Estos pagos incluyen:</p>
             <ul class="list--bulleted">
-              <li><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Estimated quarterly payments</a> that you made. These were due on April 15, June 17, and September 16 last year and January 15 this year. You would have paid these <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or by mail.</li>
-              <li>(If applicable) A refund that you decided to carry forward from your %{prior_year} state taxes to your %{filing_year} state taxes.</li>
+              <li><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Pagos trimestrales estimados (PDF en inglés)</a> que hiciste. Estos vencieron el 15 de abril, el 17 de junio y el 16 de septiembre del año pasado, y el 15 de enero de este año. Los habrías pagado <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">en línea</a> o por correo.</li>
+              <li>(Si aplica) Un reembolso que decidiste transferir de tus impuestos estatales de %{prior_year} a tus impuestos estatales de %{filing_year}.</li>
             </ul>
-            <p>These payments do <strong>not</strong> include:</p>
+            <p>Estos pagos <strong>no</strong> incluyen:</p>
             <ul class="list--bulleted">
-              <li>Payments made for a prior tax year</li>
-              <li>Withholdings in your paycheck</li>
-              <li>Property taxes</li>
+              <li>Pagos realizados para un año fiscal anterior</li>
+              <li>Retenciones de tu talón de pago (paycheck)</li>
+              <li>Impuestos sobre la propiedad</li>
             </ul>
-          estimated_taxes_input_helper_html: Add up your quarterly payments and enter the total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">you can check how much you paid here</a>).
-          estimated_taxes_input_label_html: "<strong>Total estimated payments made for %{filing_year} taxes</strong>"
-          no_text: No (this is the common option)
-          overpayments_input_helper_html: If applicable, you can find this on line 69 of your %{prior_year} NJ-1040. Only enter an amount here if you did not apply it to estimated payments.
-          overpayments_input_label_html: "<strong>Refund carried forward to %{filing_year} taxes (exclude estimated payments)</strong>"
-          question_box: Please share the amounts paid.
-          radio_label: Did you make estimated or other payments for your %{filing_year} state income taxes?
-          title_html: Did you make <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">estimated or other payments</a> toward your %{filing_year} New Jersey income taxes?
+          estimated_taxes_input_helper_html: Suma tus pagos trimestrales e ingresa el total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">verifica cuánto pagaste</a>).
+          estimated_taxes_input_label_html: "<strong>Total de pagos estimados realizados para los impuestos de %{filing_year}</strong>"
+          no_text: No (más común)
+          overpayments_input_helper_html: Si aplica, puedes encontrar esto en la línea 69 de tu NJ-1040 de %{prior_year}. Ingresa un monto aquí solo si no lo incluiste en el cálculo del cuadro anterior.
+          overpayments_input_label_html: "<strong>Reembolso transferido a los impuestos de %{filing_year} (no incluyas los pagos estimados)</strong>"
+          question_box: Ingrese los montos pagados.
+          radio_label: "¿Hiciste pagos estimados u otros pagos para los impuestos sobre los ingresos de New Jersey de %{filing_year}?"
+          title_html: ¿Hiciste <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">pagos estimados u otros pagos</a> para los impuestos sobre los ingresos de New Jersey de %{filing_year}?
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>Puede que conozcas esto como \"financiamiento público\" de campañas.</p> \n<p>Puedes contribuir con $1 de lo que va a tus impuestos al <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Fondo de Elecciones para Gobernador</a> (link en inglés).</p>\n<p>Para tu información: Tus impuestos no aumentarán y tu reembolso no se reducirá. Esto autoriza a New Jersey usar $1 de tus dólares de impuestos para este Fondo.</p>\n"
@@ -4140,6 +4145,8 @@ es:
           download_state_return_pdf: Descarga tu declaración estatal
           email_text_update: Recibirás una actualización por correo electrónico y mensaje de texto cuando tu declaración de impuestos estatal sea aceptada.
           email_update: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatal sea aceptada.
+          just_a_moment: Just a moment, we’re submitting your %{state_name} state tax return
+          takes_a_few: This usually takes a few seconds. Don't close this page.
           text_update: Recibirás una actualización por SMS cuando una vez tu declaración de impuestos haya sido aceptada.
           title: "¡Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido enviada! "
           title_resubmit: "¡Tu declaración de impuestos de %{filing_year} de %{state_name} ha sido enviada de nuevo!"
@@ -6964,7 +6971,6 @@ es:
           diy: menos de $84,000
           full_service: menos de $67,000
           title: Guía de ingresos
-        itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
         mobile_friendly: Adaptable para dispositivos móviles
         required_information: Información obligatoria
         select_service_html: "<i>Selecciona la opción en la que estás interesado para obtener más información sobre la lista completa de requisitos.</i>"

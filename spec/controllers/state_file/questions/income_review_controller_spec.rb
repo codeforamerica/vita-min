@@ -467,4 +467,34 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
       expect(efile_device_info.reload.device_id).to eq "ABC123"
     end
   end
+
+  # TEMP: remove when flipper flag goes away
+  context "links to edit forms vs show them" do
+    let(:intake) { create(:state_file_nc_intake) }
+    let!(:state_file_w2) { create :state_file_w2, state_file_intake: intake }
+    let!(:state_file_1099r) { create(:state_file1099_r, intake: intake) }
+
+    context "when flipper flag is enabled" do
+      before do
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:nc_flip_flop).and_return(true)
+      end
+
+      it "shows links to edit w2s and 1099Rs" do
+        get :edit, params: params
+
+        expect(response.body).to have_link(href: edit_w2_path(id: state_file_w2.id))
+        expect(response.body).to have_link(href: edit_retirement_income_path(id: state_file_1099r.id))
+      end
+    end
+
+    context "when flipper flag is disabled" do
+      it "shows links to show w2s and 1099Rs" do
+        get :edit, params: params
+
+        expect(response.body).to have_link(href: w2_path(id: state_file_w2.id))
+        expect(response.body).to have_link(href: retirement_income_path(id: state_file_1099r.id))
+      end
+    end
+  end
 end

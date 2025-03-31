@@ -724,4 +724,35 @@ RSpec.describe StateFileMdIntake, type: :model do
       end
     end
   end
+
+  describe "#direct_file_address_is_po_box?" do
+    let(:intake) { create :state_file_md_intake }
+
+    context "if there is not direct file data" do
+      before do
+        intake.raw_direct_file_data = nil
+      end
+      it "returns false" do
+        expect(intake.direct_file_address_is_po_box?).to eq(false)
+      end
+    end
+
+    context "if the mailing street is a po box" do
+      before do
+        intake.direct_file_data.mailing_street = "PO Box 123"
+      end
+      it "returns true" do
+        expect(intake.direct_file_address_is_po_box?).to eq(true)
+      end
+    end
+
+    context "if the mailing apartment is a po box" do
+      before do
+        intake.direct_file_data.mailing_apartment = "PO Box 555"
+      end
+      it "returns true" do
+        expect(intake.direct_file_address_is_po_box?).to eq(true)
+      end
+    end
+  end
 end
