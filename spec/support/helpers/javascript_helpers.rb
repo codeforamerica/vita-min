@@ -1,6 +1,7 @@
 module JavascriptHelpers
   extend ActiveSupport::Concern
 
+  # what is this?
   def wait_until(time: Capybara.default_max_wait_time)
     Timeout.timeout(time) do
       until value = yield

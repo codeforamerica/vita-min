@@ -10,7 +10,7 @@ RSpec.feature "FAQ" do
     visit "/faq"
 
     click_on faq_item.question_en
-    expect(page).to include(faq_item.answer_en.to_plain_text)
+    expect(page).to have_text(faq_item.answer_en.to_plain_text)
   end
 
   it "records survey answers" do
@@ -37,7 +37,7 @@ RSpec.feature "FAQ" do
     end
 
     click_on faq_item.question_en
-    expect(page).to include(faq_item.answer_en.to_plain_text)
+    expect(page).to have_text(faq_item.answer_en.to_plain_text)
 
     # go back to index
     within ".breadcrumb" do

@@ -79,6 +79,7 @@ module StateFileIntakeHelper
   end
 
   def step_through_initial_authentication(check_a11y: false, contact_preference: :text_message)
+    expect(page).to have_current_path("/en/questions/contact-preference")
     expect(page).to have_text I18n.t("state_file.questions.contact_preference.edit.title")
 
     case contact_preference
@@ -116,6 +117,7 @@ module StateFileIntakeHelper
     fill_in "Enter the 6-digit code", with: code
     click_on "Verify code"
 
+    expect(page).to have_current_path("/en/questions/code-verified")
     expect(page).to have_text "Code verified!"
     click_on "Continue"
   end
@@ -138,6 +140,11 @@ module StateFileIntakeHelper
       find_link("HIDDEN BUTTON", visible: :any).click
     end
     click_on I18n.t("general.continue") if expect_success
+  end
+
+  def click_continue
+    click_on I18n.t("general.continue")
+    sleep 0.1
   end
 
   def assert_flow_explorer_sample_params_includes_everything(us_state)

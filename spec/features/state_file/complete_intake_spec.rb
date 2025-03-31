@@ -20,43 +20,50 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       visit "/"
       click_on "Start Test AZ"
 
+      expect(page).to have_current_path("/en/az/landing-page")
       expect(page).to have_text I18n.t("state_file.landing_page.edit.az.title")
       click_on I18n.t('general.get_started'), id: "firstCta"
 
-      click_on I18n.t("general.continue")
+      expect(page).to have_current_path("/en/questions/eligible")
+      click_continue
 
       step_through_initial_authentication(contact_preference: :email)
 
+      expect(page).to have_current_path("/en/questions/notification-preferences")
       check "Email"
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
-      click_on "Continue"
+      click_continue
 
+      expect(page).to have_current_path("/en/questions/sms-terms")
       expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
       click_on I18n.t("general.accept")
 
+      expect(page).to have_current_path("/en/questions/terms-and-conditions")
       expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer Old sample")
 
+      expect(page).to have_current_path("/en/questions/az-senior-dependents")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.title", dependents_name_list: "Grampy")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.assistance_label", name: "Grampy")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.passed_away_label", name: "Grampy", filing_year: filing_year)
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_needed_assistance_yes"
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_passed_away_no"
-      click_on I18n.t("general.continue")
+      click_continue
 
+      expect(page).to have_current_path("/en/questions/az-prior-last-names")
       expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
       expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.subtitle", start_year: MultiTenantService.statefile.current_tax_year - 4, end_year: MultiTenantService.statefile.current_tax_year - 1)
       choose "state_file_az_prior_last_names_form_has_prior_last_names_yes"
       fill_in "state_file_az_prior_last_names_form_prior_last_names", with: "Jordan, Pippen, Rodman"
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_current_path("/en/questions/income-review")
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
       wait_for_device_info("income_review")
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_current_path("/en/questions/unemployment")
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
@@ -71,22 +78,27 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
       fill_in 'state_file1099_g_state_identification_number', with: "123456789"
       fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
-      click_on I18n.t("general.continue")
+      click_continue
 
+      expect(page).to have_current_path("/en/questions/unemployment")
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileAzIntake.last.primary.full_name))
-      click_on I18n.t("general.continue")
+      click_continue
 
+      expect(page).to have_current_path("/en/questions/az-retirement-income-subtraction")
       expect(page).to have_text(I18n.t("state_file.questions.retirement_income_subtraction.title", state_name: "Arizona"))
       choose I18n.t("state_file.questions.retirement_income_subtraction.none_apply")
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_current_path("/en/questions/az-public-school-contributions")
       expect(page).to have_text(I18n.t('state_file.questions.az_public_school_contributions.form.made_az322_contributions.one', year: filing_year))
       choose I18n.t("general.negative")
-      click_on I18n.t("general.continue")
+      click_continue
+
+      expect(page).to have_current_path("/en/questions/az-charitable-contributions")
       expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title")
       click_on I18n.t("general.back")
 
+      expect(page).to have_current_path("/en/questions/az-public-school-contributions")
       expect(page).to have_text strip_html_tags(I18n.t('state_file.questions.az_public_school_contributions.edit.title_html'))
       choose I18n.t("general.affirmative")
       fill_in "az322_contribution_school_name", with: "Tax Elementary"
@@ -94,17 +106,18 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "az322_contribution_district_name", with: "Testerson"
       fill_in "az322_contribution_amount", with: "200"
       select_cfa_date "az322_contribution_date_of_contribution", Date.new(filing_year, 6, 21)
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_current_path("/en/questions/az-public-school-contributions")
       expect(page).to have_text(I18n.t('state_file.questions.az_public_school_contributions.index.title'))
-      click_on I18n.t("general.continue")
+      click_continue
 
+      expect(page).to have_current_path("/en/questions/az-charitable-contributions")
       expect(page).to have_text I18n.t("state_file.questions.az_charitable_contributions.edit.title")
       choose I18n.t("general.affirmative")
       fill_in I18n.t("state_file.questions.az_charitable_contributions.edit.charitable_cash_html"), with: "123"
       fill_in I18n.t("state_file.questions.az_charitable_contributions.edit.charitable_noncash_html"), with: "123"
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_current_path("/en/questions/az-qualifying-organization-contributions")
       expect(page).to have_text(strip_html_tags(I18n.t('state_file.questions.az_qualifying_organization_contributions.form.main_heading_html', filing_year: filing_year)))
@@ -113,19 +126,19 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "az321_contribution_charity_code", with: "21134"
       fill_in "az321_contribution_amount", with: "90"
       select_cfa_date "az321_contribution_date_of_contribution", Date.new(filing_year, 6, 21)
+      click_continue
 
-      click_on I18n.t("general.continue")
-
+      expect(page).to have_current_path("/en/questions/az-qualifying-organization-contributions")
       expect(page).to have_text I18n.t('state_file.questions.az_qualifying_organization_contributions.index.title')
+      click_continue
 
-      click_on I18n.t("general.continue")
-
+      expect(page).to have_current_path("/en/questions/az-subtractions")
       expect(page).to have_text I18n.t("state_file.questions.az_subtractions.edit.title.one", year: MultiTenantService.statefile.current_tax_year)
       check "state_file_az_subtractions_form_tribal_member"
       fill_in "state_file_az_subtractions_form_tribal_wages_amount", with: "100"
       check "state_file_az_subtractions_form_armed_forces_member"
       fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_current_path("/en/questions/primary-state-id")
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
@@ -134,25 +147,27 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       select_cfa_date "state_file_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
       select_cfa_date "state_file_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
       select("Arizona", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
-      click_on I18n.t("general.continue")
+      click_continue
 
       # From the review page, the user can go back to certain screens to edit and then should return directly to the
       # review page. This is well-covered by unit tests, but let's test just one of those screens here
+      expect(page).to have_current_path("/en/questions/az-review")
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       within "#prior-last-names" do
         click_on I18n.t("general.edit")
       end
+
+      expect(page).to have_current_path("/en/questions/az-prior-last-names?return_to_review=y")
       expect(page).to have_text I18n.t("state_file.questions.az_prior_last_names.edit.title.one")
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_current_path("/en/questions/az-review")
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_current_path("/en/questions/tax-refund")
       expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", state_name: "Arizona", refund_amount: 1239))
       expect(page).not_to have_text "Your responses are saved. If you need a break, you can come back and log in to your account at fileyourstatetaxes.org."
-
       choose I18n.t("state_file.questions.tax_refund.edit.direct_deposit")
       expect(page).to have_text I18n.t("state_file.questions.tax_refund.bank_details.bank_title")
       choose "Checking"
@@ -160,20 +175,18 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "state_file_tax_refund_form_routing_number_confirmation", with: "019456124"
       fill_in "state_file_tax_refund_form_account_number", with: "2222222222"
       fill_in "state_file_tax_refund_form_account_number_confirmation", with: "2222222222"
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_current_path("/en/questions/esign-declaration")
       expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))
       expect(page).to have_text("Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return")
       check "state_file_esign_declaration_form_primary_esigned"
-
       wait_for_device_info("esign_declaration")
-
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
+      expect(page).to have_current_path("/en/questions/submission-confirmation")
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year)
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
-
       click_on "Main XML Doc"
 
       expect(page.body).to include('efile:ReturnState')
@@ -224,12 +237,12 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       expect(page).to have_text I18n.t("state_file.questions.nc_county.edit.title", filing_year: filing_year)
       select("Buncombe", from: "County")
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_text I18n.t("state_file.questions.nc_veteran_status.title_spouse")
       choose "state_file_nc_veteran_status_form_primary_veteran_no"
       choose "state_file_nc_veteran_status_form_spouse_veteran_no"
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_text I18n.t('state_file.questions.income_review.edit.title')
       within('#w2s') do
@@ -241,7 +254,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       wait_for_device_info("income_review")
 
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_text I18n.t('state_file.questions.unemployment.edit.title', year: filing_year)
       choose I18n.t("general.affirmative")
@@ -256,19 +269,19 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in 'state_file1099_g_federal_income_tax_withheld_amount', with: "456"
       fill_in 'state_file1099_g_state_identification_number', with: "123456789"
       fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_text(I18n.t('state_file.questions.unemployment.index.1099_label', name: StateFileNcIntake.last.primary.full_name))
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_text(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.title"))
       choose strip_html_tags(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.income_source_bailey_settlement_html"))
       check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.bailey_settlement_at_least_five_years")
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_text(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.title"))
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
-      click_on I18n.t("general.continue")
+      click_continue
 
       expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.nc_subtractions.edit.title_html.other"))
       choose I18n.t("general.negative")
