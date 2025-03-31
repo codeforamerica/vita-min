@@ -123,13 +123,16 @@ module StateFileIntakeHelper
   end
 
   def step_through_df_data_transfer(sample_name = "Transfer my #{filing_year} federal tax return to FileYourStateTaxes", expect_success = true)
+    sleep 0.1
     expect(page).to have_current_path("/en/questions/initiate-data-transfer")
     expect(page).to have_text I18n.t('state_file.questions.initiate_data_transfer.edit.title')
     click_on I18n.t('state_file.questions.initiate_data_transfer.data_transfer_buttons.from_fake_df_page')
 
+    sleep 0.1
     expect(page).to have_text "Your #{filing_year} federal tax return is ready to transfer to your state tax return."
     click_on sample_name
 
+    sleep 0.1
     expect(page).to have_text "Just a moment, we’re transferring your federal tax return to complete parts of your state return."
     if Capybara.current_driver == Capybara.javascript_driver
       # Ensure JavaScript is waiting for our broadcast before we run the job that will do it
