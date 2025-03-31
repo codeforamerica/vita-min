@@ -1,0 +1,25 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Lewis",
+      "dateOfBirth": "1955-03-09",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Leona",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "146-00-4914",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [],
+  "interestReports": []
+}
