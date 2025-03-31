@@ -63,7 +63,7 @@ class StateFile1099R < ApplicationRecord
               presence: {
                 message: proc { I18n.t('forms.errors.no_money_amount') }
               }
-    validates :payer_state_identification_number, presence: true, length: { maximum: 16 }, if: -> { state_tax_withheld_amount&.positive? }
+    validates :payer_state_identification_number, length: { maximum: 16 }
   end
 
   with_options on: [:income_review, :retirement_income_intake] do
