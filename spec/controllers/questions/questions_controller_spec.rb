@@ -56,6 +56,7 @@ RSpec.describe Questions::QuestionsController do
                      Questions::FinalInfoController,
                  ]
       )
+      allow_any_instance_of(Navigation::GyrQuestionNavigation).to receive(:prev).and_return({ controller: Questions::HadDependentsController })
     end
 
     it "returns the path to the previous controller in the flow" do
@@ -87,6 +88,7 @@ RSpec.describe Questions::QuestionsController do
                      Questions::FinalInfoController,
                  ]
       )
+      allow_any_instance_of(Navigation::GyrQuestionNavigation).to receive(:next).and_return({ controller: Questions::FinalInfoController })
     end
 
     it "returns the path to the previous controller in the flow" do
