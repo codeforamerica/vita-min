@@ -141,11 +141,9 @@ module StateFileIntakeHelper
   end
 
   def page_change_check(text)
-    return unless text.present?
-
     begin
       expect(page).to have_text text
-    rescue
+    rescue => e
       puts "it failed and tried again for finding `#{text}`"
       sleep 0.1
       expect(page).to have_text text
