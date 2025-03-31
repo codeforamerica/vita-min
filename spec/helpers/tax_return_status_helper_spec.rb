@@ -6,12 +6,12 @@ describe TaxReturnStatusHelper do
       ["Intake",
        [
          ["Not ready", "intake_in_progress"],
+         ["Needs doc help", "intake_needs_doc_help"],
+         ["Info requested", "intake_info_requested"],
+         ["Greeter - info requested", "intake_greeter_info_requested"],
          ["Ready for review", "intake_ready"],
          ["Reviewing", "intake_reviewing"],
          ["Ready for call", "intake_ready_for_call"],
-         ["Info requested", "intake_info_requested"],
-         ["Greeter - info requested", "intake_greeter_info_requested"],
-         ["Needs doc help", "intake_needs_doc_help"],
        ]
       ],
       ["Tax prep",

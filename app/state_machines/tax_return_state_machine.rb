@@ -3,12 +3,12 @@ class TaxReturnStateMachine
 
   state :intake_before_consent, initial: true
   state :intake_in_progress
+  state :intake_needs_doc_help
+  state :intake_info_requested
+  state :intake_greeter_info_requested
   state :intake_ready
   state :intake_reviewing
   state :intake_ready_for_call
-  state :intake_info_requested
-  state :intake_greeter_info_requested
-  state :intake_needs_doc_help
 
   state :prep_ready_for_prep
   state :prep_preparing
