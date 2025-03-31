@@ -73,7 +73,6 @@ describe TaxReturnStatusHelper do
                  )
       end
     end
-
   end
 
   describe "#grouped_status_options_for_partner" do
@@ -127,6 +126,25 @@ describe TaxReturnStatusHelper do
       end
       it "returns status options formatted to create select optgroups" do
         expect(helper.grouped_status_options_for_partner).to eq(expected)
+      end
+    end
+
+    context "as a greeter" do
+      let(:user_double) { double(User) }
+      before do
+        allow(helper).to receive(:current_user).and_return user_double
+        allow(user_double).to receive(:role_type).and_return GreeterRole::TYPE
+      end
+
+      it "returns limited statuses" do
+        expect(helper.grouped_status_options_for_select)
+          .to eq (
+                   [["Intake",
+                     [["Ready for review", "intake_ready"],
+                      ["Greeter - info requested", "intake_greeter_info_requested"],
+                      ["Needs doc help", "intake_needs_doc_help"]]],
+                    ["Final steps", [["Not filing", "file_not_filing"], ["Hold", "file_hold"]]]]
+                 )
       end
     end
   end
