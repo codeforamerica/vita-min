@@ -140,12 +140,15 @@ module StateFileIntakeHelper
     click_on I18n.t("general.continue") if expect_success
   end
 
-  def page_change_check(text)
+  def page_change_check(text, sleep_time: 0.1)
     begin
-      expect(page).to have_text text
-    rescue => e
-      puts "it failed and tried again for finding `#{text}`"
-      sleep 0.1
+      expect(page).to have_text(text)
+    rescue Selenium::WebDriver::Error::UnknownError,
+      Capybara::ElementNotFound,
+      RSpec::Expectations::ExpectationNotMetError => e
+      puts "Caught #{e.class} - #{e.message}"
+      puts "First attempt failed for `#{text}`, sleeping #{sleep_time}s then retrying..."
+      sleep sleep_time
       expect(page).to have_text text
     end
   end
