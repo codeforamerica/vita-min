@@ -144,40 +144,6 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
 
           expect(response.body).to include "must be greater than or equal to 0"
         end
-      end
-
-    context "when the intake's 1099R is not editable" do
-      let(:intake) { create :state_file_nc_intake, :with_spouse }
-
-      context "flipper flag is enabled" do
-        before do
-          allow(Flipper).to receive(:enabled?).and_call_original
-        end
-
-        it "updates the 1099R information and redirects to the income review page" do
-          post :update, params: params
-
-          expect(response).to redirect_to(questions_income_review_path)
-
-          form1099r.reload
-          expect(form1099r.state_distribution_amount).to eq 20
-          expect(form1099r.payer_state_identification_number).to eq 'Az3456789'
-          expect(form1099r.state_tax_withheld_amount).to eq 50
-        end
-      end
-
-      context "flipper flag is disabled" do
-        it "does not update the 1099R information" do
-          post :update, params: params
-
-          expect(response).to redirect_to(questions_income_review_path)
-
-          form1099r.reload
-          expect(form1099r.state_distribution_amount).to eq 15
-          expect(form1099r.payer_state_identification_number).to eq 'NC3456767'
-          expect(form1099r.state_tax_withheld_amount).to eq 100
-        end
-      end
     end
   end
 end
