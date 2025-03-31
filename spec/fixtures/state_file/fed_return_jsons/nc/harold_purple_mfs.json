@@ -15,8 +15,8 @@
       "isDisabled": null,
       "form1099GsTotal": "0.00",
       "isStudent": null,
-      "hsaTotalDeductibleAmount": null,
-      "ssnNotValidForEmployment": null
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
     },
     {
       "lastName": "Purple",
@@ -26,19 +26,19 @@
       "firstName": "Harold",
       "middleInitial": null,
       "educatorExpenses": "0.00",
-      "tin": "146-00-3988",
+      "tin": "146-00-4811",
       "interestReportsTotal": "0.00",
       "isDisabled": false,
       "form1099GsTotal": "0.00",
       "isStudent": false,
-      "hsaTotalDeductibleAmount": null,
-      "ssnNotValidForEmployment": null
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
     }
   ],
   "form1099Gs": [],
   "formW2s": [
     {
-      "usedTin": "146-00-3988",
+      "usedTin": "146-00-4811",
       "unionDuesAmount": null
     }
   ],
