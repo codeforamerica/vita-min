@@ -38,13 +38,16 @@ module ControllerNavigation
     return unless current_page_index
     pages_until_end = all_pages[current_page_index + 1..-1]
     showable_pages_until_end = select_showable(pages_until_end)
-    if return_to_review?(current_controller.return_to_review_after, showable_pages_until_end)
+
+    return_to_review_param = (current_controller.params[:return_to_review_after] ||
+      current_controller.params[:return_to_review])
+    if return_to_review?(return_to_review_param, showable_pages_until_end)
       { controller: current_controller.review_controller }
     else
       next_page_info = showable_pages_until_end.first
       next_page_info[:params] = { return_to_review: current_controller.params[:return_to_review],
                                   return_to_review_before: current_controller.params[:return_to_review_before],
-                                  return_to_review_after: current_controller.params[:return_to_review_after]}.compact
+                                  return_to_review_after: current_controller.params[:return_to_review_after] }.compact
       next_page_info
     end
   end
@@ -55,13 +58,17 @@ module ControllerNavigation
     return unless current_page_index&.nonzero?
     pages_until_beginning = all_pages[0..current_page_index - 1].reverse
     showable_pages_until_beginning = select_showable(pages_until_beginning)
-    if return_to_review?(current_controller.return_to_review_before, showable_pages_until_beginning)
+
+    return_to_review_param = (current_controller.params[:return_to_review_before] ||
+      current_controller.params[:return_to_review_after] ||
+      current_controller.params[:return_to_review])
+    if return_to_review?(return_to_review_param, showable_pages_until_beginning)
       { controller: current_controller.review_controller }
     else
       prev_page_info = showable_pages_until_beginning.first
       prev_page_info[:params] = { return_to_review: current_controller.params[:return_to_review],
                                   return_to_review_before: current_controller.params[:return_to_review_before],
-                                  return_to_review_after: current_controller.params[:return_to_review_after]}.compact
+                                  return_to_review_after: current_controller.params[:return_to_review_after] }.compact
       prev_page_info
     end
   end
