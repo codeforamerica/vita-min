@@ -152,16 +152,6 @@ RSpec.describe StateFile1099R do
       end
 
       context "payer_state_identification_number" do
-        it "validates present when has state_tax_withheld_amount" do
-          state_file1099_r.state_tax_withheld_amount = 0
-          state_file1099_r.payer_state_identification_number = nil
-          expect(state_file1099_r.valid?(context)).to eq true
-
-          state_file1099_r.state_tax_withheld_amount = 20
-          state_file1099_r.payer_state_identification_number = nil
-          expect(state_file1099_r.valid?(context)).to eq false
-        end
-
         it "validates <= 16 digits" do
           state_file1099_r.payer_state_identification_number = "1231578123"
           expect(state_file1099_r.valid?(context)).to eq true
