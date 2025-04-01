@@ -627,6 +627,17 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
+  describe "Line 59" do
+    it "sums lines 53 through 58" do
+      allow(instance).to receive(:calculate_line_53).and_return(100)
+      allow(instance).to receive(:calculate_line_55).and_return(300)
+      allow(instance).to receive(:calculate_line_56).and_return(400)
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_59].value).to eq(800)
+    end
+  end
+
+
   describe "refund_or_owed_amount" do
     it "subtracts owed amount from refund amount" do
       allow(instance).to receive(:calculate_line_79).and_return 20

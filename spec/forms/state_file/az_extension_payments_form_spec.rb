@@ -33,7 +33,7 @@ RSpec.describe StateFile::AzExtensionPaymentsForm do
     end
 
     context "with no selected" do
-      let(:invalid_params) do
+      let(:params) do
         {
           paid_extension_payments: "no",
           extension_payments_amount: ""
@@ -41,7 +41,7 @@ RSpec.describe StateFile::AzExtensionPaymentsForm do
       end
 
       it "returns true" do
-        form = described_class.new(intake, invalid_params)
+        form = described_class.new(intake, params)
         expect(form).to be_valid
       end
     end
@@ -103,7 +103,7 @@ RSpec.describe StateFile::AzExtensionPaymentsForm do
       }
     end
 
-    it "proceeds with nil prior last names" do
+    it "proceeds with no prior last names" do
       form = described_class.new(intake, valid_params)
       expect(form).to be_valid
       form.save
@@ -120,7 +120,7 @@ RSpec.describe StateFile::AzExtensionPaymentsForm do
       }
     end
 
-    it "proceeds with nil amount" do
+    it "proceeds with 0 amount" do
       form = described_class.new(intake, valid_params)
       expect(form).to be_valid
       expect do
