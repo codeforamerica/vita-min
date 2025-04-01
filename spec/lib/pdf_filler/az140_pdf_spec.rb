@@ -23,6 +23,29 @@ RSpec.describe PdfFiller::Az140Pdf do
       expect(missing_fields).to eq([])
     end
 
+    context "paid federal extension" do
+      before do
+        intake.update(paid_federal_extension_payments: "yes")
+      end
+
+      context "with flipper on" do
+        before do
+          allow(Flipper).to receive(:enabled?).and_call_original
+          allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
+        end
+
+        it "fills out Box 82F" do
+          expect(pdf.hash_for_pdf["Check Box82F"]).to eq "Yes"
+        end
+      end
+
+      context "with flipper off" do
+        it "includes the SpecialProgram node in the RetrunHeaderState" do
+          expect(pdf.hash_for_pdf["Check Box82F"]).to be_nil
+        end
+      end
+    end
+
     context "with interest on government bonds" do
       before do
         allow_any_instance_of(Efile::Az::Az140Calculator).to receive(:calculate_line_28).and_return 30

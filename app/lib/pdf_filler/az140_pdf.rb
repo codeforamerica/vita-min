@@ -16,6 +16,7 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
+        "Check Box82F" => @xml_document.at("FiledUnderExtension")&.text,
         "1a" => @submission.data_source.primary.first_name_and_middle_initial,
         "1b" => @submission.data_source.primary.last_name_and_suffix,
         "1c" => @submission.data_source.primary.ssn,
