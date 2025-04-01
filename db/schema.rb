@@ -1883,7 +1883,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_214001) do
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
     t.integer "failed_attempts", default: 0, null: false
-    t.decimal "federal_extension_payments_amount", precision: 12, scale: 2, default: "0.0"
     t.string "federal_return_status"
     t.string "federal_submission_id"
     t.integer "has_prior_last_names", default: 0, null: false

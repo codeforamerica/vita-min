@@ -2912,8 +2912,6 @@ es:
           title: Firma electrónicamente tu declaración de impuestos del estado de %{state_name}
       federal_extension_payments:
         edit:
-          amount: Amount of federal extension payments
-          enter_amount: Enter payment amount
           more_info: More info here...
           title: Were you granted a federal extension?
       id_disability:

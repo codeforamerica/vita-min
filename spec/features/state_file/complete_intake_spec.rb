@@ -14,6 +14,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     before do
       allow(Flipper).to receive(:enabled?).and_call_original
       allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
     end
 
     it "has content", required_schema: "az" do
@@ -123,6 +124,9 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       check "state_file_az_subtractions_form_armed_forces_member"
       fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.federal_extension_payments.edit.title")
+      choose I18n.t("general.affirmative")
 
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')

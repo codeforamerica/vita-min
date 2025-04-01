@@ -2946,8 +2946,6 @@ en:
           title: Electronically sign your %{state_name} state tax return
       federal_extension_payments:
         edit:
-          amount: Amount of federal extension payments
-          enter_amount: Enter payment amount
           more_info: More info here...
           title: Were you granted a federal extension?
       id_disability:
