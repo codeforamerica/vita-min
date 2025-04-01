@@ -412,13 +412,6 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def increment_failed_attempts
-    # If unlock_in time has passed, unlock the intake. Otherwise, the intakes' failed_attempts will
-    # remain unchanged until the verification code is answered correctly (see: unlock_for_login!)
-    # derived from https://github.com/heartcombo/devise/issues/4679#issuecomment-1453450974
-    if lock_expired?
-      unlock_access!
-    end
-
     super
     if attempts_exceeded? && !access_locked?
       lock_access!

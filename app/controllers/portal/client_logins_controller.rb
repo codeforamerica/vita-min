@@ -44,17 +44,19 @@ module Portal
         if Rails.configuration.allow_magic_verification_code && @verification_code_form.verification_code == "000000"
           update_existing_token_with_magic_code(hashed_verification_code)
         end
+
         @records = client_login_service.login_records_for_token(hashed_verification_code)
         if @records.present? # we have at least one match and none are locked
           DatadogApi.increment("#{self.controller_name}.verification_codes.right_code")
-          unlock_matching_records_for_login!
+          @records.each(&:unlock_for_login!)
           return if redirect_locked_clients # check if any records are already locked
           redirect_to self.class.to_path_helper(action: :edit, id: hashed_verification_code)
           return
         else # we have no matches for the verification code
           @verification_code_form.errors.add(:verification_code, I18n.t("portal.client_logins.form.errors.bad_verification_code"))
           DatadogApi.increment("#{self.controller_name}.verification_codes.wrong_code")
-          increment_failed_attempts_on_login_records
+          failed_verification_matching_records.each(:unlock_for_login!) if failed_verification_matching_records.present?
+          increment_failed_attempts_on_login_records # failed_attempts = 0 if records are lock expired
           return if redirect_locked_clients
         end
       end
@@ -72,6 +74,7 @@ module Portal
       @records.map(&:increment_failed_attempts)
     end
 
+    def failed_verification_matching_records; end
     def edit
       # Displays verify SSN form
       @form = ClientLoginForm.new(possible_clients: @records)
