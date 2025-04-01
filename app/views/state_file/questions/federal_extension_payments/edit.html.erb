@@ -1,0 +1,29 @@
+<% title = t(".title")%>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".more_info") %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+          <%= f.cfa_radio_set(:paid_extension_payments, label_text: title, collection: [
+            { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": "#federal_extension_payments" } },
+            { value: "no", label: t("general.negative") },
+          ]) %>
+        </div>
+      </div>
+
+      <div class="question-with-follow-up__follow-up" id="federal_extension_payments">
+        <div class="white-group">
+          <p><%= t(".enter_amount") %></p>
+          <%= f.vita_min_money_field(:extension_payments_amount, t(".amount"), classes: ["form-width--long"]) %>
+        </div>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>
