@@ -78,10 +78,6 @@ module StateFile
       @records.map(&:increment_failed_attempts)
     end
 
-    def unlock_matching_records_for_login!
-      @records.each(&:unlock_for_login!)
-    end
-
     def request_login_form_class
       RequestIntakeLoginForm
     end

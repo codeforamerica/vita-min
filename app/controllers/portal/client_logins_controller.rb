@@ -64,9 +64,6 @@ module Portal
       render :enter_verification_code
     end
 
-    # only adding resetting logic for FYST at this time
-    def unlock_matching_records_for_login!; end
-
     def account_locked; end
 
     def increment_failed_attempts_on_login_records
@@ -74,6 +71,7 @@ module Portal
       @records.map(&:increment_failed_attempts)
     end
 
+    # We will not unlock these records for gyr/ctc for now; tbd
     def failed_verification_matching_records; end
     def edit
       # Displays verify SSN form
