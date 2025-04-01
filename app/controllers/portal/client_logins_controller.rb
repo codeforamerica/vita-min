@@ -55,8 +55,8 @@ module Portal
         else # we have no matches for the verification code
           @verification_code_form.errors.add(:verification_code, I18n.t("portal.client_logins.form.errors.bad_verification_code"))
           DatadogApi.increment("#{self.controller_name}.verification_codes.wrong_code")
-          failed_verification_matching_records.each(:unlock_for_login!) if failed_verification_matching_records.present?
-          increment_failed_attempts_on_login_records # failed_attempts = 0 if records are lock expired
+          failed_verification_matching_records.each(&:unlock_for_login!) if failed_verification_matching_records.present?
+          increment_failed_attempts_on_login_records
           return if redirect_locked_clients
         end
       end
@@ -67,12 +67,14 @@ module Portal
     def account_locked; end
 
     def increment_failed_attempts_on_login_records
-      @records = Client.by_contact_info(email_address: params[:portal_verification_code_form][:contact_info], phone_number: params[:portal_verification_code_form][:contact_info])
       @records.map(&:increment_failed_attempts)
     end
 
-    # We will not unlock these records for gyr/ctc for now; tbd
-    def failed_verification_matching_records; end
+    def failed_verification_matching_records
+      @records = Client.by_contact_info(email_address: params[:portal_verification_code_form][:contact_info], phone_number: params[:portal_verification_code_form][:contact_info])
+    end
+
+    end
     def edit
       # Displays verify SSN form
       @form = ClientLoginForm.new(possible_clients: @records)
