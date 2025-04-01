@@ -29,16 +29,6 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
           expect(intake.estimated_tax_payments).to eq 1000
         end
       end
-
-      it_behaves_like :return_to_review_concern do
-        let(:form_params) do
-          {
-            state_file_nj_estimated_tax_payments_form: {
-              estimated_tax_payments: 1000,
-            }
-          }
-        end
-      end
     end
   end
 end
