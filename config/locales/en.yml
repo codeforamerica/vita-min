@@ -2326,12 +2326,6 @@ en:
           primary_was_incarcerated: Were you incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           spouse_was_incarcerated: Was your spouse incarcerated in a county, state, or federal prison for at least 60 days in %{tax_year}?
           title: You might be eligible for the Increased Excise Tax Credit.
-      az_extension_payments:
-        edit:
-          amount: Amount of extension payments
-          enter_amount: Enter the amount of extension payments...
-          more_info: More info here...
-          title: Did you make any extension payments?
       az_primary_state_id:
         az_primary:
           learn_more_html: |
@@ -2943,6 +2937,12 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      extension_payments:
+        edit:
+          amount: Amount of extension payments
+          enter_amount: Enter the amount of extension payments...
+          more_info: More info here...
+          title: Did you make any extension payments?
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
