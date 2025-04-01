@@ -183,6 +183,10 @@ class Client < ApplicationRecord
     result
   end
 
+  def unlock_for_login!
+    unlock_access! unless access_locked?
+  end
+
   def fraud_scores
     Fraud::Score.where(efile_submission_id: efile_submissions.pluck(:id))
   end

@@ -73,11 +73,6 @@ module StateFile
       end
     end
 
-    def increment_failed_attempts_on_login_records
-      @records = failed_verification_matching_records
-      @records.map(&:increment_failed_attempts)
-    end
-
     def request_login_form_class
       RequestIntakeLoginForm
     end
