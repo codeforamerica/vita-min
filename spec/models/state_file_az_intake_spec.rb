@@ -27,6 +27,7 @@
 #  email_address_verified_at              :datetime
 #  email_notification_opt_in              :integer          default("unfilled"), not null
 #  failed_attempts                        :integer          default(0), not null
+#  federal_extension_payments_amount      :decimal(12, 2)   default(0.0)
 #  federal_return_status                  :string
 #  has_prior_last_names                   :integer          default("unfilled"), not null
 #  hashed_ssn                             :string
@@ -39,6 +40,7 @@
 #  made_az321_contributions               :integer          default("unfilled"), not null
 #  made_az322_contributions               :integer          default("unfilled"), not null
 #  message_tracker                        :jsonb
+#  paid_federal_extension_payments        :integer          default(0), not null
 #  payment_or_deposit_type                :integer          default("unfilled"), not null
 #  phone_number                           :string
 #  phone_number_verified_at               :datetime
