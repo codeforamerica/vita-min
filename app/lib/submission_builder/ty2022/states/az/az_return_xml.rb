@@ -148,7 +148,7 @@ module SubmissionBuilder
               end
               xml.TotalPaymentAndCredits do
                 xml.AzIncTaxWithheld calculated_fields.fetch(:AZ140_LINE_53)
-                xml.ExtPayment calculated_fields.fetch(:AZ140_LINE_55)
+                xml.ExtPayment calculated_fields.fetch(:AZ140_LINE_55) if Flipper.enabled?(:extension_period)
                 xml.IncrExciseTaxCr calculated_fields.fetch(:AZ140_LINE_56)
               end
               xml.TotalPayments calculated_fields.fetch(:AZ140_LINE_59)
