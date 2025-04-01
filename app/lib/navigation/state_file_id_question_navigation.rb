@@ -1,7 +1,6 @@
 module Navigation
   class StateFileIdQuestionNavigation < Navigation::StateFileBaseQuestionNavigation
     include ControllerNavigation
-    include StateFile::StateFileCurrentIntakeConcern
 
     SECTIONS = [
       Navigation::NavigationSection.new("state_file.navigation.section_1", [
