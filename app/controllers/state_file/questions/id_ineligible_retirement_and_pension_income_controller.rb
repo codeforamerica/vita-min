@@ -3,6 +3,7 @@ module StateFile
     class IdIneligibleRetirementAndPensionIncomeController < RetirementIncomeSubtractionController
       include OtherOptionsLinksConcern
       def self.show?(intake, item_index: nil)
+        return false unless item_index.present?
         state_file_1099r = load_1099r(intake, item_index)
         super &&
           !intake.filing_status_mfs? &&

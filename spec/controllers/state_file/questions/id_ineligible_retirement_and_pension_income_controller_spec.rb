@@ -11,19 +11,40 @@ RSpec.describe StateFile::Questions::IdIneligibleRetirementAndPensionIncomeContr
            taxable_amount: 1111
   end
 
+  let!(:second_primary_1099r) do
+    create :state_file1099_r,
+           intake: intake,
+           payer_name: "Primary Payer",
+           recipient_name: "Primary Recipient",
+           recipient_ssn: "400000030",
+           taxable_amount: 1111
+  end
+
   let!(:state_specific_followup) do
     create :state_file_id1099_r_followup,
            state_file1099_r: primary_1099r,
            civil_service_account_number: "eight"
   end
 
+  let!(:second_state_specific_followup) do
+    create :state_file_id1099_r_followup,
+           state_file1099_r: second_primary_1099r,
+           civil_service_account_number: "seven_or_nine"
+  end
+
   before do
     sign_in intake
+    allow(Flipper).to receive(:enabled?).and_call_original
+    allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
   end
 
   describe "#show?" do
-    it "returns false" do
-      expect(described_class.show?(intake)).to eq false
+    it "returns true if 1099-R followup can not be deducted" do
+      expect(described_class.show?(intake, item_index: 0)).to eq true
+    end
+
+    it "returns false if 1099-R followup can be deducted" do
+      expect(described_class.show?(intake, item_index: 1)).to eq false
     end
   end
 
@@ -32,17 +53,6 @@ RSpec.describe StateFile::Questions::IdIneligibleRetirementAndPensionIncomeContr
       it "succeeds" do
         get :edit
         expect(response).to be_successful
-      end
-    end
-
-    context "when account number does not start with 8" do
-      before do
-        state_specific_followup.update(civil_service_account_number: "zero_to_four")
-      end
-
-      it "redirects to the next path" do
-        get :edit
-        expect(response).to redirect_to(controller.next_path)
       end
     end
   end
@@ -68,10 +78,8 @@ RSpec.describe StateFile::Questions::IdIneligibleRetirementAndPensionIncomeContr
     end
 
     it "redirects to the next path" do
-      get :continue_filing
-      expect(response).to redirect_to(controller.next_path)
+      get :continue_filing, params: { item_index: 0 }
+      expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(item_index: 1))
     end
   end
 end
-
-

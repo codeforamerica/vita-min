@@ -2,7 +2,6 @@ module StateFile
   # This concern can be used in concert with Navigation::RepeatedMultiPageStep
   # It requires you to add a hidden `item_index` input to your edit template!
   module RepeatedQuestionConcern
-
     extend ActiveSupport::Concern
 
     included do
