@@ -26,6 +26,7 @@
 #  email_address_verified_at                              :datetime
 #  email_notification_opt_in                              :integer          default("unfilled"), not null
 #  estimated_tax_payments                                 :decimal(12, 2)
+#  extension_payments                                     :integer          default(0), not null
 #  failed_attempts                                        :integer          default(0), not null
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
