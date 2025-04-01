@@ -285,7 +285,7 @@ module Efile
       end
 
       def calculate_line_55
-        @intake.extension_payments_amount&.round
+        @intake.paid_extension_payments_yes? ? @intake.extension_payments_amount&.round : 0
       end
 
       def calculate_line_56

@@ -430,6 +430,7 @@ describe Efile::Az::Az140Calculator do
 
     context "when there are extension payments" do
       before do
+        intake.paid_extension_payments = 'yes'
         allow(intake).to receive(:extension_payments_amount).and_return 2112
       end
 
