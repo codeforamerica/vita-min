@@ -1,6 +1,6 @@
 module StateFile
   module Questions
-    class AzExtensionPaymentsController < QuestionsController
+    class ExtensionPaymentsController < QuestionsController
       def self.show?(intake)
         Flipper.enabled?(:extension_period)
       end

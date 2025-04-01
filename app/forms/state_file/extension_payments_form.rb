@@ -1,5 +1,5 @@
 module StateFile
-  class AzExtensionPaymentsForm < QuestionsForm
+  class ExtensionPaymentsForm < QuestionsForm
     set_attributes_for :intake, :paid_extension_payments, :extension_payments_amount
     validates :paid_extension_payments, inclusion: { in: %w[yes no], message: :blank }
     validates :extension_payments_amount,

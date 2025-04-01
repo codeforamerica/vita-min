@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe StateFile::Questions::AzExtensionPaymentsController do
+RSpec.describe StateFile::Questions::ExtensionPaymentsController do
   let(:intake) { create :state_file_az_intake }
 
   describe ".show?" do

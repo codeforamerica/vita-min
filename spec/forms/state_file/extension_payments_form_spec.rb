@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe StateFile::AzExtensionPaymentsForm do
+RSpec.describe StateFile::ExtensionPaymentsForm do
   describe "#valid?" do
     let(:intake) { create :state_file_az_intake }
 
