@@ -199,28 +199,41 @@ describe Client do
   end
 
   describe "#unlock_for_login!" do
-    let!(:client) { create(:client, locked_at: 32.minutes.ago) }
+    let!(:client) { create(:client, locked_at: 32.minutes.ago, failed_attempts: 2) }
 
     before do
       allow(client).to receive(:access_locked?).and_return(access_locked)
-      client.unlock_for_login!
     end
 
     context "when access locked" do
       let(:access_locked) { true }
 
-      it "should not reset failed_attempts" do
+      it "should not reset failed_attempts and not clear out locked_at" do
+        client.unlock_for_login!
         expect(client.failed_attempts).to eq(2)
-        expect(client.locked_at).to be_within(2.seconds).of(32.minutes.ago)
+        expect(client.locked_at).to be_present
       end
     end
 
     context "when access not locked" do
       let(:access_locked) { false }
 
-      it "should reset failed_attempts" do
+      it "should reset failed_attempts and clear out locked_at" do
+        client.unlock_for_login!
         expect(client.failed_attempts).to eq(0)
         expect(client.locked_at).to eq(nil)
+      end
+
+      context "when locked_at is nil" do
+        before do
+          client.update(locked_at: nil)
+        end
+
+        it "should not reset failed_attempts and locked_at should remain nil" do
+          client.unlock_for_login!
+          expect(client.failed_attempts).to eq(2)
+          expect(client.locked_at).to be_nil
+        end
       end
     end
   end

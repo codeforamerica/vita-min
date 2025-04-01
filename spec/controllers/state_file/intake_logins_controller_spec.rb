@@ -225,7 +225,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
       context "with clients who are locked out by failed_attempts" do
         before do
-          intake.update(failed_attempts: 5)
+          intake.update(failed_attempts: 5, locked_at: 35.minutes.ago)
         end
 
         it "redirects to the next page for login and resets failed attempts" do

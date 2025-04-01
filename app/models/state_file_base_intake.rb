@@ -419,7 +419,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def unlock_for_login!
-    unlock_access! unless access_locked?
+    unlock_access! if locked_at.present? && !access_locked?
   end
 
   def controller_for_current_step

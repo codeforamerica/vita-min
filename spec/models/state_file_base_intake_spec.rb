@@ -13,26 +13,41 @@ describe StateFileBaseIntake do
   end
 
   describe "#unlock_for_login!" do
-    let!(:intake) { create :state_file_az_intake, failed_attempts: 2 }
+    let!(:intake) { create :state_file_az_intake, failed_attempts: 2, locked_at: 31.minutes.ago }
 
     before do
       allow(intake).to receive(:access_locked?).and_return(access_locked)
-      intake.unlock_for_login!
     end
 
     context "when access locked" do
       let(:access_locked) { true }
 
-      it "should not reset failed_attempts" do
+      it "should not reset failed_attempts and not clear out locked_at" do
+        intake.unlock_for_login!
         expect(intake.failed_attempts).to eq(2)
+        expect(intake.locked_at).to be_present
       end
     end
 
     context "when access not locked" do
       let(:access_locked) { false }
 
-      it "should reset failed_attempts" do
+      it "should reset failed_attempts and clear out locked_at" do
+        intake.unlock_for_login!
         expect(intake.failed_attempts).to eq(0)
+        expect(intake.locked_at).to be_nil
+      end
+
+      context "when locked_at is nil" do
+        before do
+          intake.update(locked_at: nil)
+        end
+
+        it "should not reset failed_attempts and locked_at should remain nil" do
+          intake.unlock_for_login!
+          expect(intake.failed_attempts).to eq(2)
+          expect(intake.locked_at).to be_nil
+        end
       end
     end
   end
