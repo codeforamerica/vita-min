@@ -16,6 +16,5 @@ module Navigation
     def pages(visitor_record)
       [{ controller: @controller }]
     end
-
   end
 end

@@ -9,7 +9,7 @@ module ControllerNavigation
         const_get("FLOW")
       end
 
-      def pages(visitor_record)
+      def pages(visitor_record = nil)
         controllers.map { |controller| { controller: } }
       end
     end

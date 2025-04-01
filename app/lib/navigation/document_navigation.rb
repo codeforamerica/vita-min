@@ -35,7 +35,7 @@ module Navigation
     delegate :controllers, to: :class
 
     def prev
-      return Documents::IdGuidanceController if index.zero?
+      return Documents::IdGuidanceController if index(pages).zero?
 
       super
     end
