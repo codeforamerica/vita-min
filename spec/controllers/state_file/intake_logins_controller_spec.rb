@@ -216,6 +216,19 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         expect(response).to redirect_to(edit_intake_login_path(id: hashed_verification_code))
       end
 
+      context "has previous failed_attempts" do
+        before do
+          intake.update(failed_attempts: 1)
+        end
+
+        it "should reset their failed_attempts to allow fresh set of 3 chances for SSN step" do
+          expect {
+            post :check_verification_code, params: params
+            intake.reload
+          }.to change(intake, :failed_attempts).from(1).to(0)
+        end
+      end
+
       context "Datadog" do
         it "increments a counter" do
           post :check_verification_code, params: params

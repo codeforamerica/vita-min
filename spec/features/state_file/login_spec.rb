@@ -173,6 +173,15 @@ RSpec.feature "Logging in" do
             scenario "will be able to re-enter SSN 3 times" do
               sign_in_request_via_phone_number
 
+              # get it wrong twice & pass on third time (making sure we have 3 tries on SSN)
+              expect(page).to have_text "Enter the code to continue"
+              fill_in "Enter the 6-digit code", with: "999999"
+              click_on "Verify code"
+
+              expect(page).to have_text "Enter the code to continue"
+              fill_in "Enter the 6-digit code", with: "999999"
+              click_on "Verify code"
+
               expect(page).to have_text "Enter the code to continue"
               fill_in "Enter the 6-digit code", with: verification_code
               click_on "Verify code"

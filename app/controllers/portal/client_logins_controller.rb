@@ -52,6 +52,7 @@ module Portal
         if verified_matching_records.present? # we have at least one match and none are locked
           DatadogApi.increment("#{self.controller_name}.verification_codes.right_code")
           return if redirect_locked_clients # check if any records are already locked
+          @records.each(&:reset_failed_attempts!) # reset failed_attempts to 0 so they have 3 tries during SSN screen
           redirect_to self.class.to_path_helper(action: :edit, id: hashed_verification_code)
           return
         else # we have no matches for the verification code

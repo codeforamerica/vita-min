@@ -111,6 +111,50 @@ RSpec.feature "Logging in" do
 
           expect(page).to have_text("This account has been locked")
         end
+
+        scenario "getting through with max possible number of tries" do
+          visit new_portal_client_login_path
+
+          expect(page).to have_text I18n.t("portal.client_logins.new.title")
+          fill_in "Cell phone number", with: "(500) 555-0006"
+
+          perform_enqueued_jobs do
+            click_on "Send code"
+            expect(page).to have_text "Let’s verify that code!"
+          end
+
+          fill_in "Enter 6 digit code", with: "999999"
+          click_on "Verify"
+
+          fill_in "Enter 6 digit code", with: "999999"
+          click_on "Verify"
+
+          fill_in "Enter 6 digit code", with: "999999"
+          click_on "Verify"
+
+          fill_in "Enter 6 digit code", with: "999999"
+          click_on "Verify"
+
+          fill_in "Enter 6 digit code", with: "000004"
+          click_on "Verify"
+
+          fill_in "Client ID or Last 4 of SSN/ITIN", with: "9875"
+          click_on "Continue"
+
+          fill_in "Client ID or Last 4 of SSN/ITIN", with: "9877"
+          click_on "Continue"
+
+          fill_in "Client ID or Last 4 of SSN/ITIN", with: "9878"
+          click_on "Continue"
+
+          fill_in "Client ID or Last 4 of SSN/ITIN", with: "9877"
+          click_on "Continue"
+
+          fill_in "Client ID or Last 4 of SSN/ITIN", with: "9876"
+          click_on "Continue"
+
+          expect(page).to have_text("Welcome back Carrie!")
+        end
       end
 
       context "signing in with link" do

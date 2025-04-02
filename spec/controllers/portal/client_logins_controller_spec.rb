@@ -159,6 +159,20 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         end
       end
 
+      context "when client tried to log in 4 times already" do
+        before do
+          client.update(locked_at: nil, failed_attempts: 4)
+        end
+
+        it "it resets failed attempt for SSN screen" do
+          post :check_verification_code, params: params
+
+          expect(response).to redirect_to(edit_portal_client_login_path(id: hashed_verification_code))
+          expect(client.reload.locked_at).to be_nil
+          expect(client.failed_attempts).to eq 0
+        end
+      end
+
       context "Datadog" do
         it "increments a counter" do
           post :check_verification_code, params: params
