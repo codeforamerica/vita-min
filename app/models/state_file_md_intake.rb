@@ -137,6 +137,7 @@ class StateFileMdIntake < StateFileBaseIntake
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
   enum primary_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_proof_of_disability_submitted
   enum spouse_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_proof_of_disability_submitted
+  enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
 
   def disqualifying_df_data_reason
     return :spouse_nra_html if nra_spouse?
