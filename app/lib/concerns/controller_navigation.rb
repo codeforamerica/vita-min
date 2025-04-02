@@ -47,13 +47,14 @@ module ControllerNavigation
 
   private
 
-  def proceed(remaining_pages, return_to_review_param)
-    current_page_info = remaining_pages[0]
-    showable_pages = select_showable(remaining_pages[1..])
-    if return_to_review?(return_to_review_param, current_page_info, showable_pages)
+  def proceed(pages_from_current, return_to_review_param)
+    current_page_info = pages_from_current[0]
+    remaining_pages = pages_from_current[1..]
+    next_showable_page_index = seek(remaining_pages)
+    if return_to_review?(return_to_review_param, current_page_info, remaining_pages[next_showable_page_index..])
       { controller: current_controller.review_controller }
-    elsif showable_pages.present?
-      next_page_info = showable_pages.first
+    elsif next_showable_page_index.present?
+      next_page_info = remaining_pages[next_showable_page_index]
       preserve_return_to_review_params(next_page_info)
       next_page_info
     end
@@ -107,8 +108,8 @@ module ControllerNavigation
     index
   end
 
-  def select_showable(pages)
-    pages.select do |page_info|
+  def seek(pages)
+    pages.index do |page_info|
       controller_class = page_info[:controller]
       # We should not be using arity to decide how to call `show?`
       case controller_class.method(:show?).arity
