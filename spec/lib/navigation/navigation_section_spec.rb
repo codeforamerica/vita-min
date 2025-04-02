@@ -13,6 +13,7 @@ RSpec.describe Navigation::NavigationSection do
       Navigation::NavigationStep.new(first_controller_class),
       Navigation::NavigationStep.new(second_controller_class),
       Navigation::RepeatedMultiPageStep.new(
+        "step_name",
         [
           first_repeated_controller_class,
           second_repeated_controller_class
@@ -52,12 +53,12 @@ RSpec.describe Navigation::NavigationSection do
   it "produces an array of potentially non-unique pages" do
     section = Navigation::NavigationSection.new("a_section", steps)
     expect(section.pages(visitor_record)).to eq([
-                                                   { controller: first_controller_class },
-                                                   { controller: second_controller_class },
-                                                   { item_index: 0, controller: first_repeated_controller_class },
-                                                   { item_index: 0, controller: second_repeated_controller_class },
-                                                   { item_index: 1, controller: first_repeated_controller_class },
-                                                   { item_index: 1, controller: second_repeated_controller_class }
-                                                 ])
+                                                  { controller: first_controller_class },
+                                                  { controller: second_controller_class },
+                                                  { item_index: 0, controller: first_repeated_controller_class, step: "step_name" },
+                                                  { item_index: 0, controller: second_repeated_controller_class, step: "step_name" },
+                                                  { item_index: 1, controller: first_repeated_controller_class, step: "step_name" },
+                                                  { item_index: 1, controller: second_repeated_controller_class, step: "step_name" }
+                                                ])
   end
 end
