@@ -82,7 +82,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
 
       context "when the matching intake exceeded number of failed attempts" do
         before do
-          existing_intake.update(failed_attempts: 5)
+          existing_intake.update(failed_attempts: 3)
         end
 
         context "still locked out by time" do
@@ -94,7 +94,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
             post :update, params: { state_file_verification_code_form: { verification_code: token[0] }}
             expect(response).to redirect_to(login_location)
             expect(StateFileAzIntake.where(id: intake.id)).to be_empty
-            expect(existing_intake.reload.failed_attempts).to eq(5)
+            expect(existing_intake.reload.failed_attempts).to eq(3)
           end
         end
 
@@ -182,27 +182,27 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
 
         context "still locked out by time" do
           before do
-            existing_intake_no_df_data.update(locked_at: 28.minutes.ago, failed_attempts: 5)
+            existing_intake_no_df_data.update(locked_at: 28.minutes.ago, failed_attempts: 3)
           end
 
           it "renders the edit page, does not delete current intake, does not reset failed attempts" do
             post :update, params: { state_file_verification_code_form: { verification_code: "invalid", contact_info: "someone@example.com" }}
             expect(response).to render_template(:edit)
             expect(intake.reload).not_to be_destroyed
-            expect(existing_intake_no_df_data.reload.failed_attempts).to eq(5)
+            expect(existing_intake_no_df_data.reload.failed_attempts).to eq(3)
           end
         end
 
         context "no longer locked out by time" do
           before do
-            existing_intake_no_df_data.update(locked_at: 32.minutes.ago, failed_attempts: 5)
+            existing_intake_no_df_data.update(locked_at: 32.minutes.ago, failed_attempts: 3)
           end
 
           it "renders the edit page, does not delete current intake, does not reset failed attempts" do
             post :update, params: { state_file_verification_code_form: { verification_code: "invalid", contact_info: "someone@example.com" }}
             expect(response).to render_template(:edit)
             expect(intake.reload).not_to be_destroyed
-            expect(existing_intake_no_df_data.reload.failed_attempts).to eq(5)
+            expect(existing_intake_no_df_data.reload.failed_attempts).to eq(3)
           end
         end
       end
