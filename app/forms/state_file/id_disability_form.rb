@@ -41,14 +41,18 @@ module StateFile
 
     private
 
+    def eager_loaded_intake
+      @eager_loaded_intake ||= intake.class.includes(state_file1099_rs: :state_specific_followup).find(intake.id)
+    end
+
     def clean_up_followups
       if primary_disabled == "no" || %w[spouse none].include?(mfj_disability)
-        primary_followups = @intake.filer_1099_rs(:primary).map(&:state_specific_followup).compact
+        primary_followups = eager_loaded_intake.filer_1099_rs(:primary).map(&:state_specific_followup).compact
         primary_followups.each(&:destroy)
       end
 
-      if @intake.filing_status_mfj? && (spouse_disabled == "no" || %w[primary none].include?(mfj_disability))
-        spouse_followups = @intake.filer_1099_rs(:spouse).map(&:state_specific_followup).compact
+      if eager_loaded_intake.filing_status_mfj? && (spouse_disabled == "no" || %w[primary none].include?(mfj_disability))
+        spouse_followups = eager_loaded_intake.filer_1099_rs(:spouse).map(&:state_specific_followup).compact
         spouse_followups.each(&:destroy)
       end
     end
