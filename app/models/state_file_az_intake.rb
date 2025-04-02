@@ -26,6 +26,7 @@
 #  email_address                          :citext
 #  email_address_verified_at              :datetime
 #  email_notification_opt_in              :integer          default("unfilled"), not null
+#  extension_payments_amount              :decimal(12, 2)   default(0.0)
 #  failed_attempts                        :integer          default(0), not null
 #  federal_return_status                  :string
 #  has_prior_last_names                   :integer          default("unfilled"), not null
@@ -39,6 +40,7 @@
 #  made_az321_contributions               :integer          default("unfilled"), not null
 #  made_az322_contributions               :integer          default("unfilled"), not null
 #  message_tracker                        :jsonb
+#  paid_extension_payments                :integer          default("unfilled"), not null
 #  paid_federal_extension_payments        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                :integer          default("unfilled"), not null
 #  phone_number                           :string
@@ -107,7 +109,9 @@ class StateFileAzIntake < StateFileBaseIntake
   enum made_az322_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az322_contributions
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
+  enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
   enum paid_federal_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_federal_extension_payments
+
 
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
   validates :made_az322_contributions, inclusion: { in: ["yes", "no"]}, on: :az322_form_create

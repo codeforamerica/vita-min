@@ -31,6 +31,7 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::AzSubtractionsController,
         StateFile::Questions::AzExciseCreditController,
         StateFile::Questions::FederalExtensionPaymentsController,
+        StateFile::Questions::ExtensionPaymentsController,
         StateFile::Questions::PrimaryStateIdController,
         StateFile::Questions::SpouseStateIdController,
         StateFile::Questions::AzReviewController,

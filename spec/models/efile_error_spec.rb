@@ -53,6 +53,7 @@ describe 'EfileError' do
       "eligible",
       "email-address",
       "esign-declaration",
+      "extension-payments",
       "federal-extension-payments",
       "federal-info",
       "id-disability",

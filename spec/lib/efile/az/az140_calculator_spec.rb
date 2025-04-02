@@ -416,6 +416,31 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
+  describe "Line 55: Extension Payments" do
+    context "when there are no extension payments" do
+      before do
+        allow(intake).to receive(:extension_payments_amount).and_return 0
+      end
+
+      it "returns nil" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_55].value).to eq(0)
+      end
+    end
+
+    context "when there are extension payments" do
+      before do
+        intake.paid_extension_payments = 'yes'
+        allow(intake).to receive(:extension_payments_amount).and_return 2112
+      end
+
+      it "returns the amount of the payment" do
+        instance.calculate
+        expect(instance.lines[:AZ140_LINE_55].value).to eq(2112)
+      end
+    end
+  end
+
   describe "Line 56: Increased Excise Tax Credit" do
     before do
       allow(intake).to receive(:disqualified_from_excise_credit_fyst?).and_return false
@@ -602,6 +627,17 @@ describe Efile::Az::Az140Calculator do
       end
     end
   end
+
+  describe "Line 59" do
+    it "sums lines 53 through 58" do
+      allow(instance).to receive(:calculate_line_53).and_return(100)
+      allow(instance).to receive(:calculate_line_55).and_return(300)
+      allow(instance).to receive(:calculate_line_56).and_return(400)
+      instance.calculate
+      expect(instance.lines[:AZ140_LINE_59].value).to eq(800)
+    end
+  end
+
 
   describe "refund_or_owed_amount" do
     it "subtracts owed amount from refund amount" do
