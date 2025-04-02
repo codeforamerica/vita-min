@@ -193,6 +193,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:refund_or_owed_amount).and_return 1000
       allow(Flipper).to receive(:enabled?).and_call_original
       allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
     end
 
     it "has content", required_schema: "nc" do
@@ -272,6 +273,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: filing_year, count: 2)
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text(I18n.t("state_file.questions.nc_out_of_country.edit.title"))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
