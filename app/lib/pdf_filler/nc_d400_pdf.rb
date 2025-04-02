@@ -81,7 +81,7 @@ module PdfFiller
         y_d400wf_sigdate2: @submission.data_source.spouse_esigned_yes? ? date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.to_date : ""
       }
       if Flipper.enabled?(:extension_period)
-        answers["y_d400wf_Out of Country"] = @xml_document.at('OutOfCountry')&.text.present? ? "Yes" : "Off"
+        answers["y_d400wf_Out of Country"] = checkbox_value(@xml_document.at('OutOfCountry')&.text.present?)
       end
       answers
     end

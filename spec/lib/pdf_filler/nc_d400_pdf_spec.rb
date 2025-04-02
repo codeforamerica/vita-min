@@ -144,7 +144,7 @@ RSpec.describe PdfFiller::NcD400Pdf do
             end
 
             it "does not show OutOfCountry field" do
-              expect(pdf_fields["y_d400wf_Out of Country"]).to eq "Off"
+              expect(pdf_fields["y_d400wf_Out of Country"]).to be_nil
             end
           end
         end
