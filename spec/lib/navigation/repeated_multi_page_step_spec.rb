@@ -5,7 +5,7 @@ RSpec.describe Navigation::RepeatedMultiPageStep do
   let(:first_controller_class) { Class.new }
   let(:second_controller_class) { Class.new }
   let(:visitor_record) { double }
-  let(:instance) { described_class.new(controllers, ->(visitor_record) { visitor_record.count }) }
+  let(:instance) { described_class.new("step_name", controllers, ->(visitor_record) { visitor_record.count }) }
 
   before do
     allow(visitor_record).to receive(:count).and_return(num_items)
@@ -17,10 +17,10 @@ RSpec.describe Navigation::RepeatedMultiPageStep do
       let(:controllers) { [first_controller_class, second_controller_class] }
       let(:expected_pages) {
         [
-          { item_index: 0, controller: first_controller_class },
-          { item_index: 0, controller: second_controller_class },
-          { item_index: 1, controller: first_controller_class },
-          { item_index: 1, controller: second_controller_class }
+          { item_index: 0, controller: first_controller_class, step: "step_name" },
+          { item_index: 0, controller: second_controller_class, step: "step_name" },
+          { item_index: 1, controller: first_controller_class, step: "step_name" },
+          { item_index: 1, controller: second_controller_class, step: "step_name" }
         ]
       }
       it "returns the correct sequence of pages" do
