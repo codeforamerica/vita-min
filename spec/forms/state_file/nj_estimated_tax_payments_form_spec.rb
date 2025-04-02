@@ -11,7 +11,8 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         {
           has_estimated_payments: "yes",
           overpayments: 0,
-          estimated_tax_payments: money_field_value
+          estimated_tax_payments: money_field_value,
+          extension_payments: 0
         }
       end
     end
@@ -21,7 +22,19 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         {
           has_estimated_payments: "yes",
           overpayments: money_field_value,
-          estimated_tax_payments: 0
+          estimated_tax_payments: 0,
+          extension_payments: 0
+        }
+      end
+    end
+
+    it_behaves_like :nj_money_field_concern, field: :extension_payments, can_be_empty: true do
+      let(:form_params) do
+        {
+          has_estimated_payments: "yes",
+          overpayments: 0,
+          estimated_tax_payments: 0,
+          extension_payments: money_field_value
         }
       end
     end

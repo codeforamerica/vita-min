@@ -13,14 +13,39 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
       expect(response).to be_successful
     end
 
+    context 'when the extension_period Flipper flag is set' do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:hide_intercom).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
+      end
+
+      it 'displays the extension_payments field' do
+        get :edit
+        expect(response.body).to include(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.extension_payments_input_helper_html'))
+      end
+    end
+
+    context 'when the extension_period Flipper flag is NOT set' do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:hide_intercom).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(false)
+      end
+
+      it 'does not display the extension_payments field' do
+        get :edit
+        expect(response.body).not_to include(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.extension_payments_input_helper_html'))
+      end
+    end
+
     describe "#update" do
-      context "when a user has estimated tax payments and overpayments" do
+      context "when a user has estimated tax payments, overpayments, and extension payments" do
         let(:form_params) {
           {
             state_file_nj_estimated_tax_payments_form: {
               has_estimated_payments: "yes",
               estimated_tax_payments: 1000,
-              overpayments: 2000
+              overpayments: 2000,
+              extension_payments: 500
             }
           }
         }
@@ -31,6 +56,7 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
           expect(intake.has_estimated_payments).to eq "yes"
           expect(intake.estimated_tax_payments).to eq 1000
           expect(intake.overpayments).to eq 2000
+          expect(intake.extension_payments).to eq 500
         end
       end
 
@@ -41,6 +67,7 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
               has_estimated_payments: "yes",
               estimated_tax_payments: 1000,
               overpayments: 2000,
+              extension_payments: 500
             }
           }
         end
