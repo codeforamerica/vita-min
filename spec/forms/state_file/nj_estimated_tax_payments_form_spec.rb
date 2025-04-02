@@ -51,7 +51,8 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         {
           has_estimated_payments: "yes",
           estimated_tax_payments: 12345,
-          overpayments: 54321
+          overpayments: 54321,
+          extension_payments: 130
         }
       end
 
@@ -61,6 +62,7 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         expect(intake.has_estimated_payments).to eq "yes"
         expect(intake.estimated_tax_payments).to eq 12345
         expect(intake.overpayments).to eq 54321
+        expect(intake.extension_payments).to eq 130
       end
     end
 
@@ -69,7 +71,8 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         {
           has_estimated_payments: "no",
           estimated_tax_payments: nil,
-          overpayments: nil
+          overpayments: nil,
+          extension_payments: nil
         }
       end
 
@@ -79,6 +82,7 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         expect(intake.has_estimated_payments).to eq "no"
         expect(intake.estimated_tax_payments).to eq nil
         expect(intake.overpayments).to eq nil
+        expect(intake.extension_payments).to eq nil
       end
     end
   end
