@@ -2944,6 +2944,12 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      extension_payments:
+        edit:
+          amount: Amount of extension payments
+          enter_amount: Enter the amount of extension payments...
+          more_info: More info here...
+          title: Did you make any extension payments?
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget

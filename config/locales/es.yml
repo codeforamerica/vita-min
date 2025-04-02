@@ -2910,6 +2910,12 @@ es:
           spouse_esign: Mi cónyuge ha leído y acepta la certificación anterior
           submit: Envía tu declaración estatal
           title: Firma electrónicamente tu declaración de impuestos del estado de %{state_name}
+      extension_payments:
+        edit:
+          amount: Amount of extension payments
+          enter_amount: Enter the amount of extension payments...
+          more_info: More info here...
+          title: Did you make any extension payments?
       id_disability:
         edit:
           help_b1: Un individuo reconocido como discapacitado por la Administración del Seguro Social, la Junta de Jubilación de los Ferrocarriles o la Oficina de Administración y Presupuesto (OMB, por sus siglas en inglés).
