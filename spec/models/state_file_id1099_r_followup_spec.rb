@@ -51,18 +51,18 @@ RSpec.describe StateFileId1099RFollowup, type: :model do
       let(:followup) { build(:state_file_id1099_r_followup, income_source: "police_officer") }
 
       context 'when police retirement fund is yes' do
-        it 'returns true' do
+        it 'returns false' do
           followup.police_retirement_fund = "yes"
           followup.police_persi = "no"
-          expect(followup.qualifying_retirement_income?).to be true
+          expect(followup.qualifying_retirement_income?).to be false
         end
       end
 
       context 'when police persi is yes' do
-        it 'returns true' do
+        it 'returns false' do
           followup.police_retirement_fund = "no"
           followup.police_persi = "yes"
-          expect(followup.qualifying_retirement_income?).to be true
+          expect(followup.qualifying_retirement_income?).to be false
         end
       end
 
@@ -73,24 +73,32 @@ RSpec.describe StateFileId1099RFollowup, type: :model do
           expect(followup.qualifying_retirement_income?).to be false
         end
       end
+
+      context 'when both police retirement fund and persi are yes' do
+        it 'returns true' do
+          followup.police_retirement_fund = "yes"
+          followup.police_persi = "yes"
+          expect(followup.qualifying_retirement_income?).to be true
+        end
+      end
     end
 
     context 'when income source is firefighter' do
       let(:followup) { build(:state_file_id1099_r_followup, income_source: "firefighter") }
 
       context 'when firefighter frf is yes' do
-        it 'returns true' do
+        it 'returns false' do
           followup.firefighter_frf = "yes"
           followup.firefighter_persi = "no"
-          expect(followup.qualifying_retirement_income?).to be true
+          expect(followup.qualifying_retirement_income?).to be false
         end
       end
 
       context 'when firefighter persi is yes' do
-        it 'returns true' do
+        it 'returns false' do
           followup.firefighter_frf = "no"
           followup.firefighter_persi = "yes"
-          expect(followup.qualifying_retirement_income?).to be true
+          expect(followup.qualifying_retirement_income?).to be false
         end
       end
 
@@ -99,6 +107,14 @@ RSpec.describe StateFileId1099RFollowup, type: :model do
           followup.firefighter_frf = "no"
           followup.firefighter_persi = "no"
           expect(followup.qualifying_retirement_income?).to be false
+        end
+      end
+
+      context 'when both firefighter frf and persi are yes' do
+        it 'returns true' do
+          followup.firefighter_frf = "yes"
+          followup.firefighter_persi = "yes"
+          expect(followup.qualifying_retirement_income?).to be true
         end
       end
     end
