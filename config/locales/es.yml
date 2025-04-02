@@ -2182,7 +2182,7 @@ es:
         verify: Verificar el código
       form:
         errors:
-          bad_input: Número completo de Seguro Social (SSN)/Número de Identificación del Contribuyente (ITIN) incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
+          bad_input: Número completo de Seguro Social (SSN)/Número de Identificación del Contribuyente (ITIN) incorrecto. Después de 3 intentos fallidos, las cuentas se bloquean.
       new:
         email_address:
           label: Tu dirección de correo electrónico

@@ -2199,7 +2199,7 @@ en:
         verify: Verify code
       form:
         errors:
-          bad_input: Incorrect SSN/ITIN. After 5 failed attempts, accounts are locked.
+          bad_input: Incorrect SSN/ITIN. After 3 failed attempts, accounts are locked.
       new:
         email_address:
           label: Your email address
