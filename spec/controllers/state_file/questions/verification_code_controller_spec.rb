@@ -176,13 +176,14 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
         let!(:existing_intake_no_df_data) do
           build(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com").tap do |intake|
             intake.raw_direct_file_data = nil
+            intake.failed_attempts = 3
             intake.save!
           end
         end
 
         context "still locked out by time" do
           before do
-            existing_intake_no_df_data.update(locked_at: 28.minutes.ago, failed_attempts: 3)
+            existing_intake_no_df_data.update(locked_at: 28.minutes.ago)
           end
 
           it "renders the edit page, does not delete current intake, does not reset failed attempts" do
@@ -195,7 +196,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
 
         context "no longer locked out by time" do
           before do
-            existing_intake_no_df_data.update(locked_at: 32.minutes.ago, failed_attempts: 3)
+            existing_intake_no_df_data.update(locked_at: 32.minutes.ago)
           end
 
           it "renders the edit page, does not delete current intake, does not reset failed attempts" do

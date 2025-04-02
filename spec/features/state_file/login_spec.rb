@@ -42,20 +42,7 @@ RSpec.feature "Logging in" do
     }
 
     scenario "signing in with phone number" do
-      visit "/login-options"
-      expect(page).to have_text "Sign in to FileYourStateTaxes"
-      click_on "Sign in with phone number"
-
-      expect(page).to have_text "Sign in with your phone number"
-      fill_in "Your phone number", with: phone_number
-      perform_enqueued_jobs do
-        click_on I18n.t("state_file.questions.email_address.edit.action")
-      end
-
-      expect(twilio_service).to have_received(:send_text_message).with(
-        to: phone_number,
-        body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 10 minutes.",
-      )
+      sign_in_request_via_phone_number
 
       expect(page).to have_text "Enter the code to continue"
       fill_in "Enter the 6-digit code", with: verification_code
@@ -94,20 +81,7 @@ RSpec.feature "Logging in" do
     end
 
     scenario "get locked out after three tries" do
-      visit "/login-options"
-      expect(page).to have_text "Sign in to FileYourStateTaxes"
-      click_on "Sign in with phone number"
-
-      expect(page).to have_text "Sign in with your phone number"
-      fill_in "Your phone number", with: phone_number
-      perform_enqueued_jobs do
-        click_on I18n.t("state_file.questions.email_address.edit.action")
-      end
-
-      expect(twilio_service).to have_received(:send_text_message).with(
-        to: phone_number,
-        body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 10 minutes.",
-        )
+      sign_in_request_via_phone_number
 
       expect(page).to have_text "Enter the code to continue"
       fill_in "Enter the 6-digit code", with: "999999"
@@ -132,20 +106,7 @@ RSpec.feature "Logging in" do
       context "before unlocked_in time" do
         context "get verification code correct" do
           scenario "gets account locked page" do
-            visit "/login-options"
-            expect(page).to have_text "Sign in to FileYourStateTaxes"
-            click_on "Sign in with phone number"
-
-            expect(page).to have_text "Sign in with your phone number"
-            fill_in "Your phone number", with: phone_number
-            perform_enqueued_jobs do
-              click_on I18n.t("state_file.questions.email_address.edit.action")
-            end
-
-            expect(twilio_service).to have_received(:send_text_message).with(
-              to: phone_number,
-              body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 10 minutes.",
-              )
+            sign_in_request_via_phone_number
 
             expect(page).to have_text "Enter the code to continue"
             fill_in "Enter the 6-digit code", with: verification_code
@@ -157,20 +118,7 @@ RSpec.feature "Logging in" do
 
         context "get verification code wrong" do
           scenario "gets account locked page" do
-            visit "/login-options"
-            expect(page).to have_text "Sign in to FileYourStateTaxes"
-            click_on "Sign in with phone number"
-
-            expect(page).to have_text "Sign in with your phone number"
-            fill_in "Your phone number", with: phone_number
-            perform_enqueued_jobs do
-              click_on I18n.t("state_file.questions.email_address.edit.action")
-            end
-
-            expect(twilio_service).to have_received(:send_text_message).with(
-              to: phone_number,
-              body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 10 minutes.",
-              )
+            sign_in_request_via_phone_number
 
             expect(page).to have_text "Enter the code to continue"
             fill_in "Enter the 6-digit code", with: "999999"
@@ -188,20 +136,7 @@ RSpec.feature "Logging in" do
 
         context "gets verification code wrong" do
           scenario "gets enter_verification_code screen again" do
-            visit "/login-options"
-            expect(page).to have_text "Sign in to FileYourStateTaxes"
-            click_on "Sign in with phone number"
-
-            expect(page).to have_text "Sign in with your phone number"
-            fill_in "Your phone number", with: phone_number
-            perform_enqueued_jobs do
-              click_on I18n.t("state_file.questions.email_address.edit.action")
-            end
-
-            expect(twilio_service).to have_received(:send_text_message).with(
-              to: phone_number,
-              body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 10 minutes.",
-              )
+            sign_in_request_via_phone_number
 
             expect(page).to have_text "Enter the code to continue"
             fill_in "Enter the 6-digit code", with: "999999"
@@ -214,20 +149,7 @@ RSpec.feature "Logging in" do
         context "gets verification code right" do
           context "gets SSN correct" do
             scenario "gets to login and move forward" do
-              visit "/login-options"
-              expect(page).to have_text "Sign in to FileYourStateTaxes"
-              click_on "Sign in with phone number"
-
-              expect(page).to have_text "Sign in with your phone number"
-              fill_in "Your phone number", with: phone_number
-              perform_enqueued_jobs do
-                click_on I18n.t("state_file.questions.email_address.edit.action")
-              end
-
-              expect(twilio_service).to have_received(:send_text_message).with(
-                to: phone_number,
-                body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 10 minutes.",
-                )
+              sign_in_request_via_phone_number
 
               expect(page).to have_text "Enter the code to continue"
               fill_in "Enter the 6-digit code", with: verification_code
@@ -249,20 +171,7 @@ RSpec.feature "Logging in" do
             end
 
             scenario "will be able to re-enter SSN 3 times" do
-              visit "/login-options"
-              expect(page).to have_text "Sign in to FileYourStateTaxes"
-              click_on "Sign in with phone number"
-
-              expect(page).to have_text "Sign in with your phone number"
-              fill_in "Your phone number", with: phone_number
-              perform_enqueued_jobs do
-                click_on I18n.t("state_file.questions.email_address.edit.action")
-              end
-
-              expect(twilio_service).to have_received(:send_text_message).with(
-                to: phone_number,
-                body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 10 minutes.",
-                )
+              sign_in_request_via_phone_number
 
               expect(page).to have_text "Enter the code to continue"
               fill_in "Enter the 6-digit code", with: verification_code
@@ -314,5 +223,22 @@ RSpec.feature "Logging in" do
 
       expect(page).to have_text "Sorry, we don’t have an account registered for that phone number. Click here to get started with FileYourStateTaxes."
     end
+  end
+
+  def sign_in_request_via_phone_number
+    visit "/login-options"
+    expect(page).to have_text "Sign in to FileYourStateTaxes"
+    click_on "Sign in with phone number"
+
+    expect(page).to have_text "Sign in with your phone number"
+    fill_in "Your phone number", with: phone_number
+    perform_enqueued_jobs do
+      click_on I18n.t("state_file.questions.email_address.edit.action")
+    end
+
+    expect(twilio_service).to have_received(:send_text_message).with(
+      to: phone_number,
+      body: "Your 6-digit FileYourStateTaxes verification code is: #{verification_code}. This code will expire after 10 minutes.",
+      )
   end
 end
