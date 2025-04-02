@@ -79,6 +79,8 @@ class ApplicationController < ActionController::Base
   end
 
   def eager_loaded_current_intake
+    return @eager_loaded_current_intake if defined?(@eager_loaded_current_intake)
+
     record ||= current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
     @eager_loaded_current_intake ||= record.class.includes(:dependents).find(record.id) if record.present?
   end
@@ -103,7 +105,7 @@ class ApplicationController < ActionController::Base
   end
 
   def visitor_record
-    eager_loaded_current_intake
+    current_intake
   end
 
   def ip_for_irs

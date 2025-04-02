@@ -61,7 +61,7 @@ class Document < ApplicationRecord
 
   enum person: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :person
 
-  default_scope { order(created_at: :asc) }
+  default_scope { order(created_at: :asc).includes(upload_attachment: :blob) }
 
   scope :of_type, ->(type) { where(document_type: type) }
   scope :active, ->() { where(archived: false) }

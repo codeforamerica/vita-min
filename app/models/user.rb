@@ -126,17 +126,14 @@ class User < ApplicationRecord
     when AdminRole::TYPE, ClientSuccessRole::TYPE
       VitaPartner.all
     when OrganizationLeadRole::TYPE
-      # VitaPartner.organizations.where(id: role.organization).or(VitaPartner.sites.where(parent_organization: role.organization))
       organization = OrganizationLeadRole.includes(:organization).find(role_id).organization
       VitaPartner.organizations.where(id: organization).or(VitaPartner.sites.where(parent_organization: organization))
     when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
-      # sites = role.class.find(role_id).sites
-      # VitaPartner.sites.where(id: sites)
       VitaPartner.sites.where(id: role.sites)
     when CoalitionLeadRole::TYPE
       coalition = CoalitionLeadRole.includes(:coalition).find(role_id).coalition
       organizations = VitaPartner.organizations.where(coalition: coalition)
-      sites = VitaPartner.sites.where(parent_organization: organizations)
+      sites = VitaPartner.sites.includes(:parent_organization).where(parent_organization: organizations)
       organizations.or(sites)
     when GreeterRole::TYPE
       VitaPartner.allows_greeters
