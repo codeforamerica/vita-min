@@ -55,7 +55,7 @@ module Hub::StateFile
       email = StateFileNotificationEmail.new(to: "example@example.com",
                                              body: replaced_body,
                                              subject: subject)
-      message = StateFile::NotificationMailer.user_message(notification_email: email)
+      message = StateFile::NotificationMailer.user_message(notification_email: email, locale: locale)
       ActionMailer::Base.preview_interceptors.each do |interceptor|
         interceptor.previewing_email(message)
       end

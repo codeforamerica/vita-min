@@ -4,6 +4,6 @@
   <%= image_tag(icon_path) %>
   <div>
     <p><%= item_label %></p>
-    <%= render 'shared/unread_icon', flag: true if current_user.notifications.pluck(:read).any?(false) && item_label == "My Updates" %>
+    <%= render 'shared/unread_icon', flag: true if current_user.notifications.where('created_at >= ?', Date.new(Rails.configuration.product_year)).pluck(:read).any?(false) && item_label == "My Updates" %>
   </div>
 </a>

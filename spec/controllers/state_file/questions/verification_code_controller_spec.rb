@@ -78,6 +78,7 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
         post :update, params: { state_file_verification_code_form: { verification_code: token[0] }}
         expect(response).to redirect_to(login_location)
         expect(StateFileAzIntake.where(id: intake.id)).to be_empty
+        expect(existing_intake.reload.unfinished_intake_ids).to include(intake.id.to_s)
       end
 
       context "when the matching intake exceeded number of failed attempts" do
@@ -133,6 +134,45 @@ RSpec.describe StateFile::Questions::VerificationCodeController do
         )
         expect(response).to redirect_to(login_location)
         expect(StateFileAzIntake.where(id: intake.id)).to be_empty
+        expect(existing_intake.reload.unfinished_intake_ids).to include(intake.id.to_s)
+      end
+
+      context "with the same intake ids" do
+        before do
+          # save off the original id to find it correctly again (reload will try to find record using the stubbed id)
+          @original_existing_intake_id = existing_intake.id
+          allow(existing_intake).to receive(:id).and_return(intake.id)
+        end
+
+        it "redirects to login and deletes the existing intake" do
+          post :update, params: { state_file_verification_code_form: { verification_code: token[0] }}
+          login_location = StateFile::IntakeLoginsController.to_path_helper(
+            action: :edit,
+            id: VerificationCodeService.hash_verification_code_with_contact_info(
+              "someone@example.com", token[0]
+            )
+          )
+          expect(response).to redirect_to(login_location)
+          expect(StateFileAzIntake.where(id: intake.id)).to be_empty
+          expect(StateFileIdIntake.find(@original_existing_intake_id).unfinished_intake_ids).to include(intake.id.to_s)
+        end
+      end
+    end
+
+    context "with an intake matching an existing intake in the same state but with different login methods" do
+      let!(:existing_intake) { create(:state_file_az_intake, contact_preference: "text", email_address: "someone@example.com") }
+      let(:intake) do
+        build(:state_file_az_intake, contact_preference: "email", email_address: "someone@example.com", visitor_id: "v1s1t1n9").tap do |intake|
+          intake.raw_direct_file_data = nil
+          intake.save!
+        end
+      end
+      let(:token) { EmailAccessToken.generate!(email_address: "someone@example.com") }
+
+      it "redirects to the next path" do
+        post :update, params: { state_file_verification_code_form: { verification_code: token[0] }}
+        expect(response).to redirect_to(questions_code_verified_path)
+        expect(intake.reload).not_to be_destroyed
       end
     end
 
