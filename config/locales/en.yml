@@ -1608,6 +1608,19 @@ en:
           Hello - Thank you for using FileYourStateTaxes! Any issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, log in here: %{login_link}
 
           Questions? Email us at help@fileyourstatetaxes.org.
+      marketing_email:
+        body: |
+          Hello,
+
+          File your state tax return again for free with FileYourStateTaxes!
+
+          April 15 is right around the corner. Luckily, filing is easier than ever! File your taxes with IRS Direct File and FileYourStateTaxes today.
+
+          Already started? Finish filing before April 15.
+
+          Best,
+          The FileYourStateTaxes team
+        subject: IRS Direct File is back and easier than ever
       post_deadline_reminder:
         email:
           body: |-
