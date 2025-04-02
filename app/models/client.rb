@@ -100,6 +100,10 @@ class Client < ApplicationRecord
   enum still_needs_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :still_needs_help
   enum experience_survey: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :experience_survey
 
+  def self.maximum_attempts
+    3
+  end
+
   def self.delegated_intake_attributes
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
   end

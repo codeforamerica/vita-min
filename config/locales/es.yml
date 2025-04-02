@@ -1856,8 +1856,8 @@ es:
         verify: Verificar
       form:
         errors:
-          bad_input: ID de cliente o los 4 últimos de SSN/ITIN incorrectos. Después de 5 intentos fallidos, las cuentas se bloquean.
-          bad_verification_code: Código incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
+          bad_input: ID de cliente o los 4 últimos de SSN/ITIN incorrectos. Después de 3 intentos fallidos, las cuentas se bloquean.
+          bad_verification_code: Código incorrecto. Después de 3 intentos fallidos, las cuentas se bloquean.
       new:
         one_form_of_contact: 'Ingresa una forma de contacto a continuación:'
         send_code: Enviar el código

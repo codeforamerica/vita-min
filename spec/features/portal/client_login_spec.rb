@@ -103,12 +103,6 @@ RSpec.feature "Logging in" do
           fill_in "Enter 6 digit code", with: "999999"
           click_on "Verify"
 
-          fill_in "Enter 6 digit code", with: "999999"
-          click_on "Verify"
-
-          fill_in "Enter 6 digit code", with: "999999"
-          click_on "Verify"
-
           expect(page).to have_text("This account has been locked")
         end
 
@@ -129,22 +123,10 @@ RSpec.feature "Logging in" do
           fill_in "Enter 6 digit code", with: "999999"
           click_on "Verify"
 
-          fill_in "Enter 6 digit code", with: "999999"
-          click_on "Verify"
-
-          fill_in "Enter 6 digit code", with: "999999"
-          click_on "Verify"
-
           fill_in "Enter 6 digit code", with: "000004"
           click_on "Verify"
 
           fill_in "Client ID or Last 4 of SSN/ITIN", with: "9875"
-          click_on "Continue"
-
-          fill_in "Client ID or Last 4 of SSN/ITIN", with: "9877"
-          click_on "Continue"
-
-          fill_in "Client ID or Last 4 of SSN/ITIN", with: "9878"
           click_on "Continue"
 
           fill_in "Client ID or Last 4 of SSN/ITIN", with: "9877"

@@ -159,9 +159,9 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         end
       end
 
-      context "when client tried to log in 4 times already" do
+      context "when client tried to log in 2 times already" do
         before do
-          client.update(locked_at: nil, failed_attempts: 4)
+          client.update(locked_at: nil, failed_attempts: 2)
         end
 
         it "it resets failed attempt for SSN screen" do
@@ -443,9 +443,9 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
             expect(response).to render_template(:edit)
           end
 
-          context "with 4 previous failed attempts" do
+          context "with 2 previous failed attempts" do
             before do
-              client.update(failed_attempts: 4)
+              client.update(failed_attempts: 2)
             end
 
             it "locks the client account and redirects to a lockout page" do
