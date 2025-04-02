@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class IdGroceryCreditReviewController < QuestionsController
-      include ReturnToReviewConcern
 
       def grocery_credit_amount
         current_intake.calculator.grocery_credit_amount

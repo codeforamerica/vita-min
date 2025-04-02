@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class NjTenantPropertyTaxWorksheetController < QuestionsController
-      include ReturnToReviewConcern
 
       def next_path
         options = {}

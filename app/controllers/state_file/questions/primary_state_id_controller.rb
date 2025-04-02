@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class PrimaryStateIdController < QuestionsController
-      include ReturnToReviewConcern
 
       def edit
         super

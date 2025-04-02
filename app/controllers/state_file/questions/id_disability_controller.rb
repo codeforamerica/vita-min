@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class IdDisabilityController < QuestionsController
-      include ReturnToReviewConcern
 
       def self.show?(intake)
         intake.show_disability_question?
