@@ -18,7 +18,9 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
         let(:form_params) {
           {
             state_file_nj_estimated_tax_payments_form: {
+              has_estimated_payments: "yes",
               estimated_tax_payments: 1000,
+              overpayments: 2000
             }
           }
         }
@@ -26,7 +28,9 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
         it "saves the correct value for renter" do
           post :update, params: form_params
           intake.reload
+          expect(intake.has_estimated_payments).to eq "yes"
           expect(intake.estimated_tax_payments).to eq 1000
+          expect(intake.overpayments).to eq 2000
         end
       end
     end
