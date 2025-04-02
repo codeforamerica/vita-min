@@ -386,6 +386,7 @@
 #  index_intakes_on_matching_previous_year_intake_id       (matching_previous_year_intake_id)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
+#  index_intakes_on_preferred_name                         (preferred_name)
 #  index_intakes_on_primary_consented_to_service           (primary_consented_to_service)
 #  index_intakes_on_primary_drivers_license_id             (primary_drivers_license_id)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin

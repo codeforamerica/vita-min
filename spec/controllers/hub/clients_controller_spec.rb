@@ -1526,7 +1526,12 @@ RSpec.describe Hub::ClientsController do
     let(:product_year) { Rails.configuration.product_year }
     let(:intake) { build(:intake, product_year: product_year) }
     let(:client) { create(:client, intake: intake, tax_returns: tax_returns) }
-    let(:presenter) { Hub::ClientsController::HubClientPresenter.new(client) }
+    let(:presenter) do
+      Hub::ClientsController::HubClientPresenter.new(
+        client,
+        {intakes: [client.intake]}
+      )
+    end
 
     describe "#editable?" do
       context "when there is a .intake" do
