@@ -385,6 +385,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose "state_file_nc_sales_use_tax_form_sales_use_tax_calculation_method_automated"
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text(I18n.t("state_file.questions.nc_out_of_country.edit.title"))
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
       fill_in "state_file_primary_state_id_form_id_number", with: "123456789"
