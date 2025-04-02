@@ -148,7 +148,6 @@ RSpec.describe PdfFiller::NcD400Pdf do
             end
           end
         end
-        end
       end
 
       context "mfj filers" do
