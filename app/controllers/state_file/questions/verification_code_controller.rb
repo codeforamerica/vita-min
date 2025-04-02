@@ -39,6 +39,7 @@ module StateFile
           track_question_answer
           redirect_to(next_path)
         else
+          @contact_info = params.dig(:state_file_verification_code_form, :contact_info)
           after_update_failure
           track_validation_error
           render :edit
@@ -54,8 +55,10 @@ module StateFile
         state_intake_classes = StateFile::StateInformationService.state_intake_classes.without(StateFileNyIntake)
         state_intake_classes.each do |intake_class|
           key = intake.contact_preference == "text" ? :phone_number : :email_address
-          search = intake_class.where.not(raw_direct_file_data: nil) # has a successful df import...
-          search = search.where(key => intake[key]) # ...using the same contact info
+          search = intake_class
+                     .where.not(raw_direct_file_data: nil) # has a successful df import...
+                     .where(contact_preference: intake.contact_preference) # ...used the same login method
+                     .where(key => intake[key]) # ...with the same contact info
           search = search.where.not(id: intake.id) if intake_class == intake.class # ...unless it's literally the same intake
 
           existing_intake = search.first
@@ -67,21 +70,33 @@ module StateFile
 
       def redirect_into_login(intake, existing_intake)
         contact_info = (
-          if intake.contact_preference == "email"
-            intake.email_address
+          if existing_intake.contact_preference == "email"
+            existing_intake.email_address
           else
-            intake.phone_number
+            existing_intake.phone_number
           end
         )
         hashed_verification_code = VerificationCodeService.hash_verification_code_with_contact_info(
           contact_info, @form.verification_code
         )
         @form.intake = existing_intake
-        intake.destroy unless intake.id == existing_intake.id
+
+        unless is_same_intake?(intake, existing_intake)
+          existing_intake.update(unfinished_intake_ids: existing_intake.unfinished_intake_ids << intake.id)
+          intake.destroy
+        end
+
         redirect_to IntakeLoginsController.to_path_helper(
           action: :edit,
           id: hashed_verification_code
         )
+      end
+
+      def is_same_intake?(intake, existing_intake)
+        same_state = intake.state_code == existing_intake.state_code
+        same_id = intake.id == existing_intake.id
+
+        same_state && same_id
       end
     end
   end

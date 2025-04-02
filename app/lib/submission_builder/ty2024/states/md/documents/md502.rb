@@ -45,12 +45,12 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.CityTownOrTaxingArea @intake.political_subdivision
       end
       xml.MarylandAddress do
-        if @intake.confirmed_permanent_address_yes?
+        if @intake.confirmed_permanent_address_yes? && !@intake.direct_file_address_is_po_box?
           extract_apartment_from_mailing_street(xml)
           xml.CityNm sanitize_for_xml(@intake.direct_file_data.mailing_city, 20)
           xml.StateAbbreviationCd @intake.direct_file_data.mailing_state.upcase
           xml.ZIPCd sanitize_zipcode(@intake.direct_file_data.mailing_zip)
-        elsif @intake.confirmed_permanent_address_no?
+        elsif @intake.confirmed_permanent_address_no? || @intake.direct_file_address_is_po_box?
           xml.AddressLine1Txt sanitize_for_xml(@intake.permanent_street, 30)
           xml.AddressLine2Txt sanitize_for_xml(@intake.permanent_apartment, 30) if @intake.permanent_apartment.present?
           xml.CityNm sanitize_for_xml(@intake.permanent_city, 20)
@@ -203,7 +203,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         end
       end
       xml.DaytimePhoneNumber @direct_file_data.phone_number if @direct_file_data.phone_number.present?
-      xml.EmailAddress @intake.email_address if @intake.email_address.present?
+      xml.EmailAddress email_from_intake_or_df
       if @intake.efile_submissions.count > 1
         xml.ExceptionCodes "247"
       end

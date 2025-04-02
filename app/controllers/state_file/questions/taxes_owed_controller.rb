@@ -3,7 +3,7 @@ module StateFile
     class TaxesOwedController < QuestionsController
 
       def self.show?(intake)
-        intake.calculated_refund_or_owed_amount&.negative? # what happens if zero?
+        intake.calculated_refund_or_owed_amount.negative?
       end
 
       def taxes_owed
@@ -11,9 +11,17 @@ module StateFile
       end
       helper_method :taxes_owed
 
-      private
+      def state_specific_payment_deadline
+        # NOTE: Intentionally not converted to the State's timezone because this is used to display the date visually
+        # Converting it from UTC to another timezone changes the day
+        StateInformationService.payment_deadline_date(current_intake.state_code)
+      end
+      helper_method :state_specific_payment_deadline
 
-      def card_postscript; end
+      def current_time_before_payment_deadline?
+        StateInformationService.before_payment_deadline?(app_time, current_intake.state_code)
+      end
+      helper_method :current_time_before_payment_deadline?
     end
   end
 end

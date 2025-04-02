@@ -155,37 +155,6 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         end
       end
     end
-
-    context "DEPRECATED BEHAVIOR; keep tests until page is changed on prod" do
-      # missing state_file_az_intake_attributes/made_az322_contributions
-      let(:params) do
-        {
-          az322_contribution: {
-            made_contribution: 'yes',
-            school_name: 'School A',
-            ctds_code: '123456789',
-            district_name: 'District A',
-            amount: 100,
-            date_of_contribution_month: '8',
-            date_of_contribution_day: "12",
-            date_of_contribution_year: Rails.configuration.statefile_current_tax_year
-          }
-        }
-      end
-
-      it "creates a new contribution linked to the current intake and redirects to the index" do
-        expect do
-          post :create, params: params
-        end.to change(Az322Contribution, :count).by 1
-
-        expect(response).to redirect_to(action: :index)
-
-        contribution = Az322Contribution.last
-        expect(contribution.state_file_az_intake).to eq intake
-        expect(contribution.school_name).to eq 'School A'
-        expect(contribution.amount).to eq 100
-      end
-    end
   end
 
   describe "#edit" do
@@ -254,7 +223,6 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         {
           id: contribution.id,
           az322_contribution: {
-            made_contribution: 'yes',
             school_name: 'New School',
             ctds_code: '123456789',
             district_name: 'District A',
@@ -297,4 +265,3 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
     end
   end
 end
-

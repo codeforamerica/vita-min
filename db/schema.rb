@@ -458,7 +458,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
     t.string "ctds_code"
     t.date "date_of_contribution"
     t.string "district_name"
-    t.integer "made_contribution", default: 0, null: false
     t.string "school_name"
     t.bigint "state_file_az_intake_id"
     t.datetime "updated_at", null: false
@@ -2365,6 +2364,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
     t.integer "fed_wages"
     t.string "federal_return_status"
     t.string "federal_submission_id"
+    t.integer "has_estimated_payments", default: 0, null: false
     t.string "hashed_ssn"
     t.integer "homeowner_home_subject_to_property_taxes", default: 0, null: false
     t.integer "homeowner_main_home_multi_unit", default: 0, null: false
@@ -2381,6 +2381,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_183447) do
     t.jsonb "message_tracker", default: {}
     t.string "municipality_code"
     t.string "municipality_name"
+    t.decimal "overpayments", precision: 12, scale: 2
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "permanent_apartment"
     t.string "permanent_city"

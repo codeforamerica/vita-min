@@ -246,6 +246,7 @@ es:
       whole_number: Debe ser un número entero
   forms:
     errors:
+      address_is_not_po_box: No puedes declarar un apartado postal como la dirección donde vivías. Por favor indica donde vivías el 31 de diciembre del %{tax_year}
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
       healthcare:
@@ -289,7 +290,7 @@ es:
         is_hsa: es HSA
       taxes_owed:
         withdraw_amount_higher_than_owed: Ingresa una cantidad menor o igual a %{owed_amount}
-        withdrawal_date_deadline: Introduzca una fecha entre hoy y Abril %{day}, %{year} o antes
+        withdrawal_date_deadline: Introduzca una fecha entre hoy y %{payment_deadline_date} de %{payment_deadline_year} o antes
   general:
     NA: N/A
     about: Acerca de
@@ -2505,6 +2506,9 @@ es:
             has_out_of_state_w2: recibiste ingresos en otro estado en el %{filing_year}
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2024.
             married_filing_separately: estás presentando una declaración de impuestos "casado, declarando por separado".
+            spouse_nra_html: |
+              no incluiste el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de tu cónyuge en tu declaración federal.<br><br>
+              Maryland no permite contribuyentes con el estado Casado declarando por separado presentar la declaración estatal de forma electrónica sin el SSN o ITIN de su cónyuge.
           offboarding_reason: No puedes utilizar este servicio este año porque %{reason}
           title: Desafortunadamente, después de transferir tus datos, descubrimos que no puedes usar este servicio este año. No te preocupes, aquí tienes otras opciones para declarar.
       declined_terms_and_conditions:
@@ -2709,11 +2713,12 @@ es:
           deduction_for_taxable_portion: Deducción por la parte imponible de los beneficios del Seguro Social y de Beneficios de Jubilación Ferroviaria
         nj_credits_unsupported:
           also_unsupported_html: |
-            <li>Solicitud de prórrogas </li>
+            <li>Solicitud de prórrogas</li>
             <li>Contribuciones caritativas a varias organizaciones de NJ a través de tu declaración</li>
             <li>Declaraciones con distintos estados civiles: debes usar el mismo estado civil en tus declaraciones de impuestos federales y estatales. Por ejemplo, no puedes presentarte como casado/a declarando conjuntamente en los impuestos federales y luego como casado/a declarando separadamente en los estatales.</li>
             <li>Repetición de dependientes: No debes agregar ni quitar dependientes en tu declaración de impuestos estatales si ya los reclamaste en tu declaración de impuestos federales</li>
             <li>Aplicar una parte de tu reembolso de 2024 a tus estimaciones de impuestos de 2025</li>
+            <li>La “regla de los tres años” o la “regla general” para calcular la parte imponible de sus ingresos de pensión/jubilación. Para más datos, consulte la publicación sobre <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf">Ingresos de Jubilación de New Jersey (PDF en inglés).</a></li>
           also_unsupported_title: 'Tampoco admitimos:'
           unsupported_html: |
             <li>Deducción por comidas, alojamiento, gastos de mudanza, otros gastos de negocio reembolsados o compensación por lesiones o enfermedades reportadas como salarios en tu W-2</li>
@@ -2785,7 +2790,7 @@ es:
                           <a href="%{vita_link}" rel="noopener nofollow" target="_blank">Comienza con VITA ahora</a>
                         </li>
                         <li>
-                          Aprende más sobre este proceso y otras opciones de declaración <a href="%{link}" rel="noopener nofollow" target="_blank">aquí.</a>
+                          Aprende más sobre este proceso y otras opciones de declaración <a href="https://www.fileyourstatetaxes.org/es/md/faq/what_are_my_other_state_filing_options_this_year_46" rel="noopener nofollow" target="_blank">aquí.</a>
                         </li>
                       </ul>
                       <li>
@@ -2838,11 +2843,16 @@ es:
               <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
                 Conéctate ahora
               </a>
+          vita_eligibility_reveal:
+            nj: |
+              <ul class="list--bulleted">
+                <li><a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer">Comience a utilizar VITA ahora (link en inglés).</a></li>
+              </ul>
           vita_introduction:
             nj: Puedes presentar tus impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS del programa Volunteer Income Tax Assistance (VITA por las siglas en inglés) en Simplify CT.
           vita_link: Comienza con VITA ahora
           want_to_claim_learn_more_html: Obtén más información <a href="%{link}" target="_blank">aquí</a>.
-          want_to_claim_vita_1: Es posible que puedas presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS, pero puede tardar de 2 a 3 semanas en completarse.
+          want_to_claim_vita_1: Puedes presentar tu declaración de impuestos estatales de forma gratuita con la ayuda de preparadores de impuestos voluntarios certificados por el IRS (VITA). Ten en cuenta que esta opción puede tardar de 2 a 3 semanas en completarse.
       email_address:
         edit:
           action: Enviar el código
@@ -3209,11 +3219,15 @@ es:
           address_header: Dirección
           apartment_number_label: Número de apartamento/unidad
           city_label: Cuidad
+          df_address_is_po_box:
+            p1: 'La dirección que tenemos registrada para ti es un apartado postal:'
+            p2: Ya que no puedes declarar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
           follow_up_help_text: No se aceptan PO Boxes
           mark_no_hint_html: Marca “no” si la dirección que aparece es un PO Box <strong>o</strong> si vivías en una dirección distinta el 31 de diciembre de %{filing_year}.
           state_label: Estado
           street_address_label: Dirección
           title: "¿Vivías en esta dirección el 31 de diciembre de %{filing_year}?"
+          title_df_po_box: Necesitamos saber dónde vivías el 31 de diciembre del %{filing_year}?
           where_did_you_live: "¿Dónde vivías el 31 de diciembre de %{filing_year}?"
           zip_label: Código postal
       md_permanently_disabled:
@@ -3437,11 +3451,11 @@ es:
           account_number: Número de cuenta
           account_type:
             label: Tipo de cuenta bancaria
-          after_deadline_default_withdrawal_info: Debido a que está presentando su declaración el o después del %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, el estado retirará su pago tan pronto como procesen su declaración.
+          after_deadline_default_withdrawal_info: Debido a que está presentando su declaración el o después del %{payment_deadline_date}, %{payment_deadline_year}, el estado retirará su pago tan pronto como procesen su declaración.
           bank_title: 'Por favor, comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
-          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el día del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el día del %{payment_deadline_date} de %{payment_deadline_year}):"
           foreign_accounts_owed: No están permitidos los depósitos directos internacionales.
           foreign_accounts_refund: No están permitidos los depósitos directos internacionales.
           routing_number: Número de ruta bancaria (routing number)
@@ -3525,23 +3539,28 @@ es:
           title: Necesitamos información sobre tu estado de seguro médico.
       nj_estimated_tax_payments:
         edit:
-          continue: Si aún no has realizado ningún pago, haz clic en "Continuar".
           description_html: |
-            <p>Incluye la suma de lo siguiente:</p>
+            <p>La mayoría de las personas <strong>no</strong> realizan estos pagos.</p>
+            <p>Es más probable que los hayas pagado si tu empleador/a <strong>no retiene</strong> impuestos de tu talón de pago o si trabajas como independiente (self-employed).</p>
+            <p>Estos pagos incluyen:</p>
             <ul class="list--bulleted">
-              <li><a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">Pagos estimados de impuestos sobre tus ingresos</a> que hiciste durante el año para tus impuestos estatales de New Jersey
-                <ul class="list--bulleted">
-                  <li><strong>Esto no incluye las retenciones de tu cheque/recibo de pago (paycheck)</strong></li>
-                </ul>
-              </li>
-              <li>Pagos en exceso en tu declaración de %{prior_year} que elegiste aplicar a tus impuestos estatales de New Jersey en %{filing_year}
-                <ul class="list--bulleted">
-                  <li>Nota: habrías seleccionado esta opción al presentar tu declaración de %{prior_year}</li>
-                </ul>
-              </li>
+              <li><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Pagos trimestrales estimados (PDF en inglés)</a> que hiciste. Estos vencieron el 15 de abril, el 17 de junio y el 16 de septiembre del año pasado, y el 15 de enero de este año. Los habrías pagado <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">en línea</a> o por correo.</li>
+              <li>(Si aplica) Un reembolso que decidiste transferir de tus impuestos estatales de %{prior_year} a tus impuestos estatales de %{filing_year}.</li>
             </ul>
-          label: 'Total:'
-          title: Por favor, dinos si ya pagaste parte de tus impuestos estatales sobre los ingresos de New Jersey de %{filing_year}.
+            <p>Estos pagos <strong>no</strong> incluyen:</p>
+            <ul class="list--bulleted">
+              <li>Pagos realizados para un año fiscal anterior</li>
+              <li>Retenciones de tu talón de pago (paycheck)</li>
+              <li>Impuestos sobre la propiedad</li>
+            </ul>
+          estimated_taxes_input_helper_html: Suma tus pagos trimestrales e ingresa el total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">verifica cuánto pagaste</a>).
+          estimated_taxes_input_label_html: "<strong>Total de pagos estimados realizados para los impuestos de %{filing_year}</strong>"
+          no_text: No (más común)
+          overpayments_input_helper_html: Si aplica, puedes encontrar esto en la línea 69 de tu NJ-1040 de %{prior_year}. Ingresa un monto aquí solo si no lo incluiste en el cálculo del cuadro anterior.
+          overpayments_input_label_html: "<strong>Reembolso transferido a los impuestos de %{filing_year} (no incluyas los pagos estimados)</strong>"
+          question_box: Ingrese los montos pagados.
+          radio_label: "¿Hiciste pagos estimados u otros pagos para los impuestos sobre los ingresos de New Jersey de %{filing_year}?"
+          title_html: ¿Hiciste <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">pagos estimados u otros pagos</a> para los impuestos sobre los ingresos de New Jersey de %{filing_year}?
       nj_gubernatorial_elections:
         edit:
           description_html: "<p>Puede que conozcas esto como \"financiamiento público\" de campañas.</p> \n<p>Puedes contribuir con $1 de lo que va a tus impuestos al <a href=\"https://elec.nj.gov/pdffiles/temporary/WebsitePlugForGubfinProgram.pdf\" target=\"_blank\" rel=\"noopener nofollow\">Fondo de Elecciones para Gobernador</a> (link en inglés).</p>\n<p>Para tu información: Tus impuestos no aumentarán y tu reembolso no se reducirá. Esto autoriza a New Jersey usar $1 de tus dólares de impuestos para este Fondo.</p>\n"
@@ -3709,7 +3728,8 @@ es:
           edit_disability: estado de discapacidad
           edit_veteran: estado de veterano/a de guerra
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
-          estimated_tax_payments: Pagos ya realizados a impuestos de New Jersey
+          estimated_tax_payments: Monto de los pagos trimestrales estimados
+          has_estimated_payments: Estimated or other payments
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
           household_rent_own_neither: Ni dueño/a ni inquilino/a
@@ -3717,9 +3737,10 @@ es:
           household_rent_own_rent: Inquilino/a
           medical_expenses: Gastos médicos totales
           missing_health_insurance: Dependientes que NO tienen seguro médico
+          overpayments: Amount of refund carried forward
           primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
-          primary_disabled: Exención por discapacidad (tuya)
-          primary_veteran: Exención para veteranos/as de guerra (tuya)
+          primary_disabled: Exención por discapacidad
+          primary_veteran: Exención para veteranos/as de guerra
           property_tax_credit_deduction: Deducción o Crédito por Impuestos a la Propiedad
           property_tax_paid: Impuestos sobre la propiedad pagados en %{filing_year}
           rent_paid: Alquiler pagado en %{filing_year}
@@ -3734,9 +3755,10 @@ es:
           reveal:
             15_wages_salaries_tips: Salarios, sueldos, propinas
             16a_interest_income: Ingreso total
-            20a_retirement_income: Retirement income
+            20a_retirement_income: Ingresos 1099-R (pensiones/anualidades)
             27_total_income: Ingreso total
-            28c_retirement_excluded_from_taxation: Ingresos de jubilación excluidos del impuesto
+            28a_pensions_annuities_excluded_from_taxation: Ingresos 1099-R (pensiones/anualidades) excluidos de impuestos
+            28b_other_income_excluded_because_of_retirement: Otros ingresos excluidos de impuestos debido a su estado de jubilación
             29_nj_gross_income: Ingreso Bruto de New Jersey
             30_exemptions: Exenciones (según el tamaño de tu familia, estado de discapacidad, estado de veterano/a de guerra)
             31_medical: Gastos médicos deducidos
@@ -3824,7 +3846,7 @@ es:
         edit:
           instructions_html: |
             <p>Se considera veterano a ex miembros de las Fuerzas Armadas de los Estados Unidos que hayan recibido una <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">baja honorable</a>.</p>
-            <p>Si esta es la primera vez que reclamas <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">esta exención</a>, debes presentar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">documentación</a> y <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">un formulario</a> a la División de Impuestos del Estado de New Jersey. Puedes hacerlo <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>. Puedes presentarlo después de terminar de usar esta herramienta y enviar tu declaración.
+            <p>Si es la primera vez que solicitas <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">esta exención (links en inglés)</a>, debes proporcionar <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">la documentación</a> y un formulario a la División de Impuestos de New Jersey. Al finalizar el proceso y enviar tu declaración, te enviaremos el link para el formulario e instrucciones para enviarlo en línea, por fax, o por correo postal.</p>
           primary_veteran_question: "¿Eres veterano/a de guerra?"
           spouse_veteran_question: "¿Tu cónyuge es veterano/a de guerra?"
           title: En New Jersey, los veteranos/as de guerra son elegibles para una exención de impuestos.
@@ -4171,21 +4193,47 @@ es:
           download_state_return_pdf: Descarga tu declaración estatal
           email_text_update: Recibirás una actualización por correo electrónico y mensaje de texto cuando tu declaración de impuestos estatal sea aceptada.
           email_update: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatal sea aceptada.
+          just_a_moment: Just a moment, we’re submitting your %{state_name} state tax return
+          takes_a_few: This usually takes a few seconds. Don't close this page.
           text_update: Recibirás una actualización por SMS cuando una vez tu declaración de impuestos haya sido aceptada.
           title: "¡Tu declaración de impuestos de %{state_name} de %{filing_year} ha sido enviada! "
           title_resubmit: "¡Tu declaración de impuestos de %{filing_year} de %{state_name} ha sido enviada de nuevo!"
         nj_additional_content:
-          body_html: Dijiste que tú están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey. Puedes cargarlos <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">aquí</a>.
-          body_mfj_html: Dijiste que tú o tu cónyuge están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey. Puedes cargarlos <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">aquí</a>.
+          body_html: |-
+            <p>Dijiste que tú están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey.</p>
+            <p>Para enviar la documentación y el formulario, tienes algunas opciones:</p>
+            <ol class="list--numbered">
+              <li>Envía copias impresas por correo New Jersey Division of Taxation, Veteran Exemption, PO Box 440, Trenton NJ 08646-0440.</li>
+              <li>Envíalas por fax al 609-633-8427.</li>
+              <li>Envíelas en línea a través del <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">Administrador de correspondencia fiscal de New Jersey (link en inglés)</a>.</li>
+            </ol>
+          body_mfj_html: |-
+            <p>Dijiste que tú o tu cónyuge están solicitando la exención de veterano/a de guerra. Si es la primera vez que <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">la</a> solicitas, tienes que presentar <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentación</a> y completar un <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">formulario</a> de la División de Impuestos del Estado de New Jersey.</p>
+            <p>Para enviar la documentación y el formulario, tienes algunas opciones:</p>
+            <ol class="list--numbered">
+              <li>Envía copias impresas por correo New Jersey Division of Taxation, Veteran Exemption, PO Box 440, Trenton NJ 08646-0440.</li>
+              <li>Envíalas por fax al 609-633-8427.</li>
+              <li>Envíelas en línea a través del <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">Administrador de correspondencia fiscal de New Jersey (link en inglés)</a>.</li>
+            </ol>
           header: 'Atención: si está reclamando la exención de veterano/a de guerra por primera vez'
+          veterans_reveal: Consejos para enviar tus documentos de veterano de guerra en línea
+          veterans_reveal_html: |-
+            <p>Puedes enviar tus documentos mediante el <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">Administrador de correspondencia fiscal de New Jersey (link en inglés)</a>.</p>
+            <p>Una vez en <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">esa página</a>:</p>
+            <ol class="list--numbered">
+              <li>Selecciona “Impuesto sobre la renta personal” (en inglés “Personal Income Tax” para el tipo de cuenta.)</li>
+              <li>Luego, selecciona “PO Box 440” para el campo de casilla postal (en inglés “zip code”).</li>
+              <li>Selecciona “VET” en el menú desplegable debajo de Código de notificación (en inglés “Notice Code”).</li>
+              <li>Ingresa el resto de tu información, incluido tu número de Seguro Social, para asegurar que los documentos se vinculen con tu declaración de impuestos.</li>
+            </ol>
       tax_refund:
         bank_details:
           account_number: Número de cuenta
-          after_deadline_default_withdrawal_info: Debido al hecho de que estás enviando tu declaración el %{withdrawal_deadline_date} de %{with_drawal_deadline_year} o después, el estado retirará tu pago tan pronto como se procese tu declaración.
+          after_deadline_default_withdrawal_info: Debido al hecho de que estás enviando tu declaración el %{payment_deadline_date} de %{payment_deadline_year} o después, el estado retirará tu pago tan pronto como se procese tu declaración.
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
-          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta?  (debe ser antes o en el día del %{withdrawal_deadline_date} de %{with_drawal_deadline_year}):"
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta?  (debe ser antes o en el día del %{payment_deadline_date} de %{payment_deadline_year}):"
           foreign_accounts: No se aceptan cuentas extranjeras
           routing_number: Número de ruta bancaria (routing number)
           withdraw_amount: "¿Cuánto autorizas sea retirado de tu cuenta? (La cantidad total que debes es: %{owed_amount}.)"
@@ -4496,21 +4544,27 @@ es:
       az:
         department_of_taxation: Departamento de Ingresos de Arizona
         state_name: Arizona
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0v0BnYNRoLIqzhY?Q_Language=ES-ES
       id:
         department_of_taxation: Comisión Estatal de Impuestos de Idaho
         state_name: Idaho
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_0URdKLyW7K53rZc?Q_Language=ES-ES
       md:
         department_of_taxation: Contralor de Maryland
         state_name: Maryland
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_24BAmNMNrpkhLwy?Q_Language=ES-ES
       nc:
         department_of_taxation: Departamento de Ingresos de Carolina del Norte
         state_name: Carolina del Norte
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_1MM0vBfZ5N2OMLA?Q_Language=ES-ES
       nj:
         department_of_taxation: División de Impuestos de New Jersey
         state_name: New Jersey
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_82CJgtfW0HFEPIi
       ny:
         department_of_taxation: Departamento de Impuestos y Finanzas de Nueva York
         state_name: Nueva York
+        survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
     alpha: Sólo se aceptan las letras A-Z y a-z.
@@ -6989,7 +7043,6 @@ es:
           diy: menos de $84,000
           full_service: menos de $67,000
           title: Guía de ingresos
-        itin_assistance: Asistencia para la solicitud del Número de Identificación Personal (ITIN)
         mobile_friendly: Adaptable para dispositivos móviles
         required_information: Información obligatoria
         select_service_html: "<i>Selecciona la opción en la que estás interesado para obtener más información sobre la lista completa de requisitos.</i>"
