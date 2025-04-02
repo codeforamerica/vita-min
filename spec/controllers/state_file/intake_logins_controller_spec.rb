@@ -225,7 +225,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
       context "with clients who are locked out by failed_attempts" do
         before do
-          intake.update(failed_attempts: 5, locked_at: 35.minutes.ago)
+          intake.update(failed_attempts: 3, locked_at: 35.minutes.ago)
         end
 
         it "redirects to the next page for login and resets failed attempts" do
@@ -244,7 +244,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             post :check_verification_code, params: params
 
             expect(response).to redirect_to(account_locked_intake_logins_path)
-            expect(intake.reload.failed_attempts).to eq 5
+            expect(intake.reload.failed_attempts).to eq 3
           end
         end
       end
@@ -601,12 +601,13 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             expect(response).to render_template(:edit)
           end
 
-          context "with 4 previous failed attempts" do
+          context "with 2 previous failed attempts" do
             before do
-              intake.update(failed_attempts: 4)
+              intake.update(failed_attempts: 2)
             end
 
             it "locks the intake and redirects to a lockout page" do
+              expect(intake.reload.access_locked?).to be_falsey
               expect do
                 post :update, params: params
               end.to change { intake.reload.failed_attempts }.by 1
