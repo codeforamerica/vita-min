@@ -3623,8 +3623,8 @@ en:
       nj_ineligible_property_tax:
         edit:
           continue_text: Click "Continue" to keep working on your taxes.
-          housing_assistance_html: (If you are interested in housing assistance, please call 211 or <a href="https://www.nj.gov/dca/dhcr/offices/housing_assistance.shtml" target="_blank" rel="noopener nofollow">visit the New Jersey Department of Community Affairs page on Housing Assistance</a>.)
           go_back_link: Go back to correct.
+          housing_assistance_html: (If you are interested in housing assistance, please call 211 or <a href="https://www.nj.gov/dca/dhcr/offices/housing_assistance.shtml" target="_blank" rel="noopener nofollow">visit the New Jersey Department of Community Affairs page on Housing Assistance</a>.)
           mistake_text: Is this a mistake?
           on_home: on the home you lived in and owned.
           on_rental: on the home you lived in and rented.

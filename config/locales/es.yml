@@ -3595,8 +3595,8 @@ es:
       nj_ineligible_property_tax:
         edit:
           continue_text: Haz clic en "Continuar" para seguir trabajando en tus impuestos.
-          housing_assistance_html: (Si te interesa la asistencia de vivienda, llama al 211 o <a href="https://www.nj.gov/dca/dhcr/offices/housing_assistance.shtml" target="_blank" rel="noopener nofollow">visita la página del Departamento de Asuntos Comunitarios de New Jersey sobre Asistencia de Vivienda</a>.)
           go_back_link: Corregir.
+          housing_assistance_html: (Si te interesa la asistencia de vivienda, llama al 211 o <a href="https://www.nj.gov/dca/dhcr/offices/housing_assistance.shtml" target="_blank" rel="noopener nofollow">visita la página del Departamento de Asuntos Comunitarios de New Jersey sobre Asistencia de Vivienda</a>.)
           mistake_text: "¿Es esto un error?"
           on_home: en la vivienda en la que viviste y fuiste dueño/a.
           on_rental: en la vivienda que alquilaste.
