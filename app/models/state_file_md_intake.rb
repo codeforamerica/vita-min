@@ -115,6 +115,7 @@
 #
 class StateFileMdIntake < StateFileBaseIntake
   include MdResidenceCountyConcern
+  include StateFile::PatternMatchingHelper
 
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
@@ -278,5 +279,11 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def nra_spouse?
     filing_status == :married_filing_separately && !spouse.ssn.present?
+  end
+
+  def direct_file_address_is_po_box?
+    return false if direct_file_data.blank?
+
+    contains_po_box(direct_file_data.mailing_street) || contains_po_box(direct_file_data.mailing_apartment)
   end
 end

@@ -153,11 +153,11 @@ class StateFileNcIntake < StateFileBaseIntake
   end
 
   def allows_w2_editing?
-    false
+    Flipper.enabled?(:nc_flip_flop)
   end
 
   def allows_1099_r_editing?
-    false
+    Flipper.enabled?(:nc_flip_flop)
   end
 
   def check_nra_status?
