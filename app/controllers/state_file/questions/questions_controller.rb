@@ -65,12 +65,14 @@ module StateFile
 
         options = { action: next_page_controller.navigation_actions.first }
         options[:item_index] = next_page_info[:item_index] if next_page_info&.key? :item_index
+
         if next_page_controller.resource_name.present? && next_page_controller.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end
         if next_page_info.key? :params
           options.merge!(next_page_info[:params])
         end
+
         next_page_controller.to_path_helper(options)
       end
 
