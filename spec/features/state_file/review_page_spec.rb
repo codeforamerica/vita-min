@@ -445,9 +445,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
           expect(page).not_to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.title")
         end
+
       end
 
-      context "with eligible disabled senior over 65 years old" do
+      context "with eligible senior over 65 years old" do
         it "review & edit questions on eligible_income_source and go through every 1099Rs that are applicable, then return to review" do
           visit "/questions/id-review"
 
@@ -504,6 +505,8 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           expect(page).to have_text I18n.t("state_file.questions.id_ineligible_retirement_and_pension_income.edit.title")
         end
       end
+
+      # TODO: Add tests that go to individual 1099-Rs
     end
   end
 

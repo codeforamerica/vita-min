@@ -131,6 +131,12 @@ class StateFileIdIntake < StateFileBaseIntake
     primary_between_62_and_65_years_old? && spouse_between_62_and_65_years_old?
   end
 
+  def show_disability_question?
+    Flipper.enabled?(:show_retirement_ui) &&
+      state_file1099_rs.any? { |form1099r| form1099r.taxable_amount&.to_f&.positive? } &&
+      !filing_status_mfs? && has_filer_between_62_and_65_years_old?
+  end
+
   def show_mfj_disability_options?
     filing_status_mfj? && all_filers_between_62_and_65_years_old?
   end
