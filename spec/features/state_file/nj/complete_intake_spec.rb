@@ -245,7 +245,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean
       choose I18n.t('general.affirmative')
       fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.estimated_taxes_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
-      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year-1)), with: 1000
+      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year - 1)), with: 1000
       continue
 
       # Driver License
@@ -281,7 +281,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on I18n.t("state_file.questions.nj_review.edit.reveal.header")
       amounts_in_calculation_details = page.all(:xpath, '//*[contains(@class,"main-content-inner")]/section[last()]//p[contains(text(),"$")]')
-      expect(amounts_in_calculation_details.count).to eq(21)
+      expect(amounts_in_calculation_details.count).to eq(22)
       expect(page).to be_axe_clean
       continue
 

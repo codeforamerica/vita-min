@@ -290,7 +290,7 @@ en:
         is_hsa: is HSA
       taxes_owed:
         withdraw_amount_higher_than_owed: Please enter in an amount less than or equal to %{owed_amount}
-        withdrawal_date_deadline: Please enter a date between today and on or before April %{day}, %{year}
+        withdrawal_date_deadline: Please enter a date between today and on or before %{payment_deadline_date}, %{payment_deadline_year}
   general:
     NA: N/A
     about: About
@@ -2730,9 +2730,10 @@ en:
           also_unsupported_html: |
             <li>Applying for an extension</li>
             <li>Making charitable contributions to various NJ organizations through your return</li>
-            <li>Filing your federal and state tax returns using different filing statuses (for example you filed as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
+            <li>Filing your federal and state tax returns using different filing statuses (for example, you filed as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
             <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
             <li>Applying a portion of your 2024 refund toward your 2025 estimated taxes</li>
+            <li>Using the “three-year rule” or the “general rule” to calculate the taxable portion of your pension/retirement income. For more information, see <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf">New Jersey’s Retirement Income publication.</a></li>
           also_unsupported_title: 'We also do not support:'
           unsupported_html: |
             <li>Subtraction for meals, lodging, moving expenses, other reimbursed business expenses, or compensation for injuries or sickness reported as wages on your W-2</li>
@@ -2875,11 +2876,16 @@ en:
               <a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer" class="button button--primary button--wide spacing-below-25">
                 Get connected now
               </a>
+          vita_eligibility_reveal:
+            nj: |
+              <ul class="list--bulleted">
+                <li><a href="%{vita_link_href}" target="_blank" rel="noopener noreferrer">Get started with VITA now.</a></li>
+              </ul>
           vita_introduction:
             nj: You can file your state taxes for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers at Simplify CT.
           vita_link: Get started with VITA now
           want_to_claim_learn_more_html: Learn more about this process and other filing options <a href="%{link}" target="_blank">here</a>.
-          want_to_claim_vita_1: You may be able to file your state return for free with IRS-certified VITA volunteers, but it may take 2-3 weeks to complete.
+          want_to_claim_vita_1: You may be able to file your state return for free with help from IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers. Note that this option may take 2-3 weeks to complete.
       email_address:
         edit:
           action: Send code
@@ -2938,6 +2944,12 @@ en:
           spouse_esign: My spouse has read the certification above and agrees
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
+      extension_payments:
+        edit:
+          amount: Amount of extension payments
+          enter_amount: Enter the amount of extension payments...
+          more_info: More info here...
+          title: Did you make any extension payments?
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
@@ -3442,11 +3454,11 @@ en:
           account_number: Account number
           account_type:
             label: Bank Account Type
-          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
           bank_title: 'Please provide your bank account details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
-          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (Must be on or before %{payment_deadline_date}, %{payment_deadline_year}):'
           foreign_accounts_owed: International ACH payments are not allowed.
           foreign_accounts_refund: International ACH direct deposit refunds are not allowed.
           routing_number: Routing Number
@@ -3730,8 +3742,8 @@ en:
           missing_health_insurance: Dependents who DO NOT have health insurance
           overpayments: Amount of refund carried forward
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
-          primary_disabled: Disability exemption (you)
-          primary_veteran: Veteran exemption (you)
+          primary_disabled: Disability exemption
+          primary_veteran: Veteran exemption
           property_tax_credit_deduction: New Jersey Property Tax Deduction or Credit
           property_tax_paid: Property taxes paid in %{filing_year}
           rent_paid: Rent paid in %{filing_year}
@@ -3746,9 +3758,10 @@ en:
           reveal:
             15_wages_salaries_tips: Wages, salaries, tips
             16a_interest_income: Interest income
-            20a_retirement_income: Retirement income
+            20a_retirement_income: 1099-R income (pensions/annuities)
             27_total_income: Total income
-            28c_retirement_excluded_from_taxation: Retirement income excluded from Taxation
+            28a_pensions_annuities_excluded_from_taxation: 1099-R income (pensions/annuities) excluded from taxation
+            28b_other_income_excluded_because_of_retirement: Other income excluded from taxation due to your retirement status
             29_nj_gross_income: New Jersey Gross Income
             30_exemptions: Exemptions (based on the size of your family, disability status, veteran status)
             31_medical: Medical expenses deducted
@@ -3836,7 +3849,7 @@ en:
         edit:
           instructions_html: |
             <p>You are considered a veteran if you are an <a href="https://pub.njleg.state.nj.us/Bills/2024/A3500/3485_I1.PDF" target="_blank" rel="noopener nofollow">honorably discharged</a> former member of the United States Armed Forces.</p>
-            <p>If this is the first time you’re claiming <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">this exemption</a>, you have to provide <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">documentation</a> and <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">a form</a> to the New Jersey Division of Taxation. It can be done <a href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf" target="_blank" rel="noopener nofollow">online</a>. You can provide it after you finish going through this tool and submitting your return.
+            <p>If this is the first time you’re claiming <a href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml" target="_blank" rel="noopener nofollow">this exemption</a>, you have to provide <a href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml" target="_blank" rel="noopener nofollow">documentation</a> and a form to the New Jersey Division of Taxation. When you finish going through this tool and submit your return, we’ll give you the link to the form and instructions on how to submit it online, via fax or through the mail.</p>
           primary_veteran_question: Are you a veteran?
           spouse_veteran_question: Is your spouse a veteran?
           title: In New Jersey, veterans are eligible for a tax exemption.
@@ -4165,17 +4178,41 @@ en:
           title: Your %{filing_year} %{state_name} state tax return is now submitted!
           title_resubmit: Your %{filing_year} %{state_name} state tax return is now resubmitted!
         nj_additional_content:
-          body_html: You said you are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
-          body_mfj_html: You said you or your spouse are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation. It can be done <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">online</a>.
+          body_html: |-
+            <p>You said you are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation.</p>
+            <p>To submit the documentation and form, you have a few options:</p>
+            <ol class="list--numbered">
+              <li>Mail printed out copies to the New Jersey Division of Taxation, Veteran Exemption, PO Box 440, Trenton NJ 08646-0440.</li>
+              <li>Fax them to 609-633-8427.</li>
+              <li>Submit them online via the <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">New Jersey Tax Correspondence Manager</a>.</li>
+            </ol>
+          body_mfj_html: |-
+            <p>You said you or your spouse are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation.</p>
+            <p>To submit the documentation and form, you have a few options:</p>
+            <ol class="list--numbered">
+              <li>Mail printed out copies to the New Jersey Division of Taxation, Veteran Exemption, PO Box 440, Trenton NJ 08646-0440.</li>
+              <li>Fax them to 609-633-8427.</li>
+              <li>Submit them online via the <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">New Jersey Tax Correspondence Manager</a>.</li>
+            </ol>
           header: 'Attention: if you are claiming the veteran exemption for the first time'
+          veterans_reveal: Tips for submitting your veteran documents online
+          veterans_reveal_html: |-
+            <p>As mentioned, you can upload your documents via the <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">New Jersey Tax Correspondence Manager</a>.</p>
+            <p>Once on <a href="https://www.njportal.com/DOR/TCM/" target="_blank" rel="noopener nofollow">that page</a>:</p>
+            <ol class="list--numbered">
+              <li>Select “Personal Income Tax” for Account Type.</li>
+              <li>Then select “PO Box 440” for the PO Box field.</li>
+              <li>Select “VET” from the dropdown menu under Notice Code.</li>
+              <li>Enter the rest of your information, including your Social Security Number, to make sure that the documents get linked to your tax return.</li>
+            </ol>
       tax_refund:
         bank_details:
           account_number: Account Number
-          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{withdrawal_deadline_date}, %{with_drawal_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
-          date_withdraw_text: 'When would you like the funds withdrawn from your account? (must be on or before %{withdrawal_deadline_date}, %{with_drawal_deadline_year}):'
+          date_withdraw_text: 'When would you like the funds withdrawn from your account? (must be on or before %{payment_deadline_date}, %{payment_deadline_year}):'
           foreign_accounts: Foreign accounts are not accepted
           routing_number: Routing Number
           withdraw_amount: How much do you authorize to be withdrawn from your account? (Your total amount due is&#58; $%{owed_amount}.)

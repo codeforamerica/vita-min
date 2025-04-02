@@ -458,7 +458,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_27_204624) do
     t.string "ctds_code"
     t.date "date_of_contribution"
     t.string "district_name"
-    t.integer "made_contribution", default: 0, null: false
     t.string "school_name"
     t.bigint "state_file_az_intake_id"
     t.datetime "updated_at", null: false
@@ -1884,6 +1883,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_27_204624) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
+    t.decimal "extension_payments_amount", precision: 12, scale: 2, default: "0.0"
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -1898,6 +1898,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_27_204624) do
     t.integer "made_az321_contributions", default: 0, null: false
     t.integer "made_az322_contributions", default: 0, null: false
     t.jsonb "message_tracker", default: {}
+    t.integer "paid_extension_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"

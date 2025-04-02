@@ -110,6 +110,10 @@ module PdfFiller
         "80" => @xml_document.at('AmtOwed')&.text
       })
 
+      if Flipper.enabled?(:extension_period)
+        answers["55"] = @xml_document.at('ExtPayment')&.text
+      end
+
       if @xml_document.at('RefundAmt')&.text.present?
         answers.merge!({
           "Refund" => refund_account_type,
