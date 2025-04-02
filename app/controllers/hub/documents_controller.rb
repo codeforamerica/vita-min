@@ -10,12 +10,12 @@ module Hub
 
     def index
       @client = Hub::ClientsController::HubClientPresenter.new(@client)
-      @documents = sorted_documents.active
+      @documents = sorted_documents.active.includes(upload_attachment: :blob)
     end
 
     def archived
       @client = Hub::ClientsController::HubClientPresenter.new(@client)
-      @documents = sorted_documents.archived
+      @documents = sorted_documents.archived.includes(upload_attachment: :blob)
       @show_archived_index = true
       render :index
     end

@@ -8,7 +8,7 @@ module Portal
 
     def home
       @tax_returns = current_client.tax_returns.order(year: :desc).to_a
-      @tax_returns << PseudoTaxReturn.new(intake: current_intake) if @tax_returns.empty?
+      @tax_returns << PseudoTaxReturn.new(intake: eager_loaded_current_intake) if @tax_returns.empty?
     end
 
     def current_intake
@@ -16,6 +16,10 @@ module Portal
     end
 
     private
+
+    def eager_loaded_current_intake
+      current_intake.class.includes(:client).find(current_intake.id)
+    end
 
     class PseudoTaxReturn
       attr_reader :client, :intake
