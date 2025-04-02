@@ -728,6 +728,8 @@ MD502_LINE_39:
   label: "39. Total Maryland income tax, local income tax and contributions"
 MD502_LINE_40:
   label: "40 Total Maryland and local tax withheld"
+MD502_LINE_41:
+  label: "41 Estimated extension payments"
 MD502_LINE_42:
   label: "42. Refundable earned income credit"
 MD502_LINE_43:

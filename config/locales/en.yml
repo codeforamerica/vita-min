@@ -2938,11 +2938,16 @@ en:
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
       extension_payments:
-        edit:
+        az:
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments...
           more_info: More info here...
           title: Did you make any extension payments?
+        md:
+          amount: Amount of extension payments
+          enter_amount: Enter the amount of extension payments paid to Maryland.
+          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp>paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf>Form PV</a>.
+          title: Did you make a Maryland extension payment on or before April 15?
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
