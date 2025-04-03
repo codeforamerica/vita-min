@@ -150,7 +150,7 @@ module StateFileIntakeHelper
       puts "Caught #{e.class} - #{e.message}"
       puts "First attempt failed for `#{text}`, sleeping #{sleep_time} seconds then retrying..."
       sleep sleep_time
-      expect(page).to have_text text
+      retry
     end
   end
 
