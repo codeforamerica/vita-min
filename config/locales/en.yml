@@ -3735,6 +3735,7 @@ en:
           edit_veteran: veteran status
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
           estimated_tax_payments: Amount of estimated quarterly payments
+          extension_payments: Payment made when you filed for an extension
           has_estimated_payments: Estimated or other payments
           household_rent_own: Living situation in %{filing_year}
           household_rent_own_both: Owned and rented
