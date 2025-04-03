@@ -1827,28 +1827,35 @@ describe Efile::Nj::Nj1040Calculator do
   describe 'line 57 - estimated tax payments' do
 
     context 'when estimated_tax_payments exists' do
-      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: 400.44, overpayments: 400.44 )}
-      it 'sets line 57 to the rounded sum of estimated_tax_payments and overpayments' do
-        expect(instance.lines[:NJ1040_LINE_57].value).to eq 801
+      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: 400.44, overpayments: 400.44, extension_payments: 100.20)}
+      it 'sets line 57 to the rounded sum of estimated_tax_payments, overpayments, and extension payments' do
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq 901
       end
     end
 
-    context 'when estimated_tax_payments is nil but overpayments exist' do
-      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: nil, overpayments: 100)}
+    context 'when estimated_tax_payments is nil but overpayments and extension payments exist' do
+      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: nil, overpayments: 100.44, extension_payments: 100.44)}
       it 'treats nil as 0' do
-        expect(instance.lines[:NJ1040_LINE_57].value).to eq 100
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq 201
       end
     end
 
-    context 'when overpayments is nil but estimated_tax_payments exist' do
-      let(:intake) { create(:state_file_nj_intake, overpayments: nil, estimated_tax_payments: 100)}
+    context 'when overpayments is nil but estimated_tax_payments and extension payments exist' do
+      let(:intake) { create(:state_file_nj_intake, overpayments: nil, estimated_tax_payments: 100, extension_payments: 50.44)}
       it 'treats nil as 0' do
-        expect(instance.lines[:NJ1040_LINE_57].value).to eq 100
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq 150
       end
     end
 
-    context 'when overpayments and estimated_tax_payments are nil' do
-      let(:intake) { create(:state_file_nj_intake, overpayments: nil, estimated_tax_payments: nil)}
+    context 'when extension payments is nil but estimated_tax_payments and overpayments exist' do
+      let(:intake) { create(:state_file_nj_intake, extension_payments: nil, estimated_tax_payments: 100.44, overpayments: 50.44)}
+      it 'treats nil as 0' do
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq 151
+      end
+    end
+
+    context 'when overpayments, estimated_tax_payments, and extension payments are nil' do
+      let(:intake) { create(:state_file_nj_intake, overpayments: nil, estimated_tax_payments: nil, extension_payments: nil)}
       it 'sets line 57 to nil' do
         expect(instance.lines[:NJ1040_LINE_57].value).to eq nil
       end

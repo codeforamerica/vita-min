@@ -63,6 +63,7 @@ module Efile
         set_line(:AZ140_LINE_49, :calculate_line_49)
         set_line(:AZ140_LINE_50, :calculate_line_50)
         set_line(:AZ140_LINE_53, :calculate_line_53)
+        set_line(:AZ140_LINE_55, :calculate_line_55)
         set_line(:AZ140_LINE_56, :calculate_line_56)
         set_line(:AZ140_LINE_59, :calculate_line_59)
         @az322.calculate
@@ -281,6 +282,10 @@ module Efile
         @intake.state_file_w2s.sum { |item| item.state_income_tax_amount&.round || 0 } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount&.round || 0 }
+      end
+
+      def calculate_line_55
+        @intake.paid_extension_payments_yes? ? @intake.extension_payments_amount&.round : 0
       end
 
       def calculate_line_56
