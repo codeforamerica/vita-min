@@ -23,19 +23,7 @@
   </div>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
-    <% if params[:return_to_review_before].present? %>
-      <%= hidden_field_tag "return_to_review_before", params[:return_to_review_before] %>
-    <% end %>
-    <% if params[:return_to_review_after].present? %>
-      <%= hidden_field_tag "return_to_review_after", params[:return_to_review_after] %>
-    <% end %>
-    <% if item_index.present? %>
-      <%= hidden_field_tag "item_index", item_index %>
-    <% end %>
-    <%= f.continue t(".file_without_claiming") %>
+    <%= render "state_file/questions/shared/continue_button", f: f, button_text: t(".file_without_claiming") %>
 
     <%= link_to StateFile::Questions::IdIneligibleRetirementAndPensionIncomeController.to_path_helper(action: :file_with_another_service), class: "button button--wide spacing-above-15" do %>
       <%= t(".another_service") %>
