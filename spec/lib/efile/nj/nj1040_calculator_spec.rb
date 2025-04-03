@@ -796,6 +796,15 @@ describe Efile::Nj::Nj1040Calculator do
         expect(instance.lines[:NJ1040_LINE_38].value).to eq(1000)
       end
     end
+
+    context 'when medical expenses is nil' do
+      let(:gross_income) { 10_000 }
+      let(:medical_expenses) { nil }
+
+      it 'treats medical expenses as 0' do
+        expect(instance.lines[:NJ1040_LINE_31].value).to eq(nil)
+      end
+    end
   end
 
   describe 'line 38 - total exemptions/deductions' do

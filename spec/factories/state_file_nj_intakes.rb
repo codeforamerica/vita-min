@@ -44,7 +44,7 @@
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
 #  locked_at                                              :datetime
-#  medical_expenses                                       :decimal(12, 2)   default(0.0), not null
+#  medical_expenses                                       :decimal(12, 2)
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
