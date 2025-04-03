@@ -44,19 +44,19 @@ RSpec.feature "Calculating the sales/use tax for a NC intake", js: true do
       check "state_file_nc_retirement_income_subtraction_form_bailey_settlement_from_retirement_plan"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_current_path("/en/questions/nc-retirement-income-subtraction?index=1")
+      page_change_check("/en/questions/nc-retirement-income-subtraction?index=1", path: true)
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_current_path("/en/questions/nc-retirement-income-subtraction?index=2")
+      page_change_check("/en/questions/nc-retirement-income-subtraction?index=2", path: true)
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_current_path("/en/questions/nc-retirement-income-subtraction?index=3")
+      page_change_check("/en/questions/nc-retirement-income-subtraction?index=3", path: true)
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_current_path("/en/questions/nc-subtractions")
+      page_change_check("/en/questions/nc-subtractions", path: true)
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
@@ -71,7 +71,7 @@ RSpec.feature "Calculating the sales/use tax for a NC intake", js: true do
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_current_path("/en/questions/spouse-state-id")
+      page_change_check("/en/questions/spouse-state-id", path: true)
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")
       click_on I18n.t("general.continue")
 

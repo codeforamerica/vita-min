@@ -79,8 +79,7 @@ module StateFileIntakeHelper
   end
 
   def step_through_initial_authentication(check_a11y: false, contact_preference: :text_message)
-    expect(page).to have_current_path("/en/questions/contact-preference")
-    expect(page).to have_text I18n.t("state_file.questions.contact_preference.edit.title")
+    page_change_check(I18n.t("state_file.questions.contact_preference.edit.title"))
 
     case contact_preference
     when :text_message
@@ -141,16 +140,22 @@ module StateFileIntakeHelper
     click_on I18n.t("general.continue") if expect_success
   end
 
-  def page_change_check(text, sleep_time: 0.1)
+  def page_change_check(input, sleep_time: 0.1, path: false, retries: 1)
+    retry_count = 0
     begin
-      expect(page).to have_text(text)
+      if path
+        expect(page).to have_current_path(input)
+      else
+        expect(page).to have_text(input)
+      end
     rescue Selenium::WebDriver::Error::WebDriverError,
       Capybara::ElementNotFound,
       RSpec::Expectations::ExpectationNotMetError => e
       puts "Caught #{e.class} - #{e.message}"
-      puts "First attempt failed for `#{text}`, sleeping #{sleep_time} seconds then retrying..."
+      puts "First attempt failed for `#{input}`, sleeping #{sleep_time} seconds then retrying..."
       sleep sleep_time
-      retry
+      retry_count += 1
+      retry_count <= retries ? retry : raise
     end
   end
 

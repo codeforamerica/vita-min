@@ -267,12 +267,11 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.bailey_settlement_at_least_five_years")
       click_on I18n.t("general.continue")
 
-      page_change_check(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.title"))
+      page_change_check(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.title"), sleep_time: 0.5)
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
 
-      sleep 0.2
-      expect(page).to have_current_path("/en/questions/nc-subtractions")
+      page_change_check("/en/questions/nc-subtractions", path: true)
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
