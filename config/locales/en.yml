@@ -4146,8 +4146,8 @@ en:
           title: Arizona retirement income deductions
           uniformed_services: Retired or retainer pay of the uniformed services of the United States
         id_disability_review_header:
-          meets_qualifications: Meets qualifications to be classified as disabled
           editing_may_affect_deductions: Editing this answer may affect your Idaho retirement income deductions
+          meets_qualifications: Meets qualifications to be classified as disabled
         id_retirement_income_deductions_review_header:
           civil_servant_employee: Retirement income from %{taxpayer_name}’s service as a Civil Service employee
           eight: Account number starts with 8.
