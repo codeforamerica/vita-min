@@ -2355,6 +2355,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_214001) do
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
     t.decimal "estimated_tax_payments", precision: 12, scale: 2
+    t.decimal "extension_payments", precision: 12, scale: 2
     t.integer "failed_attempts", default: 0, null: false
     t.integer "fed_taxable_income"
     t.integer "fed_wages"
