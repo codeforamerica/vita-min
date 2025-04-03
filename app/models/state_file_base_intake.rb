@@ -488,7 +488,7 @@ class StateFileBaseIntake < ApplicationRecord
   def calculate_date_electronic_withdrawal(form_submitted_time:)
     submitted_before_deadline = StateFile::StateInformationService.before_payment_deadline?(form_submitted_time, self.state_code)
     if submitted_before_deadline
-      date_electronic_withdrawal
+      date_electronic_withdrawal&.to_date
     else
       efile_submissions.last&.created_at&.to_date
     end
