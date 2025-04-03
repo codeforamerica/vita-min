@@ -10,16 +10,41 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
     let(:build_response) { instance.build }
     let(:xml) { Nokogiri::XML::Document.parse(build_response.document.to_xml) }
 
+    after do
+      expect(build_response.errors).not_to be_present
+    end
+
     it "generates basic components of return" do
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
       expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
       expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
-
-      expect(build_response.errors).not_to be_present
     end
 
     it "includes the SpecialProgram node in the RetrunHeaderState" do
       expect(xml.document.at('ReturnHeaderState SpecialProgram').text).to eq "Direct File"
+    end
+
+    context "paid federal extension" do
+      before do
+        intake.update(paid_federal_extension_payments: "yes")
+      end
+
+      context "with flipper on" do
+        before do
+          allow(Flipper).to receive(:enabled?).and_call_original
+          allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
+        end
+
+        it "includes the FiledUnderExtension node" do
+          expect(xml.document.at("FiledUnderExtension").text).to eq "Yes"
+        end
+      end
+
+      context "with flipper off" do
+        it "not include the FiledUnderExtension node" do
+          expect(xml.document.at("FiledUnderExtension")).to be_nil
+        end
+      end
     end
 
     context "married filing jointly" do
@@ -105,7 +130,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       let(:dob) { 12.years.ago }
 
       before do
-        create(:state_file_dependent, intake: intake, dob: dob, relationship: "biologicalChild")
+        create(:state_file_dependent, intake: intake, dob: dob, relationship: "biologicalChild", months_in_home: 8)
       end
 
       it "translates the relationship to the appropriate AZ XML relationship key" do
@@ -209,14 +234,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       it "generates FinancialTransaction xml with correct Amount" do
         expect(xml.at("FinancialTransaction")).to be_present
         expect(xml.at("StatePayment PaymentAmount").text).to eq "5"
-      end
-    end
-
-    context "new df xml" do
-      let(:intake) { create(:state_file_az_intake, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml('az_alexis_hoh')) }
-
-      it "does not error" do
-        expect(build_response.errors).not_to be_present
       end
     end
 
