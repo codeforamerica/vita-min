@@ -54,6 +54,7 @@ describe 'EfileError' do
       "email-address",
       "esign-declaration",
       "extension-payments",
+      "federal-extension-payments",
       "federal-info",
       "id-disability",
       "id-donations",
