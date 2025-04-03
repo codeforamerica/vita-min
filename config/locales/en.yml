@@ -2950,6 +2950,10 @@ en:
           enter_amount: Enter the amount of extension payments...
           more_info: More info here...
           title: Did you make any extension payments?
+      federal_extension_payments:
+        edit:
+          more_info: More info here...
+          title: Were you granted a federal extension?
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget

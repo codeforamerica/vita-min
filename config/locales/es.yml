@@ -2916,6 +2916,10 @@ es:
           enter_amount: Enter the amount of extension payments...
           more_info: More info here...
           title: Did you make any extension payments?
+      federal_extension_payments:
+        edit:
+          more_info: More info here...
+          title: Were you granted a federal extension?
       id_disability:
         edit:
           help_b1: Un individuo reconocido como discapacitado por la Administración del Seguro Social, la Junta de Jubilación de los Ferrocarriles o la Oficina de Administración y Presupuesto (OMB, por sus siglas en inglés).
