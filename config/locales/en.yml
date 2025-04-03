@@ -3575,7 +3575,7 @@ en:
           helper_description_html: |
             <ul class="list--bulleted">
               <li>You are a disabled veteran with a 100% exemption from property taxes on your main home; or if</li>
-              <li>You made P.I.L.O.T. (Payments-In-Lieu-of-Tax) payments</li>
+              <li>You made P.I.L.O.T. (Payments-In-Lieu-of-Tax) payments; or if</li>
               <li><a href="https://www.nj.gov/treasury/taxation/questions/propertyd2.shtml" target="_blank" rel="noopener nofollow">Another reason applies</a></li>
             </ul>
           helper_header: 'Leave first box unchecked if:'
@@ -3628,8 +3628,9 @@ en:
           title: You may qualify for a Property Tax Deduction or Credit on your main home, whether you owned or rented it.
       nj_ineligible_property_tax:
         edit:
-          continue_text: Click continue to keep working on your taxes.
+          continue_text: Click "Continue" to keep working on your taxes.
           go_back_link: Go back to correct.
+          housing_assistance_html: (If you are interested in housing assistance, please call 211 or <a href="https://www.nj.gov/dca/dhcr/offices/housing_assistance.shtml" target="_blank" rel="noopener nofollow">visit the New Jersey Department of Community Affairs page on Housing Assistance</a>.)
           mistake_text: Is this a mistake?
           on_home: on the home you lived in and owned.
           on_rental: on the home you lived in and rented.

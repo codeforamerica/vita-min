@@ -3547,7 +3547,7 @@ es:
           helper_description_html: |
             <ul class="list--bulleted">
               <li>Eres un/a veterano/a discapacitado/a con una exención del 100% de los impuestos sobre la propiedad en tu vivienda principal; o si</li>
-              <li>Realizaste Pagos en Lugar de Impuestos (P.I.L.O.T. por las siglas en inglés)</li>
+              <li>Realizaste Pagos en Lugar de Impuestos (P.I.L.O.T. por las siglas en inglés); o si</li>
               <li><a href="https://www.nj.gov/treasury/taxation/questions/propertyd2.shtml" target="_blank" rel="noopener nofollow">Otros motivos (en inglés)</a></li>
             </ul>
           helper_header: Deja la casilla anterior sin marcar si
@@ -3600,8 +3600,9 @@ es:
           title: Puedes calificar para una Deducción o Crédito por impuestos sobre la propiedad en tu vivienda principal, ya sea que la hayas comprado o alquilado.
       nj_ineligible_property_tax:
         edit:
-          continue_text: Haz clic en continuar para seguir trabajando en tus impuestos.
+          continue_text: Haz clic en "Continuar" para seguir trabajando en tus impuestos.
           go_back_link: Corregir.
+          housing_assistance_html: (Si te interesa la asistencia de vivienda, llama al 211 o <a href="https://www.nj.gov/dca/dhcr/offices/housing_assistance.shtml" target="_blank" rel="noopener nofollow">visita la página del Departamento de Asuntos Comunitarios de New Jersey sobre Asistencia de Vivienda</a>.)
           mistake_text: "¿Es esto un error?"
           on_home: en la vivienda en la que viviste y fuiste dueño/a.
           on_rental: en la vivienda que alquilaste.
