@@ -10,6 +10,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
 
+  after do
+    Capybara.reset_sessions!
+  end
+
   context "AZ", :flow_explorer_screenshot do
     before do
       allow(Flipper).to receive(:enabled?).and_call_original
@@ -260,7 +264,8 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
 
-      page_change_check(I18n.t('state_file.questions.nc_subtractions.edit.tribal_wages_field'))
+      sleep 0.2
+      expect(page).to have_current_path("/en/questions/nc-subtractions")
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
@@ -514,7 +519,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       select("Maryland", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
       click_on I18n.t("general.continue")
 
-      page_change_check(I18n.t('state_file.questions.primary_state_id.edit.title'))
+      expect(page).to have_current_path("/en/questions/spouse-state-id")
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")
       click_on I18n.t("general.continue")
 
@@ -616,8 +621,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         page_change_check("Enter the code to continue")
         fill_in "Enter the 6-digit code", with: verification_code
         click_on "Verify code"
-        puts "tried again to verify code here" if page.has_text?("Incorrect verification code.")
-        click_on "Verify code" if page.has_text?("Incorrect verification code.")
 
         page_change_check(I18n.t("state_file.intake_logins.edit.title"))
         fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn

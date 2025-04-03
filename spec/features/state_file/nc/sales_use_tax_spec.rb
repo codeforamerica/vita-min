@@ -27,7 +27,7 @@ RSpec.feature "Calculating the sales/use tax for a NC intake", js: true do
 
     it "properly calculates", required_schema: "nc" do
       visit "/en/questions/nc-veteran-status"
-      page_change_check(I18n.t('state_file.questions.nc_veteran_status.title'))
+      page_change_check(I18n.t('state_file.questions.nc_veteran_status.title_spouse'))
       choose "state_file_nc_veteran_status_form_primary_veteran_no"
       choose "state_file_nc_veteran_status_form_spouse_veteran_no"
       click_on I18n.t("general.continue")
@@ -56,8 +56,7 @@ RSpec.feature "Calculating the sales/use tax for a NC intake", js: true do
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
 
-      # /en/questions/nc-subtractions"
-      page_change_check(I18n.t('state_file.questions.nc_subtractions.edit.tribal_wages_field'))
+      expect(page).to have_current_path("/en/questions/nc-subtractions")
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
@@ -72,7 +71,7 @@ RSpec.feature "Calculating the sales/use tax for a NC intake", js: true do
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")
       click_on I18n.t("general.continue")
 
-      page_change_check(I18n.t('state_file.questions.primary_state_id.edit.title'))
+      expect(page).to have_current_path("/en/questions/spouse-state-id")
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")
       click_on I18n.t("general.continue")
 
