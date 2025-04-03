@@ -64,6 +64,8 @@ AZ140_LINE_52:
   label: '52 Balance of tax: Subtract lines 49, 50 and 51 from line 48. If the sum of lines 49, 50 and 51 is greater than line 48, enter “0” .'
 AZ140_LINE_53:
   label: '53 2022 AZ income tax withheld.'
+AZ140_LINE_55:
+  label: '55 AZ extension payments.'
 AZ140_LINE_56:
   label: '56 Increased Excise Tax Credit '
 AZ140_LINE_59:
