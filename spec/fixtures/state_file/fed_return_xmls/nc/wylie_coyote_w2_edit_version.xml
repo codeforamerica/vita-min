@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.1">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>59f6c8d4</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>146004912</PrimarySSN>
+            <SpouseSSN>146004913</SpouseSSN>
+            <NameLine1Txt>WYLIE E&lt;COYOTE</NameLine1Txt>
+            <PrimaryNameControlTxt>COYO</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>COYO</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>111 Alston Avenue</AddressLine1Txt>
+                <CityNm>Durham</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27517</ZIPCd>
+            </USAddress>
+            <PhoneNum>2125564902</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+14600491-2f75-4095-b1af-c7d9ef33a422@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
+            <SpouseNm>Wilma D Coyote</SpouseNm>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">44888</WagesAmt>
+            <WagesSalariesAndTipsAmt>44888</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>44888</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>44888</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>30288</TaxableIncomeAmt>
+            <TaxAmt>3401</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>3401</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>3401</TaxLessCreditsAmt>
+            <TotalTaxAmt>3401</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>3951</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>3951</WithholdingTaxAmt>
+            <TotalPaymentsAmt>3951</TotalPaymentsAmt>
+            <OverpaidAmt>550</OverpaidAmt>
+            <RefundAmt>550</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Researcher</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>146004912</EmployeeSSN>
+            <EmployerEIN>300300088</EmployerEIN>
+            <EmployerNameControlTxt>DUKE</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Duke University Hospital</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>2301 Erwin Road</AddressLine1Txt>
+                <CityNm>Durham</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27710</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Wylie E Coyote</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>111 Alston Avenue</AddressLine1Txt>
+                <CityNm>Durham</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27517</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>44888</WagesAmt>
+            <WithholdingAmt>3951</WithholdingAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

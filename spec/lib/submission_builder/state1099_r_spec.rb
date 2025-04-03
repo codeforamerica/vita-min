@@ -71,6 +71,16 @@ describe SubmissionBuilder::State1099R do
           expect(doc.at("RecipientUSAddress")).to be_nil
         end
       end
+
+      context "when 1099R has payer_state_identification_number with trailing/adjacent/leading spaces" do
+        before do
+          form1099r.update(payer_state_identification_number: "  AZ 123  22 ")
+        end
+
+        it "should remove trailing & leading spaces and leave only a single space if there are multiple adjacent spaces" do
+          expect(doc.at("F1099RStateTaxGrp PayerStateIdNum").text).to eq "AZ 123 22"
+        end
+      end
     end
   end
 end

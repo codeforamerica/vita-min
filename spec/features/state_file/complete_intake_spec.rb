@@ -165,8 +165,15 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       wait_for_device_info("esign_declaration")
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
+      page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Arizona"))
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year)
+      expect(page).not_to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileAzIntake.last, :ready)
+
       page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year))
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
       click_on "Main XML Doc"
 
       expect(page.body).to include('efile:ReturnState')
@@ -302,7 +309,13 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       wait_for_device_info("esign_declaration")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
+      page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "North Carolina"))
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileNcIntake.last, :ready)
+
       page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year))
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "North Carolina")
       click_on "Main XML Doc"
 
       expect(page.body).to include('efile:ReturnState')
@@ -423,7 +436,13 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       # Submission confirmation page
+      page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho"))
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileIdIntake.last, :ready)
+
       page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year))
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
       click_on "Main XML Doc"
 
       expect(page.body).to include('efile:ReturnState')
@@ -560,8 +579,15 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       wait_for_device_info("esign_declaration")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
+      page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Maryland"))
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year)
+      expect(page).not_to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileMdIntake.last, :ready)
+
       page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year))
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Maryland")
       click_on "Main XML Doc"
 
       expect(page.body).to include('efile:ReturnState')

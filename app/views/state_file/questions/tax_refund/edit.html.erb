@@ -22,7 +22,7 @@
       <div class="question-with-follow-up__follow-up" id="deposit-to-bank">
         <div>
           <div>
-            <%= render 'state_file/questions/tax_refund/bank_details', form: f, owe_taxes: false %>
+            <%= render partial: 'state_file/questions/tax_refund/bank_details', locals: { form: f, owe_taxes: false } %>
           </div>
         </div>
       </div>

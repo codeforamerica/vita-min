@@ -142,7 +142,7 @@
     </section>
   <% end %>
 
-  <% if current_intake.nj_gross_income.positive? %>
+  <% if !current_intake.eligibility_made_less_than_threshold? %>
     <section id="medical_expenses" class="white-group">
       <div class="spacing-below-5">
         <h2 class="text--body text--bold spacing-below-5"><%=t(".medical_expenses") %></h2>

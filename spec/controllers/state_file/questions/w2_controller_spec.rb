@@ -239,6 +239,35 @@ RSpec.describe StateFile::Questions::W2Controller do
           }.to raise_error(NoMethodError)
         end
       end
+
+      # TEMP: remove when flipper flag goes away
+      context "when the intake's w2s are not editable" do
+        let(:intake) { create :state_file_nc_intake }
+        let!(:state_file_w2) { create :state_file_w2, state_file_intake: intake, w2_index: 1, employer_state_id_num: "23456" }
+
+        context "flipper flag is enabled" do
+          before do
+            allow(Flipper).to receive(:enabled?).and_call_original
+            allow(Flipper).to receive(:enabled?).with(:nc_flip_flop).and_return(true)
+          end
+
+          it "updates the w2 information and redirects to the income review page" do
+            post :update, params: params
+
+            state_file_w2.reload
+            expect(state_file_w2.employer_state_id_num).to eq "12345"
+          end
+        end
+
+        context "flipper flag is disabled" do
+          it "does not updates the w2 information" do
+            post :update, params: params
+
+            state_file_w2.reload
+            expect(state_file_w2.employer_state_id_num).to eq "23456"
+          end
+        end
+      end
     end
 
     context "with invalid params" do
