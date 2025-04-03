@@ -3530,6 +3530,8 @@ es:
             </ul>
           estimated_taxes_input_helper_html: Suma tus pagos trimestrales e ingresa el total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">verifica cuánto pagaste</a>).
           estimated_taxes_input_label_html: "<strong>Total de pagos estimados realizados para los impuestos de %{filing_year}</strong>"
+          extension_payments_input_helper_html: You generally would have made this payment earlier in 2025, when requesting an extension to file your state taxes <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or using <a href="https://www.nj.gov/treasury/taxation/pdf/current/630.pdf" target="_blank" rel="noopener nofollow">NJ-630</a>.
+          extension_payments_input_label_html: "<strong>Additional payment you made when you filed for an extension</strong>"
           no_text: No (más común)
           overpayments_input_helper_html: Si aplica, puedes encontrar esto en la línea 69 de tu NJ-1040 de %{prior_year}. Ingresa un monto aquí solo si no lo incluiste en el cálculo del cuadro anterior.
           overpayments_input_label_html: "<strong>Reembolso transferido a los impuestos de %{filing_year} (no incluyas los pagos estimados)</strong>"
@@ -3705,6 +3707,7 @@ es:
           edit_veteran: estado de veterano/a de guerra
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
           estimated_tax_payments: Monto de los pagos trimestrales estimados
+          extension_payments: Payment made when you filed for an extension
           has_estimated_payments: Estimated or other payments
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
