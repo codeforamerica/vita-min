@@ -6,6 +6,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
+
+    # Turn on 1099-R support to be more like prod
+    allow(Flipper).to receive(:enabled?).and_call_original
+    allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
   end
 
   StateFile::StateInformationService.active_state_codes.without("ny").each do |state_code|
