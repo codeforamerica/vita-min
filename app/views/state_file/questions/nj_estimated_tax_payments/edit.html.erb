@@ -44,6 +44,16 @@
                 options: { placeholder: "0" },
                 help_text: t('.overpayments_input_helper_html', prior_year: current_tax_year-1)
               ) %>
+
+          <% if Flipper.enabled?(:extension_period) %>
+            <%= f.vita_min_money_field(
+                  :extension_payments,
+                  t('.extension_payments_input_label_html'),
+                  classes: ["form-width--long"],
+                  options: { placeholder: "0" },
+                  help_text: t('.extension_payments_input_helper_html')
+                ) %>
+          <% end %>
         </div>
       </div>
     </div>
