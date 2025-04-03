@@ -157,7 +157,6 @@ RSpec.describe StateFile::TaxesOwedForm do
         let(:app_time) { payment_deadline_datetime + 1.day }
         let(:withdrawal_month) { nil }
         let(:withdrawal_day) { nil }
-        let(:submission_time) { DateTime.new(filing_year, 4, 20, 12, 0, 0, "-07:00") }
         let(:post_deadline_params) {
           params.except(
             :date_electronic_withdrawal_month,
@@ -166,12 +165,7 @@ RSpec.describe StateFile::TaxesOwedForm do
           )
         }
 
-        before do
-          # Create an efile submission to set the intake's submission time
-          create(:efile_submission, data_source: intake, created_at: submission_time)
-        end
-
-        it "sets the withdrawal date to the intake submission date" do
+        it "sets the withdrawal date to the current date" do
           form = described_class.new(intake, post_deadline_params)
           expect(form).to be_valid
           form.save
@@ -181,23 +175,9 @@ RSpec.describe StateFile::TaxesOwedForm do
           expect(intake.account_type).to eq "checking"
           expect(intake.routing_number).to eq "019456124"
           expect(intake.account_number).to eq "12345"
-          expect(intake.date_electronic_withdrawal).to eq submission_time.in_time_zone(timezone).to_date
+          expect(intake.date_electronic_withdrawal).to eq DateTime.new(filing_year, app_time.month, app_time.day).to_date
         end
 
-        context "with a different timezone" do
-          let(:state_code) { "md" }
-          let(:timezone) { "America/New_York" }
-          let(:submission_time) { DateTime.new(filing_year, 4, 20, 12, 0, 0, "-04:00") }
-
-          it "sets the withdrawal date to the intake submission date in the correct timezone" do
-            form = described_class.new(intake, post_deadline_params)
-            expect(form).to be_valid
-            form.save
-
-            intake.reload
-            expect(intake.date_electronic_withdrawal).to eq submission_time.in_time_zone(timezone).to_date
-          end
-        end
       end
 
       context "when banking info params are not valid" do

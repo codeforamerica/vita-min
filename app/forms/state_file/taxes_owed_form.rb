@@ -53,8 +53,8 @@ module StateFile
     end
 
     def date_electronic_withdrawal
-      # After deadline, use the intake's submission time
-      return intake&.efile_submissions&.last&.created_at unless form_submitted_before_payment_deadline?
+      # Future story: set post-deadline withdrawal date during submission bundle instead (use submission date)
+      return @form_submitted_time.to_date unless form_submitted_before_payment_deadline?
 
       # NOTE: This date has no timezone, but if time operations are used, it is considered midnight UTC
       # e.g. when converted to a US timezone, a negative offset is applied, moving it to the day before
