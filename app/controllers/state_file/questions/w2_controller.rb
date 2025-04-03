@@ -2,7 +2,6 @@ module StateFile
   module Questions
     class W2Controller < QuestionsController
       before_action :load_w2
-
       helper_method :box_14_codes_and_values, :state_wages_invalid?
 
       def self.show?(intake) # only accessed via button, not navigator
