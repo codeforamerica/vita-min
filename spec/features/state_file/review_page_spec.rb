@@ -447,10 +447,9 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           click_on I18n.t("general.continue")
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-          expect(page).not_to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.title")
+          expect(page).not_to have_selector "#qualified-retirement-benefits-deduction"
 
-          # TODO: Add expectation for disability card header text
-          # expect(page).to have_text I18n.t("")
+          expect(page).to have_text I18n.t("state_file.questions.shared.id_disability_review_header.meets_qualifications")
         end
 
       end
@@ -461,8 +460,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
 
-          # TODO: Add expectation to NOT have disability card header text
-          # expect(page).to have_text I18n.t("")
+          expect(page).not_to have_text I18n.t("state_file.questions.shared.id_disability_review_header.meets_qualifications")
 
           within "#retirement-income-source-0" do
             expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.civil_servant_employee", taxpayer_name: "Dorothy Jane Red")
@@ -512,8 +510,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           # Goes to offboarding page
           expect(page).to have_text I18n.t("state_file.questions.id_ineligible_retirement_and_pension_income.edit.title")
 
-          # TODO: Change this button back to "File without claiming"
-          click_on I18n.t("general.continue")
+          click_on I18n.t("state_file.questions.id_ineligible_retirement_and_pension_income.edit.file_without_claiming")
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
         end
       end

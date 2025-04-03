@@ -1,6 +1,8 @@
 <% if current_intake.show_disability_question? %>
   <section id="disability-info" class="white-group">
-    <p>DISABILITY QUESTION</p>
+    <p class="text--bold spacing-below-5"><%= t("state_file.questions.shared.id_disability_review_header.meets_qualifications") %></p>
+    <p class="spacing-below-15"><%= (current_intake.primary_disabled_yes? || current_intake.spouse_disabled_yes?) ? t("general.affirmative") : t("general.negative") %></p>
+    <p class="text--small spacing-below-15"><%= t("state_file.questions.shared.id_disability_review_header.editing_may_affect_deductions") %></p>
     <div class="spacing-below-5">
       <%= link_to t("general.review_and_edit"), StateFile::Questions::IdDisabilityController.to_path_helper(
         return_to_review_before: StateFile::Questions::IdDisabilityController.name.demodulize.underscore,
@@ -14,18 +16,18 @@
     <div class="spacing-below-5">
       <% if current_intake.has_old_1099r_income_params? %>
         <p class="text--bold spacing-below-5"><%= t(".qualified_retirement_benefits_deduction") %></p>
-        <p class="text spacing-below-2"><%= t(".qualified_retirement_benefits_deduction_explain") %></p>
+        <p class="text--small spacing-below-2"><%= t(".qualified_retirement_benefits_deduction_explain") %></p>
 
         <p class="text--bold spacing-below-5"><%= t(".qualified_disabled_retirement_benefits") %></p>
         <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_8f), precision: 2) %></p>
       <% else %>
         <p class="text--bold spacing-below-10"><%= t(".title") %></p>
-        <%= t(".subtitle") %>
+        <p class="text--small"><%= t(".subtitle") %></p>
 
         <% current_intake.eligible_1099rs.each_with_index do |state_file1099_r, index| %>
           <% followup = state_file1099_r.state_specific_followup %>
           <% unless followup.nil? %>
-            <div id="<%= "retirement-income-source-#{index}" %>" class="spacing-above-15 spacing-below-15">
+            <div id="<%= "retirement-income-source-#{index}" %>" class="spacing-above-15">
               <div>
                 <p class="spacing-below-0"><b><%= state_file1099_r.payer_name %></b></p>
                 <ul class="list--padded spacing-above-0">
@@ -67,13 +69,12 @@
                   <% end %>
                 </ul>
               </div>
-              <div class="spacing-below-5">
+              <div>
                 <%= link_to t("general.review_and_edit"), StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(
                   item_index: index,
                   return_to_review_before: "retirement_income_deduction_#{index}",
                   return_to_review_after: "retirement_income_deduction_#{index}"), class: "button--small" %>
               </div>
-
             </div>
           <% end %>
         <% end %>
