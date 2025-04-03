@@ -44,7 +44,8 @@ describe 'state_file:pre_deadline_reminder' do
 
       Rake::Task['state_file:pre_deadline_reminder'].execute
 
-      expect(StateFile::MessagingService).to have_received(:new).exactly(2).times
+      expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::PreDeadlineReminder, intake: az_intake_with_email_notifications)
+      expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::PreDeadlineReminder, intake: nc_intake_with_text_notifications)
     end
   end
 

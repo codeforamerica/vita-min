@@ -10,6 +10,7 @@ module StateFile
       StateFile::StateInformationService.state_intake_classes.excluding(StateFileNyIntake).each do |class_object|
         intakes_to_notify += class_object.left_joins(:efile_submissions)
                                          .where(efile_submissions: { id: nil })
+                                         .where.not(df_data_imported_at: nil)
                                          .messaging_eligible
                                          .select do |intake|
                                             if intake.message_tracker.present? && intake.message_tracker["messages.state_file.finish_return"]
