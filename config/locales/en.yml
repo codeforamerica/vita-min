@@ -3361,7 +3361,7 @@ en:
           title: First, let's see if you can use this service to file your %{filing_year} North Carolina taxes
       nc_out_of_country:
         edit:
-          title: Were you out of the country on April 15, 2025 and a US citizen or resident?
+          title: Were you out of the country on April 15, %{year} and a US citizen or resident?
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
