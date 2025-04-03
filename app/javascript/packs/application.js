@@ -12,6 +12,7 @@ import Listeners from "../listeners";
 // but we have things (views, test runner) in the app that require jquery on the window object.
 window.jQuery = $;
 window.$ = $;
+window.Rails = RailsUJS;
 
 RailsUJS.start();
 ActiveStorage.start();
