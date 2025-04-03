@@ -198,46 +198,6 @@ describe Client do
     end
   end
 
-  describe "#unlock_for_login!" do
-    let!(:client) { create(:client, locked_at: 32.minutes.ago, failed_attempts: 2) }
-
-    before do
-      allow(client).to receive(:access_locked?).and_return(access_locked)
-    end
-
-    context "when access locked" do
-      let(:access_locked) { true }
-
-      it "should not reset failed_attempts and not clear out locked_at" do
-        client.unlock_for_login!
-        expect(client.failed_attempts).to eq(2)
-        expect(client.locked_at).to be_present
-      end
-    end
-
-    context "when access not locked" do
-      let(:access_locked) { false }
-
-      it "should reset failed_attempts and clear out locked_at" do
-        client.unlock_for_login!
-        expect(client.failed_attempts).to eq(0)
-        expect(client.locked_at).to eq(nil)
-      end
-
-      context "when locked_at is nil" do
-        before do
-          client.update(locked_at: nil)
-        end
-
-        it "should not reset failed_attempts and locked_at should remain nil" do
-          client.unlock_for_login!
-          expect(client.failed_attempts).to eq(2)
-          expect(client.locked_at).to be_nil
-        end
-      end
-    end
-  end
-
   describe ".with_insufficient_contact_info scope" do
     let!(:client_with_contact_info) { create(:intake, :with_contact_info).client }
     let!(:client_no_info) { create(:intake, email_notification_opt_in: "yes", email_address: nil, sms_notification_opt_in: "yes", sms_phone_number: nil).client }

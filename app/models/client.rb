@@ -188,7 +188,8 @@ class Client < ApplicationRecord
   end
 
   def unlock_for_login!
-    unlock_access! if locked_at.present? && !access_locked?
+    # Client should only be unlocked manually by an authorized user
+    # unlock_strategy is :none for Client, which means it stays unlocked until manually unlocked
   end
 
   def fraud_scores
