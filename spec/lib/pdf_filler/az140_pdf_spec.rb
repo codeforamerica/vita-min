@@ -40,7 +40,7 @@ RSpec.describe PdfFiller::Az140Pdf do
       end
 
       context "with flipper off" do
-        it "includes the SpecialProgram node in the RetrunHeaderState" do
+        it "does not fill out Box 82F" do
           expect(pdf.hash_for_pdf["Check Box82F"]).to be_nil
         end
       end

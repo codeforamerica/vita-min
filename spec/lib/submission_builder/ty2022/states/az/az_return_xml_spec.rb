@@ -35,13 +35,13 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
           allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
         end
 
-        it "includes the SpecialProgram node in the RetrunHeaderState" do
+        it "includes the FiledUnderExtension node" do
           expect(xml.document.at("FiledUnderExtension").text).to eq "Yes"
         end
       end
 
       context "with flipper off" do
-        it "includes the SpecialProgram node in the RetrunHeaderState" do
+        it "not include the FiledUnderExtension node" do
           expect(xml.document.at("FiledUnderExtension")).to be_nil
         end
       end
