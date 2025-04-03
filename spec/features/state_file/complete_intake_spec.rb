@@ -287,7 +287,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       select("Alaska", from: "State")
       click_on I18n.t("general.continue")
 
-      page_change_check(I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label"))
+      page_change_check(strip_html_tags(I18n.t("state_file.questions.spouse_state_id.edit.title_html")))
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
       fill_in "state_file_spouse_state_id_form_id_number", with: "123456789"
       select_cfa_date "state_file_spouse_state_id_form_issue_date", Date.new(2020, 1, 1)
