@@ -1,6 +1,6 @@
 module StateFile
   class SendPreDeadlineReminderService
-    BATCH_SIZE = 1_000
+    BATCH_SIZE = 100
     HOURS_AGO = 24
 
     def self.run

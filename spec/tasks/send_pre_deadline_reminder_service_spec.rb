@@ -15,24 +15,35 @@ describe 'state_file:pre_deadline_reminder' do
   end
 
   context 'Sends the notification to all state-filing' do
-    let!(:az_intake_with_email_notifications) {
+    let!(:az_intake_with_email_notifications_and_df_import) {
       create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1,
+             created_at: 25.hours.ago
+    }
+    let!(:az_intake_with_email_notifications_without_df_import) {
+      create :state_file_az_intake,
+      df_data_imported_at: nil,
       email_address: 'test@example.com',
-      email_address_verified_at: 1.minute.ago,
+      email_address_verified_at: 5.minutes.ago,
       email_notification_opt_in: 1,
       created_at: 25.hours.ago
     }
-    let!(:nc_intake_with_text_notifications) {
+    let!(:nc_intake_with_text_notifications_and_df_import) {
       create :state_file_az_intake,
+      df_data_imported_at: 2.minutes.ago,
       phone_number: "+15551115511",
       sms_notification_opt_in: 1,
-      phone_number_verified_at: 1.minute.ago,
+      phone_number_verified_at: 5.minutes.ago,
       created_at: 25.hours.ago
     }
     let!(:submitted_intake) {
       create :state_file_nc_intake,
+      df_data_imported_at: 2.minutes.ago,
       email_address: 'test+01@example.com',
-      email_address_verified_at: 1.minute.ago,
+      email_address_verified_at: 5.minutes.ago,
       email_notification_opt_in: 1,
       created_at: 25.hours.ago
     }
@@ -44,8 +55,9 @@ describe 'state_file:pre_deadline_reminder' do
 
       Rake::Task['state_file:pre_deadline_reminder'].execute
 
-      expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::PreDeadlineReminder, intake: az_intake_with_email_notifications)
-      expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::PreDeadlineReminder, intake: nc_intake_with_text_notifications)
+      expect(StateFile::MessagingService).to have_received(:new).exactly(2).times
+      expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::PreDeadlineReminder, intake: az_intake_with_email_notifications_and_df_import)
+      expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::PreDeadlineReminder, intake: nc_intake_with_text_notifications_and_df_import)
     end
   end
 
@@ -54,6 +66,7 @@ describe 'state_file:pre_deadline_reminder' do
       create :state_file_az_intake, email_address: "test@example.com",
                                     email_address_verified_at: 1.hour.ago,
                                     email_notification_opt_in: 1,
+                                    df_data_imported_at: 2.minutes.ago,
                                     created_at: 25.hours.ago
     }
 
@@ -76,6 +89,7 @@ describe 'state_file:pre_deadline_reminder' do
       create :state_file_az_intake, email_address: "test@example.com",
                                     email_address_verified_at: 1.hour.ago,
                                     email_notification_opt_in: 1,
+                                    df_data_imported_at: 2.minutes.ago,
                                     created_at: 25.hours.ago
     }
 
