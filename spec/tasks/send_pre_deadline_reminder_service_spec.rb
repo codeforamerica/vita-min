@@ -9,15 +9,33 @@ describe 'state_file:pre_deadline_reminder' do
   end
 
   around do |example|
-    Timecop.freeze(DateTime.parse("2-12-2024")) do
+    Timecop.freeze(DateTime.parse("2-12-2025")) do
       example.run
     end
   end
 
   context 'Sends the notification to all state-filing' do
-    let!(:az_intake) { create :state_file_az_intake, email_address: 'test@example.com', email_address_verified_at: 1.minute.ago, created_at: 25.hours.ago }
-    let!(:ny_intake) { create :state_file_ny_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago, created_at: 25.hours.ago }
-    let!(:submitted_intake) { create :state_file_ny_intake, email_address: 'test+01@example.com', email_address_verified_at: 1.minute.ago }
+    let!(:az_intake_with_email_notifications) {
+      create :state_file_az_intake,
+      email_address: 'test@example.com',
+      email_address_verified_at: 1.minute.ago,
+      email_notification_opt_in: 1,
+      created_at: 25.hours.ago
+    }
+    let!(:nc_intake_with_text_notifications) {
+      create :state_file_az_intake,
+      phone_number: "+15551115511",
+      sms_notification_opt_in: 1,
+      phone_number_verified_at: 1.minute.ago,
+      created_at: 25.hours.ago
+    }
+    let!(:submitted_intake) {
+      create :state_file_nc_intake,
+      email_address: 'test+01@example.com',
+      email_address_verified_at: 1.minute.ago,
+      email_notification_opt_in: 1,
+      created_at: 25.hours.ago
+    }
     let!(:efile_submission) { create :efile_submission, :for_state, data_source: submitted_intake }
 
     it 'intakes without submissions & without reminders' do
@@ -33,11 +51,13 @@ describe 'state_file:pre_deadline_reminder' do
   context 'Sends the notification to intakes that have' do
     let!(:intake_with_reminder) {
       create :state_file_az_intake, email_address: "test@example.com",
-                                    email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
+                                    email_address_verified_at: 1.hour.ago,
+                                    email_notification_opt_in: 1,
+                                    created_at: 25.hours.ago
     }
 
     before do
-      allow_any_instance_of(StateFileNyIntake).to receive(:message_tracker).and_return((Time.now - 25.hours).utc.to_s)
+      allow_any_instance_of(StateFileNcIntake).to receive(:message_tracker).and_return((Time.now - 25.hours).utc.to_s)
     end
 
     it 'the reminder_notification sent more than 24 hours ago' do
@@ -53,7 +73,9 @@ describe 'state_file:pre_deadline_reminder' do
   context 'Does NOT send the notification to' do
     let!(:intake_with_reminder) {
       create :state_file_az_intake, email_address: "test@example.com",
-                                    email_address_verified_at: 1.hour.ago, created_at: 25.hours.ago
+                                    email_address_verified_at: 1.hour.ago,
+                                    email_notification_opt_in: 1,
+                                    created_at: 25.hours.ago
     }
 
     before do
