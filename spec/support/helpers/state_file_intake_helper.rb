@@ -140,7 +140,7 @@ module StateFileIntakeHelper
     click_on I18n.t("general.continue") if expect_success
   end
 
-  def page_change_check(input, sleep_time: 0.1, path: false, retries: 1)
+  def page_change_check(input, sleep_time: 0.1, path: false, retries: 2)
     retry_count = 0
     begin
       if path
