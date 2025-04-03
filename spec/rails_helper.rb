@@ -18,7 +18,7 @@ else
   Capybara.javascript_driver = :selenium_chrome_headless
 end
 
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 3
 Capybara.server = :puma, { Silent: true }
 Capybara.server_port = 9887 + ENV['TEST_ENV_NUMBER'].to_i
 if ENV['DOCKER']
