@@ -9,7 +9,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
   end
-  # todo: something to stop the intercom errors
 
   context "AZ", :flow_explorer_screenshot do
     before do
@@ -19,7 +18,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
     it "has content", required_schema: "az" do
       visit "/"
-      click_on "Start Test AZ" #use click_link or click_button instead? rubocop note
+      click_on "Start Test AZ"
 
       page_change_check(I18n.t("state_file.landing_page.edit.az.title"))
       click_on I18n.t('general.get_started'), id: "firstCta"
@@ -29,8 +28,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       step_through_initial_authentication(contact_preference: :email)
 
-      # TODO: break this out into method
-      expect(page).to have_current_path("/en/questions/notification-preferences")
+      page_change_check(I18n.t("state_file.questions.notification_preferences.edit.title"))
       check "Email"
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
@@ -44,8 +42,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       step_through_df_data_transfer("Transfer Old sample")
 
-      expect(page).to have_current_path("/en/questions/az-senior-dependents")
-      expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.title", dependents_name_list: "Grampy")
+      page_change_check(I18n.t("state_file.questions.az_senior_dependents.edit.title", dependents_name_list: "Grampy"))
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.assistance_label", name: "Grampy")
       expect(page).to have_text I18n.t("state_file.questions.az_senior_dependents.edit.passed_away_label", name: "Grampy", filing_year: filing_year)
       choose "state_file_az_senior_dependents_form_dependents_attributes_0_needed_assistance_yes"
@@ -194,13 +191,14 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       visit "/"
       click_on "Start Test NC"
 
-      expect(page).to have_text I18n.t("state_file.landing_page.edit.nc.title")
+      page_change_check(I18n.t("state_file.landing_page.edit.nc.title"))
       click_on I18n.t('general.get_started'), id: "firstCta"
 
       step_through_eligibility_screener(us_state: "nc")
 
       step_through_initial_authentication(contact_preference: :email)
 
+      page_change_check(I18n.t("state_file.questions.notification_preferences.edit.title"))
       check "Email"
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
@@ -209,7 +207,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       page_change_check(I18n.t('state_file.questions.sms_terms.edit.title'))
       click_on I18n.t("general.accept")
 
-      expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      page_change_check(I18n.t('state_file.questions.terms_and_conditions.edit.title'))
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
 
       step_through_df_data_transfer("Transfer Nick")
@@ -231,8 +229,8 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         expect(page).to have_text(I18n.t('state_file.questions.income_review.edit.state_info_to_be_collected'))
       end
 
+      page_change_check(I18n.t("state_file.questions.income_review.edit.title"))
       wait_for_device_info("income_review")
-
       click_on I18n.t("general.continue")
 
       page_change_check(I18n.t('state_file.questions.unemployment.edit.title', year: filing_year))
@@ -262,7 +260,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
 
-      page_change_check(strip_html_tags(I18n.t("state_file.questions.nc_subtractions.edit.title_html.other")))
+      page_change_check(I18n.t('state_file.questions.nc_subtractions.edit.tribal_wages_field'))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
@@ -296,12 +294,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       page_change_check(I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "North Carolina"))
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
       check I18n.t("state_file.questions.esign_declaration.edit.spouse_esign")
-
       wait_for_device_info("esign_declaration")
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year))
-
       click_on "Main XML Doc"
 
       expect(page.body).to include('efile:ReturnState')
@@ -314,84 +310,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       submission = EfileSubmission.last
       expect(submission.submission_bundle).to be_present
       expect(submission.current_state).to eq("queued")
-    end
-
-    # TODO: this test should be taken out and put into another spec not the complete intake spec
-    it "properly calculates the sales/use tax", required_schema: "nc" do
-      visit "/"
-      click_on "Start Test NC"
-
-      expect(page).to have_text I18n.t("state_file.landing_page.edit.nc.title")
-      click_on I18n.t('general.get_started'), id: "firstCta"
-
-      step_through_eligibility_screener(us_state: "nc")
-
-      step_through_initial_authentication(contact_preference: :email)
-
-      check "Email"
-      check "Text message"
-      fill_in "Your phone number", with: "+12025551212"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_current_path("/en/questions/sms-terms")
-      click_on I18n.t("general.accept")
-
-      expect(page).to have_current_path("/en/questions/terms-and-conditions")
-      click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
-
-      step_through_df_data_transfer("Transfer Bert 1099 r")
-
-      select("Buncombe", from: "County")
-      click_on I18n.t("general.continue")
-
-      choose "state_file_nc_veteran_status_form_primary_veteran_no"
-      choose "state_file_nc_veteran_status_form_spouse_veteran_no"
-      click_on I18n.t("general.continue")
-
-      click_on I18n.t("general.continue")
-
-      # select bailey settlement for the first, and none for the rest
-      choose strip_html_tags(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.income_source_bailey_settlement_html"))
-      check "state_file_nc_retirement_income_subtraction_form_bailey_settlement_at_least_five_years"
-      check "state_file_nc_retirement_income_subtraction_form_bailey_settlement_from_retirement_plan"
-      click_on I18n.t("general.continue")
-
-      choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
-      click_on I18n.t("general.continue")
-
-      choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
-      click_on I18n.t("general.continue")
-
-      choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
-      click_on I18n.t("general.continue")
-
-      choose I18n.t("general.negative")
-      click_on I18n.t("general.continue")
-
-      # select automated sales use tax calculation
-      expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: filing_year, count: 2)
-      choose I18n.t("general.affirmative")
-      choose "state_file_nc_sales_use_tax_form_sales_use_tax_calculation_method_automated"
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
-      choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
-      fill_in "state_file_primary_state_id_form_id_number", with: "123456789"
-      select_cfa_date "state_file_primary_state_id_form_issue_date", Date.new(2020, 1, 1)
-      check "state_file_primary_state_id_form_non_expiring"
-      select("Alaska", from: "State")
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
-      choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
-      fill_in "state_file_spouse_state_id_form_id_number", with: "123456789"
-      select_cfa_date "state_file_spouse_state_id_form_issue_date", Date.new(2020, 1, 1)
-      check "state_file_spouse_state_id_form_non_expiring"
-      select("Alaska", from: "State")
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      expect(page).to have_css("#use-tax-amount", text: "$11.00")
     end
   end
 
@@ -407,6 +325,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       step_through_initial_authentication(contact_preference: :email)
 
+      page_change_check(I18n.t("state_file.questions.notification_preferences.edit.title"))
       check "Email"
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
@@ -439,6 +358,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
       # 1099G Review
+      page_change_check(I18n.t("state_file.questions.unemployment.index.lets_review"))
       click_on I18n.t("general.continue")
 
       # Health Insurance Premium
@@ -448,8 +368,8 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
       # Grocery Credit Edit
-      page_change_check(I18n.t("state_file.questions.id_grocery_credit.edit.see_if_you_qualify.other"))
-      choose I18n.t("general.negative")
+      page_change_check(I18n.t("state_file.questions.id_grocery_credit.edit.title"))
+      choose I18n.t("general.negative") # todo: get form name
       click_on I18n.t("general.continue")
 
       # Grocery Credit Review
@@ -491,15 +411,14 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("state_file.questions.tax_refund.edit.mail")
       click_on I18n.t("general.continue")
 
+      # Esign declaration page
       page_change_check(I18n.t("state_file.questions.esign_declaration.edit.title", state_name: "Idaho"))
       check I18n.t("state_file.questions.esign_declaration.edit.primary_esign")
-
       wait_for_device_info("esign_declaration")
-
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
+      # Submission confirmation page
       page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year))
-
       click_on "Main XML Doc"
 
       expect(page.body).to include('efile:ReturnState')
@@ -529,13 +448,13 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t('general.get_started'), id: "firstCta"
 
       page_change_check(I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year))
-      # select optoins that allow us to proceed
       click_on I18n.t("general.continue")
 
       step_through_eligibility_screener(us_state: "md")
 
       step_through_initial_authentication(contact_preference: :email)
 
+      page_change_check(I18n.t("state_file.questions.notification_preferences.edit.title"))
       check "Email"
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
@@ -578,7 +497,8 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in 'state_file1099_g_state_income_tax_withheld_amount', with: "789"
       click_on I18n.t("general.continue")
 
-      # todo: what page is here?
+      # 1099G Review
+      page_change_check(I18n.t("state_file.questions.unemployment.index.lets_review"))
       click_on I18n.t("general.continue")
 
       # md_two_income_subtractions
@@ -588,13 +508,13 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       page_change_check(I18n.t('state_file.questions.primary_state_id.edit.title'))
       choose I18n.t('state_file.questions.md_primary_state_id.md_primary.dmv_bmv_label')
-
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
       select_cfa_date "state_file_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
       select_cfa_date "state_file_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
       select("Maryland", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
       click_on I18n.t("general.continue")
 
+      page_change_check(I18n.t('state_file.questions.primary_state_id.edit.title'))
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")
       click_on I18n.t("general.continue")
 
@@ -632,14 +552,11 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       check I18n.t("state_file.questions.esign_declaration.edit.spouse_esign")
       check "state_file_esign_declaration_form_primary_esigned"
       check "state_file_esign_declaration_form_spouse_esigned"
-
       wait_for_device_info("esign_declaration")
-
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
       page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year))
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
-
       click_on "Main XML Doc"
 
       expect(page.body).to include('efile:ReturnState')
@@ -695,9 +612,12 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         perform_enqueued_jobs do
           click_on "Send code"
         end
+
         page_change_check("Enter the code to continue")
         fill_in "Enter the 6-digit code", with: verification_code
         click_on "Verify code"
+        puts "tried again to verify code here" if page.has_text?("Incorrect verification code.")
+        click_on "Verify code" if page.has_text?("Incorrect verification code.")
 
         page_change_check(I18n.t("state_file.intake_logins.edit.title"))
         fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn

@@ -50,6 +50,7 @@ module StateFileIntakeHelper
 
       page_change_check(I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year))
       choose I18n.t("general.affirmative"), id: "state_file_md_eligibility_filing_status_form_eligibility_filing_status_mfj_yes"
+      sleep 0.2
       choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
       choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
       click_on I18n.t("general.continue")
@@ -143,11 +144,11 @@ module StateFileIntakeHelper
   def page_change_check(text, sleep_time: 0.1)
     begin
       expect(page).to have_text(text)
-    rescue Selenium::WebDriver::Error::UnknownError,
+    rescue Selenium::WebDriver::Error::WebDriverError,
       Capybara::ElementNotFound,
       RSpec::Expectations::ExpectationNotMetError => e
       puts "Caught #{e.class} - #{e.message}"
-      puts "First attempt failed for `#{text}`, sleeping #{sleep_time}s then retrying..."
+      puts "First attempt failed for `#{text}`, sleeping #{sleep_time} seconds then retrying..."
       sleep sleep_time
       expect(page).to have_text text
     end
