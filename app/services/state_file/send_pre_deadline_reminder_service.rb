@@ -1,6 +1,6 @@
 module StateFile
   class SendPreDeadlineReminderService
-    BATCH_SIZE = 10
+    BATCH_SIZE = 1_000
     HOURS_AGO = 24
 
     def self.run
@@ -11,7 +11,6 @@ module StateFile
         intakes_to_notify += class_object.left_joins(:efile_submissions)
                                          .where(efile_submissions: { id: nil })
                                          .messaging_eligible
-                                         .where("#{class_object.name.underscore.pluralize}.message_tracker #> '{messages.state_file.pre_deadline_reminder}' IS NULL")
                                          .select do |intake|
                                             if intake.message_tracker.present? && intake.message_tracker["messages.state_file.finish_return"]
                                               finish_return_msg_sent_time = Time.parse(intake.message_tracker["messages.state_file.finish_return"])
