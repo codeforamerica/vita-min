@@ -1886,8 +1886,8 @@ en:
         verify: Verify
       form:
         errors:
-          bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 5 failed attempts, accounts are locked.
-          bad_verification_code: Incorrect verification code. After 5 failed attempts, accounts are locked.
+          bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 3 failed attempts, accounts are locked.
+          bad_verification_code: Incorrect verification code. After 3 failed attempts, accounts are locked.
       new:
         one_form_of_contact: 'Please enter one form of contact below:'
         send_code: Send code
@@ -2212,7 +2212,7 @@ en:
         verify: Verify code
       form:
         errors:
-          bad_input: Incorrect SSN/ITIN. After 5 failed attempts, accounts are locked.
+          bad_input: Incorrect SSN/ITIN. After 3 failed attempts, accounts are locked.
       new:
         email_address:
           label: Your email address
@@ -2963,6 +2963,10 @@ en:
           enter_amount: Enter the amount of extension payments...
           more_info: More info here...
           title: Did you make any extension payments?
+      federal_extension_payments:
+        edit:
+          more_info: More info here...
+          title: Were you granted a federal extension?
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget

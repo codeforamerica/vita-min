@@ -1,8 +1,9 @@
 class StateFileBaseIntake < ApplicationRecord
   self.ignored_columns = [:df_data_import_failed_at, :bank_name]
 
-  devise :lockable, :trackable
-  devise :timeoutable, :timeout_in => 15.minutes, :unlock_strategy => :time
+  devise :lockable, :unlock_strategy => :time
+  devise :trackable
+  devise :timeoutable, :timeout_in => 15.minutes
 
   self.abstract_class = true
   has_one_attached :submission_pdf
@@ -61,6 +62,10 @@ class StateFileBaseIntake < ApplicationRecord
 
   before_save :save_nil_enums_with_unfilled
   before_save :sanitize_bank_details
+
+  def self.maximum_attempts
+    3
+  end
 
   def self.state_code
     state_code, = StateFile::StateInformationService::STATES_INFO.find do |_, state_info|
@@ -411,6 +416,10 @@ class StateFileBaseIntake < ApplicationRecord
     if attempts_exceeded? && !access_locked?
       lock_access!
     end
+  end
+
+  def unlock_for_login!
+    unlock_access! if locked_at.present? && !access_locked?
   end
 
   def controller_for_current_step

@@ -1869,8 +1869,8 @@ es:
         verify: Verificar
       form:
         errors:
-          bad_input: ID de cliente o los 4 últimos de SSN/ITIN incorrectos. Después de 5 intentos fallidos, las cuentas se bloquean.
-          bad_verification_code: Código incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
+          bad_input: ID de cliente o los 4 últimos de SSN/ITIN incorrectos. Después de 3 intentos fallidos, las cuentas se bloquean.
+          bad_verification_code: Código incorrecto. Después de 3 intentos fallidos, las cuentas se bloquean.
       new:
         one_form_of_contact: 'Ingresa una forma de contacto a continuación:'
         send_code: Enviar el código
@@ -2195,7 +2195,7 @@ es:
         verify: Verificar el código
       form:
         errors:
-          bad_input: Número completo de Seguro Social (SSN)/Número de Identificación del Contribuyente (ITIN) incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
+          bad_input: Número completo de Seguro Social (SSN)/Número de Identificación del Contribuyente (ITIN) incorrecto. Después de 3 intentos fallidos, las cuentas se bloquean.
       new:
         email_address:
           label: Tu dirección de correo electrónico
@@ -2929,6 +2929,10 @@ es:
           enter_amount: Enter the amount of extension payments...
           more_info: More info here...
           title: Did you make any extension payments?
+      federal_extension_payments:
+        edit:
+          more_info: More info here...
+          title: Were you granted a federal extension?
       id_disability:
         edit:
           help_b1: Un individuo reconocido como discapacitado por la Administración del Seguro Social, la Junta de Jubilación de los Ferrocarriles o la Oficina de Administración y Presupuesto (OMB, por sus siglas en inglés).

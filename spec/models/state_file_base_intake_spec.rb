@@ -1,6 +1,57 @@
 require "rails_helper"
 
 describe StateFileBaseIntake do
+  describe "#increment_failed_attempts" do
+    let!(:intake) { create :state_file_az_intake, failed_attempts: 2 }
+    it "locks access when failed attempts is incremented to 3" do
+      expect(intake.access_locked?).to eq(false)
+
+      intake.increment_failed_attempts
+
+      expect(intake.access_locked?).to eq(true)
+    end
+  end
+
+  describe "#unlock_for_login!" do
+    let!(:intake) { create :state_file_az_intake, failed_attempts: 2, locked_at: 31.minutes.ago }
+
+    before do
+      allow(intake).to receive(:access_locked?).and_return(access_locked)
+    end
+
+    context "when access locked" do
+      let(:access_locked) { true }
+
+      it "should not reset failed_attempts and not clear out locked_at" do
+        intake.unlock_for_login!
+        expect(intake.failed_attempts).to eq(2)
+        expect(intake.locked_at).to be_present
+      end
+    end
+
+    context "when access not locked" do
+      let(:access_locked) { false }
+
+      it "should reset failed_attempts and clear out locked_at" do
+        intake.unlock_for_login!
+        expect(intake.failed_attempts).to eq(0)
+        expect(intake.locked_at).to be_nil
+      end
+
+      context "when locked_at is nil" do
+        before do
+          intake.update(locked_at: nil)
+        end
+
+        it "should not reset failed_attempts and locked_at should remain nil" do
+          intake.unlock_for_login!
+          expect(intake.failed_attempts).to eq(2)
+          expect(intake.locked_at).to be_nil
+        end
+      end
+    end
+  end
+
   describe "#synchronize_filers_to_database" do
     context "when filing status is single" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
