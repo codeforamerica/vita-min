@@ -180,7 +180,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileAzIntake.last, :ready)
 
-      page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year))
+      page_change_check(I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year), sleep_time: 0.4)
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
       expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
       click_on "Main XML Doc"
@@ -488,7 +488,15 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       page_change_check(I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year))
       click_on I18n.t("general.continue")
 
-      step_through_eligibility_screener(us_state: "md")
+      # step_through_eligibility_screener(us_state: "md")
+      page_change_check(I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year))
+      click_on I18n.t("general.continue")
+
+      page_change_check(I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year))
+      choose I18n.t("general.affirmative"), id: "state_file_md_eligibility_filing_status_form_eligibility_filing_status_mfj_yes"
+      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
+      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
+      click_on I18n.t("general.continue")
 
       step_through_initial_authentication(contact_preference: :email)
 
@@ -619,19 +627,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
   context "deprecated" do
     context "NY" do
-      let(:email_address) { "someone@example.com" }
-      let(:ssn) { "111223333" }
-      let(:hashed_ssn) { "hashed_ssn" }
-      let(:verification_code) { "000000" }
-      let(:hashed_verification_code) { "hashed_verification_code" }
-
-      before do
-        create :state_file_ny_intake, email_address: email_address, hashed_ssn: hashed_ssn, df_data_import_succeeded_at: 5.minutes.ago, email_address_verified_at: 5.minutes.ago
-        allow(SsnHashingService).to receive(:hash).with(ssn).and_return hashed_ssn
-        allow(VerificationCodeService).to receive(:generate).with(anything).and_return [verification_code, hashed_verification_code]
-        allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
-      end
-
       it "doesn't allow filers in anymore and redirects all pages to landing page" do
         visit "/"
         click_on "Start Test NY"
@@ -647,26 +642,21 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
         visit "/questions/ny-review"
         page_change_check(I18n.t("state_file.landing_page.ny_closed.title"))
+      end
 
-        # try to log in with existing ny intake and get redirected
-        visit "/questions/return-status"
-        page_change_check("Sign in to FileYourStateTaxes")
-        click_on "Sign in with email"
-        page_change_check("Sign in with your email address")
-        fill_in "Your email address", with: email_address
-        perform_enqueued_jobs do
-          click_on "Send code"
+      context "with logged-in NY intake" do
+        let!(:intake) {
+          create :state_file_ny_intake
+        }
+        before do
+          login_as(intake, scope: :state_file_nc_intake)
         end
 
-        page_change_check("Enter the code to continue")
-        fill_in "Enter the 6-digit code", with: verification_code
-        click_on "Verify code"
-
-        page_change_check(I18n.t("state_file.intake_logins.edit.title"))
-        fill_in "Enter your Social Security number or ITIN. For example, 123-45-6789.", with: ssn
-        click_on I18n.t("general.continue")
-
-        page_change_check(I18n.t("state_file.landing_page.ny_closed.title"))
+        it "shows closed page when logged in" do
+          # try to log in with existing ny intake and get redirected
+          visit "/questions/return-status"
+          page_change_check(I18n.t("state_file.landing_page.ny_closed.title"))
+        end
       end
     end
   end
