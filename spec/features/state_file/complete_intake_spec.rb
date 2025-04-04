@@ -488,15 +488,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       page_change_check(I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year))
       click_on I18n.t("general.continue")
 
-      # step_through_eligibility_screener(us_state: "md")
-      page_change_check(I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year))
-      click_on I18n.t("general.continue")
-
-      page_change_check(I18n.t("state_file.questions.md_eligibility_filing_status.edit.title", year: filing_year))
-      choose I18n.t("general.affirmative"), id: "state_file_md_eligibility_filing_status_form_eligibility_filing_status_mfj_yes"
-      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_homebuyer_withdrawal_mfj_no"
-      choose I18n.t("general.negative"), id: "state_file_md_eligibility_filing_status_form_eligibility_home_different_areas_no"
-      click_on I18n.t("general.continue")
+      step_through_eligibility_screener(us_state: "md")
 
       step_through_initial_authentication(contact_preference: :email)
 
