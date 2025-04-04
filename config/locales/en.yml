@@ -2956,7 +2956,7 @@ en:
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to Maryland.
           subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
-          title: Did you make a Maryland extension payment on or before April 15?
+          title: Did you make any Arizona extension or estimated payments for the %{tax_year} tax year on or before April 15, %{date_year}?
           affirmative: "Yes"
           negative: "No"
         id:
