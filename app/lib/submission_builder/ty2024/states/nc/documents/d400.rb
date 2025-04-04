@@ -60,6 +60,7 @@ module SubmissionBuilder
                 xml.TotalNCTax calculated_fields.fetch(:NCD400_LINE_19)
                 xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)
                 xml.IncTaxWithSpouse calculated_fields.fetch(:NCD400_LINE_20B)
+                xml.IncTaxWithSpouse calculated_fields.fetch(:NCD400_LINE_21B) if Flipper.enabled?(:extension_period)
                 xml.NCTaxPaid calculated_fields.fetch(:NCD400_LINE_23)
                 xml.RemainingPayment calculated_fields.fetch(:NCD400_LINE_23) # equal to line 23 bc line 24 not supported
                 if calculated_fields.fetch(:NCD400_LINE_26A).present?

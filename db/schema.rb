@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_02_193747) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_03_205420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2013,6 +2013,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_02_193747) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
+    t.decimal "extension_payments_amount", precision: 12, scale: 2, default: "0.0"
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -2030,6 +2031,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_02_193747) do
     t.jsonb "message_tracker", default: {}
     t.decimal "nongame_wildlife_fund_donation", precision: 12, scale: 2
     t.decimal "opportunity_scholarship_program_donation", precision: 12, scale: 2
+    t.integer "paid_extension_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
@@ -2230,6 +2232,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_02_193747) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
+    t.decimal "extension_payments_amount", precision: 12, scale: 2, default: "0.0"
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -2240,6 +2243,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_02_193747) do
     t.datetime "locked_at"
     t.jsonb "message_tracker", default: {}
     t.integer "moved_after_hurricane_helene", default: 0, null: false
+    t.integer "paid_extension_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
