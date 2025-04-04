@@ -59,7 +59,7 @@ describe 'state_file:pre_deadline_reminder' do
   }
 
   it 'sends messages via appropriate contact method to intakes without submissions, with df data that is not disqualifying, who have not received a reminder in the last 24 hours' do
-    allow_any_instance_of(StateFileMdIntake).to receive(:disqualifying_df_data_reason).and_return true
+    allow_any_instance_of(StateFileMdIntake).to receive(:disqualifying_df_data_reason).and_return :has_out_of_state_w2
 
     messaging_service = instance_double(StateFile::MessagingService)
     allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
