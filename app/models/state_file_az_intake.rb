@@ -112,7 +112,6 @@ class StateFileAzIntake < StateFileBaseIntake
   enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
   enum paid_federal_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_federal_extension_payments
 
-  
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
   validates :made_az322_contributions, inclusion: { in: ["yes", "no"]}, on: :az322_form_create
   validates :az321_contributions, length: { maximum: 10 }
