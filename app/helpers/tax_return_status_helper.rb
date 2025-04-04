@@ -7,6 +7,15 @@ module TaxReturnStatusHelper
     end
   end
 
+  def grouped_status_options_for_partner
+    TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).map do |stage, statuses|
+      translated_stage = TaxReturnStatusHelper.stage_translation(stage)
+      filtered_statuses = statuses.reject { |status| status.to_s == "intake_in_progress" }
+      translated_statuses = filtered_statuses.map { |status| [TaxReturnStatusHelper.status_translation(status), status.to_s] }
+      [translated_stage, translated_statuses]
+    end
+  end
+
   def stage_and_status_translation(status)
     TaxReturnStatusHelper.stage_and_status_translation(status)
   end
