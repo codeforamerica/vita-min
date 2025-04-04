@@ -9,12 +9,6 @@ describe('MixpanelEventTracking', () => {
           <a id="outboundLink" href="https://example.com/">Example link to somewhere radical and new</a>
         `;
     navigator.sendBeacon = jest.fn();
-    window.Rails = {
-      csrfToken: () => {
-      },
-      csrfParam: () => {
-      }
-    }
   });
 
   describe('tracked clicks via [data-track-click]', () => {
