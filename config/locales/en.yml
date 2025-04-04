@@ -1873,8 +1873,8 @@ en:
         verify: Verify
       form:
         errors:
-          bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 5 failed attempts, accounts are locked.
-          bad_verification_code: Incorrect verification code. After 5 failed attempts, accounts are locked.
+          bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 3 failed attempts, accounts are locked.
+          bad_verification_code: Incorrect verification code. After 3 failed attempts, accounts are locked.
       new:
         one_form_of_contact: 'Please enter one form of contact below:'
         send_code: Send code
@@ -2199,7 +2199,7 @@ en:
         verify: Verify code
       form:
         errors:
-          bad_input: Incorrect SSN/ITIN. After 5 failed attempts, accounts are locked.
+          bad_input: Incorrect SSN/ITIN. After 3 failed attempts, accounts are locked.
       new:
         email_address:
           label: Your email address
@@ -2976,6 +2976,10 @@ en:
           title: Did you make a North Carolina extension payment on or before April 15, %{date_year}?
           affirmative: "Yes"
           negative: "No"
+      federal_extension_payments:
+        edit:
+          more_info: More info here...
+          title: Were you granted a federal extension?
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
@@ -3076,7 +3080,7 @@ en:
           medicaid_title: Do Medicaid and Medicare payments count?
           qualifications_content_html: |
             You can deduct health insurance premiums paid for yourself, your spouse, and your dependents, including medical, dental, and vision, as long as they haven’t been deducted from your income pre-tax.
-            e
+            <br/><br/>
             If you have Medicare you can deduct Medicare A (if you are voluntarily enrolled and not covered under Social Security), as well as Medicare B and D if you are voluntarily enrolled. Medicare Advantage also qualifies.
           qualifications_title: Which health coverage premiums qualify?
           qualifying_amount_help_text_html: Enter the <strong>total amount</strong> of qualifying health insurance premiums your household paid in %{year}.
@@ -3385,6 +3389,9 @@ en:
           question: Did any of the following less common scenarios apply to you (or your spouse, if married filing jointly) in %{filing_year}?
           subtitle: For this tax season, this service will only be able to serve people with specific tax situations. Please answer the following questions to find out if you can use it.
           title: First, let's see if you can use this service to file your %{filing_year} North Carolina taxes
+      nc_out_of_country:
+        edit:
+          title: Were you out of the country on April 15, %{year} and a US citizen or resident?
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
@@ -3584,6 +3591,8 @@ en:
             </ul>
           estimated_taxes_input_helper_html: Add up your quarterly payments and enter the total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">you can check how much you paid here</a>).
           estimated_taxes_input_label_html: "<strong>Total estimated payments made for %{filing_year} taxes</strong>"
+          extension_payments_input_helper_html: You generally would have made this payment earlier in 2025, when requesting an extension to file your state taxes <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or using <a href="https://www.nj.gov/treasury/taxation/pdf/current/630.pdf" target="_blank" rel="noopener nofollow">NJ-630</a>.
+          extension_payments_input_label_html: "<strong>Additional payment you made when you filed for an extension</strong>"
           no_text: No (this is the common option)
           overpayments_input_helper_html: If applicable, you can find this on line 69 of your %{prior_year} NJ-1040. Only enter an amount here if you did not apply it to estimated payments.
           overpayments_input_label_html: "<strong>Refund carried forward to %{filing_year} taxes (exclude estimated payments)</strong>"
@@ -3601,7 +3610,7 @@ en:
           helper_description_html: |
             <ul class="list--bulleted">
               <li>You are a disabled veteran with a 100% exemption from property taxes on your main home; or if</li>
-              <li>You made P.I.L.O.T. (Payments-In-Lieu-of-Tax) payments</li>
+              <li>You made P.I.L.O.T. (Payments-In-Lieu-of-Tax) payments; or if</li>
               <li><a href="https://www.nj.gov/treasury/taxation/questions/propertyd2.shtml" target="_blank" rel="noopener nofollow">Another reason applies</a></li>
             </ul>
           helper_header: 'Leave first box unchecked if:'
@@ -3654,8 +3663,9 @@ en:
           title: You may qualify for a Property Tax Deduction or Credit on your main home, whether you owned or rented it.
       nj_ineligible_property_tax:
         edit:
-          continue_text: Click continue to keep working on your taxes.
+          continue_text: Click "Continue" to keep working on your taxes.
           go_back_link: Go back to correct.
+          housing_assistance_html: (If you are interested in housing assistance, please call 211 or <a href="https://www.nj.gov/dca/dhcr/offices/housing_assistance.shtml" target="_blank" rel="noopener nofollow">visit the New Jersey Department of Community Affairs page on Housing Assistance</a>.)
           mistake_text: Is this a mistake?
           on_home: on the home you lived in and owned.
           on_rental: on the home you lived in and rented.
@@ -3758,6 +3768,7 @@ en:
           edit_veteran: veteran status
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
           estimated_tax_payments: Amount of estimated quarterly payments
+          extension_payments: Payment made when you filed for an extension
           has_estimated_payments: Estimated or other payments
           household_rent_own: Living situation in %{filing_year}
           household_rent_own_both: Owned and rented

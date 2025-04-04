@@ -41,6 +41,7 @@
 #  made_az322_contributions               :integer          default("unfilled"), not null
 #  message_tracker                        :jsonb
 #  paid_extension_payments                :integer          default("unfilled"), not null
+#  paid_federal_extension_payments        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                :integer          default("unfilled"), not null
 #  phone_number                           :string
 #  phone_number_verified_at               :datetime

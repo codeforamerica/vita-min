@@ -112,6 +112,7 @@ module PdfFiller
 
       if Flipper.enabled?(:extension_period)
         answers["55"] = @xml_document.at('ExtPayment')&.text
+        answers["Check Box82F"] = @xml_document.at("FiledUnderExtension")&.text
       end
 
       if @xml_document.at('RefundAmt')&.text.present?

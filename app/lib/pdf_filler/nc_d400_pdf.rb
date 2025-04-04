@@ -86,6 +86,10 @@ module PdfFiller
       end
 
       answers
+      if Flipper.enabled?(:extension_period)
+        answers["y_d400wf_Out of Country"] = checkbox_value(@xml_document.at('OutOfCountry')&.text.present?)
+      end
+      answers
     end
 
     def checkbox_value(condition)

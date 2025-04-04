@@ -41,6 +41,7 @@
 #  made_az322_contributions               :integer          default("unfilled"), not null
 #  message_tracker                        :jsonb
 #  paid_extension_payments                :integer          default("unfilled"), not null
+#  paid_federal_extension_payments        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                :integer          default("unfilled"), not null
 #  phone_number                           :string
 #  phone_number_verified_at               :datetime
@@ -109,6 +110,7 @@ class StateFileAzIntake < StateFileBaseIntake
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
+  enum paid_federal_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_federal_extension_payments
 
   
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
