@@ -39,7 +39,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   }.freeze
 
   def document
-    build_xml_doc("Form502", documentId: "Form502") do |xml|
+    xml_doc = build_xml_doc("Form502", documentId: "Form502") do |xml|
       xml.MarylandSubdivisionCode @intake.subdivision_code
       unless @intake.political_subdivision == "All Other Areas"
         xml.CityTownOrTaxingArea @intake.political_subdivision
@@ -108,20 +108,18 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
           xml.Amount calculated_fields.fetch(:MD502_LINE_D_AMOUNT_TOTAL)
         end
       end
-      if has_healthcare_coverage_section?
-        xml.MDHealthCareCoverage do
-          if @intake.primary_did_not_have_health_insurance_yes?
-            xml.PriWithoutHealthCoverageInd "X"
-            xml.PriDOB date_type(@intake.primary_birth_date)
-          end
-          if @intake.spouse_did_not_have_health_insurance_yes?
-            xml.SecWithoutHealthCoverageInd "X"
-            xml.SecDOB date_type(@intake.spouse_birth_date)
-          end
-          if @intake.authorize_sharing_of_health_insurance_info_yes?
-            xml.AuthorToShareInfoHealthExchInd "X"
-            xml.TaxpayerEmailAddress email_from_intake_or_df
-          end
+      xml.MDHealthCareCoverage do
+        if @intake.primary_did_not_have_health_insurance_yes?
+          xml.PriWithoutHealthCoverageInd "X"
+          xml.PriDOB date_type(@intake.primary_birth_date)
+        end
+        if @intake.spouse_did_not_have_health_insurance_yes?
+          xml.SecWithoutHealthCoverageInd "X"
+          xml.SecDOB date_type(@intake.spouse_birth_date)
+        end
+        if @intake.authorize_sharing_of_health_insurance_info_yes?
+          xml.AuthorToShareInfoHealthExchInd "X"
+          xml.TaxpayerEmailAddress email_from_intake_or_df
         end
       end
       income_section(xml)
@@ -179,10 +177,8 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       add_element_if_present(xml, "TotalPaymentsAndCredits", :MD502_LINE_44)
       add_element_if_present(xml, "BalanceDue", :MD502_LINE_45)
       add_element_if_present(xml, "Overpayment", :MD502_LINE_46)
-      if calculated_fields.fetch(:MD502_LINE_48).positive?
-        xml.AmountOverpayment do
-          xml.ToBeRefunded calculated_fields.fetch(:MD502_LINE_48)
-        end
+      xml.AmountOverpayment do
+        xml.ToBeRefunded calculated_fields.fetch(:MD502_LINE_48)
       end
       add_element_if_present(xml, "TotalAmountDue", :MD502_LINE_50)
       xml.AuthToDirectDepositInd "X" if calculated_fields.fetch(:MD502_AUTHORIZE_DIRECT_DEPOSIT)
@@ -208,6 +204,9 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.ExceptionCodes "247"
       end
     end
+
+    delete_blank_nodes(xml_doc)
+    xml_doc
   end
 
   private
@@ -247,12 +246,6 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       calculated_fields.fetch(line) > 0
     end
     has_dependent_exemption? || has_line_a_or_b_exemptions
-  end
-
-  def has_healthcare_coverage_section?
-    @intake.primary_did_not_have_health_insurance_yes? ||
-      @intake.spouse_did_not_have_health_insurance_yes? ||
-      @intake.authorize_sharing_of_health_insurance_info_yes?
   end
 
   def has_state_tax_computation?
