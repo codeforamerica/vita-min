@@ -67,7 +67,7 @@ RSpec.feature "Calculating the sales/use tax for a NC intake", js: true do
       choose "state_file_nc_sales_use_tax_form_sales_use_tax_calculation_method_automated"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text(I18n.t("state_file.questions.nc_out_of_country.edit.title", year: filing_year + 1))
+      page_change_check(I18n.t("state_file.questions.nc_out_of_country.edit.title", year: filing_year + 1))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 

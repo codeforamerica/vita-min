@@ -128,11 +128,11 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.federal_extension_payments.edit.title")
+      page_change_check(I18n.t("state_file.questions.federal_extension_payments.edit.title"))
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.edit.title")
+      page_change_check(I18n.t("state_file.questions.extension_payments.edit.title"))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
@@ -277,7 +277,8 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.bailey_settlement_at_least_five_years")
       click_on I18n.t("general.continue")
 
-      page_change_check(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.title"), sleep_time: 0.5)
+      page_change_check(I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.title"))
+      sleep 0.5
       choose I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.other")
       click_on I18n.t("general.continue")
 
@@ -293,7 +294,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      page_change_check(I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label"))
+      page_change_check("/en/questions/primary-state-id", path: true)
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
       fill_in "state_file_primary_state_id_form_id_number", with: "123456789"
       select_cfa_date "state_file_primary_state_id_form_issue_date", Date.new(2020, 1, 1)
@@ -301,7 +302,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       select("Alaska", from: "State")
       click_on I18n.t("general.continue")
 
-      page_change_check(strip_html_tags(I18n.t("state_file.questions.spouse_state_id.edit.title_html")))
+      page_change_check("/en/questions/spouse-state-id", path: true)
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
       fill_in "state_file_spouse_state_id_form_id_number", with: "123456789"
       select_cfa_date "state_file_spouse_state_id_form_issue_date", Date.new(2020, 1, 1)
@@ -551,7 +552,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       select("Maryland", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_current_path("/en/questions/spouse-state-id")
+      page_change_check("/en/questions/spouse-state-id", path: true)
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")
       click_on I18n.t("general.continue")
 
@@ -621,7 +622,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       let(:email_address) { "someone@example.com" }
       let(:ssn) { "111223333" }
       let(:hashed_ssn) { "hashed_ssn" }
-      let(:verification_code) { "000004" }
+      let(:verification_code) { "000000" }
       let(:hashed_verification_code) { "hashed_verification_code" }
 
       before do
