@@ -485,12 +485,13 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
-  def calculate_date_electronic_withdrawal(form_submitted_time:)
-    submitted_before_deadline = StateFile::StateInformationService.before_payment_deadline?(form_submitted_time, self.state_code)
+  def calculate_date_electronic_withdrawal(current_time:)
+    submitted_before_deadline = StateFile::StateInformationService.before_payment_deadline?(current_time, self.state_code)
     if submitted_before_deadline
       date_electronic_withdrawal&.to_date
     else
-      efile_submissions.last&.created_at&.to_date
+      timezone = StateFile::StateInformationService.timezone(self.state_code)
+      current_time.in_time_zone(timezone).to_date
     end
   end
 end

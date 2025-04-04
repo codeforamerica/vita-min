@@ -345,111 +345,40 @@ describe StateFileBaseIntake do
     let(:filing_year) { MultiTenantService.new(:statefile).current_tax_year }
 
     context "when submitted before payment deadline" do
-      let(:form_submitted_time) { payment_deadline_date - 1.day }
-      let(:submission_time) { DateTime.new(filing_year, 4, 10, 12, 0, 0, "-07:00") }
-
-      before do
-        # Create an efile submission to set the intake's submission time
-        create(:efile_submission, data_source: intake, created_at: submission_time)
-      end
+      let(:current_time) { payment_deadline_date - 1.day }
 
       it "returns the user selected date" do
-        result = intake.calculate_date_electronic_withdrawal(form_submitted_time: form_submitted_time)
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
         expect(result).to eq(date_electronic_withdrawal)
-      end
-
-      context "with multiple submissions" do
-        let(:earlier_submission_time) { DateTime.new(filing_year, 4, 5, 12, 0, 0, "-07:00") }
-        let(:later_submission_time) { DateTime.new(filing_year, 4, 15, 12, 0, 0, "-07:00") }
-
-        before do
-          # Create multiple submissions with different times
-          create(:efile_submission, data_source: intake, created_at: earlier_submission_time)
-          create(:efile_submission, data_source: intake, created_at: later_submission_time)
-        end
-
-        it "returns the user selected date" do
-          result = intake.calculate_date_electronic_withdrawal(form_submitted_time: form_submitted_time)
-          expect(result).to eq(date_electronic_withdrawal)
-        end
-      end
-
-      context "with no submissions" do
-        it "returns the user selected date" do
-          result = intake.calculate_date_electronic_withdrawal(form_submitted_time: form_submitted_time)
-          expect(result).to eq(date_electronic_withdrawal)
-        end
       end
     end
 
     context "when submitted after payment deadline" do
-      let(:form_submitted_time) { payment_deadline_date + 1.day }
-      let(:submission_time) { DateTime.new(filing_year, 4, 10, 12, 0, 0, "-07:00") }
+      let(:current_time) { payment_deadline_date + 1.day }
 
-      before do
-        create(:efile_submission, data_source: intake, created_at: submission_time)
-      end
-
-      it "returns the date of the most recent submission" do
-        result = intake.calculate_date_electronic_withdrawal(form_submitted_time: form_submitted_time)
-        expect(result).to eq(submission_time.to_date)
-      end
-
-      context "with multiple submissions" do
-        let(:earlier_submission_time) { DateTime.new(filing_year, 4, 5, 12, 0, 0, "-07:00") }
-        let(:later_submission_time) { DateTime.new(filing_year, 4, 15, 12, 0, 0, "-07:00") }
-
-        before do
-          # Create multiple submissions with different times
-          create(:efile_submission, data_source: intake, created_at: earlier_submission_time)
-          create(:efile_submission, data_source: intake, created_at: later_submission_time)
-        end
-
-        it "returns the date of the most recent submission" do
-          result = intake.calculate_date_electronic_withdrawal(form_submitted_time: form_submitted_time)
-          expect(result).to eq(later_submission_time.to_date)
-        end
-      end
-
-      context "with no submissions" do
-        before do
-          intake.efile_submissions.destroy_all
-        end
-
-        it "returns nil" do
-          result = intake.calculate_date_electronic_withdrawal(form_submitted_time: form_submitted_time)
-          expect(result).to be_nil
-        end
+      it "returns the current time's date in the appropriate timezone" do
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
+        expect(result).to eq(current_time.in_time_zone(timezone).to_date)
       end
     end
 
     context "when submitted exactly on payment deadline" do
-      let(:form_submitted_time) { payment_deadline_date }
-      let(:submission_time) { DateTime.new(filing_year, 4, 10, 12, 0, 0, "-07:00") }
+      let(:current_time) { payment_deadline_date }
 
-      before do
-        create(:efile_submission, data_source: intake, created_at: submission_time)
-      end
-
-      it "returns the date of the most recent submission" do
-        result = intake.calculate_date_electronic_withdrawal(form_submitted_time: form_submitted_time)
-        expect(result).to eq(submission_time.to_date)
+      it "returns the current time's date in the appropriate timezone" do
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
+        expect(result).to eq(current_time.in_time_zone(timezone).to_date)
       end
     end
 
     context "with different timezone" do
       let(:state_code) { "md" }
       let(:timezone) { "America/New_York" }
-      let(:form_submitted_time) { payment_deadline_date + 1.day }
-      let(:submission_time) { DateTime.new(filing_year, 4, 10, 12, 0, 0, "-04:00") }
+      let(:current_time) { payment_deadline_date + 1.day }
 
-      before do
-        create(:efile_submission, data_source: intake, created_at: submission_time)
-      end
-
-      it "returns the efile submission date in the correct timezone" do
-        result = intake.calculate_date_electronic_withdrawal(form_submitted_time: form_submitted_time)
-        expect(result).to eq(submission_time.to_date)
+      it "returns the current time's date in the correct timezone" do
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
+        expect(result).to eq(current_time.in_time_zone(timezone).to_date)
       end
     end
   end
