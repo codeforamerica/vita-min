@@ -39,7 +39,7 @@
 #  message_tracker                                :jsonb
 #  nongame_wildlife_fund_donation                 :decimal(12, 2)
 #  opportunity_scholarship_program_donation       :decimal(12, 2)
-#  paid_extension_payments                        :integer          default(0), not null
+#  paid_extension_payments                        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                        :integer          default("unfilled"), not null
 #  phone_number                                   :string
 #  phone_number_verified_at                       :datetime

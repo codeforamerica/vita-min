@@ -121,7 +121,7 @@ class StateFileAzIntake < StateFileBaseIntake
     self.dependents.select{ |dependent| dependent.under_17? }.length
   end
 
-  def federal_dependent_count_over_17_non_qualifying_senior
+  def federal_dependent_count_over_17_non_qualifying_seniorgit a
     self.dependents.select{ |dependent| !dependent.under_17? && !dependent.is_qualifying_parent_or_grandparent? }.length
   end
 
