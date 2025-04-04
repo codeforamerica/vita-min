@@ -6,7 +6,7 @@ RSpec.describe StateFile::NjMedicalExpensesForm do
   describe "validations" do
     let(:form) { described_class.new(intake, params) }
 
-    it_behaves_like :nj_money_field_concern, field: :medical_expenses do
+    it_behaves_like :nj_money_field_concern, field: :medical_expenses, can_be_empty: true do
       let(:form_params) do
         { medical_expenses: money_field_value }
       end
@@ -15,7 +15,7 @@ RSpec.describe StateFile::NjMedicalExpensesForm do
 
   describe ".save" do
     let(:intake) {
-      create :state_file_nj_intake, medical_expenses: 0
+      create :state_file_nj_intake, medical_expenses: nil
     }
     let(:form) { described_class.new(intake, valid_params) }
 
