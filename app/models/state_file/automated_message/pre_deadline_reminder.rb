@@ -10,7 +10,7 @@ module StateFile::AutomatedMessage
     end
 
     def self.send_only_once?
-      true
+      false
     end
 
     def sms_body(**args)

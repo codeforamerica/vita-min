@@ -1,0 +1,18 @@
+<% title = t(".title")%>
+
+<% content_for :page_title, title %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p><%= t(".more_info") %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="white-group">
+      <%= f.cfa_radio_set(:paid_federal_extension_payments, label_text: title, collection: [
+        { value: "yes", label: t("general.affirmative") },
+        { value: "no", label: t("general.negative") },
+      ]) %>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

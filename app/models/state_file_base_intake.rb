@@ -1,8 +1,9 @@
 class StateFileBaseIntake < ApplicationRecord
   self.ignored_columns = [:df_data_import_failed_at, :bank_name]
 
-  devise :lockable, :trackable
-  devise :timeoutable, :timeout_in => 15.minutes, :unlock_strategy => :time
+  devise :lockable, :unlock_strategy => :time
+  devise :trackable
+  devise :timeoutable, :timeout_in => 15.minutes
 
   self.abstract_class = true
   has_one_attached :submission_pdf
@@ -61,6 +62,10 @@ class StateFileBaseIntake < ApplicationRecord
 
   before_save :save_nil_enums_with_unfilled
   before_save :sanitize_bank_details
+
+  def self.maximum_attempts
+    3
+  end
 
   def self.state_code
     state_code, = StateFile::StateInformationService::STATES_INFO.find do |_, state_info|
@@ -413,6 +418,10 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
+  def unlock_for_login!
+    unlock_access! if locked_at.present? && !access_locked?
+  end
+
   def controller_for_current_step
     if efile_submissions.present?
       StateFile::Questions::ReturnStatusController
@@ -482,6 +491,16 @@ class StateFileBaseIntake < ApplicationRecord
   def eligible_1099rs
     @eligible_1099rs ||= self.state_file1099_rs.select do |form1099r|
       form1099r.taxable_amount&.to_f&.positive?
+    end
+  end
+
+  def calculate_date_electronic_withdrawal(current_time:)
+    submitted_before_deadline = StateFile::StateInformationService.before_payment_deadline?(current_time, self.state_code)
+    if submitted_before_deadline
+      date_electronic_withdrawal&.to_date
+    else
+      timezone = StateFile::StateInformationService.timezone(self.state_code)
+      current_time.in_time_zone(timezone).to_date
     end
   end
 end

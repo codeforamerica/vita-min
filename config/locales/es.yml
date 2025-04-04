@@ -1856,8 +1856,8 @@ es:
         verify: Verificar
       form:
         errors:
-          bad_input: ID de cliente o los 4 últimos de SSN/ITIN incorrectos. Después de 5 intentos fallidos, las cuentas se bloquean.
-          bad_verification_code: Código incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
+          bad_input: ID de cliente o los 4 últimos de SSN/ITIN incorrectos. Después de 3 intentos fallidos, las cuentas se bloquean.
+          bad_verification_code: Código incorrecto. Después de 3 intentos fallidos, las cuentas se bloquean.
       new:
         one_form_of_contact: 'Ingresa una forma de contacto a continuación:'
         send_code: Enviar el código
@@ -2182,7 +2182,7 @@ es:
         verify: Verificar el código
       form:
         errors:
-          bad_input: Número completo de Seguro Social (SSN)/Número de Identificación del Contribuyente (ITIN) incorrecto. Después de 5 intentos fallidos, las cuentas se bloquean.
+          bad_input: Número completo de Seguro Social (SSN)/Número de Identificación del Contribuyente (ITIN) incorrecto. Después de 3 intentos fallidos, las cuentas se bloquean.
       new:
         email_address:
           label: Tu dirección de correo electrónico
@@ -2916,6 +2916,10 @@ es:
           enter_amount: Enter the amount of extension payments...
           more_info: More info here...
           title: Did you make any extension payments?
+      federal_extension_payments:
+        edit:
+          more_info: More info here...
+          title: Were you granted a federal extension?
       id_disability:
         edit:
           help_b1: Un individuo reconocido como discapacitado por la Administración del Seguro Social, la Junta de Jubilación de los Ferrocarriles o la Oficina de Administración y Presupuesto (OMB, por sus siglas en inglés).
@@ -3329,6 +3333,9 @@ es:
           question: "¿Alguna de las siguientes situaciones menos comunes aplicó en tu caso (o el de tu cónyuge, si casado presentando conjunta) en %{filing_year}?"
           subtitle: Para esta temporada de impuestos, este servicio sólo estará disponible para personas con situaciones fiscales específicas. Para saber si puedes usar el servicio responde las siguientes preguntas.
           title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del %{filing_year} de Carolina del Norte
+      nc_out_of_country:
+        edit:
+          title: Were you out of the country on April 15, %{year} and a US citizen or resident?
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
@@ -3530,6 +3537,8 @@ es:
             </ul>
           estimated_taxes_input_helper_html: Suma tus pagos trimestrales e ingresa el total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">verifica cuánto pagaste</a>).
           estimated_taxes_input_label_html: "<strong>Total de pagos estimados realizados para los impuestos de %{filing_year}</strong>"
+          extension_payments_input_helper_html: You generally would have made this payment earlier in 2025, when requesting an extension to file your state taxes <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or using <a href="https://www.nj.gov/treasury/taxation/pdf/current/630.pdf" target="_blank" rel="noopener nofollow">NJ-630</a>.
+          extension_payments_input_label_html: "<strong>Additional payment you made when you filed for an extension</strong>"
           no_text: No (más común)
           overpayments_input_helper_html: Si aplica, puedes encontrar esto en la línea 69 de tu NJ-1040 de %{prior_year}. Ingresa un monto aquí solo si no lo incluiste en el cálculo del cuadro anterior.
           overpayments_input_label_html: "<strong>Reembolso transferido a los impuestos de %{filing_year} (no incluyas los pagos estimados)</strong>"
@@ -3705,6 +3714,7 @@ es:
           edit_veteran: estado de veterano/a de guerra
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
           estimated_tax_payments: Monto de los pagos trimestrales estimados
+          extension_payments: Payment made when you filed for an extension
           has_estimated_payments: Estimated or other payments
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
