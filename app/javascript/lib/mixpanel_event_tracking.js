@@ -1,5 +1,6 @@
 import "../vendor/navigator.sendbeacon.min.js";
-
+import Rails from "@rails/ujs";
+window.Rails = Rails;
 
 const MixpanelEventTracking = (function () {
     const addClickTrackingToOutboundLinks = function () {
