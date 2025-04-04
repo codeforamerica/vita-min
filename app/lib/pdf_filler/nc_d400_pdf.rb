@@ -21,7 +21,7 @@ module PdfFiller
       mfs_spouse_last_name = @xml_document.at("MFSSpouseName LastName")&.text || ""
       mfs_spouse_name = [mfs_spouse_first_name, mfs_spouse_middle_initial, mfs_spouse_last_name].reject(&:empty?).join(" ")
 
-      {
+      answers = {
         y_d400wf_ssn1: @submission.data_source.primary.ssn,
         y_d400wf_ssn2: @submission.data_source.spouse.ssn,
         y_d400wf_fname1: @submission.data_source.primary.first_name,
@@ -80,6 +80,10 @@ module PdfFiller
         y_d400wf_sigdate: @submission.data_source.primary_esigned_yes? ? date_type_for_timezone(@submission.data_source.primary_esigned_at)&.to_date : "",
         y_d400wf_sigdate2: @submission.data_source.spouse_esigned_yes? ? date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.to_date : ""
       }
+      if Flipper.enabled?(:extension_period)
+        answers["y_d400wf_Out of Country"] = checkbox_value(@xml_document.at('OutOfCountry')&.text.present?)
+      end
+      answers
     end
 
     def checkbox_value(condition)

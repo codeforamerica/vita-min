@@ -80,6 +80,7 @@ describe 'EfileError' do
       "md-two-income-subtractions",
       "nc-county",
       "nc-eligibility",
+      "nc-out-of-country",
       "nc-qss-info",
       "nc-retirement-income-subtraction",
       "nc-review",
