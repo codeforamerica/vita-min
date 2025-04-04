@@ -2917,7 +2917,7 @@ es:
           enter_amount: Enter the amount of extension payments paid to Arizona.
           negative: 'No'
           subtitle_html: If you made a Arizona extension payment, you would have <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Form 204</a>.
-          title: Did you make any Arizona extension or estimated payments for the %{tax_year} tax year on or before April 15, %{date_year}?
+          title: Did you make an Arizona extension payment on or before April 15, %{date_year}?
         id:
           affirmative: Yes, I made extension or estimated payments to Idaho
           amount: Amount of Idaho payments
@@ -2931,7 +2931,7 @@ es:
           enter_amount: Enter the amount of extension payments paid to Maryland.
           negative: 'No'
           subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
-          title: Did you make any Arizona extension or estimated payments for the %{tax_year} tax year on or before April 15, %{date_year}?
+          title: Did you make a Maryland extension payment on or before April 15, %{date_year}?
         nc:
           affirmative: 'Yes'
           amount: Amount of extension payments

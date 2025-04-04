@@ -129,7 +129,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.az.subtitle_html")
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.az.title", date_year: (current_tax_year + 1))
       choose I18n.t("state_file.questions.extension_payments.az.negative")
       click_on I18n.t("general.continue")
 
@@ -289,7 +289,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.nc.subtitle_html")
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.nc.title", date_year: (current_tax_year + 1))
       choose I18n.t("state_file.questions.extension_payments.nc.negative")
       click_on I18n.t("general.continue")
 
@@ -402,7 +402,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.nc.subtitle_html")
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.nc.title", date_year: (current_tax_year + 1))
       choose I18n.t("state_file.questions.extension_payments.nc.negative")
       click_on I18n.t("general.continue")
 
@@ -431,8 +431,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
   context "ID", :flow_explorer_screenshot do
     before do
+      allow(Flipper).to receive(:enabled?).and_call_original
       allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
     end
+    
     it "has content", required_schema: "id" do
       visit "/"
       click_on "Start Test ID"
@@ -503,7 +505,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
       #Extension Payments
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.id.subtitle_html")
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.id.title",  date_year: (current_tax_year + 1), tax_year: current_tax_year)
       choose I18n.t("state_file.questions.extension_payments.id.negative")
       click_on I18n.t("general.continue")
 
@@ -568,6 +570,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       # TODO: replace fixture used here with one that has all the characteristics we want to test
       allow_any_instance_of(DirectFileData).to receive(:fed_unemployment).and_return 100
       allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:refund_or_owed_amount).and_return 1000
+      allow(Flipper).to receive(:enabled?).and_call_original
       allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
     end
 
@@ -644,7 +647,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       select("Maryland", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.md.subtitle_html")
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.md.title", date_year: (current_tax_year + 1))
       choose I18n.t("state_file.questions.extension_payments.md.negative")
       click_on I18n.t("general.continue")
 
