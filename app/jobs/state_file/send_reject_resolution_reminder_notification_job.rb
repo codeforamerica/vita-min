@@ -14,11 +14,14 @@ module StateFile
       PRIORITY_LOW
     end
 
+    def self.return_status_link(locale)
+      Rails.application.routes.url_helpers.url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/questions/return_status", action: "edit", locale: locale)
+    end
+
     private
 
     def return_status_link(intake)
-      locale = intake.locale || "en"
-      Rails.application.routes.url_helpers.url_for(host: MultiTenantService.new(:statefile).host, controller: "state_file/questions/return_status", action: "edit", locale: locale)
+      self.class.return_status_link(intake.locale || "en")
     end
 
     def notified_of_rejected_and_not_accepted(intake)
