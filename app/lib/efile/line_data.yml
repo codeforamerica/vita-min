@@ -844,6 +844,8 @@ NCD400_LINE_20A:
   label: '20a For each W2, if EmployeeSSN = PrimarySSN, add StateIncomeTaxAmt to sum; For each 1099G, if recipient_primary? add state_income_tax_withheld_amount to sum'
 NCD400_LINE_20B:
   label: '20b For each W2, if EmployeeSSN = SpouseSSN, add StateIncomeTaxAmt to sum; For each 1099G, if recipient_spouse? add state_income_tax_withheld_amount to sum'
+NCD400_LINE_21B:
+  label: '21b Extension payments'
 NCD400_LINE_23:
   label: '23 Add lines 20a through 22'
 NCD400_LINE_25:
