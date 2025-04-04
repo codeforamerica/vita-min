@@ -59,12 +59,10 @@
               <% end %>
             <% else %>
               <div class="reveal">
-                <p>
-                  <button class="reveal__button">
-                    <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_title') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-                    <%= t(".#{@state_code}.help_text_title", default: :'.help_text_title') %>
-                  </button>
-                </p>
+                <button class="reveal__button">
+                  <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_title') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+                  <%= t(".#{@state_code}.help_text_title", default: :'.help_text_title') %>
+                </button>
                 <div class="reveal__content">
                   <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
                   <%= t(".#{@state_code}.help_text_html", default: :'.help_text_html', filing_year: current_tax_year) %>
