@@ -1846,6 +1846,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_03_171411) do
     t.datetime "permanently_locked_at"
     t.string "state_code"
     t.integer "tax_year"
+    t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
   end
 

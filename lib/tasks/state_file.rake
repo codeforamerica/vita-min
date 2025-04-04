@@ -15,6 +15,10 @@ namespace :state_file do
     StateFile::SendPostDeadlineReminderService.run
   end
 
+  task send_marketing_email: :environment do
+    StateFile::SendMarketingEmailService.run
+  end
+
   task backfill_intake_submission_pdfs: :environment do
     batch_size = 5
     intake_types = StateFile::StateInformationService.state_intake_classes
