@@ -129,7 +129,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.az.title")
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.az.subtitle_html")
       choose I18n.t("state_file.questions.extension_payments.az.negative")
       click_on I18n.t("general.continue")
 
@@ -289,7 +289,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.nc.title")
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.nc.subtitle_html")
       choose I18n.t("state_file.questions.extension_payments.nc.negative")
       click_on I18n.t("general.continue")
 
@@ -402,10 +402,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.nc.title")
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.nc.subtitle_html")
       choose I18n.t("state_file.questions.extension_payments.nc.negative")
       click_on I18n.t("general.continue")
-      
+
       expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
       fill_in "state_file_primary_state_id_form_id_number", with: "123456789"
@@ -503,7 +503,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
       #Extension Payments
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.id.title")
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.id.subtitle_html")
       choose I18n.t("state_file.questions.extension_payments.id.negative")
       click_on I18n.t("general.continue")
 
@@ -644,7 +644,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       select("Maryland", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.md.title")
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.md.subtitle_html")
       choose I18n.t("state_file.questions.extension_payments.md.negative")
       click_on I18n.t("general.continue")
 

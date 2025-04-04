@@ -302,7 +302,6 @@ describe Efile::Nc::D400Calculator do
       allow(instance).to receive(:calculate_line_20b).and_return 5
       allow(instance).to receive(:calculate_line_21b).and_return 45
 
-
       instance.calculate
       expect(instance.lines[:NCD400_LINE_23].value).to eq(55)
     end
