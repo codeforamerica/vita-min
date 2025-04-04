@@ -6,7 +6,7 @@
     display: block;
     a {
       &:before {
-        content:'←';
+        content:'←' / '';
         padding-right: .5rem;
       }
       font-size: 1.6rem;
