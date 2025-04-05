@@ -49,6 +49,7 @@ module Efile
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
         set_line(:ID40_LINE_46, :calculate_line_46)
+        set_line(:ID40_LINE_47, :calculate_line_47)
         set_line(:ID40_LINE_50, :calculate_line_50)
         set_line(:ID40_LINE_51, :calculate_line_51)
         set_line(:ID40_LINE_54, :calculate_line_54)
@@ -260,13 +261,17 @@ module Efile
           end
       end
 
+      def calculate_line_47
+        @intake.paid_extension_payments_yes? ? @intake.extension_payments_amount&.round : 0
+      end
+
       def calculate_line_50
-        line_or_zero(:ID40_LINE_43) + line_or_zero(:ID40_LINE_46)
+        line_or_zero(:ID40_LINE_43) + line_or_zero(:ID40_LINE_46) + line_or_zero(:ID40_LINE_47)
       end
 
       def calculate_line_51
         if line_or_zero(:ID40_LINE_42) > line_or_zero(:ID40_LINE_50)
-          line_or_zero(:ID40_LINE_42) - line_or_zero(:ID40_LINE_50)
+          line_or_zero(:ID40_LINE_42) - line_or_zero(:ID40_LINE_50) - line_or_zero(:ID40_LINE_47)
         end
       end
 

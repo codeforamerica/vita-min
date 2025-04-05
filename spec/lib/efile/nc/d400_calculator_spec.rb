@@ -269,13 +269,41 @@ describe Efile::Nc::D400Calculator do
     end
   end
 
+  describe "Line 21b: North Carolina paid with extension" do
+    let!(:intake) { create(:state_file_nc_intake) }
+    context "when there are no extension payments" do
+      before do
+        intake.paid_extension_payments = 'no'
+        allow(intake).to receive(:extension_payments_amount).and_return 45
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_21B].value).to eq(0)
+      end
+    end
+
+    context "when there are extension payments" do
+      before do
+        intake.paid_extension_payments = 'yes'
+        allow(intake).to receive(:extension_payments_amount).and_return 2112
+      end
+
+      it "returns the amount of the payment" do
+        instance.calculate
+        expect(instance.lines[:NCD400_LINE_21B].value).to eq(2112)
+      end
+    end
+  end
+
   describe "Line 23: Add Lines 20a through 22" do
     it "adds the other lines" do
       allow(instance).to receive(:calculate_line_20a).and_return 5
       allow(instance).to receive(:calculate_line_20b).and_return 5
+      allow(instance).to receive(:calculate_line_21b).and_return 45
 
       instance.calculate
-      expect(instance.lines[:NCD400_LINE_23].value).to eq(10)
+      expect(instance.lines[:NCD400_LINE_23].value).to eq(55)
     end
   end
 

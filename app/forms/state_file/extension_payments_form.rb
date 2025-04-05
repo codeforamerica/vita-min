@@ -6,7 +6,7 @@ module StateFile
               presence: true,
               numericality: {
                 allow_blank: false,
-                greater_than_or_equal_to: 0,
+                greater_than: 0,
                 message: I18n.t("validators.not_a_number")
               },
               if: -> { paid_extension_payments == "yes" }

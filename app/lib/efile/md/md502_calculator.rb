@@ -110,7 +110,7 @@ module Efile
         set_line(:MD502_LINE_34, :calculate_line_34)
         set_line(:MD502_LINE_39, :calculate_line_39)
         set_line(:MD502_LINE_40, :calculate_line_40)
-        set_line(:MD502_LINE_43, :calculate_line_43)
+        set_line(:MD502_LINE_41, :calculate_line_41)
         set_line(:MD502_LINE_42, :calculate_line_42)
         set_line(:MD502_LINE_43, :calculate_line_43)
         set_line(:MD502_LINE_44, :calculate_line_44)
@@ -625,6 +625,10 @@ module Efile
         ].sum
       end
 
+      def calculate_line_41
+        @intake.paid_extension_payments_yes? ? @intake.extension_payments_amount&.round : 0
+      end
+
       def calculate_line_42
         # Earned Income Credit (EIC)
         return if md_filing_status_dependent?
@@ -641,7 +645,7 @@ module Efile
       end
 
       def calculate_line_44
-        [40, 42, 43].sum { |number| line_or_zero("MD502_LINE_#{number}") }
+        [40, 41, 42, 43].sum { |number| line_or_zero("MD502_LINE_#{number}") }
       end
 
       def calculate_line_45

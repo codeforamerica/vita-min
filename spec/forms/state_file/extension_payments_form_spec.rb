@@ -60,7 +60,7 @@ RSpec.describe StateFile::ExtensionPaymentsForm do
       end
     end
 
-    context "with yes selected and an invalid amount" do
+    context "with yes selected and a non number" do
       let(:invalid_params) do
         {
           paid_extension_payments: "yes",
@@ -74,6 +74,19 @@ RSpec.describe StateFile::ExtensionPaymentsForm do
       end
     end
 
+    context "with yes selected and zero" do
+      let(:invalid_params) do
+        {
+          paid_extension_payments: "yes",
+          extension_payments_amount: "0"
+        }
+      end
+
+      it "returns false" do
+        form = described_class.new(intake, invalid_params)
+        expect(form).not_to be_valid
+      end
+    end
   end
 
   describe "#save" do

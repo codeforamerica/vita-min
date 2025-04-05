@@ -31,6 +31,7 @@
 #  email_address                              :citext
 #  email_address_verified_at                  :datetime
 #  email_notification_opt_in                  :integer          default("unfilled"), not null
+#  extension_payments_amount                  :decimal(12, 2)   default(0.0)
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
@@ -45,6 +46,7 @@
 #  locale                                     :string           default("en")
 #  locked_at                                  :datetime
 #  message_tracker                            :jsonb
+#  paid_extension_payments                    :integer          default("unfilled"), not null
 #  payment_or_deposit_type                    :integer          default("unfilled"), not null
 #  permanent_address_outside_md               :integer          default("unfilled"), not null
 #  permanent_apartment                        :string
