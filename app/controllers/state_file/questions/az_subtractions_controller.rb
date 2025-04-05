@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class AzSubtractionsController < QuestionsController
-      include ReturnToReviewConcern
       def self.show?(intake)
         intake.eligible_for_az_subtractions?
       end

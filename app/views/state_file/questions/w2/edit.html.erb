@@ -68,8 +68,6 @@
       </div>
     <% end %>
 
-    <button class="button button--primary button--wide" type="submit">
-      <%= t(".save_and_continue") %>
-    </button>
+    <%= render "state_file/questions/shared/continue_button", f: f, button_text: t(".save_and_continue") %>
   <% end %>
 <% end %>

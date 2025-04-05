@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class MdCountyController < QuestionsController
-      include ReturnToReviewConcern
       before_action :set_ivars, only: [:edit, :update]
 
       def set_ivars

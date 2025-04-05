@@ -17,7 +17,7 @@ module Navigation
         index = 0
         step = nil
         section = sections.find do |section|
-          step = section.steps.detect { |s| s.controller == controller }
+          step = section.steps.detect { |s| s.controllers.include? controller }
           if step.present?
             true
           else

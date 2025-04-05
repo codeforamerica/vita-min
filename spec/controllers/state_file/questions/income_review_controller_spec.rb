@@ -50,13 +50,6 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
   end
 
   describe "#update" do
-    # use the return_to_review_concern shared example if the page
-    # should skip to the review page when the return_to_review param is present
-    # requires form_params to be set with any other required params
-    it_behaves_like :return_to_review_concern do
-      let(:form_params) { params }
-    end
-
     context "income form validity" do
       let(:mock_next_path) { root_path }
       before do

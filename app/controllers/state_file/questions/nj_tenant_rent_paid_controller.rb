@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class NjTenantRentPaidController < QuestionsController
-      include ReturnToReviewConcern
 
       def next_path
         options = {}

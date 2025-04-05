@@ -32,16 +32,5 @@ RSpec.describe StateFile::Questions::NjGubernatorialElectionsController do
         expect(intake.spouse_contribution_gubernatorial_elections).to eq 'no'
       end
     end
-
-    it_behaves_like :return_to_review_concern do
-      let(:form_params) do
-        {
-          state_file_nj_gubernatorial_elections_form: {
-            primary_contribution_gubernatorial_elections: 'no',
-            spouse_contribution_gubernatorial_elections: 'no'
-          }
-        }
-      end
-    end
   end
 end

@@ -12,9 +12,6 @@
         @form.valid_spouse_death_years.map { |year| { value: year, label: year } }) %>
     </div>
 
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

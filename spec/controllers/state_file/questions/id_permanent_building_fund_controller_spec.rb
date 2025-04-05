@@ -68,17 +68,21 @@ RSpec.describe StateFile::Questions::IdPermanentBuildingFundController do
   end
 
   describe "#update" do
-    # use the return_to_review_concern shared example if the page
-    # should skip to the review page when the return_to_review param is present
-    # requires form_params to be set with any other required params
-    it_behaves_like :return_to_review_concern do
-      let(:form_params) do
-        {
-          state_file_id_permanent_building_fund_form: {
-            received_id_public_assistance: "yes",
-          }
+    let(:form_params) do
+      {
+        state_file_id_permanent_building_fund_form: {
+          received_id_public_assistance: "yes",
         }
-      end
+      }
+    end
+
+    it "saves params correctly" do
+      post :update, params: form_params
+      expect(response).to be_redirect
+
+      intake.reload
+
+      expect(intake).to be_received_id_public_assistance_yes
     end
   end
 end

@@ -37,23 +37,27 @@ module Ctc
       end
 
       def next_path
-        next_step = form_navigation.next
+        next_page_info = form_navigation.next
+        return unless next_page_info.present?
+        next_page_controller = next_page_info[:controller]
+
         options = {}
-        if next_step.resource_name.present? && next_step.resource_name == self.class.resource_name
+        if next_page_controller.resource_name.present? && next_page_controller.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end
-        next_step.to_path_helper(options)
+        next_page_controller.to_path_helper(options)
       end
 
       def prev_path
-        prev_step = form_navigation.prev
-        return unless prev_step
+        prev_page_info = form_navigation.prev
+        return unless prev_page_info.present?
+        prev_page_controller = prev_page_info[:controller]
 
         options = {}
-        if prev_step.resource_name
-          options[:id] = prev_step.model_for_show_check(self)&.id
+        if prev_page_controller.resource_name
+          options[:id] = prev_page_controller.model_for_show_check(self)&.id
         end
-        prev_step.to_path_helper(options)
+        prev_page_controller.to_path_helper(options)
       end
 
       class << self

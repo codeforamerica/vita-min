@@ -53,6 +53,6 @@
       <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
     <% end %>
 
-    <%= f.submit t("general.continue"), class: "button button--primary button--wide" %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

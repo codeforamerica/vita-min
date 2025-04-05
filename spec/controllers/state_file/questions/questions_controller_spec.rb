@@ -19,9 +19,11 @@ end
 
 RSpec.describe StateFile::Questions::QuestionsController do
   describe "#prev_path" do
+    let(:form_navigation) { QuestionNavigation.new(current_controller) }
+
     before do
       allow(current_controller).to receive(:current_intake).and_return(nil)
-      allow(current_controller).to receive(:form_navigation).and_return(QuestionNavigation.new(current_controller))
+      allow(current_controller).to receive(:form_navigation).and_return(form_navigation)
     end
 
     context "when the controller has only one navigation action" do
@@ -30,6 +32,7 @@ RSpec.describe StateFile::Questions::QuestionsController do
       context "when the current action is the single navigation action" do
         before do
           allow(current_controller).to receive(:action_name).and_return("edit")
+          allow(form_navigation).to receive(:prev).and_return({ controller: QuestionOneController })
         end
 
         it "returns the previous controller's edit action" do
@@ -41,6 +44,7 @@ RSpec.describe StateFile::Questions::QuestionsController do
       context "when the current action is not in the list" do
         before do
           allow(current_controller).to receive(:action_name).and_return("create")
+          allow(form_navigation).to receive(:prev).and_return({ controller: QuestionOneController })
         end
 
         it "returns the previous controller's edit action" do
@@ -57,6 +61,7 @@ RSpec.describe StateFile::Questions::QuestionsController do
         context "is the first item" do
           before do
             allow(current_controller).to receive(:action_name).and_return("index")
+            allow(form_navigation).to receive(:prev).and_return({ controller: QuestionTwoController })
           end
 
           it "returns the previous controller's first action" do
@@ -106,6 +111,7 @@ RSpec.describe StateFile::Questions::QuestionsController do
       let(:current_controller) { QuestionFourController.new }
       before do
         allow(current_controller).to receive(:action_name).and_return("edit")
+        allow(form_navigation).to receive(:prev).and_return({ controller: QuestionThreeController })
       end
 
       it "returns the previous controller's first action" do

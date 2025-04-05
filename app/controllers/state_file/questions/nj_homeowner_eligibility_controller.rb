@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class NjHomeownerEligibilityController < QuestionsController
-      include ReturnToReviewConcern
 
       before_action -> { set_checkboxes }
 
