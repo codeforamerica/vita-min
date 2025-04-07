@@ -30,8 +30,8 @@ module StateFile
       end.uniq
 
       last_state = intake.efile_submissions.last.current_state
-      in_progress_states = ["preparing", "bundling", "queued", "transmitted", "ready_for_ack"]
-      return false if transition_states.include?("accepted") || in_progress_states.include?(last_state)
+      return false if transition_states.include?("accepted")
+      return false unless %w[notified_of_rejection waiting].include?(last_state)
 
       transition_states.include?("notified_of_rejection")
     end
