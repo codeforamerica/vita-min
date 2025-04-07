@@ -4231,6 +4231,19 @@ es:
           page_title: Buenas noticias, recibirás un reembolso de impuestos. ¿Cómo te gustaría recibirlo?
           title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>$%{refund_amount}.</strong>
       md_taxes_owed:
+        md_bank_details:
+          account_number: Número de cuenta
+          account_type:
+            label: Tipo de cuenta bancaria
+          after_deadline_default_withdrawal_info: Debido a que está presentando su declaración el o después del %{payment_deadline_date}, %{payment_deadline_year}, el estado retirará su pago tan pronto como procesen su declaración.
+          bank_title: 'Por favor, comparte los detalles de tu cuenta bancaria:'
+          confirm_account_number: Confirma el número de cuenta
+          confirm_routing_number: Confirma el número de ruta bancaria (routing number)
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el día del %{payment_deadline_date} de %{payment_deadline_year}):"
+          foreign_accounts_owed: No están permitidos los depósitos directos internacionales.
+          foreign_accounts_refund: No están permitidos los depósitos directos internacionales.
+          routing_number: Número de ruta bancaria (routing number)
+          withdraw_amount: "¿Cuánto autorizas que sea retirado de tu cuenta? (La cantidad total que debes es $%{owed_amount}.)"
         edit:
           more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Aquí hay más información sobre las fechas de vencimiento de impuestos y los modos de pago.</a></p>
           page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
