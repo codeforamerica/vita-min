@@ -71,13 +71,12 @@ module StateFile
       params.require(:state_file_intake_login_form).permit(:ssn).merge(possible_intakes: @records)
     end
 
-    def increment_failed_attempts_on_login_records
+    def failed_verification_matching_records
       contact_info = params[:portal_verification_code_form][:contact_info]
       intake_classes = client_login_service.intake_classes
-      @records = intake_classes.flat_map do |intake_class|
+      intake_classes.flat_map do |intake_class|
         intake_class.where(email_address: contact_info).or(intake_class.where(phone_number: contact_info))
       end
-      @records.map(&:increment_failed_attempts)
     end
 
     def request_login_form_class
