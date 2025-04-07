@@ -29,7 +29,7 @@ module StateFile
           StateFile::MessagingService.new(
             message: StateFile::AutomatedMessage::PreDeadlineReminder,
             intake: intake
-          ).send_message
+          ).send_message(require_verification: false)
         end
       end
     end

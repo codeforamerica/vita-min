@@ -35,6 +35,12 @@ describe 'state_file:pre_deadline_reminder' do
            sms_notification_opt_in: 1,
            phone_number_verified_at: 5.minutes.ago
   }
+  let!(:nc_intake_with_unverified_text_notifications_and_df_import) {
+    create :state_file_az_intake,
+           df_data_imported_at: 2.minutes.ago,
+           phone_number: "+15551115511",
+           sms_notification_opt_in: 1
+  }
   let!(:nc_intake_submitted) {
     create :state_file_nc_intake,
            df_data_imported_at: 2.minutes.ago,
@@ -67,9 +73,10 @@ describe 'state_file:pre_deadline_reminder' do
 
     Rake::Task['state_file:pre_deadline_reminder'].execute
 
-    expect(StateFile::MessagingService).to have_received(:new).exactly(2).times
+    expect(StateFile::MessagingService).to have_received(:new).exactly(3).times
     expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::PreDeadlineReminder, intake: az_intake_with_email_notifications_and_df_import)
     expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::PreDeadlineReminder, intake: nc_intake_with_text_notifications_and_df_import)
+    expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::PreDeadlineReminder, intake: nc_intake_with_unverified_text_notifications_and_df_import)
     expect(StateFile::MessagingService).not_to have_received(:new).with(message: StateFile::AutomatedMessage::PreDeadlineReminder, intake: az_intake_has_received_reminder)
     expect(StateFile::MessagingService).not_to have_received(:new).with(message: StateFile::AutomatedMessage::PreDeadlineReminder, intake: md_intake_disqualifying_df_data)
   end

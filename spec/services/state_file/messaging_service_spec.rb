@@ -104,6 +104,17 @@ describe StateFile::MessagingService do
     end
   end
 
+  context "when has email and phone number notifications" do
+    it "should send a message if the number is verified" do
+      intake.update(email_address_verified_at: nil)
+      intake.update(phone_number_verified_at: nil)
+      expect {
+        messaging_service.send_message(require_verification: false)
+      }.to change(StateFileNotificationEmail, :count).by(1)
+      .and change(StateFileNotificationTextMessage, :count).by(1)
+    end
+  end
+
   context "when message is an after_transition_notification" do
     let(:message) { StateFile::AutomatedMessage::Rejected }
     let!(:messaging_service) { described_class.new(message: message, intake: intake, submission: efile_submission, body_args: { return_status_link: "link.com" }) }
