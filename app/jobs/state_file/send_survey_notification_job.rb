@@ -8,7 +8,7 @@ module StateFile
         submission: submission,
         message: StateFile::AutomatedMessage::SurveyNotification,
         body_args: { survey_link: StateFile::StateInformationService.survey_link(intake.state_code, locale: intake.locale) }
-      ).send_message
+      ).send_message(require_verification: false)
     end
 
     def priority
