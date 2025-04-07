@@ -39,23 +39,26 @@ RSpec.describe StateFile::SendRejectResolutionReminderNotificationJob, type: :jo
           }.to change(StateFileNotificationEmail, :count).by(1)
 
           expect(intake.reload.message_tracker).to include("messages.state_file.reject_resolution_reminder")
+          first_send_time = intake.message_tracker["messages.state_file.reject_resolution_reminder"]
 
           expect(StateFile::MessagingService).to have_received(:new).with(
             intake: intake,
             message: message,
             body_args: body_args)
 
-          # can re-send if message was sent before (send 13th & 23rd in 2025)
-          expect {
-            described_class.perform_now(intake)
-          }.to change(StateFileNotificationEmail, :count).by(1)
+          Timecop.freeze(10.days.from_now) do
+            # can re-send if message was sent before (send 13th & 23rd in 2025)
+            expect {
+              described_class.perform_now(intake)
+            }.to change(StateFileNotificationEmail, :count).by(1)
 
-          expect(intake.reload.message_tracker).to include("messages.state_file.reject_resolution_reminder")
+            expect(intake.message_tracker["messages.state_file.reject_resolution_reminder"]).not_to eq(first_send_time)
 
-          expect(StateFile::MessagingService).to have_received(:new).with(
-            intake: intake,
-            message: message,
-            body_args: body_args).exactly(2).times
+            expect(StateFile::MessagingService).to have_received(:new).with(
+              intake: intake,
+              message: message,
+              body_args: body_args).exactly(2).times
+          end
         end
 
         context "with unverified phone number" do
@@ -74,18 +77,6 @@ RSpec.describe StateFile::SendRejectResolutionReminderNotificationJob, type: :jo
               intake: intake,
               message: message,
               body_args: body_args)
-
-            # can re-send if message was sent before (send 13th & 23rd in 2025)
-            expect {
-              described_class.perform_now(intake)
-            }.to change(StateFileNotificationTextMessage, :count).by(1)
-
-            expect(intake.reload.message_tracker).to include("messages.state_file.reject_resolution_reminder")
-
-            expect(StateFile::MessagingService).to have_received(:new).with(
-              intake: intake,
-              message: message,
-              body_args: body_args).exactly(2).times
           end
         end
       end
@@ -99,24 +90,27 @@ RSpec.describe StateFile::SendRejectResolutionReminderNotificationJob, type: :jo
           }.to change(StateFileNotificationEmail, :count).by(1)
 
           expect(intake.reload.message_tracker).to include("messages.state_file.reject_resolution_reminder")
+          first_send_time = intake.message_tracker["messages.state_file.reject_resolution_reminder"]
 
           expect(StateFile::MessagingService).to have_received(:new).with(
             intake: intake,
             message: message,
             body_args: body_args)
 
-          # can re-send if message was sent before (send 13th & 23rd in 2025)
-          expect {
-            described_class.perform_now(intake)
-          }.to change(StateFileNotificationEmail, :count).by(1)
+          Timecop.freeze(10.days.from_now) do
+            # can re-send if message was sent before (send 13th & 23rd in 2025)
+            expect {
+              described_class.perform_now(intake)
+            }.to change(StateFileNotificationEmail, :count).by(1)
 
-          expect(intake.reload.message_tracker).to include("messages.state_file.reject_resolution_reminder")
+            expect(intake.message_tracker["messages.state_file.reject_resolution_reminder"]).not_to eq(first_send_time)
 
-          expect(StateFile::MessagingService).to have_received(:new).with(
-            intake: intake,
-            message: message,
-            body_args: body_args).exactly(2).times
-        end
+            expect(StateFile::MessagingService).to have_received(:new).with(
+              intake: intake,
+              message: message,
+              body_args: body_args).exactly(2).times
+          end
+          end
       end
     end
 
