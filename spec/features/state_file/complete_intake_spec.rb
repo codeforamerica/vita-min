@@ -638,6 +638,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in 'state_file_md_two_income_subtractions_form[primary_student_loan_interest_ded_amount]', with: "1300.0"
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.md.title", date_year: (MultiTenantService.statefile.current_tax_year + 1))
+      choose I18n.t("state_file.questions.extension_payments.md.negative")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.md_primary_state_id.md_primary.dmv_bmv_label')
 
@@ -645,10 +649,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       select_cfa_date "state_file_primary_state_id_form_issue_date", 4.years.ago.beginning_of_year
       select_cfa_date "state_file_primary_state_id_form_expiration_date", 4.years.from_now.beginning_of_year
       select("Maryland", from: I18n.t('state_file.questions.primary_state_id.state_id.id_details.issue_state'))
-      click_on I18n.t("general.continue")
-
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.md.title", date_year: (MultiTenantService.statefile.current_tax_year + 1))
-      choose I18n.t("state_file.questions.extension_payments.md.negative")
       click_on I18n.t("general.continue")
 
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.no_id")
