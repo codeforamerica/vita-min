@@ -15,7 +15,7 @@ namespace :survey_notifications do
           submission: submission,
           message: StateFile::AutomatedMessage::SurveyNotification,
           body_args: { survey_link: StateFile::StateInformationService.survey_link(submission.data_source.state_code) }
-        ).send_message
+        ).send_message(require_verification: false)
       end
     end
   end
