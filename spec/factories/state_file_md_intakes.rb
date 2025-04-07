@@ -31,7 +31,7 @@
 #  email_address                              :citext
 #  email_address_verified_at                  :datetime
 #  email_notification_opt_in                  :integer          default("unfilled"), not null
-#  extension_payments_amount                  :decimal(12, 2)   default(0.0)
+#  extension_payments_amount                  :decimal(12, 2)
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
