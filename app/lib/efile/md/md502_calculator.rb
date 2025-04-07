@@ -355,7 +355,8 @@ module Efile
 
       def calculate_line_17
         if deduction_method_is_standard?
-          status_group_key = FILING_STATUS_GROUPS.find { |_, group| group.include?(@intake.filing_status) }[0]
+          md_filing_status = md_filing_status_dependent? ? :dependent : @intake.filing_status
+          status_group_key = FILING_STATUS_GROUPS.find { |_, group| group.include?(md_filing_status) }[0]
           deduction_table = DEDUCTION_TABLES[status_group_key]
           md_agi = line_or_zero(:MD502_LINE_16)
           amount_or_method = deduction_table.find { |agi_limit, _| md_agi <= agi_limit }[1]
