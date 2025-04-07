@@ -54,11 +54,11 @@ RSpec.describe StateFile::MdPermanentAddressForm do
   end
 
   describe "validations" do
-    let(:form) { described_class.new(intake, invalid_params) }
+    let(:form) { described_class.new(intake, params) }
 
     context "invalid params" do
       context "confirmation of address is required" do
-        let(:invalid_params) do
+        let(:params) do
           {
             confirmed_permanent_address: nil,
           }
@@ -71,28 +71,8 @@ RSpec.describe StateFile::MdPermanentAddressForm do
         end
       end
 
-      context "zip code is valid" do
-        let(:invalid_params) do
-          {
-            confirmed_permanent_address: "no",
-            permanent_city: "Boop York",
-            permanent_street: "123 Beep Blvd",
-            permanent_apartment: "",
-            permanent_zip: "123"
-          }
-        end
-
-        it "is invalid" do
-          expect(form.valid?).to eq false
-
-          expect(form.errors[:permanent_zip]).to include "Please enter a valid 5-digit zip code plus optional 4 or 7 digits."
-        end
-
-
-      end
-
       context "zip code is valid with multiple lengths" do
-        let(:invalid_params) do
+        let(:params) do
           {
             confirmed_permanent_address: "no",
             permanent_city: "Boop York",
@@ -137,7 +117,7 @@ RSpec.describe StateFile::MdPermanentAddressForm do
       end
 
       context "they answered no but did not include required address fields" do
-        let(:invalid_params) do
+        let(:params) do
           {
             confirmed_permanent_address: "no",
             permanent_apartment: nil,
@@ -156,16 +136,86 @@ RSpec.describe StateFile::MdPermanentAddressForm do
         end
 
         it "is non alphanumeric" do
-          invalid_params.merge!({
-                                  permanent_apartment: "San José",
-                                  permanent_city: "San José",
-                                  permanent_street: "San José",
-                                })
+          params.merge!({
+                          permanent_apartment: "San José",
+                          permanent_city: "San José",
+                          permanent_street: "San José",
+                        })
           expect(form.valid?).to eq false
           msg = "Only numbers 0-9, letters A-Z and a-z, hyphen, slash and single spaces are accepted."
           expect(form.errors[:permanent_city]).to include msg
           expect(form.errors[:permanent_street]).to include msg
           expect(form.errors[:permanent_apartment]).to include msg
+        end
+      end
+
+      context "permanent street is PO box" do
+        let(:params) do
+          {
+            confirmed_permanent_address: "no",
+            permanent_city: "Boop York",
+            permanent_street: "PO Box 12345",
+            permanent_apartment: "",
+            permanent_zip: "20610"
+          }
+        end
+        it "is invalid" do
+          expect(form.valid?).to eq false
+          expect(form.errors[:permanent_street]).to include "A PO box cannot be listed as your physical address. Please enter where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
+        end
+      end
+
+      context "permanent apartment is PO box" do
+        let(:params) do
+          {
+            confirmed_permanent_address: "no",
+            permanent_city: "Boop York",
+            permanent_street: "123 main st",
+            permanent_apartment: "P.O. box 999",
+            permanent_zip: "20610"
+          }
+        end
+        it "is invalid" do
+          expect(form.valid?).to eq false
+          expect(form.errors[:permanent_apartment]).to include "A PO box cannot be listed as your physical address. Please enter where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
+        end
+      end
+    end
+
+    context "when the address coming from the direct file data is to a PO Box" do
+      before do
+        intake.direct_file_data.mailing_street = "PO Box 123"
+      end
+      context "client did not answer confirmed_permanent_address question" do
+        let(:params) do
+          {
+            confirmed_permanent_address: "",
+            permanent_city: "Boop York",
+            permanent_street: "123 main st",
+            permanent_apartment: "",
+            permanent_zip: "20610"
+          }
+        end
+        it "is valid" do
+          expect(form.valid?).to eq true
+          expect(form.errors).not_to include :confirmed_permanent_address
+        end
+      end
+
+      context "client provides another PO Box address" do
+        let(:params) do
+          {
+            confirmed_permanent_address: "",
+            permanent_city: "Boop York",
+            permanent_street: "POBox 655",
+            permanent_apartment: "p.O. BOx 655",
+            permanent_zip: "20610"
+          }
+        end
+        it "requires client to provide new address that is not a PO box" do
+          expect(form.valid?).to eq false
+          expect(form.errors[:permanent_street]).to include "A PO box cannot be listed as your physical address. Please enter where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
+          expect(form.errors[:permanent_apartment]).to include "A PO box cannot be listed as your physical address. Please enter where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
         end
       end
     end

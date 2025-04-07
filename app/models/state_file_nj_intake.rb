@@ -26,6 +26,7 @@
 #  email_address_verified_at                              :datetime
 #  email_notification_opt_in                              :integer          default("unfilled"), not null
 #  estimated_tax_payments                                 :decimal(12, 2)
+#  extension_payments                                     :decimal(12, 2)
 #  failed_attempts                                        :integer          default(0), not null
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
@@ -43,7 +44,7 @@
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
 #  locked_at                                              :datetime
-#  medical_expenses                                       :decimal(12, 2)   default(0.0), not null
+#  medical_expenses                                       :decimal(12, 2)
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
@@ -186,8 +187,7 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def eligibility_made_less_than_threshold?
-    threshold = self.filing_status_single? || self.filing_status_mfs? ? 10_000 : 20_000
-    nj_gross_income <= threshold
+    calculator.filer_below_income_eligibility_threshold?(nj_gross_income)
   end
 
   def has_health_insurance_requirement_exception?

@@ -14,6 +14,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     before do
       allow(Flipper).to receive(:enabled?).and_call_original
       allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
     end
 
     it "has content", required_schema: "az" do
@@ -124,6 +125,14 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text I18n.t("state_file.questions.federal_extension_payments.edit.title")
+      choose I18n.t("general.affirmative")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.edit.title")
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t('state_file.questions.primary_state_id.edit.title')
       choose I18n.t('state_file.questions.primary_state_id.state_id.id_type_question.dmv')
       fill_in I18n.t('state_file.questions.primary_state_id.state_id.id_details.number'), with: "012345678"
@@ -155,7 +164,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "state_file_tax_refund_form_account_number_confirmation", with: "2222222222"
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text(I18n.t('state_file.questions.esign_declaration.edit.title', state_name: "Arizona"))
       expect(page).to have_text("Under penalties of perjury, I declare that I have examined a copy of my electronic Arizona individual income tax return")
       check "state_file_esign_declaration_form_primary_esigned"
 
@@ -163,8 +171,14 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
 
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year)
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Arizona", filing_year: filing_year)
+      expect(page).not_to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Arizona")
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileAzIntake.last, :ready)
+
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
 
       click_on "Main XML Doc"
 
@@ -188,6 +202,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       allow_any_instance_of(Efile::Nc::D400Calculator).to receive(:refund_or_owed_amount).and_return 1000
       allow(Flipper).to receive(:enabled?).and_call_original
       allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
     end
 
     it "has content", required_schema: "nc" do
@@ -270,6 +285,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
+      expect(page).to have_text(I18n.t("state_file.questions.nc_out_of_country.edit.title", year: filing_year + 1))
+      choose I18n.t("general.negative")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
       choose I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.drivers_license")
       fill_in "state_file_primary_state_id_form_id_number", with: "123456789"
@@ -301,7 +320,14 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
+
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "North Carolina")
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileNcIntake.last, :ready)
+
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "North Carolina", filing_year: filing_year)
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "North Carolina")
 
       click_on "Main XML Doc"
 
@@ -366,6 +392,10 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       expect(page).to have_text I18n.t("state_file.questions.nc_sales_use_tax.edit.title.other", year: filing_year, count: 2)
       choose I18n.t("general.affirmative")
       choose "state_file_nc_sales_use_tax_form_sales_use_tax_calculation_method_automated"
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_text(I18n.t("state_file.questions.nc_out_of_country.edit.title", year: filing_year + 1))
+      choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
       expect(page).to have_text I18n.t("state_file.questions.primary_state_id.state_id.id_type_question.label")
@@ -495,7 +525,12 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       wait_for_device_info("esign_declaration")
 
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
 
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileIdIntake.last, :ready)
+
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Idaho")
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Idaho", filing_year: filing_year)
 
       click_on "Main XML Doc"
@@ -634,8 +669,15 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       click_on I18n.t("state_file.questions.esign_declaration.edit.submit")
 
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year)
+      expect(page).not_to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Maryland")
+
+      StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileMdIntake.last, :ready)
+
       expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", state_name: "Maryland", filing_year: filing_year)
       expect(page).to have_link I18n.t("state_file.questions.submission_confirmation.edit.download_state_return_pdf")
+      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "Maryland")
 
       click_on "Main XML Doc"
 

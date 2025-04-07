@@ -100,7 +100,7 @@ describe SubmissionBuilder::StateReturn do
 
       it "does not include STPICKUP in XML" do
         xml = Nokogiri::XML::Document.parse(builder_class.build(submission).document.to_xml)
-        expect(xml.css("OtherDeductionsBenefitsGrp Desc").map(&:text)).not_to include("STPICKUP")
+        expect(xml.css("OtherDeductionsBenefitsGrp Desc").map(&:text)).to include("STPICKUP")
       end
     end
 

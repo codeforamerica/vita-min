@@ -33,6 +33,7 @@
 #  locked_at                         :datetime
 #  message_tracker                   :jsonb
 #  moved_after_hurricane_helene      :integer          default("unfilled"), not null
+#  out_of_country                    :integer          default("no"), not null
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime

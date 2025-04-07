@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.1">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>59f6c8d4</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>146004811</PrimarySSN>
+            <NameLine1Txt>HAROLD&lt;PURPLE</NameLine1Txt>
+            <PrimaryNameControlTxt>PURP</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>PURP</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>111 Alston Avenue</AddressLine1Txt>
+                <CityNm>Durham</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27517</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+14600481-1fd5-4b34-a34a-087b63b9e2ec@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
+            <SpouseNm>Crayola Purple</SpouseNm>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">25000</WagesAmt>
+            <WagesSalariesAndTipsAmt>25000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>25000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>25000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>10400</TaxableIncomeAmt>
+            <TaxAmt>1043</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>1043</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>1043</TaxLessCreditsAmt>
+            <TotalTaxAmt>1043</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2500</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2500</WithholdingTaxAmt>
+            <TotalPaymentsAmt>2500</TotalPaymentsAmt>
+            <OverpaidAmt>1457</OverpaidAmt>
+            <RefundAmt>1457</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Artist</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>146004811</EmployeeSSN>
+            <EmployerEIN>380300088</EmployerEIN>
+            <EmployerNameControlTxt>ARTI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Artist Grove Collective</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>370 Erwin Road</AddressLine1Txt>
+                <CityNm>Durham</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27710</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Harold Purple</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>111 Alston Avenue</AddressLine1Txt>
+                <CityNm>Durham</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27517</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>25000</WagesAmt>
+            <WithholdingAmt>2500</WithholdingAmt>
+            <SocialSecurityWagesAmt>25000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1550</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>25000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>363</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <EmployerStateIdNum>324432</EmployerStateIdNum>
+                    <StateWagesAmt>25000</StateWagesAmt>
+                    <StateIncomeTaxAmt>1000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

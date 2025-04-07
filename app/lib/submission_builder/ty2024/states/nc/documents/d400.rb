@@ -19,6 +19,7 @@ module SubmissionBuilder
 
               build_xml_doc("FormNCD400") do |xml|
                 xml.NCCountyCode @submission.data_source.residence_county
+                xml.OutOfCountry "X" if Flipper.enabled?(:extension_period) && @submission.data_source.out_of_country_yes?
                 xml.ResidencyStatusPrimary true
                 xml.ResidencyStatusSpouse true if @submission.data_source.filing_status_mfj?
                 xml.VeteranInfoPrimary @submission.data_source.primary_veteran_yes? ? 1 : 0
@@ -34,7 +35,7 @@ module SubmissionBuilder
                     xml.LastName sanitize_for_xml(@submission.data_source.spouse.last_name, 32) if @submission.data_source.spouse.last_name.present?
                   end
                   unless @submission.data_source.direct_file_data.non_resident_alien == "NRA"
-                    xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn
+                    xml.MFSSpouseSSN @submission.data_source.direct_file_data.spouse_ssn if @submission.data_source.direct_file_data.spouse_ssn.present?
                   end
                 end
                 if @submission.data_source.filing_status_qw? && @submission.data_source.spouse_death_year.present?

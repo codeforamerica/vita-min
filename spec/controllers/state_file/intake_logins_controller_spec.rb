@@ -216,11 +216,50 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         expect(response).to redirect_to(edit_intake_login_path(id: hashed_verification_code))
       end
 
+      context "has previous failed_attempts" do
+        before do
+          intake.update(failed_attempts: 1)
+        end
+
+        it "should reset their failed_attempts to allow fresh set of 3 chances for SSN step" do
+          expect {
+            post :check_verification_code, params: params
+            intake.reload
+          }.to change(intake, :failed_attempts).from(1).to(0)
+        end
+      end
+
       context "Datadog" do
         it "increments a counter" do
           post :check_verification_code, params: params
 
           expect(DatadogApi).to have_received(:increment).with("intake_logins.verification_codes.right_code")
+        end
+      end
+
+      context "with clients who are locked out by failed_attempts" do
+        before do
+          intake.update(failed_attempts: 3, locked_at: 35.minutes.ago)
+        end
+
+        it "redirects to the next page for login and resets failed attempts" do
+          post :check_verification_code, params: params
+
+          expect(response).to redirect_to(edit_intake_login_path(id: hashed_verification_code))
+          expect(intake.reload.failed_attempts).to eq 0
+        end
+
+        context "but within their lockout period" do
+          before do
+            intake.update(locked_at: 28.minutes.ago)
+          end
+
+          it "takes them to the lockout page and does not reset failed attempt" do
+            post :check_verification_code, params: params
+
+            expect(response).to redirect_to(account_locked_intake_logins_path)
+            expect(intake.reload.failed_attempts).to eq 3
+          end
         end
       end
     end
@@ -249,7 +288,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         it "increments their lockout counter & shows an error in the form" do
           expect {
             post :check_verification_code, params: params
-          }.to change { intake.reload.failed_attempts }
+          }.to change { intake.reload.failed_attempts }.from(0).to(1)
 
           expect(response).to be_ok
           expect(assigns[:verification_code_form]).to be_present
@@ -583,13 +622,14 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
             expect(response).to render_template(:edit)
           end
 
-          context "with 4 previous failed attempts" do
+          context "with 2 previous failed attempts" do
             before do
-              intake.update(failed_attempts: 4)
+              intake.update(failed_attempts: 2)
             end
 
             it "locks the intake and redirects to a lockout page" do
               expect(Rails.logger).to receive(:error).with("Failed state file intake login attempt for token #{params[:id]} with 1 matching records: #{intake.state_code} #{intake.id}")
+              expect(intake.reload.access_locked?).to be_falsey
               expect do
                 post :update, params: params
               end.to change { intake.reload.failed_attempts }.by 1
