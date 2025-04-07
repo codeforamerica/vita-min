@@ -71,6 +71,7 @@ class StateFile1099R < ApplicationRecord
               numericality: {
                 greater_than_or_equal_to: 0,
                 less_than_or_equal_to: BigDecimal(10**10),
+                allow_blank: true
               },
               presence: {
                 message: proc { I18n.t('forms.errors.no_money_amount') }
