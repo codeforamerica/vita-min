@@ -687,14 +687,16 @@ describe Efile::Md::Md502Calculator do
       ].each do |filing_statuses, agis_to_deductions|
         filing_statuses.each do |filing_status|
           context "#{filing_status}" do
+            # dependent is not a real df filing status, it is a real state filing status for MD
+            let(:df_filing_status) { filing_status == "dependent" ? "head_of_household" : filing_status }
             before do
               allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
             end
 
             agis_to_deductions.each do |agi_limit, deduction_amount|
               context "agi is #{agi_limit}" do
-                let(:includes_spouse) { filing_status == "married_filing_jointly" ? :with_spouse : nil}
-                let(:intake) { create(:state_file_md_intake, includes_spouse, filing_status: filing_status) }
+                let(:includes_spouse) { df_filing_status == "married_filing_jointly" ? :with_spouse : nil}
+                let(:intake) { create(:state_file_md_intake, includes_spouse, filing_status: df_filing_status) }
                 let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
 
                 before do
