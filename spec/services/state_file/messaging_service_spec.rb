@@ -104,8 +104,8 @@ describe StateFile::MessagingService do
     end
   end
 
-  context "when has email and phone number notifications" do
-    it "should send a message if the number is verified" do
+  context "when required_verification is false" do
+    it "should send email and phone notifications" do
       intake.update(email_address_verified_at: nil)
       intake.update(phone_number_verified_at: nil)
       expect {
