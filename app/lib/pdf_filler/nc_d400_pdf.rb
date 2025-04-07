@@ -85,7 +85,6 @@ module PdfFiller
         answers[:y_d400wf_li21b_pg2_good] = @xml_document.at('PdWithExt')&.text
       end
 
-      answers
       if Flipper.enabled?(:extension_period)
         answers["y_d400wf_Out of Country"] = checkbox_value(@xml_document.at('OutOfCountry')&.text.present?)
       end
