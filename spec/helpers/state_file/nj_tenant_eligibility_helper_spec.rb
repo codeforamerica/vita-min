@@ -95,7 +95,7 @@ describe StateFile::NjTenantEligibilityHelper do
                  tenant_shared_rent_not_spouse: "yes", # worksheet required
                  tenant_more_than_one_main_home_in_nj: "no" # advance
         }
-        it "determines the taxpayer should fill out the worksheet" do
+        it "determines the taxpayer should advance" do
           expect(described_class.determine_eligibility(intake)).to eq(described_class::ADVANCE)
         end
       end
