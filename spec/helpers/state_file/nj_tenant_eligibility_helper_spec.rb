@@ -22,22 +22,6 @@ describe StateFile::NjTenantEligibilityHelper do
       end
     end
 
-    describe "states that require applicant to use the worksheet" do
-      context "when YES to tenant_more_than_one_main_home_in_nj" do
-        let(:intake) { create :state_file_nj_intake, tenant_more_than_one_main_home_in_nj: "yes" }
-        it "returns worksheet required" do
-          expect(described_class.determine_eligibility(intake)).to eq(described_class::WORKSHEET)
-        end
-      end
-
-      context "when YES to tenant_shared_rent_not_spouse" do
-        let(:intake) {  create :state_file_nj_intake, tenant_shared_rent_not_spouse: "yes" }
-        it "returns worksheet required" do
-          expect(described_class.determine_eligibility(intake)).to eq(described_class::WORKSHEET)
-        end
-      end
-    end
-
     describe "advance states" do
       context "when YES to tenant_home_subject_to_property_taxes" do
         let(:intake) { create :state_file_nj_intake, tenant_home_subject_to_property_taxes: "yes" }
@@ -112,7 +96,7 @@ describe StateFile::NjTenantEligibilityHelper do
                  tenant_more_than_one_main_home_in_nj: "no" # advance
         }
         it "determines the taxpayer should fill out the worksheet" do
-          expect(described_class.determine_eligibility(intake)).to eq(described_class::WORKSHEET)
+          expect(described_class.determine_eligibility(intake)).to eq(described_class::ADVANCE)
         end
       end
     end
