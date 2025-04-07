@@ -3820,9 +3820,7 @@ es:
           tenant_access_kitchen_bath: La vivienda tenía mi propia cocina y baño que no compartía con otras unidades del edificio
           tenant_building_multi_unit: La vivienda estaba en un edificio que tenía más de una unidad de vivienda (por ejemplo, apartamentos, condominios, dormitorios)
           tenant_home_subject_to_property_taxes: La vivienda estaba sujeta a impuestos sobre la propiedad pagados por mi arrendador/a (esto es típico para la mayoría de los inquilinos)
-          tenant_more_than_one_main_home_in_nj: Viví en más de una vivienda principal en New Jersey para la que pagué alquiler (es decir, me mudé durante el año)
           tenant_same_home_spouse: Viví con mi cónyuge
-          tenant_shared_rent_not_spouse: Viví y compartí el alquiler con alguien que no era mi cónyuge
           title: Dijiste que fuiste inquilino/a en %{filing_year}.
       nj_tenant_property_tax_worksheet:
         edit:

@@ -3848,9 +3848,7 @@ en:
           tenant_access_kitchen_bath: I had my own kitchen and bathroom that I didn't share with other units in the building
           tenant_building_multi_unit: It was in a building that had more than one dwelling unit (e.g. apartments, condominiums, dormitories)
           tenant_home_subject_to_property_taxes: It was subject to property taxes paid by my landlord (this is typical for most renters)
-          tenant_more_than_one_main_home_in_nj: I lived in more than one main home in New Jersey that I paid rent for (i.e. I moved during the year)
           tenant_same_home_spouse: I lived with my spouse
-          tenant_shared_rent_not_spouse: I lived with and shared rent with someone who was not my spouse
           title: You said you were a renter in %{filing_year}.
       nj_tenant_property_tax_worksheet:
         edit:
