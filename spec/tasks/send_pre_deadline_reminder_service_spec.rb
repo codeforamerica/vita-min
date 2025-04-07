@@ -36,10 +36,13 @@ describe 'state_file:pre_deadline_reminder' do
            phone_number_verified_at: 5.minutes.ago
   }
   let!(:nc_intake_with_unverified_text_notifications_and_df_import) {
-    create :state_file_az_intake,
+    create :state_file_nc_intake,
            df_data_imported_at: 2.minutes.ago,
            phone_number: "+15551115511",
-           sms_notification_opt_in: 1
+           sms_notification_opt_in: "yes",
+           email_address: 'test@example.com',
+           email_address_verified_at: 5.minutes.ago,
+           email_notification_opt_in: "no"
   }
   let!(:nc_intake_submitted) {
     create :state_file_nc_intake,
