@@ -450,6 +450,30 @@ describe StateFileAzIntake do
     end
   end
 
+  describe "#has_verified_contact_info scope" do
+    context "when there is an intake with a phone_number and phone_number_verified_at is present" do
+      let!(:intake) { create(:state_file_az_intake, phone_number: "+14155551212", phone_number_verified_at: Time.now) }
+      it "includes the intake in the scope" do
+        expect(StateFileAzIntake.has_verified_contact_info).to include(intake)
+      end
+    end
+
+    context "when there is an intake with a email_address and email_address_verified_at is present" do
+      let!(:intake) { create(:state_file_az_intake, email_address: "email@example.com", email_address_verified_at: Time.now) }
+      it "includes the intake in the scope" do
+        expect(StateFileAzIntake.has_verified_contact_info).to include(intake)
+      end
+    end
+
+    context "when there is are intake that contact methods are not verified" do
+      let!(:phone_intake) { create(:state_file_az_intake, email_address: "email@example.com", email_address_verified_at: nil) }
+      let!(:email_intake) { create(:state_file_az_intake, phone_number: "+14155551212", phone_number_verified_at: nil) }
+      it "excludes the intake in the scope" do
+        expect(StateFileAzIntake.has_verified_contact_info).not_to include(phone_intake, email_intake)
+      end
+    end
+  end
+
   describe "#no_prior_message_history_of scope" do
     let!(:intake_with_finish_return_message) { create(:state_file_az_intake, message_tracker: {"messages.state_file.finish_return" => "2024-11-06 21:14:49 UTC"}) }
     let!(:intake_with_welcome_message) { create(:state_file_az_intake, message_tracker: {"messages.state_file.welcome" => "2024-11-06 21:14:49 UTC"}) }
