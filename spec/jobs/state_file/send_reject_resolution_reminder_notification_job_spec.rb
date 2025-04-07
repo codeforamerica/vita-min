@@ -57,6 +57,37 @@ RSpec.describe StateFile::SendRejectResolutionReminderNotificationJob, type: :jo
             message: message,
             body_args: body_args).exactly(2).times
         end
+
+        context "with unverified phone number" do
+          before do
+            intake.update(phone_number: "+13453432222", phone_number_verified_at: nil, sms_notification_opt_in: "yes", email_address: 'test@example.com', email_address_verified_at: 5.minutes.ago, email_notification_opt_in: "no")
+          end
+
+          it "should still send the message" do
+            expect {
+              described_class.perform_now(intake)
+            }.to change(StateFileNotificationTextMessage, :count).by(1)
+
+            expect(intake.reload.message_tracker).to include("messages.state_file.reject_resolution_reminder")
+
+            expect(StateFile::MessagingService).to have_received(:new).with(
+              intake: intake,
+              message: message,
+              body_args: body_args)
+
+            # can re-send if message was sent before (send 13th & 23rd in 2025)
+            expect {
+              described_class.perform_now(intake)
+            }.to change(StateFileNotificationTextMessage, :count).by(1)
+
+            expect(intake.reload.message_tracker).to include("messages.state_file.reject_resolution_reminder")
+
+            expect(StateFile::MessagingService).to have_received(:new).with(
+              intake: intake,
+              message: message,
+              body_args: body_args).exactly(2).times
+          end
+        end
       end
 
       context "is currently in notified_of_rejection state" do
