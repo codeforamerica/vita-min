@@ -386,4 +386,51 @@ describe StateFileBaseIntake do
       end
     end
   end
+
+  describe "#calculate_date_electronic_withdrawal" do
+    let(:state_code) { "az" }
+    let(:date_electronic_withdrawal) { intake.date_electronic_withdrawal }
+    let(:intake) { create(:state_file_az_owed_intake) }
+    let(:timezone) { StateFile::StateInformationService.timezone(state_code) }
+    let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date(state_code) }
+    let(:filing_year) { MultiTenantService.new(:statefile).current_tax_year }
+
+    context "when submitted before payment deadline" do
+      let(:current_time) { payment_deadline_date - 1.day }
+
+      it "returns the user selected date" do
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
+        expect(result).to eq(date_electronic_withdrawal)
+      end
+    end
+
+    context "when submitted after payment deadline" do
+      let(:current_time) { payment_deadline_date + 1.day }
+
+      it "returns the current time's date in the appropriate timezone" do
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
+        expect(result).to eq(current_time.in_time_zone(timezone).to_date)
+      end
+    end
+
+    context "when submitted exactly on payment deadline" do
+      let(:current_time) { payment_deadline_date }
+
+      it "returns the current time's date in the appropriate timezone" do
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
+        expect(result).to eq(current_time.in_time_zone(timezone).to_date)
+      end
+    end
+
+    context "with different timezone" do
+      let(:state_code) { "md" }
+      let(:timezone) { "America/New_York" }
+      let(:current_time) { payment_deadline_date + 1.day }
+
+      it "returns the current time's date in the correct timezone" do
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
+        expect(result).to eq(current_time.in_time_zone(timezone).to_date)
+      end
+    end
+  end
 end

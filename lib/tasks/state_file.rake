@@ -6,13 +6,17 @@ namespace :state_file do
   end
 
   task pre_deadline_reminder: :environment do
-    return unless DateTime.now.year == 2024
+    return unless DateTime.now.year == 2025
     StateFile::SendPreDeadlineReminderService.run
   end
 
   task post_deadline_reminder: :environment do
     return unless DateTime.now.year == 2024
     StateFile::SendPostDeadlineReminderService.run
+  end
+
+  task send_marketing_email: :environment do
+    StateFile::SendMarketingEmailService.run
   end
 
   task backfill_intake_submission_pdfs: :environment do

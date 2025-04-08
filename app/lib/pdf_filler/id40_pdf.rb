@@ -71,6 +71,11 @@ module PdfFiller
         'TxDueRefundL55' => @xml_document.at('OverpaymentAfterPenaltyAndInt')&.text,
         'RefundedL56' => @xml_document.at('OverpaymentRefunded')&.text,
       }
+
+      if Flipper.enabled?(:extension_period)
+        answers["PymntOtherCreditL47"] = @xml_document.at('EstimatedTaxPaymentCurrentYear')&.text
+      end
+
       @submission.data_source.dependents.first(4).each_with_index do |dependent, index|
         answers.merge!(
           "6cDependent#{index + 1}First" => dependent.first_name,

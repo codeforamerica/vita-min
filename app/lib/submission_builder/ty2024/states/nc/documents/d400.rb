@@ -19,6 +19,7 @@ module SubmissionBuilder
 
               build_xml_doc("FormNCD400") do |xml|
                 xml.NCCountyCode @submission.data_source.residence_county
+                xml.OutOfCountry "X" if Flipper.enabled?(:extension_period) && @submission.data_source.out_of_country_yes?
                 xml.ResidencyStatusPrimary true
                 xml.ResidencyStatusSpouse true if @submission.data_source.filing_status_mfj?
                 xml.VeteranInfoPrimary @submission.data_source.primary_veteran_yes? ? 1 : 0
@@ -60,6 +61,7 @@ module SubmissionBuilder
                 xml.TotalNCTax calculated_fields.fetch(:NCD400_LINE_19)
                 xml.IncTaxWith calculated_fields.fetch(:NCD400_LINE_20A)
                 xml.IncTaxWithSpouse calculated_fields.fetch(:NCD400_LINE_20B)
+                xml.PdWithExt calculated_fields.fetch(:NCD400_LINE_21B) if Flipper.enabled?(:extension_period)
                 xml.NCTaxPaid calculated_fields.fetch(:NCD400_LINE_23)
                 xml.RemainingPayment calculated_fields.fetch(:NCD400_LINE_23) # equal to line 23 bc line 24 not supported
                 if calculated_fields.fetch(:NCD400_LINE_26A).present?

@@ -40,6 +40,7 @@ class StateFileBaseIntake < ApplicationRecord
     where.not(raw_direct_file_data: nil)
          .where(federal_submission_id: nil)
   }
+
   scope :messaging_eligible, lambda {
     where(<<~SQL)
       (
@@ -51,6 +52,20 @@ class StateFileBaseIntake < ApplicationRecord
       (
         email_address IS NOT NULL
         AND email_notification_opt_in = 1
+        AND email_address_verified_at IS NOT NULL
+      )
+    SQL
+  }
+
+  scope :has_verified_contact_info, lambda {
+    where(<<~SQL)
+      (
+        phone_number IS NOT NULL
+        AND phone_number_verified_at IS NOT NULL
+      )
+      OR
+      (
+        email_address IS NOT NULL
         AND email_address_verified_at IS NOT NULL
       )
     SQL
@@ -321,14 +336,6 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
-  def allows_w2_editing?
-    true
-  end
-
-  def allows_1099_r_editing?
-    true
-  end
-
   def has_banking_information_in_financial_resolution?
     false
   end
@@ -491,6 +498,16 @@ class StateFileBaseIntake < ApplicationRecord
   def eligible_1099rs
     @eligible_1099rs ||= self.state_file1099_rs.select do |form1099r|
       form1099r.taxable_amount&.to_f&.positive?
+    end
+  end
+
+  def calculate_date_electronic_withdrawal(current_time:)
+    submitted_before_deadline = StateFile::StateInformationService.before_payment_deadline?(current_time, self.state_code)
+    if submitted_before_deadline
+      date_electronic_withdrawal&.to_date
+    else
+      timezone = StateFile::StateInformationService.timezone(self.state_code)
+      current_time.in_time_zone(timezone).to_date
     end
   end
 end
