@@ -3842,8 +3842,9 @@ en:
               <li>A residence on which Payments-In-Lieu-of-Tax (P.I.L.O.T) payments were made. (If you think your building may have been subject to P.I.L.O.T payments, you can contact your building owner or the municipal tax office to confirm.)</li>
             </ul>
           helper_heading: How do I know if the home I rented was subject to property taxes?
+          instructions_html: "<p>Many people are surprised by this, but New Jersey has a law on the books that gives you a  property tax deduction or credit as a renter.</p> \n<p><strong>We will walk you through it.</strong></p>\n"
           label_html: |
-            <p><strong>Check all that apply to the main home you rented.</strong></p>
+            <p><strong>First, check all the boxes below that apply to the main home(s) you rented.</strong></p>
             <p>(If you do not want to claim this deduction or credit, leave these checkboxes blank and click <strong>"Continue."</strong>)</p>
           tenant_access_kitchen_bath: I had my own kitchen and bathroom that I didn't share with other units in the building
           tenant_building_multi_unit: It was in a building that had more than one dwelling unit (e.g. apartments, condominiums, dormitories)
@@ -3865,7 +3866,10 @@ en:
           helper_anchor_heading: What if I received ANCHOR benefits?
           helper_description: Enter your site fees paid for %{filing_year}.
           helper_heading: Mobile homeowners
-          label_html: "<strong>Enter your share of total rent paid in %{filing_year}</strong>"
+          instructions_html: |
+            <p>Now, we need your <strong>total rent paid throughout the year.</strong></p>
+            <p>For example, if you paid $1,000/month in rent all year, enter $12,000 here. If you lived with roommates, enter only your share of rent paid. If you moved during the year, include your share of rent for all homes.</p>
+          label_html: "<strong>Enter rent paid in %{filing_year}</strong>"
           title: Good news – you qualify for a deduction or credit.
       nj_veterans_exemption:
         edit:

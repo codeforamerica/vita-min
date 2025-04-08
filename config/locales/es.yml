@@ -3814,6 +3814,7 @@ es:
               <li>Una residencia en la que se realizaron pagos en lugar de impuestos (P.I.L.O.T. por las siglas en ingles). (Si crees que tu edificio puede haber estado sujeto a pagos P.I.L.O.T, puedes comunicarte con el dueño/a del edificio o con la oficina de impuestos municipal para confirmarlo).</li>
             </ul>
           helper_heading: "¿Cómo sé si la vivienda que alquilé estaba sujeta a impuestos sobre la propiedad?"
+          instructions_html: "<p>Many people are surprised by this, but New Jersey has a law on the books that gives you a  property tax deduction or credit as a renter.</p> \n<p><strong>We will walk you through it.</strong></p>\n"
           label_html: |
             <p><strong>Marca las casillas que correspondan a la vivienda principal que alquilaste.</strong></p>
             <p>(Si no deseas reclamar esta deducción o crédito, deja estas casillas sin marcar y haz clic en <strong>"Continuar."</strong>)</p>
@@ -3837,6 +3838,9 @@ es:
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
           helper_description: Ingresa las tarifas de tu sitio pagadas en %{filing_year}.
           helper_heading: Dueños/as de casas móviles/rodantes
+          instructions_html: |
+            <p>Now, we need your <strong>total rent paid throughout the year.</strong></p>
+            <p>For example, if you paid $1,000/month in rent all year, enter $12,000 here. If you lived with roommates, enter only your share of rent paid. If you moved during the year, include your share of rent for all homes.</p>
           label_html: "<strong>Ingresa tu parte total del alquiler que pagaste en %{filing_year}</strong>"
           title: Buenas noticias—calificas para una deducción o crédito
       nj_veterans_exemption:
