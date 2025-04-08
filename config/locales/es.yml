@@ -1641,7 +1641,6 @@ es:
           body: |
             Hola %{primary_first_name},
 
-
             Te recordamos que tu declaración de impuestos estatales de %{state_name} fue rechazada. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
             <strong>Asegúrate de tomar acción en tu declaración rechazada lo más pronto posible para evitar costos extra por declarar tarde de %{state_name}.</strong>
