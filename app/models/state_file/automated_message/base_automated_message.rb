@@ -9,5 +9,11 @@ module StateFile::AutomatedMessage
     def self.after_transition_notification?
       false
     end
+
+    def tax_deadline = Rails.application.config.tax_deadline
+
+    def app_time(build_args)
+      build_args.fetch(:app_time, Time.current).to_datetime
+    end
   end
 end
