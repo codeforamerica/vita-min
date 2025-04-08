@@ -34,6 +34,7 @@
 #  message_tracker                   :jsonb
 #  moved_after_hurricane_helene      :integer          default("unfilled"), not null
 #  out_of_country                    :integer          default("no"), not null
+#  paid_federal_extension_payments   :integer          default("unfilled"), not null
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime
@@ -102,6 +103,7 @@ class StateFileNcIntake < StateFileBaseIntake
   enum eligibility_ed_loan_cancelled: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_cancelled
   enum eligibility_ed_loan_emp_payment: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_emp_payment
   enum out_of_country: { no: 0, yes: 1 }, _prefix: :out_of_country
+  enum paid_federal_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_federal_extension_payments
 
   attr_accessor :nc_eligiblity_none
   before_save :sanitize_county_details

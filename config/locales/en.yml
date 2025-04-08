@@ -2965,8 +2965,13 @@ en:
           title: Did you make any extension payments?
       federal_extension_payments:
         edit:
-          more_info: More info here...
+          false: No, I was not granted a federal extension
+          list_1: Made a federal extension payment
+          list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
+          subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
+          subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
           title: Were you granted a federal extension?
+          true: Yes, I was granted a federal extension
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget

@@ -237,5 +237,28 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
         expect(xml.document.at('QWYearSpouseDied')&.text).to eq (MultiTenantService.statefile.current_tax_year - 1).to_s
       end
     end
+
+    context "paid federal extension" do
+      before do
+        intake.update(paid_federal_extension_payments: "yes")
+      end
+
+      context "with flipper on" do
+        before do
+          allow(Flipper).to receive(:enabled?).and_call_original
+          allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
+        end
+
+        it "includes the FederalExtension node" do
+          expect(xml.document.at("FederalExtension").text).to eq "1"
+        end
+      end
+
+      context "with flipper off" do
+        it "not include the FederalExtension node" do
+          expect(xml.document.at("FederalExtension").text).to eq "0"
+        end
+      end
+    end
   end
 end
