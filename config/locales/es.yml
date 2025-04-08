@@ -3814,7 +3814,9 @@ es:
               <li>Una residencia en la que se realizaron pagos en lugar de impuestos (P.I.L.O.T. por las siglas en ingles). (Si crees que tu edificio puede haber estado sujeto a pagos P.I.L.O.T, puedes comunicarte con el dueño/a del edificio o con la oficina de impuestos municipal para confirmarlo).</li>
             </ul>
           helper_heading: "¿Cómo sé si la vivienda que alquilé estaba sujeta a impuestos sobre la propiedad?"
-          instructions_html: "<p>Many people are surprised by this, but New Jersey has a law on the books that gives you a  property tax deduction or credit as a renter.</p> \n<p><strong>We will walk you through it.</strong></p>\n"
+          instructions_html: |
+            <p>Many people are surprised by this, but New Jersey has a law on the books that gives you a property tax deduction or credit as a renter.</p>
+            <p><strong>We will walk you through it.</strong></p>
           label_html: |
             <p><strong>Marca las casillas que correspondan a la vivienda principal que alquilaste.</strong></p>
             <p>(Si no deseas reclamar esta deducción o crédito, deja estas casillas sin marcar y haz clic en <strong>"Continuar."</strong>)</p>
