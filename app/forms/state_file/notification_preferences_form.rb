@@ -24,7 +24,7 @@ module StateFile
           email: email_notification_opt_in == "yes",
           body_args: { intake_id: @intake.id }
         )
-        messaging_service.send_message
+        messaging_service.send_message(require_verification: false)
       end
     end
 
