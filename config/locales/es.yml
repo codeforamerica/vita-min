@@ -3815,10 +3815,10 @@ es:
             </ul>
           helper_heading: "¿Cómo sé si la vivienda que alquilé estaba sujeta a impuestos sobre la propiedad?"
           instructions_html: |
-            <p>Many people are surprised by this, but New Jersey has a law on the books that gives you a property tax deduction or credit as a renter.</p>
-            <p><strong>We will walk you through it.</strong></p>
+            <p>Mucha gente se sorprende por esto, pero New Jersey tiene una ley que te otorga una deducción de impuesto sobre la propiedad o un crédito como inquilino/a.</p>
+            <p><strong>Te guiaremos a través de este proceso.</strong></p>
           label_html: |
-            <p><strong>Marca las casillas que correspondan a la vivienda principal que alquilaste.</strong></p>
+            <p><strong>Primero, marca las casillas que correspondan a la vivienda principal que rentaste.</strong></p>
             <p>(Si no deseas reclamar esta deducción o crédito, deja estas casillas sin marcar y haz clic en <strong>"Continuar."</strong>)</p>
           tenant_access_kitchen_bath: La vivienda tenía mi propia cocina y baño que no compartía con otras unidades del edificio
           tenant_building_multi_unit: La vivienda estaba en un edificio que tenía más de una unidad de vivienda (por ejemplo, apartamentos, condominios, dormitorios)
@@ -3832,9 +3832,9 @@ es:
           helper_description: Ingresa las tarifas de tu sitio pagadas en %{filing_year}.
           helper_heading: Dueños/as de casas móviles/rodantes
           instructions_html: |
-            <p>Now, we need your <strong>total rent paid throughout the year.</strong></p>
-            <p>For example, if you paid $1,000/month in rent all year, enter $12,000 here. If you lived with roommates, enter only your share of rent paid. If you moved during the year, include your share of rent for all homes.</p>
-          label_html: "<strong>Ingresa tu parte total del alquiler que pagaste en %{filing_year}</strong>"
+            <p>Ahora necesitamos <strong>el monto total de la renta que pagaste durante el año.</strong></p>
+            <p>Por ejemplo, si pagaste $1,000 al mes de renta durante todo el año, ingresa $12,000 aquí. Si viviste con compañeros de piso (roommates), ingresa la parte de la renta que te correspondió. Si te mudaste durante el año, suma la parte de la renta que te correspondió para todas las viviendas.</p>
+          label_html: "<strong>Ingresa el monto de renta pagado en %{filing_year}</strong>"
           title: Buenas noticias—calificas para una deducción o crédito
       nj_veterans_exemption:
         edit:
