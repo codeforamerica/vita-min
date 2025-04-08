@@ -1513,31 +1513,80 @@ es:
     sms_opt_in: Bienvenido a los mensajes de GetYourRefund. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     state_file:
       accepted_owe:
-        email:
-          body: |
+        after_deadline:
+          email:
+            body: |
+              Hola %{primary_first_name},
+
+              Tu declaración de impuestos del estado de %{state_name} ha sido aceptada y hay un pago pendiente.
+
+              Si aún no has pagado mediante débito directo al presentar tu declaración, por favor haz tu pago lo antes posible para evitar multas y costos adicionales en %{state_pay_taxes_link}.
+
+              Descarga tu declaración en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+              ¿Necesitas ayuda? Responde a este correo electrónico.
+
+              Atentamente,
+              El equipo de FileYourStateTaxes
+
+              Para dejar de recibir los correos electrónicos, haz clic aquí.
+            subject: "%{state_name} Declaración de impuestos estatales aceptada - Pago pendiente"
+          sms: |
             Hola %{primary_first_name},
 
-            Tu declaración de impuestos estatales de %{state_name} <strong>ha sido aceptada y hay un pago pendiente</strong>.
+            Tu declaración de impuestos del estado de %{state_name} ha sido aceptada y hay un pago pendiente.
 
-            <strong>Si no pagaste ya mediante débito directo al presentar tu declaración, por favor, haz tu pago antes del 15 de abril visitando %{state_pay_taxes_link}</strong>. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
+            Si aún no has pagado mediante débito directo al presentar tu declaración, por favor haz tu pago lo antes posible para evitar multas y costos adicionales en %{state_pay_taxes_link}.
 
-            Descarga tu declaración visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
-
-            ¿Necesitas ayuda? Responde a este correo.
+            Descarga tu declaración en %{return_status_link}.
 
             Atentamente,
             El equipo de FileYourStateTaxes
-          subject: Declaración de impuestos del estado %{state_name} aceptada - Pago pendiente
-        sms: |
-          Hola %{primary_first_name} - Tu declaración de impuestos estatales de %{state_name} ha sido aceptada y hay un pago pendiente.
 
-          Sino has hecho tu pago mediante débito directo, por favor hazlo antes del 15 de abril en %{state_pay_taxes_link}.
+            ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
+        before_deadline:
+          email:
+            body: |
+              Hola %{primary_first_name},
 
-          Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
+              Tu declaración de impuestos estatales de %{state_name} <strong>ha sido aceptada y hay un pago pendiente</strong>.
 
-          Descarga tu declaración en %{return_status_link}
+              <strong>Si no pagaste ya mediante débito directo al presentar tu declaración, por favor, haz tu pago antes del 15 de abril visitando %{state_pay_taxes_link}</strong>. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
 
-          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org
+              Descarga tu declaración visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+              ¿Necesitas ayuda? Responde a este correo.
+
+              Atentamente,
+              El equipo de FileYourStateTaxes
+            subject: Declaración de impuestos del estado %{state_name} aceptada - Pago pendiente
+          sms: |
+            Hola %{primary_first_name} - Tu declaración de impuestos estatales de %{state_name} ha sido aceptada y hay un pago pendiente.
+
+            Sino has hecho tu pago mediante débito directo, por favor hazlo antes del 15 de abril en %{state_pay_taxes_link}.
+
+            Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
+
+            Descarga tu declaración en %{return_status_link}
+
+            ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org
+        during_deadline:
+          email:
+            body: |
+              Hola %{primary_first_name},
+
+              Tu declaración de impuestos estatales de %{state_name} ha sido aceptada y hay un pago pendiente.
+
+              Si no pagaste ya mediante débito directo al presentar tu declaración, por favor, haz tu pago hoy visitando %{state_pay_taxes_link}. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
+
+              Descarga tu declaración visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+
+              ¿Necesitas ayuda? Responde a este correo electrónico.
+
+              Atentamente,
+              El equipo de FileYourStateTaxes
+            subject: Declaración de impuestos del estado %{state_name} aceptada - Pago pendiente
+          sms: "¡Hola %{primary_first_name}! Tu declaración de impuestos estatales de %{state_name} ha sido aceptada y hay un pago pendiente.\n\nSi no has hecho tu pago mediante débito directo, por favor hazlo hoy en %{state_pay_taxes_link}. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales. \n\nDescarga tu declaración en %{return_status_link}.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n\n¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org\n"
       accepted_refund:
         email:
           body: |
