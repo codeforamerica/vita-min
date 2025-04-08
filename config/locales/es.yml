@@ -3319,6 +3319,27 @@ es:
           last_name: Apellido
           middle_initial: Inicial del segundo nombre
           suffix: Sufijo
+      md_taxes_owed:
+        edit:
+          page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
+          pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
+          pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
+          subtitle: "¿Cómo te gustaría pagar?"
+          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
+          title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}.
+        md_bank_details:
+          account_number: Número de cuenta
+          account_type:
+            label: Tipo de cuenta bancaria
+          after_deadline_default_withdrawal_info: Debido a que está presentando su declaración el o después del %{payment_deadline_date}, %{payment_deadline_year}, el estado retirará su pago tan pronto como procesen su declaración.
+          bank_title: 'Por favor, comparte los detalles de tu cuenta bancaria:'
+          confirm_account_number: Confirma el número de cuenta
+          confirm_routing_number: Confirma el número de ruta bancaria (routing number)
+          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el día del %{payment_deadline_date} de %{payment_deadline_year}):"
+          foreign_accounts_owed: No están permitidos los depósitos directos internacionales.
+          foreign_accounts_refund: No están permitidos los depósitos directos internacionales.
+          routing_number: Número de ruta bancaria (routing number)
+          withdraw_amount: "¿Cuánto autorizas que sea retirado de tu cuenta? (La cantidad total que debes es $%{owed_amount}.)"
       md_two_income_subtractions:
         edit:
           description: Para saber si calificas y calcular la resta, necesitamos más información sobre la deducción de intereses de préstamos estudiantiles que se aplicó a tu declaración de impuestos federales.
@@ -4230,36 +4251,6 @@ es:
           mail: Por correo (más lento)
           page_title: Buenas noticias, recibirás un reembolso de impuestos. ¿Cómo te gustaría recibirlo?
           title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>$%{refund_amount}.</strong>
-      md_taxes_owed:
-        md_bank_details:
-          account_number: Número de cuenta
-          account_type:
-            label: Tipo de cuenta bancaria
-          after_deadline_default_withdrawal_info: Debido a que está presentando su declaración el o después del %{payment_deadline_date}, %{payment_deadline_year}, el estado retirará su pago tan pronto como procesen su declaración.
-          bank_title: 'Por favor, comparte los detalles de tu cuenta bancaria:'
-          confirm_account_number: Confirma el número de cuenta
-          confirm_routing_number: Confirma el número de ruta bancaria (routing number)
-          date_withdraw_text: "¿Cuándo te gustaría que se retiren los fondos de tu cuenta? (debe ser antes o en el día del %{payment_deadline_date} de %{payment_deadline_year}):"
-          foreign_accounts_owed: No están permitidos los depósitos directos internacionales.
-          foreign_accounts_refund: No están permitidos los depósitos directos internacionales.
-          routing_number: Número de ruta bancaria (routing number)
-          withdraw_amount: "¿Cuánto autorizas que sea retirado de tu cuenta? (La cantidad total que debes es $%{owed_amount}.)"
-        edit:
-          more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Aquí hay más información sobre las fechas de vencimiento de impuestos y los modos de pago.</a></p>
-          page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
-          pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
-          pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
-          subtitle: "¿Cómo te gustaría pagar?"
-          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
-          title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}.
-          underpayment_notice_nj_html: |-
-            <p>Esto puede suceder por muchas razones, las más comunes son:</p>
-            <ul class="list--bulleted">
-              <li>Porque no se retuvieron suficientes impuestos de tu cheque/recibo de pago (paycheck) (podrías charlar esto con tu empleador/a para los próximos años), o</li>
-              <li>Porque no hiciste suficientes pagos de impuestos estimados.</li>
-            </ul>
-            <p>Es posible que te cobren intereses sobre lo que debes. Si este es tu caso, recibirás un aviso de la División de Impuestos del Estado de New Jersey por correo.</p>
-            <p><strong>Definitivamente debes continuar con esta declaración de impuestos. Cuanto antes lo hagas, menos tendrás que pagar en multas.</strong></p>
       taxes_owed:
         edit:
           more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Aquí hay más información sobre las fechas de vencimiento de impuestos y los modos de pago.</a></p>
@@ -4267,6 +4258,7 @@ es:
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: "¿Cómo te gustaría pagar?"
+          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}.
           underpayment_notice_nj_html: |-
             <p>Esto puede suceder por muchas razones, las más comunes son:</p>
