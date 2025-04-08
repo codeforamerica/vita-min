@@ -80,6 +80,11 @@ module PdfFiller
         y_d400wf_sigdate: @submission.data_source.primary_esigned_yes? ? date_type_for_timezone(@submission.data_source.primary_esigned_at)&.to_date : "",
         y_d400wf_sigdate2: @submission.data_source.spouse_esigned_yes? ? date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.to_date : ""
       }
+
+      if Flipper.enabled?(:extension_period)
+        answers[:y_d400wf_li21b_pg2_good] = @xml_document.at('PdWithExt')&.text
+      end
+
       if Flipper.enabled?(:extension_period)
         answers["y_d400wf_Out of Country"] = checkbox_value(@xml_document.at('OutOfCountry')&.text.present?)
       end
