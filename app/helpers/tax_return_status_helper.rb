@@ -1,19 +1,15 @@
 module TaxReturnStatusHelper
-  def grouped_status_options_for_select
+  def grouped_status_options_for_select(unwanted_statuses: nil)
     TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).map do |stage, statuses|
       translated_stage = TaxReturnStatusHelper.stage_translation(stage)
-      translated_statuses = statuses.map { |status| [TaxReturnStatusHelper.status_translation(status), status.to_s] }
+      filtered_statuses = unwanted_statuses ? statuses.reject { |status| unwanted_statuses.include?(status.to_s) } : statuses
+      translated_statuses = filtered_statuses.map { |status| [TaxReturnStatusHelper.status_translation(status), status.to_s] }
       [translated_stage, translated_statuses]
     end
   end
 
   def grouped_status_options_for_partner
-    TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).map do |stage, statuses|
-      translated_stage = TaxReturnStatusHelper.stage_translation(stage)
-      filtered_statuses = statuses.reject { |status| status.to_s == "intake_in_progress" }
-      translated_statuses = filtered_statuses.map { |status| [TaxReturnStatusHelper.status_translation(status), status.to_s] }
-      [translated_stage, translated_statuses]
-    end
+    grouped_status_options_for_select(unwanted_statuses: ["intake_in_progress"])
   end
 
   def stage_and_status_translation(status)
