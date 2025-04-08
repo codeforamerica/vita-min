@@ -16,7 +16,7 @@ module StateFile
       end
 
       def review_controller
-        "StateFile::Questions::#{current_state_code.titleize}ReviewController".constantize
+        StateFile::StateInformationService.review_controller_class(current_state_code)
       end
 
       private
@@ -60,13 +60,13 @@ module StateFile
 
       def next_path
         next_page_info = next_step
-        return unless next_page_info.present?
+        return unless next_page_info&.dig(:controller)
         next_page_controller = next_page_info[:controller]
 
         options = { action: next_page_controller.navigation_actions.first }
         options[:item_index] = next_page_info[:item_index] if next_page_info&.key? :item_index
 
-        if next_page_controller.resource_name.present? && next_page_controller.resource_name == self.class.resource_name
+        if next_page_controller.resource_name && next_page_controller.resource_name == self.class.resource_name
           options[:id] = current_resource.id
         end
         if next_page_info.key? :params
@@ -93,7 +93,7 @@ module StateFile
           self.class.to_path_helper({ action: prev_action })
         else
           prev_page_info = prev_step
-          return unless prev_page_info.present?
+          return unless prev_page_info&.dig(:controller)
           prev_page_controller = prev_page_info[:controller]
 
           options = { action: prev_page_controller.navigation_actions.first }

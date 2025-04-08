@@ -34,7 +34,7 @@ module Questions
 
     def next_path
       next_page_info = form_navigation.next
-      return unless next_page_info.present?
+      return unless next_page_info&.dig(:controller)
       next_page_controller = next_page_info[:controller]
 
       options = { action: next_page_controller.navigation_actions.first }
@@ -44,7 +44,7 @@ module Questions
 
     def prev_path
       prev_page_info = form_navigation.prev
-      return unless prev_page_info.present?
+      return unless prev_page_info&.dig(:controller)
       prev_page_controller = prev_page_info[:controller]
 
       options = { action: prev_page_controller.navigation_actions.first }

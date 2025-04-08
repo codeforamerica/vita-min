@@ -18,12 +18,86 @@ class QuestionNavigation < Navigation::StateFileBaseQuestionNavigation
 end
 
 RSpec.describe StateFile::Questions::QuestionsController do
-  describe "#prev_path" do
-    let(:form_navigation) { QuestionNavigation.new(current_controller) }
+  let(:form_navigation) { QuestionNavigation.new(current_controller) }
 
-    before do
-      allow(current_controller).to receive(:current_intake).and_return(nil)
-      allow(current_controller).to receive(:form_navigation).and_return(form_navigation)
+  before do
+    allow(current_controller).to receive(:current_intake).and_return(nil)
+    allow(current_controller).to receive(:form_navigation).and_return(form_navigation)
+  end
+
+  describe "#next_path" do
+    context "when next_step is" do
+      let(:current_controller) { QuestionTwoController.new }
+
+      context "nil" do
+        before do
+          allow(current_controller).to receive(:next_step).and_return(nil)
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:next_path)).to be_nil
+        end
+      end
+
+      context "malformed page info hash" do
+        before do
+          allow(current_controller).to receive(:next_step).and_return({ controler: QuestionOneController})
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:next_path)).to be_nil
+        end
+      end
+
+      context "page info hash with nil controller value" do
+        before do
+          allow(current_controller).to receive(:next_step).and_return({ controller: nil})
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:next_path)).to be_nil
+        end
+      end
+
+
+    end
+
+  end
+
+  describe "#prev_path" do
+    context "when prev_step is" do
+      let(:current_controller) { QuestionTwoController.new }
+
+      context "nil" do
+        before do
+          allow(current_controller).to receive(:prev_step).and_return(nil)
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:prev_path)).to be_nil
+        end
+      end
+
+      context "malformed page info hash" do
+        before do
+          allow(current_controller).to receive(:prev_step).and_return({ controler: QuestionOneController})
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:prev_path)).to be_nil
+        end
+      end
+
+      context "page info hash with nil controller value" do
+        before do
+          allow(current_controller).to receive(:prev_step).and_return({ controller: nil})
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:prev_path)).to be_nil
+        end
+      end
+
     end
 
     context "when the controller has only one navigation action" do
