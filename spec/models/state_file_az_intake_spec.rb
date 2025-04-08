@@ -450,7 +450,7 @@ describe StateFileAzIntake do
     end
   end
 
-  describe "#has_verified_contact_info scope" do
+  describe ".has_verified_contact_info scope" do
     context "when there is an intake with a phone_number and phone_number_verified_at is present" do
       let!(:intake) { create(:state_file_az_intake, phone_number: "+14155551212", phone_number_verified_at: Time.now) }
       it "includes the intake in the scope" do
@@ -470,6 +470,88 @@ describe StateFileAzIntake do
       let!(:email_intake) { create(:state_file_az_intake, phone_number: "+14155551212", phone_number_verified_at: nil) }
       it "excludes the intake in the scope" do
         expect(StateFileAzIntake.has_verified_contact_info).not_to include(phone_intake, email_intake)
+      end
+    end
+  end
+
+  describe ".intakes_with_verified_contact_info_and_valid_df_data_without_recent_finish_return_messages_or_efile_submissions" do
+    let!(:az_intake_with_email_notifications_and_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:az_intake_with_email_notifications_without_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: nil,
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:az_intake_with_text_notifications_and_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             phone_number: "+15551115511",
+             sms_notification_opt_in: 1,
+             phone_number_verified_at: 5.minutes.ago
+    }
+    let!(:az_intake_with_unverified_text_notifications_and_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             phone_number: "+15551115511",
+             sms_notification_opt_in: "yes",
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: "no"
+    }
+    let!(:az_intake_submitted) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             email_address: 'test+01@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:efile_submission) { create :efile_submission, :for_state, data_source: az_intake_submitted }
+    let!(:az_intake_has_received_reminder) {
+      create :state_file_az_intake, email_address: "test@example.com",
+             email_address_verified_at: 1.hour.ago,
+             email_notification_opt_in: 1,
+             df_data_imported_at: 2.minutes.ago,
+             message_tracker: { "messages.state_file.finish_return" => (Time.now - 2.hours).utc.to_s }
+    }
+
+    it '' do
+      results = StateFileAzIntake.intakes_with_verified_contact_info_and_valid_df_data_without_recent_finish_return_messages_or_efile_submissions
+      expect(results).to include(
+         az_intake_with_email_notifications_and_df_import,
+         az_intake_with_text_notifications_and_df_import,
+         az_intake_with_unverified_text_notifications_and_df_import)
+      expect(results).not_to include(az_intake_has_received_reminder)
+    end
+  end
+
+  describe "#has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data" do
+    let(:message_tracker) { nil }
+    let(:intake) { create :state_file_az_intake, message_tracker: message_tracker }
+
+    context "without message tracker data or disqualifying not present" do
+      it "returns true" do
+        expect(intake.has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data).to eq(true)
+      end
+    end
+
+    context "with finish return email recently" do
+      let(:message_tracker) { { "messages.state_file.finish_return" => (Time.now - 2.hours).utc.to_s } }
+      it "returns false" do
+        expect(intake.has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data).to eq(false)
+      end
+    end
+
+    context "with disqualifying_df_data_reason" do
+      it "returns false" do
+        allow_any_instance_of(StateFileAzIntake).to receive(:disqualifying_df_data_reason).and_return :has_out_of_state_w2
+        expect(intake.has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data).to eq(false)
       end
     end
   end

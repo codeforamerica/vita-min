@@ -89,6 +89,23 @@ class StateFileBaseIntake < ApplicationRecord
     state_code.to_s
   end
 
+  def self.intakes_with_verified_contact_info_and_valid_df_data_without_recent_finish_return_messages_or_efile_submissions
+    self.left_joins(:efile_submissions)
+      .where(efile_submissions: { id: nil })
+      .where.not(df_data_imported_at: nil)
+      .has_verified_contact_info
+      .select(&:has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data)
+  end
+
+  def has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data
+    if message_tracker.present? && message_tracker["messages.state_file.finish_return"]
+      finish_return_msg_sent_time = Time.parse(message_tracker["messages.state_file.finish_return"])
+      finish_return_msg_sent_time < 24.hours.ago
+    else
+      !disqualifying_df_data_reason.present?
+    end
+  end
+
   delegate :state_code, to: :class
 
   def state_name
