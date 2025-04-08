@@ -710,12 +710,11 @@ describe Efile::Id::Id40Calculator do
       before do
         allow_any_instance_of(described_class).to receive(:calculate_line_42).and_return(2000)
         allow_any_instance_of(described_class).to receive(:calculate_line_50).and_return(1000)
-        allow_any_instance_of(described_class).to receive(:calculate_line_47).and_return(365)
         instance.calculate
       end
 
       it "should return the line 42 minus line 50 minus line 47" do
-        expect(instance.lines[:ID40_LINE_51].value).to eq(635)
+        expect(instance.lines[:ID40_LINE_51].value).to eq(1000)
       end
     end
 

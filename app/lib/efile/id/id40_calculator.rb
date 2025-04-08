@@ -271,7 +271,7 @@ module Efile
 
       def calculate_line_51
         if line_or_zero(:ID40_LINE_42) > line_or_zero(:ID40_LINE_50)
-          line_or_zero(:ID40_LINE_42) - line_or_zero(:ID40_LINE_50) - line_or_zero(:ID40_LINE_47)
+          line_or_zero(:ID40_LINE_42) - line_or_zero(:ID40_LINE_50)
         end
       end
 
