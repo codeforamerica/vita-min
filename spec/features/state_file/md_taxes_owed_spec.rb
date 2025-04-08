@@ -1,79 +1,48 @@
 require "rails_helper"
 
-RSpec.feature "MD Taxes Owed" do
-  before do
-    allow(Flipper).to receive(:enabled?).and_call_original
-  end
+RSpec.feature "MD Taxes Owed", active_job: true, js: true do
+  let(:current_tax_year) { MultiTenantService.new(:statefile).current_tax_year }
+  let(:current_year) { current_tax_year + 1 }
+  let(:submission_deadline) { StateFile::StateInformationService.payment_deadline_date("md", filing_year: current_year) }
 
-  context "before the tax deadline (extension_period flipper is off)" do
+  context "before the tax deadline", :flow_explorer_screenshot do
     before do
-      allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(false)
+      allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
+      Timecop.travel(submission_deadline + 2.days)
     end
 
-    scenario "can select a payment date" do
-      intake = create :state_file_md_intake, :taxes_owed
-      login_as intake, scope: :state_file_intake
+    it "can select a payment date up to April 15th", required_schema: "md" do
+      intake = create :state_file_md_owed_intake, current_step: "state_file/taxes_owed_form"
+      login_as intake, scope: :state_file_md_intake
 
-      visit "/questions/md-taxes-owed"
+      visit "/en/questions/md-taxes-owed"
 
-      expect(page).to have_text "You owe $123 in Maryland state taxes."
-      click_on "Pay directly from your checking or savings account (direct debit)"
+      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.md_taxes_owed.edit.title_html", owed_amount: 8908, state_name: "Maryland"))
 
-      # Check that date select is visible
-      expect(page).to have_text "When would you like the funds withdrawn from your account?"
-      expect(page).to have_css(".date-select")
-
-      # Fill in bank details & select a date
-      fill_in "Your total amount due is $123.", with: "100"
-      select "January", from: "state_file_md_taxes_owed_form[date_electronic_withdrawal(2i)]"
-      select "3", from: "state_file_md_taxes_owed_form[date_electronic_withdrawal(3i)]"
-      select (Time.now.year + 1).to_s, from: "state_file_md_taxes_owed_form[date_electronic_withdrawal(1i)]"
-      choose "Checking"
-      fill_in "Routing Number", with: "123456789"
-      fill_in "Confirm Routing Number", with: "123456789"
-      fill_in "Account number", with: "987654321"
-      fill_in "Confirm Account Number", with: "987654321"
-
-      click_on "Continue"
-
-      intake.reload
-      expect(intake.direct_debit_date.strftime("%Y-%m-%d")).to eq Date.new(Time.now.year + 1, 1, 3).strftime("%Y-%m-%d")
-      expect(intake.payment_or_deposit_type).to eq "direct_deposit"
-    end
-  end
-
-  context "after the tax deadline (extension_period flipper is on)" do
-    before do
-      allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
-    end
-
-    scenario "cannot select a payment date and it defaults to today" do
-      intake = create :state_file_md_intake, :taxes_owed
-      login_as intake, scope: :state_file_intake
-
-      visit "/questions/md-taxes-owed"
-
-      expect(page).to have_text "You owe $123 in Maryland state taxes."
-      click_on "Pay directly from your checking or savings account (direct debit)"
-
-      # Check that date select is NOT visible and informational text IS visible
-      expect(page).not_to have_text "When would you like the funds withdrawn from your account?"
+      expect(page).to have_text I18n.t("state_file.questions.md_taxes_owed.md_bank_details.after_deadline_default_withdrawal_info", payment_deadline_date: I18n.l(submission_deadline.to_date, format: :medium, locale: :en), payment_deadline_year: current_tax_year + 1)
       expect(page).not_to have_css(".date-select")
-      expect(page).to have_text "Because you are submitting your return on or after"
+      expect(page).not_to have_text I18n.t("state_file.questions.md_taxes_owed.md_bank_details.date_withdraw_text", payment_deadline_date: I18n.l(submission_deadline.to_date, format: :medium, locale: :en), payment_deadline_year: current_tax_year + 1)
 
-      # Fill in bank details
-      fill_in "Your total amount due is $123.", with: "100"
-      choose "Checking"
-      fill_in "Routing Number", with: "123456789"
-      fill_in "Confirm Routing Number", with: "123456789"
-      fill_in "Account number", with: "987654321"
-      fill_in "Confirm Account Number", with: "987654321"
+      fill_in I18n.t("state_file.questions.md_taxes_owed.md_bank_details.withdraw_amount", owed_amount: 8908), with: "100"
 
-      click_on "Continue"
+      # Payment date is hard coded after april 15th(hard coded in controller for md)
+      expect(page).not_to have_css("#state_file_md_taxes_owed_form_date_electronic_withdrawal_month")
+      expect(page).not_to have_css("#state_file_md_taxes_owed_form_date_electronic_withdrawal_day")
+      expect(page).not_to have_css("#state_file_md_taxes_owed_form_date_electronic_withdrawal_year")
 
+      choose I18n.t("general.bank_account.checking")
+      fill_in I18n.t("state_file.questions.md_taxes_owed.md_bank_details.routing_number"), with: "019456124"
+      fill_in I18n.t("state_file.questions.md_taxes_owed.md_bank_details.confirm_routing_number"), with: "019456124"
+      fill_in I18n.t("state_file.questions.md_taxes_owed.md_bank_details.account_number"), with: "123456789"
+      fill_in I18n.t("state_file.questions.md_taxes_owed.md_bank_details.confirm_account_number"), with: "123456789"
+
+      click_on I18n.t("general.continue")
+
+      # wait for next step to load for db
+      expect(page).to have_current_path("/en/questions/md-had-health-insurance")
       intake.reload
-      # The hidden field sets the date to Time.zone.now.to_date
-      expect(intake.direct_debit_date.strftime("%Y-%m-%d")).to eq Time.zone.now.to_date.strftime("%Y-%m-%d")
+      payment_date = Date.new(current_year, 4, 15)
+      expect(intake.date_electronic_withdrawal).to eq payment_date
       expect(intake.payment_or_deposit_type).to eq "direct_deposit"
     end
   end
