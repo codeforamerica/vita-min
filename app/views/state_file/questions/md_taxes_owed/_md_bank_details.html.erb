@@ -10,7 +10,7 @@
       <%= form.hidden_field :app_time, value: app_time %>
       <%= form.vita_min_money_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
       <% if @after_filing_deadline %>
-        <%= form.hidden_field :date_electronic_withdrawal, value: @md_payment_deadline %>
+        <%= form.hidden_field :date_electronic_withdrawal, value: DateTime.current %>
       <% else %>
         <div class="date-select">
           <% year = current_tax_year + 1 %>

@@ -3,12 +3,14 @@ require "rails_helper"
 RSpec.feature "MD Taxes Owed", active_job: true, js: true do
   let(:current_tax_year) { MultiTenantService.new(:statefile).current_tax_year }
   let(:current_year) { current_tax_year + 1 }
+  let(:timezone) { StateFile::StateInformationService.timezone("md") }
   let(:submission_deadline) { StateFile::StateInformationService.payment_deadline_date("md", filing_year: current_year) }
+  let(:today) { (submission_deadline + 2.days).in_time_zone(timezone) }
 
   context "before the tax deadline", :flow_explorer_screenshot do
     before do
       allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
-      Timecop.travel(submission_deadline + 2.days)
+      Timecop.travel(today)
     end
 
     it "can select a payment date up to April 15th", required_schema: "md" do
@@ -41,8 +43,7 @@ RSpec.feature "MD Taxes Owed", active_job: true, js: true do
       # wait for next step to load for db
       expect(page).to have_current_path("/en/questions/md-had-health-insurance")
       intake.reload
-      payment_date = Date.new(current_year, 4, 15)
-      expect(intake.date_electronic_withdrawal).to eq payment_date
+      expect(intake.date_electronic_withdrawal).to eq today.to_date
       expect(intake.payment_or_deposit_type).to eq "direct_deposit"
     end
   end
