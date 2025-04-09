@@ -24,6 +24,7 @@
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  email_notification_opt_in         :integer          default("unfilled"), not null
+#  extension_payments_amount         :decimal(12, 2)
 #  failed_attempts                   :integer          default(0), not null
 #  federal_return_status             :string
 #  hashed_ssn                        :string
@@ -34,6 +35,7 @@
 #  message_tracker                   :jsonb
 #  moved_after_hurricane_helene      :integer          default("unfilled"), not null
 #  out_of_country                    :integer          default("no"), not null
+#  paid_extension_payments           :integer          default("unfilled"), not null
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime
@@ -101,6 +103,7 @@ class StateFileNcIntake < StateFileBaseIntake
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
   enum eligibility_ed_loan_cancelled: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_cancelled
   enum eligibility_ed_loan_emp_payment: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_emp_payment
+  enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
   enum out_of_country: { no: 0, yes: 1 }, _prefix: :out_of_country
 
   attr_accessor :nc_eligiblity_none

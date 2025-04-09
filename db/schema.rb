@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_03_205420) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_07_220402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2387,6 +2387,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_03_205420) do
     t.string "municipality_code"
     t.string "municipality_name"
     t.decimal "overpayments", precision: 12, scale: 2
+    t.integer "paid_federal_extension_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "permanent_apartment"
     t.string "permanent_city"
