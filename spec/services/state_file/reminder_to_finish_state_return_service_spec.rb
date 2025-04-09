@@ -19,11 +19,29 @@ describe StateFile::ReminderToFinishStateReturnService do
                email_address: "dezie@example.com",
                message_tracker: {}
       end
+      let(:fake_time) { Rails.configuration.tax_deadline - 2.days }
 
       it "sends a message to the email associated with the intake" do
-        StateFile::ReminderToFinishStateReturnService.run
-        expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, message: message)
-        expect(state_file_messaging_service).to have_received(:send_message)
+        Timecop.freeze(fake_time) do
+          StateFile::ReminderToFinishStateReturnService.run
+          expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, message: message)
+          expect(state_file_messaging_service).to have_received(:send_message)
+          expect(message.new.email_body).to eq(I18n.t("messages.state_file.finish_return.email.body.pre_deadline"))
+        end
+      end
+
+
+      context "when april 15th" do
+        let(:fake_time) { Rails.configuration.tax_deadline - 2.hours }
+
+        it "sends with different copy" do
+          Timecop.freeze(fake_time) do
+            StateFile::ReminderToFinishStateReturnService.run
+            expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, message: message)
+            expect(state_file_messaging_service).to have_received(:send_message)
+            expect(message.new.email_body).to eq(I18n.t("messages.state_file.finish_return.email.body.on_april_15"))
+          end
+        end
       end
     end
 
