@@ -18,7 +18,7 @@ else
   Capybara.javascript_driver = :selenium_chrome_headless
 end
 
-Capybara.default_max_wait_time = 5
+Capybara.default_max_wait_time = 2
 Capybara.server = :puma, { Silent: true }
 Capybara.server_port = 9887 + ENV['TEST_ENV_NUMBER'].to_i
 if ENV['DOCKER']
@@ -229,9 +229,10 @@ RSpec.configure do |config|
         end
 
         browser_console_logs = page.driver.browser.logs.get(:browser)
-        if browser_console_logs.length > 0
+        if browser_console_logs.any?
+          unique_messages = browser_console_logs.map(&:message).uniq
           STDERR.puts "\n\nvv During this test failure, there was some output in the browser's console vv"
-          STDERR.puts browser_console_logs.map(&:message).join("\n")
+          STDERR.puts unique_messages.join("\n")
           STDERR.puts "^^ ^^"
         end
         STDERR.puts "Saved failed test screenshot to #{page.save_screenshot(screenshot_path)}"

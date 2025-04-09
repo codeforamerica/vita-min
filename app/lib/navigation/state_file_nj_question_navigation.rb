@@ -53,7 +53,6 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjIneligiblePropertyTaxController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerPropertyTaxWorksheetController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerPropertyTaxController), # Line 40a
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjTenantPropertyTaxWorksheetController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantRentPaidController), # Line 40a
                                           # question after property taxes set in NjPropertyTaxFlowOffRamp
                                         ]),
