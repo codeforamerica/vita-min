@@ -378,7 +378,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_to_start_of_intake("Lauryn mfs")
         advance_to_property_tax_page
         choose_household_rent_own("tenant")
-        all_checkboxes = ["tenant_home_subject_to_property_taxes", "tenant_building_multi_unit", "tenant_more_than_one_main_home_in_nj", "tenant_shared_rent_not_spouse", "tenant_same_home_spouse", "tenant_access_kitchen_bath"]
+        all_checkboxes = ["tenant_home_subject_to_property_taxes", "tenant_building_multi_unit", "tenant_same_home_spouse", "tenant_access_kitchen_bath"]
         conditional_checkbox = "state_file.questions.nj_tenant_eligibility.edit.tenant_access_kitchen_bath"
         none_checkbox = "general.none_of_these"
         select_tenant_eligibility(all_checkboxes, continue_to_next: false)

@@ -108,7 +108,6 @@ describe 'EfileError' do
       "nj-review",
       "nj-sales-use-tax",
       "nj-tenant-eligibility",
-      "nj-tenant-property-tax-worksheet",
       "nj-tenant-rent-paid",
       "nj-veterans-exemption",
       "nj-year-of-death",
