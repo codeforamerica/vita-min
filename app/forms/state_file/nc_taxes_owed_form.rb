@@ -51,7 +51,7 @@ module StateFile
     end
 
     def withdrawal_date_is_not_a_federal_holiday
-      if Holidays.on(date_electronic_withdrawal, :us, :federalreservebanks, :observed).any?
+      if  holiday?(date_electronic_withdrawal)
         errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.holiday"))
       end
     end
