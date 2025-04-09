@@ -40,6 +40,7 @@ class StateFileBaseIntake < ApplicationRecord
     where.not(raw_direct_file_data: nil)
          .where(federal_submission_id: nil)
   }
+
   scope :messaging_eligible, lambda {
     where(<<~SQL)
       (
@@ -51,6 +52,20 @@ class StateFileBaseIntake < ApplicationRecord
       (
         email_address IS NOT NULL
         AND email_notification_opt_in = 1
+        AND email_address_verified_at IS NOT NULL
+      )
+    SQL
+  }
+
+  scope :has_verified_contact_info, lambda {
+    where(<<~SQL)
+      (
+        phone_number IS NOT NULL
+        AND phone_number_verified_at IS NOT NULL
+      )
+      OR
+      (
+        email_address IS NOT NULL
         AND email_address_verified_at IS NOT NULL
       )
     SQL
@@ -319,14 +334,6 @@ class StateFileBaseIntake < ApplicationRecord
 
   def requires_additional_withdrawal_information?
     false
-  end
-
-  def allows_w2_editing?
-    true
-  end
-
-  def allows_1099_r_editing?
-    true
   end
 
   def has_banking_information_in_financial_resolution?

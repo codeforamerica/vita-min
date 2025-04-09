@@ -1589,6 +1589,20 @@ es:
           Hola -  ¡Gracias por utilizar FileYourStateTaxes! Cualquier problema que haya experimentado al utilizar nuestra herramienta ya se ha resuelto. Para continuar presentando sus impuestos estatales, inicie sesión aquí: %{login_link}
 
           ¿Preguntas? Envíenos un correo electrónico a help@fileyourstatetaxes.org.
+      marketing_email:
+        email:
+          body: |
+            Hello,
+
+            File your state tax return again for free with FileYourStateTaxes!
+
+            April 15 is right around the corner. Luckily, filing is easier than ever! File your taxes with <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/state">IRS Direct File</a> and FileYourStateTaxes today.
+
+            Already started? Finish filing before April 15.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: IRS Direct File is back and easier than ever
       post_deadline_reminder:
         email:
           body: |-
@@ -1627,7 +1641,6 @@ es:
         email:
           body: |
             Hola %{primary_first_name},
-
 
             Te recordamos que tu declaración de impuestos estatales de %{state_name} fue rechazada. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
@@ -2911,11 +2924,34 @@ es:
           submit: Envía tu declaración estatal
           title: Firma electrónicamente tu declaración de impuestos del estado de %{state_name}
       extension_payments:
-        edit:
+        az:
+          affirmative: 'Yes'
           amount: Amount of extension payments
-          enter_amount: Enter the amount of extension payments...
-          more_info: More info here...
-          title: Did you make any extension payments?
+          enter_amount: Enter the amount of extension payments paid to Arizona.
+          negative: 'No'
+          subtitle_html: If you made a Arizona extension payment, you would have <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Form 204</a>.
+          title: Did you make an Arizona extension payment on or before April 15, %{date_year}?
+        id:
+          affirmative: Yes, I made extension or estimated payments to Idaho
+          amount: Amount of Idaho payments
+          enter_amount: Enter the amount of payments made to Idaho on form 51
+          negative: No, I did not make extension or estimated payments to Idaho
+          subtitle_html: "If you made these payments, you would have <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">paid online</a> or mailed your payment along with <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nEstimated tax payments can be paid anytime during the tax year, and they do not include taxes withheld from your other income such as wages and retirement.\n"
+          title: Did you make any Idaho extension or estimated payments for the %{tax_year} tax year on or before April 15, %{date_year}?
+        md:
+          affirmative: 'Yes'
+          amount: Amount of extension payments
+          enter_amount: Enter the amount of extension payments paid to Maryland.
+          negative: 'No'
+          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
+          title: Did you make a Maryland extension payment on or before April 15, %{date_year}?
+        nc:
+          affirmative: 'Yes'
+          amount: Amount of extension payments
+          enter_amount: Enter the amount of extension payments paid to North Carolina.
+          negative: 'No'
+          subtitle_html: If you made a North Carolina extension payment, you would have <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Form D-410</a>.
+          title: Did you make a North Carolina extension payment on or before April 15, %{date_year}?
       federal_extension_payments:
         edit:
           more_info: More info here...
@@ -3102,7 +3138,6 @@ es:
           no_info_needed_nj: Este ingreso no es tributable en New Jersey.
           retirement_income_title: Jubilación (1099-R)
           review_and_edit_state_info: Revisar y editar la información estatal
-          review_state_info: Revisar la información estatal
           ssa_title: Beneficios del Seguro Social (SSA-1099)
           state_info_to_be_collected: Información estatal que se recogerá
           title: Estos son los formularios de ingresos que transferimos de tu declaración de impuestos federales.

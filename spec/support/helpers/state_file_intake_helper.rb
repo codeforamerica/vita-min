@@ -151,7 +151,7 @@ module StateFileIntakeHelper
       Capybara::ElementNotFound,
       RSpec::Expectations::ExpectationNotMetError => e
       puts "Caught #{e.class} - #{e.message}"
-      puts "First attempt failed for `#{input}`, sleeping #{sleep_time} seconds then retrying..."
+      puts "Failed attempt for `#{input}`, sleeping #{sleep_time} seconds then retrying..."
       sleep sleep_time
       retry_count += 1
       retry_count <= retries ? retry : raise

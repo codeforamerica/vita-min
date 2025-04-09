@@ -5,6 +5,7 @@ RSpec.describe StateFile::NotificationsSettingsController do
     render_views
 
     let!(:intake) { create :state_file_ny_intake, email_address: "unsubscribe_me@example.com", unsubscribed_from_email: false }
+    let!(:archived_intake) { create :state_file_archived_intake, email_address: "unsubscribe_me@example.com", unsubscribed_from_email: false }
     let(:verifier) { ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base) }
     let(:signed_email) { verifier.generate("unsubscribe_me@example.com") }
     let(:signed_email_without_intake) { verifier.generate("rando@example.com") }
@@ -13,6 +14,7 @@ RSpec.describe StateFile::NotificationsSettingsController do
       get :unsubscribe_from_emails, params: { email_address: signed_email }
 
       expect(intake.reload.unsubscribed_from_email).to eq true
+      expect(archived_intake.reload.unsubscribed_from_email).to eq true
       expect(response.body).to include state_file_subscribe_to_emails_path(email_address: signed_email)
     end
 
