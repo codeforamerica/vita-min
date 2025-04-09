@@ -26,7 +26,7 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
       it "tr_statuses only includes current statuses of selected tax returns" do
         get :edit, params: params
 
-        expect(assigns(:current_tr_statuses)).to match_array ["file_ready_to_file", "review_signature_requested"]
+        expect(assigns(:current_tr_statuses)).to eq ["file_ready_to_file", "review_signature_requested"]
         expect(assigns(:current_tr_statuses)).not_to include unselected_tax_return.current_state
       end
 
