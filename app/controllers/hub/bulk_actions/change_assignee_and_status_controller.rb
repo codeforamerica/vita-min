@@ -40,7 +40,7 @@ module Hub
       end
 
       def load_current_tax_return_statuses
-        @current_tr_statuses = @tax_return_selection.tax_returns.joins(:tax_return_transitions).where(tax_return_transitions: { most_recent: true }).order(created_at: :asc).map(&:current_state).uniq
+        @current_tr_statuses = @tax_return_selection.tax_returns.joins(:tax_return_transitions).where(tax_return_transitions: { most_recent: true }).order(current_state: :asc).distinct.pluck(:current_state)
       end
 
       def load_assignable_users
