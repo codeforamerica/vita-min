@@ -34,9 +34,6 @@ module StateFile
       withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
     end
 
-    def form_submitted_before_payment_deadline?
-      StateInformationService.before_payment_deadline?(@form_submitted_time, intake.state_code)
-    end
 
     def withdrawal_date_is_after_today
       unless date_electronic_withdrawal.after?(@form_submitted_time.to_date)
