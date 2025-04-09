@@ -14,7 +14,7 @@ describe StateFile::Questions::NcTaxesOwedController do
     end
     context 'before intake closes' do
       render_views
-      let(:app_time) { DateTime.new(2025, 4, 12, 12, 0, 0) }
+      let(:app_time) { DateTime.new(Time.now.year, 4, 12, 12, 0, 0) }
       it 'succeeds and has the date select div' do
         get :edit
         expect(response).to be_successful
@@ -27,8 +27,8 @@ describe StateFile::Questions::NcTaxesOwedController do
 
     context 'after intake closes' do
       render_views
-      let(:app_time) { DateTime.new(2025, 4, 20, 12, 0, 0) }
-      it 'succeeds and has the date select div' do
+      let(:app_time) { DateTime.new(Time.now.year, 4, 20, 12, 0, 0) }
+      it 'succeeds and does not has the date select div' do
         get :edit
         expect(response).to be_successful
         expect(response_html).to have_text "You owe"
