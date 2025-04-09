@@ -4375,6 +4375,8 @@ es:
           wages_amt_error: El impuesto sobre la renta total no puede ser mas de $%{wages_amount}
           what_is_box14_md: "¿Qué podría aparecer en la casilla 14?"
           what_is_box14_nj: "¿Qué debo poner en los casilleros 14?"
+        edit_all:
+          instructions_1: Por favor revisa los detalles de tu trabajo (W-2)
       waiting_to_load_data:
         edit:
           subtitle_html: Esto suele tardar unos minutos. No cierres esta página.<br><br> Usaremos la información de tu declaración de impuestos federales para completar algunas secciones de tu declaración estatal.

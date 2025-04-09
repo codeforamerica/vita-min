@@ -8,14 +8,14 @@
       <p class="text--bold spacing-below-5"><%= @w2.employee_name %></p>
       <p class="spacing-below-25"><%= @w2.employer_name %></p>
 
-      <% if box_14_codes_and_values.present? %>
+      <% if box_14_codes_and_values(@w2).present? %>
         <% box14_intro_key = "state_file.questions.w2.edit.box14_intro_#{current_state_code}_html" %>
         <% if I18n.exists?(box14_intro_key) %>
           <p><%= t(box14_intro_key) %></p>
         <% end %>
         <fieldset>
           <legend class="spacing-below-5"><%= t(".box14_html") %></legend>
-          <% box_14_codes_and_values.each do |box_14_item| %>
+          <% box_14_codes_and_values(@w2).each do |box_14_item| %>
             <% box_14_item => { code_name:, field_name:, value: } %>
             <div class="form-question spacing-below-25">
               <%= f.vita_min_money_field(

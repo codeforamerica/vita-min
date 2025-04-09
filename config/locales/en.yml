@@ -4390,6 +4390,8 @@ en:
           wages_amt_error: Total income tax cannot be greater than $%{wages_amount}
           what_is_box14_md: What could be in Box 14?
           what_is_box14_nj: What should I put in these Box 14 fields?
+        edit_all:
+          instructions_1: Please review your job (W-2) details
       waiting_to_load_data:
         edit:
           subtitle_html: This usually takes a few minutes. Don’t close this page.<br><br> We’ll use your federal tax return information to complete sections of your state return.
