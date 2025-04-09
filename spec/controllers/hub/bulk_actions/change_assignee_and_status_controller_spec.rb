@@ -26,20 +26,19 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
       it "tr_statuses only includes current statuses of selected tax returns" do
         get :edit, params: params
 
-        expect(assigns(:current_tr_statuses)).to eq ["file_ready_to_file", "review_signature_requested"]
+        expect(assigns(:current_tr_statuses)).to match_array ["file_ready_to_file", "review_signature_requested"]
         expect(assigns(:current_tr_statuses)).not_to include unselected_tax_return.current_state
       end
 
-      context "preserving consistent ordering of tr_statuses" do
+      context "preserving order of tax_return creation dates" do
         before do
-          # current_state is alphabetically at the beginning, although tax_return_2 was created after tax_return_1
-          tax_return_2.transition_to!(:file_needs_review)
+          tax_return_1.update(created_at: tax_return_3.created_at + 5.minutes)
         end
 
-        it "makes sure the tr_statuses are sorted alphabetically" do
+        it "makes sure the tr_statuses are sorted by tax_return created_at dates" do
           get :edit, params: params
 
-          expect(assigns(:current_tr_statuses)).to eq ["file_needs_review", "file_ready_to_file", "review_signature_requested"]
+          expect(assigns(:current_tr_statuses)).to eq ["review_signature_requested", "file_ready_to_file"]
           expect(assigns(:current_tr_statuses)).not_to include unselected_tax_return.current_state
         end
       end
