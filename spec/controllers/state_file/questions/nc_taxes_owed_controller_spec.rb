@@ -20,7 +20,6 @@ describe StateFile::Questions::NcTaxesOwedController do
         expect(response).to be_successful
         expect(response_html).to have_text "You owe"
         expect(response_html).to have_text "Routing Number"
-
         expect(response_html).to have_text "When would you like the funds withdrawn from your account?"
       end
     end
