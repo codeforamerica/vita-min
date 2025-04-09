@@ -180,6 +180,5 @@ describe StateFile::ReminderToFinishStateReturnService do
         expect(StateFile::MessagingService).to_not have_received(:new)
       end
     end
-
   end
 end
