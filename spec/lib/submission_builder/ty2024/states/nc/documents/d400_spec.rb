@@ -249,13 +249,13 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
           allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
         end
 
-        it "includes the FederalExtension node" do
+        it "sets FederalExtension node to 1" do
           expect(xml.document.at("FederalExtension").text).to eq "1"
         end
       end
 
       context "with flipper off" do
-        it "not include the FederalExtension node" do
+        it "sets FederalExtension node to 0" do
           expect(xml.document.at("FederalExtension").text).to eq "0"
         end
       end
