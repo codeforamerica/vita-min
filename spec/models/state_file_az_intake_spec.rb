@@ -26,6 +26,7 @@
 #  email_address                          :citext
 #  email_address_verified_at              :datetime
 #  email_notification_opt_in              :integer          default("unfilled"), not null
+#  extension_payments_amount              :decimal(12, 2)
 #  failed_attempts                        :integer          default(0), not null
 #  federal_return_status                  :string
 #  has_prior_last_names                   :integer          default("unfilled"), not null
@@ -39,6 +40,8 @@
 #  made_az321_contributions               :integer          default("unfilled"), not null
 #  made_az322_contributions               :integer          default("unfilled"), not null
 #  message_tracker                        :jsonb
+#  paid_extension_payments                :integer          default("unfilled"), not null
+#  paid_federal_extension_payments        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                :integer          default("unfilled"), not null
 #  phone_number                           :string
 #  phone_number_verified_at               :datetime
@@ -443,6 +446,30 @@ describe StateFileAzIntake do
       let!(:email_intake) { create(:state_file_az_intake, phone_number: "+14155551212", sms_notification_opt_in: "yes", phone_number_verified_at: nil) }
       it "excludes the intake in the scope" do
         expect(StateFileAzIntake.messaging_eligible).not_to include(phone_intake, email_intake)
+      end
+    end
+  end
+
+  describe "#has_verified_contact_info scope" do
+    context "when there is an intake with a phone_number and phone_number_verified_at is present" do
+      let!(:intake) { create(:state_file_az_intake, phone_number: "+14155551212", phone_number_verified_at: Time.now) }
+      it "includes the intake in the scope" do
+        expect(StateFileAzIntake.has_verified_contact_info).to include(intake)
+      end
+    end
+
+    context "when there is an intake with a email_address and email_address_verified_at is present" do
+      let!(:intake) { create(:state_file_az_intake, email_address: "email@example.com", email_address_verified_at: Time.now) }
+      it "includes the intake in the scope" do
+        expect(StateFileAzIntake.has_verified_contact_info).to include(intake)
+      end
+    end
+
+    context "when there is are intake that contact methods are not verified" do
+      let!(:phone_intake) { create(:state_file_az_intake, email_address: "email@example.com", email_address_verified_at: nil) }
+      let!(:email_intake) { create(:state_file_az_intake, phone_number: "+14155551212", phone_number_verified_at: nil) }
+      it "excludes the intake in the scope" do
+        expect(StateFileAzIntake.has_verified_contact_info).not_to include(phone_intake, email_intake)
       end
     end
   end

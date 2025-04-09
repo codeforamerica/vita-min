@@ -1,8 +1,9 @@
 class StateFileBaseIntake < ApplicationRecord
   self.ignored_columns = [:df_data_import_failed_at, :bank_name]
 
-  devise :lockable, :trackable
-  devise :timeoutable, :timeout_in => 15.minutes, :unlock_strategy => :time
+  devise :lockable, :unlock_strategy => :time
+  devise :trackable
+  devise :timeoutable, :timeout_in => 15.minutes
 
   self.abstract_class = true
   has_one_attached :submission_pdf
@@ -39,6 +40,7 @@ class StateFileBaseIntake < ApplicationRecord
     where.not(raw_direct_file_data: nil)
          .where(federal_submission_id: nil)
   }
+
   scope :messaging_eligible, lambda {
     where(<<~SQL)
       (
@@ -54,6 +56,20 @@ class StateFileBaseIntake < ApplicationRecord
       )
     SQL
   }
+
+  scope :has_verified_contact_info, lambda {
+    where(<<~SQL)
+      (
+        phone_number IS NOT NULL
+        AND phone_number_verified_at IS NOT NULL
+      )
+      OR
+      (
+        email_address IS NOT NULL
+        AND email_address_verified_at IS NOT NULL
+      )
+    SQL
+  }
   scope :no_prior_message_history_of, lambda { |state_code, message_name|
     # this only checks for messages tracked on the intake and not the efile submission
     where("state_file_#{state_code.downcase}_intakes.message_tracker #> '{#{message_name}}' IS NULL")
@@ -61,6 +77,10 @@ class StateFileBaseIntake < ApplicationRecord
 
   before_save :save_nil_enums_with_unfilled
   before_save :sanitize_bank_details
+
+  def self.maximum_attempts
+    3
+  end
 
   def self.state_code
     state_code, = StateFile::StateInformationService::STATES_INFO.find do |_, state_info|
@@ -152,6 +172,7 @@ class StateFileBaseIntake < ApplicationRecord
   def synchronize_df_w2s_to_database
     direct_file_data.w2s.each_with_index do |direct_file_w2, i|
       state_file_w2 = state_file_w2s.where(w2_index: i).first || state_file_w2s.build
+      db_numeric_max = 9_999_999_999.99
       box_14_values = {}
       direct_file_w2.w2_box14.each do |deduction|
         box_14_values[deduction[:other_description]] = deduction[:other_amount]
@@ -170,7 +191,7 @@ class StateFileBaseIntake < ApplicationRecord
         local_wages_and_tips_amount: direct_file_w2.LocalWagesAndTipsAmt,
         locality_nm: direct_file_w2.LocalityNm,
         state_income_tax_amount: direct_file_w2.StateIncomeTaxAmt,
-        state_wages_amount: direct_file_w2.StateWagesAmt,
+        state_wages_amount: [direct_file_w2.StateWagesAmt, db_numeric_max].min,
         state_file_intake: self,
         wages: direct_file_w2.WagesAmt,
         w2_index: i,
@@ -316,14 +337,6 @@ class StateFileBaseIntake < ApplicationRecord
     false
   end
 
-  def allows_w2_editing?
-    true
-  end
-
-  def allows_1099_r_editing?
-    true
-  end
-
   def has_banking_information_in_financial_resolution?
     false
   end
@@ -413,6 +426,10 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
+  def unlock_for_login!
+    unlock_access! if locked_at.present? && !access_locked?
+  end
+
   def controller_for_current_step
     if efile_submissions.present?
       StateFile::Questions::ReturnStatusController
@@ -482,6 +499,16 @@ class StateFileBaseIntake < ApplicationRecord
   def eligible_1099rs
     @eligible_1099rs ||= self.state_file1099_rs.select do |form1099r|
       form1099r.taxable_amount&.to_f&.positive?
+    end
+  end
+
+  def calculate_date_electronic_withdrawal(current_time:)
+    submitted_before_deadline = StateFile::StateInformationService.before_payment_deadline?(current_time, self.state_code)
+    if submitted_before_deadline
+      date_electronic_withdrawal&.to_date
+    else
+      timezone = StateFile::StateInformationService.timezone(self.state_code)
+      current_time.in_time_zone(timezone).to_date
     end
   end
 end

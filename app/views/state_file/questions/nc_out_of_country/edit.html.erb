@@ -1,0 +1,22 @@
+<% title = t('.title', year: MultiTenantService.statefile.current_tax_year + 1) %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="spacing-below-25">
+      <div class="white-group">
+        <%=
+          f.cfa_radio_set(
+            :out_of_country,
+            collection: [
+              { value: :yes, label: t("general.affirmative") },
+              { value: :no, label: t("general.negative") },
+            ]
+          )
+        %>
+      </div>
+    </div>
+    <%= f.continue %>
+  <% end %>
+<% end %>

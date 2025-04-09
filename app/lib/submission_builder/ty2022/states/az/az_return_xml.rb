@@ -44,6 +44,9 @@ module SubmissionBuilder
 
           def documents_wrapper
             xml_doc = build_xml_doc("Form140") do |xml|
+              if Flipper.enabled?(:extension_period) && @submission.data_source.paid_federal_extension_payments_yes?
+                xml.FiledUnderExtension "Yes"
+              end
               xml.LNPriorYrs sanitize_for_xml(@submission.data_source.prior_last_names)
               xml.FilingStatus filing_status
               if hoh_qualifying_person.present? && @submission.data_source.filing_status_hoh?
@@ -148,6 +151,7 @@ module SubmissionBuilder
               end
               xml.TotalPaymentAndCredits do
                 xml.AzIncTaxWithheld calculated_fields.fetch(:AZ140_LINE_53)
+                xml.ExtPayment calculated_fields.fetch(:AZ140_LINE_55) if Flipper.enabled?(:extension_period)
                 xml.IncrExciseTaxCr calculated_fields.fetch(:AZ140_LINE_56)
               end
               xml.TotalPayments calculated_fields.fetch(:AZ140_LINE_59)

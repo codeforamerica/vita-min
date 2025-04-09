@@ -54,16 +54,16 @@ class StateFile1099R < ApplicationRecord
   # Not adding validations for fields we just copy over from the DF XML, since we have no recourse if they fail
   with_options on: :retirement_income_intake do
     validates :gross_distribution_amount, numericality: { greater_than: 0 }
-    validates_numericality_of :state_tax_withheld_amount, less_than_or_equal_to: BigDecimal(10**10)
     validates :state_distribution_amount,
               numericality: {
                 greater_than_or_equal_to: 0,
-                less_than_or_equal_to: BigDecimal(10**10)
+                less_than_or_equal_to: BigDecimal(10**10),
+                allow_blank: true
               },
               presence: {
                 message: proc { I18n.t('forms.errors.no_money_amount') }
               }
-    validates :payer_state_identification_number, presence: true, length: { maximum: 16 }, if: -> { state_tax_withheld_amount&.positive? }
+    validates :payer_state_identification_number, length: { maximum: 16 }
   end
 
   with_options on: [:income_review, :retirement_income_intake] do
@@ -71,6 +71,8 @@ class StateFile1099R < ApplicationRecord
     validates :state_tax_withheld_amount,
               numericality: {
                 greater_than_or_equal_to: 0,
+                less_than_or_equal_to: BigDecimal(10**10),
+                allow_blank: true
               },
               presence: {
                 message: proc { I18n.t('forms.errors.no_money_amount') }

@@ -245,7 +245,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean
       choose I18n.t('general.affirmative')
       fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.estimated_taxes_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
-      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year-1)), with: 1000
+      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year - 1)), with: 1000
       continue
 
       # Driver License
@@ -281,7 +281,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       click_on I18n.t("state_file.questions.nj_review.edit.reveal.header")
       amounts_in_calculation_details = page.all(:xpath, '//*[contains(@class,"main-content-inner")]/section[last()]//p[contains(text(),"$")]')
-      expect(amounts_in_calculation_details.count).to eq(21)
+      expect(amounts_in_calculation_details.count).to eq(22)
       expect(page).to be_axe_clean
       continue
 
@@ -371,7 +371,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         advance_to_start_of_intake("Lauryn mfs")
         advance_to_property_tax_page
         choose_household_rent_own("tenant")
-        all_checkboxes = ["tenant_home_subject_to_property_taxes", "tenant_building_multi_unit", "tenant_more_than_one_main_home_in_nj", "tenant_shared_rent_not_spouse", "tenant_same_home_spouse", "tenant_access_kitchen_bath"]
+        all_checkboxes = ["tenant_home_subject_to_property_taxes", "tenant_building_multi_unit", "tenant_same_home_spouse", "tenant_access_kitchen_bath"]
         conditional_checkbox = "state_file.questions.nj_tenant_eligibility.edit.tenant_access_kitchen_bath"
         none_checkbox = "general.none_of_these"
         select_tenant_eligibility(all_checkboxes, continue_to_next: false)
