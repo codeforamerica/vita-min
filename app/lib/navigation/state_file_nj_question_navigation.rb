@@ -58,6 +58,7 @@ module Navigation
                                         ]),
       Navigation::NavigationSection.new(I18n.t("state_file.navigation.nj.section_4", filing_year: MultiTenantService.statefile.current_tax_year), [
                                           Navigation::NavigationStep.new(StateFile::Questions::NjSalesUseTaxController), # Line 51
+                                          Navigation::NavigationStep.new(StateFile::Questions::FederalExtensionPaymentsController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController), # Line 57
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_5", [
