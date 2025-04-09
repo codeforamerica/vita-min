@@ -1532,9 +1532,9 @@ en:
             body: |
               Hi %{primary_first_name},
 
-              Your %{state_name} state tax return has been <strong>accepted and a payment is due</strong>.
+              Your %{state_name} state tax return has been accepted and a payment is due.
 
-              <strong>If you have not already paid via direct debit while filing your return, please submit your payment as soon as possible to avoid additional penalties and fees at %{state_pay_taxes_link}</strong>.
+              If you have not already paid via direct debit while filing your return, please submit your payment as soon as possible to avoid additional penalties and fees at %{state_pay_taxes_link}.
 
               Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
@@ -1567,7 +1567,7 @@ en:
             Need help? Email us at help@fileyourstatetaxes.org
         during_deadline:
           email:
-            body: "Hi %{primary_first_name},\n\nYour %{state_name} state tax return has been <strong>accepted and a payment is due</strong>.\n\n<strong>If you have not already paid via direct debit while filing your return, please submit your payment today at %{state_pay_taxes_link}</strong>. Any amount not paid by the filing deadline could add extra penalties and fees. \nDownload your return at <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
+            body: "Hi %{primary_first_name},\n\nYour %{state_name} state tax return has been accepted and a payment is due.\n\nIf you have not already paid via direct debit while filing your return, please submit your payment today at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees. \nDownload your return at <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
             subject: "%{state_name} State Return Accepted- Payment Due"
           sms: "Hi %{primary_first_name},\n\nYour %{state_name} state tax return has been accepted and a payment is due.\n\nIf you have not already paid via direct debit while filing your return, please submit your payment today at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees. \nDownload your return at %{return_status_link}.\n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
       accepted_refund:
