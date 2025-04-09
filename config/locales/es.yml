@@ -3605,7 +3605,7 @@ es:
           both_html: "<b>Ambas</b>: Fui dueño/a de vivienda durante parte del año y fui inquilino/a durante parte del año."
           description_html: |
             <p>Tu "vivienda principal" es donde viviste principalmente en un momento dado (por ejemplo, una casa, un condominio o un apartamento). <strong>No puedes tener varias viviendas principales al mismo tiempo, pero puedes tener diferentes viviendas principales a lo largo del año si te mudaste. </strong></p>
-            <p><strong>Mucha gente se sorprende por esto, pero New Jersey tiene una ley que te otorga una deducción de impuesto sobre la propiedad o un crédito como inquilino/a.</strong></p>
+            <p><strong>Mucha gente se sorprende por esto, pero New Jersey tiene una ley que otorga una deducción o crédito por impuestos sobre la propiedad, aún si eres inquilino/a.</strong></p>
           helper_1_description: Sí. Esta exención fiscal está diseñada para apoyar a las personas en New Jersey cuyo dinero contribuye a los impuestos sobre la propiedad. (Los inquilinos lo hacen pagando el alquiler, contribuyendo al costo de los impuestos sobre la propiedad pagados por los propietarios).
           helper_1_header: "¿Confirmas que esto se aplica al alquiler pagado?"
           helper_2_description: No. Responde las preguntas en esta sección solo para tu vivienda principal. No puedes reclamar esta exención fiscal para una casa de vacaciones, una "segunda vivienda" o una propiedad que posees y alquilas a otra persona.
@@ -3817,7 +3817,7 @@ es:
             </ul>
           helper_heading: "¿Cómo sé si la vivienda que alquilé estaba sujeta a impuestos sobre la propiedad?"
           instructions_html: |
-            <p>Mucha gente se sorprende por esto, pero New Jersey tiene una ley que te otorga una deducción de impuesto sobre la propiedad o un crédito como inquilino/a.</p>
+            <p>Mucha gente se sorprende por esto, pero New Jersey tiene una ley que otorga una deducción o crédito por impuestos sobre la propiedad, aún si eres inquilino/a.</p>
             <p><strong>Te guiaremos a través de este proceso.</strong></p>
           label_html: |
             <p><strong>Primero, marca las casillas que correspondan a la vivienda principal que rentaste.</strong></p>
