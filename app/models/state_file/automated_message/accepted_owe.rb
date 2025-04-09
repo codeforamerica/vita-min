@@ -1,6 +1,5 @@
 module StateFile::AutomatedMessage
   class AcceptedOwe < BaseAutomatedMessage
-
     def self.name
       'messages.state_file.accepted_owe'.freeze
     end
