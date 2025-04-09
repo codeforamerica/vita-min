@@ -127,21 +127,6 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
     end
 
-    context "when there is an incomplete intake that verified with email but not opted into communication" do
-      let(:intake) do
-        create :state_file_az_intake,
-               df_data_imported_at: 7.hours.ago,
-               email_address_verified_at: 7.hours.ago,
-               email_notification_opt_in: "no",
-               sms_notification_opt_in: "no",
-               email_address: "rayploshansky@example.com"
-      end
-      it "does not send a message to the email associated with the intake" do
-        StateFile::ReminderToFinishStateReturnService.run
-        expect(StateFile::MessagingService).to_not have_received(:new)
-      end
-    end
-
     context "when there is an incomplete intake that does not have an email" do
       let(:intake) do
         create :state_file_az_intake,

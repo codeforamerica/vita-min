@@ -41,17 +41,6 @@ class StateFileBaseIntake < ApplicationRecord
          .where(federal_submission_id: nil)
   }
 
-  scope :messaging_eligible, lambda {
-    where(<<~SQL)
-      (
-        (phone_number IS NOT NULL AND phone_number_verified_at IS NOT NULL)
-        OR
-        (email_address IS NOT NULL AND email_address_verified_at IS NOT NULL)
-      )
-      AND (sms_notification_opt_in = 1 OR email_notification_opt_in = 1)
-    SQL
-  }
-
   scope :has_verified_contact_info, lambda {
     where(<<~SQL)
       (
