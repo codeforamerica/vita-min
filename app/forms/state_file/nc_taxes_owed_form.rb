@@ -13,21 +13,30 @@ module StateFile
                        :date_electronic_withdrawal_day,
                        :app_time
 
-    with_options unless: -> { payment_or_deposit_type == "mail" || !form_submitted_before_payment_deadline? } do
-      validate :withdrawal_date_is_after_today
-      validate :withdrawal_date_is_not_on_a_weekend
-      validate :withdrawal_date_is_not_a_federal_holiday
-      validate :withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
-    end
+    validate :validate_withdrawal_date_fields
 
     def save
-      unless form_submitted_before_payment_deadline?
-        @intake.date_electronic_withdrawal = next_available_date
-      end
-      @intake.update(attributes_for(:intake))
+      attrs = attributes_for(:intake)
+      date = form_submitted_before_payment_deadline? ? date_electronic_withdrawal : next_available_date
+
+      @intake.update(attrs.merge(date_electronic_withdrawal: date))
     end
 
     private
+
+    def validate_withdrawal_date_fields
+      return if payment_or_deposit_type == "mail"
+      return unless form_submitted_before_payment_deadline?
+
+      withdrawal_date_is_after_today
+      withdrawal_date_is_not_on_a_weekend
+      withdrawal_date_is_not_a_federal_holiday
+      withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
+    end
+
+    def form_submitted_before_payment_deadline?
+      StateInformationService.before_payment_deadline?(@form_submitted_time, intake.state_code)
+    end
 
     def withdrawal_date_is_after_today
       unless date_electronic_withdrawal.after?(@form_submitted_time.to_date)

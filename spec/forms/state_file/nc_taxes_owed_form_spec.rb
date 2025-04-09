@@ -152,5 +152,97 @@ RSpec.describe StateFile::NcTaxesOwedForm do
         end
       end
     end
+
+    context "when the form is submitted after the payment deadline, month is nil and day is nil" do
+      let(:withdrawal_month) { nil }
+      let(:withdrawal_day) { nil }
+
+      context "when it is before 5pm and the next day is a valid day" do
+        let(:app_time) { DateTime.new(filing_year, 4, 16, 15, 0, 0)}
+        it "is valid and saves the intake with the next day" do
+          form = described_class.new(intake, params)
+          # needed because we want to keep the year the same in the tests for holiday/day of the week.
+          allow(form).to receive(:form_submitted_before_payment_deadline?).and_return(false)
+          expect(form).to be_valid
+          form.save
+
+          intake.reload
+
+          expect(intake.payment_or_deposit_type).to eq "direct_deposit"
+          expect(intake.routing_number).to eq params[:routing_number]
+          expect(intake.account_number).to eq params[:account_number]
+          expect(intake.account_type).to eq params[:account_type]
+          expect(intake.withdraw_amount).to eq params[:withdraw_amount]
+          expect(intake.date_electronic_withdrawal.month).to eq(4)
+          expect(intake.date_electronic_withdrawal.day).to eq(17)
+        end
+      end
+
+      context "when it is before 5pm and the next day is a holiday" do
+        # 4pm christmas eve
+        let(:app_time) { DateTime.new(filing_year, 12, 24, 15, 0, 0)}
+        it "is valid and saves the intake with a date after the holiday" do
+          form = described_class.new(intake, params)
+
+          allow(form).to receive(:form_submitted_before_payment_deadline?).and_return(false)
+          expect(form).to be_valid
+          form.save
+
+          intake.reload
+
+          expect(intake.payment_or_deposit_type).to eq "direct_deposit"
+          expect(intake.routing_number).to eq params[:routing_number]
+          expect(intake.account_number).to eq params[:account_number]
+          expect(intake.account_type).to eq params[:account_type]
+          expect(intake.withdraw_amount).to eq params[:withdraw_amount]
+          expect(intake.date_electronic_withdrawal.month).to eq(12)
+          expect(intake.date_electronic_withdrawal.day).to eq(26)
+        end
+      end
+    end
+
+    context "when it is before 5pm and the next day is saturday" do
+      # 4pm friday
+      let(:app_time) { DateTime.new(filing_year, 4, 19, 15, 0, 0)}
+      it "is valid and saves the intake with a date after the holiday" do
+        form = described_class.new(intake, params)
+
+        allow(form).to receive(:form_submitted_before_payment_deadline?).and_return(false)
+        expect(form).to be_valid
+        form.save
+
+        intake.reload
+
+        expect(intake.payment_or_deposit_type).to eq "direct_deposit"
+        expect(intake.routing_number).to eq params[:routing_number]
+        expect(intake.account_number).to eq params[:account_number]
+        expect(intake.account_type).to eq params[:account_type]
+        expect(intake.withdraw_amount).to eq params[:withdraw_amount]
+        expect(intake.date_electronic_withdrawal.month).to eq(4)
+        expect(intake.date_electronic_withdrawal.day).to eq(22)
+      end
+    end
+
+    context "when it is after 5pm and the next two days are valid" do
+      # 4pm friday
+      let(:app_time) { DateTime.new(filing_year, 4, 16, 17, 30, 0)}
+      it "is valid and saves the intake with a date 2 business days later" do
+        form = described_class.new(intake, params)
+
+        allow(form).to receive(:form_submitted_before_payment_deadline?).and_return(false)
+        expect(form).to be_valid
+        form.save
+
+        intake.reload
+
+        expect(intake.payment_or_deposit_type).to eq "direct_deposit"
+        expect(intake.routing_number).to eq params[:routing_number]
+        expect(intake.account_number).to eq params[:account_number]
+        expect(intake.account_type).to eq params[:account_type]
+        expect(intake.withdraw_amount).to eq params[:withdraw_amount]
+        expect(intake.date_electronic_withdrawal.month).to eq(4)
+        expect(intake.date_electronic_withdrawal.day).to eq(18)
+      end
+    end
   end
 end
