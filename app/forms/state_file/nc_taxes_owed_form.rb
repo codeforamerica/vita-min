@@ -20,6 +20,13 @@ module StateFile
       validate :withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
     end
 
+    def save
+      unless form_submitted_before_payment_deadline?
+        @intake.date_electronic_withdrawal = next_available_date
+      end
+      @intake.update(attributes_for(:intake))
+    end
+
     private
 
     def withdrawal_date_is_after_today
@@ -48,6 +55,19 @@ module StateFile
       if after_5pm && !date_electronic_withdrawal.to_date.after?(two_business_days_away)
         errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.post_five_pm"))
       end
+    end
+
+    def next_available_date
+      current_time = Time.parse(app_time)
+      initial_days_to_add = current_time.hour >= 17 ? 2 : 1
+      date = add_business_days_to_date(current_time, initial_days_to_add)
+      date = add_business_days_to_date(date, 1) while holiday?(date)
+
+      date
+    end
+
+    def holiday?(date)
+      Holidays.on(date, :us, :federalreservebanks, :observed).any?
     end
 
     def add_business_days_to_date(date, num_days)

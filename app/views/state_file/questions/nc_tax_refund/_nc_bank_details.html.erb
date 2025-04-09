@@ -9,7 +9,7 @@
     <% if owe_taxes %>
       <%= form.hidden_field :app_time, value: app_time %>
       <%= form.vita_min_money_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
-      <% if current_time_before_payment_deadline? %>
+      <% if current_time_before_payment_deadline? && @allow_date_select%>
         <div class="date-select">
           <% year = current_tax_year + 1 %>
           <%= form.cfa_date_select(
