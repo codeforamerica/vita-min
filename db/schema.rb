@@ -2388,6 +2388,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
     t.string "municipality_code"
     t.string "municipality_name"
     t.decimal "overpayments", precision: 12, scale: 2
+    t.integer "paid_federal_extension_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "permanent_apartment"
     t.string "permanent_city"

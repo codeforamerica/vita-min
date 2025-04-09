@@ -8,6 +8,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
+    allow(Flipper).to receive(:enabled?).and_call_original
+    allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
   end
 
   context "NJ", :flow_explorer_screenshot, js: true do
@@ -241,9 +243,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t('general.negative')
       continue
 
+      # federal extension
+      expect(page).to be_axe_clean
+      choose I18n.t("general.negative")
+      continue
+
       # estimated tax payments & overpayments
       expect(page).to be_axe_clean
-      choose I18n.t('general.affirmative')
+      choose I18n.t("general.affirmative")
       fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.estimated_taxes_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
       fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year - 1)), with: 1000
       continue
