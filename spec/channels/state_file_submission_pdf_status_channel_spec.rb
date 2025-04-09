@@ -26,6 +26,15 @@ RSpec.describe StateFileSubmissionPdfStatusChannel, type: :channel do
         expect(subscription).to be_rejected
       end
     end
+
+    context "with (somehow) no current intake" do
+      let(:intake) { nil }
+
+      it "does NOT subscribe and does not stream" do
+        subscribe
+        expect(subscription).to be_rejected
+      end
+    end
   end
 
   context "status_update behavior" do

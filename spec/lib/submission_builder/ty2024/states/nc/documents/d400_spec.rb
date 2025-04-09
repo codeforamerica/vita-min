@@ -120,6 +120,45 @@ describe SubmissionBuilder::Ty2024::States::Nc::Documents::D400, required_schema
           expect(xml.document.at('ChildDeduction')&.text).to eq child_deduction.to_s
         end
       end
+
+      context "extension related values" do
+        context "Flipper enabled" do
+          before do
+            allow(Flipper).to receive(:enabled?).and_call_original
+            allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
+          end
+
+          context "has indicated out of country" do
+            before do
+              intake.update(out_of_country: "yes")
+            end
+            it "does show OutOfCountry field" do
+              expect(xml.document.at('OutOfCountry')&.text).to eq "X"
+            end
+          end
+
+          context "has indicated not out of country" do
+            before do
+              intake.update(out_of_country: "no")
+            end
+            it "does not show OutOfCountry field" do
+              expect(xml.document.at('OutOfCountry')).to be_nil
+            end
+          end
+        end
+
+        context "Flipper not enabled" do
+          before do
+            allow(Flipper).to receive(:enabled?).and_call_original
+            allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(false)
+            intake.update(out_of_country: "yes")
+          end
+
+          it "does not show OutOfCountry field" do
+            expect(xml.document.at('OutOfCountry')).to be_nil
+          end
+        end
+      end
     end
 
     context "mfj filers" do
