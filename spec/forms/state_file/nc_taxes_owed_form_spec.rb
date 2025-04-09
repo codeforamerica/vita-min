@@ -158,6 +158,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
       let(:withdrawal_day) { nil }
 
       context "when it is before 5pm and the next day is a valid day" do
+        # 4pm Tuesday
         let(:app_time) { DateTime.new(filing_year, 4, 16, 15, 0, 0)}
         it "is valid and saves the intake with the next day" do
           form = described_class.new(intake, params)
@@ -224,7 +225,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
     end
 
     context "when it is after 5pm and the next two days are valid" do
-      # 4pm friday
+      # 5:30pm Tuesday
       let(:app_time) { DateTime.new(filing_year, 4, 16, 17, 30, 0)}
       it "is valid and saves the intake with a date 2 business days later" do
         form = described_class.new(intake, params)
