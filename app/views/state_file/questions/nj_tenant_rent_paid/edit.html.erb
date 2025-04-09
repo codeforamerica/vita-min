@@ -7,6 +7,7 @@
   <h1 class="h2"><%= t(".title", filing_year: current_tax_year) %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <%= t('.instructions_html') %>
     <div class="white-group">
       <%= f.vita_min_money_field(:rent_paid, t('.label_html',filing_year: current_tax_year), options: { placeholder: '0' }, classes: ["form-width--long"]) %>
     </div>

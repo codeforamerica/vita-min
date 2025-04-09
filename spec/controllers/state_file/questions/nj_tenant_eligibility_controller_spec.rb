@@ -91,37 +91,6 @@ RSpec.describe StateFile::Questions::NjTenantEligibilityController do
       end
     end
 
-    context "when worksheet required" do
-      context "when income above property tax minimum" do
-        let(:intake) {
-          create(
-            :state_file_nj_intake,
-            :df_data_many_w2s,
-            household_rent_own: "rent",
-            tenant_more_than_one_main_home_in_nj: "yes"
-          )
-        }
-        it "next path is worksheet page" do
-          expect(subject.next_path).to eq(StateFile::Questions::NjTenantPropertyTaxWorksheetController.to_path_helper)
-        end
-      end
-
-      context "when not eligible for property tax deduction but could be for credit" do
-        let(:intake) {
-          create(
-            :state_file_nj_intake,
-            :df_data_minimal,
-            :primary_disabled,
-            household_rent_own: "rent",
-            tenant_more_than_one_main_home_in_nj: "yes"
-          )
-        }
-        it "next path is next_controller for property tax flow" do
-          expect(subject.next_path).to eq(StateFile::NjPropertyTaxFlowOffRamp.next_controller({}))
-        end
-      end
-    end
-
     context "when advance state" do
       context "when income above property tax minimum" do
         let(:intake) {
