@@ -40,6 +40,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::NcSalesUseTaxController),
         Navigation::NavigationStep.new(StateFile::Questions::FederalExtensionPaymentsController),
         Navigation::NavigationStep.new(StateFile::Questions::NcOutOfCountryController),
+        Navigation::NavigationStep.new(StateFile::Questions::ExtensionPaymentsController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::NcReviewController),

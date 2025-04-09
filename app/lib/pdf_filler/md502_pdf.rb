@@ -131,6 +131,11 @@ module PdfFiller
         Name_2: @submission.data_source.primary.last_name_and_suffix,
         SSN_2: @submission.data_source.primary.ssn
       }
+
+      if Flipper.enabled?(:extension_period)
+        answers["41"] = calculated_fields.fetch(:MD502_LINE_41)
+      end
+
       if @xml_document.at('RefundDirectDeposit').present?
         answers.merge!({
                          Checking: check_box_if_x(@xml_document.at('Checking')&.text),

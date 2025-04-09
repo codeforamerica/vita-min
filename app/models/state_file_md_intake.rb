@@ -31,6 +31,7 @@
 #  email_address                              :citext
 #  email_address_verified_at                  :datetime
 #  email_notification_opt_in                  :integer          default("unfilled"), not null
+#  extension_payments_amount                  :decimal(12, 2)
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
@@ -45,6 +46,7 @@
 #  locale                                     :string           default("en")
 #  locked_at                                  :datetime
 #  message_tracker                            :jsonb
+#  paid_extension_payments                    :integer          default("unfilled"), not null
 #  payment_or_deposit_type                    :integer          default("unfilled"), not null
 #  permanent_address_outside_md               :integer          default("unfilled"), not null
 #  permanent_apartment                        :string
@@ -135,6 +137,7 @@ class StateFileMdIntake < StateFileBaseIntake
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
   enum primary_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_proof_of_disability_submitted
   enum spouse_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_proof_of_disability_submitted
+  enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
 
   def disqualifying_df_data_reason
     return :spouse_nra_html if nra_spouse?
