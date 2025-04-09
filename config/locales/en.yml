@@ -1581,70 +1581,37 @@ en:
       finish_return:
         email:
           body:
-            pre_deadline: |
-              Hi %{primary_first_name},
-  
-              You haven't submitted your state tax return yet. State taxes are due by April 15.
-  
-              Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
-  
-              Need help? Reply to this email.
-  
-              Best,
-              The FileYourStateTaxes team
             on_april_15: |
               Hi %{primary_first_name},
 
-              You haven't submitted your state tax return yet. Remember, state taxes are due today, April 15. Go to www.fileyourstatetaxes.org/en/login-options to finish them today.
+              You haven't submitted your state tax return yet. Remember, state taxes are due today, April 15. Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today.
 
               Need help? Reply to this email.
 
               Best,
               The FileYourStateTaxes team
+            pre_deadline: |
+              Hi %{primary_first_name},
 
-              To unsubscribe from emails, click here.
+              You haven't submitted your state tax return yet. State taxes are due by April 15.
+
+              Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
+
+              Need help? Reply to this email.
+
+              Best,
+              The FileYourStateTaxes team
           subject: Remember to finish your state tax return
         sms:
+          on_april_15: "Hi %{primary_first_name} - You haven't submitted your state tax return yet. \n\nGo to Sign in to FileYourStateTaxes  to finish them today. \n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
           pre_deadline: |
             Hi %{primary_first_name} - You haven't submitted your state tax return yet.
-  
+
             State taxes are due by April 15.
-  
+
             Go to www.fileyourstatetaxes.org/en/login-options to finish them now.
-  
+
             Need help? Email us at help@fileyourstatetaxes.org.
-          on_april_15: |
-            Hi %{primary_first_name} - You haven't submitted your state tax return yet. 
-
-            Go to Sign in to FileYourStateTaxes  to finish them today. 
-
-            Best,
-            The FileYourStateTaxes team
-
-            Need help? Email us at help@fileyourstatetaxes.org
-      post_deadline_finish_return:
-        email:
-          subject: Remember to finish your state tax return
-          body: |
-            Hi %{primary_first_name},
-            
-            You haven't submitted your state tax return yet. Go to www.fileyourstatetaxes.org/en/login-options to finish them today.
-            
-            Need help? Reply to this email.
-            
-            Best,
-            The FileYourStateTaxes team
-            
-            To unsubscribe from emails, click here.
-        sms: |
-          Hi %{primary_first_name} - You haven't submitted your state tax return yet. 
-
-          Go to http://www.fileyourstatetaxes.org/en/login-options  to finish them today
-
-          Best,
-          The FileYourStateTaxes team
-
-          Need help? Email us at help@fileyourstatetaxes.org
       issue_resolved:
         email:
           body: "Hello - Thank you for using FileYourStateTaxes! \n\nAny issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href=\"%{login_link}\">log in here.</a>\n\nBest,\nThe FileYourStateTaxes team\n"
