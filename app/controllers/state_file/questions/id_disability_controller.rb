@@ -9,7 +9,7 @@ module StateFile
       private
 
       def form_params
-        params.require(:state_file_id_disability_form).permit(:mfj_disability, :primary_disabled, :spouse_disabled)
+        params.fetch(:state_file_id_disability_form, {}).permit(:mfj_disability, :primary_disabled, :spouse_disabled)
       end
     end
   end
