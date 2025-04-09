@@ -15,7 +15,7 @@ class TeamMemberRole < ApplicationRecord
   validate :has_site
   validate :all_sites_in_same_org
 
-  scope :assignable_to_sites, -> (sites) {
+  scope :assignable_to_sites, lambda { |sites|
     left_outer_joins(:sites).where(vita_partners: sites)
   }
 
@@ -35,3 +35,4 @@ class TeamMemberRole < ApplicationRecord
     end
   end
 end
+
