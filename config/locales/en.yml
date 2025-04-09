@@ -3309,9 +3309,10 @@ en:
       md_retirement_income_subtraction:
         edit:
           doc_1099r_label: 1099-R
-          income_source_other: Other retirement income (for example, a Keogh Plan, also known as an HR-10) (less common)
-          income_source_pension_annuity_endowment: A pension, annuity, or endowment from an "employee retirement system" (more common)
-          income_source_question: 'Select the source of this income:'
+          income_source_other: No, the source of my income was something else (for example, a Keogh Plan, also known as an HR-10)
+          income_source_pension_annuity_endowment: 'Yes'
+          income_source_question: Was the source of your income from a pension, annuity, or endowment from an "employee retirement system"?
+          income_source_question_label: In most cases, the answer is "Yes." A detailed list of what plans are included in an "employee retirement system" can be found at the bottom of the page.
           military_service_reveal_header: What military service qualifies?
           military_service_reveal_html: |
             <p>To qualify, you must have been:</p>
