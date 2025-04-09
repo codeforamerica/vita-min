@@ -182,6 +182,15 @@ describe StateFileBaseIntake do
       expect(w2.box14_ui_hc_wd).to eq 140.00
       expect(w2.box14_ui_wf_swf).to eq 180.00
     end
+
+    context "when W2 StateWagesAmt greater than database max of 10^10" do
+      it "sets state_wages_amount to maximum $9,999,999,999.99" do
+        intake = create(:state_file_nj_intake, :df_data_irs_test_box_16_large)
+        intake.synchronize_df_w2s_to_database
+        w2 = intake.state_file_w2s.first
+        expect(w2.state_wages_amount).to eq 9_999_999_999.99
+      end
+    end
   end
 
   describe "#timedout?" do
