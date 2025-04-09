@@ -1998,7 +1998,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
     t.decimal "american_red_cross_fund_donation", precision: 12, scale: 2
     t.string "bank_name"
     t.decimal "childrens_trust_fund_donation", precision: 12, scale: 2
-    t.datetime "clicked_to_file_with_other_service_at"
     t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
@@ -2247,8 +2246,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
     t.jsonb "message_tracker", default: {}
     t.integer "moved_after_hurricane_helene", default: 0, null: false
     t.integer "out_of_country", default: 0, null: false
-    t.integer "paid_federal_extension_payments", default: 0, null: false
     t.integer "paid_extension_payments", default: 0, null: false
+    t.integer "paid_federal_extension_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
