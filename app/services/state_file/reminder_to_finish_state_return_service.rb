@@ -7,7 +7,7 @@ module StateFile
         intake_class
           .where("df_data_imported_at < ?", 6.hours.ago)
           .where("#{intake_class.name.underscore}s.created_at >= ?", Time.current.beginning_of_year)
-          .has_verified_contact_info.no_prior_message_history_of(state_code, message.name)
+          .messaging_eligible.no_prior_message_history_of(state_code, message.name)
           .left_joins(:efile_submissions).where(efile_submissions: { id: nil })
           .select do |intake|
             next false if intake.disqualifying_df_data_reason.present?
