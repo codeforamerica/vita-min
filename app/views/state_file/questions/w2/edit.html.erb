@@ -1,9 +1,6 @@
 <% content_for :card do %>
   <h1 class="form-question"><%= t(".instructions_1_html", employer: @w2.employer_name) %></h1>
   <%= form_with model: @w2, url: { action: :update }, method: :patch, local: true, builder: VitaMinFormBuilder, html: { class: 'form-card form-card--long' } do |f| %>
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
     <div class="white-group">
       <p class="text--bold spacing-below-5"><%= @w2.employee_name %></p>
       <p class="spacing-below-25"><%= @w2.employer_name %></p>
@@ -68,8 +65,6 @@
       </div>
     <% end %>
 
-    <button class="button button--primary button--wide" type="submit">
-      <%= t(".save_and_continue") %>
-    </button>
+    <%= render "state_file/questions/shared/continue_button", f: f, button_text: t(".save_and_continue") %>
   <% end %>
 <% end %>

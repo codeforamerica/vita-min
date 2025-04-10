@@ -61,8 +61,9 @@
 
 <% if @error&.auto_wait %>
   <% edit_return_controller = @error.correction_path.present? ? EfileError.path_to_controller(@error.correction_path) : EfileError.default_controller(current_state_code) %>
-  <%= link_to t('.edit_return'), edit_return_controller.to_path_helper(
-    action: edit_return_controller.navigation_actions.first,
-    return_to_review: :y
-  ), class: "button button--primary button--wide spacing-above-60" %>
+  <% path_options = { action: edit_return_controller.navigation_actions.first } %>
+  <% if @error.correction_path.present? %>
+    path_options[:return_to_review] = "y"
+  <% end %>
+  <%= link_to t('.edit_return'), edit_return_controller.to_path_helper(path_options), class: "button button--primary button--wide spacing-above-60" %>
 <% end %>

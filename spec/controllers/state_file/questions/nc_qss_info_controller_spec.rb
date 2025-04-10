@@ -28,17 +28,6 @@ RSpec.describe StateFile::Questions::NcQssInfoController do
   end
 
   describe "#update" do
-    let(:form_params) do
-      {
-        state_file_nc_qss_info_form: {
-          spouse_death_year: 2023
-        }
-      }
-    end
-
-
-    it_behaves_like :return_to_review_concern
-
     context "when no year is selected" do
       let(:empty_params) do
         {

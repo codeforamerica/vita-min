@@ -7,20 +7,27 @@ RSpec.describe StateFile::Questions::AzSubtractionsController do
   end
 
   describe "#update" do
-    # use the return_to_review_concern shared example if the page
-    # should skip to the review page when the return_to_review param is present
-    # requires form_params to be set with any other required params
-    it_behaves_like :return_to_review_concern do
-      let(:form_params) do
-        {
-          state_file_az_subtractions_form: {
-            armed_forces_member: "yes",
-            armed_forces_wages_amount: "100",
-            tribal_member: "yes",
-            tribal_wages_amount: "200"
-          }
+    let(:form_params) do
+      {
+        state_file_az_subtractions_form: {
+          armed_forces_member: "yes",
+          armed_forces_wages_amount: "100",
+          tribal_member: "yes",
+          tribal_wages_amount: "200"
         }
-      end
+      }
+    end
+
+    it "saves form params correctly" do
+      post :update, params: form_params
+      expect(response).to be_redirect
+
+      intake.reload
+
+      expect(intake).to be_armed_forces_member_yes
+      expect(intake.armed_forces_wages_amount).to eq(100)
+      expect(intake).to be_tribal_member_yes
+      expect(intake.tribal_wages_amount).to eq(200)
     end
   end
 

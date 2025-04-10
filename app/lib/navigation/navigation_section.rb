@@ -12,7 +12,11 @@ module Navigation
     end
 
     def controllers
-      @steps.map(&:controller)
+      @steps.flat_map(&:controllers)
+    end
+
+    def pages(visitor_record)
+      @steps.flat_map { |step| step.pages(visitor_record) }
     end
   end
 end

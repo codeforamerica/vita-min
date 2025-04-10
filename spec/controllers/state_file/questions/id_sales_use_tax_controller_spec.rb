@@ -15,18 +15,23 @@ RSpec.describe StateFile::Questions::IdSalesUseTaxController do
   end
 
   describe "#update" do
-    # use the return_to_review_concern shared example if the page
-    # should skip to the review page when the return_to_review param is present
-    # requires form_params to be set with any other required params
-    it_behaves_like :return_to_review_concern do
-      let(:form_params) do
-        {
-          state_file_id_sales_use_tax_form: {
-            has_unpaid_sales_use_tax: "yes",
-            total_purchase_amount: "100"
-          }
+    let(:form_params) do
+      {
+        state_file_id_sales_use_tax_form: {
+          has_unpaid_sales_use_tax: "yes",
+          total_purchase_amount: "100"
         }
-      end
+      }
+    end
+
+    it "saves params correctly" do
+      post :update, params: form_params
+      expect(response).to be_redirect
+
+      intake.reload
+
+      expect(intake).to be_has_unpaid_sales_use_tax_yes
+      expect(intake.total_purchase_amount).to eq(100)
     end
   end
 end

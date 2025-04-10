@@ -4,7 +4,6 @@ module StateFile
 
   module Questions
     class NjCountyMunicipalityController < QuestionsController
-      include ReturnToReviewConcern
       before_action :set_option_vars, only: [:edit, :update]
 
       def set_option_vars

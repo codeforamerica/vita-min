@@ -18,10 +18,86 @@ class QuestionNavigation < Navigation::StateFileBaseQuestionNavigation
 end
 
 RSpec.describe StateFile::Questions::QuestionsController do
+  let(:form_navigation) { QuestionNavigation.new(current_controller) }
+
+  before do
+    allow(current_controller).to receive(:current_intake).and_return(nil)
+    allow(current_controller).to receive(:form_navigation).and_return(form_navigation)
+  end
+
+  describe "#next_path" do
+    context "when next_step is" do
+      let(:current_controller) { QuestionTwoController.new }
+
+      context "nil" do
+        before do
+          allow(current_controller).to receive(:next_step).and_return(nil)
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:next_path)).to be_nil
+        end
+      end
+
+      context "malformed page info hash" do
+        before do
+          allow(current_controller).to receive(:next_step).and_return({ controler: QuestionOneController})
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:next_path)).to be_nil
+        end
+      end
+
+      context "page info hash with nil controller value" do
+        before do
+          allow(current_controller).to receive(:next_step).and_return({ controller: nil})
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:next_path)).to be_nil
+        end
+      end
+
+
+    end
+
+  end
+
   describe "#prev_path" do
-    before do
-      allow(current_controller).to receive(:current_intake).and_return(nil)
-      allow(current_controller).to receive(:form_navigation).and_return(QuestionNavigation.new(current_controller))
+    context "when prev_step is" do
+      let(:current_controller) { QuestionTwoController.new }
+
+      context "nil" do
+        before do
+          allow(current_controller).to receive(:prev_step).and_return(nil)
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:prev_path)).to be_nil
+        end
+      end
+
+      context "malformed page info hash" do
+        before do
+          allow(current_controller).to receive(:prev_step).and_return({ controler: QuestionOneController})
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:prev_path)).to be_nil
+        end
+      end
+
+      context "page info hash with nil controller value" do
+        before do
+          allow(current_controller).to receive(:prev_step).and_return({ controller: nil})
+        end
+
+        it "returns nil" do
+          expect(current_controller.send(:prev_path)).to be_nil
+        end
+      end
+
     end
 
     context "when the controller has only one navigation action" do
@@ -30,6 +106,7 @@ RSpec.describe StateFile::Questions::QuestionsController do
       context "when the current action is the single navigation action" do
         before do
           allow(current_controller).to receive(:action_name).and_return("edit")
+          allow(form_navigation).to receive(:prev).and_return({ controller: QuestionOneController })
         end
 
         it "returns the previous controller's edit action" do
@@ -41,6 +118,7 @@ RSpec.describe StateFile::Questions::QuestionsController do
       context "when the current action is not in the list" do
         before do
           allow(current_controller).to receive(:action_name).and_return("create")
+          allow(form_navigation).to receive(:prev).and_return({ controller: QuestionOneController })
         end
 
         it "returns the previous controller's edit action" do
@@ -57,6 +135,7 @@ RSpec.describe StateFile::Questions::QuestionsController do
         context "is the first item" do
           before do
             allow(current_controller).to receive(:action_name).and_return("index")
+            allow(form_navigation).to receive(:prev).and_return({ controller: QuestionTwoController })
           end
 
           it "returns the previous controller's first action" do
@@ -106,6 +185,7 @@ RSpec.describe StateFile::Questions::QuestionsController do
       let(:current_controller) { QuestionFourController.new }
       before do
         allow(current_controller).to receive(:action_name).and_return("edit")
+        allow(form_navigation).to receive(:prev).and_return({ controller: QuestionThreeController })
       end
 
       it "returns the previous controller's first action" do

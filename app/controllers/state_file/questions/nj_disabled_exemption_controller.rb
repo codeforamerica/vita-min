@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class NjDisabledExemptionController < QuestionsController
-      include ReturnToReviewConcern
 
       def self.show?(intake)
         self.potential_unclaimed_disability_exemption?(intake)

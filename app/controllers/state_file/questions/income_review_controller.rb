@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class IncomeReviewController < QuestionsController
-      include ReturnToReviewConcern
       before_action :set_sorted_vars
 
       def self.show?(intake)
