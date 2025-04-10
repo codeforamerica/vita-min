@@ -2969,28 +2969,28 @@ en:
           enter_amount: Enter the amount of extension payments paid to Arizona.
           negative: 'No'
           subtitle_html: If you made a Arizona extension payment, you would have <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Form 204</a>.
-          title: Did you make an Arizona extension payment on or before April 15, %{date_year}?
+          title: Did you make an Arizona extension payment on or before April 15, %{current_year}?
         id:
           affirmative: Yes, I made extension or estimated payments to Idaho
           amount: Amount of Idaho payments
           enter_amount: Enter the amount of payments made to Idaho on Form 51.
           negative: No, I did not make extension or estimated payments to Idaho
           subtitle_html: "If you made these payments, you would have <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">paid online</a> or mailed your payment along with <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nEstimated tax payments can be paid anytime during the tax year, and they do not include taxes withheld from your other income such as wages and retirement.\n"
-          title: Did you make any Idaho extension or estimated payments for the %{tax_year} tax year on or before April 15, %{date_year}?
+          title: Did you make any Idaho extension or estimated payments for the %{tax_year} tax year on or before April 15, %{current_year}?
         md:
           affirmative: 'Yes'
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to Maryland.
           negative: 'No'
           subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
-          title: Did you make a Maryland extension payment on or before April 15, %{date_year}?
+          title: Did you make a Maryland extension payment on or before April 15, %{current_year}?
         nc:
           affirmative: 'Yes'
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to North Carolina.
           negative: 'No'
           subtitle_html: If you made a North Carolina extension payment, you would have <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Form D-410</a>.
-          title: Did you make a North Carolina extension payment on or before April 15, %{date_year}?
+          title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
       federal_extension_payments:
         edit:
           'false': No, I was not granted a federal extension
