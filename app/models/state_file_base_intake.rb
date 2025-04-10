@@ -1,5 +1,4 @@
 class StateFileBaseIntake < ApplicationRecord
-  include DateHelper
   self.ignored_columns = [:df_data_import_failed_at, :bank_name]
 
   devise :lockable, :unlock_strategy => :time
@@ -508,6 +507,7 @@ class StateFileBaseIntake < ApplicationRecord
     if submitted_before_deadline
       date_electronic_withdrawal&.to_date
     else
+      timezone = StateFile::StateInformationService.timezone(self.state_code)
       current_time.in_time_zone(timezone).to_date
     end
   end
