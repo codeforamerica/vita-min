@@ -2623,6 +2623,8 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "federal extension payments" do
       context 'when feature flag is disabled' do
+        let(:intake) { create(:state_file_nj_intake, paid_federal_extension_payments: "yes") }
+
         before do
           allow(Flipper).to receive(:enabled?).and_call_original
           allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(false)
