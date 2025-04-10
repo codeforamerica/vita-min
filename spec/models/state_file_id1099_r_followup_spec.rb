@@ -27,23 +27,18 @@ RSpec.describe StateFileId1099RFollowup, type: :model do
     context 'when income source is civil service employee' do
       let(:followup) { build(:state_file_id1099_r_followup, income_source: "civil_service_employee") }
 
-      context 'when account number is not eight' do
-        it 'returns true for zero_to_four account number' do
-          followup.civil_service_account_number = "zero_to_four"
-          expect(followup.qualifying_retirement_income?).to be true
-        end
-
-        it 'returns true for seven_or_nine account number' do
-          followup.civil_service_account_number = "seven_or_nine"
-          expect(followup.qualifying_retirement_income?).to be true
-        end
+      it 'returns true for zero_to_four account number' do
+        followup.civil_service_account_number = "zero_to_four"
+        expect(followup.qualifying_retirement_income?).to be true
       end
 
-      context 'when account number is eight' do
-        it 'returns false' do
-          followup.civil_service_account_number = "eight"
-          expect(followup.qualifying_retirement_income?).to be false
-        end
+      it 'returns false for seven_or_nine account number' do
+        followup.civil_service_account_number = "seven_or_nine"
+        expect(followup.qualifying_retirement_income?).to be false
+      end
+      it 'returns false for eight account number' do
+        followup.civil_service_account_number = "eight"
+        expect(followup.qualifying_retirement_income?).to be false
       end
     end
 
