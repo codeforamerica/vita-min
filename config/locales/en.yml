@@ -2989,8 +2989,13 @@ en:
           title: Did you make a North Carolina extension payment on or before April 15, %{date_year}?
       federal_extension_payments:
         edit:
-          more_info: More info here...
+          'false': No, I was not granted a federal extension
+          list_1: Made a federal extension payment
+          list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
+          subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
+          subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
           title: Were you granted a federal extension?
+          'true': Yes, I was granted a federal extension
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
@@ -3654,7 +3659,9 @@ en:
       nj_household_rent_own:
         edit:
           both_html: "<b>Both</b>: I was a homeowner for part of the year, and I was a renter for part of the year."
-          description_html: Your "main home" is where you primarily lived at any given time (e.g., a house, a condo, or an apartment). <strong>You can't have multiple main homes at the same time, but you may have different main homes throughout the year if you moved.</strong>
+          description_html: |
+            <p>Your "main home" is where you primarily lived at any given time (e.g., a house, a condo, or an apartment). <strong>You can't have multiple main homes at the same time, but you may have different main homes throughout the year if you moved.</strong></p>
+            <p><strong>Many people are surprised by this, but New Jersey has a law on the books that gives you a property deduction or credit as a renter.</strong></p>
           helper_1_description: Yes. This tax break is designed to support people in New Jersey whose money contributes to property taxes. (Renters do this by paying rent, contributing to the cost of property taxes paid by the property owners.)
           helper_1_header: Are you sure this applies to rent paid?
           helper_2_description: No. Please answer the questions in this section for your main home only. You can’t claim this tax break for a vacation home, a "second home," or a property you own and rent to someone else.
@@ -3865,32 +3872,27 @@ en:
               <li>A residence on which Payments-In-Lieu-of-Tax (P.I.L.O.T) payments were made. (If you think your building may have been subject to P.I.L.O.T payments, you can contact your building owner or the municipal tax office to confirm.)</li>
             </ul>
           helper_heading: How do I know if the home I rented was subject to property taxes?
+          instructions_html: |
+            <p>Many people are surprised by this, but New Jersey has a law on the books that gives you a property tax deduction or credit as a renter.</p>
+            <p><strong>We will walk you through it.</strong></p>
           label_html: |
-            <p><strong>Check all that apply to the main home you rented.</strong></p>
+            <p><strong>First, check all the boxes below that apply to the main home(s) you rented.</strong></p>
             <p>(If you do not want to claim this deduction or credit, leave these checkboxes blank and click <strong>"Continue."</strong>)</p>
           tenant_access_kitchen_bath: I had my own kitchen and bathroom that I didn't share with other units in the building
           tenant_building_multi_unit: It was in a building that had more than one dwelling unit (e.g. apartments, condominiums, dormitories)
           tenant_home_subject_to_property_taxes: It was subject to property taxes paid by my landlord (this is typical for most renters)
-          tenant_more_than_one_main_home_in_nj: I lived in more than one main home in New Jersey that I paid rent for (i.e. I moved during the year)
           tenant_same_home_spouse: I lived with my spouse
-          tenant_shared_rent_not_spouse: I lived with and shared rent with someone who was not my spouse
           title: You said you were a renter in %{filing_year}.
-      nj_tenant_property_tax_worksheet:
-        edit:
-          description_html: "<p>The next step is to fill in this <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">worksheet</a>.</p> \n<p>Once you fill in the worksheet, come back to this page.</p>\n<p>The worksheet will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place you lived.</p>\n"
-          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
-          helper_anchor_heading: What if I received ANCHOR benefits?
-          helper_description_html: Enter your site fees paid for %{filing_year} in the rental section of the <a href="https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
-          helper_heading: Mobile homeowners
-          label_html: "<strong>Enter line 8 of worksheet</strong><br/>(Your share of total rent paid)"
-          title: Good news – you qualify for a deduction or credit.
       nj_tenant_rent_paid:
         edit:
           helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
           helper_anchor_heading: What if I received ANCHOR benefits?
           helper_description: Enter your site fees paid for %{filing_year}.
           helper_heading: Mobile homeowners
-          label_html: "<strong>Enter your share of total rent paid in %{filing_year}</strong>"
+          instructions_html: |
+            <p>Now, we need your <strong>total rent paid throughout the year.</strong></p>
+            <p>For example, if you paid $1,000/month in rent all year, enter $12,000 here. If you lived with roommates, enter only your share of rent paid. If you moved during the year, include your share of rent for all homes.</p>
+          label_html: "<strong>Enter rent paid in %{filing_year}</strong>"
           title: Good news – you qualify for a deduction or credit.
       nj_veterans_exemption:
         edit:

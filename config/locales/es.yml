@@ -2355,7 +2355,7 @@ es:
           district_name: Nombre del distrito escolar
           school_name: Nombre de la escuela
           school_name_help_text: Por favor ingresa el nombre oficial
-          title_html: ¡Podrías ser elegible para el <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">crédito tributario de las escuelas públicas de Arizona! </a>!
+          title_html: ¡Podrías ser elegible para el <a href="https://azdor.gov/sites/default/files/document/PUBLICATION_2024_ADESchoolListing.pdf" target="_blank">crédito tributario de las escuelas públicas de Arizona</a>!
         form:
           donations_this_year: "¿Qué pasa con las donaciones hechas en %{current_year}?"
           donations_this_year_details_html: |
@@ -2954,8 +2954,13 @@ es:
           title: Did you make a North Carolina extension payment on or before April 15, %{date_year}?
       federal_extension_payments:
         edit:
-          more_info: More info here...
+          'false': No, I was not granted a federal extension
+          list_1: Made a federal extension payment
+          list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
+          subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
+          subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
           title: Were you granted a federal extension?
+          'true': Yes, I was granted a federal extension
       id_disability:
         edit:
           help_b1: Un individuo reconocido como discapacitado por la Administración del Seguro Social, la Junta de Jubilación de los Ferrocarriles o la Oficina de Administración y Presupuesto (OMB, por sus siglas en inglés).
@@ -3625,7 +3630,9 @@ es:
       nj_household_rent_own:
         edit:
           both_html: "<b>Ambas</b>: Fui dueño/a de vivienda durante parte del año y fui inquilino/a durante parte del año."
-          description_html: Tu "vivienda principal" es donde viviste principalmente en un momento dado (por ejemplo, una casa, un condominio o un apartamento). <strong>No puedes tener varias viviendas principales al mismo tiempo, pero puedes tener diferentes viviendas principales a lo largo del año si te mudaste. </strong>
+          description_html: |
+            <p>Tu "vivienda principal" es donde viviste principalmente en un momento dado (por ejemplo, una casa, un condominio o un apartamento). <strong>No puedes tener varias viviendas principales al mismo tiempo, pero puedes tener diferentes viviendas principales a lo largo del año si te mudaste. </strong></p>
+            <p><strong>Mucha gente se sorprende por esto, pero New Jersey tiene una ley que otorga una deducción o crédito por impuestos sobre la propiedad, aún si eres inquilino/a.</strong></p>
           helper_1_description: Sí. Esta exención fiscal está diseñada para apoyar a las personas en New Jersey cuyo dinero contribuye a los impuestos sobre la propiedad. (Los inquilinos lo hacen pagando el alquiler, contribuyendo al costo de los impuestos sobre la propiedad pagados por los propietarios).
           helper_1_header: "¿Confirmas que esto se aplica al alquiler pagado?"
           helper_2_description: No. Responde las preguntas en esta sección solo para tu vivienda principal. No puedes reclamar esta exención fiscal para una casa de vacaciones, una "segunda vivienda" o una propiedad que posees y alquilas a otra persona.
@@ -3836,32 +3843,27 @@ es:
               <li>Una residencia en la que se realizaron pagos en lugar de impuestos (P.I.L.O.T. por las siglas en ingles). (Si crees que tu edificio puede haber estado sujeto a pagos P.I.L.O.T, puedes comunicarte con el dueño/a del edificio o con la oficina de impuestos municipal para confirmarlo).</li>
             </ul>
           helper_heading: "¿Cómo sé si la vivienda que alquilé estaba sujeta a impuestos sobre la propiedad?"
+          instructions_html: |
+            <p>Mucha gente se sorprende por esto, pero New Jersey tiene una ley que otorga una deducción o crédito por impuestos sobre la propiedad, aún si eres inquilino/a.</p>
+            <p><strong>Te guiaremos a través de este proceso.</strong></p>
           label_html: |
-            <p><strong>Marca las casillas que correspondan a la vivienda principal que alquilaste.</strong></p>
+            <p><strong>Primero, marca las casillas que correspondan a la vivienda principal que rentaste.</strong></p>
             <p>(Si no deseas reclamar esta deducción o crédito, deja estas casillas sin marcar y haz clic en <strong>"Continuar."</strong>)</p>
           tenant_access_kitchen_bath: La vivienda tenía mi propia cocina y baño que no compartía con otras unidades del edificio
           tenant_building_multi_unit: La vivienda estaba en un edificio que tenía más de una unidad de vivienda (por ejemplo, apartamentos, condominios, dormitorios)
           tenant_home_subject_to_property_taxes: La vivienda estaba sujeta a impuestos sobre la propiedad pagados por mi arrendador/a (esto es típico para la mayoría de los inquilinos)
-          tenant_more_than_one_main_home_in_nj: Viví en más de una vivienda principal en New Jersey para la que pagué alquiler (es decir, me mudé durante el año)
           tenant_same_home_spouse: Viví con mi cónyuge
-          tenant_shared_rent_not_spouse: Viví y compartí el alquiler con alguien que no era mi cónyuge
           title: Dijiste que fuiste inquilino/a en %{filing_year}.
-      nj_tenant_property_tax_worksheet:
-        edit:
-          description_html: "<p>Completa esta  <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">hoja de trabajo</a>.</p> \n<p>Una vez que la completes, vuelve a esta página.</p>\n<p>La hoja de trabajo te preguntará dónde viviste y por cuánto tiempo. Si te mudaste, por ejemplo, tendrá espacio para que enumeres todos los lugares donde viviste.</p>\n"
-          helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> por las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (ANCHOR ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
-          helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
-          helper_description_html: Escribe las tarifas de tu sitio pagadas en %{filing_year} en la sección de alquiler de la <a href="https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf" target="_blank" rel="noopener nofollow">Hoja de trabajo (link en inglés)</a>.
-          helper_heading: Dueños/as de casas móviles/rodantes
-          label_html: "<strong>Ingresa la Línea 8 de la Hoja de trabajo</strong><br/>(Tu parte del alquiler total pagado)"
-          title: Buenas noticias—calificas para una deducción o crédito
       nj_tenant_rent_paid:
         edit:
           helper_anchor_description_html: Si recibiste un beneficio de Comunidades Accesibles de New Jersey para Propietarios e Inquilinos (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> opor las siglas en inglés), el monto del beneficio no afecta el monto a informar de la pregunta superior. (ANCHOR ofrece alivio de impuestos a la propiedad a residentes de New Jersey que tengan o alquilen una vivienda principal en New Jersey y que cumplan con ciertos límites de ingresos).
           helper_anchor_heading: "¿Qué pasa si recibí beneficios ANCHOR?"
           helper_description: Ingresa las tarifas de tu sitio pagadas en %{filing_year}.
           helper_heading: Dueños/as de casas móviles/rodantes
-          label_html: "<strong>Ingresa tu parte total del alquiler que pagaste en %{filing_year}</strong>"
+          instructions_html: |
+            <p>Ahora necesitamos <strong>el monto total de la renta que pagaste durante el año.</strong></p>
+            <p>Por ejemplo, si pagaste $1,000 al mes de renta durante todo el año, ingresa $12,000 aquí. Si viviste con compañeros de piso (roommates), ingresa la parte de la renta que te correspondió. Si te mudaste durante el año, suma la parte de la renta que te correspondió para todas las viviendas.</p>
+          label_html: "<strong>Ingresa el monto de renta pagado en %{filing_year}</strong>"
           title: Buenas noticias—calificas para una deducción o crédito
       nj_veterans_exemption:
         edit:
