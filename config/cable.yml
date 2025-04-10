@@ -9,7 +9,7 @@ heroku:
 
 demo:
   adapter: redis
-  url: <%= ENV.fetch('MINI_PROFILER_REDIS_URL') %>
+  url: <%= ENV.fetch("MINI_PROFILER_REDIS_URL", "redis://localhost:6379/0") %>
 
 production:
   adapter: postgresql
