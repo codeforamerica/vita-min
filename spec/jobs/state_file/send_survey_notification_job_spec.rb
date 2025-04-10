@@ -19,7 +19,7 @@ RSpec.describe StateFile::SendSurveyNotificationJob, type: :job do
       described_class.perform_now(intake, submission)
 
       expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, submission: submission, message: message, body_args: body_args)
-      expect(state_file_messaging_service).to have_received(:send_message).with(require_verification: false)
+      expect(state_file_messaging_service).to have_received(:send_message)
     end
 
     context "when submission is cancelled" do

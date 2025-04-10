@@ -214,7 +214,7 @@ RSpec.describe StateFile::NotificationPreferencesForm do
     let(:messaging_service) { instance_double(StateFile::MessagingService) }
     before do
       allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
-      allow(messaging_service).to receive(:send_message).with(anything)
+      allow(messaging_service).to receive(:send_message)
     end
     context "when setting notification preferences for the first time" do
       let!(:intake) { create :state_file_az_intake, sms_notification_opt_in: "unfilled", email_notification_opt_in: "unfilled" }
@@ -284,7 +284,7 @@ RSpec.describe StateFile::NotificationPreferencesForm do
             locale: :en
           )
           form.save
-          expect(messaging_service).to have_received(:send_message).with(require_verification: false)
+          expect(messaging_service).to have_received(:send_message)
         end
       end
 
