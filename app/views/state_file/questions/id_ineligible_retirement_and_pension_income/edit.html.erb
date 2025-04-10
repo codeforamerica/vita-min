@@ -25,7 +25,9 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= render "state_file/questions/shared/continue_button", f: f, button_text: t(".file_without_claiming") %>
 
-    <%= link_to StateFile::Questions::IdIneligibleRetirementAndPensionIncomeController.to_path_helper(action: :file_with_another_service), class: "button button--wide spacing-above-15" do %>
+    <% url_options = { action: :file_with_another_service, item_index: item_index } %>
+    <% url_options.merge!({ return_to_review: params[:return_to_review], return_to_review_before: params[:return_to_review_before], return_to_review_after: params[:return_to_review_after] }.compact) %>
+    <%= link_to StateFile::Questions::IdIneligibleRetirementAndPensionIncomeController.to_path_helper(url_options), class: "button button--wide spacing-above-15" do %>
       <%= t(".another_service") %>
     <% end %>
 
