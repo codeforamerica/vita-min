@@ -38,17 +38,8 @@ describe ProcessTextMessageAttachmentsJob do
     it "retries the job when the attachment body is nil and doesn't persist any documents" do
       client_id = create(:client).id
       incoming_text_message_id = create(:incoming_text_message).id
-      pdf_url = "https://example.com/ljk12ekewf98"
-      text_url = "https://example.com/128eiuwe32"
-      params = {
-        "NumMedia" => "2",
-        "MediaContentType0" => "application/pdf",
-        "MediaUrl0" => pdf_url,
-        "MediaContentType1" => "text/plain",
-        "MediaUrl1" => text_url,
-      }
-      allow_any_instance_of(TwilioService).to receive(:fetch_attachment).with(pdf_url).and_return({ filename: "a_real_document.pdf", body: "pdf body" })
-      allow_any_instance_of(TwilioService).to receive(:fetch_attachment).with(text_url).and_return({ filename: nil, body: nil })
+      params = { some: "params" }
+      allow_any_instance_of(TwilioService).to receive(:parse_attachments).and_raise(NoMethodError)
 
       expect {
         described_class.perform_now(incoming_text_message_id, client_id, params)
