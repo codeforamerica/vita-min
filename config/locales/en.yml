@@ -3604,7 +3604,7 @@ en:
           no_text: No (this is the common option)
           overpayments_input_helper_html: If applicable, you can find this on line 69 of your %{prior_year} NJ-1040. Only enter an amount here if you did not include it in the calculation of the box(es) above.
           overpayments_input_label_html: "<strong>%{prior_year} refund carried forward to %{filing_year} taxes</strong> (don’t include estimated payments)"
-          question_box: Please share the amounts paid.
+          question_box: Please share the amounts.
           radio_label: Did you make estimated or other payments for your %{filing_year} state income taxes?
           title_html: Did you make <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">estimated or other payments</a> toward your %{filing_year} New Jersey income taxes?
       nj_gubernatorial_elections:

@@ -3576,7 +3576,7 @@ es:
           no_text: No (más común)
           overpayments_input_helper_html: Si aplica, puedes encontrar esto en la línea 69 de tu NJ-1040 de %{prior_year}. Ingresa un monto aquí solo si no lo incluiste en el cálculo de los cuadros anteriores.
           overpayments_input_label_html: "<strong>Reembolso de %{prior_year} transferido a los impuestos de %{filing_year}</strong> (no incluyas los pagos estimados)"
-          question_box: Ingrese los montos pagados.
+          question_box: Por favor, comparte los montos
           radio_label: "¿Hiciste pagos estimados u otros pagos para los impuestos sobre los ingresos de New Jersey de %{filing_year}?"
           title_html: ¿Hiciste <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">pagos estimados u otros pagos</a> para los impuestos sobre los ingresos de New Jersey de %{filing_year}?
       nj_gubernatorial_elections:
