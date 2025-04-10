@@ -1041,6 +1041,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "disabled show_retirement_ui flag" do
       before do
+        allow(Flipper).to receive(:enabled?).and_call_original
         allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(false)
       end
 
@@ -1099,6 +1100,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "line 20a - taxable retirement income" do
       before do
+        allow(Flipper).to receive(:enabled?).and_call_original
         allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
       end
 
@@ -1147,6 +1149,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "line 20b - excludable retirement income" do
       before do
+        allow(Flipper).to receive(:enabled?).and_call_original
         allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
       end
 
@@ -1243,6 +1246,7 @@ RSpec.describe PdfFiller::Nj1040Pdf do
 
     describe "line 28a - Pension/Retirement Exclusion" do
       before do
+        allow(Flipper).to receive(:enabled?).and_call_original
         allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
       end
 
@@ -2616,5 +2620,42 @@ RSpec.describe PdfFiller::Nj1040Pdf do
         end
       end
     end
+
+    describe "federal extension payments" do
+      context 'when feature flag is disabled' do
+        before do
+          allow(Flipper).to receive(:enabled?).and_call_original
+          allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(false)
+        end
+
+        it 'does not check the box' do
+          expect(pdf_fields["Check Box18"]).to eq "Off"
+        end
+      end
+
+      context 'when feature flag is enabled' do
+        before do
+          allow(Flipper).to receive(:enabled?).and_call_original
+          allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
+        end
+
+        context "when taxpayer has paid federal extension payments" do
+          let(:intake) { create(:state_file_nj_intake, paid_federal_extension_payments: "yes") }
+  
+          it "checks the box" do
+            expect(pdf_fields["Check Box18"]).to eq "Yes"
+          end
+        end
+  
+        context "when taxpayer has not paid federal extension payments" do
+          let(:intake) { create(:state_file_nj_intake, paid_federal_extension_payments: "no") }
+  
+          it "does not check the box" do
+            expect(pdf_fields["Check Box18"]).to eq "Off"
+          end
+        end
+      end
+    end
+
   end
 end
