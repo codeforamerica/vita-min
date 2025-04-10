@@ -8,12 +8,11 @@ heroku:
   adapter: postgresql
 
 demo:
-  adapter: redis
-  url: <%= ENV.fetch("MINI_PROFILER_REDIS_URL", "redis://localhost:6379/0") %>
+  adapter: <%= ENV["REDIS_URL"].present? ? "redis" : "postgresql" %>
+  url: <%= ENV.fetch("REDIS_URL") %>
 
 production:
-  adapter: redis
-  url: <%= ENV.fetch("MINI_PROFILER_REDIS_URL", "redis://localhost:6379/0") %>
+  adapter: postgresql
 
 test:
   adapter: test
