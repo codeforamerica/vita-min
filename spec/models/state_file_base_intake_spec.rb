@@ -441,5 +441,19 @@ describe StateFileBaseIntake do
         expect(result).to eq(current_time.in_time_zone(timezone).to_date)
       end
     end
+
+    context "when in North Carolina and submitted after the payment deadline" do
+      let(:state_code) { "nc" }
+      let(:date_electronic_withdrawal) { intake.date_electronic_withdrawal }
+      let(:intake) { create(:state_file_nc_intake, :taxes_owed) }
+      let(:timezone) { StateFile::StateInformationService.timezone(state_code) }
+      let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date(state_code) }
+      let(:filing_year) { MultiTenantService.new(:statefile).current_tax_year }
+      let(:current_time) { payment_deadline_date + 1.day }
+      it "returns the user selected date" do
+        expect(intake).to receive(:next_available_date)
+        intake.calculate_date_electronic_withdrawal(current_time: current_time)
+      end
+    end
   end
 end
