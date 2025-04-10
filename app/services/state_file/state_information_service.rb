@@ -56,11 +56,11 @@ module StateFile
       end
 
       # Returns the state-specific date in the current filing year only - no time or timezone.
+      # Since MD's payment deadline changes after tax day, the datetime param is used to find what the deadline is on a given day
       # Ex: 2025-04-15
-      def payment_deadline_date(state_code, app_time=DateTime.now, filing_year: nil)
-        filing_year ||= MultiTenantService.statefile.current_tax_year.to_i + 1
-        payment_deadline = state_code == "md" ? get_md_payment_deadline(app_time, filing_year) : { month: 4, day: 15 }
-        Date.new(filing_year, payment_deadline[:month], payment_deadline[:day])
+      def payment_deadline_date(state_code, datetime = DateTime.now)
+        payment_deadline = state_code == "md" ? get_md_payment_deadline(datetime) : { month: 4, day: 15 }
+        Date.new(datetime.year, payment_deadline[:month], payment_deadline[:day])
       end
 
       # Check if the day of a given DateTime is before the deadline date, using the state-specific/government timezone
@@ -71,13 +71,13 @@ module StateFile
       end
 
       # Maryland has different payment deadline logic from all our other States
-      # 1. If filing before April 15: payment can be scheduled until April 30th
-      # 2. If filing on or after April 15: payment cannot be scheduled (same as other States)
-      def get_md_payment_deadline(app_time, filing_year)
+      # 1. If filing before April 16: payment can be scheduled until April 30th
+      # 2. If filing on or after April 16: payment cannot be scheduled (same as other States)
+      def get_md_payment_deadline(datetime)
         timezone = StateInformationService.timezone("md")
-        before_april_15 = app_time.in_time_zone(timezone).to_date.before?(Date.new(filing_year, 4, 15))
-        return { month: 4, day: 30 } if before_april_15
-        { month: 4, day: 15 }
+        before_april_16 = datetime.in_time_zone(timezone).to_date.before?(Date.new(datetime.year, 4, 16))
+        return { month: 4, day: 30 } if before_april_16
+        { month: 4, day: 16 }
       end
 
       def active_state_codes
