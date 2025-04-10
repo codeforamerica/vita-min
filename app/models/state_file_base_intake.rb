@@ -189,6 +189,7 @@ class StateFileBaseIntake < ApplicationRecord
   def synchronize_df_w2s_to_database
     direct_file_data.w2s.each_with_index do |direct_file_w2, i|
       state_file_w2 = state_file_w2s.where(w2_index: i).first || state_file_w2s.build
+      db_numeric_max = 9_999_999_999.99
       box_14_values = {}
       direct_file_w2.w2_box14.each do |deduction|
         box_14_values[deduction[:other_description]] = deduction[:other_amount]
@@ -207,7 +208,7 @@ class StateFileBaseIntake < ApplicationRecord
         local_wages_and_tips_amount: direct_file_w2.LocalWagesAndTipsAmt,
         locality_nm: direct_file_w2.LocalityNm,
         state_income_tax_amount: direct_file_w2.StateIncomeTaxAmt,
-        state_wages_amount: direct_file_w2.StateWagesAmt,
+        state_wages_amount: [direct_file_w2.StateWagesAmt, db_numeric_max].min,
         state_file_intake: self,
         wages: direct_file_w2.WagesAmt,
         w2_index: i,

@@ -22,6 +22,7 @@
 #  email_address                                  :citext
 #  email_address_verified_at                      :datetime
 #  email_notification_opt_in                      :integer          default("unfilled"), not null
+#  extension_payments_amount                      :decimal(12, 2)
 #  failed_attempts                                :integer          default(0), not null
 #  federal_return_status                          :string
 #  food_bank_fund_donation                        :decimal(12, 2)
@@ -38,6 +39,7 @@
 #  message_tracker                                :jsonb
 #  nongame_wildlife_fund_donation                 :decimal(12, 2)
 #  opportunity_scholarship_program_donation       :decimal(12, 2)
+#  paid_extension_payments                        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                        :integer          default("unfilled"), not null
 #  phone_number                                   :string
 #  phone_number_verified_at                       :datetime

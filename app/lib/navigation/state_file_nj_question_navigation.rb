@@ -53,12 +53,12 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjIneligiblePropertyTaxController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerPropertyTaxWorksheetController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerPropertyTaxController), # Line 40a
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjTenantPropertyTaxWorksheetController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantRentPaidController), # Line 40a
                                           # question after property taxes set in NjPropertyTaxFlowOffRamp
                                         ]),
       Navigation::NavigationSection.new(I18n.t("state_file.navigation.nj.section_4", filing_year: MultiTenantService.statefile.current_tax_year), [
                                           Navigation::NavigationStep.new(StateFile::Questions::NjSalesUseTaxController), # Line 51
+                                          Navigation::NavigationStep.new(StateFile::Questions::FederalExtensionPaymentsController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController), # Line 57
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_5", [
