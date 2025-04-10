@@ -7,5 +7,3 @@ if ENV['MINI_PROFILER_REDIS_URL'].present?
   Rack::MiniProfiler.config.storage_options = { url: ENV["MINI_PROFILER_REDIS_URL"] }
   Rack::MiniProfiler.config.storage = Rack::MiniProfiler::RedisStore
 end
-
-ACTION_CABLE_REDIS_URL
