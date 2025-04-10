@@ -3090,7 +3090,7 @@ es:
           how_much_b1: Para encontrar esta cantidad, revisa la Notificación de Ajuste de Anualidad que recibiste de la Oficina de Administración de Personal (OPM, por sus siglas en inglés)
           how_much_b2_html: 'Si no tienes tu Notificación de Ajuste de Anualidad visita: <a href=''https://www.servicesonline.opm.gov/'' target=''_blank'' rel=''noopener noreferrer''>https://www.servicesonline.opm.gov/</a>'
           how_much_content: La cantidad total pagada por el  Sistema de Jubilación del Servicio Civil (CSRS, por sus siglas en inglés) para este 1099-R reduciría el monto de ingreso de jubilación sobre el que se te cobran impuestos.
-          how_much_title: ¿Cuánto dinero es la deducción?
+          how_much_title: "¿Cuánto dinero es la deducción?"
           subtitle: Contestaste que el número de cuenta de tu 1099-R de %{sample_name} para %{taxpayer_name} empieza con 8.
           subtitle_html: "<b>Actualmente, nuestro servicio no admite este tipo de cuenta.</b> Si fue un error, "
           title: Desafortunadamente, nuestro servicio no admite el tipo de cuenta de tu 1099-R para reclamar la deducción de ingresos de jubilación de Idaho
@@ -3099,7 +3099,7 @@ es:
         file_with_another_service:
           continue_filing: Sigue presentado con este servicio.
           subtitle_1: No puedes continuar presentando con FileYourStateTaxes porque quieres reclamar la deducción de ingresos de jubilación de Idaho y el servicio no soporta  el tipo de cuenta de tu 1099-R.
-          subtitle_2: ¿Quieres declarar sin reclamar esta deducción?
+          subtitle_2: "¿Quieres declarar sin reclamar esta deducción?"
           title: Aquí hay otras opciones para reclamar la deducción de ingresos de jubilación de Idaho
           vita_service: Puedes presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS.
       id_permanent_building_fund:
