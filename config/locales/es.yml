@@ -2586,6 +2586,9 @@ es:
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
+          nc_title2_html: |
+            Asegurémonos de que este servicio es el indicado para ti.<br><br>
+            Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
           not_supported: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
           title1: Puedes usar este servicio para declarar tus impuestos estatales de %{state} de %{year}
           title2_html: |
@@ -2728,6 +2731,8 @@ es:
           deduction_for_retirement_income_bailey: Deducción por ingresos de jubilación como parte del acuerdo Bailey
           deduction_for_retirement_income_uniformed: Deducción por ingresos de jubilación de los servicios uniformados
           deduction_for_taxable_portion: Deducción por la parte imponible de los beneficios del Seguro Social y de Beneficios de Jubilación Ferroviaria
+          out_of_country_extension: Declarar con una extensión por estar fuera del país
+          reporting_extension_payments: Reportar pagos de extensión
         nj_credits_unsupported:
           also_unsupported_html: |
             <li>Solicitud de prórrogas</li>

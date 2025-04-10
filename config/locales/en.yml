@@ -2602,6 +2602,9 @@ en:
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
+          nc_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits, deductions, and situations you <strong>may</strong be able to claim to maximize your refund.
           not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
           title1: You can use this service to file your %{year} %{state} taxes
           title2_html: |
@@ -2744,6 +2747,8 @@ en:
           deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
           deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
           deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
+          out_of_country_extension: Filing with an out-of-country extension
+          reporting_extension_payments: Reporting extension payments
         nj_credits_unsupported:
           also_unsupported_html: |
             <li>Applying for an extension</li>
