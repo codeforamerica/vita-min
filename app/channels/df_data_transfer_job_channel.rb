@@ -8,7 +8,6 @@ class DfDataTransferJobChannel < ApplicationCable::Channel
   end
 
   def self.broadcast_job_complete(intake)
-    binding.pry
     broadcast_to(intake, ["The job is complete"])
   end
 end
