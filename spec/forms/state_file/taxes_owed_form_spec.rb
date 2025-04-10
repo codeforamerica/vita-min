@@ -56,9 +56,9 @@ RSpec.describe StateFile::TaxesOwedForm do
       context "when the form is submitted before the payment deadline" do
         let(:app_time) { payment_deadline_datetime - 1.day }
 
-        context "when the withdrawal date is in the future and before the payment deadline" do
-          let(:withdrawal_month) { (app_time + 1.day).month }
-          let(:withdrawal_day) { (app_time + 1.day).day }
+        context "when the withdrawal date is in the future and on the payment deadline" do
+          let(:withdrawal_month) { payment_deadline_date.month }
+          let(:withdrawal_day) { payment_deadline_date.day }
 
           it "updates the intake" do
             form = described_class.new(intake, params)
