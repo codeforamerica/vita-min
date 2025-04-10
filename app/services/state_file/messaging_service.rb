@@ -20,7 +20,7 @@ module StateFile
       @message_tracker ||= MessageTracker.new(data_source: data_source, message: message)
     end
 
-    def send_message(require_verification: true)
+    def send_message(require_verification: false)
       return nil if message_tracker.already_sent? && message.send_only_once?
 
       send_email(require_verification: require_verification) if @do_email && !intake.unsubscribed_from_email? && !intake.email_notification_opt_in_no?
@@ -37,7 +37,7 @@ module StateFile
 
     private
 
-    def send_email(require_verification: true)
+    def send_email(require_verification: false)
       email_verified = intake.email_address_verified_at.present? || matching_intakes_has_email_verified_at?(intake)
       return if intake.email_address.nil?
       return if require_verification && !email_verified
@@ -54,7 +54,7 @@ module StateFile
       end
     end
 
-    def send_sms(require_verification: true)
+    def send_sms(require_verification: false)
       phone_number_verified = intake.phone_number_verified_at.present? || matching_intakes_has_phone_number_verified_at?(intake)
       return if intake.phone_number.nil?
       return if require_verification && !phone_number_verified

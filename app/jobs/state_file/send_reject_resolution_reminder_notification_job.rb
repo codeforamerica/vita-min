@@ -7,7 +7,7 @@ module StateFile
         intake: intake,
         message: StateFile::AutomatedMessage::RejectResolutionReminder,
         body_args: { return_status_link: return_status_link(intake) }
-      ).send_message(require_verification: false)
+      ).send_message
     end
 
     def priority
