@@ -2973,7 +2973,7 @@ en:
         id:
           affirmative: Yes, I made extension or estimated payments to Idaho
           amount: Amount of Idaho payments
-          enter_amount: Enter the amount of payments made to Idaho on form 51
+          enter_amount: Enter the amount of payments made to Idaho on Form 51.
           negative: No, I did not make extension or estimated payments to Idaho
           subtitle_html: "If you made these payments, you would have <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">paid online</a> or mailed your payment along with <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nEstimated tax payments can be paid anytime during the tax year, and they do not include taxes withheld from your other income such as wages and retirement.\n"
           title: Did you make any Idaho extension or estimated payments for the %{tax_year} tax year on or before April 15, %{date_year}?
