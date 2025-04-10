@@ -181,4 +181,29 @@ RSpec.describe StateFileNcIntake, type: :model do
       end
     end
   end
+
+  describe "#calculate_date_electronic_withdrawal" do
+    let(:intake) { create(:state_file_nc_intake, :taxes_owed) }
+    let(:timezone) { StateFile::StateInformationService.timezone(state_code) }
+    let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date("nc") }
+    let(:filing_year) { MultiTenantService.new(:statefile).current_tax_year }
+
+    context "when submitted after the payment deadline" do
+      let(:current_time) { payment_deadline_date + 1.day }
+
+      it "returns next available date" do
+        expect(intake).to receive(:next_available_date)
+        intake.calculate_date_electronic_withdrawal(current_time: current_time)
+      end
+    end
+
+    context "when submitted before the payment deadline" do
+      let(:current_time) { payment_deadline_date - 1.day }
+
+      it "does not call next_available_date" do
+        expect(intake).not_to receive(:next_available_date)
+        expect(intake.calculate_date_electronic_withdrawal(current_time: current_time)).to eq(DateTime.new(2024, 4, 15))
+      end
+    end
+  end
 end

@@ -160,4 +160,14 @@ class StateFileNcIntake < StateFileBaseIntake
   def check_nra_status?
     true
   end
+
+  def calculate_date_electronic_withdrawal(current_time:)
+    submitted_before_deadline = StateFile::StateInformationService.before_payment_deadline?(current_time, self.state_code)
+    if submitted_before_deadline
+      date_electronic_withdrawal&.to_date
+    else
+      timezone = StateFile::StateInformationService.timezone(self.state_code)
+      next_available_date(current_time.in_time_zone(timezone))
+    end
+  end
 end

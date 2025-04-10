@@ -3,6 +3,7 @@ require "rails_helper"
 describe StateFile::Questions::NcTaxesOwedController do
 
   let(:intake) { create :state_file_nc_intake, :taxes_owed }
+  let(:filing_year) { MultiTenantService.new(:statefile).current_tax_year + 1 }
 
   before do
     sign_in intake
