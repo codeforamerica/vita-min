@@ -8,7 +8,8 @@ heroku:
   adapter: postgresql
 
 demo:
-  adapter: postgresql
+  adapter: redis
+  url: <%= ENV.fetch('MINI_PROFILER_REDIS_URL') %>
 
 production:
   adapter: postgresql
