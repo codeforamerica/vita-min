@@ -9,7 +9,7 @@ heroku:
 
 demo:
   adapter: <%= ENV["REDIS_URL"].present? ? "redis" : "postgresql" %>
-  url: <%= ENV.fetch("REDIS_URL") %>
+  url: <%= ENV["REDIS_URL"] %>
 
 production:
   adapter: postgresql
