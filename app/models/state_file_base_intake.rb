@@ -89,7 +89,7 @@ class StateFileBaseIntake < ApplicationRecord
     state_code.to_s
   end
 
-  def self.intakes_with_verified_contact_info_and_valid_df_data_without_recent_finish_return_messages_or_efile_submissions
+  def self.selected_intakes_for_deadline_reminder_notifications
     self.left_joins(:efile_submissions)
       .where(efile_submissions: { id: nil })
       .where.not(df_data_imported_at: nil)

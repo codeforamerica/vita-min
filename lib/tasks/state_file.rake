@@ -11,7 +11,7 @@ namespace :state_file do
   end
 
   task post_deadline_reminder: :environment do
-    return unless DateTime.now.year == 2024
+    return unless DateTime.now.year == 2025
     StateFile::SendPostDeadlineReminderService.run
   end
 

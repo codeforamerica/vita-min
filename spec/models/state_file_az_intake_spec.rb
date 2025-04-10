@@ -474,7 +474,7 @@ describe StateFileAzIntake do
     end
   end
 
-  describe ".intakes_with_verified_contact_info_and_valid_df_data_without_recent_finish_return_messages_or_efile_submissions" do
+  describe ".selected_intakes_for_deadline_reminder_notifications" do
     let!(:az_intake_with_email_notifications_and_df_import) {
       create :state_file_az_intake,
              df_data_imported_at: 2.minutes.ago,
@@ -521,8 +521,8 @@ describe StateFileAzIntake do
              message_tracker: { "messages.state_file.finish_return" => (Time.now - 2.hours).utc.to_s }
     }
 
-    it '' do
-      results = StateFileAzIntake.intakes_with_verified_contact_info_and_valid_df_data_without_recent_finish_return_messages_or_efile_submissions
+    it 'returns intakes with verified contact info, valid df data, and without recent finish return messages or efile submissions' do
+      results = StateFileAzIntake.selected_intakes_for_deadline_reminder_notifications
       expect(results).to include(
          az_intake_with_email_notifications_and_df_import,
          az_intake_with_text_notifications_and_df_import,
