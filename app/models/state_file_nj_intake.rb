@@ -44,11 +44,12 @@
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
 #  locked_at                                              :datetime
-#  medical_expenses                                       :decimal(12, 2)   default(0.0), not null
+#  medical_expenses                                       :decimal(12, 2)
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
 #  overpayments                                           :decimal(12, 2)
+#  paid_federal_extension_payments                        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                                :integer          default("unfilled"), not null
 #  permanent_apartment                                    :string
 #  permanent_city                                         :string
@@ -159,6 +160,7 @@ class StateFileNjIntake < StateFileBaseIntake
   enum tenant_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_same_home_spouse
 
   enum has_estimated_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_estimated_payments
+  enum paid_federal_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_federal_extension_payments
 
   def nj_gross_income
     calculator.lines[:NJ1040_LINE_29].value

@@ -26,8 +26,21 @@ RSpec.describe Hub::BulkActions::ChangeAssigneeAndStatusController do
       it "tr_statuses only includes current statuses of selected tax returns" do
         get :edit, params: params
 
-        expect(assigns(:current_tr_statuses)).to match_array ["file_ready_to_file", "review_signature_requested"]
+        expect(assigns(:current_tr_statuses)).to eq ["file_ready_to_file", "review_signature_requested"]
         expect(assigns(:current_tr_statuses)).not_to include unselected_tax_return.current_state
+      end
+
+      context "preserving order of tax_return creation dates" do
+        before do
+          tax_return_1.update(created_at: tax_return_3.created_at + 5.minutes)
+        end
+
+        it "makes sure the tr_statuses are sorted by tax_return created_at dates" do
+          get :edit, params: params
+
+          expect(assigns(:current_tr_statuses)).to eq ["review_signature_requested", "file_ready_to_file"]
+          expect(assigns(:current_tr_statuses)).not_to include unselected_tax_return.current_state
+        end
       end
 
       it "assignable users only includes accessible users" do

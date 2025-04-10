@@ -5,10 +5,6 @@ module StateFile::AutomatedMessage
       'messages.state_file.reject_resolution_reminder'.freeze
     end
 
-    def self.send_only_once?
-      true
-    end
-
     def sms_body(**args)
       I18n.t("messages.state_file.reject_resolution_reminder.sms", **args)
     end

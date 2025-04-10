@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_01_202203) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1846,6 +1846,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_202203) do
     t.datetime "permanently_locked_at"
     t.string "state_code"
     t.integer "tax_year"
+    t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -1882,7 +1883,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_202203) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
-    t.decimal "extension_payments_amount", precision: 12, scale: 2, default: "0.0"
+    t.decimal "extension_payments_amount", precision: 12, scale: 2
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -1898,6 +1899,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_202203) do
     t.integer "made_az322_contributions", default: 0, null: false
     t.jsonb "message_tracker", default: {}
     t.integer "paid_extension_payments", default: 0, null: false
+    t.integer "paid_federal_extension_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
@@ -2020,6 +2022,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_202203) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
+    t.decimal "extension_payments_amount", precision: 12, scale: 2
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -2037,6 +2040,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_202203) do
     t.jsonb "message_tracker", default: {}
     t.decimal "nongame_wildlife_fund_donation", precision: 12, scale: 2
     t.decimal "opportunity_scholarship_program_donation", precision: 12, scale: 2
+    t.integer "paid_extension_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
@@ -2123,6 +2127,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_202203) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
+    t.decimal "extension_payments_amount", precision: 12, scale: 2
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -2138,6 +2143,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_202203) do
     t.string "locale", default: "en"
     t.datetime "locked_at"
     t.jsonb "message_tracker", default: {}
+    t.integer "paid_extension_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.integer "permanent_address_outside_md", default: 0, null: false
     t.string "permanent_apartment"
@@ -2235,6 +2241,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_202203) do
     t.citext "email_address"
     t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0, null: false
+    t.decimal "extension_payments_amount", precision: 12, scale: 2
     t.integer "failed_attempts", default: 0, null: false
     t.string "federal_return_status"
     t.string "federal_submission_id"
@@ -2245,6 +2252,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_202203) do
     t.datetime "locked_at"
     t.jsonb "message_tracker", default: {}
     t.integer "moved_after_hurricane_helene", default: 0, null: false
+    t.integer "out_of_country", default: 0, null: false
+    t.integer "paid_extension_payments", default: 0, null: false
+    t.integer "paid_federal_extension_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
@@ -2380,11 +2390,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_202203) do
     t.inet "last_sign_in_ip"
     t.string "locale", default: "en"
     t.datetime "locked_at"
-    t.decimal "medical_expenses", precision: 12, scale: 2, default: "0.0", null: false
+    t.decimal "medical_expenses", precision: 12, scale: 2
     t.jsonb "message_tracker", default: {}
     t.string "municipality_code"
     t.string "municipality_name"
     t.decimal "overpayments", precision: 12, scale: 2
+    t.integer "paid_federal_extension_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "permanent_apartment"
     t.string "permanent_city"

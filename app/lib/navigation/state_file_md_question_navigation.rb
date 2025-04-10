@@ -43,6 +43,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::MdPermanentlyDisabledController),
         Navigation::NavigationStep.new(StateFile::Questions::MdPensionExclusionOffboardingController),
         Navigation::NavigationStep.new(StateFile::Questions::MdTwoIncomeSubtractionsController),
+        Navigation::NavigationStep.new(StateFile::Questions::ExtensionPaymentsController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::MdReviewController),

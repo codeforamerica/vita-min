@@ -6,7 +6,7 @@
 <% content_for :card do %>
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= title %></h1>
-
+  <%= t('.instructions_html') %>
   <div class="white-group">
     <%= f.vita_min_checkbox_set(:tenant_eligibility, @checkbox_collection, enum: true, label_text: t(".label_html")) %>
   </div>
@@ -27,8 +27,6 @@
         document.getElementById("state_file_nj_tenant_eligibility_form_tenant_home_subject_to_property_taxes"),
         document.getElementById("state_file_nj_tenant_eligibility_form_tenant_building_multi_unit"),
         document.getElementById("state_file_nj_tenant_eligibility_form_tenant_access_kitchen_bath"),
-        document.getElementById("state_file_nj_tenant_eligibility_form_tenant_more_than_one_main_home_in_nj"),
-        document.getElementById("state_file_nj_tenant_eligibility_form_tenant_shared_rent_not_spouse")
       ]
       let conditionalCheckbox = document.getElementById("state_file_nj_tenant_eligibility_form_tenant_same_home_spouse")
       if (conditionalCheckbox != null) {
