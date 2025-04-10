@@ -10,6 +10,6 @@
   <li><%= t(".id_child_tax_credit") %></li>
   <li><a href=" https://tax.idaho.gov/taxes/income-tax/individual-income/popular-credits-and-deductions/idaho-grocery-credit" target="_blank" rel="noopener nofollow"><%= t(".id_grocery_credit") %></a></li>
   <% if Flipper.enabled?(:extension_period) %>
-    <li><%= t(".tax_prepayments") %></li>
+    <li><%= t(".tax_prepayments", tax_year: current_tax_year, last_tax_year: current_tax_year - 1) %></li>
   <% end %>
 </ul>

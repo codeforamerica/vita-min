@@ -2612,7 +2612,7 @@ es:
           interest_from_obligations: Resta de intereses de obligaciones del gobierno de los Estados Unidos
           retirement_benefits_deduction: Deducciones por Beneficios de Jubilación
           social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
-          tax_prepayments: 'Reportar  pagos anticipados de impuestos, incluyendo: pagos de extensión, pagos estimados y reembolsos de 2023 aplicados a los impuestos de 2024.'
+          tax_prepayments: 'Reportar pagos anticipados de impuestos, incluyendo: pagos de extensión, pagos estimados y reembolsos de %{last_tax_year} aplicados a los impuestos de %{tax_year}.'
         md_reveals:
           body1_html: |
             <ul>

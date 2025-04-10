@@ -2628,7 +2628,7 @@ en:
           interest_from_obligations: Interest from U.S government obligations subtraction
           retirement_benefits_deduction: Retirement Benefits deductions
           social_security_retirement_deduction: Social Security and Railroad Retirement subtraction
-          tax_prepayments: 'Reporting tax prepayments, including: extension payments, estimated payments, and 2023 refunds applied to 2024 taxes'
+          tax_prepayments: 'Reporting tax prepayments, including: extension payments, estimated payments, and %{last_tax_year} refunds applied to %{tax_year} taxes'
         md_reveals:
           body1_html: |
             <ul>
