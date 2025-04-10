@@ -13,11 +13,11 @@ module StateFile::AutomatedMessage
     end
 
     def email_subject(**args)
-      I18n.t("messages.state_file.marketing_email.subject", **args)
+      I18n.t("messages.state_file.marketing_email.email.subject", **args)
     end
 
     def email_body(**args)
-      I18n.t("messages.state_file.marketing_email.body", **args)
+      I18n.t("messages.state_file.marketing_email.email.body", **args)
     end
   end
 end

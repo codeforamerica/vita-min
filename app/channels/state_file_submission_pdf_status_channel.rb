@@ -1,7 +1,7 @@
 class StateFileSubmissionPdfStatusChannel < ApplicationCable::Channel
   def subscribed
     @intake = current_state_file_intake
-    if @intake.submission_pdf.attached?
+    if @intake.nil? || @intake.submission_pdf.attached?
       reject
     else
       stream_for @intake
