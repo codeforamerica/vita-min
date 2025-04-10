@@ -3084,24 +3084,24 @@ es:
           what_is_title: "¿Qué es una prima de seguro médico?"
       id_ineligible_retirement_and_pension_income:
         edit:
-          another_service: File With Another Service
-          file_without_claiming: File Without Claiming
-          go_back: go back to correct.
-          how_much_b1: To find this amount, refer to the Notice of Annuity Adjustment that you received from the Office of Personnel Management
-          how_much_b2_html: 'If you do not have your Notice of Annuity Adjustment visit: <a href=''https://www.servicesonline.opm.gov/'' target=''_blank'' rel=''noopener noreferrer''>https://www.servicesonline.opm.gov/</a>'
-          how_much_content: The total amount paid by the US Civil Service Retirement System (CSRS) for this 1099-R would reduce the amount of retirement income you are taxed on.
-          how_much_title: How much money is the deduction?
-          subtitle: You answered that your %{sample_name} 1099-R for %{taxpayer_name} account number starts with an 8.
-          subtitle_html: "<b>Our service doesn’t support this type of account right now.</b> If this was a mistake, "
-          title: Unfortunately, we don't support your 1099-R account type for claiming the Idaho retirement income deduction
-          warning_1: Your taxes owed/refund amount will be affected if you continue without claiming the deduction for this 1099-R.
-          warning_2: To claim this deduction you will need to use a different tax service. It could take up to 3 weeks to file.
+          another_service: Declarar con otro servicio
+          file_without_claiming: Declarar sin reclamar
+          go_back: regresa para corregirlo.
+          how_much_b1: Para encontrar esta cantidad, revisa la Notificación de Ajuste de Anualidad que recibiste de la Oficina de Administración de Personal (OPM, por sus siglas en inglés)
+          how_much_b2_html: 'Si no tienes tu Notificación de Ajuste de Anualidad visita: <a href=''https://www.servicesonline.opm.gov/'' target=''_blank'' rel=''noopener noreferrer''>https://www.servicesonline.opm.gov/</a>'
+          how_much_content: La cantidad total pagada por el  Sistema de Jubilación del Servicio Civil (CSRS, por sus siglas en inglés) para este 1099-R reduciría el monto de ingreso de jubilación sobre el que se te cobran impuestos.
+          how_much_title: ¿Cuánto dinero es la deducción?
+          subtitle: Contestaste que el número de cuenta de tu 1099-R de %{sample_name} para %{taxpayer_name} empieza con 8.
+          subtitle_html: "<b>Actualmente, nuestro servicio no admite este tipo de cuenta.</b> Si fue un error, "
+          title: Desafortunadamente, nuestro servicio no admite el tipo de cuenta de tu 1099-R para reclamar la deducción de ingresos de jubilación de Idaho
+          warning_1: Si continúas sin reclamar la deducción para este 1099-R los impuestos que debes pagar o tu reembolso será afectado.
+          warning_2: Para reclamar esta deducción tendrás que utilizar otro servicio para declarar impuestos. Puede tardar hasta 3 semanas en declarar.
         file_with_another_service:
-          continue_filing: Continue filing with this service.
-          subtitle_1: You cannot continue filing with FileYourStateTaxes because you would like to claim the Idaho retirement income deduction, and we do not support your account type
-          subtitle_2: Want to file without claiming this deduction?
-          title: Here are some other filing services you can use to claim the Idaho retirement income deduction
-          vita_service: You can still file a free state tax return using the IRS VITA service.
+          continue_filing: Sigue presentado con este servicio.
+          subtitle_1: No puedes continuar presentando con FileYourStateTaxes porque quieres reclamar la deducción de ingresos de jubilación de Idaho y el servicio no soporta  el tipo de cuenta de tu 1099-R.
+          subtitle_2: ¿Quieres declarar sin reclamar esta deducción?
+          title: Aquí hay otras opciones para reclamar la deducción de ingresos de jubilación de Idaho
+          vita_service: Puedes presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS.
       id_permanent_building_fund:
         edit:
           receive_public_assistance_explanation: Los pagos de asistencia pública no incluyen cupones de alimentos ni pagos de WIC.

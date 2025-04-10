@@ -3124,7 +3124,7 @@ en:
           how_much_content: The total amount paid by the US Civil Service Retirement System (CSRS) for this 1099-R would reduce the amount of retirement income you are taxed on.
           how_much_title: How much money is the deduction?
           subtitle: You answered that your %{sample_name} 1099-R for %{taxpayer_name} account number starts with an 8.
-          subtitle_html: "<b>Our service doesn’t support this type of account right now.</b> If this was a mistake, "
+          subtitle_html: "<b>Our service doesn't support this type of account right now.</b> If this was a mistake, "
           title: Unfortunately, we don't support your 1099-R account type for claiming the Idaho retirement income deduction
           warning_1: Your taxes owed/refund amount will be affected if you continue without claiming the deduction for this 1099-R.
           warning_2: To claim this deduction you will need to use a different tax service. It could take up to 3 weeks to file.
