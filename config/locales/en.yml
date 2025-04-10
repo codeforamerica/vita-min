@@ -3312,7 +3312,7 @@ en:
           income_source_other: No, the source of my income was something else (for example, a Keogh Plan, also known as an HR-10)
           income_source_pension_annuity_endowment: 'Yes'
           income_source_question: Was the source of your income from a pension, annuity, or endowment from an "employee retirement system"?
-          income_source_question_label: In most cases, the answer is "Yes." A detailed list of what plans are included in an "employee retirement system" can be found at the bottom of the page.
+          income_source_question_label_html: In most cases, the answer is "Yes." A detailed list of what plans are included in an "employee retirement system" <a href="#retirement-plan-reveal">can be found here</a>.
           military_service_reveal_header: What military service qualifies?
           military_service_reveal_html: |
             <p>To qualify, you must have been:</p>
