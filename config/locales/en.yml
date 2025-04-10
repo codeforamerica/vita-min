@@ -2596,6 +2596,9 @@ en:
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
           faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
           faq_link_html: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations <a href="%{url}">here</a>.
+          id_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
@@ -2625,7 +2628,7 @@ en:
           interest_from_obligations: Interest from U.S government obligations subtraction
           retirement_benefits_deduction: Retirement Benefits deductions
           social_security_retirement_deduction: Social Security and Railroad Retirement subtraction
-          tax_prepayments: "Reporting tax prepayments, including: extension payments, estimated payments, and 2023 refunds applied to 2024 taxes"
+          tax_prepayments: 'Reporting tax prepayments, including: extension payments, estimated payments, and 2023 refunds applied to 2024 taxes'
         md_reveals:
           body1_html: |
             <ul>

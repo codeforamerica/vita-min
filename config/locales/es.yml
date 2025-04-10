@@ -2580,6 +2580,9 @@ es:
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
           faq_link_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="%{url}">aquí</a>.
+          id_title2_html: |
+            Asegurémonos de que este servicio es el indicado para ti.<br><br>
+            Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
@@ -2609,7 +2612,7 @@ es:
           interest_from_obligations: Resta de intereses de obligaciones del gobierno de los Estados Unidos
           retirement_benefits_deduction: Deducciones por Beneficios de Jubilación
           social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
-          tax_prepayments: "Reportar  pagos anticipados de impuestos, incluyendo: pagos de extensión, pagos estimados y reembolsos de 2023 aplicados a los impuestos de 2024."
+          tax_prepayments: 'Reportar  pagos anticipados de impuestos, incluyendo: pagos de extensión, pagos estimados y reembolsos de 2023 aplicados a los impuestos de 2024.'
         md_reveals:
           body1_html: |
             <ul>
