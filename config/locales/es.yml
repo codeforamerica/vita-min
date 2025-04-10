@@ -2732,6 +2732,13 @@ es:
             <li>Repetición de dependientes: No debes agregar ni quitar dependientes en tu declaración de impuestos estatales si ya los reclamaste en tu declaración de impuestos federales</li>
             <li>Aplicar una parte de tu reembolso de 2024 a tus estimaciones de impuestos de 2025</li>
             <li>La “regla de los tres años” o la “regla general” para calcular la parte imponible de sus ingresos de pensión/jubilación. Para más datos, consulte la publicación sobre <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf">Ingresos de Jubilación de New Jersey (PDF en inglés).</a></li>
+          also_unsupported_extensions_html: |
+            <li>Solicitud de prórrogas (pero sí admitimos la presentación de informes de los pagos estimados que realizó al solicitar una extensión)</li>
+            <li>Contribuciones caritativas a varias organizaciones de NJ a través de tu declaración</li>
+            <li>Declaraciones con distintos estados civiles: debes usar el mismo estado civil en tus declaraciones de impuestos federales y estatales. Por ejemplo, no puedes presentarte como casado/a declarando conjuntamente en los impuestos federales y luego como casado/a declarando separadamente en los estatales.</li>
+            <li>Repetición de dependientes: No debes agregar ni quitar dependientes en tu declaración de impuestos estatales si ya los reclamaste en tu declaración de impuestos federales</li>
+            <li>Aplicar una parte de tu reembolso de 2024 a tus estimaciones de impuestos de 2025</li>
+            <li>La “regla de los tres años” o la “regla general” para calcular la parte imponible de sus ingresos de pensión/jubilación. Para más datos, consulte la publicación sobre <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf">Ingresos de Jubilación de New Jersey (PDF en inglés).</a></li>
           also_unsupported_title: 'Tampoco admitimos:'
           unsupported_html: |
             <li>Deducción por comidas, alojamiento, gastos de mudanza, otros gastos de negocio reembolsados o compensación por lesiones o enfermedades reportadas como salarios en tu W-2</li>
@@ -3534,6 +3541,20 @@ es:
           title: Necesitamos información sobre tu estado de seguro médico.
       nj_estimated_tax_payments:
         edit:
+          description_extensions_html: |
+            <p>La mayoría de las personas <strong>no</strong> realizan estos pagos.</p>
+            <p>Estos pagos incluyen:</p>
+            <ul class="list--bulleted">
+              <li><strong><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Pagos trimestrales estimados (PDF en inglés)</a></strong> que realizaste. Estos vencieron el 15 de abril, el 17 de junio y el 16 de septiembre del año pasado y el 15 de enero de este año. Es más probable que los hayas hecho si tu empleador/a <strong>no</strong> retiene impuestos de tu talón de pago o si trabajas como independiente (self-employed). Los habrías pagado <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">en línea</a> o por correo.</li>
+              <li><strong>Un pago adicional que realizaste cuando <a href="https://www.nj.gov/treasury/taxation/njit17.shtml" target="_blank" rel="noopener nofollow">solicitaste una prórroga</a>.</strong></li>
+              <li><strong>Un reembolso que decidiste transferir</strong> de tus impuestos estatales de %{prior_year} a tus impuestos estatales de %{filing_year}.</li>
+            </ul>
+            <p>Estos pagos <strong>no</strong> incluyen:</p>
+            <ul class="list--bulleted">
+              <li>Pagos realizados para un año tributable anterior</li>
+              <li>Retenciones de tu talón de pago (W-2) o de tus ingresos de jubilación (1099-R)</li>
+              <li>Impuestos sobre la propiedad</li>
+            </ul>
           description_html: |
             <p>La mayoría de las personas <strong>no</strong> realizan estos pagos.</p>
             <p>Es más probable que los hayas pagado si tu empleador/a <strong>no retiene</strong> impuestos de tu talón de pago o si trabajas como independiente (self-employed).</p>
@@ -3550,11 +3571,11 @@ es:
             </ul>
           estimated_taxes_input_helper_html: Suma tus pagos trimestrales e ingresa el total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">verifica cuánto pagaste</a>).
           estimated_taxes_input_label_html: "<strong>Total de pagos estimados realizados para los impuestos de %{filing_year}</strong>"
-          extension_payments_input_helper_html: You generally would have made this payment earlier in 2025, when requesting an extension to file your state taxes <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or using <a href="https://www.nj.gov/treasury/taxation/pdf/current/630.pdf" target="_blank" rel="noopener nofollow">NJ-630</a>.
-          extension_payments_input_label_html: "<strong>Additional payment you made when you filed for an extension</strong>"
+          extension_payments_input_helper_html: Generalmente, este pago lo habrías realizado previamente en el %{current_year}, al solicitar una prórroga para presentar tus impuestos estatales <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">en línea</a> o utilizando el formulario <a href="https://www.nj.gov/treasury/taxation/pdf/current/630.pdf" target="_blank" rel="noopener nofollow">NJ-630</a>.
+          extension_payments_input_label_html: "<strong>Pago adicional que realizaste cuando solicitaste una prórroga</strong>"
           no_text: No (más común)
-          overpayments_input_helper_html: Si aplica, puedes encontrar esto en la línea 69 de tu NJ-1040 de %{prior_year}. Ingresa un monto aquí solo si no lo incluiste en el cálculo del cuadro anterior.
-          overpayments_input_label_html: "<strong>Reembolso transferido a los impuestos de %{filing_year} (no incluyas los pagos estimados)</strong>"
+          overpayments_input_helper_html: Si aplica, puedes encontrar esto en la línea 69 de tu NJ-1040 de %{prior_year}. Ingresa un monto aquí solo si no lo incluiste en el cálculo de los cuadros anteriores.
+          overpayments_input_label_html: "<strong>Reembolso de %{prior_year} transferido a los impuestos de %{filing_year}</strong> (no incluyas los pagos estimados)"
           question_box: Ingrese los montos pagados.
           radio_label: "¿Hiciste pagos estimados u otros pagos para los impuestos sobre los ingresos de New Jersey de %{filing_year}?"
           title_html: ¿Hiciste <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">pagos estimados u otros pagos</a> para los impuestos sobre los ingresos de New Jersey de %{filing_year}?
@@ -3726,8 +3747,8 @@ es:
           edit_disability: estado de discapacidad
           edit_veteran: estado de veterano/a de guerra
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
-          estimated_tax_payments: Monto de los pagos trimestrales estimados
-          extension_payments: Payment made when you filed for an extension
+          estimated_tax_payments: Monto de pagos estimados trimestrales
+          extension_payments: Pago realizado cuando pediste una prórroga
           has_estimated_payments: Estimated or other payments
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
@@ -3736,7 +3757,7 @@ es:
           household_rent_own_rent: Inquilino/a
           medical_expenses: Gastos médicos totales
           missing_health_insurance: Dependientes que NO tienen seguro médico
-          overpayments: Amount of refund carried forward
+          overpayments: Monto del reembolso transferido del año anterior
           primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
           primary_disabled: Exención por discapacidad
           primary_veteran: Exención para veteranos/as de guerra
