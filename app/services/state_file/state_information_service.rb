@@ -65,7 +65,7 @@ module StateFile
 
       # Check if the day of a given DateTime is before the deadline date, using the state-specific/government timezone
       def before_payment_deadline?(datetime, state_code)
-        payment_deadline_date = StateInformationService.payment_deadline_date(state_code)
+        payment_deadline_date = StateInformationService.payment_deadline_date(state_code, datetime)
         timezone = StateInformationService.timezone(state_code)
         datetime.in_time_zone(timezone).to_date.before?(payment_deadline_date)
       end
