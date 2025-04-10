@@ -30,7 +30,6 @@ describe StateFile::ReminderToFinishStateReturnService do
         end
       end
 
-
       context "when april 15th" do
         let(:fake_time) { Rails.configuration.tax_deadline - 2.hours }
 
@@ -181,6 +180,55 @@ describe StateFile::ReminderToFinishStateReturnService do
       it "does not send a message to the phone number with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
         expect(StateFile::MessagingService).to_not have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that has a disqualifying direct file reason" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com",
+               message_tracker: {}
+      end
+
+      it "does not send the message" do
+        allow_any_instance_of(StateFileAzIntake).to receive(:disqualifying_df_data_reason).and_return :married_filing_separately
+        StateFile::ReminderToFinishStateReturnService.run
+        expect(StateFile::MessagingService).not_to have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that has been sent the pre-deadline reminder in the past 24 hours" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com",
+               message_tracker: {'messages.state_file.pre_deadline_reminder' => (Time.now - 3.hours)}
+      end
+
+      it "does not send the message" do
+        StateFile::ReminderToFinishStateReturnService.run
+        expect(StateFile::MessagingService).not_to have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that has been sent the pre-deadline reminder more than a day ago" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com",
+               message_tracker: {'messages.state_file.pre_deadline_reminder' => (Time.now - 2.days)}
+      end
+
+      it "does send the message" do
+        StateFile::ReminderToFinishStateReturnService.run
+        expect(StateFile::MessagingService).to have_received(:new)
       end
     end
   end
