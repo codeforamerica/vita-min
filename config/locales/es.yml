@@ -2725,15 +2725,15 @@ es:
           deduction_for_retirement_income_uniformed: Deducción por ingresos de jubilación de los servicios uniformados
           deduction_for_taxable_portion: Deducción por la parte imponible de los beneficios del Seguro Social y de Beneficios de Jubilación Ferroviaria
         nj_credits_unsupported:
-          also_unsupported_html: |
-            <li>Solicitud de prórrogas</li>
+          also_unsupported_extensions_html: |
+            <li>Solicitud de prórrogas (pero sí admitimos la presentación de informes de los pagos estimados que realizó al solicitar una extensión)</li>
             <li>Contribuciones caritativas a varias organizaciones de NJ a través de tu declaración</li>
             <li>Declaraciones con distintos estados civiles: debes usar el mismo estado civil en tus declaraciones de impuestos federales y estatales. Por ejemplo, no puedes presentarte como casado/a declarando conjuntamente en los impuestos federales y luego como casado/a declarando separadamente en los estatales.</li>
             <li>Repetición de dependientes: No debes agregar ni quitar dependientes en tu declaración de impuestos estatales si ya los reclamaste en tu declaración de impuestos federales</li>
             <li>Aplicar una parte de tu reembolso de 2024 a tus estimaciones de impuestos de 2025</li>
             <li>La “regla de los tres años” o la “regla general” para calcular la parte imponible de sus ingresos de pensión/jubilación. Para más datos, consulte la publicación sobre <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf">Ingresos de Jubilación de New Jersey (PDF en inglés).</a></li>
-          also_unsupported_extensions_html: |
-            <li>Solicitud de prórrogas (pero sí admitimos la presentación de informes de los pagos estimados que realizó al solicitar una extensión)</li>
+          also_unsupported_html: |
+            <li>Solicitud de prórrogas</li>
             <li>Contribuciones caritativas a varias organizaciones de NJ a través de tu declaración</li>
             <li>Declaraciones con distintos estados civiles: debes usar el mismo estado civil en tus declaraciones de impuestos federales y estatales. Por ejemplo, no puedes presentarte como casado/a declarando conjuntamente en los impuestos federales y luego como casado/a declarando separadamente en los estatales.</li>
             <li>Repetición de dependientes: No debes agregar ni quitar dependientes en tu declaración de impuestos estatales si ya los reclamaste en tu declaración de impuestos federales</li>

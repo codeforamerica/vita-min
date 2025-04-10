@@ -2740,15 +2740,15 @@ en:
           deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
           deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
         nj_credits_unsupported:
-          also_unsupported_html: |
-            <li>Applying for an extension</li>
+          also_unsupported_extensions_html: |
+            <li>Applying for an extension (but we do support reporting estimated payments you made when filing an extension)</li>
             <li>Making charitable contributions to various NJ organizations through your return</li>
             <li>Filing your federal and state tax returns using different filing statuses (for example, you filed as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
             <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
             <li>Applying a portion of your 2024 refund toward your 2025 estimated taxes</li>
             <li>Using the “three-year rule” or the “general rule” to calculate the taxable portion of your pension/retirement income. For more information, see <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf">New Jersey’s Retirement Income publication.</a></li>
-          also_unsupported_extensions_html: |
-            <li>Applying for an extension (but we do support reporting estimated payments you made when filing an extension)</li>
+          also_unsupported_html: |
+            <li>Applying for an extension</li>
             <li>Making charitable contributions to various NJ organizations through your return</li>
             <li>Filing your federal and state tax returns using different filing statuses (for example, you filed as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
             <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
