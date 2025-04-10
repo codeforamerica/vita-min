@@ -3130,7 +3130,7 @@ es:
           none_apply: Ninguna de estas afirmaciones aplica
           police_officer: Servicio como oficial de policía de la ciudad de Idaho
           police_officer_follow_up: "¿Alguna de las siguientes afirmaciones aplica a tus ingresos de jubilación como oficial de policía de una ciudad de Idaho?"
-          police_persi: Los beneficios fueron pagados por el Sistema de Jubilación de Empleados Públicos de Idaho (PERSI)
+          police_persi_html: Los beneficios fueron pagados por el Sistema de Jubilación de Empleados Públicos de Idaho (PERSI)
           police_retirement_fund: Los beneficios fueron pagados por el Fondo de Jubilación de Policías que ya no admite nuevos miembros desde enero de 2012
           question_html: 'Selecciona la fuente de este ingreso:'
           seven_or_nine: 7 o 9

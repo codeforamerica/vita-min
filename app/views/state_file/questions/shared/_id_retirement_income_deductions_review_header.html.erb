@@ -46,7 +46,7 @@
                       <li><%= t("state_file.questions.id_retirement_and_pension_income.edit.police_retirement_fund") %></li>
                     <% end %>
                     <% if followup.police_persi_yes? %>
-                      <li><%= t("state_file.questions.id_retirement_and_pension_income.edit.police_persi") %></li>
+                      <li><%= t("state_file.questions.id_retirement_and_pension_income.edit.police_persi_html") %></li>
                     <% end %>
                     <% if !followup.police_retirement_fund_yes? && !followup.police_persi_yes? %>
                       <li><%= t(".none_apply") %></li>

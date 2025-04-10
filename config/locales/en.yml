@@ -3162,7 +3162,7 @@ en:
           none_apply: None of these were true
           police_officer: Service as an Idaho city Police officer
           police_officer_follow_up: Were any of the following true for your retirement income as a police officer of an Idaho city?
-          police_persi: Benefits were paid out of the Public Employee Retirement System of Idaho (PERSI)
+          police_persi_html: Benefits were paid out of the Public Employee Retirement System of Idaho (PERSI) that were <u>not part of a PERSI Base Plan</u>
           police_retirement_fund: Benefits were paid from the Policemen’s Retirement Fund that no longer admits new members as of Jan 2012
           question_html: 'Select the source of this retirement income:'
           seven_or_nine: 7 or 9
