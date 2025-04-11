@@ -272,7 +272,8 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean.within "main"
 
       groups = page.all(:css, '.white-group').count
-      expect(groups).to eq(0)
+      expect(groups).to eq(11)
+      # one white group per exemption/section
 
       h2s = page.all(:css, 'h2').count
       # one h2 per section header (e.g.Household Information)
