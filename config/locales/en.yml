@@ -3415,7 +3415,12 @@ en:
           title: First, let's see if you can use this service to file your %{filing_year} North Carolina taxes
       nc_out_of_country:
         edit:
-          title: Were you out of the country on April 15, %{year} and a US citizen or resident?
+          affirmative: Yes, I was out of the country on April 15, %{current_year}
+          list_1: Lived outside the United States or Puerto Rico and your main place of work was outside the United States or Puerto Rico, or
+          list_2: Were in military service outside the United States or Puerto Rico
+          negative: No, I wasn’t out of the country on April 15, %{current_year}
+          subtitle: 'This means that on April 15, %{current_year}, you either:'
+          title: Were you out of the country on April 15, %{current_year}?
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.

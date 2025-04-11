@@ -2955,12 +2955,12 @@ es:
           subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
           title: Did you make a Maryland extension payment on or before April 15, %{current_year}?
         nc:
-          affirmative: 'Yes'
-          amount: Amount of extension payments
-          enter_amount: Enter the amount of extension payments paid to North Carolina.
+          affirmative: Si
+          amount: Cantidad de los pagos de extensión
+          enter_amount: Ingresa la cantidad que pagaste a Carolina del Norte por la extensión.
           negative: 'No'
-          subtitle_html: If you made a North Carolina extension payment, you would have <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Form D-410</a>.
-          title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
+          subtitle_html: Si pagaste por una extensión a Carolina del Norte, lo hiciste <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Formulario D-410</a>.
+          title: "¿Hiciste un pago de extensión a Carolina del Norte en o antes del 15 de abril de %{current_year}?"
       federal_extension_payments:
         edit:
           affirmative: Sí, me otorgaron una extensión federal
@@ -3384,7 +3384,12 @@ es:
           title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del %{filing_year} de Carolina del Norte
       nc_out_of_country:
         edit:
-          title: Were you out of the country on April 15, %{year} and a US citizen or resident?
+          affirmative: Sí, estaba fuera del país el 15 de abril de %{current_year}
+          list_1: Vivías fuera de los Estados Unidos o Puerto Rico y tu lugar principal de trabajo estaba fuera de los Estados Unidos o Puerto Rico, o
+          list_2: Estabas prestando servicio militar fuera de los Estados Unidos o Puerto Rico
+          negative: No, estaba fuera del país el 15 de abril de %{current_year}
+          subtitle: 'Esto significa que el 15 de abril de %{current_year}, tú:'
+          title: "¿Estabas fuera del país el 15 de abril de %{current_year}?"
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
