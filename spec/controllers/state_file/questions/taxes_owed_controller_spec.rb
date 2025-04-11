@@ -17,6 +17,28 @@ describe StateFile::Questions::TaxesOwedController do
         expect(response_html).not_to have_text "Here is more information about tax due dates"
         expect(response_html).to have_text "Routing Number"
       end
+
+      context "after the tax deadline" do
+        let(:post_deadline) { Rails.configuration.tax_deadline + 2.days }
+        it "displays the interest warning" do
+          Timecop.freeze(post_deadline) do
+            get :edit
+            expect(response).to be_successful
+            expect(response_html).to have_text "Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed."
+          end
+        end
+      end
+
+      context "before the tax deadline" do
+        let(:post_deadline) { Rails.configuration.tax_deadline - 2.days }
+        it "does not display the interest warning" do
+          Timecop.freeze(post_deadline) do
+            get :edit
+            expect(response).to be_successful
+            expect(response_html).not_to have_text "Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed."
+          end
+        end
+      end
     end
 
     context 'nj' do
