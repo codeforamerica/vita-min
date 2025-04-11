@@ -7062,6 +7062,7 @@ es:
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
+      ice_warning_html: "<strong>Declarantes inmigrantes:</strong> A partir del 7 de abril, el IRS y el Departamento de Seguridad Nacional (incluyendo ICE) han llegado a un acuerdo para compartir datos entre las agencias. <a href='%{faq_link}' target='_blank'>Consulte nuestras preguntas frecuentes para más información.</a>"
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:

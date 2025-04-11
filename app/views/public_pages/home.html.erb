@@ -3,6 +3,13 @@
 <% end %>
 
 <% content_for :notice do %>
+  <div class="slab slab--banner">
+    <div class="grid">
+      <div class="grid__item">
+        <i class="icon-warning"></i><%= t("views.shared.ice_warning_html", faq_link: faq_path) %>
+      </div>
+    </div>
+  </div>
   <%= render "shared/homepage_banner" %>
 <% end %>
 
@@ -71,7 +78,7 @@
         <h2 class="title spacing-below-5">¿habla español?</h2>
         <p>Tenemos opciones para ti! Declarar en español, obtener tu máximo reembolso.</p>
         <% unless locale == :es %>
-          <span><%= link_to_locale('es', 'Traducir esta página al español', {"data-track-click": "intake-language-changed-habla-espanol-section"}) %></span>
+          <span><%= link_to_locale('es', 'Traducir esta página al español', { "data-track-click": "intake-language-changed-habla-espanol-section" }) %></span>
         <% end %>
       </div>
     </div>
