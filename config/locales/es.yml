@@ -6239,7 +6239,7 @@ es:
         subheader: "¡Reclama miles de dólares a través de los créditos tributarios que te corresponden! Trabajamos contigo para obtener tu mayor reembolso."
         subheader_ctc_open: A pesar de que la fecha límite tradicional de impuestos ha pasado, ¡todavía puede reclamar miles de dólares en créditos tributarios!
         subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir el 31 de enero a la 1pm EST."
-        subheader_warning: Presentar su solicitud antes del %{tax_day} para evitar sanciones.
+        subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
         cta: Presentar mis impuestos por mi cuenta gratis
