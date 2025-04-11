@@ -3,7 +3,13 @@
 <% end %>
 
 <% content_for :notice do %>
-  <%= render "shared/homepage_banner" %>
+  <div class="slab slab--banner">
+    <div class="grid">
+      <div class="grid__item">
+        <%= image_tag 'icons/warning-triangle.svg', style: "margin-right: 0.5rem" %><%= t("views.shared.ice_warning_html", faq_link: "https://www.getyourrefund.org/#{locale}/faq/security_and_confidentiality") %>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 <% content_for :body_class, "body--home" %>
@@ -25,6 +31,9 @@
               <%= t("views.public_pages.home.subheader_offseason") %>
             <% end %>
           </strong>
+        </p>
+        <p>
+          <strong><%= t("views.public_pages.home.subheader_warning", tax_day: I18n.l(Rails.configuration.tax_deadline.to_date, format: :medium, locale: locale)) %></strong>
         </p>
         <% if open_for_gyr_intake? %>
           <%= link_to t("general.get_started"), triage_personal_info_questions_path, id: "firstCta", class: "button button--med-wide button--primary" %>
@@ -71,7 +80,7 @@
         <h2 class="title spacing-below-5">¿habla español?</h2>
         <p>Tenemos opciones para ti! Declarar en español, obtener tu máximo reembolso.</p>
         <% unless locale == :es %>
-          <span><%= link_to_locale('es', 'Traducir esta página al español', {"data-track-click": "intake-language-changed-habla-espanol-section"}) %></span>
+          <span><%= link_to_locale('es', 'Traducir esta página al español', { "data-track-click": "intake-language-changed-habla-espanol-section" }) %></span>
         <% end %>
       </div>
     </div>
