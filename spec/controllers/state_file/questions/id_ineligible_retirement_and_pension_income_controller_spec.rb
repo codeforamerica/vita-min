@@ -55,31 +55,24 @@ RSpec.describe StateFile::Questions::IdIneligibleRetirementAndPensionIncomeContr
         expect(response).to be_successful
       end
     end
+
+    context "when user clicked through to file with another service, then clicked back to continue with this service" do
+      before do
+        intake.update(clicked_to_file_with_other_service_at: nil)
+      end
+
+      it "sets clicked_to_file_with_other_service_at to nil" do
+        get :edit
+        expect(intake.reload.clicked_to_file_with_other_service_at).to eq nil
+      end
+    end
   end
 
   describe "#file_with_another_service" do
-    before do
-      intake.update(clicked_to_file_with_other_service_at: nil)
-    end
     it "sets clicked_to_file_with_other_service_at timestamp" do
       get :file_with_another_service
       expect(intake.reload.clicked_to_file_with_other_service_at).to be_present
     end
   end
 
-  describe "#continue_filing" do
-    before do
-      intake.update(clicked_to_file_with_other_service_at: DateTime.now)
-    end
-
-    it "sets clicked_to_file_with_other_service_at to nil" do
-      get :continue_filing
-      expect(intake.reload.clicked_to_file_with_other_service_at).to eq nil
-    end
-
-    it "redirects to the next path" do
-      get :continue_filing, params: { item_index: 0 }
-      expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(item_index: 1))
-    end
-  end
 end
