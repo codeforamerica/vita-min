@@ -22,30 +22,15 @@ class IncomingTextMessageService
     event_name = client_count > 1 ? "client_found_multiple" : "client_found"
     DatadogApi.increment("twilio.incoming_text_messages.#{event_name}")
 
-    # process attachments once
-    attachments = TwilioService.new.parse_attachments(params)
-
     clients.map do |client|
-      documents = attachments.map do |attachment|
-        Document.new(
-          client: client,
-          document_type: DocumentTypes::TextMessageAttachment.key,
-          upload: {
-            io: StringIO.new(attachment[:body]),
-            filename: attachment[:filename],
-            content_type: attachment[:content_type],
-            identify: false
-          }
-        )
-      end
-
       contact_record = IncomingTextMessage.create!(
         body: params["Body"],
         received_at: DateTime.now,
         from_phone_number: phone_number,
         client: client,
-        documents: documents
       )
+
+      ProcessTextMessageAttachmentsJob.perform_now(contact_record.id, client.id, params)
 
       TransitionNotFilingService.run(client)
 
@@ -55,7 +40,7 @@ class IncomingTextMessageService
           phone_number: contact_record.from_phone_number,
           body: contact_record.body,
           client: contact_record.client,
-          has_documents: contact_record.documents.present?
+          has_documents: contact_record.documents.present? || params["NumMedia"].to_i > 0,
         )
         IntercomService.inform_client_of_handoff(send_email: false, send_sms: true, client: contact_record.client)
       end
