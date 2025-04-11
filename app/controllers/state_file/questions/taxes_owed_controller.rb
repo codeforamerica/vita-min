@@ -27,6 +27,11 @@ module StateFile
         StateInformationService.before_payment_deadline?(app_time, current_intake.state_code)
       end
       helper_method :current_time_before_payment_deadline?
+
+      def current_time_after_payment_deadline?
+        app_time > StateInformationService.payment_deadline_date(current_state_code)
+      end
+      helper_method :current_time_after_payment_deadline?
     end
   end
 end
