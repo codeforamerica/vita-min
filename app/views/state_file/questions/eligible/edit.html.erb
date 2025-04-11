@@ -3,11 +3,10 @@
 <% content_for :page_title, title1 %>
 <% content_for :card do %>
   <h1 class="h2"><%= title1 %></h1>
-  <% if current_state_code == "md" %>
-    <p><%= t(".md_title2_html") %></p>
-  <% else %>
-    <p><%= t(".title2_html") %></p>
-  <% end %>
+  <% # i18n-tasks-use t("state_file.questions.eligible.edit.#{current_state_code}_title2_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+  <% edit_title_key = "state_file.questions.eligible.edit.#{current_state_code}_title2_html" %>
+  <% edit_title = I18n.exists?(edit_title_key) ? t(edit_title_key) : t(".title2_html") %>
+  <p><%= edit_title %></p>
   <% if current_state_code == "md" %>
     <p class="warning spacing-below-15"><%= t('.warning') %></p>
   <% end %>
