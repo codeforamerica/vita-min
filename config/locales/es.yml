@@ -2963,13 +2963,13 @@ es:
           title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
       federal_extension_payments:
         edit:
-          'false': No, I was not granted a federal extension
-          list_1: Made a federal extension payment
-          list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
-          subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
-          subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
-          title: Were you granted a federal extension?
-          'true': Yes, I was granted a federal extension
+          affirmative: Sí, me otorgaron una extensión federal
+          list_1: Hiciste un pago de extensión federal
+          list_2_html: Presentaste el <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Formulario 4868</a> en línea o lo enviaste por correo postal
+          negative: No, no me otorgaron una extensión federal
+          subtitle_1: Si te aceptaron una solicitud de extensión federal, esto significa que puedes presentar tus declaraciones de impuestos federales y estatales hasta el 15 de octubre sin incurrir en una multa por no presentar.
+          subtitle_2: 'Te habrían concedido una extensión federal si realizaste alguna de las siguientes acciones en o antes del 15 de abril:'
+          title: "¿Te otorgaron una extensión federal?"
       id_disability:
         edit:
           help_b1: Un individuo reconocido como discapacitado por la Administración del Seguro Social, la Junta de Jubilación de los Ferrocarriles o la Oficina de Administración y Presupuesto (OMB, por sus siglas en inglés).

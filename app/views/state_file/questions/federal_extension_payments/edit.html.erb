@@ -15,8 +15,8 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
       <%= f.cfa_radio_set(:paid_federal_extension_payments, collection: [
-        { value: "yes", label: t(".true") },
-        { value: "no", label: t(".false") },
+        { value: "yes", label: t(".affirmative") },
+        { value: "no", label: t(".negative") },
       ]) %>
     </div>
 
