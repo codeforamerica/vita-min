@@ -252,6 +252,31 @@ RSpec.describe PdfFiller::NcD400Pdf do
           expect(pdf_fields['y_d400wf_li9_good']).to eq '500'
         end
       end
+
+      context "paid federal extension" do
+        before do
+          intake.update(paid_federal_extension_payments: "yes")
+        end
+
+        context "with flipper on" do
+          before do
+            allow(Flipper).to receive(:enabled?).and_call_original
+            allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
+          end
+
+          it "fills out Federal Extension section correctly" do
+            expect(pdf_fields["y_d400wf_fedex1yes"]).to eq "Yes"
+            expect(pdf_fields["y_d400wf_fedex1no"]).to eq "Off"
+          end
+        end
+
+        context "with flipper off" do
+          it "fills out Federal Extension section correctly" do
+            expect(pdf_fields["y_d400wf_fedex1yes"]).to eq "Off"
+            expect(pdf_fields["y_d400wf_fedex1no"]).to eq "Yes"
+          end
+        end
+      end
     end
   end
 end

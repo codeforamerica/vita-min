@@ -1,6 +1,6 @@
 <% i18n_scope = [:state_file, :questions, :extension_payments, state_code] %>
 
-<% title = I18n.t(:title, scope: i18n_scope, date_year: (current_tax_year + 1), tax_year: current_tax_year) %>
+<% title = I18n.t(:title, scope: i18n_scope, current_year: (current_tax_year + 1), tax_year: current_tax_year) %>
 <% subtitle = I18n.t(:subtitle_html, scope: i18n_scope) %>
 <% enter_amount = I18n.t(:enter_amount, scope: i18n_scope) %>
 <% amount_label = I18n.t(:amount, scope: i18n_scope) %>
