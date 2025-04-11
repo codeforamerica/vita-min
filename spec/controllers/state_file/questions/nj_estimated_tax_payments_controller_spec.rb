@@ -21,7 +21,12 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
 
       it 'displays the extension_payments field' do
         get :edit
-        expect(response.body).to include(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.extension_payments_input_helper_html'))
+        expect(response.body).to include(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.extension_payments_input_helper_html', current_year: Rails.configuration.statefile_current_tax_year+1))
+      end
+
+      it('displays the extensions-specific description content') do
+        get :edit
+        expect(response.body).to include(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.description_extensions_html', filing_year: Rails.configuration.statefile_current_tax_year, prior_year: Rails.configuration.statefile_current_tax_year-1))
       end
     end
 
@@ -33,7 +38,12 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
 
       it 'does not display the extension_payments field' do
         get :edit
-        expect(response.body).not_to include(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.extension_payments_input_helper_html'))
+        expect(response.body).not_to include(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.extension_payments_input_helper_html', current_year: Rails.configuration.statefile_current_tax_year+1))
+      end
+
+      it('does not display the extensions-specific description content') do
+        get :edit
+        expect(response.body).not_to include(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.description_extensions_html', filing_year: Rails.configuration.statefile_current_tax_year, prior_year: Rails.configuration.statefile_current_tax_year-1))
       end
     end
 
