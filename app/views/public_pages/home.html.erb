@@ -33,6 +33,9 @@
             <% end %>
           </strong>
         </p>
+        <p>
+          <strong><%= t("views.public_pages.home.subheader_warning", tax_day: I18n.l(Rails.configuration.tax_deadline.to_date, format: :medium, locale: locale)) %></strong>
+        </p>
         <% if open_for_gyr_intake? %>
           <%= link_to t("general.get_started"), triage_personal_info_questions_path, id: "firstCta", class: "button button--med-wide button--primary" %>
         <% else %>
