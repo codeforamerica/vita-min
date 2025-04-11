@@ -5,9 +5,6 @@
   <h1 class="h2"><%= title %></h1>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
     <div class="question-with-follow-up spacing-below-15">
       <% if current_intake.direct_file_address_is_po_box? %>
         <p class="spacing-below-15"><%= t(".df_address_is_po_box.p1") %></p>
