@@ -2599,12 +2599,12 @@ en:
           id_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
-          md_title2_html: |
-            Let's make sure this is the right service for you.<br><br>
-            Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
           md_extension_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the subtractions, credits, and payments you <strong>may</strong> be able to claim to maximize your refund.
+          md_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
           not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
           title1: You can use this service to file your %{year} %{state} taxes
           title2_html: |
@@ -2681,8 +2681,8 @@ en:
             household_title: 'Household situations:'
             more_details_html: Find a more detailed breakdown of unsupported credits and subtractions this year <a href="https://www.fileyourstatetaxes.org/en/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">here</a>.
             pay: Reporting estimated tax payments
-            pay_b1: "Estimated tax payments"
-            pay_b2: "Extension tax payments"
+            pay_b1: Estimated tax payments
+            pay_b2: Extension tax payments
             payments_title: 'Payments:'
             sub_b1: Classroom supplies for K-12 teachers
             sub_b2: Union dues

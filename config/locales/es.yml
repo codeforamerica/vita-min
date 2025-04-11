@@ -2583,12 +2583,12 @@ es:
           id_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
-          md_title2_html: |
-            Asegurémonos de que este servicio es el indicado para ti.<br><br>
-            Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
           md_extension_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las sustracciones, créditos y pagos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
+          md_title2_html: |
+            Asegurémonos de que este servicio es el indicado para ti.<br><br>
+            Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
           not_supported: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
           title1: Puedes usar este servicio para declarar tus impuestos estatales de %{state} de %{year}
           title2_html: |
@@ -2665,8 +2665,8 @@ es:
             household_title: 'Situaciones del hogar:'
             more_details_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
             pay: Reportar pagos de impuestos estimados
-            pay_b1: "Pagos de impuestos estimados"
-            pay_b2: "Pagos de impuestos por extensión"
+            pay_b1: Pagos de impuestos estimados
+            pay_b2: Pagos de impuestos por extensión
             payments_title: 'Pagos:'
             sub_b1: Suministros para el aula para maestros de grados K a 12
             sub_b2: Cuotas sindicales
@@ -2937,7 +2937,7 @@ es:
           enter_amount: Ingresa la cantidad que pagaste a Maryland por la extensión.
           negative: 'No'
           subtitle_html: Si pagaste por una extensión a Maryland, lo hiciste <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Formulario PV</a>.
-          title: "¿Hiciste un pago de extensión a Maryland en o antes del 15 de abril de %{date_year}?"
+          title: "¿Hiciste un pago de extensión a Maryland en o antes del 15 de abril de %{current_year}?"
         nc:
           affirmative: 'Yes'
           amount: Amount of extension payments
