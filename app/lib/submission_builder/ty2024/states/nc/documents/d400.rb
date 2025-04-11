@@ -26,7 +26,11 @@ module SubmissionBuilder
                 if @submission.data_source.filing_status_mfj?
                   xml.VeteranInfoSpouse @submission.data_source.spouse_veteran_yes? ? 1 : 0
                 end
-                xml.FederalExtension 0
+                if Flipper.enabled?(:extension_period) && @submission.data_source.paid_federal_extension_payments_yes?
+                  xml.FederalExtension 1
+                else
+                  xml.FederalExtension 0
+                end
                 xml.FilingStatus filing_status
                 if @submission.data_source.filing_status_mfs?
                   xml.MFSSpouseName do

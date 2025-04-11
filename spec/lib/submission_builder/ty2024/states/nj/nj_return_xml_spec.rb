@@ -119,6 +119,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
 
+      context 'with IRS test when w2 box 16 is greater than database max of 10^10' do
+        let(:intake) { create(:state_file_nj_intake, :df_data_irs_test_box_16_large) }
+        it "sets StateWagesAmt to 9999999999.99 (rounded)" do
+          expect(build_response.document.at("NJW2").text).not_to eq(nil)
+          expect(xml.document.at('NJW2 StateWagesAmt').text).to eq("10000000000")
+        end
+      end
+
       context "with two 1099Rs" do
         let(:intake) { create(:state_file_nj_intake, :df_data_2_1099r) }
         it "does not error" do
