@@ -4360,6 +4360,7 @@ en:
         bank_details:
           account_number: Account Number
           after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          authorized_amount: By filling in your information here, you authorize a withdrawal of $%{owed_amount} from your account. The amount will be withdrawn when your return is processed.
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number

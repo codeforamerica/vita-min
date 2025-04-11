@@ -4,7 +4,11 @@
   <div>
     <% if owe_taxes %>
       <%= form.hidden_field :app_time, value: app_time %>
-      <%= form.vita_min_money_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
+      <% if StateFile::StateInformationService.auto_calculate_withdraw_amount(current_intake.state_code) %>
+        <p><%= t(".authorized_amount", owed_amount: taxes_owed) %></p>
+      <% else %>
+        <%= form.vita_min_money_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
+      <% end %>
       <% if current_time_before_payment_deadline? %>
         <div class="date-select">
           <% year = current_tax_year + 1 %>

@@ -27,6 +27,7 @@ module StateFile
       :voucher_path,
       :w2_supported_box14_codes,
       :w2_include_local_income_boxes,
+      :auto_calculate_withdraw_amount,
     ].freeze
 
     class << self
@@ -125,6 +126,7 @@ module StateFile
         voucher_path: "/pdfs/AZ-140V.pdf",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
+        auto_calculate_withdraw_amount: false
       },
       id: {
         intake_class: StateFileIdIntake,
@@ -153,6 +155,7 @@ module StateFile
         voucher_path: "/pdfs/idformIDVP-TY2024.pdf",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
+        auto_calculate_withdraw_amount: false
       },
       md: {
         intake_class: StateFileMdIntake,
@@ -182,6 +185,7 @@ module StateFile
         voucher_path: "/pdfs/md-pv-TY2024.pdf",
         w2_supported_box14_codes: [{name: "STPICKUP"}],
         w2_include_local_income_boxes: true,
+        auto_calculate_withdraw_amount: false
       },
       nc: {
         intake_class: StateFileNcIntake,
@@ -210,6 +214,7 @@ module StateFile
         voucher_path: "https://eservices.dor.nc.gov/vouchers/d400v.jsp?year=2024",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
+        auto_calculate_withdraw_amount: false
       },
       nj: {
         intake_class: StateFileNjIntake,
@@ -239,6 +244,7 @@ module StateFile
         voucher_path: "/pdfs/nj1040v-TY2024.pdf",
         w2_supported_box14_codes: [{name: "UI_WF_SWF", limit: 180}, {name: "FLI", limit: 145.26}],
         w2_include_local_income_boxes: false,
+        auto_calculate_withdraw_amount: true
       },
       ny: {
         intake_class: StateFileNyIntake,
@@ -268,6 +274,7 @@ module StateFile
         voucher_path: "/pdfs/it201v_1223.pdf",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
+        auto_calculate_withdraw_amount: false
       }
     }.with_indifferent_access)
   end
