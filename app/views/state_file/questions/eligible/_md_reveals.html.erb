@@ -38,7 +38,7 @@
       <li>
         <%= t(".reveal_1.payments_title") %>
         <ul>
-          <% if Flipper.enabled?(:show_retirement_ui) %>
+          <% if Flipper.enabled?(:extension_period) %>
           <li><%= t(".reveal_1.pay") %></li>
             <% else %>
             <li><%= t(".reveal_1.pay_b1") %></li>
