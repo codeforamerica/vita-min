@@ -3,8 +3,16 @@
   <h1 class="h2">
     <%= t(".title_html", owed_amount: taxes_owed, state_name: current_state_name) %>
   </h1>
-  <% if current_state_code == "md" %>
-    <p><%= t('.subtitle_html') %></p>
+  <% if @tax_payment_info_text.present? %>
+    <p><%= t('.subtitle_html', link: @tax_payment_info_text) %></p>
+  <% end %>
+
+  <% interest_warning_key = "state_file.questions.taxes_owed.edit.interest_warning.#{current_state_code}_html" %>
+  <% # i18n-tasks-use t(state_file.questions.taxes_owed.edit.interest_warning.az_html) # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+  <% if I18n.exists?(interest_warning_key) %>
+  <div class="notice--warning">
+    <p><%= t(interest_warning_key) %></p>
+  </div>
   <% end %>
 
   <% underpayment_notice_key = "state_file.questions.taxes_owed.edit.underpayment_notice_#{current_state_code}_html" %>

@@ -4257,12 +4257,16 @@ es:
           title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>$%{refund_amount}.</strong>
       taxes_owed:
         edit:
+          interest_warning:
+            az_html: |
+              <p>Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Esto no se calculará en esta declaración, y el Departamento de Ingresos de Arizona te enviará una factura aparte por esta cantidad</p>
+              <p>Los intereses seguirán acumulándose hasta que pagues tus impuestos. Puedes conocer más sobre los intereses y penalizaciones <a target="_blank" rel="noopener nofollow"  href="https://azdor.gov/contact-us">aquí</a>.</p>
           more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Aquí hay más información sobre las fechas de vencimiento de impuestos y los modos de pago.</a></p>
           page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: "¿Cómo te gustaría pagar?"
-          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
+          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="%{link}">%{link}</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}.
           underpayment_notice_nj_html: |-
             <p>Esto puede suceder por muchas razones, las más comunes son:</p>

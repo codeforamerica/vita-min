@@ -2,6 +2,11 @@ module StateFile
   module Questions
     class TaxesOwedController < QuestionsController
 
+      def edit
+        super
+        @tax_payment_info_text = StateFile::StateInformationService.taxes_due_dates_payment_info(current_state_code)
+      end
+
       def self.show?(intake)
         intake.calculated_refund_or_owed_amount.negative?
       end
