@@ -10,7 +10,6 @@ module StateFile
       :mail_voucher_address,
       :navigation_class,
       :pay_taxes_link,
-      :payment_deadline,
       :return_type,
       :review_controller_class,
       :schema_file_name,
@@ -57,20 +56,28 @@ module StateFile
       end
 
       # Returns the state-specific date in the current filing year only - no time or timezone.
-      # If later converted to a DateTime, the time will be in UTC.
+      # Since MD's payment deadline changes after tax day, the datetime param is used to find what the deadline is on a given day
       # Ex: 2025-04-15
-      def payment_deadline_date(state_code, filing_year: nil)
-        filing_year ||= MultiTenantService.statefile.current_tax_year.to_i + 1
-        payment_deadline = StateInformationService.payment_deadline(state_code)
-        DateTime.new(filing_year, payment_deadline[:month], payment_deadline[:day]).to_date
+      def payment_deadline_date(state_code, datetime = DateTime.now)
+        payment_deadline = state_code == "md" ? get_md_payment_deadline(datetime) : { month: 4, day: 15 }
+        Date.new(datetime.year, payment_deadline[:month], payment_deadline[:day])
       end
 
-      # Use state-specific timezone to check if a given DateTime is before midnight the morning of the deadline
+      # Check if the day of a given DateTime is before the deadline date, using the state-specific/government timezone
       def before_payment_deadline?(datetime, state_code)
-        payment_deadline = StateInformationService.payment_deadline_date(state_code)
+        payment_deadline_date = StateInformationService.payment_deadline_date(state_code, datetime)
         timezone = StateInformationService.timezone(state_code)
-        # uses the time in the government timezone for the given State
-        datetime.in_time_zone(timezone).to_date.before?(payment_deadline.in_time_zone(timezone).to_date)
+        datetime.in_time_zone(timezone).to_date.before?(payment_deadline_date)
+      end
+
+      # Maryland has different payment deadline logic from all our other States
+      # 1. If filing before April 16: payment can be scheduled until April 30th
+      # 2. If filing on or after April 16: payment cannot be scheduled (same as other States)
+      def get_md_payment_deadline(datetime)
+        timezone = StateInformationService.timezone("md")
+        before_april_16 = datetime.in_time_zone(timezone).to_date.before?(Date.new(datetime.year, 4, 16))
+        return { month: 4, day: 30 } if before_april_16
+        { month: 4, day: 16 }
       end
 
       def active_state_codes
@@ -118,7 +125,6 @@ module StateFile
         voucher_path: "/pdfs/AZ-140V.pdf",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
-        payment_deadline: { month: 4, day: 15 }
       },
       id: {
         intake_class: StateFileIdIntake,
@@ -147,7 +153,6 @@ module StateFile
         voucher_path: "/pdfs/idformIDVP-TY2024.pdf",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
-        payment_deadline: { month: 4, day: 15 }
       },
       md: {
         intake_class: StateFileMdIntake,
@@ -177,7 +182,6 @@ module StateFile
         voucher_path: "/pdfs/md-pv-TY2024.pdf",
         w2_supported_box14_codes: [{name: "STPICKUP"}],
         w2_include_local_income_boxes: true,
-        payment_deadline: { month: 4, day: 30 }
       },
       nc: {
         intake_class: StateFileNcIntake,
@@ -206,7 +210,6 @@ module StateFile
         voucher_path: "https://eservices.dor.nc.gov/vouchers/d400v.jsp?year=2024",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
-        payment_deadline: { month: 4, day: 15 }
       },
       nj: {
         intake_class: StateFileNjIntake,
@@ -236,7 +239,6 @@ module StateFile
         voucher_path: "/pdfs/nj1040v-TY2024.pdf",
         w2_supported_box14_codes: [{name: "UI_WF_SWF", limit: 180}, {name: "FLI", limit: 145.26}],
         w2_include_local_income_boxes: false,
-        payment_deadline: { month: 4, day: 15 }
       },
       ny: {
         intake_class: StateFileNyIntake,
@@ -266,7 +268,6 @@ module StateFile
         voucher_path: "/pdfs/it201v_1223.pdf",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
-        payment_deadline: { month: 4, day: 15 }
       }
     }.with_indifferent_access)
   end

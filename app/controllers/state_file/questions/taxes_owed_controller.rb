@@ -14,7 +14,7 @@ module StateFile
       def state_specific_payment_deadline
         # NOTE: Intentionally not converted to the State's timezone because this is used to display the date visually
         # Converting it from UTC to another timezone changes the day
-        StateInformationService.payment_deadline_date(current_intake.state_code)
+        StateInformationService.payment_deadline_date(current_intake.state_code, app_time)
       end
       helper_method :state_specific_payment_deadline
 

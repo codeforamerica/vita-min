@@ -24,7 +24,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
 
   describe "when paying via direct deposit and scheduling a payment in NC" do
     let(:timezone) { StateFile::StateInformationService.timezone("nc") }
-    let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date("nc", filing_year: filing_year) }
+    let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date("nc", DateTime.new(filing_year)) }
     let(:utc_offset_hours) { payment_deadline_date.in_time_zone(timezone).utc_offset / 1.hour }
     let(:payment_deadline_datetime) { payment_deadline_date - utc_offset_hours.hours }
     let(:withdrawal_month) { app_time.month }
