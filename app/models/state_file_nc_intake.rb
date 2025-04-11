@@ -171,4 +171,12 @@ class StateFileNcIntake < StateFileBaseIntake
       next_available_date(current_time.in_time_zone(timezone))
     end
   end
+
+  def next_available_date(current_time)
+    initial_days_to_add = after_business_hours(current_time) ? 2 : 1
+    date = add_business_days_to_date(current_time, initial_days_to_add)
+    date = add_business_days_to_date(date, 1) while holiday?(date)
+
+    date.to_date
+  end
 end

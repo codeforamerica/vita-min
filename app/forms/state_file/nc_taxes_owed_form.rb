@@ -17,12 +17,22 @@ module StateFile
 
     def save
       attrs = attributes_for(:intake)
-      date = form_submitted_before_payment_deadline? ? date_electronic_withdrawal : next_available_date(Time.parse(app_time))
+      date = form_submitted_before_payment_deadline? ? date_electronic_withdrawal : @intake.next_available_date(Time.parse(app_time))
 
       @intake.update(attrs.merge(date_electronic_withdrawal: date))
     end
 
     private
+
+    def withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
+      # From the ticket (FYST-1061):
+      # if you submit your bank draft payment after 5:00 pm EST, the earliest draft date available will be two business days in the future
+      after_5pm = after_business_hours(@form_submitted_time)
+      two_business_days_away = add_business_days_to_date(@form_submitted_time.to_date, 2)
+      if after_5pm && !date_electronic_withdrawal.to_date.after?(two_business_days_away)
+        errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.post_five_pm"))
+      end
+    end
 
     def validate_withdrawal_date_fields
       return if payment_or_deposit_type == "mail"

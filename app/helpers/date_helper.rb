@@ -62,29 +62,11 @@ module DateHelper
     true
   end
 
-  def withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
-    # From the ticket (FYST-1061):
-    # if you submit your bank draft payment after 5:00 pm EST, the earliest draft date available will be two business days in the future
-    after_5pm = after_5pm_in_nc(@form_submitted_time)
-    two_business_days_away = add_business_days_to_date(@form_submitted_time.to_date, 2)
-    if after_5pm && !date_electronic_withdrawal.to_date.after?(two_business_days_away)
-      errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.post_five_pm"))
-    end
-  end
-
-  def next_available_date(current_time)
-    initial_days_to_add = after_5pm_in_nc(current_time) ? 2 : 1
-    date = add_business_days_to_date(current_time, initial_days_to_add)
-    date = add_business_days_to_date(date, 1) while holiday?(date)
-
-    date.to_date
-  end
-
   def holiday?(date)
     Holidays.on(date, :us, :federalreservebanks, :observed).any?
   end
 
-  def after_5pm_in_nc(time)
+  def after_business_hours(time)
     time.hour >= 17
   end
 
