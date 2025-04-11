@@ -153,4 +153,37 @@ RSpec.describe StateFile::NcTaxesOwedForm do
       end
     end
   end
+
+  describe "when submitted after the payment deadline" do
+    let(:timezone) { StateFile::StateInformationService.timezone("nc") }
+    let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date("nc", DateTime.new(filing_year)) }
+    let(:utc_offset_hours) { payment_deadline_date.in_time_zone(timezone).utc_offset / 1.hour }
+    let(:payment_deadline_datetime) { payment_deadline_date - utc_offset_hours.hours }
+    let(:app_time) { payment_deadline_datetime + 1.day }
+
+    let(:params) {
+      {
+        payment_or_deposit_type: "direct_deposit",
+        routing_number: "019456124",
+        routing_number_confirmation: "019456124",
+        account_number: "12345",
+        account_number_confirmation: "12345",
+        account_type: "savings",
+        withdraw_amount: 100,
+        date_electronic_withdrawal_year: app_time.year.to_s,
+        app_time: app_time.to_s
+      }
+    }
+
+    it "uses next_available_date instead of the provided date" do
+      form = described_class.new(intake, params)
+      next_date = DateTime.new(2024, 4, 17)
+      expect(intake).to receive(:next_available_date).with(Time.parse(app_time.to_s)).and_return(next_date)
+
+      form.save
+      intake.reload
+
+      expect(intake.date_electronic_withdrawal).to eq next_date
+    end
+  end
 end

@@ -13,14 +13,36 @@ module StateFile
                        :date_electronic_withdrawal_day,
                        :app_time
 
-    with_options unless: -> { payment_or_deposit_type == "mail" || !form_submitted_before_payment_deadline? } do
-      validate :withdrawal_date_is_after_today
-      validate :withdrawal_date_is_not_on_a_weekend
-      validate :withdrawal_date_is_not_a_federal_holiday
-      validate :withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
+    validate :validate_withdrawal_date_fields
+
+    def save
+      attrs = attributes_for(:intake)
+      date = form_submitted_before_payment_deadline? ? date_electronic_withdrawal : @intake.next_available_date(Time.parse(app_time))
+
+      @intake.update(attrs.merge(date_electronic_withdrawal: date))
     end
 
     private
+
+    def withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
+      # From the ticket (FYST-1061):
+      # if you submit your bank draft payment after 5:00 pm EST, the earliest draft date available will be two business days in the future
+      after_5pm = after_business_hours(@form_submitted_time)
+      two_business_days_away = add_business_days_to_date(@form_submitted_time.to_date, 2)
+      if after_5pm && !date_electronic_withdrawal.to_date.after?(two_business_days_away)
+        errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.post_five_pm"))
+      end
+    end
+
+    def validate_withdrawal_date_fields
+      return if payment_or_deposit_type == "mail"
+      return unless form_submitted_before_payment_deadline?
+
+      withdrawal_date_is_after_today
+      withdrawal_date_is_not_on_a_weekend
+      withdrawal_date_is_not_a_federal_holiday
+      withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
+    end
 
     def withdrawal_date_is_after_today
       unless date_electronic_withdrawal.after?(@form_submitted_time.to_date)
@@ -35,27 +57,9 @@ module StateFile
     end
 
     def withdrawal_date_is_not_a_federal_holiday
-      if Holidays.on(date_electronic_withdrawal, :us, :federalreservebanks, :observed).any?
+      if holiday?(date_electronic_withdrawal)
         errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.holiday"))
       end
-    end
-
-    def withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
-      # From the ticket (FYST-1061):
-      # if you submit your bank draft payment after 5:00 pm EST, the earliest draft date available will be two business days in the future
-      after_5pm = @form_submitted_time.hour >= 17
-      two_business_days_away = add_business_days_to_date(@form_submitted_time.to_date, 2)
-      if after_5pm && !date_electronic_withdrawal.to_date.after?(two_business_days_away)
-        errors.add(:date_electronic_withdrawal, I18n.t("errors.attributes.nc_withdrawal_date.post_five_pm"))
-      end
-    end
-
-    def add_business_days_to_date(date, num_days)
-      while num_days.positive?
-        date += 1.day
-        num_days -= 1 if date.wday.between?(1, 5) # Check if the current date is a business day (Mon-Fri)
-      end
-      date
     end
   end
 end
