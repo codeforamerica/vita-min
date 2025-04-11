@@ -294,7 +294,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 
-      expect(page).to have_text(I18n.t("state_file.questions.nc_out_of_country.edit.title", year: filing_year + 1))
+      expect(page).to have_text(I18n.t("state_file.questions.nc_out_of_country.edit.title", current_year: filing_year + 1))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 

@@ -2604,7 +2604,7 @@ en:
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
           nc_title2_html: |
             Let's make sure this is the right service for you.<br><br>
-            Here are the credits, deductions, and situations you <strong>may</strong be able to claim to maximize your refund.
+            Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
           not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
           title1: You can use this service to file your %{year} %{state} taxes
           title2_html: |
