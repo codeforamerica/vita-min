@@ -272,10 +272,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to be_axe_clean.within "main"
 
       groups = page.all(:css, '.white-group').count
+      expect(groups).to eq(0)
+
       h2s = page.all(:css, 'h2').count
-      expect(groups).to eq(h2s - 2)
-      # total should be h2s -1 to account for the h2 reveal button
-      # there's also an extra h2 in the veteran exemption box
+      # one h2 per section header (e.g.Household Information)
+      expect(h2s).to eq(4)
 
       edit_buttons = page.all(:css, '.white-group a')
       edit_buttons_count = edit_buttons.count
