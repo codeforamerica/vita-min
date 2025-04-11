@@ -5,16 +5,16 @@ module StateFile::AutomatedMessage
       'messages.state_file.finish_return'.freeze
     end
 
-    def self.after_transition_notification?
-      false
-    end
-
     def self.send_only_once?
       true
     end
 
     def sms_body(**args)
-      I18n.t("messages.state_file.finish_return.sms", **args)
+      if app_time(args).between?(tax_deadline.beginning_of_day, tax_deadline)
+        I18n.t("messages.state_file.finish_return.sms.on_april_15", **args)
+      else
+        I18n.t("messages.state_file.finish_return.sms.pre_deadline", **args)
+      end
     end
 
     def email_subject(**args)
@@ -22,7 +22,11 @@ module StateFile::AutomatedMessage
     end
 
     def email_body(**args)
-      I18n.t("messages.state_file.finish_return.email.body", **args)
+      if app_time(args).between?(tax_deadline.beginning_of_day, tax_deadline)
+        I18n.t("messages.state_file.finish_return.email.body.on_april_15", **args)
+      else
+        I18n.t("messages.state_file.finish_return.email.body.pre_deadline", **args)
+      end
     end
   end
 end

@@ -1561,26 +1561,39 @@ es:
         sms: "Hola, Es posible que hayas tenido problemas transfiriendo los datos de tu declaración federal desde IRS Direct File. Se resolvió el problema. \n\nPara continuar con la preparación de tu declaración estatal, por favor crea una cuenta nueva con FileYourStateTaxes, visitando: https://www.fileyourstatetaxes.org/es/%{state_code}/landing-page\n\nNecesitas ayuda? Envía un correo electrónico a Email us at help@fileyourstatetaxes.org\n"
       finish_return:
         email:
-          body: |
-            Hola %{primary_first_name},
+          body:
+            on_april_15: |
+              Hola %{primary_first_name},
 
-            Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril.
+              Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen hoy, el 15 de abril.
+              Completa tu declaración hoy visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/en/login-options</a>
 
-            Completa tu declaración ahora visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+              ¿Necesitas ayuda? Responde a este correo electrónico.
 
-            ¿Necesitas ayuda? Responde a este correo electrónico.
+              Atentamente,
+              El equipo de FileYourStateTaxes
+            pre_deadline: |
+              Hola %{primary_first_name},
 
-            Atentamente,
-            El equipo de FileYourStateTaxes
+              Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril.
+
+              Completa tu declaración ahora visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+
+              ¿Necesitas ayuda? Responde a este correo electrónico.
+
+              Atentamente,
+              El equipo de FileYourStateTaxes
           subject: Recuerda completar tu declaración de impuestos estatales
-        sms: |
-          Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
+        sms:
+          on_april_15: "Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. \n\n  Completa tu declaración hoy en www.fileyourstatetaxes.org/es/login-options.\n\n  Atentamente,\n  El equipo de FileYourStateTaxes\n\n  ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\n"
+          pre_deadline: |
+            Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
 
-          Los impuestos estatales vencen el 15 de abril.
+            Los impuestos estatales vencen el 15 de abril.
 
-          Completa tu declaración ahora en www.fileyourstatetaxes.org/es/login-options.
+            Completa tu declaración ahora en www.fileyourstatetaxes.org/es/login-options.
 
-          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
+            ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       issue_resolved:
         email:
           body: "Hola, ¡Gracias por usar FileYourStateTaxes!\n\nTodos los problemas que hayas experimentado al usar nuestra herramienta han sido resueltos. Para continuar presentando tus impuestos estatales, <a href=\"%{login_link}\">inicia sesión aquí.</a>\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"

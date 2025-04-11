@@ -42,6 +42,7 @@ module Hub::StateFile
         return_status_link: StateFile::SendRejectResolutionReminderNotificationJob.return_status_link(locale),
         login_link: SendIssueResolvedMessageJob.login_link,
         state_pay_taxes_link: StateFile::StateInformationService.pay_taxes_link(state_code),
+        app_time: app_time,
       }
     end
 
