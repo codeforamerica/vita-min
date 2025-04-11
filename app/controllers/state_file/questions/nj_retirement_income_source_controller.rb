@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class NjRetirementIncomeSourceController < QuestionsController
-      include ReturnToReviewConcern
 
       before_action :load_1099r
 

@@ -1,0 +1,29 @@
+<% title = t(".title") %>
+<% content_for :page_title, title %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+  <p> <%= t(".subtitle_1") %></p>
+  <p>
+    <b> <%= t(".subtitle_2") %></b>
+    <%= link_to t(".continue_filing"), continue_filing_path %>
+  </p>
+  <div class="white-group spacing-below-25">
+    <p><b><%= t(".vita_service") %></b> </p>
+    <%= render partial: "state_file/questions/eligible/vita_option" %>
+  </div>
+
+  <div class="reveal">
+    <button class="reveal__button"><%= t('state_file.questions.eligible.other_filing_options.other_options.title') %></button>
+    <div class="reveal__content">
+      <p><%= t('state_file.questions.eligible.other_filing_options.other_options.list.body') %></p>
+      <ul>
+        <li><%= t('state_file.questions.eligible.other_filing_options.other_options.list.list1') %></li>
+        <li><%= t('state_file.questions.eligible.other_filing_options.other_options.list.list2') %></li>
+        <li><%= t('state_file.questions.eligible.other_filing_options.other_options.list.list3') %></li>
+      </ul>
+      <p><%= t('state_file.questions.eligible.other_filing_options.other_options.fees') %></p>
+      <p><%= t('state_file.questions.eligible.other_filing_options.other_options.learn_more_here_html', link: @faq_other_options_link) %></p>
+    </div>
+  </div>
+<% end %>

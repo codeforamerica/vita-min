@@ -69,19 +69,6 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
           expect(intake.extension_payments).to eq 500
         end
       end
-
-      it_behaves_like :return_to_review_concern do
-        let(:form_params) do
-          {
-            state_file_nj_estimated_tax_payments_form: {
-              has_estimated_payments: "yes",
-              estimated_tax_payments: 1000,
-              overpayments: 2000,
-              extension_payments: 500
-            }
-          }
-        end
-      end
     end
   end
 end

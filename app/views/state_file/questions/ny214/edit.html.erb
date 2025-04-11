@@ -73,6 +73,6 @@
     <%= f.cfa_input_field :household_own_propety_tax, "Real property taxes paid during 2023" %>
     <%= f.cfa_input_field :household_own_assessments, "Special assessments" %>
 
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

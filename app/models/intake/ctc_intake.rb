@@ -548,7 +548,7 @@ class Intake::CtcIntake < Intake
   end
 
   def filing_jointly?
-    client.tax_returns.last.filing_status_married_filing_jointly?
+    client.tax_returns.last&.filing_status_married_filing_jointly?
   end
 
   # Only use this when initially calculating the spouse's AGI for initial submission.

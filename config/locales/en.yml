@@ -3137,6 +3137,26 @@ en:
               <li>Form 1095-A, by subtracting the total of column C from the total of column A.</li>
             </ul>
           what_is_title: What is a health insurance premium?
+      id_ineligible_retirement_and_pension_income:
+        edit:
+          another_service: File With Another Service
+          file_without_claiming: File Without Claiming
+          go_back: go back to correct.
+          how_much_b1: To find this amount, refer to the Notice of Annuity Adjustment that you received from the Office of Personnel Management
+          how_much_b2_html: 'If you do not have your Notice of Annuity Adjustment visit: <a href=''https://www.servicesonline.opm.gov/'' target=''_blank'' rel=''noopener noreferrer''>https://www.servicesonline.opm.gov/</a>'
+          how_much_content: The total amount paid by the US Civil Service Retirement System (CSRS) for this 1099-R would reduce the amount of retirement income you are taxed on.
+          how_much_title: How much money is the deduction?
+          subtitle: You answered that your %{sample_name} 1099-R for %{taxpayer_name} account number starts with an 8.
+          subtitle_html: "<b>Our service doesn't support this type of account right now.</b> If this was a mistake, "
+          title: Unfortunately, we don't support your 1099-R account type for claiming the Idaho retirement income deduction
+          warning_1: Your taxes owed/refund amount will be affected if you continue without claiming the deduction for this 1099-R.
+          warning_2: To claim this deduction you will need to use a different tax service. It could take up to 3 weeks to file.
+        file_with_another_service:
+          continue_filing: Continue filing with this service.
+          subtitle_1: You cannot continue filing with FileYourStateTaxes because you would like to claim the Idaho retirement income deduction, and we do not support your account type
+          subtitle_2: Want to file without claiming this deduction?
+          title: Here are some other filing services you can use to claim the Idaho retirement income deduction
+          vita_service: You can still file a free state tax return using the IRS VITA service.
       id_permanent_building_fund:
         edit:
           receive_public_assistance_explanation: Public assistance payments do not include food stamps nor WIC payments.
@@ -3153,13 +3173,24 @@ en:
           why_ask_this: Why are you asking for this information?
       id_retirement_and_pension_income:
         edit:
-          question_b1: Your service as a civil service employee
-          question_b2: Your service as an Idaho firefighter
-          question_b3: Your service as a police officer of an Idaho city
-          question_b4: Your service as a member of the U.S. military
-          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above
-          question_html: Does this retirement income come from any of the following sources and does it meet the qualifications on <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">pages 7-8 of the instruction booklet?</a>?
-          subtitle: We need more information about your 1099-R to check your eligibility.
+          civil_servant: Service as a Civil Service employee
+          civil_servant_follow_up: What number does the account number on this 1099R start with?
+          details_content: If you’re unsure about your retirement plan details, contact your plan payer at the phone number listed on your 1099-R
+          details_title: What if I don’t know the details of my 1099-R?
+          firefighter: Service as an Idaho firefighter
+          firefighter_follow_up: Were any of the following true for your retirement income as an Idaho firefighter?
+          firefighter_frf: The 1099-R account number includes the FRF (Firemen’s Retirement Fund) designation
+          firefighter_persi: Benefits were paid out of the Public Employee Retirement System of Idaho (PERSI)
+          military: Service as a member of the U.S. military
+          none_apply: None of these were true
+          police_officer: Service as an Idaho city Police officer
+          police_officer_follow_up: Were any of the following true for your retirement income as a police officer of an Idaho city?
+          police_persi_html: Benefits were paid out of the Public Employee Retirement System of Idaho (PERSI) that were <u>not part of a PERSI Base Plan</u>
+          police_retirement_fund: Benefits were paid from the Policemen’s Retirement Fund that no longer admits new members as of Jan 2012
+          question_html: 'Select the source of this retirement income:'
+          seven_or_nine: 7 or 9
+          subtitle: Some 1099-Rs with a taxable amount listed may qualify for this deduction. We need more information about this 1099-R to check your eligibility and file your state return.
+          subtitle_2: If you reported multiple 1099-Rs, you’ll be asked to complete this step for each one with a taxable amount.
       id_review:
         edit:
           donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
@@ -4206,10 +4237,23 @@ en:
           subtitle: These allow people to deduct all or a portion of their retirement income for the taxes.
           title: Arizona retirement income deductions
           uniformed_services: Retired or retainer pay of the uniformed services of the United States
+        id_disability_review_header:
+          editing_may_affect_deductions: Editing this answer may affect your Idaho retirement income deductions
+          meets_qualifications: Meets qualifications to be classified as disabled
         id_retirement_income_deductions_review_header:
+          civil_servant_employee: Retirement income from %{taxpayer_name}’s service as a Civil Service employee
+          eight: Account number starts with 8.
+          firefighter: Retirement income from %{taxpayer_name}’s service as an Idaho firefighter
+          military: Retirement income from %{taxpayer_name}’s service as a member of the U.S. military
+          none_apply: None apply
+          police_officer: Retirement income from %{taxpayer_name}’s service as an Idaho city Police officer
           qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
           qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
           qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
+          seven_or_nine: Account number starts with 7 or 9
+          subtitle: These allow people to deduct all or a portion of their retirement income from their taxes.
+          title: Idaho retirement income deductions
+          zero_to_four: Account number starts with 0, 1,2, 3 or 4
         md_retirement_income_deductions_review_header:
           military: Benefits from your military service or benefits received for the military service of your deceased spouse or ex-spouse
           none: None apply
