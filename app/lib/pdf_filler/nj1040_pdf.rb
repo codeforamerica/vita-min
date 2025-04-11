@@ -100,7 +100,10 @@ module PdfFiller
         
         # signature fields
         'Date1_es_:signer:date': @xml_document.at("ReturnHeaderState Filer Primary DateSigned")&.text,
-        'Date2_es_:signer:date': @xml_document.at("ReturnHeaderState Filer Secondary DateSigned")&.text
+        'Date2_es_:signer:date': @xml_document.at("ReturnHeaderState Filer Secondary DateSigned")&.text,
+
+        # Federal extension payment checkbox
+        'Check Box18': Flipper.enabled?(:extension_period) && @submission.data_source.paid_federal_extension_payments_yes? ? "Yes" : "Off"
       }
 
       dependents = get_dependents
