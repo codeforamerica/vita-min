@@ -8,7 +8,8 @@ heroku:
   adapter: postgresql
 
 demo:
-  adapter: postgresql
+  adapter: <%= ENV["REDIS_URL"].present? ? "redis" : "postgresql" %>
+  url: <%= ENV["REDIS_URL"] %>
 
 production:
   adapter: postgresql
