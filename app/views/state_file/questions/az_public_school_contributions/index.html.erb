@@ -28,8 +28,8 @@
             <p class="spacing-below-25"><%= contribution.date_of_contribution.strftime("%m/%d") %></p>
           </div>
           <div>
-            <%= link_to t("general.edit"), StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(us_state: current_state_code, id: contribution, return_to_review: params[:return_to_review]), class: "button--small button--inline-action" %>
-            <%= link_to t("general.delete"), StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :destroy, us_state: current_state_code, id: contribution, return_to_review: params[:return_to_review]), method: :delete, data: { confirm: t(".delete_confirmation") }, class: "button--small button--inline-action last" %>
+            <%= link_to t("general.edit"), StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(us_state: current_state_code, id: contribution, return_to_review: params[:return_to_review]), class: "button--small button--inline-action", role: "button" %>
+            <%= link_to t("general.delete"), StateFile::Questions::AzPublicSchoolContributionsController.to_path_helper(action: :destroy, us_state: current_state_code, id: contribution, return_to_review: params[:return_to_review]), method: :delete, data: { confirm: t(".delete_confirmation") }, class: "button--small button--inline-action last", role: "button" %>
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@
       ) do %>
     <%= t('.add_another') %>
   <% end %>
-  <%= link_to(next_path, class: "button button--primary button--wide") do %>
+  <%= link_to(next_path, class: "button button--primary button--wide", role: "button") do %>
     <%= t('general.continue') %>
   <% end %>
 

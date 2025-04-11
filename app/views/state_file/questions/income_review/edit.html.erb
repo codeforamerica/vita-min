@@ -17,7 +17,8 @@
                         id: w2.id,
                         return_to_review: params[:return_to_review]
                       ),
-                      class: "button--small"
+                      class: "button--small",
+                      role: "button"
           %>
           <% if @w2_warnings[w2.id] %>
             <div class="notice--warning spacing-above-5">

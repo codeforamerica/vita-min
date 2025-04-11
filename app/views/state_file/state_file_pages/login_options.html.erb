@@ -10,13 +10,15 @@
   <p>
     <%= link_to t(".phone_number_signin"),
                 StateFile::IntakeLoginsController.to_path_helper(action: :new, contact_method: "sms_phone_number"),
-                class: "button button--wide" %>
+                class: "button button--wide",
+                role: "button" %>
   </p>
   <% end %>
 
   <p>
     <%= link_to t(".email_signin"),
                 StateFile::IntakeLoginsController.to_path_helper(action: :new, contact_method: "email_address"),
-                class: "button button--wide" %>
+                class: "button button--wide",
+                role: "button" %>
   </p>
 </div>
