@@ -6,11 +6,10 @@
   <div class="slab slab--banner">
     <div class="grid">
       <div class="grid__item">
-        <i class="icon-warning"></i><%= t("views.shared.ice_warning_html", faq_link: faq_path) %>
+        <%= image_tag('icons/warning-triangle.svg', alt: "") %><%= t("views.shared.ice_warning_html", faq_link: faq_path) %>
       </div>
     </div>
   </div>
-  <%= render "shared/homepage_banner" %>
 <% end %>
 
 <% content_for :body_class, "body--home" %>
