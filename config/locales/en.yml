@@ -2596,6 +2596,9 @@ en:
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
           faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
           faq_link_html: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations <a href="%{url}">here</a>.
+          id_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
@@ -2625,6 +2628,7 @@ en:
           interest_from_obligations: Interest from U.S government obligations subtraction
           retirement_benefits_deduction: Retirement Benefits deductions
           social_security_retirement_deduction: Social Security and Railroad Retirement subtraction
+          tax_prepayments: 'Reporting tax prepayments, including: extension payments, estimated payments, and %{last_tax_year} refunds applied to %{tax_year} taxes'
         md_reveals:
           body1_html: |
             <ul>
@@ -2741,6 +2745,13 @@ en:
           deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
           deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
         nj_credits_unsupported:
+          also_unsupported_extensions_html: |
+            <li>Applying for an extension (but we do support reporting estimated payments you made when filing an extension)</li>
+            <li>Making charitable contributions to various NJ organizations through your return</li>
+            <li>Filing your federal and state tax returns using different filing statuses (for example, you filed as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
+            <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
+            <li>Applying a portion of your 2024 refund toward your 2025 estimated taxes</li>
+            <li>Using the “three-year rule” or the “general rule” to calculate the taxable portion of your pension/retirement income. For more information, see <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf">New Jersey’s Retirement Income publication.</a></li>
           also_unsupported_html: |
             <li>Applying for an extension</li>
             <li>Making charitable contributions to various NJ organizations through your return</li>
@@ -2965,28 +2976,28 @@ en:
           enter_amount: Enter the amount of extension payments paid to Arizona.
           negative: 'No'
           subtitle_html: If you made a Arizona extension payment, you would have <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Form 204</a>.
-          title: Did you make an Arizona extension payment on or before April 15, %{date_year}?
+          title: Did you make an Arizona extension payment on or before April 15, %{current_year}?
         id:
           affirmative: Yes, I made extension or estimated payments to Idaho
           amount: Amount of Idaho payments
-          enter_amount: Enter the amount of payments made to Idaho on form 51
+          enter_amount: Enter the amount of payments made to Idaho on Form 51.
           negative: No, I did not make extension or estimated payments to Idaho
           subtitle_html: "If you made these payments, you would have <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">paid online</a> or mailed your payment along with <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nEstimated tax payments can be paid anytime during the tax year, and they do not include taxes withheld from your other income such as wages and retirement.\n"
-          title: Did you make any Idaho extension or estimated payments for the %{tax_year} tax year on or before April 15, %{date_year}?
+          title: Did you make any Idaho extension or estimated payments for the %{tax_year} tax year on or before April 15, %{current_year}?
         md:
           affirmative: 'Yes'
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to Maryland.
           negative: 'No'
           subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
-          title: Did you make a Maryland extension payment on or before April 15, %{date_year}?
+          title: Did you make a Maryland extension payment on or before April 15, %{current_year}?
         nc:
           affirmative: 'Yes'
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to North Carolina.
           negative: 'No'
           subtitle_html: If you made a North Carolina extension payment, you would have <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Form D-410</a>.
-          title: Did you make a North Carolina extension payment on or before April 15, %{date_year}?
+          title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
       federal_extension_payments:
         edit:
           'false': No, I was not granted a federal extension
@@ -3590,6 +3601,20 @@ en:
           title: We need information about your health insurance status.
       nj_estimated_tax_payments:
         edit:
+          description_extensions_html: |
+            <p>Most people do <strong>not</strong> make these payments.</p>
+            <p>These payments include:</p>
+            <ul class="list--bulleted">
+              <li><strong><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Estimated quarterly payments</a></strong> that you made. These were due on April 15, June 17, and September 16 last year and January 15 this year. You are most likely to have made them if your employer <strong>doesn't</strong> withhold taxes in your paycheck or if you are self-employed. You would have paid these <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or by mail.</li>
+              <li><strong>An additional payment you made when you <a href="https://www.nj.gov/treasury/taxation/njit17.shtml" target="_blank" rel="noopener nofollow">filed for an extension</a>.</strong></li>
+              <li><strong>A refund that you decided to carry forward</strong> from your %{prior_year} state taxes to your %{filing_year} state taxes.</li>
+            </ul>
+            <p>These payments do <strong>not</strong> include:</p>
+            <ul class="list--bulleted">
+              <li>Payments made for a prior tax year</li>
+              <li>Withholdings from your paycheck (W-2) or your retirement income (1099-R)</li>
+              <li>Property taxes</li>
+            </ul>
           description_html: |
             <p>Most people do <strong>not</strong> make these payments.</p>
             <p>You are most likely to have made them if your employer <strong>doesn't</strong> withhold taxes in your paycheck or if you are self-employed.</p>
@@ -3606,12 +3631,12 @@ en:
             </ul>
           estimated_taxes_input_helper_html: Add up your quarterly payments and enter the total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">you can check how much you paid here</a>).
           estimated_taxes_input_label_html: "<strong>Total estimated payments made for %{filing_year} taxes</strong>"
-          extension_payments_input_helper_html: You generally would have made this payment earlier in 2025, when requesting an extension to file your state taxes <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or using <a href="https://www.nj.gov/treasury/taxation/pdf/current/630.pdf" target="_blank" rel="noopener nofollow">NJ-630</a>.
+          extension_payments_input_helper_html: You generally would have made this payment earlier in %{current_year}, when requesting an extension to file your state taxes <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or using <a href="https://www.nj.gov/treasury/taxation/pdf/current/630.pdf" target="_blank" rel="noopener nofollow">NJ-630</a>.
           extension_payments_input_label_html: "<strong>Additional payment you made when you filed for an extension</strong>"
           no_text: No (this is the common option)
-          overpayments_input_helper_html: If applicable, you can find this on line 69 of your %{prior_year} NJ-1040. Only enter an amount here if you did not apply it to estimated payments.
-          overpayments_input_label_html: "<strong>Refund carried forward to %{filing_year} taxes (exclude estimated payments)</strong>"
-          question_box: Please share the amounts paid.
+          overpayments_input_helper_html: If applicable, you can find this on line 69 of your %{prior_year} NJ-1040. Only enter an amount here if you did not include it in the calculation of the box(es) above.
+          overpayments_input_label_html: "<strong>%{prior_year} refund carried forward to %{filing_year} taxes</strong> (don’t include estimated payments)"
+          question_box: Please share the amounts.
           radio_label: Did you make estimated or other payments for your %{filing_year} state income taxes?
           title_html: Did you make <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">estimated or other payments</a> toward your %{filing_year} New Jersey income taxes?
       nj_gubernatorial_elections:
@@ -3784,7 +3809,7 @@ en:
           edit_disability: disability status
           edit_veteran: veteran status
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
-          estimated_tax_payments: Amount of estimated quarterly payments
+          estimated_tax_payments: Estimated quarterly payments
           extension_payments: Payment made when you filed for an extension
           has_estimated_payments: Estimated or other payments
           household_rent_own: Living situation in %{filing_year}
@@ -3795,7 +3820,7 @@ en:
           medical_expenses: Total medical expenses
           missing_health_insurance: Dependents who DO NOT have health insurance
           more_household_details: More Household Details
-          overpayments: Amount of refund carried forward
+          overpayments: Refund carried forward
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
           primary_disabled: Disability exemption
           primary_veteran: Veteran exemption

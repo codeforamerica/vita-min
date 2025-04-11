@@ -236,8 +236,10 @@
       <% if current_intake.has_estimated_payments_yes? %>
         <p class="text--bold spacing-below-5"><%=t(".estimated_tax_payments") %></p>
         <p><%=number_to_currency(current_intake.estimated_tax_payments || 0, precision: 0)%></p>
-        <p class="text--bold spacing-below-5"><%=t(".extension_payments") %></p>
-        <p><%=number_to_currency(current_intake.extension_payments || 0, precision: 0)%></p>
+        <% if Flipper.enabled?(:extension_period) %>
+          <p class="text--bold spacing-below-5"><%=t(".extension_payments") %></p>
+          <p><%=number_to_currency(current_intake.extension_payments || 0, precision: 0)%></p>
+        <% end %>
         <p class="text--bold spacing-below-5"><%=t(".overpayments") %></p>
         <p><%=number_to_currency(current_intake.overpayments || 0, precision: 0)%></p>
       <% end %>
