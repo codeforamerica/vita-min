@@ -2657,7 +2657,9 @@ es:
             house_b4: Estar casado y declarando conjuntamente con un cónyuge fallecido
             household_title: 'Situaciones del hogar:'
             more_details_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
-            pay_b1: Reportar pagos de impuestos estimados
+            pay: Reportar pagos de impuestos estimados
+            pay_b1: "Pagos de impuestos estimados"
+            pay_b2: "Pagos de impuestos por extensión"
             payments_title: 'Pagos:'
             sub_b1: Suministros para el aula para maestros de grados K a 12
             sub_b2: Cuotas sindicales
