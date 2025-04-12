@@ -34,7 +34,7 @@ module Navigation
                                           Navigation::RepeatedMultiPageStep.new(
                                             "retirement_income_deduction",
                                             [StateFile::Questions::NjRetirementIncomeSourceController],
-                                            ->(intake) { intake&.state_file1099_rs&.count }),
+                                            ->(intake) { intake&.eligible_1099rs&.count }),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjRetirementWarningController),
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_2", [

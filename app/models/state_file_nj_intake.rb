@@ -236,4 +236,8 @@ class StateFileNjIntake < StateFileBaseIntake
       w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
     end
   end
+
+  def eligible_1099rs
+    self.state_file1099_rs
+  end
 end
