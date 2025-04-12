@@ -3502,6 +3502,7 @@ en:
           account_number: Account number
           account_type:
             label: Bank Account Type
+#            todo move this one
           after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
           bank_title: 'Please provide your bank account details:'
           confirm_account_number: Confirm Account Number
@@ -4257,7 +4258,13 @@ en:
       tax_refund:
         bank_details:
           account_number: Account Number
-          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          after_deadline_withdrawal_info:
+            id:
+              p1: The bank routing and account numbers you enter are for your state tax payment. This is only the payment request. It is your responsibility to review your bank statement to confirm that this transaction was successful. If you are making a direct debit payment, a QuickPay payment should not be made in succession.
+              p2: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+            md:
+              p1: Because you are submitting your return after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+            default: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
