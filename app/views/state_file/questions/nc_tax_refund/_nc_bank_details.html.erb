@@ -40,7 +40,7 @@
     <%= form.cfa_input_field(:account_number, t(".account_number"), classes: %w[form-width--long disablecopy]) %>
     <%= form.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: %w[form-width--long disablepaste disablecopy]) %>
   </div>
-  <% if owe_taxes && !current_time_before_payment_deadline? %>
+  <% if owe_taxes && app_time >= Time.find_zone('America/New_York').parse('2025-04-15').beginning_of_day %>
     <p>
       <%= t(".after_deadline_default_withdrawal_info",
             payment_deadline_date: I18n.l(state_specific_payment_deadline.to_date, format: :medium, locale: locale),
