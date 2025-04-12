@@ -21,10 +21,6 @@ module StateFile
 
       private
 
-      def num_items
-        current_intake.eligible_1099rs.count
-      end
-
       def load_item(index)
         @state_file_1099r = self.class.load_1099r(current_intake, index)
         if state_file_1099r.nil?

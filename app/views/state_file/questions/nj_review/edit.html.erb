@@ -29,7 +29,8 @@
             </div>
           <% end %>
         <% end %>
-        <%= link_to StateFile::Questions::NjRetirementIncomeSourceController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= link_to StateFile::Questions::NjRetirementIncomeSourceController.to_path_helper(return_to_review_after: "retirement_income_deduction",
+                                                                                            return_to_review_before: "retirement_income_deduction"), class: "button--small" do %>
           <%= t("general.review_and_edit") %>
           <span class="sr-only"><%= t(".retirement_income_source") %></span>
         <% end %>
