@@ -238,6 +238,6 @@ class StateFileNjIntake < StateFileBaseIntake
   end
 
   def eligible_1099rs
-    self.state_file1099_rs
+    state_file1099_rs
   end
 end
