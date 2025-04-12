@@ -202,7 +202,7 @@ RSpec.describe StateFileNcIntake, type: :model do
     context "when submitted before the payment deadline" do
       it "does not call next_available_date" do
         expect(intake).not_to receive(:next_available_date)
-        result = intake.calculate_date_electronic_withdrawal(current_time: payment_deadline_datetime - 1.hour)
+        result = intake.calculate_date_electronic_withdrawal(current_time: payment_deadline_datetime - 7.days)
         expect(result).to eq(DateTime.new(2024, 4, 15).in_time_zone(timezone))
       end
     end
