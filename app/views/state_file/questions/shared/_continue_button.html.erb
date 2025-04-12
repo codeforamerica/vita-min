@@ -1,14 +1,5 @@
-<% if params[:return_to_review].present? %>
-  <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-<% end %>
-<% if params[:return_to_review_before].present? %>
-  <%= hidden_field_tag "return_to_review_before", params[:return_to_review_before] %>
-<% end %>
-<% if params[:return_to_review_after].present? %>
-  <%= hidden_field_tag "return_to_review_after", params[:return_to_review_after] %>
-<% end %>
-<% if item_index.present? %>
-  <%= hidden_field_tag "item_index", item_index %>
+<% navigation_params.each do |k,v| %>
+  <%= hidden_field_tag k, v %>
 <% end %>
 <% button_text ||= t("general.continue") %>
 <%= f.continue button_text %>

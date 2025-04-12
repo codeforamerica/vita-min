@@ -5,7 +5,7 @@ module StateFile
       before_action :load_warnings, only: [:edit]
 
       def prev_path
-        StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: params[:return_to_review])
+        StateFile::Questions::IncomeReviewController.to_path_helper(navigation_params)
       end
 
       def update
@@ -13,7 +13,7 @@ module StateFile
 
         if @state_file1099_r.valid?(:retirement_income_intake)
           @state_file1099_r.save(context: :retirement_income_intake)
-          redirect_to questions_income_review_path(return_to_review: params[:return_to_review])
+          redirect_to questions_income_review_path(navigation_params)
         else
           render :edit
         end

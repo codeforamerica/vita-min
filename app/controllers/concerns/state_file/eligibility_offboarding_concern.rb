@@ -22,7 +22,7 @@ module StateFile
 
     def next_path
       if current_intake.has_disqualifying_eligibility_answer?
-        session[:offboarded_from] = self.class.to_path_helper(params.permit(:return_to_review))
+        session[:offboarded_from] = self.class.to_path_helper(params.permit(:return_to_review, :return_to_review_before, :return_to_review_after, :item_index))
         return offboarding_path
       end
 

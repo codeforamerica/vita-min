@@ -95,6 +95,16 @@ module Questions
     def item_index; end
     helper_method :item_index
 
+    def navigation_params
+      {
+        return_to_review: params[:return_to_review],
+        return_to_review_before: params[:return_to_review_before],
+        return_to_review_after: params[:return_to_review_after],
+        item_index: item_index
+      }.compact
+    end
+    helper_method :navigation_params
+
     def form_navigation
       question_navigator.new(self, item_index: item_index)
     end

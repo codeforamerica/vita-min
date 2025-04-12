@@ -17,7 +17,7 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
              state_tax_withheld_amount: 40,
              intake: intake
     end
-    let(:params) { { id: form1099r.id } }
+    let(:params) { { return_to_review: "y", id: form1099r.id } }
 
     render_views
 
@@ -30,6 +30,8 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
         expect(response.body).to include("az123456669")
         expect(response.body).to include("30")
         expect(response.body).to include("40")
+
+        expect(subject.prev_path).to eq(StateFile::Questions::IncomeReviewController.to_path_helper({ return_to_review: "y" }))
       end
 
       context "when there are box 14 warnings" do
@@ -76,6 +78,7 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
     end
     let(:params) do
       {
+        return_to_review: "y",
         id: form1099r.id,
         state_file1099_r: {
           state_distribution_amount: 20,
@@ -88,7 +91,7 @@ RSpec.describe StateFile::Questions::RetirementIncomeController do
     it "does not update the 1099R information and redirects to the income review page" do
       post :update, params: params
 
-      expect(response).to redirect_to(questions_income_review_path)
+      expect(response).to redirect_to(questions_income_review_path(return_to_review: "y"))
 
       form1099r.reload
       expect(form1099r.state_distribution_amount).to eq 20
