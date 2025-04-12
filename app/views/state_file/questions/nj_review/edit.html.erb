@@ -2,13 +2,13 @@
 <% content_for :card do %>
 
   <%= render "state_file/questions/shared/review_header" %>
-  
-  <% if current_intake.state_file1099_rs.length.positive? && Flipper.enabled?(:show_retirement_ui) %>
+
+  <% if current_intake.eligible_1099rs.length.positive? && Flipper.enabled?(:show_retirement_ui) %>
     <section id="retirement-income-source" class="white-group">
       <div class="spacing-below-5">
         <h2 class="text--body text--bold spacing-below-25"><%=t(".retirement_income_source") %></h2>
 
-        <% current_intake.state_file1099_rs.each do |state_file1099_r| %>
+        <% current_intake.eligible_1099rs.each do |state_file1099_r| %>
           <% unless state_file1099_r.state_specific_followup.nil? %>
             <div class="spacing-below-5 with-top-separator">
               <p><%= t(".retirement_income_source_doc_1099r_label") %> <b><%= state_file1099_r.payer_name %></b></p>
