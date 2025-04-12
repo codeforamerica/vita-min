@@ -54,6 +54,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
 
     let(:params) do
       {
+        return_to_review: "y",
         az322_contribution: {
           state_file_az_intake_attributes: {
             made_az322_contributions: "yes",
@@ -74,7 +75,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
         post :create, params: params
       end.to change(Az322Contribution, :count).by 1
 
-      expect(response).to redirect_to(action: :index)
+      expect(response).to redirect_to(action: :index, return_to_review: "y")
 
       expect(intake.reload.made_az322_contributions).to eq "yes"
       contribution = Az322Contribution.last
@@ -173,6 +174,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
     let!(:contribution) { create :az322_contribution, state_file_az_intake: intake, school_name: 'Old School' }
     let(:params) do
       {
+        return_to_review: "y",
         id: contribution.id,
         az322_contribution: {
           school_name: 'New School',
@@ -188,7 +190,7 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
 
     it "updates the contribution and redirects to the index" do
       post :update, params: params
-      expect(response).to redirect_to(action: :index)
+      expect(response).to redirect_to(action: :index, return_to_review: "y")
 
       contribution.reload
       expect(contribution.school_name).to eq 'New School'
@@ -246,14 +248,14 @@ RSpec.describe StateFile::Questions::AzPublicSchoolContributionsController do
 
   describe "#destroy" do
     let!(:contribution) { create :az322_contribution, state_file_az_intake: intake }
-    let(:params) { { id: contribution.id } }
+    let(:params) { { return_to_review: "y", id: contribution.id } }
 
     it "deletes the contribution and adds a flash message and redirects to index path" do
       expect do
         delete :destroy, params: params
       end.to change(Az322Contribution, :count).by(-1)
 
-      expect(response).to redirect_to action: :index
+      expect(response).to redirect_to action: :index, return_to_review: "y"
       expect(flash[:notice]).to eq I18n.t('state_file.questions.az_public_school_contributions.destroy.removed', school_name: contribution.school_name)
     end
   end

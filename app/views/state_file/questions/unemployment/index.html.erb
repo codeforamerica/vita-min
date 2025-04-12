@@ -15,8 +15,8 @@
             <%= t('.unemployment_compensation', amount: number_to_currency(form1099.unemployment_compensation_amount, precision: 2)) %>
           </p>
           <div>
-            <%= link_to t("general.edit"), StateFile::Questions::UnemploymentController.to_path_helper(id: form1099, return_to_review: params[:return_to_review]), class: "button--small button--inline-action" %>
-            <%= link_to t("general.delete"), StateFile::Questions::UnemploymentController.to_path_helper(action: :destroy, id: form1099, return_to_review: params[:return_to_review]), method: :delete, data: {confirm: t(".delete_confirmation")}, class: "button--small button--inline-action last" %>
+            <%= link_to t("general.edit"), StateFile::Questions::UnemploymentController.to_path_helper({ id: form1099 }.merge(navigation_params)), class: "button--small button--inline-action" %>
+            <%= link_to t("general.delete"), StateFile::Questions::UnemploymentController.to_path_helper({ action: :destroy, id: form1099 }.merge(navigation_params)), method: :delete, data: {confirm: t(".delete_confirmation")}, class: "button--small button--inline-action last" %>
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
   <%= link_to(next_path, class: "button button--primary button--wide spacing-below-10") do %>
     <%= t('general.continue') %>
   <% end %>
-  <%= link_to(StateFile::Questions::UnemploymentController.to_path_helper(action: :new, return_to_review: params[:return_to_review]), class: "button button--wide", role: "button") do %>
+  <%= link_to(StateFile::Questions::UnemploymentController.to_path_helper({ action: :new }.merge(navigation_params)), class: "button button--wide", role: "button") do %>
     <%= t('.add_another') %>
   <% end %>
 <% end %>

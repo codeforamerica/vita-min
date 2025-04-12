@@ -31,7 +31,7 @@ module StateFile
 
         if current_intake.valid?(:az322_form_create) && @az322_contribution.valid?
           @az322_contribution.save
-          redirect_to action: :index, return_to_review: params[:return_to_review]
+          redirect_to({ action: :index }.merge(navigation_params))
         else
           render :new
         end
@@ -47,7 +47,7 @@ module StateFile
 
         if @az322_contribution.valid?
           @az322_contribution.save
-          redirect_to action: :index, return_to_review: params[:return_to_review]
+          redirect_to({ action: :index }.merge(navigation_params))
         else
           render :edit
         end
@@ -58,7 +58,7 @@ module StateFile
         if @az322_contribution.destroy
           flash[:notice] = I18n.t("state_file.questions.az_public_school_contributions.destroy.removed", school_name: @az322_contribution.school_name)
         end
-        redirect_to action: :index, return_to_review: params[:return_to_review]
+        redirect_to({ action: :index }.merge(navigation_params))
       end
 
       private
@@ -74,7 +74,7 @@ module StateFile
         current_intake.save(context: :az322_form_create)
 
         if current_intake.made_az322_contributions_no?
-          redirect_to next_path, return_to_review: params[:return_to_review]
+          redirect_to next_path
         end
       end
 
