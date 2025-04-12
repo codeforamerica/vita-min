@@ -165,7 +165,7 @@ class StateFileNcIntake < StateFileBaseIntake
   end
 
   def calculate_date_electronic_withdrawal(current_time:)
-    submitted_before_deadline = StateFile::StateInformationService.before_payment_deadline?(current_time, self.state_code)
+    submitted_before_deadline = StateFile::StateInformationService.before_payment_deadline?(2.business_days.after(current_time), self.state_code)
     if submitted_before_deadline
       date_electronic_withdrawal&.to_date
     else

@@ -25,7 +25,7 @@ module StateFile
     private
 
     def form_submitted_before_payment_deadline?
-      app_time <= DateTime.parse("April 11th, 2025 5pm ET")
+      StateInformationService.before_payment_deadline?(2.business_days.after(@form_submitted_time), intake.state_code)
     end
 
     def withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
