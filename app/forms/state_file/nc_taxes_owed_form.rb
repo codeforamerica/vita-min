@@ -17,7 +17,8 @@ module StateFile
 
     def save
       attrs = attributes_for(:intake)
-      date = form_submitted_before_payment_deadline? ? date_electronic_withdrawal : @intake.next_available_date(Time.parse(app_time))
+      current_time = app_time.present? ? DateTime.parse(app_time) : DateTime.current
+      date = form_submitted_before_payment_deadline? ? date_electronic_withdrawal : @intake.next_available_date(current_time)
 
       @intake.update(attrs.merge(date_electronic_withdrawal: date))
     end
