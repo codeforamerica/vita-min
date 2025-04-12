@@ -56,7 +56,7 @@ RSpec.describe StateFile::Questions::NjRetirementIncomeSourceController do
 
     context "when an index param is provided" do
       it "renders the data for the 1099R at that index" do
-        get :edit, params: { index: 1 }
+        get :edit, params: { item_index: 1 }
         expect(response.body).to include("Payer 2 Name")
         expect(response.body).to include("$3,000")
         expect(response.body).to include("Hera Thunder")
@@ -74,15 +74,15 @@ RSpec.describe StateFile::Questions::NjRetirementIncomeSourceController do
       context "when there are additional 1099Rs to view" do
         it "next path is NjRetirementIncomeSourceController with new index set" do
           post :update
-          expect(subject.next_path).to eq("/en/questions/nj-retirement-income-source?index=1")
+          expect(subject.send(:next_path)).to eq("/en/questions/nj-retirement-income-source?item_index=1")
         end
       end
 
       context "when there are no additional 1099Rs to view" do
         it "next path is whichever is next overall" do
-          post :update, params: {index: "1"}
+          post :update, params: {item_index: "1"}
           allow_any_instance_of(described_class.superclass).to receive(:next_path).and_return("/mocked/super/path")
-          expect(subject.next_path).to eq("/mocked/super/path")
+          expect(subject.send(:next_path)).to eq("/mocked/super/path")
         end
       end
     end
@@ -90,15 +90,15 @@ RSpec.describe StateFile::Questions::NjRetirementIncomeSourceController do
     context 'when return_to_review' do
       context "when there are additional 1099Rs to view" do
         it "next path is NjRetirementIncomeSourceController with new index set and review param" do
-          post :update, params: { return_to_review: "y" }
-          expect(subject.next_path).to eq("/en/questions/nj-retirement-income-source?index=1&return_to_review=y")
+          post :update, params: { return_to_review_after: "retirement_income_deduction" }
+          expect(subject.send(:next_path)).to eq("/en/questions/nj-retirement-income-source?item_index=1&return_to_review_after=retirement_income_deduction")
         end
       end
 
       context "when there are no additional 1099Rs to view" do
         it "next path is Review Controller" do
-          post :update, params: {index: "1", return_to_review: "y"}
-          expect(subject.next_path).to eq("/en/questions/#{intake.state_code}-review")
+          post :update, params: {item_index: "1", return_to_review_after: "retirement_income_deduction"}
+          expect(subject.send(:next_path)).to eq("/en/questions/#{intake.state_code}-review")
         end
       end
     end
@@ -110,8 +110,8 @@ RSpec.describe StateFile::Questions::NjRetirementIncomeSourceController do
     context 'when not return_to_review' do
       context "when there are previous 1099Rs to view" do
         it "prev path is NjRetirementIncomeSourceController with prev index set" do
-          get :edit, params: { index: "1" }
-          expect(subject.prev_path).to eq("/en/questions/nj-retirement-income-source?index=0")
+          get :edit, params: { item_index: "1" }
+          expect(subject.send(:prev_path)).to eq("/en/questions/nj-retirement-income-source?item_index=0")
         end
       end
 
@@ -119,7 +119,7 @@ RSpec.describe StateFile::Questions::NjRetirementIncomeSourceController do
         it "prev path is whichever is previous overall" do
           get :edit
           allow_any_instance_of(described_class.superclass).to receive(:prev_path).and_return("/mocked/super/path")
-          expect(subject.prev_path).to eq("/mocked/super/path")
+          expect(subject.send(:prev_path)).to eq("/mocked/super/path")
         end
       end
     end
@@ -127,15 +127,15 @@ RSpec.describe StateFile::Questions::NjRetirementIncomeSourceController do
     context 'when return_to_review' do
       context "when there are previous 1099Rs to view" do
         it "prev path is NjRetirementIncomeSourceController with prev index and return to review set" do
-          get :edit, params: { index: "1", return_to_review: "y" }
-          expect(subject.prev_path).to eq("/en/questions/nj-retirement-income-source?index=0&return_to_review=y")
+          get :edit, params: { item_index: "1", return_to_review_before: "retirement_income_deduction" }
+          expect(subject.send(:prev_path)).to eq("/en/questions/nj-retirement-income-source?item_index=0&return_to_review_before=retirement_income_deduction")
         end
       end
 
       context "when there are no previous 1099Rs to view" do
         it "prev path is review screen" do
-          get :edit, params: { return_to_review: "y" }
-          expect(subject.prev_path).to eq("/en/questions/nj-review")
+          get :edit, params: { return_to_review_before: "retirement_income_deduction" }
+          expect(subject.send(:prev_path)).to eq("/en/questions/nj-review")
         end
       end
     end
