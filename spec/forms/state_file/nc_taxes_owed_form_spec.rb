@@ -155,6 +155,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
   end
 
   describe "when submitted after the payment deadline" do
+    let(:filing_year) { 2025 }
     let(:timezone) { StateFile::StateInformationService.timezone("nc") }
     let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date("nc", DateTime.new(filing_year)) }
     let(:utc_offset_hours) { payment_deadline_date.in_time_zone(timezone).utc_offset / 1.hour }
@@ -177,7 +178,7 @@ RSpec.describe StateFile::NcTaxesOwedForm do
 
     it "uses next_available_date instead of the provided date" do
       form = described_class.new(intake, params)
-      next_date = DateTime.new(2024, 4, 17)
+      next_date = DateTime.new(2025, 4, 17)
       expect(intake).to receive(:next_available_date).with(Time.parse(app_time.to_s)).and_return(next_date)
 
       form.save

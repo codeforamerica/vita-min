@@ -24,6 +24,10 @@ module StateFile
 
     private
 
+    def form_submitted_before_payment_deadline?
+      app_time <= DateTime.parse("April 11th, 2025 5pm ET")
+    end
+
     def withdrawal_date_is_at_least_two_business_days_in_the_future_if_after_5pm
       # From the ticket (FYST-1061):
       # if you submit your bank draft payment after 5:00 pm EST, the earliest draft date available will be two business days in the future
