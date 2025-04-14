@@ -23,6 +23,16 @@ describe TwilioService do
     })
   end
 
+  describe ".is_gsm7?" do
+    it "returns true for GSM-7 text" do
+      expect(described_class.is_gsm7?("hello\n\n[mañana]\\")).to eq(true)
+    end
+
+    it "returns false for non-GSM-7 text" do
+      expect(described_class.is_gsm7?("“hello” `")).to eq(false)
+    end
+  end
+
   describe "multi-tenant support" do
     it "instantiates as a gyr messanger by default" do
       actual = TwilioService.new.messaging_service_sid
