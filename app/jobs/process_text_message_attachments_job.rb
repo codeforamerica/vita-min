@@ -1,5 +1,7 @@
+class MissingAttachmentError < StandardError; end
+
 class ProcessTextMessageAttachmentsJob < ApplicationJob
-  retry_on NoMethodError
+  retry_on MissingAttachmentError
 
   def perform(incoming_text_message_id, client_id, params)
     attachments = TwilioService.new.parse_attachments(params)

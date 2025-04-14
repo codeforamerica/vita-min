@@ -39,7 +39,7 @@ describe ProcessTextMessageAttachmentsJob do
       client_id = create(:client).id
       incoming_text_message_id = create(:incoming_text_message).id
       params = { some: "params" }
-      allow_any_instance_of(TwilioService).to receive(:parse_attachments).and_raise(NoMethodError)
+      allow_any_instance_of(TwilioService).to receive(:parse_attachments).and_raise(MissingAttachmentError)
 
       expect {
         described_class.perform_now(incoming_text_message_id, client_id, params)
