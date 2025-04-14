@@ -3333,9 +3333,10 @@ es:
       md_retirement_income_subtraction:
         edit:
           doc_1099r_label: 1099-R
-          income_source_other: Otros ingresos de jubilación (por ejemplo, un plan Keogh, también conocido como HR-10) (este es menos común)
-          income_source_pension_annuity_endowment: Una pensión, renta vitalicia o dotación de un “sistema de jubilación para empleados” (este es más común)
-          income_source_question: 'Selecciona la fuente de este ingreso:'
+          income_source_other: No, mis ingresos provinieron de otra fuente (por ejemplo, un Plan Keogh, también conocido como HR-10)
+          income_source_pension_annuity_endowment: Sí
+          income_source_question: "¿Obtuviste estos ingresos mediante una pensión, renta vitalicia o dotación de un “sistema de jubilación para empleados”?"
+          income_source_question_label: En la mayoría de los casos, la respuesta es "Sí." Encontrarás una lista detallada de los planes que se incluyen en un sistema de jubilación para empleados al final de esta página.
           military_service_reveal_header: "¿Qué servicios militares califican?"
           military_service_reveal_html: |
             <p>Para calificar, debes haber sido:</p>
