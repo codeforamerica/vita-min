@@ -262,7 +262,15 @@ module Efile
       end
 
       def calculate_line_47
-        @intake.paid_extension_payments_yes? ? @intake.extension_payments_amount&.round : 0
+        value = 0
+        if @intake.paid_extension_payments_yes?
+          value += @intake.extension_payments_amount&.round
+        end
+
+        if @intake.paid_prior_year_refund_payments_yes?
+          value += @intake.prior_year_refund_payments_amount&.round
+        end
+        value
       end
 
       def calculate_line_50

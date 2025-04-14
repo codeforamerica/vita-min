@@ -35,6 +35,7 @@ describe 'EfileError' do
 
   it 'returns the expected array of paths' do
     expect(EfileError.paths).to eq [
+      "apply-refund",
       "az-charitable-contributions",
       "az-excise-credit",
       "az-prior-last-names",
