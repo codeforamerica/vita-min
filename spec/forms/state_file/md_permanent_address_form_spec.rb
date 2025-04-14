@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe StateFile::MdPermanentAddressForm do
-  let(:tax_year) { MultiTenantService.statefile.current_tax_year }
   let(:intake) { create :state_file_md_intake,
                         permanent_street: nil,
                         permanent_apartment: nil,
