@@ -439,6 +439,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
       # Permanent Building Fund
+
       page_change_check(I18n.t('state_file.questions.id_permanent_building_fund.edit.title'))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
