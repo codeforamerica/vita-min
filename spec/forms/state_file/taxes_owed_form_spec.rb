@@ -175,7 +175,7 @@ RSpec.describe StateFile::TaxesOwedForm do
 
       shared_examples "withdraw amount is user-entered" do
         it "rejects withdraw amount value nil" do
-          form = described_class.new(intake, params.merge(withdraw_amount: nil))
+          form = described_class.new(intake, direct_deposit_params_with_date.merge(withdraw_amount: nil))
           expect(form).not_to be_valid
           expect(form.errors).to include :withdraw_amount
           expect(form.errors.first&.type).to eq :blank
@@ -198,7 +198,7 @@ RSpec.describe StateFile::TaxesOwedForm do
 
       shared_examples "withdraw amount is auto-calculated" do
         it "auto-fills withdraw amount to save" do
-          form = described_class.new(intake, params.merge(withdraw_amount: nil))
+          form = described_class.new(intake, direct_deposit_params_with_date.merge(withdraw_amount: nil))
           expect(form).to be_valid
           form.save
 
