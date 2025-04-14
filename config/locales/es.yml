@@ -3036,8 +3036,8 @@ es:
             title: "¿Te otorgaron una extensión federal?"
             'true': Hiciste un pago de extensión federal
           'false': No, I was not granted a federal extension
-          list_1: Made a federal extension payment
-          list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
+          list_1: Hiciste un pago de extensión federal
+          list_2_html: Presentaste el <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Formulario 4868</a> en línea o lo enviaste por correo postal
           subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
           subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
           title: Were you granted a federal extension?
