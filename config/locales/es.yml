@@ -246,7 +246,6 @@ es:
       whole_number: Debe ser un número entero
   forms:
     errors:
-      address_is_not_po_box: No puedes usar un apartado postal como la dirección donde vivías. Por favor indica donde vivías el 31 de diciembre del %{tax_year}
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
       healthcare:
@@ -3291,13 +3290,13 @@ es:
       md_permanent_address:
         edit:
           address_header: Dirección
+          address_is_not_po_box: No puedes usar un apartado postal como la dirección donde vivías. Por favor ingresa una dirección válida.
           apartment_number_label: Número de apartamento/unidad
           city_label: Cuidad
           df_address_is_po_box:
             p1: 'La dirección que tenemos registrada para ti es un apartado postal:'
             p2: Ya que no puedes usar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
           follow_up_help_text: No se aceptan apartados postales (PO Boxes)
-          address_is_not_po_box: No puedes usar un apartado postal como la dirección donde vivías. Por favor ingresa una dirección válida.
           mark_no_hint_html: Marca “no” si la dirección que aparece es un PO Box <strong>o</strong> si vivías en una dirección distinta el 31 de diciembre de %{filing_year}.
           state_label: Estado
           street_address_label: Dirección
