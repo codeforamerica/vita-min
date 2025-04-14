@@ -14,9 +14,6 @@ content_for :page_title, title
       <%= f.vita_min_state_file_select(:residence_county , t(".county"), NySchoolDistricts.county_labels, label_class: 'form-label--bold', prompt: t('general.select_prompt') ) %>
     </div>
 
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

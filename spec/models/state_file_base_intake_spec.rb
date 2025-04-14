@@ -1,6 +1,57 @@
 require "rails_helper"
 
 describe StateFileBaseIntake do
+  describe "#increment_failed_attempts" do
+    let!(:intake) { create :state_file_az_intake, failed_attempts: 2 }
+    it "locks access when failed attempts is incremented to 3" do
+      expect(intake.access_locked?).to eq(false)
+
+      intake.increment_failed_attempts
+
+      expect(intake.access_locked?).to eq(true)
+    end
+  end
+
+  describe "#unlock_for_login!" do
+    let!(:intake) { create :state_file_az_intake, failed_attempts: 2, locked_at: 31.minutes.ago }
+
+    before do
+      allow(intake).to receive(:access_locked?).and_return(access_locked)
+    end
+
+    context "when access locked" do
+      let(:access_locked) { true }
+
+      it "should not reset failed_attempts and not clear out locked_at" do
+        intake.unlock_for_login!
+        expect(intake.failed_attempts).to eq(2)
+        expect(intake.locked_at).to be_present
+      end
+    end
+
+    context "when access not locked" do
+      let(:access_locked) { false }
+
+      it "should reset failed_attempts and clear out locked_at" do
+        intake.unlock_for_login!
+        expect(intake.failed_attempts).to eq(0)
+        expect(intake.locked_at).to be_nil
+      end
+
+      context "when locked_at is nil" do
+        before do
+          intake.update(locked_at: nil)
+        end
+
+        it "should not reset failed_attempts and locked_at should remain nil" do
+          intake.unlock_for_login!
+          expect(intake.failed_attempts).to eq(2)
+          expect(intake.locked_at).to be_nil
+        end
+      end
+    end
+  end
+
   describe "#synchronize_filers_to_database" do
     context "when filing status is single" do
       let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
@@ -130,6 +181,15 @@ describe StateFileBaseIntake do
       expect(w2.box14_fli).to eq 145.00
       expect(w2.box14_ui_hc_wd).to eq 140.00
       expect(w2.box14_ui_wf_swf).to eq 180.00
+    end
+
+    context "when W2 StateWagesAmt greater than database max of 10^10" do
+      it "sets state_wages_amount to maximum $9,999,999,999.99" do
+        intake = create(:state_file_nj_intake, :df_data_irs_test_box_16_large)
+        intake.synchronize_df_w2s_to_database
+        w2 = intake.state_file_w2s.first
+        expect(w2.state_wages_amount).to eq 9_999_999_999.99
+      end
     end
   end
 
@@ -325,13 +385,60 @@ describe StateFileBaseIntake do
   end
 
   describe "#eligible_1099rs" do
-    %w[az md nc nj].each do |state_code|
+    %w[az md nc].each do |state_code|
       let(:intake) { create "state_file_#{state_code}_intake".to_sym }
       let!(:eligible_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 200) }
       let!(:ineligible_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
 
       it "should only return the 1099R with taxable_amount" do
         expect(intake.eligible_1099rs).to contain_exactly(eligible_1099r)
+      end
+    end
+  end
+
+  describe "#calculate_date_electronic_withdrawal" do
+    let(:state_code) { "az" }
+    let(:date_electronic_withdrawal) { intake.date_electronic_withdrawal }
+    let(:intake) { create(:state_file_az_owed_intake) }
+    let(:timezone) { StateFile::StateInformationService.timezone(state_code) }
+    let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date(state_code) }
+    let(:filing_year) { MultiTenantService.new(:statefile).current_tax_year }
+
+    context "when submitted before payment deadline" do
+      let(:current_time) { payment_deadline_date - 1.day }
+
+      it "returns the user selected date" do
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
+        expect(result).to eq(date_electronic_withdrawal)
+      end
+    end
+
+    context "when submitted after payment deadline" do
+      let(:current_time) { payment_deadline_date + 1.day }
+
+      it "returns the current time's date in the appropriate timezone" do
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
+        expect(result).to eq(current_time.in_time_zone(timezone).to_date)
+      end
+    end
+
+    context "when submitted exactly on payment deadline" do
+      let(:current_time) { payment_deadline_date }
+
+      it "returns the current time's date in the appropriate timezone" do
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
+        expect(result).to eq(current_time.in_time_zone(timezone).to_date)
+      end
+    end
+
+    context "with different timezone" do
+      let(:state_code) { "md" }
+      let(:timezone) { "America/New_York" }
+      let(:current_time) { payment_deadline_date + 1.day }
+
+      it "returns the current time's date in the correct timezone" do
+        result = intake.calculate_date_electronic_withdrawal(current_time: current_time)
+        expect(result).to eq(current_time.in_time_zone(timezone).to_date)
       end
     end
   end

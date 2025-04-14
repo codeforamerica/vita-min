@@ -655,6 +655,33 @@ describe Efile::Id::Id40Calculator do
     end
   end
 
+  describe "Line 47: Estimated Payments" do
+    let!(:intake) { create(:state_file_id_intake) }
+    context "when there are no extension payments" do
+      before do
+        intake.paid_extension_payments = 'no'
+        allow(intake).to receive(:extension_payments_amount).and_return 45
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_47].value).to eq(0)
+      end
+    end
+
+    context "when there are extension payments" do
+      before do
+        intake.paid_extension_payments = 'yes'
+        allow(intake).to receive(:extension_payments_amount).and_return 2112
+      end
+
+      it "returns the amount of the payment" do
+        instance.calculate
+        expect(instance.lines[:ID40_LINE_47].value).to eq(2112)
+      end
+    end
+  end
+
   describe "refund_or_owed_amount" do
     it "subtracts owed amount from refund amount" do
       allow(instance).to receive(:calculate_line_56).and_return 0
@@ -668,11 +695,13 @@ describe Efile::Id::Id40Calculator do
     before do
       allow_any_instance_of(described_class).to receive(:calculate_line_43).and_return(1200)
       allow_any_instance_of(described_class).to receive(:calculate_line_46).and_return(1350)
+      allow_any_instance_of(described_class).to receive(:calculate_line_47).and_return(2112)
+
       instance.calculate
     end
 
-    it "should return the sum of lines 43 and 46" do
-      expect(instance.lines[:ID40_LINE_50].value).to eq(2550)
+    it "should return the sum of lines 43, 46 and 47" do
+      expect(instance.lines[:ID40_LINE_50].value).to eq(4662)
     end
   end
 
@@ -684,7 +713,7 @@ describe Efile::Id::Id40Calculator do
         instance.calculate
       end
 
-      it "should return the line 42 minus line 50" do
+      it "should return the line 42 minus line 50 minus line 47" do
         expect(instance.lines[:ID40_LINE_51].value).to eq(1000)
       end
     end

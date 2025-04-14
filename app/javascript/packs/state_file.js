@@ -49,6 +49,14 @@ const actionMap = {
         }, 15000)
       },
 
+      rejected () {
+        this.pdfStatus = 'disconnected'
+        const loadingBlock = document.querySelector('.loading-container')
+        const linkBlock = document.querySelector('.download-link-container')
+        loadingBlock.style.display = "none"
+        linkBlock.style.display = "block"
+      },
+
       disconnected () {
         this.pdfStatus = 'disconnected'
       },

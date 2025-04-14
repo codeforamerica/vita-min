@@ -1,0 +1,37 @@
+<% i18n_scope = [:state_file, :questions, :extension_payments, state_code] %>
+
+<% title = I18n.t(:title, scope: i18n_scope, current_year: (current_tax_year + 1), tax_year: current_tax_year) %>
+<% subtitle = I18n.t(:subtitle_html, scope: i18n_scope) %>
+<% enter_amount = I18n.t(:enter_amount, scope: i18n_scope) %>
+<% amount_label = I18n.t(:amount, scope: i18n_scope) %>
+<% affirmative = I18n.t(:affirmative, scope: i18n_scope) %>
+<% negative = I18n.t(:negative, scope: i18n_scope) %>
+
+<% content_for :page_title, title.presence || "Default Page Title" %>
+<% content_for :card do %>
+  <h1 class="h2"><%= title %></h1>
+
+  <p><%= subtitle.html_safe %></p>
+
+  <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+          <%= f.cfa_radio_set(:paid_extension_payments, collection: [
+            { value: "yes", label: affirmative, input_html: { "data-follow-up": "#extension_payments" } },
+            { value: "no", label: negative},
+          ]) %>
+        </div>
+      </div>
+
+      <div class="question-with-follow-up__follow-up" id="extension_payments">
+        <div class="white-group">
+          <p><%= enter_amount %></p>
+          <%= f.vita_min_money_field(:extension_payments_amount, "<strong>#{amount_label}</strong>", classes: ["form-width--long"]) %>
+        </div>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

@@ -32,12 +32,16 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::AzPriorLastNamesController),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
-        Navigation::NavigationStep.new(StateFile::Questions::AzRetirementIncomeSubtractionController),
+        Navigation::RepeatedMultiPageStep.new(
+          "retirement_income_deduction",
+          [StateFile::Questions::AzRetirementIncomeSubtractionController],
+          ->(intake) { intake&.eligible_1099rs&.count }),
         Navigation::NavigationStep.new(StateFile::Questions::AzPublicSchoolContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzCharitableContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzQualifyingOrganizationContributionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::AzExciseCreditController),
+        Navigation::NavigationStep.new(StateFile::Questions::FederalExtensionPaymentsController),
         Navigation::NavigationStep.new(StateFile::Questions::ExtensionPaymentsController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),
@@ -51,6 +55,13 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::ReturnStatusController),
       ], true, true),
     ].freeze
-    FLOW = SECTIONS.map(&:controllers).flatten.freeze
+
+    def self.controllers
+      sections.flat_map(&:controllers)
+    end
+
+    def self.pages(visitor_record)
+      sections.flat_map { |section| section.pages(visitor_record) }
+    end
   end
 end

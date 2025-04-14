@@ -11,7 +11,8 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         {
           has_estimated_payments: "yes",
           overpayments: 0,
-          estimated_tax_payments: money_field_value
+          estimated_tax_payments: money_field_value,
+          extension_payments: 0
         }
       end
     end
@@ -21,7 +22,19 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         {
           has_estimated_payments: "yes",
           overpayments: money_field_value,
-          estimated_tax_payments: 0
+          estimated_tax_payments: 0,
+          extension_payments: 0
+        }
+      end
+    end
+
+    it_behaves_like :nj_money_field_concern, field: :extension_payments, can_be_empty: true do
+      let(:form_params) do
+        {
+          has_estimated_payments: "yes",
+          overpayments: 0,
+          estimated_tax_payments: 0,
+          extension_payments: money_field_value
         }
       end
     end
@@ -51,7 +64,8 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         {
           has_estimated_payments: "yes",
           estimated_tax_payments: 12345,
-          overpayments: 54321
+          overpayments: 54321,
+          extension_payments: 130
         }
       end
 
@@ -61,6 +75,7 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         expect(intake.has_estimated_payments).to eq "yes"
         expect(intake.estimated_tax_payments).to eq 12345
         expect(intake.overpayments).to eq 54321
+        expect(intake.extension_payments).to eq 130
       end
     end
 
@@ -69,7 +84,8 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         {
           has_estimated_payments: "no",
           estimated_tax_payments: nil,
-          overpayments: nil
+          overpayments: nil,
+          extension_payments: nil
         }
       end
 
@@ -79,6 +95,7 @@ RSpec.describe StateFile::NjEstimatedTaxPaymentsForm do
         expect(intake.has_estimated_payments).to eq "no"
         expect(intake.estimated_tax_payments).to eq nil
         expect(intake.overpayments).to eq nil
+        expect(intake.extension_payments).to eq nil
       end
     end
   end

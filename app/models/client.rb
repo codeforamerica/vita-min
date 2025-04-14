@@ -100,6 +100,10 @@ class Client < ApplicationRecord
   enum still_needs_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :still_needs_help
   enum experience_survey: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :experience_survey
 
+  def self.maximum_attempts
+    3
+  end
+
   def self.delegated_intake_attributes
     [:preferred_name, :email_address, :phone_number, :sms_phone_number, :locale]
   end
@@ -181,6 +185,11 @@ class Client < ApplicationRecord
       result["es"] += counts.fetch("es", 0)
     end
     result
+  end
+
+  def unlock_for_login!
+    # Client should only be unlocked manually by an authorized user
+    # unlock_strategy is :none for Client, which means it stays unlocked until manually unlocked
   end
 
   def fraud_scores

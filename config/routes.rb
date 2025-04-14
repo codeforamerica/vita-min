@@ -586,7 +586,7 @@ Rails.application.routes.draw do
       resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
       resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
       resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
-      resources :retirement_income, only: [:show, :edit, :update], module: 'state_file/questions', path: 'questions/retirement_income'
+      resources :retirement_income, only: [:edit, :update], module: 'state_file/questions', path: 'questions/retirement_income'
       resources :az_qualifying_organization_contributions,
         only: [
           :index, :new, :create, :edit,
@@ -611,7 +611,7 @@ Rails.application.routes.draw do
 
       match("/questions/pending-federal-return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
       match("/questions/pending_federal_return", action: :edit, controller: "state_file/questions/pending_federal_return", via: :get)
-      resources :w2, only: [:show, :edit, :update], module: 'state_file/questions', path: 'questions/w2'
+      resources :w2, only: [:edit, :update], module: 'state_file/questions', path: 'questions/w2'
 
       active_state_codes.each do |code|
         navigation_class = StateFile::StateInformationService.navigation_class(code)
@@ -650,6 +650,8 @@ Rails.application.routes.draw do
         get "/sms-terms", to: "state_file_pages#sms_terms"
         get "/unsubscribe_from_emails", to: "notifications_settings#unsubscribe_from_emails", as: :unsubscribe_from_emails
         post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
+        get "/id_file_with_another_service", to: "questions/id_ineligible_retirement_and_pension_income#file_with_another_service"
+        get "/continue_filing", to: "questions/id_ineligible_retirement_and_pension_income#continue_filing"
       end
     end
   end

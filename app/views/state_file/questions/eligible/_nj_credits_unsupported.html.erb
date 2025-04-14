@@ -1,5 +1,5 @@
 <div class="reveal">
-  <p><button class="reveal__button"><%= t("state_file.questions.eligible.edit.credits_not_supported")%></button></p>
+  <button class="reveal__button"><%= t("state_file.questions.eligible.edit.credits_not_supported")%></button>
 
   <div class="reveal__content">
     <div class="spacing-below-25">
@@ -11,7 +11,11 @@
     <div class="spacing-below-25">
       <b><%=t('.also_unsupported_title') %></b>
       <ul class="list--bulleted">
-        <%=t('.also_unsupported_html') %>
+        <% if Flipper.enabled?(:extension_period) %>
+          <%=t('.also_unsupported_extensions_html') %>
+        <% else %>
+          <%=t('.also_unsupported_html') %>
+        <% end %>
       </ul>
     </div>
     <p>

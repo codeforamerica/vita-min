@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.1">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>6a52e0aba</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>123001234</PrimarySSN>
+            <NameLine1Txt>ALEXA J&lt;REMY</NameLine1Txt>
+            <PrimaryNameControlTxt>REMY</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>742 Evergreen Street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21206</ZIPCd>
+            </USAddress>
+            <PhoneNum>2225554444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+76897cdb-f6ed-4bc3-9271-5ebd4e1d666e@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>4</IndividualReturnFilingStatusCd>
+            <QualifyingHOHNm>Mila Remy</QualifyingHOHNm>
+            <QualifyingHOHSSN>123006543</QualifyingHOHSSN>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">60000</WagesAmt>
+            <WagesSalariesAndTipsAmt>60000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>60000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>60000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>21900</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>21900</TotalDeductionsAmt>
+            <TaxableIncomeAmt>38100</TaxableIncomeAmt>
+            <TaxAmt>4244</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>4244</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>4244</TaxLessCreditsAmt>
+            <TotalTaxAmt>4244</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>6000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>6000</WithholdingTaxAmt>
+            <TotalPaymentsAmt>6000</TotalPaymentsAmt>
+            <OverpaidAmt>1756</OverpaidAmt>
+            <RefundAmt>1756</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>art teacher</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>123001234</EmployeeSSN>
+            <EmployerEIN>841564926</EmployerEIN>
+            <EmployerNameControlTxt>ARTS</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Art School</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>972 Mission street</AddressLine1Txt>
+                <CityNm>san francisco</CityNm>
+                <StateAbbreviationCd>CA</StateAbbreviationCd>
+                <ZIPCd>94103</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Alexa J Remy</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>742 Evergreen Street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21206</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>60000</WagesAmt>
+            <WithholdingAmt>6000</WithholdingAmt>
+            <SocialSecurityWagesAmt>60000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>2300</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>60000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>870</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>123456789</EmployerStateIdNum>
+                    <StateWagesAmt>60000</StateWagesAmt>
+                    <StateIncomeTaxAmt>3500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

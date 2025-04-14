@@ -119,7 +119,7 @@ class FlowsController < ApplicationController
           FlowParams.new(
             controller: controller,
             reference_object: controller.current_intake&.is_a?(intake_class) ? controller.current_intake : nil,
-            controller_list: StateFile::StateInformationService.navigation_class(state_code)::FLOW,
+            controller_list: StateFile::StateInformationService.navigation_class(state_code).controllers,
             form: SampleStateFileIntakeGenerator.new(state_code).form
           )
         end
@@ -668,6 +668,7 @@ class FlowsController < ApplicationController
         made_az322_contributions: "yes",
         extension_payments_amount: 0,
         paid_extension_payments: "no",
+        paid_federal_extension_payments: "no",
       )
       status_specific_attributes = case filing_status
                                    when :married_filing_jointly, :married_filing_separately

@@ -109,6 +109,45 @@ RSpec.describe PdfFiller::NcD400Pdf do
             expect(pdf_fields["y_d400wf_li17_pg2_good"]).to eq income_tax.to_s
           end
         end
+
+        context "extension_period" do
+          context "Flipper enabled" do
+            before do
+              allow(Flipper).to receive(:enabled?).and_call_original
+              allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
+            end
+
+            context "has indicated out of country" do
+              before do
+                intake.update(out_of_country: "yes")
+              end
+              it "fills out out of country checkbox" do
+                expect(pdf_fields["y_d400wf_Out of Country"]).to eq "Yes"
+              end
+            end
+
+            context "has indicated not out of country" do
+              before do
+                intake.update(out_of_country: "no")
+              end
+              it "does not fill out out of country checkbox" do
+                expect(pdf_fields["y_d400wf_Out of Country"]).to eq "Off"
+              end
+            end
+          end
+
+          context "Flipper not enabled" do
+            before do
+              allow(Flipper).to receive(:enabled?).and_call_original
+              allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(false)
+              intake.update(out_of_country: "yes")
+            end
+
+            it "does not show OutOfCountry field" do
+              expect(pdf_fields["y_d400wf_Out of Country"]).to be_nil
+            end
+          end
+        end
       end
 
       context "mfj filers" do
@@ -211,6 +250,31 @@ RSpec.describe PdfFiller::NcD400Pdf do
 
         it "total deductions field" do
           expect(pdf_fields['y_d400wf_li9_good']).to eq '500'
+        end
+      end
+
+      context "paid federal extension" do
+        before do
+          intake.update(paid_federal_extension_payments: "yes")
+        end
+
+        context "with flipper on" do
+          before do
+            allow(Flipper).to receive(:enabled?).and_call_original
+            allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
+          end
+
+          it "fills out Federal Extension section correctly" do
+            expect(pdf_fields["y_d400wf_fedex1yes"]).to eq "Yes"
+            expect(pdf_fields["y_d400wf_fedex1no"]).to eq "Off"
+          end
+        end
+
+        context "with flipper off" do
+          it "fills out Federal Extension section correctly" do
+            expect(pdf_fields["y_d400wf_fedex1yes"]).to eq "Off"
+            expect(pdf_fields["y_d400wf_fedex1no"]).to eq "Yes"
+          end
         end
       end
     end

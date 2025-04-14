@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class NjTenantEligibilityController < QuestionsController
-      include ReturnToReviewConcern
 
       before_action -> { set_checkboxes }
 
@@ -20,14 +19,6 @@ module StateFile
             method: :tenant_access_kitchen_bath,
             label: I18n.t("state_file.questions.nj_tenant_eligibility.edit.tenant_access_kitchen_bath"),
             follow_up_id: "tenant_access_kitchen_bath_followup"
-          },
-          {
-            method: :tenant_more_than_one_main_home_in_nj,
-            label: I18n.t("state_file.questions.nj_tenant_eligibility.edit.tenant_more_than_one_main_home_in_nj")
-          },
-          {
-            method: :tenant_shared_rent_not_spouse,
-            label: I18n.t("state_file.questions.nj_tenant_eligibility.edit.tenant_shared_rent_not_spouse")
           },
         ]
         if current_intake.filing_status_mfs?
@@ -57,8 +48,6 @@ module StateFile
           NjIneligiblePropertyTaxController.to_path_helper(options)
         elsif Efile::Nj::NjPropertyTaxEligibility.possibly_eligible_for_credit?(current_intake)
           StateFile::NjPropertyTaxFlowOffRamp.next_controller(options)
-        elsif StateFile::NjTenantEligibilityHelper.determine_eligibility(current_intake) == StateFile::NjTenantEligibilityHelper::WORKSHEET
-          NjTenantPropertyTaxWorksheetController.to_path_helper(options)
         else
           NjTenantRentPaidController.to_path_helper(options)
         end
