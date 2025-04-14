@@ -3000,12 +3000,12 @@ es:
           title: Firma electrónicamente tu declaración de impuestos del estado de %{state_name}
       extension_payments:
         az:
-          affirmative: 'Yes'
-          amount: Amount of extension payments
-          enter_amount: Enter the amount of extension payments paid to Arizona.
+          affirmative: 'Sí'
+          amount: Cantidad de los pagos de extensión
+          enter_amount: Ingresa la cantidad que pagaste a Arizona por la extensión.
           negative: 'No'
-          subtitle_html: If you made a Arizona extension payment, you would have <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Form 204</a>.
-          title: Did you make an Arizona extension payment on or before April 15, %{current_year}?
+          subtitle_html: Si pagaste por una extensión a Arizona, lo hiciste <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">pagado en línea</a>, seleccionando “204 Individual Extension Payment” o enviándolo por correo postal junto con el <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Formulario 204</a>.
+          title: ¿Hiciste un pago de extensión a Arizona en o antes del 15 de abril de %{current_year}?
         id:
           affirmative: Sí, hice un pago de extensión o de saldo estimado a Idaho
           amount: Cantidad de los pagos de extensión
