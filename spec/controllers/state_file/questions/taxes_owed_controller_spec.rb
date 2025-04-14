@@ -175,7 +175,6 @@ describe StateFile::Questions::TaxesOwedController do
             "When would you like the funds withdrawn from your account? (must be on or before #{stringified_deadline}):"
           )
           expect(response_html).not_to have_text("Because you are submitting your return after April 15th")
-          expect(response_html).not_to have_text("Because you are submitting your return after April 15th")
         end
       end
 
