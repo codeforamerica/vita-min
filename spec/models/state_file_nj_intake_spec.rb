@@ -49,6 +49,7 @@
 #  municipality_code                                      :string
 #  municipality_name                                      :string
 #  overpayments                                           :decimal(12, 2)
+#  paid_federal_extension_payments                        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                                :integer          default("unfilled"), not null
 #  permanent_apartment                                    :string
 #  permanent_city                                         :string
@@ -342,6 +343,16 @@ RSpec.describe StateFileNjIntake, type: :model do
     it "rounds down to whole number" do
       allow(intake.calculator.lines).to receive(:[]).with(:NJ1040_LINE_29).and_return(double(value: 12_345))
       expect(intake.medical_expenses_threshold).to eq 246
+    end
+  end
+
+  describe "#eligible_1099rs" do
+    let(:intake) { create :state_file_nj_intake }
+    let!(:eligible_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 200) }
+    let!(:ineligible_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+    it "should return all 1099Rs" do
+      expect(intake.eligible_1099rs).to contain_exactly(eligible_1099r, ineligible_1099r)
     end
   end
 end

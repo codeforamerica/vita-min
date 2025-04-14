@@ -1600,26 +1600,38 @@ en:
           Need help? Email us at help@fileyourstatetaxes.org
       finish_return:
         email:
-          body: |
-            Hi %{primary_first_name},
+          body:
+            on_april_15: |
+              Hi %{primary_first_name},
 
-            You haven't submitted your state tax return yet. State taxes are due by April 15.
+              You haven't submitted your state tax return yet. Remember, state taxes are due today, April 15. Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today.
 
-            Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
+              Need help? Reply to this email.
 
-            Need help? Reply to this email.
+              Best,
+              The FileYourStateTaxes team
+            pre_deadline: |
+              Hi %{primary_first_name},
 
-            Best,
-            The FileYourStateTaxes team
+              You haven't submitted your state tax return yet. State taxes are due by April 15.
+
+              Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">fileyourstatetaxes.org/en/login-options</a> to finish them now.
+
+              Need help? Reply to this email.
+
+              Best,
+              The FileYourStateTaxes team
           subject: Remember to finish your state tax return
-        sms: |
-          Hi %{primary_first_name} - You haven't submitted your state tax return yet.
+        sms:
+          on_april_15: "Hi %{primary_first_name} - You haven't submitted your state tax return yet. \n\nGo to Sign in to FileYourStateTaxes to finish them today. \n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
+          pre_deadline: |
+            Hi %{primary_first_name} - You haven't submitted your state tax return yet.
 
-          State taxes are due by April 15.
+            State taxes are due by April 15.
 
-          Go to www.fileyourstatetaxes.org/en/login-options to finish them now.
+            Go to www.fileyourstatetaxes.org/en/login-options to finish them now.
 
-          Need help? Email us at help@fileyourstatetaxes.org.
+            Need help? Email us at help@fileyourstatetaxes.org.
       issue_resolved:
         email:
           body: "Hello - Thank you for using FileYourStateTaxes! \n\nAny issues you may have experienced while using our tool have now been resolved. To continue filing your state taxes, <a href=\"%{login_link}\">log in here.</a>\n\nBest,\nThe FileYourStateTaxes team\n"
@@ -1629,18 +1641,19 @@ en:
 
           Questions? Email us at help@fileyourstatetaxes.org.
       marketing_email:
-        body: |
-          Hello,
+        email:
+          body: |
+            Hello,
 
-          File your state tax return again for free with FileYourStateTaxes!
+            File your state tax return again for free with FileYourStateTaxes!
 
-          April 15 is right around the corner. Luckily, filing is easier than ever! File your taxes with IRS Direct File and FileYourStateTaxes today.
+            April 15 is right around the corner. Luckily, filing is easier than ever! File your taxes with <a target="_blank" rel="noopener nofollow" href="https://directfile.irs.gov/state">IRS Direct File</a> and FileYourStateTaxes today.
 
-          Already started? Finish filing before April 15.
+            Already started? Finish filing before April 15.
 
-          Best,
-          The FileYourStateTaxes team
-        subject: IRS Direct File is back and easier than ever
+            Best,
+            The FileYourStateTaxes team
+          subject: IRS Direct File is back and easier than ever
       post_deadline_reminder:
         email:
           body: |-
@@ -1738,7 +1751,7 @@ en:
           resubmitted: resubmitted
           subject: "%{state_name} State Return Submitted"
           submitted: submitted
-        sms: Hi %{primary_first_name} - You successfully  %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Email us at help@fileyourstatetaxes.org.
+        sms: Hi %{primary_first_name} - You successfully %{submitted_or_resubmitted} your %{state_name} state tax return! We'll update you in 1-2 days on the status of your return. You can download your return and check the status at %{return_status_link}. Need help? Email us at help@fileyourstatetaxes.org.
       survey_notification:
         email:
           body: |
@@ -2615,6 +2628,9 @@ en:
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
           faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
           faq_link_html: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations <a href="%{url}">here</a>.
+          id_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
@@ -2644,6 +2660,7 @@ en:
           interest_from_obligations: Interest from U.S government obligations subtraction
           retirement_benefits_deduction: Retirement Benefits deductions
           social_security_retirement_deduction: Social Security and Railroad Retirement subtraction
+          tax_prepayments: 'Reporting tax prepayments, including: extension payments, estimated payments, and %{last_tax_year} refunds applied to %{tax_year} taxes'
         md_reveals:
           body1_html: |
             <ul>
@@ -2760,6 +2777,13 @@ en:
           deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
           deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
         nj_credits_unsupported:
+          also_unsupported_extensions_html: |
+            <li>Applying for an extension (but we do support reporting estimated payments you made when filing an extension)</li>
+            <li>Making charitable contributions to various NJ organizations through your return</li>
+            <li>Filing your federal and state tax returns using different filing statuses (for example, you filed as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
+            <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
+            <li>Applying a portion of your 2024 refund toward your 2025 estimated taxes</li>
+            <li>Using the “three-year rule” or the “general rule” to calculate the taxable portion of your pension/retirement income. For more information, see <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf">New Jersey’s Retirement Income publication.</a></li>
           also_unsupported_html: |
             <li>Applying for an extension</li>
             <li>Making charitable contributions to various NJ organizations through your return</li>
@@ -2978,15 +3002,43 @@ en:
           submit: Submit your state return
           title: Electronically sign your %{state_name} state tax return
       extension_payments:
-        edit:
+        az:
+          affirmative: 'Yes'
           amount: Amount of extension payments
-          enter_amount: Enter the amount of extension payments...
-          more_info: More info here...
-          title: Did you make any extension payments?
+          enter_amount: Enter the amount of extension payments paid to Arizona.
+          negative: 'No'
+          subtitle_html: If you made a Arizona extension payment, you would have <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Form 204</a>.
+          title: Did you make an Arizona extension payment on or before April 15, %{current_year}?
+        id:
+          affirmative: Yes, I made extension or estimated payments to Idaho
+          amount: Amount of Idaho payments
+          enter_amount: Enter the amount of payments made to Idaho on Form 51.
+          negative: No, I did not make extension or estimated payments to Idaho
+          subtitle_html: "If you made these payments, you would have <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">paid online</a> or mailed your payment along with <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nEstimated tax payments can be paid anytime during the tax year, and they do not include taxes withheld from your other income such as wages and retirement.\n"
+          title: Did you make any Idaho extension or estimated payments for the %{tax_year} tax year on or before April 15, %{current_year}?
+        md:
+          affirmative: 'Yes'
+          amount: Amount of extension payments
+          enter_amount: Enter the amount of extension payments paid to Maryland.
+          negative: 'No'
+          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
+          title: Did you make a Maryland extension payment on or before April 15, %{current_year}?
+        nc:
+          affirmative: 'Yes'
+          amount: Amount of extension payments
+          enter_amount: Enter the amount of extension payments paid to North Carolina.
+          negative: 'No'
+          subtitle_html: If you made a North Carolina extension payment, you would have <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Form D-410</a>.
+          title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
       federal_extension_payments:
         edit:
-          more_info: More info here...
+          'false': No, I was not granted a federal extension
+          list_1: Made a federal extension payment
+          list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
+          subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
+          subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
           title: Were you granted a federal extension?
+          'true': Yes, I was granted a federal extension
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
@@ -3105,6 +3157,26 @@ en:
               <li>Form 1095-A, by subtracting the total of column C from the total of column A.</li>
             </ul>
           what_is_title: What is a health insurance premium?
+      id_ineligible_retirement_and_pension_income:
+        edit:
+          another_service: File With Another Service
+          file_without_claiming: File Without Claiming
+          go_back: go back to correct.
+          how_much_b1: To find this amount, refer to the Notice of Annuity Adjustment that you received from the Office of Personnel Management
+          how_much_b2_html: 'If you do not have your Notice of Annuity Adjustment visit: <a href=''https://www.servicesonline.opm.gov/'' target=''_blank'' rel=''noopener noreferrer''>https://www.servicesonline.opm.gov/</a>'
+          how_much_content: The total amount paid by the US Civil Service Retirement System (CSRS) for this 1099-R would reduce the amount of retirement income you are taxed on.
+          how_much_title: How much money is the deduction?
+          subtitle: You answered that your %{sample_name} 1099-R for %{taxpayer_name} account number starts with an 8.
+          subtitle_html: "<b>Our service doesn't support this type of account right now.</b> If this was a mistake, "
+          title: Unfortunately, we don't support your 1099-R account type for claiming the Idaho retirement income deduction
+          warning_1: Your taxes owed/refund amount will be affected if you continue without claiming the deduction for this 1099-R.
+          warning_2: To claim this deduction you will need to use a different tax service. It could take up to 3 weeks to file.
+        file_with_another_service:
+          continue_filing: Continue filing with this service.
+          subtitle_1: You cannot continue filing with FileYourStateTaxes because you would like to claim the Idaho retirement income deduction, and we do not support your account type
+          subtitle_2: Want to file without claiming this deduction?
+          title: Here are some other filing services you can use to claim the Idaho retirement income deduction
+          vita_service: You can still file a free state tax return using the IRS VITA service.
       id_permanent_building_fund:
         edit:
           receive_public_assistance_explanation: Public assistance payments do not include food stamps nor WIC payments.
@@ -3121,13 +3193,24 @@ en:
           why_ask_this: Why are you asking for this information?
       id_retirement_and_pension_income:
         edit:
-          question_b1: Your service as a civil service employee
-          question_b2: Your service as an Idaho firefighter
-          question_b3: Your service as a police officer of an Idaho city
-          question_b4: Your service as a member of the U.S. military
-          question_b5: Survivor benefits from a deceased spouse’s pension from one of the sources listed above
-          question_html: Does this retirement income come from any of the following sources and does it meet the qualifications on <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">pages 7-8 of the instruction booklet?</a>?
-          subtitle: We need more information about your 1099-R to check your eligibility.
+          civil_servant: Service as a Civil Service employee
+          civil_servant_follow_up: What number does the account number on this 1099R start with?
+          details_content: If you’re unsure about your retirement plan details, contact your plan payer at the phone number listed on your 1099-R
+          details_title: What if I don’t know the details of my 1099-R?
+          firefighter: Service as an Idaho firefighter
+          firefighter_follow_up: Were any of the following true for your retirement income as an Idaho firefighter?
+          firefighter_frf: The 1099-R account number includes the FRF (Firemen’s Retirement Fund) designation
+          firefighter_persi: Benefits were paid out of the Public Employee Retirement System of Idaho (PERSI)
+          military: Service as a member of the U.S. military
+          none_apply: None of these were true
+          police_officer: Service as an Idaho city Police officer
+          police_officer_follow_up: Were any of the following true for your retirement income as a police officer of an Idaho city?
+          police_persi_html: Benefits were paid out of the Public Employee Retirement System of Idaho (PERSI) that were <u>not part of a PERSI Base Plan</u>
+          police_retirement_fund: Benefits were paid from the Policemen’s Retirement Fund that no longer admits new members as of Jan 2012
+          question_html: 'Select the source of this retirement income:'
+          seven_or_nine: 7 or 9
+          subtitle: Some 1099-Rs with a taxable amount listed may qualify for this deduction. We need more information about this 1099-R to check your eligibility and file your state return.
+          subtitle_2: If you reported multiple 1099-Rs, you’ll be asked to complete this step for each one with a taxable amount.
       id_review:
         edit:
           donations_optional: Idaho taxpayers can make voluntary charitable donations to organizations when they file their state income tax return.
@@ -3165,7 +3248,6 @@ en:
           no_info_needed_nj: This income is not taxed in New Jersey.
           retirement_income_title: Retirement income (1099-R)
           review_and_edit_state_info: Review and edit state info
-          review_state_info: Review state info
           ssa_title: Social Security benefits (SSA-1099)
           state_info_to_be_collected: State info to be collected
           title: Here are the income forms we transferred from your federal tax return.
@@ -3301,9 +3383,10 @@ en:
       md_retirement_income_subtraction:
         edit:
           doc_1099r_label: 1099-R
-          income_source_other: Other retirement income (for example, a Keogh Plan, also known as an HR-10) (less common)
-          income_source_pension_annuity_endowment: A pension, annuity, or endowment from an "employee retirement system" (more common)
-          income_source_question: 'Select the source of this income:'
+          income_source_other: No, the source of my income was something else (for example, a Keogh Plan, also known as an HR-10)
+          income_source_pension_annuity_endowment: 'Yes'
+          income_source_question: Was the source of your income from a pension, annuity, or endowment from an "employee retirement system"?
+          income_source_question_label: In most cases, the answer is "Yes." A detailed list of what plans are included in an "employee retirement system" can be found at the bottom of the page.
           military_service_reveal_header: What military service qualifies?
           military_service_reveal_html: |
             <p>To qualify, you must have been:</p>
@@ -3582,6 +3665,20 @@ en:
           title: We need information about your health insurance status.
       nj_estimated_tax_payments:
         edit:
+          description_extensions_html: |
+            <p>Most people do <strong>not</strong> make these payments.</p>
+            <p>These payments include:</p>
+            <ul class="list--bulleted">
+              <li><strong><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Estimated quarterly payments</a></strong> that you made. These were due on April 15, June 17, and September 16 last year and January 15 this year. You are most likely to have made them if your employer <strong>doesn't</strong> withhold taxes in your paycheck or if you are self-employed. You would have paid these <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or by mail.</li>
+              <li><strong>An additional payment you made when you <a href="https://www.nj.gov/treasury/taxation/njit17.shtml" target="_blank" rel="noopener nofollow">filed for an extension</a>.</strong></li>
+              <li><strong>A refund that you decided to carry forward</strong> from your %{prior_year} state taxes to your %{filing_year} state taxes.</li>
+            </ul>
+            <p>These payments do <strong>not</strong> include:</p>
+            <ul class="list--bulleted">
+              <li>Payments made for a prior tax year</li>
+              <li>Withholdings from your paycheck (W-2) or your retirement income (1099-R)</li>
+              <li>Property taxes</li>
+            </ul>
           description_html: |
             <p>Most people do <strong>not</strong> make these payments.</p>
             <p>You are most likely to have made them if your employer <strong>doesn't</strong> withhold taxes in your paycheck or if you are self-employed.</p>
@@ -3598,12 +3695,12 @@ en:
             </ul>
           estimated_taxes_input_helper_html: Add up your quarterly payments and enter the total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">you can check how much you paid here</a>).
           estimated_taxes_input_label_html: "<strong>Total estimated payments made for %{filing_year} taxes</strong>"
-          extension_payments_input_helper_html: You generally would have made this payment earlier in 2025, when requesting an extension to file your state taxes <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or using <a href="https://www.nj.gov/treasury/taxation/pdf/current/630.pdf" target="_blank" rel="noopener nofollow">NJ-630</a>.
+          extension_payments_input_helper_html: You generally would have made this payment earlier in %{current_year}, when requesting an extension to file your state taxes <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or using <a href="https://www.nj.gov/treasury/taxation/pdf/current/630.pdf" target="_blank" rel="noopener nofollow">NJ-630</a>.
           extension_payments_input_label_html: "<strong>Additional payment you made when you filed for an extension</strong>"
           no_text: No (this is the common option)
-          overpayments_input_helper_html: If applicable, you can find this on line 69 of your %{prior_year} NJ-1040. Only enter an amount here if you did not apply it to estimated payments.
-          overpayments_input_label_html: "<strong>Refund carried forward to %{filing_year} taxes (exclude estimated payments)</strong>"
-          question_box: Please share the amounts paid.
+          overpayments_input_helper_html: If applicable, you can find this on line 69 of your %{prior_year} NJ-1040. Only enter an amount here if you did not include it in the calculation of the box(es) above.
+          overpayments_input_label_html: "<strong>%{prior_year} refund carried forward to %{filing_year} taxes</strong> (don’t include estimated payments)"
+          question_box: Please share the amounts.
           radio_label: Did you make estimated or other payments for your %{filing_year} state income taxes?
           title_html: Did you make <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">estimated or other payments</a> toward your %{filing_year} New Jersey income taxes?
       nj_gubernatorial_elections:
@@ -3651,7 +3748,9 @@ en:
       nj_household_rent_own:
         edit:
           both_html: "<b>Both</b>: I was a homeowner for part of the year, and I was a renter for part of the year."
-          description_html: Your "main home" is where you primarily lived at any given time (e.g., a house, a condo, or an apartment). <strong>You can't have multiple main homes at the same time, but you may have different main homes throughout the year if you moved.</strong>
+          description_html: |
+            <p>Your "main home" is where you primarily lived at any given time (e.g., a house, a condo, or an apartment). <strong>You can't have multiple main homes at the same time, but you may have different main homes throughout the year if you moved.</strong></p>
+            <p><strong>Many people are surprised by this, but New Jersey has a law on the books that gives you a property deduction or credit as a renter.</strong></p>
           helper_1_description: Yes. This tax break is designed to support people in New Jersey whose money contributes to property taxes. (Renters do this by paying rent, contributing to the cost of property taxes paid by the property owners.)
           helper_1_header: Are you sure this applies to rent paid?
           helper_2_description: No. Please answer the questions in this section for your main home only. You can’t claim this tax break for a vacation home, a "second home," or a property you own and rent to someone else.
@@ -3774,7 +3873,7 @@ en:
           edit_disability: disability status
           edit_veteran: veteran status
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
-          estimated_tax_payments: Amount of estimated quarterly payments
+          estimated_tax_payments: Estimated quarterly payments
           extension_payments: Payment made when you filed for an extension
           has_estimated_payments: Estimated or other payments
           household_rent_own: Living situation in %{filing_year}
@@ -3784,7 +3883,7 @@ en:
           household_rent_own_rent: Rented
           medical_expenses: Total medical expenses
           missing_health_insurance: Dependents who DO NOT have health insurance
-          overpayments: Amount of refund carried forward
+          overpayments: Refund carried forward
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
           primary_disabled: Disability exemption
           primary_veteran: Veteran exemption
@@ -3862,32 +3961,27 @@ en:
               <li>A residence on which Payments-In-Lieu-of-Tax (P.I.L.O.T) payments were made. (If you think your building may have been subject to P.I.L.O.T payments, you can contact your building owner or the municipal tax office to confirm.)</li>
             </ul>
           helper_heading: How do I know if the home I rented was subject to property taxes?
+          instructions_html: |
+            <p>Many people are surprised by this, but New Jersey has a law on the books that gives you a property tax deduction or credit as a renter.</p>
+            <p><strong>We will walk you through it.</strong></p>
           label_html: |
-            <p><strong>Check all that apply to the main home you rented.</strong></p>
+            <p><strong>First, check all the boxes below that apply to the main home(s) you rented.</strong></p>
             <p>(If you do not want to claim this deduction or credit, leave these checkboxes blank and click <strong>"Continue."</strong>)</p>
           tenant_access_kitchen_bath: I had my own kitchen and bathroom that I didn't share with other units in the building
           tenant_building_multi_unit: It was in a building that had more than one dwelling unit (e.g. apartments, condominiums, dormitories)
           tenant_home_subject_to_property_taxes: It was subject to property taxes paid by my landlord (this is typical for most renters)
-          tenant_more_than_one_main_home_in_nj: I lived in more than one main home in New Jersey that I paid rent for (i.e. I moved during the year)
           tenant_same_home_spouse: I lived with my spouse
-          tenant_shared_rent_not_spouse: I lived with and shared rent with someone who was not my spouse
           title: You said you were a renter in %{filing_year}.
-      nj_tenant_property_tax_worksheet:
-        edit:
-          description_html: "<p>The next step is to fill in this <a href=\"https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf\" target=\"_blank\" rel=\"noopener nofollow\">worksheet</a>.</p> \n<p>Once you fill in the worksheet, come back to this page.</p>\n<p>The worksheet will ask you about where you lived and for how long. If you moved, for example, it will have space for you to list every place you lived.</p>\n"
-          helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
-          helper_anchor_heading: What if I received ANCHOR benefits?
-          helper_description_html: Enter your site fees paid for %{filing_year} in the rental section of the <a href="https://www.nj.gov/treasury/taxation/pdf/wrkshtg.pdf" target="_blank" rel="noopener nofollow">worksheet</a>.
-          helper_heading: Mobile homeowners
-          label_html: "<strong>Enter line 8 of worksheet</strong><br/>(Your share of total rent paid)"
-          title: Good news – you qualify for a deduction or credit.
       nj_tenant_rent_paid:
         edit:
           helper_anchor_description_html: If you received an ANCHOR benefit, the benefit amount does not affect the amount to report above. (<a href="https://www.nj.gov/treasury/taxation/anchor/" target="_blank" rel="noopener nofollow">ANCHOR</a> offers property tax relief to New Jersey residents who own or rent property in New Jersey as their main home and meet certain income limits.)
           helper_anchor_heading: What if I received ANCHOR benefits?
           helper_description: Enter your site fees paid for %{filing_year}.
           helper_heading: Mobile homeowners
-          label_html: "<strong>Enter your share of total rent paid in %{filing_year}</strong>"
+          instructions_html: |
+            <p>Now, we need your <strong>total rent paid throughout the year.</strong></p>
+            <p>For example, if you paid $1,000/month in rent all year, enter $12,000 here. If you lived with roommates, enter only your share of rent paid. If you moved during the year, include your share of rent for all homes.</p>
+          label_html: "<strong>Enter rent paid in %{filing_year}</strong>"
           title: Good news – you qualify for a deduction or credit.
       nj_veterans_exemption:
         edit:
@@ -4164,10 +4258,23 @@ en:
           subtitle: These allow people to deduct all or a portion of their retirement income for the taxes.
           title: Arizona retirement income deductions
           uniformed_services: Retired or retainer pay of the uniformed services of the United States
+        id_disability_review_header:
+          editing_may_affect_deductions: Editing this answer may affect your Idaho retirement income deductions
+          meets_qualifications: Meets qualifications to be classified as disabled
         id_retirement_income_deductions_review_header:
+          civil_servant_employee: Retirement income from %{taxpayer_name}’s service as a Civil Service employee
+          eight: Account number starts with 8.
+          firefighter: Retirement income from %{taxpayer_name}’s service as an Idaho firefighter
+          military: Retirement income from %{taxpayer_name}’s service as a member of the U.S. military
+          none_apply: None apply
+          police_officer: Retirement income from %{taxpayer_name}’s service as an Idaho city Police officer
           qualified_disabled_retirement_benefits: Qualified disabled retirement benefits
           qualified_retirement_benefits_deduction: Qualified Retirement Benefits Deduction
           qualified_retirement_benefits_deduction_explain: These allow people to deduct all or a portion of their retirement income from their taxes.
+          seven_or_nine: Account number starts with 7 or 9
+          subtitle: These allow people to deduct all or a portion of their retirement income from their taxes.
+          title: Idaho retirement income deductions
+          zero_to_four: Account number starts with 0, 1,2, 3 or 4
         md_retirement_income_deductions_review_header:
           military: Benefits from your military service or benefits received for the military service of your deceased spouse or ex-spouse
           none: None apply
@@ -6214,6 +6321,7 @@ en:
         subheader: Claim thousands of dollars through tax credits you're owed! We work with you to get your highest refund.
         subheader_ctc_open: Even though the traditional tax deadline has passed, you can still claim thousands of dollars in tax credits!
         subheader_offseason: Sign up for the next tax season now! We'll notify you as soon as our service reopens on January 31 at 1pm EST.
+        subheader_warning: File by %{tax_day} to avoid any penalties.
         title: Free tax help from IRS-certified volunteers.
       maybe_ineligible:
         cta: File DIY
@@ -6983,6 +7091,7 @@ en:
         volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
+      ice_warning_html: "<strong>Immigrant filers:</strong> As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href='%{faq_link}' target='_blank'>Please see our FAQ for more information.</a>"
       progress_bar:
         progress_text: 'Intake progress:'
       service_comparison:

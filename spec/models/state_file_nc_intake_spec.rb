@@ -24,6 +24,7 @@
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  email_notification_opt_in         :integer          default("unfilled"), not null
+#  extension_payments_amount         :decimal(12, 2)
 #  failed_attempts                   :integer          default(0), not null
 #  federal_return_status             :string
 #  hashed_ssn                        :string
@@ -34,6 +35,8 @@
 #  message_tracker                   :jsonb
 #  moved_after_hurricane_helene      :integer          default("unfilled"), not null
 #  out_of_country                    :integer          default("no"), not null
+#  paid_federal_extension_payments   :integer          default("unfilled"), not null
+#  paid_extension_payments           :integer          default("unfilled"), not null
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime
@@ -176,6 +179,67 @@ RSpec.describe StateFileNcIntake, type: :model do
         it "returns 'county name_Helene'" do
           expect(intake.disaster_relief_county).to eq "Alamance_Helene"
         end
+      end
+    end
+  end
+
+  describe "#calculate_date_electronic_withdrawal" do
+    let(:intake) { create(:state_file_nc_intake, :taxes_owed) }
+    let(:state_code) { "nc" }
+    let(:timezone) { StateFile::StateInformationService.timezone(state_code) }
+    let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date("nc", DateTime.new(filing_year)) }
+    let(:utc_offset_hours) { payment_deadline_date.in_time_zone(timezone).utc_offset / 1.hour }
+    let(:payment_deadline_datetime) { payment_deadline_date - utc_offset_hours.hours }
+    let(:filing_year) { MultiTenantService.new(:statefile).current_tax_year }
+
+    context "when submitted after the payment deadline" do
+      it "returns next available date" do
+        expect(intake).to receive(:next_available_date)
+        intake.calculate_date_electronic_withdrawal(current_time: payment_deadline_datetime + 1.hour)
+      end
+    end
+
+    context "when submitted before the payment deadline" do
+      it "does not call next_available_date" do
+        expect(intake).not_to receive(:next_available_date)
+        result = intake.calculate_date_electronic_withdrawal(current_time: payment_deadline_datetime - 7.days)
+        expect(result).to eq(DateTime.new(2024, 4, 15).in_time_zone(timezone))
+      end
+    end
+  end
+
+  describe '#next_avaliable_date' do
+    let(:intake) { create :state_file_nc_intake }
+    let(:date) { intake.next_available_date(time) }
+    context "when it is before 5pm and the next day is a valid day" do
+      # 4pm Tuesday
+      let(:time) { DateTime.new(2024, 4, 16, 15, 0, 0) }
+      it "is valid and saves the intake with the next day" do
+        expect(date).to eq(DateTime.new(2024, 4, 17))
+      end
+    end
+
+    context "when it is before 5pm and the next day is a holiday" do
+      # 4pm christmas eve
+      let(:time) { DateTime.new(2024, 12, 24, 15, 0, 0) }
+      it "is valid and saves the intake with a date after the holiday" do
+        expect(date).to eq(DateTime.new(2024, 12, 26))
+      end
+    end
+
+    context "when it is before 5pm and the next day is saturday" do
+      # 4pm friday
+      let(:time) { DateTime.new(2024, 4, 19, 15, 0, 0) }
+      it "is valid and saves the intake with a date after the holiday" do
+        expect(date).to eq(DateTime.new(2024, 4, 22))
+      end
+    end
+
+    context "when it is after 5pm and the next two days are valid" do
+      # 5:30pm Tuesday
+      let(:time) { DateTime.new(2024, 4, 16, 17, 30, 0) }
+      it "is valid and saves the intake with a date 2 business days later" do
+        expect(date).to eq(DateTime.new(2024, 4, 18))
       end
     end
   end

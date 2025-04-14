@@ -26,7 +26,7 @@
 #  email_address                          :citext
 #  email_address_verified_at              :datetime
 #  email_notification_opt_in              :integer          default("unfilled"), not null
-#  extension_payments_amount              :decimal(12, 2)   default(0.0)
+#  extension_payments_amount              :decimal(12, 2)
 #  failed_attempts                        :integer          default(0), not null
 #  federal_return_status                  :string
 #  has_prior_last_names                   :integer          default("unfilled"), not null
@@ -149,6 +149,8 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def disqualified_from_excise_credit_df?
+    return false if raw_direct_file_data.blank?
+
     agi_limit = if filing_status_mfj? || filing_status_hoh?
                   25000
                 elsif filing_status_single? || filing_status_mfs?

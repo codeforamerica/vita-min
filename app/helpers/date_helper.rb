@@ -62,6 +62,22 @@ module DateHelper
     true
   end
 
+  def holiday?(date)
+    Holidays.on(date, :us, :federalreservebanks, :observed).any?
+  end
+
+  def after_business_hours(time)
+    time.hour >= 17
+  end
+
+  def add_business_days_to_date(date, num_days)
+    while num_days.positive?
+      date += 1.day
+      num_days -= 1 if date.wday.between?(1, 5) # Check if the current date is a business day (Mon-Fri)
+    end
+    date
+  end
+
   def parse_date_params(year, month, day)
     date_values = [year, month, day]
     return nil if date_values.any?(&:blank?)

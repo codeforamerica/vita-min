@@ -7,7 +7,6 @@ module StateFile
     validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_primary_disabled? }
     validates :spouse_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_spouse_disabled? }
 
-
     def should_check_primary_disabled?
       return false if intake.show_mfj_disability_options?
 
