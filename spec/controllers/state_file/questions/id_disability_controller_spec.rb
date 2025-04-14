@@ -142,8 +142,11 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
         end
 
         it "should show the Id Retirement and Pension income controller" do
-          post :update, params: form_params.merge({return_to_review: "y"})
-          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: "y"))
+          post :update, params: form_params.merge({return_to_review_before: StateFile::Questions::IdDisabilityController.name.demodulize.underscore,
+                                                   return_to_review_after: "retirement_income_deduction"})
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(item_index: 0,
+                                                                                                                      return_to_review_before: StateFile::Questions::IdDisabilityController.name.demodulize.underscore,
+                                                                                                                      return_to_review_after: "retirement_income_deduction"))
         end
 
         context "with no eligible 1099Rs" do
@@ -152,7 +155,8 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
           end
 
           it "goes back to the final review screen" do
-            post :update, params: form_params.merge({return_to_review: "y"})
+            post :update, params: form_params.merge({return_to_review_before: StateFile::Questions::IdDisabilityController.name.demodulize.underscore,
+                                                     return_to_review_after: "retirement_income_deduction"})
             expect(response).to redirect_to(StateFile::Questions::IdReviewController.to_path_helper)
           end
         end
@@ -166,8 +170,11 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
         end
 
         it "should show the Id Retirement and Pension income controller" do
-          post :update, params: form_params.merge({return_to_review: "y"})
-          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: "y"))
+          post :update, params: form_params.merge({return_to_review_before: StateFile::Questions::IdDisabilityController.name.demodulize.underscore,
+                                                   return_to_review_after: "retirement_income_deduction"})
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(item_index: 0,
+                                                                                                                      return_to_review_before: StateFile::Questions::IdDisabilityController.name.demodulize.underscore,
+                                                                                                                      return_to_review_after: "retirement_income_deduction"))
         end
       end
 
@@ -190,7 +197,7 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
 
         it "should show the Id Retirement and Pension income controller" do
           post :update, params: form_params
-          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper)
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(item_index: 0))
         end
       end
 
@@ -203,7 +210,7 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
 
         it "should show the Id Retirement and Pension income controller" do
           post :update, params: form_params
-          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper)
+          expect(response).to redirect_to(StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(item_index: 0))
         end
       end
 

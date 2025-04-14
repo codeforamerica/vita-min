@@ -12,7 +12,8 @@ demo:
   url: <%= ENV["REDIS_URL"] %>
 
 production:
-  adapter: postgresql
+  adapter: <%= ENV["REDIS_URL"].present? ? "redis" : "postgresql" %>
+  url: <%= ENV["REDIS_URL"] %>
 
 test:
   adapter: test

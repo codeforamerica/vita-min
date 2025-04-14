@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class AzSeniorDependentsController < QuestionsController
-      include ReturnToReviewConcern
 
       def self.show?(intake)
         intake.dependents.count(&:ask_senior_questions?).positive?
