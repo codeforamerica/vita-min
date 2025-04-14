@@ -2628,9 +2628,12 @@ en:
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
           faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
           faq_link_html: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations <a href="%{url}">here</a>.
-          id_title2_html: |
+          id_extension_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
+          md_extension_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the subtractions, credits, and payments you <strong>may</strong> be able to claim to maximize your refund.
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
@@ -2662,54 +2665,6 @@ en:
           social_security_retirement_deduction: Social Security and Railroad Retirement subtraction
           tax_prepayments: 'Reporting tax prepayments, including: extension payments, estimated payments, and %{last_tax_year} refunds applied to %{tax_year} taxes'
         md_reveals:
-          body1_html: |
-            <ul>
-              <li>
-                Subtractions:
-                <ul>
-                  <li>Classroom supplies for K-12 teachers</li>
-                  <li>Union dues</li>
-                  <li>Payments from a pension system to firemen and policemen for job-related injuries or disabilities</li>
-                  <li>Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee</li>
-                  <li>ABLE account contributions</li>
-                  <li>Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)</li>
-                  <li>Any other Maryland subtractions not listed here (see <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">Form 502SU</a>)</li>
-                </ul>
-              </li>
-              <li>
-                Credits:
-                <ul>
-                  <li>Student loan debt relief tax credit</li>
-                  <li>Quality Teacher Incentive Credit</li>
-                  <li>Long-term care insurance credit</li>
-                  <li>Independent living tax credit</li>
-                  <li>Maryland Child Tax Credit (if claimed based on disability of the child)</li>
-                  <li>Maryland Earned Income Tax Credit (if you did not claim the federal Earned Income Tax Credit)</li>
-                  <li>Any other Maryland credits not listed <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(see Form 502CR</a>)</li>
-                </ul>
-              </li>
-
-              <li>
-                Household situations:
-                <ul>
-                  <li>Filing your federal and state tax returns using different filing statuses (for example you file as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
-                  <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
-                  <li>Splitting refunds between accounts</li>
-                  <li>Married and filing jointly with a deceased spouse</li>
-                </ul>
-              </li>
-
-              <li>
-                Payments:
-                <ul>
-                  <li>Estimated tax payments</li>
-                  <li>Extension tax payments</li>
-                </ul>
-              </li>
-            </ul>
-            <p>
-              Find a more detailed breakdown of unsupported credits and subtractions this year <a href="https://www.fileyourstatetaxes.org/en/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">here</a>.
-            </p>
           body2_html: |
             <p>
               This year, you <strong>can't claim the Maryland EITC using this service</strong> in these scenarios:
@@ -2742,15 +2697,44 @@ en:
               </ul>
             </p>
           credits_not_supported: What subtractions, credits, and other situations does this service NOT support this year?
+          reveal_1:
+            cred_b1: Student loan debt relief tax credit
+            cred_b2: Quality Teacher Incentive Credit
+            cred_b3: Long-term care insurance credit
+            cred_b4: Independent living tax credit
+            cred_b5: Maryland Child Tax Credit (if claimed based on disability of the child)
+            cred_b6: Maryland Earned Income Tax Credit (if you did not claim the federal Earned Income Tax Credit)
+            cred_b7_html: Any other Maryland credits not listed <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(see Form 502CR</a>)
+            credits_title: 'Credits:'
+            house_b1: Filing your federal and state tax returns using different filing statuses (for example you file as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)
+            house_b2: Adding or removing dependents claimed on your federal return for purposes of your state return
+            house_b3: Splitting refunds between accounts
+            house_b4: Married and filing jointly with a deceased spouse
+            household_title: 'Household situations:'
+            more_details_html: Find a more detailed breakdown of unsupported credits and subtractions this year <a href="https://www.fileyourstatetaxes.org/en/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">here</a>.
+            pay: Reporting estimated tax payments
+            pay_b1: Estimated tax payments
+            pay_b2: Extension tax payments
+            payments_title: 'Payments:'
+            sub_b1: Classroom supplies for K-12 teachers
+            sub_b2: Union dues
+            sub_b3: Payments from a pension system to firemen and policemen for job-related injuries or disabilities
+            sub_b4: Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee
+            sub_b5: ABLE account contributions
+            sub_b6: Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)
+            sub_b7_html: Any other Maryland subtractions not listed here (see <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">Form 502SU</a>)
+            subtractions_title: 'Subtractions:'
           title2: What scenarios for claiming the Maryland Earned Income Tax Credit and/or Child Tax Credit aren't supported by this service?
           title3: What if I have a situation not yet supported by FileYourStateTaxes?
         md_supported:
           heading1: 'Subtractions:'
           heading2: 'Credits:'
+          heading3: 'Payments:'
           sub1: Subtraction for Child and Dependent Care Expenses
           sub10: Senior Tax Credit
           sub11: State and local Poverty Level Credits
           sub12: Credit for Child and Dependent Care Expenses
+          sub13: Reporting extension payments
           sub2:
             one: Pension exclusion (if you are 65 years or older, or if you are under 65 and previously qualified for the exclusion based on a permanent disability)
             other: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
@@ -3021,7 +3005,7 @@ en:
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to Maryland.
           negative: 'No'
-          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
+          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp target="_blank" rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf target="_blank" rel="noopener noreferrer">Form PV</a>.
           title: Did you make a Maryland extension payment on or before April 15, %{current_year}?
         nc:
           affirmative: 'Yes'
