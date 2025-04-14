@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe StateFile::MdPermanentAddressForm do
+  let(:tax_year) { MultiTenantService.statefile.current_tax_year }
   let(:intake) { create :state_file_md_intake,
                         permanent_street: nil,
                         permanent_apartment: nil,
@@ -161,7 +162,7 @@ RSpec.describe StateFile::MdPermanentAddressForm do
         end
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:permanent_street]).to include "A PO box cannot be listed as your physical address. Please enter where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
+          expect(form.errors[:permanent_street]).to include I18n.t("state_file.questions.md_permanent_address.edit.address_is_not_po_box")
         end
       end
 
@@ -177,7 +178,7 @@ RSpec.describe StateFile::MdPermanentAddressForm do
         end
         it "is invalid" do
           expect(form.valid?).to eq false
-          expect(form.errors[:permanent_apartment]).to include "A PO box cannot be listed as your physical address. Please enter where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
+          expect(form.errors[:permanent_apartment]).to include I18n.t("state_file.questions.md_permanent_address.edit.address_is_not_po_box")
         end
       end
     end
@@ -214,8 +215,8 @@ RSpec.describe StateFile::MdPermanentAddressForm do
         end
         it "requires client to provide new address that is not a PO box" do
           expect(form.valid?).to eq false
-          expect(form.errors[:permanent_street]).to include "A PO box cannot be listed as your physical address. Please enter where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
-          expect(form.errors[:permanent_apartment]).to include "A PO box cannot be listed as your physical address. Please enter where you lived on December 31, #{MultiTenantService.statefile.current_tax_year}"
+          expect(form.errors[:permanent_street]).to include I18n.t("state_file.questions.md_permanent_address.edit.address_is_not_po_box")
+          expect(form.errors[:permanent_apartment]).to include I18n.t("state_file.questions.md_permanent_address.edit.address_is_not_po_box")
         end
       end
     end
