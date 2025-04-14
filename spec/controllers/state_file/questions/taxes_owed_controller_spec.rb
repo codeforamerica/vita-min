@@ -98,6 +98,36 @@ describe StateFile::Questions::TaxesOwedController do
             )
           end
         end
+
+        shared_examples "withdraw amount is user-entered" do
+          it "shows withdraw_amount field" do
+            get :edit
+            expect(response.body).to include("How much do you authorize to be withdrawn from your account?")
+          end
+
+          it "does not show authorization alert text" do
+            get :edit
+            expect(response.body).not_to include("By filling in your information here, you authorize a withdrawal")
+          end
+        end
+
+        shared_examples "withdraw amount is auto-calculated" do
+          it "does not show withdraw_amount field" do
+            get :edit
+            expect(response.body).not_to include("How much do you authorize to be withdrawn from your account?")
+          end
+
+          it "shows authorization alert text" do
+            get :edit
+            expect(response.body).to include("By filling in your information here, you authorize a withdrawal")
+          end
+        end
+
+        if StateFile::StateInformationService.auto_calculate_withdraw_amount(state_code)
+          it_behaves_like "withdraw amount is auto-calculated"
+        else
+          it_behaves_like "withdraw amount is user-entered"
+        end
       end
     end
 
