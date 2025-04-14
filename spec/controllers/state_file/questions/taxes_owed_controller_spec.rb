@@ -123,7 +123,7 @@ describe StateFile::Questions::TaxesOwedController do
       end
     end
 
-    describe "when paying with direct deposit in md" do
+    describe "when paying with direct deposit in MD" do
       let(:intake) { create :state_file_md_intake }
       let(:timezone) { StateFile::StateInformationService.timezone("md") }
       let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date("md") }
@@ -144,10 +144,7 @@ describe StateFile::Questions::TaxesOwedController do
           expect(response_html).to have_text(
             "When would you like the funds withdrawn from your account? (must be on or before #{stringified_deadline}):"
           )
-          expect(response_html).not_to have_text(
-            "Because you are submitting your return on or after #{stringified_deadline}, " \
-            "the state will withdraw your payment as soon as they process your return."
-          )
+          expect(response_html).not_to have_text("Because you are submitting your return after April 15th")
         end
       end
 
@@ -164,10 +161,7 @@ describe StateFile::Questions::TaxesOwedController do
           expect(response_html).not_to have_text(
             "When would you like the funds withdrawn from your account? (must be on or before #{stringified_deadline}):"
           )
-          expect(response_html).to have_text(
-            "Because you are submitting your return on or after #{stringified_deadline}, " \
-            "the state will withdraw your payment as soon as they process your return."
-          )
+          expect(response_html).to have_text("Because you are submitting your return after April 15th")
         end
       end
     end

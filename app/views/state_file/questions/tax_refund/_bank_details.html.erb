@@ -37,14 +37,6 @@
     <%= form.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: %w[form-width--long disablepaste disablecopy]) %>
   </div>
 
-  <% if current_time_after_payment_deadline? %>
-    <% interest_warning_key = "state_file.questions.taxes_owed.edit.interest_warning.#{current_state_code}_html" %>
-    <% if I18n.exists?(interest_warning_key) %>
-      <div class="notice--warning">
-        <p><%= t(interest_warning_key) %></p>
-      </div>
-    <% end %>
-  <% end %>
   <% if owe_taxes && !current_time_before_payment_deadline? %>
     <% after_deadline_warning_key = "state_file.questions.tax_refund.bank_details.after_deadline_withdrawal_info.#{current_state_code}" %>
     <div class="beige-group spacing-above-25 spacing-below-0">
@@ -66,5 +58,5 @@
               payment_deadline_year: state_specific_payment_deadline.year) %>
       <% end %>
     </div>
-<% end %>
+  <% end %>
 </div>
