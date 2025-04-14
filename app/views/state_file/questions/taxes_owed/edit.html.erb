@@ -7,7 +7,7 @@
     <p><%= t('.subtitle_html', link: @tax_payment_info_text) %></p>
   <% end %>
 
-  <% if current_time_after_payment_deadline? %>
+  <% if !current_time_before_payment_deadline? %>
     <% interest_warning_key = "state_file.questions.taxes_owed.edit.interest_warning.#{current_state_code}" %>
     <% if I18n.exists?(interest_warning_key) %>
       <div class="notice--warning">
