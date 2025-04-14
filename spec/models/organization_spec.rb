@@ -20,7 +20,6 @@
 #
 # Indexes
 #
-#  index_vita_partners_on_allows_greeters            (allows_greeters)
 #  index_vita_partners_on_coalition_id               (coalition_id)
 #  index_vita_partners_on_parent_name_and_coalition  (parent_organization_id,name,coalition_id) UNIQUE
 #  index_vita_partners_on_parent_organization_id     (parent_organization_id)

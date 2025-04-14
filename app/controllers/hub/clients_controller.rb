@@ -16,7 +16,6 @@ module Hub
       @page_title = I18n.t("hub.clients.index.title")
       @clients = @client_sorter.filtered_and_sorted_clients.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
-      related_models_cache
     end
 
     def new
@@ -268,12 +267,6 @@ module Hub
       redirect_to hub_client_path(id: @client.id) unless @client.hub_status_updatable
     end
 
-    def related_models_cache
-      @related_models_cache ||= {
-        intakes: Intake::GyrIntake.where(client_id: @clients.pluck(:id)).group_by(&:client_id)
-      }
-    end
-
     class HubClientPresenter < SimpleDelegator
       attr_reader :intake
       attr_reader :archived
@@ -295,14 +288,10 @@ module Hub
 
       delegate *delegated_intake_attributes, to: :intake
 
-      def initialize(client, related_models_cache = nil)
+      def initialize(client)
         @client = client
         __setobj__(client)
-        @intake = if related_models_cache.present?
-                    related_models_cache[:intakes][client.id]
-                  else
-                    client.intake
-                  end
+        @intake = client.intake
         @archived = client.has_archived_intake?
         @intake = @archived ? client.archived_intake : client.intake
         # For a short while, we created Client records with no intake and/or moved which client the intake belonged to.
