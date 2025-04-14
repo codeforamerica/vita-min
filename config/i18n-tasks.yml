@@ -122,6 +122,7 @@ ignore_unused:
   - 'state_file.questions.az_retirement_income.edit.received_military_retirement_payment.*'
   - 'state_file.questions.eligible.other_filing_options.vita_option.content_html.*'
   - 'state_file.questions.extension_payments.*'
+  - 'state_file.questions.federal_extension_payments.edit.*'
 # - 'activerecord.attributes.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

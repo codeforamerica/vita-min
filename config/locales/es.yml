@@ -2632,11 +2632,15 @@ es:
         az_supported:
           charitable_contributions_credit: Crédito por Contribuciones a Organizaciones Caritativas Calificadas
           dependent_credit: Crédito por Dependientes
+          extension_payments: Reportar pagos de extensión
           family_income_credit: Crédito por ingresos familiares
           increased_deduction: Una deducción aumentada por donaciones caritativas
           increased_excise_credit: Crédito por Aumento de Impuestos Especiales
           public_school_credit: Crédito Tributario para Escuelas Públicas de Arizona
         edit:
+          az_title2_html: |
+            Asegurémonos de que este servicio es el indicado para ti.<br><br>
+            Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
           faq_link_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="%{url}">aquí</a>.
@@ -3025,6 +3029,12 @@ es:
           title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
       federal_extension_payments:
         edit:
+          az:
+            'false': Presentaste el Formulario 4868 en línea o lo enviaste por correo postal
+            subtitle_1: Si te aceptaron una solicitud de extensión federal, esto significa que puedes presentar tus declaraciones de impuestos federales y estatales hasta el 15 de octubre sin incurrir en una multa por no presentar.
+            subtitle_2: 'Te habrían concedido una extensión federal si realizaste alguna de las siguientes acciones en o antes del 15 de abril:'
+            title: "¿Te otorgaron una extensión federal?"
+            'true': Hiciste un pago de extensión federal
           'false': No, I was not granted a federal extension
           list_1: Made a federal extension payment
           list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
