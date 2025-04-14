@@ -1,9 +1,9 @@
 module StateFile
   module Questions
     class NjIneligiblePropertyTaxController < QuestionsController
-      include ReturnToReviewConcern
 
       helper_method :ineligible_reason
+      helper_method :determine_reason
       helper_method :on_home_or_rental
 
       def determine_reason

@@ -55,6 +55,31 @@ module StateFile
         I18n.t("state_file.state_information_service.#{state_code}.survey_link", locale: locale || I18n.locale)
       end
 
+      # Returns the state-specific date in the current filing year only - no time or timezone.
+      # Since MD's payment deadline changes after tax day, the datetime param is used to find what the deadline is on a given day
+      # Ex: 2025-04-15
+      def payment_deadline_date(state_code, datetime = DateTime.now)
+        payment_deadline = state_code == "md" ? get_md_payment_deadline(datetime) : { month: 4, day: 15 }
+        Date.new(datetime.year, payment_deadline[:month], payment_deadline[:day])
+      end
+
+      # Check if the day of a given DateTime is before the deadline date, using the state-specific/government timezone
+      def before_payment_deadline?(datetime, state_code)
+        payment_deadline_date = StateInformationService.payment_deadline_date(state_code, datetime)
+        timezone = StateInformationService.timezone(state_code)
+        datetime.in_time_zone(timezone).to_date.before?(payment_deadline_date)
+      end
+
+      # Maryland has different payment deadline logic from all our other States
+      # 1. If filing before April 16: payment can be scheduled until April 30th
+      # 2. If filing on or after April 16: payment cannot be scheduled (same as other States)
+      def get_md_payment_deadline(datetime)
+        timezone = StateInformationService.timezone("md")
+        before_april_16 = datetime.in_time_zone(timezone).to_date.before?(Date.new(datetime.year, 4, 16))
+        return { month: 4, day: 30 } if before_april_16
+        { month: 4, day: 16 }
+      end
+
       def active_state_codes
         @_active_state_codes ||= STATES_INFO.keys.map(&:to_s).freeze
       end
@@ -99,7 +124,7 @@ module StateFile
         voucher_form_name: "Form AZ-140V",
         voucher_path: "/pdfs/AZ-140V.pdf",
         w2_supported_box14_codes: [],
-        w2_include_local_income_boxes: false
+        w2_include_local_income_boxes: false,
       },
       id: {
         intake_class: StateFileIdIntake,
@@ -127,7 +152,7 @@ module StateFile
         voucher_form_name: "Form ID-VP",
         voucher_path: "/pdfs/idformIDVP-TY2024.pdf",
         w2_supported_box14_codes: [],
-        w2_include_local_income_boxes: false
+        w2_include_local_income_boxes: false,
       },
       md: {
         intake_class: StateFileMdIntake,
@@ -156,7 +181,7 @@ module StateFile
         voucher_form_name: "Form PV",
         voucher_path: "/pdfs/md-pv-TY2024.pdf",
         w2_supported_box14_codes: [{name: "STPICKUP"}],
-        w2_include_local_income_boxes: true
+        w2_include_local_income_boxes: true,
       },
       nc: {
         intake_class: StateFileNcIntake,
@@ -184,7 +209,7 @@ module StateFile
         voucher_form_name: "Form D-400V",
         voucher_path: "https://eservices.dor.nc.gov/vouchers/d400v.jsp?year=2024",
         w2_supported_box14_codes: [],
-        w2_include_local_income_boxes: false
+        w2_include_local_income_boxes: false,
       },
       nj: {
         intake_class: StateFileNjIntake,
@@ -213,7 +238,7 @@ module StateFile
         voucher_form_name: "NJ-1040-V (NJ Gross Income Tax Resident Payment Voucher)",
         voucher_path: "/pdfs/nj1040v-TY2024.pdf",
         w2_supported_box14_codes: [{name: "UI_WF_SWF", limit: 180}, {name: "FLI", limit: 145.26}],
-        w2_include_local_income_boxes: false
+        w2_include_local_income_boxes: false,
       },
       ny: {
         intake_class: StateFileNyIntake,
@@ -242,7 +267,7 @@ module StateFile
         voucher_form_name: "Form IT-201-V",
         voucher_path: "/pdfs/it201v_1223.pdf",
         w2_supported_box14_codes: [],
-        w2_include_local_income_boxes: false
+        w2_include_local_income_boxes: false,
       }
     }.with_indifferent_access)
   end

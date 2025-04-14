@@ -28,17 +28,6 @@ RSpec.describe StateFile::Questions::NjYearOfDeathController do
   end
 
   describe "#update" do
-    let(:form_params) do
-      {
-        state_file_nj_year_of_death_form: {
-          spouse_death_year: MultiTenantService.statefile.current_tax_year - 1
-        }
-      }
-    end
-
-
-    it_behaves_like :return_to_review_concern
-
     context "when no year is selected" do
       let(:empty_params) do
         {

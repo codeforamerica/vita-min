@@ -12,7 +12,6 @@ module StateFile
 
   module Questions
     class NyCountyController < QuestionsController
-      include ReturnToReviewConcern
 
       def edit
         @nyc_residency = current_intake.nyc_residency

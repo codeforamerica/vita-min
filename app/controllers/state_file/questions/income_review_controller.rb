@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class IncomeReviewController < QuestionsController
-      include ReturnToReviewConcern
       before_action :set_sorted_vars
 
       def self.show?(intake)
@@ -38,11 +37,11 @@ module StateFile
       private
 
       def invalid_income_form?(intake)
-        has_invalid_w2 = intake.allows_w2_editing? && @w2s.any? do |w2|
+        has_invalid_w2 = @w2s.any? do |w2|
           w2.check_box14_limits = true
           !w2.valid?(:state_file_income_review)
         end
-        has_invalid_1099r = intake.allows_1099_r_editing? && intake.state_file1099_rs.any? do |form1099r|
+        has_invalid_1099r = intake.state_file1099_rs.any? do |form1099r|
           !form1099r.valid?(:income_review)
         end
         has_invalid_w2 || has_invalid_1099r

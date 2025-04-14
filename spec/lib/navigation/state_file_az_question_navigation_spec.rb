@@ -30,6 +30,8 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::AzQualifyingOrganizationContributionsController,
         StateFile::Questions::AzSubtractionsController,
         StateFile::Questions::AzExciseCreditController,
+        StateFile::Questions::FederalExtensionPaymentsController,
+        StateFile::Questions::ExtensionPaymentsController,
         StateFile::Questions::PrimaryStateIdController,
         StateFile::Questions::SpouseStateIdController,
         StateFile::Questions::AzReviewController,
@@ -39,7 +41,7 @@ RSpec.describe Navigation::StateFileAzQuestionNavigation do
         StateFile::Questions::SubmissionConfirmationController,
         StateFile::Questions::ReturnStatusController,
       ]
-      expect(Navigation::StateFileAzQuestionNavigation::FLOW).to eq(expected_flow)
+      expect(Navigation::StateFileAzQuestionNavigation.controllers).to eq(expected_flow)
     end
   end
 

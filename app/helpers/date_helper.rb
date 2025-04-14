@@ -22,10 +22,6 @@ module DateHelper
     true
   end
 
-  def withdrawal_date_deadline(state_code)
-    ApplicationController.new.withdrawal_date_deadline(state_code)
-  end
-
   def valid_text_birth_date(birth_date_year, birth_date_month, birth_date_day, key = :birth_date)
     parsed_birth_date = parse_date_params(birth_date_year, birth_date_month, birth_date_day)
     unless parsed_birth_date.present?
@@ -64,6 +60,22 @@ module DateHelper
     end
 
     true
+  end
+
+  def holiday?(date)
+    Holidays.on(date, :us, :federalreservebanks, :observed).any?
+  end
+
+  def after_business_hours(time)
+    time.hour >= 17
+  end
+
+  def add_business_days_to_date(date, num_days)
+    while num_days.positive?
+      date += 1.day
+      num_days -= 1 if date.wday.between?(1, 5) # Check if the current date is a business day (Mon-Fri)
+    end
+    date
   end
 
   def parse_date_params(year, month, day)

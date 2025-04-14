@@ -21,7 +21,7 @@ module PdfFiller
       mfs_spouse_last_name = @xml_document.at("MFSSpouseName LastName")&.text || ""
       mfs_spouse_name = [mfs_spouse_first_name, mfs_spouse_middle_initial, mfs_spouse_last_name].reject(&:empty?).join(" ")
 
-      {
+      answers = {
         y_d400wf_ssn1: @submission.data_source.primary.ssn,
         y_d400wf_ssn2: @submission.data_source.spouse.ssn,
         y_d400wf_fname1: @submission.data_source.primary.first_name,
@@ -42,7 +42,6 @@ module PdfFiller
         y_d400wf_sv1yes: checkbox_value(@submission.data_source.spouse_veteran_yes?),
         y_d400wf_sv1no: checkbox_value(@submission.data_source.spouse_veteran_no?),
         y_d400wf_rs2yes: @submission.data_source.filing_status_mfj? ? 'Yes' : 'Off',
-        y_d400wf_fedex1no: 'Yes',
         y_d400wf_fstat1: @submission.data_source.filing_status_single? ? 'Yes' : 'Off',
         y_d400wf_fstat2: @submission.data_source.filing_status_mfj? ? 'Yes' : 'Off',
         y_d400wf_fstat3: @submission.data_source.filing_status_mfs? ? 'Yes' : 'Off',
@@ -80,6 +79,17 @@ module PdfFiller
         y_d400wf_sigdate: @submission.data_source.primary_esigned_yes? ? date_type_for_timezone(@submission.data_source.primary_esigned_at)&.to_date : "",
         y_d400wf_sigdate2: @submission.data_source.spouse_esigned_yes? ? date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.to_date : ""
       }
+
+      if Flipper.enabled?(:extension_period)
+        answers[:y_d400wf_li21b_pg2_good] = @xml_document.at('PdWithExt')&.text
+      end
+
+      if Flipper.enabled?(:extension_period)
+        answers["y_d400wf_Out of Country"] = checkbox_value(@xml_document.at('OutOfCountry')&.text.present?)
+      end
+      answers["y_d400wf_fedex1yes"] = checkbox_value(@xml_document.at('FederalExtension')&.text == "1")
+      answers["y_d400wf_fedex1no"] = checkbox_value(@xml_document.at('FederalExtension')&.text == "0")
+      answers
     end
 
     def checkbox_value(condition)

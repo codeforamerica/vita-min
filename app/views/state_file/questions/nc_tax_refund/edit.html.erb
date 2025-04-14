@@ -23,11 +23,11 @@
       <div class="question-with-follow-up__follow-up" id="deposit-to-bank">
         <div>
           <div>
-            <%= render 'state_file/questions/nc_tax_refund/nc_bank_details', form: f, owe_taxes: false %>
+            <%= render partial: 'state_file/questions/nc_tax_refund/nc_bank_details', locals: { form: f, owe_taxes: false } %>
           </div>
         </div>
       </div>
-      <%= f.continue %>
+      <%= render "state_file/questions/shared/continue_button", f: f %>
     </div>
   <% end %>
 <% end %>

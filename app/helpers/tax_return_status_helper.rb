@@ -1,6 +1,6 @@
 module TaxReturnStatusHelper
   def grouped_status_options_for_select(unwanted_statuses: [])
-    TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).map do |stage, statuses|
+    TaxReturnStateMachine.states_to_show_for_client_filter(role_type: current_user.role_type).map do |stage, statuses|
       translated_stage = TaxReturnStatusHelper.stage_translation(stage)
       filtered_statuses = statuses.reject { |status| unwanted_statuses.include?(status.to_s) }
       translated_statuses = filtered_statuses.map { |status| [TaxReturnStatusHelper.status_translation(status), status.to_s] }

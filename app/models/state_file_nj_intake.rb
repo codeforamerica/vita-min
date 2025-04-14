@@ -26,6 +26,7 @@
 #  email_address_verified_at                              :datetime
 #  email_notification_opt_in                              :integer          default("unfilled"), not null
 #  estimated_tax_payments                                 :decimal(12, 2)
+#  extension_payments                                     :decimal(12, 2)
 #  failed_attempts                                        :integer          default(0), not null
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
@@ -43,11 +44,12 @@
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
 #  locked_at                                              :datetime
-#  medical_expenses                                       :decimal(12, 2)   default(0.0), not null
+#  medical_expenses                                       :decimal(12, 2)
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
 #  overpayments                                           :decimal(12, 2)
+#  paid_federal_extension_payments                        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                                :integer          default("unfilled"), not null
 #  permanent_apartment                                    :string
 #  permanent_city                                         :string
@@ -158,6 +160,7 @@ class StateFileNjIntake < StateFileBaseIntake
   enum tenant_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_same_home_spouse
 
   enum has_estimated_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_estimated_payments
+  enum paid_federal_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_federal_extension_payments
 
   def nj_gross_income
     calculator.lines[:NJ1040_LINE_29].value
@@ -232,5 +235,9 @@ class StateFileNjIntake < StateFileBaseIntake
     if state_wages_invalid?(w2) && !confirmed_w2_ids.include?(w2.id)
       w2.errors.add(:state_wages_amount, I18n.t("state_file.questions.w2.edit.state_wages_amt_error"))
     end
+  end
+
+  def eligible_1099rs
+    state_file1099_rs
   end
 end

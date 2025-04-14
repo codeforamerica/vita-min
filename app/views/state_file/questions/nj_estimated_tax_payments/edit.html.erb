@@ -6,7 +6,11 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
-  <%= t(".description_html", filing_year: current_tax_year, prior_year: current_tax_year-1) %>
+  <% if Flipper.enabled?(:extension_period) %>
+    <%= t(".description_extensions_html", filing_year: current_tax_year, prior_year: current_tax_year-1) %>
+  <% else %>
+    <%= t(".description_html", filing_year: current_tax_year, prior_year: current_tax_year-1) %>
+  <% end %>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
 
@@ -37,9 +41,19 @@
                 help_text: t('.estimated_taxes_input_helper_html')
               ) %>
 
+          <% if Flipper.enabled?(:extension_period) %>
+            <%= f.vita_min_money_field(
+                  :extension_payments,
+                  t('.extension_payments_input_label_html'),
+                  classes: ["form-width--long"],
+                  options: { placeholder: "0" },
+                  help_text: t('.extension_payments_input_helper_html', current_year: current_tax_year+1)
+                ) %>
+          <% end %>
+
           <%= f.vita_min_money_field(
                 :overpayments,
-                t('.overpayments_input_label_html', filing_year: current_tax_year),
+                t('.overpayments_input_label_html', filing_year: current_tax_year, prior_year: current_tax_year-1),
                 classes: ["form-width--long"],
                 options: { placeholder: "0" },
                 help_text: t('.overpayments_input_helper_html', prior_year: current_tax_year-1)
@@ -48,9 +62,6 @@
       </div>
     </div>
 
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

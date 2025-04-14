@@ -121,6 +121,7 @@ ignore_unused:
   - 'activerecord.errors.models.*'
   - 'state_file.questions.az_retirement_income.edit.received_military_retirement_payment.*'
   - 'state_file.questions.eligible.other_filing_options.vita_option.content_html.*'
+  - 'state_file.questions.extension_payments.*'
 # - 'activerecord.attributes.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'
