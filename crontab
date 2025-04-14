@@ -11,6 +11,5 @@
 0 19 23 4 * bundle exec rake state_file:post_deadline_reminder
 0 18 13,23 4 * bundle exec rake send_reject_resolution_reminder_notifications:send
 0 18 08,15 4 * bundle exec rake state_file:pre_deadline_reminder
-0 18 15 4 * bundle exec rake state_file:pre_deadline_reminder
 0 18 17,23 4 * bundle exec rake state_file:post_deadline_reminder
 0 21 27 10 * bundle exec rake users:suspend_non_admins

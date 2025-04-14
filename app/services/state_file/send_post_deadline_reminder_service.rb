@@ -1,6 +1,6 @@
 module StateFile
   class SendPostDeadlineReminderService
-    BATCH_SIZE = 10 # change batch size
+    BATCH_SIZE = 100
 
     def self.run
       intakes_to_notify = []
