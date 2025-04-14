@@ -1,12 +1,14 @@
 <div class="white-group">
+  <% if owe_taxes && StateFile::StateInformationService.auto_calculate_withdraw_amount(current_intake.state_code) %>
+    <p><strong><%= t(".authorized_amount", owed_amount: taxes_owed) %></strong></p>
+    <hr class="spacing-above-25 spacing-below-25"/>
+  <% end %>
   <p class="spacing-below-0"><%= t(".bank_title") %></p>
   <p class="text--small"><%= t(".foreign_accounts") %></p>
   <div>
     <% if owe_taxes %>
       <%= form.hidden_field :app_time, value: app_time %>
-      <% if StateFile::StateInformationService.auto_calculate_withdraw_amount(current_intake.state_code) %>
-        <p><%= t(".authorized_amount", owed_amount: taxes_owed) %></p>
-      <% else %>
+      <% unless StateFile::StateInformationService.auto_calculate_withdraw_amount(current_intake.state_code) %>
         <%= form.vita_min_money_field(:withdraw_amount, t('.withdraw_amount', owed_amount: taxes_owed), classes: ["form-width--long"]) %>
       <% end %>
       <% if current_time_before_payment_deadline? %>
