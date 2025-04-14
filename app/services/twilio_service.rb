@@ -90,6 +90,8 @@ class TwilioService
       content_type = params["MediaContentType#{i}"]
       attachment = fetch_attachment(params["MediaUrl#{i}"])
 
+      raise MissingAttachmentError if attachment[:body].nil?
+
       if FileTypeAllowedValidator.mime_types(Document).include?(content_type) && !attachment[:body].empty?
         {
           content_type: params["MediaContentType#{i}"],
