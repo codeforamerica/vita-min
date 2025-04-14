@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class NjDependentsHealthInsuranceController < QuestionsController
-      include ReturnToReviewConcern
 
       def self.show?(intake)
         intake.dependents.any? && intake.has_health_insurance_requirement_exception?

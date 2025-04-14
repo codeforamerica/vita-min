@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class UnemploymentController < QuestionsController
-      include ReturnToReviewConcern
       include OtherOptionsLinksConcern
       before_action :load_links, only: [:new, :edit]
 

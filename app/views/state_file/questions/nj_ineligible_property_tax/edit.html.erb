@@ -25,6 +25,6 @@
       <%= hidden_field_tag "on_home_or_rental", params[:on_home_or_rental] %>
     <% end %>
 
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

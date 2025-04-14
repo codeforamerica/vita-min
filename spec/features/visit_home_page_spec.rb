@@ -51,7 +51,14 @@ RSpec.feature "Visit home page" do
     end
   end
 
-  context "shows the correct date-dependent banners" do
+  scenario "showing the ICE warning banner" do
+    visit "/"
+
+    expect(page).to have_text "Immigrant filers: As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. Please see our FAQ for more information."
+    expect(page.all(:css, '.slab--banner').length).to eq 1
+  end
+
+  xcontext "shows the correct date-dependent banners" do
     let(:current_time) { nil }
 
     around do |example|

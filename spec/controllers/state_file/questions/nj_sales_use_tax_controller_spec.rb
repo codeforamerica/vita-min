@@ -21,15 +21,23 @@ RSpec.describe StateFile::Questions::NjSalesUseTaxController do
   end
 
   describe "#update" do
-    it_behaves_like :return_to_review_concern do
-      let(:form_params) do
-        {
-          state_file_nj_sales_use_tax_form: {
-            untaxed_out_of_state_purchases: "yes",
-            sales_use_tax_calculation_method: "automated"
-          }
+    let(:form_params) do
+      {
+        state_file_nj_sales_use_tax_form: {
+          untaxed_out_of_state_purchases: "yes",
+          sales_use_tax_calculation_method: "automated"
         }
-      end
+      }
+    end
+
+    it "saves params correctly" do
+      post :update, params: form_params
+      expect(response).to be_redirect
+
+      intake.reload
+
+      expect(intake).to be_untaxed_out_of_state_purchases_yes
+      expect(intake.sales_use_tax_calculation_method).to eq("automated")
     end
   end
 end

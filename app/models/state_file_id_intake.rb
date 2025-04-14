@@ -7,6 +7,7 @@
 #  account_type                                   :integer          default("unfilled"), not null
 #  american_red_cross_fund_donation               :decimal(12, 2)
 #  childrens_trust_fund_donation                  :decimal(12, 2)
+#  clicked_to_file_with_other_service_at          :datetime
 #  consented_to_sms_terms                         :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions              :integer          default("unfilled"), not null
 #  contact_preference                             :integer          default("unfilled"), not null
@@ -133,6 +134,12 @@ class StateFileIdIntake < StateFileBaseIntake
     primary_between_62_and_65_years_old? && spouse_between_62_and_65_years_old?
   end
 
+  def show_disability_question?
+    Flipper.enabled?(:show_retirement_ui) &&
+      state_file1099_rs.any? { |form1099r| form1099r.taxable_amount&.to_f&.positive? } &&
+      !filing_status_mfs? && has_filer_between_62_and_65_years_old?
+  end
+
   def show_mfj_disability_options?
     filing_status_mfj? && all_filers_between_62_and_65_years_old?
   end
@@ -155,6 +162,12 @@ class StateFileIdIntake < StateFileBaseIntake
     @eligible_1099rs ||= state_file1099_rs.select do |form1099r|
       form1099r.taxable_amount&.to_f&.positive? && person_qualifies?(form1099r)
     end
+  end
+
+  def has_old_1099r_income_params?
+    eligible_1099rs.select do |form1099r|
+      (form1099r.state_specific_followup&.eligible_income_source_yes? || form1099r.state_specific_followup&.eligible_income_source_no?) && form1099r.state_specific_followup&.income_source_unfilled?
+    end.present?
   end
 
   private

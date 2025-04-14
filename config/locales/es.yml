@@ -1561,26 +1561,39 @@ es:
         sms: "Hola, Es posible que hayas tenido problemas transfiriendo los datos de tu declaración federal desde IRS Direct File. Se resolvió el problema. \n\nPara continuar con la preparación de tu declaración estatal, por favor crea una cuenta nueva con FileYourStateTaxes, visitando: https://www.fileyourstatetaxes.org/es/%{state_code}/landing-page\n\nNecesitas ayuda? Envía un correo electrónico a Email us at help@fileyourstatetaxes.org\n"
       finish_return:
         email:
-          body: |
-            Hola %{primary_first_name},
+          body:
+            on_april_15: |
+              Hola %{primary_first_name},
 
-            Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril.
+              Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen hoy, el 15 de abril.
+              Completa tu declaración hoy visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/en/login-options</a>
 
-            Completa tu declaración ahora visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+              ¿Necesitas ayuda? Responde a este correo electrónico.
 
-            ¿Necesitas ayuda? Responde a este correo electrónico.
+              Atentamente,
+              El equipo de FileYourStateTaxes
+            pre_deadline: |
+              Hola %{primary_first_name},
 
-            Atentamente,
-            El equipo de FileYourStateTaxes
+              Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril.
+
+              Completa tu declaración ahora visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+
+              ¿Necesitas ayuda? Responde a este correo electrónico.
+
+              Atentamente,
+              El equipo de FileYourStateTaxes
           subject: Recuerda completar tu declaración de impuestos estatales
-        sms: |
-          Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
+        sms:
+          on_april_15: "Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. \n\n  Completa tu declaración hoy en www.fileyourstatetaxes.org/es/login-options.\n\n  Atentamente,\n  El equipo de FileYourStateTaxes\n\n  ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\n"
+          pre_deadline: |
+            Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
 
-          Los impuestos estatales vencen el 15 de abril.
+            Los impuestos estatales vencen el 15 de abril.
 
-          Completa tu declaración ahora en www.fileyourstatetaxes.org/es/login-options.
+            Completa tu declaración ahora en www.fileyourstatetaxes.org/es/login-options.
 
-          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
+            ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       issue_resolved:
         email:
           body: "Hola, ¡Gracias por usar FileYourStateTaxes!\n\nTodos los problemas que hayas experimentado al usar nuestra herramienta han sido resueltos. Para continuar presentando tus impuestos estatales, <a href=\"%{login_link}\">inicia sesión aquí.</a>\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
@@ -3098,6 +3111,26 @@ es:
               <li>El Formulario 1095-A, restando el total de la columna C del total de la columna A.</li>
             </ul>
           what_is_title: "¿Qué es una prima de seguro médico?"
+      id_ineligible_retirement_and_pension_income:
+        edit:
+          another_service: Declarar con otro servicio
+          file_without_claiming: Declarar sin reclamar
+          go_back: regresa para corregirlo.
+          how_much_b1: Para encontrar esta cantidad, revisa la Notificación de Ajuste de Anualidad que recibiste de la Oficina de Administración de Personal (OPM, por sus siglas en inglés)
+          how_much_b2_html: 'Si no tienes tu Notificación de Ajuste de Anualidad visita: <a href=''https://www.servicesonline.opm.gov/'' target=''_blank'' rel=''noopener noreferrer''>https://www.servicesonline.opm.gov/</a>'
+          how_much_content: La cantidad total pagada por el  Sistema de Jubilación del Servicio Civil (CSRS, por sus siglas en inglés) para este 1099-R reduciría el monto de ingreso de jubilación sobre el que se te cobran impuestos.
+          how_much_title: "¿Cuánto dinero es la deducción?"
+          subtitle: Contestaste que el número de cuenta de tu 1099-R de %{sample_name} para %{taxpayer_name} empieza con 8.
+          subtitle_html: "<b>Actualmente, nuestro servicio no admite este tipo de cuenta.</b> Si fue un error, "
+          title: Desafortunadamente, nuestro servicio no admite el tipo de cuenta de tu 1099-R para reclamar la deducción de ingresos de jubilación de Idaho
+          warning_1: Si continúas sin reclamar la deducción para este 1099-R los impuestos que debes pagar o tu reembolso será afectado.
+          warning_2: Para reclamar esta deducción tendrás que utilizar otro servicio para declarar impuestos. Puede tardar hasta 3 semanas en declarar.
+        file_with_another_service:
+          continue_filing: Sigue presentado con este servicio.
+          subtitle_1: No puedes continuar presentando con FileYourStateTaxes porque quieres reclamar la deducción de ingresos de jubilación de Idaho y el servicio no soporta  el tipo de cuenta de tu 1099-R.
+          subtitle_2: "¿Quieres declarar sin reclamar esta deducción?"
+          title: Aquí hay otras opciones para reclamar la deducción de ingresos de jubilación de Idaho
+          vita_service: Puedes presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS.
       id_permanent_building_fund:
         edit:
           receive_public_assistance_explanation: Los pagos de asistencia pública no incluyen cupones de alimentos ni pagos de WIC.
@@ -3114,13 +3147,24 @@ es:
           why_ask_this: "¿Por qué están pidiendo esta información?"
       id_retirement_and_pension_income:
         edit:
-          question_b1: Tu servicio como empleado del servicio civil
-          question_b2: Tu servicio como bombero de Idaho
-          question_b3: Tu servicio como policía de una ciudad en Idaho
-          question_b4: Tu servicio como miembro de las fuerzas armadas de los Estados unidos
-          question_b5: Beneficios de sobreviviente de la pensión de tu cónyuge fallecido que proviene de una de las fuentes enumeradas anteriormente
-          question_html: ¿Este ingreso de jubilación proviene de alguna de las siguientes fuentes y cumple con los requisitos de <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">las páginas 7 y 8 del folleto de instrucciones</a>?
-          subtitle: Necesitamos más información de tu formulario 1099-R para confirmar tu elegibilidad.
+          civil_servant: Servicio como empleado del Servicio Civil
+          civil_servant_follow_up: "¿Con qué número comienza el número de cuenta en este 1099R?"
+          details_content: Si no estás seguro de los detalles de tu plan de jubilación, contacta a quien paga tu plan al número de teléfono que aparece en tu 1099-R.
+          details_title: "¿Qué pasa si no sé los detalles de mi 1099-R?"
+          firefighter: Servicio como bombero de Idaho
+          firefighter_follow_up: "¿Alguna de las siguientes afirmaciones aplica a tus ingresos de jubilación como bombero de Idaho?"
+          firefighter_frf: El número de cuenta del 1099-R incluye la designación Fondo de Jubilación de Bomberos (FRF, por sus siglas en inglés)
+          firefighter_persi: Los beneficios fueron pagados por el Sistema de Jubilación de Empleados Públicos de Idaho (PERSI)
+          military: Servicio como miembro del ejército de los Estados Unidos
+          none_apply: Ninguna de estas afirmaciones aplica
+          police_officer: Servicio como oficial de policía de la ciudad de Idaho
+          police_officer_follow_up: "¿Alguna de las siguientes afirmaciones aplica a tus ingresos de jubilación como oficial de policía de una ciudad de Idaho?"
+          police_persi_html: Los beneficios fueron pagados por el Sistema de Jubilación de Empleados Públicos de Idaho (PERSI) que <u>no formaban parte de un Plan Base de PERSI</u>
+          police_retirement_fund: Los beneficios fueron pagados por el Fondo de Jubilación de Policías que ya no admite nuevos miembros desde enero de 2012
+          question_html: 'Selecciona la fuente de este ingreso:'
+          seven_or_nine: 7 o 9
+          subtitle: Algunos Formularios 1099-R con un monto imponible podrán calificar para esta deducción. Necesitamos más información sobre este 1099-R para verificar tu elegibilidad y presentar tu declaración estatal.
+          subtitle_2: Si tienes varios 1099-R, se te pedirá completar este paso para cada uno cantidad sujeta a impuestos
       id_review:
         edit:
           donations_optional: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatal.
@@ -4189,10 +4233,23 @@ es:
           subtitle: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
           title: La deducción de ingresos por jubilación de Arizona
           uniformed_services: Pago de jubilación o retención de los servicios uniformados de los Estados Unidos
+        id_disability_review_header:
+          editing_may_affect_deductions: Editing this answer may affect your Idaho retirement income deductions
+          meets_qualifications: Meets qualifications to be classified as disabled
         id_retirement_income_deductions_review_header:
+          civil_servant_employee: Retirement income from %{taxpayer_name}’s service as a Civil Service employee
+          eight: Account number starts with 8.
+          firefighter: Retirement income from %{taxpayer_name}’s service as an Idaho firefighter
+          military: Retirement income from %{taxpayer_name}’s service as a member of the U.S. military
+          none_apply: None apply
+          police_officer: Retirement income from %{taxpayer_name}’s service as an Idaho city Police officer
           qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
           qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
           qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
+          seven_or_nine: Account number starts with 7 or 9
+          subtitle: These allow people to deduct all or a portion of their retirement income from their taxes.
+          title: Idaho retirement income deductions
+          zero_to_four: Account number starts with 0, 1,2, 3 or 4
         md_retirement_income_deductions_review_header:
           military: Tu servicio en el ejército o los beneficios por fallecimiento militar recibidos en nombre de un cónyuge o ex-cónyuge
           none: Ninguno aplica.
@@ -6249,6 +6306,7 @@ es:
         subheader: "¡Reclama miles de dólares a través de los créditos tributarios que te corresponden! Trabajamos contigo para obtener tu mayor reembolso."
         subheader_ctc_open: A pesar de que la fecha límite tradicional de impuestos ha pasado, ¡todavía puede reclamar miles de dólares en créditos tributarios!
         subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir el 31 de enero a la 1pm EST."
+        subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
         cta: Presentar mis impuestos por mi cuenta gratis
@@ -7072,6 +7130,7 @@ es:
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
+      ice_warning_html: "<strong>Declarantes inmigrantes:</strong> A partir del 7 de abril, el IRS y el Departamento de Seguridad Nacional (incluyendo ICE) han llegado a un acuerdo para compartir datos entre las agencias. <a href='%{faq_link}' target='_blank'>Consulte nuestras preguntas frecuentes para más información.</a>"
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:

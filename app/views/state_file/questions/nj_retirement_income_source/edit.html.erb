@@ -8,9 +8,9 @@
     <h1 class="h2"><%= title %></h1>
     <p><%= t(".subtitle") %></p>
   </hgroup>
-  <p><%= t(".doc_1099r_label") %> <b><%= @name_1099r %></b></p>
-  <p><%= t(".taxpayer_name_label") %> <b><%= @taxpayer_name %></b></p>
-  <p><%= t(".taxable_amount_label") %> <b><%= number_to_currency(@amount, precision: 0) %></b></p>
+  <p><%= t(".doc_1099r_label") %> <b><%= @state_file_1099r.payer_name %></b></p>
+  <p><%= t(".taxpayer_name_label") %> <b><%= @state_file_1099r.recipient_name %></b></p>
+  <p><%= t(".taxable_amount_label") %> <b><%= number_to_currency(@state_file_1099r.taxable_amount, precision: 0) %></b></p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
@@ -32,12 +32,6 @@
       </div>
     </div>
 
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
-    <% if params[:index].present? %>
-      <%= hidden_field_tag "index", params[:index] %>
-    <% end %>
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>
