@@ -78,9 +78,9 @@ module StateFile
       def get_md_payment_deadline(time)
         timezone = StateInformationService.timezone("md")
         day_after_deadline = Rails.configuration.tax_deadline.to_date + 1.day
-        before_april_16 = time.in_time_zone(timezone).to_date.before?(day_after_deadline)
+        on_or_before_deadline = time.in_time_zone(timezone).to_date.before?(day_after_deadline)
 
-        return Date.new(time.year, 4, 30) if before_april_16
+        return Date.new(time.year, 4, 30) if on_or_before_deadline
         day_after_deadline
       end
 
