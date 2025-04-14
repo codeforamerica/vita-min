@@ -2626,7 +2626,7 @@ en:
           increased_excise_credit: Increased Excise Credit
           public_school_credit: Public School Tax Credit
         edit:
-          az_title2_html: |
+          az_extension_title2_html: |
             Let’s make sure this is the right service for you.<br><br>
             Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
