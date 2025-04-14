@@ -1527,29 +1527,49 @@ en:
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     state_file:
       accepted_owe:
-        email:
-          body: |
-            Hi %{primary_first_name},
+        after_deadline:
+          email:
+            body: |
+              Hi %{primary_first_name},
 
-            Your %{state_name} state tax return has been <strong>accepted and a payment is due</strong>.
+              Your %{state_name} state tax return has been accepted and a payment is due.
 
-            <strong>If you have not already paid via direct debit while filing your return, please submit your payment by April 15 at %{state_pay_taxes_link}</strong>. Any amount not paid by the filing deadline could add extra penalties and fees.
+              If you have not already paid via direct debit while filing your return, please submit your payment as soon as possible to avoid additional penalties and fees at %{state_pay_taxes_link}.
 
-            Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+              Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            Need help? Reply to this email.
+              Need help? Reply to this email.
+            subject: "%{state_name} State Return Accepted- Payment Due"
+          sms: "Hi %{primary_first_name},\n\nYour %{state_name} state tax return has been accepted and a payment is due.\n\nIf you have not already paid via direct debit while filing your return, please submit your payment as soon as possible to avoid additional penalties and fees %{state_pay_taxes_link}. \n\nDownload your return at %{return_status_link}\n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
+        before_deadline:
+          email:
+            body: |
+              Hi %{primary_first_name},
 
-            Best,
-            The FileYourStateTaxes team
-          subject: "%{state_name} State Return Accepted- Payment Due"
-        sms: |
-          Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due.
+              Your %{state_name} state tax return has been <strong>accepted and a payment is due</strong>.
 
-          If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
+              <strong>If you have not already paid via direct debit while filing your return, please submit your payment by April 15 at %{state_pay_taxes_link}</strong>. Any amount not paid by the filing deadline could add extra penalties and fees.
 
-          Download your return at %{return_status_link}
+              Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-          Need help? Email us at help@fileyourstatetaxes.org
+              Need help? Reply to this email.
+
+              Best,
+              The FileYourStateTaxes team
+            subject: "%{state_name} State Return Accepted- Payment Due"
+          sms: |
+            Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due.
+
+            If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
+
+            Download your return at %{return_status_link}
+
+            Need help? Email us at help@fileyourstatetaxes.org
+        during_deadline:
+          email:
+            body: "Hi %{primary_first_name},\n\nYour %{state_name} state tax return has been accepted and a payment is due.\n\nIf you have not already paid via direct debit while filing your return, please submit your payment today at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees. \nDownload your return at <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
+            subject: "%{state_name} State Return Accepted- Payment Due"
+          sms: "Hi %{primary_first_name},\n\nYour %{state_name} state tax return has been accepted and a payment is due.\n\nIf you have not already paid via direct debit while filing your return, please submit your payment today at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees. \nDownload your return at %{return_status_link}.\n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
       accepted_refund:
         email:
           body: |
@@ -3368,9 +3388,10 @@ en:
       md_retirement_income_subtraction:
         edit:
           doc_1099r_label: 1099-R
-          income_source_other: Other retirement income (for example, a Keogh Plan, also known as an HR-10) (less common)
-          income_source_pension_annuity_endowment: A pension, annuity, or endowment from an "employee retirement system" (more common)
-          income_source_question: 'Select the source of this income:'
+          income_source_other: No, the source of my income was something else (for example, a Keogh Plan, also known as an HR-10)
+          income_source_pension_annuity_endowment: 'Yes'
+          income_source_question: Was the source of your income from a pension, annuity, or endowment from an "employee retirement system"?
+          income_source_question_label: In most cases, the answer is "Yes." A detailed list of what plans are included in an "employee retirement system" can be found at the bottom of the page.
           military_service_reveal_header: What military service qualifies?
           military_service_reveal_html: |
             <p>To qualify, you must have been:</p>
