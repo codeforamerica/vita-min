@@ -33,7 +33,8 @@ class Efile::Az::Az321Calculator < ::Efile::TaxCalculator
 
   def calculate_line_5
     # Total contributions made or fees paid to QCOs during 2023
-    @intake.az321_contributions.sum(&:amount).round
+    # Must round each contribution amount BEFORE summing.
+    @intake.az321_contributions.sum { |c| c.amount.round }
   end
 
   def calculate_line_11
