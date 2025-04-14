@@ -39,7 +39,6 @@
 
   <% if current_time_after_payment_deadline? %>
     <% interest_warning_key = "state_file.questions.taxes_owed.edit.interest_warning.#{current_state_code}_html" %>
-    <% # i18n-tasks-use t(state_file.questions.taxes_owed.edit.interest_warning.az_html) # hint for the i18n linter that, yes, we are using this key (sometimes) %>
     <% if I18n.exists?(interest_warning_key) %>
       <div class="notice--warning">
         <p><%= t(interest_warning_key) %></p>
@@ -47,11 +46,19 @@
     <% end %>
   <% end %>
   <% if owe_taxes && !current_time_before_payment_deadline? %>
-    <% after_deadline_warning_key = ".after_deadline_withdrawal_info.#{current_state_code}" %>
+    <% after_deadline_warning_key = "state_file.questions.tax_refund.bank_details.after_deadline_withdrawal_info.#{current_state_code}" %>
     <div class="beige-group spacing-above-25 spacing-below-0">
       <% if I18n.exists?(after_deadline_warning_key) %>
-        <% I18n.t(after_deadline_warning_key).each do |p| %>
-          <p><%= p %></p>
+        <%
+          warnings_hash = I18n.t(after_deadline_warning_key, default: {})
+          warning_keys = warnings_hash.keys
+        %>
+        <% warning_keys.each do |sub_key| %>
+          <p class="spacing-below-10">
+            <%= t("#{after_deadline_warning_key}.#{sub_key}",
+                  payment_deadline_date: I18n.l(state_specific_payment_deadline.to_date, format: :medium, locale: locale),
+                  payment_deadline_year: state_specific_payment_deadline.year) %>
+          </p>
         <% end %>
       <% else %>
         <%= t(".after_deadline_withdrawal_info.default",
@@ -59,5 +66,5 @@
               payment_deadline_year: state_specific_payment_deadline.year) %>
       <% end %>
     </div>
-  <% end %>
+<% end %>
 </div>

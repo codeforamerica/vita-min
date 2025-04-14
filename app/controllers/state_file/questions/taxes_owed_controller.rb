@@ -24,11 +24,14 @@ module StateFile
       helper_method :state_specific_payment_deadline
 
       def current_time_before_payment_deadline?
+        return app_time.before?(Rails.configuration.tax_deadline) if current_intake.state_code == "md"
         StateInformationService.before_payment_deadline?(app_time, current_intake.state_code)
       end
       helper_method :current_time_before_payment_deadline?
 
       def current_time_after_payment_deadline?
+        return app_time.after?(Rails.configuration.tax_deadline) if current_intake.state_code == "md"
+
         app_time > StateInformationService.payment_deadline_date(current_state_code)
       end
       helper_method :current_time_after_payment_deadline?

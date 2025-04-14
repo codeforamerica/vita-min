@@ -3492,6 +3492,9 @@ es:
           direct_debit_payment_info_three: Tu pago se considerará puntual si lo envías en la fecha de vencimiento y seleccionas la primera fecha de débito disponible. Recibirás un correo electrónico de confirmación de NCDOR después de que tu pago sea recibido.
           direct_debit_payment_info_two: La fecha de débito se basa en un corte a las 5:00 pm, hora del este. En otras palabras, si envías tu pago por débito bancario después de las 5:00 pm hora del este, la fecha de débito más temprana disponible será dentro de dos días hábiles.
           how_would_you_like_to_pay: "¿Cómo te gustaría pagar?"
+          interest_warning:
+            p1: Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Esto no se calculará en esta declaración, y el Departamento de Ingresos de Carolina del Norte te enviará una factura aparte por esta cantidad.
+            p2_html: Los intereses seguirán acumulándose hasta que pagues tus impuestos. Puedes conocer más sobre los intereses y penalizaciones <a target="_blank" rel="noopener nofollow" href="https://www.ncdor.gov/penalties-and-interest#FailuretoFileandFailuretoPayPenalties-11245">aquí</a>.
           more_info_about_automatic_draft_payments: Más información sobre los pagos por débito automático
           more_info_about_direct_debit_payment: Más información sobre la fecha de pago usando débito directo
           page_title: Usted debe impuestos estatales. ¿Cómo le gustaría pagar?
@@ -4242,7 +4245,13 @@ es:
       tax_refund:
         bank_details:
           account_number: Número de cuenta
-          after_deadline_default_withdrawal_info: Debido a que estás presentando tu declaración el %{payment_deadline_date} de %{payment_deadline_year} o después, el estado cobrará tu pago tan pronto como procesen tu declaración.
+          after_deadline_withdrawal_info:
+            default: Debido a que estás presentando tu declaración el %{payment_deadline_date} de %{payment_deadline_year} o después, el estado cobrará tu pago tan pronto como procesen tu declaración.
+            id:
+              p1: Los números de ruta (routing number) y de cuenta bancaria que ingreses se usarán para tu pago de impuestos estatales. Esta es solo la solicitud de pago. Es tu responsabilidad revisar tu estado de cuenta bancario para confirmar que esta transacción fue exitosa. Si estás realizando un pago por débito directo, no se debe hacer un pago usando QuickPay en sucesión.
+              p2: Debido a que estás presentando tu declaración el %{payment_deadline_date} de %{payment_deadline_year} o después, el estado cobrará tu pago tan pronto como procesen tu declaración.
+            md:
+              p1: Debido a que presentaste tu declaración después del 15 de abril de %{payment_deadline_year}, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Los intereses seguirán acumulándose hasta que pagues tus impuestos.
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
@@ -4258,9 +4267,18 @@ es:
       taxes_owed:
         edit:
           interest_warning:
-            az_html: |
-              <p>Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Esto no se calculará en esta declaración, y el Departamento de Ingresos de Arizona te enviará una factura aparte por esta cantidad</p>
-              <p>Los intereses seguirán acumulándose hasta que pagues tus impuestos. Puedes conocer más sobre los intereses y penalizaciones <a target="_blank" rel="noopener nofollow"  href="https://azdor.gov/contact-us">aquí</a>.</p>
+            az:
+              p1: Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Esto no se calculará en esta declaración, y el Departamento de Ingresos de Arizona te enviará una factura aparte por esta cantidad
+              p2_html: Los intereses seguirán acumulándose hasta que pagues tus impuestos. Puedes conocer más sobre los intereses y penalizaciones <a target="_blank" rel="noopener nofollow" href="https://azdor.gov/contact-us">aquí</a>.
+            id:
+              p1: Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Esto no se calculará en esta declaración, y el Departamento de Ingresos de Idaho te enviará una factura aparte por esta cantidad.
+              p2_html: Los intereses seguirán acumulándose hasta que pagues tus impuestos. Puedes conocer más sobre los intereses y penalizaciones <a target="_blank" rel="noopener nofollow" href="https://tax.idaho.gov/taxes/income-tax/penalties-and-interest/">aquí</a>.
+            md:
+              p1: Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Los intereses seguirán acumulándose hasta que pagues tus impuestos.
+              p2: Esto no se calculará en esta declaración, y el Contralor de Maryland te enviará una factura aparte por esta cantidad.
+            nj:
+              p1: Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Los intereses seguirán acumulándose hasta que pagues tus impuestos.
+              p2: Esto no se calculará en esta declaración, y la División de Impuestos de Nueva Jersey te enviará una factura aparte por esta cantidad.
           more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Aquí hay más información sobre las fechas de vencimiento de impuestos y los modos de pago.</a></p>
           page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)

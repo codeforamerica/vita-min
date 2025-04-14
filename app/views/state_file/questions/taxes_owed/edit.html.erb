@@ -8,11 +8,12 @@
   <% end %>
 
   <% if current_time_after_payment_deadline? %>
-    <% interest_warning_key = "state_file.questions.taxes_owed.edit.interest_warning.#{current_state_code}_html" %>
-    <% # i18n-tasks-use t(state_file.questions.taxes_owed.edit.interest_warning.az_html) # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+    <% interest_warning_key = "state_file.questions.taxes_owed.edit.interest_warning.#{current_state_code}" %>
     <% if I18n.exists?(interest_warning_key) %>
       <div class="notice--warning">
-        <p><%= t(interest_warning_key) %></p>
+        <% I18n.t(interest_warning_key).keys.each do |key| %>
+          <p class="spacing-below-10"><%= t("#{interest_warning_key}.#{key}") %></p>
+        <% end %>
       </div>
     <% end %>
   <% end %>

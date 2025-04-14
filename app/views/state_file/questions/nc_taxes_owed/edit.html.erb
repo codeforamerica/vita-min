@@ -5,6 +5,13 @@
   </h1>
   <p><%= t(".payment_options") %></p>
 
+  <% if current_time_after_payment_deadline? %>
+    <div class="notice--warning">
+      <p><%= t(".interest_warning.p1") %></p>
+      <p><%= t(".interest_warning.p2_html") %></p>
+    </div>
+  <% end %>
+
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question white-group">
