@@ -28,7 +28,7 @@ module Efile
 
       def calculate_line_5
         # Total contributions made or fees paid to public schools during 2023
-        @intake.az322_contributions.sum(&:amount).round
+        @intake.az322_contributions.sum { |c| c.amount.round }
       end
 
       def calculate_line_11

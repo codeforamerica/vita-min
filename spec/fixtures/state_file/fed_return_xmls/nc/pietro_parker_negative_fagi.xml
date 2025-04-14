@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.1">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>01cbf3d65</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>146005561</PrimarySSN>
+            <NameLine1Txt>PIETRO&lt;PARKER</NameLine1Txt>
+            <PrimaryNameControlTxt>PARK</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>111 Alston Avenue</AddressLine1Txt>
+                <CityNm>Durham</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27517</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+14600556-1efe-492a-b941-1d485f0a78d7@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>1</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">1100</WagesAmt>
+            <WagesSalariesAndTipsAmt>1100</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>1100</TotalIncomeAmt>
+            <TotalAdjustmentsAmt>2500</TotalAdjustmentsAmt>
+            <AdjustedGrossIncomeAmt>-1400</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>14600</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>14600</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>100</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>100</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt>86</EarnedIncomeCreditAmt>
+            <RefundableCreditsAmt>86</RefundableCreditsAmt>
+            <TotalPaymentsAmt>186</TotalPaymentsAmt>
+            <OverpaidAmt>186</OverpaidAmt>
+            <RefundAmt>186</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Photographer</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <StudentLoanInterestDedAmt>2500</StudentLoanInterestDedAmt>
+            <TotalAdjustmentsAmt>2500</TotalAdjustmentsAmt>
+        </IRS1040Schedule1>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>146005561</EmployeeSSN>
+            <EmployerEIN>380300231</EmployerEIN>
+            <EmployerNameControlTxt>DAIL</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Daily Mail</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>370 Erwin Road</AddressLine1Txt>
+                <CityNm>Durham</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27710</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Pietro Parker</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>111 Alston Avenue</AddressLine1Txt>
+                <CityNm>Durham</CityNm>
+                <StateAbbreviationCd>NC</StateAbbreviationCd>
+                <ZIPCd>27517</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>1100</WagesAmt>
+            <WithholdingAmt>100</WithholdingAmt>
+            <SocialSecurityWagesAmt>1100</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>68</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>1100</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>146</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>NC</StateAbbreviationCd>
+                    <EmployerStateIdNum>324432</EmployerStateIdNum>
+                    <StateWagesAmt>1100</StateWagesAmt>
+                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

@@ -203,6 +203,7 @@ class StateFileBaseIntake < ApplicationRecord
 
   def calculated_refund_or_owed_amount
     calculator&.refund_or_owed_amount
+    -100
   end
 
   def refund_or_owe_taxes_type
