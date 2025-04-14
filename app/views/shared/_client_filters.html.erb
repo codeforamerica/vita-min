@@ -135,7 +135,7 @@
     <hr>
 
     <div>
-      <%= submit_tag t("hub.clients.index.filter"), class: "button button--cta", name: nil %>
+      <%= submit_tag t("hub.clients.index.filter"), class: "button button--cta", name: nil, data: { disable_with: t('hub.clients.index.filter') } %>
       <% if filters.values.any? %>
         <%= link_to t("hub.clients.index.clear_filters"), { column: @sort_column, order: @sort_order, clear: true }, class: "button button--danger", name: "clear" %>
       <% end %>

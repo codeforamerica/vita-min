@@ -6,33 +6,119 @@
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
   <p><%= t(".subtitle") %></p>
+  <p><%= t(".subtitle_2") %></p>
   <p><%= t("state_file.questions.retirement_income_subtraction.doc_1099r_label") %>: <b><%= @state_file_1099r.payer_name %></b></p>
   <p><%= t("state_file.questions.retirement_income_subtraction.taxpayer_name_label") %>: <b><%= @state_file_1099r.recipient_name %></b></p>
   <p><%= t("state_file.questions.retirement_income_subtraction.taxable_amount_label") %>: <b><%= number_to_currency(@state_file_1099r.taxable_amount, precision: 0) %></b>
   </p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-    <div class="white-group">
-      <%= t(".question_html") %>
-      <ul>
-        <li><%= t(".question_b1") %></li>
-        <li><%= t(".question_b2") %></li>
-        <li><%= t(".question_b3") %></li>
-        <li><%= t(".question_b4") %></li>
-        <li><%= t(".question_b5") %></li>
-      </ul>
-      <%= f.cfa_radio_set(:eligible_income_source, collection: [
-        { value: "yes", label: t("general.affirmative") },
-        { value: "no", label: t("general.negative") }
-      ], legend_class: "sr-only") %>
+    <div class="question-with-follow-up">
+      <div class="question-with-follow-up__question">
+        <div class="white-group">
+          <%= t(".question_html") %>
+          <%= f.cfa_radio_set(:income_source, collection: [
+            { value: "civil_service_employee", label: t(".civil_servant"), input_html: { "data-follow-up": "#civil_servant" } },
+            { value: "police_officer", label: t(".police_officer"), input_html: { "data-follow-up": "#police_officer" } },
+            { value: "firefighter", label: t(".firefighter"), input_html: { "data-follow-up": "#firefighter" } },
+            { value: "military", label: t(".military") },
+            { value: "none", label: t("general.none_of_the_above") },
+          ], legend_class: "sr-only") %>
+        </div>
+      </div>
+
+
+    <div class="question-with-follow-up__follow-up" id="civil_servant">
+      <div class="white-group">
+        <%= f.cfa_radio_set(:civil_service_account_number, label_text: t(".civil_servant_follow_up"), collection: [
+          { value: "zero_to_four", label: "0, 1, 2, 3, 4" },
+          { value: "seven_or_nine", label: t(".seven_or_nine") },
+          { value: "eight", label: "8" },
+        ]) %>
+      </div>
+      <div class="reveal">
+        <p><button class="reveal__button"><%= t('.details_title') %></button></p>
+        <div class="reveal__content"><%= t('.details_content') %></div>
+      </div>
     </div>
 
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
-    <% if params[:index].present? %>
-      <%= hidden_field_tag "index", params[:index] %>
-    <% end %>
-    <%= f.continue %>
+    <div class="question-with-follow-up__follow-up" id="police_officer">
+      <div class="white-group">
+        <p class="spacing-below-15"><%= t(".police_officer_follow_up") %></p>
+        <div class="tight-checkboxes">
+          <%= f.cfa_checkbox(:police_retirement_fund, t(".police_retirement_fund"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.cfa_checkbox(:police_persi, t(".police_persi_html"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.cfa_checkbox(:police_none_apply, t(".none_apply"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        </div>
+      </div>
+      <div class="reveal">
+        <p><button class="reveal__button"><%= t('.details_title') %></button></p>
+        <div class="reveal__content"><%= t('.details_content') %></div>
+      </div>
+    </div>
+
+    <div class="question-with-follow-up__follow-up" id="firefighter">
+      <div class="white-group">
+        <p class="spacing-below-15"><%= t(".firefighter_follow_up") %></p>
+        <div class="tight-checkboxes">
+          <%= f.cfa_checkbox(:firefighter_frf, t(".firefighter_frf"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.cfa_checkbox(:firefighter_persi, t(".firefighter_persi"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.cfa_checkbox(:firefighter_none_apply, t(".none_apply"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <p><button class="reveal__button"><%= t('.details_title') %></button></p>
+        <div class="reveal__content"><%= t('.details_content') %></div>
+      </div>
+    </div>
+    </div>
+
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
+
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          let uncheckOthers = function (noneCheckbox, otherCheckboxes) {
+              if (noneCheckbox.checked) {
+                  otherCheckboxes.forEach(function (checkbox) {
+                      checkbox.checked = false;
+                  })
+              }
+          };
+          let uncheckNone = function (currentCheckbox, noneCheckbox) {
+              if (currentCheckbox.checked) {
+                  noneCheckbox.checked = false;
+              }
+          };
+          let checkboxSets = [
+              {
+                  none: document.getElementById("state_file_id_retirement_and_pension_income_form_police_none_apply"),
+                  others: [
+                      document.getElementById("state_file_id_retirement_and_pension_income_form_police_retirement_fund"),
+                      document.getElementById("state_file_id_retirement_and_pension_income_form_police_persi")
+                  ]
+              },
+              {
+                  none: document.getElementById("state_file_id_retirement_and_pension_income_form_firefighter_none_apply"),
+                  others: [
+                      document.getElementById("state_file_id_retirement_and_pension_income_form_firefighter_persi"),
+                      document.getElementById("state_file_id_retirement_and_pension_income_form_firefighter_frf")
+                  ]
+              }
+          ];
+          checkboxSets.forEach(function (checkboxSet) {
+              let noneCheckbox = checkboxSet.none;
+              let otherCheckboxes = checkboxSet.others;
+              noneCheckbox.addEventListener("change", function () {
+                  uncheckOthers(noneCheckbox, otherCheckboxes);
+              });
+              otherCheckboxes.forEach(function (checkbox) {
+                  checkbox.addEventListener("change", function () {
+                      uncheckNone(this, noneCheckbox);
+                  });
+              });
+          });
+      })
+  </script>
 <% end %>
