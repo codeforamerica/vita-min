@@ -1,13 +1,84 @@
-<% if current_intake.calculator.line_or_zero(:ID39R_B_LINE_8e).positive? %>
+<% if current_intake.show_disability_question? %>
+  <section id="disability-info" class="white-group">
+    <p class="text--bold spacing-below-5"><%= t("state_file.questions.shared.id_disability_review_header.meets_qualifications") %></p>
+    <p class="spacing-below-15"><%= (current_intake.primary_disabled_yes? || current_intake.spouse_disabled_yes?) ? t("general.affirmative") : t("general.negative") %></p>
+    <p class="text--small spacing-below-15"><%= t("state_file.questions.shared.id_disability_review_header.editing_may_affect_deductions") %></p>
+    <div class="spacing-below-5">
+      <%= link_to t("general.review_and_edit"), StateFile::Questions::IdDisabilityController.to_path_helper(
+        return_to_review_before: StateFile::Questions::IdDisabilityController.name.demodulize.underscore,
+        return_to_review_after: "retirement_income_deduction"), class: "button--small", role: "button" %>
+    </div>
+  </section>
+<% end %>
+
+<% if current_intake.eligible_1099rs.present? %>
   <section id="qualified-retirement-benefits-deduction" class="white-group">
     <div class="spacing-below-5">
-      <p class="text--bold spacing-below-5"><%= t(".qualified_retirement_benefits_deduction") %></p>
-      <p class="text spacing-below-2"><%= t(".qualified_retirement_benefits_deduction_explain") %></p>
+      <% if current_intake.has_old_1099r_income_params? %>
+        <p class="text--bold spacing-below-5"><%= t(".qualified_retirement_benefits_deduction") %></p>
+        <p class="text--small spacing-below-2"><%= t(".qualified_retirement_benefits_deduction_explain") %></p>
 
-      <p class="text--bold spacing-below-5"><%= t(".qualified_disabled_retirement_benefits") %></p>
-      <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_8f), precision: 2) %></p>
-      <% id_disability_or_retirement_link = current_intake.has_filer_between_62_and_65_years_old? ? StateFile::Questions::IdDisabilityController.to_path_helper(return_to_review: "y") : StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(return_to_review: "y", index: 0) %>
-      <%= link_to t("general.review_and_edit"), id_disability_or_retirement_link, class: "button--small", role: "button" %>
+        <p class="text--bold spacing-below-5"><%= t(".qualified_disabled_retirement_benefits") %></p>
+        <p><%= number_to_currency(current_intake.calculator.line_or_zero(:ID39R_B_LINE_8f), precision: 2) %></p>
+      <% else %>
+        <p class="text--bold spacing-below-10"><%= t(".title") %></p>
+        <p class="text--small"><%= t(".subtitle") %></p>
+
+        <% current_intake.eligible_1099rs.each_with_index do |state_file1099_r, index| %>
+          <% followup = state_file1099_r.state_specific_followup %>
+          <% unless followup.nil? %>
+            <div id="<%= "retirement-income-source-#{index}" %>" class="spacing-above-15">
+              <div>
+                <p class="spacing-below-0"><b><%= state_file1099_r.payer_name %></b></p>
+                <ul class="list--padded spacing-above-0">
+                  <% if followup.income_source_civil_service_employee? %>
+                    <li><%= t(".civil_servant_employee", taxpayer_name: state_file1099_r.recipient_name) %></li>
+                    <% if followup.civil_service_account_number_zero_to_four? %>
+                      <li><%= t(".zero_to_four") %></li>
+                    <% elsif followup.civil_service_account_number_seven_or_nine? %>
+                      <li><%= t(".seven_or_nine") %></li>
+                    <% elsif followup.civil_service_account_number_eight? %>
+                      <li><%= t(".eight") %></li>
+                    <% end %>
+                  <% elsif followup.income_source_police_officer? %>
+                    <li><%= t(".police_officer", taxpayer_name: state_file1099_r.recipient_name) %></li>
+                    <% if followup.police_retirement_fund_yes? %>
+                      <li><%= t("state_file.questions.id_retirement_and_pension_income.edit.police_retirement_fund") %></li>
+                    <% end %>
+                    <% if followup.police_persi_yes? %>
+                      <li><%= t("state_file.questions.id_retirement_and_pension_income.edit.police_persi_html") %></li>
+                    <% end %>
+                    <% if !followup.police_retirement_fund_yes? && !followup.police_persi_yes? %>
+                      <li><%= t(".none_apply") %></li>
+                    <% end %>
+                  <% elsif followup.income_source_firefighter? %>
+                    <li><%= t(".firefighter", taxpayer_name: state_file1099_r.recipient_name) %></li>
+                    <% if followup.firefighter_frf_yes? %>
+                      <li><%= t("state_file.questions.id_retirement_and_pension_income.edit.firefighter_frf") %></li>
+                    <% end %>
+                    <% if followup.firefighter_persi_yes? %>
+                      <li><%= t("state_file.questions.id_retirement_and_pension_income.edit.firefighter_persi") %></li>
+                    <% end %>
+                    <% if !followup.firefighter_frf_yes? && !followup.firefighter_persi_yes? %>
+                      <li><%= t(".none_apply") %></li>
+                    <% end %>
+                  <% elsif followup.income_source_military? %>
+                    <li><%= t(".military", taxpayer_name: state_file1099_r.recipient_name) %></li>
+                  <% else %>
+                    <li><%= t(".none_apply") %></li>
+                  <% end %>
+                </ul>
+              </div>
+              <div>
+                <%= link_to t("general.review_and_edit"), StateFile::Questions::IdRetirementAndPensionIncomeController.to_path_helper(
+                  item_index: index,
+                  return_to_review_before: "retirement_income_deduction_#{index}",
+                  return_to_review_after: "retirement_income_deduction_#{index}"), class: "button--small" %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
   </section>
 <% end %>

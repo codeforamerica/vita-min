@@ -2,11 +2,28 @@ require "rails_helper"
 
 RSpec.describe Navigation::NavigationSection do
 
+  let(:first_controller_class) { Class.new }
+  let(:second_controller_class) { Class.new }
+  let(:first_repeated_controller_class) { Class.new }
+  let(:second_repeated_controller_class) { Class.new }
+  let(:visitor_record) { double }
+  let(:num_items) { 2 }
   let!(:steps) do
     [
-      Navigation::NavigationStep.new(StateFile::LandingPageController),
-      Navigation::NavigationStep.new(StateFile::Questions::EligibleController),
+      Navigation::NavigationStep.new(first_controller_class),
+      Navigation::NavigationStep.new(second_controller_class),
+      Navigation::RepeatedMultiPageStep.new(
+        "step_name",
+        [
+          first_repeated_controller_class,
+          second_repeated_controller_class
+        ], ->(visitor_record) { visitor_record.count }
+      )
     ]
+  end
+
+  before do
+    allow(visitor_record).to receive(:count).and_return(num_items)
   end
 
   it "initializes correctly" do
@@ -23,11 +40,25 @@ RSpec.describe Navigation::NavigationSection do
     expect(section.increment_step).to be_truthy
   end
 
-  it "produces an array of controllers" do
+  it "produces an array of unique controllers" do
     section = Navigation::NavigationSection.new("a_section", steps)
-    expect(section.controllers).to eq [
-      StateFile::LandingPageController,
-      StateFile::Questions::EligibleController,
-    ]
+    expect(section.controllers).to eq([
+                                        first_controller_class,
+                                        second_controller_class,
+                                        first_repeated_controller_class,
+                                        second_repeated_controller_class
+                                      ])
+  end
+
+  it "produces an array of potentially non-unique pages" do
+    section = Navigation::NavigationSection.new("a_section", steps)
+    expect(section.pages(visitor_record)).to eq([
+                                                  { controller: first_controller_class },
+                                                  { controller: second_controller_class },
+                                                  { item_index: 0, controller: first_repeated_controller_class, step: "step_name" },
+                                                  { item_index: 0, controller: second_repeated_controller_class, step: "step_name" },
+                                                  { item_index: 1, controller: first_repeated_controller_class, step: "step_name" },
+                                                  { item_index: 1, controller: second_repeated_controller_class, step: "step_name" }
+                                                ])
   end
 end

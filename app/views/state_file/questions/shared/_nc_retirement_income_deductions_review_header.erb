@@ -38,7 +38,7 @@
                 <% end %>
               </ul>
             </div>
-            <%= link_to StateFile::Questions::NcRetirementIncomeSubtractionController.to_path_helper(return_to_review: "y", index: index), class: "button--small" do %>
+            <%= link_to StateFile::Questions::NcRetirementIncomeSubtractionController.to_path_helper(return_to_review: "y", item_index: index), class: "button--small" do %>
               <%= t("general.review_and_edit") %>
               <span class="sr-only"><%= t(".retirement_income_source_review_and_edit", index: index + 1) %></span>
             <% end %>

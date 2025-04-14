@@ -345,4 +345,14 @@ RSpec.describe StateFileNjIntake, type: :model do
       expect(intake.medical_expenses_threshold).to eq 246
     end
   end
+
+  describe "#eligible_1099rs" do
+    let(:intake) { create :state_file_nj_intake }
+    let!(:eligible_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 200) }
+    let!(:ineligible_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+    it "should return all 1099Rs" do
+      expect(intake.eligible_1099rs).to contain_exactly(eligible_1099r, ineligible_1099r)
+    end
+  end
 end
