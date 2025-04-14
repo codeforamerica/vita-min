@@ -2644,9 +2644,12 @@ es:
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
           faq_link_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="%{url}">aquí</a>.
-          id_title2_html: |
+          id_extension_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
+          md_extension_title2_html: |
+            Asegurémonos de que este servicio es el indicado para ti.<br><br>
+            Estas son las sustracciones, créditos y pagos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
@@ -2678,54 +2681,6 @@ es:
           social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
           tax_prepayments: 'Reportar pagos anticipados de impuestos, incluyendo: pagos de extensión, pagos estimados y reembolsos de %{last_tax_year} aplicados a los impuestos de %{tax_year}.'
         md_reveals:
-          body1_html: |
-            <ul>
-              <li>
-                Restas:
-                <ul>
-                  <li>Suministros para el aula para maestros de grados K a 12</li>
-                  <li>Cuotas sindicales</li>
-                  <li>Pagos de un sistema de pensiones a bomberos y policías por lesiones o discapacidades relacionadas con el trabajo</li>
-                  <li>Gastos de hasta $5,000 de una persona ciega para un lector, o hasta $1,000 de un empleador para comprar un lector para un empleado ciego</li>
-                  <li>Contribuciones a cuentas ABLE</li>
-                  <li>Exclusión de pensiones (si tienes menos de 65 años y quieres incluirla debido a una discapacidad permanente, por primera vez)</li>
-                  <li>Cualquier otra deducción de Maryland no mencionada aquí (consulta <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">el formulario 502SU</a>)</li>
-                </ul>
-              </li>
-              <li>
-                Créditos:
-                <ul>
-                  <li>Crédito Tributario para el Alivio de Deuda de Préstamos para Estudiantes</li>
-                  <li>Crédito para Incentivar la Calidad de los Maestros</li>
-                  <li>Crédito por Seguro de Cuidado a Largo Plazo</li>
-                  <li>Crédito Tributario por Vida Independiente</li>
-                  <li>Crédito Tributario por Hijos de Maryland (si lo incluyes con base en la discapacidad del niño)</li>
-                  <li>Crédito Tributario por Ingresos del Trabajo de Maryland (si no reclamaste el Crédito Tributario por Ingresos del Trabajo Federal)</li>
-                  <li>Cualquier otro crédito de Maryland no mencionado <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(consulta el formulario 502CR</a>)</li>
-                </ul>
-              </li>
-
-              <li>
-                Situaciones del hogar:
-                <ul>
-                  <li>Declarar impuestos federales y estatales utilizando diferentes estados civiles tributarios (por ejemplo, presentar sus impuestos como casados declarando juntos en su declaración federal y querer presentar tu declaración estatal como casado declarando por separado)</li>
-                  <li>Agregar o quitar dependientes incluídos en tu declaración federal en el caso de tu declaración estatal</li>
-                  <li>Dividir el reembolso entre varias cuentas</li>
-                  <li>Estar casado y declarando conjuntamente con un cónyuge fallecido</li>
-                </ul>
-              </li>
-
-              <li>
-                Pagos:
-                <ul>
-                  <li>Pagos de impuestos estimados</li>
-                  <li>Pagos de impuestos por extensión</li>
-                </ul>
-              </li>
-            </ul>
-            <p>
-            Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
-            </p>
           body2_html: |
             <p>
               Este año, <strong>no puedes reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland utilizando este servicio</strong> en los siguientes escenarios:
@@ -2758,15 +2713,44 @@ es:
               </ul>
             </p>
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
+          reveal_1:
+            cred_b1: Crédito Tributario para el Alivio de Deuda de Préstamos para Estudiantes
+            cred_b2: Crédito para Incentivar la Calidad de los Maestros
+            cred_b3: Crédito por Seguro de Cuidado a Largo Plazo
+            cred_b4: Crédito Tributario por Vida Independiente
+            cred_b5: Crédito Tributario por Hijos de Maryland (si lo incluyes con base en la discapacidad del niño)
+            cred_b6: Crédito Tributario por Ingresos del Trabajo de Maryland (si no reclamaste el Crédito Tributario por Ingresos del Trabajo Federal)
+            cred_b7_html: Cualquier otro crédito de Maryland no mencionado <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(consulta el formulario 502CR</a>)
+            credits_title: 'Créditos:'
+            house_b1: Declarar impuestos federales y estatales utilizando diferentes estados civiles tributarios (por ejemplo, presentar sus impuestos como casados declarando juntos en su declaración federal y querer presentar tu declaración estatal como casado declarando por separado)
+            house_b2: Agregar o quitar dependientes incluídos en tu declaración federal en el caso de tu declaración estatal
+            house_b3: Dividir el reembolso entre varias cuentas
+            house_b4: Estar casado y declarando conjuntamente con un cónyuge fallecido
+            household_title: 'Situaciones del hogar:'
+            more_details_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
+            pay: Reportar pagos de impuestos estimados
+            pay_b1: Pagos de impuestos estimados
+            pay_b2: Pagos de impuestos por extensión
+            payments_title: 'Pagos:'
+            sub_b1: Suministros para el aula para maestros de grados K a 12
+            sub_b2: Cuotas sindicales
+            sub_b3: Pagos de un sistema de pensiones a bomberos y policías por lesiones o discapacidades relacionadas con el trabajo
+            sub_b4: Gastos de hasta $5,000 de una persona ciega para un lector, o hasta $1,000 de un empleador para comprar un lector para un empleado ciego
+            sub_b5: Contribuciones a cuentas ABLE
+            sub_b6: Exclusión de pensiones (si tienes menos de 65 años y quieres incluirla debido a una discapacidad permanente, por primera vez)
+            sub_b7_html: Cualquier otra deducción de Maryland no mencionada aquí (consulta <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">el formulario 502SU</a>)
+            subtractions_title: 'Restas:'
           title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland y/o el Crédito Tributario por Hijos no admite este servicio?"
           title3: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
         md_supported:
           heading1: 'Restas:'
           heading2: 'Créditos:'
+          heading3: 'Pagos:'
           sub1: Deducción por gastos de cuidado de niños y Dependientes
           sub10: Crédito tributario para Personas Mayores
           sub11: Crédito Estatal y Local por Nivel de Pobreza
           sub12: Crédito por Gastos de cuidado de Niños y Dependientes
+          sub13: Reportar pagos de extensión
           sub2:
             one: Exclusión de pensiones (si tienes 65 años o más, o si tienes menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
             other: Exclusión de pensiones (si tú o tu cónyuge tienen 65 años o más, o si tú o tu cónyuge tienen menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
@@ -3014,12 +2998,12 @@ es:
           subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
           title: "¿Hiciste un pago de extensión o de saldo estimado a Idaho sobre los impuestos de %{tax_year} en o antes del 15 de abril de %{current_year}?"
         md:
-          affirmative: 'Yes'
-          amount: Amount of extension payments
-          enter_amount: Enter the amount of extension payments paid to Maryland.
+          affirmative: Sí
+          amount: Cantidad de los pagos de extensión
+          enter_amount: Ingresa la cantidad que pagaste a Maryland por la extensión.
           negative: 'No'
-          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
-          title: Did you make a Maryland extension payment on or before April 15, %{current_year}?
+          subtitle_html: Si pagaste por una extensión a Maryland, lo hiciste <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp target="_blank" rel="noopener noreferrer">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf target="_blank" rel="noopener noreferrer">Formulario PV</a>.
+          title: "¿Hiciste un pago de extensión a Maryland en o antes del 15 de abril de %{current_year}?"
         nc:
           affirmative: 'Yes'
           amount: Amount of extension payments
@@ -3892,6 +3876,7 @@ es:
           household_rent_own_rent: Inquilino/a
           medical_expenses: Gastos médicos totales
           missing_health_insurance: Dependientes que NO tienen seguro médico
+          more_household_details: Mas detalles del hogar
           overpayments: Monto del reembolso transferido del año anterior
           primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
           primary_disabled: Exención por discapacidad
@@ -4383,6 +4368,7 @@ es:
         bank_details:
           account_number: Número de cuenta
           after_deadline_default_withdrawal_info: Debido al hecho de que estás enviando tu declaración el %{payment_deadline_date} de %{payment_deadline_year} o después, el estado retirará tu pago tan pronto como se procese tu declaración.
+          authorized_amount: By filling in your information here, you authorize a withdrawal of $%{owed_amount} from your account.
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
