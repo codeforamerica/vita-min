@@ -13,6 +13,10 @@ RSpec.describe Navigation::DocumentNavigation do
 
       def visitor_record; end
 
+      def params
+        {}
+      end
+
     end
 
     class FirstController < BaseController
@@ -90,13 +94,13 @@ RSpec.describe Navigation::DocumentNavigation do
 
     it "returns numeric index for next non-skipped controller in main flow" do
       navigation = described_class.new(ThirdController.new)
-      expect(navigation.prev).to eq SignpostController
+      expect(navigation.prev).to eq({ controller: SignpostController })
     end
 
     context "when current controller is the first" do
       it "returns nil" do
         navigation = described_class.new(FirstController.new)
-        expect(navigation.prev).to eq Documents::IdGuidanceController
+        expect(navigation.prev).to eq({ controller: Documents::IdGuidanceController })
       end
     end
   end

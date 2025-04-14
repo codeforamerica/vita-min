@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class NjHomeownerPropertyTaxController < QuestionsController
-      include ReturnToReviewConcern
 
       before_action -> { @municipality = current_intake.municipality_name }
 

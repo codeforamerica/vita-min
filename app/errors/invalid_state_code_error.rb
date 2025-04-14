@@ -1,4 +1,3 @@
-
 class InvalidStateCodeError < StandardError
   def initialize(code)
     @code = code

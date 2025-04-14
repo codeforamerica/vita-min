@@ -647,4 +647,17 @@ describe Efile::Az::Az140Calculator do
       expect(instance.refund_or_owed_amount).to eq(20)
     end
   end
+
+  context "with cents values" do
+    before do
+      # prev: 10.40+10.40+10.40 = 31.20, current: 10+10+10=30
+      create_list(:az321_contribution, 3, state_file_az_intake: intake, amount: 10.40)
+      intake.reload
+    end
+
+    it "rounds each amount before summing for line 5c" do
+      instance.calculate
+      expect(instance.lines[:AZ321_LINE_5].value).to eq(30)
+    end
+  end
 end

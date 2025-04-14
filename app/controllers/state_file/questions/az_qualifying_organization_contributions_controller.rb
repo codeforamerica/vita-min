@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class AzQualifyingOrganizationContributionsController < QuestionsController
-      include ReturnToReviewConcern
 
       before_action :maybe_opt_out_and_continue, only: [:update, :create]
       before_action :set_contribution_count

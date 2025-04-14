@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -1520,6 +1521,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
     t.index ["matching_previous_year_intake_id"], name: "index_intakes_on_matching_previous_year_intake_id"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
+    t.index ["preferred_name"], name: "index_intakes_on_preferred_name"
     t.index ["primary_consented_to_service"], name: "index_intakes_on_primary_consented_to_service"
     t.index ["primary_drivers_license_id"], name: "index_intakes_on_primary_drivers_license_id"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
@@ -1987,8 +1989,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
   end
 
   create_table "state_file_id1099_r_followups", force: :cascade do |t|
+    t.integer "civil_service_account_number", default: 0, null: false
     t.datetime "created_at", null: false
     t.integer "eligible_income_source", default: 0, null: false
+    t.integer "firefighter_frf", default: 0, null: false
+    t.integer "firefighter_persi", default: 0, null: false
+    t.integer "income_source", default: 0, null: false
+    t.integer "police_persi", default: 0, null: false
+    t.integer "police_retirement_fund", default: 0, null: false
     t.datetime "updated_at", null: false
   end
 
@@ -1998,6 +2006,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
     t.decimal "american_red_cross_fund_donation", precision: 12, scale: 2
     t.string "bank_name"
     t.decimal "childrens_trust_fund_donation", precision: 12, scale: 2
+    t.datetime "clicked_to_file_with_other_service_at"
     t.integer "consented_to_sms_terms", default: 0, null: false
     t.integer "consented_to_terms_and_conditions", default: 0, null: false
     t.integer "contact_preference", default: 0, null: false
@@ -2891,6 +2900,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
     t.string "timezone", default: "America/New_York"
     t.string "type", null: false
     t.datetime "updated_at", null: false
+    t.index ["allows_greeters"], name: "index_vita_partners_on_allows_greeters"
     t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"
     t.index ["parent_organization_id", "name", "coalition_id"], name: "index_vita_partners_on_parent_name_and_coalition", unique: true
     t.index ["parent_organization_id"], name: "index_vita_partners_on_parent_organization_id"

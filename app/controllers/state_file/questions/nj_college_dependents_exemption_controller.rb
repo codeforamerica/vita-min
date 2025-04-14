@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class NjCollegeDependentsExemptionController < QuestionsController
-      include ReturnToReviewConcern
 
       def self.show?(intake)
         intake.dependents.count(&:under_22?).positive?

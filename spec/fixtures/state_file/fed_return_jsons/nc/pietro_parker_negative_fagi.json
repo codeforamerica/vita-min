@@ -1,0 +1,32 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Parker",
+      "dateOfBirth": "1990-05-21",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Pietro",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "146-00-5561",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "BOX14_NJ_UIWFSWF": null,
+      "usedTin": "146-00-5561",
+      "BOX14_NJ_UIHCWD": null,
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}
