@@ -70,6 +70,18 @@ RSpec.describe StateFile::Questions::IdRetirementAndPensionIncomeController do
         expect(response).to be_successful
       end
 
+
+      context "when a user clicks to offboard but clicks back to continues again filing" do
+        before do
+          intake.clicked_to_file_with_other_service_at = DateTime.now
+          intake.save
+        end
+        it "resets the clicked_to_file_with_other_service_at to nil" do
+          get :edit
+          expect(intake.reload.clicked_to_file_with_other_service_at).to eq nil
+        end
+      end
+
       context "when an index is not provided" do
         it "renders the data for the first eligible 1099R" do
           get :edit
@@ -85,7 +97,7 @@ RSpec.describe StateFile::Questions::IdRetirementAndPensionIncomeController do
 
       context "when an index param is provided" do
         it "renders the data for the eligible 1099R at that index" do
-          get :edit, params: { index: 1 }
+          get :edit, params: { item_index: 1 }
           expect(response.body).to include("Spouse Payer")
           expect(response.body).to include("$2,222")
           expect(response.body).to include("Spouse Recipient")
@@ -98,7 +110,7 @@ RSpec.describe StateFile::Questions::IdRetirementAndPensionIncomeController do
 
       context "when an invalid index param is provided" do
         it "renders a 404" do
-          get :edit, params: { index: 2 }
+          get :edit, params: { item_index: 2 }
           expect(response).to be_not_found
         end
       end

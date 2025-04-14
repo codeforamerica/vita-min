@@ -41,22 +41,6 @@ class StateFileBaseIntake < ApplicationRecord
          .where(federal_submission_id: nil)
   }
 
-  scope :messaging_eligible, lambda {
-    where(<<~SQL)
-      (
-        phone_number IS NOT NULL
-        AND sms_notification_opt_in = 1
-        AND phone_number_verified_at IS NOT NULL
-      )
-      OR
-      (
-        email_address IS NOT NULL
-        AND email_notification_opt_in = 1
-        AND email_address_verified_at IS NOT NULL
-      )
-    SQL
-  }
-
   scope :has_verified_contact_info, lambda {
     where(<<~SQL)
       (
@@ -218,6 +202,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def calculator
+    return unless raw_direct_file_data.present?
     unless @calculator.present?
       @calculator = tax_calculator
       @calculator.calculate
@@ -234,7 +219,7 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def calculated_refund_or_owed_amount
-    calculator.refund_or_owed_amount
+    calculator&.refund_or_owed_amount
   end
 
   def refund_or_owe_taxes_type

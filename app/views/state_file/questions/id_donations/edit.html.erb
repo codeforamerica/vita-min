@@ -21,6 +21,6 @@
         <%= f.vita_min_money_field(:opportunity_scholarship_program_donation, t(".opportunity_scholarship_program_donation"), classes: ["form-width--long"]) %>
       </div>
     </div>
-    <%= f.continue(t(".save_and_continue")) %>
+    <%= render "state_file/questions/shared/continue_button", f: f, button_text: t(".save_and_continue") %>
   <% end %>
 <% end %>

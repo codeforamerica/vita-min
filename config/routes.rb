@@ -650,6 +650,8 @@ Rails.application.routes.draw do
         get "/sms-terms", to: "state_file_pages#sms_terms"
         get "/unsubscribe_from_emails", to: "notifications_settings#unsubscribe_from_emails", as: :unsubscribe_from_emails
         post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
+        get "/id_file_with_another_service", to: "questions/id_ineligible_retirement_and_pension_income#file_with_another_service"
+        get "/continue_filing", to: "questions/id_ineligible_retirement_and_pension_income#continue_filing"
       end
     end
   end

@@ -35,6 +35,7 @@
 #  message_tracker                   :jsonb
 #  moved_after_hurricane_helene      :integer          default("unfilled"), not null
 #  out_of_country                    :integer          default("no"), not null
+#  paid_federal_extension_payments   :integer          default("unfilled"), not null
 #  paid_extension_payments           :integer          default("unfilled"), not null
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
@@ -89,6 +90,7 @@
 #  index_state_file_nc_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileNcIntake < StateFileBaseIntake
+  include DateHelper
   include NcResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
@@ -105,6 +107,7 @@ class StateFileNcIntake < StateFileBaseIntake
   enum eligibility_ed_loan_emp_payment: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_emp_payment
   enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
   enum out_of_country: { no: 0, yes: 1 }, _prefix: :out_of_country
+  enum paid_federal_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_federal_extension_payments
 
   attr_accessor :nc_eligiblity_none
   before_save :sanitize_county_details
@@ -159,5 +162,23 @@ class StateFileNcIntake < StateFileBaseIntake
 
   def check_nra_status?
     true
+  end
+
+  def calculate_date_electronic_withdrawal(current_time:)
+    submitted_before_deadline = StateFile::StateInformationService.before_payment_deadline?(2.business_days.after(current_time), self.state_code)
+    if submitted_before_deadline
+      date_electronic_withdrawal&.to_date
+    else
+      timezone = StateFile::StateInformationService.timezone(self.state_code)
+      next_available_date(current_time.in_time_zone(timezone))
+    end
+  end
+
+  def next_available_date(current_time)
+    initial_days_to_add = after_business_hours(current_time) ? 2 : 1
+    date = add_business_days_to_date(current_time, initial_days_to_add)
+    date = add_business_days_to_date(date, 1) while holiday?(date)
+
+    date.to_date
   end
 end

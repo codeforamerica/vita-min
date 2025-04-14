@@ -132,7 +132,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 
-      page_change_check(I18n.t("state_file.questions.extension_payments.az.title", date_year: (MultiTenantService.statefile.current_tax_year + 1)))
+      page_change_check(I18n.t("state_file.questions.extension_payments.az.title", current_year: (MultiTenantService.statefile.current_tax_year + 1)))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
@@ -290,11 +290,15 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
+      page_change_check(I18n.t("state_file.questions.federal_extension_payments.edit.title"))
+      choose I18n.t("general.affirmative")
+      click_on I18n.t("general.continue")
+
       expect(page).to have_text(I18n.t("state_file.questions.nc_out_of_country.edit.title", year: filing_year + 1))
       choose I18n.t("general.negative")
       click_on I18n.t("general.continue")
 
-      page_change_check(I18n.t("state_file.questions.extension_payments.nc.title", date_year: (MultiTenantService.statefile.current_tax_year + 1)))
+      page_change_check(I18n.t("state_file.questions.extension_payments.nc.title", current_year: (MultiTenantService.statefile.current_tax_year + 1)))
       choose I18n.t("state_file.questions.extension_payments.nc.negative")
       click_on I18n.t("general.continue")
 
@@ -425,7 +429,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       click_on I18n.t("general.continue")
 
       #Extension Payments
-      expect(page).to have_text I18n.t("state_file.questions.extension_payments.id.title",  date_year: (MultiTenantService.statefile.current_tax_year + 1), tax_year: MultiTenantService.statefile.current_tax_year)
+      expect(page).to have_text I18n.t("state_file.questions.extension_payments.id.title",  current_year: (MultiTenantService.statefile.current_tax_year + 1), tax_year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("state_file.questions.extension_payments.id.negative")
       click_on I18n.t("general.continue")
 
@@ -560,7 +564,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in 'state_file_md_two_income_subtractions_form[primary_student_loan_interest_ded_amount]', with: "1300.0"
       click_on I18n.t("general.continue")
 
-      page_change_check(I18n.t("state_file.questions.extension_payments.md.title", date_year: (MultiTenantService.statefile.current_tax_year + 1)))
+      page_change_check(I18n.t("state_file.questions.extension_payments.md.title", current_year: (MultiTenantService.statefile.current_tax_year + 1)))
       choose I18n.t("state_file.questions.extension_payments.md.negative")
       click_on I18n.t("general.continue")
 

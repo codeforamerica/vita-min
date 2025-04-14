@@ -1561,26 +1561,39 @@ es:
         sms: "Hola, Es posible que hayas tenido problemas transfiriendo los datos de tu declaración federal desde IRS Direct File. Se resolvió el problema. \n\nPara continuar con la preparación de tu declaración estatal, por favor crea una cuenta nueva con FileYourStateTaxes, visitando: https://www.fileyourstatetaxes.org/es/%{state_code}/landing-page\n\nNecesitas ayuda? Envía un correo electrónico a Email us at help@fileyourstatetaxes.org\n"
       finish_return:
         email:
-          body: |
-            Hola %{primary_first_name},
+          body:
+            on_april_15: |
+              Hola %{primary_first_name},
 
-            Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril.
+              Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen hoy, el 15 de abril.
+              Completa tu declaración hoy visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/en/login-options</a>
 
-            Completa tu declaración ahora visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+              ¿Necesitas ayuda? Responde a este correo electrónico.
 
-            ¿Necesitas ayuda? Responde a este correo electrónico.
+              Atentamente,
+              El equipo de FileYourStateTaxes
+            pre_deadline: |
+              Hola %{primary_first_name},
 
-            Atentamente,
-            El equipo de FileYourStateTaxes
+              Todavía no has enviado tu declaración de impuestos estatales. Recuerda que los impuestos estatales vencen el 15 de abril.
+
+              Completa tu declaración ahora visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+
+              ¿Necesitas ayuda? Responde a este correo electrónico.
+
+              Atentamente,
+              El equipo de FileYourStateTaxes
           subject: Recuerda completar tu declaración de impuestos estatales
-        sms: |
-          Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
+        sms:
+          on_april_15: "Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. \n\n  Completa tu declaración hoy en www.fileyourstatetaxes.org/es/login-options.\n\n  Atentamente,\n  El equipo de FileYourStateTaxes\n\n  ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\n"
+          pre_deadline: |
+            Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
 
-          Los impuestos estatales vencen el 15 de abril.
+            Los impuestos estatales vencen el 15 de abril.
 
-          Completa tu declaración ahora en www.fileyourstatetaxes.org/es/login-options.
+            Completa tu declaración ahora en www.fileyourstatetaxes.org/es/login-options.
 
-          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
+            ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
       issue_resolved:
         email:
           body: "Hola, ¡Gracias por usar FileYourStateTaxes!\n\nTodos los problemas que hayas experimentado al usar nuestra herramienta han sido resueltos. Para continuar presentando tus impuestos estatales, <a href=\"%{login_link}\">inicia sesión aquí.</a>\n\nSaludos, \nEl equipo de FileYourStateTaxes\n"
@@ -2580,6 +2593,9 @@ es:
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
           faq_link_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="%{url}">aquí</a>.
+          id_title2_html: |
+            Asegurémonos de que este servicio es el indicado para ti.<br><br>
+            Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
@@ -2609,6 +2625,7 @@ es:
           interest_from_obligations: Resta de intereses de obligaciones del gobierno de los Estados Unidos
           retirement_benefits_deduction: Deducciones por Beneficios de Jubilación
           social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
+          tax_prepayments: 'Reportar pagos anticipados de impuestos, incluyendo: pagos de extensión, pagos estimados y reembolsos de %{last_tax_year} aplicados a los impuestos de %{tax_year}.'
         md_reveals:
           body1_html: |
             <ul>
@@ -2725,6 +2742,13 @@ es:
           deduction_for_retirement_income_uniformed: Deducción por ingresos de jubilación de los servicios uniformados
           deduction_for_taxable_portion: Deducción por la parte imponible de los beneficios del Seguro Social y de Beneficios de Jubilación Ferroviaria
         nj_credits_unsupported:
+          also_unsupported_extensions_html: |
+            <li>Solicitud de prórrogas (pero sí admitimos la presentación de informes de los pagos estimados que realizó al solicitar una extensión)</li>
+            <li>Contribuciones caritativas a varias organizaciones de NJ a través de tu declaración</li>
+            <li>Declaraciones con distintos estados civiles: debes usar el mismo estado civil en tus declaraciones de impuestos federales y estatales. Por ejemplo, no puedes presentarte como casado/a declarando conjuntamente en los impuestos federales y luego como casado/a declarando separadamente en los estatales.</li>
+            <li>Repetición de dependientes: No debes agregar ni quitar dependientes en tu declaración de impuestos estatales si ya los reclamaste en tu declaración de impuestos federales</li>
+            <li>Aplicar una parte de tu reembolso de 2024 a tus estimaciones de impuestos de 2025</li>
+            <li>La “regla de los tres años” o la “regla general” para calcular la parte imponible de sus ingresos de pensión/jubilación. Para más datos, consulte la publicación sobre <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git1&2.pdf">Ingresos de Jubilación de New Jersey (PDF en inglés).</a></li>
           also_unsupported_html: |
             <li>Solicitud de prórrogas</li>
             <li>Contribuciones caritativas a varias organizaciones de NJ a través de tu declaración</li>
@@ -2930,32 +2954,37 @@ es:
           enter_amount: Enter the amount of extension payments paid to Arizona.
           negative: 'No'
           subtitle_html: If you made a Arizona extension payment, you would have <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Form 204</a>.
-          title: Did you make an Arizona extension payment on or before April 15, %{date_year}?
+          title: Did you make an Arizona extension payment on or before April 15, %{current_year}?
         id:
-          affirmative: Yes, I made extension or estimated payments to Idaho
-          amount: Amount of Idaho payments
-          enter_amount: Enter the amount of payments made to Idaho on form 51
-          negative: No, I did not make extension or estimated payments to Idaho
-          subtitle_html: "If you made these payments, you would have <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">paid online</a> or mailed your payment along with <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nEstimated tax payments can be paid anytime during the tax year, and they do not include taxes withheld from your other income such as wages and retirement.\n"
-          title: Did you make any Idaho extension or estimated payments for the %{tax_year} tax year on or before April 15, %{date_year}?
+          affirmative: Sí, hice un pago de extensión o de saldo estimado a Idaho
+          amount: Cantidad de los pagos de extensión
+          enter_amount: Ingresa la cantidad de los pagos que hiciste a Idaho usando el Formulario 51.
+          negative: No, no hice un pago de extensión o de saldo estimado a Idaho
+          subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
+          title: "¿Hiciste un pago de extensión o de saldo estimado a Idaho sobre los impuestos de %{tax_year} en o antes del 15 de abril de %{current_year}?"
         md:
           affirmative: 'Yes'
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to Maryland.
           negative: 'No'
           subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
-          title: Did you make a Maryland extension payment on or before April 15, %{date_year}?
+          title: Did you make a Maryland extension payment on or before April 15, %{current_year}?
         nc:
           affirmative: 'Yes'
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to North Carolina.
           negative: 'No'
           subtitle_html: If you made a North Carolina extension payment, you would have <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Form D-410</a>.
-          title: Did you make a North Carolina extension payment on or before April 15, %{date_year}?
+          title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
       federal_extension_payments:
         edit:
-          more_info: More info here...
+          'false': No, I was not granted a federal extension
+          list_1: Made a federal extension payment
+          list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
+          subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
+          subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
           title: Were you granted a federal extension?
+          'true': Yes, I was granted a federal extension
       id_disability:
         edit:
           help_b1: Un individuo reconocido como discapacitado por la Administración del Seguro Social, la Junta de Jubilación de los Ferrocarriles o la Oficina de Administración y Presupuesto (OMB, por sus siglas en inglés).
@@ -3077,6 +3106,26 @@ es:
               <li>El Formulario 1095-A, restando el total de la columna C del total de la columna A.</li>
             </ul>
           what_is_title: "¿Qué es una prima de seguro médico?"
+      id_ineligible_retirement_and_pension_income:
+        edit:
+          another_service: Declarar con otro servicio
+          file_without_claiming: Declarar sin reclamar
+          go_back: regresa para corregirlo.
+          how_much_b1: Para encontrar esta cantidad, revisa la Notificación de Ajuste de Anualidad que recibiste de la Oficina de Administración de Personal (OPM, por sus siglas en inglés)
+          how_much_b2_html: 'Si no tienes tu Notificación de Ajuste de Anualidad visita: <a href=''https://www.servicesonline.opm.gov/'' target=''_blank'' rel=''noopener noreferrer''>https://www.servicesonline.opm.gov/</a>'
+          how_much_content: La cantidad total pagada por el  Sistema de Jubilación del Servicio Civil (CSRS, por sus siglas en inglés) para este 1099-R reduciría el monto de ingreso de jubilación sobre el que se te cobran impuestos.
+          how_much_title: "¿Cuánto dinero es la deducción?"
+          subtitle: Contestaste que el número de cuenta de tu 1099-R de %{sample_name} para %{taxpayer_name} empieza con 8.
+          subtitle_html: "<b>Actualmente, nuestro servicio no admite este tipo de cuenta.</b> Si fue un error, "
+          title: Desafortunadamente, nuestro servicio no admite el tipo de cuenta de tu 1099-R para reclamar la deducción de ingresos de jubilación de Idaho
+          warning_1: Si continúas sin reclamar la deducción para este 1099-R los impuestos que debes pagar o tu reembolso será afectado.
+          warning_2: Para reclamar esta deducción tendrás que utilizar otro servicio para declarar impuestos. Puede tardar hasta 3 semanas en declarar.
+        file_with_another_service:
+          continue_filing: Sigue presentado con este servicio.
+          subtitle_1: No puedes continuar presentando con FileYourStateTaxes porque quieres reclamar la deducción de ingresos de jubilación de Idaho y el servicio no soporta  el tipo de cuenta de tu 1099-R.
+          subtitle_2: "¿Quieres declarar sin reclamar esta deducción?"
+          title: Aquí hay otras opciones para reclamar la deducción de ingresos de jubilación de Idaho
+          vita_service: Puedes presentar tu declaración estatal de forma gratuita con voluntarios VITA certificados por el IRS.
       id_permanent_building_fund:
         edit:
           receive_public_assistance_explanation: Los pagos de asistencia pública no incluyen cupones de alimentos ni pagos de WIC.
@@ -3093,13 +3142,24 @@ es:
           why_ask_this: "¿Por qué están pidiendo esta información?"
       id_retirement_and_pension_income:
         edit:
-          question_b1: Tu servicio como empleado del servicio civil
-          question_b2: Tu servicio como bombero de Idaho
-          question_b3: Tu servicio como policía de una ciudad en Idaho
-          question_b4: Tu servicio como miembro de las fuerzas armadas de los Estados unidos
-          question_b5: Beneficios de sobreviviente de la pensión de tu cónyuge fallecido que proviene de una de las fuentes enumeradas anteriormente
-          question_html: ¿Este ingreso de jubilación proviene de alguna de las siguientes fuentes y cumple con los requisitos de <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00088/EFO00088_08-22-2024.pdf#page=7" target="_blank" rel="noopener noreferrer">las páginas 7 y 8 del folleto de instrucciones</a>?
-          subtitle: Necesitamos más información de tu formulario 1099-R para confirmar tu elegibilidad.
+          civil_servant: Servicio como empleado del Servicio Civil
+          civil_servant_follow_up: "¿Con qué número comienza el número de cuenta en este 1099R?"
+          details_content: Si no estás seguro de los detalles de tu plan de jubilación, contacta a quien paga tu plan al número de teléfono que aparece en tu 1099-R.
+          details_title: "¿Qué pasa si no sé los detalles de mi 1099-R?"
+          firefighter: Servicio como bombero de Idaho
+          firefighter_follow_up: "¿Alguna de las siguientes afirmaciones aplica a tus ingresos de jubilación como bombero de Idaho?"
+          firefighter_frf: El número de cuenta del 1099-R incluye la designación Fondo de Jubilación de Bomberos (FRF, por sus siglas en inglés)
+          firefighter_persi: Los beneficios fueron pagados por el Sistema de Jubilación de Empleados Públicos de Idaho (PERSI)
+          military: Servicio como miembro del ejército de los Estados Unidos
+          none_apply: Ninguna de estas afirmaciones aplica
+          police_officer: Servicio como oficial de policía de la ciudad de Idaho
+          police_officer_follow_up: "¿Alguna de las siguientes afirmaciones aplica a tus ingresos de jubilación como oficial de policía de una ciudad de Idaho?"
+          police_persi_html: Los beneficios fueron pagados por el Sistema de Jubilación de Empleados Públicos de Idaho (PERSI) que <u>no formaban parte de un Plan Base de PERSI</u>
+          police_retirement_fund: Los beneficios fueron pagados por el Fondo de Jubilación de Policías que ya no admite nuevos miembros desde enero de 2012
+          question_html: 'Selecciona la fuente de este ingreso:'
+          seven_or_nine: 7 o 9
+          subtitle: Algunos Formularios 1099-R con un monto imponible podrán calificar para esta deducción. Necesitamos más información sobre este 1099-R para verificar tu elegibilidad y presentar tu declaración estatal.
+          subtitle_2: Si tienes varios 1099-R, se te pedirá completar este paso para cada uno cantidad sujeta a impuestos
       id_review:
         edit:
           donations_optional: Los contribuyentes de Idaho pueden hacer donaciones caritativas voluntarias a organizaciones cuando presentan su declaración de impuestos estatal.
@@ -3556,6 +3616,20 @@ es:
           title: Necesitamos información sobre tu estado de seguro médico.
       nj_estimated_tax_payments:
         edit:
+          description_extensions_html: |
+            <p>La mayoría de las personas <strong>no</strong> realizan estos pagos.</p>
+            <p>Estos pagos incluyen:</p>
+            <ul class="list--bulleted">
+              <li><strong><a href="https://www.nj.gov/treasury/taxation/njit20.shtml" target="_blank" rel="noopener nofollow">Pagos trimestrales estimados (PDF en inglés)</a></strong> que realizaste. Estos vencieron el 15 de abril, el 17 de junio y el 16 de septiembre del año pasado y el 15 de enero de este año. Es más probable que los hayas hecho si tu empleador/a <strong>no</strong> retiene impuestos de tu talón de pago o si trabajas como independiente (self-employed). Los habrías pagado <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">en línea</a> o por correo.</li>
+              <li><strong>Un pago adicional que realizaste cuando <a href="https://www.nj.gov/treasury/taxation/njit17.shtml" target="_blank" rel="noopener nofollow">solicitaste una prórroga</a>.</strong></li>
+              <li><strong>Un reembolso que decidiste transferir</strong> de tus impuestos estatales de %{prior_year} a tus impuestos estatales de %{filing_year}.</li>
+            </ul>
+            <p>Estos pagos <strong>no</strong> incluyen:</p>
+            <ul class="list--bulleted">
+              <li>Pagos realizados para un año tributable anterior</li>
+              <li>Retenciones de tu talón de pago (W-2) o de tus ingresos de jubilación (1099-R)</li>
+              <li>Impuestos sobre la propiedad</li>
+            </ul>
           description_html: |
             <p>La mayoría de las personas <strong>no</strong> realizan estos pagos.</p>
             <p>Es más probable que los hayas pagado si tu empleador/a <strong>no retiene</strong> impuestos de tu talón de pago o si trabajas como independiente (self-employed).</p>
@@ -3572,12 +3646,12 @@ es:
             </ul>
           estimated_taxes_input_helper_html: Suma tus pagos trimestrales e ingresa el total (<a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">verifica cuánto pagaste</a>).
           estimated_taxes_input_label_html: "<strong>Total de pagos estimados realizados para los impuestos de %{filing_year}</strong>"
-          extension_payments_input_helper_html: You generally would have made this payment earlier in 2025, when requesting an extension to file your state taxes <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a> or using <a href="https://www.nj.gov/treasury/taxation/pdf/current/630.pdf" target="_blank" rel="noopener nofollow">NJ-630</a>.
-          extension_payments_input_label_html: "<strong>Additional payment you made when you filed for an extension</strong>"
+          extension_payments_input_helper_html: Generalmente, este pago lo habrías realizado previamente en el %{current_year}, al solicitar una prórroga para presentar tus impuestos estatales <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">en línea</a> o utilizando el formulario <a href="https://www.nj.gov/treasury/taxation/pdf/current/630.pdf" target="_blank" rel="noopener nofollow">NJ-630</a>.
+          extension_payments_input_label_html: "<strong>Pago adicional que realizaste cuando solicitaste una prórroga</strong>"
           no_text: No (más común)
-          overpayments_input_helper_html: Si aplica, puedes encontrar esto en la línea 69 de tu NJ-1040 de %{prior_year}. Ingresa un monto aquí solo si no lo incluiste en el cálculo del cuadro anterior.
-          overpayments_input_label_html: "<strong>Reembolso transferido a los impuestos de %{filing_year} (no incluyas los pagos estimados)</strong>"
-          question_box: Ingrese los montos pagados.
+          overpayments_input_helper_html: Si aplica, puedes encontrar esto en la línea 69 de tu NJ-1040 de %{prior_year}. Ingresa un monto aquí solo si no lo incluiste en el cálculo de los cuadros anteriores.
+          overpayments_input_label_html: "<strong>Reembolso de %{prior_year} transferido a los impuestos de %{filing_year}</strong> (no incluyas los pagos estimados)"
+          question_box: Por favor, comparte los montos
           radio_label: "¿Hiciste pagos estimados u otros pagos para los impuestos sobre los ingresos de New Jersey de %{filing_year}?"
           title_html: ¿Hiciste <a href="https://nj.gov/treasury/taxation/pdf/pubs/tgi-ee/git8.pdf" target="_blank" rel="noopener nofollow">pagos estimados u otros pagos</a> para los impuestos sobre los ingresos de New Jersey de %{filing_year}?
       nj_gubernatorial_elections:
@@ -3750,8 +3824,8 @@ es:
           edit_disability: estado de discapacidad
           edit_veteran: estado de veterano/a de guerra
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
-          estimated_tax_payments: Monto de los pagos trimestrales estimados
-          extension_payments: Payment made when you filed for an extension
+          estimated_tax_payments: Monto de pagos estimados trimestrales
+          extension_payments: Pago realizado cuando pediste una prórroga
           has_estimated_payments: Estimated or other payments
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
@@ -3760,7 +3834,7 @@ es:
           household_rent_own_rent: Inquilino/a
           medical_expenses: Gastos médicos totales
           missing_health_insurance: Dependientes que NO tienen seguro médico
-          overpayments: Amount of refund carried forward
+          overpayments: Monto del reembolso transferido del año anterior
           primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
           primary_disabled: Exención por discapacidad
           primary_veteran: Exención para veteranos/as de guerra
@@ -4149,10 +4223,23 @@ es:
           subtitle: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
           title: La deducción de ingresos por jubilación de Arizona
           uniformed_services: Pago de jubilación o retención de los servicios uniformados de los Estados Unidos
+        id_disability_review_header:
+          editing_may_affect_deductions: Editing this answer may affect your Idaho retirement income deductions
+          meets_qualifications: Meets qualifications to be classified as disabled
         id_retirement_income_deductions_review_header:
+          civil_servant_employee: Retirement income from %{taxpayer_name}’s service as a Civil Service employee
+          eight: Account number starts with 8.
+          firefighter: Retirement income from %{taxpayer_name}’s service as an Idaho firefighter
+          military: Retirement income from %{taxpayer_name}’s service as a member of the U.S. military
+          none_apply: None apply
+          police_officer: Retirement income from %{taxpayer_name}’s service as an Idaho city Police officer
           qualified_disabled_retirement_benefits: Beneficios calificados de jubilación para personas con discapacidad
           qualified_retirement_benefits_deduction: Deducción por Beneficios Calificados de Jubilación
           qualified_retirement_benefits_deduction_explain: Estos permiten a las personas deducir de sus impuestos la totalidad o una parte de sus ingresos por jubilación.
+          seven_or_nine: Account number starts with 7 or 9
+          subtitle: These allow people to deduct all or a portion of their retirement income from their taxes.
+          title: Idaho retirement income deductions
+          zero_to_four: Account number starts with 0, 1,2, 3 or 4
         md_retirement_income_deductions_review_header:
           military: Tu servicio en el ejército o los beneficios por fallecimiento militar recibidos en nombre de un cónyuge o ex-cónyuge
           none: Ninguno aplica.
@@ -6209,6 +6296,7 @@ es:
         subheader: "¡Reclama miles de dólares a través de los créditos tributarios que te corresponden! Trabajamos contigo para obtener tu mayor reembolso."
         subheader_ctc_open: A pesar de que la fecha límite tradicional de impuestos ha pasado, ¡todavía puede reclamar miles de dólares en créditos tributarios!
         subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir el 31 de enero a la 1pm EST."
+        subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
         cta: Presentar mis impuestos por mi cuenta gratis
@@ -7032,6 +7120,7 @@ es:
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
+      ice_warning_html: "<strong>Declarantes inmigrantes:</strong> A partir del 7 de abril, el IRS y el Departamento de Seguridad Nacional (incluyendo ICE) han llegado a un acuerdo para compartir datos entre las agencias. <a href='%{faq_link}' target='_blank'>Consulte nuestras preguntas frecuentes para más información.</a>"
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:

@@ -35,9 +35,13 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::NcVeteranStatusController),
         Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::UnemploymentController),
-        Navigation::NavigationStep.new(StateFile::Questions::NcRetirementIncomeSubtractionController),
+        Navigation::RepeatedMultiPageStep.new(
+          "retirement_income_deduction",
+          [StateFile::Questions::NcRetirementIncomeSubtractionController],
+          ->(intake) { intake&.eligible_1099rs&.count }),
         Navigation::NavigationStep.new(StateFile::Questions::NcSubtractionsController),
         Navigation::NavigationStep.new(StateFile::Questions::NcSalesUseTaxController),
+        Navigation::NavigationStep.new(StateFile::Questions::FederalExtensionPaymentsController),
         Navigation::NavigationStep.new(StateFile::Questions::NcOutOfCountryController),
         Navigation::NavigationStep.new(StateFile::Questions::ExtensionPaymentsController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
@@ -52,6 +56,13 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::ReturnStatusController),
       ], true, true),
     ].freeze
-    FLOW = SECTIONS.map(&:controllers).flatten.freeze
+
+    def self.controllers
+      sections.flat_map(&:controllers)
+    end
+
+    def self.pages(visitor_record)
+      sections.flat_map { |section| section.pages(visitor_record) }
+    end
   end
 end

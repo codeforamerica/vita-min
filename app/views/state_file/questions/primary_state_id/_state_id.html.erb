@@ -55,7 +55,7 @@
     </div>
   </div>
   <%= content_for :info_box %>
-  <%= f.continue %>
+  <%= render "state_file/questions/shared/continue_button", f: f %>
 <% end %>
 
 <% content_for :script do %>
