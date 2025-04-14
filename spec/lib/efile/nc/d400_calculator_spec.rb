@@ -56,6 +56,20 @@ describe Efile::Nc::D400Calculator do
         end
       end
     end
+
+    context "with negative AGI" do
+      let(:intake) { create(:state_file_nc_intake, filing_status: :single, raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("nc_nala_hoh")) }
+      let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
+
+      it "uses the lowest income range" do
+        intake.direct_file_data.fed_agi = -5000
+        intake.direct_file_data.qualifying_children_under_age_ssn_count = 2
+
+        calculator_instance.calculate
+        # For single filer, AGI <= 20_000 results in $3000 per child
+        expect(calculator_instance.lines[:NCD400_LINE_10B].value).to eq(6000)
+      end
+    end
   end
 
   describe "Line 11: Standard Deduction" do
