@@ -4182,7 +4182,7 @@ en:
           dependent_dob: Their date of birth
           dependent_months_in_home: Number of months they lived with you
           dependent_name: Your dependent's name
-          household_info: Household details
+          household_info: Household Details
           nth_dependent_name: Your %{ordinal} dependent's name
           spouse_name: Your spouse's name
           taxes_owed_header: Your refund or taxes owed
@@ -4218,7 +4218,7 @@ en:
           uniformed_survivor_benefit_plan: Payments from a qualifying Survivor Benefit Plan to a beneficiary of a retired member who served at least 20 years or who was medically retired from the Uniformed Services
           uniformed_twenty_years_medical_retired: Retired member who served at least 20 years or were medically retired from the Uniformed Services
         review_header:
-          income_details: Income details
+          income_details: Income Details
           income_forms_collected: 'Income form(s) collected:'
           state_details_title: State Details
           your_refund: Your refund amount
