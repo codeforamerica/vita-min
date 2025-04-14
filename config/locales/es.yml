@@ -2681,10 +2681,12 @@ es:
         md_supported:
           heading1: 'Restas:'
           heading2: 'Créditos:'
+          heading3: 'Pagos:'
           sub1: Deducción por gastos de cuidado de niños y Dependientes
           sub10: Crédito tributario para Personas Mayores
           sub11: Crédito Estatal y Local por Nivel de Pobreza
           sub12: Crédito por Gastos de cuidado de Niños y Dependientes
+          sub13: Reportar pagos de extensión
           sub2:
             one: Exclusión de pensiones (si tienes 65 años o más, o si tienes menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
             other: Exclusión de pensiones (si tú o tu cónyuge tienen 65 años o más, o si tú o tu cónyuge tienen menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
@@ -2936,7 +2938,7 @@ es:
           amount: Cantidad de los pagos de extensión
           enter_amount: Ingresa la cantidad que pagaste a Maryland por la extensión.
           negative: 'No'
-          subtitle_html: Si pagaste por una extensión a Maryland, lo hiciste <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Formulario PV</a>.
+          subtitle_html: Si pagaste por una extensión a Maryland, lo hiciste <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp target="_blank" rel="noopener noreferrer">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf target="_blank" rel="noopener noreferrer">Formulario PV</a>.
           title: "¿Hiciste un pago de extensión a Maryland en o antes del 15 de abril de %{current_year}?"
         nc:
           affirmative: 'Yes'

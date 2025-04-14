@@ -2697,10 +2697,12 @@ en:
         md_supported:
           heading1: 'Subtractions:'
           heading2: 'Credits:'
+          heading3: 'Payments:'
           sub1: Subtraction for Child and Dependent Care Expenses
           sub10: Senior Tax Credit
           sub11: State and local Poverty Level Credits
           sub12: Credit for Child and Dependent Care Expenses
+          sub13: Reporting extension payments
           sub2:
             one: Pension exclusion (if you are 65 years or older, or if you are under 65 and previously qualified for the exclusion based on a permanent disability)
             other: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
@@ -2971,7 +2973,7 @@ en:
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to Maryland.
           negative: 'No'
-          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
+          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp target="_blank" rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf target="_blank" rel="noopener noreferrer">Form PV</a>.
           title: Did you make a Maryland extension payment on or before April 15, %{current_year}?
         nc:
           affirmative: 'Yes'
