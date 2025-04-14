@@ -27,6 +27,13 @@ module StateFile
         StateInformationService.before_payment_deadline?(app_time, current_intake.state_code)
       end
       helper_method :current_time_before_payment_deadline?
+
+      def current_time_after_tax_deadline?
+        timezone = StateInformationService.timezone(current_intake.state_code)
+        deadline = Rails.configuration.tax_deadline.to_date
+        app_time.in_time_zone(timezone).to_date.after?(deadline)
+      end
+      helper_method :current_time_after_tax_deadline?
     end
   end
 end

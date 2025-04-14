@@ -5,7 +5,7 @@
   </h1>
   <p><%= t(".payment_options") %></p>
 
-  <% if !current_time_before_payment_deadline? %>
+  <% if current_time_after_tax_deadline? %>
     <div class="notice--warning">
       <p><%= t(".interest_warning.p1") %></p>
       <p><%= t(".interest_warning.p2_html") %></p>
