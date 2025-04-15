@@ -128,7 +128,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in "state_file_az_subtractions_form_armed_forces_wages_amount", with: "100"
       click_on I18n.t("general.continue")
 
-      page_change_check(I18n.t("state_file.questions.federal_extension_payments.edit.title"))
+      page_change_check(I18n.t("state_file.questions.federal_extension_payments.edit.az.title"))
       choose I18n.t("general.affirmative")
       click_on I18n.t("general.continue")
 

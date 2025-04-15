@@ -16,7 +16,7 @@ module StateFile
                        :app_time
 
     with_options unless: -> { payment_or_deposit_type == "mail" } do
-      validates :withdraw_amount, presence: true, numericality: { greater_than: 0 }
+      validates :withdraw_amount, presence: true, numericality: { greater_than: 0 }, if: -> { !StateFile::StateInformationService.auto_calculate_withdraw_amount(intake.state_code) }
       validate :withdraw_amount_does_not_exceed_owed_amount
       with_options if: -> { form_submitted_before_payment_deadline? } do
         validate :date_electronic_withdrawal_is_valid_date
@@ -33,6 +33,7 @@ module StateFile
 
     def save
       attrs = attributes_for(:intake)
+      attrs[:withdraw_amount] = owed_amount if StateFile::StateInformationService.auto_calculate_withdraw_amount(intake.state_code)
       @intake.update(attrs.merge(date_electronic_withdrawal: date_electronic_withdrawal))
     end
 
@@ -88,8 +89,11 @@ module StateFile
       end
     end
 
+    def owed_amount
+      intake&.calculated_refund_or_owed_amount&.abs
+    end
+
     def withdraw_amount_does_not_exceed_owed_amount
-      owed_amount = intake&.calculated_refund_or_owed_amount&.abs
       return unless self.withdraw_amount.to_i > owed_amount
 
       self.errors.add(:withdraw_amount,
