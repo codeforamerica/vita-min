@@ -78,10 +78,10 @@ class StateFileBaseIntake < ApplicationRecord
       .where(efile_submissions: { id: nil })
       .where.not(df_data_imported_at: nil)
       .has_verified_contact_info
-      .select(&:has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data)
+      .select(&:should_not_be_sent_reminder)
   end
 
-  def has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data
+  def should_not_be_sent_reminder
     if message_tracker.present? && message_tracker["messages.state_file.finish_return"]
       finish_return_msg_sent_time = Time.parse(message_tracker["messages.state_file.finish_return"])
       finish_return_msg_sent_time < 24.hours.ago

@@ -507,27 +507,27 @@ describe StateFileAzIntake do
     end
   end
 
-  describe "#has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data" do
+  describe "#should_not_be_sent_reminder" do
     let(:message_tracker) { nil }
     let(:intake) { create :state_file_az_intake, message_tracker: message_tracker }
 
     context "without message tracker data or disqualifying not present" do
       it "returns true" do
-        expect(intake.has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data).to eq(true)
+        expect(intake.should_not_be_sent_reminder).to eq(true)
       end
     end
 
     context "with finish return email recently" do
       let(:message_tracker) { { "messages.state_file.finish_return" => (Time.now - 2.hours).utc.to_s } }
       it "returns false" do
-        expect(intake.has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data).to eq(false)
+        expect(intake.should_not_be_sent_reminder).to eq(false)
       end
     end
 
     context "with disqualifying_df_data_reason" do
       it "returns false" do
         allow_any_instance_of(StateFileAzIntake).to receive(:disqualifying_df_data_reason).and_return :has_out_of_state_w2
-        expect(intake.has_not_recently_received_finish_return_message_or_includes_disqualifying_df_data).to eq(false)
+        expect(intake.should_not_be_sent_reminder).to eq(false)
       end
     end
   end
