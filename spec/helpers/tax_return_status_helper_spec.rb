@@ -103,15 +103,13 @@ describe TaxReturnStatusHelper do
       ],
       [I18n.t("hub.tax_returns.stage.file"),
        [
-         ["Needs review", "file_needs_review"],
          ["Ready to file", "file_ready_to_file"],
          ['E-filed', "file_efiled"],
          ["Filed by mail", "file_mailed"],
          ["Rejected", "file_rejected"],
          ["Accepted", "file_accepted"],
          ["Not filing", "file_not_filing"],
-         ["Hold", "file_hold"],
-         ["ID Check", "file_fraud_hold"]
+         ["Hold", "file_hold"]
        ]
       ]
     ]
