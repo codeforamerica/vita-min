@@ -2995,7 +2995,7 @@ en:
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to Arizona.
           negative: 'No'
-          subtitle_html: If you made an Arizona extension payment, you would have <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">paid online</a> with the selection “204 Individual Extension Payment” or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Form 204</a>.
+          subtitle_html: If you made an Arizona extension payment, you would have <a href="https://aztaxes.gov/Home/PaymentIndividual/" rel="noopener noreferrer">paid online</a> with the selection “204 Individual Extension Payment” or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Form 204</a>.
           title: Did you make an Arizona extension payment on or before April 15, %{current_year}?
         id:
           affirmative: Yes, I made extension or estimated payments to Idaho
