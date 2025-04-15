@@ -14,7 +14,7 @@
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="white-group">
-          <%= f.cfa_radio_set(:paid_extension_payments, collection: [
+          <%= f.cfa_radio_set(:paid_prior_year_refund_payments, collection: [
             {
               value: "yes",
               label: t(".affirmative", current_tax_year: current_year, prior_tax_year: prior_year),
@@ -31,7 +31,7 @@
       <div class="question-with-follow-up__follow-up" id="used_refund">
         <div class="white-group">
           <p><%= t(".enter_amount_html", current_tax_year: current_year, prior_tax_year: prior_year) %></p>
-          <%= f.vita_min_money_field(:extension_payments_amount, t(".amount_label", current_tax_year: current_year, prior_tax_year: prior_year), classes: ["form-width--long"]) %>
+          <%= f.vita_min_money_field(:prior_year_refund_payments_amount, t(".amount_label", current_tax_year: current_year, prior_tax_year: prior_year), classes: ["form-width--long"]) %>
         </div>
       </div>
     </div>

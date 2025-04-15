@@ -437,7 +437,6 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       expect(page).to have_text I18n.t("state_file.questions.apply_refund.edit.title", current_tax_year: MultiTenantService.statefile.current_tax_year, prior_tax_year: MultiTenantService.statefile.current_tax_year - 1)
       choose I18n.t("state_file.questions.apply_refund.edit.negative", current_tax_year: MultiTenantService.statefile.current_tax_year, prior_tax_year: MultiTenantService.statefile.current_tax_year - 1)
       click_on I18n.t("general.continue")
-
       # Permanent Building Fund
 
       page_change_check(I18n.t('state_file.questions.id_permanent_building_fund.edit.title'))
