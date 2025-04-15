@@ -638,7 +638,6 @@ describe Efile::Az::Az140Calculator do
     end
   end
 
-
   describe "refund_or_owed_amount" do
     it "subtracts owed amount from refund amount" do
       allow(instance).to receive(:calculate_line_79).and_return 20

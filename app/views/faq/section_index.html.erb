@@ -14,6 +14,9 @@
       <div class="grid__item width-one-whole faq-wrapper">
         <h1 class="h2"><%= @faq_category.name(I18n.locale) %></h1>
 
+        <% if @faq_category.description_en || @faq_category.description_es %>
+          <p><%= @faq_category.description(I18n.locale) %></p>
+        <% end %>
         <% @faq_items.each do |faq_item| %>
           <p>
             <%= link_to faq_item.question(I18n.locale),

@@ -10,16 +10,16 @@ describe StateFile::ReminderToFinishStateReturnService do
       allow(state_file_messaging_service).to receive(:send_message)
     end
 
-    context "when there is an incomplete intake with df transfer from exactly 6 hours ago" do
+    context "when there is an incomplete intake with df transfer from more than 6 hours ago" do
       let!(:intake) do
         create :state_file_az_intake,
-               df_data_imported_at: 6.hours.ago,
+               df_data_imported_at: fake_time - 6.hours - 1.minute,
                email_address_verified_at: 7.hours.ago,
                email_notification_opt_in: "yes",
                email_address: "dezie@example.com",
                message_tracker: {}
       end
-      let(:fake_time) { Rails.configuration.tax_deadline - 2.days }
+      let(:fake_time) { Rails.configuration.tax_deadline - 1.day }
 
       it "sends a message to the email associated with the intake" do
         Timecop.freeze(fake_time) do
