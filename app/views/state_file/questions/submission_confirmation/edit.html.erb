@@ -44,7 +44,7 @@
       <% end %>
     </p>
 
-    <% if current_intake.calculated_refund_or_owed_amount.negative? %>
+    <% if current_intake.calculated_refund_or_owed_amount.negative? && @after_tax_deadline %>
       <%= render "state_file/questions/submission_confirmation/penalty_interest_warning"  %>
     <% end %>
     <p>
