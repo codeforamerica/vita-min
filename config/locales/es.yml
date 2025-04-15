@@ -2988,7 +2988,7 @@ es:
           amount: Cantidad de los pagos de extensión
           enter_amount: Ingresa la cantidad que pagaste a Arizona por la extensión.
           negative: 'No'
-          subtitle_html: Si pagaste por una extensión a Arizona, lo hiciste <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">pagado en línea</a>, seleccionando “204 Individual Extension Payment” o enviándolo por correo postal junto con el <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Formulario 204</a>.
+          subtitle_html: Si pagaste por una extensión a Arizona, lo hiciste <a href="https://aztaxes.gov/Home/PaymentIndividual/" rel="noopener noreferrer" target="_blank">pagado en línea</a>, seleccionando “204 Individual Extension Payment” o enviándolo por correo postal junto con el <a href="https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf" rel="noopener noreferrer" target="_blank">Formulario 204</a>.
           title: "¿Hiciste un pago de extensión a Arizona en o antes del 15 de abril de %{current_year}?"
         id:
           affirmative: Sí, hice un pago de extensión o de saldo estimado a Idaho
@@ -3014,11 +3014,11 @@ es:
       federal_extension_payments:
         edit:
           az:
-            'false': Presentaste el Formulario 4868 en línea o lo enviaste por correo postal
+            'false': No, no me otorgaron una extensión federal
             subtitle_1: Si te aceptaron una solicitud de extensión federal, esto significa que puedes presentar tus declaraciones de impuestos federales y estatales hasta el 15 de octubre sin incurrir en una multa por no presentar.
             subtitle_2: 'Te habrían concedido una extensión federal si realizaste alguna de las siguientes acciones en o antes del 15 de abril:'
             title: "¿Te otorgaron una extensión federal?"
-            'true': Hiciste un pago de extensión federal
+            'true': Sí, me otorgaron una extensión federal
           'false': No, I was not granted a federal extension
           list_1: Hiciste un pago de extensión federal
           list_2_html: Presentaste el <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Formulario 4868</a> en línea o lo enviaste por correo postal
