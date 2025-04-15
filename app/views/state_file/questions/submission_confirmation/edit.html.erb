@@ -21,11 +21,7 @@
     </div>
   <% end %>
 
-  <% if @show_download_button %>
-    <div>
-  <% else %>
-    <div class="download-link-container" style="display: none;">
-  <% end %>
+  <div class="<%= 'download-link-container' unless @show_download_button %>" style="<%= 'display: none;' unless @show_download_button %>">
     <div class='return-status'>
       <p>
         <%= image_tag("icons/check.svg", alt: "") %>
@@ -43,6 +39,12 @@
         <%= t('.text_update') %>
       <% end %>
     </p>
+
+    <div class="notice--warning">
+      <p><%= t('.penalty_interest_warning.p1') %></p>
+      <p><%= t('.penalty_interest_warning.p2', billing_agency: t(".penalty_interest_warning.billing_agency.#{current_state_code}")) %></p>
+    </div>
+
     <p>
       <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
     </p>
@@ -62,8 +64,7 @@
     <%= t(".download_state_return_pdf") %>
     <%= image_tag("icons/link-white.svg", alt: "", class: "button__icon") %>
   <% end %>
-
-
+  </div>
 
   <% if show_xml? %>
     <p>
