@@ -2995,7 +2995,7 @@ es:
           amount: Cantidad de los pagos de extensión
           enter_amount: Ingresa la cantidad de los pagos que hiciste a Idaho usando el Formulario 51.
           negative: No, no hice un pago de extensión o de saldo estimado a Idaho
-          subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
+          subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ target=\"_blank\" rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf target=\"_blank\" rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
           title: "¿Hiciste un pago de extensión o de saldo estimado a Idaho sobre los impuestos de %{tax_year} en o antes del 15 de abril de %{current_year}?"
         md:
           affirmative: Sí
@@ -3009,7 +3009,7 @@ es:
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to North Carolina.
           negative: 'No'
-          subtitle_html: If you made a North Carolina extension payment, you would have <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Form D-410</a>.
+          subtitle_html: If you made a North Carolina extension payment, you would have <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 target="_blank" rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp target="_blank" rel="noopener noreferrer">Form D-410</a>.
           title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
       federal_extension_payments:
         edit:
