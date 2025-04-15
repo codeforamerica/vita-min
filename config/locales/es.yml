@@ -3018,21 +3018,21 @@ es:
           title: "¿Hiciste un pago de extensión a Carolina del Norte en o antes del 15 de abril de %{current_year}?"
       federal_extension_payments:
         edit:
+          affirmative: Sí, me otorgaron una extensión federal
           az:
+            affirmative: Sí, me otorgaron una extensión federal
             negative: No, no me otorgaron una extensión federal
             title: "¿Te otorgaron una extensión federal?"
-            affirmative: Sí, me otorgaron una extensión federal
-          nj:
-            negative: No, no me otorgaron una extensión federal
-            title: "¿Te otorgaron una extensión federal?"
-            affirmative: Sí, me otorgaron una extensión federal
-          negative: No, no me otorgaron una extensión federal
           list_1: Hiciste un pago de extensión federal
           list_2_html: Presentaste el <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Formulario 4868</a> en línea o lo enviaste por correo postal
+          negative: No, no me otorgaron una extensión federal
+          nj:
+            affirmative: Sí, me otorgaron una extensión federal
+            negative: No, no me otorgaron una extensión federal
+            title: "¿Te otorgaron una extensión federal?"
           subtitle_1: Si te aceptaron una solicitud de extensión federal, esto significa que puedes presentar tus declaraciones de impuestos federales y estatales hasta el 15 de octubre sin incurrir en una multa por no presentar.
           subtitle_2: 'Te habrían concedido una extensión federal si realizaste alguna de las siguientes acciones en o antes del 15 de abril:'
           title: "¿Te otorgaron una extensión federal?"
-          affirmative: Sí, me otorgaron una extensión federal
       id_disability:
         edit:
           help_b1: Un individuo reconocido como discapacitado por la Administración del Seguro Social, la Junta de Jubilación de los Ferrocarriles o la Oficina de Administración y Presupuesto (OMB, por sus siglas en inglés).
