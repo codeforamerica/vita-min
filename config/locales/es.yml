@@ -2653,7 +2653,7 @@ es:
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
-          nc_title2_html: |
+          nc_extension_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
           not_supported: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
