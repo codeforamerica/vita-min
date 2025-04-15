@@ -199,6 +199,15 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         expect(xml.document.at('FilingStatus MarriedCuPartFilingSeparate SpouseName LastName').text).to eq(intake.spouse.last_name)
       end
 
+      context "when spouse first and last names are over length limits" do
+        let!(:intake) { create(:state_file_nj_intake, :spouse_name_over_length_mfs) }
+
+        it 'truncates spouse name' do
+          expect(xml.at("FilingStatus MarriedCuPartFilingSeparate SpouseName FirstName").text).to eq("Nameovercharacte")
+          expect(xml.at("FilingStatus MarriedCuPartFilingSeparate SpouseName LastName").text).to eq("Lastnameovercharacterlimitverylo")
+        end
+      end
+
       context "without spouse ssn" do
         let(:intake) { create(:state_file_nj_intake, :married_filing_separately) }
         
