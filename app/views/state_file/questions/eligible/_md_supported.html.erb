@@ -18,6 +18,13 @@
   <li><%= t('.sub12') %></li>
 </ul>
 
+<% if Flipper.enabled?(:extension_period) %>
+  <h3 class="h3"><%= t('.heading3') %></h3>
+  <ul class="list--bulleted spacing-below-25">
+    <li><%= t('.sub13') %></li>
+  </ul>
+<% end %>
+
 <p>
   <%= t('.subject_to_eligibility') %>
 </p>

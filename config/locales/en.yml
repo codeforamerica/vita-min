@@ -1527,29 +1527,49 @@ en:
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     state_file:
       accepted_owe:
-        email:
-          body: |
-            Hi %{primary_first_name},
+        after_deadline:
+          email:
+            body: |
+              Hi %{primary_first_name},
 
-            Your %{state_name} state tax return has been <strong>accepted and a payment is due</strong>.
+              Your %{state_name} state tax return has been accepted and a payment is due.
 
-            <strong>If you have not already paid via direct debit while filing your return, please submit your payment by April 15 at %{state_pay_taxes_link}</strong>. Any amount not paid by the filing deadline could add extra penalties and fees.
+              If you have not already paid via direct debit while filing your return, please submit your payment as soon as possible to avoid additional penalties and fees at %{state_pay_taxes_link}.
 
-            Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+              Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-            Need help? Reply to this email.
+              Need help? Reply to this email.
+            subject: "%{state_name} State Return Accepted- Payment Due"
+          sms: "Hi %{primary_first_name},\n\nYour %{state_name} state tax return has been accepted and a payment is due.\n\nIf you have not already paid via direct debit while filing your return, please submit your payment as soon as possible to avoid additional penalties and fees %{state_pay_taxes_link}. \n\nDownload your return at %{return_status_link}\n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
+        before_deadline:
+          email:
+            body: |
+              Hi %{primary_first_name},
 
-            Best,
-            The FileYourStateTaxes team
-          subject: "%{state_name} State Return Accepted- Payment Due"
-        sms: |
-          Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due.
+              Your %{state_name} state tax return has been <strong>accepted and a payment is due</strong>.
 
-          If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
+              <strong>If you have not already paid via direct debit while filing your return, please submit your payment by April 15 at %{state_pay_taxes_link}</strong>. Any amount not paid by the filing deadline could add extra penalties and fees.
 
-          Download your return at %{return_status_link}
+              Download your return at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
-          Need help? Email us at help@fileyourstatetaxes.org
+              Need help? Reply to this email.
+
+              Best,
+              The FileYourStateTaxes team
+            subject: "%{state_name} State Return Accepted- Payment Due"
+          sms: |
+            Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due.
+
+            If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
+
+            Download your return at %{return_status_link}
+
+            Need help? Email us at help@fileyourstatetaxes.org
+        during_deadline:
+          email:
+            body: "Hi %{primary_first_name},\n\nYour %{state_name} state tax return has been accepted and a payment is due.\n\nIf you have not already paid via direct debit while filing your return, please submit your payment today at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees. \nDownload your return at <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.\n\nNeed help? Reply to this email.\n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
+            subject: "%{state_name} State Return Accepted- Payment Due"
+          sms: "Hi %{primary_first_name},\n\nYour %{state_name} state tax return has been accepted and a payment is due.\n\nIf you have not already paid via direct debit while filing your return, please submit your payment today at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees. \nDownload your return at %{return_status_link}.\n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
       accepted_refund:
         email:
           body: |
@@ -2608,9 +2628,12 @@ en:
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
           faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
           faq_link_html: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations <a href="%{url}">here</a>.
-          id_title2_html: |
+          id_extension_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
+          md_extension_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the subtractions, credits, and payments you <strong>may</strong> be able to claim to maximize your refund.
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
@@ -2642,54 +2665,6 @@ en:
           social_security_retirement_deduction: Social Security and Railroad Retirement subtraction
           tax_prepayments: 'Reporting tax prepayments, including: extension payments, estimated payments, and %{last_tax_year} refunds applied to %{tax_year} taxes'
         md_reveals:
-          body1_html: |
-            <ul>
-              <li>
-                Subtractions:
-                <ul>
-                  <li>Classroom supplies for K-12 teachers</li>
-                  <li>Union dues</li>
-                  <li>Payments from a pension system to firemen and policemen for job-related injuries or disabilities</li>
-                  <li>Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee</li>
-                  <li>ABLE account contributions</li>
-                  <li>Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)</li>
-                  <li>Any other Maryland subtractions not listed here (see <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">Form 502SU</a>)</li>
-                </ul>
-              </li>
-              <li>
-                Credits:
-                <ul>
-                  <li>Student loan debt relief tax credit</li>
-                  <li>Quality Teacher Incentive Credit</li>
-                  <li>Long-term care insurance credit</li>
-                  <li>Independent living tax credit</li>
-                  <li>Maryland Child Tax Credit (if claimed based on disability of the child)</li>
-                  <li>Maryland Earned Income Tax Credit (if you did not claim the federal Earned Income Tax Credit)</li>
-                  <li>Any other Maryland credits not listed <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(see Form 502CR</a>)</li>
-                </ul>
-              </li>
-
-              <li>
-                Household situations:
-                <ul>
-                  <li>Filing your federal and state tax returns using different filing statuses (for example you file as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
-                  <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
-                  <li>Splitting refunds between accounts</li>
-                  <li>Married and filing jointly with a deceased spouse</li>
-                </ul>
-              </li>
-
-              <li>
-                Payments:
-                <ul>
-                  <li>Estimated tax payments</li>
-                  <li>Extension tax payments</li>
-                </ul>
-              </li>
-            </ul>
-            <p>
-              Find a more detailed breakdown of unsupported credits and subtractions this year <a href="https://www.fileyourstatetaxes.org/en/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">here</a>.
-            </p>
           body2_html: |
             <p>
               This year, you <strong>can't claim the Maryland EITC using this service</strong> in these scenarios:
@@ -2722,15 +2697,44 @@ en:
               </ul>
             </p>
           credits_not_supported: What subtractions, credits, and other situations does this service NOT support this year?
+          reveal_1:
+            cred_b1: Student loan debt relief tax credit
+            cred_b2: Quality Teacher Incentive Credit
+            cred_b3: Long-term care insurance credit
+            cred_b4: Independent living tax credit
+            cred_b5: Maryland Child Tax Credit (if claimed based on disability of the child)
+            cred_b6: Maryland Earned Income Tax Credit (if you did not claim the federal Earned Income Tax Credit)
+            cred_b7_html: Any other Maryland credits not listed <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(see Form 502CR</a>)
+            credits_title: 'Credits:'
+            house_b1: Filing your federal and state tax returns using different filing statuses (for example you file as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)
+            house_b2: Adding or removing dependents claimed on your federal return for purposes of your state return
+            house_b3: Splitting refunds between accounts
+            house_b4: Married and filing jointly with a deceased spouse
+            household_title: 'Household situations:'
+            more_details_html: Find a more detailed breakdown of unsupported credits and subtractions this year <a href="https://www.fileyourstatetaxes.org/en/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">here</a>.
+            pay: Reporting estimated tax payments
+            pay_b1: Estimated tax payments
+            pay_b2: Extension tax payments
+            payments_title: 'Payments:'
+            sub_b1: Classroom supplies for K-12 teachers
+            sub_b2: Union dues
+            sub_b3: Payments from a pension system to firemen and policemen for job-related injuries or disabilities
+            sub_b4: Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee
+            sub_b5: ABLE account contributions
+            sub_b6: Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)
+            sub_b7_html: Any other Maryland subtractions not listed here (see <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">Form 502SU</a>)
+            subtractions_title: 'Subtractions:'
           title2: What scenarios for claiming the Maryland Earned Income Tax Credit and/or Child Tax Credit aren't supported by this service?
           title3: What if I have a situation not yet supported by FileYourStateTaxes?
         md_supported:
           heading1: 'Subtractions:'
           heading2: 'Credits:'
+          heading3: 'Payments:'
           sub1: Subtraction for Child and Dependent Care Expenses
           sub10: Senior Tax Credit
           sub11: State and local Poverty Level Credits
           sub12: Credit for Child and Dependent Care Expenses
+          sub13: Reporting extension payments
           sub2:
             one: Pension exclusion (if you are 65 years or older, or if you are under 65 and previously qualified for the exclusion based on a permanent disability)
             other: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
@@ -3001,7 +3005,7 @@ en:
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to Maryland.
           negative: 'No'
-          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
+          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp target="_blank" rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf target="_blank" rel="noopener noreferrer">Form PV</a>.
           title: Did you make a Maryland extension payment on or before April 15, %{current_year}?
         nc:
           affirmative: 'Yes'
@@ -3363,9 +3367,10 @@ en:
       md_retirement_income_subtraction:
         edit:
           doc_1099r_label: 1099-R
-          income_source_other: Other retirement income (for example, a Keogh Plan, also known as an HR-10) (less common)
-          income_source_pension_annuity_endowment: A pension, annuity, or endowment from an "employee retirement system" (more common)
-          income_source_question: 'Select the source of this income:'
+          income_source_other: No, the source of my income was something else (for example, a Keogh Plan, also known as an HR-10)
+          income_source_pension_annuity_endowment: 'Yes'
+          income_source_question: Was the source of your income from a pension, annuity, or endowment from an "employee retirement system"?
+          income_source_question_label: In most cases, the answer is "Yes." A detailed list of what plans are included in an "employee retirement system" can be found at the bottom of the page.
           military_service_reveal_header: What military service qualifies?
           military_service_reveal_html: |
             <p>To qualify, you must have been:</p>
@@ -3575,6 +3580,9 @@ en:
           direct_debit_payment_info_three: Your payment will be considered timely if you submit your payment on the due date and select the first available draft date. You will receive an NCDOR confirmation email after your payment is received.
           direct_debit_payment_info_two: The draft date is based on a 5:00 pm EST cut off. In other words, if you submit your bank draft payment after 5:00 pm EST, the earliest draft date available will be two business days in the future.
           how_would_you_like_to_pay: How would you like to pay?
+          interest_warning:
+            p1: Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed. This will not be calculated on this return, and North Carolina’s Department of Revenue will separately send you a bill for this amount.
+            p2_html: Interest will continue to accrue until you pay the tax. Learn more about interest and penalties <a target="_blank" rel="noopener nofollow" href="https://www.ncdor.gov/penalties-and-interest#FailuretoFileandFailuretoPayPenalties-11245">here.</a>
           more_info_about_automatic_draft_payments: More information about automatic draft payments
           more_info_about_direct_debit_payment: More information about the direct debit payment date
           page_title: You owe state taxes. How would you like to pay?
@@ -3862,6 +3870,7 @@ en:
           household_rent_own_rent: Rented
           medical_expenses: Total medical expenses
           missing_health_insurance: Dependents who DO NOT have health insurance
+          more_household_details: More household details
           overpayments: Refund carried forward
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
           primary_disabled: Disability exemption
@@ -4338,7 +4347,14 @@ en:
       tax_refund:
         bank_details:
           account_number: Account Number
-          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          after_deadline_withdrawal_info:
+            default: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+            id:
+              p1: The bank routing and account numbers you enter are for your state tax payment. This is only the payment request. It is your responsibility to review your bank statement to confirm that this transaction was successful. If you are making a direct debit payment, a QuickPay payment should not be made in succession.
+              p2: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+            md:
+              p1: Because you are submitting your return after April 15th, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          authorized_amount: By filling in your information here, you authorize a withdrawal of $%{owed_amount} from your account.
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
@@ -4353,12 +4369,25 @@ en:
           title_html: Good news, you're getting a %{state_name} state tax refund of <strong>$%{refund_amount}.</strong>
       taxes_owed:
         edit:
+          interest_warning:
+            az:
+              p1: Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed. This will not be calculated on this return, and Arizona’s Department of Revenue will separately send you a bill for this amount.
+              p2_html: Interest will continue to accrue until you pay the tax. Learn more about interest and penalties <a target="_blank" rel="noopener nofollow"  href="https://azdor.gov/contact-us">here</a>.
+            id:
+              p1: Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed. This will not be calculated on this return, and the Idaho State Tax Commission will separately send you a bill for this amount.
+              p2_html: Interest will continue to accrue until you pay the tax. Learn more about interest and penalties <a target="_blank" rel="noopener nofollow" href="https://tax.idaho.gov/taxes/income-tax/penalties-and-interest/">here</a>.
+            md:
+              p1: Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed. Interest will continue to accrue until you pay the tax.
+              p2: This will not be calculated on this return, and the Comptroller of Maryland will separately send you a bill for this amount.
+            nj:
+              p1: Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed. Interest will continue to accrue until you pay the tax.
+              p2: This will not be calculated on this return, and the New Jersey Division of Taxation will separately send you a bill for this amount.
           more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Here is more information about tax due dates and payment methods.</a></p>
           page_title: You owe state taxes. How would you like to pay?
           pay_bank: Pay directly from your checking or savings account (direct debit)
           pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: How would you like to pay?
-          subtitle_html: For more information about tax due dates and payment methods, visit <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
+          subtitle_html: For more information about tax due dates and payment methods, visit <a target="_blank" rel="noopener nofollow" href="%{link}">%{link}</a>
           title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes.
           underpayment_notice_nj_html: |-
             <p> This can happen for many reasons, but common ones are: </p>
