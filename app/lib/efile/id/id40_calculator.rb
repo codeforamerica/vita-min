@@ -264,11 +264,11 @@ module Efile
       def calculate_line_47
         value = 0
         if @intake.paid_extension_payments_yes?
-          value += @intake.extension_payments_amount&.round
+          value += @intake.extension_payments_amount&.round || 0
         end
 
         if @intake.paid_prior_year_refund_payments_yes?
-          value += @intake.prior_year_refund_payments_amount&.round
+          value += @intake.prior_year_refund_payments_amount&.round || 0
         end
         value
       end
