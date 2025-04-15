@@ -66,11 +66,18 @@ module StateFile
         Rails.configuration.tax_deadline.to_date
       end
 
-      # Check if the day of a given DateTime is before the deadline date, using the state-specific/government timezone
+      # Check if the day of a given DateTime is before the payment deadline date, using the state-specific/government timezone
       def before_payment_deadline?(datetime, state_code)
         payment_deadline_date = StateInformationService.payment_deadline_date(state_code, datetime)
         timezone = StateInformationService.timezone(state_code)
         datetime.in_time_zone(timezone).to_date.before?(payment_deadline_date)
+      end
+
+      # Check if the day of a given DateTime is after the tax deadline date, using the state-specific/government timezone
+      def after_payment_deadline?(time, state_code)
+        timezone = StateInformationService.timezone(state_code)
+        deadline = Rails.configuration.tax_deadline.to_date
+        time.in_time_zone(timezone).to_date.after?(deadline)
       end
 
       # Maryland has different payment deadline logic from all our other States

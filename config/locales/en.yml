@@ -4165,7 +4165,7 @@ en:
             <li>
               Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
             </li>
-          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
+          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail as soon as you can can.
           download_voucher: Download and print the completed payment voucher.
           feedback: We value your feedback—let us know what you think of this service.
           include_payment: Fill out your payment voucher
@@ -4307,6 +4307,15 @@ en:
         edit:
           title_html: We need some details from <strong>your spouse’s</strong> state-issued ID, if they have one
       submission_confirmation:
+        penalty_interest_warning:
+          p1: Since you filed your return after April 15th, you may be charged interest and/or penalties on your taxes owed. Interest will continue to accrue until you pay the tax.
+          p2: This amount wasn't calculated on your state return, and %{billing_agency} will separately send you a bill for this amount.
+          billing_agency:
+            az: Arizona’s Department of Revenue
+            id: the Idaho State Tax Commission
+            md: the Comptroller of Maryland
+            nc: North Carolina’s Department of Revenue
+            nj: the New Jersey Division of Taxation
         edit:
           download_state_return_pdf: Download your state return
           email_text_update: You'll receive an email and text update when your state tax return is accepted.
@@ -4316,15 +4325,6 @@ en:
           text_update: You'll receive an sms update when your state tax return is accepted.
           title: Your %{filing_year} %{state_name} state tax return is now submitted!
           title_resubmit: Your %{filing_year} %{state_name} state tax return is now resubmitted!
-          penalty_interest_warning:
-            p1: Since you filed your return after April 15th, you may be charged interest and/or penalties on your taxes owed. Interest will continue to accrue until you pay the tax.
-            p2: This amount wasn't calculated on your state return, and %{billing_agency} will separately send you a bill for this amount.
-            billing_agency:
-              az: Arizona’s Department of Revenue
-              id: the Idaho State Tax Commission
-              md: the Comptroller of Maryland
-              nc: North Carolina’s Department of Revenue
-              nj: the New Jersey Division of Taxation
         nj_additional_content:
           body_html: |-
             <p>You said you are filing for the veteran exemption. If it's your first time filing for <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption.shtml">this exemption</a>, you have to provide <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/military/vetexemption-documentation.shtml">documentation</a> and a <a target="_blank" rel="noopener nofollow" href="https://www.nj.gov/treasury/taxation/pdf/veteransexemptionform.pdf">form</a> to the New Jersey Division of Taxation.</p>

@@ -40,11 +40,9 @@
       <% end %>
     </p>
 
-    <div class="notice--warning">
-      <p><%= t('.penalty_interest_warning.p1') %></p>
-      <p><%= t('.penalty_interest_warning.p2', billing_agency: t(".penalty_interest_warning.billing_agency.#{current_state_code}")) %></p>
-    </div>
-
+    <% if current_intake.calculated_refund_or_owed_amount.negative? %>
+      <%= render "state_file/questions/submission_confirmation/penalty_interest_warning"  %>
+    <% end %>
     <p>
       <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
     </p>
