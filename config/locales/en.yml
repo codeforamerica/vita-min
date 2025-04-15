@@ -2641,6 +2641,9 @@ en:
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
+          nc_extension_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
           not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
           title1: You can use this service to file your %{year} %{state} taxes
           title2_html: |
@@ -2764,6 +2767,8 @@ en:
           deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
           deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
           deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
+          out_of_country_extension: Filing with an out-of-country extension
+          reporting_extension_payments: Reporting extension payments
         nj_credits_unsupported:
           also_unsupported_extensions_html: |
             <li>Applying for an extension (but we do support reporting estimated payments you made when filing an extension)</li>
@@ -3020,19 +3025,23 @@ en:
           title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
       federal_extension_payments:
         edit:
+          affirmative: Yes, I was granted a federal extension
           az:
-            'false': No, I did not file for a federal extension
-            subtitle_1: If you filed for a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
+            affirmative: Yes, I filed for a federal extension
+            negative: No, I did not file for a federal extension
             subtitle_2: 'You filed for a federal extension if you did either of the following on or before April 15th:'
             title: Did you file for a federal extension?
-            'true': Yes, I filed for a federal extension
-          'false': No, I was not granted a federal extension
           list_1: Made a federal extension payment
           list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
+          negative: No, I was not granted a federal extension
+          nj:
+            affirmative: Yes, I filed for a federal extension
+            negative: No, I did not file for a federal extension
+            subtitle_2: 'You filed for a federal extension if you did either of the following on or before April 15th:'
+            title: Did you file for a federal extension?
           subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
           subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
           title: Were you granted a federal extension?
-          'true': Yes, I was granted a federal extension
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
@@ -3475,7 +3484,12 @@ en:
           title: First, let's see if you can use this service to file your %{filing_year} North Carolina taxes
       nc_out_of_country:
         edit:
-          title: Were you out of the country on April 15, %{year} and a US citizen or resident?
+          affirmative: Yes, I was out of the country on April 15, %{current_year}
+          list_1: Lived outside the United States or Puerto Rico and your main place of work was outside the United States or Puerto Rico, or
+          list_2: Were in military service outside the United States or Puerto Rico
+          negative: No, I wasn’t out of the country on April 15, %{current_year}
+          subtitle: 'This means that on April 15, %{current_year}, you either:'
+          title: Were you out of the country on April 15, %{current_year}?
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
