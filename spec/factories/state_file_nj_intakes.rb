@@ -166,9 +166,9 @@ FactoryBot.define do
       end
     end
 
-    trait :df_data_name_over_16_characters do
-      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_name_over_16_characters') }
-      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_name_over_16_characters') }
+    trait :dependent_name_over_length do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_dependent_name_over_16_characters') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_dependent_name_over_16_characters') }
     end
 
     trait :df_data_2_w2s do
