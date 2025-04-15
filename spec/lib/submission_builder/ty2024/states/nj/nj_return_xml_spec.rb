@@ -244,6 +244,5 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
     end
-
   end
 end

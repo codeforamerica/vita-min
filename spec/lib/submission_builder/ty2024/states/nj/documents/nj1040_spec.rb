@@ -199,6 +199,15 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
         expect(xml.document.at('FilingStatus MarriedCuPartFilingSeparate SpouseName LastName').text).to eq(intake.spouse.last_name)
       end
 
+      context "when spouse first and last names are over length limits" do
+        let!(:intake) { create(:state_file_nj_intake, :spouse_name_over_length_mfs) }
+
+        it 'truncates spouse name' do
+          expect(xml.at("FilingStatus MarriedCuPartFilingSeparate SpouseName FirstName").text).to eq("Nameovercharacte")
+          expect(xml.at("FilingStatus MarriedCuPartFilingSeparate SpouseName LastName").text).to eq("Lastnameovercharacterlimitverylo")
+        end
+      end
+
       context "without spouse ssn" do
         let(:intake) { create(:state_file_nj_intake, :married_filing_separately) }
         
@@ -282,6 +291,15 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
         it 'does not include dependents section' do
           expect(xml.at("Dependents")).to eq(nil)
+        end
+      end
+
+      context 'when dependent has first and last name over length limits' do
+        let(:intake) { create(:state_file_nj_intake, :dependent_name_over_length) }
+
+        it 'truncates dependent name' do
+          expect(xml.at("DependentsName FirstName").text).to eq("Nameovercharacte")
+          expect(xml.at("DependentsName LastName").text).to eq("Lastnameovercharacterlimitverylo")
         end
       end
 
