@@ -62,6 +62,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
 
+      context "with names over 16 characters" do
+        let(:intake) { create(:state_file_nj_intake, :df_data_name_over_16_characters) }
+        it "truncates names to 16 characters" do
+          expect(xml.document.at('Primary TaxpayerName FirstName').text).to eq("Nameovercharacte")
+          expect(xml.document.at('Primary TaxpayerName LastName').text).to eq("Last Name")
+        end
+      end
+
       context "with one dep" do
         let(:intake) { create(:state_file_nj_intake, :df_data_one_dep) }
         it "does not error" do
@@ -244,6 +252,5 @@ describe SubmissionBuilder::Ty2024::States::Nj::NjReturnXml, required_schema: "n
         end
       end
     end
-
   end
 end
