@@ -2,7 +2,6 @@
 require 'rails_helper'
 
 describe 'state_file:post_deadline_reminder' do
-  include_context "rake"
 
   before(:all) do
     Rake.application.rake_require "tasks/state_file"
