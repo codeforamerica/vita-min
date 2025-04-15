@@ -21,7 +21,11 @@
     </div>
   <% end %>
 
-  <div class="<%= 'download-link-container' unless @show_download_button %>" style="<%= 'display: none;' unless @show_download_button %>">
+  <% if @show_download_button %>
+    <div>
+  <% else %>
+    <div class="download-link-container" style="display: none;">
+  <% end %>
     <div class='return-status'>
       <p>
         <%= image_tag("icons/check.svg", alt: "") %>
@@ -62,7 +66,6 @@
     <%= t(".download_state_return_pdf") %>
     <%= image_tag("icons/link-white.svg", alt: "", class: "button__icon") %>
   <% end %>
-  </div>
 
   <% if show_xml? %>
     <p>

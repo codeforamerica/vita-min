@@ -4320,15 +4320,6 @@ es:
         edit:
           title_html: Necesitamos algunos detalles del documento de identidad emitida por el estado de <strong>tu cónyuge</strong>, si tiene una
       submission_confirmation:
-        penalty_interest_warning:
-          p1: Debido a que presentaste tu declaración después del 15 de abril de 2025, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Los intereses seguirán acumulándose hasta que pagues tus impuestos.
-          p2: Esta cantidad no fue calculada en tu declaración estatal, y %{billing_agency} te enviará una factura aparte por esta cantidad.
-          billing_agency:
-            az: el Departamento de Ingresos de Arizona
-            id: el Departamento de Ingresos de Idaho
-            md: el Contralor de Maryland
-            nc: el Departamento de Ingresos de Carolina del Norte
-            nj: la División de Impuestos de Nueva Jersey
         edit:
           download_state_return_pdf: Descarga tu declaración estatal
           email_text_update: Recibirás una actualización por correo electrónico y mensaje de texto cuando tu declaración de impuestos estatal sea aceptada.
@@ -4366,6 +4357,15 @@ es:
               <li>Selecciona “VET” en el menú desplegable debajo de Código de notificación (en inglés “Notice Code”).</li>
               <li>Ingresa el resto de tu información, incluido tu número de Seguro Social, para asegurar que los documentos se vinculen con tu declaración de impuestos.</li>
             </ol>
+        penalty_interest_warning:
+          billing_agency:
+            az: el Departamento de Ingresos de Arizona
+            id: el Departamento de Ingresos de Idaho
+            md: el Contralor de Maryland
+            nc: el Departamento de Ingresos de Carolina del Norte
+            nj: la División de Impuestos de Nueva Jersey
+          p1: Debido a que presentaste tu declaración después del 15 de abril de 2025, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Los intereses seguirán acumulándose hasta que pagues tus impuestos.
+          p2: Esta cantidad no fue calculada en tu declaración estatal, y %{billing_agency} te enviará una factura aparte por esta cantidad.
       tax_refund:
         bank_details:
           account_number: Número de cuenta
