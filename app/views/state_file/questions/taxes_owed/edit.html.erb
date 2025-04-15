@@ -3,8 +3,19 @@
   <h1 class="h2">
     <%= t(".title_html", owed_amount: taxes_owed, state_name: current_state_name) %>
   </h1>
-  <% if current_state_code == "md" %>
-    <p><%= t('.subtitle_html') %></p>
+  <% if @tax_payment_info_text.present? %>
+    <p><%= t('.subtitle_html', link: @tax_payment_info_text) %></p>
+  <% end %>
+
+  <% if current_time_after_tax_deadline? %>
+    <% interest_warning_key = "state_file.questions.taxes_owed.edit.interest_warning.#{current_state_code}" %>
+    <% if I18n.exists?(interest_warning_key) %>
+      <div class="notice--warning">
+        <% I18n.t(interest_warning_key).keys.each do |key| %>
+          <p class="spacing-below-10"><%= t("#{interest_warning_key}.#{key}") %></p>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 
   <% underpayment_notice_key = "state_file.questions.taxes_owed.edit.underpayment_notice_#{current_state_code}_html" %>

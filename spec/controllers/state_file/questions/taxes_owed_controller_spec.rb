@@ -19,6 +19,28 @@ describe StateFile::Questions::TaxesOwedController do
         expect(response_html).not_to have_text "Here is more information about tax due dates"
         expect(response_html).to have_text "Routing Number"
       end
+
+      context "after the tax deadline" do
+        let(:post_deadline) { Rails.configuration.tax_deadline + 2.days }
+        it "displays the interest warning" do
+          Timecop.freeze(post_deadline) do
+            get :edit
+            expect(response).to be_successful
+            expect(response_html).to have_text "Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed."
+          end
+        end
+      end
+
+      context "before the tax deadline" do
+        let(:post_deadline) { Rails.configuration.tax_deadline - 2.days }
+        it "does not display the interest warning" do
+          Timecop.freeze(post_deadline) do
+            get :edit
+            expect(response).to be_successful
+            expect(response_html).not_to have_text "Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed."
+          end
+        end
+      end
     end
 
     context 'nj' do
@@ -98,10 +120,40 @@ describe StateFile::Questions::TaxesOwedController do
             )
           end
         end
+
+        shared_examples "withdraw amount is user-entered" do
+          it "shows withdraw_amount field" do
+            get :edit
+            expect(response.body).to include("How much do you authorize to be withdrawn from your account?")
+          end
+
+          it "does not show authorization alert text" do
+            get :edit
+            expect(response.body).not_to include("By filling in your information here, you authorize a withdrawal")
+          end
+        end
+
+        shared_examples "withdraw amount is auto-calculated" do
+          it "does not show withdraw_amount field" do
+            get :edit
+            expect(response.body).not_to include("How much do you authorize to be withdrawn from your account?")
+          end
+
+          it "shows authorization alert text" do
+            get :edit
+            expect(response.body).to include("By filling in your information here, you authorize a withdrawal")
+          end
+        end
+
+        if StateFile::StateInformationService.auto_calculate_withdraw_amount(state_code)
+          it_behaves_like "withdraw amount is auto-calculated"
+        else
+          it_behaves_like "withdraw amount is user-entered"
+        end
       end
     end
 
-    describe "when paying with direct deposit in md" do
+    describe "when paying with direct deposit in MD" do
       let(:intake) { create :state_file_md_intake }
       let(:timezone) { StateFile::StateInformationService.timezone("md") }
       let(:payment_deadline_date) { StateFile::StateInformationService.payment_deadline_date("md") }
@@ -122,10 +174,7 @@ describe StateFile::Questions::TaxesOwedController do
           expect(response_html).to have_text(
             "When would you like the funds withdrawn from your account? (must be on or before #{stringified_deadline}):"
           )
-          expect(response_html).not_to have_text(
-            "Because you are submitting your return on or after #{stringified_deadline}, " \
-            "the state will withdraw your payment as soon as they process your return."
-          )
+          expect(response_html).not_to have_text("Because you are submitting your return after April 15th")
         end
       end
 
@@ -142,10 +191,7 @@ describe StateFile::Questions::TaxesOwedController do
           expect(response_html).not_to have_text(
             "When would you like the funds withdrawn from your account? (must be on or before #{stringified_deadline}):"
           )
-          expect(response_html).to have_text(
-            "Because you are submitting your return on or after #{stringified_deadline}, " \
-            "the state will withdraw your payment as soon as they process your return."
-          )
+          expect(response_html).to have_text("Because you are submitting your return after April 15th")
         end
       end
     end
