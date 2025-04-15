@@ -30,9 +30,9 @@ module SubmissionBuilder
                       xml.MarriedCuPartFilingSeparate do
                         xml.SpouseSSN intake.spouse.ssn if intake.spouse.ssn
                         xml.SpouseName do
-                          xml.FirstName sanitize_for_xml(intake.spouse.first_name)
+                          xml.FirstName sanitize_for_xml(intake.spouse.first_name, 16)
                           xml.MiddleInitial sanitize_middle_initial(intake.spouse.middle_initial) if sanitize_middle_initial(intake.spouse.middle_initial).present?
-                          xml.LastName sanitize_for_xml(intake.spouse.last_name)
+                          xml.LastName sanitize_for_xml(intake.spouse.last_name, 32)
                           xml.NameSuffix intake.spouse.suffix.upcase if intake.spouse.suffix.present?
                         end
                       end
@@ -96,9 +96,9 @@ module SubmissionBuilder
                     intake.dependents[0..9].each do |dependent|
                       xml.Dependents do
                         xml.DependentsName do
-                          xml.FirstName sanitize_for_xml(dependent.first_name)
+                          xml.FirstName sanitize_for_xml(dependent.first_name, 16)
                           xml.MiddleInitial sanitize_middle_initial(dependent.middle_initial) if sanitize_middle_initial(dependent.middle_initial).present?
-                          xml.LastName sanitize_for_xml(dependent.last_name)
+                          xml.LastName sanitize_for_xml(dependent.last_name, 32)
                           xml.NameSuffix dependent.suffix.upcase if dependent.suffix.present?
                         end
                         xml.DependentsSSN dependent.ssn
