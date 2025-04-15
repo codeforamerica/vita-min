@@ -3,7 +3,7 @@
 
 <% title = t(".title", current_tax_year: current_year, prior_tax_year: prior_year) %>
 
-<% content_for :page_title, title.presence || "Default Page Title" %>
+<% content_for :page_title %>
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 
