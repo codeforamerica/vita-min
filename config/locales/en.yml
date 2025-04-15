@@ -3028,14 +3028,10 @@ en:
           list_1: Made a federal extension payment
           az:
             affirmative: No, I did not file for a federal extension
-            subtitle_1: If you filed for a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
-            subtitle_2: 'You filed for a federal extension if you did either of the following on or before April 15th:'
             negative: Yes, I filed for a federal extension
             title: "Did you file for a federal extension?"
           nj:
             affirmative: No, I did not file for a federal extension
-            subtitle_1: If you filed for a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
-            subtitle_2: 'You filed for a federal extension if you did either of the following on or before April 15th:'
             negative: Yes, I filed for a federal extension
             title: "Did you file for a federal extension?"
           affirmative: Yes, I was granted a federal extension
