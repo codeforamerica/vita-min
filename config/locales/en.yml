@@ -3872,6 +3872,7 @@ en:
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
           estimated_tax_payments: Estimated quarterly payments
           extension_payments: Payment made when you filed for an extension
+          federal_extension: Federal extension
           has_estimated_payments: Estimated or other payments
           household_rent_own: Living situation in %{filing_year}
           household_rent_own_both: Owned and rented
