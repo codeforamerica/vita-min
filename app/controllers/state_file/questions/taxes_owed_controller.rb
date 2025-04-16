@@ -2,6 +2,11 @@ module StateFile
   module Questions
     class TaxesOwedController < QuestionsController
 
+      def edit
+        super
+        @tax_payment_info_text = StateFile::StateInformationService.taxes_due_dates_payment_info(current_state_code)
+      end
+
       def self.show?(intake)
         intake.calculated_refund_or_owed_amount.negative?
       end
@@ -22,6 +27,11 @@ module StateFile
         StateInformationService.before_payment_deadline?(app_time, current_intake.state_code)
       end
       helper_method :current_time_before_payment_deadline?
+
+      def current_time_after_tax_deadline?
+        StateInformationService.after_payment_deadline?(app_time, current_intake.state_code)
+      end
+      helper_method :current_time_after_tax_deadline?
     end
   end
 end

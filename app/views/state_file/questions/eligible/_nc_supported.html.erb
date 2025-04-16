@@ -5,5 +5,9 @@
     <li><%=t('.deduction_for_retirement_income_bailey')%></li>
     <li><%=t('.deduction_for_retirement_income_uniformed') %></li>
     <li><%=t('.deduction_for_income') %></li>
+    <% if Flipper.enabled?(:extension_period) %>
+      <li><%=t('.out_of_country_extension') %></li>
+      <li><%=t('.reporting_extension_payments') %></li>
+    <% end %>
   </ul>
 </div>

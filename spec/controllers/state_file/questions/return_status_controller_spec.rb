@@ -275,13 +275,34 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
             end
 
             it "shows the content for owed when amount is negative" do
-              allow_any_instance_of(StateFile::StateInformationService.calculator_class(state_code)).to receive(:refund_or_owed_amount).and_return -100
+                allow_any_instance_of(StateFile::StateInformationService.calculator_class(state_code)).to receive(:refund_or_owed_amount).and_return -100
 
-              get :edit
+                get :edit
 
-              expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.direct_debit_html", tax_payment_info_url: assigns(:tax_payment_info_url), tax_payment_info_text: assigns(:tax_payment_info_text))
-              expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.pay_by_mail_or_moneyorder")
+                expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.pay_by_mail_or_moneyorder")
             end
+
+            context "before the tax deadline" do
+              it "shows the content for direct debit for before the deadline" do
+                Timecop.freeze(Rails.configuration.tax_deadline - 3.days) do
+                  allow_any_instance_of(StateFile::StateInformationService.calculator_class(state_code)).to receive(:refund_or_owed_amount).and_return -100
+                  get :edit
+                  expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.direct_debit.before_deadline_html", tax_payment_info_url: assigns(:tax_payment_info_url), tax_payment_info_text: assigns(:tax_payment_info_text))
+                end
+              end
+            end
+
+            context "after the tax deadline" do
+              it "shows the content for direct debit for after the deadline and the penalty interest warning" do
+                Timecop.freeze(Rails.configuration.tax_deadline + 3.days) do
+                  allow_any_instance_of(StateFile::StateInformationService.calculator_class(state_code)).to receive(:refund_or_owed_amount).and_return -100
+                  get :edit
+                  expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.direct_debit.after_deadline_html", tax_payment_info_url: assigns(:tax_payment_info_url), tax_payment_info_text: assigns(:tax_payment_info_text))
+                  expect(response.body).to include I18n.t("state_file.questions.submission_confirmation.penalty_interest_warning.p1")
+                end
+              end
+            end
+
           end
         end
 

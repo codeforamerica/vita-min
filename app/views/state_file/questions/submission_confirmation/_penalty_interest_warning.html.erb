@@ -1,0 +1,8 @@
+<% billing_agency_key = "state_file.questions.submission_confirmation.penalty_interest_warning.billing_agency.#{current_state_code}" %>
+<% state_specific_billing_agency = I18n.exists?(billing_agency_key, locale) ? t(billing_agency_key) : nil %>
+<% if state_specific_billing_agency %>
+  <div class="notice--warning">
+    <p><%= t('state_file.questions.submission_confirmation.penalty_interest_warning.p1') %></p>
+    <p><%= t('state_file.questions.submission_confirmation.penalty_interest_warning.p2', billing_agency: state_specific_billing_agency) %></p>
+  </div>
+<% end %>

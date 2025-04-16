@@ -42,11 +42,27 @@
     <%= form.cfa_input_field(:account_number, t(".account_number"), classes: %w[form-width--long disablecopy]) %>
     <%= form.cfa_input_field(:account_number_confirmation, t(".confirm_account_number"), classes: %w[form-width--long disablepaste disablecopy]) %>
   </div>
+
   <% if owe_taxes && !current_time_before_payment_deadline? %>
-    <p>
-      <%= t(".after_deadline_default_withdrawal_info",
-             payment_deadline_date: I18n.l(state_specific_payment_deadline.to_date, format: :medium, locale: locale),
-             payment_deadline_year: state_specific_payment_deadline.year) %>
-    </p>
+    <% after_deadline_warning_key = "state_file.questions.tax_refund.bank_details.after_deadline_withdrawal_info.#{current_state_code}" %>
+    <div class="beige-group spacing-above-25 spacing-below-0">
+      <% if I18n.exists?(after_deadline_warning_key) %>
+        <%
+          warnings_hash = I18n.t(after_deadline_warning_key, default: {})
+          warning_keys = warnings_hash.keys
+        %>
+        <% warning_keys.each do |sub_key| %>
+          <p class="spacing-below-10">
+            <%= t("#{after_deadline_warning_key}.#{sub_key}",
+                  payment_deadline_date: I18n.l(state_specific_payment_deadline.to_date, format: :medium, locale: locale),
+                  payment_deadline_year: state_specific_payment_deadline.year) %>
+          </p>
+        <% end %>
+      <% else %>
+        <%= t(".after_deadline_withdrawal_info.default",
+              payment_deadline_date: I18n.l(state_specific_payment_deadline.to_date, format: :medium, locale: locale),
+              payment_deadline_year: state_specific_payment_deadline.year) %>
+      <% end %>
+    </div>
   <% end %>
 </div>
