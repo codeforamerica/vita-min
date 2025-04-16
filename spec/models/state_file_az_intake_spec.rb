@@ -450,6 +450,88 @@ describe StateFileAzIntake do
     end
   end
 
+  describe ".selected_intakes_for_deadline_reminder_notifications" do
+    let!(:az_intake_with_email_notifications_and_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:az_intake_with_email_notifications_without_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: nil,
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:az_intake_with_text_notifications_and_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             phone_number: "+15551115511",
+             sms_notification_opt_in: 1,
+             phone_number_verified_at: 5.minutes.ago
+    }
+    let!(:az_intake_with_unverified_text_notifications_and_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             phone_number: "+15551115511",
+             sms_notification_opt_in: "yes",
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: "no"
+    }
+    let!(:az_intake_submitted) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             email_address: 'test+01@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:efile_submission) { create :efile_submission, :for_state, data_source: az_intake_submitted }
+    let!(:az_intake_has_received_reminder) {
+      create :state_file_az_intake, email_address: "test@example.com",
+             email_address_verified_at: 1.hour.ago,
+             email_notification_opt_in: 1,
+             df_data_imported_at: 2.minutes.ago,
+             message_tracker: { "messages.state_file.finish_return" => (Time.now - 2.hours).utc.to_s }
+    }
+
+    it 'returns intakes with verified contact info, valid df data, and without recent finish return messages or efile submissions' do
+      results = StateFileAzIntake.selected_intakes_for_deadline_reminder_notifications
+      expect(results).to include(
+         az_intake_with_email_notifications_and_df_import,
+         az_intake_with_text_notifications_and_df_import,
+         az_intake_with_unverified_text_notifications_and_df_import)
+      expect(results).not_to include(az_intake_has_received_reminder)
+    end
+  end
+
+  describe "#should_not_be_sent_reminder" do
+    let(:message_tracker) { nil }
+    let(:intake) { create :state_file_az_intake, message_tracker: message_tracker }
+
+    context "without message tracker data or disqualifying not present" do
+      it "returns true" do
+        expect(intake.should_not_be_sent_reminder).to eq(true)
+      end
+    end
+
+    context "with finish return email recently" do
+      let(:message_tracker) { { "messages.state_file.finish_return" => (Time.now - 2.hours).utc.to_s } }
+      it "returns false" do
+        expect(intake.should_not_be_sent_reminder).to eq(false)
+      end
+    end
+
+    context "with disqualifying_df_data_reason" do
+      it "returns false" do
+        allow_any_instance_of(StateFileAzIntake).to receive(:disqualifying_df_data_reason).and_return :has_out_of_state_w2
+        expect(intake.should_not_be_sent_reminder).to eq(false)
+      end
+    end
+  end
+
   describe "#no_prior_message_history_of scope" do
     let!(:intake_with_finish_return_message) { create(:state_file_az_intake, message_tracker: {"messages.state_file.finish_return" => "2024-11-06 21:14:49 UTC"}) }
     let!(:intake_with_welcome_message) { create(:state_file_az_intake, message_tracker: {"messages.state_file.welcome" => "2024-11-06 21:14:49 UTC"}) }
