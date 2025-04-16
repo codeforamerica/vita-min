@@ -4,7 +4,9 @@
     <ul class="list--bulleted">
       <li><%=t('.personal_education') %></li>
       <li><%=t('.college_savings_account')%></li>
-      <li><%=t('.extension_payment')%></li>
+      <% unless Flipper.enabled?(:extension_period) %>
+        <li><%=t('.extension_payment')%></li>
+      <% end %>
       <li><%=t('.estimated_income_tax_payments') %></li>
       <li><%=t('.credits_for_rehabilitating') %></li>
       <li><%=t('.credits_carried') %></li>

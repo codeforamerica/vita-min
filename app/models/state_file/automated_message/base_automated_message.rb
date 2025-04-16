@@ -1,6 +1,5 @@
 module StateFile::AutomatedMessage
   class BaseAutomatedMessage
-
     # indicate that you want to track sending and block duplicates from being sent.
     def self.send_only_once?
       false
@@ -10,6 +9,7 @@ module StateFile::AutomatedMessage
       false
     end
 
+    # Convenience methods for time
     def tax_deadline = Rails.application.config.tax_deadline
 
     def app_time(body_args)

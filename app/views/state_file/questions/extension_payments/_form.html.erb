@@ -7,7 +7,7 @@
 <% affirmative = I18n.t(:affirmative, scope: i18n_scope) %>
 <% negative = I18n.t(:negative, scope: i18n_scope) %>
 
-<% content_for :page_title, title.presence || "Default Page Title" %>
+<% content_for :page_title %>
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
 

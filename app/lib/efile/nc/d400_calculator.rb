@@ -92,11 +92,11 @@ module Efile
 
       def calculate_line_10b
         income_ranges = if filing_status_single? || filing_status_mfs?
-                          [0..20_000, 20_001..30_000, 30_001..40_000, 40_001..50_000, 50_001..60_000, 60_001..70_000, 70_001..Float::INFINITY]
+                          [-Float::INFINITY..20_000, 20_001..30_000, 30_001..40_000, 40_001..50_000, 50_001..60_000, 60_001..70_000, 70_001..Float::INFINITY]
                         elsif filing_status_hoh?
-                          [0..30_000, 30_001..45_000, 45_001..60_000, 60_001..75_000, 75_001..90_000, 90_001..105_000, 105_001..Float::INFINITY]
+                          [-Float::INFINITY..30_000, 30_001..45_000, 45_001..60_000, 60_001..75_000, 75_001..90_000, 90_001..105_000, 105_001..Float::INFINITY]
                         elsif filing_status_mfj? || filing_status_qw?
-                          [0..40_000, 40_001..60_000, 60_001..80_000, 80_001..100_000, 100_001..120_000, 120_001..140_000, 140_001..Float::INFINITY]
+                          [-Float::INFINITY..40_000, 40_001..60_000, 60_001..80_000, 80_001..100_000, 100_001..120_000, 120_001..140_000, 140_001..Float::INFINITY]
                         end
         income_range_index = income_ranges.find_index { |range| range.include?(@direct_file_data.fed_agi) }
 

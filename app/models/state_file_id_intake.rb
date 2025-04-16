@@ -41,6 +41,7 @@
 #  nongame_wildlife_fund_donation                 :decimal(12, 2)
 #  opportunity_scholarship_program_donation       :decimal(12, 2)
 #  paid_extension_payments                        :integer          default("unfilled"), not null
+#  paid_prior_year_refund_payments                :integer          default("unfilled"), not null
 #  payment_or_deposit_type                        :integer          default("unfilled"), not null
 #  phone_number                                   :string
 #  phone_number_verified_at                       :datetime
@@ -54,6 +55,7 @@
 #  primary_middle_initial                         :string
 #  primary_months_ineligible_for_grocery_credit   :integer
 #  primary_suffix                                 :string
+#  prior_year_refund_payments_amount              :decimal(12, 2)
 #  raw_direct_file_data                           :text
 #  raw_direct_file_intake_data                    :jsonb
 #  received_id_public_assistance                  :integer          default("unfilled"), not null
@@ -105,6 +107,7 @@ class StateFileIdIntake < StateFileBaseIntake
   enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
   enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
+  enum paid_prior_year_refund_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_prior_year_refund_payments
 
   def disqualifying_df_data_reason; end
 
