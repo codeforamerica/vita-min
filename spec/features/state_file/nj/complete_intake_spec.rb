@@ -273,7 +273,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       groups = page.all(:css, '.white-group').count
       # one white group per exemption/section
-      expect(groups).to eq(11)
+      expect(groups).to eq(12)
 
       h2s = page.all(:css, 'h2').count
       # one h2 for each of 5 section headers (e.g Household Information), "Your refund amount" is also an h2

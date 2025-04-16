@@ -3885,7 +3885,8 @@ es:
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
           estimated_tax_payments: Monto de pagos estimados trimestrales
           extension_payments: Pago realizado cuando pediste una prórroga
-          has_estimated_payments: Estimated or other payments
+          federal_extension: Extensión Federal
+          has_estimated_payments: Pagos estimados u otros pagos
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
           household_rent_own_neither: Ni dueño/a ni inquilino/a
