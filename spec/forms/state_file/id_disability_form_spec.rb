@@ -371,6 +371,16 @@ RSpec.describe StateFile::IdDisabilityForm do
         it "returns a hash with the mfj_disabled attribute populated 'both'" do
           expect(form.mfj_disability).to eq "both"
         end
+
+        context "if changing to new disability state (form gets initialized from update)" do
+          before do
+            form.mfj_disability = "primary"
+          end
+
+          it "should preserve the updated disability state, instead of overwriting from db" do
+            expect(form.mfj_disability).to eq "primary"
+          end
+        end
       end
 
       context "none disabled" do

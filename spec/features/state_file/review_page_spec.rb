@@ -454,7 +454,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
             StateFileId1099RFollowup.create(state_file1099_r: third_1099r, income_source: "police_officer", police_retirement_fund: "yes")
           end
 
-          it "can persist mfj disability question on review" do
+          it "can persist mfj disability question on review & change and persist a new disability state" do
             visit "/questions/id-review"
 
             expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
@@ -466,6 +466,17 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
             expect(page).to have_text I18n.t("state_file.questions.id_disability.edit.title")
             expect(page.find(:css, '#state_file_id_disability_form_mfj_disability_both')).to be_checked
+            choose "Yes, my spouse is"
+
+            click_on I18n.t("general.continue")
+
+            within "#disability-info" do
+              expect(page).to have_text I18n.t("general.affirmative")
+              click_on I18n.t("general.review_and_edit")
+            end
+
+            expect(page).to have_text I18n.t("state_file.questions.id_disability.edit.title")
+            expect(page.find(:css, '#state_file_id_disability_form_mfj_disability_spouse')).to be_checked
           end
         end
       end

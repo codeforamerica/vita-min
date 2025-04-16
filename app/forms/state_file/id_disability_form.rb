@@ -21,7 +21,7 @@ module StateFile
           else
             "none"
           end
-        self.mfj_disability = mfj_disability
+        self.mfj_disability ||= mfj_disability
       end
     end
 
