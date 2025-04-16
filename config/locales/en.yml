@@ -4190,7 +4190,9 @@ en:
             <li>
               Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
             </li>
-          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
+          direct_debit:
+            after_deadline_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail as soon as you can.
+            before_deadline_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
           download_voucher: Download and print the completed payment voucher.
           feedback: We value your feedback—let us know what you think of this service.
           include_payment: Fill out your payment voucher
@@ -4369,6 +4371,15 @@ en:
               <li>Select “VET” from the dropdown menu under Notice Code.</li>
               <li>Enter the rest of your information, including your Social Security Number, to make sure that the documents get linked to your tax return.</li>
             </ol>
+        penalty_interest_warning:
+          billing_agency:
+            az: Arizona’s Department of Revenue
+            id: the Idaho State Tax Commission
+            md: the Comptroller of Maryland
+            nc: North Carolina’s Department of Revenue
+            nj: the New Jersey Division of Taxation
+          p1: Since you filed your return after April 15th, you may be charged interest and/or penalties on your taxes owed. Interest will continue to accrue until you pay the tax.
+          p2: This amount wasn't calculated on your state return, and %{billing_agency} will separately send you a bill for this amount.
       tax_refund:
         bank_details:
           account_number: Account Number
