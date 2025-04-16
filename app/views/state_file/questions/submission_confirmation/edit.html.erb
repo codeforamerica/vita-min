@@ -6,7 +6,6 @@
 
 <% content_for :page_title, title %>
 <% content_for :card do %>
-  <% binding.pry %>
   <% unless @show_download_button %>
     <div class="loading-container">
       <div class='return-status'>
@@ -22,43 +21,43 @@
     </div>
   <% end %>
 
-
-  <div <%= @show_download_button ? '' : 'class="download-link-container" style="display: none;"' %>>
+  <% attrs = @show_download_button ? {} : { class: "download-link-container", style: "display: none;" } %>
+  <div <%= tag.attributes(attrs) %>>
     <div class='return-status'>
-      <p>
-        <%= image_tag("icons/check.svg", alt: "") %>
-      </p>
+        <p>
+          <%= image_tag("icons/check.svg", alt: "") %>
+        </p>
     </div>
 
-      <h1 class="h2"><%= title %></h1>
+    <h1 class="h2"><%= title %></h1>
 
-      <p>
-        <% if current_intake.email_notification_opt_in_yes? && current_intake.sms_notification_opt_in_yes? %>
-          <%= t('.email_text_update') %>
-        <% elsif current_intake.email_notification_opt_in_yes? %>
-          <%= t('.email_update') %>
-        <% elsif current_intake.sms_notification_opt_in_yes? %>
-          <%= t('.text_update') %>
-        <% end %>
-      </p>
-      <p>
-        <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
-      </p>
-      <p><%= t('general.spread_the_word_html') %></p>
-      <% # i18n-tasks-use t("state_file.questions.return_status.additional_content.#{current_state_code}_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-      <% additional_content_key = "state_file.questions.return_status.additional_content.#{current_state_code}_html" %>
-      <% if I18n.exists?(additional_content_key) %>
-        <p><%= t(additional_content_key) %></p>
+    <p>
+      <% if current_intake.email_notification_opt_in_yes? && current_intake.sms_notification_opt_in_yes? %>
+        <%= t('.email_text_update') %>
+      <% elsif current_intake.email_notification_opt_in_yes? %>
+        <%= t('.email_update') %>
+      <% elsif current_intake.sms_notification_opt_in_yes? %>
+        <%= t('.text_update') %>
       <% end %>
+    </p>
+    <p>
+      <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
+    </p>
+    <p><%= t('general.spread_the_word_html') %></p>
+    <% # i18n-tasks-use t("state_file.questions.return_status.additional_content.#{current_state_code}_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+    <% additional_content_key = "state_file.questions.return_status.additional_content.#{current_state_code}_html" %>
+    <% if I18n.exists?(additional_content_key) %>
+      <p><%= t(additional_content_key) %></p>
+    <% end %>
 
-      <%= render partial: "state_file/questions/submission_confirmation/#{current_state_code}_additional_content" rescue nil %>
-      <%= link_to StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission),
-                  class: "button button--primary button--wide",
-                  role: "button",
-                  target: "_blank" do %>
-        <%= t(".download_state_return_pdf") %>
-        <%= image_tag("icons/link-white.svg", alt: "", class: "button__icon") %>
-      <% end %>
+    <%= render partial: "state_file/questions/submission_confirmation/#{current_state_code}_additional_content" rescue nil %>
+    <%= link_to StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission),
+                class: "button button--primary button--wide",
+                role: "button",
+                target: "_blank" do %>
+      <%= t(".download_state_return_pdf") %>
+      <%= image_tag("icons/link-white.svg", alt: "", class: "button__icon") %>
+    <% end %>
   </div>
 
 
