@@ -325,4 +325,68 @@ RSpec.describe StateFile::IdDisabilityForm do
       end
     end
   end
+
+  describe "#existing_attributes" do
+    let(:primary_disabled) { "unfilled" }
+    let(:spouse_disabled) { "unfilled" }
+
+    before do
+      allow(intake).to receive(:show_mfj_disability_options?).and_return true
+      intake.update(primary_disabled: primary_disabled, spouse_disabled: spouse_disabled)
+    end
+
+    context "mfj_disabled" do
+      context "unfilled" do
+        it "returns a hash with the mfj_disabled attribute not populated" do
+          attributes = StateFile::IdDisabilityForm.existing_attributes(intake)
+
+          expect(attributes[:mfj_disability]).to eq nil
+        end
+      end
+
+      context "primary_disabled" do
+        let(:primary_disabled) { "yes" }
+        let(:spouse_disabled) { "no" }
+
+        it "returns a hash with the mfj_disabled attribute populated 'primary'" do
+          attributes = StateFile::IdDisabilityForm.existing_attributes(intake)
+
+          expect(attributes[:mfj_disability]).to eq "primary"
+        end
+      end
+
+      context "spouse_disabled" do
+        let(:primary_disabled) { "no" }
+        let(:spouse_disabled) { "yes" }
+
+        it "returns a hash with the mfj_disabled attribute populated 'spouse'" do
+          attributes = StateFile::IdDisabilityForm.existing_attributes(intake)
+
+          expect(attributes[:mfj_disability]).to eq "spouse"
+        end
+      end
+
+      context "both disabled" do
+        let(:primary_disabled) { "yes" }
+        let(:spouse_disabled) { "yes" }
+
+        it "returns a hash with the mfj_disabled attribute populated 'both'" do
+          attributes = StateFile::IdDisabilityForm.existing_attributes(intake)
+
+          expect(attributes[:mfj_disability]).to eq "both"
+        end
+      end
+
+      context "none disabled" do
+        let(:primary_disabled) { "no" }
+        let(:spouse_disabled) { "no" }
+
+        it "returns a hash with the mfj_disabled attribute populated 'none" do
+          attributes = StateFile::IdDisabilityForm.existing_attributes(intake)
+
+          expect(attributes[:mfj_disability]).to eq "none"
+        end
+      end
+    end
+  end
 end
