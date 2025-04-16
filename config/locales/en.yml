@@ -4414,14 +4414,6 @@ en:
           subtitle: How would you like to pay?
           subtitle_html: For more information about tax due dates and payment methods, visit <a target="_blank" rel="noopener nofollow" href="%{link}">%{link}</a>
           title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes.
-          underpayment_notice_nj_html: |-
-            <p> This can happen for many reasons, but common ones are: </p>
-            <ul class="list--bulleted">
-              <li>if there weren’t enough taxes withheld from your paycheck (you may want to discuss with your employer for future years), or</li>
-              <li>if you haven’t made enough in estimated tax payments.</li>
-            </ul>
-            <p>You might be charged interest on what you owe. If that applies to you, you will get a notice from the State of New Jersey Division of Taxation in the mail.</p>
-            <p><strong>You should definitely continue with this filing. The sooner you file, the less you will eventually have to pay in penalties.</strong></p>
       terms_and_conditions:
         edit:
           accept: Accept
