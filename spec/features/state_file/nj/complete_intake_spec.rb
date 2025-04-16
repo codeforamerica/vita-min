@@ -174,6 +174,32 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page).to have_text("Section 4 of 5: Your 2024 taxes")
     end
 
+    def advance_from_page_after_property_tax_to_review
+      # advance past sales use tax
+      choose I18n.t('general.negative')
+      continue
+
+      # federal extension
+      expect(page).to be_axe_clean
+      choose I18n.t("general.negative")
+      continue
+
+      # estimated tax payments & overpayments
+      expect(page).to be_axe_clean
+      choose I18n.t("general.affirmative")
+
+      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.estimated_taxes_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
+      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year - 1)), with: 1000
+      continue
+
+      # Driver License
+      expect(page).to be_axe_clean
+      choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
+      continue
+      choose I18n.t('state_file.questions.nj_spouse_state_id.nj_spouse.no_id')
+      continue
+    end
+
     def expect_ineligible_page(property, reason)
       valid_property_values = ["on_home", "on_rental", nil]
       valid_reasons = ["multi_unit_conditions", "property_taxes", "neither", "income_single_mfs", "income_mfj_qss_hoh"]
@@ -239,28 +265,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose_household_rent_own("neither")
       continue
 
-      # advance past sales use tax this time
-      choose I18n.t('general.negative')
-      continue
-
-      # federal extension
-      expect(page).to be_axe_clean
-      choose I18n.t("general.negative")
-      continue
-
-      # estimated tax payments & overpayments
-      expect(page).to be_axe_clean
-      choose I18n.t("general.affirmative")
-      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.estimated_taxes_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
-      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year - 1)), with: 1000
-      continue
-
-      # Driver License
-      expect(page).to be_axe_clean
-      choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
-      continue
-      choose I18n.t('state_file.questions.nj_spouse_state_id.nj_spouse.no_id')
-      continue
+      advance_from_page_after_property_tax_to_review
 
       # Review
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
@@ -273,7 +278,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       groups = page.all(:css, '.white-group').count
       # one white group per exemption/section
-      expect(groups).to eq(11)
+      expect(groups).to eq(12)
 
       h2s = page.all(:css, 'h2').count
       # one h2 for each of 5 section headers (e.g Household Information), "Your refund amount" is also an h2
@@ -434,6 +439,48 @@ RSpec.feature "Completing a state file intake", active_job: true do
         continue
         expect_ineligible_page("on_home", "property_taxes")
         expect_page_after_property_tax
+      end
+    end
+
+    context "when multiple 1099Rs" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+      end
+
+      it "advances through the entire flow", required_schema: "nj" do
+        advance_to_start_of_intake("Zeus two 1099r", expect_income_review: false)
+        click_on I18n.t("general.continue")
+
+        # first eligible 1099R
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.title")
+        expect(page).to have_text("1099-R: Payer Name")
+        expect(page).to have_text("Taxpayer Name: Zeus Thunder")
+        expect(page).to have_text("$1,000")
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.label")
+        choose I18n.t("state_file.questions.nj_retirement_income_source.edit.option_military_pension")
+        click_on I18n.t("general.continue")
+ 
+        # second eligible 1099R
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.title")
+        expect(page).to have_text("1099-R: Payer 2 Name")
+        expect(page).to have_text("Taxpayer Name: Hera Thunder")
+        expect(page).to have_text("$3,000")
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.label")
+        choose I18n.t("state_file.questions.nj_retirement_income_source.edit.option_other")
+        click_on I18n.t("general.continue")
+
+        advance_to_property_tax_page
+        choose_household_rent_own("homeowner")
+        select_homeowner_eligibility(["homeowner_home_subject_to_property_taxes"])
+        fill_property_tax_paid(10000)
+        expect_page_after_property_tax
+        advance_from_page_after_property_tax_to_review
+
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+        within "#retirement-income-source" do
+          expect(page).to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_military_pension")
+          expect(page).to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_other")
+        end
       end
     end
 

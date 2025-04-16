@@ -2364,6 +2364,15 @@ es:
         mistake: "¿Fue un error?"
         title: Has optado por no recibir notificaciones por correo electrónico de FileYourStateTaxes.
     questions:
+      apply_refund:
+        edit:
+          affirmative: Sí, usé una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}
+          amount_label: "<strong>Cantidad del reembolso de Idaho de %{prior_tax_year} utilizada para los impuestos estatales de %{current_tax_year}</strong>"
+          enter_amount_html: Ingresa la cantidad al lado de “Apply to %{current_tax_year}” en la línea 56 de tu Declaración de Impuestos Individual de %{prior_tax_year} <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Formulario 40</a>.
+          negative: No, no usé una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}
+          subtitle_1: Si recibiste un reembolso de tus impuestos estatales de %{prior_tax_year}, podrías haber aplicado una parte de esa cantidad para ayudar a pagar tu impuesto de %{current_tax_year}. Este es un escenario poco común para nuestro servicio.
+          subtitle_2_html: Puedes encontrar esta cantidad al lado de “Apply to %{current_tax_year}” en la línea 56 de tu Declaración de Impuestos Individual de %{prior_tax_year} <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Formulario 40</a>.
+          title: "¿Aplicaste una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}?"
       az_charitable_contributions:
         edit:
           amount_cannot_exceed: La cantidad no puede ser mayor a $500
@@ -3885,7 +3894,8 @@ es:
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
           estimated_tax_payments: Monto de pagos estimados trimestrales
           extension_payments: Pago realizado cuando pediste una prórroga
-          has_estimated_payments: Estimated or other payments
+          federal_extension: Extensión Federal
+          has_estimated_payments: Pagos estimados u otros pagos
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
           household_rent_own_neither: Ni dueño/a ni inquilino/a
@@ -4202,7 +4212,9 @@ es:
             <li>
              Hacer tu cheque o giro postal a nombre de %{payable_to}. Escribe tu SSN o ITIN completo, "%{filing_year} Tax", y "Form %{form_number}" en tu pago.
             </li>
-          direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
+          direct_debit:
+            after_deadline_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo lo más pronto que puedas.
+            before_deadline_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
           download_voucher: Descarga e imprime el formulario de comprobante de pago completado.
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
           include_payment: Completa el formulario de comprobante de pago
@@ -4381,6 +4393,15 @@ es:
               <li>Selecciona “VET” en el menú desplegable debajo de Código de notificación (en inglés “Notice Code”).</li>
               <li>Ingresa el resto de tu información, incluido tu número de Seguro Social, para asegurar que los documentos se vinculen con tu declaración de impuestos.</li>
             </ol>
+        penalty_interest_warning:
+          billing_agency:
+            az: el Departamento de Ingresos de Arizona
+            id: el Departamento de Ingresos de Idaho
+            md: el Contralor de Maryland
+            nc: el Departamento de Ingresos de Carolina del Norte
+            nj: la División de Impuestos de Nueva Jersey
+          p1: Debido a que presentaste tu declaración después del 15 de abril de 2025, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Los intereses seguirán acumulándose hasta que pagues tus impuestos.
+          p2: Esta cantidad no fue calculada en tu declaración estatal, y %{billing_agency} te enviará una factura aparte por esta cantidad.
       tax_refund:
         bank_details:
           account_number: Número de cuenta

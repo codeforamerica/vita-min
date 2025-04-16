@@ -1560,7 +1560,7 @@ en:
           sms: |
             Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due.
 
-            If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
+            If you haven't submitted your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
 
             Download your return at %{return_status_link}
 
@@ -2355,6 +2355,15 @@ en:
         mistake: Is this a mistake?
         title: You've opted out of email notifications from FileYourStateTaxes.
     questions:
+      apply_refund:
+        edit:
+          affirmative: Yes, I used a portion of my %{prior_tax_year} refund towards my %{current_tax_year} taxes
+          amount_label: "<strong>Amount of %{prior_tax_year} Idaho refund used towards %{current_tax_year} state taxes</strong>"
+          enter_amount_html: Enter the amount next to “Apply to %{current_tax_year}” on line 56 of your %{prior_tax_year} Individual Income Tax Return <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Form 40</a>.
+          negative: No, I didn’t use a portion of my %{prior_tax_year} refund towards my %{current_tax_year} taxes
+          subtitle_1: If you received a refund from your %{prior_tax_year} state taxes, you could have applied a portion of that amount to help pay your income tax for %{current_tax_year}. This is an uncommon scenario for our service.
+          subtitle_2_html: You can find this amount next to “Apply to %{current_tax_year}” on line 56 of your %{prior_tax_year} Individual Income Tax Return <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Form 40</a>.
+          title: Did you apply a portion of your %{prior_tax_year} Idaho state refund toward your %{current_tax_year} taxes?
       az_charitable_contributions:
         edit:
           amount_cannot_exceed: This amount may not exceed $500
@@ -3886,6 +3895,7 @@ en:
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
           estimated_tax_payments: Estimated quarterly payments
           extension_payments: Payment made when you filed for an extension
+          federal_extension: Federal extension
           has_estimated_payments: Estimated or other payments
           household_rent_own: Living situation in %{filing_year}
           household_rent_own_both: Owned and rented
@@ -4189,7 +4199,9 @@ en:
             <li>
               Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
             </li>
-          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
+          direct_debit:
+            after_deadline_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail as soon as you can.
+            before_deadline_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
           download_voucher: Download and print the completed payment voucher.
           feedback: We value your feedback—let us know what you think of this service.
           include_payment: Fill out your payment voucher
@@ -4368,6 +4380,15 @@ en:
               <li>Select “VET” from the dropdown menu under Notice Code.</li>
               <li>Enter the rest of your information, including your Social Security Number, to make sure that the documents get linked to your tax return.</li>
             </ol>
+        penalty_interest_warning:
+          billing_agency:
+            az: Arizona’s Department of Revenue
+            id: the Idaho State Tax Commission
+            md: the Comptroller of Maryland
+            nc: North Carolina’s Department of Revenue
+            nj: the New Jersey Division of Taxation
+          p1: Since you filed your return after April 15th, you may be charged interest and/or penalties on your taxes owed. Interest will continue to accrue until you pay the tax.
+          p2: This amount wasn't calculated on your state return, and %{billing_agency} will separately send you a bill for this amount.
       tax_refund:
         bank_details:
           account_number: Account Number
