@@ -170,11 +170,11 @@
         <h3 class="text--body text--bold spacing-below-5"><%=t(".eitc") %></h3>
 
         <% unless current_intake.claimed_as_eitc_qualifying_child_unfilled? %>
-          <h4 class="text--body text--bold spacing-below-5"><%=t(".primary_claimed_as_eitc_qualifying_child") %></h4>
+          <p class="text--body text--bold spacing-below-5"><%=t(".primary_claimed_as_eitc_qualifying_child") %></p>
           <p><%=current_intake.claimed_as_eitc_qualifying_child_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <% end %>
         <% unless current_intake.spouse_claimed_as_eitc_qualifying_child_unfilled? %>
-        <h4 class="text--body text--bold spacing-below-5"><%=t(".spouse_claimed_as_eitc_qualifying_child") %></h4>
+        <p class="text--body text--bold spacing-below-5"><%=t(".spouse_claimed_as_eitc_qualifying_child") %></p>
           <p><%=current_intake.spouse_claimed_as_eitc_qualifying_child_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <% end %>
         <%= link_to StateFile::Questions::NjEitcQualifyingChildController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
@@ -187,18 +187,18 @@
 
   <section id="property-tax" class="white-group">
     <div class="spacing-below-5">
-      <h3 class="text--body text--bold spacing-below-5"><%=t(".property_tax_credit_deduction") %></h3>
+      <h3 class="text--body text--bold spacing-below-25"><%=t(".property_tax_credit_deduction") %></h3>
 
-      <h4 class="text--body spacing-below-5"><%=t(".household_rent_own", filing_year: current_tax_year) %></h4>
+      <p class="text--body spacing-below-5"><%=t(".household_rent_own", filing_year: current_tax_year) %></p>
       <p><%=t(".household_rent_own_#{current_intake.household_rent_own}") unless current_intake.household_rent_own_unfilled? %></p>
 
       <% unless current_intake.property_tax_paid.nil? %>
-        <h4 class="text--body text--bold spacing-below-5"><%= t(".property_tax_paid", filing_year: current_tax_year)  %></h4>
+        <p class="text--body text--bold spacing-below-5"><%= t(".property_tax_paid", filing_year: current_tax_year)  %></p>
         <p><%= number_to_currency(current_intake.property_tax_paid, precision: 0) %></p>
       <% end %>
 
       <% unless current_intake.rent_paid.nil? %>
-        <h4 class="text--body text--bold spacing-below-5"><%=t(".rent_paid", filing_year: current_tax_year) %></h4>
+        <p class="text--body text--bold spacing-below-5"><%=t(".rent_paid", filing_year: current_tax_year) %></p>
         <p><%= number_to_currency(current_intake.rent_paid, precision: 0) %></p>
       <% end %>
 
