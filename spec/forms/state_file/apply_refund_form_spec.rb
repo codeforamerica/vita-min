@@ -122,23 +122,23 @@ RSpec.describe StateFile::ApplyRefundForm do
         expect(intake.reload.prior_year_refund_payments_amount).to eq(0)
       end
     end
-  end
 
-  describe "going back and removing amount" do
-    let(:intake) { create :state_file_id_intake, prior_year_refund_payments_amount: 2112 }
-    let(:valid_params) do
-      {
-        paid_prior_year_refund_payments: "no",
-        prior_year_refund_payments_amount: "2112"
-      }
-    end
+    describe "going back and removing amount" do
+      let(:intake) { create :state_file_id_intake, prior_year_refund_payments_amount: 2112 }
+      let(:valid_params) do
+        {
+          paid_prior_year_refund_payments: "no",
+          prior_year_refund_payments_amount: "2112"
+        }
+      end
 
-    it "proceeds with 0 amount" do
-      form = described_class.new(intake, valid_params)
-      expect(form).to be_valid
-      expect do
-        form.save
-      end.to change { intake.reload.prior_year_refund_payments_amount }.to(0)
+      it "proceeds with 0 amount" do
+        form = described_class.new(intake, valid_params)
+        expect(form).to be_valid
+        expect do
+          form.save
+        end.to change { intake.reload.prior_year_refund_payments_amount }.to(0)
+      end
     end
   end
 end
