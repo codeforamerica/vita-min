@@ -32,7 +32,7 @@ module StateFile
           @intake.update(primary_disabled: "no", spouse_disabled: "no")
         end
       else
-        @intake.update(attributes_for(:intake))
+        @intake.update(attributes_for(:intake).except(:mfj_disability))
       end
 
       clean_up_followups
