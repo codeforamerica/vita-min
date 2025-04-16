@@ -6,7 +6,7 @@
     <div class="spacing-below-5">
       <%= link_to t("general.review_and_edit"), StateFile::Questions::IdDisabilityController.to_path_helper(
         return_to_review_before: StateFile::Questions::IdDisabilityController.name.demodulize.underscore,
-        return_to_review_after: "retirement_income_deduction"), class: "button--small" %>
+        return_to_review_after: "retirement_income_deduction"), class: "button--small", role: "button" %>
     </div>
   </section>
 <% end %>

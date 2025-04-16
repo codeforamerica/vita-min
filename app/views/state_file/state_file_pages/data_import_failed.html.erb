@@ -9,7 +9,7 @@
       <h1 class="h2"><%= content_for(:page_title) %></h1>
       <h2 class="h2 spacing-below-35"><%= t(".help_text_html") %></h2>
       <%= link_to StateFile::Questions::InitiateDataTransferController.to_path_helper,
-                  class: "button button--primary button--wide" do %>
+                  class: "button button--primary button--wide", role: "button" do %>
         <%= I18n.t("general.try_again") %>
       <% end %>
     </div>

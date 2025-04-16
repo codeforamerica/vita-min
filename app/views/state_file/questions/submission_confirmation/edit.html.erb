@@ -40,6 +40,10 @@
         <%= t('.text_update') %>
       <% end %>
     </p>
+
+    <% if current_intake.calculated_refund_or_owed_amount.negative? && @after_tax_deadline %>
+      <%= render "state_file/questions/submission_confirmation/penalty_interest_warning"  %>
+    <% end %>
     <p>
       <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
     </p>
