@@ -1,9 +1,8 @@
 module StateFile
   class IdDisabilityForm < QuestionsForm
-    set_attributes_for :intake, :primary_disabled, :spouse_disabled
+    set_attributes_for :intake, :primary_disabled, :spouse_disabled, :mfj_disability
 
     attr_accessor :mfj_disability
-    set_attributes_for :intake, :mfj_disability
     validates_presence_of :mfj_disability, if: -> { intake.show_mfj_disability_options? }
     validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_primary_disabled? }
     validates :spouse_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_spouse_disabled? }
