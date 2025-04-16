@@ -503,6 +503,62 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     end
   end
 
+  context "NJ" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+
+      state_code = "nj"
+      set_up_intake_and_associated_records(state_code)
+
+      @intake = StateFile::StateInformationService.intake_class(state_code).last
+      @intake.update(primary_disabled: "no")
+      first_1099r = @intake.state_file1099_rs.first
+      first_1099r.update(taxable_amount: 200, recipient_ssn: @intake.primary.ssn)
+      StateFileNj1099RFollowup.create(state_file1099_r: first_1099r, income_source: "military_survivors_benefits")
+
+      second_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Couch Potato Cafe", taxable_amount: 50, recipient_ssn: @intake.primary.ssn)
+      StateFileNj1099RFollowup.create(state_file1099_r: second_1099r, income_source: "military_pension")
+    end
+
+    context "with eligible 1099Rs" do
+      it "can review & edit all 1099Rs, then return to review" do
+        visit "/questions/nj-review"
+
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+        within "#retirement-income-source" do
+          expect(page).to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_military_survivor_benefit")
+          expect(page).to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_military_pension")
+          expect(page).not_to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_other")
+          click_on I18n.t("general.review_and_edit")
+        end
+
+        # first eligible 1099R
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.title")
+        expect(page).to have_text("1099-R: Dorothy Red")
+        expect(page).to have_text("Taxpayer Name: Dorothy Jane Red")
+        expect(page).to have_text("$200")
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.label")
+        choose I18n.t("state_file.questions.nj_retirement_income_source.edit.option_other")
+        click_on I18n.t("general.continue")
+
+        # second eligible 1099R
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.title")
+        expect(page).to have_text("1099-R: Couch Potato Cafe")
+        expect(page).to have_text("Taxpayer Name: Dorothy Jane Red")
+        expect(page).to have_text("$50")
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.label")
+        choose I18n.t("state_file.questions.nj_retirement_income_source.edit.option_other")
+        click_on I18n.t("general.continue")
+
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+        within "#retirement-income-source" do
+          expect(page).to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_other")
+        end
+      end
+    end
+  end
+
   def set_up_intake_and_associated_records(state_code)
     visit "/"
     click_on "Start Test #{state_code.upcase}"
