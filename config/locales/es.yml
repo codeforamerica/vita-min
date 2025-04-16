@@ -2364,6 +2364,15 @@ es:
         mistake: "¿Fue un error?"
         title: Has optado por no recibir notificaciones por correo electrónico de FileYourStateTaxes.
     questions:
+      apply_refund:
+        edit:
+          affirmative: Sí, usé una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}
+          amount_label: "<strong>Cantidad del reembolso de Idaho de %{prior_tax_year} utilizada para los impuestos estatales de %{current_tax_year}</strong>"
+          enter_amount_html: Ingresa la cantidad al lado de “Apply to %{current_tax_year}” en la línea 56 de tu Declaración de Impuestos Individual de %{prior_tax_year} <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Formulario 40</a>.
+          negative: No, no usé una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}
+          subtitle_1: Si recibiste un reembolso de tus impuestos estatales de %{prior_tax_year}, podrías haber aplicado una parte de esa cantidad para ayudar a pagar tu impuesto de %{current_tax_year}. Este es un escenario poco común para nuestro servicio.
+          subtitle_2_html: Puedes encontrar esta cantidad al lado de “Apply to %{current_tax_year}” en la línea 56 de tu Declaración de Impuestos Individual de %{prior_tax_year} <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Formulario 40</a>.
+          title: "¿Aplicaste una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}?"
       az_charitable_contributions:
         edit:
           amount_cannot_exceed: La cantidad no puede ser mayor a $500
