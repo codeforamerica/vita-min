@@ -35,6 +35,12 @@ RSpec.describe StateFile::TaxesOwedForm do
     allow(intake).to receive(:calculated_refund_or_owed_amount).and_return(taxes_owed)
   end
 
+  around do |example|
+    Timecop.freeze(app_time) do
+      example.run
+    end
+  end
+
   describe "when paying via mail" do
     it "updates the intake with only mail data" do
       form = described_class.new(intake, mail_params)
