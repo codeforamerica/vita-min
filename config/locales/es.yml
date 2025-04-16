@@ -3009,7 +3009,7 @@ es:
           amount: Cantidad de los pagos de extensión
           enter_amount: Ingresa la cantidad de los pagos que hiciste a Idaho usando el Formulario 51.
           negative: No, no hice un pago de extensión o de saldo estimado a Idaho
-          subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
+          subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ target=\"_blank\" rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf target=\"_blank\" rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
           title: "¿Hiciste un pago de extensión o de saldo estimado a Idaho sobre los impuestos de %{tax_year} en o antes del 15 de abril de %{current_year}?"
         md:
           affirmative: Sí
@@ -3023,7 +3023,7 @@ es:
           amount: Cantidad de los pagos de extensión
           enter_amount: Ingresa la cantidad que pagaste a Carolina del Norte por la extensión.
           negative: 'No'
-          subtitle_html: Si pagaste por una extensión a Carolina del Norte, lo hiciste <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Formulario D-410</a>.
+          subtitle_html: Si pagaste por una extensión a Carolina del Norte, lo hiciste <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 target="_blank" rel="noopener noreferrer">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp target="_blank" rel="noopener noreferrer">Formulario D-410</a>.
           title: "¿Hiciste un pago de extensión a Carolina del Norte en o antes del 15 de abril de %{current_year}?"
       federal_extension_payments:
         edit:
