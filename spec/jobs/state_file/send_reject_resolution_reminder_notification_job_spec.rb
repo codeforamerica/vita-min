@@ -8,6 +8,7 @@ RSpec.describe StateFile::SendRejectResolutionReminderNotificationJob, type: :jo
              primary_first_name: "Mona",
              email_address: "monalisa@example.com",
              email_address_verified_at: 1.minute.ago,
+             hashed_ssn: "fake_hashed_ssn",
              message_tracker: {}
     }
     let(:current_state) { :notified_of_rejection }
@@ -16,9 +17,9 @@ RSpec.describe StateFile::SendRejectResolutionReminderNotificationJob, type: :jo
     let(:body_args) { { return_status_link: "http://statefile.test.localhost/en/questions/return-status" } }
     let(:sf_messaging_service) {
       StateFile::MessagingService.new(
-      intake: intake,
-      message: message,
-      body_args: body_args)
+        intake: intake,
+        message: message,
+        body_args: body_args)
     }
 
     before do
@@ -110,7 +111,36 @@ RSpec.describe StateFile::SendRejectResolutionReminderNotificationJob, type: :jo
               message: message,
               body_args: body_args).exactly(2).times
           end
+        end
+
+        context "when another intake exists with the same hashed SSN" do
+          let!(:other_intake) {
+            create other_intake_class,
+                   efile_submissions: [create(:efile_submission, :accepted)],
+                   primary_first_name: "Mona",
+                   email_address: "monalisa@example.com",
+                   email_address_verified_at: 1.minute.ago,
+                   hashed_ssn: intake.hashed_ssn,
+                   message_tracker: {}
+          }
+
+          context "and which was filed in the same state" do
+            let(:other_intake_class) { :state_file_az_intake }
+
+            it "does not send the message" do
+              expect { described_class.perform_now(intake) }.not_to change(StateFileNotificationEmail, :count)
+            end
           end
+
+          context "and which was filed in another state" do
+            let(:other_intake_class) { :state_file_nc_intake }
+
+            it "does not send the message" do
+              expect { described_class.perform_now(intake) }.not_to change(StateFileNotificationEmail, :count)
+            end
+          end
+        end
+
       end
     end
 
