@@ -1,11 +1,29 @@
 module StateFile
   class IdDisabilityForm < QuestionsForm
-    set_attributes_for :intake, :primary_disabled, :spouse_disabled, :mfj_disability
+    set_attributes_for :intake, :primary_disabled, :spouse_disabled
 
     attr_accessor :mfj_disability
     validates_presence_of :mfj_disability, if: -> { intake.show_mfj_disability_options? }
     validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_primary_disabled? }
     validates :spouse_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_spouse_disabled? }
+
+    def initialize(intake = nil, params = {})
+      super
+      already_answered_disability = !intake.primary_disabled_unfilled? && !intake.spouse_disabled_unfilled?
+      if intake.show_mfj_disability_options? && already_answered_disability
+        mfj_disability =
+          if intake.primary_disabled_yes? && intake.spouse_disabled_yes?
+            "both"
+          elsif intake.primary_disabled_yes?
+            "primary"
+          elsif intake.spouse_disabled_yes?
+            "spouse"
+          else
+            "none"
+          end
+        self.mfj_disability = mfj_disability
+      end
+    end
 
     def should_check_primary_disabled?
       return false if intake.show_mfj_disability_options?
@@ -36,27 +54,6 @@ module StateFile
       end
 
       clean_up_followups
-    end
-
-    def self.existing_attributes(intake)
-      already_answered_disability = !intake.primary_disabled_unfilled? && !intake.spouse_disabled_unfilled?
-      if intake.show_mfj_disability_options? && already_answered_disability
-        mfj_disability =
-          if intake.primary_disabled_yes? && intake.spouse_disabled_yes?
-            "both"
-          elsif intake.primary_disabled_yes?
-            "primary"
-          elsif intake.spouse_disabled_yes?
-            "spouse"
-          else
-            "none"
-          end
-        super.merge(
-          mfj_disability: mfj_disability
-        )
-      else
-        super
-      end
     end
 
     private

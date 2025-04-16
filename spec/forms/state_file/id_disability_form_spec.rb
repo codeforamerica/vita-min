@@ -326,21 +326,23 @@ RSpec.describe StateFile::IdDisabilityForm do
     end
   end
 
-  describe "#existing_attributes" do
+  describe "#initialize" do
     let(:primary_disabled) { "unfilled" }
     let(:spouse_disabled) { "unfilled" }
+    let(:form) { described_class.new(intake, {})}
 
     before do
-      allow(intake).to receive(:show_mfj_disability_options?).and_return true
       intake.update(primary_disabled: primary_disabled, spouse_disabled: spouse_disabled)
     end
 
     context "mfj_disabled" do
+      before do
+        allow(intake).to receive(:show_mfj_disability_options?).and_return true
+      end
+
       context "unfilled" do
         it "returns a hash with the mfj_disabled attribute not populated" do
-          attributes = StateFile::IdDisabilityForm.existing_attributes(intake)
-
-          expect(attributes[:mfj_disability]).to eq nil
+          expect(form.mfj_disability).to eq nil
         end
       end
 
@@ -349,9 +351,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:spouse_disabled) { "no" }
 
         it "returns a hash with the mfj_disabled attribute populated 'primary'" do
-          attributes = StateFile::IdDisabilityForm.existing_attributes(intake)
-
-          expect(attributes[:mfj_disability]).to eq "primary"
+          expect(form.mfj_disability).to eq "primary"
         end
       end
 
@@ -360,9 +360,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:spouse_disabled) { "yes" }
 
         it "returns a hash with the mfj_disabled attribute populated 'spouse'" do
-          attributes = StateFile::IdDisabilityForm.existing_attributes(intake)
-
-          expect(attributes[:mfj_disability]).to eq "spouse"
+          expect(form.mfj_disability).to eq "spouse"
         end
       end
 
@@ -371,9 +369,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:spouse_disabled) { "yes" }
 
         it "returns a hash with the mfj_disabled attribute populated 'both'" do
-          attributes = StateFile::IdDisabilityForm.existing_attributes(intake)
-
-          expect(attributes[:mfj_disability]).to eq "both"
+          expect(form.mfj_disability).to eq "both"
         end
       end
 
@@ -382,9 +378,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:spouse_disabled) { "no" }
 
         it "returns a hash with the mfj_disabled attribute populated 'none" do
-          attributes = StateFile::IdDisabilityForm.existing_attributes(intake)
-
-          expect(attributes[:mfj_disability]).to eq "none"
+          expect(form.mfj_disability).to eq "none"
         end
       end
     end
