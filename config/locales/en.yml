@@ -1560,7 +1560,7 @@ en:
           sms: |
             Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due.
 
-            If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
+            If you haven't submitted your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
 
             Download your return at %{return_status_link}
 
