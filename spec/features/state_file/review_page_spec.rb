@@ -457,14 +457,14 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           it "can persist mfj disability question on review & change and persist a new disability state" do
             visit "/questions/id-review"
 
-            expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+            page_change_check(I18n.t("state_file.questions.shared.abstract_review_header.title"))
 
             within "#disability-info" do
               expect(page).to have_text I18n.t("general.affirmative")
               click_on I18n.t("general.review_and_edit")
             end
 
-            expect(page).to have_text I18n.t("state_file.questions.id_disability.edit.title")
+            page_change_check(I18n.t("state_file.questions.id_disability.edit.title"))
             expect(page.find(:css, '#state_file_id_disability_form_mfj_disability_both')).to be_checked
             choose "Yes, my spouse is"
 
@@ -475,7 +475,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
               click_on I18n.t("general.review_and_edit")
             end
 
-            expect(page).to have_text I18n.t("state_file.questions.id_disability.edit.title")
+            page_change_check(I18n.t("state_file.questions.id_disability.edit.title"))
             expect(page.find(:css, '#state_file_id_disability_form_mfj_disability_spouse')).to be_checked
           end
         end
