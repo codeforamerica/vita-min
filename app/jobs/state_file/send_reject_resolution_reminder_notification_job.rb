@@ -1,8 +1,8 @@
 module StateFile
   class SendRejectResolutionReminderNotificationJob < ApplicationJob
     def perform(intake)
-      return if other_intake_with_same_ssn_has_submission(intake)
-      return unless notified_of_rejected_and_not_accepted(intake)
+      return if other_intake_with_same_ssn_has_submission?(intake)
+      return unless notified_of_rejected_and_not_accepted?(intake)
 
       StateFile::MessagingService.new(
         intake: intake,
@@ -25,7 +25,9 @@ module StateFile
       self.class.return_status_link(intake.locale || "en")
     end
 
-    def other_intake_with_same_ssn_has_submission(intake)
+    private
+
+    def other_intake_with_same_ssn_has_submission?(intake)
       return if intake.hashed_ssn.nil?
       StateInformationService.state_intake_classes.excluding(StateFileNyIntake).any? do |intake_class|
         intakes = intake_class
@@ -36,7 +38,7 @@ module StateFile
       end
     end
 
-    def notified_of_rejected_and_not_accepted(intake)
+    def notified_of_rejected_and_not_accepted?(intake)
       transition_states = intake.efile_submissions.flat_map do |submission|
         submission.efile_submission_transitions.map(&:to_state)
       end.uniq
