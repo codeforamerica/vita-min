@@ -252,7 +252,7 @@ RSpec.describe StateFile::IdDisabilityForm do
           let(:params) { { primary_disabled: "yes" } }
 
           it "updates intake using attributes_for" do
-            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
             form.save
           end
         end
@@ -262,7 +262,7 @@ RSpec.describe StateFile::IdDisabilityForm do
           let(:params) { { primary_disabled: "no" } }
 
           it "updates intake using attributes_for" do
-            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
             expect do
               form.save
             end.to change(StateFileId1099RFollowup, :count).by(-1)
@@ -279,7 +279,7 @@ RSpec.describe StateFile::IdDisabilityForm do
           let(:params) { { spouse_disabled: "yes" } }
 
           it "updates intake using attributes_for" do
-            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
             form.save
           end
         end
@@ -289,7 +289,7 @@ RSpec.describe StateFile::IdDisabilityForm do
           let(:params) { { spouse_disabled: "no" } }
 
           it "updates intake using attributes_for" do
-            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
             expect do
               form.save
             end.to change(StateFileId1099RFollowup, :count).by(-1)
@@ -307,7 +307,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:params) { { primary_disabled: "yes" } }
 
         it "updates intake using attributes_for" do
-          expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+          expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
           form.save
         end
       end
@@ -317,7 +317,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:params) { { primary_disabled: "no" } }
 
         it "updates intake using attributes_for" do
-          expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+          expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
           expect do
             form.save
           end.to change(StateFileId1099RFollowup, :count).by(-1)
@@ -326,10 +326,11 @@ RSpec.describe StateFile::IdDisabilityForm do
     end
   end
 
-  describe "#initialize" do
+  describe "#existing_attributes" do
     let(:primary_disabled) { "unfilled" }
     let(:spouse_disabled) { "unfilled" }
     let(:form) { described_class.new(intake, {})}
+    let(:existing_attributes) { StateFile::IdDisabilityForm.existing_attributes(intake) }
 
     before do
       intake.update(primary_disabled: primary_disabled, spouse_disabled: spouse_disabled)
@@ -342,7 +343,7 @@ RSpec.describe StateFile::IdDisabilityForm do
 
       context "unfilled" do
         it "does not set mfj_disability on the form" do
-          expect(form.mfj_disability).to eq nil
+          expect(existing_attributes[:mfj_disability]).to eq nil
         end
       end
 
@@ -351,7 +352,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:spouse_disabled) { "no" }
 
         it "sets mfj_disability to primary" do
-          expect(form.mfj_disability).to eq "primary"
+          expect(existing_attributes[:mfj_disability]).to eq "primary"
         end
       end
 
@@ -360,7 +361,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:spouse_disabled) { "yes" }
 
         it "sets mfj_disability to spouse" do
-          expect(form.mfj_disability).to eq "spouse"
+          expect(existing_attributes[:mfj_disability]).to eq "spouse"
         end
       end
 
@@ -369,17 +370,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:spouse_disabled) { "yes" }
 
         it "sets mfj_disability to both" do
-          expect(form.mfj_disability).to eq "both"
-        end
-
-        context "if changing to new disability state (form gets initialized from update)" do
-          before do
-            form.mfj_disability = "primary"
-          end
-
-          it "should preserve the updated disability, instead of overwriting with persisted values from db" do
-            expect(form.mfj_disability).to eq "primary"
-          end
+          expect(existing_attributes[:mfj_disability]).to eq "both"
         end
       end
 
@@ -388,7 +379,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:spouse_disabled) { "no" }
 
         it "sets mfj_disability to none" do
-          expect(form.mfj_disability).to eq "none"
+          expect(existing_attributes[:mfj_disability]).to eq "none"
         end
       end
     end

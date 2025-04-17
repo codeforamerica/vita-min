@@ -1,22 +1,11 @@
 module StateFile
   class IdDisabilityForm < QuestionsForm
-    set_attributes_for :intake, :primary_disabled, :spouse_disabled
+    set_attributes_for :intake, :primary_disabled, :spouse_disabled, :mfj_disability
 
     attr_accessor :mfj_disability
     validates_presence_of :mfj_disability, if: -> { intake.show_mfj_disability_options? }
     validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_primary_disabled? }
     validates :spouse_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_spouse_disabled? }
-
-    def initialize(intake, params = {})
-      super
-      already_answered_disability = !intake.primary_disabled_unfilled? && !intake.spouse_disabled_unfilled?
-      if intake.show_mfj_disability_options? && already_answered_disability && mfj_disability.nil?
-        previously_answered_mfj_disability = disabled_attrs_to_mfj_disability(
-          intake.primary_disabled, intake.spouse_disabled
-        )
-        self.mfj_disability = previously_answered_mfj_disability
-      end
-    end
 
     def should_check_primary_disabled?
       return false if intake.show_mfj_disability_options?
@@ -32,12 +21,40 @@ module StateFile
 
     def save
       if intake.show_mfj_disability_options?
-        @intake.update(primary_disabled: mfj_disability_to_primary_disabled, spouse_disabled: mfj_disability_to_spouse_disabled)
+        mfj_disability_to_disabled_attributes = self.class.mfj_disability_to_disabled_attributes_hash[mfj_disability&.to_sym]
+
+        @intake.update(
+          primary_disabled: mfj_disability_to_disabled_attributes && mfj_disability_to_disabled_attributes[0],
+          spouse_disabled: mfj_disability_to_disabled_attributes && mfj_disability_to_disabled_attributes[1]
+        )
       else
-        @intake.update(attributes_for(:intake))
+        @intake.update(attributes_for(:intake).except(:mfj_disability))
       end
 
       clean_up_followups
+    end
+
+
+    def self.existing_attributes(intake)
+      already_answered_disability = !intake.primary_disabled_unfilled? && !intake.spouse_disabled_unfilled?
+      if intake.show_mfj_disability_options? && already_answered_disability
+        disability_to_mfj_disability_hash = self.mfj_disability_to_disabled_attributes_hash.invert
+        previously_answered_mfj_disability = disability_to_mfj_disability_hash[[intake.primary_disabled, intake.spouse_disabled]]&.to_s
+        super.merge(
+          mfj_disability: previously_answered_mfj_disability,
+        )
+      else
+        super
+      end
+    end
+
+    def self.mfj_disability_to_disabled_attributes_hash
+      {
+        both: %w[yes yes],
+        none: %w[no no],
+        primary: %w[yes no],
+        spouse: %w[no yes]
+      }
     end
 
     private
@@ -54,31 +71,5 @@ module StateFile
       end
     end
 
-    def mfj_disability_to_disabled_attributes_hash
-      {
-        both: %w[yes yes],
-        none: %w[no no],
-        primary: %w[yes no],
-        spouse: %w[no yes]
-      }
-    end
-
-    def mfj_disability_to_disabled_attributes
-      mfj_disability_to_disabled_attributes_hash[mfj_disability&.to_sym]
-    end
-
-    def mfj_disability_to_primary_disabled
-      mfj_disability_to_disabled_attributes && mfj_disability_to_disabled_attributes[0]
-    end
-
-    def mfj_disability_to_spouse_disabled
-      mfj_disability_to_disabled_attributes && mfj_disability_to_disabled_attributes[1]
-    end
-
-    def disabled_attrs_to_mfj_disability(primary_disabled, spouse_disabled)
-      selected_disabled_properties = [primary_disabled, spouse_disabled]
-      inverted_mfj_map = mfj_disability_to_disabled_attributes_hash.invert
-      inverted_mfj_map[selected_disabled_properties]&.to_s
-    end
   end
 end
