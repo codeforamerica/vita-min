@@ -252,7 +252,7 @@ RSpec.describe StateFile::IdDisabilityForm do
           let(:params) { { primary_disabled: "yes" } }
 
           it "updates intake using attributes_for" do
-            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
             form.save
           end
         end
@@ -262,7 +262,7 @@ RSpec.describe StateFile::IdDisabilityForm do
           let(:params) { { primary_disabled: "no" } }
 
           it "updates intake using attributes_for" do
-            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
             expect do
               form.save
             end.to change(StateFileId1099RFollowup, :count).by(-1)
@@ -279,7 +279,7 @@ RSpec.describe StateFile::IdDisabilityForm do
           let(:params) { { spouse_disabled: "yes" } }
 
           it "updates intake using attributes_for" do
-            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
             form.save
           end
         end
@@ -289,7 +289,7 @@ RSpec.describe StateFile::IdDisabilityForm do
           let(:params) { { spouse_disabled: "no" } }
 
           it "updates intake using attributes_for" do
-            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+            expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
             expect do
               form.save
             end.to change(StateFileId1099RFollowup, :count).by(-1)
@@ -307,7 +307,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:params) { { primary_disabled: "yes" } }
 
         it "updates intake using attributes_for" do
-          expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+          expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
           form.save
         end
       end
@@ -317,10 +317,69 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:params) { { primary_disabled: "no" } }
 
         it "updates intake using attributes_for" do
-          expect(intake).to receive(:update).with(form.send(:attributes_for, :intake))
+          expect(intake).to receive(:update).with(form.send(:attributes_for, :intake).except(:mfj_disability))
           expect do
             form.save
           end.to change(StateFileId1099RFollowup, :count).by(-1)
+        end
+      end
+    end
+  end
+
+  describe "#existing_attributes" do
+    let(:primary_disabled) { "unfilled" }
+    let(:spouse_disabled) { "unfilled" }
+    let(:form) { described_class.new(intake, {})}
+    let(:existing_attributes) { StateFile::IdDisabilityForm.existing_attributes(intake) }
+
+    before do
+      intake.update(primary_disabled: primary_disabled, spouse_disabled: spouse_disabled)
+    end
+
+    context "mfj_disabled" do
+      before do
+        allow(intake).to receive(:show_mfj_disability_options?).and_return true
+      end
+
+      context "unfilled" do
+        it "does not set mfj_disability on the form" do
+          expect(existing_attributes[:mfj_disability]).to eq nil
+        end
+      end
+
+      context "primary_disabled" do
+        let(:primary_disabled) { "yes" }
+        let(:spouse_disabled) { "no" }
+
+        it "sets mfj_disability to primary" do
+          expect(existing_attributes[:mfj_disability]).to eq "primary"
+        end
+      end
+
+      context "spouse_disabled" do
+        let(:primary_disabled) { "no" }
+        let(:spouse_disabled) { "yes" }
+
+        it "sets mfj_disability to spouse" do
+          expect(existing_attributes[:mfj_disability]).to eq "spouse"
+        end
+      end
+
+      context "both disabled" do
+        let(:primary_disabled) { "yes" }
+        let(:spouse_disabled) { "yes" }
+
+        it "sets mfj_disability to both" do
+          expect(existing_attributes[:mfj_disability]).to eq "both"
+        end
+      end
+
+      context "none disabled" do
+        let(:primary_disabled) { "no" }
+        let(:spouse_disabled) { "no" }
+
+        it "sets mfj_disability to none" do
+          expect(existing_attributes[:mfj_disability]).to eq "none"
         end
       end
     end
