@@ -4423,7 +4423,9 @@ es:
           more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Aquí hay más información sobre las fechas de vencimiento de impuestos y los modos de pago.</a></p>
           page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
+          pay_bank_nj_html: "<strong>Recomendado:</strong> Pagar $%{owed_amount} directamente desde tu cuenta de checking o de ahorros (débito directo)"
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
+          pay_mail_online_nj: Pagar con cheque, giro postal (money order) o tarjeta de crédito y/o solicitar un plan de pagos.
           subtitle: "¿Cómo te gustaría pagar?"
           subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="%{link}">%{link}</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}.

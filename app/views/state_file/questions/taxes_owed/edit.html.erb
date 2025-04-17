@@ -33,15 +33,17 @@
               collection: [
                 {
                   value: :direct_deposit,
-                  label: t(".pay_bank"),
+                  label: t(StateFile::StateInformationService.tax_payment_option_direct_deposit(current_state_code),
+                           owed_amount: taxes_owed
+                  ),
                   input_html: { "data-follow-up": "#pay-from-bank" }
                 },
                 {
                   value: :mail,
-                  label: t(".pay_mail_online_html",
+                  label: t(StateFile::StateInformationService.tax_payment_option_mail(current_state_code),
                            tax_payment_info_url: StateFile::StateInformationService.tax_payment_info_url(current_state_code),
                            tax_payment_info_text: StateFile::StateInformationService.tax_payment_info_text(current_state_code),
-                  )
+                  ),
                 },
               ]
             ) %>
