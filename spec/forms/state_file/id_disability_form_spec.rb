@@ -341,7 +341,7 @@ RSpec.describe StateFile::IdDisabilityForm do
       end
 
       context "unfilled" do
-        it "returns a hash with the mfj_disabled attribute not populated" do
+        it "does not set mfj_disability on the form" do
           expect(form.mfj_disability).to eq nil
         end
       end
@@ -350,7 +350,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:primary_disabled) { "yes" }
         let(:spouse_disabled) { "no" }
 
-        it "returns a hash with the mfj_disabled attribute populated 'primary'" do
+        it "sets mfj_disability to primary" do
           expect(form.mfj_disability).to eq "primary"
         end
       end
@@ -359,7 +359,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:primary_disabled) { "no" }
         let(:spouse_disabled) { "yes" }
 
-        it "returns a hash with the mfj_disabled attribute populated 'spouse'" do
+        it "sets mfj_disability to spouse" do
           expect(form.mfj_disability).to eq "spouse"
         end
       end
@@ -368,7 +368,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:primary_disabled) { "yes" }
         let(:spouse_disabled) { "yes" }
 
-        it "returns a hash with the mfj_disabled attribute populated 'both'" do
+        it "sets mfj_disability to both" do
           expect(form.mfj_disability).to eq "both"
         end
 
@@ -377,7 +377,7 @@ RSpec.describe StateFile::IdDisabilityForm do
             form.mfj_disability = "primary"
           end
 
-          it "should preserve the updated disability state, instead of overwriting from db" do
+          it "should preserve the updated disability, instead of overwriting with persisted values from db" do
             expect(form.mfj_disability).to eq "primary"
           end
         end
@@ -387,7 +387,7 @@ RSpec.describe StateFile::IdDisabilityForm do
         let(:primary_disabled) { "no" }
         let(:spouse_disabled) { "no" }
 
-        it "returns a hash with the mfj_disabled attribute populated 'none" do
+        it "sets mfj_disability to none" do
           expect(form.mfj_disability).to eq "none"
         end
       end
