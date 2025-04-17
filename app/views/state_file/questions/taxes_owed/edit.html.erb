@@ -44,6 +44,7 @@
                            tax_payment_info_url: StateFile::StateInformationService.tax_payment_info_url(current_state_code),
                            tax_payment_info_text: StateFile::StateInformationService.tax_payment_info_text(current_state_code),
                   ),
+                  input_html: { "data-follow-up": "#pay-by-mail" }
                 },
               ]
             ) %>
@@ -55,6 +56,11 @@
           </div>
         </div>
       </div>
+      <% if StateFile::StateInformationService.taxes_owed_mail_followup(current_state_code) %>
+        <div class="question-with-follow-up__follow-up" id="pay-by-mail">
+            <%= t(".pay_mail_#{current_state_code}_instructions_html") %>
+        </div>
+      <% end %>
     </div>
     <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>

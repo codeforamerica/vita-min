@@ -4411,6 +4411,33 @@ en:
           page_title: You owe state taxes. How would you like to pay?
           pay_bank: Pay directly from your checking or savings account (direct debit)
           pay_bank_nj_html: "<strong>Recommended:</strong> Pay $%{owed_amount} directly from your checking or savings account (direct debit)"
+          pay_mail_nj_instructions_html: |
+            <p>Follow these instructions depending on how you want to pay. We will give you them again after you submit your return.</p>
+            <p><strong>Pay by check or money order</strong></p>
+            <ol class="list--numbered">
+              <li>Finish your tax return here in this tool.</li>
+              <li>Make your check or money order payable to “State of New Jersey - TGI”.</li>
+              <li>Fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040v.pdf" target="_blank" rel="noopener nofollow">payment voucher</a>.</li>
+              <li>Mail your check or money order and the <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040v.pdf" target="_blank" rel="noopener nofollow">payment voucher</a> to:</br></br>
+                
+                State of New Jersey</br>
+                Division of Taxation</br>
+                Revenue Processing Center - Payments</br>
+                PO Box 643</br>
+                Trenton, NJ 08646-0643
+              </li>
+            </ol>
+            <p><strong>Pay by credit or debit card</strong></p>
+            <ol class="list--numbered">
+              <li>Finish your tax return here in this tool.</li>
+              <li>Make a <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">payment by credit or debit card</a> to NJ Division of Taxation.</li>
+            </ol>
+            <p><strong>Payment plan</strong></p>
+            <ol class="list--numbered">
+              <li>Finish your tax return here in this tool.</li>
+              <li>Pay what you can today by check, money order, or credit card even if you plan to request a payment plan.</li>
+              <li>Complete a <a href="https://www.nj.gov/treasury/taxation/questions/deferred1.shtml" target="_blank" rel="noopener nofollow">payment plan request</a>.</li>
+            </ol>
           pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           pay_mail_online_nj: Pay by check, money order, or credit/debit card, and/or request a payment plan
           subtitle: How would you like to pay?
