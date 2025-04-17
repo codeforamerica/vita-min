@@ -28,7 +28,7 @@ module StateFile
     private
 
     def other_intake_with_same_ssn_has_submission?(intake)
-      return if intake.hashed_ssn.nil?
+      return false if intake.hashed_ssn.nil?
       StateInformationService.state_intake_classes.excluding(StateFileNyIntake).any? do |intake_class|
         intakes = intake_class
           .where(hashed_ssn: intake.hashed_ssn)
