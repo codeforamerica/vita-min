@@ -18,12 +18,6 @@
     <% end %>
   <% end %>
 
-  <% underpayment_notice_key = "state_file.questions.taxes_owed.edit.underpayment_notice_#{current_state_code}_html" %>
-  <% # i18n-tasks-use t('state_file.questions.taxes_owed.edit.underpayment_notice_nj_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-  <% if I18n.exists?(underpayment_notice_key) && taxes_owed >= 400 %>
-    <p><%= t(underpayment_notice_key) %></p>
-  <% end %>
-
   <% more_tax_information_key = "state_file.questions.taxes_owed.edit.more_tax_information_#{current_state_code}_html" %>
   <% # i18n-tasks-use t('state_file.questions.taxes_owed.edit.more_tax_information_nj_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
   <% if I18n.exists?(more_tax_information_key) %>
@@ -39,15 +33,18 @@
               collection: [
                 {
                   value: :direct_deposit,
-                  label: t(".pay_bank"),
+                  label: t(StateFile::StateInformationService.tax_payment_option_direct_deposit(current_state_code),
+                           owed_amount: taxes_owed
+                  ),
                   input_html: { "data-follow-up": "#pay-from-bank" }
                 },
                 {
                   value: :mail,
-                  label: t(".pay_mail_online_html",
+                  label: t(StateFile::StateInformationService.tax_payment_option_mail(current_state_code),
                            tax_payment_info_url: StateFile::StateInformationService.tax_payment_info_url(current_state_code),
                            tax_payment_info_text: StateFile::StateInformationService.tax_payment_info_text(current_state_code),
-                  )
+                  ),
+                  input_html: { "data-follow-up": "#pay-by-mail" }
                 },
               ]
             ) %>
@@ -59,6 +56,11 @@
           </div>
         </div>
       </div>
+      <% if StateFile::StateInformationService.taxes_owed_mail_followup(current_state_code) %>
+        <div class="question-with-follow-up__follow-up" id="pay-by-mail">
+            <%= t(".pay_mail_#{current_state_code}_instructions_html") %>
+        </div>
+      <% end %>
     </div>
     <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
