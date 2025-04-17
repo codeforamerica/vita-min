@@ -4336,6 +4336,8 @@ en:
           download_state_return_pdf: Download your state return
           email_text_update: You'll receive an email and text update when your state tax return is accepted.
           email_update: You'll receive an email update when your state tax return is accepted.
+          payment_reminder_html: |
+            <p>If you have a remaining tax balance, remember to <strong>pay it <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a></strong> or by mail as soon as you can.</p>
           just_a_moment: Just a moment, we’re submitting your %{state_name} state tax return
           takes_a_few: This usually takes a few seconds. Don't close this page.
           text_update: You'll receive an sms update when your state tax return is accepted.
@@ -4368,6 +4370,28 @@ en:
               <li>Then select “PO Box 440” for the PO Box field.</li>
               <li>Select “VET” from the dropdown menu under Notice Code.</li>
               <li>Enter the rest of your information, including your Social Security Number, to make sure that the documents get linked to your tax return.</li>
+            </ol>
+          taxes_owed_pay_by_mail_html: |
+            <p><strong>Payment Instructions</strong></p>
+            <p><strong>Pay by check or money order</strong></p>
+            <ol class="list--numbered">
+              <li>Make your check or money order payable to “State of New Jersey - TGI”.</li>
+              <li>Fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040v.pdf" target="_blank" rel="noopener nofollow">payment voucher</a>.</li>
+              <li>Mail your check or money order and the <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040v.pdf" target="_blank" rel="noopener nofollow">payment voucher</a> to:</br></br>
+                
+                State of New Jersey</br>
+                Division of Taxation</br>
+                Revenue Processing Center - Payments</br>
+                PO Box 643</br>
+                Trenton, NJ 08646-0643
+              </li>
+            </ol>
+            <p><strong>Pay by credit or debit card</strong></p>
+            <p>Make a <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">payment by credit or debit card</a> to NJ Division of Taxation.</p>
+            <p><strong>Payment plan</strong></p>
+            <ol class="list--numbered">
+              <li>Pay what you can today by check, money order, or credit card even if you plan to request a payment plan.</li>
+              <li>Complete a <a href="https://www.nj.gov/treasury/taxation/questions/deferred1.shtml" target="_blank" rel="noopener nofollow">payment plan request</a>.</li>
             </ol>
       tax_refund:
         bank_details:

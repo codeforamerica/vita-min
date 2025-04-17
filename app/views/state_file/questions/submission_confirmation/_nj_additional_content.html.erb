@@ -10,3 +10,7 @@
   </div>
 </div>
 <% end %>
+
+<% if current_intake.refund_or_owe_taxes_type == :owe && current_intake.payment_or_deposit_type_mail? %>
+  <%= t('.taxes_owed_pay_by_mail_html') %>
+<% end %>

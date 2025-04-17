@@ -43,6 +43,9 @@
         <%= t('.text_update') %>
       <% end %>
     </p>
+    <% if StateFile::StateInformationService.taxes_owed_mail_followup(current_state_code) && current_intake.refund_or_owe_taxes_type == :owe && current_intake.payment_or_deposit_type_mail? %>
+      <%= t('.payment_reminder_html') %>
+    <% end %>
     <p>
       <a target="_blank" rel="noopener nofollow" href="https://vote.gov/"><%= t('state_file.general.register_to_vote') %></a>
     </p>

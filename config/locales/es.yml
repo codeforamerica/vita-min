@@ -4349,6 +4349,8 @@ es:
           download_state_return_pdf: Descarga tu declaración estatal
           email_text_update: Recibirás una actualización por correo electrónico y mensaje de texto cuando tu declaración de impuestos estatal sea aceptada.
           email_update: Recibirás una actualización por correo electrónico o mensaje de texto cuando tu declaración de impuestos estatal sea aceptada.
+          payment_reminder_html: |
+            <p>If you have a remaining tax balance, remember to <strong>pay it <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">online</a></strong> or by mail as soon as you can.</p>
           just_a_moment: Just a moment, we’re submitting your %{state_name} state tax return
           takes_a_few: This usually takes a few seconds. Don't close this page.
           text_update: Recibirás una actualización por SMS cuando una vez tu declaración de impuestos haya sido aceptada.
@@ -4424,6 +4426,33 @@ es:
           page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_bank_nj_html: "<strong>Recomendado:</strong> Pagar $%{owed_amount} directamente desde tu cuenta de checking o de ahorros (débito directo)"
+          pay_mail_nj_instructions_html: |
+            <p>Follow these instructions depending on how you want to pay. We will give you them again after you submit your return.</p>
+            <p><strong>Pay by check or money order</strong></p>
+            <ol class="list--numbered">
+              <li>Finish your tax return here in this tool.</li>
+              <li>Make your check or money order payable to “State of New Jersey - TGI”.</li>
+              <li>Fill in this <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040v.pdf" target="_blank" rel="noopener nofollow">payment voucher</a>.</li>
+              <li>Mail your check or money order and the <a href="https://www.nj.gov/treasury/taxation/pdf/current/1040v.pdf" target="_blank" rel="noopener nofollow">payment voucher</a> to:</br></br>
+                
+                State of New Jersey</br>
+                Division of Taxation</br>
+                Revenue Processing Center - Payments</br>
+                PO Box 643</br>
+                Trenton, NJ 08646-0643
+              </li>
+            </ol>
+            <p><strong>Pay by credit or debit card</strong></p>
+            <ol class="list--numbered">
+              <li>Finish your tax return here in this tool.</li>
+              <li>Make a <a href="https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp" target="_blank" rel="noopener nofollow">payment by credit or debit card</a> to NJ Division of Taxation.</li>
+            </ol>
+            <p><strong>Payment plan</strong></p>
+            <ol class="list--numbered">
+              <li>Finish your tax return here in this tool.</li>
+              <li>Pay what you can today by check, money order, or credit card even if you plan to request a payment plan.</li>
+              <li>Complete a <a href="https://www.nj.gov/treasury/taxation/questions/deferred1.shtml" target="_blank" rel="noopener nofollow">payment plan request</a>.</li>
+            </ol>
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           pay_mail_online_nj: Pagar con cheque, giro postal (money order) o tarjeta de crédito y/o solicitar un plan de pagos.
           subtitle: "¿Cómo te gustaría pagar?"
