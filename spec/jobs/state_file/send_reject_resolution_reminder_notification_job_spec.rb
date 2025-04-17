@@ -116,31 +116,43 @@ RSpec.describe StateFile::SendRejectResolutionReminderNotificationJob, type: :jo
         context "when another intake exists with the same hashed SSN" do
           let!(:other_intake) {
             create other_intake_class,
-                   efile_submissions: [create(:efile_submission, :accepted)],
-                   primary_first_name: "Mona",
-                   email_address: "monalisa@example.com",
-                   email_address_verified_at: 1.minute.ago,
+                   efile_submissions: other_efile_submissions,
+                   primary_first_name: "Fona",
+                   phone_number: "+15551234567",
+                   phone_number_verified_at: 1.minute.ago,
                    hashed_ssn: intake.hashed_ssn,
                    message_tracker: {}
           }
 
-          context "and which was filed in the same state" do
-            let(:other_intake_class) { :state_file_az_intake }
+          context "which has an efile submission" do
+            let(:other_efile_submissions) { [create(:efile_submission, :accepted)] }
 
-            it "does not send the message" do
-              expect { described_class.perform_now(intake) }.not_to change(StateFileNotificationEmail, :count)
+            context "and which was filed in the same state" do
+              let(:other_intake_class) { :state_file_az_intake }
+
+              it "does not send the message" do
+                expect { described_class.perform_now(intake) }.not_to change(StateFileNotificationEmail, :count)
+              end
+            end
+
+            context "and which was filed in another state" do
+              let(:other_intake_class) { :state_file_nc_intake }
+
+              it "does not send the message" do
+                expect { described_class.perform_now(intake) }.not_to change(StateFileNotificationEmail, :count)
+              end
             end
           end
 
-          context "and which was filed in another state" do
-            let(:other_intake_class) { :state_file_nc_intake }
+          context "which does not have an efile submission" do
+            let(:other_efile_submissions) { [] }
+            let(:other_intake_class) { :state_file_az_intake }
 
-            it "does not send the message" do
-              expect { described_class.perform_now(intake) }.not_to change(StateFileNotificationEmail, :count)
+            it "sends the message" do
+              expect { described_class.perform_now(intake) }.to change(StateFileNotificationEmail, :count).by(1)
             end
           end
         end
-
       end
     end
 
