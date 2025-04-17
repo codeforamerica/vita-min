@@ -7,21 +7,14 @@ module StateFile
     validates :primary_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_primary_disabled? }
     validates :spouse_disabled, inclusion: { in: %w[yes no], message: :blank }, if: -> { should_check_spouse_disabled? }
 
-    def initialize(intake = nil, params = {})
+    def initialize(intake, params = {})
       super
       already_answered_disability = !intake.primary_disabled_unfilled? && !intake.spouse_disabled_unfilled?
-      if intake.show_mfj_disability_options? && already_answered_disability
-        mfj_disability =
-          if intake.primary_disabled_yes? && intake.spouse_disabled_yes?
-            "both"
-          elsif intake.primary_disabled_yes?
-            "primary"
-          elsif intake.spouse_disabled_yes?
-            "spouse"
-          else
-            "none"
-          end
-        self.mfj_disability ||= mfj_disability
+      if intake.show_mfj_disability_options? && already_answered_disability && mfj_disability.nil?
+        previously_answered_mfj_disability = disabled_attrs_to_mfj_disability(
+          intake.primary_disabled, intake.spouse_disabled
+        )
+        self.mfj_disability = previously_answered_mfj_disability
       end
     end
 
@@ -39,16 +32,7 @@ module StateFile
 
     def save
       if intake.show_mfj_disability_options?
-        case mfj_disability
-        when "primary"
-          @intake.update(primary_disabled: "yes", spouse_disabled: "no")
-        when "spouse"
-          @intake.update(primary_disabled: "no", spouse_disabled: "yes")
-        when "both"
-          @intake.update(primary_disabled: "yes", spouse_disabled: "yes")
-        when "none"
-          @intake.update(primary_disabled: "no", spouse_disabled: "no")
-        end
+        @intake.update(primary_disabled: mfj_disability_to_primary_disabled, spouse_disabled: mfj_disability_to_spouse_disabled)
       else
         @intake.update(attributes_for(:intake))
       end
@@ -68,6 +52,33 @@ module StateFile
         spouse_followups = @intake.filer_1099_rs(:spouse).map(&:state_specific_followup).compact
         spouse_followups.each(&:destroy)
       end
+    end
+
+    def mfj_disability_to_disabled_attributes_hash
+      {
+        both: %w[yes yes],
+        none: %w[no no],
+        primary: %w[yes no],
+        spouse: %w[no yes]
+      }
+    end
+
+    def mfj_disability_to_disabled_attributes
+      mfj_disability_to_disabled_attributes_hash[mfj_disability&.to_sym]
+    end
+
+    def mfj_disability_to_primary_disabled
+      mfj_disability_to_disabled_attributes && mfj_disability_to_disabled_attributes[0]
+    end
+
+    def mfj_disability_to_spouse_disabled
+      mfj_disability_to_disabled_attributes && mfj_disability_to_disabled_attributes[1]
+    end
+
+    def disabled_attrs_to_mfj_disability(primary_disabled, spouse_disabled)
+      selected_disabled_properties = [primary_disabled, spouse_disabled]
+      inverted_mfj_map = mfj_disability_to_disabled_attributes_hash.invert
+      inverted_mfj_map[selected_disabled_properties]&.to_s
     end
   end
 end
