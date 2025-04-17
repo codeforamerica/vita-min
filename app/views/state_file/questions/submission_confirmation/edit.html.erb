@@ -21,15 +21,12 @@
     </div>
   <% end %>
 
-  <% if @show_download_button %>
-    <div>
-  <% else %>
-    <div class="download-link-container" style="display: none;">
-  <% end %>
+  <% attrs = @show_download_button ? {} : { class: "download-link-container", style: "display: none;" } %>
+  <div <%= tag.attributes(attrs) %>>
     <div class='return-status'>
-      <p>
-        <%= image_tag("icons/check.svg", alt: "") %>
-      </p>
+        <p>
+          <%= image_tag("icons/check.svg", alt: "") %>
+        </p>
     </div>
 
     <h1 class="h2"><%= title %></h1>
@@ -58,14 +55,15 @@
     <% end %>
 
     <%= render partial: "state_file/questions/submission_confirmation/#{current_state_code}_additional_content" rescue nil %>
+    <%= link_to StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission),
+                class: "button button--primary button--wide",
+                role: "button",
+                target: "_blank" do %>
+      <%= t(".download_state_return_pdf") %>
+      <%= image_tag("icons/link-white.svg", alt: "", class: "button__icon") %>
+    <% end %>
+  </div>
 
-  <%= link_to StateFile::Questions::SubmissionPdfsController.to_path_helper(action: :show, id: current_intake.latest_submission),
-              class: "button button--primary button--wide",
-              role: "button",
-              target: "_blank" do %>
-    <%= t(".download_state_return_pdf") %>
-    <%= image_tag("icons/link-white.svg", alt: "", class: "button__icon") %>
-  <% end %>
 
   <% if show_xml? %>
     <p>
