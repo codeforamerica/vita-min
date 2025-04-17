@@ -246,7 +246,6 @@ en:
       whole_number: must be a whole number
   forms:
     errors:
-      address_is_not_po_box: A PO box cannot be listed as your physical address. Please enter where you lived on December 31, %{tax_year}
       at_least_one_year: Please pick at least one year.
       general: Please fix indicated errors before continuing.
       healthcare:
@@ -3353,6 +3352,7 @@ en:
       md_permanent_address:
         edit:
           address_header: Address
+          address_is_not_po_box: A PO box cannot be listed as your physical address. Please enter a valid address.
           apartment_number_label: Apartment/Unit Number
           city_label: City
           df_address_is_po_box:
