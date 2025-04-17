@@ -24,8 +24,8 @@ module StateFile
         mfj_disability_to_disabled_attributes = self.class.mfj_disability_to_disabled_attributes_hash[mfj_disability&.to_sym]
 
         @intake.update(
-          primary_disabled: mfj_disability_to_disabled_attributes && mfj_disability_to_disabled_attributes[0],
-          spouse_disabled: mfj_disability_to_disabled_attributes && mfj_disability_to_disabled_attributes[1]
+          primary_disabled: mfj_disability_to_disabled_attributes && mfj_disability_to_disabled_attributes[:primary],
+          spouse_disabled: mfj_disability_to_disabled_attributes && mfj_disability_to_disabled_attributes[:spouse]
         )
       else
         @intake.update(attributes_for(:intake).except(:mfj_disability))
@@ -38,8 +38,8 @@ module StateFile
     def self.existing_attributes(intake)
       already_answered_disability = !intake.primary_disabled_unfilled? && !intake.spouse_disabled_unfilled?
       if intake.show_mfj_disability_options? && already_answered_disability
-        disability_to_mfj_disability_hash = self.mfj_disability_to_disabled_attributes_hash.invert
-        previously_answered_mfj_disability = disability_to_mfj_disability_hash[[intake.primary_disabled, intake.spouse_disabled]]&.to_s
+        value = {primary: intake.primary_disabled, spouse: intake.spouse_disabled}
+        previously_answered_mfj_disability = self.mfj_disability_to_disabled_attributes_hash.key(value)&.to_s
         super.merge(
           mfj_disability: previously_answered_mfj_disability,
         )
@@ -50,10 +50,10 @@ module StateFile
 
     def self.mfj_disability_to_disabled_attributes_hash
       {
-        both: %w[yes yes],
-        none: %w[no no],
-        primary: %w[yes no],
-        spouse: %w[no yes]
+        both: {primary: "yes", spouse: "yes"},
+        none: {primary: "no", spouse: "no"},
+        primary: {primary: "yes", spouse: "no"},
+        spouse: {primary: "no", spouse: "yes"},
       }
     end
 
@@ -70,6 +70,5 @@ module StateFile
         spouse_followups.each(&:destroy)
       end
     end
-
   end
 end
