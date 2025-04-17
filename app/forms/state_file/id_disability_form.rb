@@ -21,7 +21,7 @@ module StateFile
 
     def save
       if intake.show_mfj_disability_options?
-        mfj_disability_to_disabled_attributes = self.class.mfj_disability_to_disabled_attributes_hash[mfj_disability&.to_sym]
+        mfj_disability_to_disabled_attributes = self.class.mfj_disability_to_disabled_attributes_hash[mfj_disability&.to_sym] || {}
 
         @intake.update(
           primary_disabled: mfj_disability_to_disabled_attributes && mfj_disability_to_disabled_attributes[:primary],
