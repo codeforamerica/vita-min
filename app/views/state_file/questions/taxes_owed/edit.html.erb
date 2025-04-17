@@ -56,6 +56,10 @@
           </div>
         </div>
       </div>
+      <% # i18n-tasks-use t('state_file.questions.taxes_owed.edit.pay_bank') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+      <% # i18n-tasks-use t('state_file.questions.taxes_owed.edit.pay_bank_nj_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+      <% # i18n-tasks-use t('state_file.questions.taxes_owed.edit.pay_mail_online_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+      <% # i18n-tasks-use t('state_file.questions.taxes_owed.edit.pay_mail_online_nj') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
       <% if StateFile::StateInformationService.taxes_owed_mail_followup(current_state_code) %>
         <div class="question-with-follow-up__follow-up" id="pay-by-mail">
             <%= t(".pay_mail_#{current_state_code}_instructions_html") %>
