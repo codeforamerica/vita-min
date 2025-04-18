@@ -1,5 +1,4 @@
 class SendIssueResolvedMessageJob < ApplicationJob
-
   def perform(intakes)
     intakes.each do |intake|
       send_message(intake)

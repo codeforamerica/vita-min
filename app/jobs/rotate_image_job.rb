@@ -1,6 +1,5 @@
 class RotateImageJob < ApplicationJob
   def perform(document, rotation)
-
     document.upload.open do |tempfile|
       processed = ImageProcessing::MiniMagick
         .source(tempfile.path)
