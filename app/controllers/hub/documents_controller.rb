@@ -10,12 +10,12 @@ module Hub
 
     def index
       @client = Hub::ClientsController::HubClientPresenter.new(@client)
-      @documents = sorted_documents.active
+      @documents = sorted_documents.active.includes(upload_attachment: :blob)
     end
 
     def archived
       @client = Hub::ClientsController::HubClientPresenter.new(@client)
-      @documents = sorted_documents.archived
+      @documents = sorted_documents.archived.includes(upload_attachment: :blob)
       @show_archived_index = true
       render :index
     end
@@ -76,7 +76,10 @@ module Hub
     def sorted_documents
       @sort_order = sort_order
       @sort_column = sort_column
-      @documents.except(:order).order({ @sort_column => @sort_order })
+      @documents
+        .includes(:tax_return, :uploaded_by, upload_attachment: :blob)
+        .except(:order)
+        .order({ @sort_column => @sort_order })
     end
 
     def log_document_access!

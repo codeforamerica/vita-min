@@ -67,8 +67,8 @@ class ApplicationController < ActionController::Base
       ["StateFile::FaqController", ""]
     ]
     is_hidden_page = state_file? && pages_to_hide_from.any? do |controller, action|
-                      self.class.name == controller && (action == "" || action_name == action)
-                    end
+      self.class.name == controller && (action == "" || action_name == action)
+    end
 
     is_hidden_page || Flipper.enabled?(:hide_intercom)
   end
@@ -76,6 +76,13 @@ class ApplicationController < ActionController::Base
 
   def current_intake
     current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
+  end
+
+  def eager_loaded_current_intake
+    return @eager_loaded_current_intake if defined?(@eager_loaded_current_intake)
+
+    record ||= current_client&.intake || (Intake.find_by_id(session[:intake_id]) unless session[:intake_id].nil?)
+    @eager_loaded_current_intake ||= record.class.includes(:dependents).find(record.id) if record.present?
   end
 
   def intake_from_completed_session
@@ -274,7 +281,7 @@ class ApplicationController < ActionController::Base
       distinct_id: visitor_id,
       event_name: event_name,
       data: data,
-      subject: subject || visitor_record,
+      subject: subject || eager_loaded_current_intake,
       user: current_user,
       request: request,
       source: self,
@@ -549,7 +556,7 @@ class ApplicationController < ActionController::Base
   end
 
   def load_vita_partners
-    @vita_partners = VitaPartner.accessible_by(current_ability)
+    @vita_partners ||= VitaPartner.includes(:parent_organization).accessible_by(current_ability)
   end
 
   def load_users

@@ -21,9 +21,18 @@ module StateFile
 
       private
 
+      def eager_loaded_current_intake
+        # @eager_loaded_current_intake ||= current_intake.class.includes(state_file1099_rs: :state_specific_followup).find(current_intake.id)
+        current_intake
+      end
+
+      def num_items
+        eager_loaded_current_intake.eligible_1099rs.count
+      end
+
       def load_item(index)
-        @state_file_1099r = self.class.load_1099r(current_intake, index)
-        if state_file_1099r.nil?
+        @state_file_1099r = eager_loaded_current_intake.eligible_1099rs[index]
+        if @state_file_1099r.nil?
           render "public_pages/page_not_found", status: 404
         end
       end
@@ -33,8 +42,9 @@ module StateFile
       end
 
       def find_or_create_state_specific_followup
-        unless state_file_1099r.state_specific_followup.present?
-          state_file_1099r.update(state_specific_followup: followup_class.create)
+        @state_file_1099r = @state_file_1099r.class.includes(:state_specific_followup).find(@state_file_1099r.id)
+        unless @state_file_1099r.state_specific_followup.present?
+          @state_file_1099r.update(state_specific_followup: followup_class.create)
         end
         state_file_1099r.state_specific_followup
       end
@@ -45,3 +55,4 @@ module StateFile
     end
   end
 end
+
