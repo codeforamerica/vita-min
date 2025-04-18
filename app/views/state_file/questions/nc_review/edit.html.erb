@@ -10,7 +10,7 @@
         <p class="text--bold spacing-below-5"><%= t("state_file.questions.review.county_during_hurricane", filing_year: current_tax_year) %></p>
         <p><%= StateFileNcIntake::COUNTIES[current_intake.county_during_hurricane_helene] %></p>
       <% end %>
-      <%= link_to t("general.edit"), StateFile::Questions::NcCountyController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcCountyController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" %>
     </div>
   </div>
 
@@ -22,7 +22,7 @@
         <p class="text--bold spacing-below-5"><%=t(".spouse_veteran") %></p>
         <p><%=current_intake.spouse_veteran_yes? ? t("general.affirmative") : t("general.negative") %></p>
       <% end %>
-      <%= link_to t("general.edit"), StateFile::Questions::NcVeteranStatusController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcVeteranStatusController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" %>
     </div>
   </div>
 
@@ -38,7 +38,7 @@
         <p class="text--bold spacing-below-5"><%=t(".amount_earned") %></p>
         <p><%=number_to_currency(current_intake.tribal_wages_amount, precision: 2)%></p>
       <% end %>
-      <%= link_to t("general.edit"), StateFile::Questions::NcSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcSubtractionsController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" %>
     </div>
   </div>
 
@@ -50,7 +50,7 @@
         <p class="text--bold spacing-below-5"><%=t(".use_tax_amount") %></p>
         <p id="use-tax-amount"><%=number_to_currency(current_intake.sales_use_tax, precision: 2)%></p>
       <% end %>
-      <%= link_to t("general.edit"), StateFile::Questions::NcSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" %>
+      <%= link_to t("general.edit"), StateFile::Questions::NcSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" %>
     </div>
   </div>
 

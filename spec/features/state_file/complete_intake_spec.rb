@@ -428,9 +428,14 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       fill_in 'state_file_id_sales_use_tax_form_total_purchase_amount', with: "290"
       click_on I18n.t("general.continue")
 
-      #Extension Payments
+      # Extension Payments
       expect(page).to have_text I18n.t("state_file.questions.extension_payments.id.title",  current_year: (MultiTenantService.statefile.current_tax_year + 1), tax_year: MultiTenantService.statefile.current_tax_year)
       choose I18n.t("state_file.questions.extension_payments.id.negative")
+      click_on I18n.t("general.continue")
+
+      # Apply Refund
+      expect(page).to have_text I18n.t("state_file.questions.apply_refund.edit.title", current_tax_year: MultiTenantService.statefile.current_tax_year, prior_tax_year: MultiTenantService.statefile.current_tax_year - 1)
+      choose I18n.t("state_file.questions.apply_refund.edit.negative", current_tax_year: MultiTenantService.statefile.current_tax_year, prior_tax_year: MultiTenantService.statefile.current_tax_year - 1)
       click_on I18n.t("general.continue")
 
       # Permanent Building Fund

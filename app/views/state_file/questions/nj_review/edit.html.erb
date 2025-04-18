@@ -30,7 +30,7 @@
           <% end %>
         <% end %>
         <%= link_to StateFile::Questions::NjRetirementIncomeSourceController.to_path_helper(return_to_review_after: "retirement_income_deduction",
-                                                                                            return_to_review_before: "retirement_income_deduction"), class: "button--small" do %>
+                                                                                            return_to_review_before: "retirement_income_deduction"), class: "button--small", role: "button" do %>
           <%= t("general.review_and_edit") %>
           <span class="sr-only"><%= t(".retirement_income_source") %></span>
         <% end %>
@@ -48,7 +48,7 @@
         <h3 class="text--body text--bold spacing-below-5"><%=t(".year_of_death") %></h3>
         <p><%=current_intake.spouse_death_year %></p>
 
-        <%= link_to StateFile::Questions::NjYearOfDeathController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= link_to StateFile::Questions::NjYearOfDeathController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
           <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".year_of_death") %></span>
         <% end %>
@@ -62,7 +62,7 @@
       <p><%= t(".county", county: current_intake.county) %></p>
       <p><%=current_intake.municipality_name %></p>
 
-      <%= link_to StateFile::Questions::NjCountyMunicipalityController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+      <%= link_to StateFile::Questions::NjCountyMunicipalityController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
         <%= t(".review_and_edit") %>
         <span class="sr-only"><%= t(".county_municipality") %></span>
       <% end %>
@@ -81,7 +81,7 @@
         <% if current_intake.dependents.all? { |dependent| dependent.nj_did_not_have_health_insurance_no? } %>
           <p><%= t("general.none") %></p>
         <% end %>
-        <%= link_to StateFile::Questions::NjDependentsHealthInsuranceController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= link_to StateFile::Questions::NjDependentsHealthInsuranceController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
           <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".missing_health_insurance") %></span>
         <% end %>
@@ -104,7 +104,7 @@
           <h3 class="text--body text--bold spacing-below-5"><%= t(".spouse_disabled")  %></h3>
           <p><%= current_intake.spouse_disabled_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <% end %>
-        <%= link_to StateFile::Questions::NjDisabledExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= link_to StateFile::Questions::NjDisabledExemptionController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
           <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".edit_disability")%></span>
         <% end %>
@@ -123,7 +123,7 @@
           <h3 class="text--body text--bold spacing-below-5"><%= t(".spouse_veteran")  %></h3>
           <p><%= current_intake.spouse_veteran_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <% end %>
-        <%= link_to StateFile::Questions::NjVeteransExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= link_to StateFile::Questions::NjVeteransExemptionController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
           <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".edit_veteran") %></span>
         <% end %>
@@ -143,7 +143,7 @@
         <% if current_intake.dependents.all? { |dependent| !dependent.nj_qualifies_for_college_exemption? } %>
           <p><%= t(".college_dependents_none") %></p>
         <% end %>
-        <%= link_to StateFile::Questions::NjCollegeDependentsExemptionController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= link_to StateFile::Questions::NjCollegeDependentsExemptionController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
           <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".college_dependents") %></span>
         <% end %>
@@ -156,7 +156,7 @@
       <div class="spacing-below-5">
         <h3 class="text--body text--bold spacing-below-5"><%=t(".medical_expenses") %></h3>
         <p><%= number_to_currency(current_intake.medical_expenses || 0, precision: 0) %></p>
-        <%= link_to StateFile::Questions::NjMedicalExpensesController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= link_to StateFile::Questions::NjMedicalExpensesController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
           <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".medical_expenses") %></span>
         <% end %>
@@ -170,14 +170,14 @@
         <h3 class="text--body text--bold spacing-below-5"><%=t(".eitc") %></h3>
 
         <% unless current_intake.claimed_as_eitc_qualifying_child_unfilled? %>
-          <h4 class="text--body text--bold spacing-below-5"><%=t(".primary_claimed_as_eitc_qualifying_child") %></h4>
+          <p class="text--body text--bold spacing-below-5"><%=t(".primary_claimed_as_eitc_qualifying_child") %></p>
           <p><%=current_intake.claimed_as_eitc_qualifying_child_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <% end %>
         <% unless current_intake.spouse_claimed_as_eitc_qualifying_child_unfilled? %>
-        <h4 class="text--body text--bold spacing-below-5"><%=t(".spouse_claimed_as_eitc_qualifying_child") %></h4>
+        <p class="text--body text--bold spacing-below-5"><%=t(".spouse_claimed_as_eitc_qualifying_child") %></p>
           <p><%=current_intake.spouse_claimed_as_eitc_qualifying_child_yes? ? t("general.affirmative") : t("general.negative") %></p>
         <% end %>
-        <%= link_to StateFile::Questions::NjEitcQualifyingChildController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= link_to StateFile::Questions::NjEitcQualifyingChildController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
           <%= t(".review_and_edit") %>
           <span class="sr-only"><%= t(".eitc") %></span>
         <% end %>
@@ -187,22 +187,22 @@
 
   <section id="property-tax" class="white-group">
     <div class="spacing-below-5">
-      <h3 class="text--body text--bold spacing-below-5"><%=t(".property_tax_credit_deduction") %></h3>
+      <h3 class="text--body text--bold spacing-below-25"><%=t(".property_tax_credit_deduction") %></h3>
 
-      <h4 class="text--body spacing-below-5"><%=t(".household_rent_own", filing_year: current_tax_year) %></h4>
+      <p class="text--body spacing-below-5"><%=t(".household_rent_own", filing_year: current_tax_year) %></p>
       <p><%=t(".household_rent_own_#{current_intake.household_rent_own}") unless current_intake.household_rent_own_unfilled? %></p>
 
       <% unless current_intake.property_tax_paid.nil? %>
-        <h4 class="text--body text--bold spacing-below-5"><%= t(".property_tax_paid", filing_year: current_tax_year)  %></h4>
+        <p class="text--body text--bold spacing-below-5"><%= t(".property_tax_paid", filing_year: current_tax_year)  %></p>
         <p><%= number_to_currency(current_intake.property_tax_paid, precision: 0) %></p>
       <% end %>
 
       <% unless current_intake.rent_paid.nil? %>
-        <h4 class="text--body text--bold spacing-below-5"><%=t(".rent_paid", filing_year: current_tax_year) %></h4>
+        <p class="text--body text--bold spacing-below-5"><%=t(".rent_paid", filing_year: current_tax_year) %></p>
         <p><%= number_to_currency(current_intake.rent_paid, precision: 0) %></p>
       <% end %>
 
-      <%= link_to StateFile::Questions::NjHouseholdRentOwnController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+      <%= link_to StateFile::Questions::NjHouseholdRentOwnController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
         <%= t(".review_and_edit") %>
         <span class="sr-only"><%= t(".property_tax_credit_deduction") %></span>
       <% end %>
@@ -223,7 +223,7 @@
         </p>
         <p><%=number_to_currency(current_intake.sales_use_tax, precision: 0)%></p>
       <% end %>
-      <%= link_to StateFile::Questions::NjSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+      <%= link_to StateFile::Questions::NjSalesUseTaxController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
         <%= t(".review_and_edit") %>
         <span class="sr-only"><%= t(".use_tax_applied") %></span>
       <% end %>
@@ -257,7 +257,7 @@
         <p class="text--bold spacing-below-5"><%=t(".overpayments") %></p>
         <p><%=number_to_currency(current_intake.overpayments || 0, precision: 0)%></p>
       <% end %>
-      <%= link_to StateFile::Questions::NjEstimatedTaxPaymentsController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+      <%= link_to StateFile::Questions::NjEstimatedTaxPaymentsController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
         <%= t(".review_and_edit") %>
         <span class="sr-only"><%= t(".has_estimated_payments") %></span>
       <% end %>

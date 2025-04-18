@@ -23,7 +23,7 @@
             <li>SSA-1099</li>
           <% end %>
         </ul>
-        <%= link_to StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: "y"), class: "button--small" do %>
+        <%= link_to StateFile::Questions::IncomeReviewController.to_path_helper(return_to_review: "y"), class: "button--small", role: "button" do %>
           <%= t("general.edit") %>
           <span class="sr-only"><%= t(".income_details") %></span>
         <% end %>

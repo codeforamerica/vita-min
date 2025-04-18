@@ -246,7 +246,6 @@ es:
       whole_number: Debe ser un número entero
   forms:
     errors:
-      address_is_not_po_box: No puedes declarar un apartado postal como la dirección donde vivías. Por favor indica donde vivías el 31 de diciembre del %{tax_year}
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
       healthcare:
@@ -2364,6 +2363,15 @@ es:
         mistake: "¿Fue un error?"
         title: Has optado por no recibir notificaciones por correo electrónico de FileYourStateTaxes.
     questions:
+      apply_refund:
+        edit:
+          affirmative: Sí, usé una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}
+          amount_label: "<strong>Cantidad del reembolso de Idaho de %{prior_tax_year} utilizada para los impuestos estatales de %{current_tax_year}</strong>"
+          enter_amount_html: Ingresa la cantidad al lado de “Apply to %{current_tax_year}” en la línea 56 de tu Declaración de Impuestos Individual de %{prior_tax_year} <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Formulario 40</a>.
+          negative: No, no usé una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}
+          subtitle_1: Si recibiste un reembolso de tus impuestos estatales de %{prior_tax_year}, podrías haber aplicado una parte de esa cantidad para ayudar a pagar tu impuesto de %{current_tax_year}. Este es un escenario poco común para nuestro servicio.
+          subtitle_2_html: Puedes encontrar esta cantidad al lado de “Apply to %{current_tax_year}” en la línea 56 de tu Declaración de Impuestos Individual de %{prior_tax_year} <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Formulario 40</a>.
+          title: "¿Aplicaste una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}?"
       az_charitable_contributions:
         edit:
           amount_cannot_exceed: La cantidad no puede ser mayor a $500
@@ -3000,7 +3008,7 @@ es:
           amount: Cantidad de los pagos de extensión
           enter_amount: Ingresa la cantidad de los pagos que hiciste a Idaho usando el Formulario 51.
           negative: No, no hice un pago de extensión o de saldo estimado a Idaho
-          subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
+          subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ target=\"_blank\" rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf target=\"_blank\" rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
           title: "¿Hiciste un pago de extensión o de saldo estimado a Idaho sobre los impuestos de %{tax_year} en o antes del 15 de abril de %{current_year}?"
         md:
           affirmative: Sí
@@ -3014,7 +3022,7 @@ es:
           amount: Cantidad de los pagos de extensión
           enter_amount: Ingresa la cantidad que pagaste a Carolina del Norte por la extensión.
           negative: 'No'
-          subtitle_html: Si pagaste por una extensión a Carolina del Norte, lo hiciste <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Formulario D-410</a>.
+          subtitle_html: Si pagaste por una extensión a Carolina del Norte, lo hiciste <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 target="_blank" rel="noopener noreferrer">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp target="_blank" rel="noopener noreferrer">Formulario D-410</a>.
           title: "¿Hiciste un pago de extensión a Carolina del Norte en o antes del 15 de abril de %{current_year}?"
       federal_extension_payments:
         edit:
@@ -3341,18 +3349,19 @@ es:
       md_permanent_address:
         edit:
           address_header: Dirección
+          address_is_not_po_box: No puedes usar un apartado postal como la dirección donde vivías. Por favor ingresa una dirección válida.
           apartment_number_label: Número de apartamento/unidad
           city_label: Cuidad
           df_address_is_po_box:
             p1: 'La dirección que tenemos registrada para ti es un apartado postal:'
-            p2: Ya que no puedes declarar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
-          follow_up_help_text: No se aceptan PO Boxes
+            p2: Ya que no puedes usar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
+          follow_up_help_text: No se aceptan apartados postales (PO Boxes)
           mark_no_hint_html: Marca “no” si la dirección que aparece es un PO Box <strong>o</strong> si vivías en una dirección distinta el 31 de diciembre de %{filing_year}.
           state_label: Estado
           street_address_label: Dirección
           title: "¿Vivías en esta dirección el 31 de diciembre de %{filing_year}?"
           title_df_po_box: Necesitamos saber dónde vivías el 31 de diciembre del %{filing_year}?
-          where_did_you_live: "¿Dónde vivías el 31 de diciembre de %{filing_year}?"
+          where_did_you_live: "¿En qué dirección vivías el 31 de diciembre del %{filing_year}?"
           zip_label: Código postal
       md_permanently_disabled:
         edit:

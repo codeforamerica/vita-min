@@ -32,7 +32,8 @@
                       id: contribution,
                       return_to_review: params[:return_to_review]
                     ),
-                    class: "button--small button--inline-action"
+                    class: "button--small button--inline-action",
+                    role: "button"
           %>
 
           <%=
@@ -45,7 +46,8 @@
                     data: {
                       confirm: t('.delete_confirmation')
                     },
-                    class: "button--small button--inline-action last"
+                    class: "button--small button--inline-action last",
+                    role: "button"
           %>
         </div>
       </div>
