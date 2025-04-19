@@ -78,16 +78,21 @@ class StateFileBaseIntake < ApplicationRecord
       .where(efile_submissions: { id: nil })
       .where.not(df_data_imported_at: nil)
       .has_verified_contact_info
-      .select(&:should_not_be_sent_reminder)
+      .select(&:should_be_sent_reminder)
   end
 
-  def should_not_be_sent_reminder
-    if message_tracker.present? && message_tracker["messages.state_file.finish_return"]
-      finish_return_msg_sent_time = Time.parse(message_tracker["messages.state_file.finish_return"])
-      finish_return_msg_sent_time < 24.hours.ago
-    else
-      !disqualifying_df_data_reason.present?
-    end
+  def should_be_sent_reminder
+    received_reminder_recently = if message_tracker.present? && message_tracker["messages.state_file.finish_return"]
+                                   finish_return_msg_sent_time = Time.parse(message_tracker["messages.state_file.finish_return"])
+                                   finish_return_msg_sent_time > 24.hours.ago
+                                 else
+                                   false
+                                 end
+    matching_ssn_with_submission = self.class.where(hashed_ssn: hashed_ssn).excluding(self)
+    matching_email = matching_ssn_with_submission.where.not(email_address: nil).where(email_address: email_address)
+    matching_phone = matching_ssn_with_submission.where.not(phone_number: nil).where(phone_number: phone_number)
+    has_duplicate_with_submission = (matching_email + matching_phone).any? { |intake| intake.efile_submissions.any? }
+    !received_reminder_recently && !disqualifying_df_data_reason.present? && !has_duplicate_with_submission
   end
 
   delegate :state_code, to: :class

@@ -330,7 +330,6 @@ describe StateFileBaseIntake do
   end
 
   describe "#sum_1099_r_followup_type_for_filer" do
-
     context "with 1099Rs" do
       let!(:intake) { create(:state_file_md_intake, :with_spouse) }
       let!(:state_file_1099_r_without_followup) {
