@@ -519,16 +519,27 @@ describe StateFileAzIntake do
              df_data_imported_at: 2.minutes.ago,
              message_tracker: { "messages.state_file.finish_return" => (Time.now - 28.hours).utc.to_s }
     }
-    let!(:az_intake_submitted_duplicate) {
+    let!(:az_intake_submitted_ssn_duplicate) {
       create :state_file_az_intake,
              email_address: "test@example.com",
              email_address_verified_at: 1.hour.ago,
              email_notification_opt_in: 1,
              phone_number: nil,
              df_data_imported_at: 2.minutes.ago,
-             hashed_ssn: "111443333"
+             hashed_ssn: "111443333",
+             message_tracker: { "messages.state_file.welcome" => "2024-11-06 21:14:49 UTC"}
     }
-    let!(:efile_submission_for_duplicate) { create :efile_submission, :for_state, data_source: az_intake_submitted_duplicate }
+    let!(:az_intake_submitted_ssn_duplicate_1) {
+      create :state_file_az_intake,
+             email_address: "test@example.com",
+             email_address_verified_at: 1.hour.ago,
+             email_notification_opt_in: 1,
+             phone_number: nil,
+             df_data_imported_at: 2.minutes.ago,
+             hashed_ssn: "111443333",
+             message_tracker: { "messages.state_file.welcome" => "2024-11-06 23:14:49 UTC"}
+    }
+    let!(:efile_submission_for_duplicate) { create :efile_submission, :for_state, data_source: az_intake_submitted_ssn_duplicate }
 
     it "returns intakes with verified contact info, valid df data, and without recent finish return messages or efile submissions or duplicate (same hashed_ssn) intake with efile submission" do
       results = StateFileAzIntake.selected_intakes_for_deadline_reminder_notifications
