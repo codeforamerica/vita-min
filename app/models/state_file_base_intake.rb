@@ -98,7 +98,7 @@ class StateFileBaseIntake < ApplicationRecord
       intakes = intake_class
                   .where(hashed_ssn: hashed_ssn)
                   .where.associated(:efile_submissions)
-      intakes = intakes.where.not(id: id) if intake_class == self.class
+      intakes = intakes.excluding(self) if intake_class == self.class
       intakes.present?
     end
   end
