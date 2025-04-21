@@ -438,6 +438,47 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           expect(page).to have_text I18n.t("state_file.questions.shared.id_disability_review_header.meets_qualifications")
         end
 
+        context "mfj" do
+          before do
+            allow_any_instance_of(StateFileIdIntake).to receive(:show_mfj_disability_options?).and_return(true)
+            @intake.update(
+              raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("id_barrel_roll"),
+              raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.read_json("id_barrel_roll"),
+              spouse_first_name: "Beepbeep",
+              spouse_last_name: "Boop",
+              spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 2),
+              spouse_disabled: "yes" # both disabled
+            )
+
+            third_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Third Spouse Inc", taxable_amount: 750, recipient_ssn: @intake.spouse.ssn)
+            StateFileId1099RFollowup.create(state_file1099_r: third_1099r, income_source: "police_officer", police_retirement_fund: "yes")
+          end
+
+          it "can persist mfj disability question on review & change and persist a new disability state" do
+            visit "/questions/id-review"
+
+            page_change_check(I18n.t("state_file.questions.shared.abstract_review_header.title"))
+
+            within "#disability-info" do
+              expect(page).to have_text I18n.t("general.affirmative")
+              click_on I18n.t("general.review_and_edit")
+            end
+
+            page_change_check(I18n.t("state_file.questions.id_disability.edit.title"))
+            expect(page.find(:css, '#state_file_id_disability_form_mfj_disability_both')).to be_checked
+            choose "Yes, my spouse is"
+
+            click_on I18n.t("general.continue")
+
+            within "#disability-info" do
+              expect(page).to have_text I18n.t("general.affirmative")
+              click_on I18n.t("general.review_and_edit")
+            end
+
+            page_change_check(I18n.t("state_file.questions.id_disability.edit.title"))
+            expect(page.find(:css, '#state_file_id_disability_form_mfj_disability_spouse')).to be_checked
+          end
+        end
       end
 
       context "with eligible senior over 65 years old" do
