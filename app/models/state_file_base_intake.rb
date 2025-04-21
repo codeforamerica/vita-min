@@ -93,7 +93,9 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def other_intake_with_same_ssn_has_submission?
+    return false unless Flipper.enabled?(:prevent_duplicate_ssn_messaging)
     return false if hashed_ssn.nil?
+
     StateFile::StateInformationService.state_intake_classes.excluding(StateFileNyIntake).any? do |intake_class|
       intakes = intake_class
                   .where(hashed_ssn: hashed_ssn)

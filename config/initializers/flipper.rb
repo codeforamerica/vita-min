@@ -16,8 +16,10 @@ begin
   Flipper.disable :income_review_v2 unless Flipper.exist?(:income_review_v2)
   if Rails.env.heroku? || Rails.env.demo?
     Flipper.disable :prevent_duplicate_accepted_statefile_submissions unless Flipper.exist?(:prevent_duplicate_accepted_statefile_submissions)
+    Flipper.disable :prevent_duplicate_ssn_messaging unless Flipper.exist?(:prevent_duplicate_ssn_messaging)
   else
     Flipper.enable :prevent_duplicate_accepted_statefile_submissions unless Flipper.exist?(:prevent_duplicate_accepted_statefile_submissions)
+    Flipper.enable :prevent_duplicate_ssn_messaging unless Flipper.exist?(:prevent_duplicate_ssn_messaging)
   end
 rescue StandardError
   # make sure we can still run rake tasks before table has been created

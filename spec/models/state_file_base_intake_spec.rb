@@ -572,6 +572,11 @@ describe StateFileBaseIntake do
     }
     let!(:efile_submission_for_duplicate) { create :efile_submission, :for_state, data_source: az_intake_submitted_ssn_duplicate }
 
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:prevent_duplicate_ssn_messaging).and_return(true)
+    end
+
     it "returns intakes with verified contact info, valid df data, and without recent finish return messages or efile submissions or duplicate (same hashed_ssn) intake with efile submission" do
       results = StateFileAzIntake.selected_intakes_for_deadline_reminder_notifications
       intakes_to_message = [
@@ -612,72 +617,97 @@ describe StateFileBaseIntake do
   describe "#other_intake_with_same_ssn_has_submission?" do
     let(:intake) { create :state_file_nc_intake, hashed_ssn: hashed_ssn }
 
-    context "has no hashed_ssn" do
-      let(:hashed_ssn) { nil }
-      it "has no hashed_ssn" do
-        expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
+    context "prevent_duplicate_ssn_messaging flipper enabled" do
+      before do
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:prevent_duplicate_ssn_messaging).and_return(true)
       end
-    end
 
-    context "has hashed_ssn" do
-      let(:hashed_ssn) { SsnHashingService.hash("333001298") }
-
-      context "has a submission" do
-        before do
-          EfileSubmission.create(data_source: intake)
-        end
-
-        context "matching intake does not have efile_submission" do
-          let(:matching_intake) { create :state_file_nc_intake, hashed_ssn: hashed_ssn }
-
-          it "is false (does not consider itself as the other intake)" do
-            expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
-          end
+      context "has no hashed_ssn" do
+        let(:hashed_ssn) { nil }
+        it "has no hashed_ssn" do
+          expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
         end
       end
 
-      context "has another intake with matching ssn" do
-        context "matching intake has efile_submission" do
+      context "has hashed_ssn" do
+        let(:hashed_ssn) { SsnHashingService.hash("333001298") }
+
+        context "has a submission" do
           before do
-            EfileSubmission.create(data_source: matching_intake)
+            EfileSubmission.create(data_source: intake)
           end
 
-          context "in same state" do
+          context "matching intake does not have efile_submission" do
             let(:matching_intake) { create :state_file_nc_intake, hashed_ssn: hashed_ssn }
 
-            it "is true" do
-              expect(intake.other_intake_with_same_ssn_has_submission?).to be_truthy
-            end
-          end
-
-          context "in another state" do
-            let(:matching_intake) { create :state_file_az_intake, hashed_ssn: hashed_ssn }
-
-            it "is true" do
-              expect(intake.other_intake_with_same_ssn_has_submission?).to be_truthy
-            end
-          end
-
-          context "in NY state" do
-            let(:matching_intake) { create :state_file_ny_intake, hashed_ssn: hashed_ssn }
-
-            it "is false" do
+            it "is false (does not consider itself as the other intake)" do
               expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
             end
           end
         end
 
-        context "matching intake has no efile_submission" do
-          let!(:matching_intake) { create :state_file_nc_intake, hashed_ssn: hashed_ssn }
+        context "has another intake with matching ssn" do
+          context "matching intake has efile_submission" do
+            before do
+              EfileSubmission.create(data_source: matching_intake)
+            end
 
-          it "is true" do
+            context "in same state" do
+              let(:matching_intake) { create :state_file_nc_intake, hashed_ssn: hashed_ssn }
+
+              it "is true" do
+                expect(intake.other_intake_with_same_ssn_has_submission?).to be_truthy
+              end
+            end
+
+            context "in another state" do
+              let(:matching_intake) { create :state_file_az_intake, hashed_ssn: hashed_ssn }
+
+              it "is true" do
+                expect(intake.other_intake_with_same_ssn_has_submission?).to be_truthy
+              end
+            end
+
+            context "in NY state" do
+              let(:matching_intake) { create :state_file_ny_intake, hashed_ssn: hashed_ssn }
+
+              it "is false" do
+                expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
+              end
+            end
+          end
+
+          context "matching intake has no efile_submission" do
+            let!(:matching_intake) { create :state_file_nc_intake, hashed_ssn: hashed_ssn }
+
+            it "is true" do
+              expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
+            end
+          end
+        end
+
+        context "has no intakes with matching ssn" do
+          let!(:non_matching_intake) { create :state_file_nc_intake, hashed_ssn:  SsnHashingService.hash("333009999")}
+
+          it "is false" do
             expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
           end
         end
       end
+    end
 
-      context "has no intakes with matching ssn" do
-        let!(:non_matching_intake) { create :state_file_nc_intake, hashed_ssn:  SsnHashingService.hash("333009999")}
+    context "prevent_duplicate_ssn_messaging flipper disabled" do
+      let(:hashed_ssn) { SsnHashingService.hash("333001298") }
+
+      before do
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:prevent_duplicate_ssn_messaging).and_return(false)
+        EfileSubmission.create(data_source: matching_intake)
+      end
+
+      context "has matching intake with same hashed_ssn" do
+        let(:matching_intake) { create :state_file_nc_intake, hashed_ssn: hashed_ssn }
 
         it "is false" do
           expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
