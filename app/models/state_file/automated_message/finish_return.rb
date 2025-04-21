@@ -10,10 +10,14 @@ module StateFile::AutomatedMessage
     end
 
     def sms_body(**args)
-      if app_time(args).between?(tax_deadline.beginning_of_day, tax_deadline)
+      time = app_time(args)
+
+      if time.between?(tax_deadline.beginning_of_day, tax_deadline)
         I18n.t("messages.state_file.finish_return.sms.on_april_15", **args)
-      else
+      elsif time < tax_deadline
         I18n.t("messages.state_file.finish_return.sms.pre_deadline", **args)
+      else
+        I18n.t("messages.state_file.finish_return.sms.post_deadline", **args)
       end
     end
 
@@ -22,10 +26,14 @@ module StateFile::AutomatedMessage
     end
 
     def email_body(**args)
-      if app_time(args).between?(tax_deadline.beginning_of_day, tax_deadline)
+      time = app_time(args)
+
+      if time.between?(tax_deadline.beginning_of_day, tax_deadline)
         I18n.t("messages.state_file.finish_return.email.body.on_april_15", **args)
-      else
+      elsif time < tax_deadline
         I18n.t("messages.state_file.finish_return.email.body.pre_deadline", **args)
+      else
+        I18n.t("messages.state_file.finish_return.email.body.post_deadline", **args)
       end
     end
   end
