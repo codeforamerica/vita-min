@@ -441,4 +441,81 @@ describe StateFileBaseIntake do
       end
     end
   end
+
+  describe "#other_intake_with_same_ssn_has_submission?" do
+    let(:intake) { create :state_file_nc_intake, hashed_ssn: hashed_ssn }
+
+    context "has no hashed_ssn" do
+      let(:hashed_ssn) { nil }
+      it "has no hashed_ssn" do
+        expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
+      end
+    end
+
+    context "has hashed_ssn" do
+      let(:hashed_ssn) { SsnHashingService.hash("333001298") }
+
+      context "has a submission" do
+        before do
+          EfileSubmission.create(data_source: intake)
+        end
+
+        context "matching intake does not have efile_submission" do
+          let(:matching_intake) { create :state_file_nc_intake, hashed_ssn: hashed_ssn }
+
+          it "is false (does not consider itself as the other intake)" do
+            expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
+          end
+        end
+      end
+
+      context "has another intake with matching ssn" do
+        context "matching intake has efile_submission" do
+          before do
+            EfileSubmission.create(data_source: matching_intake)
+          end
+
+          context "in same state" do
+            let(:matching_intake) { create :state_file_nc_intake, hashed_ssn: hashed_ssn }
+
+            it "is true" do
+              expect(intake.other_intake_with_same_ssn_has_submission?).to be_truthy
+            end
+          end
+
+          context "in another state" do
+            let(:matching_intake) { create :state_file_az_intake, hashed_ssn: hashed_ssn }
+
+            it "is true" do
+              expect(intake.other_intake_with_same_ssn_has_submission?).to be_truthy
+            end
+          end
+
+          context "in NY state" do
+            let(:matching_intake) { create :state_file_ny_intake, hashed_ssn: hashed_ssn }
+
+            it "is false" do
+              expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
+            end
+          end
+        end
+
+        context "matching intake has no efile_submission" do
+          let!(:matching_intake) { create :state_file_nc_intake, hashed_ssn: hashed_ssn }
+
+          it "is true" do
+            expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
+          end
+        end
+      end
+
+      context "has no intakes with matching ssn" do
+        let!(:non_matching_intake) { create :state_file_nc_intake, hashed_ssn:  SsnHashingService.hash("333009999")}
+
+        it "is false" do
+          expect(intake.other_intake_with_same_ssn_has_submission?).to be_falsey
+        end
+      end
+    end
+  end
 end

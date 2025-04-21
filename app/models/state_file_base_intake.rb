@@ -518,4 +518,15 @@ class StateFileBaseIntake < ApplicationRecord
       current_time.in_time_zone(timezone).to_date
     end
   end
+
+  def other_intake_with_same_ssn_has_submission?
+    return false if hashed_ssn.nil?
+    StateFile::StateInformationService.state_intake_classes.excluding(StateFileNyIntake).any? do |intake_class|
+      intakes = intake_class
+                  .where(hashed_ssn: hashed_ssn)
+                  .where.associated(:efile_submissions)
+      intakes = intakes.where.not(id: id) if intake_class == self.class
+      intakes.present?
+    end
+  end
 end
