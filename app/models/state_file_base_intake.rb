@@ -72,30 +72,36 @@ class StateFileBaseIntake < ApplicationRecord
     end
     state_code.to_s
   end
+  delegate :state_code, to: :class
 
   def self.selected_intakes_for_deadline_reminder_notifications
     self.left_joins(:efile_submissions)
       .where(efile_submissions: { id: nil })
       .where.not(df_data_imported_at: nil)
       .has_verified_contact_info
-      .select(&:should_be_sent_reminder)
+      .select(&:should_be_sent_reminder?)
   end
 
-  def should_be_sent_reminder
+  def should_be_sent_reminder?
     received_reminder_recently = if message_tracker.present? && message_tracker["messages.state_file.finish_return"]
                                    finish_return_msg_sent_time = Time.parse(message_tracker["messages.state_file.finish_return"])
                                    finish_return_msg_sent_time > 24.hours.ago
                                  else
                                    false
                                  end
-    matching_ssn_with_submission = self.class.where(hashed_ssn: hashed_ssn).excluding(self)
-    matching_email = matching_ssn_with_submission.where.not(email_address: nil).where(email_address: email_address)
-    matching_phone = matching_ssn_with_submission.where.not(phone_number: nil).where(phone_number: phone_number)
-    has_duplicate_with_submission = (matching_email + matching_phone).any? { |intake| intake.efile_submissions.any? }
-    !received_reminder_recently && !disqualifying_df_data_reason.present? && !has_duplicate_with_submission
+    !received_reminder_recently && !disqualifying_df_data_reason.present? && !other_intake_with_same_ssn_has_submission?
   end
 
-  delegate :state_code, to: :class
+  def other_intake_with_same_ssn_has_submission?
+    return false if hashed_ssn.nil?
+    StateFile::StateInformationService.state_intake_classes.excluding(StateFileNyIntake).any? do |intake_class|
+      intakes = intake_class
+                  .where(hashed_ssn: hashed_ssn)
+                  .where.associated(:efile_submissions)
+      intakes = intakes.where.not(id: id) if intake_class == self.class
+      intakes.present?
+    end
+  end
 
   def state_name
     StateFile::StateInformationService.state_name(state_code)
@@ -519,14 +525,4 @@ class StateFileBaseIntake < ApplicationRecord
     end
   end
 
-  def other_intake_with_same_ssn_has_submission?
-    return false if hashed_ssn.nil?
-    StateFile::StateInformationService.state_intake_classes.excluding(StateFileNyIntake).any? do |intake_class|
-      intakes = intake_class
-                  .where(hashed_ssn: hashed_ssn)
-                  .where.associated(:efile_submissions)
-      intakes = intakes.where.not(id: id) if intake_class == self.class
-      intakes.present?
-    end
-  end
 end
