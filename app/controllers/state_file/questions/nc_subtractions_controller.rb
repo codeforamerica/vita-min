@@ -4,7 +4,7 @@ module StateFile
       before_action :set_ivars, only: [:edit, :update]
 
       def self.show?(intake)
-        intake.direct_file_data.fed_agi.positive?
+        intake.positive_fed_agi?
       end
 
       def set_ivars
