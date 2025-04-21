@@ -3033,7 +3033,7 @@ es:
           nc:
             affirmative: Sí, me otorgaron una extensión federal
             negative: No, no me otorgaron una extensión federal
-            subtitle_1: Si presentaste una solicitud para una extensión federal, esto significa que puedes presentar tus declaraciones de impuestos federales y estatales hasta el 15 de octubre sin incurrir en una multa por no presentar.
+            subtitle_1: Si te aceptaron una solicitud de extensión federal, esto significa que puedes presentar tus declaraciones de impuestos federales y estatales hasta el 15 de octubre sin incurrir en una multa por no presentar.
             subtitle_2: 'Te habrían concedido una extensión federal si realizaste alguna de las siguientes acciones en o antes del 15 de abril:'
             title: "¿Te otorgaron una extensión federal?"
           negative: No, no presenté una solicitud para una extensión federal
