@@ -124,6 +124,11 @@ RSpec.describe StateFile::SendRejectResolutionReminderNotificationJob, type: :jo
                    message_tracker: {}
           }
 
+          before do
+            allow(Flipper).to receive(:enabled?).and_call_original
+            allow(Flipper).to receive(:enabled?).with(:prevent_duplicate_ssn_messaging).and_return(true)
+          end
+
           context "which has an efile submission" do
             let(:other_efile_submissions) { [create(:efile_submission, :accepted)] }
 
