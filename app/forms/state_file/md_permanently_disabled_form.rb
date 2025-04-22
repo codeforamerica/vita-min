@@ -9,7 +9,6 @@ module StateFile
 
     def save
       attributes_to_save = attributes_for(:intake).except(:mfj_disability)
-
       if mfj_disability.present?
         attributes_to_save = case mfj_disability
                              when "primary"
@@ -20,48 +19,10 @@ module StateFile
                                attributes_to_save.merge(primary_disabled: "yes", spouse_disabled: "yes")
                              when "none"
                                attributes_to_save.merge(primary_disabled: "no", spouse_disabled: "no")
-                             else
-                               attributes_to_save
                              end
       end
 
       @intake.update(attributes_to_save)
-    end
-
-    def self.existing_attributes(intake)
-
-      # base_attrs = super
-      #
-      # # Only include proof fields if explicitly answered (not :unfilled)
-      # if intake.primary_proof_of_disability_submitted_yes? || intake.primary_proof_of_disability_submitted_no?
-      #   base_attrs[:primary_proof_of_disability_submitted] = intake.primary_proof_of_disability_submitted
-      # end
-
-      # if intake.filing_status_mfj?
-      #   if intake.spouse_proof_of_disability_submitted_yes? || intake.spouse_proof_of_disability_submitted_no?
-      #     base_attrs[:spouse_proof_of_disability_submitted] = intake.spouse_proof_of_disability_submitted
-      #   end
-      #
-      #   already_answered_disability = !intake.primary_disabled_unfilled? && !intake.spouse_disabled_unfilled?
-      #   if already_answered_disability
-      #     value = { primary: intake.primary_disabled, spouse: intake.spouse_disabled }
-      #     previously_answered_mfj_disability = mfj_disability_to_disabled_attributes_hash.key(value)&.to_s
-      #     base_attrs[:mfj_disability] = previously_answered_mfj_disability
-      #   end
-      # end
-      binding.pry
-              super.merge(
-                primary_proof_of_disability_submitted: intake.primary_proof_of_disability_submitted,
-              )
-    end
-
-    def self.mfj_disability_to_disabled_attributes_hash
-      {
-        both: { primary: "yes", spouse: "yes" },
-        none: { primary: "no", spouse: "no" },
-        primary: { primary: "yes", spouse: "no" },
-        spouse: { primary: "no", spouse: "yes" }
-      }
     end
 
     private
