@@ -37,7 +37,7 @@ describe Hub::Dashboard::ReturnsByStatusPresenter do
 
     it "presents filter options including the coalition and all organizations in the correct order" do
       expect(subject.returns_by_status_total).to eq 1
-      expect(subject.returns_by_status.map(&:code)).to eq %w[intake_in_progress intake_ready intake_reviewing intake_ready_for_call intake_info_requested intake_greeter_info_requested intake_needs_doc_help]
+      expect(subject.returns_by_status.map(&:code)).to eq %w[intake_in_progress intake_needs_doc_help intake_info_requested intake_greeter_info_requested intake_ready intake_reviewing intake_ready_for_call]
       expect(subject.returns_by_status.map(&:type)).to eq [:status, :status, :status, :status, :status, :status, :status]
       expect(subject.returns_by_status.map(&:value)).to eq [1, 0, 0, 0, 0, 0, 0]
       expect(subject.returns_by_status_count).to eq 1

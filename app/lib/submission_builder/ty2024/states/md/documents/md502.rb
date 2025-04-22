@@ -174,7 +174,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
       add_element_if_present(xml, "TotalStateAndLocalTax", :MD502_LINE_34)
       add_element_if_present(xml, "TotalTaxAndContributions", :MD502_LINE_39)
       add_element_if_present(xml, "TaxWithheld", :MD502_LINE_40)
-      add_element_if_present(xml, "EstimatedPayments", :MD502_LINE_41) if Flipper.enabled?(:extension_period)
+      add_element_if_present(xml, "EstimatedPayments", :MD502_LINE_41) if Flipper.enabled?(:extension_period) && !calculated_fields.fetch(:MD502_LINE_41).zero?
       add_element_if_present(xml, "RefundableEIC", :MD502_LINE_42)
       add_element_if_present(xml, "RefundableTaxCredits", :MD502_LINE_43)
       add_element_if_present(xml, "TotalPaymentsAndCredits", :MD502_LINE_44)
