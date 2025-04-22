@@ -37,6 +37,27 @@ describe PositiveMoneyFieldValidator do
     end
   end
 
+  context 'value is 23400' do
+    before do
+      allow(subject).to receive(:extension_payments_amount).and_return '23400'
+    end
+
+    it 'is valid' do
+      expect(subject).to be_valid
+    end
+  end
+
+  context 'value is 23,400' do
+    before do
+      allow(subject).to receive(:extension_payments_amount).and_return '23,400'
+    end
+
+    it 'is not valid' do
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages[:extension_payments_amount]).to include I18n.t("validators.not_a_number")
+    end
+  end
+
   context 'with non-numeric value' do
     before do
       allow(subject).to receive(:extension_payments_amount).and_return 'non-numeric value'
