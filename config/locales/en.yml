@@ -246,7 +246,6 @@ en:
       whole_number: must be a whole number
   forms:
     errors:
-      address_is_not_po_box: A PO box cannot be listed as your physical address. Please enter where you lived on December 31, %{tax_year}
       at_least_one_year: Please pick at least one year.
       general: Please fix indicated errors before continuing.
       healthcare:
@@ -1610,6 +1609,15 @@ en:
 
               Best,
               The FileYourStateTaxes team
+            post_deadline: |
+              Hi %{primary_first_name},
+
+              You haven't submitted your state tax return yet. Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today.
+
+              Need help? Reply to this email.
+
+              Best,
+              The FileYourStateTaxes team
             pre_deadline: |
               Hi %{primary_first_name},
 
@@ -1624,6 +1632,15 @@ en:
           subject: Remember to finish your state tax return
         sms:
           on_april_15: "Hi %{primary_first_name} - You haven't submitted your state tax return yet. \n\nGo to Sign in to FileYourStateTaxes to finish them today. \n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
+          post_deadline: |
+            Hi %{primary_first_name} - You haven't submitted your state tax return yet.
+
+            Go to www.fileyourstatetaxes.org/en/login-options to finish them today
+
+            Best,
+            The FileYourStateTaxes team
+
+            Need help? Email us at help@fileyourstatetaxes.org
           pre_deadline: |
             Hi %{primary_first_name} - You haven't submitted your state tax return yet.
 
@@ -3353,6 +3370,7 @@ en:
       md_permanent_address:
         edit:
           address_header: Address
+          address_is_not_po_box: A PO box cannot be listed as your physical address. Please enter a valid address.
           apartment_number_label: Apartment/Unit Number
           city_label: City
           df_address_is_po_box:

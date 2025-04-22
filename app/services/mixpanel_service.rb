@@ -309,6 +309,8 @@ class MixpanelService
         had_earned_income: intake.had_earned_income? ? "yes" : "no",
         state: intake.state_of_residence,
         zip_code: intake.zip_code,
+        needs_help_2023: intake.needs_help_2023,
+        needs_help_2022: intake.needs_help_2022,
         needs_help_2021: intake.needs_help_2021,
         needs_help_2020: intake.needs_help_2020,
         needs_help_2019: intake.needs_help_2019,
