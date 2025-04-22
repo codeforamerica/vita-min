@@ -47,4 +47,14 @@ describe ArchivedIntakeEmailVerificationCodeService do
       end
     end
   end
+
+  context "email address has an extra space" do
+    let(:email_address) { "example@example.com " }
+
+    it "strips the whitespace before generating the token instead of throwing an error" do
+      described_class.request_code(**params)
+      access_token = EmailAccessToken.last
+      expect(access_token.email_address).to eq "example@example.com"
+    end
+  end
 end
