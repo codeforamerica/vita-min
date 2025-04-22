@@ -1618,6 +1618,17 @@ es:
 
               Atentamente,
               El equipo de FileYourStateTaxes
+            post_deadline: |
+              Hola %{primary_first_name},
+
+              Todavía no has enviado tu declaración de impuestos estatales.
+
+              Completa tu declaración hoy visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+
+              ¿Necesitas ayuda? Responde a este correo electrónico.
+
+              Atentamente,
+              El equipo de FileYourStateTaxes
             pre_deadline: |
               Hola %{primary_first_name},
 
@@ -1632,6 +1643,15 @@ es:
           subject: Recuerda completar tu declaración de impuestos estatales
         sms:
           on_april_15: "Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. \n\n  Completa tu declaración hoy en www.fileyourstatetaxes.org/es/login-options.\n\n  Atentamente,\n  El equipo de FileYourStateTaxes\n\n  ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\n"
+          post_deadline: |
+            Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
+
+            Completa tu declaración hoy en www.fileyourstatetaxes.org/es/login-options.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+
+            ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
           pre_deadline: |
             Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
 
