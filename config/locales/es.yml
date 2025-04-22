@@ -2369,6 +2369,7 @@ es:
           amount_label: "<strong>Cantidad del reembolso de Idaho de %{prior_tax_year} utilizada para los impuestos estatales de %{current_tax_year}</strong>"
           enter_amount_html: Ingresa la cantidad al lado de “Apply to %{current_tax_year}” en la línea 56 de tu Declaración de Impuestos Individual de %{prior_tax_year} <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Formulario 40</a>.
           negative: No, no usé una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}
+          payments_amount_validation: Por favor ingresa la cantidad que pagaste por la parte de tu reembolso del estado. La cantidad no puede ser 0.
           subtitle_1: Si recibiste un reembolso de tus impuestos estatales de %{prior_tax_year}, podrías haber aplicado una parte de esa cantidad para ayudar a pagar tu impuesto de %{current_tax_year}. Este es un escenario poco común para nuestro servicio.
           subtitle_2_html: Puedes encontrar esta cantidad al lado de “Apply to %{current_tax_year}” en la línea 56 de tu Declaración de Impuestos Individual de %{prior_tax_year} <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Formulario 40</a>.
           title: "¿Aplicaste una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}?"
@@ -3003,11 +3004,13 @@ es:
           negative: 'No'
           subtitle_html: Si pagaste por una extensión a Arizona, lo hiciste <a href="https://aztaxes.gov/Home/PaymentIndividual/" rel="noopener noreferrer" target="_blank">pagado en línea</a>, seleccionando “204 Individual Extension Payment” o enviándolo por correo postal junto con el <a href="https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf" rel="noopener noreferrer" target="_blank">Formulario 204</a>.
           title: "¿Hiciste un pago de extensión a Arizona en o antes del 15 de abril de %{current_year}?"
+        default_payment_validation_message: Por favor ingresa la cantidad que pagaste por la extensión. La cantidad no puede ser 0.
         id:
           affirmative: Sí, hice un pago de extensión o de saldo estimado a Idaho
           amount: Cantidad de los pagos de extensión
           enter_amount: Ingresa la cantidad de los pagos que hiciste a Idaho usando el Formulario 51.
           negative: No, no hice un pago de extensión o de saldo estimado a Idaho
+          payment_validation_message: Por favor ingresa la cantidad que pagaste por la extensión. La cantidad no puede ser 0.
           subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ target=\"_blank\" rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf target=\"_blank\" rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
           title: "¿Hiciste un pago de extensión o de saldo estimado a Idaho sobre los impuestos de %{tax_year} en o antes del 15 de abril de %{current_year}?"
         md:
