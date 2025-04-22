@@ -43,6 +43,7 @@ module Navigation
         Navigation::NavigationStep.new(StateFile::Questions::IdGroceryCreditReviewController),
         Navigation::NavigationStep.new(StateFile::Questions::IdSalesUseTaxController),
         Navigation::NavigationStep.new(StateFile::Questions::ExtensionPaymentsController),
+        Navigation::NavigationStep.new(StateFile::Questions::ApplyRefundController),
         Navigation::NavigationStep.new(StateFile::Questions::IdPermanentBuildingFundController),
         Navigation::NavigationStep.new(StateFile::Questions::PrimaryStateIdController),
         Navigation::NavigationStep.new(StateFile::Questions::SpouseStateIdController),

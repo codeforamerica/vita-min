@@ -5,7 +5,7 @@
 <% content_for :card do %>
   <div class="spacing-above-25">
     <h1 class="h2"><%= title %></h1>
-    <p><%= I18n.t(:subtitle_1, scope: i18n_scope, default: t(".subtitle_1")) %></p>
+    <p><%= t(".subtitle_1") %></p>
     <p><%= I18n.t(:subtitle_2, scope: i18n_scope, default: t(".subtitle_2")) %></p>
     <ul class="list--bulleted spacing-below-10">
       <li><%= t(".list_1") %></li>
@@ -16,11 +16,11 @@
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
       <%= f.cfa_radio_set(:paid_federal_extension_payments, collection: [
-        { value: "yes", label: I18n.t(:true, scope: i18n_scope, default: t(".true")) },
-        { value: "no", label: I18n.t(:false, scope: i18n_scope, default: t(".false")) },
+        { value: "yes", label: I18n.t(:affirmative, scope: i18n_scope, default: t(".affirmative")) },
+        { value: "no", label: I18n.t(:negative, scope: i18n_scope, default: t(".negative")) },
       ]) %>
     </div>
 
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

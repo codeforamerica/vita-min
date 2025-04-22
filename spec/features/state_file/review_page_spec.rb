@@ -438,6 +438,47 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           expect(page).to have_text I18n.t("state_file.questions.shared.id_disability_review_header.meets_qualifications")
         end
 
+        context "mfj" do
+          before do
+            allow_any_instance_of(StateFileIdIntake).to receive(:show_mfj_disability_options?).and_return(true)
+            @intake.update(
+              raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("id_barrel_roll"),
+              raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.read_json("id_barrel_roll"),
+              spouse_first_name: "Beepbeep",
+              spouse_last_name: "Boop",
+              spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 2),
+              spouse_disabled: "yes" # both disabled
+            )
+
+            third_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Third Spouse Inc", taxable_amount: 750, recipient_ssn: @intake.spouse.ssn)
+            StateFileId1099RFollowup.create(state_file1099_r: third_1099r, income_source: "police_officer", police_retirement_fund: "yes")
+          end
+
+          it "can persist mfj disability question on review & change and persist a new disability state" do
+            visit "/questions/id-review"
+
+            page_change_check(I18n.t("state_file.questions.shared.abstract_review_header.title"))
+
+            within "#disability-info" do
+              expect(page).to have_text I18n.t("general.affirmative")
+              click_on I18n.t("general.review_and_edit")
+            end
+
+            page_change_check(I18n.t("state_file.questions.id_disability.edit.title"))
+            expect(page.find(:css, '#state_file_id_disability_form_mfj_disability_both')).to be_checked
+            choose "Yes, my spouse is"
+
+            click_on I18n.t("general.continue")
+
+            within "#disability-info" do
+              expect(page).to have_text I18n.t("general.affirmative")
+              click_on I18n.t("general.review_and_edit")
+            end
+
+            page_change_check(I18n.t("state_file.questions.id_disability.edit.title"))
+            expect(page.find(:css, '#state_file_id_disability_form_mfj_disability_spouse')).to be_checked
+          end
+        end
       end
 
       context "with eligible senior over 65 years old" do
@@ -498,6 +539,62 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
           click_on I18n.t("state_file.questions.id_ineligible_retirement_and_pension_income.edit.file_without_claiming")
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+        end
+      end
+    end
+  end
+
+  context "NJ" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+
+      state_code = "nj"
+      set_up_intake_and_associated_records(state_code)
+
+      @intake = StateFile::StateInformationService.intake_class(state_code).last
+      @intake.update(primary_disabled: "no")
+      first_1099r = @intake.state_file1099_rs.first
+      first_1099r.update(taxable_amount: 200, recipient_ssn: @intake.primary.ssn)
+      StateFileNj1099RFollowup.create(state_file1099_r: first_1099r, income_source: "military_survivors_benefits")
+
+      second_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Couch Potato Cafe", taxable_amount: 50, recipient_ssn: @intake.primary.ssn)
+      StateFileNj1099RFollowup.create(state_file1099_r: second_1099r, income_source: "military_pension")
+    end
+
+    context "with eligible 1099Rs" do
+      it "can review & edit all 1099Rs, then return to review" do
+        visit "/questions/nj-review"
+
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+        within "#retirement-income-source" do
+          expect(page).to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_military_survivor_benefit")
+          expect(page).to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_military_pension")
+          expect(page).not_to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_other")
+          click_on I18n.t("general.review_and_edit")
+        end
+
+        # first eligible 1099R
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.title")
+        expect(page).to have_text("1099-R: Dorothy Red")
+        expect(page).to have_text("Taxpayer Name: Dorothy Jane Red")
+        expect(page).to have_text("$200")
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.label")
+        choose I18n.t("state_file.questions.nj_retirement_income_source.edit.option_other")
+        click_on I18n.t("general.continue")
+
+        # second eligible 1099R
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.title")
+        expect(page).to have_text("1099-R: Couch Potato Cafe")
+        expect(page).to have_text("Taxpayer Name: Dorothy Jane Red")
+        expect(page).to have_text("$50")
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.label")
+        choose I18n.t("state_file.questions.nj_retirement_income_source.edit.option_other")
+        click_on I18n.t("general.continue")
+
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+        within "#retirement-income-source" do
+          expect(page).to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_other")
         end
       end
     end
