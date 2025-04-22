@@ -246,7 +246,6 @@ es:
       whole_number: Debe ser un número entero
   forms:
     errors:
-      address_is_not_po_box: No puedes declarar un apartado postal como la dirección donde vivías. Por favor indica donde vivías el 31 de diciembre del %{tax_year}
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
       healthcare:
@@ -1619,6 +1618,17 @@ es:
 
               Atentamente,
               El equipo de FileYourStateTaxes
+            post_deadline: |
+              Hola %{primary_first_name},
+
+              Todavía no has enviado tu declaración de impuestos estatales.
+
+              Completa tu declaración hoy visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+
+              ¿Necesitas ayuda? Responde a este correo electrónico.
+
+              Atentamente,
+              El equipo de FileYourStateTaxes
             pre_deadline: |
               Hola %{primary_first_name},
 
@@ -1633,6 +1643,15 @@ es:
           subject: Recuerda completar tu declaración de impuestos estatales
         sms:
           on_april_15: "Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. \n\n  Completa tu declaración hoy en www.fileyourstatetaxes.org/es/login-options.\n\n  Atentamente,\n  El equipo de FileYourStateTaxes\n\n  ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\n"
+          post_deadline: |
+            Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
+
+            Completa tu declaración hoy en www.fileyourstatetaxes.org/es/login-options.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+
+            ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
           pre_deadline: |
             Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
 
@@ -3350,18 +3369,19 @@ es:
       md_permanent_address:
         edit:
           address_header: Dirección
+          address_is_not_po_box: No puedes usar un apartado postal como la dirección donde vivías. Por favor ingresa una dirección válida.
           apartment_number_label: Número de apartamento/unidad
           city_label: Cuidad
           df_address_is_po_box:
             p1: 'La dirección que tenemos registrada para ti es un apartado postal:'
-            p2: Ya que no puedes declarar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
-          follow_up_help_text: No se aceptan PO Boxes
+            p2: Ya que no puedes usar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
+          follow_up_help_text: No se aceptan apartados postales (PO Boxes)
           mark_no_hint_html: Marca “no” si la dirección que aparece es un PO Box <strong>o</strong> si vivías en una dirección distinta el 31 de diciembre de %{filing_year}.
           state_label: Estado
           street_address_label: Dirección
           title: "¿Vivías en esta dirección el 31 de diciembre de %{filing_year}?"
           title_df_po_box: Necesitamos saber dónde vivías el 31 de diciembre del %{filing_year}?
-          where_did_you_live: "¿Dónde vivías el 31 de diciembre de %{filing_year}?"
+          where_did_you_live: "¿En qué dirección vivías el 31 de diciembre del %{filing_year}?"
           zip_label: Código postal
       md_permanently_disabled:
         edit:
