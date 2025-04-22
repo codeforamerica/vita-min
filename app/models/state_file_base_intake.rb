@@ -72,25 +72,38 @@ class StateFileBaseIntake < ApplicationRecord
     end
     state_code.to_s
   end
+  delegate :state_code, to: :class
 
   def self.selected_intakes_for_deadline_reminder_notifications
     self.left_joins(:efile_submissions)
       .where(efile_submissions: { id: nil })
       .where.not(df_data_imported_at: nil)
       .has_verified_contact_info
-      .select(&:should_not_be_sent_reminder)
+      .select(&:should_be_sent_reminder?)
   end
 
-  def should_not_be_sent_reminder
-    if message_tracker.present? && message_tracker["messages.state_file.finish_return"]
-      finish_return_msg_sent_time = Time.parse(message_tracker["messages.state_file.finish_return"])
-      finish_return_msg_sent_time < 24.hours.ago
-    else
-      !disqualifying_df_data_reason.present?
+  def should_be_sent_reminder?
+    received_reminder_recently = if message_tracker.present? && message_tracker["messages.state_file.finish_return"]
+                                   finish_return_msg_sent_time = Time.parse(message_tracker["messages.state_file.finish_return"])
+                                   finish_return_msg_sent_time > 24.hours.ago
+                                 else
+                                   false
+                                 end
+    !received_reminder_recently && !disqualifying_df_data_reason.present? && !other_intake_with_same_ssn_has_submission?
+  end
+
+  def other_intake_with_same_ssn_has_submission?
+    return false unless Flipper.enabled?(:prevent_duplicate_ssn_messaging)
+    return false if hashed_ssn.nil?
+
+    StateFile::StateInformationService.state_intake_classes.excluding(StateFileNyIntake).any? do |intake_class|
+      intakes = intake_class
+                  .where(hashed_ssn: hashed_ssn)
+                  .where.associated(:efile_submissions)
+      intakes = intakes.excluding(self) if intake_class == self.class
+      intakes.present?
     end
   end
-
-  delegate :state_code, to: :class
 
   def state_name
     StateFile::StateInformationService.state_name(state_code)
@@ -513,4 +526,5 @@ class StateFileBaseIntake < ApplicationRecord
       current_time.in_time_zone(timezone).to_date
     end
   end
+
 end

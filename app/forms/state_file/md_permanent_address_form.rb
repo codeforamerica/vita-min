@@ -52,11 +52,11 @@ module StateFile
     end
 
     def permanent_street_is_not_po_box
-      errors.add(:permanent_street, I18n.t("forms.errors.address_is_not_po_box", tax_year: MultiTenantService.statefile.current_tax_year)) if contains_po_box(permanent_street)
+      errors.add(:permanent_street, I18n.t("state_file.questions.md_permanent_address.edit.address_is_not_po_box", tax_year: MultiTenantService.statefile.current_tax_year)) if contains_po_box(permanent_street)
     end
 
     def permanent_apartment_is_not_po_box
-      errors.add(:permanent_apartment, I18n.t("forms.errors.address_is_not_po_box", tax_year: MultiTenantService.statefile.current_tax_year)) if contains_po_box(permanent_apartment)
+      errors.add(:permanent_apartment, I18n.t("state_file.questions.md_permanent_address.edit.address_is_not_po_box", tax_year: MultiTenantService.statefile.current_tax_year)) if contains_po_box(permanent_apartment)
     end
   end
 end
