@@ -18,6 +18,7 @@ module Portal
     private
 
     def eager_loaded_current_intake
+      return nil unless current_intake
       current_intake.class.includes(:client).find(current_intake.id)
     end
 
