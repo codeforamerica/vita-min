@@ -42,9 +42,6 @@
 
       <% if should_warn_about_pension_exclusion && current_intake.filing_status_mfj? %>
         <%= render partial: "state_file/questions/md_permanently_disabled/spouse", locals: { f: f } %>
-      <% end %>
-
-      <% if should_warn_about_pension_exclusion && current_intake.filing_status_mfj? %>
         <%= render partial: "state_file/questions/md_permanently_disabled/both", locals: { f: f } %>
       <% end %>
     </div>
