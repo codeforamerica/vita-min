@@ -181,8 +181,4 @@ class StateFileNcIntake < StateFileBaseIntake
 
     date.to_date
   end
-
-  def positive_fed_agi?
-    direct_file_data.fed_agi.positive?
-  end
 end

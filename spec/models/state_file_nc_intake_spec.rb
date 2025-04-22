@@ -243,37 +243,4 @@ RSpec.describe StateFileNcIntake, type: :model do
       end
     end
   end
-
-  describe "#positive_fed_agi?" do
-    let(:intake) { create :state_file_nc_intake }
-    let(:fed_agi) { 2112 }
-
-    before do
-      intake.direct_file_data.fed_agi = fed_agi
-    end
-
-    context "when fed agi is positive" do
-      let(:fed_agi) { 2112 }
-
-      it "returns true" do
-        expect(intake.positive_fed_agi?).to be true
-      end
-    end
-
-    context "when fed agi is negative" do
-      let(:fed_agi) { -5 }
-
-      it "returns false" do
-        expect(intake.positive_fed_agi?).to be false
-      end
-    end
-
-    context "when fed agi is 0" do
-      let(:fed_agi) { 0 }
-
-      it "returns false" do
-        expect(intake.positive_fed_agi?).to be false
-      end
-    end
-  end
 end
