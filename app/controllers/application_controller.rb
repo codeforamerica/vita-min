@@ -277,6 +277,12 @@ class ApplicationController < ActionController::Base
   def send_mixpanel_event(event_name:, data: {}, subject: nil)
     return if user_agent.bot?
 
+    # Always eagerly load organization and coalition for OrganizationLeadRole users
+    if current_user&.role_type == OrganizationLeadRole::TYPE
+      # Force eager loading to avoid N+1 queries
+      current_user.role = OrganizationLeadRole.includes(organization: :coalition).find(current_user.role.id)
+    end
+
     MixpanelService.send_event(
       distinct_id: visitor_id,
       event_name: event_name,
