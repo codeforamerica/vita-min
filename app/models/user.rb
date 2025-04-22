@@ -133,7 +133,7 @@ class User < ApplicationRecord
     when CoalitionLeadRole::TYPE
       coalition = CoalitionLeadRole.includes(:coalition).find(role_id).coalition
       organizations = VitaPartner.organizations.where(coalition: coalition)
-      sites = VitaPartner.sites.includes(:parent_organization).where(parent_organization: organizations)
+      sites = VitaPartner.sites.where(parent_organization: organizations)
       organizations.or(sites)
     when GreeterRole::TYPE
       VitaPartner.allows_greeters
