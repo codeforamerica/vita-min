@@ -98,7 +98,7 @@ module SubmissionBuilder
             private
 
             def filing_status
-              FILING_STATUS_OPTIONS[@submission.data_source.filing_status]
+              FILING_STATUS_OPTIONS[@submission.data_source.state_filing_status]
             end
 
             def calculated_fields
