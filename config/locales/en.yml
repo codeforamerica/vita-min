@@ -1012,7 +1012,7 @@ en:
         view_all: View All
     documents:
       confirm:
-        text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?
+        text_html: Is this a %{document_type} for <strong>%{client_name}'s</strong> %{filing_year} tax return?
         title: Confirm %{document_type}
       display_name: Display name
       edit:

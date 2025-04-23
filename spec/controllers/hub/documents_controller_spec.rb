@@ -366,19 +366,6 @@ RSpec.describe Hub::DocumentsController, type: :controller do
         expect(response).to redirect_to(confirm_hub_client_document_path(id: latest_doc, client_id: client.id))
       end
 
-      context "when the document type requires confirmation" do
-        let(:document_type) { DocumentTypes::FinalTaxDocument.key }
-        let(:upload) { fixture_file_upload("document_bundle.pdf", "application/pdf") }
-        it "redirects to the confirmation page after creation" do
-          expect {
-            post :create, params: params
-          }.to change(client.documents, :count).by 1
-
-          doc = Document.last
-          expect(response).to redirect_to confirm_hub_client_document_path(id: doc.id, client_id: doc.client.id)
-        end
-      end
-
       context "with no display name, or tax return" do
         let(:params) do
           { client_id: client.id,
