@@ -159,9 +159,9 @@ class StateFileAzIntake < StateFileBaseIntake
   def disqualified_from_excise_credit_df?
     return false if raw_direct_file_data.blank?
 
-    agi_limit = if filing_status_mfj? || filing_status_hoh?
+    agi_limit = if state_filing_status_mfj? || state_filing_status_hoh?
                   25000
-                elsif filing_status_single? || filing_status_mfs?
+                elsif state_filing_status_single? || state_filing_status_mfs?
                   12500
                 end
     agi_over_limit = direct_file_data.fed_agi > agi_limit

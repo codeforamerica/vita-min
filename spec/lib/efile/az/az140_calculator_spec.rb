@@ -154,7 +154,7 @@ describe Efile::Az::Az140Calculator do
 
       context "mfj" do
         before do
-          allow_any_instance_of(StateFileAzIntake).to receive(:filing_status_mfj?).and_return true
+          allow_any_instance_of(StateFileAzIntake).to receive(:state_filing_status_mfj?).and_return true
           allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_pension_plan?).and_return 100
         end
 
@@ -201,7 +201,7 @@ describe Efile::Az::Az140Calculator do
 
         context "mfj" do
           before do
-            allow_any_instance_of(StateFileAzIntake).to receive(:filing_status_mfj?).and_return true
+            allow_any_instance_of(StateFileAzIntake).to receive(:state_filing_status_mfj?).and_return true
             allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:primary, :income_source_uniformed_services?).and_return 100
             allow_any_instance_of(StateFileAzIntake).to receive(:sum_1099_r_followup_type_for_filer).with(:spouse, :income_source_uniformed_services?).and_return 300
           end
