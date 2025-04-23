@@ -105,17 +105,21 @@ var followUpQuestion = (function () {
                 $(this).find('input').each(function (index, input) {
                     var $input = $(this);
                     var followUpSelector = $input.attr('data-follow-up');
-                    if (followUpSelector && /^[a-zA-Z0-9_\-#\.]+$/.test(followUpSelector)) { // protects against XSS through DOM
-                        if ($input.is(':checked')) {
-                            $(followUpSelector).find('input, select').attr('disabled', false);
-                            $(followUpSelector).show();
-                        } else {
-                            if ($('[data-follow-up="' + followUpSelector + '"]:checked').length === 0) {
-                                $(followUpSelector).find('input, select').attr('disabled', true);
-                                // two question inputs can refer to the same followup
-                                $(followUpSelector).hide();
+                    if (followUpSelector) {
+                        var selectors = followUpSelector.split(/\s+/);
+                        selectors.forEach(function (selector) {
+                            if (/^[a-zA-Z0-9_\-#\.]+$/.test(selector)) { // protects against XSS through DOM
+                                if ($input.is(':checked')) {
+                                    $(selector).find('input, select').attr('disabled', false);
+                                    $(selector).show();
+                                } else {
+                                    if ($('[data-follow-up*="' + selector + '"]:checked').length === 0) {
+                                        $(selector).find('input, select').attr('disabled', true);
+                                        $(selector).hide();
+                                    }
+                                }
                             }
-                        }
+                        });
                     }
                 });
 
@@ -133,10 +137,13 @@ var followUpQuestion = (function () {
                 // if any of the inputs with a data-follow-up is checked then show the follow-up
                 if ($(input).is(':checked') && $(input).attr('data-follow-up') != null) {
                     var followUpSelector = $(this).attr('data-follow-up');
-                    if (/^[a-zA-Z0-9_\-#\.]+$/.test(followUpSelector)) {
-                        $(followUpSelector).show();
-                        $(followUpSelector).find('input, select').attr('disabled', false);
-                    }
+                    var selectors = followUpSelector.split(/\s+/);
+                    selectors.forEach(function (selector) {
+                        if (/^[a-zA-Z0-9_\-#\.]+$/.test(selector)) {
+                            $(selector).show();
+                            $(selector).find('input, select').attr('disabled', false);
+                        }
+                    });
                 }
             });
         }
@@ -240,13 +247,11 @@ var noneOfTheAbove = (function () {
             var $noneCheckbox = $('#none__checkbox');
             var $otherCheckboxes = $('input[type=checkbox]').not('#none__checkbox');
 
-            // Uncheck None if another checkbox is checked
             $otherCheckboxes.click(function (e) {
                 $noneCheckbox.prop('checked', false);
                 $noneCheckbox.parent().removeClass('is-selected');
             });
 
-            // Uncheck all others if None is checked
             $noneCheckbox.click(function (e) {
                 $otherCheckboxes.prop('checked', false);
                 $otherCheckboxes.parent().removeClass('is-selected');
@@ -336,7 +341,7 @@ var autoformatEventHandler = function (characterMap, maxDigits) {
 function formatNumericInput(selector, characterMap, maxDigits) {
     var handler = autoformatEventHandler(characterMap, maxDigits);
     $(selector).each(function (_index, input) {
-        handler.call(this, null); // format existing value on page load (not yet tested, need JS testing first)
+        handler.call(this, null);
         $(input).on('input', handler);
     });
 }

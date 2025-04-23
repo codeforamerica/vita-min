@@ -20,11 +20,10 @@
           <% primary_data_followup = should_warn_about_pension_exclusion ? "#primary-disability-proof" : nil %>
           <% if current_intake.filing_status_mfj? %>
             <% spouse_data_followup = should_warn_about_pension_exclusion ? "#spouse-disability-proof" : nil %>
-            <% both_data_followup = should_warn_about_pension_exclusion ? "#both-disability-proof" : nil %>
             <%= f.cfa_radio_set(:mfj_disability, collection: [
               { value: "primary", label: t(".yes_me"), input_html: { "data-follow-up": primary_data_followup } },
               { value: "spouse", label: t(".yes_spouse"), input_html: { "data-follow-up": spouse_data_followup } },
-              { value: "both", label: t(".yes_both"), input_html: { "data-follow-up": both_data_followup } },
+              { value: "both", label: t(".yes_both"), input_html: { "data-follow-up": "#{primary_data_followup} #{spouse_data_followup}" } },
               { value: "none", label: t(".no_neither") }
             ]) %>
           <% else %>
@@ -42,7 +41,6 @@
 
       <% if should_warn_about_pension_exclusion && current_intake.filing_status_mfj? %>
         <%= render partial: "state_file/questions/md_permanently_disabled/spouse", locals: { f: f } %>
-        <%= render partial: "state_file/questions/md_permanently_disabled/both", locals: { f: f } %>
       <% end %>
     </div>
 
