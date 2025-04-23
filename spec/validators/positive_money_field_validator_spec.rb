@@ -7,7 +7,7 @@ describe PositiveMoneyFieldValidator do
       validates_with PositiveMoneyFieldValidator, attributes: :extension_payments_amount
       attr_accessor  :extension_payments_amount
 
-      def payment_msg
+      def error_msg_if_blank_or_zero
         "class specific error message"
       end
     end

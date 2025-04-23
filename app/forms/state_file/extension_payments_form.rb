@@ -14,7 +14,7 @@ module StateFile
       end
     end
 
-    def payment_msg
+    def error_msg_if_blank_or_zero
       I18n.t(
         "state_file.questions.extension_payments.#{@intake.state_code}.payment_validation_message",
         default: I18n.t("state_file.questions.extension_payments.default_payment_validation_message")

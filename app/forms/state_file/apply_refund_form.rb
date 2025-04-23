@@ -14,7 +14,7 @@ module StateFile
       end
     end
 
-    def payment_msg
+    def error_msg_if_blank_or_zero
       I18n.t("state_file.questions.apply_refund.edit.payments_amount_validation")
     end
   end

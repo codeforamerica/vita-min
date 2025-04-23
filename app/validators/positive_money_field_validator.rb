@@ -1,7 +1,7 @@
 class PositiveMoneyFieldValidator < ActiveModel::EachValidator
   def validate_each(form, attribute, value)
     if value.blank?
-      form.errors.add(attribute, form.payment_msg)
+      form.errors.add(attribute, form.error_msg_if_blank_or_zero)
       return
     end
 
@@ -10,6 +10,6 @@ class PositiveMoneyFieldValidator < ActiveModel::EachValidator
       return
     end
 
-    form.errors.add(attribute, form.payment_msg) if value.to_d <= 0
+    form.errors.add(attribute, form.error_msg_if_blank_or_zero) if value.to_d <= 0
   end
 end
