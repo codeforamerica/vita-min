@@ -355,7 +355,7 @@ module Efile
 
       def calculate_line_17
         if deduction_method_is_standard?
-          md_filing_status = md_filing_status_dependent? ? :dependent : @intake.filing_status
+          md_filing_status = @intake.state_filing_status
           status_group_key = FILING_STATUS_GROUPS.find { |_, group| group.include?(md_filing_status) }[0]
           deduction_table = DEDUCTION_TABLES[status_group_key]
           md_agi = line_or_zero(:MD502_LINE_16)
@@ -402,7 +402,7 @@ module Efile
                        [1_000..2_000, 20, 0.03],
                        [2_000..3_000, 50, 0.04],
                      ]
-                   elsif filing_status_single? || filing_status_mfs? || md_filing_status_dependent?
+                   elsif filing_status_single? || filing_status_mfs? || filing_status_dependent?
                      [
                        [3_000..100_000, 90, 0.0475],
                        [100_000..125_000, 4_697.5, 0.05],
@@ -432,7 +432,7 @@ module Efile
 
       def calculate_line_22
         # Earned Income Credit (EIC)
-        return if md_filing_status_dependent?
+        return if filing_status_dependent?
 
         if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
           (@direct_file_data.fed_eic * 0.50).round
@@ -446,7 +446,7 @@ module Efile
       end
 
       def calculate_line_23
-        return 0 if md_filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0 || !deduction_method_is_standard?
+        return 0 if filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0 || !deduction_method_is_standard?
 
         comparison_amount = [@lines[:MD502_LINE_7].value, @lines[:MD502_LINE_1B].value].max
 
@@ -508,7 +508,7 @@ module Efile
                    when "Anne Arundel"
                      anne_arundel_local_tax_brackets.find { |bracket| taxable_net_income <= bracket[:threshold] }[:rate]
                    when "Frederick"
-                     if md_filing_status_dependent? || filing_status_single? || filing_status_mfs?
+                     if filing_status_dependent? || filing_status_single? || filing_status_mfs?
                        if taxable_net_income <= 25_000
                          0.0225
                        elsif taxable_net_income <= 50_000
@@ -543,7 +543,7 @@ module Efile
       end
 
       def anne_arundel_local_tax_brackets
-        if md_filing_status_dependent? || filing_status_single? || filing_status_mfs?
+        if filing_status_dependent? || filing_status_single? || filing_status_mfs?
           [
             { threshold: 50_000, rate: 0.0270 },
             { threshold: 400_000, rate: 0.0281 },
@@ -632,7 +632,7 @@ module Efile
 
       def calculate_line_42
         # Earned Income Credit (EIC)
-        return if md_filing_status_dependent?
+        return if filing_status_dependent?
 
         if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
           [(@direct_file_data.fed_eic * 0.45).round - line_or_zero(:MD502_LINE_21), 0].max

@@ -5,7 +5,7 @@ module Efile
     def initialize(year:, intake:, include_source: false)
       @year = year
       @intake = intake
-      @filing_status = intake.filing_status.to_sym
+      @filing_status = intake.state_filing_status.to_sym
       @dependent_count = intake.dependents.length
       @direct_file_data = intake.direct_file_data
       @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
@@ -78,8 +78,8 @@ module Efile
       @filing_status == :qualifying_widow
     end
 
-    def md_filing_status_dependent?
-      @direct_file_data.claimed_as_dependent?
+    def filing_status_dependent?
+      @filing_status == :dependent
     end
   end
 end

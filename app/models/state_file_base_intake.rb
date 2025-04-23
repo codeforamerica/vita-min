@@ -256,6 +256,10 @@ class StateFileBaseIntake < ApplicationRecord
     }[direct_file_data&.filing_status]
   end
 
+  def state_filing_status
+    filing_status
+  end
+
   def filing_status_single?
     filing_status == :single
   end
