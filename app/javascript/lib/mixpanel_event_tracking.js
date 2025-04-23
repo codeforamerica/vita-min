@@ -36,8 +36,8 @@ const MixpanelEventTracking = (function () {
           }
           const csrfParam = document.querySelector('meta[name=csrf-param]')?.content
           const csrfToken = document.querySelector('meta[name=csrf-token]')?.content
-          eventData.append(csrfParam, csrfToken);
-          if (pageData.sendMixpanelBeacon) {
+          if (pageData.sendMixpanelBeacon && csrfParam !== undefined && csrfToken !== undefined ) {
+            eventData.append(csrfParam, csrfToken);
             navigator.sendBeacon("/ajax_mixpanel_events", eventData);
           }
         });
