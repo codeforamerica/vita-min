@@ -247,11 +247,13 @@ var noneOfTheAbove = (function () {
             var $noneCheckbox = $('#none__checkbox');
             var $otherCheckboxes = $('input[type=checkbox]').not('#none__checkbox');
 
+            // Uncheck None if another checkbox is checked
             $otherCheckboxes.click(function (e) {
                 $noneCheckbox.prop('checked', false);
                 $noneCheckbox.parent().removeClass('is-selected');
             });
 
+            // Uncheck all others if None is checked
             $noneCheckbox.click(function (e) {
                 $otherCheckboxes.prop('checked', false);
                 $otherCheckboxes.parent().removeClass('is-selected');
@@ -341,7 +343,7 @@ var autoformatEventHandler = function (characterMap, maxDigits) {
 function formatNumericInput(selector, characterMap, maxDigits) {
     var handler = autoformatEventHandler(characterMap, maxDigits);
     $(selector).each(function (_index, input) {
-        handler.call(this, null);
+        handler.call(this, null); // format existing value on page load (not yet tested, need JS testing first)
         $(input).on('input', handler);
     });
 }
