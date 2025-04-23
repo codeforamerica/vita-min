@@ -34,7 +34,7 @@ const MixpanelEventTracking = (function () {
           if (clickedElement.dataset.trackClickHref === "true") {
             eventData.append("event[data][href]", clickedElement.href);
           }
-          const csrfParam = document.querySelector('meta[name=param]')?.content
+          const csrfParam = document.querySelector('meta[name=csrf-param]')?.content
           const csrfToken = document.querySelector('meta[name=csrf-token]')?.content
           eventData.append(csrfParam, csrfToken);
           if (pageData.sendMixpanelBeacon) {
