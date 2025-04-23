@@ -166,7 +166,7 @@ module PdfFiller
 
     FILING_STATUS_OPTIONS = {
       "MarriedJoint" => 'Choice1',
-      "HeadHousehold" => 'Choice2', # Qualifying Widow based state_file_az_intake#filing_status
+      "HeadHousehold" => 'Choice2', # Qualifying Widow based state_file_az_intake#state_filing_status
       "MarriedFilingSeparateReturn" => 'Choice3',
       "Single" => 'Choice4',
     }
