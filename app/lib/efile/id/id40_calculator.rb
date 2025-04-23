@@ -75,7 +75,7 @@ module Efile
       end
 
       def calculate_line_6b
-        (@intake.filing_status_mfj? && !@direct_file_data.spouse_is_a_dependent?) ? 1 : 0
+        (state_filing_status_mfj? && !@direct_file_data.spouse_is_a_dependent?) ? 1 : 0
       end
 
       def calculate_line_6c
@@ -226,7 +226,7 @@ module Efile
         end
         credit += primary_eligible_months * (@intake.primary_senior? ? 11.67 : 10)
 
-        if filing_status_mfj?
+        if state_filing_status_mfj?
           spouse_eligible_months = 12
           if @intake.household_has_grocery_credit_ineligible_months_yes? && @intake.spouse_has_grocery_credit_ineligible_months_yes?
             spouse_eligible_months -= @intake.spouse_months_ineligible_for_grocery_credit

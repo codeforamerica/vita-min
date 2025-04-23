@@ -118,6 +118,14 @@ class StateFileAzIntake < StateFileBaseIntake
   validates :az321_contributions, length: { maximum: 10 }
   validates :az322_contributions, length: { maximum: 10 }
 
+  def state_filing_status
+    if filing_status == :qualifying_widow
+      :head_of_household
+    else
+      super
+    end
+  end
+
   def federal_dependent_count_under_17
     self.dependents.select{ |dependent| dependent.under_17? }.length
   end
@@ -183,11 +191,6 @@ class StateFileAzIntake < StateFileBaseIntake
     all_filers_incarcerated = was_incarcerated_yes? || (primary_was_incarcerated_yes? && spouse_was_incarcerated_yes?)
     whole_credit_already_claimed = use_old_incarcerated_column? && household_excise_credit_claimed_yes?
     all_filers_incarcerated || whole_credit_already_claimed || direct_file_data.claimed_as_dependent?
-  end
-
-  def filing_status
-    return :head_of_household if direct_file_data&.filing_status == 5 # Treat qualifying_widow as hoh
-    super
   end
 
   def total_subtractions

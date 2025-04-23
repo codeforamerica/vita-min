@@ -280,6 +280,26 @@ class StateFileBaseIntake < ApplicationRecord
     filing_status == :qualifying_widow
   end
 
+  def state_filing_status_single?
+    state_filing_status == :single
+  end
+
+  def state_filing_status_mfj?
+    state_filing_status == :married_filing_jointly
+  end
+
+  def state_filing_status_mfs?
+    state_filing_status == :married_filing_separately
+  end
+
+  def state_filing_status_hoh?
+    state_filing_status == :head_of_household
+  end
+
+  def state_filing_status_qw?
+    state_filing_status == :qualifying_widow
+  end
+
   def filer_count
     filing_status_mfj? ? 2 : 1
   end

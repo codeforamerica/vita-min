@@ -7,6 +7,7 @@ module Efile
         @value_access_tracker = value_access_tracker
         @lines = lines
         @intake = intake
+        @filing_status = intake.state_filing_status
         @direct_file_json_data = intake.direct_file_json_data
       end
 
@@ -33,7 +34,7 @@ module Efile
       end
 
       def calculate_spouse_disabled
-        return unless @intake.filing_status_mfj?
+        return unless state_filing_status_mfj?
 
         @intake.spouse_disabled_yes? ? "X" : nil
       end
@@ -60,7 +61,7 @@ module Efile
 
       def calculate_line_9a
         if @intake.direct_file_data.fed_ssb.positive?
-          if @intake.filing_status_mfj?
+          if state_filing_status_mfj?
             @intake.primary_ssb_amount&.round || @intake.direct_file_json_data.primary_filer_social_security_benefit_amount&.round
           else
             @intake.direct_file_data.fed_ssb.round
@@ -69,7 +70,7 @@ module Efile
       end
 
       def calculate_line_9b
-        if @intake.filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive?
+        if state_filing_status_mfj? && @intake.direct_file_data.fed_ssb.positive?
           @intake.spouse_ssb_amount&.round || @intake.direct_file_json_data.spouse_filer_social_security_benefit_amount&.round
         end
       end
@@ -100,7 +101,7 @@ module Efile
 
       def calculate_line_11b
         if Flipper.enabled?(:show_retirement_ui)
-          @intake.filing_status_mfj? && @intake.qualifies_for_pension_exclusion?(:spouse) ? calculate_line_11(:spouse) : 0
+          state_filing_status_mfj? && @intake.qualifies_for_pension_exclusion?(:spouse) ? calculate_line_11(:spouse) : 0
         else
           0
         end

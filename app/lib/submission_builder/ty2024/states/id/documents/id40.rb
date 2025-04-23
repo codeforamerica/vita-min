@@ -29,7 +29,7 @@ module SubmissionBuilder
                     xml.DependentDOB date_type(@intake.primary.birth_date)
                   end
                 end
-                if @intake.filing_status_mfj?
+                if @intake.state_filing_status_mfj?
                   xml.DependentGrid do
                     xml.DependentFirstName sanitize_for_xml(@intake.spouse.first_name, 20)
                     xml.DependentLastName sanitize_for_xml(@intake.spouse.last_name, 20)
@@ -53,14 +53,14 @@ module SubmissionBuilder
                 if @direct_file_data.primary_over_65 == "X"
                   xml.PrimeOver65 1
                 end
-                if @intake.filing_status_mfj? && @direct_file_data.spouse_over_65 == "X"
+                if @intake.state_filing_status_mfj? && @direct_file_data.spouse_over_65 == "X"
                   xml.SpouseOver65 1
                 end
 
                 if @direct_file_data.primary_blind == "X"
                   xml.PrimeBlind 1
                 end
-                if @intake.filing_status_mfj? && @direct_file_data.spouse_blind == "X"
+                if @intake.state_filing_status_mfj? && @direct_file_data.spouse_blind == "X"
                   xml.SpouseBlind 1
                 end
                 if @direct_file_data.primary_claim_as_dependent == "X"

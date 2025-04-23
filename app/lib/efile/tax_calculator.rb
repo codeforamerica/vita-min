@@ -5,7 +5,7 @@ module Efile
     def initialize(year:, intake:, include_source: false)
       @year = year
       @intake = intake
-      @filing_status = intake.state_filing_status.to_sym
+      @filing_status = intake.state_filing_status
       @dependent_count = intake.dependents.length
       @direct_file_data = intake.direct_file_data
       @value_access_tracker = Efile::ValueAccessTracker.new(include_source: include_source)
@@ -58,27 +58,27 @@ module Efile
       @lines[line_id].value_access_tracker = @value_access_tracker
     end
 
-    def filing_status_mfj?
+    def state_filing_status_mfj?
       @filing_status == :married_filing_jointly
     end
 
-    def filing_status_mfs?
+    def state_filing_status_mfs?
       @filing_status == :married_filing_separately
     end
 
-    def filing_status_single?
+    def state_filing_status_single?
       @filing_status == :single
     end
 
-    def filing_status_hoh?
+    def state_filing_status_hoh?
       @filing_status == :head_of_household
     end
 
-    def filing_status_qw?
+    def state_filing_status_qw?
       @filing_status == :qualifying_widow
     end
 
-    def filing_status_dependent?
+    def state_filing_status_dependent?
       @filing_status == :dependent
     end
   end

@@ -9,6 +9,7 @@ module Efile
         @value_access_tracker = value_access_tracker
         @lines = lines
         @intake = intake
+        @filing_status = intake.state_filing_status
         @direct_file_json_data = intake.direct_file_json_data
       end
 
@@ -42,7 +43,7 @@ module Efile
       end
 
       def calculate_line_u_spouse
-        @intake.filing_status_mfj? ? calculate_military_per_filer(:spouse) : 0
+        state_filing_status_mfj? ? calculate_military_per_filer(:spouse) : 0
       end
 
       def calculate_line_v_primary
@@ -50,7 +51,7 @@ module Efile
       end
 
       def calculate_line_v_spouse
-        @intake.filing_status_mfj? ? calculate_public_safety_employee(:spouse) : 0
+        state_filing_status_mfj? ? calculate_public_safety_employee(:spouse) : 0
       end
 
       private

@@ -24,7 +24,7 @@ module SubmissionBuilder
               build_xml_doc("FormNJ1040") do |xml|
                 xml.Header do
                   xml.FilingStatus do
-                    status = intake.filing_status.to_sym
+                    status = intake.state_filing_status.to_sym
                     case status
                     when :married_filing_separately
                       xml.MarriedCuPartFilingSeparate do

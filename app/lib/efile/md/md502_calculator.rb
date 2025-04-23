@@ -74,7 +74,7 @@ module Efile
         @md502r.calculate # depends on 502SU
         set_line(:MD502_LINE_10A, :calculate_line_10a) # depends on 502R
         set_line(:MD502_LINE_13, :calculate_line_13)
-        if filing_status_mfj?
+        if state_filing_status_mfj?
           @two_income_subtraction_worksheet.calculate
         end
         set_line(:MD502_LINE_14, :calculate_line_14)
@@ -155,19 +155,19 @@ module Efile
       end
 
       def calculate_line_a_spouse
-        filing_status_mfj? ? "X" : nil
+        state_filing_status_mfj? ? "X" : nil
       end
 
       def calculate_exemption_amount
         # Exemption amount
-        income_ranges = if filing_status_single? || filing_status_mfs?
+        income_ranges = if state_filing_status_single? || state_filing_status_mfs?
                           [
                             [-Float::INFINITY..100_000, 3200],
                             [100_001..125_000, 1600],
                             [125_001..150_000, 800],
                             [150_001..Float::INFINITY, 0]
                           ]
-                        elsif filing_status_hoh? || filing_status_mfj? || filing_status_qw?
+                        elsif state_filing_status_hoh? || state_filing_status_mfj? || state_filing_status_qw?
                           [
                             [-Float::INFINITY..100_000, 3200],
                             [100_001..125_000, 3200],
@@ -198,7 +198,7 @@ module Efile
       end
 
       def calculate_line_b_spouse_senior
-        return nil unless filing_status_mfj? || filing_status_qw?
+        return nil unless state_filing_status_mfj? || state_filing_status_qw?
 
         @intake.spouse_senior? ? "X" : nil
       end
@@ -208,7 +208,7 @@ module Efile
       end
 
       def calculate_line_b_spouse_blind
-        return nil unless filing_status_mfj? || filing_status_qw?
+        return nil unless state_filing_status_mfj? || state_filing_status_qw?
 
         @direct_file_data.is_spouse_blind? ? "X" : nil
       end
@@ -321,12 +321,12 @@ module Efile
                                 (@direct_file_data.fed_agi - @direct_file_data.fed_taxable_ssb) + line_or_zero(:MD502_LINE_6)
                               end
 
-        filing_minimum = if @intake.primary_senior? && @intake.filing_status_mfj? && @intake.spouse_senior?
+        filing_minimum = if @intake.primary_senior? && state_filing_status_mfj? && @intake.spouse_senior?
                            32_300
                          elsif @intake.primary_senior?
-                           FILING_MINIMUMS_SENIOR[@intake.filing_status]
+                           FILING_MINIMUMS_SENIOR[@intake.state_filing_status]
                          else
-                           FILING_MINIMUMS_NON_SENIOR[@intake.filing_status]
+                           FILING_MINIMUMS_NON_SENIOR[@intake.state_filing_status]
                          end
 
         if gross_income_amount >= filing_minimum
@@ -402,7 +402,7 @@ module Efile
                        [1_000..2_000, 20, 0.03],
                        [2_000..3_000, 50, 0.04],
                      ]
-                   elsif filing_status_single? || filing_status_mfs? || filing_status_dependent?
+                   elsif state_filing_status_single? || state_filing_status_mfs? || state_filing_status_dependent?
                      [
                        [3_000..100_000, 90, 0.0475],
                        [100_000..125_000, 4_697.5, 0.05],
@@ -432,11 +432,11 @@ module Efile
 
       def calculate_line_22
         # Earned Income Credit (EIC)
-        return if filing_status_dependent?
+        return if state_filing_status_dependent?
 
-        if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
+        if state_filing_status_mfj? || state_filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
           (@direct_file_data.fed_eic * 0.50).round
-        elsif filing_status_single? || filing_status_hoh? || filing_status_qw?
+        elsif state_filing_status_single? || state_filing_status_hoh? || state_filing_status_qw?
           @direct_file_data.fed_eic.round
         end
       end
@@ -446,11 +446,11 @@ module Efile
       end
 
       def calculate_line_23
-        return 0 if filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0 || !deduction_method_is_standard?
+        return 0 if state_filing_status_dependent? || @lines[:MD502_LINE_1B].value <= 0 || !deduction_method_is_standard?
 
         comparison_amount = [@lines[:MD502_LINE_7].value, @lines[:MD502_LINE_1B].value].max
 
-        household_size = @intake.dependents.count + (filing_status_mfj? ? 2 : 1)
+        household_size = @intake.dependents.count + (state_filing_status_mfj? ? 2 : 1)
         poverty_threshold = case household_size
                             when 1 then 15_060
                             when 2 then 20_440
@@ -508,7 +508,7 @@ module Efile
                    when "Anne Arundel"
                      anne_arundel_local_tax_brackets.find { |bracket| taxable_net_income <= bracket[:threshold] }[:rate]
                    when "Frederick"
-                     if filing_status_dependent? || filing_status_single? || filing_status_mfs?
+                     if state_filing_status_dependent? || state_filing_status_single? || state_filing_status_mfs?
                        if taxable_net_income <= 25_000
                          0.0225
                        elsif taxable_net_income <= 50_000
@@ -518,7 +518,7 @@ module Efile
                        else
                          0.032
                        end
-                     elsif filing_status_mfj? || filing_status_hoh? || filing_status_qw?
+                     elsif state_filing_status_mfj? || state_filing_status_hoh? || state_filing_status_qw?
                        if taxable_net_income <= 25_000
                          0.0225
                        elsif taxable_net_income <= 100_000
@@ -543,13 +543,13 @@ module Efile
       end
 
       def anne_arundel_local_tax_brackets
-        if filing_status_dependent? || filing_status_single? || filing_status_mfs?
+        if state_filing_status_dependent? || state_filing_status_single? || state_filing_status_mfs?
           [
             { threshold: 50_000, rate: 0.0270 },
             { threshold: 400_000, rate: 0.0281 },
             { threshold: Float::INFINITY, rate: 0.0320 }
           ]
-        elsif filing_status_mfj? || filing_status_hoh? || filing_status_qw?
+        elsif state_filing_status_mfj? || state_filing_status_hoh? || state_filing_status_qw?
           [
             { threshold: 75_000, rate: 0.0270 },
             { threshold: 480_000, rate: 0.0281 },
@@ -632,11 +632,11 @@ module Efile
 
       def calculate_line_42
         # Earned Income Credit (EIC)
-        return if filing_status_dependent?
+        return if state_filing_status_dependent?
 
-        if filing_status_mfj? || filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
+        if state_filing_status_mfj? || state_filing_status_mfs? || @direct_file_data.fed_eic_qc_claimed
           [(@direct_file_data.fed_eic * 0.45).round - line_or_zero(:MD502_LINE_21), 0].max
-        elsif filing_status_single? || filing_status_hoh? || filing_status_qw?
+        elsif state_filing_status_single? || state_filing_status_hoh? || state_filing_status_qw?
           [@direct_file_data.fed_eic - line_or_zero(:MD502_LINE_21), 0].max
         end
       end

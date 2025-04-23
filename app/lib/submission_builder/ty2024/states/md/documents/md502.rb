@@ -63,7 +63,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
         xml.FilingStatus do
           xml.DependentTaxpayer "X"
         end
-      elsif @intake.filing_status == :married_filing_separately
+      elsif @intake.state_filing_status == :married_filing_separately
         xml.FilingStatus do
           xml.MarriedFilingSeparately "X", spouseSSN: @intake.direct_file_data.spouse_ssn
         end
@@ -79,7 +79,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
             add_element_if_present(xml, "Over65", :MD502_LINE_B_PRIMARY_SENIOR)
             add_element_if_present(xml, "Blind", :MD502_LINE_B_PRIMARY_BLIND)
           end
-          if @intake.filing_status_mfj? || @intake.filing_status_qw? # qw?
+          if @intake.state_filing_status_mfj? || @intake.state_filing_status_qw? # qw?
             xml.Spouse do
               add_element_if_present(xml, "Standard", :MD502_LINE_A_SPOUSE)
               add_element_if_present(xml, "Over65", :MD502_LINE_B_SPOUSE_SENIOR)
@@ -261,7 +261,7 @@ class SubmissionBuilder::Ty2024::States::Md::Documents::Md502 < SubmissionBuilde
   end
 
   def filing_status
-    FILING_STATUS_OPTIONS[@intake.filing_status]
+    FILING_STATUS_OPTIONS[@intake.state_filing_status]
   end
 
   def county_abbreviation

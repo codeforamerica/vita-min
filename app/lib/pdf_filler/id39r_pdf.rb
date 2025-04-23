@@ -51,7 +51,7 @@ module PdfFiller
     def formatted_display_name
       primary_capitalized_first_name = @intake.primary.first_name.capitalize
       primary_capitalized_last_name = @intake.primary.last_name.capitalize
-      if @intake.filing_status_mfj?
+      if @intake.state_filing_status_mfj?
         spouse_capitalized_first_name = @intake.spouse.first_name.capitalize
         spouse_capitalized_last_name = @intake.spouse.last_name.capitalize
         if primary_capitalized_last_name == spouse_capitalized_last_name

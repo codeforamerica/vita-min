@@ -27,6 +27,7 @@ module Efile
           value_access_tracker: @value_access_tracker,
           lines: @lines
         )
+        @filing_status = @intake.state_filing_status
       end
 
       def calculate
@@ -141,13 +142,13 @@ module Efile
 
       def calculate_line_34
         # NY Standard Deductions for 2023
-        if filing_status_single? && @direct_file_data.claimed_as_dependent?
+        if state_filing_status_single? && @direct_file_data.claimed_as_dependent?
           3_100
-        elsif filing_status_single? || filing_status_mfs?
+        elsif state_filing_status_single? || state_filing_status_mfs?
           8_000
-        elsif filing_status_mfj? || filing_status_qw?
+        elsif state_filing_status_mfj? || state_filing_status_qw?
           16_050
-        elsif filing_status_hoh?
+        elsif state_filing_status_hoh?
           11_200
         end
       end
@@ -368,14 +369,14 @@ module Efile
         # I want to leave it in here until we have at least one more such tax table.
         row = Struct.new(:floor, :ceiling, :cumulative, :rate)
         table =
-          if filing_status_mfj? || filing_status_qw?
+          if state_filing_status_mfj? || state_filing_status_qw?
             [
               row.new(-Float::INFINITY, 21_600, 0, 0.03078),
               row.new(21_600, 45_000, 665, 0.03762),
               row.new(45_000, 90_000, 1_545, 0.03819),
               row.new(90_000, Float::INFINITY, 3_264, 0.03876)
             ]
-          elsif filing_status_hoh?
+          elsif state_filing_status_hoh?
             [
               row.new(-Float::INFINITY, 14_400, 0, 0.03078),
               row.new(14_400, 30_000, 443, 0.03762),
@@ -404,7 +405,7 @@ module Efile
         # size of 1.
         row = Struct.new(:floor, :ceiling, :amounts, :household_member_increment)
         table =
-          if filing_status_single?
+          if state_filing_status_single?
             [
               row.new(-Float::INFINITY, 5000, [75, 75, 75, 75, 75, 75, 75], 0),
               row.new(5_000, 6_000, [60, 60, 60, 60, 60, 60, 60], 0),
@@ -414,7 +415,7 @@ module Efile
               row.new(25_000, 28_000, [20, 20, 20, 20, 20, 20, 20], 0),
               row.new(28_000, Float::INFINITY, [0, 0, 0, 0, 0, 0, 0], 0)
             ]
-          elsif filing_status_mfs?
+          elsif state_filing_status_mfs?
             [
               row.new(-Float::INFINITY, 5_000, [45, 53, 60, 68, 75, 83, 90], 8),
               row.new(5_000, 6_000, [38, 45, 53, 60, 68, 75, 84], 8),
@@ -439,7 +440,7 @@ module Efile
               row.new(32_000, Float::INFINITY, [0, 0, 0, 0, 0, 0, 0], 0)
             ]
           end
-        num_filers = filing_status_mfj? || filing_status_mfs? ? 2 : 1
+        num_filers = state_filing_status_mfj? || state_filing_status_mfs? ? 2 : 1
         household_size = @dependent_count + num_filers
         table_row = table.reverse.find do |tr|
           amount > tr.floor && (amount <= tr.ceiling)
@@ -457,13 +458,13 @@ module Efile
         # size of 1.
         row = Struct.new(:floor, :ceiling, :amounts, :household_member_increment)
         table =
-          if filing_status_single?
+          if state_filing_status_single?
             [
               row.new(-Float::INFINITY, 10_000, [15, 15, 15, 15, 15, 15, 15], 0),
               row.new(10_000, 12_500, [10, 10, 10, 10, 10, 10, 10], 0),
               row.new(12_500, Float::INFINITY, [0, 0, 0, 0, 0, 0, 0], 0)
             ]
-          elsif filing_status_mfs?
+          elsif state_filing_status_mfs?
             [
               row.new(-Float::INFINITY, 15_000, [15, 30, 45, 60, 75, 90, 105], 15),
               row.new(15_000, 17_500, [13, 25, 38, 50, 63, 75, 88], 13),
@@ -480,7 +481,7 @@ module Efile
               row.new(22_500, Float::INFINITY, [0, 0, 0, 0, 0, 0, 0], 0)
             ]
           end
-        num_filers = filing_status_mfj? || filing_status_mfs? ? 2 : 1
+        num_filers = state_filing_status_mfj? || state_filing_status_mfs? ? 2 : 1
         household_size = @dependent_count + num_filers
         table_row = table.reverse.find do |tr|
           amount > tr.floor && (amount <= tr.ceiling)

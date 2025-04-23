@@ -143,8 +143,12 @@ class StateFileMdIntake < StateFileBaseIntake
     if direct_file_data.claimed_as_dependent?
       :dependent
     else
-      filing_status
+      super
     end
+  end
+
+  def state_filing_status_dependent?
+    state_filing_status == :dependent
   end
 
   def disqualifying_df_data_reason
@@ -213,10 +217,6 @@ class StateFileMdIntake < StateFileBaseIntake
     dependents.any? do |dependent|
       dependent.md_did_not_have_health_insurance_yes?
     end
-  end
-
-  def filing_status_dependent?
-    filing_status == :dependent
   end
 
   def address

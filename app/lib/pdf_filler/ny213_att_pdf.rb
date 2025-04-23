@@ -39,7 +39,7 @@ module PdfFiller
 
     def names_on_return
       primary_name = "#{@xml_document.at('tiPrime FIRST_NAME')&.text} #{@xml_document.at('tiPrime LAST_NAME')&.text}"
-      if @intake.filing_status_mfj?
+      if @intake.state_filing_status_mfj?
         spouse_name = "#{@xml_document.at('tiSpouse FIRST_NAME')&.text} #{@xml_document.at('tiSpouse LAST_NAME')&.text}"
         "#{primary_name} and #{spouse_name}"
       else

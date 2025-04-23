@@ -43,8 +43,8 @@ module SubmissionBuilder
             xml.DateSigned date_type_for_timezone(@submission.data_source.primary_esigned_at)&.strftime("%F") if @submission.data_source.primary_esigned_yes?
             xml.USPhone @submission.data_source.direct_file_data.phone_number if @submission.data_source.direct_file_data.phone_number.present?
           end
-          has_nra_spouse = @intake.check_nra_status? && @intake.direct_file_data.non_resident_alien == "NRA" && @intake.filing_status_mfs?
-          spouse_with_ssn = @submission.data_source.spouse&.ssn.present? && @submission.data_source.spouse&.first_name.present? && !@intake.filing_status_mfs?
+          has_nra_spouse = @intake.check_nra_status? && @intake.direct_file_data.non_resident_alien == "NRA" && @intake.state_filing_status_mfs?
+          spouse_with_ssn = @submission.data_source.spouse&.ssn.present? && @submission.data_source.spouse&.first_name.present? && !@intake.state_filing_status_mfs?
           if spouse_with_ssn || has_nra_spouse
             xml.Secondary do
               xml.TaxpayerName do

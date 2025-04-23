@@ -156,7 +156,7 @@ describe Efile::Id::Id39RCalculator do
   describe "Section B Line 8a: Base Amount" do
     context "when filing single" do
       before do
-        allow(intake).to receive(:filing_status_single?).and_return(true)
+        allow(id40_calculator).to receive(:state_filing_status_single?).and_return(true)
       end
 
       it "returns $45,864" do
@@ -167,8 +167,8 @@ describe Efile::Id::Id39RCalculator do
 
     context "when filing married filing jointly" do
       before do
-        allow(intake).to receive(:filing_status_single?).and_return(false)
-        allow(intake).to receive(:filing_status_mfj?).and_return(true)
+        allow(instance).to receive(:state_filing_status_single?).and_return(false)
+        allow(instance).to receive(:state_filing_status_mfj?).and_return(true)
       end
 
       it "returns $68,796" do
@@ -179,8 +179,8 @@ describe Efile::Id::Id39RCalculator do
 
     context "when filing head of household" do
       before do
-        allow(intake).to receive(:filing_status_single?).and_return(false)
-        allow(intake).to receive(:filing_status_hoh?).and_return(true)
+        allow(instance).to receive(:state_filing_status_single?).and_return(false)
+        allow(instance).to receive(:state_filing_status_hoh?).and_return(true)
       end
 
       it "returns $45,864" do
@@ -191,8 +191,8 @@ describe Efile::Id::Id39RCalculator do
 
     context "when filing qualified widow" do
       before do
-        allow(intake).to receive(:filing_status_single?).and_return(false)
-        allow(intake).to receive(:filing_status_qw?).and_return(true)
+        allow(instance).to receive(:state_filing_status_single?).and_return(false)
+        allow(instance).to receive(:state_filing_status_qw?).and_return(true)
       end
 
       it "returns $45,864" do

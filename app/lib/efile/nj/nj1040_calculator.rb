@@ -98,7 +98,7 @@ module Efile
       end
 
       def get_tax_rate_and_subtraction_amount(income)
-        if @intake.filing_status_mfs? || @intake.filing_status_single?
+        if state_filing_status_mfs? || state_filing_status_single?
           case income
           when 1..20_000
             [0.014, 0]
@@ -259,7 +259,7 @@ module Efile
       end
 
       def line_59_spouse
-        if @intake.filing_status_mfj?
+        if state_filing_status_mfj?
           get_personal_excess(@intake.spouse.ssn, ->(w2) { w2.get_box14_ui_overwrite }, excess_ui_wf_swf_max)
         end
       end
@@ -269,7 +269,7 @@ module Efile
       end
 
       def line_61_spouse
-        if @intake.filing_status_mfj?
+        if state_filing_status_mfj?
           get_personal_excess(@intake.spouse.ssn, ->(w2) { w2[:box14_fli] }, excess_fli_max)
         end
       end
@@ -283,14 +283,14 @@ module Efile
       end
 
       def filer_below_income_eligibility_threshold?(gross_income)
-        threshold = @intake.filing_status_single? || @intake.filing_status_mfs? ? 10_000 : 20_000
+        threshold = state_filing_status_single? || state_filing_status_mfs? ? 10_000 : 20_000
         gross_income <= threshold
       end
 
       private
 
       def line_6_spouse_checkbox
-        @intake.filing_status_mfj?
+        state_filing_status_mfj?
       end
 
       def line_8_self_checkbox
@@ -403,7 +403,7 @@ module Efile
           return nil unless @intake.rent_paid&.positive? || @intake.property_tax_paid&.positive?
           property_tax_paid = [@intake.property_tax_paid.to_f, 0].max
           rent_paid = [@intake.rent_paid.to_f * RENT_CONVERSION, 0].max
-          is_mfs = @intake.filing_status_mfs?
+          is_mfs = state_filing_status_mfs?
           
           if is_mfs && @intake.tenant_same_home_spouse_yes?
             rent_paid /= 2
@@ -558,7 +558,7 @@ module Efile
       end
 
       def calculate_line_65
-        return nil if @intake.filing_status == :married_filing_separately
+        return nil if state_filing_status_mfs?
 
         eligible_dependents_count = number_of_dependents_age_5_younger
         return nil if eligible_dependents_count.zero?
@@ -689,7 +689,7 @@ module Efile
       end
 
       def is_mfs_same_home
-        is_mfs = @intake.filing_status_mfs?
+        is_mfs = state_filing_status_mfs?
         is_same_home = @intake.tenant_same_home_spouse_yes? || @intake.homeowner_same_home_spouse_yes?
         is_mfs && is_same_home
       end

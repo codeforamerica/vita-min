@@ -7,6 +7,7 @@ module Efile
         @value_access_tracker = value_access_tracker
         @lines = lines
         @intake = intake
+        @filing_status = intake.state_filing_status
         @direct_file_data = intake.direct_file_data
         @direct_file_json_data = intake.direct_file_json_data
       end
@@ -69,9 +70,9 @@ module Efile
       end
 
       def calculate_sec_b_line_8a
-        if @intake.filing_status_single? || @intake.filing_status_hoh? || @intake.filing_status_qw?
+        if state_filing_status_single? || state_filing_status_hoh? || state_filing_status_qw?
           45_864
-        elsif @intake.filing_status_mfj?
+        elsif state_filing_status_mfj?
           68_796
         end
       end

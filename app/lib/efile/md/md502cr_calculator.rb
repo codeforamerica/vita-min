@@ -7,8 +7,8 @@ module Efile
         @value_access_tracker = value_access_tracker
         @lines = lines
         @intake = intake
+        @filing_status = intake.state_filing_status.to_sym
         @direct_file_data = intake.direct_file_data
-        @filing_status = intake.filing_status.to_sym
       end
 
       def calculate
@@ -42,17 +42,17 @@ module Efile
       def calculate_md502_cr_part_m_line_1
         agi = line_or_zero(:MD502_LINE_1)
         credit = 0
-        if filing_status_mfj? && agi <= 150_000 && deduction_method_is_standard?
+        if state_filing_status_mfj? && agi <= 150_000 && deduction_method_is_standard?
           if @intake.primary_senior? && @intake.spouse_senior?
             credit = 1750
           elsif @intake.primary_senior? ^ @intake.spouse_senior?
             credit = 1000
           end
-        elsif (filing_status_qw? || filing_status_hoh?) && agi <= 150_000
+        elsif (state_filing_status_qw? || state_filing_status_hoh?) && agi <= 150_000
           if @intake.primary_senior?
             credit = 1750
           end
-        elsif (filing_status_single? || filing_status_mfs? || filing_status_dependent?) && agi <= 100_000
+        elsif (state_filing_status_single? || state_filing_status_mfs? || state_filing_status_dependent?) && agi <= 100_000
           if @intake.primary_senior?
             credit = 1000
           end
@@ -125,7 +125,7 @@ module Efile
 
         agi = line_or_zero(:MD502_LINE_1)
         agi_band = agi_bands.find do |row|
-          if filing_status_mfj?
+          if state_filing_status_mfj?
             row.mfj_floor <= agi && agi < row.mfj_ceiling
           else
             row.non_mfj_floor <= agi && agi < row.non_mfj_ceiling
@@ -153,7 +153,7 @@ module Efile
       end
 
       def calculate_part_cc_line_7
-        qualifying_fed_agi_limit = filing_status_mfj? ? 89_100 : 59_400
+        qualifying_fed_agi_limit = state_filing_status_mfj? ? 89_100 : 59_400
 
         return unless @direct_file_data.fed_agi <= qualifying_fed_agi_limit
         [line_or_zero(:MD502CR_PART_B_LINE_4) - line_or_zero(:MD502_LINE_21), 0].max

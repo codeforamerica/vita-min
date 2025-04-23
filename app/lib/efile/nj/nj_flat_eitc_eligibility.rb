@@ -5,13 +5,13 @@ module Efile
         def eligible?(intake)
           possibly_eligible?(intake) &&
             intake.claimed_as_eitc_qualifying_child_no? &&
-            (!intake.filing_status_mfj? || intake.spouse_claimed_as_eitc_qualifying_child_no?)
+            (!intake.state_filing_status_mfj? || intake.spouse_claimed_as_eitc_qualifying_child_no?)
         end
 
         def possibly_eligible?(intake)
           return false if intake.direct_file_data.fed_eic.positive?
 
-          return false if intake.filing_status_mfs?
+          return false if intake.state_filing_status_mfs?
 
           return false if investment_income_over_limit?(intake)
 
@@ -36,7 +36,7 @@ module Efile
           primary_age_exclusive = intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: false)
           primary_age_inclusive = intake.calculate_age(intake.primary_birth_date, inclusive_of_jan_1: true)
 
-          if intake.filing_status_mfj?
+          if intake.state_filing_status_mfj?
             spouse_age_exclusive = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: false)
             spouse_age_inclusive = intake.calculate_age(intake.spouse_birth_date, inclusive_of_jan_1: true)
 
@@ -57,7 +57,7 @@ module Efile
         end
 
         def is_under_income_total_limit?(intake)
-          income_threshold = if intake.filing_status_mfj?
+          income_threshold = if intake.state_filing_status_mfj?
                                25_511
                              else
                                18_591
@@ -69,7 +69,7 @@ module Efile
           return false if intake.primary.has_itin?
           return false if intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment
 
-          if intake.filing_status_mfj? && intake.direct_file_json_data.spouse_filer.present?
+          if intake.state_filing_status_mfj? && intake.direct_file_json_data.spouse_filer.present?
             return false if intake.spouse.has_itin?
             return false if intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment
           end
@@ -79,7 +79,7 @@ module Efile
 
         def claimed_as_dependent?(intake)
           intake.direct_file_data.claimed_as_dependent? ||
-            (intake.filing_status_mfj? && intake.direct_file_data.spouse_is_a_dependent?)
+            (intake.state_filing_status_mfj? && intake.direct_file_data.spouse_is_a_dependent?)
         end
       end
     end

@@ -108,7 +108,7 @@ module Efile
       def calculate_line_8
         count = 0
         count += 1 if @intake.primary_senior?
-        count += 1 if @intake.filing_status_mfj? && @intake.spouse_senior?
+        count += 1 if state_filing_status_mfj? && @intake.spouse_senior?
         count
       end
 
@@ -128,7 +128,7 @@ module Efile
         # total subtraction amount for pensions up to the maximum of $2,500 each for primary and spouse
         primary_pension_amount = @intake.sum_1099_r_followup_type_for_filer(:primary, :income_source_pension_plan?)
         primary_max_allowed_subtraction = [primary_pension_amount, 2500].min
-        return primary_max_allowed_subtraction unless @intake.filing_status_mfj?
+        return primary_max_allowed_subtraction unless state_filing_status_mfj?
 
         spouse_pension_amount = @intake.sum_1099_r_followup_type_for_filer(:spouse, :income_source_pension_plan?)
         [primary_max_allowed_subtraction, [spouse_pension_amount, 2500].min].sum
@@ -137,7 +137,7 @@ module Efile
       def calculate_line_29b
         # total subtraction amount for uniformed services
         primary_uniformed_retirement_amount = @intake.sum_1099_r_followup_type_for_filer(:primary, :income_source_uniformed_services?)
-        return primary_uniformed_retirement_amount unless @intake.filing_status_mfj?
+        return primary_uniformed_retirement_amount unless state_filing_status_mfj?
 
         [primary_uniformed_retirement_amount, @intake.sum_1099_r_followup_type_for_filer(:spouse, :income_source_uniformed_services?)].sum
       end
@@ -185,11 +185,11 @@ module Efile
 
       def calculate_line_43
         # AZ Standard Deductions for 2023
-        if filing_status_single?
+        if state_filing_status_single?
           14_600
-        elsif filing_status_mfj?
+        elsif state_filing_status_mfj?
           29_200
-        elsif filing_status_hoh?
+        elsif state_filing_status_hoh?
           21_900
         end
       end
@@ -231,7 +231,7 @@ module Efile
           wrksht_1_line_8 += line_or_zero("AZ140_LINE_#{line_num}").to_i
         end
         wrksht_2_line_2 = 1
-        if filing_status_mfj?
+        if state_filing_status_mfj?
           max_income = [
             [1, 20_000],
             [2, 23_600],
@@ -243,7 +243,7 @@ module Efile
           end
           wrksht_2_line_2 = 2
           wrksht_2_line_5 = 240
-        elsif filing_status_hoh? # or qualifying_widow
+        elsif state_filing_status_hoh? # or qualifying_widow
           max_income = [
             [1, 20_000],
             [2, 20_135],
@@ -294,7 +294,7 @@ module Efile
         else
           # TODO question: if they are filing with us does that automatically mean no AZ-140PTC?
           number_of_eligible_filers =
-            if filing_status_mfj?
+            if state_filing_status_mfj?
               [@intake.direct_file_json_data.primary_filer.ssn_not_valid_for_employment,
                @intake.direct_file_json_data.spouse_filer.ssn_not_valid_for_employment].count(&:blank?)
             else

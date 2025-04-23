@@ -38,7 +38,7 @@ module Efile
 
       def calculate_line_12
         # Single taxpayers or heads of household, enter $200. MFJ taxpayers, enter $400
-        case @intake.filing_status.to_sym
+        case @intake.state_filing_status.to_sym
         when :married_filing_jointly
           400
         else

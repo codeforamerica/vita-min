@@ -21,7 +21,7 @@ module Efile
         def determine_eligibility(intake)
           total_income = intake.calculator.lines[:NJ1040_LINE_29].value
 
-          wage_minimum = if intake.filing_status_mfs? || intake.filing_status_single?
+          wage_minimum = if intake.state_filing_status_mfs? || intake.state_filing_status_single?
                            10_000
                          else
                            20_000
@@ -33,7 +33,7 @@ module Efile
                             intake.primary_disabled_yes? ||
                             intake.primary_senior?
 
-          spouse_meets_exception = intake.filing_status_mfj? &&
+          spouse_meets_exception = intake.state_filing_status_mfj? &&
                                    (
                                      intake.direct_file_data.is_spouse_blind? ||
                                      intake.spouse_disabled_yes? ||

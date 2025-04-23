@@ -12,7 +12,7 @@ module PdfFiller
     def hash_for_pdf
       primary = @intake.primary
       name = primary.full_name
-      if @intake.filing_status_mfj?
+      if @intake.state_filing_status_mfj?
         name = "#{name} and #{@intake.spouse.full_name}"
       end
       answers = {

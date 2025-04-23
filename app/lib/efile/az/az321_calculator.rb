@@ -5,6 +5,7 @@ class Efile::Az::Az321Calculator < ::Efile::TaxCalculator
     @value_access_tracker = value_access_tracker
     @lines = lines
     @intake = intake
+    @filing_status = intake.state_filing_status
   end
 
   def calculate
@@ -44,7 +45,7 @@ class Efile::Az::Az321Calculator < ::Efile::TaxCalculator
 
   def calculate_line_12
     # Single taxpayers or heads of household, enter $470. MFJ taxpayers, enter $938
-    case @intake.filing_status.to_sym
+    case @intake.state_filing_status
     when :married_filing_jointly
       938
     else

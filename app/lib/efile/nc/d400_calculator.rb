@@ -76,7 +76,7 @@ module Efile
         sum = 0
 
         @intake.state_file1099_gs.each do |state_file_1099_g|
-          if @intake.filing_status_mfj? || state_file_1099_g.recipient_primary?
+          if state_filing_status_mfj? || state_file_1099_g.recipient_primary?
             sum += state_file_1099_g.unemployment_compensation_amount&.round
           end
         end
@@ -91,11 +91,11 @@ module Efile
       end
 
       def calculate_line_10b
-        income_ranges = if filing_status_single? || filing_status_mfs?
+        income_ranges = if state_filing_status_single? || state_filing_status_mfs?
                           [-Float::INFINITY..20_000, 20_001..30_000, 30_001..40_000, 40_001..50_000, 50_001..60_000, 60_001..70_000, 70_001..Float::INFINITY]
-                        elsif filing_status_hoh?
+                        elsif state_filing_status_hoh?
                           [-Float::INFINITY..30_000, 30_001..45_000, 45_001..60_000, 60_001..75_000, 75_001..90_000, 90_001..105_000, 105_001..Float::INFINITY]
-                        elsif filing_status_mfj? || filing_status_qw?
+                        elsif state_filing_status_mfj? || state_filing_status_qw?
                           [-Float::INFINITY..40_000, 40_001..60_000, 60_001..80_000, 80_001..100_000, 100_001..120_000, 120_001..140_000, 140_001..Float::INFINITY]
                         end
         income_range_index = income_ranges.find_index { |range| range.include?(@direct_file_data.fed_agi) }
@@ -115,7 +115,7 @@ module Efile
       }.freeze
 
       def calculate_line_11
-        STANDARD_DEDUCTIONS[@intake.filing_status]
+        STANDARD_DEDUCTIONS[@intake.state_filing_status]
       end
 
       def calculate_line_12a

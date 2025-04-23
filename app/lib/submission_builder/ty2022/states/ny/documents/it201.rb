@@ -20,7 +20,7 @@ module SubmissionBuilder
             def document
               build_xml_doc("IT201") do |xml|
                 xml.PR_DOB_DT claimed: intake.primary.birth_date.strftime("%Y-%m-%d") if intake.primary.birth_date.present?
-                xml.FS_CD claimed: FILING_STATUSES[intake.filing_status.to_sym] if intake.filing_status.present?
+                xml.FS_CD claimed: FILING_STATUSES[intake.state_filing_status.to_sym] if intake.state_filing_status.present?
                 xml.FED_ITZDED_IND claimed: 2 # Always 2 == NO
                 xml.DEP_CLAIM_IND claimed: intake.direct_file_data.claimed_as_dependent? ? 1 : 2 # 1 == YES, 2 == NO
                 xml.FORGN_ACCT_IND claimed: 2 # Always 2 == NO
@@ -28,7 +28,7 @@ module SubmissionBuilder
                 xml.YNK_WRK_LVNG_IND claimed: 2 # Always 2 == NO
                 if intake.nyc_residency_full_year?
                   xml.PR_NYC_MNTH_NMBR claimed: 12
-                  xml.SP_NYC_MNTH_NMBR claimed: 12 if intake.filing_status_mfj?
+                  xml.SP_NYC_MNTH_NMBR claimed: 12 if intake.state_filing_status_mfj?
                 elsif intake.nyc_residency_none? && intake.nyc_maintained_home_no?
                   xml.NYC_LVNG_QTR_IND claimed: 2
                 end

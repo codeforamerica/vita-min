@@ -16,9 +16,9 @@ module Efile
         end
 
         box_1_gross_income = non_military_1099r_box_1_total + line_15 + line_16a
-        max_exclusion_threshold = if @intake.filing_status_mfs? 
+        max_exclusion_threshold = if @intake.state_filing_status_mfs?
                                     50_000
-                                  elsif @intake.filing_status_mfj?
+                                  elsif @intake.state_filing_status_mfj?
                                     100_000
                                   else
                                     75_000
@@ -126,7 +126,7 @@ module Efile
       end
 
       def calculate_maximum_exclusion(total_income, income_for_exclusion)
-        if @intake.filing_status_mfs?
+        if @intake.state_filing_status_mfs?
           case total_income
           when 0..100_000
             50_000
@@ -137,7 +137,7 @@ module Efile
           else
             0
           end
-        elsif @intake.filing_status_mfj?
+        elsif @intake.state_filing_status_mfj?
           case total_income
           when 0..100_000
             100_000

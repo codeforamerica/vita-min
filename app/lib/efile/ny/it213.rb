@@ -260,7 +260,7 @@ module Efile
       end
 
       def cutoff_for_filing_status
-        case @intake.filing_status.to_sym
+        case @intake.state_filing_status.to_sym
         when :married_filing_jointly
           110_000
         when :single, :head_of_household, :qualifying_widow

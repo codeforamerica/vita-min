@@ -50,7 +50,7 @@ module Efile
       end
 
       def calculate_line_3
-        @lines[:IT215_LINE_1].value == true && @intake.filing_status == :married_filing_separately
+        @lines[:IT215_LINE_1].value == true && @intake.state_filing_status == :married_filing_separately
       end
 
       def calculate_wk_a_line_3
