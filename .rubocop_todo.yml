@@ -858,7 +858,6 @@ Lint/SafeNavigationChain:
 Lint/ShadowingOuterLocalVariable:
   Exclude:
     - 'app/jobs/after_transition_tasks_for_rejected_return_job.rb'
-    - 'app/jobs/backfill_appropriate_last_interaction_value.rb'
     - 'app/lib/client_sorter.rb'
     - 'app/lib/seeder.rb'
     - 'app/lib/submission_builder/ty2021/documents/irs_w2.rb'

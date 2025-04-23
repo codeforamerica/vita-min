@@ -1609,6 +1609,15 @@ en:
 
               Best,
               The FileYourStateTaxes team
+            post_deadline: |
+              Hi %{primary_first_name},
+
+              You haven't submitted your state tax return yet. Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today.
+
+              Need help? Reply to this email.
+
+              Best,
+              The FileYourStateTaxes team
             pre_deadline: |
               Hi %{primary_first_name},
 
@@ -1623,6 +1632,15 @@ en:
           subject: Remember to finish your state tax return
         sms:
           on_april_15: "Hi %{primary_first_name} - You haven't submitted your state tax return yet. \n\nGo to Sign in to FileYourStateTaxes to finish them today. \n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
+          post_deadline: |
+            Hi %{primary_first_name} - You haven't submitted your state tax return yet.
+
+            Go to www.fileyourstatetaxes.org/en/login-options to finish them today
+
+            Best,
+            The FileYourStateTaxes team
+
+            Need help? Email us at help@fileyourstatetaxes.org
           pre_deadline: |
             Hi %{primary_first_name} - You haven't submitted your state tax return yet.
 
@@ -3036,23 +3054,19 @@ en:
           title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
       federal_extension_payments:
         edit:
-          affirmative: Yes, I was granted a federal extension
-          az:
-            affirmative: Yes, I filed for a federal extension
-            negative: No, I did not file for a federal extension
-            subtitle_2: 'You filed for a federal extension if you did either of the following on or before April 15th:'
-            title: Did you file for a federal extension?
+          affirmative: Yes, I filed for a federal extension
           list_1: Made a federal extension payment
           list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
-          negative: No, I was not granted a federal extension
-          nj:
-            affirmative: Yes, I filed for a federal extension
-            negative: No, I did not file for a federal extension
-            subtitle_2: 'You filed for a federal extension if you did either of the following on or before April 15th:'
-            title: Did you file for a federal extension?
-          subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
-          subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
-          title: Were you granted a federal extension?
+          nc:
+            affirmative: Yes, I was granted a federal extension
+            negative: No, I was not granted a federal extension
+            subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
+            subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
+            title: Were you granted a federal extension?
+          negative: No, I did not file for a federal extension
+          subtitle_1: If you filed for a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
+          subtitle_2: 'You filed for a federal extension if you did either of the following on or before April 15th:'
+          title: Did you file for a federal extension?
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
