@@ -30,7 +30,7 @@ describe Efile::Id::Id40Calculator do
   describe "Line 6b: Spouse Exemption" do
     context "when filing jointly and spouse is not a dependent" do
       it "returns 1" do
-        allow(intake).to receive(:filing_status_mfj?).and_return(true)
+        allow(intake).to receive(:state_filing_status_mfj?).and_return(true)
         allow(intake.direct_file_data).to receive(:spouse_is_a_dependent?).and_return(false)
         instance.calculate
         expect(instance.lines[:ID40_LINE_6B].value).to eq(1)

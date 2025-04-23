@@ -75,7 +75,7 @@ module Efile
       end
 
       def calculate_line_6b
-        (state_filing_status_mfj? && !@direct_file_data.spouse_is_a_dependent?) ? 1 : 0
+        (@intake.state_filing_status_mfj? && !@direct_file_data.spouse_is_a_dependent?) ? 1 : 0
       end
 
       def calculate_line_6c
