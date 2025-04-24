@@ -438,7 +438,17 @@ describe Efile::Md::Md502crCalculator do
     context "when filing_status is not mfj" do
       %w[single married_filing_separately head_of_household qualifying_widow dependent].each do |filing_status|
         context "when #{filing_status} filer" do
-          let(:filing_status) { filing_status }
+          if filing_status == "dependent"
+            let(:filing_status) { "single" }
+            let(:claimed_as_dependent) { true}
+          else
+            let(:filing_status) { filing_status }
+            let(:claimed_as_dependent) { false }
+          end
+
+          before do
+            allow_any_instance_of(DirectFileData).to receive(:claimed_as_dependent?).and_return claimed_as_dependent
+          end
 
           context "when AGI is within limit" do
             let(:agi) { 59_400 }
