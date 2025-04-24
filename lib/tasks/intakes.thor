@@ -45,7 +45,6 @@ class Intakes < Thor
   no_tasks do
     def find_intakes(state:, ids:)
       intake_class = ::StateFile::StateInformationService.intake_class(state)
-      say "Intake class '#{intake_class.name}' selected", :cyan if options[:debug]
 
       intake_class.where(id: ids)
     end
