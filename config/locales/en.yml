@@ -136,6 +136,7 @@ en:
       notice: Thank you! We updated your tax specialist.
   errors:
     attributes:
+      money_field: This field can not be blank. Please enter a number that is greater than 0.
       address:
         city:
           blank: Please enter a valid city.
@@ -2378,7 +2379,6 @@ en:
           amount_label: "<strong>Amount of %{prior_tax_year} Idaho refund used towards %{current_tax_year} state taxes</strong>"
           enter_amount_html: Enter the amount next to “Apply to %{current_tax_year}” on line 56 of your %{prior_tax_year} Individual Income Tax Return <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Form 40</a>.
           negative: No, I didn’t use a portion of my %{prior_tax_year} refund towards my %{current_tax_year} taxes
-          payments_amount_validation: This field can not be blank. Please enter a number that is greater than 0.
           subtitle_1: If you received a refund from your %{prior_tax_year} state taxes, you could have applied a portion of that amount to help pay your income tax for %{current_tax_year}. This is an uncommon scenario for our service.
           subtitle_2_html: You can find this amount next to “Apply to %{current_tax_year}” on line 56 of your %{prior_tax_year} Individual Income Tax Return <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Form 40</a>.
           title: Did you apply a portion of your %{prior_tax_year} Idaho state refund toward your %{current_tax_year} taxes?

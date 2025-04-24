@@ -2,7 +2,7 @@ require "rails_helper"
 
 describe PositiveMoneyFieldValidator do
   before do
-    @validatable = Class.new do
+    @paymentform = Class.new do
       include ActiveModel::Validations
       validates_with PositiveMoneyFieldValidator, attributes: :extension_payments_amount
       attr_accessor  :extension_payments_amount
@@ -15,7 +15,7 @@ describe PositiveMoneyFieldValidator do
 
   let(:extension_payments_amount) { nil }
 
-  subject { @validatable.new }
+  subject { @paymentform.new }
 
   context 'is a positive decimal' do
     before do
@@ -99,6 +99,22 @@ describe PositiveMoneyFieldValidator do
     it 'is not valid' do
       expect(subject).not_to be_valid
       expect(subject.errors.messages[:extension_payments_amount]).to include "class specific error message"
+    end
+
+    context "when there is no error_msg_if_blank_or_zero method set on the form" do
+      before do
+        @paymentformdefaultmsg = Class.new do
+          include ActiveModel::Validations
+          validates_with PositiveMoneyFieldValidator, attributes: :extension_payments_amount
+          attr_accessor  :extension_payments_amount
+        end
+      end
+
+      it 'it uses the default message' do
+        form = @paymentformdefaultmsg.new
+        expect(form).not_to be_valid
+        expect(form.errors.messages[:extension_payments_amount]).to include "This field can not be blank. Please enter a number that is greater than 0."
+      end
     end
   end
 end
