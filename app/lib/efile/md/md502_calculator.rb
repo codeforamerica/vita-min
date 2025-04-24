@@ -160,7 +160,9 @@ module Efile
 
       def calculate_exemption_amount
         # Exemption amount
-        income_ranges = if filing_status_single? || filing_status_mfs?
+        income_ranges = if md_filing_status_dependent?
+                          [[-Float::INFINITY..Float::INFINITY, 0]]
+                        elsif filing_status_single? || filing_status_mfs?
                           [
                             [-Float::INFINITY..100_000, 3200],
                             [100_001..125_000, 1600],
@@ -176,8 +178,6 @@ module Efile
                             [175_001..200_000, 800],
                             [200_001..Float::INFINITY, 0]
                           ]
-                        else
-                          [[-Float::INFINITY..Float::INFINITY, 0]]
                         end
 
         income_range_index = income_ranges.find_index { |(range, _)| range.include?(@direct_file_data.fed_agi) }

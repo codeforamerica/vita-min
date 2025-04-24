@@ -494,6 +494,12 @@ describe Efile::Md::Md502Calculator do
             )
           end
 
+          before do
+            if filing_status == :dependent
+              allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+            end
+          end
+
           context "when when gross income is greater than or equal to state filing minimum" do
             before do
               allow_any_instance_of(Efile::Md::Md502Calculator).to receive(:calculate_line_6).and_return 0
@@ -543,6 +549,12 @@ describe Efile::Md::Md502Calculator do
                 year: MultiTenantService.statefile.current_tax_year,
                 intake: intake
               )
+            end
+
+            before do
+              if filing_status == :dependent
+                allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+              end
             end
 
             context "when when gross income is greater than or equal to state filing minimum" do
