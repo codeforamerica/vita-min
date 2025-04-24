@@ -31,7 +31,7 @@
                    [tax_return.year, tax_return.id]
                  },
                  include_blank: true %>
-    <%= f.hub_checkbox :archived, t(".archived_label") %>
+    <%= f.hub_checkbox :archived, t(".archived_label"), options: { classes: ["checkbox-fit-content"] } %>
     <%= f.hidden_field :rotation_angle, id: "rotation-angle" %>
 
     <button class="button button--cta" type="submit">
