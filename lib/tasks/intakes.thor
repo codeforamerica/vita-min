@@ -4,7 +4,7 @@ class Intakes < Thor
 
   desc 'delete STATE_CODE:ID STATE_CODE2:ID...', 'Deletes a given set of intakes specified by state and id'
   def delete(*ids)
-    unless ids.all? { |id| id.match?(/\A[a-zA-Z]{2}:\d+\z/) }
+    unless ids.all? { |id| id.match?(/\A[a-zA-Z]{2}:\d+\z/) } # matches something like 'az:123'
       say 'IDs appear to be formatted incorrectly. Please double check', :red
       say "Received: #{ids.to_a}"
       exit
