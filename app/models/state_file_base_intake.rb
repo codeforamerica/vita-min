@@ -15,8 +15,8 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :state_file_w2s, as: :state_file_intake, class_name: "StateFileW2", inverse_of: :state_file_intake, dependent: :destroy
   has_many :df_data_import_errors, -> { order(created_at: :asc) }, as: :state_file_intake, class_name: "DfDataImportError", inverse_of: :state_file_intake, dependent: :destroy
   has_one :state_file_analytics, as: :record, dependent: :destroy
-  belongs_to :primary_state_id, class_name: "StateId", optional: true
-  belongs_to :spouse_state_id, class_name: "StateId", optional: true
+  belongs_to :primary_state_id, class_name: "StateId", optional: true, dependent: :destroy
+  belongs_to :spouse_state_id, class_name: "StateId", optional: true, dependent: :destroy
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
   accepts_nested_attributes_for :dependents, update_only: true
 
