@@ -13,7 +13,7 @@ class Intakes < Thor
     ids = ids.map(&:downcase) # AZ:123 => az:123
       .group_by { |value| value.split(':')[0] } # az:123 => {az: ['az:123']}
       .transform_values do |values| # ['az:123']
-        values.map { |value| value.split(':')[1].to_i} # ['az:123''] => [123]
+        values.map { |value| value.split(':')[1].to_i} # ['az:123'] => [123]
       end
 
     say "Looking up intakes for the following states", :green
