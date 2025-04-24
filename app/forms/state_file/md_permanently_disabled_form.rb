@@ -29,20 +29,19 @@ module StateFile
 
     def self.existing_attributes(intake)
       already_answered_disability = !intake.primary_disabled_unfilled? && !intake.spouse_disabled_unfilled?
-
       if already_answered_disability
-        case [intake.primary_disabled, intake.spouse_disabled]
-          when ["yes", "yes"]
-            mfj_disability = "both"
-          when ["no", "no"]
-            mfj_disability = "none"
-          when ["yes", "no"]
-            mfj_disability = "primary"
-          when ["no", "yes"]
-            mfj_disability = "spouse"
-          else
-            mfj_disability = nil
-        end
+        mfj_disability = case [intake.primary_disabled, intake.spouse_disabled]
+                         when ["yes", "yes"]
+                           "both"
+                         when ["no", "no"]
+                           "none"
+                         when ["yes", "no"]
+                           "primary"
+                         when ["no", "yes"]
+                           "spouse"
+                         else
+                           nil
+                         end
         super.merge(mfj_disability: mfj_disability)
       else
         super
