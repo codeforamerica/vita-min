@@ -136,7 +136,6 @@ es:
       notice: "¡Gracias! Actualizamos a su especialista en impuestos."
   errors:
     attributes:
-      money_field: Por favor ingresa la cantidad que pagaste por la parte de tu reembolso del estado. La cantidad no puede ser 0.
       address:
         city:
           blank: Ingresa una ciudad válida.
@@ -185,6 +184,7 @@ es:
       last_name:
         blank: Por favor, ingrese un apellido.
         invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
+      money_field: Por favor ingresa la cantidad que pagaste por la parte de tu reembolso del estado. La cantidad no puede ser 0.
       nc_withdrawal_date:
         holiday: La fecha de retiro no puede ser un día festivo federal o bancario de EE. UU.
         past: La fecha de retiro debe ser posterior a hoy

@@ -136,7 +136,6 @@ en:
       notice: Thank you! We updated your tax specialist.
   errors:
     attributes:
-      money_field: This field can not be blank. Please enter a number that is greater than 0.
       address:
         city:
           blank: Please enter a valid city.
@@ -185,6 +184,7 @@ en:
       last_name:
         blank: Please enter a last name.
         invalid_format: Only letters, numbers, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.
+      money_field: This field can not be blank. Please enter a number that is greater than 0.
       nc_withdrawal_date:
         holiday: Withdrawal date cannot be on a US federal or bank holiday
         past: Withdrawal date must be after today
