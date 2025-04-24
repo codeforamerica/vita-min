@@ -122,7 +122,7 @@ module StateFile
         pay_taxes_link: "https://www.aztaxes.gov/",
         return_type: "Form140",
         review_controller_class: StateFile::Questions::AzReviewController,
-        schema_file_name: "AZIndividual2024v2.0.zip",
+        schema_file_name: "AZIndividual2024v2.1.zip",
         software_id_key: "sin",
         submission_builder_class: SubmissionBuilder::Ty2022::States::Az::AzReturnXml,
         survey_link: I18n.t("state_file.state_information_service.az.survey_link"),
