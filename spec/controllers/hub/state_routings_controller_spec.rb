@@ -34,6 +34,7 @@ describe Hub::StateRoutingsController do
   describe "#index" do
     it_behaves_like :a_get_action_for_admins_only, action: :index
 
+
     context "as an authenticated user" do
       let(:user) { create :admin_user }
 

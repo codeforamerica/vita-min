@@ -5,7 +5,7 @@ module Hub
     layout "hub"
 
     def index
-      @state_routings = StateRoutingTarget.order(state_abbreviation: :asc).all.group_by(&:state_abbreviation).sort
+      @state_routings = StateRoutingTarget.includes(:target, state_routing_fractions: :vita_partner).order(state_abbreviation: :asc).all.group_by(&:state_abbreviation).sort
     end
 
     def edit
@@ -43,12 +43,12 @@ module Hub
 
     def load_state_and_routing_targets
       @state = params[:state]
-      @coalition_srts = StateRoutingTarget.where(state_abbreviation: @state, target_type: Coalition.name).includes(:state_routing_fractions)
-      @independent_org_srts = StateRoutingTarget.where(state_abbreviation: @state, target_type: VitaPartner.name).includes(:state_routing_fractions)
+      @coalition_srts = StateRoutingTarget.includes(:target, state_routing_fractions: :vita_partner).where(state_abbreviation: @state, target_type: Coalition.name)
+      @independent_org_srts = StateRoutingTarget.includes(target: :child_sites, state_routing_fractions: :vita_partner).where(state_abbreviation: @state, target_type: VitaPartner.name)
     end
 
     def load_independent_organizations
-      @independent_organizations = Organization.where(coalition: nil).where.not(id: @independent_org_srts.pluck(:target_id))
+      @independent_organizations = Organization.where(coalition: nil).where.not(id: @independent_org_srts.map(&:target_id))
     end
   end
 end
