@@ -153,6 +153,20 @@ RSpec.configure do |config|
     OmniAuth.config.test_mode = true
   end
 
+  # Disable Bullet for CTC feature specs
+  query_scan_excludes = ['/spec/features/ctc/', '/spec/features/hub/']
+  config.before(:each) do |example|
+    if query_scan_excludes.any? { |exclude| example.file_path.include?(exclude) }
+      Bullet.enable = false
+    end
+  end
+
+  config.after(:each) do |example|
+    if query_scan_excludes.any? { |exclude| example.file_path.include?(exclude) }
+      Bullet.enable = true
+    end
+  end
+
   if config.filter.rules[:flow_explorer_screenshot]
     FlowExplorerScreenshots.hook!(config)
   end
