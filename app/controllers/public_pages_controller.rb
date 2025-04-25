@@ -11,7 +11,7 @@ class PublicPagesController < ApplicationController
   end
 
   def home
-    @common_questions = FaqQuestionGroupItem.includes(:faq_item).where(group_name: 'home_page').order(:position).map(&:faq_item)
+    @common_questions = FaqQuestionGroupItem.includes(faq_item: :faq_category).where(group_name: 'home_page').order(:position).map(&:faq_item)
 
     # redirect to home hiding original source param
     if params[:source].present?
