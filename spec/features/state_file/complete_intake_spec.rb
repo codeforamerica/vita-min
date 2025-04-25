@@ -8,9 +8,11 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
   before do
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
+    Bullet.enable = false
   end
 
   after do
+    Bullet.enable = true
     Capybara.reset_sessions!
   end
 

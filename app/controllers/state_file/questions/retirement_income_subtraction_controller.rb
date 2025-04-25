@@ -55,4 +55,3 @@ module StateFile
     end
   end
 end
-

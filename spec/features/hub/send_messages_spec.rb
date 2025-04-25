@@ -20,6 +20,11 @@ RSpec.feature "Read and send messages to a client", js: true do
     before do
       login_as user
       create(:incoming_text_message, body: "", client: client)
+      Bullet.enable = false
+    end
+
+    after do
+      Bullet.enable = true
     end
 
     context "sending messages to opted in methods" do
