@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.1">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>7b964ef3f</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400001234</PrimarySSN>
+            <SpouseSSN>400004321</SpouseSSN>
+            <NameLine1Txt>MARJORIE J &amp; HOMER&lt;SIMPSON</NameLine1Txt>
+            <PrimaryNameControlTxt>SIMP</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>SIMP</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Smith Island</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21824</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000123-4e73-49ad-96e3-8e615b5ed3f0@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <Spouse65OrOlderInd>X</Spouse65OrOlderInd>
+            <TotalBoxesCheckedCnt>2</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">14550</WagesAmt>
+            <WagesSalariesAndTipsAmt>14550</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>14550</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>14550</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>32300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>32300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>0</TaxableIncomeAmt>
+            <TaxAmt>0</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
+            <TotalTaxAmt>0</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>2100</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>2100</WithholdingTaxAmt>
+            <TotalPaymentsAmt>2100</TotalPaymentsAmt>
+            <OverpaidAmt>2100</OverpaidAmt>
+            <RefundAmt>2100</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>homemaker</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Nuclear Reactor attendant</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400001234</EmployeeSSN>
+            <EmployerEIN>001234567</EmployerEIN>
+            <EmployerNameControlTxt>NUCL</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Nuclear Power Plant</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>1 Maple Avenue</AddressLine1Txt>
+                <CityNm>Bethesda</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20814</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Marjorie J Simpson</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Smith Island</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21824</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>14550</WagesAmt>
+            <WithholdingAmt>2100</WithholdingAmt>
+            <SocialSecurityWagesAmt>14550</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1200</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>14550</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>600</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>1234567</EmployerStateIdNum>
+                    <StateWagesAmt>14550</StateWagesAmt>
+                    <StateIncomeTaxAmt>1500</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>
