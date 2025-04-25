@@ -31,7 +31,7 @@ class SearchIndexer
           Client.where(id: client_ids)
         end
 
-      attributes = Client.where(id: client_ids).includes(:tax_returns, :documents, intake: :dependents).map do |client|
+      attributes = Client.includes(:tax_returns).where(id: client_ids).map do |client|
         {
           id: client.id,
           created_at: client.created_at,
