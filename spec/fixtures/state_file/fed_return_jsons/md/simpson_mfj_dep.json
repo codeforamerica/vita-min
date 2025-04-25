@@ -1,18 +1,24 @@
 {
   "familyAndHousehold": [],
-  "socialSecurityReports": [],
+  "socialSecurityReports": [
+    {
+      "formType": "SSA-1099",
+      "recipientTin": "400-00-4321",
+      "netBenefits": "5000.00"
+    }
+  ],
   "filers": [
     {
       "lastName": "Simpson",
-      "dateOfBirth": "1955-03-09",
+      "dateOfBirth": "1989-05-12",
       "suffix": null,
-      "isPrimaryFiler": true,
-      "firstName": "Marjorie",
-      "middleInitial": "J",
-      "educatorExpenses": "0.00",
-      "tin": "400-00-1234",
+      "isPrimaryFiler": false,
+      "firstName": "Homer",
+      "middleInitial": null,
+      "educatorExpenses": null,
+      "tin": "400-00-4321",
       "interestReportsTotal": "0.00",
-      "isDisabled": false,
+      "isDisabled": true,
       "form1099GsTotal": "0.00",
       "isStudent": false,
       "hsaTotalDeductibleAmount": null,
@@ -20,29 +26,34 @@
     },
     {
       "lastName": "Simpson",
-      "dateOfBirth": "1956-05-12",
+      "dateOfBirth": "1990-01-01",
       "suffix": null,
-      "isPrimaryFiler": false,
-      "firstName": "Homer",
-      "middleInitial": null,
-      "educatorExpenses": "0.00",
-      "tin": "400-00-4321",
+      "isPrimaryFiler": true,
+      "firstName": "Marjorie",
+      "middleInitial": "J",
+      "educatorExpenses": null,
+      "tin": "400-00-1234",
       "interestReportsTotal": "0.00",
       "isDisabled": false,
-      "form1099GsTotal": "0.00",
+      "form1099GsTotal": "10000.00",
       "isStudent": false,
       "ssnNotValidForEmployment": null,
       "hsaTotalDeductibleAmount": null
     }
   ],
-  "form1099Gs": [],
-  "formW2s": [
+  "form1099Gs": [
     {
-      "BOX14_NJ_UIWFSWF": null,
-      "usedTin": "400-00-1234",
-      "BOX14_NJ_UIHCWD": null,
-      "unionDuesAmount": null
+      "stateTaxWithheld": "0.00",
+      "has1099": true,
+      "amount": "10000.00",
+      "federalTaxWithheld": "100.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "stateIdNumber": null,
+      "payerTin": "00-1234545",
+      "recipientTin": "400-00-1234",
+      "payer": "State of MD"
     }
   ],
+  "formW2s": [],
   "interestReports": []
 }
