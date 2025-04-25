@@ -162,7 +162,8 @@ var revealer = (function () {
                 $(self).addClass('is-hiding-content');
                 var revealButton = $(self).find('.reveal__button')
                 revealButton.each(function (i, link) {
-                    link.setAttribute('aria-expanded', false)
+                    link.setAttribute('aria-expanded', false);
+                    link.setAttribute('type', 'button');
                 })
                 revealButton.click(function (e) {
                     e.preventDefault();

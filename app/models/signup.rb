@@ -20,14 +20,14 @@ class Signup < ApplicationRecord
   validates :phone_number, e164_phone: true, allow_blank: true
   validates :email_address, 'valid_email_2/email': true
 
-  def self.send_message(message_name, batch_size=nil, after: nil)
+  def self.send_message(message_name, batch_size=100, after: nil)
     message_class = "AutomatedMessage::#{message_name.camelize}".constantize
     message = message_class.new
     sent_at_column = "#{message_name}_sent_at"
 
     signups = Signup.where("#{message_name}_sent_at" => nil)
     signups = Signup.where('created_at >= ?', after) if after.present?
-    signups.find_each do |signup|
+    signups.find_each(batch_size: batch_size) do |signup|
       if signup.email_address.present? && signup.valid?
         SignupFollowupMailer.followup(email_address: signup.email_address, message: message).deliver
         signup.touch(sent_at_column)

@@ -100,7 +100,7 @@ describe TaxReturnStateMachine do
         result = described_class.states_to_show_for_client_filter(role_type: AdminRole::TYPE)
 
         expect(result["file"]).to eq ["file_ready_to_file", "file_efiled", "file_mailed", "file_rejected", "file_accepted", "file_not_filing", "file_hold"]
-        expect(result["intake"]).to eq ["intake_in_progress", "intake_ready", "intake_reviewing", "intake_ready_for_call", "intake_info_requested", "intake_greeter_info_requested", "intake_needs_doc_help"]
+        expect(result["intake"]).to eq ["intake_in_progress", "intake_needs_doc_help", "intake_info_requested", "intake_greeter_info_requested", "intake_ready", "intake_reviewing", "intake_ready_for_call"]
         expect(result["prep"]).to eq ["prep_ready_for_prep", "prep_preparing", "prep_info_requested"]
         expect(result["review"]).to eq ["review_ready_for_qr", "review_reviewing", "review_ready_for_call", "review_signature_requested", "review_info_requested"]
         expect(result.values.flatten).not_to include("file_fraud_hold", "file_needs_review")
