@@ -37,7 +37,7 @@ module Hub
     end
 
     def remaining_years
-      @gyr_filing_years - tax_return_years
+      @gyr_filing_years + [2021] - tax_return_years
     end
   end
 end
