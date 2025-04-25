@@ -2,9 +2,9 @@ class MessagePresenter
   def self.grouped_messages(client)
     messages = (
       client.outgoing_text_messages.includes(:user) +
-      client.incoming_text_messages +
+      client.incoming_text_messages.includes(:documents) +
       client.outgoing_emails.includes(:user) +
-      client.incoming_emails +
+      client.incoming_emails.includes(:documents) +
       client.incoming_portal_messages +
       SystemNote::SignedDocument.where(client: client) +
       SyntheticNote.from_client_documents(client) +
