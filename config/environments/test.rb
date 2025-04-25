@@ -9,7 +9,10 @@ Rails.application.configure do
   config.after_initialize do
     Bullet.enable        = true
     Bullet.bullet_logger = true
-    Bullet.raise         = true # raise an error if n+1 query occurs
+    # raise an error if n+1 query occurs
+    Bullet.raise         = true
+    # detected eager-loaded associations which are not used
+    Bullet.unused_eager_loading_enable = false
   end
 
   # Settings specified here will take precedence over those in config/application.rb.
