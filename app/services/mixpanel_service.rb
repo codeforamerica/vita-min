@@ -195,8 +195,8 @@ class MixpanelService
       return false if request.nil?
       source = request.query_parameters[:source]
 
-      if source.present? && ["hund", "hund.io"].include?(source)
-        return true
+      if source.present?
+        return true if source == "hund" or source == "hund.io"
       end
 
       incoming_ip = request.remote_ip or request.ip
