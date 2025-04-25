@@ -1,0 +1,65 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Simpson",
+      "isClaimedDependent": false,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2021-01-01",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Zia",
+      "middleInitial": null,
+      "tin": "300-00-0001",
+      "scheduleEicLine4aNo": false,
+      "eligibleDependent": false,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Simpson",
+      "dateOfBirth": "1980-08-02",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Lisa",
+      "middleInitial": null,
+      "educatorExpenses": "300.00",
+      "tin": "400-00-0101",
+      "interestReportsTotal": "500.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "BOX14_NJ_UIWFSWF": null,
+      "usedTin": "400-00-0101",
+      "BOX14_NJ_UIHCWD": null,
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": [
+    {
+      "has1099": true,
+      "taxExemptAndTaxCreditBondCusipNo": null,
+      "interestOnGovernmentBonds": "0.00",
+      "payerTin": null,
+      "taxExemptInterest": "0.00",
+      "recipientTin": "400-00-0101",
+      "payer": "Bank of Springfield",
+      "1099Amount": "500.00",
+      "no1099Amount": null,
+      "taxWithheld": "0.00"
+    }
+  ]
+}

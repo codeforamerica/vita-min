@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.1">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>7b964ef3f</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400000101</PrimarySSN>
+            <NameLine1Txt>LISA&lt;SIMPSON</NameLine1Txt>
+            <PrimaryNameControlTxt>SIMP</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+                <CityNm>Rockville</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20815</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000010-1bd5-493c-9e51-ca63b9e49396@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="4">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+            <QualifyingPersonName>
+                <PersonFirstNm>Zia</PersonFirstNm>
+                <PersonLastNm>Simpson</PersonLastNm>
+            </QualifyingPersonName>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">30000</WagesAmt>
+            <WagesSalariesAndTipsAmt>30000</WagesSalariesAndTipsAmt>
+            <TaxableInterestAmt>500</TaxableInterestAmt>
+            <TotalIncomeAmt>30500</TotalIncomeAmt>
+            <TotalAdjustmentsAmt>300</TotalAdjustmentsAmt>
+            <AdjustedGrossIncomeAmt>30200</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>29200</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>29200</TotalDeductionsAmt>
+            <TaxableIncomeAmt>1000</TaxableIncomeAmt>
+            <TaxAmt>101</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>101</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>101</TaxLessCreditsAmt>
+            <TotalTaxAmt>101</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>3000</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>3000</WithholdingTaxAmt>
+            <EarnedIncomeCreditAmt referenceDocumentId="IRSEIC0001" referenceDocumentName="IRS1040ScheduleEIC">3014</EarnedIncomeCreditAmt>
+            <RefundableCreditsAmt>3014</RefundableCreditsAmt>
+            <TotalPaymentsAmt>6014</TotalPaymentsAmt>
+            <OverpaidAmt>5913</OverpaidAmt>
+            <RefundAmt>5913</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Teacher</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <EducatorExpensesAmt>300</EducatorExpensesAmt>
+            <TotalAdjustmentsAmt>300</TotalAdjustmentsAmt>
+        </IRS1040Schedule1>
+        <IRS1040ScheduleEIC documentId="IRSEIC0001" documentName="IRS1040ScheduleEIC">
+            <QualifyingChildInformation>
+                <QualifyingChildNameControlTxt>SIMP</QualifyingChildNameControlTxt>
+                <ChildFirstAndLastName>
+                    <PersonFirstNm>Zia</PersonFirstNm>
+                    <PersonLastNm>Simpson</PersonLastNm>
+                </ChildFirstAndLastName>
+                <QualifyingChildSSN>300000001</QualifyingChildSSN>
+                <ChildBirthYr>2021</ChildBirthYr>
+                <ChildRelationshipCd>DAUGHTER</ChildRelationshipCd>
+                <MonthsChildLivedWithYouCnt>12</MonthsChildLivedWithYouCnt>
+            </QualifyingChildInformation>
+        </IRS1040ScheduleEIC>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400000101</EmployeeSSN>
+            <EmployerEIN>841564926</EmployerEIN>
+            <EmployerNameControlTxt>SPRI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Springfield Elementary School</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>300 Fake street</AddressLine1Txt>
+                <CityNm>Baltimore</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21824</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Lisa Simpson</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+                <CityNm>Rockville</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20815</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>30000</WagesAmt>
+            <WithholdingAmt>3000</WithholdingAmt>
+            <SocialSecurityWagesAmt>35000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>1000</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>35000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>800</MedicareTaxWithheldAmt>
+            <RetirementPlanInd>X</RetirementPlanInd>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>3456789</EmployerStateIdNum>
+                    <StateWagesAmt>30000</StateWagesAmt>
+                    <StateIncomeTaxAmt>2000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

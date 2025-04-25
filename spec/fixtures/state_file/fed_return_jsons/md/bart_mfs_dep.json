@@ -1,0 +1,53 @@
+{
+  "familyAndHousehold": [],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Van Houten",
+      "dateOfBirth": null,
+      "suffix": null,
+      "isPrimaryFiler": false,
+      "firstName": "Milhouse",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "400-00-5970",
+      "interestReportsTotal": "0.00",
+      "isDisabled": null,
+      "form1099GsTotal": "0.00",
+      "isStudent": null,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    },
+    {
+      "lastName": "Simpson",
+      "dateOfBirth": "1980-08-02",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Bart",
+      "middleInitial": null,
+      "educatorExpenses": "0.00",
+      "tin": "300-00-4545",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "20000.00",
+      "isStudent": false,
+      "ssnNotValidForEmployment": null,
+      "hsaTotalDeductibleAmount": null
+    }
+  ],
+  "form1099Gs": [
+    {
+      "has1099": true,
+      "stateTaxWithheld": "0.00",
+      "amount": "20000.00",
+      "amountPaidBackForBenefitsInTaxYear": "0.00",
+      "federalTaxWithheld": "200.00",
+      "stateIdNumber": null,
+      "payerTin": "00-1233456",
+      "recipientTin": "300-00-4545",
+      "payer": "State of MD"
+    }
+  ],
+  "formW2s": [],
+  "interestReports": []
+}
