@@ -277,19 +277,11 @@ class ApplicationController < ActionController::Base
   def send_mixpanel_event(event_name:, data: {}, subject: nil)
     return if user_agent.bot?
 
-    if current_user&.role_type == OrganizationLeadRole::TYPE
-      # Force eager loading to avoid N+1 queries
-      current_user.role = OrganizationLeadRole.includes(organization: :coalition).find(current_user.role.id)
-    end
-
-    intake_data = current_intake.present? ? MixpanelService.data_from(current_intake) : {}
-    subject_data = subject.present? ? MixpanelService.data_from(subject) : {}
-    data = data.merge(intake_data).merge(subject_data)
     MixpanelService.send_event(
       distinct_id: visitor_id,
       event_name: event_name,
       data: data,
-      subject: subject || eager_loaded_current_intake,
+      subject: subject || visitor_record,
       user: current_user,
       request: request,
       source: self,
