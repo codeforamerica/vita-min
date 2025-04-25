@@ -6,8 +6,13 @@ RSpec.describe Questions::CellPhoneNumberController do
   let!(:intake) { create :intake, sms_phone_number: nil, sms_notification_opt_in: 'yes' }
 
   before do
+    Bullet.enable = false
     allow(subject).to receive(:current_intake).and_return(intake)
     allow(MixpanelService).to receive(:send_event)
+  end
+
+  after do
+    Bullet.enable = true
   end
 
   describe ".show?" do
