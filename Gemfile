@@ -87,9 +87,10 @@ group :demo, :development, :test do
 end
 
 group :demo, :development, :heroku, :staging, :production do
-  # for storing results of rack-mini-profiler
   gem 'redis'
+end
 
+group :demo, :development, :heroku, :staging do
   gem 'rack-mini-profiler'
 end
 
