@@ -161,6 +161,47 @@ RSpec.describe StateFileMdIntake, type: :model do
     end
   end
 
+
+  describe "#disqualifying_df_data_reason" do
+    context "spouse is NRA (non-resident alien)" do
+      let(:intake) { create :state_file_md_intake, :with_spouse_ssn_nil, filing_status: "married_filing_separately"}
+
+      it "returns spouse_nra_html" do
+        expect(intake.disqualifying_df_data_reason).to eq :spouse_nra_html
+      end
+    end
+
+    context "has out of state w2" do
+      let(:intake) { create :state_file_md_intake, :df_data_2_w2s, :with_w2s_synced }
+
+      it "returns has_out_of_state_w2" do
+        w2 = intake.direct_file_data.w2_nodes.first
+        state_abbreviation_cd = w2.at("W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd")
+        state_abbreviation_cd.inner_html = "UT"
+
+        expect(intake.disqualifying_df_data_reason).to eq :has_out_of_state_w2
+      end
+    end
+
+    context "is mfj and has dependent filer" do
+      let(:intake) { create :state_file_md_intake, :with_spouse }
+
+      context "has primary dependent" do
+        it "returns mfj_and_dependent_html" do
+          allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+          expect(intake.disqualifying_df_data_reason).to eq :mfj_and_dependent_html
+        end
+      end
+
+      context "has spouse dependent" do
+        it "returns mfj_and_dependent_html" do
+          allow(intake.direct_file_data).to receive(:spouse_is_a_dependent?).and_return(true)
+          expect(intake.disqualifying_df_data_reason).to eq :mfj_and_dependent_html
+        end
+      end
+    end
+  end
+
   describe "#eligibility_filing_status" do
     subject(:intake) do
       create(:state_file_md_intake, eligibility_filing_status_mfj: :yes)
@@ -722,6 +763,47 @@ RSpec.describe StateFileMdIntake, type: :model do
           it "should return true" do
             expect(intake.nra_spouse?).to eq(true)
           end
+        end
+      end
+    end
+  end
+
+  describe "#mfj_and_dependent?" do
+    context "is not mfj" do
+      let(:intake) { create :state_file_md_intake, filing_status: "single" }
+
+      it "returns false" do
+        expect(intake.mfj_and_dependent?).to eq false
+      end
+
+      context "is dependent" do
+        it "returns false" do
+          allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+          expect(intake.mfj_and_dependent?).to eq false
+        end
+      end
+    end
+
+    context "is mfj" do
+      let(:intake) { create :state_file_md_intake, :with_spouse }
+
+      context "has no dependents" do
+        it "returns false" do
+          expect(intake.mfj_and_dependent?).to eq false
+        end
+      end
+
+      context "has primary dependent" do
+        it "returns true" do
+          allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+          expect(intake.mfj_and_dependent?).to eq true
+        end
+      end
+
+      context "has spouse dependent" do
+        it "returns true" do
+          allow(intake.direct_file_data).to receive(:spouse_is_a_dependent?).and_return(true)
+          expect(intake.mfj_and_dependent?).to eq true
         end
       end
     end
