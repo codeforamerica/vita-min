@@ -76,6 +76,7 @@ gem 'ordinalize_full'
 gem 'awesome_print'
 gem 'rack-attack'
 gem 'holidays'
+gem "net-imap", ">= 0.4.20"
 gem 'redis'
 
 # Use Flipper for feature flagging
