@@ -54,7 +54,7 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         sign_in user
       end
 
-      xit "renders the new template and assigns tax_return related variables" do
+      it "renders the new template and assigns tax_return related variables" do
         get :new, params: params
         expect(response).to render_template :new
         expect(assigns(:client)).to eq client
