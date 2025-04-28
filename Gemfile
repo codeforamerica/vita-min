@@ -76,6 +76,7 @@ gem 'ordinalize_full'
 gem 'awesome_print'
 gem 'rack-attack'
 gem 'holidays'
+gem 'redis'
 
 # Use Flipper for feature flagging
 gem 'flipper'
@@ -84,10 +85,6 @@ gem 'flipper-ui'
 
 group :demo, :development, :test do
   gem 'factory_bot_rails' # added to demo for creating fake data
-end
-
-group :demo, :development, :heroku, :staging, :production do
-  gem 'redis'
 end
 
 group :demo, :development, :heroku, :staging do
