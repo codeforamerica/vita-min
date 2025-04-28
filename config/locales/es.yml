@@ -2684,7 +2684,7 @@ es:
           nc_extension_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
-          not_supported:  "¿Qué hago si por mi situación fiscal no puedo usar FileYourStateTaxes?"
+          not_supported: "¿Qué hago si por mi situación fiscal no puedo usar FileYourStateTaxes?"
           title1: Puedes usar este servicio para declarar tus impuestos estatales de %{state} de %{year}
           title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
