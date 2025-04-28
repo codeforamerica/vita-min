@@ -2591,11 +2591,11 @@ en:
             exempt_interest_exceeds_10k: you had more than $10,000 in tax-exempt interest income.
             has_irc_125_code: W2 lists IRC 125 benefit plan amounts.
             has_out_of_state_w2: you earned income in another state in %{filing_year}.
+            has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
+            married_filing_separately: you are filing “married filing separately”.
             mfj_and_dependent_html: |
               you or your spouse indicated that you can be claimed on someone else’s return.<br><br>
               Maryland does not allow married filers to file a joint return if the taxpayer or spouse is claimed as a dependent.
-            has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
-            married_filing_separately: you are filing “married filing separately”.
             spouse_nra_html: |
               you didn’t include your spouse’s SSN or ITIN in your federal return.<br><br>
               Maryland does not allow Married Filing Separately taxpayers to electronically file their state tax return without their spouse’s SSN or ITIN.
