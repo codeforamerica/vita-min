@@ -57,6 +57,16 @@ describe PositiveMoneyFieldValidator do
     end
   end
 
+  context 'value is " 33 " (has trailing whitespace)' do
+    before do
+      allow(subject).to receive(:extension_payments_amount).and_return ' 33 '
+    end
+
+    it 'is valid' do
+      expect(subject).to be_valid
+    end
+  end
+
   context 'value is 5.' do
     before do
       allow(subject).to receive(:extension_payments_amount).and_return '5.'
