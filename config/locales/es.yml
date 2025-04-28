@@ -1682,6 +1682,26 @@ es:
             Best,
             The FileYourStateTaxes team
           subject: IRS Direct File is back and easier than ever
+      monthly_finish_return:
+        email:
+          body: |
+            Hola %{primary_first_name},
+            Parece que empezaste una declaración de impuestos estatales con FileYourStateTaxes pero no terminaste el proceso. Ve a <a target="_blank" rel="noopener nofollow" href="http://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/en/login-options</a> para completarlo hoy.
+
+            Si ya presentaste tu declaración usando otro servicio, no necesitas hacer nada.
+            Si necesitas ayuda, responde a este correo.
+
+            Saludos,
+            El equipo de FileYourStateTaxes
+          subject: Recuerda terminar tu declaración de impuestos estatales
+        sms: |
+          Hola %{primary_first_name},
+          Empezaste una declaración de impuestos estatales con FileYourStateTaxes pero no la terminaste. Ve a http://www.fileyourstatetaxes.org/en/login-options para completarla hoy.
+
+          Si ya presentaste tu declaración usando otro servicio, no necesitas hacer nada.
+
+          Saludos,
+          El equipo de FileYourStateTaxes
       post_deadline_reminder:
         email:
           body: |-

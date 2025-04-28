@@ -5,6 +5,12 @@ namespace :state_file do
     StateFile::ReminderToFinishStateReturnService.run
   end
 
+  task monthly_finish_state_return: :environment do
+    if DateTime.now <= Rails.configuration.state_file_end_of_new_intakes
+      StateFile::MonthlyFinishStateReturnService.run
+    end
+  end
+
   task pre_deadline_reminder: :environment do
     return unless DateTime.now.year == 2025
     StateFile::SendPreDeadlineReminderService.run
