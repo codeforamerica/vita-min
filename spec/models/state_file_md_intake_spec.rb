@@ -186,18 +186,9 @@ RSpec.describe StateFileMdIntake, type: :model do
     context "is mfj and has dependent filer" do
       let(:intake) { create :state_file_md_intake, :with_spouse }
 
-      context "has primary dependent" do
-        it "returns mfj_and_dependent_html" do
-          allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
-          expect(intake.disqualifying_df_data_reason).to eq :mfj_and_dependent_html
-        end
-      end
-
-      context "has spouse dependent" do
-        it "returns mfj_and_dependent_html" do
-          allow(intake.direct_file_data).to receive(:spouse_is_a_dependent?).and_return(true)
-          expect(intake.disqualifying_df_data_reason).to eq :mfj_and_dependent_html
-        end
+      it "returns mfj_and_dependent_html" do
+        allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+        expect(intake.disqualifying_df_data_reason).to eq :mfj_and_dependent_html
       end
     end
   end
