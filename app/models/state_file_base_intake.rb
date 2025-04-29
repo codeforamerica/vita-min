@@ -1,4 +1,6 @@
 class StateFileBaseIntake < ApplicationRecord
+  DB_NUMERIC_MAX = 9_999_999_999.99
+
   self.ignored_columns = [:df_data_import_failed_at, :bank_name]
 
   devise :lockable, :unlock_strategy => :time
@@ -15,8 +17,8 @@ class StateFileBaseIntake < ApplicationRecord
   has_many :state_file_w2s, as: :state_file_intake, class_name: "StateFileW2", inverse_of: :state_file_intake, dependent: :destroy
   has_many :df_data_import_errors, -> { order(created_at: :asc) }, as: :state_file_intake, class_name: "DfDataImportError", inverse_of: :state_file_intake, dependent: :destroy
   has_one :state_file_analytics, as: :record, dependent: :destroy
-  belongs_to :primary_state_id, class_name: "StateId", optional: true
-  belongs_to :spouse_state_id, class_name: "StateId", optional: true
+  belongs_to :primary_state_id, class_name: "StateId", optional: true, dependent: :destroy
+  belongs_to :spouse_state_id, class_name: "StateId", optional: true, dependent: :destroy
   accepts_nested_attributes_for :primary_state_id, :spouse_state_id
   accepts_nested_attributes_for :dependents, update_only: true
 
@@ -186,7 +188,6 @@ class StateFileBaseIntake < ApplicationRecord
   def synchronize_df_w2s_to_database
     direct_file_data.w2s.each_with_index do |direct_file_w2, i|
       state_file_w2 = state_file_w2s.where(w2_index: i).first || state_file_w2s.build
-      db_numeric_max = 9_999_999_999.99
       box_14_values = {}
       direct_file_w2.w2_box14.each do |deduction|
         box_14_values[deduction[:other_description]] = deduction[:other_amount]
@@ -205,7 +206,7 @@ class StateFileBaseIntake < ApplicationRecord
         local_wages_and_tips_amount: direct_file_w2.LocalWagesAndTipsAmt,
         locality_nm: direct_file_w2.LocalityNm,
         state_income_tax_amount: direct_file_w2.StateIncomeTaxAmt,
-        state_wages_amount: [direct_file_w2.StateWagesAmt, db_numeric_max].min,
+        state_wages_amount: [direct_file_w2.StateWagesAmt, DB_NUMERIC_MAX].min,
         state_file_intake: self,
         wages: direct_file_w2.WagesAmt,
         w2_index: i,

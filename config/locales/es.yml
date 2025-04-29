@@ -4597,6 +4597,7 @@ es:
           local_wages_and_tips_amt_error: Ingresa los salarios y propinas locales
           locality_nm_missing_error: Selecciona el nombre de la localidad
           no_money_amount: Please enter an amount. If amount is blank, enter $0.
+          review_box_14: Please review and update this number from Box 14 of your W-2.
           save_and_continue: Guardar y Continuar
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales

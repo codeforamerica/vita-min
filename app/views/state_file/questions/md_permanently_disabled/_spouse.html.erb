@@ -1,0 +1,8 @@
+<div class="question-with-follow-up__follow-up" id="spouse-disability-proof">
+  <div class="white-group">
+    <%= f.cfa_radio_set(:spouse_proof_of_disability_submitted, label_text: t("state_file.questions.md_permanently_disabled.edit.spouse_proof_question_html"), collection: [
+      { value: "yes", label: t("general.affirmative") },
+      { value: "no", label: t("general.negative") },
+    ]) %>
+  </div>
+</div>
