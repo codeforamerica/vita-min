@@ -12,10 +12,7 @@ module StateFile
           .select do |intake|
             next false if intake.disqualifying_df_data_reason.present? || intake.other_intake_with_same_ssn_has_submission?
 
-            # don't send if we sent the pre_deadline_reminder in the past 24 hours
-            if (msg = intake.message_tracker&.dig("messages.state_file.pre_deadline_reminder"))
-              Time.parse(msg) < 24.hours.ago
-            elsif (msg = intake.message_tracker&.dig("messages.state_file.monthly_finish_return"))
+            if (msg = intake.message_tracker&.dig("messages.state_file.monthly_finish_return"))
               Time.parse(msg) < 24.hours.ago
             else
               true

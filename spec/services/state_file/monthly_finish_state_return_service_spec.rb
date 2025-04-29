@@ -201,22 +201,6 @@ describe StateFile::MonthlyFinishStateReturnService do
       end
     end
 
-    context "when there is an incomplete intake that has been sent the pre-deadline reminder in the past 24 hours" do
-      let!(:intake) do
-        create :state_file_az_intake,
-               df_data_imported_at: 6.hours.ago,
-               email_address_verified_at: 7.hours.ago,
-               email_notification_opt_in: "yes",
-               email_address: "dezie@example.com",
-               message_tracker: {'messages.state_file.pre_deadline_reminder' => 3.hours.ago}
-      end
-
-      it "does not send the message" do
-        StateFile::MonthlyFinishStateReturnService.run
-        expect(StateFile::MessagingService).not_to have_received(:new)
-      end
-    end
-
     context "when there is an incomplete intake that has been sent the pre-deadline reminder more than a day ago" do
       let!(:intake) do
         create :state_file_az_intake,

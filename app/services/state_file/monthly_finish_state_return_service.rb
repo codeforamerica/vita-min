@@ -14,8 +14,6 @@ module StateFile
 
             if (msg = intake.message_tracker&.dig("messages.state_file.monthly_finish_return"))
               Time.parse(msg) < 1.month.ago
-            elsif (msg = intake.message_tracker&.dig("messages.state_file.pre_deadline_reminder"))
-              Time.parse(msg) < 24.hours.ago
             elsif (msg = intake.message_tracker&.dig("messages.state_file.finish_return"))
               Time.parse(msg) < 24.hours.ago
             else
