@@ -6,7 +6,7 @@ namespace :state_file do
   end
 
   task monthly_finish_state_return: :environment do
-    if DateTime.now <= Rails.configuration.state_file_end_of_new_intakes
+    if DateTime.now <= Rails.configuration.state_file_end_of_new_intakes && DateTime.now.year == 2025
       StateFile::MonthlyFinishStateReturnService.run
     end
   end
