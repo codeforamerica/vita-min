@@ -21,6 +21,7 @@ RSpec.feature "Add a tax return for an existing client" do
     end
 
     scenario "creating a tax return" do
+
       visit hub_client_path(id: client.id)
 
       expect(page).to have_text("Add tax year")

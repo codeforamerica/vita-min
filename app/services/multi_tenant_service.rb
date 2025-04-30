@@ -109,7 +109,6 @@ class MultiTenantService
     end
   end
 
-
   def backtax_years(now = DateTime.now)
     filing_years(now).without(current_tax_year)
   end
