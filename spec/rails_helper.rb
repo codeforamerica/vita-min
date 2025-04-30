@@ -181,7 +181,9 @@ RSpec.configure do |config|
   capybara_window_size = [2000, 4000]
 
   config.before(:each, js: true) do |example|
-    Capybara.page.current_window.resize_to(*capybara_window_size)
+    Capybara.page.wait_for_stable_size(5) do
+      Capybara.current_driver.resize_to(*capybara_window_size)
+    end
   end
 
   config.before(type: :feature) do |example|
