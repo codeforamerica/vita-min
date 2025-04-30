@@ -2614,6 +2614,9 @@ en:
             has_out_of_state_w2: you earned income in another state in %{filing_year}.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
             married_filing_separately: you are filing “married filing separately”.
+            mfj_and_dependent_html: |
+              you or your spouse indicated that you can be claimed on someone else’s return.<br><br>
+              Maryland does not allow married filers to file a joint return if the taxpayer or spouse is claimed as a dependent.
             spouse_nra_html: |
               you didn’t include your spouse’s SSN or ITIN in your federal return.<br><br>
               Maryland does not allow Married Filing Separately taxpayers to electronically file their state tax return without their spouse’s SSN or ITIN.
@@ -2735,7 +2738,7 @@ en:
               You have other free options for filing your state return:
               <ul>
                 <li>
-                  Filing your state return for free with IRS-certified VITA volunteers in Maryland, but it may take 2-3 weeks to complete.
+                  Filing your state return for free with IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers in Maryland. Note that this option may take 2-3 weeks to complete.
                   <ul>
                     <li>
                       <a href="https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form" rel="noopener nofollow" target="_blank">Get started with VITA now</a>
@@ -2911,7 +2914,7 @@ en:
                   You have other free options for filing your state return:
                   <ul>
                     <li>
-                      File for free with IRS-Certified VITA volunteers in Maryland.
+                      File for free with IRS-Certified Volunteer Income Tax Assistance (VITA) tax preparers in Maryland.
                       <ul>
                         <li>
                           If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
@@ -3369,7 +3372,7 @@ en:
           commercial_tax_prep_html: File with a commercial tax preparation service. Learn more <a href='%{path}' target='_blank' rel='noopener noreferrer'>here</a>.
           contact_info_html: If you have any questions or want your information removed from this service, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
           description: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income.
-          free_in_md: File for free with IRS-Certified VITA volunteers in Maryland.
+          free_in_md: File for free with IRS-Certified Volunteer Income Tax Assistance (VITA) tax preparers in Maryland.
           free_income_tax_prep_html: Get started with the Comptroller of Maryland’s <a href='https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php' target='_blank' rel='noopener noreferrer'>Free Income Tax Preparation</a> service.
           go_back_html: "<strong>Have you provided proof of your disability in previous tax years?</strong> <a href='%{path}'>Go back to correct.</a>"
           if_choose_this_option: If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
