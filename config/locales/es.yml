@@ -2684,7 +2684,7 @@ es:
           nc_extension_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
-          not_supported: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
+          not_supported: "¿Qué hago si por mi situación fiscal no puedo usar FileYourStateTaxes?"
           title1: Puedes usar este servicio para declarar tus impuestos estatales de %{state} de %{year}
           title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
@@ -2772,7 +2772,7 @@ es:
             sub_b7_html: Cualquier otra deducción de Maryland no mencionada aquí (consulta <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">el formulario 502SU</a>)
             subtractions_title: 'Restas:'
           title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland y/o el Crédito Tributario por Hijos no admite este servicio?"
-          title3: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
+          title3: "¿Qué hago si por mi situación fiscal no puedo usar FileYourStateTaxes?"
         md_supported:
           heading1: 'Restas:'
           heading2: 'Créditos:'
