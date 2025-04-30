@@ -1021,7 +1021,7 @@ es:
         view_all: Ver todo
     documents:
       confirm:
-        text: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de %{client_name}?"
+        text_html: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de <strong>%{client_name}</strong>?"
         title: Confirmar %{document_type}
       display_name: Nombre Para Mostrar
       edit:
