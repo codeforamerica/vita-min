@@ -428,6 +428,7 @@ class ApplicationController < ActionController::Base
       gyr_filing_years
     end
   end
+  helper_method :gyr_filing_years_includes_prior_tax_year_postseason
 
   def gyr_filing_years
     MultiTenantService.gyr.filing_years(app_time)
