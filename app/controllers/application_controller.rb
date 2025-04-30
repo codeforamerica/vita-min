@@ -422,12 +422,13 @@ class ApplicationController < ActionController::Base
   def gyr_filing_years_includes_prior_tax_year_postseason
     # before april 15th will show past four
     # after april 15th now shows past three but in 3 places we need to show past 4
-    if app_time.between?(Rails.configuration.start_of_unique_links_only_intake, Rails.configuration.tax_deadline)
+    if app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake)
+      gyr_filing_years + [(gyr_filing_years.last - 1)]
+    else
       gyr_filing_years
-    elsif app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake)
-      gyr_filing_years + (gyr_filing_years.last - 1)
     end
   end
+
   def gyr_filing_years
     MultiTenantService.gyr.filing_years(app_time)
   end
