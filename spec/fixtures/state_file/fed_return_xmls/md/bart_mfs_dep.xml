@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.1">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>7b964ef3f</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>300004545</PrimarySSN>
+            <SpouseSSN>400005970</SpouseSSN>
+            <NameLine1Txt>BART&lt;SIMPSON</NameLine1Txt>
+            <PrimaryNameControlTxt>SIMP</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>VANH</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>123 Sesame St</AddressLine1Txt>
+                <CityNm>Rockville</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>20850</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+30000454-5f64-45d2-8e0b-4bf3109c9b09@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>3</IndividualReturnFilingStatusCd>
+            <SpouseNm>Milhouse Van Houten</SpouseNm>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <TotalAdditionalIncomeAmt>20000</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>20000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>20000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>1300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>1300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>18700</TaxableIncomeAmt>
+            <TaxAmt>2015</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>2015</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>2015</TaxLessCreditsAmt>
+            <TotalTaxAmt>2015</TotalTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">200</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>200</WithholdingTaxAmt>
+            <TotalPaymentsAmt>200</TotalPaymentsAmt>
+            <OwedAmt>1815</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Pro Skater</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>20000</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>20000</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>001233456</EIN>
+                <WithholdingAmt>200</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

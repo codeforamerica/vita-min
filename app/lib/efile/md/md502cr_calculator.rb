@@ -42,7 +42,11 @@ module Efile
       def calculate_md502_cr_part_m_line_1
         agi = line_or_zero(:MD502_LINE_1)
         credit = 0
-        if filing_status_mfj? && agi <= 150_000 && deduction_method_is_standard?
+        if (filing_status_single? || filing_status_mfs? || md_filing_status_dependent?) && agi <= 100_000
+          if @intake.primary_senior?
+            credit = 1000
+          end
+        elsif filing_status_mfj? && agi <= 150_000 && deduction_method_is_standard?
           if @intake.primary_senior? && @intake.spouse_senior?
             credit = 1750
           elsif @intake.primary_senior? ^ @intake.spouse_senior?
@@ -51,10 +55,6 @@ module Efile
         elsif (filing_status_qw? || filing_status_hoh?) && agi <= 150_000
           if @intake.primary_senior?
             credit = 1750
-          end
-        elsif (filing_status_single? || filing_status_mfs? || md_filing_status_dependent?) && agi <= 100_000
-          if @intake.primary_senior?
-            credit = 1000
           end
         end
         credit
