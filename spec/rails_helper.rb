@@ -180,10 +180,9 @@ RSpec.configure do |config|
   # the browser window needs to be large enough that no elements are outside the viewport, or capybara won't find them
   capybara_window_size = [2000, 4000]
 
-  config.before(:each, js: true) do |example|
-    Capybara.page.current_window.send(:wait_for_stable_size, 5) do
-      Capybara.current_driver.resize_window_to(*capybara_window_size)
-    end
+  config.before(:each, js: true) do |_example|
+    # Monkey patched in config/initializers/capybara_overrides.rb
+    Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
   end
 
   config.before(type: :feature) do |example|
