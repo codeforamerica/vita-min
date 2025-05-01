@@ -189,7 +189,8 @@ RSpec.configure do |config|
     if config.filter.rules[:flow_explorer_screenshot]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver
-      Capybara.page.current_window.resize_to(*capybara_window_size)
+      # Monkey patched in config/initializers/capybara_overrides.rb
+      Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
     end
 
     unless Capybara.current_driver == Capybara.javascript_driver

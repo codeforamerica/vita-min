@@ -20,7 +20,8 @@ module ResponsiveHelper
   def resize_window(width, height)
     case Capybara.current_driver
     when :selenium_chrome_headless
-      Capybara.current_session.driver.browser.manage.window.resize_to(width, height)
+      # Monkey patched in config/initializers/capybara_overrides.rb
+      Capybara.current_session.driver.browser.manage.window.resize_to(width, height, override: true)
     when :webkit
       handle = Capybara.current_session.driver.current_window_handle
       Capybara.current_session.driver.resize_window_to(handle, width, height)
