@@ -109,7 +109,7 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= gyr_filing_years.last %>-<%= gyr_filing_years.first %>
+              <%= gyr_filing_years_includes_prior_tax_year_postseason.last %>-<%= gyr_filing_years_includes_prior_tax_year_postseason.first %>
             </div>
             <div class="service diy">
               <%= MultiTenantService.new(:gyr).current_tax_year %>
