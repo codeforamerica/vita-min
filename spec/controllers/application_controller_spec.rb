@@ -1477,6 +1477,40 @@ RSpec.describe ApplicationController do
 
   end
 
+  describe "#gyr_filing_years_includes_prior_tax_year_postseason" do
+    context "during tax season" do
+      let!(:time) {DateTime.parse("April 1st 2025")}
+      it "returns the current year and the past 3 years" do
+        Timecop.freeze(time) do
+          expect(subject.gyr_filing_years_includes_prior_tax_year_postseason.length).to eq 4
+          expect(subject.gyr_filing_years_includes_prior_tax_year_postseason).to eq([2024, 2023, 2022, 2021])
+        end
+      end
+    end
+
+    context "after the tax season before october 15th" do
+      let(:time) {DateTime.parse("April 20th 2025")}
+
+      it "returns the current year and the past 3 years" do
+        Timecop.freeze(time) do
+          expect(subject.gyr_filing_years_includes_prior_tax_year_postseason.length).to eq 4
+          expect(subject.gyr_filing_years_includes_prior_tax_year_postseason).to eq([2024, 2023, 2022, 2021])
+        end
+      end
+    end
+
+    context "after october 15th" do
+      let(:time) {DateTime.parse("October 20th 2025")}
+
+      it "returns the current year and the past 2 years" do
+        Timecop.freeze(time) do
+          expect(subject.gyr_filing_years_includes_prior_tax_year_postseason.length).to eq 3
+          expect(subject.gyr_filing_years_includes_prior_tax_year_postseason).to eq([2024, 2023, 2022])
+        end
+      end
+    end
+  end
+
   context "when receiving invalid requests from robots" do
     before do
       allow(DatadogApi).to receive(:increment)
