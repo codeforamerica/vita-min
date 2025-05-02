@@ -14,7 +14,7 @@ module Navigation
       Documents::Form1095asController,
       Documents::EmploymentController,
       Documents::Form1099rsController,
-      Documents::AdditionalDocumentsController, # Advances statuses to Ready
+      Documents::AdditionalDocumentsController,
       Documents::OverviewController,
     ].freeze
 
@@ -35,7 +35,7 @@ module Navigation
     delegate :controllers, to: :class
 
     def prev
-      return Documents::IdGuidanceController if index.zero?
+      return { controller: Documents::IdGuidanceController } if index(pages).zero?
 
       super
     end

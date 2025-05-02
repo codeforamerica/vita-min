@@ -50,13 +50,6 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
   end
 
   describe "#update" do
-    # use the return_to_review_concern shared example if the page
-    # should skip to the review page when the return_to_review param is present
-    # requires form_params to be set with any other required params
-    it_behaves_like :return_to_review_concern do
-      let(:form_params) { params }
-    end
-
     context "income form validity" do
       let(:mock_next_path) { root_path }
       before do
@@ -90,16 +83,6 @@ RSpec.describe StateFile::Questions::IncomeReviewController do
         let!(:state_file_w2) { create(:state_file_w2, state_file_intake: intake, box14_ui_wf_swf: 200) }
 
         include_examples "shows error and does not proceed"
-
-        context "state is NC (i.e. w2s are not editable)" do
-          let(:intake) { create(:state_file_nc_intake) }
-          let(:state_file_w2) { create(:state_file_w2, state_file_intake: intake) }
-          before do
-            allow_any_instance_of(StateFileW2).to receive(:valid?).and_return false
-          end
-          
-          include_examples "proceeds as if there are no errors"
-        end
       end
 
       context "with W-2s having valid Box 14 values" do

@@ -36,7 +36,7 @@ module SubmissionBuilder
         @intake_w2[field_name]
       end
 
-      return if !value.present? || !value.positive?
+      return unless value.present?
 
       existing_xml_node = @xml_node.at_xpath("//OtherDeductionsBenefitsGrp[Desc='#{field_as_desc}']")
       if existing_xml_node

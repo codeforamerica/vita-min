@@ -49,6 +49,7 @@ module Efile
         set_line(:ID40_LINE_43_DONATE, :calculate_line_43_donate)
         set_line(:ID40_LINE_43, :calculate_line_43)
         set_line(:ID40_LINE_46, :calculate_line_46)
+        set_line(:ID40_LINE_47, :calculate_line_47)
         set_line(:ID40_LINE_50, :calculate_line_50)
         set_line(:ID40_LINE_51, :calculate_line_51)
         set_line(:ID40_LINE_54, :calculate_line_54)
@@ -62,7 +63,9 @@ module Efile
       end
 
       def analytics_attrs
-        {}
+        {
+          id_retirement_benefits_deduction: line_or_zero(:ID39R_B_LINE_8f)
+        }
       end
 
       private
@@ -258,8 +261,20 @@ module Efile
           end
       end
 
+      def calculate_line_47
+        value = 0
+        if @intake.paid_extension_payments_yes?
+          value += @intake.extension_payments_amount&.round || 0
+        end
+
+        if @intake.paid_prior_year_refund_payments_yes?
+          value += @intake.prior_year_refund_payments_amount&.round || 0
+        end
+        value
+      end
+
       def calculate_line_50
-        line_or_zero(:ID40_LINE_43) + line_or_zero(:ID40_LINE_46)
+        line_or_zero(:ID40_LINE_43) + line_or_zero(:ID40_LINE_46) + line_or_zero(:ID40_LINE_47)
       end
 
       def calculate_line_51

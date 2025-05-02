@@ -31,6 +31,7 @@
 #  email_address                              :citext
 #  email_address_verified_at                  :datetime
 #  email_notification_opt_in                  :integer          default("unfilled"), not null
+#  extension_payments_amount                  :decimal(12, 2)
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
@@ -45,6 +46,7 @@
 #  locale                                     :string           default("en")
 #  locked_at                                  :datetime
 #  message_tracker                            :jsonb
+#  paid_extension_payments                    :integer          default("unfilled"), not null
 #  payment_or_deposit_type                    :integer          default("unfilled"), not null
 #  permanent_address_outside_md               :integer          default("unfilled"), not null
 #  permanent_apartment                        :string
@@ -155,6 +157,38 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:intake) { create :state_file_md_intake, spouse_birth_date: dob }
       it "returns true" do
         expect(intake.is_filer_55_and_older?(:spouse)).to eq false
+      end
+    end
+  end
+
+
+  describe "#disqualifying_df_data_reason" do
+    context "spouse is NRA (non-resident alien)" do
+      let(:intake) { create :state_file_md_intake, :with_spouse_ssn_nil, filing_status: "married_filing_separately"}
+
+      it "returns spouse_nra_html" do
+        expect(intake.disqualifying_df_data_reason).to eq :spouse_nra_html
+      end
+    end
+
+    context "has out of state w2" do
+      let(:intake) { create :state_file_md_intake, :df_data_2_w2s, :with_w2s_synced }
+
+      it "returns has_out_of_state_w2" do
+        w2 = intake.direct_file_data.w2_nodes.first
+        state_abbreviation_cd = w2.at("W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd")
+        state_abbreviation_cd.inner_html = "UT"
+
+        expect(intake.disqualifying_df_data_reason).to eq :has_out_of_state_w2
+      end
+    end
+
+    context "is mfj and has dependent filer" do
+      let(:intake) { create :state_file_md_intake, :with_spouse }
+
+      it "returns mfj_and_dependent_html" do
+        allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+        expect(intake.disqualifying_df_data_reason).to eq :mfj_and_dependent_html
       end
     end
   end
@@ -591,7 +625,7 @@ RSpec.describe StateFileMdIntake, type: :model do
     end
   end
 
-  describe "filer_disabled?" do
+  describe "has_at_least_one_disabled_filer?" do
     let(:intake) { create :state_file_md_intake }
 
     before do
@@ -604,7 +638,7 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:spouse_disabled) { "unfilled" }
 
       it "should return true" do
-        expect(intake.filer_disabled?).to eq(true)
+        expect(intake.has_at_least_one_disabled_filer?).to eq(true)
       end
     end
 
@@ -613,7 +647,7 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:spouse_disabled) { "yes" }
 
       it "should return true" do
-        expect(intake.filer_disabled?).to eq(true)
+        expect(intake.has_at_least_one_disabled_filer?).to eq(true)
       end
     end
 
@@ -622,7 +656,7 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:spouse_disabled) { "no" }
 
       it "should return false" do
-        expect(intake.filer_disabled?).to eq(false)
+        expect(intake.has_at_least_one_disabled_filer?).to eq(false)
       end
     end
 
@@ -631,9 +665,169 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:spouse_disabled) { "yes" }
 
       it "should return true" do
-        expect(intake.filer_disabled?).to eq(true)
+        expect(intake.has_at_least_one_disabled_filer?).to eq(true)
       end
     end
   end
 
+  describe "should_warn_about_pension_exclusion?" do
+    let(:intake) { create :state_file_md_intake }
+    context "with a filler under 65" do
+      before do
+        allow_any_instance_of(StateFileMdIntake).to receive(:has_filer_under_65?).and_return true
+      end
+
+      context "with eligible 1099r"  do
+        let!(:first_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 200) }
+        let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+        it "should return true" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(true)
+        end
+      end
+
+      context "with only ineligible 1099rs"  do
+        let!(:first_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+        let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
+        end
+      end
+
+      context "with no 1099rs"  do
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
+        end
+      end
+    end
+
+    context "with no filers under 65" do
+      before do
+        allow_any_instance_of(StateFileMdIntake).to receive(:has_filer_under_65?).and_return false
+      end
+
+      context "with eligible 1099r"  do
+        let!(:first_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 200) }
+        let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
+        end
+      end
+
+      context "with only ineligible 1099rs"  do
+        let!(:first_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+        let!(:second_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
+        end
+      end
+
+      context "with no 1099rs"  do
+        it "should return false" do
+          expect(intake.should_warn_about_pension_exclusion?).to eq(false)
+        end
+      end
+    end
+
+    describe "#nra_spouse?" do
+      context "when filing status is not mfs" do
+        let(:intake) { create :state_file_md_intake, filing_status: "single" }
+        it "should return false" do
+          expect(intake.nra_spouse?).to eq(false)
+        end
+      end
+
+      context "when filing status is mfs" do
+        let(:intake) { create :state_file_md_intake, :with_spouse }
+        context "with a spouse ssn" do
+          it "should return false" do
+            expect(intake.nra_spouse?).to eq(false)
+          end
+        end
+
+        context "with spouse ssn nil" do
+          let(:intake) { create :state_file_md_intake, :with_spouse_ssn_nil, filing_status: "married_filing_separately"}
+
+          it "should return true" do
+            expect(intake.nra_spouse?).to eq(true)
+          end
+        end
+      end
+    end
+  end
+
+  describe "#mfj_and_dependent?" do
+    context "is not mfj" do
+      let(:intake) { create :state_file_md_intake, filing_status: "single" }
+
+      it "returns false" do
+        expect(intake.mfj_and_dependent?).to eq false
+      end
+
+      context "is dependent" do
+        it "returns false" do
+          allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+          expect(intake.mfj_and_dependent?).to eq false
+        end
+      end
+    end
+
+    context "is mfj" do
+      let(:intake) { create :state_file_md_intake, :with_spouse }
+
+      context "has no dependents" do
+        it "returns false" do
+          expect(intake.mfj_and_dependent?).to eq false
+        end
+      end
+
+      context "has primary dependent" do
+        it "returns true" do
+          allow(intake.direct_file_data).to receive(:claimed_as_dependent?).and_return(true)
+          expect(intake.mfj_and_dependent?).to eq true
+        end
+      end
+
+      context "has spouse dependent" do
+        it "returns true" do
+          allow(intake.direct_file_data).to receive(:spouse_is_a_dependent?).and_return(true)
+          expect(intake.mfj_and_dependent?).to eq true
+        end
+      end
+    end
+  end
+
+  describe "#direct_file_address_is_po_box?" do
+    let(:intake) { create :state_file_md_intake }
+
+    context "if there is not direct file data" do
+      before do
+        intake.raw_direct_file_data = nil
+      end
+      it "returns false" do
+        expect(intake.direct_file_address_is_po_box?).to eq(false)
+      end
+    end
+
+    context "if the mailing street is a po box" do
+      before do
+        intake.direct_file_data.mailing_street = "PO Box 123"
+      end
+      it "returns true" do
+        expect(intake.direct_file_address_is_po_box?).to eq(true)
+      end
+    end
+
+    context "if the mailing apartment is a po box" do
+      before do
+        intake.direct_file_data.mailing_apartment = "PO Box 555"
+      end
+      it "returns true" do
+        expect(intake.direct_file_address_is_po_box?).to eq(true)
+      end
+    end
+  end
 end

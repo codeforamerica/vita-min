@@ -109,7 +109,7 @@
           </div>
           <div class="service-set__services">
             <div class="service full-service">
-              <%= gyr_filing_years.last %>-<%= gyr_filing_years.first %>
+              <%= gyr_filing_years_includes_prior_tax_year_postseason.last %>-<%= gyr_filing_years_includes_prior_tax_year_postseason.first %>
             </div>
             <div class="service diy">
               <%= MultiTenantService.new(:gyr).current_tax_year %>
@@ -277,24 +277,6 @@
             <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
               <div class="service direct-file">
                 <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-        <div class="service-set">
-          <div class="service-set__header">
-            <div class="service-set__title service-set__title--normal">
-              <%= t("views.shared.service_comparison.itin_assistance") %>
-            </div>
-          </div>
-          <div class="service-set__services">
-            <div class="service full-service">
-              <%= image_tag "icons/check-outline.svg", alt: t("general.affirmative"), class: "service-comparison--icon" %>
-            </div>
-            <div class="service diy">
-            </div>
-            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
-              <div class="service direct-file">
               </div>
             <% end %>
           </div>

@@ -94,8 +94,7 @@ module Efile
       end
 
       def analytics_attrs
-        {
-        }
+        {}
       end
 
       def get_tax_rate_and_subtraction_amount(income)
@@ -230,9 +229,7 @@ module Efile
       end
 
       def calculate_line_10_count
-        @intake.dependents.count do |dependent|
-          dependent.qualifying_child
-        end
+        @intake.dependents.count(&:qualifying_child)
       end
 
       def calculate_line_10_exemption
@@ -285,6 +282,11 @@ module Efile
         @excess_fli_max ||= StateFileW2.find_limit("FLI", "nj")
       end
 
+      def filer_below_income_eligibility_threshold?(gross_income)
+        threshold = @intake.filing_status_single? || @intake.filing_status_mfs? ? 10_000 : 20_000
+        gross_income <= threshold
+      end
+
       private
 
       def line_6_spouse_checkbox
@@ -310,9 +312,7 @@ module Efile
       end
 
       def calculate_line_15
-        @intake.state_file_w2s.sum do |w2|
-          w2.state_wages_amount.to_i
-        end
+        @intake.state_file_w2s.sum(&:state_wages_amount).round
       end
 
       def calculate_line_16a
@@ -360,12 +360,13 @@ module Efile
       end
 
       def calculate_line_29
-        line_or_zero(:NJ1040_LINE_27) - line_or_zero(:NJ1040_LINE_28C)
+        [line_or_zero(:NJ1040_LINE_27) - line_or_zero(:NJ1040_LINE_28C), 0].max
       end
 
       def calculate_line_31
         two_percent_gross = line_or_zero(:NJ1040_LINE_29) * 0.02
-        difference_with_med_expenses = @intake.medical_expenses - two_percent_gross
+        medical_expenses = @intake.medical_expenses || 0
+        difference_with_med_expenses = medical_expenses - two_percent_gross
         rounded_difference = difference_with_med_expenses.round
         return rounded_difference if rounded_difference.positive?
         nil
@@ -376,7 +377,9 @@ module Efile
       end
 
       def calculate_line_39
-        line_or_zero(:NJ1040_LINE_29) - line_or_zero(:NJ1040_LINE_38)
+        return 0 if filer_below_income_eligibility_threshold?(line_or_zero(:NJ1040_LINE_29))
+
+        [line_or_zero(:NJ1040_LINE_29) - line_or_zero(:NJ1040_LINE_38), 0].max
       end
 
       def is_ineligible_or_unsupported_for_property_tax_credit
@@ -482,7 +485,8 @@ module Efile
       end
 
       def calculate_line_57
-        @intake.estimated_tax_payments&.round
+        return nil if @intake.estimated_tax_payments.nil? && @intake.overpayments.nil? && @intake.extension_payments.nil?
+        ((@intake.estimated_tax_payments || 0) + (@intake.overpayments || 0) + (@intake.extension_payments || 0)).round
       end
 
       def calculate_line_58
@@ -659,9 +663,7 @@ module Efile
 
       def calculate_line_80
         if line_or_zero(:NJ1040_LINE_68).positive?
-          # Line 78 is always 0 now
-          # When implemented we will have to make sure this doesn't become negative
-          return line_or_zero(:NJ1040_LINE_68) - line_or_zero(:NJ1040_LINE_78)
+          return [line_or_zero(:NJ1040_LINE_68) - line_or_zero(:NJ1040_LINE_78), 0].max
         end
         0
       end

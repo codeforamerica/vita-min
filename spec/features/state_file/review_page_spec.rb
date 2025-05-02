@@ -28,45 +28,15 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           click_on I18n.t("general.edit")
         end
 
-        if intake.allows_w2_editing?
-          # Income review page
-          expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-          within "#w2s" do
-            click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
-          end
-
-          # W2 edit page
-          expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.w2.edit.instructions_1_html", employer: intake.state_file_w2s.first.employer_name))
-          fill_in strip_html_tags(I18n.t("state_file.questions.w2.edit.box15_html")), with: "987654321"
-          click_on I18n.t("general.continue")
-        end
-
-        # Back on income review page
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        wait_for_device_info("income_review")
-        click_on I18n.t("general.continue")
-
-        # Final review page
-        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-        within "#income-info" do
-          click_on I18n.t("general.edit")
-        end
-
         # Income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
-        within "#form1099rs" do
-          if intake.allows_1099_r_editing?
-            click_link I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
-          else
-            click_link I18n.t("state_file.questions.income_review.edit.review_state_info")
-          end
+        within "#w2s" do
+          click_on I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
         end
 
-        # 1099R edit or show page
-        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title_html", payer_name: intake.state_file1099_rs.first.payer_name))
-        if intake.allows_1099_r_editing?
-          fill_in strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.box15_html")), with: "123456789"
-        end
+        # W2 edit page
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.w2.edit.instructions_1_html", employer: intake.state_file_w2s.first.employer_name))
+        fill_in strip_html_tags(I18n.t("state_file.questions.w2.edit.box15_html")), with: "987654321"
         click_on I18n.t("general.continue")
 
         # Back on income review page
@@ -83,18 +53,34 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
         # Income review page
         expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
         within "#form1099rs" do
-          if intake.allows_1099_r_editing?
-            click_link I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
-          else
-            click_link I18n.t("state_file.questions.income_review.edit.review_state_info")
-          end
+          click_link I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
         end
 
         # 1099R edit or show page
         expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title_html", payer_name: intake.state_file1099_rs.first.payer_name))
-        if intake.allows_1099_r_editing?
-          fill_in strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.box15_html")), with: "123456789"
+        fill_in strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.box15_html")), with: "123456789"
+        click_on I18n.t("general.continue")
+
+        # Back on income review page
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        wait_for_device_info("income_review")
+        click_on I18n.t("general.continue")
+
+        # Final review page
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+        within "#income-info" do
+          click_on I18n.t("general.edit")
         end
+
+        # Income review page
+        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        within "#form1099rs" do
+          click_link I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info")
+        end
+
+        # 1099R edit or show page
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.title_html", payer_name: intake.state_file1099_rs.first.payer_name))
+        fill_in strip_html_tags(I18n.t("state_file.questions.retirement_income.edit.box15_html")), with: "123456789"
         click_on I18n.t("general.continue")
 
         # Back on income review page
@@ -128,17 +114,19 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
   end
 
   context "AZ" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+    end
+
     it "allows user to navigate to az public school contributions page, edit a contribution form, and then navigate back to final review page, and then to 1099r edit page and back", required_schema: "az" do
-      Flipper.enable(:show_retirement_ui)
       state_code = "az"
       set_up_intake_and_associated_records(state_code)
 
       intake = StateFile::StateInformationService.intake_class(state_code).last
 
       create :az322_contribution, state_file_az_intake: intake
-
       visit "/questions/#{state_code}-review"
-
       # Final review page
       expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
       within "#public-school-contributions" do
@@ -195,55 +183,59 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       intake = StateFile::StateInformationService.intake_class(state_code).last
       # First 1099R already created in set_up_intake_and_associated_records
       second_1099r = create(:state_file1099_r, intake: intake, payer_name: "The People's Free Food Emporium")
-      third_1099r = create(:state_file1099_r, intake: intake, payer_name: "Boone Community Garden")
+      # Creating a third 1099r that is ineligible to make sure it does not show up on review & doesn't cause issues with review navigation
+      create(:state_file1099_r, intake: intake, payer_name: "Not Eligible Place", taxable_amount: 0)
+      fourth_1099r = create(:state_file1099_r, intake: intake, payer_name: "Boone Community Garden")
       StateFileNc1099RFollowup.create(state_file1099_r: intake.state_file1099_rs.first, income_source: "bailey_settlement", bailey_settlement_at_least_five_years: "yes")
       StateFileNc1099RFollowup.create(state_file1099_r: second_1099r, income_source: "uniformed_services", uniformed_services_retired: "no", uniformed_services_qualifying_plan: "no")
-      StateFileNc1099RFollowup.create(state_file1099_r: third_1099r, income_source: "other")
+      StateFileNc1099RFollowup.create(state_file1099_r: fourth_1099r, income_source: "other")
 
       visit "/questions/#{state_code}-review"
     end
 
     it "allows user to view and edit their 1099R followup information" do
+      expect(page).not_to have_text "Not Eligible Place"
+
       within "#retirement-income-source-0" do
         expect(page).to have_text "Dorothy Red"
-        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_bailey_settlement")
-        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_at_least_five_years")
+        expect(page).to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.retirement_income_source_bailey_settlement")
+        expect(page).to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.bailey_settlement_at_least_five_years")
       end
 
       within "#retirement-income-source-1" do
         expect(page).to have_text "The People's Free Food Emporium"
-        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_uniformed_services")
-        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+        expect(page).to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.retirement_income_source_uniformed_services")
+        expect(page).to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.none_apply")
       end
 
       within "#retirement-income-source-2" do
         expect(page).to have_text "Boone Community Garden"
-        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+        expect(page).to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.none_apply")
       end
 
-      within "#retirement-income-source-0" do
+      within "#retirement-income-source-1" do
         click_on I18n.t("general.review_and_edit")
       end
 
-      check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.bailey_settlement_from_retirement_plan")
+      check I18n.t("state_file.questions.nc_retirement_income_subtraction.edit.uniformed_services_retired")
       click_on I18n.t("general.continue")
 
       within "#retirement-income-source-0" do
         expect(page).to have_text "Dorothy Red"
-        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_bailey_settlement")
-        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_at_least_five_years")
-        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.bailey_settlement_from_retirement_plan")
+        expect(page).to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.retirement_income_source_bailey_settlement")
+        expect(page).to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.bailey_settlement_at_least_five_years")
       end
 
       within "#retirement-income-source-1" do
         expect(page).to have_text "The People's Free Food Emporium"
-        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.retirement_income_source_uniformed_services")
-        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+        expect(page).to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.retirement_income_source_uniformed_services")
+        expect(page).to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.uniformed_twenty_years_medical_retired")
+        expect(page).not_to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.none_apply")
       end
 
       within "#retirement-income-source-2" do
         expect(page).to have_text "Boone Community Garden"
-        expect(page).to have_text I18n.t("state_file.questions.nc_review.edit.none_apply")
+        expect(page).to have_text I18n.t("state_file.questions.shared.nc_retirement_income_deductions_review_header.none_apply")
       end
     end
   end
@@ -271,19 +263,19 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     it "allows user to view and edit their 1099R followup information" do
       within "#retirement-income-source-0" do
         expect(page).to have_text "Dorothy Red"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.pension_annuity_endowment")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.pension_annuity_endowment")
       end
 
       within "#retirement-income-source-1" do
         expect(page).to have_text "Maryland State Retirement"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.military")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.other")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.military")
       end
 
       within "#retirement-income-source-2" do
         expect(page).to have_text "Baltimore County Pension"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.public_safety")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.other")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.public_safety")
       end
 
       within "#retirement-income-source-0" do
@@ -296,20 +288,20 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
       within "#retirement-income-source-0" do
         expect(page).to have_text "Dorothy Red"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.military")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.other")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.military")
       end
 
       within "#retirement-income-source-1" do
         expect(page).to have_text "Maryland State Retirement"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.military")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.other")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.military")
       end
 
       within "#retirement-income-source-2" do
         expect(page).to have_text "Baltimore County Pension"
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.other")
-        expect(page).to have_text I18n.t("state_file.questions.md_review.edit.public_safety")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.other")
+        expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.public_safety")
       end
     end
 
@@ -373,110 +365,66 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       @intake.update(primary_disabled: "no")
       first_1099r = @intake.state_file1099_rs.first
       first_1099r.update(taxable_amount: 200, recipient_ssn: @intake.primary.ssn)
-      StateFileId1099RFollowup.create(state_file1099_r: @intake.state_file1099_rs.first, eligible_income_source: "yes")
+      StateFileId1099RFollowup.create(state_file1099_r: @intake.state_file1099_rs.first, income_source: "civil_service_employee", civil_service_account_number: "zero_to_four")
 
       second_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Couch Potato Cafe", taxable_amount: 50, recipient_ssn: @intake.primary.ssn)
-      StateFileId1099RFollowup.create(state_file1099_r: second_1099r, eligible_income_source: "yes")
-
-      # making this value always greater than 8e so 8f value always gets used
-      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8d).and_return(first_1099r.taxable_amount + second_1099r.taxable_amount + 1)
+      StateFileId1099RFollowup.create(state_file1099_r: second_1099r, income_source: "police_officer", police_retirement_fund: "yes")
     end
 
-    context "with line 8e value greater than 0" do
-      context "with eligible senior at least 65 years old" do # current fixture has filer who is 65 years old
-        context "who indicated disability" do # current fixture has filer who is 65 years old
-          before do
-            @intake.update(primary_disabled: "yes")
-          end
-
-          it "review & edit questions on eligible_income_source and go through every 1099Rs that are applicable, then return to review" do
-            visit "/questions/id-review"
-
-            expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-            within "#qualified-retirement-benefits-deduction" do
-              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
-              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction_explain")
-              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_disabled_retirement_benefits")
-              expect(page).to have_text "$250.00"
-
-              click_on I18n.t("general.review_and_edit")
-            end
-
-            # first eligible 1099R
-            expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
-            expect(page).to have_text("Dorothy Red")
-            expect(page).to have_text("$200")
-            click_on I18n.t("general.continue")
-
-            # second eligible 1099R
-            expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
-            expect(page).to have_text("Couch Potato Cafe")
-            expect(page).to have_text("$50")
-            choose "No"
-            click_on I18n.t("general.continue")
-
-            expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-            within "#qualified-retirement-benefits-deduction" do
-              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
-              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction_explain")
-              expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_disabled_retirement_benefits")
-              expect(page).to have_text "$200.00" # $50 less eligible
-            end
-          end
+    context "with eligible 1099Rs" do
+      context "with eligible person between 62 and 65 who indicated disability" do
+        before do
+          @intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 12, 31), primary_disabled: "yes")
         end
 
-        it "review & edit questions on eligible_income_source and go through every 1099Rs that are applicable, then return to review" do
+        it "can review & edit disability question and go through all 1099Rs, then return to review" do
           visit "/questions/id-review"
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
           within "#qualified-retirement-benefits-deduction" do
-            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
-            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction_explain")
-            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_disabled_retirement_benefits")
-            expect(page).to have_text "$250.00"
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.subtitle")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.civil_servant_employee", taxpayer_name: "Dorothy Jane Red")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.police_officer", taxpayer_name: "Dorothy Jane Red")
+          end
 
+          within "#disability-info" do
             click_on I18n.t("general.review_and_edit")
           end
+
+          expect(page).to have_text I18n.t("state_file.questions.id_disability.edit.title")
+          choose "Yes"
+          click_on I18n.t("general.continue")
 
           # first eligible 1099R
           expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
           expect(page).to have_text("Dorothy Red")
-          expect(page).to have_text("$200")
           click_on I18n.t("general.continue")
 
           # second eligible 1099R
           expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
           expect(page).to have_text("Couch Potato Cafe")
           expect(page).to have_text("$50")
-          choose "No"
+          choose "None of the above"
           click_on I18n.t("general.continue")
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
           within "#qualified-retirement-benefits-deduction" do
-            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
-            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction_explain")
-            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_disabled_retirement_benefits")
-            expect(page).to have_text "$200.00" # $50 less eligible
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.subtitle")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.civil_servant_employee", taxpayer_name: "Dorothy Jane Red")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.none_apply")
           end
         end
-      end
 
-      context "with eligible disabled senior under 65 years old" do
-        before do
-          # if primary_disabled: no here, the card will not show up
-          @intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 12, 31), primary_disabled: "yes")
-        end
-
-        it "review & edit questions on disability, and skip eligible income question, then return to review & does not see the card (no longer eligible)" do
+        it "can review & edit questions on disability, change answer to No, then return to review without going through 1099-Rs" do
           visit "/questions/id-review"
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
           within "#qualified-retirement-benefits-deduction" do
-            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
-            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction_explain")
-            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_disabled_retirement_benefits")
-            expect(page).to have_text "$250.00"
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.title")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.subtitle")
+          end
 
+          within "#disability-info" do
             click_on I18n.t("general.review_and_edit")
           end
 
@@ -485,17 +433,170 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           click_on I18n.t("general.continue")
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-          expect(page).not_to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction")
+          expect(page).not_to have_selector "#qualified-retirement-benefits-deduction"
+
+          expect(page).to have_text I18n.t("state_file.questions.shared.id_disability_review_header.meets_qualifications")
+        end
+
+        context "mfj" do
+          before do
+            allow_any_instance_of(StateFileIdIntake).to receive(:show_mfj_disability_options?).and_return(true)
+            @intake.update(
+              raw_direct_file_data: StateFile::DirectFileApiResponseSampleService.new.read_xml("id_barrel_roll"),
+              raw_direct_file_intake_data: StateFile::DirectFileApiResponseSampleService.new.read_json("id_barrel_roll"),
+              spouse_first_name: "Beepbeep",
+              spouse_last_name: "Boop",
+              spouse_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 65), 12, 2),
+              spouse_disabled: "yes" # both disabled
+            )
+
+            third_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Third Spouse Inc", taxable_amount: 750, recipient_ssn: @intake.spouse.ssn)
+            StateFileId1099RFollowup.create(state_file1099_r: third_1099r, income_source: "police_officer", police_retirement_fund: "yes")
+          end
+
+          it "can persist mfj disability question on review & change and persist a new disability state" do
+            visit "/questions/id-review"
+
+            page_change_check(I18n.t("state_file.questions.shared.abstract_review_header.title"))
+
+            within "#disability-info" do
+              expect(page).to have_text I18n.t("general.affirmative")
+              click_on I18n.t("general.review_and_edit")
+            end
+
+            page_change_check(I18n.t("state_file.questions.id_disability.edit.title"))
+            expect(page.find(:css, '#state_file_id_disability_form_mfj_disability_both')).to be_checked
+            choose "Yes, my spouse is"
+
+            click_on I18n.t("general.continue")
+
+            within "#disability-info" do
+              expect(page).to have_text I18n.t("general.affirmative")
+              click_on I18n.t("general.review_and_edit")
+            end
+
+            page_change_check(I18n.t("state_file.questions.id_disability.edit.title"))
+            expect(page.find(:css, '#state_file_id_disability_form_mfj_disability_spouse')).to be_checked
+          end
+        end
+      end
+
+      context "with eligible senior over 65 years old" do
+        it "review & edit questions on eligible_income_source and go through individual 1099Rs that are applicable, then return to review" do
+          visit "/questions/id-review"
+
+          expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+
+          expect(page).not_to have_text I18n.t("state_file.questions.shared.id_disability_review_header.meets_qualifications")
+
+          within "#retirement-income-source-0" do
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.civil_servant_employee", taxpayer_name: "Dorothy Jane Red")
+          end
+
+          within "#retirement-income-source-1" do
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.police_officer", taxpayer_name: "Dorothy Jane Red")
+          end
+
+          within "#retirement-income-source-0" do
+            click_on I18n.t("general.review_and_edit")
+          end
+
+          choose I18n.t("state_file.questions.id_retirement_and_pension_income.edit.military")
+          click_on I18n.t("general.continue")
+
+          within "#retirement-income-source-0" do
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.military", taxpayer_name: "Dorothy Jane Red")
+          end
+        end
+
+        it "review & edit questions on eligible_income_source and when answers 8 for civil servant account number it goes to offboarding page" do
+          visit "/questions/id-review"
+
+          expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+          within "#qualified-retirement-benefits-deduction" do
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.title")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.civil_servant_employee", taxpayer_name: "Dorothy Jane Red")
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.police_officer", taxpayer_name: "Dorothy Jane Red")
+          end
+
+          within "#retirement-income-source-0" do
+            expect(page).to have_text I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.civil_servant_employee", taxpayer_name: "Dorothy Jane Red")
+          end
+
+          within "#retirement-income-source-0" do
+            click_on I18n.t("general.review_and_edit")
+          end
+
+          # first eligible 1099R
+          expect(page).to have_text I18n.t("state_file.questions.id_retirement_and_pension_income.edit.subtitle")
+          expect(page).to have_text("Dorothy Red")
+          expect(page).to have_text("$200")
+          choose "8"
+          click_on I18n.t("general.continue")
+
+          # Goes to offboarding page
+          expect(page).to have_text I18n.t("state_file.questions.id_ineligible_retirement_and_pension_income.edit.title")
+
+          click_on I18n.t("state_file.questions.id_ineligible_retirement_and_pension_income.edit.file_without_claiming")
+          expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
         end
       end
     end
+  end
 
-    it "should not show the Qualified Retirement Benefits Deduction card if line 8e is not positive" do
-      allow_any_instance_of(Efile::Id::Id39RCalculator).to receive(:calculate_sec_b_line_8e).and_return(0)
-      visit "/questions/id-review"
+  context "NJ" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
 
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      expect(page).not_to have_text(I18n.t("state_file.questions.shared.id_retirement_income_deductions_review_header.qualified_retirement_benefits_deduction"))
+      state_code = "nj"
+      set_up_intake_and_associated_records(state_code)
+
+      @intake = StateFile::StateInformationService.intake_class(state_code).last
+      @intake.update(primary_disabled: "no")
+      first_1099r = @intake.state_file1099_rs.first
+      first_1099r.update(taxable_amount: 200, recipient_ssn: @intake.primary.ssn)
+      StateFileNj1099RFollowup.create(state_file1099_r: first_1099r, income_source: "military_survivors_benefits")
+
+      second_1099r = create(:state_file1099_r, intake: @intake, payer_name: "Couch Potato Cafe", taxable_amount: 50, recipient_ssn: @intake.primary.ssn)
+      StateFileNj1099RFollowup.create(state_file1099_r: second_1099r, income_source: "military_pension")
+    end
+
+    context "with eligible 1099Rs" do
+      it "can review & edit all 1099Rs, then return to review" do
+        visit "/questions/nj-review"
+
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+        within "#retirement-income-source" do
+          expect(page).to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_military_survivor_benefit")
+          expect(page).to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_military_pension")
+          expect(page).not_to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_other")
+          click_on I18n.t("general.review_and_edit")
+        end
+
+        # first eligible 1099R
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.title")
+        expect(page).to have_text("1099-R: Dorothy Red")
+        expect(page).to have_text("Taxpayer Name: Dorothy Jane Red")
+        expect(page).to have_text("$200")
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.label")
+        choose I18n.t("state_file.questions.nj_retirement_income_source.edit.option_other")
+        click_on I18n.t("general.continue")
+
+        # second eligible 1099R
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.title")
+        expect(page).to have_text("1099-R: Couch Potato Cafe")
+        expect(page).to have_text("Taxpayer Name: Dorothy Jane Red")
+        expect(page).to have_text("$50")
+        expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.label")
+        choose I18n.t("state_file.questions.nj_retirement_income_source.edit.option_other")
+        click_on I18n.t("general.continue")
+
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+        within "#retirement-income-source" do
+          expect(page).to have_text I18n.t("state_file.questions.nj_review.edit.retirement_income_source_other")
+        end
+      end
     end
   end
 

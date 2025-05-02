@@ -1,7 +1,55 @@
 <div class="reveal">
   <p><button class="reveal__button"><%= t(".credits_not_supported")%></button></p>
   <div class="reveal__content">
-    <%= t(".body1_html") %>
+    <ul>
+      <li>
+        <%= t(".reveal_1.subtractions_title") %>
+        <ul>
+          <li><%= t(".reveal_1.sub_b1") %></li>
+          <li><%= t(".reveal_1.sub_b2") %></li>
+          <li><%= t(".reveal_1.sub_b3") %></li>
+          <li><%= t(".reveal_1.sub_b4") %></li>
+          <li><%= t(".reveal_1.sub_b5") %></li>
+          <li><%= t(".reveal_1.sub_b6") %></li>
+          <li><%= t(".reveal_1.sub_b7_html") %></li>
+        </ul>
+      </li>
+      <li>
+        <%= t(".reveal_1.credits_title") %>
+        <ul>
+          <li><%= t(".reveal_1.cred_b1") %></li>
+          <li><%= t(".reveal_1.cred_b2") %></li>
+          <li><%= t(".reveal_1.cred_b3") %></li>
+          <li><%= t(".reveal_1.cred_b4") %></li>
+          <li><%= t(".reveal_1.cred_b5") %></li>
+          <li><%= t(".reveal_1.cred_b6") %></li>
+          <li><%= t(".reveal_1.cred_b7_html") %></li>
+        </ul>
+      </li>
+      <li>
+        <%= t(".reveal_1.household_title") %>
+        <ul>
+          <li><%= t(".reveal_1.house_b1") %></li>
+          <li><%= t(".reveal_1.house_b2") %></li>
+          <li><%= t(".reveal_1.house_b3") %></li>
+          <li><%= t(".reveal_1.house_b4") %></li>
+        </ul>
+      </li>
+      <li>
+        <%= t(".reveal_1.payments_title") %>
+        <ul>
+          <% if Flipper.enabled?(:extension_period) %>
+          <li><%= t(".reveal_1.pay") %></li>
+            <% else %>
+            <li><%= t(".reveal_1.pay_b1") %></li>
+            <li><%= t(".reveal_1.pay_b2") %></li>
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+    <p>
+      <%= t(".reveal_1.more_details_html") %>
+    </p>
   </div>
 </div>
 

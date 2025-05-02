@@ -29,7 +29,8 @@ module Ctc
         if current_intake.had_w2s_yes?
           Ctc::Questions::W2s::EmployeeInfoController.to_path_helper(id: current_intake.new_record_token)
         elsif current_intake.had_w2s_no?
-          form_navigation.next(Ctc::Questions::ConfirmW2sController).to_path_helper
+          next_page_info = form_navigation.next(Ctc::Questions::ConfirmW2sController)
+          next_page_info[:controller].to_path_helper
         end
       end
 
@@ -38,7 +39,8 @@ module Ctc
           if current_intake.benefits_eligibility.disqualified_for_simplified_filing_due_to_w2_answers?
             Ctc::Questions::UseGyrController.to_path_helper
           else
-            form_navigation.next(Ctc::Questions::ConfirmW2sController).to_path_helper
+            page_info = form_navigation.next(Ctc::Questions::ConfirmW2sController)
+            page_info[:controller].to_path_helper
           end
       end
 

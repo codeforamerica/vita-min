@@ -25,8 +25,26 @@ class Seeder
     end
   end
 
+  def faqify!
+    faq_json = JSON.parse(File.read('./db/seeds/faq.json'))
+    faq_json.each do |cat_slug, data|
+      new_cat = FaqCategory.find_or_create_by(slug: cat_slug)
+      new_cat.update(data.without("items"))
+      data["items"].each do |data|
+        fi = FaqItem.find_or_initialize_by(slug: data["slug"])
+        fi.update(data)
+        fi.faq_category = new_cat
+        fi.save!
+      end
+      new_cat.save!
+    end
+  end
+
   def run
     self.class.load_fraud_indicators
+
+    # create some realistic faqs
+    faqify!
 
     Flipper.enable(:eitc)
 
@@ -50,6 +68,7 @@ class Seeder
       type: Organization::TYPE
     )
     SourceParameter.find_or_create_by(code: "oregano", vita_partner_id: vp1.id)
+    StateRoutingTarget.find_or_create_by(target: vp1, state_abbreviation: "TX")
 
     vp2 = VitaPartner.find_or_create_by!(
       name: "Orangutan Organization",
@@ -151,6 +170,7 @@ class Seeder
       primary_last_name: "Hook",
       sms_phone_number: "+14155551212",
       email_address: "crunch@example.com",
+      primary_last_four_ssn: "3333",
       primary_consented_to_service: "yes",
       sms_notification_opt_in: :yes,
       email_notification_opt_in: :yes,
@@ -197,6 +217,7 @@ class Seeder
       primary_last_name: "Pan",
       sms_phone_number: "+14155551999",
       email_address: "peter@example.com",
+      primary_last_four_ssn: "2222",
       primary_consented_to_service: "yes",
       sms_notification_opt_in: :yes,
       email_notification_opt_in: :yes,
@@ -234,6 +255,50 @@ class Seeder
       },
       tax_return_attributes: [
         { year: 2020, current_state: :prep_preparing }
+      ]
+    )
+
+    # couple more intakes to test log-in / lock out in GYR with
+    find_or_create_intake_and_client(
+      Intake::GyrIntake,
+      primary_first_name: "Tinker",
+      primary_last_name: "Bell",
+      sms_phone_number: "+14155557789",
+      email_address: "tink@example.com",
+      primary_last_four_ssn: "4444",
+      primary_consented_to_service: "yes",
+      sms_notification_opt_in: :yes,
+      email_notification_opt_in: :yes,
+      bank_name: "Self-help United",
+      bank_routing_number: "011234568",
+      bank_account_number: "87654324",
+      bank_account_type: "checking",
+      client_attributes: {
+        vita_partner: first_org
+      },
+      tax_return_attributes: [
+        { year: 2024, assigned_user: user, current_state: "intake_ready" },
+      ]
+    )
+    find_or_create_intake_and_client(
+      Intake::GyrIntake,
+      primary_first_name: "Wendy",
+      primary_last_name: "Darling",
+      sms_phone_number: "+14152223311",
+      email_address: "wdarling@example.com",
+      primary_last_four_ssn: "5555",
+      primary_consented_to_service: "yes",
+      sms_notification_opt_in: :yes,
+      email_notification_opt_in: :yes,
+      bank_name: "Self-help United",
+      bank_routing_number: "011234512",
+      bank_account_number: "87654300",
+      bank_account_type: "checking",
+      client_attributes: {
+        vita_partner: first_org
+      },
+      tax_return_attributes: [
+        { year: 2024, assigned_user: user, current_state: "intake_ready" },
       ]
     )
 

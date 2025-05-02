@@ -687,14 +687,16 @@ describe Efile::Md::Md502Calculator do
       ].each do |filing_statuses, agis_to_deductions|
         filing_statuses.each do |filing_status|
           context "#{filing_status}" do
+            # dependent is not a real df filing status, it is a real state filing status for MD
+            let(:df_filing_status) { filing_status == "dependent" ? "head_of_household" : filing_status }
             before do
               allow_any_instance_of(described_class).to receive(:calculate_deduction_method).and_return "S"
             end
 
             agis_to_deductions.each do |agi_limit, deduction_amount|
               context "agi is #{agi_limit}" do
-                let(:includes_spouse) { filing_status == "married_filing_jointly" ? :with_spouse : nil}
-                let(:intake) { create(:state_file_md_intake, includes_spouse, filing_status: filing_status) }
+                let(:includes_spouse) { df_filing_status == "married_filing_jointly" ? :with_spouse : nil}
+                let(:intake) { create(:state_file_md_intake, includes_spouse, filing_status: df_filing_status) }
                 let(:calculator_instance) { described_class.new(year: MultiTenantService.statefile.current_tax_year, intake: intake) }
 
                 before do
@@ -1528,6 +1530,33 @@ describe Efile::Md::Md502Calculator do
     end
   end
 
+  describe "#calculate_line_41" do
+    let!(:intake) { create(:state_file_md_intake) }
+    context "when there are no extension payments" do
+      before do
+        intake.paid_extension_payments = 'no'
+        allow(intake).to receive(:extension_payments_amount).and_return 45
+      end
+
+      it "returns 0" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_41].value).to eq(0)
+      end
+    end
+
+    context "when there are extension payments" do
+      before do
+        intake.paid_extension_payments = 'yes'
+        allow(intake).to receive(:extension_payments_amount).and_return 2112
+      end
+
+      it "returns the amount of the payment" do
+        instance.calculate
+        expect(instance.lines[:MD502_LINE_41].value).to eq(2112)
+      end
+    end
+  end
+
   describe "#calculate_line_42" do
     let(:filing_status) { "head_of_household" }
     let(:df_xml_key) { "md_laney_qss" }
@@ -1630,12 +1659,13 @@ describe Efile::Md::Md502Calculator do
   describe "#calculate_line_44" do
     before do
       allow_any_instance_of(described_class).to receive(:calculate_line_40).and_return 250
+      allow_any_instance_of(described_class).to receive(:calculate_line_41).and_return 1512
       allow_any_instance_of(described_class).to receive(:calculate_line_42).and_return 200
       allow_any_instance_of(described_class).to receive(:calculate_line_43).and_return 150
     end
     it "sums lines 40 to 44" do
       instance.calculate
-      expect(instance.lines[:MD502_LINE_44].value).to eq(600)
+      expect(instance.lines[:MD502_LINE_44].value).to eq(2112)
     end
   end
 

@@ -106,12 +106,12 @@
         </div>
 
         <div class="reveal">
-          <p><button class="reveal__button"><%= t('state_file.questions.unemployment.edit.information_html') %></button></p>
+          <button class="reveal__button"><%= t('state_file.questions.unemployment.edit.information_html') %></button>
           <div class="reveal__content"><%= t('state_file.questions.unemployment.edit.information_content_html') %></div>
         </div>
       </div>
     </div>
 
-    <%= f.submit t("general.continue"), :class => "button button--primary button--wide" %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

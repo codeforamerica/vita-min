@@ -34,7 +34,7 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
       let(:selected_model) { coalition_lead.role.coalition }
 
       it "returns no users" do
-        expect(subject.ordered_by_tr_count_users).to eq nil
+        expect(subject.team_assignment_users).to eq nil
       end
     end
 
@@ -48,6 +48,17 @@ describe Hub::Dashboard::TeamAssignmentPresenter do
           create(:gyr_tax_return, assigned_user: site_coordinator, client: create(:client, filterable_product_year: 2023))
 
           expect(subject.ordered_by_tr_count_users.first.tax_returns_count).to eq 2
+          expect(subject.ordered_by_tr_count_users.first).to eq site_coordinator
+        end
+      end
+
+      context "when the team member only has archived clients" do
+        it "returns 0 for their count of tax returns" do
+          create(:gyr_tax_return, assigned_user: other_team_member, client: create(:client, filterable_product_year: 2023))
+
+          expect(subject.ordered_by_tr_count_users).to eq [site_coordinator, team_member, org_lead, other_team_member]
+          expect(subject.ordered_by_tr_count_users[3]).to eq other_team_member
+          expect(subject.ordered_by_tr_count_users[3].tax_returns_count).to eq 0
         end
       end
 

@@ -28,6 +28,32 @@ describe SubmissionBuilder::FinancialTransaction do
         expect(xml.at("AddendaRecord TXPAmount SubAmount")).to be_nil
       end
 
+      context "with date_electronic_withdrawal" do
+        let(:intake) { create(:state_file_az_owed_intake, date_electronic_withdrawal: Date.new(2024, 4, 15)) }
+        let(:submission_created_at) { Time.zone.local(2025, 4, 10, 12, 0, 0) }
+        let!(:submission) { create(:efile_submission, data_source: intake, created_at: submission_created_at) }
+
+        it "sets RequestedPaymentDate to the user selected date when submitted before payment deadline" do
+          expect(xml.at("StatePayment RequestedPaymentDate").text).to eq "2024-04-15"
+        end
+
+        context "when submitted after payment deadline" do
+          let(:submission_created_at) { Time.zone.local(2025, 4, 17, 12, 0, 0) }
+
+          it "sets RequestedPaymentDate to the submission date" do
+            expect(xml.at("StatePayment RequestedPaymentDate").text).to eq "2025-04-17"
+          end
+        end
+
+        context "when submitted exactly on payment deadline" do
+          let(:submission_created_at) { Time.zone.local(2025, 4, 15, 12, 0, 0) }
+
+          it "sets RequestedPaymentDate to the submission date" do
+            expect(xml.at("StatePayment RequestedPaymentDate").text).to eq "2025-04-15"
+          end
+        end
+      end
+
       context "in a state that requests additional debit information" do
         let(:intake) { create(:state_file_nc_intake, :taxes_owed) }
 

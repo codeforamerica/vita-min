@@ -7,6 +7,7 @@
 #  account_type                                   :integer          default("unfilled"), not null
 #  american_red_cross_fund_donation               :decimal(12, 2)
 #  childrens_trust_fund_donation                  :decimal(12, 2)
+#  clicked_to_file_with_other_service_at          :datetime
 #  consented_to_sms_terms                         :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions              :integer          default("unfilled"), not null
 #  contact_preference                             :integer          default("unfilled"), not null
@@ -22,6 +23,7 @@
 #  email_address                                  :citext
 #  email_address_verified_at                      :datetime
 #  email_notification_opt_in                      :integer          default("unfilled"), not null
+#  extension_payments_amount                      :decimal(12, 2)
 #  failed_attempts                                :integer          default(0), not null
 #  federal_return_status                          :string
 #  food_bank_fund_donation                        :decimal(12, 2)
@@ -38,6 +40,8 @@
 #  message_tracker                                :jsonb
 #  nongame_wildlife_fund_donation                 :decimal(12, 2)
 #  opportunity_scholarship_program_donation       :decimal(12, 2)
+#  paid_extension_payments                        :integer          default("unfilled"), not null
+#  paid_prior_year_refund_payments                :integer          default("unfilled"), not null
 #  payment_or_deposit_type                        :integer          default("unfilled"), not null
 #  phone_number                                   :string
 #  phone_number_verified_at                       :datetime
@@ -51,6 +55,7 @@
 #  primary_middle_initial                         :string
 #  primary_months_ineligible_for_grocery_credit   :integer
 #  primary_suffix                                 :string
+#  prior_year_refund_payments_amount              :decimal(12, 2)
 #  raw_direct_file_data                           :text
 #  raw_direct_file_intake_data                    :jsonb
 #  received_id_public_assistance                  :integer          default("unfilled"), not null
@@ -101,6 +106,8 @@ class StateFileIdIntake < StateFileBaseIntake
   enum received_id_public_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_id_public_assistance
   enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
+  enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
+  enum paid_prior_year_refund_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_prior_year_refund_payments
 
   def disqualifying_df_data_reason; end
 
@@ -120,19 +127,24 @@ class StateFileIdIntake < StateFileBaseIntake
   end
 
   def has_filer_between_62_and_65_years_old?
-    if filing_status_mfj?
-      primary_between_62_and_65_years_old? || spouse_between_62_and_65_years_old?
-    else
-      primary_between_62_and_65_years_old?
-    end
+    return primary_between_62_and_65_years_old? unless filing_status_mfj?
+
+    primary_between_62_and_65_years_old? || spouse_between_62_and_65_years_old?
+  end
+  def all_filers_between_62_and_65_years_old?
+    return primary_between_62_and_65_years_old? unless filing_status_mfj?
+
+    primary_between_62_and_65_years_old? && spouse_between_62_and_65_years_old?
   end
 
-  def all_filers_between_62_and_65_years_old?
-    if filing_status_mfj?
-      primary_between_62_and_65_years_old? && spouse_between_62_and_65_years_old?
-    else
-      primary_between_62_and_65_years_old?
-    end
+  def show_disability_question?
+    Flipper.enabled?(:show_retirement_ui) &&
+      state_file1099_rs.any? { |form1099r| form1099r.taxable_amount&.to_f&.positive? } &&
+      !filing_status_mfs? && has_filer_between_62_and_65_years_old?
+  end
+
+  def show_mfj_disability_options?
+    filing_status_mfj? && all_filers_between_62_and_65_years_old?
   end
 
   def primary_between_62_and_65_years_old?
@@ -150,9 +162,15 @@ class StateFileIdIntake < StateFileBaseIntake
   end
 
   def eligible_1099rs
-    state_file1099_rs.select do |form1099r|
+    @eligible_1099rs ||= state_file1099_rs.select do |form1099r|
       form1099r.taxable_amount&.to_f&.positive? && person_qualifies?(form1099r)
     end
+  end
+
+  def has_old_1099r_income_params?
+    eligible_1099rs.select do |form1099r|
+      (form1099r.state_specific_followup&.eligible_income_source_yes? || form1099r.state_specific_followup&.eligible_income_source_no?) && form1099r.state_specific_followup&.income_source_unfilled?
+    end.present?
   end
 
   private

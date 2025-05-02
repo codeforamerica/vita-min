@@ -7,30 +7,25 @@
   <% if @w2s.present? %>
     <div class="white-group" id="w2s">
       <h2 class="text--body text--bold spacing-below-0"><%= t(".w2s_title") %></h2>
-      <% if current_intake.allows_w2_editing? %>
-        <% @w2s.each do |w2| %>
-          <div class="spacing-above-25">
-            <p class="text--bold spacing-below-5"><%= w2.employee_name %></p>
-            <p class="spacing-below-5"><%= w2.employer_name %></p>
-            <%= link_to t(".review_and_edit_state_info"),
-                        StateFile::Questions::W2Controller.to_path_helper(
-                          action: :edit,
-                          id: w2.id,
-                          return_to_review: params[:return_to_review]
-                        ),
-                        class: "button--small"
-            %>
-          </div>
+      <% @w2s.each do |w2| %>
+        <div class="spacing-above-25">
+          <p class="text--bold spacing-below-5"><%= w2.employee_name %></p>
+          <p class="spacing-below-5"><%= w2.employer_name %></p>
+          <%= link_to t(".review_and_edit_state_info"),
+                      StateFile::Questions::W2Controller.to_path_helper(
+                        action: :edit,
+                        id: w2.id,
+                        return_to_review: params[:return_to_review]
+                      ),
+                      class: "button--small",
+                      role: "button"
+          %>
           <% if @w2_warnings[w2.id] %>
             <div class="notice--warning spacing-above-5">
               <p><%= t(".warning") %></p>
             </div>
           <% end %>
-        <% end %>
-      <% else %>
-        <p class="text--grey-bold spacing-above-15 spacing-below-0">
-          <%= t(".no_info_needed") %>
-        </p>
+        </div>
       <% end %>
     </div>
   <% end %>
@@ -74,29 +69,18 @@
         <div class="spacing-above-25">
           <p class="text--bold spacing-below-5"><%= state_1099r.recipient_name %></p>
           <p class="spacing-below-5"><%= state_1099r.payer_name %></p>
-          <% if current_intake.allows_1099_r_editing? %>
-            <%= link_to t(".review_and_edit_state_info"),
-                        StateFile::Questions::RetirementIncomeController.to_path_helper(
-                          action: :edit,
-                          id: state_1099r.id,
-                          return_to_review: params[:return_to_review]
-                        ),
-                        class: "button--small"
-            %>
-            <% if !state_1099r.valid?(:income_review) %>
-              <div class="notice--warning spacing-above-5">
-                <p><%= t(".warning") %></p>
-              </div>
-            <% end %>
-          <% else %>
-            <%= link_to t(".review_state_info"),
-                        StateFile::Questions::RetirementIncomeController.to_path_helper(
-                          action: :show,
-                          id: state_1099r.id,
-                          return_to_review: params[:return_to_review]
-                        ),
-                        class: "button--small"
-            %>
+          <%= link_to t(".review_and_edit_state_info"),
+                      StateFile::Questions::RetirementIncomeController.to_path_helper(
+                        action: :edit,
+                        id: state_1099r.id,
+                        return_to_review: params[:return_to_review]
+                      ),
+                      class: "button--small"
+          %>
+          <% if !state_1099r.valid?(:income_review) %>
+            <div class="notice--warning spacing-above-5">
+              <p><%= t(".warning") %></p>
+            </div>
           <% end %>
         </div>
       <% end %>
@@ -134,9 +118,6 @@
   <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_income_review_form" },
                 local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.hidden_field(:device_id) %>
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

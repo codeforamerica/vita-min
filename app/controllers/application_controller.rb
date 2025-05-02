@@ -419,36 +419,16 @@ class ApplicationController < ActionController::Base
   end
   helper_method :before_state_file_launch?
 
-  def withdrawal_date_deadline(state_code)
-    case state_code
-    when 'ny'
-      Rails.configuration.state_file_withdrawal_date_deadline_ny
-    when 'md'
-      Rails.configuration.state_file_withdrawal_date_deadline_md
+  def gyr_filing_years_includes_prior_tax_year_postseason
+    # before april 15th will show past four
+    # after april 15th now shows past three but in 3 places we need to show past 4
+    if app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake)
+      gyr_filing_years + [(gyr_filing_years.last - 1)]
     else
-      # Arizona's withdrawal date deadline is the same as the end-new-intakes date which is set in PDT,
-      # if this was during daylight-savings, it would be different except in the Navajo Nation
-      Rails.configuration.state_file_end_of_new_intakes
+      gyr_filing_years
     end
   end
-  helper_method :withdrawal_date_deadline
-
-  def before_withdrawal_date_deadline?(state_code)
-    app_time < withdrawal_date_deadline(state_code)
-  end
-  helper_method :before_withdrawal_date_deadline?
-
-  def post_deadline_withdrawal_date(state_code)
-    # after the tax deadline we automatically set the bank withdrawal date to be the current day
-    # TODO: If we decide to allow in-progress intakes to be submitted post April 15th we'll need to add the new states here
-    case state_code
-    when 'ny'
-      app_time.in_time_zone('America/New_York')
-    else
-      app_time.in_time_zone('America/Phoenix')
-    end
-  end
-  helper_method :post_deadline_withdrawal_date
+  helper_method :gyr_filing_years_includes_prior_tax_year_postseason
 
   def gyr_filing_years
     MultiTenantService.gyr.filing_years(app_time)
@@ -484,11 +464,9 @@ class ApplicationController < ActionController::Base
   end
 
   def app_time
-    if Rails.env.production?
-      Time.current
-    else
-      SessionToggle.new(session, 'app_time').value || Time.current
-    end
+    return Time.current if Rails.env.production?
+
+    SessionToggle.new(session, 'app_time').value || Time.current
   end
   helper_method :app_time
 

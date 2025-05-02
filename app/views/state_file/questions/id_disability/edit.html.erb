@@ -5,7 +5,7 @@
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="white-group">
-      <% if current_intake.filing_status_mfj? && current_intake.all_filers_between_62_and_65_years_old? %>
+      <% if current_intake.show_mfj_disability_options? %>
         <%= f.cfa_radio_set(:mfj_disability, label_text: t(".question_both"), collection: [
           { value: "primary", label: t(".yes_me") },
           { value: "spouse", label: t(".yes_spouse") },
@@ -38,9 +38,6 @@
       </div>
     </div>
 
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

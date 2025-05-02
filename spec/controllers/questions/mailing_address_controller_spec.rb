@@ -73,5 +73,17 @@ RSpec.describe Questions::MailingAddressController do
         expect(response.body).to include("Please enter a valid 5-digit zip code.")
       end
     end
+
+    describe "#after_update_success" do
+      before do
+        sign_in intake.client
+      end
+
+      it "enqueues a job to generate F13614cPdf" do
+        expect(GenerateF13614cPdfJob).to receive(:perform_later).with(intake.id, "Preliminary 13614-C.pdf")
+
+        subject.after_update_success
+      end
+    end
   end
 end

@@ -21,15 +21,15 @@ module PdfFiller
       mfs_spouse_last_name = @xml_document.at("MFSSpouseName LastName")&.text || ""
       mfs_spouse_name = [mfs_spouse_first_name, mfs_spouse_middle_initial, mfs_spouse_last_name].reject(&:empty?).join(" ")
 
-      {
-        y_d400wf_ssn1: @xml_document.at('Primary TaxpayerSSN')&.text,
-        y_d400wf_ssn2: @xml_document.at('Secondary TaxpayerSSN')&.text,
-        y_d400wf_fname1: @xml_document.at('Primary TaxpayerName FirstName')&.text,
-        y_d400wf_mi1: @xml_document.at('Primary TaxpayerName MiddleInitial')&.text,
-        y_d400wf_lname1: @xml_document.at('Primary TaxpayerName LastName')&.text,
-        y_d400wf_fname2: @xml_document.at('Secondary TaxpayerName FirstName')&.text,
-        y_d400wf_mi2: @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text,
-        y_d400wf_lname2: @xml_document.at('Secondary TaxpayerName LastName')&.text,
+      answers = {
+        y_d400wf_ssn1: @submission.data_source.primary.ssn,
+        y_d400wf_ssn2: @submission.data_source.spouse.ssn,
+        y_d400wf_fname1: @submission.data_source.primary.first_name,
+        y_d400wf_mi1: @submission.data_source.primary.middle_initial,
+        y_d400wf_lname1: @submission.data_source.primary.last_name_and_suffix,
+        y_d400wf_fname2: @submission.data_source.spouse.first_name,
+        y_d400wf_mi2: @submission.data_source.spouse.middle_initial,
+        y_d400wf_lname2: @submission.data_source.spouse.last_name_and_suffix,
         y_d400wf_add: @xml_document.at('Filer USAddress AddressLine1Txt')&.text,
         'y_d400wf_apartment number': @xml_document.at('Filer USAddress AddressLine2Txt')&.text,
         y_d400wf_city: @xml_document.at('Filer USAddress CityNm')&.text,
@@ -42,7 +42,6 @@ module PdfFiller
         y_d400wf_sv1yes: checkbox_value(@submission.data_source.spouse_veteran_yes?),
         y_d400wf_sv1no: checkbox_value(@submission.data_source.spouse_veteran_no?),
         y_d400wf_rs2yes: @submission.data_source.filing_status_mfj? ? 'Yes' : 'Off',
-        y_d400wf_fedex1no: 'Yes',
         y_d400wf_fstat1: @submission.data_source.filing_status_single? ? 'Yes' : 'Off',
         y_d400wf_fstat2: @submission.data_source.filing_status_mfj? ? 'Yes' : 'Off',
         y_d400wf_fstat3: @submission.data_source.filing_status_mfs? ? 'Yes' : 'Off',
@@ -65,7 +64,7 @@ module PdfFiller
         y_d400wf_li17_pg2_good: @xml_document.at('SubTaxCredFromIncTax')&.text,
         y_d400wf_county: @submission.data_source.residence_county_name.slice(0, 5),
         y_d400wf_dayphone: @xml_document.at('ReturnHeaderState Filer Primary USPhone')&.text,
-        y_d400wf_lname2_PG2: @xml_document.at('Primary TaxpayerName LastName').text.slice(0,11),
+        y_d400wf_lname2_PG2: @submission.data_source.primary.last_name_and_suffix.slice(0,11),
         'y_d400wf_Consumer Use Tax': @xml_document.at('NoUseTaxDue')&.text.present? ? 'Yes' : 'Off',
         y_d400wf_li18_pg2_good: @xml_document.at('UseTax')&.text,
         y_d400wf_li19_pg2_good: @xml_document.at('TotalNCTax')&.text,
@@ -80,6 +79,17 @@ module PdfFiller
         y_d400wf_sigdate: @submission.data_source.primary_esigned_yes? ? date_type_for_timezone(@submission.data_source.primary_esigned_at)&.to_date : "",
         y_d400wf_sigdate2: @submission.data_source.spouse_esigned_yes? ? date_type_for_timezone(@submission.data_source.spouse_esigned_at)&.to_date : ""
       }
+
+      if Flipper.enabled?(:extension_period)
+        answers[:y_d400wf_li21b_pg2_good] = @xml_document.at('PdWithExt')&.text
+      end
+
+      if Flipper.enabled?(:extension_period)
+        answers["y_d400wf_Out of Country"] = checkbox_value(@xml_document.at('OutOfCountry')&.text.present?)
+      end
+      answers["y_d400wf_fedex1yes"] = checkbox_value(@xml_document.at('FederalExtension')&.text == "1")
+      answers["y_d400wf_fedex1no"] = checkbox_value(@xml_document.at('FederalExtension')&.text == "0")
+      answers
     end
 
     def checkbox_value(condition)

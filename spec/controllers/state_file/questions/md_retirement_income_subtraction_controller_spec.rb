@@ -90,7 +90,7 @@ RSpec.describe StateFile::Questions::MdRetirementIncomeSubtractionController do
 
       context "when an index param is provided" do
         it "renders the data for the eligible 1099R at that index" do
-          get :edit, params: { index: 1 }
+          get :edit, params: { item_index: 1 }
           expect(response.body).to include("Spouse Payer")
           expect(response.body).to include("$2,222")
           expect(response.body).to include("Spouse Recipient")
@@ -103,7 +103,7 @@ RSpec.describe StateFile::Questions::MdRetirementIncomeSubtractionController do
 
       context "when an invalid index param is provided" do
         it "renders a 404" do
-          get :edit, params: { index: 2 }
+          get :edit, params: { item_index: 2 }
           expect(response).to be_not_found
         end
       end

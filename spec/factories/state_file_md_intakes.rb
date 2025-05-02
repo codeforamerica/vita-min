@@ -31,6 +31,7 @@
 #  email_address                              :citext
 #  email_address_verified_at                  :datetime
 #  email_notification_opt_in                  :integer          default("unfilled"), not null
+#  extension_payments_amount                  :decimal(12, 2)
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
@@ -45,6 +46,7 @@
 #  locale                                     :string           default("en")
 #  locked_at                                  :datetime
 #  message_tracker                            :jsonb
+#  paid_extension_payments                    :integer          default("unfilled"), not null
 #  payment_or_deposit_type                    :integer          default("unfilled"), not null
 #  permanent_address_outside_md               :integer          default("unfilled"), not null
 #  permanent_apartment                        :string
@@ -205,11 +207,6 @@ FactoryBot.define do
       after(:create, &:synchronize_df_w2s_to_database)
     end
 
-
-    trait :with_w2s_synced do
-      after(:create, &:synchronize_df_w2s_to_database)
-    end
-
     trait :with_spouse do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml("md_minimal_with_spouse") }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('md_minimal_with_spouse') }
@@ -218,6 +215,16 @@ FactoryBot.define do
       spouse_first_name { "Marty" }
       spouse_middle_initial { "B" }
       spouse_last_name { "Lando" }
+      spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
+    end
+
+    trait :with_spouse_ssn_nil do
+      filing_status { 'married_filing_jointly' }
+
+      spouse_first_name { "Marty" }
+      spouse_middle_initial { "B" }
+      spouse_last_name { "Lando" }
+      spouse_ssn { nil }
       spouse_birth_date { MultiTenantService.statefile.end_of_current_tax_year - 40 }
     end
 

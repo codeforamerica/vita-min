@@ -24,6 +24,7 @@
 #  email_address                     :citext
 #  email_address_verified_at         :datetime
 #  email_notification_opt_in         :integer          default("unfilled"), not null
+#  extension_payments_amount         :decimal(12, 2)
 #  failed_attempts                   :integer          default(0), not null
 #  federal_return_status             :string
 #  hashed_ssn                        :string
@@ -33,6 +34,9 @@
 #  locked_at                         :datetime
 #  message_tracker                   :jsonb
 #  moved_after_hurricane_helene      :integer          default("unfilled"), not null
+#  out_of_country                    :integer          default("unfilled"), not null
+#  paid_extension_payments           :integer          default("unfilled"), not null
+#  paid_federal_extension_payments   :integer          default("unfilled"), not null
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime

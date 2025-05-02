@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
+#  confirmed_w2_ids                                       :integer          default([]), is an Array
 #  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
@@ -25,10 +26,12 @@
 #  email_address_verified_at                              :datetime
 #  email_notification_opt_in                              :integer          default("unfilled"), not null
 #  estimated_tax_payments                                 :decimal(12, 2)
+#  extension_payments                                     :decimal(12, 2)
 #  failed_attempts                                        :integer          default(0), not null
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
 #  federal_return_status                                  :string
+#  has_estimated_payments                                 :integer          default("unfilled"), not null
 #  hashed_ssn                                             :string
 #  homeowner_home_subject_to_property_taxes               :integer          default("unfilled"), not null
 #  homeowner_main_home_multi_unit                         :integer          default("unfilled"), not null
@@ -41,10 +44,12 @@
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
 #  locked_at                                              :datetime
-#  medical_expenses                                       :decimal(12, 2)   default(0.0), not null
+#  medical_expenses                                       :decimal(12, 2)
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
+#  overpayments                                           :decimal(12, 2)
+#  paid_federal_extension_payments                        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                                :integer          default("unfilled"), not null
 #  permanent_apartment                                    :string
 #  permanent_city                                         :string
@@ -161,6 +166,17 @@ FactoryBot.define do
       end
     end
 
+    trait :dependent_name_over_length do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_dependent_name_over_16_characters') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_dependent_name_over_16_characters') }
+    end
+
+    trait :spouse_name_over_length_mfs do
+      filing_status { "married_filing_separately" }
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_spouse_name_over_16_characters_mfs') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_spouse_name_over_16_characters_mfs') }
+    end
+
     trait :df_data_2_w2s do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_zeus_two_w2s') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_zeus_two_w2s') }
@@ -174,6 +190,11 @@ FactoryBot.define do
     trait :df_data_irs_test_with_missing_info do
       raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_irs_test_w2_with_missing_info') }
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_irs_test_w2_with_missing_info') }
+    end
+
+    trait :df_data_irs_test_box_16_large do
+      raw_direct_file_data { StateFile::DirectFileApiResponseSampleService.new.read_xml('nj_irs_test_box_16_more_than_10_digits') }
+      raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('nj_irs_test_box_16_more_than_10_digits') }
     end
 
     trait :df_data_many_w2s do

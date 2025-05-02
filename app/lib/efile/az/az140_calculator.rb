@@ -63,6 +63,7 @@ module Efile
         set_line(:AZ140_LINE_49, :calculate_line_49)
         set_line(:AZ140_LINE_50, :calculate_line_50)
         set_line(:AZ140_LINE_53, :calculate_line_53)
+        set_line(:AZ140_LINE_55, :calculate_line_55)
         set_line(:AZ140_LINE_56, :calculate_line_56)
         set_line(:AZ140_LINE_59, :calculate_line_59)
         @az322.calculate
@@ -86,7 +87,11 @@ module Efile
         {
           dependent_tax_credit: line_or_zero(:AZ140_LINE_49),
           family_income_tax_credit: line_or_zero(:AZ140_LINE_50),
-          excise_credit: line_or_zero(:AZ140_LINE_56)
+          excise_credit: line_or_zero(:AZ140_LINE_56),
+          az_pension_exclusion_government: line_or_zero(:AZ140_LINE_29A),
+          az_pension_exclusion_uniformed_services: line_or_zero(:AZ140_LINE_29B),
+          az_credit_for_contributions_to_qcos: line_or_zero(:AZ301_LINE_6a),
+          az_credit_for_contributions_to_public_schools: line_or_zero(:AZ301_LINE_7a)
         }
       end
 
@@ -277,6 +282,10 @@ module Efile
         @intake.state_file_w2s.sum { |item| item.state_income_tax_amount&.round || 0 } +
           @intake.state_file1099_gs.sum { |item| item.state_income_tax_withheld_amount.round } +
           @intake.state_file1099_rs.sum { |item| item.state_tax_withheld_amount&.round || 0 }
+      end
+
+      def calculate_line_55
+        @intake.paid_extension_payments_yes? ? @intake.extension_payments_amount&.round : 0
       end
 
       def calculate_line_56

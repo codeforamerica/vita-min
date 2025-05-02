@@ -478,6 +478,14 @@ describe Efile::Nj::Nj1040Calculator do
         expected_sum = 50000 + 50000 + 50000 + 50000
         expect(instance.lines[:NJ1040_LINE_15].value).to eq(expected_sum)
       end
+
+      it "rounds to nearest whole number" do
+        w2 = intake.state_file_w2s.first
+        w2.update_attribute(:state_wages_amount, 50000.51)
+        instance.calculate
+        expected = 200_001 # 50000.51 + 50000 + 50000 + 50000
+        expect(instance.lines[:NJ1040_LINE_15].value).to eq expected
+      end
     end
   end
 
@@ -724,12 +732,20 @@ describe Efile::Nj::Nj1040Calculator do
   describe 'line 29 - gross income' do
     let(:intake) { create(:state_file_nj_intake) }
 
-    it 'sets line 29 to the sum of all state wage amounts minus 28c' do
-      allow(instance).to receive(:calculate_line_15).and_return 50_000
-      allow(instance).to receive(:calculate_line_16a).and_return 1_000
-      allow(instance).to receive(:calculate_line_28c).and_return 3_000
+    it 'sets line 29 to line 27 minus line 28c' do
+      allow(instance).to receive(:calculate_line_27).and_return 3_000
+      allow(instance).to receive(:calculate_line_28c).and_return 1_000
       instance.calculate
-      expect(instance.lines[:NJ1040_LINE_29].value).to eq(48_000)
+      expect(instance.lines[:NJ1040_LINE_29].value).to eq(2_000)
+    end
+
+    context 'when 28c is larger than line 27' do
+      it 'sets line 29 to zero' do
+        allow(instance).to receive(:calculate_line_27).and_return 1_000
+        allow(instance).to receive(:calculate_line_28c).and_return 1_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_29].value).to eq(0)
+      end
     end
   end
 
@@ -780,6 +796,15 @@ describe Efile::Nj::Nj1040Calculator do
         expect(instance.lines[:NJ1040_LINE_38].value).to eq(1000)
       end
     end
+
+    context 'when medical expenses is nil' do
+      let(:gross_income) { 10_000 }
+      let(:medical_expenses) { nil }
+
+      it 'treats medical expenses as 0' do
+        expect(instance.lines[:NJ1040_LINE_31].value).to eq(nil)
+      end
+    end
   end
 
   describe 'line 38 - total exemptions/deductions' do
@@ -800,6 +825,15 @@ describe Efile::Nj::Nj1040Calculator do
     it 'sets line 39 to line 29 gross income minus line 38 total exemptions/deductions' do
       expected_total = instance.lines[:NJ1040_LINE_29].value - instance.lines[:NJ1040_LINE_38].value
       expect(instance.lines[:NJ1040_LINE_39].value).to eq(expected_total)
+    end
+
+    context 'when line 38 is larger than line 29' do
+      it 'sets line 39 to zero' do
+        allow(instance).to receive(:calculate_line_29).and_return 1_000
+        allow(instance).to receive(:calculate_line_38).and_return 1_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_39].value).to eq(0)
+      end
     end
   end
 
@@ -1314,6 +1348,52 @@ describe Efile::Nj::Nj1040Calculator do
     end
   end
 
+  describe 'filer_below_income_eligibility_threshold?' do
+    [
+      { traits: [:single], line_29_total_income: 9_999, expected: true },
+      { traits: [:single], line_29_total_income: 10_000, expected: true },
+      { traits: [:single], line_29_total_income: 10_001, expected: false },
+      { traits: [:head_of_household], line_29_total_income: 19_999, expected: true },
+      { traits: [:head_of_household], line_29_total_income: 20_000, expected: true },
+      { traits: [:head_of_household], line_29_total_income: 20_001, expected: false },
+      { traits: [:qualifying_widow], line_29_total_income: 19_999, expected: true },
+      { traits: [:qualifying_widow], line_29_total_income: 20_000,  expected: true },
+      { traits: [:qualifying_widow], line_29_total_income: 20_001,  expected: false },
+      { traits: [:married_filing_jointly], line_29_total_income: 19_999, expected: true },
+      { traits: [:married_filing_jointly], line_29_total_income: 20_000, expected: true },
+      { traits: [:married_filing_jointly], line_29_total_income: 20_001, expected: false },
+      { traits: [:married_filing_separately], line_29_total_income: 9_999, expected: true },
+      { traits: [:married_filing_separately], line_29_total_income: 10_000, expected: true },
+      { traits: [:married_filing_separately], line_29_total_income: 10_001, expected: false }
+    ].each do |test_case|
+      context "when filing with #{test_case}" do
+        before do
+          instance.calculate
+        end
+        let(:intake) do
+          create(:state_file_nj_intake, *test_case[:traits])
+        end
+        it "returns the correct boolean" do
+          expect(instance.filer_below_income_eligibility_threshold?(test_case[:line_29_total_income])).to eq(test_case[:expected])
+        end
+      end
+    end
+  end
+
+  describe 'when filer is at or below income eligibility threshold' do
+    before do
+      allow(instance).to receive(:filer_below_income_eligibility_threshold?).and_return true
+    end
+    it "sets lines 39, 42, 43, 50, and 79 to 0" do
+      instance.calculate
+      expect(instance.lines[:NJ1040_LINE_39].value).to eq(0)
+      expect(instance.lines[:NJ1040_LINE_42].value).to eq(0)
+      expect(instance.lines[:NJ1040_LINE_43].value).to eq(0)
+      expect(instance.lines[:NJ1040_LINE_50].value).to eq(0)
+      expect(instance.lines[:NJ1040_LINE_79].value).to eq(0)
+    end
+  end
+
   describe 'lines 41, 42, 43, 56 - property tax deduction' do
     context 'when without_deduction - with_deduction >= $50' do
       let(:intake) {
@@ -1756,14 +1836,35 @@ describe Efile::Nj::Nj1040Calculator do
   describe 'line 57 - estimated tax payments' do
 
     context 'when estimated_tax_payments exists' do
-      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: 400.77)}
-      it 'sets line 57 to the rounded estimated_tax_payments' do
-        expect(instance.lines[:NJ1040_LINE_57].value).to eq 401
+      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: 400.44, overpayments: 400.44, extension_payments: 100.20)}
+      it 'sets line 57 to the rounded sum of estimated_tax_payments, overpayments, and extension payments' do
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq 901
       end
     end
 
-    context 'when estimated_tax_payments is nil' do
-      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: nil)}
+    context 'when estimated_tax_payments is nil but overpayments and extension payments exist' do
+      let(:intake) { create(:state_file_nj_intake, estimated_tax_payments: nil, overpayments: 100.44, extension_payments: 100.44)}
+      it 'treats nil as 0' do
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq 201
+      end
+    end
+
+    context 'when overpayments is nil but estimated_tax_payments and extension payments exist' do
+      let(:intake) { create(:state_file_nj_intake, overpayments: nil, estimated_tax_payments: 100, extension_payments: 50.44)}
+      it 'treats nil as 0' do
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq 150
+      end
+    end
+
+    context 'when extension payments is nil but estimated_tax_payments and overpayments exist' do
+      let(:intake) { create(:state_file_nj_intake, extension_payments: nil, estimated_tax_payments: 100.44, overpayments: 50.44)}
+      it 'treats nil as 0' do
+        expect(instance.lines[:NJ1040_LINE_57].value).to eq 151
+      end
+    end
+
+    context 'when overpayments, estimated_tax_payments, and extension payments are nil' do
+      let(:intake) { create(:state_file_nj_intake, overpayments: nil, estimated_tax_payments: nil, extension_payments: nil)}
       it 'sets line 57 to nil' do
         expect(instance.lines[:NJ1040_LINE_57].value).to eq nil
       end
@@ -2428,6 +2529,15 @@ describe Efile::Nj::Nj1040Calculator do
       allow(instance).to receive(:calculate_line_78).and_return 10
       instance.calculate
       expect(instance.lines[:NJ1040_LINE_80].value).to eq(20)
+    end
+
+    context 'when line 78 is larger than line 68' do
+      it 'sets line 80 to zero' do
+        allow(instance).to receive(:calculate_line_68).and_return 1_000
+        allow(instance).to receive(:calculate_line_78).and_return 1_001
+        instance.calculate
+        expect(instance.lines[:NJ1040_LINE_80].value).to eq(0)
+      end
     end
   end
 

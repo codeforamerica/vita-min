@@ -110,7 +110,7 @@ module Efile
         set_line(:MD502_LINE_34, :calculate_line_34)
         set_line(:MD502_LINE_39, :calculate_line_39)
         set_line(:MD502_LINE_40, :calculate_line_40)
-        set_line(:MD502_LINE_43, :calculate_line_43)
+        set_line(:MD502_LINE_41, :calculate_line_41)
         set_line(:MD502_LINE_42, :calculate_line_42)
         set_line(:MD502_LINE_43, :calculate_line_43)
         set_line(:MD502_LINE_44, :calculate_line_44)
@@ -125,7 +125,27 @@ module Efile
       end
 
       def analytics_attrs
-        {}
+        {
+          md_stpickup_addition: line_or_zero(:MD502_LINE_3),
+          md_child_dep_care_subtraction: line_or_zero(:MD502_LINE_9),
+          md_total_pension_exclusion: line_or_zero(:MD502_LINE_10A),
+          md_primary_pension_exclusion: line_or_zero(:MD502R_LINE_11A),
+          md_spouse_pension_exclusion: line_or_zero(:MD502R_LINE_11B),
+          md_ssa_benefits_subtraction: line_or_zero(:MD502_LINE_11),
+          md_two_income_subtraction: line_or_zero(:MD502_LINE_14),
+          md_income_us_gov_subtraction: line_or_zero(:MD502_SU_LINE_AB),
+          md_military_retirement_subtraction: line_or_zero(:MD502_SU_LINE_U),
+          md_public_safety_subtraction: line_or_zero(:MD502_SU_LINE_V),
+          md_eic: line_or_zero(:MD502_LINE_22),
+          md_poverty_credit: line_or_zero(:MD502_LINE_23),
+          md_local_eic: line_or_zero(:MD502_LINE_29),
+          md_local_poverty_credit: line_or_zero(:MD502_LINE_30),
+          md_refundable_eic: line_or_zero(:MD502_LINE_42),
+          md_child_dep_care_credit: line_or_zero(:MD502CR_PART_B_LINE_4),
+          md_senior_tax_credit: line_or_zero(:MD502CR_PART_M_LINE_1),
+          md_refundable_child_dep_care_credit: line_or_zero(:MD502CR_PART_CC_LINE_7),
+          md_ctc: line_or_zero(:MD502CR_PART_CC_LINE_8),
+        }
       end
 
       private
@@ -335,7 +355,8 @@ module Efile
 
       def calculate_line_17
         if deduction_method_is_standard?
-          status_group_key = FILING_STATUS_GROUPS.find { |_, group| group.include?(@intake.filing_status) }[0]
+          md_filing_status = md_filing_status_dependent? ? :dependent : @intake.filing_status
+          status_group_key = FILING_STATUS_GROUPS.find { |_, group| group.include?(md_filing_status) }[0]
           deduction_table = DEDUCTION_TABLES[status_group_key]
           md_agi = line_or_zero(:MD502_LINE_16)
           amount_or_method = deduction_table.find { |agi_limit, _| md_agi <= agi_limit }[1]
@@ -605,6 +626,10 @@ module Efile
         ].sum
       end
 
+      def calculate_line_41
+        @intake.paid_extension_payments_yes? ? @intake.extension_payments_amount&.round : 0
+      end
+
       def calculate_line_42
         # Earned Income Credit (EIC)
         return if md_filing_status_dependent?
@@ -621,7 +646,7 @@ module Efile
       end
 
       def calculate_line_44
-        [40, 42, 43].sum { |number| line_or_zero("MD502_LINE_#{number}") }
+        [40, 41, 42, 43].sum { |number| line_or_zero("MD502_LINE_#{number}") }
       end
 
       def calculate_line_45

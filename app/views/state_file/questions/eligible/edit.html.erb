@@ -3,11 +3,18 @@
 <% content_for :page_title, title1 %>
 <% content_for :card do %>
   <h1 class="h2"><%= title1 %></h1>
-  <% if current_state_code == "md" %>
-    <p><%= t(".md_title2_html") %></p>
-  <% else %>
-    <p><%= t(".title2_html") %></p>
-  <% end %>
+  <% # i18n-tasks-use t("state_file.questions.eligible.edit.#{current_state_code}_title2_html") # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+  <% edit_title_key = "state_file.questions.eligible.edit.#{current_state_code}_title2_html" %>
+  <% extension_title_key = "state_file.questions.eligible.edit.#{current_state_code}_extension_title2_html" %>
+  <% edit_title = if Flipper.enabled?(:extension_period) && I18n.exists?(extension_title_key)
+                    t(extension_title_key)
+                  elsif I18n.exists?(edit_title_key)
+                    t(edit_title_key)
+                  else
+                    t(".title2_html")
+                  end %>
+
+  <p><%= edit_title %></p>
   <% if current_state_code == "md" %>
     <p class="warning spacing-below-15"><%= t('.warning') %></p>
   <% end %>
@@ -22,7 +29,7 @@
     <%= render partial: "state_file/questions/eligible/#{current_state_code}_credits_unsupported" %>
 
     <div class="reveal">
-      <p><button class="reveal__button"><%= t('.not_supported') %></button></p>
+      <button class="reveal__button"><%= t('.not_supported') %></button>
       <div class="reveal__content">
         <div>
           <%= render partial: "state_file/questions/eligible/vita_option" %>
@@ -31,7 +38,7 @@
     </div>
   <% end %>
 
-  <%= link_to next_path, class: "button button--primary button--wide", id: "firstCta" do %>
+  <%= link_to next_path, class: "button button--primary button--wide", role: "button", id: "firstCta" do %>
     <%= t("general.continue") %>
   <% end %>
 <% end %>

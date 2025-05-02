@@ -1,7 +1,6 @@
 module StateFile
   module Questions
     class AzPublicSchoolContributionsController < QuestionsController
-      include ReturnToReviewConcern
 
       before_action :set_contribution_count
       before_action :maybe_opt_out_and_continue, only: [:update, :create]
@@ -30,17 +29,12 @@ module StateFile
         @az322_contribution = current_intake.az322_contributions.build
         @az322_contribution.assign_attributes(az322_contribution_params)
 
-        if came_from_old_page || (current_intake.valid?(:az322_form_create) && @az322_contribution.valid?)
+        if current_intake.valid?(:az322_form_create) && @az322_contribution.valid?
           @az322_contribution.save
           redirect_to action: :index, return_to_review: params[:return_to_review]
         else
           render :new
         end
-      end
-
-      # remove this after it has been deployed
-      def came_from_old_page
-        params["az322_contribution"].include?("made_contribution") && current_intake.valid? && @az322_contribution.valid?
       end
 
       def edit

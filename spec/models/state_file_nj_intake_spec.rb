@@ -7,6 +7,7 @@
 #  account_type                                           :integer          default("unfilled"), not null
 #  claimed_as_dep                                         :integer
 #  claimed_as_eitc_qualifying_child                       :integer          default("unfilled"), not null
+#  confirmed_w2_ids                                       :integer          default([]), is an Array
 #  consented_to_sms_terms                                 :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions                      :integer          default("unfilled"), not null
 #  contact_preference                                     :integer          default("unfilled"), not null
@@ -25,10 +26,12 @@
 #  email_address_verified_at                              :datetime
 #  email_notification_opt_in                              :integer          default("unfilled"), not null
 #  estimated_tax_payments                                 :decimal(12, 2)
+#  extension_payments                                     :decimal(12, 2)
 #  failed_attempts                                        :integer          default(0), not null
 #  fed_taxable_income                                     :integer
 #  fed_wages                                              :integer
 #  federal_return_status                                  :string
+#  has_estimated_payments                                 :integer          default("unfilled"), not null
 #  hashed_ssn                                             :string
 #  homeowner_home_subject_to_property_taxes               :integer          default("unfilled"), not null
 #  homeowner_main_home_multi_unit                         :integer          default("unfilled"), not null
@@ -41,10 +44,12 @@
 #  last_sign_in_ip                                        :inet
 #  locale                                                 :string           default("en")
 #  locked_at                                              :datetime
-#  medical_expenses                                       :decimal(12, 2)   default(0.0), not null
+#  medical_expenses                                       :decimal(12, 2)
 #  message_tracker                                        :jsonb
 #  municipality_code                                      :string
 #  municipality_name                                      :string
+#  overpayments                                           :decimal(12, 2)
+#  paid_federal_extension_payments                        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                                :integer          default("unfilled"), not null
 #  permanent_apartment                                    :string
 #  permanent_city                                         :string
@@ -295,15 +300,36 @@ RSpec.describe StateFileNjIntake, type: :model do
              state_file_intake: intake,
              state_income_tax_amount: 600,
              state_wages_amount: 8000,
-             w2_index: 0
-      )
+             box14_fli: 0,
+             box14_ui_wf_swf: 0,
+             w2_index: 0,
+             wages: 1000
+            )
     }
+    context "taxpayer has not reviewed the w2" do
 
-    it "permits state_wages_amount to be greater than w2.WagesAmt" do
-      w2.state_wages_amount = 1000000
-      intake.validate_state_specific_w2_requirements(w2)
-      expect(w2).to be_valid
-      expect(w2.errors[:state_wages_amount]).not_to be_present
+      it "does not permit state_wages_amount to be 0 if federal wages is non-zero" do
+        intake.confirmed_w2_ids = []
+        w2.state_wages_amount = 0
+        intake.validate_state_specific_w2_requirements(w2)
+        expect(w2.errors[:state_wages_amount]).to be_present
+        expect(w2.valid?(:state_file_edit)).to eq false
+        expect(w2.valid?(:state_file_income_review)).to eq false
+      end
+    end
+
+    context "taxpayer has reviewed the w2" do
+      before do
+        intake.confirmed_w2_ids = [w2.id]
+      end
+      it "permits state_wages_amount to be 0 if federal wages is non-zero" do
+        w2.state_wages_amount = 0
+        w2.state_income_tax_amount = 0
+        intake.validate_state_specific_w2_requirements(w2)
+        expect(w2.errors[:state_wages_amount]).not_to be_present
+        expect(w2.valid?(:state_file_edit)).to eq true
+        expect(w2.valid?(:state_file_income_review)).to eq true
+      end
     end
   end
 
@@ -317,6 +343,16 @@ RSpec.describe StateFileNjIntake, type: :model do
     it "rounds down to whole number" do
       allow(intake.calculator.lines).to receive(:[]).with(:NJ1040_LINE_29).and_return(double(value: 12_345))
       expect(intake.medical_expenses_threshold).to eq 246
+    end
+  end
+
+  describe "#eligible_1099rs" do
+    let(:intake) { create :state_file_nj_intake }
+    let!(:eligible_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 200) }
+    let!(:ineligible_1099r) { create(:state_file1099_r, intake: intake, taxable_amount: 0) }
+
+    it "should return all 1099Rs" do
+      expect(intake.eligible_1099rs).to contain_exactly(eligible_1099r, ineligible_1099r)
     end
   end
 end

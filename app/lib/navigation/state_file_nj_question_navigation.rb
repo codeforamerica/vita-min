@@ -31,7 +31,10 @@ module Navigation
       Navigation::NavigationSection.new("state_file.navigation.nj.section_1", [
                                           Navigation::NavigationStep.new(StateFile::Questions::IncomeReviewController), # line 15-27, but intentionally moved up for eligibility checks
                                           Navigation::NavigationStep.new(StateFile::Questions::W2Controller),
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjRetirementIncomeSourceController),
+                                          Navigation::RepeatedMultiPageStep.new(
+                                            "retirement_income_deduction",
+                                            [StateFile::Questions::NjRetirementIncomeSourceController],
+                                            ->(intake) { intake&.eligible_1099rs&.count }),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjRetirementWarningController),
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_2", [
@@ -53,12 +56,12 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::NjIneligiblePropertyTaxController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerPropertyTaxWorksheetController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjHomeownerPropertyTaxController), # Line 40a
-                                          Navigation::NavigationStep.new(StateFile::Questions::NjTenantPropertyTaxWorksheetController), # Line 40a
                                           Navigation::NavigationStep.new(StateFile::Questions::NjTenantRentPaidController), # Line 40a
                                           # question after property taxes set in NjPropertyTaxFlowOffRamp
                                         ]),
       Navigation::NavigationSection.new(I18n.t("state_file.navigation.nj.section_4", filing_year: MultiTenantService.statefile.current_tax_year), [
                                           Navigation::NavigationStep.new(StateFile::Questions::NjSalesUseTaxController), # Line 51
+                                          Navigation::NavigationStep.new(StateFile::Questions::FederalExtensionPaymentsController),
                                           Navigation::NavigationStep.new(StateFile::Questions::NjEstimatedTaxPaymentsController), # Line 57
                                         ]),
       Navigation::NavigationSection.new("state_file.navigation.nj.section_5", [
@@ -75,6 +78,13 @@ module Navigation
                                           Navigation::NavigationStep.new(StateFile::Questions::ReturnStatusController),
                                         ], false),
     ].freeze
-    FLOW = SECTIONS.map(&:controllers).flatten.freeze
+
+    def self.controllers
+      sections.flat_map(&:controllers)
+    end
+
+    def self.pages(visitor_record)
+      sections.flat_map { |section| section.pages(visitor_record) }
+    end
   end
 end

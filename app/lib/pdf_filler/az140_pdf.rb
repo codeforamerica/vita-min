@@ -16,12 +16,12 @@ module PdfFiller
 
     def hash_for_pdf
       answers = {
-        "1a" => [@xml_document.at('Primary TaxpayerName FirstName')&.text, @xml_document.at('Primary TaxpayerName MiddleInitial')&.text].join(' '),
-        "1b" => [@xml_document.at('Primary TaxpayerName LastName')&.text, @xml_document.at('Primary TaxpayerName NameSuffix')&.text].join(' '),
-        "1c" => @xml_document.at('Primary TaxpayerSSN')&.text,
+        "1a" => @submission.data_source.primary.first_name_and_middle_initial,
+        "1b" => @submission.data_source.primary.last_name_and_suffix,
+        "1c" => @submission.data_source.primary.ssn,
         "1d" => spouse_first_name,
-        "1e" => [@xml_document.at('Secondary TaxpayerName LastName')&.text, @xml_document.at('Secondary TaxpayerName NameSuffix')&.text].join(' '),
-        "1f" => @xml_document.at('Secondary TaxpayerSSN')&.text,
+        "1e" => @submission.data_source.spouse.last_name_and_suffix,
+        "1f" => @submission.data_source.spouse.ssn,
         "2a" => @xml_document.at("USAddress AddressLine1Txt")&.text,
         "2c" => @xml_document.at("USPhone")&.text,
         "City, Town, Post Office" => @xml_document.at("USAddress CityNm")&.text,
@@ -110,6 +110,11 @@ module PdfFiller
         "80" => @xml_document.at('AmtOwed')&.text
       })
 
+      if Flipper.enabled?(:extension_period)
+        answers["55"] = @xml_document.at('ExtPayment')&.text
+        answers["Check Box82F"] = @xml_document.at("FiledUnderExtension")&.text
+      end
+
       if @xml_document.at('RefundAmt')&.text.present?
         answers.merge!({
           "Refund" => refund_account_type,
@@ -171,7 +176,7 @@ module PdfFiller
     end
 
     def spouse_first_name
-      name = [@xml_document.at('Secondary TaxpayerName FirstName')&.text, @xml_document.at('Secondary TaxpayerName MiddleInitial')&.text].join(' ')
+      name = @submission.data_source.spouse.first_name_and_middle_initial
       if @submission.data_source.spouse_deceased?
         dod = Date.parse(@submission.data_source.direct_file_data.spouse_date_of_death)&.strftime("%-m/%-d/%Y")
         name = name + " Deceased #{dod}" if dod.present?

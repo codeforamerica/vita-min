@@ -7,6 +7,7 @@
 #  account_type                                   :integer          default("unfilled"), not null
 #  american_red_cross_fund_donation               :decimal(12, 2)
 #  childrens_trust_fund_donation                  :decimal(12, 2)
+#  clicked_to_file_with_other_service_at          :datetime
 #  consented_to_sms_terms                         :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions              :integer          default("unfilled"), not null
 #  contact_preference                             :integer          default("unfilled"), not null
@@ -22,6 +23,7 @@
 #  email_address                                  :citext
 #  email_address_verified_at                      :datetime
 #  email_notification_opt_in                      :integer          default("unfilled"), not null
+#  extension_payments_amount                      :decimal(12, 2)
 #  failed_attempts                                :integer          default(0), not null
 #  federal_return_status                          :string
 #  food_bank_fund_donation                        :decimal(12, 2)
@@ -38,6 +40,8 @@
 #  message_tracker                                :jsonb
 #  nongame_wildlife_fund_donation                 :decimal(12, 2)
 #  opportunity_scholarship_program_donation       :decimal(12, 2)
+#  paid_extension_payments                        :integer          default("unfilled"), not null
+#  paid_prior_year_refund_payments                :integer          default("unfilled"), not null
 #  payment_or_deposit_type                        :integer          default("unfilled"), not null
 #  phone_number                                   :string
 #  phone_number_verified_at                       :datetime
@@ -51,6 +55,7 @@
 #  primary_middle_initial                         :string
 #  primary_months_ineligible_for_grocery_credit   :integer
 #  primary_suffix                                 :string
+#  prior_year_refund_payments_amount              :decimal(12, 2)
 #  raw_direct_file_data                           :text
 #  raw_direct_file_intake_data                    :jsonb
 #  received_id_public_assistance                  :integer          default("unfilled"), not null
@@ -127,12 +132,14 @@ FactoryBot.define do
       intake.direct_file_json_data.primary_filer.first_name = evaluator.primary_first_name if evaluator.primary_first_name
       intake.direct_file_json_data.primary_filer.middle_initial = evaluator.primary_middle_initial if evaluator.primary_middle_initial
       intake.direct_file_json_data.primary_filer.last_name = evaluator.primary_last_name if evaluator.primary_last_name
+      intake.direct_file_json_data.primary_filer.suffix = evaluator.primary_suffix if evaluator.primary_suffix
 
       if intake.direct_file_json_data.spouse_filer.present?
         intake.direct_file_json_data.spouse_filer.dob = evaluator.spouse_birth_date if evaluator.spouse_birth_date
         intake.direct_file_json_data.spouse_filer.first_name = evaluator.spouse_first_name if evaluator.spouse_first_name
         intake.direct_file_json_data.spouse_filer.middle_initial = evaluator.spouse_middle_initial if evaluator.spouse_middle_initial
         intake.direct_file_json_data.spouse_filer.last_name = evaluator.spouse_last_name if evaluator.spouse_last_name
+        intake.direct_file_json_data.spouse_filer.suffix = evaluator.spouse_suffix if evaluator.spouse_suffix
       else
         # this is necessary because we occasionally use xmls that include a spouse with a json without a spouse,
         # or change an intake's filing status and add spouse info after loading an xml without one
@@ -140,6 +147,7 @@ FactoryBot.define do
         intake.spouse_first_name = evaluator.spouse_first_name if evaluator.spouse_first_name
         intake.spouse_middle_initial = evaluator.spouse_middle_initial if evaluator.spouse_middle_initial
         intake.spouse_last_name = evaluator.spouse_last_name if evaluator.spouse_last_name
+        intake.spouse_suffix = evaluator.spouse_suffix if evaluator.spouse_suffix
       end
 
       intake.raw_direct_file_intake_data = intake.direct_file_json_data
@@ -189,19 +197,20 @@ FactoryBot.define do
       raw_direct_file_intake_data { StateFile::DirectFileApiResponseSampleService.new.read_json('id_estrada_donations') }
     end
 
-
     trait :with_eligible_1099r_income do
       after(:create) do |intake|
-        create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 200) do |form_1099r|
-          create(:state_file_id1099_r_followup, state_file1099_r: form_1099r, eligible_income_source: "yes")
+        create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 200, recipient_ssn: intake.primary.ssn) do |form_1099r|
+          create(:state_file_id1099_r_followup, state_file1099_r: form_1099r, income_source: "firefighter", firefighter_frf: "yes", firefighter_persi: "yes")
         end
+
+        intake.update(primary_disabled: "yes")
       end
     end
 
     trait :with_ineligible_1099r_income do
       after(:create) do |intake|
         create(:state_file1099_r, intake: intake, taxable_amount: 2000, state_tax_withheld_amount: 200) do |form_1099r|
-          create(:state_file_id1099_r_followup, state_file1099_r: form_1099r, eligible_income_source: "no")
+          create(:state_file_id1099_r_followup, state_file1099_r: form_1099r, income_source: "civil_service_employee", civil_service_account_number: "eight")
         end
       end
     end

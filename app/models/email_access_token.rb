@@ -53,7 +53,7 @@ class EmailAccessToken < ApplicationRecord
   end
 
   def one_or_more_valid_email_addresses
-    unless email_address.present? && email_address.split(",").map { |email| ValidEmail2::Address.new(email).valid? }.all?
+    unless email_address.present? && email_address.split(",").map { |email| ValidEmail2::Address.new(email.strip).valid? }.all?
       errors.add(:email_address, :invalid)
     end
   end

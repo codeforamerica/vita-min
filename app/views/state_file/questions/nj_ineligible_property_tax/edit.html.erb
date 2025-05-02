@@ -16,11 +16,15 @@
   <% end  %>
   <p><%= t(".continue_text") %></p>
 
+  <% if determine_reason === "neither" %>
+    <p><%= t(".housing_assistance_html") %></p>
+  <% end %>
+
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <% if params[:on_home_or_rental].present? %>
       <%= hidden_field_tag "on_home_or_rental", params[:on_home_or_rental] %>
     <% end %>
 
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

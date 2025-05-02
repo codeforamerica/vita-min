@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe StateFile::Questions::NjEligibilityHealthInsuranceController do
-  describe "#update" do
+  describe "eligiblity_offboarding_concern" do
     it_behaves_like :eligibility_offboarding_concern, intake_factory: :state_file_nj_intake do
       let(:eligible_params) do
         {
@@ -19,7 +19,9 @@ RSpec.describe StateFile::Questions::NjEligibilityHealthInsuranceController do
         }
       end
     end
+  end
 
+  describe "#update" do
     context "when taxpayer checks no, but is eligible" do
       let(:intake) { create :state_file_nj_intake, :df_data_mfj_both_claimed_dep }
       let(:form_params) do

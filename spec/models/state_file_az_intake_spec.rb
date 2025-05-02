@@ -26,6 +26,7 @@
 #  email_address                          :citext
 #  email_address_verified_at              :datetime
 #  email_notification_opt_in              :integer          default("unfilled"), not null
+#  extension_payments_amount              :decimal(12, 2)
 #  failed_attempts                        :integer          default(0), not null
 #  federal_return_status                  :string
 #  has_prior_last_names                   :integer          default("unfilled"), not null
@@ -39,6 +40,8 @@
 #  made_az321_contributions               :integer          default("unfilled"), not null
 #  made_az322_contributions               :integer          default("unfilled"), not null
 #  message_tracker                        :jsonb
+#  paid_extension_payments                :integer          default("unfilled"), not null
+#  paid_federal_extension_payments        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                :integer          default("unfilled"), not null
 #  phone_number                           :string
 #  phone_number_verified_at               :datetime
@@ -405,21 +408,6 @@ describe StateFileAzIntake do
       expect(create(:state_file_az_intake, primary_was_incarcerated: "yes", spouse_was_incarcerated: "no").incarcerated_filer_count).to eq 1
       expect(create(:state_file_az_intake, primary_was_incarcerated: "no", spouse_was_incarcerated: "yes").incarcerated_filer_count).to eq 1
       expect(create(:state_file_az_intake, primary_was_incarcerated: "yes", spouse_was_incarcerated: "yes").incarcerated_filer_count).to eq 2
-    end
-  end
-
-  describe "state_code" do
-    context ".state_code" do
-      it "finds the right state code from the state information service" do
-        expect(described_class.state_code).to eq "az"
-      end
-    end
-
-    context "#state_code" do
-      it "delegates to the instance method from the class method" do
-        intake = create(:state_file_az_intake)
-        expect(intake.state_code).to eq "az"
-      end
     end
   end
 end

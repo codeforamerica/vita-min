@@ -1,6 +1,5 @@
 import "../vendor/navigator.sendbeacon.min.js";
 
-
 const MixpanelEventTracking = (function () {
     const addClickTrackingToOutboundLinks = function () {
       const links = document.querySelectorAll("a[href]:not([href^='/']):not([href^='#']):not([href^='" + location.protocol + "//" + location.host + "'])");
@@ -35,8 +34,10 @@ const MixpanelEventTracking = (function () {
           if (clickedElement.dataset.trackClickHref === "true") {
             eventData.append("event[data][href]", clickedElement.href);
           }
-          eventData.append(Rails.csrfParam(), Rails.csrfToken());
-          if (pageData.sendMixpanelBeacon) {
+          const csrfParam = document.querySelector('meta[name=csrf-param]')?.content
+          const csrfToken = document.querySelector('meta[name=csrf-token]')?.content
+          if (pageData.sendMixpanelBeacon && csrfParam !== undefined && csrfToken !== undefined ) {
+            eventData.append(csrfParam, csrfToken);
             navigator.sendBeacon("/ajax_mixpanel_events", eventData);
           }
         });

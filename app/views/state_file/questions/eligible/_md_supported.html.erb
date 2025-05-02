@@ -1,7 +1,7 @@
 <h3 class="h3"><%= t('.heading1') %></h3>
 <ul class="list--bulleted">
   <li><%= t('.sub1') %></li>
-  <li><%= t('.sub2') %></li>
+  <li><%= t('.sub2', count: current_intake.eligibility_filing_status_mfj_yes? ? 2 : 1) %></li>
   <li><%= t('.sub3') %></li>
   <li><%= t('.sub4') %></li>
   <li><%= t('.sub5') %></li>
@@ -17,6 +17,13 @@
   <li><%= t('.sub11') %></li>
   <li><%= t('.sub12') %></li>
 </ul>
+
+<% if Flipper.enabled?(:extension_period) %>
+  <h3 class="h3"><%= t('.heading3') %></h3>
+  <ul class="list--bulleted spacing-below-25">
+    <li><%= t('.sub13') %></li>
+  </ul>
+<% end %>
 
 <p>
   <%= t('.subject_to_eligibility') %>

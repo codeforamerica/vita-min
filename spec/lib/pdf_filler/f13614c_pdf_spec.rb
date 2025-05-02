@@ -64,7 +64,6 @@ RSpec.describe PdfFiller::F13614cPdf do
           had_hsa: "no",
           had_interest_income: "yes",
           had_local_tax_refund: "yes",
-          had_other_income: "yes",
           had_rental_income: "yes",
           had_retirement_income: "yes",
           had_scholarships: "yes",
@@ -82,6 +81,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           made_estimated_tax_payments_amount: 0,
           married: "yes",
           multiple_states: "yes",
+          had_other_income: "yes",
           other_income_types: "garden gnoming",
           paid_alimony: "yes",
           paid_charitable_contributions: "no",
@@ -409,7 +409,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page1[0].yourLastName[0]" => "Heifer",
                             "form1[0].page1[0].yourMiddleInitial[0]" => "",
                             "form1[0].page1[0].yourTelephoneNumber[0]" => "(415) 816-1286",
-                            "form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]" => "",
+                            "form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]" => "Other money received during the year includes: garden gnoming \r---",
                             "form1[0].page2[0].incomeIncluded[0].alimonyIncome[0].alimonyAmount[0]" => "",
                             "form1[0].page2[0].incomeIncluded[0].alimonyIncome[0].alimonyIncome[0]" => "",
                             "form1[0].page2[0].incomeIncluded[0].alimonyIncome[0].excludedNo[0]" => "",
@@ -617,8 +617,7 @@ RSpec.describe PdfFiller::F13614cPdf do
             cv_schedule_c_expenses_cb: 'yes',
             cv_schedule_c_expenses_amt: 768,
             cv_other_income_cb: 'yes',
-            cv_p2_notes_comments: 'twinkle twinkle little star'
-
+            cv_p2_notes_comments: 'other notes',
           )
 
           output_file = intake_pdf.output_file
@@ -671,7 +670,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                               "form1[0].page2[0].incomeIncluded[0].scheduleCExpenses[0]" => '1',
                               "form1[0].page2[0].incomeIncluded[0].scheduleCExpensesAmount[0]" => '768.0',
                               "form1[0].page2[0].incomeIncluded[0].otherIncome[0].otherIncome[0]" => '1',
-                              "form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]" => 'twinkle twinkle little star',
+                              "form1[0].page2[0].IncomeIncludedComment[0].IncomeIncludedComments[0]" => "Other money received during the year includes: garden gnoming \r---\rother notes",
                             )
         end
       end

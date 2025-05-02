@@ -586,7 +586,7 @@ Rails.application.routes.draw do
       resources :submission_pdfs, only: [:show], module: 'state_file/questions', path: 'questions/submission_pdfs'
       resources :federal_dependents, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/federal_dependents'
       resources :unemployment, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/unemployment'
-      resources :retirement_income, only: [:show, :edit, :update], module: 'state_file/questions', path: 'questions/retirement_income'
+      resources :retirement_income, only: [:edit, :update], module: 'state_file/questions', path: 'questions/retirement_income'
       resources :az_qualifying_organization_contributions,
         only: [
           :index, :new, :create, :edit,
@@ -598,6 +598,9 @@ Rails.application.routes.draw do
       resources :az_public_school_contributions, only: [:index, :new, :create, :edit, :update, :destroy], module: 'state_file/questions', path: 'questions/az-public-school-contributions'
       get "/data-import-failed", to: "state_file/state_file_pages#data_import_failed"
       get "/initiate-data-transfer", to: "state_file/questions/initiate_data_transfer#initiate_data_transfer"
+
+      get '/az/questions/return-status', to: redirect('/')
+      get '/az/questions/submission-confirmation', to: redirect('/')
 
       resources :intake_logins, only: [:new, :create, :edit, :update], module: "state_file", path: "login" do
         put "check-verification-code", to: "intake_logins#check_verification_code", as: :check_verification_code, on: :collection
@@ -647,6 +650,8 @@ Rails.application.routes.draw do
         get "/sms-terms", to: "state_file_pages#sms_terms"
         get "/unsubscribe_from_emails", to: "notifications_settings#unsubscribe_from_emails", as: :unsubscribe_from_emails
         post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
+        get "/id_file_with_another_service", to: "questions/id_ineligible_retirement_and_pension_income#file_with_another_service"
+        get "/continue_filing", to: "questions/id_ineligible_retirement_and_pension_income#continue_filing"
       end
     end
   end

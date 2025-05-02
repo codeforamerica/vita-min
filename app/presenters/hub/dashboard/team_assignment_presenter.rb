@@ -39,13 +39,11 @@ module Hub
         return unless team_assignment_users.present?
 
         team_assignment_users
-          .select('users.*, COUNT(tax_returns.id) AS tax_returns_count')
+          .select("users.*, COUNT(CASE WHEN clients.filterable_product_year = '#{Rails.configuration.product_year}' THEN tax_returns.id ELSE NULL END) AS tax_returns_count")
           .left_joins(assigned_tax_returns: :client)
           .group('users.id, users.name, users.role_type')
-          .order('tax_returns_count DESC')
-          .where('clients.filterable_product_year = :product_year OR clients.id IS NULL', product_year: Rails.configuration.product_year)
+          .order('tax_returns_count DESC, users.id ASC')
       end
-
     end
   end
 end

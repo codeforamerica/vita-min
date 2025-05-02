@@ -157,19 +157,23 @@ RSpec.describe StateFile::Questions::AzExciseCreditController do
   end
 
   describe "#update" do
-    # use the return_to_review_concern shared example if the page
-    # should skip to the review page when the return_to_review param is present
-    # requires form_params to be set with any other required params
-    it_behaves_like :return_to_review_concern do
-      let(:form_params) do
-        {
-          state_file_az_excise_credit_form: {
-            primary_was_incarcerated: "yes",
-            ssn_no_employment: "yes",
-            household_excise_credit_claimed: "no",
-          }
+    let(:form_params) do
+      {
+        state_file_az_excise_credit_form: {
+          primary_was_incarcerated: "yes",
+          household_excise_credit_claimed: "no",
         }
-      end
+      }
+    end
+
+    it "updates the fields correctly" do
+      post :update, params: form_params
+      expect(response).to be_redirect
+
+      intake.reload
+
+      expect(intake).to be_primary_was_incarcerated_yes
+      expect(intake).to be_household_excise_credit_claimed_no
     end
   end
 end

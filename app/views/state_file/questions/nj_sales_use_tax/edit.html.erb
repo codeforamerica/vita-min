@@ -13,8 +13,8 @@
               :untaxed_out_of_state_purchases,
               label_text: t('.use_tax_radio_label'),
               collection: [
-                { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#sut-method-field" } },
                 { value: :no, label: t(".no_text") },
+                { value: :yes, label: t("general.affirmative"), input_html: { "data-follow-up": "#sut-method-field" } },
               ],
               legend_class: "sr-only"
             )
@@ -51,9 +51,6 @@
       </div>
     </div>
 
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

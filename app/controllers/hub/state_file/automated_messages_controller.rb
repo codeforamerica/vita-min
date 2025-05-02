@@ -31,17 +31,18 @@ module Hub::StateFile
     def message_params(locale)
       intake = get_intake
       state_code = intake.state_code
-      locale = locale || I18n.locale
+      locale ||= I18n.locale
       submitted_key = intake.efile_submissions.count > 1 ? "resubmitted" : "submitted"
       {
         primary_first_name: intake.primary_first_name,
         intake_id: intake.id || "CLIENT_ID",
-        survey_link: StateFile::StateInformationService.survey_link(intake.state_code),
+        survey_link: StateFile::StateInformationService.survey_link(intake.state_code, locale: locale),
         submitted_or_resubmitted: I18n.t("messages.state_file.successful_submission.email.#{submitted_key}", locale: locale),
         state_name: intake.state_name,
-        return_status_link: SendRejectResolutionReminderNotificationJob.return_status_link(locale),
+        return_status_link: StateFile::SendRejectResolutionReminderNotificationJob.return_status_link(locale),
         login_link: SendIssueResolvedMessageJob.login_link,
         state_pay_taxes_link: StateFile::StateInformationService.pay_taxes_link(state_code),
+        app_time: app_time,
       }
     end
 
@@ -55,7 +56,7 @@ module Hub::StateFile
       email = StateFileNotificationEmail.new(to: "example@example.com",
                                              body: replaced_body,
                                              subject: subject)
-      message = StateFile::NotificationMailer.user_message(notification_email: email)
+      message = StateFile::NotificationMailer.user_message(notification_email: email, locale: locale)
       ActionMailer::Base.preview_interceptors.each do |interceptor|
         interceptor.previewing_email(message)
       end

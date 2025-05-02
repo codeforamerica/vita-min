@@ -26,6 +26,7 @@
 #  email_address                          :citext
 #  email_address_verified_at              :datetime
 #  email_notification_opt_in              :integer          default("unfilled"), not null
+#  extension_payments_amount              :decimal(12, 2)
 #  failed_attempts                        :integer          default(0), not null
 #  federal_return_status                  :string
 #  has_prior_last_names                   :integer          default("unfilled"), not null
@@ -39,6 +40,8 @@
 #  made_az321_contributions               :integer          default("unfilled"), not null
 #  made_az322_contributions               :integer          default("unfilled"), not null
 #  message_tracker                        :jsonb
+#  paid_extension_payments                :integer          default("unfilled"), not null
+#  paid_federal_extension_payments        :integer          default("unfilled"), not null
 #  payment_or_deposit_type                :integer          default("unfilled"), not null
 #  phone_number                           :string
 #  phone_number_verified_at               :datetime
@@ -87,7 +90,6 @@
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
 #
 class StateFileAzIntake < StateFileBaseIntake
-  self.ignored_columns += %w[charitable_cash charitable_noncash household_excise_credit_claimed_amt tribal_wages armed_forces_wages]
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
   has_many :az322_contributions, dependent: :destroy
@@ -107,6 +109,9 @@ class StateFileAzIntake < StateFileBaseIntake
   enum made_az322_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az322_contributions
   enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
   enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
+  enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
+  enum paid_federal_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_federal_extension_payments
+
 
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create
   validates :made_az322_contributions, inclusion: { in: ["yes", "no"]}, on: :az322_form_create
@@ -144,6 +149,8 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def disqualified_from_excise_credit_df?
+    return false if raw_direct_file_data.blank?
+
     agi_limit = if filing_status_mfj? || filing_status_hoh?
                   25000
                 elsif filing_status_single? || filing_status_mfs?
@@ -206,11 +213,5 @@ class StateFileAzIntake < StateFileBaseIntake
   def eligible_for_az_subtractions?
     wages_salaries_tips = direct_file_data.fed_wages_salaries_tips
     wages_salaries_tips.present? && wages_salaries_tips > 0
-  end
-
-  def eligible_1099rs
-    @eligible_1099rs ||= self.state_file1099_rs.select do |form1099r|
-      form1099r.taxable_amount&.to_f&.positive?
-    end
   end
 end

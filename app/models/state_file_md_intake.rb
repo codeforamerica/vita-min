@@ -31,6 +31,7 @@
 #  email_address                              :citext
 #  email_address_verified_at                  :datetime
 #  email_notification_opt_in                  :integer          default("unfilled"), not null
+#  extension_payments_amount                  :decimal(12, 2)
 #  failed_attempts                            :integer          default(0), not null
 #  federal_return_status                      :string
 #  had_hh_member_without_health_insurance     :integer          default("unfilled"), not null
@@ -45,6 +46,7 @@
 #  locale                                     :string           default("en")
 #  locked_at                                  :datetime
 #  message_tracker                            :jsonb
+#  paid_extension_payments                    :integer          default("unfilled"), not null
 #  payment_or_deposit_type                    :integer          default("unfilled"), not null
 #  permanent_address_outside_md               :integer          default("unfilled"), not null
 #  permanent_apartment                        :string
@@ -113,6 +115,7 @@
 #
 class StateFileMdIntake < StateFileBaseIntake
   include MdResidenceCountyConcern
+  include StateFile::PatternMatchingHelper
 
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
@@ -134,12 +137,15 @@ class StateFileMdIntake < StateFileBaseIntake
   enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
   enum primary_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_proof_of_disability_submitted
   enum spouse_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_proof_of_disability_submitted
+  enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
 
   def disqualifying_df_data_reason
+    return :spouse_nra_html if nra_spouse?
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     return :has_out_of_state_w2 if w2_states.any? do |state|
       (state.text || '').upcase != state_code.upcase
     end
+    return :mfj_and_dependent_html if mfj_and_dependent?
   end
 
   def disqualifying_eligibility_rules
@@ -265,13 +271,26 @@ class StateFileMdIntake < StateFileBaseIntake
     true
   end
 
-  def eligible_1099rs
-    @eligible_1099rs ||= self.state_file1099_rs.select do |form1099r|
-      form1099r.taxable_amount&.to_f&.positive?
-    end
+  def has_at_least_one_disabled_filer?
+    primary_disabled_yes? || spouse_disabled_yes?
   end
 
-  def filer_disabled?
-    primary_disabled_yes? || spouse_disabled_yes?
+  def should_warn_about_pension_exclusion?
+    eligible_1099rs.present? && has_filer_under_65?
+  end
+
+  def nra_spouse?
+    filing_status == :married_filing_separately && !spouse.ssn.present?
+  end
+
+  def mfj_and_dependent?
+    has_dependent_filer = direct_file_data.claimed_as_dependent? || direct_file_data.spouse_is_a_dependent?
+    filing_status == :married_filing_jointly && has_dependent_filer
+  end
+
+  def direct_file_address_is_po_box?
+    return false if direct_file_data.blank?
+
+    contains_po_box(direct_file_data.mailing_street) || contains_po_box(direct_file_data.mailing_apartment)
   end
 end

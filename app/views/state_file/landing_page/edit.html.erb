@@ -26,7 +26,7 @@
                 <%= t(".#{@state_code}.supported_by") %>
               </div>
             </div>
-            <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", id: "firstCta" do %>
+            <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", role: "button", id: "firstCta" do %>
               <%= t(".download_your_record") %>
             <% end %>
           <% else %>
@@ -48,7 +48,7 @@
             <% if @user_name.present? %>
               <p class="h2"><%= t(".welcome_back", user_name: @user_name) %></p>
               <p class="h2"><%= t(".continue", state_name: @state_name) %></p>
-              <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", id: "firstCta" do %>
+              <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", role: "button", id: "firstCta" do %>
                 <%= t("general.sign_in") %>
               <% end %>
               <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder, id: "start-again-form" do |f| %>
@@ -59,12 +59,10 @@
               <% end %>
             <% else %>
               <div class="reveal">
-                <h2 class="text--body text--bold spacing-below-5">
-                  <button class="reveal__button">
-                    <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_title') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
-                    <%= t(".#{@state_code}.help_text_title", default: :'.help_text_title') %>
-                  </button>
-                </h2>
+                <button class="reveal__button">
+                  <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_title') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
+                  <%= t(".#{@state_code}.help_text_title", default: :'.help_text_title') %>
+                </button>
                 <div class="reveal__content">
                   <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_html') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
                   <%= t(".#{@state_code}.help_text_html", default: :'.help_text_html', filing_year: current_tax_year) %>

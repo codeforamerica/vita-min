@@ -144,17 +144,14 @@ RSpec.describe StateFile1099R do
         end
       end
 
+      it "validates state_tax_withheld_amount and state_distribution_amount are not too big if present" do
+        state_file1099_r.assign_attributes(state_tax_withheld_amount: 10**11, state_distribution_amount: 10**10 + 1)
+        expect(state_file1099_r).not_to be_valid(:retirement_income_intake)
+        expect(state_file1099_r.errors[:state_tax_withheld_amount]).to be_present
+        expect(state_file1099_r.errors[:state_distribution_amount]).to be_present
+      end
+
       context "payer_state_identification_number" do
-        it "validates present when has state_tax_withheld_amount" do
-          state_file1099_r.state_tax_withheld_amount = 0
-          state_file1099_r.payer_state_identification_number = nil
-          expect(state_file1099_r.valid?(context)).to eq true
-
-          state_file1099_r.state_tax_withheld_amount = 20
-          state_file1099_r.payer_state_identification_number = nil
-          expect(state_file1099_r.valid?(context)).to eq false
-        end
-
         it "validates <= 16 digits" do
           state_file1099_r.payer_state_identification_number = "1231578123"
           expect(state_file1099_r.valid?(context)).to eq true

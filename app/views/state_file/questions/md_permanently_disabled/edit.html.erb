@@ -6,25 +6,27 @@
 <% content_for :page_title, title %>
 <% content_for :card do %>
   <h1 class="h2"><%= title %></h1>
+  <p>
+    <%= t('.help_text') %>
+    <br><br>
+    <%= t('.help_text_2') %>
+  </p>
 
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question">
         <div class="white-group">
+          <% should_warn_about_pension_exclusion = current_intake.should_warn_about_pension_exclusion? %>
+          <% primary_data_followup = should_warn_about_pension_exclusion ? "#primary-disability-proof" : nil %>
           <% if current_intake.filing_status_mfj? %>
-            <% are_filers_under_65 = !(current_intake.primary_senior? && current_intake.spouse_senior?) %>
-            <% primary_data_followup = are_filers_under_65 ? "#primary-disability-proof" : nil %>
-            <% spouse_data_followup = are_filers_under_65 ? "#spouse-disability-proof" : nil %>
-            <% both_data_followup = are_filers_under_65 ? "#both-disability-proof" : nil %>
-
+            <% spouse_data_followup = should_warn_about_pension_exclusion ? "#spouse-disability-proof" : nil %>
             <%= f.cfa_radio_set(:mfj_disability, collection: [
               { value: "primary", label: t(".yes_me"), input_html: { "data-follow-up": primary_data_followup } },
               { value: "spouse", label: t(".yes_spouse"), input_html: { "data-follow-up": spouse_data_followup } },
-              { value: "both", label: t(".yes_both"), input_html: { "data-follow-up": both_data_followup } },
+              { value: "both", label: t(".yes_both"), input_html: { "data-follow-up": "#{primary_data_followup} #{spouse_data_followup}" } },
               { value: "none", label: t(".no_neither") }
             ]) %>
           <% else %>
-            <% primary_data_followup = !current_intake.primary_senior? ? "#primary-disability-proof" : nil %>
             <%= f.cfa_radio_set(:primary_disabled, collection: [
               { value: "yes", label: t("general.affirmative"), input_html: { "data-follow-up": primary_data_followup } },
               { value: "no", label: t("general.negative") }
@@ -33,61 +35,30 @@
         </div>
       </div>
 
-      <div class="question-with-follow-up__follow-up" id="primary-disability-proof">
-        <div class="white-group">
-          <div class="question-with-follow-up">
-            <div class="question-with-follow-up__question">
-                <% show_disability_warning =  !current_intake.filing_status_mfj? ? "#disability-warning" : nil %>
-                <%= f.cfa_radio_set(:primary_proof_of_disability_submitted, label_text: t(".primary_proof_question_html"), collection: [
-                  { value: "yes", label: t("general.affirmative") },
-                  { value: "no", label: t("general.negative"), input_html: { "data-follow-up": show_disability_warning }},
-                ]) %>
-              </div>
-            <div class="question-with-follow-up__follow-up" id="disability-warning">
-                <div class="notice">
-                  <p><%= t(".unfortunately_dont_support_html", path: questions_md_pension_exclusion_offboarding_path) %></p>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
+      <% if should_warn_about_pension_exclusion %>
+        <%= render partial: "state_file/questions/md_permanently_disabled/primary", locals: { f: f } %>
+      <% end %>
 
-      <div class="question-with-follow-up__follow-up" id="spouse-disability-proof">
-        <div class="white-group">
-          <%= f.cfa_radio_set(:spouse_proof_of_disability_submitted, label_text: t(".spouse_proof_question_html"), collection: [
-            { value: "yes", label: t("general.affirmative") },
-            { value: "no", label: t("general.negative") },
-          ]) %>
-        </div>
-      </div>
-
-      <div class="question-with-follow-up__follow-up" id="both-disability-proof">
-        <div class="white-group">
-          <%= f.cfa_radio_set(:primary_proof_of_disability_submitted, label_text: t(".primary_proof_question_html"), collection: [
-            { value: "yes", label: t("general.affirmative") },
-            { value: "no", label: t("general.negative") },
-          ]) %>
-        </div>
-
-        <div class="white-group">
-          <%= f.cfa_radio_set(:spouse_proof_of_disability_submitted, label_text: t(".spouse_proof_question_html"), collection: [
-            { value: "yes", label: t("general.affirmative") },
-            { value: "no", label: t("general.negative") },
-          ]) %>
-        </div>
-      </div>
+      <% if should_warn_about_pension_exclusion && current_intake.filing_status_mfj? %>
+        <%= render partial: "state_file/questions/md_permanently_disabled/spouse", locals: { f: f } %>
+      <% end %>
     </div>
 
     <div class="reveal">
-      <button class="reveal__button"><%= t(".help_title") %></button>
+      <button class="reveal__button"><%= t(".why") %></button>
       <div class="reveal__content">
-        <p><%= t(".help_text_html") %></p>
+        <% if current_intake.filing_status_mfj? %>
+          <p><%= t(".why_explained_mfj_html") %></p>
+          <p><%= t(".why_explained_mfj_1") %></p>
+          <p><%= t(".why_explained_mfj_2_html") %></p>
+        <% else %>
+          <p><%= t(".why_explained_html") %></p>
+          <p><%= t(".why_explained_1") %></p>
+          <p><%= t(".why_explained_2_html") %></p>
+        <% end %>
       </div>
     </div>
 
-    <% if params[:return_to_review].present? %>
-      <%= hidden_field_tag "return_to_review", params[:return_to_review] %>
-    <% end %>
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>

@@ -5,10 +5,17 @@
   </h1>
   <p><%= t(".payment_options") %></p>
 
+  <% if current_time_after_tax_deadline? %>
+    <div class="notice--warning">
+      <p><%= t(".interest_warning.p1") %></p>
+      <p><%= t(".interest_warning.p2_html") %></p>
+    </div>
+  <% end %>
+
   <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <div class="question-with-follow-up">
       <div class="question-with-follow-up__question white-group">
-        <div class = "spacing-below-10">
+        <div class="spacing-below-10">
           <p> <%= t(".how_would_you_like_to_pay") %></p>
         </div>
         <%= f.cfa_radio_set(
@@ -29,16 +36,20 @@
       <div class="question-with-follow-up__follow-up" id="pay-from-bank">
         <div class="question-with-follow-up">
           <div class="question-with-follow-up__question">
-            <%= render 'state_file/questions/nc_tax_refund/nc_bank_details', form: f, owe_taxes: true %>
+            <%= render partial: 'state_file/questions/nc_tax_refund/nc_bank_details', locals: { form: f, owe_taxes: true } %>
             <div id="details" class="reveal">
-              <p><button class="reveal__button"><%= t(".more_info_about_automatic_draft_payments") %></button></p>
+              <p>
+                <button class="reveal__button"><%= t(".more_info_about_automatic_draft_payments") %></button>
+              </p>
               <div class="reveal__content">
                 <p><%= t(".automatic_draft_payments_info_one") %></p>
                 <p><strong><%= t(".automatic_draft_payments_info_two") %></strong></p>
               </div>
             </div>
             <div id="details" class="reveal">
-              <p><button class="reveal__button"><%= t(".more_info_about_direct_debit_payment") %></button></p>
+              <p>
+                <button class="reveal__button"><%= t(".more_info_about_direct_debit_payment") %></button>
+              </p>
               <div class="reveal__content">
                 <p><%= t(".direct_debit_payment_info_one") %></p>
                 <p><%= t(".direct_debit_payment_info_two") %></p>
@@ -51,12 +62,14 @@
       </div>
     </div>
     <div id="details" class="reveal">
-      <p><button class="reveal__button"><%= t(".what_are_benefits_of_ncdor") %></button></p>
+      <p>
+        <button class="reveal__button"><%= t(".what_are_benefits_of_ncdor") %></button>
+      </p>
       <div class="reveal__content">
         <p><%= t(".benefits_of_ncdor") %></p>
       </div>
     </div>
-    <%= f.continue %>
+    <%= render "state_file/questions/shared/continue_button", f: f %>
   <% end %>
 <% end %>
 

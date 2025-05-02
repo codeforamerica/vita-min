@@ -35,6 +35,7 @@ describe 'EfileError' do
 
   it 'returns the expected array of paths' do
     expect(EfileError.paths).to eq [
+      "apply-refund",
       "az-charitable-contributions",
       "az-excise-credit",
       "az-prior-last-names",
@@ -53,6 +54,8 @@ describe 'EfileError' do
       "eligible",
       "email-address",
       "esign-declaration",
+      "extension-payments",
+      "federal-extension-payments",
       "federal-info",
       "id-disability",
       "id-donations",
@@ -60,6 +63,7 @@ describe 'EfileError' do
       "id-grocery-credit",
       "id-grocery-credit-review",
       "id-health-insurance-premium",
+      "id-ineligible-retirement-and-pension-income",
       "id-permanent-building-fund",
       "id-retirement-and-pension-income",
       "id-review",
@@ -78,6 +82,7 @@ describe 'EfileError' do
       "md-two-income-subtractions",
       "nc-county",
       "nc-eligibility",
+      "nc-out-of-country",
       "nc-qss-info",
       "nc-retirement-income-subtraction",
       "nc-review",
@@ -105,7 +110,6 @@ describe 'EfileError' do
       "nj-review",
       "nj-sales-use-tax",
       "nj-tenant-eligibility",
-      "nj-tenant-property-tax-worksheet",
       "nj-tenant-rent-paid",
       "nj-veterans-exemption",
       "nj-year-of-death",

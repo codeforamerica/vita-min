@@ -7,6 +7,7 @@
 #  account_type                                   :integer          default("unfilled"), not null
 #  american_red_cross_fund_donation               :decimal(12, 2)
 #  childrens_trust_fund_donation                  :decimal(12, 2)
+#  clicked_to_file_with_other_service_at          :datetime
 #  consented_to_sms_terms                         :integer          default("unfilled"), not null
 #  consented_to_terms_and_conditions              :integer          default("unfilled"), not null
 #  contact_preference                             :integer          default("unfilled"), not null
@@ -22,6 +23,7 @@
 #  email_address                                  :citext
 #  email_address_verified_at                      :datetime
 #  email_notification_opt_in                      :integer          default("unfilled"), not null
+#  extension_payments_amount                      :decimal(12, 2)
 #  failed_attempts                                :integer          default(0), not null
 #  federal_return_status                          :string
 #  food_bank_fund_donation                        :decimal(12, 2)
@@ -38,6 +40,8 @@
 #  message_tracker                                :jsonb
 #  nongame_wildlife_fund_donation                 :decimal(12, 2)
 #  opportunity_scholarship_program_donation       :decimal(12, 2)
+#  paid_extension_payments                        :integer          default("unfilled"), not null
+#  paid_prior_year_refund_payments                :integer          default("unfilled"), not null
 #  payment_or_deposit_type                        :integer          default("unfilled"), not null
 #  phone_number                                   :string
 #  phone_number_verified_at                       :datetime
@@ -51,6 +55,7 @@
 #  primary_middle_initial                         :string
 #  primary_months_ineligible_for_grocery_credit   :integer
 #  primary_suffix                                 :string
+#  prior_year_refund_payments_amount              :decimal(12, 2)
 #  raw_direct_file_data                           :text
 #  raw_direct_file_intake_data                    :jsonb
 #  received_id_public_assistance                  :integer          default("unfilled"), not null
@@ -195,6 +200,47 @@ RSpec.describe StateFileIdIntake, type: :model do
         end
       end
     end
+  end
+
+  describe "#has_old_1099r_income_params" do
+    let(:intake) {
+      create(
+        :state_file_id_intake, :with_spouse,
+        primary_disabled: "no",
+        spouse_disabled: "no",
+        primary_birth_date: 66.years.ago,
+        spouse_birth_date: 66.years.ago,
+        )
+    }
+    let!(:first_1099_r) { create(:state_file1099_r, intake: intake, recipient_ssn: intake.primary.ssn) }
+    let!(:second_1099_r) { create(:state_file1099_r, intake: intake, recipient_ssn: intake.spouse.ssn) }
+
+    context "when there is a 1099r with old params" do
+      let!(:first_followup) { create(:state_file_id1099_r_followup, state_file1099_r: first_1099_r, eligible_income_source: "yes") }
+      let!(:second_followup) { create(:state_file_id1099_r_followup, state_file1099_r: second_1099_r, eligible_income_source: "yes") }
+
+      it "returns true" do
+        expect(intake.has_old_1099r_income_params?).to eq true
+      end
+
+      context "when user re-answers question with new params for one 1099r" do
+        let!(:second_followup) { create(:state_file_id1099_r_followup, state_file1099_r: second_1099_r, eligible_income_source: "yes", income_source: "military") }
+
+        it "returns true" do
+          expect(intake.has_old_1099r_income_params?).to eq true
+        end
+      end
+    end
+
+    context "when there is no 1099r with old params" do
+      let!(:first_followup) { create(:state_file_id1099_r_followup, state_file1099_r: first_1099_r, income_source: "military") }
+      let!(:second_followup) { create(:state_file_id1099_r_followup, state_file1099_r: second_1099_r, income_source: "military") }
+
+      it "returns false" do
+        expect(intake.has_old_1099r_income_params?).to eq false
+      end
+    end
+
   end
 
   describe "#primary_between_62_and_65_years_old?" do
@@ -413,6 +459,46 @@ RSpec.describe StateFileIdIntake, type: :model do
         it "is true" do
           expect(intake.has_filer_between_62_and_65_years_old?).to eq false
         end
+      end
+    end
+  end
+
+  describe "show_mfj_disability_options?" do
+    let(:filing_status) { "married_filing_jointly" }
+    let(:all_filers_between) { true }
+    let(:intake) { create(:state_file_id_intake, filing_status: filing_status) }
+    before do
+      allow(intake).to receive(:all_filers_between_62_and_65_years_old?).and_return(all_filers_between)
+    end
+
+    context "mfj and all filers between 62-65" do
+      it "is true" do
+        expect(intake.show_mfj_disability_options?).to eq true
+      end
+    end
+
+    context "mfj and not all filers between 62-65" do
+      let(:all_filers_between) { false }
+
+      it "is false" do
+        expect(intake.show_mfj_disability_options?).to eq false
+      end
+    end
+
+    context "not mfj and all filers between 62-65" do
+      let(:filing_status) { "single" }
+
+      it "is false" do
+        expect(intake.show_mfj_disability_options?).to eq false
+      end
+    end
+
+    context "not mfj and not all filers between 62-65" do
+      let(:filing_status) { "head_of_household" }
+      let(:all_filers_between) { false}
+
+      it "is false" do
+        expect(intake.show_mfj_disability_options?).to eq false
       end
     end
   end

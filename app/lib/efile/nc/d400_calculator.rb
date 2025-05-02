@@ -28,6 +28,7 @@ module Efile
         set_line(:NCD400_LINE_19, :calculate_line_19)
         set_line(:NCD400_LINE_20A, :calculate_line_20a)
         set_line(:NCD400_LINE_20B, :calculate_line_20b)
+        set_line(:NCD400_LINE_21B, :calculate_line_21b)
         set_line(:NCD400_LINE_23, :calculate_line_23)
         set_line(:NCD400_LINE_25, :calculate_line_25)
         set_line(:NCD400_LINE_26A, :calculate_line_26a)
@@ -65,7 +66,10 @@ module Efile
       end
 
       def analytics_attrs
-        {}
+        {
+          nc_retirement_benefits_bailey: line_or_zero(:NCD400_S_LINE_20),
+          nc_retirement_benefits_uniformed_services: line_or_zero(:NCD400_S_LINE_21),
+        }
       end
 
       def calculate_gov_payments
@@ -88,11 +92,11 @@ module Efile
 
       def calculate_line_10b
         income_ranges = if filing_status_single? || filing_status_mfs?
-                          [0..20_000, 20_001..30_000, 30_001..40_000, 40_001..50_000, 50_001..60_000, 60_001..70_000, 70_001..Float::INFINITY]
+                          [-Float::INFINITY..20_000, 20_001..30_000, 30_001..40_000, 40_001..50_000, 50_001..60_000, 60_001..70_000, 70_001..Float::INFINITY]
                         elsif filing_status_hoh?
-                          [0..30_000, 30_001..45_000, 45_001..60_000, 60_001..75_000, 75_001..90_000, 90_001..105_000, 105_001..Float::INFINITY]
+                          [-Float::INFINITY..30_000, 30_001..45_000, 45_001..60_000, 60_001..75_000, 75_001..90_000, 90_001..105_000, 105_001..Float::INFINITY]
                         elsif filing_status_mfj? || filing_status_qw?
-                          [0..40_000, 40_001..60_000, 60_001..80_000, 80_001..100_000, 100_001..120_000, 120_001..140_000, 140_001..Float::INFINITY]
+                          [-Float::INFINITY..40_000, 40_001..60_000, 60_001..80_000, 80_001..100_000, 100_001..120_000, 120_001..140_000, 140_001..Float::INFINITY]
                         end
         income_range_index = income_ranges.find_index { |range| range.include?(@direct_file_data.fed_agi) }
 
@@ -109,6 +113,7 @@ module Efile
         qualifying_widow: 25500,
         single: 12750,
       }.freeze
+
       def calculate_line_11
         STANDARD_DEDUCTIONS[@intake.filing_status]
       end
@@ -203,11 +208,14 @@ module Efile
         sum
       end
 
+      def calculate_line_21b
+        @intake.paid_extension_payments_yes? ? @intake.extension_payments_amount&.round : 0
+      end
+
       def calculate_line_23
         # sum of lines 20a through 22
         # 21a, 21c, 21d, and 22 are all blank
-        # 21b is blank unless DF decides to support
-        line_or_zero(:NCD400_LINE_20A) + line_or_zero(:NCD400_LINE_20B)
+        line_or_zero(:NCD400_LINE_20A) + line_or_zero(:NCD400_LINE_20B) + line_or_zero(:NCD400_LINE_21B)
       end
 
       def calculate_line_25

@@ -18,7 +18,7 @@
       <div class="select">
         <select name="status" class="select__element" id="status-filter">
           <option value></option>
-          <% TaxReturnStateMachine.available_states_for(role_type: current_user.role_type).each do |stage, statuses| %>
+          <% TaxReturnStateMachine.states_to_show_for_client_filter(role_type: current_user.role_type).each do |stage, statuses| %>
             <option value="<%= stage %>" <%= filters[:stage] == stage && "selected" %>><%= TaxReturnStatusHelper.stage_translation(stage) %></option>
             <% statuses.each do |status| %>
               <option value="<%= status %>" <%= [status, status.to_s].include?(filters[:status]) && "selected" %>>&emsp;<%= status_translation(status) %></option>
@@ -135,7 +135,7 @@
     <hr>
 
     <div>
-      <%= submit_tag t("hub.clients.index.filter"), class: "button button--cta", name: nil %>
+      <%= submit_tag t("hub.clients.index.filter"), class: "button button--cta", name: nil, data: { disable_with: t('hub.clients.index.filter') } %>
       <% if filters.values.any? %>
         <%= link_to t("hub.clients.index.clear_filters"), { column: @sort_column, order: @sort_order, clear: true }, class: "button button--danger", name: "clear" %>
       <% end %>

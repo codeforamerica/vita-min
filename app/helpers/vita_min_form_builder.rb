@@ -246,7 +246,7 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     options_with_errors = options.merge(error_attributes(method: method))
     <<~HTML.html_safe
       <div class="checkbox-group input-group form-group#{error_state(object, method)}">
-        <label class="#{classes.join(' ')}">
+        <label class="#{classes.join(' ')}" style="width:fit-content">
           #{check_box(method, options_with_errors, checked_value, unchecked_value)} #{label_text}
         </label>
         #{errors_for(object, method)}
