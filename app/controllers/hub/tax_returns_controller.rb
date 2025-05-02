@@ -11,7 +11,7 @@ module Hub
 
     def new
       redirect_to hub_client_path(@client.id) unless @client.intake
-      @form = TaxReturnForm.new(@client, gyr_filing_years_includes_prior_tax_year_postseason)
+      @form = TaxReturnForm.new(@client, gyr_filing_years)
       @tax_return = @form.tax_return
 
       if @form.remaining_years.blank?
