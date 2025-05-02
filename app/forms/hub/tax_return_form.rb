@@ -19,7 +19,7 @@ module Hub
       @service_type ||= client.tax_returns.pluck(:service_type).include?("drop_off") ? "drop_off" : "online_intake"
       @current_state ||= "intake_in_progress"
       @tax_return = @client.tax_returns.new
-      @gyr_filing_years_includes_prior_tax_year_postseason = gyr_filing_years_includes_prior_tax_year_postseason
+      @gyr_filing_years = gyr_filing_years_includes_prior_tax_year_postseason
     end
 
     def save
@@ -37,7 +37,7 @@ module Hub
     end
 
     def remaining_years
-      @gyr_filing_years_includes_prior_tax_year_postseason - tax_return_years
+      @gyr_filing_years - tax_return_years
     end
   end
 end

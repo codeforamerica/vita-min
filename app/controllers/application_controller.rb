@@ -418,18 +418,6 @@ class ApplicationController < ActionController::Base
     app_time <= Rails.configuration.state_file_start_of_open_intake
   end
   helper_method :before_state_file_launch?
-
-  def gyr_filing_years_includes_prior_tax_year_postseason
-    # before april 15th will show past four
-    # after april 15th now shows past three but in 3 places we need to show past 4
-    if app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake)
-      gyr_filing_years + [(gyr_filing_years.last - 1)]
-    else
-      gyr_filing_years
-    end
-  end
-  helper_method :gyr_filing_years_includes_prior_tax_year_postseason
-
   def gyr_filing_years
     MultiTenantService.gyr.filing_years(app_time)
   end
