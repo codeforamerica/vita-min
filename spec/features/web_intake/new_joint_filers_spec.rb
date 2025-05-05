@@ -6,7 +6,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
-  def intake_up_to_documents
+  def intake_up_to_documents(backtax_year_offsets: [0, 2])
     answer_gyr_triage_questions(screenshot_method: self.method(:screenshot_after), choices: :defaults)
 
     # creates intake and triage
@@ -40,10 +40,10 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     current_tax_year = MultiTenantService.new(:gyr).current_tax_year
 
     screenshot_after do
-      # Ask about backtaxes
       expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
-      check "#{current_tax_year - 2}"
-      check "#{current_tax_year}"
+      backtax_year_offsets.each do |offset|
+        check "#{current_tax_year - offset}"
+      end
     end
     click_on "Continue"
 
@@ -691,4 +691,11 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       click_on "I've shared all my documents"
     end
   end
+
+  scenario "after the tax deadline and before end of inprogress intake selecting all years", js: true do
+    Timecop.freeze(Date.new(2025, 6, 23)) do
+      intake_up_to_documents(backtax_year_offsets: [0, 1, 2, 3])
+    end
+  end
+
 end

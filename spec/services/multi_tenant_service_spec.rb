@@ -89,7 +89,7 @@ describe MultiTenantService do
       end
     end
 
-    context "2025 after tax deadline before end of in progress intake" do
+    context "GYR 2025 after tax deadline before end of in progress intake" do
       it "returns 2021, 2022, 2023, 2024" do
         fake_time = DateTime.parse("2025-06-23")
 
