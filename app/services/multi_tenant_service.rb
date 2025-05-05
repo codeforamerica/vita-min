@@ -103,7 +103,6 @@ class MultiTenantService
     if service_type == :ctc || service_type == :state_file
       [current_tax_year]
     else
-      # years_to_look_back = now.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake) ? 4 : 3
       years = Rails.configuration.tax_year_filing_seasons.select do |_, (season_start, deadline)|
         deadline > now - 3.years && season_start <= now
       end.keys.freeze

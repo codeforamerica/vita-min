@@ -31,6 +31,7 @@ module Questions
         InitialTaxReturnsService.new(intake: current_intake).create!
         GenerateF13614cPdfJob.perform_later(current_intake.id, "Preliminary 13614-C.pdf")
       end
+
       sign_in current_intake.client unless current_intake.client.routing_method_at_capacity?
     end
 

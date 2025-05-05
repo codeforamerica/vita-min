@@ -418,6 +418,7 @@ class ApplicationController < ActionController::Base
     app_time <= Rails.configuration.state_file_start_of_open_intake
   end
   helper_method :before_state_file_launch?
+
   def gyr_filing_years
     MultiTenantService.gyr.filing_years(app_time)
   end
