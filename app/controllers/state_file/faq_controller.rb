@@ -37,7 +37,7 @@ class StateFile::FaqController < ApplicationController
     faq_show_end = Rails.configuration.state_file_show_faq_date_end
     tax_year = Rails.configuration.statefile_current_tax_year
 
-    if Rails.env.production?
+    if Rails.env.production? || Rails.env.staging?
       if app_time.between?(faq_show_start, faq_show_end) # intake is open
         # show currently open states
         [tax_year]
