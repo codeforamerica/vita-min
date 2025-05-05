@@ -1,18 +1,20 @@
 module StateFile
-  class ReminderToFinishStateReturnService
+  class MonthlyFinishStateReturnService
     def self.run
-      message = StateFile::AutomatedMessage::FinishReturn
+      message = StateFile::AutomatedMessage::MonthlyFinishReturn
       intakes_with_no_submission = StateFile::StateInformationService.active_state_codes.excluding("ny").flat_map do |state_code|
         intake_class = StateFile::StateInformationService.intake_class(state_code)
         intake_class
           .where("df_data_imported_at < ?", 6.hours.ago)
           .where("#{intake_class.name.underscore}s.created_at >= ?", Time.current.beginning_of_year)
-          .has_verified_contact_info.no_prior_message_history_of(state_code, message.name)
+          .has_verified_contact_info
           .left_joins(:efile_submissions).where(efile_submissions: { id: nil })
           .select do |intake|
             next false if intake.disqualifying_df_data_reason.present? || intake.other_intake_with_same_ssn_has_submission?
 
             if (msg = intake.message_tracker&.dig("messages.state_file.monthly_finish_return"))
+              Time.parse(msg) < 1.month.ago
+            elsif (msg = intake.message_tracker&.dig("messages.state_file.finish_return"))
               Time.parse(msg) < 24.hours.ago
             else
               true

@@ -384,7 +384,7 @@ GEM
       ruby2_keywords (~> 0.0.1)
     mutex_m (0.3.0)
     nenv (0.3.0)
-    net-imap (0.4.19)
+    net-imap (0.5.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -395,7 +395,7 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.7.3)
-    nokogiri (1.18.4)
+    nokogiri (1.18.8)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -785,6 +785,7 @@ DEPENDENCIES
   memory_profiler
   method_source
   mixpanel-ruby
+  net-imap (>= 0.4.20)
   nokogiri (>= 1.10.8)
   omniauth
   omniauth-google-oauth2

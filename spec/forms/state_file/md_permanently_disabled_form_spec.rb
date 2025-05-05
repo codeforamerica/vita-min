@@ -330,4 +330,57 @@ RSpec.describe StateFile::MdPermanentlyDisabledForm do
       end
     end
   end
+
+  describe "#existing_attributes" do
+    let(:primary_disabled) { "unfilled" }
+    let(:spouse_disabled) { "unfilled" }
+    let(:form) { described_class.new(intake, {})}
+    let(:existing_attributes) { StateFile::MdPermanentlyDisabledForm.existing_attributes(intake) }
+
+    before do
+      intake.update(primary_disabled: primary_disabled, spouse_disabled: spouse_disabled)
+    end
+
+    context "unfilled" do
+      it "does not set mfj_disability on the form" do
+        expect(existing_attributes[:mfj_disability]).to eq nil
+      end
+    end
+
+    context "primary_disabled" do
+      let(:primary_disabled) { "yes" }
+      let(:spouse_disabled) { "no" }
+
+      it "sets mfj_disability to primary" do
+        expect(existing_attributes[:mfj_disability]).to eq "primary"
+      end
+    end
+
+    context "spouse_disabled" do
+      let(:primary_disabled) { "no" }
+      let(:spouse_disabled) { "yes" }
+
+      it "sets mfj_disability to spouse" do
+        expect(existing_attributes[:mfj_disability]).to eq "spouse"
+      end
+    end
+
+    context "both disabled" do
+      let(:primary_disabled) { "yes" }
+      let(:spouse_disabled) { "yes" }
+
+      it "sets mfj_disability to both" do
+        expect(existing_attributes[:mfj_disability]).to eq "both"
+      end
+    end
+
+    context "none disabled" do
+      let(:primary_disabled) { "no" }
+      let(:spouse_disabled) { "no" }
+
+      it "sets mfj_disability to none" do
+        expect(existing_attributes[:mfj_disability]).to eq "none"
+      end
+    end
+  end
 end

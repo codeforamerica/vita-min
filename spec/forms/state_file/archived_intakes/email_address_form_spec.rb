@@ -1,6 +1,15 @@
 require "rails_helper"
 
 RSpec.describe StateFile::ArchivedIntakes::EmailAddressForm do
+  describe "before validation" do
+    it "strips the whitespace from the email" do
+      form = StateFile::ArchivedIntakes::EmailAddressForm.new(email_address: "test@example.com ")
+      form.valid?
+
+      expect(form.email_address).to eq "test@example.com"
+    end
+  end
+
   describe "#valid?" do
     context "when the email address is valid" do
       it "returns true" do

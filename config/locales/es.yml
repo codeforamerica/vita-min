@@ -184,6 +184,7 @@ es:
       last_name:
         blank: Por favor, ingrese un apellido.
         invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
+      money_field: Por favor ingresa la cantidad que pagaste por la parte de tu reembolso del estado. La cantidad no puede ser 0.
       nc_withdrawal_date:
         holiday: La fecha de retiro no puede ser un día festivo federal o bancario de EE. UU.
         past: La fecha de retiro debe ser posterior a hoy
@@ -246,7 +247,6 @@ es:
       whole_number: Debe ser un número entero
   forms:
     errors:
-      address_is_not_po_box: No puedes declarar un apartado postal como la dirección donde vivías. Por favor indica donde vivías el 31 de diciembre del %{tax_year}
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
       healthcare:
@@ -1021,7 +1021,7 @@ es:
         view_all: Ver todo
     documents:
       confirm:
-        text: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de %{client_name}?"
+        text_html: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de <strong>%{client_name}</strong>?"
         title: Confirmar %{document_type}
       display_name: Nombre Para Mostrar
       edit:
@@ -1619,6 +1619,17 @@ es:
 
               Atentamente,
               El equipo de FileYourStateTaxes
+            post_deadline: |
+              Hola %{primary_first_name},
+
+              Todavía no has enviado tu declaración de impuestos estatales.
+
+              Completa tu declaración hoy visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+
+              ¿Necesitas ayuda? Responde a este correo electrónico.
+
+              Atentamente,
+              El equipo de FileYourStateTaxes
             pre_deadline: |
               Hola %{primary_first_name},
 
@@ -1633,6 +1644,15 @@ es:
           subject: Recuerda completar tu declaración de impuestos estatales
         sms:
           on_april_15: "Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. \n\n  Completa tu declaración hoy en www.fileyourstatetaxes.org/es/login-options.\n\n  Atentamente,\n  El equipo de FileYourStateTaxes\n\n  ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\n"
+          post_deadline: |
+            Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
+
+            Completa tu declaración hoy en www.fileyourstatetaxes.org/es/login-options.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+
+            ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
           pre_deadline: |
             Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
 
@@ -1663,6 +1683,26 @@ es:
             Best,
             The FileYourStateTaxes team
           subject: IRS Direct File is back and easier than ever
+      monthly_finish_return:
+        email:
+          body: |
+            Hola %{primary_first_name},
+            Parece que empezaste una declaración de impuestos estatales con FileYourStateTaxes pero no terminaste el proceso. Ve a <a target="_blank" rel="noopener nofollow" href="http://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a> para completarlo hoy.
+
+            Si ya presentaste tu declaración usando otro servicio, no necesitas hacer nada.
+            Si necesitas ayuda, responde a este correo.
+
+            Saludos,
+            El equipo de FileYourStateTaxes
+          subject: Recuerda terminar tu declaración de impuestos estatales
+        sms: |
+          Hola %{primary_first_name},
+          Empezaste una declaración de impuestos estatales con FileYourStateTaxes pero no la terminaste. Ve a http://www.fileyourstatetaxes.org/es/login-options para completarla hoy.
+
+          Si ya presentaste tu declaración usando otro servicio, no necesitas hacer nada.
+
+          Saludos,
+          El equipo de FileYourStateTaxes
       post_deadline_reminder:
         email:
           body: |-
@@ -2588,6 +2628,9 @@ es:
             has_out_of_state_w2: recibiste ingresos en otro estado en el %{filing_year}
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2024.
             married_filing_separately: estás presentando una declaración de impuestos "casado, declarando por separado".
+            mfj_and_dependent_html: |
+              tú o tu cónyuge indicaron que pueden ser incluidos en la declaración de otra persona.<br><br>
+              Maryland no permite que las parejas casadas presenten una declaración conjunta si el contribuyente o el cónyuge está incluido como dependiente en la declaración de alguien más.
             spouse_nra_html: |
               no incluiste el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de tu cónyuge en tu declaración federal.<br><br>
               Maryland no permite contribuyentes con el estado Casado declarando por separado presentar la declaración estatal de forma electrónica sin el SSN o ITIN de su cónyuge.
@@ -2665,7 +2708,7 @@ es:
           nc_extension_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
-          not_supported: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
+          not_supported: "¿Qué hago si por mi situación fiscal no puedo usar FileYourStateTaxes?"
           title1: Puedes usar este servicio para declarar tus impuestos estatales de %{state} de %{year}
           title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
@@ -2753,7 +2796,7 @@ es:
             sub_b7_html: Cualquier otra deducción de Maryland no mencionada aquí (consulta <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">el formulario 502SU</a>)
             subtractions_title: 'Restas:'
           title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland y/o el Crédito Tributario por Hijos no admite este servicio?"
-          title3: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
+          title3: "¿Qué hago si por mi situación fiscal no puedo usar FileYourStateTaxes?"
         md_supported:
           heading1: 'Restas:'
           heading2: 'Créditos:'
@@ -3004,11 +3047,13 @@ es:
           negative: 'No'
           subtitle_html: Si pagaste por una extensión a Arizona, lo hiciste <a href="https://aztaxes.gov/Home/PaymentIndividual/" rel="noopener noreferrer" target="_blank">pagado en línea</a>, seleccionando “204 Individual Extension Payment” o enviándolo por correo postal junto con el <a href="https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf" rel="noopener noreferrer" target="_blank">Formulario 204</a>.
           title: "¿Hiciste un pago de extensión a Arizona en o antes del 15 de abril de %{current_year}?"
+        default_payment_validation_message: Por favor ingresa la cantidad que pagaste por la extensión. La cantidad no puede ser 0.
         id:
           affirmative: Sí, hice un pago de extensión o de saldo estimado a Idaho
           amount: Cantidad de los pagos de extensión
           enter_amount: Ingresa la cantidad de los pagos que hiciste a Idaho usando el Formulario 51.
           negative: No, no hice un pago de extensión o de saldo estimado a Idaho
+          payment_validation_message: Por favor ingresa la cantidad que pagaste por la extensión. La cantidad no puede ser 0.
           subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ target=\"_blank\" rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf target=\"_blank\" rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
           title: "¿Hiciste un pago de extensión o de saldo estimado a Idaho sobre los impuestos de %{tax_year} en o antes del 15 de abril de %{current_year}?"
         md:
@@ -3027,23 +3072,19 @@ es:
           title: "¿Hiciste un pago de extensión a Carolina del Norte en o antes del 15 de abril de %{current_year}?"
       federal_extension_payments:
         edit:
-          affirmative: Sí, me otorgaron una extensión federal
-          az:
-            affirmative: Sí, me otorgaron una extensión federal
-            negative: No, no me otorgaron una extensión federal
-            subtitle_2: 'Te habrían concedido una extensión federal si realizaste alguna de las siguientes acciones en o antes del 15 de abril:'
-            title: "¿Te otorgaron una extensión federal?"
+          affirmative: Sí, presenté una solicitud para una extensión federal
           list_1: Hiciste un pago de extensión federal
           list_2_html: Presentaste el <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Formulario 4868</a> en línea o lo enviaste por correo postal
-          negative: No, no me otorgaron una extensión federal
-          nj:
+          nc:
             affirmative: Sí, me otorgaron una extensión federal
             negative: No, no me otorgaron una extensión federal
+            subtitle_1: Si te aceptaron una solicitud de extensión federal, esto significa que puedes presentar tus declaraciones de impuestos federales y estatales hasta el 15 de octubre sin incurrir en una multa por no presentar.
             subtitle_2: 'Te habrían concedido una extensión federal si realizaste alguna de las siguientes acciones en o antes del 15 de abril:'
             title: "¿Te otorgaron una extensión federal?"
-          subtitle_1: Si te aceptaron una solicitud de extensión federal, esto significa que puedes presentar tus declaraciones de impuestos federales y estatales hasta el 15 de octubre sin incurrir en una multa por no presentar.
-          subtitle_2: 'Te habrían concedido una extensión federal si realizaste alguna de las siguientes acciones en o antes del 15 de abril:'
-          title: "¿Te otorgaron una extensión federal?"
+          negative: No, no presenté una solicitud para una extensión federal
+          subtitle_1: Si presentaste una solicitud para una extensión federal, esto significa que puedes presentar tus declaraciones de impuestos federales y estatales hasta el 15 de octubre sin incurrir en una multa por no presentar.
+          subtitle_2: 'Presentaste una solicitud para una extensión federal si realizaste alguna de las siguientes acciones en o antes del 15 de abril:'
+          title: "¿Presentaste una solicitud para una extensión federal?"
       id_disability:
         edit:
           help_b1: Un individuo reconocido como discapacitado por la Administración del Seguro Social, la Junta de Jubilación de los Ferrocarriles o la Oficina de Administración y Presupuesto (OMB, por sus siglas en inglés).
@@ -3350,18 +3391,19 @@ es:
       md_permanent_address:
         edit:
           address_header: Dirección
+          address_is_not_po_box: No puedes usar un apartado postal como la dirección donde vivías. Por favor ingresa una dirección válida.
           apartment_number_label: Número de apartamento/unidad
           city_label: Cuidad
           df_address_is_po_box:
             p1: 'La dirección que tenemos registrada para ti es un apartado postal:'
-            p2: Ya que no puedes declarar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
-          follow_up_help_text: No se aceptan PO Boxes
+            p2: Ya que no puedes usar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
+          follow_up_help_text: No se aceptan apartados postales (PO Boxes)
           mark_no_hint_html: Marca “no” si la dirección que aparece es un PO Box <strong>o</strong> si vivías en una dirección distinta el 31 de diciembre de %{filing_year}.
           state_label: Estado
           street_address_label: Dirección
           title: "¿Vivías en esta dirección el 31 de diciembre de %{filing_year}?"
           title_df_po_box: Necesitamos saber dónde vivías el 31 de diciembre del %{filing_year}?
-          where_did_you_live: "¿Dónde vivías el 31 de diciembre de %{filing_year}?"
+          where_did_you_live: "¿En qué dirección vivías el 31 de diciembre del %{filing_year}?"
           zip_label: Código postal
       md_permanently_disabled:
         edit:
@@ -4578,6 +4620,7 @@ es:
           local_wages_and_tips_amt_error: Ingresa los salarios y propinas locales
           locality_nm_missing_error: Selecciona el nombre de la localidad
           no_money_amount: Please enter an amount. If amount is blank, enter $0.
+          review_box_14: Please review and update this number from Box 14 of your W-2.
           save_and_continue: Guardar y Continuar
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
