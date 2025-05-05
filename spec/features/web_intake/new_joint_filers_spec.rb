@@ -119,7 +119,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
     click_on "I agree"
     # create tax returns only after client has consented
-    expect(intake.client.tax_returns.map(&:year)).to match_array [MultiTenantService.new(:gyr).current_tax_year - 2, current_tax_year]
+    expect(intake.client.tax_returns.map(&:year)).to match_array(backtax_year_offsets.map { |offset| current_tax_year - offset })
     expect(intake.reload.client.tax_returns.pluck(:current_state)).to eq ["intake_in_progress", "intake_in_progress"]
 
     screenshot_after do
@@ -695,6 +695,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
   scenario "after the tax deadline and before end of inprogress intake selecting all years", js: true do
     Timecop.freeze(Date.new(2025, 6, 23)) do
       intake_up_to_documents(backtax_year_offsets: [0, 1, 2, 3])
+      expect(intake.client.tax_returns.map(&:year)).to include(2025, 2024, 2022)
     end
   end
 
