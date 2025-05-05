@@ -8,7 +8,7 @@
         <ReturnTypeCd>1040</ReturnTypeCd>
         <Filer>
             <PrimarySSN>400002434</PrimarySSN>
-            <NameLine1Txt>SCRAMBLE&lt;EGG</NameLine1Txt>
+            <NameLine1Txt>SCRAMBLED J&lt;EGG</NameLine1Txt>
             <PrimaryNameControlTxt>EGG</PrimaryNameControlTxt>
             <USAddress>
                 <AddressLine1Txt>1234 Changing Heart Blvd</AddressLine1Txt>
@@ -20,7 +20,7 @@
         </Filer>
         <AdditionalFilerInformation>
             <AtSubmissionFilingGrp>
-                <EmailAddressTxt>test-user+40000243-45e3-494f-b2ad-976f4a46bfb3@directfile.test</EmailAddressTxt>
+                <EmailAddressTxt>test-user+40000243-47f7-4656-99f5-307dd50a7d3f@directfile.test</EmailAddressTxt>
             </AtSubmissionFilingGrp>
         </AdditionalFilerInformation>
     </ReturnHeader>
@@ -40,22 +40,22 @@
             <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
             <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
             <TotalExemptionsCnt>1</TotalExemptionsCnt>
-            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">8000</WagesAmt>
-            <WagesSalariesAndTipsAmt>8000</WagesSalariesAndTipsAmt>
-            <TotalIncomeAmt>8000</TotalIncomeAmt>
-            <AdjustedGrossIncomeAmt>8000</AdjustedGrossIncomeAmt>
-            <TotalItemizedOrStandardDedAmt>10000</TotalItemizedOrStandardDedAmt>
-            <TotalDeductionsAmt>10000</TotalDeductionsAmt>
-            <TaxableIncomeAmt>0</TaxableIncomeAmt>
-            <TaxAmt>0</TaxAmt>
-            <TotalTaxBeforeCrAndOthTaxesAmt>0</TotalTaxBeforeCrAndOthTaxesAmt>
-            <TaxLessCreditsAmt>0</TaxLessCreditsAmt>
-            <TotalTaxAmt>0</TotalTaxAmt>
-            <FormW2WithheldTaxAmt>100</FormW2WithheldTaxAmt>
-            <WithholdingTaxAmt>100</WithholdingTaxAmt>
-            <TotalPaymentsAmt>100</TotalPaymentsAmt>
-            <OverpaidAmt>100</OverpaidAmt>
-            <RefundAmt>100</RefundAmt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">80000</WagesAmt>
+            <WagesSalariesAndTipsAmt>80000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>80000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>80000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>30750</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>30750</TotalDeductionsAmt>
+            <TaxableIncomeAmt>49250</TaxableIncomeAmt>
+            <TaxAmt>5449</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>5449</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>5449</TaxLessCreditsAmt>
+            <TotalTaxAmt>5449</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>6200</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>6200</WithholdingTaxAmt>
+            <TotalPaymentsAmt>6200</TotalPaymentsAmt>
+            <OverpaidAmt>751</OverpaidAmt>
+            <RefundAmt>751</RefundAmt>
             <OwedAmt>0</OwedAmt>
             <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
             <PrimaryOccupationTxt>Worker</PrimaryOccupationTxt>
@@ -69,30 +69,30 @@
                 <BusinessNameLine1Txt>Hiding out in the open</BusinessNameLine1Txt>
             </EmployerName>
             <EmployerUSAddress>
-                <AddressLine1Txt>972 Mission Street</AddressLine1Txt>
+                <AddressLine1Txt>972 Mission St</AddressLine1Txt>
                 <CityNm>San Francisco</CityNm>
-                <StateAbbreviationCd>CA</StateAbbreviationCd>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>94103</ZIPCd>
             </EmployerUSAddress>
-            <EmployeeNm>Scramble Egg</EmployeeNm>
+            <EmployeeNm>Scrambled J Egg</EmployeeNm>
             <EmployeeUSAddress>
                 <AddressLine1Txt>1234 Changing Heart Blvd</AddressLine1Txt>
                 <CityNm>Hagerstown</CityNm>
                 <StateAbbreviationCd>MD</StateAbbreviationCd>
                 <ZIPCd>21740</ZIPCd>
             </EmployeeUSAddress>
-            <WagesAmt>8000</WagesAmt>
-            <WithholdingAmt>100</WithholdingAmt>
-            <SocialSecurityWagesAmt>8000</SocialSecurityWagesAmt>
-            <SocialSecurityTaxAmt>496</SocialSecurityTaxAmt>
-            <MedicareWagesAndTipsAmt>8000</MedicareWagesAndTipsAmt>
-            <MedicareTaxWithheldAmt>116</MedicareTaxWithheldAmt>
+            <WagesAmt>80000</WagesAmt>
+            <WithholdingAmt>6200</WithholdingAmt>
+            <SocialSecurityWagesAmt>80000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>4960</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>80000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1160</MedicareTaxWithheldAmt>
             <W2StateLocalTaxGrp>
                 <W2StateTaxGrp>
                     <StateAbbreviationCd>MD</StateAbbreviationCd>
                     <EmployerStateIdNum>123456789</EmployerStateIdNum>
-                    <StateWagesAmt>8000</StateWagesAmt>
-                    <StateIncomeTaxAmt>100</StateIncomeTaxAmt>
+                    <StateWagesAmt>80000</StateWagesAmt>
+                    <StateIncomeTaxAmt>2000</StateIncomeTaxAmt>
                     <W2LocalTaxGrp/>
                 </W2StateTaxGrp>
             </W2StateLocalTaxGrp>
