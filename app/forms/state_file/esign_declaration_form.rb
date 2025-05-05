@@ -14,7 +14,6 @@ module StateFile
     validates :spouse_signature_pin, presence: true, signature_pin: true, if: -> { @intake.ask_for_signature_pin?  && @intake.ask_spouse_esign? }
 
     def save
-
       return false unless valid?
       attrs = attributes_for(:intake)
       spouse_esigned = @intake.ask_spouse_esign?
