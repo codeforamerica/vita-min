@@ -120,7 +120,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     click_on "I agree"
     # create tax returns only after client has consented
     expect(intake.client.tax_returns.map(&:year)).to match_array(backtax_year_offsets.map { |offset| current_tax_year - offset })
-    expect(intake.reload.client.tax_returns.pluck(:current_state)).to eq ["intake_in_progress", "intake_in_progress"]
+    expect(intake.reload.client.tax_returns.pluck(:current_state)).to eq(["intake_in_progress"] * backtax_year_offsets.length)
 
     screenshot_after do
       # Optional consent form
