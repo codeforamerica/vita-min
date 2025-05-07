@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.1">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>7b964ef3f</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400002434</PrimarySSN>
+            <NameLine1Txt>SCRAMBLED J&lt;EGG</NameLine1Txt>
+            <PrimaryNameControlTxt>EGG</PrimaryNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>1234 Changing Heart Blvd</AddressLine1Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000243-47f7-4656-99f5-307dd50a7d3f@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="2">
+        <IRS1040 documentId="IRS10400001">
+            <Form1040SRInd>X</Form1040SRInd>
+            <IndividualReturnFilingStatusCd>5</IndividualReturnFilingStatusCd>
+            <QualifyingPersonName>
+                <PersonFirstNm>Frittata</PersonFirstNm>
+                <PersonLastNm>Egg</PersonLastNm>
+            </QualifyingPersonName>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <PrimaryClaimAsDependentInd>X</PrimaryClaimAsDependentInd>
+            <Primary65OrOlderInd>X</Primary65OrOlderInd>
+            <TotalBoxesCheckedCnt>1</TotalBoxesCheckedCnt>
+            <TotalExemptPrimaryAndSpouseCnt>1</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>1</TotalExemptionsCnt>
+            <WagesAmt referenceDocumentId="W20001" referenceDocumentName="IRSW2">80000</WagesAmt>
+            <WagesSalariesAndTipsAmt>80000</WagesSalariesAndTipsAmt>
+            <TotalIncomeAmt>80000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>80000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>30750</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>30750</TotalDeductionsAmt>
+            <TaxableIncomeAmt>49250</TaxableIncomeAmt>
+            <TaxAmt>5449</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>5449</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>5449</TaxLessCreditsAmt>
+            <TotalTaxAmt>5449</TotalTaxAmt>
+            <FormW2WithheldTaxAmt>6200</FormW2WithheldTaxAmt>
+            <WithholdingTaxAmt>6200</WithholdingTaxAmt>
+            <TotalPaymentsAmt>6200</TotalPaymentsAmt>
+            <OverpaidAmt>751</OverpaidAmt>
+            <RefundAmt>751</RefundAmt>
+            <OwedAmt>0</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Worker</PrimaryOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRSW2 documentId="W20001" documentName="IRSW2">
+            <EmployeeSSN>400002434</EmployeeSSN>
+            <EmployerEIN>841564926</EmployerEIN>
+            <EmployerNameControlTxt>HIDI</EmployerNameControlTxt>
+            <EmployerName>
+                <BusinessNameLine1Txt>Hiding out in the open</BusinessNameLine1Txt>
+            </EmployerName>
+            <EmployerUSAddress>
+                <AddressLine1Txt>972 Mission St</AddressLine1Txt>
+                <CityNm>San Francisco</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>94103</ZIPCd>
+            </EmployerUSAddress>
+            <EmployeeNm>Scrambled J Egg</EmployeeNm>
+            <EmployeeUSAddress>
+                <AddressLine1Txt>1234 Changing Heart Blvd</AddressLine1Txt>
+                <CityNm>Hagerstown</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21740</ZIPCd>
+            </EmployeeUSAddress>
+            <WagesAmt>80000</WagesAmt>
+            <WithholdingAmt>6200</WithholdingAmt>
+            <SocialSecurityWagesAmt>80000</SocialSecurityWagesAmt>
+            <SocialSecurityTaxAmt>4960</SocialSecurityTaxAmt>
+            <MedicareWagesAndTipsAmt>80000</MedicareWagesAndTipsAmt>
+            <MedicareTaxWithheldAmt>1160</MedicareTaxWithheldAmt>
+            <W2StateLocalTaxGrp>
+                <W2StateTaxGrp>
+                    <StateAbbreviationCd>MD</StateAbbreviationCd>
+                    <EmployerStateIdNum>123456789</EmployerStateIdNum>
+                    <StateWagesAmt>80000</StateWagesAmt>
+                    <StateIncomeTaxAmt>2000</StateIncomeTaxAmt>
+                    <W2LocalTaxGrp/>
+                </W2StateTaxGrp>
+            </W2StateLocalTaxGrp>
+            <StandardOrNonStandardCd>S</StandardOrNonStandardCd>
+        </IRSW2>
+    </ReturnData>
+</Return>

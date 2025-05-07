@@ -1,0 +1,52 @@
+{
+  "familyAndHousehold": [
+    {
+      "monthsLivedWithTPInUS": "twelve",
+      "lastName": "Egg",
+      "isClaimedDependent": false,
+      "hohQualifyingPerson": true,
+      "qualifyingChild": true,
+      "scheduleEicLine4bYes": false,
+      "scheduleEicLine4aYes": false,
+      "dateOfBirth": "2020-03-01",
+      "suffix": null,
+      "residencyDuration": "allYear",
+      "firstName": "Frittata",
+      "middleInitial": null,
+      "scheduleEicLine4aNo": false,
+      "tin": null,
+      "eligibleDependent": false,
+      "relationship": "biologicalChild",
+      "ssnNotValidForEmployment": false
+    }
+  ],
+  "socialSecurityReports": [],
+  "filers": [
+    {
+      "lastName": "Egg",
+      "dateOfBirth": "1955-03-09",
+      "suffix": null,
+      "isPrimaryFiler": true,
+      "firstName": "Scrambled",
+      "middleInitial": "J",
+      "educatorExpenses": "0.00",
+      "tin": "400-00-2434",
+      "interestReportsTotal": "0.00",
+      "isDisabled": false,
+      "form1099GsTotal": "0.00",
+      "isStudent": false,
+      "hsaTotalDeductibleAmount": null,
+      "ssnNotValidForEmployment": null
+    }
+  ],
+  "form1099Gs": [],
+  "formW2s": [
+    {
+      "BOX14_NJ_UIWFSWF": null,
+      "usedTin": "400-00-2434",
+      "BOX14_NJ_UIHCWD": null,
+      "unionDuesAmount": null
+    }
+  ],
+  "interestReports": []
+}
