@@ -3,12 +3,7 @@ module StateFile
     set_attributes_for :intake, :paid_prior_year_refund_payments, :prior_year_refund_payments_amount
     validates :paid_prior_year_refund_payments, inclusion: { in: %w[yes no], message: :blank }
     validates :prior_year_refund_payments_amount,
-              presence: true,
-              numericality: {
-                allow_blank: false,
-                greater_than: 0,
-                message: I18n.t("validators.not_a_number")
-              },
+              positive_money_field: true,
               if: -> { paid_prior_year_refund_payments == "yes" }
 
     def save
