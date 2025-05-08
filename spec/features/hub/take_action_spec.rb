@@ -85,7 +85,7 @@ RSpec.feature "Change tax return status on a client", :js do
       click_on "Cancel"
 
       expect(current_path).to eq(hub_client_path(id: client.id))
-      expect(page).to have_select("tax_return[current_state]", selected: "Needs doc help")
+      expect(page).to have_select("tax_return[current_state]", selected: "Not ready")
     end
 
     context "for an online intake ctc tax return" do
