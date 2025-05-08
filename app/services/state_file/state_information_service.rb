@@ -210,7 +210,7 @@ module StateFile
                               "PO Box 25000<br/>" \
                               "Raleigh, NC 27640-0640".html_safe,
         navigation_class: Navigation::StateFileNcQuestionNavigation,
-        pay_taxes_link: "https://www.nc.gov/working/taxes",
+        pay_taxes_link: "https://electronic-services.dor.nc.gov/wps/portal/d400v",
         return_type: "FormNCD400",
         review_controller_class: StateFile::Questions::NcReviewController,
         schema_file_name: "NCIndividual2024v1.0.zip",
