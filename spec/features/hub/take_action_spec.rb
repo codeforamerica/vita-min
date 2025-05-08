@@ -41,7 +41,7 @@ RSpec.feature "Change tax return status on a client", :js do
 
     scenario "can change a status on a tax return and send a templated message" do
       visit hub_client_path(id: client.id)
-      expect(page).to have_select("tax_return[current_state]", selected: "Needs doc help")
+      expect(page).to have_select("tax_return[current_state]", selected: "Not ready")
 
       within "#tax-return-#{tax_return.id}" do
         select "Greeter - info requested"
@@ -74,7 +74,7 @@ RSpec.feature "Change tax return status on a client", :js do
 
     scenario "can cancel the updates and return to client's profile" do
       visit hub_client_path(id: client.id)
-      expect(page).to have_select("tax_return[current_state]", selected: "Needs doc help")
+      expect(page).to have_select("tax_return[current_state]", selected: "Not ready")
 
       within "#tax-return-#{tax_return.id}" do
         select "Accepted"
