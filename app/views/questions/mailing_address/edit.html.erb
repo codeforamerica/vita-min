@@ -5,6 +5,7 @@
 <% content_for :card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
     <h1 class="h2"><%= @main_question %></h1>
+    <p><%=t("views.questions.mailing_address.info_html") %></p>
 
     <div class="form-card__content">
       <%= f.cfa_input_field(:street_address, t("views.questions.mailing_address.street_address"), classes: ["form-width--long"]) %>
