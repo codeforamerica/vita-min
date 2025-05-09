@@ -103,9 +103,13 @@ class MultiTenantService
     if service_type == :ctc || service_type == :state_file
       [current_tax_year]
     else
-      Rails.configuration.tax_year_filing_seasons.select do |_, (season_start, deadline)|
+      years = Rails.configuration.tax_year_filing_seasons.select do |_, (season_start, deadline)|
         deadline > now - 3.years && season_start <= now
       end.keys.freeze
+      if now.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_in_progress_intake)
+        years += [years.last - 1 ]
+      end
+      years
     end
   end
 
