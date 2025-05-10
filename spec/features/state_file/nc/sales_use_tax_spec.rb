@@ -6,6 +6,14 @@ RSpec.feature "Calculating the sales/use tax for a NC intake", js: true do
   include MockTwilio
   include StateFileIntakeHelper
 
+  before do
+    Bullet.enable = false
+  end
+
+  after do
+    Bullet.enable = true
+  end
+
   context "NC" do
     let!(:intake) {
       create :state_file_nc_intake, :with_spouse,
