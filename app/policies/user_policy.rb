@@ -10,13 +10,11 @@ class UserPolicy < ApplicationPolicy
   def show?
     same_user? || in_accessible_scope?
   end
-
   alias read? show?
 
   def update?
     admin? || client_success? || lead_or_coordinator_for_record?
   end
-
   alias edit? update?
 
   def destroy?
@@ -37,15 +35,15 @@ class UserPolicy < ApplicationPolicy
   end
 
   def profile?
-    true
+    same_user?
   end
 
   def edit_role?
-    true
+    user.present?
   end
 
   def update_role?
-    true
+    user.present?
   end
 
   class Scope < Scope
