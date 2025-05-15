@@ -184,6 +184,7 @@ en:
       last_name:
         blank: Please enter a last name.
         invalid_format: Only letters, numbers, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.
+      money_field: This field can not be blank. Please enter a number that is greater than 0.
       nc_withdrawal_date:
         holiday: Withdrawal date cannot be on a US federal or bank holiday
         past: Withdrawal date must be after today
@@ -1012,7 +1013,7 @@ en:
         view_all: View All
     documents:
       confirm:
-        text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?
+        text_html: Is this a %{document_type} for <strong>%{client_name}'s</strong> %{filing_year} tax return?
         title: Confirm %{document_type}
       display_name: Display name
       edit:
@@ -1671,6 +1672,27 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: IRS Direct File is back and easier than ever
+      monthly_finish_return:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            It looks like you started a state tax return with FileYourStateTaxes but did not finish the process. Go to <a target="_blank" rel="noopener nofollow" href="http://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today.
+
+            If you have already filed using another service, no action is required.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: Remember to finish your state tax return
+        sms: |
+          Hi %{primary_first_name} - You started a state tax return with FileYourStateTaxes but have not finished. Go to http://www.fileyourstatetaxes.org/en/login-options to finish them today
+
+          If you have already filed using another service, no action is required.
+
+          Best,
+          The FileYourStateTaxes team
       post_deadline_reminder:
         email:
           body: |-
@@ -2593,6 +2615,9 @@ en:
             has_out_of_state_w2: you earned income in another state in %{filing_year}.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
             married_filing_separately: you are filing “married filing separately”.
+            mfj_and_dependent_html: |
+              you or your spouse indicated that you can be claimed on someone else’s return.<br><br>
+              Maryland does not allow married filers to file a joint return if the taxpayer or spouse is claimed as a dependent.
             spouse_nra_html: |
               you didn’t include your spouse’s SSN or ITIN in your federal return.<br><br>
               Maryland does not allow Married Filing Separately taxpayers to electronically file their state tax return without their spouse’s SSN or ITIN.
@@ -2714,7 +2739,7 @@ en:
               You have other free options for filing your state return:
               <ul>
                 <li>
-                  Filing your state return for free with IRS-certified VITA volunteers in Maryland, but it may take 2-3 weeks to complete.
+                  Filing your state return for free with IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers in Maryland. Note that this option may take 2-3 weeks to complete.
                   <ul>
                     <li>
                       <a href="https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form" rel="noopener nofollow" target="_blank">Get started with VITA now</a>
@@ -2890,7 +2915,7 @@ en:
                   You have other free options for filing your state return:
                   <ul>
                     <li>
-                      File for free with IRS-Certified VITA volunteers in Maryland.
+                      File for free with IRS-Certified Volunteer Income Tax Assistance (VITA) tax preparers in Maryland.
                       <ul>
                         <li>
                           If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
@@ -3028,11 +3053,13 @@ en:
           negative: 'No'
           subtitle_html: If you made an Arizona extension payment, you would have <a href="https://aztaxes.gov/Home/PaymentIndividual/" rel="noopener noreferrer" target="_blank">paid online</a> with the selection “204 Individual Extension Payment” or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf target="_blank" rel="noopener noreferrer">Form 204</a>.
           title: Did you make an Arizona extension payment on or before April 15, %{current_year}?
+        default_payment_validation_message: Please enter the extension payment amount. The value cannot be 0.
         id:
           affirmative: Yes, I made extension or estimated payments to Idaho
           amount: Amount of Idaho payments
           enter_amount: Enter the amount of payments made to Idaho on Form 51.
           negative: No, I did not make extension or estimated payments to Idaho
+          payment_validation_message: Please enter the extension or estimated payment amount. The value cannot be 0.
           subtitle_html: "If you made these payments, you would have <a href=https://idahotap.gentax.com/tap/_/ target=\"_blank\" rel=\"noopener noreferrer\">paid online</a> or mailed your payment along with <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf target=\"_blank\" rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nEstimated tax payments can be paid anytime during the tax year, and they do not include taxes withheld from your other income such as wages and retirement.\n"
           title: Did you make any Idaho extension or estimated payments for the %{tax_year} tax year on or before April 15, %{current_year}?
         md:
@@ -3348,7 +3375,7 @@ en:
           commercial_tax_prep_html: File with a commercial tax preparation service. Learn more <a href='%{path}' target='_blank' rel='noopener noreferrer'>here</a>.
           contact_info_html: If you have any questions or want your information removed from this service, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
           description: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income.
-          free_in_md: File for free with IRS-Certified VITA volunteers in Maryland.
+          free_in_md: File for free with IRS-Certified Volunteer Income Tax Assistance (VITA) tax preparers in Maryland.
           free_income_tax_prep_html: Get started with the Comptroller of Maryland’s <a href='https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php' target='_blank' rel='noopener noreferrer'>Free Income Tax Preparation</a> service.
           go_back_html: "<strong>Have you provided proof of your disability in previous tax years?</strong> <a href='%{path}'>Go back to correct.</a>"
           if_choose_this_option: If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
@@ -6880,6 +6907,7 @@ en:
           other: In %{year}, did you or your spouse receive a state or local income tax refund?
       mailing_address:
         city: City
+        info_html: A mailing address is required to file your tax return. For more information on addresses that are acceptable, <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">see our FAQ.</a>
         state: State or US Territory
         street_address: Street address or P.O. box
         street_address2: Apartment number (optional)
@@ -7027,6 +7055,7 @@ en:
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.
+        warning_html: '⚠️ <b>Immigrant filers</b>: As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Please see our FAQ for more information if you have any concerns.</a>'
       start_with_current_year:
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: We’ll start by asking about your situation in %{year}.

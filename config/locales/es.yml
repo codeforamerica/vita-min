@@ -184,6 +184,7 @@ es:
       last_name:
         blank: Por favor, ingrese un apellido.
         invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
+      money_field: Por favor ingresa la cantidad que pagaste por la parte de tu reembolso del estado. La cantidad no puede ser 0.
       nc_withdrawal_date:
         holiday: La fecha de retiro no puede ser un día festivo federal o bancario de EE. UU.
         past: La fecha de retiro debe ser posterior a hoy
@@ -1020,7 +1021,7 @@ es:
         view_all: Ver todo
     documents:
       confirm:
-        text: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de %{client_name}?"
+        text_html: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de <strong>%{client_name}</strong>?"
         title: Confirmar %{document_type}
       display_name: Nombre Para Mostrar
       edit:
@@ -1682,6 +1683,26 @@ es:
             Best,
             The FileYourStateTaxes team
           subject: IRS Direct File is back and easier than ever
+      monthly_finish_return:
+        email:
+          body: |
+            Hola %{primary_first_name},
+            Parece que empezaste una declaración de impuestos estatales con FileYourStateTaxes pero no terminaste el proceso. Ve a <a target="_blank" rel="noopener nofollow" href="http://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a> para completarlo hoy.
+
+            Si ya presentaste tu declaración usando otro servicio, no necesitas hacer nada.
+            Si necesitas ayuda, responde a este correo.
+
+            Saludos,
+            El equipo de FileYourStateTaxes
+          subject: Recuerda terminar tu declaración de impuestos estatales
+        sms: |
+          Hola %{primary_first_name},
+          Empezaste una declaración de impuestos estatales con FileYourStateTaxes pero no la terminaste. Ve a http://www.fileyourstatetaxes.org/es/login-options para completarla hoy.
+
+          Si ya presentaste tu declaración usando otro servicio, no necesitas hacer nada.
+
+          Saludos,
+          El equipo de FileYourStateTaxes
       post_deadline_reminder:
         email:
           body: |-
@@ -2607,6 +2628,9 @@ es:
             has_out_of_state_w2: recibiste ingresos en otro estado en el %{filing_year}
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2024.
             married_filing_separately: estás presentando una declaración de impuestos "casado, declarando por separado".
+            mfj_and_dependent_html: |
+              tú o tu cónyuge indicaron que pueden ser incluidos en la declaración de otra persona.<br><br>
+              Maryland no permite que las parejas casadas presenten una declaración conjunta si el contribuyente o el cónyuge está incluido como dependiente en la declaración de alguien más.
             spouse_nra_html: |
               no incluiste el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de tu cónyuge en tu declaración federal.<br><br>
               Maryland no permite contribuyentes con el estado Casado declarando por separado presentar la declaración estatal de forma electrónica sin el SSN o ITIN de su cónyuge.
@@ -2684,7 +2708,7 @@ es:
           nc_extension_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
-          not_supported: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
+          not_supported: "¿Qué hago si por mi situación fiscal no puedo usar FileYourStateTaxes?"
           title1: Puedes usar este servicio para declarar tus impuestos estatales de %{state} de %{year}
           title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
@@ -2772,7 +2796,7 @@ es:
             sub_b7_html: Cualquier otra deducción de Maryland no mencionada aquí (consulta <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">el formulario 502SU</a>)
             subtractions_title: 'Restas:'
           title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland y/o el Crédito Tributario por Hijos no admite este servicio?"
-          title3: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
+          title3: "¿Qué hago si por mi situación fiscal no puedo usar FileYourStateTaxes?"
         md_supported:
           heading1: 'Restas:'
           heading2: 'Créditos:'
@@ -3023,11 +3047,13 @@ es:
           negative: 'No'
           subtitle_html: Si pagaste por una extensión a Arizona, lo hiciste <a href="https://aztaxes.gov/Home/PaymentIndividual/" rel="noopener noreferrer" target="_blank">pagado en línea</a>, seleccionando “204 Individual Extension Payment” o enviándolo por correo postal junto con el <a href="https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf" rel="noopener noreferrer" target="_blank">Formulario 204</a>.
           title: "¿Hiciste un pago de extensión a Arizona en o antes del 15 de abril de %{current_year}?"
+        default_payment_validation_message: Por favor ingresa la cantidad que pagaste por la extensión. La cantidad no puede ser 0.
         id:
           affirmative: Sí, hice un pago de extensión o de saldo estimado a Idaho
           amount: Cantidad de los pagos de extensión
           enter_amount: Ingresa la cantidad de los pagos que hiciste a Idaho usando el Formulario 51.
           negative: No, no hice un pago de extensión o de saldo estimado a Idaho
+          payment_validation_message: Por favor ingresa la cantidad que pagaste por la extensión. La cantidad no puede ser 0.
           subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ target=\"_blank\" rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf target=\"_blank\" rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
           title: "¿Hiciste un pago de extensión o de saldo estimado a Idaho sobre los impuestos de %{tax_year} en o antes del 15 de abril de %{current_year}?"
         md:
@@ -6939,6 +6965,7 @@ es:
           other: En %{year}, ¿recibió usted o su cónyuge un reembolso del impuesto sobre la renta estatal o local?
       mailing_address:
         city: Ciudad
+        info_html: Se requiere una dirección postal para presentar tu declaración de impuestos. Para obtener más información sobre las direcciones que son aceptables, <a href="https://www.getyourrefund.org/es/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">consulta nuestras preguntas frecuentes.</a>
         state: Estado o territorio de EE. UU.
         street_address: Dirección o apartado postal
         street_address2: Número de apartamento (opcional)
@@ -7099,6 +7126,7 @@ es:
         title: Seleccione cualquier situación que haya sido cierta para su cónyuge en %{year}
       ssn_itin:
         title: Favor de proporcionar su información de identificación del contribuyente, "taxpayer identification information" en inglés.
+        warning_html: ⚠️ <b>Declarantes inmigrantes:</b> A partir del 7 de abril, el IRS y el Departamento de Seguridad Nacional (incluyendo ICE) han llegado a un acuerdo para compartir datos entre las agencias. <a href="https://www.getyourrefund.org/es/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Consulte nuestras preguntas frecuentes para más información</a>
       start_with_current_year:
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
         title: Comenzaremos preguntando sobre su situación en el %{year}.

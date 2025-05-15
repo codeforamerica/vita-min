@@ -29,11 +29,10 @@ class Seeder
     faq_json = JSON.parse(File.read('./db/seeds/faq.json'))
     faq_json.each do |cat_slug, data|
       new_cat = FaqCategory.find_or_create_by(slug: cat_slug)
-      new_cat.update(data.without("items"))
-      data["items"].each do |data|
-        fi = FaqItem.find_or_initialize_by(slug: data["slug"])
-        fi.update(data)
-        fi.faq_category = new_cat
+      new_cat.update!(data.without("items"))
+      data["items"].each do |item_data|
+        fi = FaqItem.find_or_initialize_by(faq_category_id: new_cat.id, slug: item_data["slug"])
+        fi.update(item_data)
         fi.save!
       end
       new_cat.save!
