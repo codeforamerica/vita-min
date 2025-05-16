@@ -100,7 +100,7 @@ class ClientSorter
       ids = JSON.parse(@filters[:vita_partners]).map do |vita_partner|
         vita_partner.instance_of?(Hash) ? vita_partner["id"] : vita_partner
       end
-      clients = clients.where(vita_partner_id: ids)
+      clients = clients.includes(vita_partner: :parent_organization).where(vita_partner_id: ids)
     end
     clients = clients.where(intake: Intake.search(@filters[:search])) if @filters[:search].present?
     clients

@@ -67,8 +67,8 @@ class User < ApplicationRecord
   validates :email, 'valid_email_2/email': { mx: true }
   validates_length_of :password, maximum: Devise.password_length.end, allow_blank: true
   validates :password, password_strength: true
-  validates_confirmation_of :password, message: -> (_object, _data) { I18n.t("errors.attributes.password.not_matching") }
-  validates_presence_of :password, if: -> (r) { !r.persisted? || !r.password.nil? || !r.password_confirmation.nil? }
+  validates_confirmation_of :password, message: ->(_object, _data) { I18n.t("errors.attributes.password.not_matching") }
+  validates_presence_of :password, if: ->(r) { !r.persisted? || !r.password.nil? || !r.password_confirmation.nil? }
 
   has_many :assigned_tax_returns, class_name: "TaxReturn", foreign_key: :assigned_user_id
   has_many :access_logs
@@ -126,11 +126,13 @@ class User < ApplicationRecord
     when AdminRole::TYPE, ClientSuccessRole::TYPE
       VitaPartner.all
     when OrganizationLeadRole::TYPE
-      VitaPartner.organizations.where(id: role.organization).or(VitaPartner.sites.where(parent_organization: role.organization))
+      organization = OrganizationLeadRole.includes(:organization).find(role_id).organization
+      VitaPartner.organizations.where(id: organization).or(VitaPartner.sites.where(parent_organization: organization))
     when TeamMemberRole::TYPE, SiteCoordinatorRole::TYPE
       VitaPartner.sites.where(id: role.sites)
     when CoalitionLeadRole::TYPE
-      organizations = VitaPartner.organizations.where(coalition: role.coalition)
+      coalition = CoalitionLeadRole.includes(:coalition).find(role_id).coalition
+      organizations = VitaPartner.organizations.where(coalition: coalition)
       sites = VitaPartner.sites.where(parent_organization: organizations)
       organizations.or(sites)
     when GreeterRole::TYPE
@@ -172,9 +174,14 @@ class User < ApplicationRecord
       team_members = User.where(role: TeamMemberRole.assignable_to_sites(sites))
       organization_leads.or(site_coordinators).or(team_members)
     when SiteCoordinatorRole::TYPE, TeamMemberRole::TYPE
-      organization_leads = User.where(role: OrganizationLeadRole.where(organization: role.sites.map(&:parent_organization)))
-      site_coordinators = User.where(role: SiteCoordinatorRole.assignable_to_sites(role.sites))
-      team_members = User.where(role: TeamMemberRole.assignable_to_sites(role.sites))
+      sites = if role_type == SiteCoordinatorRole::TYPE
+                role.class.includes(:site_coordinator_roles_vita_partners, :sites).find(role_id).sites
+              else
+                role.class.includes(:team_member_roles_vita_partners, :sites).find(role_id).sites
+              end
+      organization_leads = User.where(role: OrganizationLeadRole.where(organization: sites.map(&:parent_organization)))
+      site_coordinators = User.where(role: SiteCoordinatorRole.assignable_to_sites(sites))
+      team_members = User.where(role: TeamMemberRole.assignable_to_sites(sites))
       organization_leads.or(site_coordinators).or(team_members)
     else
       User.none

@@ -7,9 +7,14 @@ RSpec.feature "Completing a state file intake", active_job: true do
   include StateFileIntakeHelper
 
   before do
+    Bullet.enable = false
     allow_any_instance_of(Routes::StateFileDomain).to receive(:matches?).and_return(true)
     allow(Flipper).to receive(:enabled?).and_call_original
     allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
+  end
+
+  after do
+    Bullet.enable = true
   end
 
   context "NJ", :flow_explorer_screenshot, js: true do
@@ -233,25 +238,25 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     it "advances past the loading screen by listening for an actioncable broadcast", required_schema: "nj" do
       advance_to_start_of_intake("O neal walker catchall mfj", check_a11y: true, expect_income_review: true)
-      
+
       expect(page).to be_axe_clean
       advance_health_insurance_eligibility
-      
+
       expect(page).to be_axe_clean
       advance_county_and_municipality
-      
+
       expect(page).to be_axe_clean
       advance_disabled_exemption
-      
+
       expect(page).to be_axe_clean
       advance_veterans_exemption
-      
+
       expect(page).to be_axe_clean
       advance_college_dependents
-      
+
       expect(page).to be_axe_clean
       advance_medical_expenses
-      
+
       expect(page).to be_axe_clean
       choose_household_rent_own("neither")
       expect(page).to be_axe_clean
@@ -307,10 +312,10 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
       # Gubernatorial elections fund
       expect(page).to be_axe_clean
-      within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.primary_contribute')) do 
+      within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.primary_contribute')) do
         choose I18n.t('general.affirmative')
       end
-      within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.spouse_contribute')) do 
+      within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.spouse_contribute')) do
         choose I18n.t('general.affirmative')
       end
       continue
@@ -321,7 +326,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       check I18n.t('state_file.questions.esign_declaration.edit.primary_esign')
       check I18n.t('state_file.questions.esign_declaration.edit.spouse_esign')
       click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
-      
+
       expect(page).to be_axe_clean
       expect(page).not_to have_css(".progress-steps")
 
@@ -459,7 +464,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
         expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.label")
         choose I18n.t("state_file.questions.nj_retirement_income_source.edit.option_military_pension")
         click_on I18n.t("general.continue")
- 
+
         # second eligible 1099R
         expect(page).to have_text I18n.t("state_file.questions.nj_retirement_income_source.edit.title")
         expect(page).to have_text("1099-R: Payer 2 Name")
