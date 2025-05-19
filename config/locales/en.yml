@@ -6675,10 +6675,10 @@ en:
         title: Wow, it looks like we are at capacity right now.
         warning_html: "<b>A friendly reminder that the filing deadline is %{tax_deadline}.</b> We recommend filing as soon as possible."
       backtaxes:
+        after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
+        after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
         select_all_that_apply: 'Select all the years you would like to file for:'
         title: Which of the following years would you like to file for?
-        after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
-        after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
       balance_payment:
         title: If you have a balance due, would you like to make a payment directly from your bank account?
       bank_details:
