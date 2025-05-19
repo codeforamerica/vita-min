@@ -98,6 +98,25 @@ describe MultiTenantService do
     end
   end
 
+  describe "#between_deadline_and_end_of_in_progress_intake?" do
+    before do
+      allow(Rails.configuration).to receive(:tax_deadline).and_return(Date.new(2025, 4, 15))
+      allow(Rails.configuration).to receive(:end_of_in_progress_intake).and_return(Date.new(2025, 10, 15))
+    end
+
+    it "returns true when the date is between deadline and end of in progress intake" do
+      Timecop.freeze(Date.new(2025, 4, 20)) do
+        expect(described_class.new(:gyr).between_deadline_and_end_of_in_progress_intake?).to eq true
+      end
+    end
+
+    it "returns false when the date is not between deadline and end of in progress intake" do
+      Timecop.freeze(Date.new(2025, 10, 20)) do
+        expect(described_class.new(:gyr).between_deadline_and_end_of_in_progress_intake?).to eq false
+      end
+    end
+  end
+
   describe "#backtax_years" do
     before do
       allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2017)

@@ -6713,6 +6713,8 @@ es:
       backtaxes:
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"
+        after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
+        after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
       balance_payment:
         title: Si tiene un saldo pendiente, ¿le gustaría realizar un pago directamente desde su cuenta bancaria?
       bank_details:
