@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Return xmlns="http://www.irs.gov/efile" xmlns:efile="http://www.irs.gov/efile" returnVersion="2024v5.1">
+    <ReturnHeader binaryAttachmentCnt="0">
+        <TaxYr>2024</TaxYr>
+        <TaxPeriodBeginDt>2024-01-01</TaxPeriodBeginDt>
+        <TaxPeriodEndDt>2024-12-31</TaxPeriodEndDt>
+        <SoftwareVersionNum>7b964ef3f</SoftwareVersionNum>
+        <ReturnTypeCd>1040</ReturnTypeCd>
+        <Filer>
+            <PrimarySSN>400001234</PrimarySSN>
+            <SpouseSSN>400004321</SpouseSSN>
+            <NameLine1Txt>MARJORIE J &amp; HOMER&lt;SIMPSON</NameLine1Txt>
+            <PrimaryNameControlTxt>SIMP</PrimaryNameControlTxt>
+            <SpouseNameControlTxt>SIMP</SpouseNameControlTxt>
+            <USAddress>
+                <AddressLine1Txt>742 Evergreen Terrace</AddressLine1Txt>
+                <CityNm>Smith Island</CityNm>
+                <StateAbbreviationCd>MD</StateAbbreviationCd>
+                <ZIPCd>21824</ZIPCd>
+            </USAddress>
+            <PhoneNum>2223334444</PhoneNum>
+        </Filer>
+        <AdditionalFilerInformation>
+            <AtSubmissionFilingGrp>
+                <EmailAddressTxt>test-user+40000123-4526-461b-8aca-61167770b29f@directfile.test</EmailAddressTxt>
+            </AtSubmissionFilingGrp>
+        </AdditionalFilerInformation>
+    </ReturnHeader>
+    <ReturnData documentCnt="3">
+        <IRS1040 documentId="IRS10400001">
+            <IndividualReturnFilingStatusCd>2</IndividualReturnFilingStatusCd>
+            <VirtualCurAcquiredDurTYInd>false</VirtualCurAcquiredDurTYInd>
+            <SpouseClaimAsDependentInd>X</SpouseClaimAsDependentInd>
+            <TotalExemptPrimaryAndSpouseCnt>2</TotalExemptPrimaryAndSpouseCnt>
+            <ChldWhoLivedWithYouCnt>0</ChldWhoLivedWithYouCnt>
+            <OtherDependentsListedCnt>0</OtherDependentsListedCnt>
+            <TotalExemptionsCnt>2</TotalExemptionsCnt>
+            <SocSecBnftAmt>5000</SocSecBnftAmt>
+            <TotalAdditionalIncomeAmt>10000</TotalAdditionalIncomeAmt>
+            <TotalIncomeAmt>10000</TotalIncomeAmt>
+            <AdjustedGrossIncomeAmt>10000</AdjustedGrossIncomeAmt>
+            <TotalItemizedOrStandardDedAmt>1300</TotalItemizedOrStandardDedAmt>
+            <TotalDeductionsAmt>1300</TotalDeductionsAmt>
+            <TaxableIncomeAmt>8700</TaxableIncomeAmt>
+            <TaxAmt>873</TaxAmt>
+            <TotalTaxBeforeCrAndOthTaxesAmt>873</TotalTaxBeforeCrAndOthTaxesAmt>
+            <TaxLessCreditsAmt>873</TaxLessCreditsAmt>
+            <TotalTaxAmt>873</TotalTaxAmt>
+            <Form1099WithheldTaxAmt referenceDocumentId="OTHERWITHHOLDING0001" referenceDocumentName="OtherWithholdingStatement">100</Form1099WithheldTaxAmt>
+            <WithholdingTaxAmt>100</WithholdingTaxAmt>
+            <TotalPaymentsAmt>100</TotalPaymentsAmt>
+            <OwedAmt>773</OwedAmt>
+            <ThirdPartyDesigneeInd>false</ThirdPartyDesigneeInd>
+            <PrimaryOccupationTxt>Homemaker</PrimaryOccupationTxt>
+            <SpouseOccupationTxt>Safety Inspector</SpouseOccupationTxt>
+            <RefundProductCd>NO FINANCIAL PRODUCT</RefundProductCd>
+        </IRS1040>
+        <IRS1040Schedule1 documentId="IRS1040S1001">
+            <UnemploymentCompAmt>10000</UnemploymentCompAmt>
+            <TotalAdditionalIncomeAmt>10000</TotalAdditionalIncomeAmt>
+        </IRS1040Schedule1>
+        <OtherWithholdingStatement documentId="OTHERWITHHOLDING0001" documentName="OtherWithholdingStatement">
+            <OtherWithholdingStmt>
+                <WithholdingCd>FORM 1099</WithholdingCd>
+                <EIN>001234545</EIN>
+                <WithholdingAmt>100</WithholdingAmt>
+            </OtherWithholdingStmt>
+        </OtherWithholdingStatement>
+    </ReturnData>
+</Return>

@@ -58,7 +58,7 @@ describe EmailAccessToken do
       end
 
       context "with comma-separated email addresses" do
-        let(:email_address) { "someone@example.com,other@example.com" }
+        let(:email_address) { "someone@example.com ,other@example.com" }
 
         it "is valid" do
           expect(access_token).to be_valid

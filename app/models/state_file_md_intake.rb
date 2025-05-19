@@ -145,6 +145,7 @@ class StateFileMdIntake < StateFileBaseIntake
     return :has_out_of_state_w2 if w2_states.any? do |state|
       (state.text || '').upcase != state_code.upcase
     end
+    return :mfj_and_dependent_html if mfj_and_dependent?
   end
 
   def disqualifying_eligibility_rules
@@ -280,6 +281,11 @@ class StateFileMdIntake < StateFileBaseIntake
 
   def nra_spouse?
     filing_status == :married_filing_separately && !spouse.ssn.present?
+  end
+
+  def mfj_and_dependent?
+    has_dependent_filer = direct_file_data.claimed_as_dependent? || direct_file_data.spouse_is_a_dependent?
+    filing_status == :married_filing_jointly && has_dependent_filer
   end
 
   def direct_file_address_is_po_box?

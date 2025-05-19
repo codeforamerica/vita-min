@@ -14,7 +14,7 @@
 #  updated_at     :datetime         not null
 #
 class FaqCategory < ApplicationRecord
-  has_many :faq_items, -> { order(position: :asc) }
+  has_many :faq_items, -> { order(position: :asc) }, dependent: :destroy
   acts_as_list scope: [:product_type]
   has_paper_trail on: [:create, :destroy, :update]
   default_scope { order(position: :asc) }
