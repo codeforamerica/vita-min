@@ -617,7 +617,7 @@ class Intake < ApplicationRecord
 
   def needs_help_with_backtaxes?
     if (product_year == 2022)
-      # TODO: eventually we will remove this when we remove the needs_help_2021, needs_help_2019, needs_help_2018, needs_help_2017 fields
+      # TODO: eventually we will remove this when we remove the needs_help_2021, needs_help_2020, needs_help_2019, needs_help_2018 fields
       MultiTenantService.new(:gyr).backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
     else
       needs_help_previous_year_1_yes? || needs_help_previous_year_2_yes? || needs_help_previous_year_3_yes?
