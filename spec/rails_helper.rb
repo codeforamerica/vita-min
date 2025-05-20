@@ -181,7 +181,7 @@ RSpec.configure do |config|
   capybara_window_size = [2000, 4000]
 
   config.before(:each, js: true) do |_example|
-    # Monkey patched in config/initializers/capybara_overrides.rb
+    # Monkey patched in spec/support/capybara_window_override.rb
     Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
   end
 
@@ -189,7 +189,7 @@ RSpec.configure do |config|
     if config.filter.rules[:flow_explorer_screenshot]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver
-      # Monkey patched in config/initializers/capybara_overrides.rb
+      # Monkey patched in spec/support/capybara_window_override.rb
       Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
     end
 
