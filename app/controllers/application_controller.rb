@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
+  include Pundit::Authorization
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   around_action :set_time_zone, if: :current_user
   before_action :set_eitc_beta_cookie, :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
   around_action :switch_locale
@@ -444,6 +447,11 @@ class ApplicationController < ActionController::Base
   helper_method :state_code_for_page_style
 
   private
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
+  end
 
   def locale
     available_locale(params[:locale]) ||

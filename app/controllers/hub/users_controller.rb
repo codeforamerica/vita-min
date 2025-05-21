@@ -1,13 +1,20 @@
 module Hub
   class UsersController < Hub::BaseController
     include RoleHelper
+
+    after_action :verify_authorized, except: :resend_invitation
+    after_action :verify_policy_scoped, only: %i[index edit update destroy unlock suspend unsuspend edit_role update_role resend_invitation]
+
     before_action :load_groups, only: [:edit_role, :update_role]
-    before_action :load_and_authorize_role, only: [:update_role]
-    load_and_authorize_resource
+    before_action :set_and_authorize_user, only: %i[edit update destroy unlock suspend unsuspend edit_role update_role]
+    before_action :set_and_authorize_users, only: %i[index]
+    before_action :set_role, only: :update_role
 
     layout "hub"
 
-    def profile; end
+    def profile
+      authorize current_user
+    end
 
     def index
       role_type = role_type_from_role_name(params[:search])
@@ -75,20 +82,17 @@ module Hub
     end
 
     def unlock
-      authorize!(:update, @user)
       @user.unlock_access! if @user.access_locked?
       flash[:notice] = I18n.t("hub.users.unlock.account_unlocked", name: @user.name)
       redirect_to(hub_users_path)
     end
 
     def suspend
-      authorize!(:update, @user)
       @user.suspend!
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.suspend.success", name: @user.name)
     end
 
     def unsuspend
-      authorize!(:update, @user)
       @user.activate!
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.unsuspend.success", name: @user.name)
     end
@@ -109,9 +113,10 @@ module Hub
     end
 
     def resend_invitation
-      user = User.find_by(id: params[:user_id])
+      user = policy_scope(User).find_by(id: params[:user_id])
 
-      if current_ability.can?(:manage, user)
+      if user.present?
+        authorize user
         user&.invite!(current_user)
         flash[:notice] = "Invitation re-sent to #{user.email}"
 
@@ -141,10 +146,23 @@ module Hub
         Coalition.accessible_by(current_ability).find_by(name: search_param)
     end
 
-    def load_and_authorize_role
-      @role = role_from_params(params.dig(:user, :role), params)
+    def set_and_authorize_user
+      begin
+        @user = policy_scope(User).find(params[:id])
+      rescue ActiveRecord::RecordNotFound
+        raise CanCan::AccessDenied
+      end
+      authorize @user
+    end
 
-      authorize!(:create, @role)
+    def set_and_authorize_users
+      authorize User
+      @users = policy_scope(User)
+    end
+
+    def set_role
+      @role = role_from_params(params.dig(:user, :role), params)
+      authorize @role, :create?, policy_class: RolePolicy
     end
   end
 end
