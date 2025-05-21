@@ -142,7 +142,6 @@ module Navigation
 
       # Payment info
       Questions::RefundPaymentController,
-      Questions::SavingsOptionsController,
       Questions::BalancePaymentController,
       Questions::BankDetailsController,
       Questions::MailingAddressController,
