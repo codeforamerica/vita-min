@@ -180,15 +180,17 @@ RSpec.configure do |config|
   # the browser window needs to be large enough that no elements are outside the viewport, or capybara won't find them
   capybara_window_size = [2000, 4000]
 
-  config.before(:each, js: true) do |example|
-    Capybara.page.current_window.resize_to(*capybara_window_size)
+  config.before(:each, js: true) do |_example|
+    # Monkey patched in spec/support/capybara_window_override.rb
+    Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
   end
 
   config.before(type: :feature) do |example|
     if config.filter.rules[:flow_explorer_screenshot]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver
-      Capybara.page.current_window.resize_to(*capybara_window_size)
+      # Monkey patched in spec/support/capybara_window_override.rb
+      Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
     end
 
     unless Capybara.current_driver == Capybara.javascript_driver
