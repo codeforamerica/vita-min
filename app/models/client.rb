@@ -115,7 +115,7 @@ class Client < ApplicationRecord
   delegate *delegated_intake_attributes, to: :intake
   scope :after_consent, -> { where.not(consented_to_service_at: nil) }
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
-  scope :with_eager_loaded_associations, -> { includes(:vita_partner, :tax_returns, :documents, tax_returns: [:assigned_user]) }
+  scope :with_eager_loaded_associations, -> { includes(:vita_partner, :documents, intake: [:dependents], tax_returns: [:assigned_user]) }
   scope :sla_tracked, -> do
     distinct.joins(:tax_returns, :intake)
             .where(intake: { product_year: Rails.configuration.product_year })
