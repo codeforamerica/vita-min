@@ -1,6 +1,14 @@
 require "rails_helper"
 
 RSpec.describe "a user editing a user" do
+  before do
+    Bullet.enable = false
+  end
+
+  after do
+    Bullet.enable = true
+  end
+
   context "as an authenticated user" do
     context "as an admin" do
       let(:current_user) { create :admin_user }

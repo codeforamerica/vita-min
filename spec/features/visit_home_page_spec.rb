@@ -1,6 +1,13 @@
 require "rails_helper"
 
 RSpec.feature "Visit home page" do
+  before do
+    Bullet.enable = false
+  end
+
+  after do
+    Bullet.enable = true
+  end
   scenario "has most critical content", js: true, screenshot: true do
     visit "/"
 

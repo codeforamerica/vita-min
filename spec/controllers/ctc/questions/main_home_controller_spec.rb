@@ -4,6 +4,11 @@ describe Ctc::Questions::MainHomeController, requires_default_vita_partners: tru
   let(:intake) { create :ctc_intake }
   before do
     allow(MixpanelService).to receive(:send_event)
+    Bullet.enable = false
+  end
+
+  after do
+    Bullet.enable = true
   end
 
   describe "first page of ctc intake update behavior" do

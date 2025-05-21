@@ -5,6 +5,11 @@ RSpec.feature "CTC Intake", :flow_explorer_screenshot, active_job: true, require
 
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
+    Bullet.enable = false
+  end
+
+  after do
+    Bullet.enable = true
   end
 
   scenario "new married filing jointly client doing ctc intake" do
