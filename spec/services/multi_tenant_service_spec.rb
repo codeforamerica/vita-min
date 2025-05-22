@@ -96,6 +96,14 @@ describe MultiTenantService do
         expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2024, 2023, 2022, 2021]
       end
     end
+
+    context "GYR 2025 after end of in progress intake" do
+      it "returns 2022, 2023, 2024" do
+        fake_time = DateTime.parse("2025-12-21")
+
+        expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2024, 2023, 2022]
+      end
+    end
   end
 
   describe "#between_deadline_and_end_of_in_progress_intake?" do
@@ -116,6 +124,8 @@ describe MultiTenantService do
       end
     end
   end
+
+
 
   describe "#backtax_years" do
     before do
