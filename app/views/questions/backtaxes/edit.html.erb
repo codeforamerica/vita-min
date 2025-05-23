@@ -5,6 +5,18 @@
     <h1 class="form-question spacing-below-35">
       <%= content_for(:page_title) %>
     </h1>
+    <% service = MultiTenantService.new(:gyr) %>
+    <% if service.between_deadline_and_end_of_in_progress_intake? %>
+      <% last_year = service.filing_years.last  %>
+        <div class="notice--warning">
+          <p>
+            <strong><%= t("views.questions.backtaxes.after_deadline_warning_header", year: last_year) %></strong>
+          </p>
+          <p>
+            <%= t("views.questions.backtaxes.after_deadline_warning_body", year: last_year) %>
+          </p>
+        </div>
+    <% end %>
     <p>
       <%=t("views.questions.backtaxes.select_all_that_apply") %>
     </p>
