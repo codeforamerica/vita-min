@@ -1522,7 +1522,7 @@ es:
 
               Si aún no has pagado mediante débito directo al presentar tu declaración, por favor haz tu pago lo antes posible para evitar multas y costos adicionales en %{state_pay_taxes_link}.
 
-              Descarga tu declaración en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+              Descarga tu declaración en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
               ¿Necesitas ayuda? Responde a este correo electrónico.
 
@@ -1551,7 +1551,7 @@ es:
 
               <strong>Si no pagaste ya mediante débito directo al presentar tu declaración, por favor, haz tu pago antes del 15 de abril visitando %{state_pay_taxes_link}</strong>. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
 
-              Descarga tu declaración visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+              Descarga tu declaración visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
               ¿Necesitas ayuda? Responde a este correo.
 
@@ -1577,7 +1577,7 @@ es:
 
               Si no pagaste ya mediante débito directo al presentar tu declaración, por favor, haz tu pago hoy visitando %{state_pay_taxes_link}. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
 
-              Descarga tu declaración visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+              Descarga tu declaración visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
               ¿Necesitas ayuda? Responde a este correo electrónico.
 
@@ -1590,7 +1590,7 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            ¡Tu declaración de impuestos estatales de %{state_name} ha sido <strong>aceptada</strong>! Descarga tu declaración y verifica el estado de tu reembolso visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+            ¡Tu declaración de impuestos estatales de %{state_name} ha sido <strong>aceptada</strong>! Descarga tu declaración y verifica el estado de tu reembolso visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
             Atentamente,
             El equipo de FileYourStateTaxes
@@ -1757,7 +1757,7 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
             ¿Necesitas ayuda? Responde a este correo electrónico.
 
