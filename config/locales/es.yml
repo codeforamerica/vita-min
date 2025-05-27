@@ -6738,6 +6738,8 @@ es:
         title: Vaya, parece que estamos al límite de capacidad en este momento.
         warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el %{tax_deadline}.</b> Recomendamos presentar la solicitud lo antes posible."
       backtaxes:
+        after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
+        after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"
       balance_payment:
