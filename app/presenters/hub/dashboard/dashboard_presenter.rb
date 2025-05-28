@@ -22,6 +22,7 @@ module Hub
       end
 
       def selected_orgs_and_sites
+        raise CanCan::AccessDenied if selected_model.nil?
         @selected_orgs_and_sites ||=
           if selected_model.instance_of?(Coalition)
             available_by_id = available_orgs_and_sites.map{ |model| [model.id, model] }.to_h

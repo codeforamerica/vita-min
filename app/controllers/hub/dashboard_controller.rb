@@ -27,7 +27,8 @@ module Hub
         current_user.admin? ||
         current_user.coalition_lead? ||
         current_user.org_lead? ||
-        current_user.site_coordinator?
+        current_user.site_coordinator? ||
+        current_user.team_member?
       )
       unless is_dashboard_user
         respond_to do |format|
