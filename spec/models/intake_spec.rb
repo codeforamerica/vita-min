@@ -1180,4 +1180,20 @@ describe Intake do
       end
     end
   end
+
+  describe "#needs_help_with_backtaxes?" do
+    context "when needs help on a year that is not the current year" do
+      let(:intake) { create :intake, needs_help_current_year: "no", needs_help_previous_year_1: "yes", needs_help_previous_year_2: "unfilled", needs_help_previous_year_3: "no" }
+      it "returns true" do
+        expect(intake.needs_help_with_backtaxes?).to eq true
+      end
+    end
+
+    context "when doesn't need help on a year that is not the current year" do
+      let(:intake) { create :intake, needs_help_current_year: "yes", needs_help_previous_year_1: "no", needs_help_previous_year_2: "unfilled", needs_help_previous_year_3: "no" }
+      it "returns true" do
+        expect(intake.needs_help_with_backtaxes?).to eq false
+      end
+    end
+  end
 end
