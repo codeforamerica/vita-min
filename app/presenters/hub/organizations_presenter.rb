@@ -23,12 +23,10 @@ module Hub
     end
 
     def load_airtable_locations
+      # caching cause airtable data can be updated
       Rails.cache.fetch('airtable_primary_locations', expires_in: 1.hour) do
         Airtable::Organization.primary_locations
       end
-    rescue => e
-      Rails.logger.error "Failed to load Airtable data: #{e.message}"
-      {} # Return empty hash if there's an error
     end
 
     def accessible_entities_for(state)
