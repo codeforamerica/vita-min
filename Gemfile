@@ -11,6 +11,7 @@ gem 'cfa-styleguide', '0.16.0', git: 'https://github.com/codeforamerica/honeycri
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
 gem "activerecord-cte" # Can be removed when we move to Rails 7.1
+gem 'airrecord'
 
 # Use ActiveStorage variant
 gem 'image_processing'

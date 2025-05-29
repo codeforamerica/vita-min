@@ -4,6 +4,7 @@ module Hub
 
     def initialize(current_ability)
       @current_ability = current_ability
+      @airtable_data = Airtable::Organization.organization_mapping
       accessible_organizations = Organization.accessible_by(current_ability)
       @organizations = accessible_organizations.includes(:child_sites).with_computed_client_count.load
       @coalitions = Coalition.accessible_by(current_ability)
@@ -19,6 +20,10 @@ module Hub
       def initialize(current_count = 0, total_capacity = 0)
         super
       end
+    end
+
+    def airtable_info_for(organization)
+      @airtable_data[organization.name] || {}
     end
 
     def accessible_entities_for(state)

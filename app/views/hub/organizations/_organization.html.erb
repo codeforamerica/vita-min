@@ -8,5 +8,10 @@
       (<%= t(".site_count", count: organization.child_sites.length) %>)
     </div>
   </div>
+  <% if (info = @presenter.airtable_info_for(organization)) && info[:primary_location].present? %>
+    <div>
+      <%= info[:primary_location] %>
+    </div>
+  <% end %>
   <div><%= display_capacity(@presenter.organization_capacity(organization)) %></div>
 </li>
