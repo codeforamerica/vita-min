@@ -4,7 +4,7 @@ module Hub
 
     def initialize(current_ability)
       @current_ability = current_ability
-      @airtable_data = Airtable::Organization.organization_mapping
+      @airtable_locations = load_airtable_locations
       accessible_organizations = Organization.accessible_by(current_ability)
       @organizations = accessible_organizations.includes(:child_sites).with_computed_client_count.load
       @coalitions = Coalition.accessible_by(current_ability)
@@ -22,8 +22,13 @@ module Hub
       end
     end
 
-    def airtable_info_for(organization)
-      @airtable_data[organization.name] || {}
+    def load_airtable_locations
+      Rails.cache.fetch('airtable_primary_locations', expires_in: 1.hour) do
+        Airtable::Organization.primary_locations
+      end
+    rescue => e
+      Rails.logger.error "Failed to load Airtable data: #{e.message}"
+      {} # Return empty hash if there's an error
     end
 
     def accessible_entities_for(state)
@@ -95,7 +100,6 @@ module Hub
     end
 
     private
-
     def orgs_by_coalition_id
       @orgs_by_coalition_id ||= organizations.group_by(&:coalition_id)
     end
