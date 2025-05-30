@@ -453,10 +453,6 @@ class Intake::GyrIntake < Intake
   enum married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married
   enum married_for_all_of_tax_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married_for_all_of_tax_year
   enum multiple_states: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :multiple_states
-  enum needs_help_2018: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2018
-  enum needs_help_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2019
-  enum needs_help_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2020
-  enum needs_help_2021: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2021
   enum needs_help_previous_year_3: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_3
   enum needs_help_previous_year_2: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_2
   enum needs_help_previous_year_1: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_1
