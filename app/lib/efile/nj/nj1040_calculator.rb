@@ -493,7 +493,7 @@ module Efile
         if @direct_file_data.fed_eic.positive?
           (@direct_file_data.fed_eic * 0.4).round
         elsif Efile::Nj::NjFlatEitcEligibility.eligible?(@intake)
-          240
+          253
         else
           0
         end

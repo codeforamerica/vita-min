@@ -2202,15 +2202,15 @@ RSpec.describe PdfFiller::Nj1040Pdf do
           )
         }
 
-        it "fills line 58 with $240 and does not check federal checkbox" do
+        it "fills line 58 with $253 and does not check federal checkbox" do
           allow(Efile::Nj::NjFlatEitcEligibility).to receive(:eligible?).and_return true
 
           # thousands
           expect(pdf_fields["58"]).to eq ""
           # hundreds
           expect(pdf_fields["undefined_152"]).to eq "2"
-          expect(pdf_fields["undefined_153"]).to eq "4"
-          expect(pdf_fields["Text170"]).to eq "0"
+          expect(pdf_fields["undefined_153"]).to eq "5"
+          expect(pdf_fields["Text170"]).to eq "3"
           # decimals
           expect(pdf_fields["Text171"]).to eq "0"
           expect(pdf_fields["Text172"]).to eq "0"
