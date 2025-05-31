@@ -193,8 +193,8 @@ describe Ability do
                 :intake,
                 :filled_out,
                 preferred_name: "George Sr.",
-                needs_help_2019: "yes",
-                needs_help_2018: "yes",
+                needs_help_current_year: "yes",
+                needs_help_previous_year_1: "yes",
                 preferred_interview_language: "en", locale: "en",
                 product_year: Rails.configuration.product_year
               ),
@@ -296,8 +296,8 @@ describe Ability do
                 :intake,
                 :filled_out,
                 preferred_name: "George Sr.",
-                needs_help_2019: "yes",
-                needs_help_2018: "yes",
+                needs_help_current_year: "yes",
+                needs_help_previous_year_1: "yes",
                 preferred_interview_language: "en", locale: "en"
               ),
               tax_returns: [
@@ -425,8 +425,8 @@ describe Ability do
                 :intake,
                 :filled_out,
                 preferred_name: "George Sr.",
-                needs_help_2019: "yes",
-                needs_help_2018: "yes",
+                needs_help_current_year: "yes",
+                needs_help_previous_year_1: "yes",
                 preferred_interview_language: "en", locale: "en",
                 product_year: Rails.configuration.product_year - 2
               ),

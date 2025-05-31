@@ -208,8 +208,8 @@ RSpec.describe Hub::ClientsController do
              primary_last_name: "Name",
              locale: "en",
              preferred_interview_language: "es",
-             needs_help_2019: "yes",
-             needs_help_2018: "yes",
+             needs_help_current_year: "yes",
+             needs_help_previous_year_1: "yes",
              married: "yes",
              lived_with_spouse: "yes",
              filing_joint: "yes",
@@ -321,12 +321,12 @@ RSpec.describe Hub::ClientsController do
         render_views
 
         let(:assigned_user) { create :user, name: "Lindsay" }
-        let!(:george_sr) { create :client, vita_partner: organization, intake: build(:intake, :filled_out, preferred_name: "George Sr.", needs_help_2019: "yes", needs_help_2018: "yes", preferred_interview_language: "en", locale: "en") }
+        let!(:george_sr) { create :client, vita_partner: organization, intake: build(:intake, :filled_out, preferred_name: "George Sr.", needs_help_current_year: "yes", needs_help_previous_year_1: "yes", preferred_interview_language: "en", locale: "en") }
         let!(:george_sr_2019_return) { create :tax_return, :intake_in_progress, client: george_sr, year: 2019, assigned_user: assigned_user }
         let!(:george_sr_2018_return) { create :tax_return, :intake_ready, client: george_sr, year: 2018, assigned_user: assigned_user }
-        let!(:michael) { create :client, vita_partner: organization, intake: build(:intake, :filled_out, preferred_name: "Michael", needs_help_2019: "yes", state_of_residence: nil) }
+        let!(:michael) { create :client, vita_partner: organization, intake: build(:intake, :filled_out, preferred_name: "Michael", needs_help_current_year: "yes", state_of_residence: nil) }
         let!(:michael_2019_return) { create :tax_return, :intake_in_progress, client: michael, year: 2019, assigned_user: assigned_user }
-        let!(:tobias) { create :client, vita_partner: organization, intake: build(:intake, :filled_out, preferred_name: "Tobias", needs_help_2018: "yes", preferred_interview_language: "es", state_of_residence: "TX") }
+        let!(:tobias) { create :client, vita_partner: organization, intake: build(:intake, :filled_out, preferred_name: "Tobias", needs_help_previous_year_1: "yes", preferred_interview_language: "es", state_of_residence: "TX") }
         let!(:tobias_2019_return) { create :tax_return, :intake_in_progress, client: tobias, year: 2019, assigned_user: assigned_user }
         let!(:tobias_2018_return) { create :tax_return, :intake_in_progress, client: tobias, year: 2018, assigned_user: assigned_user }
         let!(:lucille) { create :client, vita_partner: organization, consented_to_service_at: nil, intake: build(:intake, preferred_name: "Lucille") }
