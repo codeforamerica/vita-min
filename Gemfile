@@ -3,6 +3,18 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 ruby ruby_version
 
+plugin 'bootboot', '~> 0.2.2'
+
+def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
+  gem gem_name, version, **kwargs if next_version.nil?
+
+  if ENV['NEXT']
+    gem (next_name || gem_name), next_version, **kwargs
+  else
+    gem gem_name, version, **kwargs
+  end
+end
+
 gem 'rack', '>= 2.0.8'
 gem 'rails', '~> 7.1'
 gem 'puma', '>= 5.3.2'
@@ -38,7 +50,7 @@ gem 'lograge'
 gem 'fix-db-schema-conflicts', require: false
 gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
 gem 'auto_strip_attributes'
-gem 'ddtrace', '~> 1.9.0'
+gemn 'ddtrace', '~> 1.9.0', next_version: '~> 2.2.0', next_name: 'datadog'
 gem 'dogapi'
 gem 'http_accept_language'
 gem 'rails-i18n'
@@ -78,6 +90,8 @@ gem 'rack-attack'
 gem 'holidays'
 gem "net-imap", ">= 0.4.20"
 gem 'redis'
+gem "observer", "~> 0.1.2"
+gem "csv", "~> 3.3"
 
 # Use Flipper for feature flagging
 gem 'flipper'
