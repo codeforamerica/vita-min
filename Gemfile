@@ -22,7 +22,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.16.0', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '0e15fc7d74a330866049d58516c6f2449958fb1b'
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
-gem "activerecord-cte" # Can be removed when we move to Rails 7.1
 
 # Use ActiveStorage variant
 gem 'image_processing'
