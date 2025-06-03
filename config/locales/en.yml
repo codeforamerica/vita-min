@@ -4642,9 +4642,9 @@ en:
         subheader_1_html: |
           FileYourStateTaxes connects with IRS Direct File to help you complete your state tax return for free.
           <br /><br />
-          This site will open at the start of the 2025 tax filing season and remain open until October 15, 2025 for you to file your state tax returns.
+          This site is now open and will remain open until October 15, 2025 for you to file your state tax returns.
           <br /><br />
-          <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
+          <strong>For the 2025 tax season, this service supports filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
         subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
         subheader_3_html: "<strong>Already started your state return and need to complete it?</strong> <a href=%{login_path}>Sign in here</a>."
       card_postscript:
@@ -6703,6 +6703,8 @@ en:
         title: Wow, it looks like we are at capacity right now.
         warning_html: "<b>A friendly reminder that the filing deadline is %{tax_deadline}.</b> We recommend filing as soon as possible."
       backtaxes:
+        after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
+        after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
         select_all_that_apply: 'Select all the years you would like to file for:'
         title: Which of the following years would you like to file for?
       balance_payment:
@@ -6907,6 +6909,7 @@ en:
           other: In %{year}, did you or your spouse receive a state or local income tax refund?
       mailing_address:
         city: City
+        info_html: A mailing address is required to file your tax return. For more information on addresses that are acceptable, <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">see our FAQ.</a>
         state: State or US Territory
         street_address: Street address or P.O. box
         street_address2: Apartment number (optional)
@@ -7054,6 +7057,7 @@ en:
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.
+        warning_html: '⚠️ <b>Immigrant filers</b>: As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Please see our FAQ for more information if you have any concerns.</a>'
       start_with_current_year:
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: We’ll start by asking about your situation in %{year}.
