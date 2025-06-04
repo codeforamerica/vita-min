@@ -4642,9 +4642,9 @@ en:
         subheader_1_html: |
           FileYourStateTaxes connects with IRS Direct File to help you complete your state tax return for free.
           <br /><br />
-          This site will open at the start of the 2025 tax filing season and remain open until October 15, 2025 for you to file your state tax returns.
+          This site is now open and will remain open until October 15, 2025 for you to file your state tax returns.
           <br /><br />
-          <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
+          <strong>For the 2025 tax season, this service supports filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
         subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
         subheader_3_html: "<strong>Already started your state return and need to complete it?</strong> <a href=%{login_path}>Sign in here</a>."
       card_postscript:

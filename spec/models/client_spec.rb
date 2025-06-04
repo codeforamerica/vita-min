@@ -394,7 +394,7 @@ describe Client do
       let(:intake) { create :intake, client: client }
 
       it "does not update client#updated_at until the intake is completed" do
-        expect { intake.update(needs_help_2019: "yes") }.not_to change(client, :updated_at)
+        expect { intake.update(needs_help_current_year: "yes") }.not_to change(client, :updated_at)
       end
 
       context "updating last_incoming_interaction" do
@@ -406,7 +406,7 @@ describe Client do
 
         context "completed_at is not set" do
           it "updated client#last_incoming_interaction" do
-            expect { intake.update(needs_help_2019: "yes") }.not_to change(intake.client, :last_incoming_interaction_at)
+            expect { intake.update(needs_help_current_year: "yes") }.not_to change(intake.client, :last_incoming_interaction_at)
           end
         end
       end
