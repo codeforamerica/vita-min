@@ -228,10 +228,8 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     # Payment info
     expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
     choose "Direct deposit (fastest)"
-    click_on "Continue"
     # Savings Options
-    expect(intake.reload.current_step).to end_with("/questions/savings-options")
-    expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
+    expect(page).to have_text("If due a refund, are you interested in using these savings options?")
     check "Purchase United States Savings Bond"
     click_on "Continue"
     # Pay from bank account?

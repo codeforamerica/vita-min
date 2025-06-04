@@ -21,8 +21,8 @@ class RefundPaymentForm < QuestionsForm
       intake.update(refund_check_by_mail: 'yes')
     end
 
-    savings_bond = attributes_for(:intake)[:savings_purchase_bond]
-    split_refund = attributes_for(:intake)[:savings_split_refund]
+    savings_bond = attributes_for(:intake)[:savings_purchase_bond] || 'no'
+    split_refund = attributes_for(:intake)[:savings_split_refund] || 'no'
     refund_other = savings_bond == 'yes' ? 'Purchase US Savings Bond' : ''
     refund_other_cb = savings_bond
 
