@@ -77,6 +77,7 @@ describe TaxReturnStatusHelper do
     expected = [
       ["Intake",
        [
+         ["Not ready", "intake_in_progress", {:disabled=>true}],
          ["Needs doc help", "intake_needs_doc_help"],
          ["Info requested", "intake_info_requested"],
          ["Greeter - info requested", "intake_greeter_info_requested"],
