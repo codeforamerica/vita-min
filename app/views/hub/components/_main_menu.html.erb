@@ -59,6 +59,17 @@
                        icon_path: image_path("icons/admin-tools.svg")
             %>
           <% end %>
+          <% if current_user.admin? ||
+            current_user.coalition_lead? ||
+            current_user.org_lead? ||
+            current_user.site_coordinator? ||
+            current_user.team_member? %>
+            <%= render "hub/components/menu_item",
+                       link: hub_dashboard_index_path,
+                       item_label: "Dashboard",
+                       icon_path: image_path("icons/admin-tools.svg")
+            %>
+          <% end %>
 
         <% end %>
       </div>
