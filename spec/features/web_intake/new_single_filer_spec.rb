@@ -432,10 +432,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       expect(page).to have_text(I18n.t('documents.documents_help.show.header'))
       click_on I18n.t('documents.documents_help.show.reminder_link')
 
-      # Help page
-      expect(page).to have_text(I18n.t('documents.documents_help.show.header'))
-      click_on I18n.t('documents.documents_help.show.reminder_link')
-
       # Upload secondary ID doc page
       expect(intake.reload.current_step).to end_with('/documents/ssn-itins')
       click_on I18n.t('views.layouts.document_upload.dont_have')
