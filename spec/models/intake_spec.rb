@@ -925,7 +925,6 @@ describe Intake do
     it "returns list of must have documents" do
       expected_doc_types = [
         DocumentTypes::Identity,
-        DocumentTypes::Selfie,
         DocumentTypes::SsnItin,
         DocumentTypes::Employment,
         DocumentTypes::Form1095A
@@ -935,30 +934,10 @@ describe Intake do
     end
 
     context "with already uploaded documents" do
-      let!(:document) { create :document, intake: intake, document_type: "Selfie" }
+      let!(:document) { create :document, intake: intake, document_type: "ID" }
 
       it "doesn't include already uploaded documents" do
         expected_doc_types = [
-          DocumentTypes::Identity,
-          DocumentTypes::SsnItin,
-          DocumentTypes::Employment,
-          DocumentTypes::Form1095A
-        ]
-
-        expect(intake.document_types_definitely_needed).to match_array expected_doc_types
-      end
-    end
-
-    context "in the skip selfies experiment" do
-      before do
-        Experiment.update_all(enabled: true)
-        experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
-        ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :no_selfie)
-      end
-
-      it "doesn't include selfies" do
-        expected_doc_types = [
-          DocumentTypes::Identity,
           DocumentTypes::SsnItin,
           DocumentTypes::Employment,
           DocumentTypes::Form1095A
@@ -980,7 +959,6 @@ describe Intake do
 
       it "doesn't include Identity or SsnItin" do
         expected_doc_types = [
-          DocumentTypes::Selfie,
           DocumentTypes::Employment,
           DocumentTypes::Form1095A
         ]
@@ -1092,7 +1070,6 @@ describe Intake do
     it "returns only the document type classes relevant to the client for types in the navigation flow" do
       doc_types = [
         DocumentTypes::Identity,
-        DocumentTypes::Selfie,
         DocumentTypes::SsnItin,
         DocumentTypes::Employment,
         DocumentTypes::Form1099Div,
@@ -1109,7 +1086,6 @@ describe Intake do
     it "returns only the document type classes relevant to the client for types in the navigation flow" do
       doc_types = [
         DocumentTypes::Identity,
-        DocumentTypes::Selfie,
         DocumentTypes::SsnItin,
         DocumentTypes::Employment,
         DocumentTypes::Other,

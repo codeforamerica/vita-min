@@ -280,34 +280,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     intake
   end
 
-  context "client is included in the no selfies experiment" do
-    before do
-      Experiment.update_all(enabled: true)
-      Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT).experiment_vita_partners.create(vita_partner: vita_partner)
-      allow_any_instance_of(ExperimentService::TreatmentChooser).to receive(:choose).and_return :no_selfie
-    end
-
-    scenario "new client filing single without dependents" do
-      intake = intake_up_to_documents
-
-      # IRS guidance
-      expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
-      click_on "Continue"
-
-      expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
-      expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
-      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-      click_on "Continue"
-
-      expect(intake.reload.current_step).to end_with("/documents/ssn-itins")
-      expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
-      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-      click_on "Continue"
-
-      expect(intake.tax_returns.map(&:current_state).uniq).to eq ["intake_ready"]
-    end
-  end
-
   context "client is included in the expanded id experiment", js: true do
     before do
       Experiment.update_all(enabled: true)
@@ -332,15 +304,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       end
       click_on "Continue"
 
-      expect(intake.reload.current_step).to end_with("/documents/selfie-instructions")
-      expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
-      click_on I18n.t('views.documents.selfie_instructions.submit_photo')
-
-      expect(intake.reload.current_step).to end_with("/documents/selfies")
-      expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
-      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-      click_on "Continue"
-
       expect(intake.reload.current_step).to end_with("/documents/ssn-itins")
       expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.expanded_id.title'))
       select I18n.t('general.document_types.secondary_identification.ssn'), from: I18n.t('layouts.document_upload.id_type')
@@ -352,7 +315,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     end
   end
 
-  context "client is not in the selfie or expanded id experiments" do
+  context "client is not in the expanded id experiment" do
     before do
       Experiment.update_all(enabled: true)
       Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT).experiment_vita_partners.create(vita_partner: vita_partner)
@@ -368,15 +331,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
       expect(page).to have_selector("h1", text: "Attach a photo of your ID card")
       expect(page).to have_text(I18n.t('views.layouts.document_upload.accepted_file_types', accepted_types: FileTypeAllowedValidator.extensions(Document).to_sentence))
-      upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-      click_on "Continue"
-
-      expect(intake.reload.current_step).to end_with("/documents/selfie-instructions")
-      expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
-      click_on I18n.t('views.documents.selfie_instructions.submit_photo')
-
-      expect(intake.reload.current_step).to end_with("/documents/selfies")
-      expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
       upload_file("document_type_upload_form_upload", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
       click_on "Continue"
 
@@ -417,7 +371,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
         click_on "Submit"
       }.to change(OutgoingTextMessage, :count).by(1).and change(OutgoingEmail, :count).by(1)
 
-      # ID, secondary ID, and selfie were all uploaded.
+      # ID and secondary ID were uploaded.
       expect(intake.tax_returns.all? { |tr| tr.current_state == :intake_ready })
 
       expect(intake.reload.current_step).to end_with("/questions/successfully-submitted")
@@ -462,7 +416,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     end
 
     # This scenario has to do with state machine transitions and the intake status.
-    scenario "when not uploading required docs (i.e., ID, secondary ID, and selfie) sets state to intake_needs_doc_help" do
+    scenario "when not uploading required docs (i.e., ID, secondary ID) sets state to intake_needs_doc_help" do
       intake = intake_up_to_documents
 
       # IRS guidance page
@@ -477,14 +431,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       # `intake.reload.current_step` does not yield the Help page's URL
       expect(page).to have_text(I18n.t('documents.documents_help.show.header'))
       click_on I18n.t('documents.documents_help.show.reminder_link')
-
-      # Selfie instructions page
-      expect(intake.reload.current_step).to end_with('/documents/selfie-instructions')
-      click_on I18n.t('views.documents.selfie_instructions.submit_photo')
-
-      # Upload selfie page
-      expect(intake.reload.current_step).to end_with('/documents/selfies')
-      click_on I18n.t('views.layouts.document_upload.dont_have')
 
       # Help page
       expect(page).to have_text(I18n.t('documents.documents_help.show.header'))

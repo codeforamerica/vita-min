@@ -6333,21 +6333,6 @@ es:
         schedule_appointment: Cuando haya terminado de compartir los documentos que tiene, programaremos una cita con su preparador de impuestos.
         spouse_doc_needed: Por favor agregue documentos para usted y su cónyuge.
         title: "¡Buen trabajo! Aquí hay una lista de lo que hemos reunido."
-      selfie_instructions:
-        header: Confirme su identidad con una foto de usted sosteniendo su tarjeta de identificación
-        info: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos. Hacemos esto al revisar una foto de usted sosteniendo su tarjeta de identificación.
-        steps:
-          face_camera: Mire directamente a la cámara e incluya desde los hombros hasta la parte superior de la cabeza, similar a su foto de identificación
-          face_visible: Asegúrese de que su cara está claramente visible
-          header: Lea los siguientes pasos antes de continuar
-          id_visible: Asegúrese de no estar cubriendo su identificación
-          plain_background: Use una pared simple/en blanco como fondo si es posible
-          wear_glasses: Si usa anteojos en su foto de identificación, úselos en su foto selfie
-        submit_photo: Enviar una foto
-      selfies:
-        help_text: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos.
-        need_for_html: 'Necesitaremos ver una <u>foto con ID</u> para:'
-        title: Comparta una foto de usted sosteniendo su tarjeta de identificación
       spouse_ids:
         expanded_id:
           title: Adjunte fotos de la tarjeta de identificación de su cónyuge

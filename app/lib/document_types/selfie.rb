@@ -2,8 +2,7 @@ module DocumentTypes
   class Selfie < DocumentType
     class << self
       def relevant_to?(intake)
-        !(IdVerificationExperimentService.new(intake).skip_selfies? ||
-          ReturningClientExperimentService.new(intake).skip_identity_documents?)
+        false
       end
 
       def key
