@@ -671,23 +671,6 @@ class Intake < ApplicationRecord
     verifier.generate(SecureRandom.base36(24))
   end
 
-  # TODO: remove this after running the migration, need because hub client presenter
-  def needs_help_2018
-    nil
-  end
-
-  def needs_help_2019
-    nil
-  end
-
-  def needs_help_2020
-    nil
-  end
-
-  def needs_help_2021
-    nil
-  end
-
   def itin_applicant?
     need_itin_help_yes?
   end
