@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe Questions::ConsentController do
-  let(:intake) { create :intake, primary_tin_type: :ssn, primary_ssn: '555112222', preferred_name: "Ruthie Rutabaga", email_address: "hi@example.com", sms_phone_number: "+18324651180", source: "SourceParam", zip_code: "80309", needs_help_2021: "yes", needs_help_2020: "yes" }
+  let(:intake) { create :intake, primary_tin_type: :ssn, primary_ssn: '555112222', preferred_name: "Ruthie Rutabaga", email_address: "hi@example.com", sms_phone_number: "+18324651180", source: "SourceParam", zip_code: "80309", needs_help_current_year: "yes", needs_help_previous_year_1: "yes" }
   let(:client) { intake.client }
   let!(:routing_double) { double(routing_method: "zip_code", determine_partner: (create :organization) ) }
 
