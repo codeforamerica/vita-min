@@ -6,6 +6,24 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
+  def page_change_check(input, sleep_time: 0.1, path: false, retries: 2)
+    retry_count = 0
+    begin
+      if path
+        expect(page).to have_current_path(input)
+      else
+        expect(page).to have_text(input)
+      end
+    rescue Selenium::WebDriver::Error::WebDriverError,
+      Capybara::ElementNotFound,
+      RSpec::Expectations::ExpectationNotMetError => e
+      puts "Caught #{e.class} - #{e.message}"
+      puts "Failed attempt for `#{input}`, sleeping #{sleep_time} seconds then retrying..."
+      sleep sleep_time
+      retry_count += 1
+      retry_count <= retries ? retry : raise
+    end
+  end
   def intake_up_to_documents
     answer_gyr_triage_questions(choices: :defaults)
 
@@ -33,6 +51,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Ask about backtaxes
+    page_change_check(I18n.t("views.questions.backtaxes.title"))
     expect(intake.reload.current_step).to end_with("/questions/backtaxes")
     expect(page).to have_selector("h1", text: I18n.t("views.questions.backtaxes.title"))
     current_tax_year = MultiTenantService.new(:gyr).current_tax_year
@@ -54,6 +73,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "Continue"
 
     # Notification Preference
+    page_change_check(I18n.t("views.questions.notification_preference.title"))
     expect(intake.reload.current_step).to end_with("/questions/notification-preference")
     expect(page).to have_text(I18n.t("views.questions.notification_preference.title"))
     check "Email Me"
@@ -142,6 +162,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     click_on "No"
 
     # Dependents
+    page_change_check(I18n.t("views.questions.had_dependents.title", year: intake.most_recent_filing_year, count: intake.filer_count ))
     expect(intake.reload.current_step).to end_with("/questions/had-dependents")
     expect(page).to have_selector("h1", text: "Would you like to claim anyone for #{current_tax_year}?")
     click_on "No"
