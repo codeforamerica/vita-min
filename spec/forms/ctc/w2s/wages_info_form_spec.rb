@@ -44,6 +44,8 @@ describe Ctc::W2s::WagesInfoForm do
 
       it "disallows federal_income_tax_withheld greater than or equal to wages_amount" do
         form = described_class.new(w2, { federal_income_tax_withheld: '100', wages_amount: '90' })
+        # For some reason this became required after updating ruby
+        form.valid?
         expect(form).not_to be_valid
         expect(form.errors.attribute_names).to include(:federal_income_tax_withheld)
       end
