@@ -4,7 +4,7 @@ class IdVerificationExperimentService
   end
 
   def skip_selfies?
-    %w[no_selfie expanded_id_and_no_selfie].include? treatment
+    true
   end
 
   def show_expanded_id?

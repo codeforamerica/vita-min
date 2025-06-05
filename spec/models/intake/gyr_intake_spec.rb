@@ -407,7 +407,7 @@ describe Intake::GyrIntake do
         client = intake.client.reload
         expect(client.filterable_percentage_of_required_documents_uploaded).to eq(0)
         expect(client.filterable_number_of_required_documents_uploaded).to eq(0)
-        expect(client.filterable_number_of_required_documents).to eq(3)
+        expect(client.filterable_number_of_required_documents).to eq(2)
       end
     end
   end
