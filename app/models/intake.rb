@@ -214,10 +214,6 @@
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
 #  need_itin_help                                       :integer          default(0), not null
-#  needs_help_2018                                      :integer          default(0), not null
-#  needs_help_2019                                      :integer          default(0), not null
-#  needs_help_2020                                      :integer          default(0), not null
-#  needs_help_2021                                      :integer          default(0), not null
 #  needs_help_current_year                              :integer          default(0), not null
 #  needs_help_previous_year_1                           :integer          default(0), not null
 #  needs_help_previous_year_2                           :integer          default(0), not null
@@ -673,6 +669,23 @@ class Intake < ApplicationRecord
   def new_record_token
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
     verifier.generate(SecureRandom.base36(24))
+  end
+
+  # TODO: remove this after running the migration, need because hub client presenter
+  def needs_help_2018
+    nil
+  end
+
+  def needs_help_2019
+    nil
+  end
+
+  def needs_help_2020
+    nil
+  end
+
+  def needs_help_2021
+    nil
   end
 
   def itin_applicant?

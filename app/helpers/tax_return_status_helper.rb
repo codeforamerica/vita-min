@@ -17,7 +17,8 @@ module TaxReturnStatusHelper
   end
 
   def grouped_status_options_for_partner
-    grouped_status_options_for_select(unwanted_statuses: ["intake_in_progress"])
+    unwanted_status = current_user.role_type == "AdminRole" ? [] : ["intake_in_progress"]
+    grouped_status_options_for_select(unwanted_statuses: unwanted_status)
   end
 
   def stage_and_status_translation(status)
