@@ -72,8 +72,6 @@ GEM
       activemodel (= 7.1.5.1)
       activesupport (= 7.1.5.1)
       timeout (>= 0.4.0)
-    activerecord-cte (0.3.0)
-      activerecord
     activerecord-postgis-adapter (9.0.1)
       activerecord (~> 7.1.0)
       rgeo-activerecord (~> 7.0.0)
@@ -466,7 +464,8 @@ GEM
     pry-byebug (3.10.1)
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
-    psych (5.1.2)
+    psych (5.2.6)
+      date
       stringio
     public_suffix (5.0.3)
     puma (6.4.3)
@@ -679,7 +678,7 @@ GEM
       sprockets (>= 3.0.0)
     stackprof (0.2.25)
     statesman (11.0.0)
-    stringio (3.1.0)
+    stringio (3.1.7)
     strong_migrations (1.6.4)
       activerecord (>= 5.2)
     terminal-table (3.0.2)
@@ -736,7 +735,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-cte
   activerecord-postgis-adapter
   acts_as_list
   annotate

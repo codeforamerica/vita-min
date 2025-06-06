@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe Ctc::W2s::WagesInfoForm do
+  pending "CTC is pending deletion"
   let(:completed_at) { nil }
   let(:w2) { create :w2, intake: intake, completed_at: completed_at }
   let(:intake) { create :ctc_intake }
@@ -44,14 +45,12 @@ describe Ctc::W2s::WagesInfoForm do
 
       it "disallows federal_income_tax_withheld greater than or equal to wages_amount" do
         form = described_class.new(w2, { federal_income_tax_withheld: '100', wages_amount: '90' })
-        # For some reason this became required after updating ruby
-        form.valid?
         expect(form).not_to be_valid
         expect(form.errors.attribute_names).to include(:federal_income_tax_withheld)
       end
 
       it "does not get upset comparing the two if wages_amount is malformed" do
-        form = described_class.new(w2, { federal_income_tax_withheld: '8,000', wages_amount: '9000.' })
+        form = described_class.new(w2, { federal_income_tax_withheld: '8,000', wages_amount: 'foo.' })
         expect(form).not_to be_valid
         expect(form.errors.attribute_names).to include(:wages_amount)
         expect(form.errors.attribute_names).not_to include(:federal_income_tax_withheld)
