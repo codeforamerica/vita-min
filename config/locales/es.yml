@@ -6743,7 +6743,10 @@ es:
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"
       balance_payment:
-        title: Si tiene un saldo pendiente, ¿le gustaría realizar un pago directamente desde su cuenta bancaria?
+        title: Si tienes un saldo pendiente, ¿cómo te gustaría realizar un pago?
+        pay_in_full_bank: Pay full amount through my bank account
+        pay_in_full_mail: Pay full amount by mail
+        pay_in_installments: Pay amount in installments
       bank_details:
         account_number: Número de cuenta
         account_type:

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_30_175342) do
+ActiveRecord::Schema[7.1].define(version: 2025_06_05_170628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1374,6 +1374,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_30_175342) do
     t.integer "paid_school_supplies", default: 0, null: false
     t.integer "paid_self_employment_expenses", default: 0, null: false
     t.integer "paid_student_loan_interest", default: 0, null: false
+    t.integer "payment_in_installments", default: 0, null: false
     t.string "phone_carrier"
     t.string "phone_number"
     t.integer "phone_number_can_receive_texts", default: 0, null: false
