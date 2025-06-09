@@ -3,7 +3,7 @@
 # someday if we move from /features/ to /system/
 # like in https://github.com/codeforamerica/gcf-backend/blob/main/spec/support/system_tests.rb#L34
 Capybara.register_driver :selenium_chrome_headless do |app|
-  browser_options = ::Selenium::WebDriver::Chrome::Options.new.tap do |opts|
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new(browser_version: '133').tap do |opts|
     opts.add_argument('--headless')
     opts.add_argument('--disable-gpu') if Gem.win_platform?
     # Workaround https://bugs.chromium.org/p/chromedriver/issues/detail?id=2650&q=load&sort=-id&colspec=ID%20Status%20Pri%20Owner%20Summary

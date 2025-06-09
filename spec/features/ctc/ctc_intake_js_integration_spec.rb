@@ -7,16 +7,22 @@ RSpec.feature "CTC Intake Javascript Integrations", :js, active_job: true, requi
 
   scenario "we save the timezone and security information for new clients" do
     visit "/en/questions/overview"
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
-    click_on I18n.t('general.continue')
+    page_change_block do
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.overview.title'))
+      click_on I18n.t('general.continue')
+    end
 
-    expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
-    choose I18n.t('views.ctc.questions.main_home.options.military_facility')
-    click_on I18n.t('general.continue')
+    page_change_block do
+      expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.main_home.title', current_tax_year: MultiTenantService.new(:ctc).current_tax_year))
+      choose I18n.t('views.ctc.questions.main_home.options.military_facility')
+      click_on I18n.t('general.continue')
+    end
 
-    intake = Intake::CtcIntake.last
-    expect(intake.timezone).to be_present
-    expect(intake.client.efile_security_informations.last.client_system_time).to be_present
-    expect(intake.client.efile_security_informations.last.device_id).to be_present
+    page_change_block do
+      intake = Intake::CtcIntake.last
+      expect(intake.timezone).to be_present
+      expect(intake.client.efile_security_informations.last.client_system_time).to be_present
+      expect(intake.client.efile_security_informations.last.device_id).to be_present
+    end
   end
 end
