@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Inviting site coordinator" do
+  include StateFileIntakeHelper #TODO: move this
+
   context "As an admin user" do
     let(:user) { create :admin_user }
     let!(:site) { create :site, name: "Spring Onion Site" }
@@ -13,12 +15,12 @@ RSpec.feature "Inviting site coordinator" do
       click_on "Invitations"
 
       # Invitations page
-      expect(page).to have_selector "h1", text: "Invitations"
+      page_change_check("Invitations")
       select "Site Coordinator", from: "What type of user do you want to invite?"
       click_on "Continue"
 
       # new invitation page
-      expect(page).to have_text "Send a new invitation"
+      page_change_check("Send a new invitation")
       fill_in "What is their name?", with: "Colleen Cauliflower"
       fill_in "What is their email?", with: "colleague@cauliflower.org"
       fill_in_tagify '.multi-select-vita-partner', "Spring Onion Site"
@@ -26,7 +28,7 @@ RSpec.feature "Inviting site coordinator" do
 
       # back on the invitations page
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to colleague@cauliflower.org."
+        page_change_check("We sent an email invitation to colleague@cauliflower.org.")
       end
       within(".invitations") do
         expect(page).to have_text "Colleen Cauliflower"
@@ -47,6 +49,7 @@ RSpec.feature "Inviting site coordinator" do
       expect(invited_user.invitation_sent_at).to be_within(2.seconds).of(Time.now)
 
       logout
+      sleep 0.1
 
       # New invitation recipient signing up!
       mail = ActionMailer::Base.deliveries.last
@@ -60,7 +63,7 @@ RSpec.feature "Inviting site coordinator" do
 
       # Sign up page
       visit accept_invite_url
-      expect(page).to have_text "Thank you for signing up to help!"
+      page_change_check("Thank you for signing up to help!")
       expect(page).to have_text "colleague@cauliflower.org"
       expect(page).to have_text "Spring Onion Site"
       expect(find_field("What is your name?").value).to eq "Colleen Cauliflower"
@@ -68,7 +71,7 @@ RSpec.feature "Inviting site coordinator" do
       fill_in "Enter your new password again", with: "c0v3rt-c4ul1fl0wer"
       click_on "Get started"
 
-      expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
+      page_change_check("You're all set and ready to go! You've joined an amazing team!")
       expect(page).to have_text "Colleen Cauliflower"
       expect(page).to have_text "Site Coordinator"
       expect(page).to have_text "Spring Onion Site"
