@@ -35,6 +35,8 @@ RSpec.feature "View and add internal notes for a client" do
       option = find("div.tagify__dropdown__wrapper div")
       expect(option).to have_text user.name_with_role_and_entity
       option.click
+
+      # TODO: look into whether this name autofill actually works for users in firefox
       expect(input).to have_text user.name_with_role
       click_on "Save"
 

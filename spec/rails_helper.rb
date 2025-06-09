@@ -11,14 +11,21 @@ require "percy/capybara"
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("lib/strategies/**/*.rb")].each { |f| require f }
 
-# Set CHROME=true to run specs with a visible Chrome window
-if ENV.fetch("CHROME", false)
-  Capybara.javascript_driver = :selenium_chrome
-else
-  Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.register_driver :selenium_firefox_headless do |app|
+  options = Selenium::WebDriver::Firefox::Options.new
+  options.args << '--headless'
+
+  Capybara::Selenium::Driver.new(app, browser: :firefox, options: options)
 end
 
-Capybara.default_max_wait_time = 2
+# Set CHROME=true to run specs with a visible Chrome window
+if ENV.fetch("CHROME", false)
+  Capybara.javascript_driver = :selenium_firefox
+else
+  Capybara.javascript_driver = :selenium_firefox_headless
+end
+
+# Capybara.default_max_wait_time = 2
 Capybara.server = :puma, { Silent: true }
 Capybara.server_port = 9887 + ENV['TEST_ENV_NUMBER'].to_i
 if ENV['DOCKER']
@@ -178,19 +185,19 @@ RSpec.configure do |config|
   end
 
   # the browser window needs to be large enough that no elements are outside the viewport, or capybara won't find them
-  capybara_window_size = [2000, 4000]
+  # capybara_window_size = [2000, 4000]
 
-  config.before(:each, js: true) do |_example|
-    # Monkey patched in spec/support/capybara_window_override.rb
-    Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
-  end
+  # config.before(:each, js: true) do |_example|
+  #   # Monkey patched in spec/support/capybara_window_override.rb
+  #   Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
+  # end
 
   config.before(type: :feature) do |example|
     if config.filter.rules[:flow_explorer_screenshot]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver
-      # Monkey patched in spec/support/capybara_window_override.rb
-      Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
+      # # Monkey patched in spec/support/capybara_window_override.rb
+      # Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
     end
 
     unless Capybara.current_driver == Capybara.javascript_driver
