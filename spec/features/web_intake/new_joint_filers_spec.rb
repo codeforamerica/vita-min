@@ -458,144 +458,190 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
   scenario "new client filing joint taxes with spouse and dependents", js: true, screenshot: true do
     intake = intake_up_to_documents
 
-    screenshot_after do
-      # IRS guidance
-      expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
+    page_change_block do
+      screenshot_after do
+        # IRS guidance
+        expect(page).to have_selector("h1", text: "First, we need to confirm your basic information.")
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Attach photos of ID cards")
-      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_selector("h1", text: "Attach photos of ID cards")
+        upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+        upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
+      end
+      click_on I18n.t('views.documents.selfie_instructions.submit_photo')
     end
-    click_on I18n.t('views.documents.selfie_instructions.submit_photo')
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
-      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
+        upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
-      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
+        upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
 
-    screenshot_after do
-      # Documents: Intro
-      expect(page).to have_selector("h1", text: I18n.t('views.documents.intro.title'))
+    page_change_block do
+      screenshot_after do
+        # Documents: Intro
+        expect(page).to have_selector("h1", text: I18n.t('views.documents.intro.title'))
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: I18n.t('views.documents.form1095as.title'))
-      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_selector("h1", text: I18n.t('views.documents.form1095as.title'))
+        upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Share your employment documents")
-      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_selector("h1", text: "Share your employment documents")
+        upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
 
-      expect(page).to have_content("test-pattern.png")
-      expect(page).to have_link("Remove")
+        expect(page).to have_content("test-pattern.png")
+        expect(page).to have_link("Remove")
 
-      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+        upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
 
-      expect(page).to have_content("test-pattern.png")
-      expect(page).to have_content("picture_id.jpg")
+        expect(page).to have_content("test-pattern.png")
+        expect(page).to have_content("picture_id.jpg")
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Attach your 1099-R's")
-      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_selector("h1", text: "Attach your 1099-R's")
+        upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Please share any additional documents.")
-      upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
-      expect(page).to have_content("test-pattern.png")
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_selector("h1", text: "Please share any additional documents.")
+        upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
+        expect(page).to have_content("test-pattern.png")
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
-      expect { track_progress }.to change { @current_progress }
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_selector("h1", text: "Great work! Here's a list of what we've collected.")
+        expect { track_progress }.to change { @current_progress }
+      end
+      click_on "I've shared all my documents"
     end
-    click_on "I've shared all my documents"
 
-    screenshot_after do
-      # Final Information
-      fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "One of my kids moved away for college, should I include them as a dependent?"
+    page_change_block do
+      screenshot_after do
+        # Final Information
+        fill_in "Anything else you'd like your tax preparer to know about your situation?", with: "One of my kids moved away for college, should I include them as a dependent?"
+      end
+      click_on "Submit"
     end
-    click_on "Submit"
 
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
-      expect(page).to have_text("Client ID number: #{intake.client_id}")
-      expect(page).to have_text("Please save this number for your records and future reference.")
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_selector("h1", text: "Success! Your tax information has been submitted.")
+        expect(page).to have_text("Client ID number: #{intake.client_id}")
+        expect(page).to have_text("Please save this number for your records and future reference.")
+      end
+      choose('successfully_submitted_form[satisfaction_face]', option: 'positive').click
+      fill_in "successfully_submitted_form_feedback", with: "I am a joint filer. I file with my spouse."
+      click_on "Continue"
     end
-    choose('successfully_submitted_form[satisfaction_face]', option: 'positive').click
-    fill_in "successfully_submitted_form_feedback", with: "I am a joint filer. I file with my spouse."
-    click_on "Continue"
 
-    # Demographic Questions
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
+    page_change_block do
+      # Demographic Questions
+      screenshot_after do
+        expect(page).to have_selector("h1", text: "Are you willing to answer some additional questions to help us better serve you?")
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("How well would you say you can carry on a conversation in English?")
-      choose "Well"
-    end
-    click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("How well would you say you read a newspaper in English?")
-      choose "Not well"
-    end
-    click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("Do you or any member of your household have a disability?")
-      choose "No"
-    end
-    click_on "Continue"
-    screenshot_after do
-      expect(page).to have_text("Are you or your spouse a veteran of the U.S. Armed Forces?")
-      choose "Yes"
-    end
-    click_on "Continue"
-    screenshot_after do
-      expect(page).to have_selector("h1", text: "What is your race and/or ethnicity?")
-      check "American Indian or Alaska Native"
-      check "Native Hawaiian or other Pacific Islander"
-      check "Asian"
-      check "Black or African American"
-      check "Hispanic or Latino"
-      check "Middle Eastern or North African"
-      check "White"
 
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_text("How well would you say you can carry on a conversation in English?")
+        choose "Well"
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
-    screenshot_after do
-    expect(page).to have_selector("h1", text: "What is your spouse's race and/or ethnicity?")
-      check "American Indian or Alaska Native"
-      check "Native Hawaiian or other Pacific Islander"
-      check "Asian"
-      check "Black or African American"
-      check "Hispanic or Latino"
-      check "Middle Eastern or North African"
-      check "White"
+
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_text("How well would you say you read a newspaper in English?")
+        choose "Not well"
+      end
+      click_on "Continue"
     end
-    click_on "Continue"
+
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_text("Do you or any member of your household have a disability?")
+        choose "No"
+      end
+      click_on "Continue"
+    end
+
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_text("Are you or your spouse a veteran of the U.S. Armed Forces?")
+        choose "Yes"
+      end
+      click_on "Continue"
+    end
+
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_selector("h1", text: "What is your race and/or ethnicity?")
+        check "American Indian or Alaska Native"
+        check "Native Hawaiian or other Pacific Islander"
+        check "Asian"
+        check "Black or African American"
+        check "Hispanic or Latino"
+        check "Middle Eastern or North African"
+        check "White"
+
+      end
+      click_on "Continue"
+    end
+
+    page_change_block do
+      screenshot_after do
+      expect(page).to have_selector("h1", text: "What is your spouse's race and/or ethnicity?")
+        check "American Indian or Alaska Native"
+        check "Native Hawaiian or other Pacific Islander"
+        check "Asian"
+        check "Black or African American"
+        check "Hispanic or Latino"
+        check "Middle Eastern or North African"
+        check "White"
+      end
+      click_on "Continue"
+    end
   end
 
   context "client is included in the expanded id experiment", js: true do
