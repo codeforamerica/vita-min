@@ -84,12 +84,12 @@ module StateFileIntakeHelper
     when :text_message
       click_on "Text me a code"
 
-      expect(page).to have_text "Enter your phone number"
+      page_change_check("Enter your phone number")
       expect_programmatically_associated_help_text if check_a11y
       fill_in "Your phone number", with: "4153334444"
       click_on "Send code"
 
-      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.verification_code.edit.title_html", contact_info: '(415) 333-4444'))
+      page_change_check("Enter the 6-digit code")
       expect(page).to have_text "We’ve sent your code to (415) 333-4444"
 
       perform_enqueued_jobs
@@ -98,13 +98,13 @@ module StateFileIntakeHelper
     when :email
       click_on "Email me a code"
 
-      expect(page).to have_current_path("/en/questions/email-address")
+      page_change_check("/en/questions/email-address", path: true)
       expect(page).to have_text "Enter your email address"
       expect_programmatically_associated_help_text if check_a11y
       fill_in I18n.t("state_file.questions.email_address.edit.email_address_label"), with: "someone@example.com"
       click_on "Send code"
 
-      expect(page).to have_current_path("/en/questions/verification-code")
+      page_change_check("/en/questions/verification-code", path: true)
       expect(page).to have_text "We’ve sent your code to someone@example.com"
 
       perform_enqueued_jobs
@@ -115,7 +115,7 @@ module StateFileIntakeHelper
     fill_in "Enter the 6-digit code", with: code
     click_on "Verify code"
 
-    expect(page).to have_current_path("/en/questions/code-verified")
+    page_change_check("/en/questions/code-verified", path: true)
     expect(page).to have_text "Code verified!"
     click_on "Continue"
   end

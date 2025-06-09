@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.feature "Inviting admin users" do
+  include StateFileIntakeHelper #TODO: move this
+
   context "As an admin user" do
     let(:user) { create :admin_user }
     let(:oauth_uid) { '12345' }
@@ -23,19 +25,19 @@ RSpec.feature "Inviting admin users" do
       click_on "Invitations"
 
       # Invitations page
-      expect(page).to have_selector "h1", text: "Invitations"
+      page_change_check("Invitations")
       select "Admin", from: "What type of user do you want to invite?"
       click_on "Continue"
 
       # new invitation page
-      expect(page).to have_text "Send a new invitation"
+      page_change_check("Send a new invitation")
       fill_in "What is their name?", with: "Aileen Artichoke"
       fill_in "What is their email?", with: "aileen@codeforamerica.org"
       click_on "Send invitation email"
 
       # back on the invitations page
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to aileen@codeforamerica.org"
+        page_change_check("We sent an email invitation to aileen@codeforamerica.org")
       end
       within(".invitations") do
         expect(page).to have_text "Aileen Artichoke"
@@ -50,12 +52,13 @@ RSpec.feature "Inviting admin users" do
         click_on "Resend invitation"
       end
       within(".flash--notice") do
-        expect(page).to have_text "Invitation re-sent to aileen@codeforamerica.org"
+        page_change_check("Invitation re-sent to aileen@codeforamerica.org")
       end
       invited_user = User.where(invited_by: user).last
       expect(invited_user.invitation_sent_at).to be_within(2.seconds).of(Time.now)
 
       logout
+      sleep 0.1
 
       # New invitation recipient signing up!
       mail = ActionMailer::Base.deliveries.last
@@ -69,21 +72,21 @@ RSpec.feature "Inviting admin users" do
 
       # Sign up page
       visit accept_invite_url
-      expect(page).to have_text "Thank you for signing up to help!"
+      page_change_check("Thank you for signing up to help!")
       expect(page).to have_text "aileen@codeforamerica.org"
       expect(find_field("What is your name?").value).to eq "Aileen Artichoke"
       fill_in "What is your name?", with: ""
       click_on "Get started"
-      expect(page).to have_text "Thank you for signing up to help!"
+
+      page_change_check("Thank you for signing up to help!")
       fill_in "What is your name?", with: "Yaileen Yartichoke"
       click_on "Get started"
 
-      expect(page).to have_text I18n.t("controllers.users.sessions_controller.must_use_admin_sign_in")
+      page_change_check(I18n.t("controllers.users.sessions_controller.must_use_admin_sign_in"))
       expect(page).to have_text I18n.t('devise.invitations.updated')
-
       click_on I18n.t("general.sign_in_admin")
 
-      expect(page).to have_text "Yaileen Yartichoke"
+      page_change_check("Yaileen Yartichoke")
       expect(page).to have_text "Admin"
       expect(User.find_by(email: "aileen@codeforamerica.org").external_uid).to eq(oauth_uid)
     end
@@ -93,15 +96,15 @@ RSpec.feature "Inviting admin users" do
       click_on "Invitations"
 
       # Invitations page
-      expect(page).to have_selector "h1", text: "Invitations"
+      page_change_check("Invitations")
       select "Admin", from: "What type of user do you want to invite?"
       click_on "Continue"
 
       # new invitation page
-      expect(page).to have_text "Send a new invitation"
+      page_change_check("Send a new invitation")
       click_on "Send invitation email"
 
-      expect(page).to have_text(I18n.t('errors.messages.blank'))
+      page_change_check(I18n.t('errors.messages.blank'))
       expect(page).to have_select('Which role?', selected: 'AdminRole', disabled: true)
     end
   end
