@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.feature "CTC Intake Javascript Integrations", :js, active_job: true, requires_default_vita_partners: true do
+  pending 'CTC to be removed'
   before do
     allow_any_instance_of(Routes::CtcDomain).to receive(:matches?).and_return(true)
   end

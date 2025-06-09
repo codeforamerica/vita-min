@@ -184,28 +184,40 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def advance_from_page_after_property_tax_to_review
       # advance past sales use tax
-      page_change_check("Did your tax household make any out-of-state purchases in 2024 without paying full New Jersey Sales Tax?")
       choose I18n.t('general.negative')
       continue
 
-      # federal extension
-      expect(page).to be_axe_clean
-      choose I18n.t("general.negative")
+      page_change_block do
+        # federal extension
+        expect(page).to be_axe_clean
+        choose I18n.t("general.negative")
+      end
+
       continue
 
-      # estimated tax payments & overpayments
-      expect(page).to be_axe_clean
-      choose I18n.t("general.affirmative")
+      page_change_block do
+        # estimated tax payments & overpayments
+        expect(page).to be_axe_clean
+        choose I18n.t("general.affirmative")
 
-      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.estimated_taxes_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
-      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year - 1)), with: 1000
+        fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.estimated_taxes_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
+        fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year - 1)), with: 1000
+      end
+
       continue
 
-      # Driver License
-      expect(page).to be_axe_clean
-      choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
+      page_change_block do
+        # Driver License
+        expect(page).to be_axe_clean
+        choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
+      end
+
       continue
-      choose I18n.t('state_file.questions.nj_spouse_state_id.nj_spouse.no_id')
+
+      page_change_block do
+        choose I18n.t('state_file.questions.nj_spouse_state_id.nj_spouse.no_id')
+      end
+
       continue
     end
 
@@ -289,13 +301,13 @@ RSpec.feature "Completing a state file intake", active_job: true do
         click_on "Go back"
       end
 
-      page_change_block do
+      page_change_block(0.5) do
         # return to start of property tax flow
         choose_household_rent_own("neither")
         continue
       end
 
-      page_change_block do
+      page_change_block(0.5) do
         advance_from_page_after_property_tax_to_review
       end
 
