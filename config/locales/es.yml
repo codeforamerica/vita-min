@@ -1034,7 +1034,6 @@ es:
         client_doc: Cliente
         edit_file_info: Editar información del archivo
         empty_file: "(archivo vacío)"
-        expanded_id_allowed: Este cliente puede enviar tipos de ID ampliados como parte del experimento.
         file_name: Nombre de archivo
         not_needed_docs: documentos no necesario debido al experimento.
         system_generated_doc: Auto-generado
