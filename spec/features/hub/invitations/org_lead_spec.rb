@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Inviting organization leads" do
-  include StateFileIntakeHelper #TODO: move this
-
   context "As an admin user" do
     let(:user) { create :admin_user }
     let!(:vita_partner) { create :organization, name: "Brassica Asset Builders" }

@@ -139,25 +139,6 @@ module StateFileIntakeHelper
     click_on I18n.t("general.continue") if expect_success
   end
 
-  def page_change_check(input, sleep_time: 0.1, path: false, retries: 2)
-    retry_count = 0
-    begin
-      if path
-        expect(page).to have_current_path(input)
-      else
-        expect(page).to have_text(input)
-      end
-    rescue Selenium::WebDriver::Error::WebDriverError,
-      Capybara::ElementNotFound,
-      RSpec::Expectations::ExpectationNotMetError => e
-      puts "Caught #{e.class} - #{e.message}"
-      puts "Failed attempt for `#{input}`, sleeping #{sleep_time} seconds then retrying..."
-      sleep sleep_time
-      retry_count += 1
-      retry_count <= retries ? retry : raise
-    end
-  end
-
   def assert_flow_explorer_sample_params_includes_everything(us_state)
     # Enforce that the attributes used to generate state file intakes in the Flow Explorer
     # include at least every property that a state file intake would have at the end of

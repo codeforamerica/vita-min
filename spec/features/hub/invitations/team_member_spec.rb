@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Inviting team members" do
-  include StateFileIntakeHelper #TODO: move this
-
   context "As an admin user" do
     let(:user) { create :admin_user }
 

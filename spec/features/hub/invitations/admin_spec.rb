@@ -1,8 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Inviting admin users" do
-  include StateFileIntakeHelper #TODO: move this
-
   context "As an admin user" do
     let(:user) { create :admin_user }
     let(:oauth_uid) { '12345' }
