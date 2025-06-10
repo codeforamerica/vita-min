@@ -259,7 +259,7 @@ class User < ApplicationRecord
   end
 
   def has_lead_dashboard_access?
-    site_coordinator? || coalition_lead? || org_lead?
+    site_coordinator? || coalition_lead? || org_lead? || admin?
   end
 
   def has_non_lead_dashboard_access?

@@ -18,7 +18,7 @@
         <% end %>
 
         <% if current_user %>
-          <% if Flipper.enabled?(:hub_dashboard) && current_user.has_dashboard_access? %>
+          <% if Flipper.enabled?(:hub_dashboard) && current_user.has_dashboard_access? && !current_user.admin? %>
             <%= render "hub/components/menu_item",
                        link: hub_dashboard_index_path,
                        item_label: "Dashboard",
