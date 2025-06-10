@@ -6743,7 +6743,10 @@ es:
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"
       balance_payment:
-        title: Si tiene un saldo pendiente, ¿le gustaría realizar un pago directamente desde su cuenta bancaria?
+        title: Si tienes un saldo pendiente, ¿cómo te gustaría realizar un pago?
+        pay_in_full_bank: Pay full amount through my bank account
+        pay_in_full_mail: Pay full amount by mail
+        pay_in_installments: Pay amount in installments
       bank_details:
         account_number: Número de cuenta
         account_type:
@@ -7052,7 +7055,10 @@ es:
       refund_payment:
         check: Cheque enviado por correo (más lento)
         direct_deposit: Depósito directo (el más rápido)
+        savings_purchase_bond: Compra de bonos de ahorro de Estados Unidos
+        savings_split_refund: Dividir mi reembolso entre cuentas
         title: Si se debe un reembolso, ¿cómo le gustaría recibirlo?
+        title_2: Si le corresponde un reembolso, ¿está interesado en usar estas opciones de ahorro?
       retirement_contributions:
         help_text: Por ejemplo, un 401k, 403b o cualquier IRA.
         title:
@@ -7068,10 +7074,6 @@ es:
       returning_client:
         next_steps_html: Entre a su cuenta para terminar las preguntas sobre sus impuestos o para enviar documentos al preparador de su declaración de impuestos. Si tiene alguna pregunta puede enviar un mensaje a %{email_link}.
         title: Parece que usted ya empezó el proceso.
-      savings_options:
-        savings_purchase_bond: Compra de bonos de ahorro de Estados Unidos
-        savings_split_refund: Dividir mi reembolso entre cuentas
-        title: Si le corresponde un reembolso, ¿está interesado en usar estas opciones de ahorro?
       school_supplies:
         help_text: Responda "Sí" si usted es un maestro que compró útiles para su trabajo.
         title:
