@@ -2,8 +2,6 @@ module Questions
   class BalancePaymentController < QuestionsController
     include AuthenticatedClientConcern
 
-    layout "yes_no_question"
-
     private
 
     def method_name
