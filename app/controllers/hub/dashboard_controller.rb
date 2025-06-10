@@ -23,7 +23,7 @@ module Hub
     private
 
     def require_dashboard_user
-      unless user.has_dashboard_access?
+      unless user.has_dashboard_access? || current_user.admin?
         respond_to do |format|
           format.html do
             session[:after_login_path] = request.original_fullpath
