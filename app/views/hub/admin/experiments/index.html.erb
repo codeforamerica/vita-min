@@ -22,7 +22,11 @@
           <td style="white-space: pre-line;"><%= experiment.treatment_weights.map { |key, weight| "#{key}: #{weight}" }.join("\n") %></td>
           <td><%= experiment.vita_partners.count %></td>
           <td><%= experiment.enabled %></td>
-          <td><%= link_to "Edit", edit_hub_admin_experiment_path(experiment) %></td>
+          <% if ExperimentService::CONFIG[experiment.key][:deprecated] %>
+            <td class="text--grey">Deprecated</td>
+          <% else %>
+            <td><%= link_to "Edit", edit_hub_admin_experiment_path(experiment) %></td>
+          <% end %>
         </tr>
       <% end %>
     </table>
