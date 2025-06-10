@@ -14,5 +14,21 @@ class BalancePaymentForm < QuestionsForm
       self.balance_pay_from_bank = "no"
       self.payment_in_installments = "yes"
     end
+    
+    intake.update(attributes_for(:intake))
+  end
+
+  def self.existing_attributes(intake)
+    attributes = HashWithIndifferentAccess.new
+    if intake.balance_pay_from_bank_yes?
+      attributes[:balance_payment_choice] = "yes"
+    elsif intake.balance_pay_from_bank_no?
+      attributes[:balance_payment_choice] = if intake.payment_in_installments_yes?
+                                              "installments"
+                                            else
+                                              "no"
+                                            end
+    end
+    attributes
   end
 end
