@@ -13,8 +13,16 @@ module Hub
       end
 
       def clients
-        @clients ||= Client.accessible_by(@current_ability)
-                           .where(filterable_product_year: Rails.configuration.product_year)
+        if @current_user.has_lead_dashboard_access?
+          @clients ||= Client.accessible_by(@current_ability)
+                             .where(filterable_product_year: Rails.configuration.product_year)
+        elsif @current_user.has_non_lead_dashboard_access?
+          @clients ||= Client.accessible_by(@current_ability)
+                             .where(filterable_product_year: Rails.configuration.product_year)
+                             .joins(:tax_returns)
+                             .where(tax_returns: { assigned_user_id: @current_user.id })
+                             .distinct
+        end
       end
 
       def available_orgs_and_sites
