@@ -946,26 +946,6 @@ describe Intake do
         expect(intake.document_types_definitely_needed).to match_array expected_doc_types
       end
     end
-
-    context "in the expanded id type experiment with other doc types uploaded" do
-      let!(:primary_id_document) { create :document, intake: intake, document_type: "Passport" }
-      let!(:secondary_id_document) { create :document, intake: intake, document_type: "Birth Certificate" }
-
-      before do
-        Experiment.update_all(enabled: true)
-        experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
-        ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :expanded_id)
-      end
-
-      it "doesn't include Identity or SsnItin" do
-        expected_doc_types = [
-          DocumentTypes::Employment,
-          DocumentTypes::Form1095A
-        ]
-
-        expect(intake.document_types_definitely_needed).to match_array expected_doc_types
-      end
-    end
   end
 
   describe "#document_types_possibly_needed" do
