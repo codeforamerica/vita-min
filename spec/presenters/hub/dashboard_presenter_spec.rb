@@ -71,5 +71,24 @@ describe Hub::Dashboard::DashboardPresenter do
         expect(subject.selected_model).to be_nil
       end
     end
+
+    context "clients" do
+      let(:other_team_member_same_site) { create :team_member_user, sites: [site] }
+      let!(:first_client) {
+        create :client, vita_partner: site, filterable_product_year: Rails.configuration.product_year, intake: build(:intake),
+                        tax_returns: [build(:gyr_tax_return, assigned_user: user, year: Rails.configuration.product_year)]
+      }
+      let!(:second_client) {
+        create :client, vita_partner: site, filterable_product_year: Rails.configuration.product_year, intake: build(:intake),
+                        tax_returns: [build(:gyr_tax_return, assigned_user: user, year: Rails.configuration.product_year)]
+      }
+      let!(:unassigned_client) {
+        create :client, vita_partner: site, filterable_product_year: Rails.configuration.product_year, intake: build(:intake),
+                        tax_returns: [build(:gyr_tax_return, assigned_user: other_team_member_same_site, year: Rails.configuration.product_year)]
+      }
+      it "only includes clients current user is assigned to" do
+        expect(subject.clients).to eq [first_client, second_client]
+      end
+    end
   end
 end
