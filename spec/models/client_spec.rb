@@ -936,7 +936,7 @@ describe Client do
     end
 
     let(:treatment) { "control" }
-    let(:experiment) { Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT) }
+    let(:experiment) { Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT) }
     let!(:experiment_participant) do
       create :experiment_participant,
              experiment: experiment,
@@ -945,38 +945,7 @@ describe Client do
     end
     let!(:client) { create :client, intake: build(:intake) }
 
-    context "client is in the ID Verification Experiment" do
-      context "has control treatment" do
-        it "does include selfie doc" do
-          expect(client.required_document_counts).to have_key("Selfie")
-        end
-      end
-
-      context "has no_selfie treatment" do
-        let(:treatment) { "no_selfie" }
-        it "does not include selfie doc" do
-          expect(client.required_document_counts).not_to have_key("Selfie")
-        end
-      end
-
-      context "has expanded_id treatment" do
-        let(:treatment) { "expanded_id" }
-        it "does include selfie doc" do
-          expect(client.required_document_counts).to have_key("Selfie")
-        end
-      end
-
-      context "has expanded_id_and_no_selfie treatment" do
-        let(:treatment) { "expanded_id_and_no_selfie" }
-        it "does not include selfie doc" do
-          expect(client.required_document_counts).not_to have_key("Selfie")
-        end
-      end
-    end
-
     context "client is in the Returning Client Experiment" do
-      let(:experiment) { Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT) }
-
       context "has control treatment" do
         it "does include selfie doc" do
           expect(client.required_document_counts).to have_key("Selfie")
