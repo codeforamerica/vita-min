@@ -947,8 +947,8 @@ describe Client do
 
     context "client is in the Returning Client Experiment" do
       context "has control treatment" do
-        it "does include selfie doc" do
-          expect(client.required_document_counts).to have_key("Selfie")
+        it "does include selfie doc because selfies are going away" do
+          expect(client.required_document_counts).not_to have_key("Selfie")
         end
       end
 
