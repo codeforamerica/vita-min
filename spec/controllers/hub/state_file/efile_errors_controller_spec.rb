@@ -4,7 +4,7 @@ describe Hub::StateFile::EfileErrorsController do
   describe "#index" do
     let!(:efile_error) { create :efile_error, code: "CANCEL-ME-123", service_type: :state_file_az }
 
-    it_behaves_like :an_action_for_admins_only , action: :index, method: :get
+    it_behaves_like :an_action_for_admins_only, action: :index, method: :get
 
     context "as an authenticated user" do
       before do

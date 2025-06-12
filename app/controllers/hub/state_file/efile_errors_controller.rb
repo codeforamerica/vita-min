@@ -1,6 +1,9 @@
 module Hub::StateFile
   class EfileErrorsController < Hub::StateFile::BaseController
-    load_and_authorize_resource
+    # load_and_authorize_resource
+    after_action :verify_authorized, :verify_policy_scoped
+    before_action :set_and_authorize_efile_error, only: [:edit, :show, :update, :reprocess]
+    before_action :set_and_authorize_efile_errors, only: :index
     layout "hub"
 
     def index
@@ -65,6 +68,18 @@ module Hub::StateFile
     end
 
     private
+
+    def set_and_authorize_efile_error
+      @efile_error = policy_scope(EfileError).find(params[:id])
+      authorize @efile_error, :all_access?
+    rescue ActiveRecord::RecordNotFound
+      raise Pundit::NotAuthorizedError
+    end
+
+    def set_and_authorize_efile_errors
+      @efile_errors ||= policy_scope(EfileError)
+      authorize EfileError, :all_access?
+    end
 
     def auto_transition_to_state(efile_error, submission)
       return :cancelled if efile_error.auto_cancel
