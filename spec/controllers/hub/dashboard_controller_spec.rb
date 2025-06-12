@@ -145,6 +145,72 @@ RSpec.describe Hub::DashboardController do
         end
       end
     end
+
+    context "with a team member user" do
+      let(:vita_partner) { create(:site) }
+      let!(:first_breached_client) {
+        create :client, flagged_at: Time.now, vita_partner: vita_partner,
+                        last_outgoing_communication_at: 7.business_days.ago,
+                        tax_returns: [build(:gyr_tax_return, :review_reviewing, assigned_user: user, year: Rails.configuration.product_year)],
+                        intake: build(:intake, preferred_name: "Joanna", product_year: Rails.configuration.product_year)
+      }
+      let!(:second_client) {
+        create :client, flagged_at: Time.now, vita_partner: vita_partner,
+                        last_outgoing_communication_at: 2.business_days.ago,
+                        tax_returns: [build(:gyr_tax_return, :review_reviewing, assigned_user: user, year: Rails.configuration.product_year)],
+                        intake: build(:intake, preferred_name: "Kinsley")
+      }
+      let!(:unflagged_approaching_sla_client) {
+        create :client, flagged_at: nil, vita_partner: vita_partner,
+                        last_outgoing_communication_at: 5.business_days.ago,
+                        tax_returns: [build(:gyr_tax_return, :review_reviewing, assigned_user: user, year: Rails.configuration.product_year)],
+                        intake: build(:intake, preferred_name: "Lava")
+      }
+      let!(:unassigned_client) {
+        create :client, flagged_at: nil, vita_partner: vita_partner,
+                        tax_returns: [build(:tax_return, assigned_user: nil, year: Rails.configuration.product_year)],
+                        intake: build(:intake, preferred_name: "Tommy")
+      }
+      let(:user) { create :user, role: create(:team_member_role, sites: [vita_partner]) }
+      before { sign_in user }
+      render_views
+
+      it "responds with ok" do
+        get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
+        expect(response).to be_ok
+      end
+
+      it "shows the action required panel" do
+        get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.action_required.title')
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.action_required.client_name')
+      end
+
+      context "when there are flagged clients in the current product year" do
+        it "shows the flagged clients" do
+          get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
+          expect(response.body).to have_text "Joanna"
+          expect(response.body).to have_text "Kinsley"
+          expect(response.body).not_to have_text "Lava"
+          expect(response.body).not_to have_text "Tommy"
+        end
+      end
+
+      it "displays service level agreement notifications panel" do
+        get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
+        expect(response.body).to have_text I18n.t("hub.dashboard.show.overdue")
+        doc = Nokogiri::HTML(response.body)
+        expect(doc.at_css("div.breached-count").text).to include("1")
+        expect(doc.at_css("div.approaching-count").text).to include("1")
+        expect(response.body).to have_text I18n.t("hub.dashboard.show.approaching")
+      end
+
+      it "shows the resources panel" do
+        get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.resources.title')
+        expect(response.body).to have_text I18n.t('hub.dashboard.show.resources.newsletter')
+      end
+    end
   end
 
   describe "#returns_by_status" do

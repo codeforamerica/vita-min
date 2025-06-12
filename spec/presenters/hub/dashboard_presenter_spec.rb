@@ -5,6 +5,7 @@ describe Hub::Dashboard::DashboardPresenter do
   let(:ability) { Ability.new(user) }
   let(:coalition) { create :coalition }
   let!(:oregano_org) { create :organization, name: "Oregano Org", coalition: coalition }
+  let(:site) { create :site, name: "Shell Site", parent_organization: oregano_org }
   let!(:orangutan_organization) { create :organization, name: "Orangutan Organization", coalition: coalition }
 
   context "with a coalition lead user" do
@@ -46,6 +47,47 @@ describe Hub::Dashboard::DashboardPresenter do
 
       it "fails to select" do
         expect(subject.selected_model).to be_nil
+      end
+    end
+  end
+
+  context "with a team member user" do
+    let(:user) { create :team_member_user, sites: [site] }
+    let(:selected) { "site/#{site.id}" }
+
+    it "presents filter options including only site" do
+      expect(subject.filter_options.length).to eq 1
+      expect(subject.filter_options.map(&:model).map(&:name)).to eq ["Shell Site"]
+    end
+
+    it "selects the correct site" do
+      expect(subject.selected_model).to eq site
+    end
+
+    context "with an invalid organization selection" do
+      let(:selected) { "coalition/#{coalition.id}" }
+
+      it "fails to select" do
+        expect(subject.selected_model).to be_nil
+      end
+    end
+
+    context "clients" do
+      let(:other_team_member_same_site) { create :team_member_user, sites: [site] }
+      let!(:first_client) {
+        create :client, vita_partner: site, filterable_product_year: Rails.configuration.product_year, intake: build(:intake),
+                        tax_returns: [build(:gyr_tax_return, assigned_user: user, year: Rails.configuration.product_year)]
+      }
+      let!(:second_client) {
+        create :client, vita_partner: site, filterable_product_year: Rails.configuration.product_year, intake: build(:intake),
+                        tax_returns: [build(:gyr_tax_return, assigned_user: user, year: Rails.configuration.product_year)]
+      }
+      let!(:unassigned_client) {
+        create :client, vita_partner: site, filterable_product_year: Rails.configuration.product_year, intake: build(:intake),
+                        tax_returns: [build(:gyr_tax_return, assigned_user: other_team_member_same_site, year: Rails.configuration.product_year)]
+      }
+      it "only includes clients current user is assigned to" do
+        expect(subject.clients).to eq [first_client, second_client]
       end
     end
   end
