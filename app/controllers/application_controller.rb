@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
+  include Pundit::Authorization
   around_action :set_time_zone, if: :current_user
   before_action :set_eitc_beta_cookie, :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
   around_action :switch_locale
