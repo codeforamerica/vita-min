@@ -20,6 +20,8 @@ RSpec.feature "CTC Intake Javascript Integrations", :js, active_job: true, requi
     end
 
     page_change_block do
+      # Give the intake a chance to develop
+      sleep(0.2)
       intake = Intake::CtcIntake.last
       expect(intake.timezone).to be_present
       expect(intake.client.efile_security_informations.last.client_system_time).to be_present
