@@ -7,16 +7,24 @@ class UserPolicy < ApplicationPolicy
     user.present?
   end
 
-  %i[destroy? update_role? edit_role? show?].each do |name|
+  %i[destroy? update_role? show?].each do |name|
     define_method name do
       can_manage?
     end
   end
 
-  %i[update? unlock? suspend? unsuspend? resend_invitation?].each do |name|
+  def edit_role?
+    update_role?
+  end
+
+  %i[update? unlock? suspend? resend_invitation?].each do |name|
     define_method name do
       can_manage? || site_coordinators_peer?
     end
+  end
+
+  def unsuspend?
+    suspend?
   end
 
   private

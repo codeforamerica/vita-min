@@ -118,6 +118,7 @@ module Hub
       rescue ActiveRecord::RecordNotFound
         raise Pundit::NotAuthorizedError
       end
+      # Todo: Go behind Pundit flag
       # user = User.find_by(id: params[:user_id])
       # if current_ability.can?(:manage, user)
       user&.invite!(current_user)
@@ -157,8 +158,6 @@ module Hub
     def set_and_authorize_user
       @user ||= policy_scope(User).find(params[:id])
       authorize @user
-    rescue ActiveRecord::RecordNotFound
-      raise Pundit::NotAuthorizedError
     end
 
     def set_and_authorize_users
