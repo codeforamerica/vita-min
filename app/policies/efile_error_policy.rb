@@ -3,6 +3,7 @@ class EfileErrorPolicy < ApplicationPolicy
   # def all_access?
   #   user.state_file_admin? || user.state_file_nj_staff? || user.admin?
   # end
+  # alias index? show? update? reprocess?
 
   %i[index? show? update? reprocess?].each do |name|
     define_method name do

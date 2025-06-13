@@ -7,6 +7,7 @@ require "capybara/rails"
 require "capybara/rspec"
 require "selenium/webdriver"
 require "percy/capybara"
+require "pundit/rspec"
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 Dir[Rails.root.join("lib/strategies/**/*.rb")].each { |f| require f }

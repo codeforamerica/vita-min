@@ -3,7 +3,10 @@ module Hub
     include RoleHelper
     before_action :load_groups, only: [:edit_role, :update_role]
     before_action :load_and_authorize_role, only: [:update_role]
-    load_and_authorize_resource
+    # load_and_authorize_resource
+    after_action :verify_authorized, :verify_policy_scoped
+    before_action :set_and_authorize_user, only: %i[edit update destroy unlock suspend unsuspend edit_role update_role]
+    before_action :set_and_authorize_users, only: %i[index]
 
     layout "hub"
 
@@ -75,20 +78,20 @@ module Hub
     end
 
     def unlock
-      authorize!(:update, @user)
+      # authorize!(:update, @user)
       @user.unlock_access! if @user.access_locked?
       flash[:notice] = I18n.t("hub.users.unlock.account_unlocked", name: @user.name)
       redirect_to(hub_users_path)
     end
 
     def suspend
-      authorize!(:update, @user)
+      # authorize!(:update, @user)
       @user.suspend!
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.suspend.success", name: @user.name)
     end
 
     def unsuspend
-      authorize!(:update, @user)
+      # authorize!(:update, @user)
       @user.activate!
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.unsuspend.success", name: @user.name)
     end
@@ -145,6 +148,18 @@ module Hub
       @role = role_from_params(params.dig(:user, :role), params)
 
       authorize!(:create, @role)
+    end
+
+    def set_and_authorize_user
+      @user ||= policy_scope(User).find(params[:id])
+      authorize @user
+    rescue ActiveRecord::RecordNotFound
+      raise Pundit::NotAuthorizedError
+    end
+
+    def set_and_authorize_users
+      @users ||= policy_scope(User)
+      authorize User
     end
   end
 end

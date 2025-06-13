@@ -70,7 +70,7 @@ module Hub::StateFile
     private
 
     def set_and_authorize_efile_error
-      @efile_error = policy_scope(EfileError).find(params[:id])
+      @efile_error ||= policy_scope(EfileError).find(params[:id])
       authorize @efile_error
     rescue ActiveRecord::RecordNotFound
       raise Pundit::NotAuthorizedError
