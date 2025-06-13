@@ -462,9 +462,9 @@ RSpec.describe Hub::UsersController do
 
   describe "#resend_invitation" do
     context "with a logged in admin" do
-      let!(:resending_user) { create :admin_user }
-      let(:original_invited_by_user) { create :admin_user }
-      let(:invited_user) { create :user, invited_by: original_invited_by_user }
+      let!(:resending_user) { create :admin_user, email: "resent@example.com" }
+      let(:original_invited_by_user) { create :admin_user, email: "orginal@example.com" }
+      let!(:invited_user) { create :user, invited_by: original_invited_by_user }
 
       before { sign_in resending_user }
 

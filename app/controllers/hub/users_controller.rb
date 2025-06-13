@@ -4,8 +4,8 @@ module Hub
     before_action :load_groups, only: [:edit_role, :update_role]
     before_action :load_and_authorize_role, only: [:update_role]
     # load_and_authorize_resource
-    after_action :verify_authorized, :verify_policy_scoped
-    before_action :set_and_authorize_user, only: %i[edit update destroy unlock suspend unsuspend edit_role update_role]
+    after_action :verify_authorized, :verify_policy_scoped, except: [:profile]
+    before_action :set_and_authorize_user, except: %i[index profile resend_invitation]
     before_action :set_and_authorize_users, only: %i[index]
 
     layout "hub"
@@ -112,14 +112,18 @@ module Hub
     end
 
     def resend_invitation
-      user = User.find_by(id: params[:user_id])
-
-      if current_ability.can?(:manage, user)
-        user&.invite!(current_user)
-        flash[:notice] = "Invitation re-sent to #{user.email}"
-
-        redirect_to hub_users_path
+      begin
+        user = policy_scope(User).find(params[:user_id])
+        authorize user
+      rescue ActiveRecord::RecordNotFound
+        raise Pundit::NotAuthorizedError
       end
+      # user = User.find_by(id: params[:user_id])
+      # if current_ability.can?(:manage, user)
+      user&.invite!(current_user)
+      flash[:notice] = "Invitation re-sent to #{user.email}"
+
+      redirect_to hub_users_path
     end
 
     private

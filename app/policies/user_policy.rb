@@ -4,7 +4,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def profile?
-    record_is_current_user?
+    user.present?
   end
 
   %i[destroy? update_role? edit_role? show?].each do |name|
