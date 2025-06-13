@@ -3,6 +3,7 @@ class ExperimentService
   DIY_SUPPORT_LEVEL_EXPERIMENT = "diy_high_and_low_experiment"
   RETURNING_CLIENT_EXPERIMENT = "returning_client_experiment"
 
+  # `deprecated: true` means the code has been removed and is used on the hub experiments page to indicate that the experiment can no longer be run
   CONFIG = {
     DIY_SUPPORT_LEVEL_EXPERIMENT => {
       name: "File Myself Support experiment",
@@ -10,6 +11,7 @@ class ExperimentService
         low: 1,
         high: 1
       },
+      deprecated: false,
     },
     ID_VERIFICATION_EXPERIMENT => {
       name: "Easier ID Verification experiment",
@@ -18,14 +20,16 @@ class ExperimentService
         no_selfie: 1,
         expanded_id: 1,
         expanded_id_and_no_selfie: 1,
-      }
+      },
+      deprecated: true,
     },
     RETURNING_CLIENT_EXPERIMENT => {
       name: "Return Clients experiment",
       treatment_weights: {
         control: 1,
         skip_identity_documents: 1
-      }
+      },
+      deprecated: false,
     }
   }
 

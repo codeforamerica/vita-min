@@ -93,20 +93,6 @@ RSpec.describe Documents::SsnItinsController do
         end
       end
 
-      context 'In the no selfie experiment treatment and other two required doc types are present' do
-        before do
-          experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
-          ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :no_selfie)
-          create :document, document_type: DocumentTypes::Identity.key, intake: intake, client: intake.client
-        end
-
-        it "updates the tax return status(es) to intake_ready" do
-          post :update, params: params
-
-          expect(tax_return.reload.current_state).to eq "intake_ready"
-        end
-      end
-
       context 'required doc types are missing' do
         it "updates the tax return status(es) to intake_needs_doc_help" do
           post :update, params: params

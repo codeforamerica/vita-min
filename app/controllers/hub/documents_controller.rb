@@ -69,7 +69,7 @@ module Hub
     private
 
     def load_document_type_options
-      @document_type_options = IdVerificationExperimentService.new(@client.intake).document_type_options
+      @document_type_options = [DocumentTypes::Identity, DocumentTypes::SsnItin] + (DocumentTypes::ALL_TYPES - DocumentTypes::IDENTITY_TYPES - DocumentTypes::SECONDARY_IDENTITY_TYPES)
     end
 
     def sorted_documents
