@@ -45,7 +45,8 @@
       <% @users.each do |user| %>
         <tr id="user-<%= user.id %>" class="index-table__row user-row" data-suspended="<%= user.suspended? %>">
           <th scope="row" class="index-table__row-header">
-            <% if can?(:edit, user) %>
+            <%# if can?(:edit, user) %>
+            <% if policy(user).edit? %>
               <%= link_to user.name, edit_hub_user_path(id: user) %>
             <% else %>
               <%= user.name %>
