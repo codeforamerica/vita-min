@@ -29,7 +29,7 @@ RSpec.describe EfileErrorPolicy, type: :policy do
       expect(Pundit.policy_scope!(other_user, EfileError)).to be_nil
     end
 
-    it 'allows access to login.gov admins' do
+    it 'access scoped to certain service types' do
       expect(Pundit.policy_scope!(state_file_admin_user, EfileError)).to include(az_efile_error, ctc_efile_error)
       expect(Pundit.policy_scope!(admin_user, EfileError)).to include(ctc_efile_error)
       expect(Pundit.policy_scope!(nj_staff_user, EfileError)).to include(nj_efile_error)
