@@ -3,10 +3,18 @@ module Hub
     include RoleHelper
     before_action :load_groups, only: [:edit_role, :update_role]
     before_action :load_and_authorize_role, only: [:update_role]
-    # load_and_authorize_resource
-    after_action :verify_authorized, :verify_policy_scoped, except: [:profile]
-    before_action :set_and_authorize_user, except: %i[index profile resend_invitation]
-    before_action :set_and_authorize_users, only: %i[index]
+    load_and_authorize_resource unless: -> { Flipper.enabled?(:use_pundit) }
+    after_action :verify_authorized,
+                 :verify_policy_scoped,
+                 # TODO: When we remove use_pundit flag, change this to except: [:profile]
+                 if: -> (c) do
+                   return false if c.action_name == "profile"
+                   return false unless Flipper.enabled?(:use_pundit)
+                 end
+    before_action :set_and_authorize_user,
+                  except: %i[index profile resend_invitation]
+    before_action :set_and_authorize_users,
+                  only: %i[index]
 
     layout "hub"
 
@@ -156,11 +164,15 @@ module Hub
     end
 
     def set_and_authorize_user
+      return unless Flipper.enabled?(:use_pundit)
+
       @user ||= policy_scope(User).find(params[:id])
       authorize @user
     end
 
     def set_and_authorize_users
+      return unless Flipper.enabled?(:use_pundit)
+
       @users ||= policy_scope(User)
       authorize User
     end

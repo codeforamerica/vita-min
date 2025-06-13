@@ -25,7 +25,7 @@ class Ability
       can :manage, :all
 
       # Non-NJ staff cannot manage NJ EfileErrors, EfileSubmissions or FAQs
-      # cannot :manage, EfileError, service_type: "state_file_nj"
+      cannot :manage, EfileError, service_type: "state_file_nj"
       cannot :manage, EfileSubmission, data_source_type: "StateFileNjIntake"
       cannot :manage, FaqCategory, product_type: "state_file_nj"
       cannot :manage, FaqItem, faq_category: { product_type: "state_file_nj" }
@@ -41,9 +41,9 @@ class Ability
         cannot :manage, StateFileW2
         cannot :manage, StateId
         cannot :manage, EfileSubmission, data_source_type: StateFile::StateInformationService.state_intake_class_names
-        # cannot :manage, EfileError do |error|
-        #   %w[state_file unfilled state_file_az state_file_ny state_file_md state_file_nc state_file_id].include?(error.service_type)
-        # end
+        cannot :manage, EfileError do |error|
+          %w[state_file unfilled state_file_az state_file_ny state_file_md state_file_nc state_file_id].include?(error.service_type)
+        end
       end
       unless user.email.downcase.include?("@codeforamerica.org")
         cannot :manage, :flipper_dashboard
@@ -68,10 +68,10 @@ class Ability
     end
 
     # Anyone can manage their name & email address (roles are handled separately)
-    # can :manage, User, id: user.id
+    can :manage, User, id: user.id
 
     # Anyone can read info about users that they can access
-    # can :read, User, id: user.accessible_users.pluck(:id)
+    can :read, User, id: user.accessible_users.pluck(:id)
 
     # Anyone can read info about an organization or site they can access
     can :read, Organization, id: accessible_groups.pluck(:id)
@@ -158,7 +158,7 @@ class Ability
       can :manage, :state_file_admin_tool
       can :read, StateFile::AutomatedMessage
 
-      # can :manage, EfileError, service_type: "state_file_nj"
+      can :manage, EfileError, service_type: "state_file_nj"
       can :manage, EfileSubmission, data_source_type: "StateFileNjIntake"
       can :manage, FaqCategory, product_type: "state_file_nj"
       can :manage, FaqItem, faq_category: { product_type: "state_file_nj" }
@@ -168,7 +168,7 @@ class Ability
       can :read, Coalition, id: user.role.coalition_id
 
       # Coalition leads can view and edit users who are coalition leads, organization leads, site coordinators, and team members in their coalition
-      # can :manage, User, id: user.accessible_users.pluck(:id)
+      can :manage, User, id: user.accessible_users.pluck(:id)
 
       # Coalition leads can create coalition leads, organization leads, site coordinators, and team members in their coalition
       can :manage, CoalitionLeadRole, coalition: user.role.coalition
@@ -179,7 +179,7 @@ class Ability
 
     if user.org_lead?
       # Organization leads can view and edit users who are organization leads, site coordinators, and team members in their coalition
-      # can :manage, User, id: user.accessible_users.pluck(:id)
+      can :manage, User, id: user.accessible_users.pluck(:id)
 
       # Organization leads can create organization leads, site coordinators, and team members in their org
       can :manage, OrganizationLeadRole, organization: user.role.organization
@@ -188,8 +188,8 @@ class Ability
     end
 
     if user.site_coordinator?
-      # can [:suspend, :unsuspend, :update, :unlock, :resend_invitation], User, id: User.where(role: SiteCoordinatorRole.assignable_to_sites(user.role.sites)).pluck(:id)
-      # can [:suspend, :unsuspend, :update, :unlock, :resend_invitation], User, id: User.where(role: TeamMemberRole.assignable_to_sites(user.role.sites)).pluck(:id)
+      can [:suspend, :unsuspend, :update, :unlock, :resend_invitation], User, id: User.where(role: SiteCoordinatorRole.assignable_to_sites(user.role.sites)).pluck(:id)
+      can [:suspend, :unsuspend, :update, :unlock, :resend_invitation], User, id: User.where(role: TeamMemberRole.assignable_to_sites(user.role.sites)).pluck(:id)
 
       # Site coordinators can create site coordinators and team members in their site
       can :manage, SiteCoordinatorRole do |role|

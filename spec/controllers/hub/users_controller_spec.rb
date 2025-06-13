@@ -56,6 +56,7 @@ RSpec.describe Hub::UsersController do
   end
 
   describe "#index" do
+    before(:each) { Flipper.enable(:use_pundit) }
     it_behaves_like :a_get_action_for_authenticated_users_only, action: :index
 
     context "with an authenticated admin user" do
