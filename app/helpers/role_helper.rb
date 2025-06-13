@@ -92,14 +92,21 @@ module RoleHelper
   end
 
   def user_group(user)
-    return if user.role.nil?
+    role = User.includes(:role).find(user.id).role
+    return if role.nil?
 
     if user.role_type == OrganizationLeadRole::TYPE
-      user.role.organization.name
+      organization = OrganizationLeadRole.includes(:organization).find(user.role_id).organization
+      organization.name
     elsif user.role_type == CoalitionLeadRole::TYPE
-      user.role.coalition.name
-    elsif user.role_type == SiteCoordinatorRole::TYPE || user.role_type == TeamMemberRole::TYPE
-      user.role.sites.map(&:name).join(", ")
+      coalition = CoalitionLeadRole.includes(:coalition).find(user.role_id).coalition
+      coalition.name
+    elsif user.role_type == SiteCoordinatorRole::TYPE
+      sites = SiteCoordinatorRole.find(user.role_id).sites
+      sites.map(&:name).join(", ")
+    elsif user.role_type == TeamMemberRole::TYPE
+      sites = TeamMemberRole.find(user.role_id).sites
+      sites.map(&:name).join(", ")
     end
   end
 end
