@@ -6298,21 +6298,6 @@ en:
         schedule_appointment: When you’re done sharing the documents you have, we’ll schedule an appointment with your tax preparer.
         spouse_doc_needed: Please add documents for you and your spouse.
         title: Great work! Here's a list of what we've collected.
-      selfie_instructions:
-        header: Confirm your identity with a photo of yourself holding your ID card
-        info: The IRS requires us to verify who you are for tax preparation services. We do this by reviewing a photo of you holding your ID card.
-        steps:
-          face_camera: Face the camera directly and include from your shoulders to the top of your head, similar to your ID photo
-          face_visible: Make sure your face is clearly visible
-          header: Read through the following steps before continuing
-          id_visible: Make sure you aren't covering up your ID
-          plain_background: Use a plain wall as a background if possible
-          wear_glasses: If you're wearing glasses in your ID photo, wear them in your selfie photo
-        submit_photo: Submit a photo
-      selfies:
-        help_text: The IRS requires us to verify who you are for tax preparation services.
-        need_for_html: 'We will need to see a <u>photo with ID</u> for:'
-        title: Share a photo of yourself holding your ID card
       ssn_itins:
         help_text: The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services.
         need_for: 'We will need a SSN or ITIN for:'
