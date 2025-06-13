@@ -90,7 +90,7 @@ describe MixpanelService do
 
           expect(MixpanelService.instance).not_to have_received(:init_flusher)
 
-          expect(Rails.logger).to receive(:info).with("Sending Mixpanel event: id abcde, event_name test_event, data {:test=>\"OK\"}")
+          expect(Rails.logger).to receive(:info).with("Sending Mixpanel event: id abcde, event_name test_event, data {test: \"OK\"}")
 
           3.times do
             MixpanelService.instance.run(

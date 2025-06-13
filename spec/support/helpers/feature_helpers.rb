@@ -4,16 +4,21 @@ module FeatureHelpers
   class TriagePageDivergence < StandardError; end
 
   class TriageFeatureHelper
-    def initialize(page, screenshot_method = nil)
+    attr_accessor :raise_instead
+    def initialize(page, screenshot_method = nil, raise_instead = false)
       @seen_pages = []
       @page = page
       @screenshot_method = screenshot_method
+      @raise_instead = raise_instead
     end
 
     def assert_page(title_key, &blk)
       first_line = I18n.t(title_key).split(/\n+/).first
 
-      return unless @page.all('h1', text: first_line, wait: 0).length > 0
+      if @page.all('h1', text: first_line, wait: 0).length == 0
+        return unless raise_instead
+        raise Capybara::ElementNotFound
+      end
 
       @seen_pages << @page.current_path
 
@@ -57,23 +62,31 @@ module FeatureHelpers
     # expect(page).to have_selector("h1", text: I18n.t('views.public_pages.home.header'))
     # click_on I18n.t('general.get_started')
 
-    triage_feature_helper = TriageFeatureHelper.new(page, screenshot_method)
-    triage_feature_helper.maybe_screenshot do
-      # Personal Info
-      expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
-      fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
-      fill_in I18n.t('views.questions.personal_info.phone_number'), with: "8286345533"
-      fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
-      fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
-      click_on I18n.t('general.continue')
+    triage_feature_helper = TriageFeatureHelper.new(page, screenshot_method, true)
+    page_change_block do
+      triage_feature_helper.maybe_screenshot do
+        # Personal Info
+        expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
+        fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
+        fill_in I18n.t('views.questions.personal_info.phone_number'), with: "8286345533"
+        fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
+        fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
+        click_on I18n.t('general.continue')
+      end
     end
 
-    triage_feature_helper.assert_page('questions.triage_income_level.edit.title') do
-      select I18n.t("questions.triage_income_level.edit.filing_status.options.#{options[:triage_filing_status]}")
-      select I18n.t("questions.triage_income_level.edit.income_level.options.#{options[:triage_income_level]}")
-      select I18n.t("questions.triage_income_level.edit.filing_frequency.options.#{options[:triage_filing_frequency]}")
-      select options[:triage_vita_income_ineligible] ? I18n.t('general.affirmative') : I18n.t('general.negative'), from: I18n.t('questions.triage_income_level.edit.vita_income_ineligible.label')
-      click_on I18n.t('general.continue')
+    page_change_block do
+      triage_feature_helper.assert_page('questions.triage_income_level.edit.title') do
+        select I18n.t("questions.triage_income_level.edit.filing_status.options.#{options[:triage_filing_status]}")
+        select I18n.t("questions.triage_income_level.edit.income_level.options.#{options[:triage_income_level]}")
+        select I18n.t("questions.triage_income_level.edit.filing_frequency.options.#{options[:triage_filing_frequency]}")
+        select options[:triage_vita_income_ineligible] ? I18n.t('general.affirmative') : I18n.t('general.negative'), from: I18n.t('questions.triage_income_level.edit.vita_income_ineligible.label')
+        click_on I18n.t('general.continue')
+      end
+    end
+
+    page_change_block do
+      expect(page).not_to have_css("h1", text: I18n.t('questions.triage_income_level.edit.title'))
     end
 
     triage_feature_helper.seen_pages

@@ -88,6 +88,8 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
+  config.include CapybaraHelpers
+
   config.include Warden::Test::Helpers
   config.include ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :controller

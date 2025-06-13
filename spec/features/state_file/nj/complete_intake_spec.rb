@@ -18,28 +18,31 @@ RSpec.feature "Completing a state file intake", active_job: true do
       visit "/"
       click_on "Start Test NJ"
 
-      expect(page).to have_text I18n.t("state_file.landing_page.edit.nj.title")
+      page_change_check(I18n.t("state_file.landing_page.edit.nj.title"))
       expect(page).to be_axe_clean if check_a11y
       click_on "Get Started", id: "firstCta"
 
+      page_change_check("You can use this service to file your 2024 New Jersey taxes")
       expect(page).to be_axe_clean if check_a11y
       continue
 
+      page_change_check("Next, create your account with a quick code")
       expect(page).to be_axe_clean if check_a11y
       step_through_initial_authentication(contact_preference: :email, check_a11y: check_a11y)
       expect(page).to be_axe_clean if check_a11y
 
+      page_change_check("How would you like to get updates on your tax return?")
       check "Email"
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
       expect(page).to be_axe_clean if check_a11y
       click_on "Continue"
 
-      expect(page).to have_text I18n.t('state_file.questions.sms_terms.edit.title')
+      page_change_check(I18n.t('state_file.questions.sms_terms.edit.title'))
       expect(page).to be_axe_clean if check_a11y
       click_on I18n.t("general.accept")
 
-      expect(page).to have_text I18n.t('state_file.questions.terms_and_conditions.edit.title')
+      page_change_check(I18n.t('state_file.questions.terms_and_conditions.edit.title'))
       expect(page).to have_text I18n.t('general.owner.nj')
       expect(page).not_to have_css(".progress-steps")
       expect(page).to be_axe_clean if check_a11y
@@ -48,7 +51,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       step_through_df_data_transfer("Transfer #{df_persona_name}", expect_success)
 
       if expect_income_review
-        expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
+        page_change_check(I18n.t("state_file.questions.income_review.edit.title"))
         expect(page).to have_css(".progress-steps")
         expect(page).to have_text("Section 1 of 5: Income")
         expect(page).to be_axe_clean if check_a11y
@@ -64,6 +67,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
 
     def advance_county_and_municipality(county = "Atlantic", municipality = "Atlantic City")
+      page_change_check("We need to know where you lived on December 31, 2024.")
       select county
       select municipality
       continue
@@ -71,6 +75,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def advance_disabled_exemption(selection = false)
       # disabled exemption
+      page_change_check("People with disabilities are eligible for a tax exemption.")
       page.all(:css, '.white-group').each do |group|
         within group do
           choose selection ? I18n.t('general.affirmative') : I18n.t('general.negative')
@@ -81,6 +86,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
 
     def advance_veterans_exemption(selection = false)
       # veterans exemption
+      page_change_check("veterans are eligible for a tax exemption.")
       page.all(:css, '.white-group').each do |group|
         within group do
           choose selection ? I18n.t('general.affirmative') : I18n.t('general.negative')
@@ -90,6 +96,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
 
     def advance_college_dependents(selection = false)
+      page_change_check("You may qualify for tax exemptions for any dependent under 22 who is attending college.")
       page.all(:css, '.white-group').each do |group|
         within group do
           next unless selection
@@ -104,6 +111,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
 
     def advance_medical_expenses(amount: 1000)
+      page_change_check("You may be able to deduct medical expenses.")
       fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: filing_year), with: amount
       expect(page).to have_text("Section 3 of 5: Deductions and credits")
       continue
@@ -124,7 +132,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
 
     def select_homeowner_eligibility(checkboxes, continue_to_next: true)
-      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year)
+      page_change_check(I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year))
       checkboxes.each do |checkbox|
         check I18n.t("state_file.questions.nj_homeowner_eligibility.edit.#{checkbox}")
       end
@@ -134,7 +142,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
 
     def select_tenant_eligibility(checkboxes, continue_to_next: true)
-      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_eligibility.edit.title", filing_year: filing_year)
+      page_change_check(I18n.t("state_file.questions.nj_tenant_eligibility.edit.title", filing_year: filing_year))
       checkboxes.each do |checkbox|
         check I18n.t("state_file.questions.nj_tenant_eligibility.edit.#{checkbox}")
       end
@@ -144,33 +152,33 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
 
     def expect_all_homeowner_checkboxes_state(checkboxes, expected_state)
-      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year)
+      page_change_check(I18n.t("state_file.questions.nj_homeowner_eligibility.edit.title", filing_year: filing_year))
       checkboxes.each do |checkbox|
         expect(page).to have_field(I18n.t("state_file.questions.nj_homeowner_eligibility.edit.#{checkbox}"), checked: expected_state)
       end
     end
 
     def expect_all_tenant_checkboxes_state(checkboxes, expected_state)
-      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_eligibility.edit.title", filing_year: filing_year)
+      page_change_check(I18n.t("state_file.questions.nj_tenant_eligibility.edit.title", filing_year: filing_year))
       checkboxes.each do |checkbox|
         expect(page).to have_field(I18n.t("state_file.questions.nj_tenant_eligibility.edit.#{checkbox}"), checked: expected_state)
       end
     end
 
     def fill_property_tax_paid(amount, municipality = "Atlantic City")
-      expect(page).to have_text I18n.t("state_file.questions.nj_homeowner_property_tax.edit.title", filing_year: filing_year, municipality: municipality)
+      page_change_check(I18n.t("state_file.questions.nj_homeowner_property_tax.edit.title", filing_year: filing_year, municipality: municipality))
       fill_in strip_html_tags(I18n.t('state_file.questions.nj_homeowner_property_tax.edit.label_html', filing_year: filing_year)), with: amount
       continue
     end
 
     def fill_rent_paid(amount)
-      expect(page).to have_text I18n.t("state_file.questions.nj_tenant_rent_paid.edit.title", filing_year: filing_year)
+      page_change_check(I18n.t("state_file.questions.nj_tenant_rent_paid.edit.title", filing_year: filing_year))
       fill_in strip_html_tags(I18n.t('state_file.questions.nj_tenant_rent_paid.edit.label_html', filing_year: filing_year)), with: amount
       continue
     end
 
     def expect_page_after_property_tax
-      expect(page).to have_text I18n.t("state_file.questions.nj_sales_use_tax.edit.title", filing_year: filing_year)
+      page_change_check(I18n.t("state_file.questions.nj_sales_use_tax.edit.title", filing_year: filing_year))
       expect(page).to have_text("Section 4 of 5: Your 2024 taxes")
     end
 
@@ -179,24 +187,37 @@ RSpec.feature "Completing a state file intake", active_job: true do
       choose I18n.t('general.negative')
       continue
 
-      # federal extension
-      expect(page).to be_axe_clean
-      choose I18n.t("general.negative")
+      page_change_block do
+        # federal extension
+        expect(page).to be_axe_clean
+        choose I18n.t("general.negative")
+      end
+
       continue
 
-      # estimated tax payments & overpayments
-      expect(page).to be_axe_clean
-      choose I18n.t("general.affirmative")
+      page_change_block do
+        # estimated tax payments & overpayments
+        expect(page).to be_axe_clean
+        choose I18n.t("general.affirmative")
 
-      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.estimated_taxes_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
-      fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year - 1)), with: 1000
+        fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.estimated_taxes_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year)), with: 1000
+        fill_in strip_html_tags(I18n.t('state_file.questions.nj_estimated_tax_payments.edit.overpayments_input_label_html', filing_year: MultiTenantService.statefile.current_tax_year, prior_year: MultiTenantService.statefile.current_tax_year - 1)), with: 1000
+      end
+
       continue
 
-      # Driver License
-      expect(page).to be_axe_clean
-      choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
+      page_change_block do
+        # Driver License
+        expect(page).to be_axe_clean
+        choose I18n.t('state_file.questions.nj_primary_state_id.nj_primary.no_id')
+      end
+
       continue
-      choose I18n.t('state_file.questions.nj_spouse_state_id.nj_spouse.no_id')
+
+      page_change_block do
+        choose I18n.t('state_file.questions.nj_spouse_state_id.nj_spouse.no_id')
+      end
+
       continue
     end
 
@@ -231,102 +252,134 @@ RSpec.feature "Completing a state file intake", active_job: true do
       expect(page.body).to include('<ZIPCd>071021234</ZIPCd>')
     end
 
-    it "advances past the loading screen by listening for an actioncable broadcast", required_schema: "nj" do
+    it "advances past the loading screen by listening for an actioncable broadcast", js: true, required_schema: "nj" do
       advance_to_start_of_intake("O neal walker catchall mfj", check_a11y: true, expect_income_review: true)
       
-      expect(page).to be_axe_clean
-      advance_health_insurance_eligibility
-      
-      expect(page).to be_axe_clean
-      advance_county_and_municipality
-      
-      expect(page).to be_axe_clean
-      advance_disabled_exemption
-      
-      expect(page).to be_axe_clean
-      advance_veterans_exemption
-      
-      expect(page).to be_axe_clean
-      advance_college_dependents
-      
-      expect(page).to be_axe_clean
-      advance_medical_expenses
-      
-      expect(page).to be_axe_clean
-      choose_household_rent_own("neither")
-      expect(page).to be_axe_clean
-      continue
-
-      # sales use tax
-      expect(page).to be_axe_clean
-      click_on "Go back"
-
-      # return to start of property tax flow
-      choose_household_rent_own("neither")
-      continue
-
-      advance_from_page_after_property_tax_to_review
-
-      # Review
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.your_name")
-      expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.spouse_name")
-      dependents_dob = page.all(:css, 'h4', text: I18n.t('state_file.questions.shared.abstract_review_header.dependent_dob')).count
-      expect(dependents_dob).to eq(6)
-
-      expect(page).to be_axe_clean.within "main"
-
-      groups = page.all(:css, '.white-group').count
-      # one white group per exemption/section
-      expect(groups).to eq(12)
-
-      h2s = page.all(:css, 'h2').count
-      # one h2 for each of 5 section headers (e.g Household Information), "Your refund amount" is also an h2
-      expect(h2s).to eq(5 + 1)
-
-      edit_buttons = page.all(:css, '.white-group a')
-      edit_buttons_count = edit_buttons.count
-      edit_buttons_with_sr_only_text = page.all(:css, '.white-group a span.sr-only').count
-      expect(edit_buttons_count).to eq(edit_buttons_with_sr_only_text)
-
-      edit_buttons_text = edit_buttons.map(&:text)
-      edit_buttons_unique_text_count = edit_buttons_text.uniq.count
-      expect(edit_buttons_unique_text_count).to eq(edit_buttons_count)
-
-      click_on I18n.t("state_file.questions.nj_review.edit.reveal.header")
-      amounts_in_calculation_details = page.all(:xpath, '//*[contains(@class,"main-content-inner")]/section[last()]//p[contains(text(),"$")]')
-      expect(amounts_in_calculation_details.count).to eq(22)
-      expect(page).to be_axe_clean
-      continue
-
-      # Tax Refund
-      expect(page).to be_axe_clean
-      expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 5619, state_name: "New Jersey"))
-      choose I18n.t('state_file.questions.tax_refund.edit.mail')
-      continue
-
-      # Gubernatorial elections fund
-      expect(page).to be_axe_clean
-      within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.primary_contribute')) do 
-        choose I18n.t('general.affirmative')
+      page_change_block do
+        expect(page).to be_axe_clean
+        advance_health_insurance_eligibility
       end
-      within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.spouse_contribute')) do 
-        choose I18n.t('general.affirmative')
+
+      page_change_block do
+        expect(page).to be_axe_clean
+        advance_county_and_municipality
       end
-      continue
-
-      expect(page).to be_axe_clean
-      expect(page).to have_css(".progress-steps")
-      expect(page).to have_text("Section 5 of 5: Review and submit")
-      check I18n.t('state_file.questions.esign_declaration.edit.primary_esign')
-      check I18n.t('state_file.questions.esign_declaration.edit.spouse_esign')
-      click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
       
-      expect(page).to be_axe_clean
-      expect(page).not_to have_css(".progress-steps")
+      page_change_block do
+        expect(page).to be_axe_clean
+        advance_disabled_exemption
+      end
+      
+      page_change_block do
+        expect(page).to be_axe_clean
+        advance_veterans_exemption
+      end
+      
+      page_change_block do
+        expect(page).to be_axe_clean
+        advance_college_dependents
+      end
+      
+      page_change_block do
+        expect(page).to be_axe_clean
+        advance_medical_expenses
+      end
+      
+      page_change_block do
+        expect(page).to be_axe_clean
+        choose_household_rent_own("neither")
+      end
 
-      expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")
-      expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "New Jersey")
+      page_change_block do
+        expect(page).to be_axe_clean
+        continue
+      end
+
+      page_change_block do
+        # sales use tax
+        expect(page).to be_axe_clean
+        click_on "Go back"
+      end
+
+      page_change_block(0.5) do
+        # return to start of property tax flow
+        choose_household_rent_own("neither")
+        continue
+      end
+
+      page_change_block(0.5) do
+        advance_from_page_after_property_tax_to_review
+      end
+
+      page_change_block do
+        # Review
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.your_name")
+        expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.spouse_name")
+        dependents_dob = page.all(:css, 'h4', text: I18n.t('state_file.questions.shared.abstract_review_header.dependent_dob')).count
+        expect(dependents_dob).to eq(6)
+
+        expect(page).to be_axe_clean.within "main"
+
+        groups = page.all(:css, '.white-group').count
+        # one white group per exemption/section
+        expect(groups).to eq(12)
+
+        h2s = page.all(:css, 'h2').count
+        # one h2 for each of 5 section headers (e.g Household Information), "Your refund amount" is also an h2
+        expect(h2s).to eq(5 + 1)
+
+        edit_buttons = page.all(:css, '.white-group a')
+        edit_buttons_count = edit_buttons.count
+        edit_buttons_with_sr_only_text = page.all(:css, '.white-group a span.sr-only').count
+        expect(edit_buttons_count).to eq(edit_buttons_with_sr_only_text)
+
+        edit_buttons_text = edit_buttons.map(&:text)
+        edit_buttons_unique_text_count = edit_buttons_text.uniq.count
+        expect(edit_buttons_unique_text_count).to eq(edit_buttons_count)
+
+        click_on I18n.t("state_file.questions.nj_review.edit.reveal.header")
+        amounts_in_calculation_details = page.all(:xpath, '//*[contains(@class,"main-content-inner")]/section[last()]//p[contains(text(),"$")]')
+        expect(amounts_in_calculation_details.count).to eq(22)
+        expect(page).to be_axe_clean
+        continue
+      end
+
+      page_change_block do
+        # Tax Refund
+        expect(page).to be_axe_clean
+        expect(page).to have_text strip_html_tags(I18n.t("state_file.questions.tax_refund.edit.title_html", refund_amount: 5619, state_name: "New Jersey"))
+        choose I18n.t('state_file.questions.tax_refund.edit.mail')
+        continue
+      end
+
+      page_change_block do
+        # Gubernatorial elections fund
+        expect(page).to be_axe_clean
+        within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.primary_contribute')) do
+          choose I18n.t('general.affirmative')
+        end
+        within_fieldset(I18n.t('state_file.questions.nj_gubernatorial_elections.edit.spouse_contribute')) do
+          choose I18n.t('general.affirmative')
+        end
+        continue
+      end
+
+      page_change_block do
+        expect(page).to be_axe_clean
+        expect(page).to have_css(".progress-steps")
+        expect(page).to have_text("Section 5 of 5: Review and submit")
+        check I18n.t('state_file.questions.esign_declaration.edit.primary_esign')
+        check I18n.t('state_file.questions.esign_declaration.edit.spouse_esign')
+        click_on I18n.t('state_file.questions.esign_declaration.edit.submit')
+      end
+      
+      page_change_block do
+        expect(page).to be_axe_clean
+        expect(page).not_to have_css(".progress-steps")
+        expect(page).not_to have_text I18n.t("state_file.questions.submission_confirmation.edit.title", filing_year: 2024, state_name: "New Jersey")
+        expect(page).to have_text I18n.t("state_file.questions.submission_confirmation.edit.just_a_moment", state_name: "New Jersey")
+      end
 
       StateFileSubmissionPdfStatusChannel.broadcast_status(StateFileNjIntake.last, :ready)
 

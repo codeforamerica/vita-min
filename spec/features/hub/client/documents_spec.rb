@@ -63,16 +63,22 @@ RSpec.feature "View and edit documents for a client" do
         click_on "Edit"
       end
 
-      expect(page).to have_text("Edit Document")
-
       original_dimensions = image_dimensions(document_1)
+
+      expect(page).to have_text("Edit Document")
 
       click_on "Rotate Image"
 
 
       click_on "Save"
 
-      perform_enqueued_jobs
+      retries = 10
+      until enqueued_jobs_with.count == 0 || retries == 0 do
+        puts "Waiting for #{enqueued_jobs_with.count} jobs to complete"
+        perform_enqueued_jobs
+        retries = retries - 1
+        sleep(0.5)
+      end
 
       new_dimensions = image_dimensions(document_1.reload)
 

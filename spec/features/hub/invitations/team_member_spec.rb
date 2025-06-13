@@ -15,12 +15,12 @@ RSpec.feature "Inviting team members" do
       click_on "Invitations"
 
       # Invitations page
-      expect(page).to have_selector "h1", text: "Invitations"
+      page_change_check("Invitations")
       select "Team Member", from: "What type of user do you want to invite?"
       click_on "Continue"
 
       # new invitation page
-      expect(page).to have_text "Send a new invitation"
+      page_change_check("Send a new invitation")
       fill_in "What is their name?", with: "Tammy Tomato"
       fill_in "What is their email?", with: "colleague@tomato.org"
       expect(page).to have_text "Which site?"
@@ -30,7 +30,7 @@ RSpec.feature "Inviting team members" do
 
       # back on the invitations page
       within(".flash--notice") do
-        expect(page).to have_text "We sent an email invitation to colleague@tomato.org"
+        page_change_check("We sent an email invitation to colleague@tomato.org")
       end
       within(".invitations") do
         expect(page).to have_text "Tammy Tomato"
@@ -46,7 +46,7 @@ RSpec.feature "Inviting team members" do
         click_on "Resend invitation email"
       end
       within(".flash--notice") do
-        expect(page).to have_text "Invitation re-sent to colleague@tomato.org"
+        page_change_check("Invitation re-sent to colleague@tomato.org")
       end
       within(".invitations") do
         expect(page).to have_text "Tammy Tomato"
@@ -58,6 +58,7 @@ RSpec.feature "Inviting team members" do
       expect(invited_user.invitation_token).to be_present
 
       logout
+      sleep 0.1
 
       # New invitation recipient signing up!
       mail = ActionMailer::Base.deliveries.last
@@ -71,7 +72,7 @@ RSpec.feature "Inviting team members" do
 
       # Sign up page
       visit accept_invite_url
-      expect(page).to have_text "Thank you for signing up to help!"
+      page_change_check("Thank you for signing up to help!")
       expect(page).to have_text "colleague@tomato.org"
       expect(page).to have_text "Squash Site"
       expect(find_field("What is your name?").value).to eq "Tammy Tomato"
@@ -79,7 +80,7 @@ RSpec.feature "Inviting team members" do
       fill_in "Enter your new password again", with: "c0v3rt-c4ul1fl0wer"
       click_on "Get started"
 
-      expect(page).to have_text "You're all set and ready to go! You've joined an amazing team!"
+      page_change_check("You're all set and ready to go! You've joined an amazing team!")
       expect(page).to have_text "Tammy Tomato"
       expect(page).to have_text "Team Member"
       expect(page).to have_text "Squash Site"
