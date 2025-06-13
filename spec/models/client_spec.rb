@@ -867,7 +867,7 @@ describe Client do
     context "filing jointly" do
       let(:joint_intake) { create(:intake, filing_joint: "yes") }
 
-      it "returns at least six, for the three required documents for each filer" do
+      it "returns required documents times number of filers" do
         expect(joint_intake.client.number_of_required_documents).to eq(4)
       end
     end
