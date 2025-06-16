@@ -6,24 +6,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
-  def page_change_check(input, sleep_time: 0.1, path: false, retries: 2)
-    retry_count = 0
-    begin
-      if path
-        expect(page).to have_current_path(input)
-      else
-        expect(page).to have_text(input)
-      end
-    rescue Selenium::WebDriver::Error::WebDriverError,
-      Capybara::ElementNotFound,
-      RSpec::Expectations::ExpectationNotMetError => e
-      puts "Caught #{e.class} - #{e.message}"
-      puts "Failed attempt for `#{input}`, sleeping #{sleep_time} seconds then retrying..."
-      sleep sleep_time
-      retry_count += 1
-      retry_count <= retries ? retry : raise
-    end
-  end
   def intake_up_to_documents
     answer_gyr_triage_questions(choices: :defaults)
 
