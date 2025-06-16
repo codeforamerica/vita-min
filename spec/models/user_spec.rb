@@ -586,7 +586,6 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     end
   end
 
-
   describe "#state_file_admin?" do
     context "when the user has AdminRole type and state_file is true" do
       let(:user) { create :admin_user, role: role }
@@ -902,6 +901,82 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
       it "returns nil" do
         expect(User.from_omniauth(auth_hash)).to eq nil
+      end
+    end
+  end
+
+  describe "#has_lead_dashboard_access?" do
+    context "a site coordinator" do
+      let(:user) { create :site_coordinator_user }
+      it "returns true" do
+        expect(user.has_lead_dashboard_access?).to eq true
+      end
+    end
+
+    context "a coalition lead" do
+      let(:user) { create :coalition_lead_user }
+      it "returns true" do
+        expect(user.has_lead_dashboard_access?).to eq true
+      end
+    end
+
+    context "a org lead" do
+      let(:user) { create :organization_lead_user }
+      it "returns true" do
+        expect(user.has_lead_dashboard_access?).to eq true
+      end
+    end
+
+    context "a team member" do
+      let(:user) { create :team_member_user }
+      it "returns false" do
+        expect(user.has_lead_dashboard_access?).to eq false
+      end
+    end
+  end
+
+  describe "#has_non_lead_dashboard_access?" do
+    context "a greeter" do
+      let(:user) { create :greeter_user }
+      it "returns true" do
+        expect(user.has_non_lead_dashboard_access?).to eq false
+      end
+    end
+
+    context "a team member" do
+      let(:user) { create :team_member_user }
+      it "returns false" do
+        expect(user.has_non_lead_dashboard_access?).to eq true
+      end
+    end
+  end
+
+  describe "#has_dashboard_access?" do
+    context "a site coordinator" do
+      let(:user) { create :site_coordinator_user }
+      it "returns true" do
+        expect(user.has_dashboard_access?).to eq true
+      end
+    end
+
+    context "a coalition lead" do
+      let(:user) { create :coalition_lead_user }
+      it "returns true" do
+        expect(user.has_dashboard_access?).to eq true
+      end
+    end
+
+    context "a org lead" do
+      let(:user) { create :organization_lead_user }
+      it "returns true" do
+        expect(user.has_dashboard_access?).to eq true
+      end
+    end
+
+    context "a team member" do
+      let(:user) { create :team_member_user }
+      it "returns false" do
+        expect(user.has_dashboard_access?).to eq true
       end
     end
   end
