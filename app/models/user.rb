@@ -258,6 +258,18 @@ class User < ApplicationRecord
     !suspended?
   end
 
+  def has_lead_dashboard_access?
+    site_coordinator? || coalition_lead? || org_lead? || admin?
+  end
+
+  def has_non_lead_dashboard_access?
+    team_member?
+  end
+
+  def has_dashboard_access?
+    has_lead_dashboard_access? || has_non_lead_dashboard_access?
+  end
+
   # Takes either a singular role symbol or an enumerable of role symbols and
   # checks if the user has any of those roles.
   #
