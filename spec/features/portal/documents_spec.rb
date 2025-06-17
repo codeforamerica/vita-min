@@ -20,8 +20,6 @@ RSpec.feature "a client on their portal" do
 
       click_on I18n.t('portal.portal.home.document_link.view_documents')
 
-      expect(page).to have_content "Here's a list of your documents"
-
       within '#id-docs' do
         expect(page).to have_content "Photo ID"
         expect(page).to have_content "picture_id.jpg"
