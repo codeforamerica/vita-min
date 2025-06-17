@@ -1,6 +1,10 @@
 module CapybaraHelpers
   # Wraps the checks on a particular page and retries a specified number of
-  # times with a specified sleep in between
+  # times with a specified sleep in between. It is important to know that all
+  # steps of the block must be fine to repeat from the top on retry. For
+  # example, make sure that there are no page transitions within the block or
+  # else if it fails on the next page, it will go back to the top which will now
+  # fail due to being the wrong page.
   #
   # @param [Float] sleep_time
   # @param [Integer] retries
