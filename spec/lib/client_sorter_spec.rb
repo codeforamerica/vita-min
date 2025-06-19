@@ -18,6 +18,7 @@ RSpec.describe ClientSorter do
     allow(clients_query_double).to receive(:delegated_order).and_return clients_query_double
     allow(clients_query_double).to receive(:where).and_return clients_query_double
     allow(clients_query_double).to receive(:not).and_return clients_query_double
+    allow(clients_query_double).to receive(:includes).and_return clients_query_double
     allow(Intake).to receive(:search).and_return intakes_query_double
   end
 
@@ -93,6 +94,7 @@ RSpec.describe ClientSorter do
 
       it "creates a query for the search and scopes to vita partner" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+        expect(clients_query_double).to have_received(:includes).with(vita_partner: :parent_organization)
         expect(clients_query_double).to have_received(:where).with(vita_partner_id: [vita_partner.id])
       end
 
@@ -104,6 +106,7 @@ RSpec.describe ClientSorter do
 
         it "creates a query for the search and scopes to all selected vita partners" do
           expect(subject.filtered_and_sorted_clients).to eq clients_query_double
+          expect(clients_query_double).to have_received(:includes).with(vita_partner: :parent_organization)
           expect(clients_query_double).to have_received(:where).with(vita_partner_id: [vita_partner.id, site.id])
         end
       end
