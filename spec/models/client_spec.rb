@@ -860,15 +860,15 @@ describe Client do
       let(:minimal_intake) { create(:intake, {}) }
 
       it "includes the documents that are required for everyone" do
-        expect(minimal_intake.client.number_of_required_documents).to eq(3)
+        expect(minimal_intake.client.number_of_required_documents).to eq(2)
       end
     end
 
     context "filing jointly" do
       let(:joint_intake) { create(:intake, filing_joint: "yes") }
 
-      it "returns at least six, for the three required documents for each filer" do
-        expect(joint_intake.client.number_of_required_documents).to eq(6)
+      it "returns required documents times number of filers" do
+        expect(joint_intake.client.number_of_required_documents).to eq(4)
       end
     end
 
@@ -878,7 +878,7 @@ describe Client do
       let!(:dependent2) { create :dependent, intake: dependents_intake }
 
       it "requires an additional document (SSN) for each dependent" do
-        expect(dependents_intake.client.number_of_required_documents).to eq(5)
+        expect(dependents_intake.client.number_of_required_documents).to eq(4)
       end
     end
 
@@ -886,7 +886,7 @@ describe Client do
       let(:health_and_wages_intake) { create(:intake, bought_marketplace_health_insurance: "yes", had_wages: "yes") }
 
       it "returns expected documents for particular intake forms" do
-        expect(health_and_wages_intake.client.number_of_required_documents).to eq(5)
+        expect(health_and_wages_intake.client.number_of_required_documents).to eq(4)
       end
     end
   end
@@ -901,7 +901,7 @@ describe Client do
     context "with uploaded documents" do
       it "returns the number of uploaded documents" do
         expect do
-          create :document, intake: intake, document_type: DocumentTypes::Selfie.key
+          create :document, intake: intake, document_type: DocumentTypes::Identity.key
         end.to change { intake.reload.client.number_of_required_documents_uploaded }.from(0).to(1)
 
         expect(intake.client.number_of_required_documents_uploaded).to eq(1)
@@ -937,7 +937,7 @@ describe Client do
 
     let(:treatment) { "control" }
     let(:experiment) { Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT) }
-    let!(:experiment_participant) do
+    let(:experiment_participant) do
       create :experiment_participant,
              experiment: experiment,
              treatment: treatment,
@@ -947,8 +947,8 @@ describe Client do
 
     context "client is in the Returning Client Experiment" do
       context "has control treatment" do
-        it "does include selfie doc" do
-          expect(client.required_document_counts).to have_key("Selfie")
+        it "does include selfie doc because selfies are going away" do
+          expect(client.required_document_counts).not_to have_key("Selfie")
         end
       end
 
