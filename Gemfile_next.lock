@@ -850,7 +850,7 @@ DEPENDENCIES
   zxcvbn-ruby
 
 RUBY VERSION
-   ruby 3.4.4
+   ruby 3.2.2
 
 BUNDLED WITH
    2.3.5
