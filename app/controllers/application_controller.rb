@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
   around_action :set_time_zone, if: :current_user
-  before_action :set_eitc_beta_cookie, :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
+  before_action :set_eitc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
   around_action :switch_locale
   before_action :check_maintenance_mode
   before_action :redirect_state_file_in_off_season
