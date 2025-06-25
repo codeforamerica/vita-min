@@ -117,9 +117,6 @@ es:
         need_help_find: Necesito ayuda para encontrar este documento.
         reminder_link: Enviar un enlace de recordatorio para este documento.
         title: Ayuda de documentos
-    overview:
-      edit:
-        additional_form_of_id: Forma adicional de identificación
     reminder_link:
       email:
         body: |
@@ -1034,7 +1031,6 @@ es:
         client_doc: Cliente
         edit_file_info: Editar información del archivo
         empty_file: "(archivo vacío)"
-        expanded_id_allowed: Este cliente puede enviar tipos de ID ampliados como parte del experimento.
         file_name: Nombre de archivo
         not_needed_docs: documentos no necesario debido al experimento.
         system_generated_doc: Auto-generado
@@ -1402,9 +1398,6 @@ es:
       invitation:
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
-  layouts:
-    document_upload:
-      id_type: Tipo de Identificación
   messages:
     closing_soon:
       email:
@@ -6308,10 +6301,6 @@ es:
         multiple_forms: El IRS requiere que verifiquemos quién es usted con variadas formas de identidad.
         title: Primero, necesitamos confirmar su información básica.
       ids:
-        expanded_id:
-          help_text: El IRS requiere que veamos una tarjeta de identificación actual. Usaremos su tarjeta de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS.
-          info: Está bien si su identificación está vencida o si tiene una licencia de conducir temporal, siempre que podamos ver claramente su nombre y foto.
-          title: Adjunte fotos de su tarjeta de identificación
         help_text:
           many: El IRS requiere que chequeemos una licencia de conducir, pasaporte o identificación estatal actual para usted y su esposo/a.
           one: El IRS nos exige que veamos una licencia de conducir, un pasaporte o una identificación estatal actuales.
@@ -6333,32 +6322,7 @@ es:
         schedule_appointment: Cuando haya terminado de compartir los documentos que tiene, programaremos una cita con su preparador de impuestos.
         spouse_doc_needed: Por favor agregue documentos para usted y su cónyuge.
         title: "¡Buen trabajo! Aquí hay una lista de lo que hemos reunido."
-      selfie_instructions:
-        header: Confirme su identidad con una foto de usted sosteniendo su tarjeta de identificación
-        info: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos. Hacemos esto al revisar una foto de usted sosteniendo su tarjeta de identificación.
-        steps:
-          face_camera: Mire directamente a la cámara e incluya desde los hombros hasta la parte superior de la cabeza, similar a su foto de identificación
-          face_visible: Asegúrese de que su cara está claramente visible
-          header: Lea los siguientes pasos antes de continuar
-          id_visible: Asegúrese de no estar cubriendo su identificación
-          plain_background: Use una pared simple/en blanco como fondo si es posible
-          wear_glasses: Si usa anteojos en su foto de identificación, úselos en su foto selfie
-        submit_photo: Enviar una foto
-      selfies:
-        help_text: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos.
-        need_for_html: 'Necesitaremos ver una <u>foto con ID</u> para:'
-        title: Comparta una foto de usted sosteniendo su tarjeta de identificación
-      spouse_ids:
-        expanded_id:
-          title: Adjunte fotos de la tarjeta de identificación de su cónyuge
-      spouse_ssn_itins:
-        expanded_id:
-          title: Adjunte fotos de una forma adicional de identificación para su cónyuge
       ssn_itins:
-        expanded_id:
-          box: Asegúrese de que su nombre y número de identificación estén claramente visibles.
-          help_text: El IRS requiere que veamos una forma adicional de identidad. Usamos una segunda forma de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS.
-          title: Adjunte fotos de una forma adicional de identificación
         help_text: El IRS nos exige que veamos una tarjeta de Seguro Social o documentación ITIN válida de todos en el hogar para los servicios de preparación de impuestos.
         need_for: 'Necesitaremos un SSN o ITIN para:'
         title: Adjunte fotos de la Tarjeta de Seguro Social o Número de Identificación Personal (ITIN en inglés)
