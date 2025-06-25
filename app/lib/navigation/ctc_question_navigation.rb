@@ -4,7 +4,7 @@ module Navigation
 
     FLOW = [
       # Basic info
-      Ctc::Questions::OverviewController,
+      # Ctc::Questions::OverviewController,
       Ctc::Questions::MainHomeController, # At this point we create the intake, client, and tax return
       Ctc::Questions::FilingStatusController,
       Ctc::Questions::IncomeQualifierController,

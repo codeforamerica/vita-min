@@ -166,16 +166,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_ctc_beta_cookie
-    return unless Routes::CtcDomain.new.matches?(request)
-    ctc_beta = params[:ctc_beta]
-    if ctc_beta == "1"
-      cookies.permanent[:ctc_beta] = true
-    end
-  end
-
   def set_eitc_beta_cookie
-    return unless Routes::CtcDomain.new.matches?(request)
     return unless app_time >= Rails.configuration.eitc_soft_launch
 
     eitc_beta = params[:eitc_beta]
@@ -380,14 +371,6 @@ class ApplicationController < ActionController::Base
     app_time <= Rails.configuration.end_of_in_progress_intake
   end
 
-  def open_for_ctc_intake?
-    return false if app_time >= Rails.configuration.ctc_end_of_intake
-    return true if app_time >= Rails.configuration.ctc_full_launch
-
-    app_time >= Rails.configuration.ctc_soft_launch && cookies[:ctc_beta].present?
-  end
-  helper_method :open_for_ctc_intake?
-
   def open_for_eitc_intake?
     return true if Flipper.enabled?(:eitc)
     return true if app_time >= Rails.configuration.eitc_full_launch
@@ -395,19 +378,6 @@ class ApplicationController < ActionController::Base
     app_time >= Rails.configuration.eitc_soft_launch && cookies[:eitc_beta].present?
   end
   helper_method :open_for_eitc_intake?
-
-  def open_for_ctc_login?
-    return false if app_time >= Rails.configuration.ctc_end_of_login
-
-    return true if app_time >= Rails.configuration.ctc_full_launch
-    app_time >= Rails.configuration.ctc_soft_launch && cookies[:ctc_beta].present?
-  end
-  helper_method :open_for_ctc_login?
-
-  def open_for_ctc_read_write?
-    app_time <= Rails.configuration.ctc_end_of_read_write
-  end
-  helper_method :open_for_ctc_read_write?
 
   def open_for_state_file_intake?
     app_time.between?(Rails.configuration.state_file_start_of_open_intake, Rails.configuration.state_file_end_of_in_progress_intakes)
