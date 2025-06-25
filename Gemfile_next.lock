@@ -346,7 +346,7 @@ GEM
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.7.0)
+    logger (1.6.2)
     lograge (0.14.0)
       actionpack (>= 4)
       activesupport (>= 4)
@@ -850,7 +850,7 @@ DEPENDENCIES
   zxcvbn-ruby
 
 RUBY VERSION
-   ruby 3.2.2
+   ruby 3.4.4
 
 BUNDLED WITH
    2.3.5
