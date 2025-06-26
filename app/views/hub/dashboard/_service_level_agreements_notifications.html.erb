@@ -9,13 +9,13 @@
         </div>
         <div class="grid__item width-one-half">
           <p><%= I18n.t("hub.dashboard.show.overdue") %></p>
-          <% path = if current_user.has_lead_dashboard_access?
+          <% breached_path = if current_user.has_lead_dashboard_access?
             hub_clients_path(last_contact: "breached_sla", active_returns: true, vita_partners: p.breached_sla_client_ids.to_json)
-            else
+          else
             hub_assigned_clients_path(last_contact: "breached_sla", active_returns: true, vita_partners: p.breached_sla_client_ids.to_json)
-            end %>
+          end %>
 
-          <%= link_to I18n.t("hub.dashboard.show.view_all"), path %>
+          <%= link_to I18n.t("hub.dashboard.show.view_all"), breached_path %>
         </div>
       </div>
     </div>
@@ -25,8 +25,13 @@
           <div class="count approaching-count"> <%= p.approaching_sla_clients_count  %> </div>
         </div>
         <div class="grid__item width-one-half">
+          <% approaching_path = if current_user.has_lead_dashboard_access?
+            hub_clients_path(last_contact: "approaching_sla", active_returns: true, vita_partners: p.approaching_sla_client_ids.to_json)
+          else
+            hub_assigned_clients_path(last_contact: "approaching_sla", active_returns: true, vita_partners: p.approaching_sla_client_ids.to_json)
+          end %>
           <p class="approaching"><%= I18n.t("hub.dashboard.show.approaching") %></p>
-          <%= link_to I18n.t("hub.dashboard.show.view_all"), hub_assigned_clients_path(last_contact: "approaching_sla", active_returns: true, vita_partners: p.approaching_sla_client_ids.to_json)  %>
+          <%= link_to I18n.t("hub.dashboard.show.view_all"), approaching_path  %>
         </div>
       </div>
     </div>
