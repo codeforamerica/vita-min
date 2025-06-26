@@ -1,0 +1,142 @@
+<% content_for :page_title do %>
+  <%= t("views.ctc_pages.home.title") %>
+<% end %>
+
+<% content_for :body_class, "body--home" %>
+
+<%= render 'shared/facebook_pixel' %>
+<div class="main-content-inner ctc-home">
+  <div class="slab slab--hero">
+    <div class="notice--warning spacing-below-0 grid-flex contained">
+      <%= t("views.ctc_pages.home.ctc_not_extended_notice") %>
+    </div>
+    <div class="grid-flex contained column-row space-between">
+      <div class="grid-flex column-column spacing-below-35">
+        <h1 class="landing-page-header">
+          <%= t("views.ctc_pages.home.title") %>
+        </h1>
+        <p><%= link_to t("views.ctc_pages.home.sign_in_for_old_forms"), new_ctc_portal_client_login_path, id: "firstCta" %></p>
+        <p><%= t("views.ctc_pages.home.body") %></p>
+        <% if open_for_ctc_intake? %>
+          <p class="spacing-below-35"><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.claim.eitc_on") : t("views.ctc_pages.home.subheader.claim.eitc_off") %></p>
+          <p><%= open_for_eitc_intake? ? t("views.ctc_pages.home.subheader.time_estimate.eitc_on") : t("views.ctc_pages.home.subheader.time_estimate.eitc_off") %></p>
+        <% end %>
+        <div>
+          <% if open_for_ctc_intake? %>
+            <%= link_to t('views.ctc_pages.home.get_started'), questions_overview_path, class: "button button--primary button--locale-specific", lang: locale %>
+          <% else %>
+            <%= link_to t("views.ctc_pages.home.visit_gyr"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), "data-track-click": "gctc_to_gyr", class: "button button--primary" %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="grid-flex align-flex-end justify-flex-end">
+        <%= image_tag "hero-family.png", alt: "", class: "hero-image hero-image--family" %>
+      </div>
+    </div>
+  </div>
+
+  <% if @needs_help_banner %>
+    <div class="slab slab--short slab--need-help">
+      <div class="grid">
+        <div class="media-box spacing-below-0">
+          <div class="media-box__media">
+            <%= image_tag('contact-phone.svg', alt: "") %>
+          </div>
+          <div class="media-box__content">
+            <%= t('views.ctc_pages.home.need_help_html') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="slab slab--short slab--affiliations">
+    <div class="grid">
+      <div class="grid__item width-one-whole affiliations">
+        <div class="grid__item width-one-third">
+          <div class="image cfa">
+            <%= image_tag('cfa-logo--black.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.cfa_product_html') %>
+          </div>
+        </div>
+        <div class="grid__item width-one-third">
+          <div class="image whitehouse">
+            <%= image_tag('white-house.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.white_house_html') %>
+          </div>
+        </div>
+        <div class="grid__item width-one-third">
+          <div class="image irs">
+            <%= image_tag('irs-efile.png', alt: "") %>
+          </div>
+          <div class="text">
+            <%= t('views.ctc_pages.home.affiliations.irs') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab--green">
+    <div class="grid">
+      <div class="grid__item width-one-half spacing-below-25">
+        <%= image_tag('ctc-phones.png', alt: "") %>
+      </div>
+      <div class="grid__item width-one-half">
+        <h2><%= t('views.ctc_pages.home.what_is.heading') %></h2>
+        <%= t('views.ctc_pages.home.what_is.body') %>
+        <div class="reveal-shrink-wrapper spacing-above-15">
+          <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.qualify_reveal.title")) do %>
+            <p><%= t("views.ctc_pages.home.what_is.qualify_reveal.body") %></p>
+          <% end %>
+          <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_ctc_reveal.title")) do %>
+            <p><%= t("views.ctc_pages.home.what_is.how_much_ctc_reveal.body_html") %></p>
+          <% end %>
+          <% if open_for_eitc_intake? %>
+            <%= render('components/molecules/reveal', title: t("views.ctc_pages.home.what_is.how_much_eitc_reveal.title")) do %>
+              <p><%= t("views.ctc_pages.home.what_is.how_much_eitc_reveal.body_html") %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab slab--short slab--navigators">
+    <div class="grid">
+      <div class="media-box spacing-below-0">
+        <div class="media-box__media">
+          <%= image_tag('question-bubble.svg', alt: "") %>
+        </div>
+        <div class="media-box__content">
+          <% if open_for_eitc_intake? %>
+            <%= t('views.ctc_pages.home.navigator_resources.eitc_on_html', navigators_link: ctc_navigators_url) %>
+          <% else %>
+            <%= t('views.ctc_pages.home.navigator_resources.eitc_off_html', navigators_link: ctc_navigators_url) %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slab">
+    <div class="grid">
+      <div class="grid__item width-one-whole" id="ctc_faq">
+        <h2><%= t('views.ctc_pages.home.common_questions.title') %></h2>
+      </div>
+      <div class="grid__item width-one-whole">
+        <ul class="list--padded">
+          <% Ctc::CtcPagesController::FAQ_QUESTIONS.each do |question| %>
+            <li><%= link_to t("views.ctc_pages.home.common_questions.#{question.to_s}"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: 'show', section_key: :child_tax_credit, question_key: question), target: "_blank", rel: "noopener" %></li>
+          <% end %>
+          <li><%= link_to t("views.ctc_pages.home.common_questions.view_all_questions"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: 'section_index', section_key: :child_tax_credit), target: "_blank", rel: "noopener", class: 'link--subtle' %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
