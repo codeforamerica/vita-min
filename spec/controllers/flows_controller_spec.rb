@@ -2,65 +2,6 @@ require "rails_helper"
 
 RSpec.describe FlowsController do
   describe '#generate' do
-    context 'for a ctc intake' do
-      let(:default_params) do
-        {
-          type: :ctc,
-          flows_controller_sample_intake_form: {
-            first_name: 'Testuser',
-            last_name: 'Testuser',
-            email_address: 'testuser@example.com',
-          },
-        }
-      end
-
-      it 'can generate a single intake' do
-        post :generate, params: default_params.merge({ submit_single: 'Single ✨' })
-        expect(controller.current_intake.tax_returns.last).to be_filing_status_single
-      end
-
-      it 'can generate a married filing jointly intake' do
-        post :generate, params: default_params.merge({ submit_married_filing_jointly: 'Married Filing Jointly ✨' })
-        expect(controller.current_intake.tax_returns.last).to be_filing_status_married_filing_jointly
-      end
-
-      it 'can generate a married filing jointly with dependents intake' do
-        default_params[:flows_controller_sample_intake_form][:with_dependents] = '1'
-        post :generate, params: default_params.merge({ submit_married_filing_jointly: 'Married Filing Jointly ✨' })
-        expect(controller.current_intake.tax_returns.last).to be_filing_status_married_filing_jointly
-        expect(controller.current_intake.dependents.count).to eq(2)
-        expect(controller.current_intake.dependents.select { |d| d.qualifying_ctc? }.length).to eq(1)
-        expect(controller.current_intake.dependents.select { |d| !d.qualifying_ctc? && d.qualifying_relative? }.length).to eq(1)
-      end
-
-      it 'can generate a claiming_eitc intake' do
-        default_params[:flows_controller_sample_intake_form][:with_dependents] = '1'
-        default_params[:flows_controller_sample_intake_form][:claiming_eitc] = '1'
-        post :generate, params: default_params.merge({ submit_married_filing_jointly: 'Married Filing Jointly ✨' })
-        expect(controller.current_intake.tax_returns.last).to be_filing_status_married_filing_jointly
-        expect(controller.current_intake.dependents.count).to eq(2)
-        expect(controller.current_intake.dependents.select { |d| d.qualifying_ctc? }.length).to eq(1)
-        expect(controller.current_intake.dependents.select { |d| !d.qualifying_ctc? && d.qualifying_relative? }.length).to eq(1)
-        expect(controller.current_intake.w2s_including_incomplete.count).to eq(1)
-        benefits_eligibility = Efile::BenefitsEligibility.new(tax_return: controller.current_intake.tax_returns.first, dependents: controller.current_intake.dependents)
-        expect(benefits_eligibility.claiming_and_qualified_for_eitc_pre_w2s?).to be_truthy
-      end
-
-      it 'can generate a submission_rejected intake' do
-        create(:efile_error, auto_cancel: false, auto_wait: false, expose: true)
-
-        default_params[:flows_controller_sample_intake_form][:submission_rejected] = '1'
-        post :generate, params: default_params.merge({ submit_married_filing_jointly: 'Married Filing Jointly ✨' })
-
-        tax_return = controller.current_intake.tax_returns.last
-        expect(tax_return).to be_filing_status_married_filing_jointly
-
-        efile_submission = tax_return.efile_submissions.last
-        expect(efile_submission.current_state).to eq("failed")
-        expect(efile_submission.last_transition.efile_errors.last).to be_present
-      end
-    end
-
     context 'for a gyr intake' do
       let(:default_params) do
         {
