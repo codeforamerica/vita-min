@@ -9,7 +9,13 @@
         </div>
         <div class="grid__item width-one-half">
           <p><%= I18n.t("hub.dashboard.show.overdue") %></p>
-          <%= link_to I18n.t("hub.dashboard.show.view_all"), hub_assigned_clients_path(last_contact: "breached_sla", active_returns: true, vita_partners: p.breached_sla_client_ids.to_json)  %>
+          <% path = if current_user.has_lead_dashboard_access?
+            hub_clients_path(last_contact: "breached_sla", active_returns: true, vita_partners: p.breached_sla_client_ids.to_json)
+            else
+            hub_assigned_clients_path(last_contact: "breached_sla", active_returns: true, vita_partners: p.breached_sla_client_ids.to_json)
+            end %>
+
+          <%= link_to I18n.t("hub.dashboard.show.view_all"), path %>
         </div>
       </div>
     </div>
