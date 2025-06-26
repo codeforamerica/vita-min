@@ -407,7 +407,7 @@ Rails.application.routes.draw do
 
   constraints(Routes::CtcDomain.new) do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
-      root to: "ctc/home#show", as: :ctc_home
+      root to: "ctc/ctc_pages#home", as: :ctc_home
     end
   end
 
