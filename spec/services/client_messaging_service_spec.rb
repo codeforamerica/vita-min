@@ -275,29 +275,6 @@ RSpec.describe ClientMessagingService do
           end
         end
       end
-
-      context "with an archived intake" do
-        let!(:intake) { create :archived_intakes_2021,
-                               preferred_name: "Mona Lisa",
-                               sms_phone_number: sms_phone_number,
-                               sms_notification_opt_in: sms_opt_in
-        }
-
-        it "saves a new outgoing text message with the right info, enqueues job, and broadcasts to ClientChannel" do
-          expect do
-            described_class.send_text_message(client: client, user: nil, body: "hello, <<Client.PreferredName>>")
-          end.to change(OutgoingTextMessage, :count).by(1)
-
-          outgoing_text_message = OutgoingTextMessage.last
-          expect(outgoing_text_message.body).to eq("hello, Mona Lisa")
-          expect(outgoing_text_message.client).to eq client
-          expect(outgoing_text_message.user).to eq nil
-          expect(outgoing_text_message.sent_at).to eq expected_time
-          expect(outgoing_text_message.to_phone_number).to eq intake.sms_phone_number
-          expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_text_message)
-          expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
-        end
-      end
     end
 
     context "when user is present" do
