@@ -409,10 +409,6 @@ Rails.application.routes.draw do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
       root to: "ctc/ctc_pages#home", as: :ctc_home
     end
-    namespace :portal do
-      root "portal#home"
-      login_routes
-    end
   end
 
   devise_for :state_file_archived_intake_requests
