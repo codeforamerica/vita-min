@@ -86,7 +86,6 @@ gem 'jwt'
 gem 'method_source'
 gem 'ordinalize_full'
 gem 'awesome_print'
-gem 'rack-attack'
 gem 'holidays'
 gem "net-imap", ">= 0.4.20"
 gem 'redis'
