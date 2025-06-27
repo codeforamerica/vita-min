@@ -130,56 +130,6 @@ RSpec.describe FlowsController do
           expect(response.body).to have_content('GetYourRefund Flow')
         end
       end
-
-      context "when on the ctc hostname" do
-        before do
-          @request.host = MultiTenantService.new(:ctc).host
-        end
-
-        it "redirects to the gyr hostname" do
-          get :show, params: { id: :gyr }
-
-          expect(response).to redirect_to(flow_url(id: :gyr, host: MultiTenantService.new(:gyr).host))
-        end
-      end
-    end
-
-    context 'for the ctc flow' do
-      let(:host) { MultiTenantService.new(:ctc).host }
-
-      before do
-        @request.host = host
-      end
-
-      it 'renders successfully' do
-        get :show, params: { id: :ctc }
-
-        expect(response.body).to have_content('CTC Flow')
-      end
-
-      context "with a current_intake" do
-        before do
-          client = create(:ctc_intake).client
-          create(:ctc_tax_return, client: client)
-          sign_in client
-        end
-
-        it 'renders successfully' do
-          get :show, params: { id: :ctc }
-
-          expect(response.body).to have_content('CTC Flow')
-        end
-      end
-
-      context "with a hostname other than the ctc hostname" do
-        let(:host) { 'any-other-hostname' }
-
-        it "redirects to the ctc hostname" do
-          get :show, params: { id: :ctc }
-
-          expect(response).to redirect_to(flow_url(id: :ctc, host: MultiTenantService.new(:ctc).host))
-        end
-      end
     end
 
     context 'for the state file az flow' do
