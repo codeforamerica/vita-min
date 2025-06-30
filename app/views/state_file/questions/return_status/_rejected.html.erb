@@ -65,5 +65,5 @@
   <% if @error.correction_path.present? %>
     path_options[:return_to_review] = "y"
   <% end %>
-  <%= link_to t('.edit_return'), edit_return_controller.to_path_helper(path_options), class: "button button--primary button--wide spacing-above-60" %>
+  <%= link_to t('.edit_return'), edit_return_controller.to_path_helper(path_options), class: "button button--primary button--wide spacing-above-60", role: "button" %>
 <% end %>

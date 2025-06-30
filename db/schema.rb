@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_30_175342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1354,13 +1354,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
     t.boolean "navigator_has_verified_client_identity"
     t.string "navigator_name"
     t.integer "need_itin_help", default: 0, null: false
-    t.integer "needs_help_2016", default: 0, null: false
-    t.integer "needs_help_2018", default: 0, null: false
-    t.integer "needs_help_2019", default: 0, null: false
-    t.integer "needs_help_2020", default: 0, null: false
-    t.integer "needs_help_2021", default: 0, null: false
-    t.integer "needs_help_2022", default: 0, null: false
-    t.integer "needs_help_2023", default: 0, null: false
     t.integer "needs_help_current_year", default: 0, null: false
     t.integer "needs_help_previous_year_1", default: 0, null: false
     t.integer "needs_help_previous_year_2", default: 0, null: false
@@ -2041,6 +2034,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
     t.decimal "nongame_wildlife_fund_donation", precision: 12, scale: 2
     t.decimal "opportunity_scholarship_program_donation", precision: 12, scale: 2
     t.integer "paid_extension_payments", default: 0, null: false
+    t.integer "paid_prior_year_refund_payments", default: 0, null: false
     t.integer "payment_or_deposit_type", default: 0, null: false
     t.string "phone_number"
     t.datetime "phone_number_verified_at"
@@ -2055,6 +2049,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_08_171015) do
     t.integer "primary_months_ineligible_for_grocery_credit"
     t.bigint "primary_state_id_id"
     t.string "primary_suffix"
+    t.decimal "prior_year_refund_payments_amount", precision: 12, scale: 2
     t.text "raw_direct_file_data"
     t.jsonb "raw_direct_file_intake_data"
     t.integer "received_id_public_assistance", default: 0, null: false

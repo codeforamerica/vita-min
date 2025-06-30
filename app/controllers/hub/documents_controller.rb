@@ -35,8 +35,7 @@ module Hub
       @document = @client.documents.new(document_params.merge({ uploaded_by: current_user }))
       render :new and return unless @document.save
 
-      next_path = @document.confirmation_needed? ? confirm_hub_client_document_path(id: @document) : hub_client_documents_path(client_id: @client)
-      redirect_to next_path
+      redirect_to confirm_hub_client_document_path(id: @document)
     end
 
     def update
@@ -70,7 +69,7 @@ module Hub
     private
 
     def load_document_type_options
-      @document_type_options = IdVerificationExperimentService.new(@client.intake).document_type_options
+      @document_type_options = [DocumentTypes::Identity, DocumentTypes::SsnItin] + (DocumentTypes::ALL_TYPES - DocumentTypes::IDENTITY_TYPES - DocumentTypes::SECONDARY_IDENTITY_TYPES)
     end
 
     def sorted_documents

@@ -32,7 +32,7 @@ module SubmissionBuilder
           end
 
           def state_schema_version
-            "AZIndividual2024v2.0"
+            "AZIndividual2024v2.1"
           end
 
           def build_state_specific_tags(document)
@@ -151,7 +151,7 @@ module SubmissionBuilder
               end
               xml.TotalPaymentAndCredits do
                 xml.AzIncTaxWithheld calculated_fields.fetch(:AZ140_LINE_53)
-                xml.ExtPayment calculated_fields.fetch(:AZ140_LINE_55) if Flipper.enabled?(:extension_period)
+                xml.ExtPayment calculated_fields.fetch(:AZ140_LINE_55) if Flipper.enabled?(:extension_period) && !calculated_fields[:AZ140_LINE_55].zero?
                 xml.IncrExciseTaxCr calculated_fields.fetch(:AZ140_LINE_56)
               end
               xml.TotalPayments calculated_fields.fetch(:AZ140_LINE_59)
@@ -188,7 +188,7 @@ module SubmissionBuilder
           end
 
           def schema_file
-            SchemaFileLoader.load_file("us_states", "unpacked", "AZIndividual2024v2.0", "AZIndividual", "IndividualReturnAZ140.xsd")
+            SchemaFileLoader.load_file("us_states", "unpacked", "AZIndividual2024v2.1", "AZIndividual", "IndividualReturnAZ140.xsd")
           end
 
           def special_program

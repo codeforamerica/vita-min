@@ -13,8 +13,18 @@ module Hub
       end
 
       def clients
-        @clients ||= Client.accessible_by(@current_ability)
-                           .where(filterable_product_year: Rails.configuration.product_year)
+        if @current_user.has_lead_dashboard_access?
+          @clients ||= Client.accessible_by(@current_ability)
+                             .where(filterable_product_year: Rails.configuration.product_year)
+        elsif @current_user.has_non_lead_dashboard_access?
+          @clients ||= Client.accessible_by(@current_ability)
+                             .where(filterable_product_year: Rails.configuration.product_year)
+                             .joins(:tax_returns)
+                             .where(tax_returns: { assigned_user_id: @current_user.id })
+                             .distinct
+        else
+          @clients = Client.none
+        end
       end
 
       def available_orgs_and_sites
@@ -22,6 +32,7 @@ module Hub
       end
 
       def selected_orgs_and_sites
+        raise CanCan::AccessDenied if selected_model.nil?
         @selected_orgs_and_sites ||=
           if selected_model.instance_of?(Coalition)
             available_by_id = available_orgs_and_sites.map{ |model| [model.id, model] }.to_h

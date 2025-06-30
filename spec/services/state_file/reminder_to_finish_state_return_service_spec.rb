@@ -42,6 +42,19 @@ describe StateFile::ReminderToFinishStateReturnService do
           end
         end
       end
+
+      context "post april 15th tax deadline" do
+        let(:fake_time) { Rails.configuration.tax_deadline + 2.days }
+
+        it "sends with post deadline copy" do
+          Timecop.freeze(fake_time) do
+            StateFile::ReminderToFinishStateReturnService.run
+            expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, message: message)
+            expect(state_file_messaging_service).to have_received(:send_message)
+            expect(message.new.email_body).to eq(I18n.t("messages.state_file.finish_return.email.body.post_deadline"))
+          end
+        end
+      end
     end
 
     context "when there is an incomplete intake with df transfer from less than 6 hours ago" do
@@ -54,7 +67,7 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
       it "does not send a message to the email associated with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
-        expect(StateFile::MessagingService).to_not have_received(:new)
+        expect(StateFile::MessagingService).not_to have_received(:new)
       end
     end
 
@@ -64,7 +77,7 @@ describe StateFile::ReminderToFinishStateReturnService do
 
       it "does not send a message to the email associated with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
-        expect(StateFile::MessagingService).to_not have_received(:new)
+        expect(StateFile::MessagingService).not_to have_received(:new)
       end
     end
 
@@ -79,7 +92,7 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
       it "does not send a message to the email associated with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
-        expect(StateFile::MessagingService).to_not have_received(:new)
+        expect(StateFile::MessagingService).not_to have_received(:new)
       end
     end
 
@@ -93,7 +106,7 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
       it "does not send a message to the email associated with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
-        expect(StateFile::MessagingService).to_not have_received(:new)
+        expect(StateFile::MessagingService).not_to have_received(:new)
       end
     end
 
@@ -108,7 +121,7 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
       it "does not send a message to the email associated with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
-        expect(StateFile::MessagingService).to_not have_received(:new)
+        expect(StateFile::MessagingService).not_to have_received(:new)
       end
     end
 
@@ -122,7 +135,7 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
       it "does not send a message to the email associated with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
-        expect(StateFile::MessagingService).to_not have_received(:new)
+        expect(StateFile::MessagingService).not_to have_received(:new)
       end
     end
 
@@ -136,7 +149,7 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
       it "does not send a message to the phone number with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
-        expect(StateFile::MessagingService).to_not have_received(:new)
+        expect(StateFile::MessagingService).not_to have_received(:new)
       end
     end
 
@@ -150,7 +163,7 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
       it "does not send a message to the phone number with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
-        expect(StateFile::MessagingService).to_not have_received(:new)
+        expect(StateFile::MessagingService).not_to have_received(:new)
       end
     end
 
@@ -179,7 +192,7 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
       it "does not send a message to the phone number with the intake" do
         StateFile::ReminderToFinishStateReturnService.run
-        expect(StateFile::MessagingService).to_not have_received(:new)
+        expect(StateFile::MessagingService).not_to have_received(:new)
       end
     end
 
@@ -200,14 +213,62 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
     end
 
-    context "when there is an incomplete intake that has been sent the pre-deadline reminder in the past 24 hours" do
+    context "when there is an incomplete intake that has been sent the pre-deadline reminder more than a day ago" do
       let!(:intake) do
         create :state_file_az_intake,
                df_data_imported_at: 6.hours.ago,
                email_address_verified_at: 7.hours.ago,
                email_notification_opt_in: "yes",
                email_address: "dezie@example.com",
-               message_tracker: {'messages.state_file.pre_deadline_reminder' => (Time.now - 3.hours)}
+               message_tracker: {'messages.state_file.pre_deadline_reminder' => 2.days.ago}
+      end
+
+      it "does send the message" do
+        StateFile::ReminderToFinishStateReturnService.run
+        expect(StateFile::MessagingService).to have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that has a duplicate intake with the same ssn with an efile submission" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com"
+      end
+
+      it "does send the message" do
+        allow_any_instance_of(StateFileAzIntake).to receive(:other_intake_with_same_ssn_has_submission?).and_return false
+        StateFile::ReminderToFinishStateReturnService.run
+        expect(StateFile::MessagingService).to have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that does not have a duplicate intake with the same ssn with an efile submission" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com"
+      end
+
+      it "does send the message" do
+        allow_any_instance_of(StateFileAzIntake).to receive(:other_intake_with_same_ssn_has_submission?).and_return true
+        StateFile::ReminderToFinishStateReturnService.run
+        expect(StateFile::MessagingService).to_not have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that has been sent the monthly finish return message in the past 24 hours" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com",
+               message_tracker: {'messages.state_file.monthly_finish_return' => 3.hours.ago}
       end
 
       it "does not send the message" do
@@ -216,14 +277,14 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
     end
 
-    context "when there is an incomplete intake that has been sent the pre-deadline reminder more than a day ago" do
+    context "when there is an incomplete intake that has been sent the monthly finish return message more than a day ago" do
       let!(:intake) do
         create :state_file_az_intake,
                df_data_imported_at: 6.hours.ago,
                email_address_verified_at: 7.hours.ago,
                email_notification_opt_in: "yes",
                email_address: "dezie@example.com",
-               message_tracker: {'messages.state_file.pre_deadline_reminder' => (Time.now - 2.days)}
+               message_tracker: {'messages.state_file.monthly_finish_return' => 2.days.ago}
       end
 
       it "does send the message" do

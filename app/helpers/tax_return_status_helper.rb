@@ -1,10 +1,24 @@
 module TaxReturnStatusHelper
-  def grouped_status_options_for_select
+  def grouped_status_options_for_select(unwanted_statuses: [])
     TaxReturnStateMachine.states_to_show_for_client_filter(role_type: current_user.role_type).map do |stage, statuses|
       translated_stage = TaxReturnStatusHelper.stage_translation(stage)
-      translated_statuses = statuses.map { |status| [TaxReturnStatusHelper.status_translation(status), status.to_s] }
+
+      translated_statuses = statuses.map do |status|
+        translated = TaxReturnStatusHelper.status_translation(status)
+        if unwanted_statuses.include?(status.to_s)
+          [translated, status.to_s, { disabled: true }]
+        else
+          [translated, status.to_s]
+        end
+      end
+
       [translated_stage, translated_statuses]
     end
+  end
+
+  def grouped_status_options_for_partner
+    unwanted_status = current_user.role_type == "AdminRole" ? [] : ["intake_in_progress"]
+    grouped_status_options_for_select(unwanted_statuses: unwanted_status)
   end
 
   def stage_and_status_translation(status)

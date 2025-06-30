@@ -12,12 +12,10 @@ RSpec.describe Questions::ChatWithUsController do
   end
 
   describe "#edit" do
-    let(:id_experiment) { Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT) }
     let(:returning_client_experiment) { Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT) }
 
     before do
       Experiment.update_all(enabled: true)
-      id_experiment.experiment_vita_partners.create(vita_partner: vita_partner)
       returning_client_experiment.experiment_vita_partners.create(vita_partner: vita_partner)
     end
 
@@ -33,7 +31,6 @@ RSpec.describe Questions::ChatWithUsController do
     end
 
     context "with an intake without a ZIP code" do
-
       it "does not add a statement and does not error" do
         get :edit
 
@@ -61,44 +58,6 @@ RSpec.describe Questions::ChatWithUsController do
         expect(response).to be_ok
         expect(response.body).not_to include("Welcome back Nancy")
         expect(response.body).to include("Our team at #{vita_partner.name} is here to help!")
-      end
-    end
-
-    context "ID experiment" do
-      context "an intake with a vita partner that is in the experiment" do
-        it "assigns the intake to an Id Verification Experiment treatment group" do
-          get :edit
-
-          participant = ExperimentParticipant.find_by(experiment: id_experiment, record: intake)
-          expect(participant.treatment.to_sym).to be_in(id_experiment.treatment_weights.keys)
-        end
-      end
-
-      context "an intake with a vita partner that is not in the experiment" do
-        before do
-          intake.update(vita_partner: create(:organization))
-        end
-
-        it "does not put the intake in the experiment" do
-          get :edit
-
-          expect(ExperimentParticipant.where(experiment: id_experiment, record: intake)).to be_empty
-        end
-      end
-
-      context "an intake that is already in the returning client treatment group" do
-        before do
-          intake.update(matching_previous_year_intake: create(:intake))
-          returning_client_treatment_chooser = instance_double(ExperimentService::TreatmentChooser, choose: :skip_identity_documents)
-          allow(ExperimentService::TreatmentChooser).to receive(:new).and_call_original
-          allow(ExperimentService::TreatmentChooser).to receive(:new).with(ExperimentService::CONFIG[ExperimentService::RETURNING_CLIENT_EXPERIMENT][:treatment_weights]).and_return returning_client_treatment_chooser
-        end
-
-        it "does not try to put client in experiment" do
-          get :edit
-
-          expect(ExperimentParticipant.where(experiment: id_experiment, record: intake)).to be_empty
-        end
       end
     end
 

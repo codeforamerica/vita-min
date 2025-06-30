@@ -117,9 +117,6 @@ en:
         need_help_find: I need help finding this document.
         reminder_link: Send a reminder link for this document.
         title: Document help
-    overview:
-      edit:
-        additional_form_of_id: Additional form of ID
     reminder_link:
       email:
         body: |
@@ -184,6 +181,7 @@ en:
       last_name:
         blank: Please enter a last name.
         invalid_format: Only letters, numbers, hyphen, and apostrophe are accepted, and last name must be less than 32 characters.
+      money_field: This field can not be blank. Please enter a number that is greater than 0.
       nc_withdrawal_date:
         holiday: Withdrawal date cannot be on a US federal or bank holiday
         past: Withdrawal date must be after today
@@ -246,7 +244,6 @@ en:
       whole_number: must be a whole number
   forms:
     errors:
-      address_is_not_po_box: A PO box cannot be listed as your physical address. Please enter where you lived on December 31, %{tax_year}
       at_least_one_year: Please pick at least one year.
       general: Please fix indicated errors before continuing.
       healthcare:
@@ -1013,7 +1010,7 @@ en:
         view_all: View All
     documents:
       confirm:
-        text: Is this a %{document_type} for %{client_name}'s %{filing_year} tax return?
+        text_html: Is this a %{document_type} for <strong>%{client_name}'s</strong> %{filing_year} tax return?
         title: Confirm %{document_type}
       display_name: Display name
       edit:
@@ -1026,7 +1023,6 @@ en:
         client_doc: Client
         edit_file_info: Edit File Info
         empty_file: "(empty file)"
-        expanded_id_allowed: This client is allowed to submit Expanded ID Types as part of the experiment.
         file_name: File Name
         not_needed_docs: documents not needed due to experiment.
         system_generated_doc: Auto-generated
@@ -1405,9 +1401,6 @@ en:
       invitation:
         sent_at: Sent at %{datetime}
       title: Invitations
-  layouts:
-    document_upload:
-      id_type: ID Type
   messages:
     closing_soon:
       email:
@@ -1560,7 +1553,7 @@ en:
           sms: |
             Hi %{primary_first_name} - Your %{state_name} state tax return has been accepted and a payment is due.
 
-            If you haven't submited your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
+            If you haven't submitted your payment via direct debit, please do so by April 15 at %{state_pay_taxes_link}. Any amount not paid by the filing deadline could add extra penalties and fees.
 
             Download your return at %{return_status_link}
 
@@ -1610,6 +1603,15 @@ en:
 
               Best,
               The FileYourStateTaxes team
+            post_deadline: |
+              Hi %{primary_first_name},
+
+              You haven't submitted your state tax return yet. Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today.
+
+              Need help? Reply to this email.
+
+              Best,
+              The FileYourStateTaxes team
             pre_deadline: |
               Hi %{primary_first_name},
 
@@ -1624,6 +1626,15 @@ en:
           subject: Remember to finish your state tax return
         sms:
           on_april_15: "Hi %{primary_first_name} - You haven't submitted your state tax return yet. \n\nGo to Sign in to FileYourStateTaxes to finish them today. \n\nBest,\nThe FileYourStateTaxes team\n\nNeed help? Email us at help@fileyourstatetaxes.org\n"
+          post_deadline: |
+            Hi %{primary_first_name} - You haven't submitted your state tax return yet.
+
+            Go to www.fileyourstatetaxes.org/en/login-options to finish them today
+
+            Best,
+            The FileYourStateTaxes team
+
+            Need help? Email us at help@fileyourstatetaxes.org
           pre_deadline: |
             Hi %{primary_first_name} - You haven't submitted your state tax return yet.
 
@@ -1654,6 +1665,27 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: IRS Direct File is back and easier than ever
+      monthly_finish_return:
+        email:
+          body: |
+            Hi %{primary_first_name},
+
+            It looks like you started a state tax return with FileYourStateTaxes but did not finish the process. Go to <a target="_blank" rel="noopener nofollow" href="http://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today.
+
+            If you have already filed using another service, no action is required.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: Remember to finish your state tax return
+        sms: |
+          Hi %{primary_first_name} - You started a state tax return with FileYourStateTaxes but have not finished. Go to http://www.fileyourstatetaxes.org/en/login-options to finish them today
+
+          If you have already filed using another service, no action is required.
+
+          Best,
+          The FileYourStateTaxes team
       post_deadline_reminder:
         email:
           body: |-
@@ -2355,6 +2387,15 @@ en:
         mistake: Is this a mistake?
         title: You've opted out of email notifications from FileYourStateTaxes.
     questions:
+      apply_refund:
+        edit:
+          affirmative: Yes, I used a portion of my %{prior_tax_year} refund towards my %{current_tax_year} taxes
+          amount_label: "<strong>Amount of %{prior_tax_year} Idaho refund used towards %{current_tax_year} state taxes</strong>"
+          enter_amount_html: Enter the amount next to “Apply to %{current_tax_year}” on line 56 of your %{prior_tax_year} Individual Income Tax Return <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Form 40</a>.
+          negative: No, I didn’t use a portion of my %{prior_tax_year} refund towards my %{current_tax_year} taxes
+          subtitle_1: If you received a refund from your %{prior_tax_year} state taxes, you could have applied a portion of that amount to help pay your income tax for %{current_tax_year}. This is an uncommon scenario for our service.
+          subtitle_2_html: You can find this amount next to “Apply to %{current_tax_year}” on line 56 of your %{prior_tax_year} Individual Income Tax Return <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Form 40</a>.
+          title: Did you apply a portion of your %{prior_tax_year} Idaho state refund toward your %{current_tax_year} taxes?
       az_charitable_contributions:
         edit:
           amount_cannot_exceed: This amount may not exceed $500
@@ -2567,6 +2608,9 @@ en:
             has_out_of_state_w2: you earned income in another state in %{filing_year}.
             has_yonkers_income: lived, earned income, or maintained a home in Yonkers in 2024.
             married_filing_separately: you are filing “married filing separately”.
+            mfj_and_dependent_html: |
+              you or your spouse indicated that you can be claimed on someone else’s return.<br><br>
+              Maryland does not allow married filers to file a joint return if the taxpayer or spouse is claimed as a dependent.
             spouse_nra_html: |
               you didn’t include your spouse’s SSN or ITIN in your federal return.<br><br>
               Maryland does not allow Married Filing Separately taxpayers to electronically file their state tax return without their spouse’s SSN or ITIN.
@@ -2620,20 +2664,30 @@ en:
         az_supported:
           charitable_contributions_credit: Credit for Contributions to Qualifying Charitable Organizations
           dependent_credit: Dependent Credit
+          extension_payments: Reporting extension payments
           family_income_credit: Family Income Credit
           increased_deduction: An increased deduction for charitable contributions
           increased_excise_credit: Increased Excise Credit
           public_school_credit: Public School Tax Credit
         edit:
+          az_extension_title2_html: |
+            Let’s make sure this is the right service for you.<br><br>
+            Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
           credits_not_supported: What subtractions, credits, and household situations does this service not support this year?
           faq_link: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations here.
           faq_link_html: Find a more detailed breakdown of this year's unsupported credits, deductions, and other situations <a href="%{url}">here</a>.
-          id_title2_html: |
+          id_extension_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
+          md_extension_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the subtractions, credits, and payments you <strong>may</strong> be able to claim to maximize your refund.
           md_title2_html: |
             Let's make sure this is the right service for you.<br><br>
             Here are the credits and subtractions you <strong>may</strong> be able to claim to maximize your refund.
+          nc_extension_title2_html: |
+            Let's make sure this is the right service for you.<br><br>
+            Here are the credits, deductions, and situations you <strong>may</strong> be able to claim to maximize your refund.
           not_supported: What if I have a situation not yet supported by FileYourStateTaxes?
           title1: You can use this service to file your %{year} %{state} taxes
           title2_html: |
@@ -2662,54 +2716,6 @@ en:
           social_security_retirement_deduction: Social Security and Railroad Retirement subtraction
           tax_prepayments: 'Reporting tax prepayments, including: extension payments, estimated payments, and %{last_tax_year} refunds applied to %{tax_year} taxes'
         md_reveals:
-          body1_html: |
-            <ul>
-              <li>
-                Subtractions:
-                <ul>
-                  <li>Classroom supplies for K-12 teachers</li>
-                  <li>Union dues</li>
-                  <li>Payments from a pension system to firemen and policemen for job-related injuries or disabilities</li>
-                  <li>Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee</li>
-                  <li>ABLE account contributions</li>
-                  <li>Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)</li>
-                  <li>Any other Maryland subtractions not listed here (see <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">Form 502SU</a>)</li>
-                </ul>
-              </li>
-              <li>
-                Credits:
-                <ul>
-                  <li>Student loan debt relief tax credit</li>
-                  <li>Quality Teacher Incentive Credit</li>
-                  <li>Long-term care insurance credit</li>
-                  <li>Independent living tax credit</li>
-                  <li>Maryland Child Tax Credit (if claimed based on disability of the child)</li>
-                  <li>Maryland Earned Income Tax Credit (if you did not claim the federal Earned Income Tax Credit)</li>
-                  <li>Any other Maryland credits not listed <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(see Form 502CR</a>)</li>
-                </ul>
-              </li>
-
-              <li>
-                Household situations:
-                <ul>
-                  <li>Filing your federal and state tax returns using different filing statuses (for example you file as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)</li>
-                  <li>Adding or removing dependents claimed on your federal return for purposes of your state return</li>
-                  <li>Splitting refunds between accounts</li>
-                  <li>Married and filing jointly with a deceased spouse</li>
-                </ul>
-              </li>
-
-              <li>
-                Payments:
-                <ul>
-                  <li>Estimated tax payments</li>
-                  <li>Extension tax payments</li>
-                </ul>
-              </li>
-            </ul>
-            <p>
-              Find a more detailed breakdown of unsupported credits and subtractions this year <a href="https://www.fileyourstatetaxes.org/en/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">here</a>.
-            </p>
           body2_html: |
             <p>
               This year, you <strong>can't claim the Maryland EITC using this service</strong> in these scenarios:
@@ -2726,7 +2732,7 @@ en:
               You have other free options for filing your state return:
               <ul>
                 <li>
-                  Filing your state return for free with IRS-certified VITA volunteers in Maryland, but it may take 2-3 weeks to complete.
+                  Filing your state return for free with IRS-certified Volunteer Income Tax Assistance (VITA) tax preparers in Maryland. Note that this option may take 2-3 weeks to complete.
                   <ul>
                     <li>
                       <a href="https://airtable.com/appAgBw351Iig0YI4/pagVvtGPWrpURJrrd/form" rel="noopener nofollow" target="_blank">Get started with VITA now</a>
@@ -2742,15 +2748,44 @@ en:
               </ul>
             </p>
           credits_not_supported: What subtractions, credits, and other situations does this service NOT support this year?
+          reveal_1:
+            cred_b1: Student loan debt relief tax credit
+            cred_b2: Quality Teacher Incentive Credit
+            cred_b3: Long-term care insurance credit
+            cred_b4: Independent living tax credit
+            cred_b5: Maryland Child Tax Credit (if claimed based on disability of the child)
+            cred_b6: Maryland Earned Income Tax Credit (if you did not claim the federal Earned Income Tax Credit)
+            cred_b7_html: Any other Maryland credits not listed <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(see Form 502CR</a>)
+            credits_title: 'Credits:'
+            house_b1: Filing your federal and state tax returns using different filing statuses (for example you file as Married Filing Jointly on your federal tax return and want to file Married Filing Separately on your state tax return)
+            house_b2: Adding or removing dependents claimed on your federal return for purposes of your state return
+            house_b3: Splitting refunds between accounts
+            house_b4: Married and filing jointly with a deceased spouse
+            household_title: 'Household situations:'
+            more_details_html: Find a more detailed breakdown of unsupported credits and subtractions this year <a href="https://www.fileyourstatetaxes.org/en/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">here</a>.
+            pay: Reporting estimated tax payments
+            pay_b1: Estimated tax payments
+            pay_b2: Extension tax payments
+            payments_title: 'Payments:'
+            sub_b1: Classroom supplies for K-12 teachers
+            sub_b2: Union dues
+            sub_b3: Payments from a pension system to firemen and policemen for job-related injuries or disabilities
+            sub_b4: Expenses up to $5,000 incurred by a blind person for a reader, or up to $1,000 incurred by an employer for a reader for a blind employee
+            sub_b5: ABLE account contributions
+            sub_b6: Pension exclusion (if you are under 65 and are claiming this based on a permanent disability for the first time)
+            sub_b7_html: Any other Maryland subtractions not listed here (see <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">Form 502SU</a>)
+            subtractions_title: 'Subtractions:'
           title2: What scenarios for claiming the Maryland Earned Income Tax Credit and/or Child Tax Credit aren't supported by this service?
           title3: What if I have a situation not yet supported by FileYourStateTaxes?
         md_supported:
           heading1: 'Subtractions:'
           heading2: 'Credits:'
+          heading3: 'Payments:'
           sub1: Subtraction for Child and Dependent Care Expenses
           sub10: Senior Tax Credit
           sub11: State and local Poverty Level Credits
           sub12: Credit for Child and Dependent Care Expenses
+          sub13: Reporting extension payments
           sub2:
             one: Pension exclusion (if you are 65 years or older, or if you are under 65 and previously qualified for the exclusion based on a permanent disability)
             other: Pension exclusion (if you or your spouse are 65 years or older, or if you or your spouse are under 65 and previously qualified for the exclusion based on a permanent disability)
@@ -2776,6 +2811,8 @@ en:
           deduction_for_retirement_income_bailey: Deduction for Retirement Income as part of the Bailey Settlement
           deduction_for_retirement_income_uniformed: Deduction for Retirement Income from the Uniformed Services
           deduction_for_taxable_portion: Deduction for Taxable Portion of Social Security and Railroad Retirement Benefits
+          out_of_country_extension: Filing with an out-of-country extension
+          reporting_extension_payments: Reporting extension payments
         nj_credits_unsupported:
           also_unsupported_extensions_html: |
             <li>Applying for an extension (but we do support reporting estimated payments you made when filing an extension)</li>
@@ -2871,7 +2908,7 @@ en:
                   You have other free options for filing your state return:
                   <ul>
                     <li>
-                      File for free with IRS-Certified VITA volunteers in Maryland.
+                      File for free with IRS-Certified Volunteer Income Tax Assistance (VITA) tax preparers in Maryland.
                       <ul>
                         <li>
                           If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
@@ -3007,38 +3044,46 @@ en:
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to Arizona.
           negative: 'No'
-          subtitle_html: If you made a Arizona extension payment, you would have <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Form 204</a>.
+          subtitle_html: If you made an Arizona extension payment, you would have <a href="https://aztaxes.gov/Home/PaymentIndividual/" rel="noopener noreferrer" target="_blank">paid online</a> with the selection “204 Individual Extension Payment” or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf target="_blank" rel="noopener noreferrer">Form 204</a>.
           title: Did you make an Arizona extension payment on or before April 15, %{current_year}?
+        default_payment_validation_message: Please enter the extension payment amount. The value cannot be 0.
         id:
           affirmative: Yes, I made extension or estimated payments to Idaho
           amount: Amount of Idaho payments
           enter_amount: Enter the amount of payments made to Idaho on Form 51.
           negative: No, I did not make extension or estimated payments to Idaho
-          subtitle_html: "If you made these payments, you would have <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">paid online</a> or mailed your payment along with <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nEstimated tax payments can be paid anytime during the tax year, and they do not include taxes withheld from your other income such as wages and retirement.\n"
+          payment_validation_message: Please enter the extension or estimated payment amount. The value cannot be 0.
+          subtitle_html: "If you made these payments, you would have <a href=https://idahotap.gentax.com/tap/_/ target=\"_blank\" rel=\"noopener noreferrer\">paid online</a> or mailed your payment along with <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf target=\"_blank\" rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nEstimated tax payments can be paid anytime during the tax year, and they do not include taxes withheld from your other income such as wages and retirement.\n"
           title: Did you make any Idaho extension or estimated payments for the %{tax_year} tax year on or before April 15, %{current_year}?
         md:
           affirmative: 'Yes'
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to Maryland.
           negative: 'No'
-          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
+          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp target="_blank" rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf target="_blank" rel="noopener noreferrer">Form PV</a>.
           title: Did you make a Maryland extension payment on or before April 15, %{current_year}?
         nc:
           affirmative: 'Yes'
           amount: Amount of extension payments
           enter_amount: Enter the amount of extension payments paid to North Carolina.
           negative: 'No'
-          subtitle_html: If you made a North Carolina extension payment, you would have <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Form D-410</a>.
+          subtitle_html: If you made a North Carolina extension payment, you would have <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 target="_blank" rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp target="_blank" rel="noopener noreferrer">Form D-410</a>.
           title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
       federal_extension_payments:
         edit:
-          'false': No, I was not granted a federal extension
+          affirmative: Yes, I filed for a federal extension
           list_1: Made a federal extension payment
           list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
-          subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
-          subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
-          title: Were you granted a federal extension?
-          'true': Yes, I was granted a federal extension
+          nc:
+            affirmative: Yes, I was granted a federal extension
+            negative: No, I was not granted a federal extension
+            subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
+            subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
+            title: Were you granted a federal extension?
+          negative: No, I did not file for a federal extension
+          subtitle_1: If you filed for a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
+          subtitle_2: 'You filed for a federal extension if you did either of the following on or before April 15th:'
+          title: Did you file for a federal extension?
       id_disability:
         edit:
           help_b1: An individual recognized as disabled by the Social Security Administration, the Railroad Retirement Board, or the Office of Management and Budget
@@ -3323,7 +3368,7 @@ en:
           commercial_tax_prep_html: File with a commercial tax preparation service. Learn more <a href='%{path}' target='_blank' rel='noopener noreferrer'>here</a>.
           contact_info_html: If you have any questions or want your information removed from this service, please email us at <a href='mailto:help@fileyourstatetaxes.org'>help@fileyourstatetaxes.org</a>.
           description: The Maryland Pension Exclusion can save you hundreds to thousands of dollars in state and local taxes by reducing your taxable retirement income.
-          free_in_md: File for free with IRS-Certified VITA volunteers in Maryland.
+          free_in_md: File for free with IRS-Certified Volunteer Income Tax Assistance (VITA) tax preparers in Maryland.
           free_income_tax_prep_html: Get started with the Comptroller of Maryland’s <a href='https://www.marylandtaxes.gov/individual/tax-assistance/free-tax-prep.php' target='_blank' rel='noopener noreferrer'>Free Income Tax Preparation</a> service.
           go_back_html: "<strong>Have you provided proof of your disability in previous tax years?</strong> <a href='%{path}'>Go back to correct.</a>"
           if_choose_this_option: If you choose this option, you'll be connected with a VITA partner in Maryland. Expect a quick intake call in a few days to discuss your tax situation and securely upload your documents. This process may take 2-3 weeks to complete.
@@ -3341,6 +3386,7 @@ en:
       md_permanent_address:
         edit:
           address_header: Address
+          address_is_not_po_box: A PO box cannot be listed as your physical address. Please enter a valid address.
           apartment_number_label: Apartment/Unit Number
           city_label: City
           df_address_is_po_box:
@@ -3481,7 +3527,12 @@ en:
           title: First, let's see if you can use this service to file your %{filing_year} North Carolina taxes
       nc_out_of_country:
         edit:
-          title: Were you out of the country on April 15, %{year} and a US citizen or resident?
+          affirmative: Yes, I was out of the country on April 15, %{current_year}
+          list_1: Lived outside the United States or Puerto Rico and your main place of work was outside the United States or Puerto Rico, or
+          list_2: Were in military service outside the United States or Puerto Rico
+          negative: No, I wasn’t out of the country on April 15, %{current_year}
+          subtitle: 'This means that on April 15, %{current_year}, you either:'
+          title: Were you out of the country on April 15, %{current_year}?
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: While providing this information is encouraged, it is optional and not required to file your North Carolina taxes.
@@ -3596,6 +3647,9 @@ en:
           direct_debit_payment_info_three: Your payment will be considered timely if you submit your payment on the due date and select the first available draft date. You will receive an NCDOR confirmation email after your payment is received.
           direct_debit_payment_info_two: The draft date is based on a 5:00 pm EST cut off. In other words, if you submit your bank draft payment after 5:00 pm EST, the earliest draft date available will be two business days in the future.
           how_would_you_like_to_pay: How would you like to pay?
+          interest_warning:
+            p1: Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed. This will not be calculated on this return, and North Carolina’s Department of Revenue will separately send you a bill for this amount.
+            p2_html: Interest will continue to accrue until you pay the tax. Learn more about interest and penalties <a target="_blank" rel="noopener nofollow" href="https://www.ncdor.gov/penalties-and-interest#FailuretoFileandFailuretoPayPenalties-11245">here.</a>
           more_info_about_automatic_draft_payments: More information about automatic draft payments
           more_info_about_direct_debit_payment: More information about the direct debit payment date
           page_title: You owe state taxes. How would you like to pay?
@@ -3875,6 +3929,7 @@ en:
           eitc: New Jersey Earned Income Tax Credit (NJEITC)
           estimated_tax_payments: Estimated quarterly payments
           extension_payments: Payment made when you filed for an extension
+          federal_extension: Federal extension
           has_estimated_payments: Estimated or other payments
           household_rent_own: Living situation in %{filing_year}
           household_rent_own_both: Owned and rented
@@ -3883,6 +3938,7 @@ en:
           household_rent_own_rent: Rented
           medical_expenses: Total medical expenses
           missing_health_insurance: Dependents who DO NOT have health insurance
+          more_household_details: More household details
           overpayments: Refund carried forward
           primary_claimed_as_eitc_qualifying_child: You could be someone's qualifying child
           primary_disabled: Disability exemption
@@ -4177,7 +4233,9 @@ en:
             <li>
               Make your check or money order payable to %{payable_to}. Write your full SSN or ITIN, “%{filing_year} Tax”, and "Form %{form_number}" on your payment.
             </li>
-          direct_debit_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
+          direct_debit:
+            after_deadline_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail as soon as you can.
+            before_deadline_html: If you have a remaining tax balance, remember to <strong>pay it online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> or by mail before the April 15 filing deadline.
           download_voucher: Download and print the completed payment voucher.
           feedback: We value your feedback—let us know what you think of this service.
           include_payment: Fill out your payment voucher
@@ -4356,10 +4414,26 @@ en:
               <li>Select “VET” from the dropdown menu under Notice Code.</li>
               <li>Enter the rest of your information, including your Social Security Number, to make sure that the documents get linked to your tax return.</li>
             </ol>
+        penalty_interest_warning:
+          billing_agency:
+            az: Arizona’s Department of Revenue
+            id: the Idaho State Tax Commission
+            md: the Comptroller of Maryland
+            nc: North Carolina’s Department of Revenue
+            nj: the New Jersey Division of Taxation
+          p1: Since you filed your return after April 15th, you may be charged interest and/or penalties on your taxes owed. Interest will continue to accrue until you pay the tax.
+          p2: This amount wasn't calculated on your state return, and %{billing_agency} will separately send you a bill for this amount.
       tax_refund:
         bank_details:
           account_number: Account Number
-          after_deadline_default_withdrawal_info: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          after_deadline_withdrawal_info:
+            default: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+            id:
+              p1: The bank routing and account numbers you enter are for your state tax payment. This is only the payment request. It is your responsibility to review your bank statement to confirm that this transaction was successful. If you are making a direct debit payment, a QuickPay payment should not be made in succession.
+              p2: Because you are submitting your return on or after %{payment_deadline_date}, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+            md:
+              p1: Because you are submitting your return after April 15th, %{payment_deadline_year}, the state will withdraw your payment as soon as they process your return.
+          authorized_amount: By filling in your information here, you authorize a withdrawal of $%{owed_amount} from your account.
           bank_title: 'Please provide your bank details:'
           confirm_account_number: Confirm Account Number
           confirm_routing_number: Confirm Routing Number
@@ -4374,12 +4448,25 @@ en:
           title_html: Good news, you're getting a %{state_name} state tax refund of <strong>$%{refund_amount}.</strong>
       taxes_owed:
         edit:
+          interest_warning:
+            az:
+              p1: Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed. This will not be calculated on this return, and Arizona’s Department of Revenue will separately send you a bill for this amount.
+              p2_html: Interest will continue to accrue until you pay the tax. Learn more about interest and penalties <a target="_blank" rel="noopener nofollow"  href="https://azdor.gov/contact-us">here</a>.
+            id:
+              p1: Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed. This will not be calculated on this return, and the Idaho State Tax Commission will separately send you a bill for this amount.
+              p2_html: Interest will continue to accrue until you pay the tax. Learn more about interest and penalties <a target="_blank" rel="noopener nofollow" href="https://tax.idaho.gov/taxes/income-tax/penalties-and-interest/">here</a>.
+            md:
+              p1: Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed. Interest will continue to accrue until you pay the tax.
+              p2: This will not be calculated on this return, and the Comptroller of Maryland will separately send you a bill for this amount.
+            nj:
+              p1: Since you are filing your return after April 15th, you may be charged interest and/or penalties on your taxes owed. Interest will continue to accrue until you pay the tax.
+              p2: This will not be calculated on this return, and the New Jersey Division of Taxation will separately send you a bill for this amount.
           more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Here is more information about tax due dates and payment methods.</a></p>
           page_title: You owe state taxes. How would you like to pay?
           pay_bank: Pay directly from your checking or savings account (direct debit)
           pay_mail_online_html: Pay by mail or online at <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: How would you like to pay?
-          subtitle_html: For more information about tax due dates and payment methods, visit <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
+          subtitle_html: For more information about tax due dates and payment methods, visit <a target="_blank" rel="noopener nofollow" href="%{link}">%{link}</a>
           title_html: You owe <strong>$%{owed_amount}</strong> in %{state_name} state taxes.
           underpayment_notice_nj_html: |-
             <p> This can happen for many reasons, but common ones are: </p>
@@ -4512,6 +4599,7 @@ en:
           local_wages_and_tips_amt_error: Please enter local wages and tips
           locality_nm_missing_error: Please select locality name
           no_money_amount: Please enter an amount. If amount is blank, enter $0.
+          review_box_14: Please review and update this number from Box 14 of your W-2.
           save_and_continue: Save and Continue
           state_income_tax_amt_error: Cannot be greater than State wages and tips.
           state_wages_amt_error: Please enter State wages and tips
@@ -4547,9 +4635,9 @@ en:
         subheader_1_html: |
           FileYourStateTaxes connects with IRS Direct File to help you complete your state tax return for free.
           <br /><br />
-          This site will open at the start of the 2025 tax filing season and remain open until October 15, 2025 for you to file your state tax returns.
+          This site is now open and will remain open until October 15, 2025 for you to file your state tax returns.
           <br /><br />
-          <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
+          <strong>For the 2025 tax season, this service supports filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
         subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
         subheader_3_html: "<strong>Already started your state return and need to complete it?</strong> <a href=%{login_path}>Sign in here</a>."
       card_postscript:
@@ -6191,10 +6279,6 @@ en:
         multiple_forms: The IRS requires us to verify who you are with multiple forms of identity.
         title: First, we need to confirm your basic information.
       ids:
-        expanded_id:
-          help_text: The IRS requires us to see a current ID card. We will use your ID card to verify and protect your identity in accordance with IRS guidelines.
-          info: It is ok if your ID is expired or if you have a temporary drivers license as long as we can clearly view your name and photo.
-          title: Attach photos of your ID card
         help_text:
           one: The IRS requires us to see a current drivers license, passport, or state ID.
           other: The IRS requires us to see a current drivers license, passport, or state ID for you and your spouse.
@@ -6214,32 +6298,7 @@ en:
         schedule_appointment: When you’re done sharing the documents you have, we’ll schedule an appointment with your tax preparer.
         spouse_doc_needed: Please add documents for you and your spouse.
         title: Great work! Here's a list of what we've collected.
-      selfie_instructions:
-        header: Confirm your identity with a photo of yourself holding your ID card
-        info: The IRS requires us to verify who you are for tax preparation services. We do this by reviewing a photo of you holding your ID card.
-        steps:
-          face_camera: Face the camera directly and include from your shoulders to the top of your head, similar to your ID photo
-          face_visible: Make sure your face is clearly visible
-          header: Read through the following steps before continuing
-          id_visible: Make sure you aren't covering up your ID
-          plain_background: Use a plain wall as a background if possible
-          wear_glasses: If you're wearing glasses in your ID photo, wear them in your selfie photo
-        submit_photo: Submit a photo
-      selfies:
-        help_text: The IRS requires us to verify who you are for tax preparation services.
-        need_for_html: 'We will need to see a <u>photo with ID</u> for:'
-        title: Share a photo of yourself holding your ID card
-      spouse_ids:
-        expanded_id:
-          title: Attach photos of your spouse’s ID card
-      spouse_ssn_itins:
-        expanded_id:
-          title: Attach photos of an additional form of ID for your spouse
       ssn_itins:
-        expanded_id:
-          box: Please make sure that your name and identification number are clearly visible.
-          help_text: The IRS requires us to see an additional  form of identity. We use a second form of ID to verify and protect your identity in accordance with IRS guidelines.
-          title: Attach photos of an additional form of ID
         help_text: The IRS requires us to see a valid Social Security Card or ITIN Paperwork for everyone in the household for tax preparation services.
         need_for: 'We will need a SSN or ITIN for:'
         title: Attach photos of Social Security Card or ITIN
@@ -6608,6 +6667,8 @@ en:
         title: Wow, it looks like we are at capacity right now.
         warning_html: "<b>A friendly reminder that the filing deadline is %{tax_deadline}.</b> We recommend filing as soon as possible."
       backtaxes:
+        after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
+        after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
         select_all_that_apply: 'Select all the years you would like to file for:'
         title: Which of the following years would you like to file for?
       balance_payment:
@@ -6812,6 +6873,7 @@ en:
           other: In %{year}, did you or your spouse receive a state or local income tax refund?
       mailing_address:
         city: City
+        info_html: A mailing address is required to file your tax return. For more information on addresses that are acceptable, <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">see our FAQ.</a>
         state: State or US Territory
         street_address: Street address or P.O. box
         street_address2: Apartment number (optional)
@@ -6959,6 +7021,7 @@ en:
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.
+        warning_html: '⚠️ <b>Immigrant filers</b>: As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Please see our FAQ for more information if you have any concerns.</a>'
       start_with_current_year:
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: We’ll start by asking about your situation in %{year}.

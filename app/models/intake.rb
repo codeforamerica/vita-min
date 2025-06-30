@@ -214,13 +214,6 @@
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
 #  need_itin_help                                       :integer          default(0), not null
-#  needs_help_2016                                      :integer          default(0), not null
-#  needs_help_2018                                      :integer          default(0), not null
-#  needs_help_2019                                      :integer          default(0), not null
-#  needs_help_2020                                      :integer          default(0), not null
-#  needs_help_2021                                      :integer          default(0), not null
-#  needs_help_2022                                      :integer          default(0), not null
-#  needs_help_2023                                      :integer          default(0), not null
 #  needs_help_current_year                              :integer          default(0), not null
 #  needs_help_previous_year_1                           :integer          default(0), not null
 #  needs_help_previous_year_2                           :integer          default(0), not null
@@ -619,7 +612,7 @@ class Intake < ApplicationRecord
   end
 
   def needs_help_with_backtaxes?
-    MultiTenantService.new(:gyr).backtax_years.any? { |year| send("needs_help_#{year}_yes?") }
+    needs_help_previous_year_1_yes? || needs_help_previous_year_2_yes? || needs_help_previous_year_3_yes?
   end
 
   def update_or_create_13614c_document(filename)

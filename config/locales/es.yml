@@ -117,9 +117,6 @@ es:
         need_help_find: Necesito ayuda para encontrar este documento.
         reminder_link: Enviar un enlace de recordatorio para este documento.
         title: Ayuda de documentos
-    overview:
-      edit:
-        additional_form_of_id: Forma adicional de identificación
     reminder_link:
       email:
         body: |
@@ -184,6 +181,7 @@ es:
       last_name:
         blank: Por favor, ingrese un apellido.
         invalid_format: Solo se aceptan letras, números, guiones y apóstrofos, y el nombre debe tener menos de 32 caracteres.
+      money_field: Por favor ingresa la cantidad que pagaste por la parte de tu reembolso del estado. La cantidad no puede ser 0.
       nc_withdrawal_date:
         holiday: La fecha de retiro no puede ser un día festivo federal o bancario de EE. UU.
         past: La fecha de retiro debe ser posterior a hoy
@@ -246,7 +244,6 @@ es:
       whole_number: Debe ser un número entero
   forms:
     errors:
-      address_is_not_po_box: No puedes declarar un apartado postal como la dirección donde vivías. Por favor indica donde vivías el 31 de diciembre del %{tax_year}
       at_least_one_year: Por favor, elija al menos un año.
       general: Por favor, corrija los errores indicados antes de continuar.
       healthcare:
@@ -1021,7 +1018,7 @@ es:
         view_all: Ver todo
     documents:
       confirm:
-        text: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de %{client_name}?"
+        text_html: "¿Es esta una %{document_type} para la declaración de impuestos %{filing_year} de <strong>%{client_name}</strong>?"
         title: Confirmar %{document_type}
       display_name: Nombre Para Mostrar
       edit:
@@ -1034,7 +1031,6 @@ es:
         client_doc: Cliente
         edit_file_info: Editar información del archivo
         empty_file: "(archivo vacío)"
-        expanded_id_allowed: Este cliente puede enviar tipos de ID ampliados como parte del experimento.
         file_name: Nombre de archivo
         not_needed_docs: documentos no necesario debido al experimento.
         system_generated_doc: Auto-generado
@@ -1402,9 +1398,6 @@ es:
       invitation:
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
-  layouts:
-    document_upload:
-      id_type: Tipo de Identificación
   messages:
     closing_soon:
       email:
@@ -1522,7 +1515,7 @@ es:
 
               Si aún no has pagado mediante débito directo al presentar tu declaración, por favor haz tu pago lo antes posible para evitar multas y costos adicionales en %{state_pay_taxes_link}.
 
-              Descarga tu declaración en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+              Descarga tu declaración en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
               ¿Necesitas ayuda? Responde a este correo electrónico.
 
@@ -1551,7 +1544,7 @@ es:
 
               <strong>Si no pagaste ya mediante débito directo al presentar tu declaración, por favor, haz tu pago antes del 15 de abril visitando %{state_pay_taxes_link}</strong>. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
 
-              Descarga tu declaración visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+              Descarga tu declaración visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
               ¿Necesitas ayuda? Responde a este correo.
 
@@ -1577,7 +1570,7 @@ es:
 
               Si no pagaste ya mediante débito directo al presentar tu declaración, por favor, haz tu pago hoy visitando %{state_pay_taxes_link}. Cualquier cantidad no pagada antes de la fecha límite de presentación podría significar multas y costos adicionales.
 
-              Descarga tu declaración visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+              Descarga tu declaración visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
               ¿Necesitas ayuda? Responde a este correo electrónico.
 
@@ -1590,7 +1583,7 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            ¡Tu declaración de impuestos estatales de %{state_name} ha sido <strong>aceptada</strong>! Descarga tu declaración y verifica el estado de tu reembolso visitando <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+            ¡Tu declaración de impuestos estatales de %{state_name} ha sido <strong>aceptada</strong>! Descarga tu declaración y verifica el estado de tu reembolso visitando <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
             Atentamente,
             El equipo de FileYourStateTaxes
@@ -1619,6 +1612,17 @@ es:
 
               Atentamente,
               El equipo de FileYourStateTaxes
+            post_deadline: |
+              Hola %{primary_first_name},
+
+              Todavía no has enviado tu declaración de impuestos estatales.
+
+              Completa tu declaración hoy visitando <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+
+              ¿Necesitas ayuda? Responde a este correo electrónico.
+
+              Atentamente,
+              El equipo de FileYourStateTaxes
             pre_deadline: |
               Hola %{primary_first_name},
 
@@ -1633,6 +1637,15 @@ es:
           subject: Recuerda completar tu declaración de impuestos estatales
         sms:
           on_april_15: "Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales. \n\n  Completa tu declaración hoy en www.fileyourstatetaxes.org/es/login-options.\n\n  Atentamente,\n  El equipo de FileYourStateTaxes\n\n  ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\n"
+          post_deadline: |
+            Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
+
+            Completa tu declaración hoy en www.fileyourstatetaxes.org/es/login-options.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+
+            ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
           pre_deadline: |
             Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.
 
@@ -1663,6 +1676,26 @@ es:
             Best,
             The FileYourStateTaxes team
           subject: IRS Direct File is back and easier than ever
+      monthly_finish_return:
+        email:
+          body: |
+            Hola %{primary_first_name},
+            Parece que empezaste una declaración de impuestos estatales con FileYourStateTaxes pero no terminaste el proceso. Ve a <a target="_blank" rel="noopener nofollow" href="http://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a> para completarlo hoy.
+
+            Si ya presentaste tu declaración usando otro servicio, no necesitas hacer nada.
+            Si necesitas ayuda, responde a este correo.
+
+            Saludos,
+            El equipo de FileYourStateTaxes
+          subject: Recuerda terminar tu declaración de impuestos estatales
+        sms: |
+          Hola %{primary_first_name},
+          Empezaste una declaración de impuestos estatales con FileYourStateTaxes pero no la terminaste. Ve a http://www.fileyourstatetaxes.org/es/login-options para completarla hoy.
+
+          Si ya presentaste tu declaración usando otro servicio, no necesitas hacer nada.
+
+          Saludos,
+          El equipo de FileYourStateTaxes
       post_deadline_reminder:
         email:
           body: |-
@@ -1717,7 +1750,7 @@ es:
           body: |
             Hola %{primary_first_name},
 
-            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href=\"%{return_status_link}\" target=\"_blank\" rel=\"noopener nofollow\">%{return_status_link}</a>.
+            Lamentablemente, %{state_name} rechazó tu declaración de impuestos estatales. ¡No te preocupes! Podemos ayudarte a corregirla y volver a enviarla en <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
 
             ¿Necesitas ayuda? Responde a este correo electrónico.
 
@@ -2364,6 +2397,15 @@ es:
         mistake: "¿Fue un error?"
         title: Has optado por no recibir notificaciones por correo electrónico de FileYourStateTaxes.
     questions:
+      apply_refund:
+        edit:
+          affirmative: Sí, usé una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}
+          amount_label: "<strong>Cantidad del reembolso de Idaho de %{prior_tax_year} utilizada para los impuestos estatales de %{current_tax_year}</strong>"
+          enter_amount_html: Ingresa la cantidad al lado de “Apply to %{current_tax_year}” en la línea 56 de tu Declaración de Impuestos Individual de %{prior_tax_year} <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Formulario 40</a>.
+          negative: No, no usé una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}
+          subtitle_1: Si recibiste un reembolso de tus impuestos estatales de %{prior_tax_year}, podrías haber aplicado una parte de esa cantidad para ayudar a pagar tu impuesto de %{current_tax_year}. Este es un escenario poco común para nuestro servicio.
+          subtitle_2_html: Puedes encontrar esta cantidad al lado de “Apply to %{current_tax_year}” en la línea 56 de tu Declaración de Impuestos Individual de %{prior_tax_year} <a href="https://tax.idaho.gov/wp-content/uploads/forms/EFO00089/EFO00089_09-04-2024.pdf" target="_blank">Formulario 40</a>.
+          title: "¿Aplicaste una parte de tu reembolso del estado de Idaho de %{prior_tax_year} a tus impuestos de %{current_tax_year}?"
       az_charitable_contributions:
         edit:
           amount_cannot_exceed: La cantidad no puede ser mayor a $500
@@ -2579,6 +2621,9 @@ es:
             has_out_of_state_w2: recibiste ingresos en otro estado en el %{filing_year}
             has_yonkers_income: viviste, recibiste ingresos o mantuviste un hogar en Yonkers en 2024.
             married_filing_separately: estás presentando una declaración de impuestos "casado, declarando por separado".
+            mfj_and_dependent_html: |
+              tú o tu cónyuge indicaron que pueden ser incluidos en la declaración de otra persona.<br><br>
+              Maryland no permite que las parejas casadas presenten una declaración conjunta si el contribuyente o el cónyuge está incluido como dependiente en la declaración de alguien más.
             spouse_nra_html: |
               no incluiste el Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de tu cónyuge en tu declaración federal.<br><br>
               Maryland no permite contribuyentes con el estado Casado declarando por separado presentar la declaración estatal de forma electrónica sin el SSN o ITIN de su cónyuge.
@@ -2632,21 +2677,31 @@ es:
         az_supported:
           charitable_contributions_credit: Crédito por Contribuciones a Organizaciones Caritativas Calificadas
           dependent_credit: Crédito por Dependientes
+          extension_payments: Reportar pagos de extensión
           family_income_credit: Crédito por ingresos familiares
           increased_deduction: Una deducción aumentada por donaciones caritativas
           increased_excise_credit: Crédito por Aumento de Impuestos Especiales
           public_school_credit: Crédito Tributario para Escuelas Públicas de Arizona
         edit:
+          az_extension_title2_html: |
+            Asegurémonos de que este servicio es el indicado para ti.<br><br>
+            Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
           faq_link: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año aquí.
           faq_link_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="%{url}">aquí</a>.
-          id_title2_html: |
+          id_extension_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
+          md_extension_title2_html: |
+            Asegurémonos de que este servicio es el indicado para ti.<br><br>
+            Estas son las sustracciones, créditos y pagos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
           md_title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
             Estas son las restas y los créditos <strong>que puedes </strong> reclamar para maximizar tu reembolso.
-          not_supported: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
+          nc_extension_title2_html: |
+            Asegurémonos de que este servicio es el indicado para ti.<br><br>
+            Estos son los créditos, deducciones y situaciones <strong>que podrías</strong> incluir para maximizar tu reembolso.
+          not_supported: "¿Qué hago si por mi situación fiscal no puedo usar FileYourStateTaxes?"
           title1: Puedes usar este servicio para declarar tus impuestos estatales de %{state} de %{year}
           title2_html: |
             Asegurémonos de que este servicio es el indicado para ti.<br><br>
@@ -2674,54 +2729,6 @@ es:
           social_security_retirement_deduction: Deducciones de Seguridad Social y Beneficios de Jubilación Ferroviaria
           tax_prepayments: 'Reportar pagos anticipados de impuestos, incluyendo: pagos de extensión, pagos estimados y reembolsos de %{last_tax_year} aplicados a los impuestos de %{tax_year}.'
         md_reveals:
-          body1_html: |
-            <ul>
-              <li>
-                Restas:
-                <ul>
-                  <li>Suministros para el aula para maestros de grados K a 12</li>
-                  <li>Cuotas sindicales</li>
-                  <li>Pagos de un sistema de pensiones a bomberos y policías por lesiones o discapacidades relacionadas con el trabajo</li>
-                  <li>Gastos de hasta $5,000 de una persona ciega para un lector, o hasta $1,000 de un empleador para comprar un lector para un empleado ciego</li>
-                  <li>Contribuciones a cuentas ABLE</li>
-                  <li>Exclusión de pensiones (si tienes menos de 65 años y quieres incluirla debido a una discapacidad permanente, por primera vez)</li>
-                  <li>Cualquier otra deducción de Maryland no mencionada aquí (consulta <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">el formulario 502SU</a>)</li>
-                </ul>
-              </li>
-              <li>
-                Créditos:
-                <ul>
-                  <li>Crédito Tributario para el Alivio de Deuda de Préstamos para Estudiantes</li>
-                  <li>Crédito para Incentivar la Calidad de los Maestros</li>
-                  <li>Crédito por Seguro de Cuidado a Largo Plazo</li>
-                  <li>Crédito Tributario por Vida Independiente</li>
-                  <li>Crédito Tributario por Hijos de Maryland (si lo incluyes con base en la discapacidad del niño)</li>
-                  <li>Crédito Tributario por Ingresos del Trabajo de Maryland (si no reclamaste el Crédito Tributario por Ingresos del Trabajo Federal)</li>
-                  <li>Cualquier otro crédito de Maryland no mencionado <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(consulta el formulario 502CR</a>)</li>
-                </ul>
-              </li>
-
-              <li>
-                Situaciones del hogar:
-                <ul>
-                  <li>Declarar impuestos federales y estatales utilizando diferentes estados civiles tributarios (por ejemplo, presentar sus impuestos como casados declarando juntos en su declaración federal y querer presentar tu declaración estatal como casado declarando por separado)</li>
-                  <li>Agregar o quitar dependientes incluídos en tu declaración federal en el caso de tu declaración estatal</li>
-                  <li>Dividir el reembolso entre varias cuentas</li>
-                  <li>Estar casado y declarando conjuntamente con un cónyuge fallecido</li>
-                </ul>
-              </li>
-
-              <li>
-                Pagos:
-                <ul>
-                  <li>Pagos de impuestos estimados</li>
-                  <li>Pagos de impuestos por extensión</li>
-                </ul>
-              </li>
-            </ul>
-            <p>
-            Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
-            </p>
           body2_html: |
             <p>
               Este año, <strong>no puedes reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland utilizando este servicio</strong> en los siguientes escenarios:
@@ -2754,15 +2761,44 @@ es:
               </ul>
             </p>
           credits_not_supported: "¿Qué restas, créditos y otras situaciones NO admite este servicio este año?"
+          reveal_1:
+            cred_b1: Crédito Tributario para el Alivio de Deuda de Préstamos para Estudiantes
+            cred_b2: Crédito para Incentivar la Calidad de los Maestros
+            cred_b3: Crédito por Seguro de Cuidado a Largo Plazo
+            cred_b4: Crédito Tributario por Vida Independiente
+            cred_b5: Crédito Tributario por Hijos de Maryland (si lo incluyes con base en la discapacidad del niño)
+            cred_b6: Crédito Tributario por Ingresos del Trabajo de Maryland (si no reclamaste el Crédito Tributario por Ingresos del Trabajo Federal)
+            cred_b7_html: Cualquier otro crédito de Maryland no mencionado <a href="https://www.marylandtaxes.gov/forms/24-forms/502CR.pdf" target="_blank">(consulta el formulario 502CR</a>)
+            credits_title: 'Créditos:'
+            house_b1: Declarar impuestos federales y estatales utilizando diferentes estados civiles tributarios (por ejemplo, presentar sus impuestos como casados declarando juntos en su declaración federal y querer presentar tu declaración estatal como casado declarando por separado)
+            house_b2: Agregar o quitar dependientes incluídos en tu declaración federal en el caso de tu declaración estatal
+            house_b3: Dividir el reembolso entre varias cuentas
+            house_b4: Estar casado y declarando conjuntamente con un cónyuge fallecido
+            household_title: 'Situaciones del hogar:'
+            more_details_html: Encuentra un desglose más detallado de los créditos y restas y otras situaciones no respaldadas este año <a href="https://www.fileyourstatetaxes.org/es/md/faq/md_not_supported_credits_and_subtractions" rel="noopener nofollow" target="_blank">aquí</a>.
+            pay: Reportar pagos de impuestos estimados
+            pay_b1: Pagos de impuestos estimados
+            pay_b2: Pagos de impuestos por extensión
+            payments_title: 'Pagos:'
+            sub_b1: Suministros para el aula para maestros de grados K a 12
+            sub_b2: Cuotas sindicales
+            sub_b3: Pagos de un sistema de pensiones a bomberos y policías por lesiones o discapacidades relacionadas con el trabajo
+            sub_b4: Gastos de hasta $5,000 de una persona ciega para un lector, o hasta $1,000 de un empleador para comprar un lector para un empleado ciego
+            sub_b5: Contribuciones a cuentas ABLE
+            sub_b6: Exclusión de pensiones (si tienes menos de 65 años y quieres incluirla debido a una discapacidad permanente, por primera vez)
+            sub_b7_html: Cualquier otra deducción de Maryland no mencionada aquí (consulta <a href="https://www.marylandtaxes.gov/forms/24-forms/502SU.pdf" target="_blank">el formulario 502SU</a>)
+            subtractions_title: 'Restas:'
           title2: "¿Qué escenarios para reclamar el Crédito Tributario por Ingresos del Trabajo de Maryland y/o el Crédito Tributario por Hijos no admite este servicio?"
-          title3: "¿Qué pasa si aún no puedo usar FileYourStateTaxes para mi situación concreta?"
+          title3: "¿Qué hago si por mi situación fiscal no puedo usar FileYourStateTaxes?"
         md_supported:
           heading1: 'Restas:'
           heading2: 'Créditos:'
+          heading3: 'Pagos:'
           sub1: Deducción por gastos de cuidado de niños y Dependientes
           sub10: Crédito tributario para Personas Mayores
           sub11: Crédito Estatal y Local por Nivel de Pobreza
           sub12: Crédito por Gastos de cuidado de Niños y Dependientes
+          sub13: Reportar pagos de extensión
           sub2:
             one: Exclusión de pensiones (si tienes 65 años o más, o si tienes menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
             other: Exclusión de pensiones (si tú o tu cónyuge tienen 65 años o más, o si tú o tu cónyuge tienen menos de 65 años y calificaste previamente para la exclusión por discapacidad permanente)
@@ -2788,6 +2824,8 @@ es:
           deduction_for_retirement_income_bailey: Deducción por ingresos de jubilación como parte del acuerdo Bailey
           deduction_for_retirement_income_uniformed: Deducción por ingresos de jubilación de los servicios uniformados
           deduction_for_taxable_portion: Deducción por la parte imponible de los beneficios del Seguro Social y de Beneficios de Jubilación Ferroviaria
+          out_of_country_extension: Declarar con una extensión por estar fuera del país
+          reporting_extension_payments: Reportar pagos de extensión
         nj_credits_unsupported:
           also_unsupported_extensions_html: |
             <li>Solicitud de prórrogas (pero sí admitimos la presentación de informes de los pagos estimados que realizó al solicitar una extensión)</li>
@@ -2996,42 +3034,50 @@ es:
           title: Firma electrónicamente tu declaración de impuestos del estado de %{state_name}
       extension_payments:
         az:
-          affirmative: 'Yes'
-          amount: Amount of extension payments
-          enter_amount: Enter the amount of extension payments paid to Arizona.
+          affirmative: Sí
+          amount: Cantidad de los pagos de extensión
+          enter_amount: Ingresa la cantidad que pagaste a Arizona por la extensión.
           negative: 'No'
-          subtitle_html: If you made a Arizona extension payment, you would have <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf rel="noopener noreferrer">Form 204</a>.
-          title: Did you make an Arizona extension payment on or before April 15, %{current_year}?
+          subtitle_html: Si pagaste por una extensión a Arizona, lo hiciste <a href="https://aztaxes.gov/Home/PaymentIndividual/" rel="noopener noreferrer" target="_blank">pagado en línea</a>, seleccionando “204 Individual Extension Payment” o enviándolo por correo postal junto con el <a href="https://azdor.gov/sites/default/files/document/FORMS_INDIVIDUAL_2024_204_f.pdf" rel="noopener noreferrer" target="_blank">Formulario 204</a>.
+          title: "¿Hiciste un pago de extensión a Arizona en o antes del 15 de abril de %{current_year}?"
+        default_payment_validation_message: Por favor ingresa la cantidad que pagaste por la extensión. La cantidad no puede ser 0.
         id:
           affirmative: Sí, hice un pago de extensión o de saldo estimado a Idaho
           amount: Cantidad de los pagos de extensión
           enter_amount: Ingresa la cantidad de los pagos que hiciste a Idaho usando el Formulario 51.
           negative: No, no hice un pago de extensión o de saldo estimado a Idaho
-          subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
+          payment_validation_message: Por favor ingresa la cantidad que pagaste por la extensión. La cantidad no puede ser 0.
+          subtitle_html: "Si pagaste por una extensión a Idaho, lo hiciste <a href=https://idahotap.gentax.com/tap/_/ target=\"_blank\" rel=\"noopener noreferrer\">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://tax.idaho.gov/wp-content/uploads/forms/EFO00092/EFO00092_08-21-2024.pdf target=\"_blank\" rel=\"noopener noreferrer\">Form 51</a>.\n<br/><br/> \nLos pagos estimados de impuestos se pueden realizar en cualquier momento durante el año fiscal, y no incluyen los impuestos retenidos de tus otros ingresos, como salarios y jubilación."
           title: "¿Hiciste un pago de extensión o de saldo estimado a Idaho sobre los impuestos de %{tax_year} en o antes del 15 de abril de %{current_year}?"
         md:
-          affirmative: 'Yes'
-          amount: Amount of extension payments
-          enter_amount: Enter the amount of extension payments paid to Maryland.
+          affirmative: Sí
+          amount: Cantidad de los pagos de extensión
+          enter_amount: Ingresa la cantidad que pagaste a Maryland por la extensión.
           negative: 'No'
-          subtitle_html: If you made a Maryland extension payment, you would have <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf rel="noopener noreferrer">Form PV</a>.
-          title: Did you make a Maryland extension payment on or before April 15, %{current_year}?
+          subtitle_html: Si pagaste por una extensión a Maryland, lo hiciste <a href=https://interactive.marylandtaxes.gov/Individuals/IndivLogin/default.asp target="_blank" rel="noopener noreferrer">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://www.marylandcomptroller.gov/content/dam/mdcomp/tax/forms/2024/PV.pdf target="_blank" rel="noopener noreferrer">Formulario PV</a>.
+          title: "¿Hiciste un pago de extensión a Maryland en o antes del 15 de abril de %{current_year}?"
         nc:
-          affirmative: 'Yes'
-          amount: Amount of extension payments
-          enter_amount: Enter the amount of extension payments paid to North Carolina.
+          affirmative: Si
+          amount: Cantidad de los pagos de extensión
+          enter_amount: Ingresa la cantidad que pagaste a Carolina del Norte por la extensión.
           negative: 'No'
-          subtitle_html: If you made a North Carolina extension payment, you would have <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 rel="noopener noreferrer">paid online</a> or mailed your payment along with <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp rel="noopener noreferrer">Form D-410</a>.
-          title: Did you make a North Carolina extension payment on or before April 15, %{current_year}?
+          subtitle_html: Si pagaste por una extensión a Carolina del Norte, lo hiciste <a href=https://electronic-services.dor.nc.gov/wps/portal/d410 target="_blank" rel="noopener noreferrer">pagado en línea</a> o enviándolo por correo postal junto con el <a href=https://eservices.dor.nc.gov/vouchers/d410.jsp target="_blank" rel="noopener noreferrer">Formulario D-410</a>.
+          title: "¿Hiciste un pago de extensión a Carolina del Norte en o antes del 15 de abril de %{current_year}?"
       federal_extension_payments:
         edit:
-          'false': No, I was not granted a federal extension
-          list_1: Made a federal extension payment
-          list_2_html: Filed <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Form 4868</a> online or sent by mail
-          subtitle_1: If you were granted a federal extension, this means you can file your federal and state tax returns until October 15th without incurring a failure to file penalty.
-          subtitle_2: 'You would have been granted a federal extension if you did either of the following on or before April 15th:'
-          title: Were you granted a federal extension?
-          'true': Yes, I was granted a federal extension
+          affirmative: Sí, presenté una solicitud para una extensión federal
+          list_1: Hiciste un pago de extensión federal
+          list_2_html: Presentaste el <a href="https://www.irs.gov/pub/irs-pdf/f4868.pdf" target="_blank" rel="noopener noreferrer">Formulario 4868</a> en línea o lo enviaste por correo postal
+          nc:
+            affirmative: Sí, me otorgaron una extensión federal
+            negative: No, no me otorgaron una extensión federal
+            subtitle_1: Si te aceptaron una solicitud de extensión federal, esto significa que puedes presentar tus declaraciones de impuestos federales y estatales hasta el 15 de octubre sin incurrir en una multa por no presentar.
+            subtitle_2: 'Te habrían concedido una extensión federal si realizaste alguna de las siguientes acciones en o antes del 15 de abril:'
+            title: "¿Te otorgaron una extensión federal?"
+          negative: No, no presenté una solicitud para una extensión federal
+          subtitle_1: Si presentaste una solicitud para una extensión federal, esto significa que puedes presentar tus declaraciones de impuestos federales y estatales hasta el 15 de octubre sin incurrir en una multa por no presentar.
+          subtitle_2: 'Presentaste una solicitud para una extensión federal si realizaste alguna de las siguientes acciones en o antes del 15 de abril:'
+          title: "¿Presentaste una solicitud para una extensión federal?"
       id_disability:
         edit:
           help_b1: Un individuo reconocido como discapacitado por la Administración del Seguro Social, la Junta de Jubilación de los Ferrocarriles o la Oficina de Administración y Presupuesto (OMB, por sus siglas en inglés).
@@ -3338,18 +3384,19 @@ es:
       md_permanent_address:
         edit:
           address_header: Dirección
+          address_is_not_po_box: No puedes usar un apartado postal como la dirección donde vivías. Por favor ingresa una dirección válida.
           apartment_number_label: Número de apartamento/unidad
           city_label: Cuidad
           df_address_is_po_box:
             p1: 'La dirección que tenemos registrada para ti es un apartado postal:'
-            p2: Ya que no puedes declarar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
-          follow_up_help_text: No se aceptan PO Boxes
+            p2: Ya que no puedes usar un apartado postal como la dirección donde vivías, necesitamos que nos digas dónde vivías el 31 de diciembre del %{tax_year}.
+          follow_up_help_text: No se aceptan apartados postales (PO Boxes)
           mark_no_hint_html: Marca “no” si la dirección que aparece es un PO Box <strong>o</strong> si vivías en una dirección distinta el 31 de diciembre de %{filing_year}.
           state_label: Estado
           street_address_label: Dirección
           title: "¿Vivías en esta dirección el 31 de diciembre de %{filing_year}?"
           title_df_po_box: Necesitamos saber dónde vivías el 31 de diciembre del %{filing_year}?
-          where_did_you_live: "¿Dónde vivías el 31 de diciembre de %{filing_year}?"
+          where_did_you_live: "¿En qué dirección vivías el 31 de diciembre del %{filing_year}?"
           zip_label: Código postal
       md_permanently_disabled:
         edit:
@@ -3478,7 +3525,12 @@ es:
           title: Primero, veamos si puedes usar este servicio para declarar tus impuestos del %{filing_year} de Carolina del Norte
       nc_out_of_country:
         edit:
-          title: Were you out of the country on April 15, %{year} and a US citizen or resident?
+          affirmative: Sí, estaba fuera del país el 15 de abril de %{current_year}
+          list_1: Vivías fuera de los Estados Unidos o Puerto Rico y tu lugar principal de trabajo estaba fuera de los Estados Unidos o Puerto Rico, o
+          list_2: Estabas prestando servicio militar fuera de los Estados Unidos o Puerto Rico
+          negative: No, estaba fuera del país el 15 de abril de %{current_year}
+          subtitle: 'Esto significa que el 15 de abril de %{current_year}, tú:'
+          title: "¿Estabas fuera del país el 15 de abril de %{current_year}?"
       nc_primary_state_id:
         nc_primary:
           encourage_sharing: Aunque se recomienda compartir esta información, no es un requisito para presentar tus impuestos en Carolina del Norte.
@@ -3595,6 +3647,9 @@ es:
           direct_debit_payment_info_three: Tu pago se considerará puntual si lo envías en la fecha de vencimiento y seleccionas la primera fecha de débito disponible. Recibirás un correo electrónico de confirmación de NCDOR después de que tu pago sea recibido.
           direct_debit_payment_info_two: La fecha de débito se basa en un corte a las 5:00 pm, hora del este. En otras palabras, si envías tu pago por débito bancario después de las 5:00 pm hora del este, la fecha de débito más temprana disponible será dentro de dos días hábiles.
           how_would_you_like_to_pay: "¿Cómo te gustaría pagar?"
+          interest_warning:
+            p1: Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Esto no se calculará en esta declaración, y el Departamento de Ingresos de Carolina del Norte te enviará una factura aparte por esta cantidad.
+            p2_html: Los intereses seguirán acumulándose hasta que pagues tus impuestos. Puedes conocer más sobre los intereses y penalizaciones <a target="_blank" rel="noopener nofollow" href="https://www.ncdor.gov/penalties-and-interest#FailuretoFileandFailuretoPayPenalties-11245">aquí</a>.
           more_info_about_automatic_draft_payments: Más información sobre los pagos por débito automático
           more_info_about_direct_debit_payment: Más información sobre la fecha de pago usando débito directo
           page_title: Usted debe impuestos estatales. ¿Cómo le gustaría pagar?
@@ -3874,7 +3929,8 @@ es:
           eitc: Crédito Tributario por Ingreso del Trabajo de New Jersey (NJEITC por las siglas en inglés)
           estimated_tax_payments: Monto de pagos estimados trimestrales
           extension_payments: Pago realizado cuando pediste una prórroga
-          has_estimated_payments: Estimated or other payments
+          federal_extension: Extensión Federal
+          has_estimated_payments: Pagos estimados u otros pagos
           household_rent_own: Situación de vivienda en %{filing_year}
           household_rent_own_both: Dueño/a e inquilino/a
           household_rent_own_neither: Ni dueño/a ni inquilino/a
@@ -3882,6 +3938,7 @@ es:
           household_rent_own_rent: Inquilino/a
           medical_expenses: Gastos médicos totales
           missing_health_insurance: Dependientes que NO tienen seguro médico
+          more_household_details: Mas detalles del hogar
           overpayments: Monto del reembolso transferido del año anterior
           primary_claimed_as_eitc_qualifying_child: Podrías ser hijo/a calificado/a de otra persona
           primary_disabled: Exención por discapacidad
@@ -4190,7 +4247,9 @@ es:
             <li>
              Hacer tu cheque o giro postal a nombre de %{payable_to}. Escribe tu SSN o ITIN completo, "%{filing_year} Tax", y "Form %{form_number}" en tu pago.
             </li>
-          direct_debit_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
+          direct_debit:
+            after_deadline_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo lo más pronto que puedas.
+            before_deadline_html: Si tienes un saldo de impuestos pendiente, recuerda <strong>pagarlo en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a></strong> o por correo antes de la fecha límite de declaración que es el 15 de abril.
           download_voucher: Descarga e imprime el formulario de comprobante de pago completado.
           feedback: Valoramos sus comentarios; háganos saber lo que piensa de esta herramienta.
           include_payment: Completa el formulario de comprobante de pago
@@ -4369,10 +4428,26 @@ es:
               <li>Selecciona “VET” en el menú desplegable debajo de Código de notificación (en inglés “Notice Code”).</li>
               <li>Ingresa el resto de tu información, incluido tu número de Seguro Social, para asegurar que los documentos se vinculen con tu declaración de impuestos.</li>
             </ol>
+        penalty_interest_warning:
+          billing_agency:
+            az: el Departamento de Ingresos de Arizona
+            id: el Departamento de Ingresos de Idaho
+            md: el Contralor de Maryland
+            nc: el Departamento de Ingresos de Carolina del Norte
+            nj: la División de Impuestos de Nueva Jersey
+          p1: Debido a que presentaste tu declaración después del 15 de abril de 2025, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Los intereses seguirán acumulándose hasta que pagues tus impuestos.
+          p2: Esta cantidad no fue calculada en tu declaración estatal, y %{billing_agency} te enviará una factura aparte por esta cantidad.
       tax_refund:
         bank_details:
           account_number: Número de cuenta
-          after_deadline_default_withdrawal_info: Debido al hecho de que estás enviando tu declaración el %{payment_deadline_date} de %{payment_deadline_year} o después, el estado retirará tu pago tan pronto como se procese tu declaración.
+          after_deadline_withdrawal_info:
+            default: Debido a que estás presentando tu declaración el %{payment_deadline_date} de %{payment_deadline_year} o después, el estado cobrará tu pago tan pronto como procesen tu declaración.
+            id:
+              p1: Los números de ruta (routing number) y de cuenta bancaria que ingreses se usarán para tu pago de impuestos estatales. Esta es solo la solicitud de pago. Es tu responsabilidad revisar tu estado de cuenta bancario para confirmar que esta transacción fue exitosa. Si estás realizando un pago por débito directo, no se debe hacer un pago usando QuickPay en sucesión.
+              p2: Debido a que estás presentando tu declaración el %{payment_deadline_date} de %{payment_deadline_year} o después, el estado cobrará tu pago tan pronto como procesen tu declaración.
+            md:
+              p1: Debido a que presentaste tu declaración después del 15 de abril de %{payment_deadline_year}, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Los intereses seguirán acumulándose hasta que pagues tus impuestos.
+          authorized_amount: By filling in your information here, you authorize a withdrawal of $%{owed_amount} from your account.
           bank_title: 'Comparte los detalles de tu cuenta bancaria:'
           confirm_account_number: Confirma el número de cuenta
           confirm_routing_number: Confirma el número de ruta bancaria (routing number)
@@ -4387,12 +4462,25 @@ es:
           title_html: Buenas noticias, recibirás un reembolso de impuestos del estado de %{state_name} de <strong>$%{refund_amount}.</strong>
       taxes_owed:
         edit:
+          interest_warning:
+            az:
+              p1: Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Esto no se calculará en esta declaración, y el Departamento de Ingresos de Arizona te enviará una factura aparte por esta cantidad
+              p2_html: Los intereses seguirán acumulándose hasta que pagues tus impuestos. Puedes conocer más sobre los intereses y penalizaciones <a target="_blank" rel="noopener nofollow" href="https://azdor.gov/contact-us">aquí</a>.
+            id:
+              p1: Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Esto no se calculará en esta declaración, y el Departamento de Ingresos de Idaho te enviará una factura aparte por esta cantidad.
+              p2_html: Los intereses seguirán acumulándose hasta que pagues tus impuestos. Puedes conocer más sobre los intereses y penalizaciones <a target="_blank" rel="noopener nofollow" href="https://tax.idaho.gov/taxes/income-tax/penalties-and-interest/">aquí</a>.
+            md:
+              p1: Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Los intereses seguirán acumulándose hasta que pagues tus impuestos.
+              p2: Esto no se calculará en esta declaración, y el Contralor de Maryland te enviará una factura aparte por esta cantidad.
+            nj:
+              p1: Debido a que estás presentando tu declaración después del 15 de abril, es posible que se te cobren intereses, multas o ambos sobre los impuestos que debes. Los intereses seguirán acumulándose hasta que pagues tus impuestos.
+              p2: Esto no se calculará en esta declaración, y la División de Impuestos de Nueva Jersey te enviará una factura aparte por esta cantidad.
           more_tax_information_nj_html: <p><a href="https://www.nj.gov/treasury/taxation/payments-notices.shtml" target="_blank" rel="noopener nofollow">Aquí hay más información sobre las fechas de vencimiento de impuestos y los modos de pago.</a></p>
           page_title: Debes impuestos estatales. ¿Cómo te gustaría pagar?
           pay_bank: Directamente desde tu cuenta corriente o de ahorros (débito directo)
           pay_mail_online_html: Por correo o en línea en <a target="_blank" rel="noopener nofollow" href="%{tax_payment_info_url}">%{tax_payment_info_text}</a>
           subtitle: "¿Cómo te gustaría pagar?"
-          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="https://marylandtaxes.gov/">Marylandtaxes.gov</a>
+          subtitle_html: Para obtener más información sobre las fechas de vencimiento de impuestos y los métodos de pago, visita <a target="_blank" rel="noopener nofollow" href="%{link}">%{link}</a>
           title_html: Debes <strong>$%{owed_amount}</strong> en impuestos estatales de %{state_name}.
           underpayment_notice_nj_html: |-
             <p>Esto puede suceder por muchas razones, las más comunes son:</p>
@@ -4525,6 +4613,7 @@ es:
           local_wages_and_tips_amt_error: Ingresa los salarios y propinas locales
           locality_nm_missing_error: Selecciona el nombre de la localidad
           no_money_amount: Please enter an amount. If amount is blank, enter $0.
+          review_box_14: Please review and update this number from Box 14 of your W-2.
           save_and_continue: Guardar y Continuar
           state_income_tax_amt_error: No puede ser mayor que los salarios y propinas estatales.
           state_wages_amt_error: Ingresa los salarios y propinas estatales
@@ -4560,9 +4649,9 @@ es:
         subheader_1_html: |
           FileYourStateTaxes se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.
           <br /><br />
-          Este sitio empezará a funcionar al inicio de la temporada de impuestos de 2025 y estará activo hasta el 15 de octubre de 2025 para que puedas presentar tus declaraciones de impuestos estatales.
+          Este sitio está operativo y continuará activo hasta el 15 de octubre de 2025 para que puedas presentar tus declaraciones de impuestos estatales.
           <br /><br />
-          <strong>En 2025, este servicio funcionará para presentar los impuestos estatales en Arizona, Idaho, Carolina del Norte, New Jersey y Maryland.</strong>
+          <strong>Para la temporada de impuestos de 2025, este servicio admite la presentación de declaraciones de impuestos estatales en Arizona, Idaho, North Carolina, New Jersey y Maryland.</strong>
         subheader_2_html: Para declarar tus declaración de impuestos federales, visita <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
         subheader_3_html: "<strong>¿Ya comenzaste declaración de impuestos estatales y quieres completarla?</strong> <a href=%{login_path}>Inicia sesión aquí</a>."
       card_postscript:
@@ -6212,10 +6301,6 @@ es:
         multiple_forms: El IRS requiere que verifiquemos quién es usted con variadas formas de identidad.
         title: Primero, necesitamos confirmar su información básica.
       ids:
-        expanded_id:
-          help_text: El IRS requiere que veamos una tarjeta de identificación actual. Usaremos su tarjeta de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS.
-          info: Está bien si su identificación está vencida o si tiene una licencia de conducir temporal, siempre que podamos ver claramente su nombre y foto.
-          title: Adjunte fotos de su tarjeta de identificación
         help_text:
           many: El IRS requiere que chequeemos una licencia de conducir, pasaporte o identificación estatal actual para usted y su esposo/a.
           one: El IRS nos exige que veamos una licencia de conducir, un pasaporte o una identificación estatal actuales.
@@ -6237,32 +6322,7 @@ es:
         schedule_appointment: Cuando haya terminado de compartir los documentos que tiene, programaremos una cita con su preparador de impuestos.
         spouse_doc_needed: Por favor agregue documentos para usted y su cónyuge.
         title: "¡Buen trabajo! Aquí hay una lista de lo que hemos reunido."
-      selfie_instructions:
-        header: Confirme su identidad con una foto de usted sosteniendo su tarjeta de identificación
-        info: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos. Hacemos esto al revisar una foto de usted sosteniendo su tarjeta de identificación.
-        steps:
-          face_camera: Mire directamente a la cámara e incluya desde los hombros hasta la parte superior de la cabeza, similar a su foto de identificación
-          face_visible: Asegúrese de que su cara está claramente visible
-          header: Lea los siguientes pasos antes de continuar
-          id_visible: Asegúrese de no estar cubriendo su identificación
-          plain_background: Use una pared simple/en blanco como fondo si es posible
-          wear_glasses: Si usa anteojos en su foto de identificación, úselos en su foto selfie
-        submit_photo: Enviar una foto
-      selfies:
-        help_text: El IRS requiere que verifiquemos quién es usted para los servicios de preparación de impuestos.
-        need_for_html: 'Necesitaremos ver una <u>foto con ID</u> para:'
-        title: Comparta una foto de usted sosteniendo su tarjeta de identificación
-      spouse_ids:
-        expanded_id:
-          title: Adjunte fotos de la tarjeta de identificación de su cónyuge
-      spouse_ssn_itins:
-        expanded_id:
-          title: Adjunte fotos de una forma adicional de identificación para su cónyuge
       ssn_itins:
-        expanded_id:
-          box: Asegúrese de que su nombre y número de identificación estén claramente visibles.
-          help_text: El IRS requiere que veamos una forma adicional de identidad. Usamos una segunda forma de identificación para verificar y proteger su identidad de acuerdo con las pautas del IRS.
-          title: Adjunte fotos de una forma adicional de identificación
         help_text: El IRS nos exige que veamos una tarjeta de Seguro Social o documentación ITIN válida de todos en el hogar para los servicios de preparación de impuestos.
         need_for: 'Necesitaremos un SSN o ITIN para:'
         title: Adjunte fotos de la Tarjeta de Seguro Social o Número de Identificación Personal (ITIN en inglés)
@@ -6642,6 +6702,8 @@ es:
         title: Vaya, parece que estamos al límite de capacidad en este momento.
         warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el %{tax_deadline}.</b> Recomendamos presentar la solicitud lo antes posible."
       backtaxes:
+        after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
+        after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"
       balance_payment:
@@ -6869,6 +6931,7 @@ es:
           other: En %{year}, ¿recibió usted o su cónyuge un reembolso del impuesto sobre la renta estatal o local?
       mailing_address:
         city: Ciudad
+        info_html: Se requiere una dirección postal para presentar tu declaración de impuestos. Para obtener más información sobre las direcciones que son aceptables, <a href="https://www.getyourrefund.org/es/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">consulta nuestras preguntas frecuentes.</a>
         state: Estado o territorio de EE. UU.
         street_address: Dirección o apartado postal
         street_address2: Número de apartamento (opcional)
@@ -7029,6 +7092,7 @@ es:
         title: Seleccione cualquier situación que haya sido cierta para su cónyuge en %{year}
       ssn_itin:
         title: Favor de proporcionar su información de identificación del contribuyente, "taxpayer identification information" en inglés.
+        warning_html: ⚠️ <b>Declarantes inmigrantes:</b> A partir del 7 de abril, el IRS y el Departamento de Seguridad Nacional (incluyendo ICE) han llegado a un acuerdo para compartir datos entre las agencias. <a href="https://www.getyourrefund.org/es/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Consulte nuestras preguntas frecuentes para más información</a>
       start_with_current_year:
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
         title: Comenzaremos preguntando sobre su situación en el %{year}.

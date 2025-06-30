@@ -17,6 +17,7 @@ module StateFile
       :submission_builder_class,
       :submission_type,
       :survey_link,
+      :taxes_due_dates_payment_info,
       :tax_payment_info_url,
       :tax_payment_info_text,
       :tax_refund_url,
@@ -27,6 +28,7 @@ module StateFile
       :voucher_path,
       :w2_supported_box14_codes,
       :w2_include_local_income_boxes,
+      :auto_calculate_withdraw_amount,
     ].freeze
 
     class << self
@@ -58,26 +60,36 @@ module StateFile
       # Returns the state-specific date in the current filing year only - no time or timezone.
       # Since MD's payment deadline changes after tax day, the datetime param is used to find what the deadline is on a given day
       # Ex: 2025-04-15
-      def payment_deadline_date(state_code, datetime = DateTime.now)
-        payment_deadline = state_code == "md" ? get_md_payment_deadline(datetime) : { month: 4, day: 15 }
-        Date.new(datetime.year, payment_deadline[:month], payment_deadline[:day])
+      def payment_deadline_date(state_code, time = Time.current)
+        time ||= Time.current
+        return get_md_payment_deadline(time) if state_code == "md"
+        Rails.configuration.tax_deadline.to_date
       end
 
-      # Check if the day of a given DateTime is before the deadline date, using the state-specific/government timezone
+      # Check if the day of a given DateTime is before the payment deadline date, using the state-specific/government timezone
       def before_payment_deadline?(datetime, state_code)
         payment_deadline_date = StateInformationService.payment_deadline_date(state_code, datetime)
         timezone = StateInformationService.timezone(state_code)
         datetime.in_time_zone(timezone).to_date.before?(payment_deadline_date)
       end
 
+      # Check if the day of a given DateTime is after the tax deadline date, using the state-specific/government timezone
+      def after_payment_deadline?(time, state_code)
+        timezone = StateInformationService.timezone(state_code)
+        deadline = Rails.configuration.tax_deadline.to_date
+        time.in_time_zone(timezone).to_date.after?(deadline)
+      end
+
       # Maryland has different payment deadline logic from all our other States
       # 1. If filing before April 16: payment can be scheduled until April 30th
       # 2. If filing on or after April 16: payment cannot be scheduled (same as other States)
-      def get_md_payment_deadline(datetime)
+      def get_md_payment_deadline(time)
         timezone = StateInformationService.timezone("md")
-        before_april_16 = datetime.in_time_zone(timezone).to_date.before?(Date.new(datetime.year, 4, 16))
-        return { month: 4, day: 30 } if before_april_16
-        { month: 4, day: 16 }
+        day_after_deadline = Rails.configuration.tax_deadline.to_date + 1.day
+        on_or_before_deadline = time.in_time_zone(timezone).to_date.before?(day_after_deadline)
+
+        return Date.new(time.year, 4, 30) if on_or_before_deadline
+        day_after_deadline
       end
 
       def active_state_codes
@@ -110,11 +122,12 @@ module StateFile
         pay_taxes_link: "https://www.aztaxes.gov/",
         return_type: "Form140",
         review_controller_class: StateFile::Questions::AzReviewController,
-        schema_file_name: "AZIndividual2024v2.0.zip",
+        schema_file_name: "AZIndividual2024v2.1.zip",
         software_id_key: "sin",
         submission_builder_class: SubmissionBuilder::Ty2022::States::Az::AzReturnXml,
         survey_link: I18n.t("state_file.state_information_service.az.survey_link"),
         submission_type: "Form140",
+        taxes_due_dates_payment_info: "AZTaxes.gov/Home/PaymentIndividual",
         tax_payment_info_text: "https://azdor.gov/make-payment-online",
         tax_payment_info_url: "https://azdor.gov/making-payments-late-payments-and-filing-extensions",
         tax_refund_url: "https://aztaxes.gov/home/checkrefund",
@@ -125,6 +138,7 @@ module StateFile
         voucher_path: "/pdfs/AZ-140V.pdf",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
+        auto_calculate_withdraw_amount: false
       },
       id: {
         intake_class: StateFileIdIntake,
@@ -143,6 +157,7 @@ module StateFile
         submission_type: "Form40",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Id::IdReturnXml,
         survey_link: I18n.t("state_file.state_information_service.id.survey_link"),
+        taxes_due_dates_payment_info: "https://tax.idaho.gov/",
         tax_payment_info_text: "https://tax.idaho.gov/e-pay/",
         tax_payment_info_url: "https://tax.idaho.gov/online-services/e-pay/",
         tax_refund_url: "https://tax.idaho.gov/taxes/income-tax/individual-income/refund/",
@@ -153,6 +168,7 @@ module StateFile
         voucher_path: "/pdfs/idformIDVP-TY2024.pdf",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
+        auto_calculate_withdraw_amount: false
       },
       md: {
         intake_class: StateFileMdIntake,
@@ -172,6 +188,7 @@ module StateFile
         submission_type: "MD502",
         submission_builder_class: SubmissionBuilder::Ty2024::States::Md::MdReturnXml,
         survey_link: I18n.t("state_file.state_information_service.md.survey_link"),
+        taxes_due_dates_payment_info: "Marylandtaxes.gov",
         tax_payment_info_text: "Marylandtaxes.gov",
         tax_payment_info_url: "https://www.marylandtaxes.gov/individual/individual-payments.php",
         tax_refund_url: "https://interactive.marylandtaxes.gov/INDIV/refundstatus/home.aspx",
@@ -182,6 +199,7 @@ module StateFile
         voucher_path: "/pdfs/md-pv-TY2024.pdf",
         w2_supported_box14_codes: [{name: "STPICKUP"}],
         w2_include_local_income_boxes: true,
+        auto_calculate_withdraw_amount: false
       },
       nc: {
         intake_class: StateFileNcIntake,
@@ -192,7 +210,7 @@ module StateFile
                               "PO Box 25000<br/>" \
                               "Raleigh, NC 27640-0640".html_safe,
         navigation_class: Navigation::StateFileNcQuestionNavigation,
-        pay_taxes_link: "https://www.nc.gov/working/taxes",
+        pay_taxes_link: "https://electronic-services.dor.nc.gov/wps/portal/d400v",
         return_type: "FormNCD400",
         review_controller_class: StateFile::Questions::NcReviewController,
         schema_file_name: "NCIndividual2024v1.0.zip",
@@ -201,6 +219,7 @@ module StateFile
         submission_builder_class: SubmissionBuilder::Ty2024::States::Nc::NcReturnXml,
         survey_link: I18n.t("state_file.state_information_service.nc.survey_link"),
         tax_payment_info_text: "NCDOR.gov",
+        taxes_due_dates_payment_info: "",
         tax_payment_info_url: "https://www.ncdor.gov/file-pay/pay-individual-income-tax",
         tax_refund_url: "https://eservices.dor.nc.gov/wheresmyrefund/SelectionServlet",
         timezone: 'America/New_York',
@@ -210,6 +229,7 @@ module StateFile
         voucher_path: "https://eservices.dor.nc.gov/vouchers/d400v.jsp?year=2024",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
+        auto_calculate_withdraw_amount: false
       },
       nj: {
         intake_class: StateFileNjIntake,
@@ -229,6 +249,7 @@ module StateFile
         pay_taxes_link: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
         survey_link: I18n.t("state_file.state_information_service.nj.survey_link"),
         submission_type: "Resident",
+        taxes_due_dates_payment_info: "",
         tax_payment_info_text: "https://www1.state.nj.us/TYTR_RevTaxPortal/jsp/IndTaxLoginJsp.jsp",
         tax_payment_info_url: "https://www.state.nj.us/treasury/taxation/payments-notices.shtml",
         tax_refund_url: "https://www.nj.gov/treasury/taxation/checkrefundstatus.shtml",
@@ -239,6 +260,7 @@ module StateFile
         voucher_path: "/pdfs/nj1040v-TY2024.pdf",
         w2_supported_box14_codes: [{name: "UI_WF_SWF", limit: 180}, {name: "FLI", limit: 145.26}],
         w2_include_local_income_boxes: false,
+        auto_calculate_withdraw_amount: true
       },
       ny: {
         intake_class: StateFileNyIntake,
@@ -258,6 +280,7 @@ module StateFile
         software_id_key: "sin",
         submission_builder_class: SubmissionBuilder::Ty2022::States::Ny::NyReturnXml,
         survey_link: I18n.t("state_file.state_information_service.ny.survey_link"),
+        taxes_due_dates_payment_info: "",
         tax_payment_info_text: "Tax.NY.gov",
         tax_payment_info_url: "https://www.tax.ny.gov/pay/ind/pay-income-tax-online.htm",
         tax_refund_url: "https://www.tax.ny.gov/pit/file/refund.htm",
@@ -268,6 +291,7 @@ module StateFile
         voucher_path: "/pdfs/it201v_1223.pdf",
         w2_supported_box14_codes: [],
         w2_include_local_income_boxes: false,
+        auto_calculate_withdraw_amount: false
       }
     }.with_indifferent_access)
   end

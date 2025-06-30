@@ -27,6 +27,27 @@ module StateFile
 
     private
 
+    def self.existing_attributes(intake)
+      already_answered_disability = !intake.primary_disabled_unfilled? && !intake.spouse_disabled_unfilled?
+      if already_answered_disability
+        mfj_disability = case [intake.primary_disabled, intake.spouse_disabled]
+                         when ["yes", "yes"]
+                           "both"
+                         when ["no", "no"]
+                           "none"
+                         when ["yes", "no"]
+                           "primary"
+                         when ["no", "yes"]
+                           "spouse"
+                         else
+                           nil
+                         end
+        super.merge(mfj_disability: mfj_disability)
+      else
+        super
+      end
+    end
+
     def primary_requires_proof?
       return false unless intake.should_warn_about_pension_exclusion?
 

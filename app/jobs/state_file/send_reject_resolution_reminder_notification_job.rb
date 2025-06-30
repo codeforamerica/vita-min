@@ -1,13 +1,14 @@
 module StateFile
   class SendRejectResolutionReminderNotificationJob < ApplicationJob
     def perform(intake)
-      return unless notified_of_rejected_and_not_accepted(intake)
+      return if intake.other_intake_with_same_ssn_has_submission?
+      return unless notified_of_rejected_and_not_accepted?(intake)
 
       StateFile::MessagingService.new(
         intake: intake,
         message: StateFile::AutomatedMessage::RejectResolutionReminder,
         body_args: { return_status_link: return_status_link(intake) }
-      ).send_message(require_verification: false)
+      ).send_message
     end
 
     def priority
@@ -24,7 +25,9 @@ module StateFile
       self.class.return_status_link(intake.locale || "en")
     end
 
-    def notified_of_rejected_and_not_accepted(intake)
+    private
+
+    def notified_of_rejected_and_not_accepted?(intake)
       transition_states = intake.efile_submissions.flat_map do |submission|
         submission.efile_submission_transitions.map(&:to_state)
       end.uniq

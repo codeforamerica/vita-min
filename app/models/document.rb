@@ -98,6 +98,10 @@ class Document < ApplicationRecord
     upload&.content_type == "application/pdf"
   end
 
+  def is_txt_file?
+    upload&.content_type == "text/plain"
+  end
+
   def is_heic?
     upload&.filename&.extension_without_delimiter&.downcase == "heic"
   end
@@ -133,10 +137,6 @@ class Document < ApplicationRecord
     else
       I18n.t("hub.documents.index.system_generated_doc")
     end
-  end
-
-  def confirmation_needed?
-    document_type.in? [DocumentTypes::FinalTaxDocument.key, DocumentTypes::UnsignedForm8879.key]
   end
 
   private

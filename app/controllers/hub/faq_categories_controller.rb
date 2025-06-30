@@ -48,7 +48,6 @@ module Hub
       begin
         ActiveRecord::Base.transaction do
           # if faq_items deletion fails, don't destroy their faq_category
-          @faq_category.faq_items.map(&:destroy)
           @faq_category.destroy!
         end
         flash_message = "Deleted '#{@faq_category.name_en}' category and associated items"

@@ -90,7 +90,7 @@ describe MixpanelService do
 
           expect(MixpanelService.instance).not_to have_received(:init_flusher)
 
-          expect(Rails.logger).to receive(:info).with("Sending Mixpanel event: id abcde, event_name test_event, data {:test=>\"OK\"}")
+          expect(Rails.logger).to receive(:info).with("Sending Mixpanel event: id abcde, event_name test_event, data {test: \"OK\"}")
 
           3.times do
             MixpanelService.instance.run(
@@ -586,10 +586,11 @@ describe MixpanelService do
             had_wages: "yes",
             state_of_residence: state_of_residence,
             zip_code: "94609",
-            needs_help_2021: "yes",
-            needs_help_2020: "no",
-            needs_help_2019: "yes",
-            needs_help_2018: "no",
+            product_year: 2023,
+            needs_help_current_year: "yes",
+            needs_help_previous_year_1: "no",
+            needs_help_previous_year_2: "yes",
+            needs_help_previous_year_3: "no",
             primary_birth_date: Date.new(primary_birth_year, 3, 12),
             spouse_birth_date: Date.new(spouse_birth_year, 5, 3),
             vita_partner: vita_partner,
@@ -665,10 +666,10 @@ describe MixpanelService do
                                              had_earned_income: "yes",
                                              state: intake.state_of_residence,
                                              zip_code: "94609",
-                                             needs_help_2021: "yes",
-                                             needs_help_2020: "no",
-                                             needs_help_2019: "yes",
-                                             needs_help_2018: "no",
+                                             needs_help_current_year: "yes",
+                                             needs_help_previous_year_1: "no",
+                                             needs_help_previous_year_2: "yes",
+                                             needs_help_previous_year_3: "no",
                                              needs_help_backtaxes: "yes",
                                              vita_partner_name: vita_partner.name,
                                              timezone: "America/Los_Angeles",
@@ -686,11 +687,10 @@ describe MixpanelService do
             let(:intake) do
               build(
                 :intake,
-                # TODO: add needs_help_2022: "yes"
-                needs_help_2021: "no",
-                needs_help_2020: "no",
-                needs_help_2019: "no",
-                needs_help_2018: "no",
+                needs_help_current_year: "no",
+                needs_help_previous_year_1: "no",
+                needs_help_previous_year_2: "no",
+                needs_help_previous_year_3: "no",
               )
             end
 

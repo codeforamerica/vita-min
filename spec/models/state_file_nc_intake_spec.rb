@@ -34,9 +34,9 @@
 #  locked_at                         :datetime
 #  message_tracker                   :jsonb
 #  moved_after_hurricane_helene      :integer          default("unfilled"), not null
-#  out_of_country                    :integer          default("no"), not null
-#  paid_federal_extension_payments   :integer          default("unfilled"), not null
+#  out_of_country                    :integer          default("unfilled"), not null
 #  paid_extension_payments           :integer          default("unfilled"), not null
+#  paid_federal_extension_payments   :integer          default("unfilled"), not null
 #  payment_or_deposit_type           :integer          default("unfilled"), not null
 #  phone_number                      :string
 #  phone_number_verified_at          :datetime
@@ -240,6 +240,39 @@ RSpec.describe StateFileNcIntake, type: :model do
       let(:time) { DateTime.new(2024, 4, 16, 17, 30, 0) }
       it "is valid and saves the intake with a date 2 business days later" do
         expect(date).to eq(DateTime.new(2024, 4, 18))
+      end
+    end
+  end
+
+  describe "#positive_fed_agi?" do
+    let(:intake) { create :state_file_nc_intake }
+    let(:fed_agi) { 2112 }
+
+    before do
+      intake.direct_file_data.fed_agi = fed_agi
+    end
+
+    context "when fed agi is positive" do
+      let(:fed_agi) { 2112 }
+
+      it "returns true" do
+        expect(intake.positive_fed_agi?).to be true
+      end
+    end
+
+    context "when fed agi is negative" do
+      let(:fed_agi) { -5 }
+
+      it "returns false" do
+        expect(intake.positive_fed_agi?).to be false
+      end
+    end
+
+    context "when fed agi is 0" do
+      let(:fed_agi) { 0 }
+
+      it "returns false" do
+        expect(intake.positive_fed_agi?).to be false
       end
     end
   end

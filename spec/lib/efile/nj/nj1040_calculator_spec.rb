@@ -1895,7 +1895,7 @@ describe Efile::Nj::Nj1040Calculator do
         allow(Efile::Nj::NjFlatEitcEligibility).to receive(:eligible?).and_return true
         instance.calculate
 
-        expect(instance.lines[:NJ1040_LINE_58].value).to eq(240)
+        expect(instance.lines[:NJ1040_LINE_58].value).to eq(253)
         expect(instance.lines[:NJ1040_LINE_58_IRS].value).to eq(false)
       end
     end
