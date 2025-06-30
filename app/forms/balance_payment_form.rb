@@ -1,5 +1,5 @@
 class BalancePaymentForm < QuestionsForm
-  set_attributes_for :intake, :balance_pay_from_bank, :payment_in_installments
+  set_attributes_for :intake, :balance_pay_from_bank, :payment_in_installments, :balance_payment_choice
   attr_accessor :balance_payment_choice
 
   def save
@@ -11,24 +11,28 @@ class BalancePaymentForm < QuestionsForm
       self.balance_pay_from_bank = "no"
       self.payment_in_installments = "no"
     else
-      self.balance_pay_from_bank = "no"
+      self.balance_pay_from_bank = "unfilled"
       self.payment_in_installments = "yes"
     end
-    
-    intake.update(attributes_for(:intake))
+    intake.update(attributes_for(:intake).except(:balance_payment_choice))
   end
 
   def self.existing_attributes(intake)
-    attributes = HashWithIndifferentAccess.new
-    if intake.balance_pay_from_bank_yes?
-      attributes[:balance_payment_choice] = "yes"
-    elsif intake.balance_pay_from_bank_no?
-      attributes[:balance_payment_choice] = if intake.payment_in_installments_yes?
-                                              "installments"
-                                            else
-                                              "no"
-                                            end
+    already_answered_disability = !intake.balance_pay_from_bank_unfilled? || !intake.payment_in_installments_unfilled?
+    if already_answered_disability
+      balance_payment_choice = case [intake.balance_pay_from_bank, intake.payment_in_installments]
+                               when %w[yes no]
+                                 "yes"
+                               when %w[no no]
+                                 "no"
+                               when %w[unfilled yes]
+                                 "installments"
+                               else
+                                 nil
+                               end
+      super.merge(balance_payment_choice: balance_payment_choice)
+    else
+      super
     end
-    attributes
   end
 end
