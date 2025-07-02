@@ -252,12 +252,6 @@ en:
         communication_opt_in: If signature method is "online", a contact method and communication opt-in is required.
         contact_method_required: "%{attribute} is required if opting into notifications"
       invalid_tax_status: The provided tax status is not valid.
-      mailing_address:
-        city: 'Error: Invalid City'
-        invalid: 'Error: Invalid Address.'
-        multiple: 'Error: Multiple addresses were found for the information you entered, and no default exists.'
-        not_found: 'Error: Address Not Found.'
-        state: 'Error: Invalid State Code'
       md_county:
         residence_county:
           presence: Please select a county
@@ -4809,9 +4803,7 @@ en:
     signature_pin_matching: Signature PINs cannot be identical.
     signature_pin_zeros: 00000 is not a valid PIN.
     ssn: Please enter a valid social security number.
-    urbanization: Only numbers 0-9, letters A-Z and a-z, spaces and dashes are accepted.
     zip: Please enter a valid 5-digit zip code.
-    zip_code_with_optional_extra_digits: Please enter a valid 5-digit zip code plus optional 4 or 7 digits.
   verification_code_mailer:
     archived_intake_verification_code:
       body_html: |
@@ -4954,27 +4946,19 @@ en:
               six: 6 months
               ten: 10 months
               twelve: All year
-        direct_deposit:
-          my_bank_account:
-            error_message: Enter info for a bank account with your name on it, or switch to check as your payment type.
-            error_message_html: Enter info for a bank account with your name on it, or <a href=%{link}> select a different method for your payment</a>.
         spouse_info:
           spouse_identity: Spouse's form of identity
           spouse_identity_help_text: If using a social security card, it must be valid for employment.
-          ssn_required_message: We need a SSN/ITIN to continue. If your spouse does not have one, file for free with <a href="https://www.getyourrefund.org/">GetYourRefund</a>.
-        verification:
-          error_message: Incorrect verification code.
-        w2s:
-          misc_info:
-            box12_error: Must provide both code and value
-            box12_value_error: Value must be numeric
-            box14_error: Must provide both description and amount
-            box15_error: Must provide both state and employer's state ID number
     ctc_pages:
       home:
+        affiliations:
+          cfa_product_html: GetCTC is a <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a> product. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">Why do we do this work?</a>
+          irs: IRS-approved official E-file provider.
+          white_house_html: Made in collaboration with the <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">White House and U.S. Department of Treasury</a>.
         body: For questions or help filing your taxes visit GetYourRefund. If you haven't filed yet this year, you might be eligible to claim cash benefits.
         ctc_not_extended_notice: The Advance Child Tax Credit was a tax benefit provided to families in 2021 and 2022 and was not renewed for 2023.
         title: A tool to claim the Advance Child Tax Credit
+        visit_gyr: Visit GetYourRefund
     dependents:
       form:
         birth_date: Date of birth

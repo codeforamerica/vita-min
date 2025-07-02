@@ -252,12 +252,6 @@ es:
         communication_opt_in: Si el método de la firma es "en línea", se requiere que opte por un método de comunicación y de contacto.
         contact_method_required: "%{attribute} es obligatorio si opta para recibir notificaciones "
       invalid_tax_status: El estado de declaración de impuestos proporcionado no es válido.
-      mailing_address:
-        city: 'Error: Ciudad Inválida'
-        invalid: 'Error: Dirección Inválida'
-        multiple: 'Error: Se encontraron varias direcciones para la información que ingresó y no existe ningún predeterminado.'
-        not_found: 'Error: Dirección no encontrada'
-        state: 'Error: Código de Estado Inválido'
       md_county:
         residence_county:
           presence: Por favor seleccione un condado
@@ -4823,9 +4817,7 @@ es:
     signature_pin_matching: Los PIN de firma no pueden ser idénticos.
     signature_pin_zeros: 00000 no es un pin válido
     ssn: Por favor, ingrese un número de seguro social válido.
-    urbanization: Sólo se aceptan los números 0-9, las letras A-Z y a-z, los espacios y los guiones.
     zip: Por favor, ingrese un código postal válido de 5 dígitos.
-    zip_code_with_optional_extra_digits: Por favor, ingrese un código postal válido de 5 dígitos más los 4 o 7 dígitos opcionales.
   verification_code_mailer:
     archived_intake_verification_code:
       body_html: |
@@ -4967,27 +4959,19 @@ es:
               six: 6 meses
               ten: 10 meses
               twelve: Todo el año
-        direct_deposit:
-          my_bank_account:
-            error_message: Ingrese la información de una cuenta bancaria con su nombre, o seleccione otro método de pago.
-            error_message_html: Ingrese la información de una cuenta bancaria con su nombre, o<a href=%{link}> seleccione otro método de pago</a>.
         spouse_info:
           spouse_identity: Tipo de identificación de su cónyuge
           spouse_identity_help_text: Si utiliza una tarjeta de Seguro Social, debe ser válida para el empleo
-          ssn_required_message: Necesitamos un SSN/ITIN para continuar. Si su cónyuge no tiene uno, declare sus impuestos gratis con <a href="https://www.getyourrefund.org/">GetYourRefund</a>.
-        verification:
-          error_message: El código de verificación es incorrecto
-        w2s:
-          misc_info:
-            box12_error: debe proporcionar tanto el código como el valor
-            box12_value_error: El valor debe ser numérico
-            box14_error: Debe proveer la descripción y la cantidad
-            box15_error: Debe proveer el número de identificación del estado y del estado del empleador
     ctc_pages:
       home:
+        affiliations:
+          cfa_product_html: GetCTC es un producto de <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a>. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">¿Por qué hacemos este trabajo?</a>
+          irs: Proveedor oficial de archivos electrónicos aprobado por el IRS.
+          white_house_html: Realizado en colaboración con la <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
         body: Para preguntas o ayuda con la declaración de impuestos, visite GetYourRefund. Si aún no ha presentado su solicitud este año, es posible que sea elegible para reclamar beneficios en efectivo.
         ctc_not_extended_notice: El Crédito Tributario Anticipado por Hijos fue un beneficio tributario proporcionado a las familias en 2021 y 2022 y no se renovó para 2023.
         title: Una herramienta para reclamar el Crédito Tributario Anticipado por Hijos
+        visit_gyr: Visite GetYourRefund
     dependents:
       form:
         birth_date: Fecha de nacimiento

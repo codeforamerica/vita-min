@@ -16,10 +16,43 @@
           <%= t("views.ctc_pages.home.title") %>
         </h1>
         <p><%= t("views.ctc_pages.home.body") %></p>
+        <div>
+          <%= link_to t("views.ctc_pages.home.visit_gyr"), url_for(host: MultiTenantService.new(:gyr).host, controller: "/public_pages", action: 'home', params: { source: 'gctc_ref' }), "data-track-click": "gctc_to_gyr", class: "button button--primary" %>
+        </div>
       </div>
-
       <div class="grid-flex align-flex-end justify-flex-end">
         <%= image_tag "hero-family.png", alt: "", class: "hero-image hero-image--family" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="slab slab--short slab--affiliations">
+  <div class="grid">
+    <div class="grid__item width-one-whole affiliations">
+      <div class="grid__item width-one-third">
+        <div class="image cfa">
+          <%= image_tag('cfa-logo--black.png', alt: "") %>
+        </div>
+        <div class="text">
+          <%= t('views.ctc_pages.home.affiliations.cfa_product_html') %>
+        </div>
+      </div>
+      <div class="grid__item width-one-third">
+        <div class="image whitehouse">
+          <%= image_tag('white-house.png', alt: "") %>
+        </div>
+        <div class="text">
+          <%= t('views.ctc_pages.home.affiliations.white_house_html') %>
+        </div>
+      </div>
+      <div class="grid__item width-one-third">
+        <div class="image irs">
+          <%= image_tag('irs-efile.png', alt: "") %>
+        </div>
+        <div class="text">
+          <%= t('views.ctc_pages.home.affiliations.irs') %>
+        </div>
       </div>
     </div>
   </div>
