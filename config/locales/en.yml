@@ -4803,7 +4803,9 @@ en:
     signature_pin_matching: Signature PINs cannot be identical.
     signature_pin_zeros: 00000 is not a valid PIN.
     ssn: Please enter a valid social security number.
+    urbanization: Only numbers 0-9, letters A-Z and a-z, spaces and dashes are accepted.
     zip: Please enter a valid 5-digit zip code.
+    zip_code_with_optional_extra_digits: Please enter a valid 5-digit zip code plus optional 4 or 7 digits.
   verification_code_mailer:
     archived_intake_verification_code:
       body_html: |

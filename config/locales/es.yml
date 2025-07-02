@@ -4817,7 +4817,9 @@ es:
     signature_pin_matching: Los PIN de firma no pueden ser idénticos.
     signature_pin_zeros: 00000 no es un pin válido
     ssn: Por favor, ingrese un número de seguro social válido.
+    urbanization: Sólo se aceptan los números 0-9, las letras A-Z y a-z, los espacios y los guiones.
     zip: Por favor, ingrese un código postal válido de 5 dígitos.
+    zip_code_with_optional_extra_digits: Por favor, ingrese un código postal válido de 5 dígitos más los 4 o 7 dígitos opcionales.
   verification_code_mailer:
     archived_intake_verification_code:
       body_html: |
