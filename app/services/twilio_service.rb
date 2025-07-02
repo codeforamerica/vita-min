@@ -15,7 +15,7 @@ class TwilioService
     failed
   ).unshift(nil)
 
-  GSM_7_CHARACTERS = "@£$¥èéùìòÇØøÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !“#¤%&‘()*+!,–./0123456789:;<=!>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà€\n[\\]^{|}~"
+  GSM_7_CHARACTERS = "@£$¥èéùìòÇØøÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !#¤%&()*+!,./0123456789:;<=!>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà€\n[\\]^{|}~"
   NON_GSM_7_REGEXP = /[^#{Regexp.escape(GSM_7_CHARACTERS)}]/
   MMS_MESSAGE_LENGTH_THRESHOLD = 1000
 
