@@ -15,7 +15,15 @@ class TwilioService
     failed
   ).unshift(nil)
 
+  GSM_7_CHARACTERS = %Q(\r\n\e\f@£$¥èéùìòÇØøÅåΔ_ΦΓΛΩΠΨΣΘΞÆæßÉ !#¤%&()*+-,./0123456789:;<=¡>?ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà€[\\]^{|}~"')
+  NON_GSM_7_REGEXP = /[^#{Regexp.escape(GSM_7_CHARACTERS)}]/
+  MMS_MESSAGE_LENGTH_THRESHOLD = 1000
+
   attr_reader :client, :messaging_service_sid, :auth_token
+
+  def self.is_gsm7?(message_body)
+    (message_body =~ NON_GSM_7_REGEXP).nil?
+  end
 
   def initialize(service_type = :gyr)
     creds = MultiTenantService.new(service_type).twilio_creds
@@ -31,6 +39,7 @@ class TwilioService
       body: body
     }
     arguments[:status_callback] = status_callback if status_callback.present?
+    arguments[:send_as_mms] = true if !self.class.is_gsm7?(body) || body.length > MMS_MESSAGE_LENGTH_THRESHOLD
 
     DatadogApi.increment("twilio.outgoing_text_messages.sent")
 
