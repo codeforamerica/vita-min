@@ -2,6 +2,8 @@ class BalancePaymentForm < QuestionsForm
   set_attributes_for :intake, :balance_pay_from_bank, :payment_in_installments, :balance_payment_choice
   attr_accessor :balance_payment_choice
 
+  validates :balance_payment_choice, presence: { message: I18n.t('views.questions.balance_payment.error_message') }
+
   def save
     case balance_payment_choice
     when "yes"

@@ -6672,10 +6672,11 @@ en:
         select_all_that_apply: 'Select all the years you would like to file for:'
         title: Which of the following years would you like to file for?
       balance_payment:
-        title: If you owe a balance, how would you like to make a payment?
+        error_message: Can't be blank. Please select an option above
         pay_in_full_bank: Pay full amount through my bank account
         pay_in_full_mail: Pay full amount by mail
         pay_in_installments: Pay amount in installments
+        title: If you owe a balance, how would you like to make a payment?
       bank_details:
         account_number: Account number
         account_type:

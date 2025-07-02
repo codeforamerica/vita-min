@@ -622,22 +622,17 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
         # Payment info
         expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
         choose I18n.t('views.ctc.questions.refund_payment.check')
+        expect(page).to have_text("If due a refund, are you interested in using these savings options?")
       end
       click_on "Continue"
     end
 
     page_change_block do
       screenshot_after do
-        expect(page).to have_selector("h1", text: "If due a refund, are you interested in using these savings options?")
+        expect(page).to have_selector("h1", text: "If you owe a balance, how would you like to make a payment?")
+        choose "Pay full amount through my bank account"
       end
       click_on "Continue"
-    end
-
-    page_change_block do
-      screenshot_after do
-        expect(page).to have_selector("h1", text: "If you have a balance due, would you like to make a payment directly from your bank account?")
-      end
-      click_on "No"
     end
 
     # Don't ask for bank details
