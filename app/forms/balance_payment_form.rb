@@ -12,9 +12,11 @@ class BalancePaymentForm < QuestionsForm
     when "no"
       self.balance_pay_from_bank = "no"
       self.payment_in_installments = "no"
-    else
+    when "installments"
       self.balance_pay_from_bank = "unfilled"
       self.payment_in_installments = "yes"
+    else
+      nil
     end
     intake.update(attributes_for(:intake).except(:balance_payment_choice))
   end

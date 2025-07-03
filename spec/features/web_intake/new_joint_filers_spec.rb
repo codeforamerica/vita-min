@@ -630,7 +630,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     page_change_block do
       screenshot_after do
         expect(page).to have_selector("h1", text: "If you owe a balance, how would you like to make a payment?")
-        choose "Pay full amount through my bank account"
+        choose "Pay full amount by mail"
       end
       click_on "Continue"
     end
