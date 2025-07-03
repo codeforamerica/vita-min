@@ -5,7 +5,7 @@ module Documents
     helper_method :document_type_keys
 
     def edit
-      @documents = current_intake.documents
+      @documents = current_intake.documents.includes(upload_attachment: :blob)
     end
 
     def self.document_type
