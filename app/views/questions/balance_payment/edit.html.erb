@@ -1,1 +1,20 @@
-<% content_for :form_question, t("views.questions.balance_payment.title") %>
+<% @main_question = t("views.questions.balance_payment.title") %>
+<% content_for :page_title, @main_question %>
+
+<% content_for :card do %>
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <%= f.cfa_radio_set(
+          :balance_payment_choice,
+          label_text: "<h1 class=\"form-question\">#{@main_question}</h1>".html_safe,
+          collection: [
+            { value: :yes, label: t("views.questions.balance_payment.pay_in_full_bank") },
+            { value: :no, label: t("views.questions.balance_payment.pay_in_full_mail") },
+            { value: :installments, label: t("views.questions.balance_payment.pay_in_installments") }
+          ]
+        )
+    %>
+    <div class="form-card__footer">
+      <%= f.submit t("general.continue"), class: "button button--primary button--wide" %>
+    </div>
+  <% end %>
+<% end %>

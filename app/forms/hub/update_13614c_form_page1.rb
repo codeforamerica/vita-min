@@ -58,6 +58,7 @@ module Hub
                        :refund_other_cb,
                        :refund_other,
                        :balance_pay_from_bank,
+                       :payment_in_installments,
                        :register_to_vote
 
     attr_accessor :client
