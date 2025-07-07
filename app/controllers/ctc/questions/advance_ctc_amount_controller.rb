@@ -11,6 +11,10 @@ module Ctc
 
       private
 
+
+
+
+      
       def illustration_path
         "hand-holding-cash-and-check.svg"
       end
