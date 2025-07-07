@@ -681,21 +681,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     page_change_block do
       screenshot_after do
-        expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
-      end
-      click_on I18n.t('views.documents.selfie_instructions.submit_photo')
-    end
-
-    page_change_block do
-      screenshot_after do
-        expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
-        upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-      end
-      click_on "Continue"
-    end
-
-    page_change_block do
-      screenshot_after do
         expect(page).to have_selector("h1", text: I18n.t('views.documents.ssn_itins.title'))
         upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
       end

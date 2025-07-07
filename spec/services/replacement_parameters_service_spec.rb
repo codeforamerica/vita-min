@@ -135,7 +135,6 @@ describe ReplacementParametersService do
         it "replaces the replacement strings in the template" do
           expect(subject.process).to include client.preferred_name
           expect(subject.process).to include "- Photo of your ID"
-          expect(subject.process).to include "- Photo of yourself, holding your ID near your chin (for identity verification)"
           expect(subject.process).to include "- Photo of your SSN or ITIN cards for yourself, spouse, and dependents, if applicable"
           expect(subject.process).to include "http://test.host/en/portal/login"
           expect(subject.process).to include user.first_name
@@ -150,7 +149,6 @@ describe ReplacementParametersService do
           expect(subject.process).to include client.preferred_name
           expect(subject.process).to include "http://test.host/es/portal/login"
           expect(subject.process).to include "- Identificación con foto"
-          expect(subject.process).to include "- Foto de usted sosteniendo su identificación con la foto cerca de su barbilla"
           expect(subject.process).to include "- Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes"
 
           expect(subject.process).to include user.first_name
@@ -165,7 +163,6 @@ describe ReplacementParametersService do
           result = subject.process
           expect(result).to include client.preferred_name
           expect(result).to include "- Photo of your ID"
-          expect(result).to include "- Photo of yourself, holding your ID near your chin (for identity verification)"
           expect(result).to include "- Photo of your SSN or ITIN cards for yourself, spouse, and dependents, if applicable"
         end
       end
@@ -177,7 +174,6 @@ describe ReplacementParametersService do
           result = subject.process
           expect(result).to include client.preferred_name
           expect(result).to include "- Identificación con foto"
-          expect(result).to include "- Foto de usted sosteniendo su identificación con la foto cerca de su barbilla"
           expect(result).to include "- Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes"
         end
       end

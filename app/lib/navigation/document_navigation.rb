@@ -5,8 +5,6 @@ module Navigation
     FLOW = [
       Documents::IdGuidanceController,
       Documents::IdsController,
-      Documents::SelfieInstructionsController,
-      Documents::SelfiesController,
       Documents::SsnItinsController,
       Documents::IntroController,
       Documents::Form1095asController,
