@@ -83,7 +83,7 @@ RSpec.describe Documents::SsnItinsController do
       context 'all three required doc types are present' do
         before do
           create :document, document_type: DocumentTypes::Identity.key, intake: intake, client: intake.client
-          create :document, document_type: DocumentTypes::Selfie.key, intake: intake, client: intake.client
+          create :document, document_type: DocumentTypes::Employment.key, intake: intake, client: intake.client
         end
 
         it "updates the tax return status(es) to intake_ready" do
