@@ -1,7 +1,7 @@
 class ReplacementParametersService
   attr_accessor :body, :client, :preparer_user, :locale, :tax_return, :intake
 
-  delegate :new_portal_client_login_url, :new_ctc_portal_client_login_url, to: "Rails.application.routes.url_helpers"
+  delegate :new_portal_client_login_url, to: "Rails.application.routes.url_helpers"
 
   def initialize(body:, client:, preparer: nil, tax_return: nil, locale: nil)
     @body = body

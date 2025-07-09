@@ -1,1 +1,0 @@
-class Ctc::Portal::UploadDocumentsController < Portal::UploadDocumentsController; end
