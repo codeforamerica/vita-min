@@ -8,17 +8,23 @@ describe Rack::Attack, type: :request do
     Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
   end
 
-  context "on a post to a login page" do
-    it "throttles excessive requests by IP address" do
-      params = {
-        portal_request_client_login_form: {
-          email_address: "client@example.com",
-          sms_phone_number: nil
-        }
-      }
-      fake_time = Time.now
+  context "when the enable_rack_attack flipper flag is enabled" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:enable_rack_attack).and_return(true)
+    end
 
-      Timecop.freeze(fake_time) do
+    context "on a post to a login page" do
+      it "throttles excessive requests by IP address" do
+        params = {
+          portal_request_client_login_form: {
+            email_address: "client@example.com",
+            sms_phone_number: nil
+          }
+        }
+        fake_time = Time.now
+
+        Timecop.freeze(fake_time) do
         limit.times do
           post "/portal/login", params: params, headers: { REMOTE_ADDR: ip }
         end
@@ -40,17 +46,60 @@ describe Rack::Attack, type: :request do
     end
   end
 
-  context "on a get to a non-login page" do
-    it "does nothing" do
-      Timecop.freeze do
+    context "on a get to a non-login page" do
+      it "does nothing" do
+        Timecop.freeze do
 
-        limit.times do
+          limit.times do
+            get "/", headers: { REMOTE_ADDR: ip }
+          end
+
           get "/", headers: { REMOTE_ADDR: ip }
+          expect(response).to have_http_status(302)
         end
-
-        get "/", headers: { REMOTE_ADDR: ip }
-        expect(response).to have_http_status(302)
       end
     end
   end
+
+  context "when the enable_rack_attack flipper flag is disabled" do
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:enable_rack_attack).and_return(false)
+    end
+
+
+    context "on a post to a login page" do
+      it "throttles excessive requests by IP address" do
+        params = {
+          portal_request_client_login_form: {
+            email_address: "client@example.com",
+            sms_phone_number: nil
+          }
+        }
+        fake_time = Time.now
+
+        Timecop.freeze(fake_time) do
+          limit.times do
+            post "/portal/login", params: params, headers: { REMOTE_ADDR: ip }
+          end
+
+          # you can't make more requests within the time limit from this IP
+          post "/portal/login", params: params, headers: { REMOTE_ADDR: ip }
+          expect(response).to be_ok
+
+          # you can if you have a different IP
+          post "/portal/login", params: params, headers: { REMOTE_ADDR: "2.3.4.5" }
+          expect(response).to be_ok
+        end
+
+        # when the time limit is up you can make requests from the IP again
+        Timecop.freeze(fake_time + 15.second) do
+          post "/portal/login", params: params, headers: { REMOTE_ADDR: ip }
+          expect(response).to be_ok
+        end
+      end
+    end
+  end
+
+
 end

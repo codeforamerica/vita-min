@@ -23,6 +23,16 @@ describe TwilioService do
     })
   end
 
+  describe ".is_gsm7?" do
+    it "returns true for GSM-7 text" do
+      expect(described_class.is_gsm7?("hello\n\n[mañana]\\")).to eq(true)
+    end
+
+    it "returns false for non-GSM-7 text" do
+      expect(described_class.is_gsm7?("“hello” `")).to eq(false)
+    end
+  end
+
   describe "multi-tenant support" do
     it "instantiates as a gyr messanger by default" do
       actual = TwilioService.new.messaging_service_sid
@@ -267,6 +277,40 @@ describe TwilioService do
         to: "+15855551212",
         body: "hello there",
         status_callback: "http://example.com"
+      )
+    end
+
+    it "sends a text message as MMS if the message contains non-GSM7 characters" do
+      actual = twilio_service.send_text_message(
+        to: "+15855551212",
+        body: "hello there`",
+        status_callback: "http://example.com"
+      )
+
+      expect(actual).to eq fake_message
+      expect(fake_messages_resource).to have_received(:create).with(
+        messaging_service_sid: "fyst_messaging",
+        to: "+15855551212",
+        body: "hello there`",
+        status_callback: "http://example.com",
+        send_as_mms: true
+      )
+    end
+
+    it "sends a text message as MMS if the message is very long" do
+      actual = twilio_service.send_text_message(
+        to: "+15855551212",
+        body: "a" * (TwilioService::MMS_MESSAGE_LENGTH_THRESHOLD + 1),
+        status_callback: "http://example.com"
+      )
+
+      expect(actual).to eq fake_message
+      expect(fake_messages_resource).to have_received(:create).with(
+        messaging_service_sid: "fyst_messaging",
+        to: "+15855551212",
+        body: "a" * (TwilioService::MMS_MESSAGE_LENGTH_THRESHOLD + 1),
+        status_callback: "http://example.com",
+        send_as_mms: true
       )
     end
 

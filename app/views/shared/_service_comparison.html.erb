@@ -19,11 +19,6 @@
               <div class="service__description">
                 <%= t("views.shared.service_comparison.services.full_service.service_description") %>
               </div>
-              <% if open_for_ctc_intake? %>
-                <div class="service__availability">
-                  <%= t("views.shared.service_comparison.services.full_service.limited_availability") %>
-                </div>
-              <% end %>
               <div class="service__cta">
                 <% if open_for_gyr_intake? %>
                   <%= link_to t("views.shared.service_comparison.services.full_service.cta"), Questions::PersonalInfoController.to_path_helper, class: "button", "data-track-click": "service-comparison-full-service" %>
