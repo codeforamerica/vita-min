@@ -783,7 +783,7 @@ en:
           never_married: Never Married
           north_american_resident: 'Resident of US, CAN or MEX last year:'
           owner_or_holder_of_any_digital_assets: Owner or holder of any digital assets
-          pay_due_balance_directly: If they have a balance due, would they like to make a payment directly from their bank account?
+          pay_due_balance_directly: If they have a balance due, how would they like to make their payment?
           preferred_written_language: If yes, which language?
           presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
           primary_us_citizen: U.S. citizen?

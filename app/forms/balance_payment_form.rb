@@ -6,10 +6,10 @@ class BalancePaymentForm < QuestionsForm
 
   def save
     case balance_payment_choice
-    when "yes"
+    when "bank"
       self.balance_pay_from_bank = "yes"
       self.payment_in_installments = "no"
-    when "no"
+    when "mail"
       self.balance_pay_from_bank = "no"
       self.payment_in_installments = "no"
     when "installments"
@@ -22,13 +22,13 @@ class BalancePaymentForm < QuestionsForm
   end
 
   def self.existing_attributes(intake)
-    already_answered_disability = !intake.balance_pay_from_bank_unfilled? || !intake.payment_in_installments_unfilled?
-    if already_answered_disability
+    already_answered = !intake.balance_pay_from_bank_unfilled? || !intake.payment_in_installments_unfilled?
+    if already_answered
       balance_payment_choice = case [intake.balance_pay_from_bank, intake.payment_in_installments]
                                when %w[yes no]
-                                 "yes"
+                                 "bank"
                                when %w[no no]
-                                 "no"
+                                 "mail"
                                when %w[unfilled yes]
                                  "installments"
                                else

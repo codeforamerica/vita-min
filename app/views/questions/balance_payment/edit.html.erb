@@ -7,8 +7,8 @@
           :balance_payment_choice,
           label_text: "<h1 class=\"form-question\">#{@main_question}</h1>".html_safe,
           collection: [
-            { value: :yes, label: t("views.questions.balance_payment.pay_in_full_bank") },
-            { value: :no, label: t("views.questions.balance_payment.pay_in_full_mail") },
+            { value: :bank, label: t("views.questions.balance_payment.pay_in_full_bank") },
+            { value: :mail, label: t("views.questions.balance_payment.pay_in_full_mail") },
             { value: :installments, label: t("views.questions.balance_payment.pay_in_installments") }
           ]
         )
