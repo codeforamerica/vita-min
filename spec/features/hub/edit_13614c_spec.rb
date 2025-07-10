@@ -144,7 +144,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(find_field("hub_update13614c_form_page1[savings_split_refund]").value).to eq "yes"
       expect(find_field("hub_update13614c_form_page1[refund_other_cb]").value).to eq "yes"
       expect(find_field("hub_update13614c_form_page1[refund_other]").value).to eq "Purchase US Savings Bond"
-      expect(find_field("hub_update13614c_form_page1[balance_pay_from_bank]").value).to eq "unfilled"
+      expect(find_field("hub_update13614c_form_page1[balance_pay_from_bank]").value).to eq "bank"
       expect(find_field("hub_update13614c_form_page1[register_to_vote]").value).to eq "no"
       expect(find_field("hub_update13614c_form_page1[multiple_states]").value).to eq "no"
       expect(find_field("hub_update13614c_form_page1[primary_visa]").value).to eq "no"

@@ -140,10 +140,12 @@ module Hub
 
     def process_payment_choice
       case balance_pay_from_bank
-      when "yes"
+      when "bank"
         self.payment_in_installments = "no"
-      when "no"
+        self.balance_pay_from_bank = "yes"
+      when "mail"
         self.payment_in_installments = "no"
+        self.balance_pay_from_bank = "no"
       when "installments"
         self.balance_pay_from_bank = "unfilled"
         self.payment_in_installments = "yes"

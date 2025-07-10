@@ -117,9 +117,9 @@ module ApplicationHelper
   def payment_options_for_select
     [
       ["", "unfilled"],
-      ["Bank account", "yes"],
+      ["Bank account", "bank"],
       ["Set up installment agreement", "installments"],
-      ["Mail payment to IRS", "no"],
+      ["Mail payment to IRS", "mail"],
     ]
   end
 
