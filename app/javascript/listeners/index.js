@@ -9,7 +9,7 @@ import { initStateRoutingsListeners } from "../lib/state_routings";
 import tooltip from "../components/tooltip";
 import { initTaggableNote, initMultiSelectVitaPartner, initMultiSelectState, initSelectVitaPartner } from '../lib/tagging';
 import { initBulkAction } from "../lib/bulk_action";
-import { getEfileSecurityInformation } from "../lib/efile_security_information";
+import { getEfileSecurityInformation } from "../lib/efile_security_information";``
 import { initTINTypeSelector } from "../lib/tin_type_selector";
 import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
 import { limitTextMessageLength } from "../lib/text_message_length_limiter";

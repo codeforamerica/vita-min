@@ -21,15 +21,6 @@ RSpec.feature "Document Help Flow", :flow_explorer_screenshot, active_job: true 
       click_on I18n.t('documents.documents_help.show.reminder_link')
     end.to change(OutgoingTextMessage, :count).by(1)
     expect(page).to have_text I18n.t('documents.reminder_link.notice')
-    expect(page).to have_text I18n.t('views.documents.selfie_instructions.header')
-    click_on I18n.t('views.documents.selfie_instructions.submit_photo')
-    expect(page).to have_text I18n.t('views.documents.selfies.title')
-
-    click_on I18n.t('views.layouts.document_upload.dont_have')
-    expect do
-      click_on I18n.t('documents.documents_help.show.need_help_find')
-    end.to change(SystemNote::DocumentHelp, :count).by(1)
-    expect(page).to have_text I18n.t('documents.updated_specialist.notice')
     expect(page).to have_text I18n.t('views.documents.ssn_itins.title')
 
     click_on I18n.t('views.layouts.document_upload.dont_have')

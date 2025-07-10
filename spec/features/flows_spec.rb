@@ -12,13 +12,4 @@ RSpec.feature 'Flow visualizations' do
       end
     end
   end
-
-  describe 'CTC' do
-    it 'shows all the pages' do
-      visit flow_path(id: :ctc)
-
-      expect(page).to have_content(Navigation::CtcQuestionNavigation::FLOW.first.name)
-      expect(page).to have_content(Navigation::CtcQuestionNavigation::FLOW.last.name)
-    end
-  end
 end

@@ -621,7 +621,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       screenshot_after do
         # Payment info
         expect(page).to have_selector("h1", text: "If due a refund, how would like to receive it?")
-        choose I18n.t('views.ctc.questions.refund_payment.check')
+        choose I18n.t('views.questions.refund_payment.check')
       end
       click_on "Continue"
     end
@@ -674,21 +674,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       screenshot_after do
         expect(page).to have_selector("h1", text: "Attach photos of ID cards")
         upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-        upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
-      end
-      click_on "Continue"
-    end
-
-    page_change_block do
-      screenshot_after do
-        expect(page).to have_selector("h1", text: "Confirm your identity with a photo of yourself")
-      end
-      click_on I18n.t('views.documents.selfie_instructions.submit_photo')
-    end
-
-    page_change_block do
-      screenshot_after do
-        expect(page).to have_selector("h1", text: I18n.t('views.documents.selfies.title'))
         upload_file("document_type_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "picture_id.jpg"))
       end
       click_on "Continue"

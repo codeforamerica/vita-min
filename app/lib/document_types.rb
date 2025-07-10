@@ -25,7 +25,6 @@ module DocumentTypes
     DocumentTypes::SecondaryIdentification::BirthCertificate,
   ].freeze
   OTHER_TYPES = [
-    DocumentTypes::Selfie,
     DocumentTypes::Employment,
     DocumentTypes::FinalTaxDocument,
     DocumentTypes::Form1040,

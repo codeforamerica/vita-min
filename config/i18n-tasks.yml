@@ -126,6 +126,8 @@ ignore_unused:
   - 'state_file.questions.tax_refund.bank_details.after_deadline_withdrawal_info.*'
   - 'state_file.questions.taxes_owed.edit.interest_warning.*'
   - 'state_file.questions.submission_confirmation.penalty_interest_warning.billing_agency.*'
+  - 'validators.urbanization'
+  - 'validators.zip_code_with_optional_extra_digits'
 # - 'activerecord.attributes.*'
 # - 'simple_form.{yes,no}'
 # - 'simple_form.{placeholders,hints,labels}.*'

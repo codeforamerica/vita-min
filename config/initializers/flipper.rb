@@ -14,6 +14,7 @@ begin
   Flipper.disable :get_your_pdf unless Flipper.exist?(:get_your_pdf)
   Flipper.disable :extension_period unless Flipper.exist?(:extension_period)
   Flipper.disable :income_review_v2 unless Flipper.exist?(:income_review_v2)
+  Flipper.disable :enable_rack_attack unless Flipper.exist?(:enable_rack_attack)
   if Rails.env.heroku? || Rails.env.demo?
     Flipper.disable :prevent_duplicate_accepted_statefile_submissions unless Flipper.exist?(:prevent_duplicate_accepted_statefile_submissions)
     Flipper.disable :prevent_duplicate_ssn_messaging unless Flipper.exist?(:prevent_duplicate_ssn_messaging)
