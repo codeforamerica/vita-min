@@ -125,10 +125,8 @@ module VitaMin
 
     # StateFile
     config.state_file_start_of_open_intake = et.parse('2025-01-15 00:00:00')
-    config.state_file_end_of_new_intakes = pt.parse('2025-04-15 23:59:59')
-    config.state_file_withdrawal_date_deadline_ny = et.parse('2024-04-15 23:59:59') # TODO: Deprecate
-    config.state_file_withdrawal_date_deadline_md = et.parse('2025-04-30 23:59:59') # TODO: Deprecate
-    config.state_file_end_of_in_progress_intakes = pt.parse('2025-10-15 23:59:59')
+    config.state_file_end_of_new_intakes = et.parse('2025-10-15 23:59:59')
+    config.state_file_end_of_in_progress_intakes = et.parse('2025-10-25 23:59:59')
     config.state_file_show_faq_date_start = pt.parse('2024-12-10 00:00:00')
     config.state_file_show_faq_date_end = pt.parse('2025-10-15 23:59:59')
 
