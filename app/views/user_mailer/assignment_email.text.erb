@@ -2,7 +2,8 @@
 
 To access the client, please visit the following link and log in to the hub:
 
-<%= hub_client_url(id: @client.id) %>
+<% render partial: 'main_email_button'%>
+<%= yield 'main_email_button' %>
 
 As a reminder, please contact the client within three business days in order to ensure high quality service.
 
