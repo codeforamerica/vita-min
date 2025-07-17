@@ -1,86 +1,96 @@
 module StateFile
-  # Add AZ, ID, NJ, NC fake addresses to the FYST S3 bucket
-  # Update Ty23ArchiverService to populate sms_number
-  # Update Ty23ArchiverService to populate contact_preference
   class Ty24ArchiverService
-    INTAKE_MAP = {
+    STATE_INTAKES = {
       :az => StateFileAzIntake,
       :id => StateFileIdIntake,
+      :md => StateFileMdIntake,
       :nj => StateFileNjIntake,
       :nc => StateFileNcIntake,
     }.freeze
 
-    attr_reader :state_code, :batch_size, :data_source, :tax_year, :current_batch, :cutoff
+    def self.archive!(state_code:, batch_size: 100, cutoff_date:)
+      new(state_code: state_code, batch_size: batch_size, cutoff_date: cutoff_date).archive_all
+    end
 
-    def initialize(state_code:, batch_size: 100, cutoff: '2024-06-01') # todo: change cutoff date, where is this coming from?
+    attr_reader :state_code, :intake_class, :tax_year, :cutoff_date, :batch_size
+
+    def initialize(state_code:, batch_size:, cutoff_date:)
       @state_code = state_code
-      @batch_size = batch_size
-      @data_source = INTAKE_MAP[state_code.to_sym]
+      @intake_class = STATE_INTAKES[state_code.to_sym]
+      @intake_class = STATE_INTAKES[@state_code] ||
+        raise(ArgumentError, "Invalid state_code: #{@state_code}. Must be one of: #{STATE_INTAKES.keys.join(', ')}")
       @tax_year = 2024
-      @cutoff = cutoff
-      @current_batch = nil
-      raise ArgumentError, "#{state_code} isn't an archive-able state. Expected one of #{INTAKE_MAP.keys.join(', ')}" unless data_source
+      @batch_size = batch_size
+      @cutoff_date = Date.parse(cutoff_date)
     end
 
-    def find_archiveables
-      @current_batch = active_record_query
-      Rails.logger.info("Found #{current_batch.count} #{data_source.name.pluralize} to archive: #{current_batch}")
-    end
+    def archive_all
+      Rails.logger.info("*****Starting archive for state=#{state_code}, tax_year=#{tax_year}, cutoff=#{cutoff_date}, batch_size=#{batch_size}*****")
+      loop do
+        batch = fetch_batch
+        break if batch.empty?
 
-    def archive_batch
-      # fill contact_preference with sms/email
-      archived_ids = []
-      current_batch&.each do |source_intake|
-        archived_intake = StateFileArchivedIntake.new
-        archived_intake.state_code = state_code
-        archived_intake.tax_year = tax_year
-
-        archived_intake.hashed_ssn = source_intake.hashed_ssn
-        archived_intake.email_address = source_intake.email_address
-        archived_intake.mailing_street = source_intake.direct_file_data.mailing_street
-        archived_intake.mailing_apartment = source_intake.direct_file_data.mailing_apartment
-        archived_intake.mailing_city = source_intake.direct_file_data.mailing_city
-        archived_intake.mailing_state = source_intake.direct_file_data.mailing_state
-        archived_intake.mailing_zip = source_intake.direct_file_data.mailing_zip
-        archived_intake.contact_preference = source_intake.direct_file_data.contact_preference
-
-        if source_intake.submission_pdf.attached?
-          archived_intake.submission_pdf.attach(source_intake.submission_pdf.blob)
-        else
-          Rails.logger.warn("No submission pdf attached to intake #{source_intake.id}. Continuing with batch.")
-        end
-
-        archived_intake.save!
-        archived_ids << source_intake.id
-      rescue StandardError => e
-        Rails.logger.warn("Caught exception #{e} for #{source_intake.id}. Continuing with batch.")
-        next
+        archived_ids = archive_batch(batch)
+        Rails.logger.info("---Archived #{archived_ids.count} records for #{state_code.upcase}: [#{archived_ids.join(', ')}]---")
       end
-      Rails.logger.info("Archived #{archived_ids.count} #{data_source.name.pluralize}: [#{archived_ids.join(', ')}]")
-      @current_batch = nil # reset the batch
-      archived_ids
+      Rails.logger.info("*****Completed archive for state=#{state_code}*****")
     end
 
-    def active_record_query
-      archiveable_intakes = data_source
-                           .where(id:
-                                    EfileSubmissionTransition
-                                      .joins(:efile_submission)
-                                      .where(
-                                        to_state: :accepted,
-                                        most_recent: true,
-                                        created_at: ..Date.parse(cutoff),
-                                        :efile_submission => { :data_source_type => data_source.name }
-                                      ).pluck(
-                                      :"efile_submission.data_source_id"
-                                    )
-                           ).where('email_address is not null')
+    private
 
-      # todo: should we also not archive multiple intakes with same phone number?
-      # do not archive multiple intakes with the same email address
-      archived_emails = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:email_address)
-      unarchived_archiveable_intakes = archiveable_intakes.where.not(email_address: archived_emails)
+    def fetch_batch
+      accepted_ids = EfileSubmissionTransition.joins(:efile_submission)
+                                              .where(efile_submissions: { data_source_type: intake_class.name })
+                                              .where('efile_submission_transitions.created_at <= ?', cutoff_date)
+                                              .where(to_state: :accepted, most_recent: true)
+                                              .pluck('efile_submissions.data_source_id')
 
+      scope = intake_class.where(id: accepted_ids).where.not(email_address: nil)
+
+      archived_emails = StateFileArchivedIntake
+                          .where(state_code: state_code, tax_year: tax_year)
+                          .pluck(:email_address)
+
+      scope
+        .where.not(email_address: archived_emails)
+        .select("DISTINCT ON (email_address) #{intake_class.table_name}.*")
+        .order('email_address, created_at DESC')
+        .limit(batch_size)
     end
+
+    def archive_batch(intakes)
+      intakes.each_with_object([]) do |intake, ids|
+        archived_id = archive_intake(intake)
+        ids << archived_id if archived_id
+      end
+    end
+
+    def archive_intake(intake)
+      archived = StateFileArchivedIntake.new(
+        state_code: state_code,
+        tax_year: tax_year,
+        hashed_ssn: intake.hashed_ssn,
+        email_address: intake.email_address,
+        contact_preference: intake.direct_file_data.contact_preference,
+        mailing_street: intake.direct_file_data.mailing_street,
+        mailing_apartment: intake.direct_file_data.mailing_apartment,
+        mailing_city: intake.direct_file_data.mailing_city,
+        mailing_state: intake.direct_file_data.mailing_state,
+        mailing_zip: intake.direct_file_data.mailing_zip,
+      )
+      archived.save!
+
+      if intake.submission_pdf.attached?
+        archived.submission_pdf.attach(intake.submission_pdf.blob)
+      else
+        Rails.logger.warn("~~~~~No submission_pdf for intake_id=#{intake.id}~~~~~")
+      end
+
+      intake.id
+    rescue StandardError => e
+      Rails.logger.warn("~~~~~Failed to archive intake_id=#{intake.id}: #{e.message}~~~~~")
+      nil
+    end
+
   end
 end
