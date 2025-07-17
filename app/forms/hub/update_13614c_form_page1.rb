@@ -58,6 +58,7 @@ module Hub
                        :refund_other_cb,
                        :refund_other,
                        :balance_pay_from_bank,
+                       :payment_in_installments,
                        :register_to_vote
 
     attr_accessor :client
@@ -93,6 +94,20 @@ module Hub
         )
       end
 
+      balance_payment_choice = case [intake.balance_pay_from_bank, intake.payment_in_installments]
+                               when %w[yes no]
+                                 "bank"
+                               when %w[no no]
+                                 "mail"
+                               when %w[unfilled yes]
+                                 "installments"
+                               when %w[unfilled unfilled]
+                                 "unfilled"
+                               else
+                                 nil
+                               end
+      result.merge!(balance_pay_from_bank: balance_payment_choice)
+
       # Intake flow assigns 2-char language code to preferred_written_language
       # but here we switch to the person-readable name of the language upon
       # first loading of hub editable 14-c page 1. (And upon a save, the
@@ -106,18 +121,37 @@ module Hub
 
     def save
       return false unless valid?
+      process_payment_choice
 
       modified_attributes = attributes_for(Intake::GyrIntake)
                               .except(:primary_birth_date_year, :primary_birth_date_month, :primary_birth_date_day, :spouse_birth_date_year, :spouse_birth_date_month, :spouse_birth_date_day)
                               .merge(
                                 primary_birth_date: parse_date_params(primary_birth_date_year, primary_birth_date_month, primary_birth_date_day),
                                 spouse_birth_date: parse_date_params(spouse_birth_date_year, spouse_birth_date_month, spouse_birth_date_day),
-                              )
+                                )
       modified_attributes[:ever_married] = modified_attributes.delete(:never_married) == "yes" ? "no" : "yes"
       modified_attributes[:dependents_attributes] = formatted_dependents_attributes
 
       @client.intake.update(modified_attributes)
       @client.touch(:last_13614c_update_at)
+    end
+
+    private
+
+    def process_payment_choice
+      case balance_pay_from_bank
+      when "bank"
+        self.payment_in_installments = "no"
+        self.balance_pay_from_bank = "yes"
+      when "mail"
+        self.payment_in_installments = "no"
+        self.balance_pay_from_bank = "no"
+      when "installments"
+        self.balance_pay_from_bank = "unfilled"
+        self.payment_in_installments = "yes"
+      else
+        nil
+      end
     end
   end
 end
