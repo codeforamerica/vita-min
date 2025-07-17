@@ -73,7 +73,6 @@ RSpec.describe StateFile::Ty23ArchiverService do
         end
       end
 
-
       context 'when there are two archiveable intakes with the different emails and the same ssn' do
         let(:intake1) { create(archiver.data_source.table_name.singularize, email_address: "a@b.c", created_at: Date.parse("2023-04-01"), hashed_ssn: "fake hashed ssn") }
         let(:intake2) {
@@ -95,7 +94,6 @@ RSpec.describe StateFile::Ty23ArchiverService do
           expect(archiver.current_batch).to include(intake2)
         end
       end
-
 
       context 'when there are only non-accepted submissions' do
         let(:archiver) { described_class.new(state_code: state_code) }
