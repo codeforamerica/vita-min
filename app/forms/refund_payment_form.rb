@@ -11,27 +11,23 @@ class RefundPaymentForm < QuestionsForm
   def save
     payment_method = attributes_for(:intake)[:refund_payment_method]
     payment_method = "unfilled" unless payment_method.present?
-    intake.update(refund_payment_method: payment_method)
 
     # While the single field `refund_payment_method` is used for the intake flow, we
     # use separate fields for the Hub so that form elements (in the erb file) can
     # each refer to a distinct field. So we assign values to those fields here.
-    if payment_method == 'direct_deposit'
-      intake.update(refund_direct_deposit: 'yes')
-      intake.update(refund_check_by_mail: 'no')
-    else
-      intake.update(refund_direct_deposit: 'no')
-      intake.update(refund_check_by_mail: 'yes')
-    end
-
     savings_bond = attributes_for(:intake)[:savings_purchase_bond] || 'no'
     split_refund = attributes_for(:intake)[:savings_split_refund] || 'no'
     refund_other = savings_bond == 'yes' ? 'Purchase US Savings Bond' : ''
     refund_other_cb = savings_bond
 
-    intake.update(savings_purchase_bond: savings_bond)
-    intake.update(savings_split_refund: split_refund)
-    intake.update(refund_other: refund_other)
-    intake.update(refund_other_cb: refund_other_cb)
+    intake.update(
+      refund_payment_method: payment_method,
+      refund_direct_deposit: payment_method == 'direct_deposit' ? 'yes' : 'no',
+      refund_check_by_mail: payment_method == 'direct_deposit' ? 'no' : 'yes',
+      savings_purchase_bond: savings_bond,
+      savings_split_refund: split_refund,
+      refund_other: refund_other,
+      refund_other_cb: refund_other_cb
+    )
   end
 end

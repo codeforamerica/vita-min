@@ -122,7 +122,12 @@
             <%= f.cfa_input_field(:refund_other, 'Explain', classes: ["form-width--short"]) %>
           </div>
           <div class="grid__item width-one-whole">
-            <%= f.cfa_select(:balance_pay_from_bank, "#{t(".fields.pay_due_balance_directly")}", payment_options_for_select) %>
+            <%= f.cfa_select(:balance_pay_from_bank, "#{t(".fields.pay_due_balance_directly")}",     [
+              ["", "unfilled"],
+              ["Bank account", "bank"],
+              ["Set up installment agreement", "installments"],
+              ["Mail payment to IRS", "mail"],
+            ]) %>
           </div>
       </div>
       <div class="hub-form__row">
