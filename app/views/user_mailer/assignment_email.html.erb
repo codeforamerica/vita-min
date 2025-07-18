@@ -6,11 +6,9 @@
   To access the client, please visit the following link and log in to the hub:
 </p>
 
-<p>
-  <%= link_to hub_client_url(id: @client.id), hub_client_url(id: @client.id) %>
-</p>
+<%= render partial: 'main_email_button', locals: { button_text: "View client", button_link: hub_client_url(id: @client.id) } %>
 
-<p>As a reminder, please contact the client within three business days to ensure high quality service.</p>
+<p>As a reminder, please contact the client within five business days to ensure high quality service.</p>
 
 <p>Thanks for supporting clients with GetYourRefund!</p>
 <br />
