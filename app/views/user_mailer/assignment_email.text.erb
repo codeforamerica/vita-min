@@ -2,11 +2,10 @@
 
 To access the client, please visit the following link and log in to the hub:
 
-<% render partial: 'main_email_button'%>
-<%= yield 'main_email_button' %>
+<%= hub_client_url(id: @client.id) %>
 
 As a reminder, please contact the client within three business days in order to ensure high quality service.
 
 Thanks for supporting clients with GetYourRefund!
 
-<%= t("outgoing_email_mailer.user_message.unsubscribe", unsubscribe_link: @unsubscribe_link) %>
+If you would like to unsubscribe from emails, click <%= @unsubscribe_link %>
