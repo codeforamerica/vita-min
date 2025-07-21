@@ -127,7 +127,7 @@ RSpec.describe StateFile::Ty24ArchiverService do
       end
 
       it "raises an error" do
-        expect { StateFile::Ty24ArchiverService.archive!(state_code: 'ny') }.to raise_error
+        expect { StateFile::Ty24ArchiverService.archive!(state_code: 'ny') }.to raise_error(ArgumentError)
       end
     end
   end

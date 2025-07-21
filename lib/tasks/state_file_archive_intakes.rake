@@ -6,7 +6,7 @@ namespace :state_file do
       # we batch these since archiving involves copying the submission pdf to a new location in s3
       StateFile::Ty24ArchiverService.archive!(
         state_code: args[:state_code],
-        batch_size: 10
+        batch_size: 50
       )
     end
 

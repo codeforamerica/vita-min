@@ -9,6 +9,7 @@ module StateFile
     }.freeze
 
     attr_reader :state_code, :batch_size, :intake_class, :tax_year
+
     def initialize(state_code:, batch_size:)
       @state_code = state_code
       @intake_class = INTAKE_MAP[state_code.to_sym]
@@ -34,32 +35,42 @@ module StateFile
       Rails.logger.info("*****Completed archive for state: #{state_code}*****")
     end
 
-    private
+    def archive_all
+      Rails.logger.info("*****Archiving for state: #{state_code}, tax_year: #{tax_year}, batch_size: #{batch_size}*****")
 
-    def fetch_batch
-      # only fetching state file intakes that have been accepted during the season with a contact method
-      start_date = Time.find_zone('America/New_York').parse('2025-01-15 00:00:00') # state_file_start_of_open_intake
-      end_date = Time.find_zone('America/New_York').parse('2025-10-25 23:59:59') # state_file_end_of_in_progress_intakes
-      accepted_ids = EfileSubmissionTransition.joins(:efile_submission)
-                                              .where(efile_submissions: { data_source_type: intake_class.name })
-                                              .where(
-                                                efile_submission_transitions: {
-                                                  created_at: start_date..end_date,
-                                                  to_state: :accepted,
-                                                  most_recent: true
-                                                }
-                                              ).pluck('efile_submissions.data_source_id')
-      intakes_to_archive = intake_class.where(id: accepted_ids).where.not(email_address: nil, phone_number: nil)
+      et = Time.find_zone('America/New_York')
+      start_date = et.parse('2025-01-15 00:00:00') # state_file_start_of_open_intake
+      end_date = et.parse('2025-10-25 23:59:59') # state_file_end_of_in_progress_intakes
 
-      # remove any intakes that match either the email address or phone number of an already existing state-file archived intake for the year
-      archived_emails = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:email_address)
-      archived_phones = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:phone_number)
-      intakes_to_archive.where(id: accepted_ids)
-        .where.not(email_address: archived_emails).where.not(phone_number: archived_phones)
-        .select(Arel.sql("DISTINCT ON (COALESCE(email_address, phone_number)) #{intake_class.table_name}.*"))
-        .order(Arel.sql("COALESCE(email_address, phone_number), created_at DESC"))
-        .limit(batch_size)
+      # find state file intakes that have been accepted during the season
+      accepted_intake_ids = EfileSubmissionTransition.joins(:efile_submission)
+                                                     .where(efile_submissions: { data_source_type: intake_class.name })
+                                                     .where(
+                                                       efile_submission_transitions: {
+                                                         created_at: start_date..end_date,
+                                                         to_state: :accepted,
+                                                         most_recent: true
+                                                       }
+                                                     ).pluck('efile_submissions.data_source_id')
+
+      # remove intakes that have already been archived
+      archived_emails = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year)
+                                               .pluck(:email_address)
+      archived_phones = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year)
+                                               .pluck(:phone_number)
+      scope = intake_class.where(id: accepted_intake_ids)
+                .where.not(email_address: archived_emails, phone_number: archived_phones)
+
+      scope.in_batches(of: batch_size) do |relation|
+        batch = relation.to_a
+        archived_ids = archive_batch(batch)
+        Rails.logger.info("---Archived #{archived_ids.count} records for #{state_code.upcase}: [#{archived_ids.join(', ')}]---")
+      end
+
+      Rails.logger.info("*****Completed archive for state: #{state_code}*****")
     end
+
+    private
 
     def archive_batch(intakes)
       intakes.each_with_object([]) do |intake, ids|
