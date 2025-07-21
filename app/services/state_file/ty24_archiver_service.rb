@@ -1,6 +1,6 @@
 module StateFile
   class Ty24ArchiverService
-    STATE_INTAKES = {
+    INTAKE_MAP = {
       :az => StateFileAzIntake,
       :id => StateFileIdIntake,
       :md => StateFileMdIntake,
@@ -8,24 +8,22 @@ module StateFile
       :nc => StateFileNcIntake,
     }.freeze
 
-    def self.archive!(state_code:, batch_size: 100, cutoff_date:)
-      new(state_code: state_code, batch_size: batch_size, cutoff_date: cutoff_date).archive_all
-    end
-
-    attr_reader :state_code, :intake_class, :tax_year, :cutoff_date, :batch_size
-
-    def initialize(state_code:, batch_size:, cutoff_date:)
+    attr_reader :state_code, :batch_size, :intake_class, :tax_year
+    def initialize(state_code:, batch_size:)
       @state_code = state_code
-      @intake_class = STATE_INTAKES[state_code.to_sym]
-      @intake_class = STATE_INTAKES[@state_code] ||
-        raise(ArgumentError, "Invalid state_code: #{@state_code}. Must be one of: #{STATE_INTAKES.keys.join(', ')}")
+      @intake_class = INTAKE_MAP[state_code.to_sym]
+      @intake_class = INTAKE_MAP[state_code.to_sym] ||
+        raise(ArgumentError, "Invalid state_code: #{state_code}. Must be one of: #{INTAKE_MAP.keys.join(', ')}")
       @tax_year = 2024
       @batch_size = batch_size
-      @cutoff_date = Date.parse(cutoff_date)
+    end
+
+    def self.archive!(state_code:, batch_size: 100)
+      new(state_code: state_code, batch_size: batch_size).archive_all
     end
 
     def archive_all
-      Rails.logger.info("*****Starting archive for state=#{state_code}, tax_year=#{tax_year}, cutoff=#{cutoff_date}, batch_size=#{batch_size}*****")
+      Rails.logger.info("*****Archiving for state: #{state_code}, tax_year: {tax_year}, batch_size: #{batch_size}*****")
       loop do
         batch = fetch_batch
         break if batch.empty?
@@ -33,28 +31,33 @@ module StateFile
         archived_ids = archive_batch(batch)
         Rails.logger.info("---Archived #{archived_ids.count} records for #{state_code.upcase}: [#{archived_ids.join(', ')}]---")
       end
-      Rails.logger.info("*****Completed archive for state=#{state_code}*****")
+      Rails.logger.info("*****Completed archive for state: #{state_code}*****")
     end
 
     private
 
     def fetch_batch
+      # only fetching state file intakes that have been accepted during the season with a contact method
+      start_date = Time.find_zone('America/New_York').parse('2025-01-15 00:00:00') # state_file_start_of_open_intake
+      end_date = Time.find_zone('America/New_York').parse('2025-10-25 23:59:59') # state_file_end_of_in_progress_intakes
       accepted_ids = EfileSubmissionTransition.joins(:efile_submission)
                                               .where(efile_submissions: { data_source_type: intake_class.name })
-                                              .where('efile_submission_transitions.created_at <= ?', cutoff_date)
-                                              .where(to_state: :accepted, most_recent: true)
-                                              .pluck('efile_submissions.data_source_id')
+                                              .where(
+                                                efile_submission_transitions: {
+                                                  created_at: start_date..end_date,
+                                                  to_state: :accepted,
+                                                  most_recent: true
+                                                }
+                                              ).pluck('efile_submissions.data_source_id')
+      intakes_to_archive = intake_class.where(id: accepted_ids).where.not(email_address: nil, phone_number: nil)
 
-      scope = intake_class.where(id: accepted_ids).where.not(email_address: nil)
-
-      archived_emails = StateFileArchivedIntake
-                          .where(state_code: state_code, tax_year: tax_year)
-                          .pluck(:email_address)
-
-      scope
-        .where.not(email_address: archived_emails)
-        .select("DISTINCT ON (email_address) #{intake_class.table_name}.*")
-        .order('email_address, created_at DESC')
+      # remove any intakes that match either the email address or phone number of an already existing state-file archived intake for the year
+      archived_emails = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:email_address)
+      archived_phones = StateFileArchivedIntake.where(state_code: state_code, tax_year: tax_year).pluck(:phone_number)
+      intakes_to_archive.where(id: accepted_ids)
+        .where.not(email_address: archived_emails).where.not(phone_number: archived_phones)
+        .select(Arel.sql("DISTINCT ON (COALESCE(email_address, phone_number)) #{intake_class.table_name}.*"))
+        .order(Arel.sql("COALESCE(email_address, phone_number), created_at DESC"))
         .limit(batch_size)
     end
 
@@ -71,7 +74,8 @@ module StateFile
         tax_year: tax_year,
         hashed_ssn: intake.hashed_ssn,
         email_address: intake.email_address,
-        contact_preference: intake.direct_file_data.contact_preference,
+        phone_number: intake.phone_number,
+        contact_preference: intake.contact_preference,
         mailing_street: intake.direct_file_data.mailing_street,
         mailing_apartment: intake.direct_file_data.mailing_apartment,
         mailing_city: intake.direct_file_data.mailing_city,
@@ -83,12 +87,13 @@ module StateFile
       if intake.submission_pdf.attached?
         archived.submission_pdf.attach(intake.submission_pdf.blob)
       else
-        Rails.logger.warn("~~~~~No submission_pdf for intake_id=#{intake.id}~~~~~")
+        Rails.logger.warn("~~~~~No submission_pdf for intake_id: #{intake.id}~~~~~")
       end
 
       intake.id
     rescue StandardError => e
-      Rails.logger.warn("~~~~~Failed to archive intake_id=#{intake.id}: #{e.message}~~~~~")
+      # KEEPS LOOPING ON FAILURES, todo: fix this
+      Rails.logger.warn("~~~~~Failed to archive intake_id: #{intake.id}: #{e.message}~~~~~")
       nil
     end
 

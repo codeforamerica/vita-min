@@ -31,34 +31,33 @@ namespace :state_file do
       Rails.logger = Logger.new($stdout)
       StateFile::Ty24ArchiverService.archive!(
         state_code: args[:state_code],
-        batch_size: 10,
-        cutoff_date: Rails.config.state_file_end_of_new_intakes
+        batch_size: 10
       )
     end
 
     desc 'Archive AZ intakes'
     task archive_az: :environment do
-      Rake::Task['ty24:archive'].invoke('az')
+      Rake::Task['state_file:ty24:archive'].invoke('az')
     end
 
     desc 'Archive ID intakes'
     task archive_id: :environment do
-      Rake::Task['ty24:archive'].invoke('id')
+      Rake::Task['state_file:ty24:archive'].invoke('id')
     end
 
     desc 'Archive MD intakes'
     task archive_md: :environment do
-      Rake::Task['ty24:archive'].invoke('md')
+      Rake::Task['state_file:ty24:archive'].invoke('md')
     end
 
     desc 'Archive NJ intakes'
     task archive_nj: :environment do
-      Rake::Task['ty24:archive'].invoke('nj')
+      Rake::Task['state_file:ty24:archive'].invoke('nj')
     end
 
     desc 'Archive NC intakes'
     task archive_nc: :environment do
-      Rake::Task['ty24:archive'].invoke('nc')
+      Rake::Task['state_file:ty24:archive'].invoke('nc')
     end
   end
 end
