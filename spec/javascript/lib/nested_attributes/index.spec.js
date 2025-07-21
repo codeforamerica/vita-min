@@ -14,9 +14,9 @@ test("after event listeners initialized, clicking elements triggers method calls
     initNestedAttributesListeners();
 
     $("a[data-link-to-add-field]")[0].click();
-    expect(appendAssociation).toBeCalledTimes(1);
+    expect(appendAssociation).toHaveBeenCalledTimes(1);
 
     $("a[data-link-to-remove-field]")[0].click();
-    expect(removeAssociation).toBeCalledTimes(1);
+    expect(removeAssociation).toHaveBeenCalledTimes(1);
 });
 

@@ -18,13 +18,13 @@ describe('MixpanelEventTracking', () => {
       document.querySelector('meta[name=csrf-param]').remove();
       MixpanelEventTracking.listenForTrackedClicks();
       document.querySelector("a").click();
-      expect(navigator.sendBeacon).not.toBeCalled();
+      expect(navigator.sendBeacon).not.toHaveBeenCalled();
     });
 
     test('sends tracked click event to mixpanel', () => {
       MixpanelEventTracking.listenForTrackedClicks();
       document.querySelector("a").click();
-      expect(navigator.sendBeacon).toBeCalled();
+      expect(navigator.sendBeacon).toHaveBeenCalled();
       expect(navigator.sendBeacon.mock.calls[0][1].get("event[data][href]")).toBeNull();
       expect(navigator.sendBeacon.mock.calls[0][1].get("event[data][is_welcoming]")).toEqual("yup");
     });
@@ -40,7 +40,7 @@ describe('MixpanelEventTracking', () => {
 
       MixpanelEventTracking.listenForTrackedClicks();
       outboundLink.click();
-      expect(navigator.sendBeacon).toBeCalled();
+      expect(navigator.sendBeacon).toHaveBeenCalled();
       expect(navigator.sendBeacon.mock.calls[0][1].get("event[data][href]")).toEqual("https://example.com/")
     })
   });
