@@ -92,7 +92,6 @@ module StateFile
 
       intake.id
     rescue StandardError => e
-      # KEEPS LOOPING ON FAILURES, todo: fix this
       Rails.logger.warn("~~~~~Failed to archive intake_id: #{intake.id}: #{e.message}~~~~~")
       nil
     end

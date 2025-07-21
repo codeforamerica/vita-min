@@ -3,6 +3,7 @@ namespace :state_file do
     desc 'Archive intakes for a specific state'
     task :archive, [:state_code] => :environment do |_t, args|
       Rails.logger = Logger.new($stdout)
+      # we batch these since archiving involves copying the submission pdf to a new location in s3
       StateFile::Ty24ArchiverService.archive!(
         state_code: args[:state_code],
         batch_size: 10
