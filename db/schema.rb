@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_30_175342) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_21_202752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1824,6 +1824,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_30_175342) do
   end
 
   create_table "state_file_archived_intakes", force: :cascade do |t|
+    t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "email_address"
     t.integer "failed_attempts", default: 0, null: false
@@ -1837,6 +1838,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_30_175342) do
     t.string "mailing_street"
     t.string "mailing_zip"
     t.datetime "permanently_locked_at"
+    t.string "phone_number"
     t.string "state_code"
     t.integer "tax_year"
     t.boolean "unsubscribed_from_email", default: false, null: false
@@ -2804,6 +2806,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_30_175342) do
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.citext "email", null: false
+    t.integer "email_notification", default: 1, null: false
     t.string "encrypted_password", default: "", null: false
     t.string "external_provider"
     t.string "external_uid"

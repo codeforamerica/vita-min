@@ -6,6 +6,7 @@
 #  current_sign_in_at             :datetime
 #  current_sign_in_ip             :string
 #  email                          :citext           not null
+#  email_notification             :integer          default("unfilled"), not null
 #  encrypted_password             :string           default(""), not null
 #  external_provider              :string
 #  external_uid                   :string

@@ -5,7 +5,28 @@ class InteractionTrackingService
   end
 
   # When a client contacts us, update last incoming interaction and last interaction
-  def self.record_incoming_interaction(client, set_flag: true)
+  def self.record_incoming_interaction(client, set_flag: true, interaction_type:)
+    # Do not send notification if the user has opted out of notifications
+    # Emails should include the option to opt-out of email notifications
+    # Confirm notification respects existing role-based access controls
+    # ex: If client is moved out of user’s permissions access, user should get an error message when clicking on client url
+    if Flipper.enabled?(:hub_email_notifications)
+      users_to_contact = client.assigned_to
+      users_to_contact.each do |user|
+        next unless user.email_notification_yes?
+        internal_email = InternalEmail.create!(
+          mail_class: UserMailer,
+          mail_method: :incoming_interaction_notification_email,
+          mail_args: ActiveJob::Arguments.serialize(
+            client: client,
+            user: user,
+            interaction_type: interaction_type
+          )
+        )
+        SendInternalEmailJob.perform_later(internal_email)
+      end
+    end
+
     touches = [:last_incoming_interaction_at]
     touches.push(:first_unanswered_incoming_interaction_at) unless client.first_unanswered_incoming_interaction_at.present?
     touches.push(:flagged_at) if set_flag && !client.flagged?
