@@ -130,5 +130,20 @@ RSpec.describe StateFile::Ty24ArchiverService do
         expect { StateFile::Ty24ArchiverService.archive!(state_code: 'ny') }.to raise_error(ArgumentError)
       end
     end
+
+    context "archive-able intake without a submission pdf" do
+      let!(:intake) { create :state_file_az_intake, :with_mailing_address, :with_submission_pdf, hashed_ssn: "ierueiwru8ndjfn", phone_number: "+18286789900", contact_preference: "text" }
+      let!(:submission_1) { create(:efile_submission, :for_state, :accepted, data_source: intake) }
+      before do
+        submission_1.efile_submission_transitions.where(to_state: "accepted").update(created_at: Date.parse("2025-4-1"))
+        intake.submission_pdf.destroy
+      end
+      it "does not create a new StateFileArchivedIntake and prints warning" do
+        expect {
+          StateFile::Ty24ArchiverService.archive!(state_code: 'az')
+        }.to change(StateFileArchivedIntake, :count).by 0
+        expect(Rails.logger).not_to receive(:error).with("~~~~~No submission_pdf for intake_id: #{intake.id}~~~~~")
+      end
+    end
   end
 end

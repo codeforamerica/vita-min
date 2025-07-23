@@ -80,6 +80,11 @@ module StateFile
     end
 
     def archive_intake(intake)
+      unless intake.submission_pdf&.attached?
+        Rails.logger.warn("~~~~~No submission_pdf for intake_id: #{intake.id}~~~~~")
+        return
+      end
+
       archived = StateFileArchivedIntake.new(
         state_code: state_code,
         tax_year: tax_year,
@@ -94,13 +99,7 @@ module StateFile
         mailing_zip: intake.direct_file_data.mailing_zip,
       )
       archived.save!
-
-      if intake.submission_pdf.attached?
-        archived.submission_pdf.attach(intake.submission_pdf.blob)
-      else
-        Rails.logger.warn("~~~~~No submission_pdf for intake_id: #{intake.id}~~~~~")
-      end
-
+      archived.submission_pdf.attach(intake.submission_pdf.blob)
       intake.id
     rescue StandardError => e
       Rails.logger.warn("~~~~~Failed to archive intake_id: #{intake.id}: #{e.message}~~~~~")
