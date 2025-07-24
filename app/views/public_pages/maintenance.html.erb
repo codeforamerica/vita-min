@@ -1,6 +1,6 @@
 <% content_for :page_title, t("views.ctc.questions.at_capacity.title") %>
 <% content_for :header do %>
-  <%= render 'shared/header', variation: "ctc", home_link: ctc_root_path %>
+  <%= render 'shared/header', variation: "gyr", home_link: root_path %>
 <% end %>
 <% content_for :footer do %>
   <footer class="footer">
@@ -12,8 +12,8 @@
           </p>
           <p>
             <% cfa_link = link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link") %>
-            <%= t("views.shared.footer.ctc_service_description_html", link: cfa_link) %>
-          </p>
+            <%= t("views.shared.footer.service_description_html", cfa_link: cfa_link) %>
+            </p>
         </div>
       </div>
     </div>
