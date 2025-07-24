@@ -1824,7 +1824,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_03_191519) do
   end
 
   create_table "state_file_archived_intakes", force: :cascade do |t|
-    t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "email_address"
     t.integer "failed_attempts", default: 0, null: false
@@ -1838,7 +1837,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_03_191519) do
     t.string "mailing_street"
     t.string "mailing_zip"
     t.datetime "permanently_locked_at"
-    t.string "phone_number"
     t.string "state_code"
     t.integer "tax_year"
     t.boolean "unsubscribed_from_email", default: false, null: false
@@ -2903,7 +2901,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_03_191519) do
   create_table "vita_providers", force: :cascade do |t|
     t.string "appointment_info"
     t.boolean "archived", default: false, null: false
-    t.geography "coordinates", limit: {srid: 4326, type: "st_point", geographic: true}
+    t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
     t.datetime "created_at", precision: nil
     t.string "dates"
     t.string "details"

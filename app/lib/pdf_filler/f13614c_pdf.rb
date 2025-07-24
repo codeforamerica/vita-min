@@ -425,6 +425,7 @@ module PdfFiller
             {
               "blanceBankAccount[0]" => @intake.balance_pay_from_bank_yes?,
               "blanceMailPayment[0]" => @intake.balance_pay_from_bank_no?,
+              "blanceInstallmentAgreement[0]" => @intake.payment_in_installments_yes?
             }
           end
         )

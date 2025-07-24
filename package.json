@@ -70,5 +70,8 @@
     "setupFiles": [
       "./spec/javascript/setup-jest.js"
     ]
+  },
+  "resolutions": {
+    "webpack-dev-server/compression/on-headers": "1.1.0"
   }
 }

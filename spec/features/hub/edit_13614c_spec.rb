@@ -94,7 +94,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       fill_in 'hub_update13614c_form_page1_refund_other', with: "Purchase US Savings Bond"
       select "Yes", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.refund_payment_method_split")
 
-      select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.pay_due_balance_directly")
+      select "Bank account", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.pay_due_balance_directly")
 
       select "No", from: I18n.t("hub.clients.edit_13614c_form_page1.fields.register_to_vote")
 
@@ -144,7 +144,7 @@ RSpec.describe "a user editing a clients 13614c form" do
       expect(find_field("hub_update13614c_form_page1[savings_split_refund]").value).to eq "yes"
       expect(find_field("hub_update13614c_form_page1[refund_other_cb]").value).to eq "yes"
       expect(find_field("hub_update13614c_form_page1[refund_other]").value).to eq "Purchase US Savings Bond"
-      expect(find_field("hub_update13614c_form_page1[balance_pay_from_bank]").value).to eq "no"
+      expect(find_field("hub_update13614c_form_page1[balance_pay_from_bank]").value).to eq "bank"
       expect(find_field("hub_update13614c_form_page1[register_to_vote]").value).to eq "no"
       expect(find_field("hub_update13614c_form_page1[multiple_states]").value).to eq "no"
       expect(find_field("hub_update13614c_form_page1[primary_visa]").value).to eq "no"
