@@ -776,7 +776,7 @@ en:
           never_married: Never Married
           north_american_resident: 'Resident of US, CAN or MEX last year:'
           owner_or_holder_of_any_digital_assets: Owner or holder of any digital assets
-          pay_due_balance_directly: If they have a balance due, would they like to make a payment directly from their bank account?
+          pay_due_balance_directly: If they have a balance due, how would they like to make their payment?
           preferred_written_language: If yes, which language?
           presidential_campaign_fund: Presidential Election Campaign Fund $3 to go to this fund
           primary_us_citizen: U.S. citizen?
@@ -5398,7 +5398,11 @@ en:
         select_all_that_apply: 'Select all the years you would like to file for:'
         title: Which of the following years would you like to file for?
       balance_payment:
-        title: If you have a balance due, would you like to make a payment directly from your bank account?
+        error_message: Can't be blank. Please select an option above
+        pay_in_full_bank: Pay full amount through my bank account
+        pay_in_full_mail: Pay full amount by mail
+        pay_in_installments: Pay amount in installments
+        title: If you owe a balance, how would you like to make a payment?
       bank_details:
         account_number: Account number
         account_type:
@@ -5674,7 +5678,10 @@ en:
       refund_payment:
         check: Mail my payment (slower)
         direct_deposit: Direct deposit (fastest)
+        savings_purchase_bond: Purchase United States Savings Bond
+        savings_split_refund: Split my refund between accounts
         title: If due a refund, how would like to receive it?
+        title_2: If due a refund, are you interested in using these savings options?
       retirement_contributions:
         help_text: For example, a 401k, 403b, or any IRA.
         title:
@@ -5688,10 +5695,6 @@ en:
       returning_client:
         next_steps_html: Sign in to your account to complete the tax questions or send documents to your tax preparer. If you have any questions, you can email %{email_link}.
         title: Looks like you’ve already started!
-      savings_options:
-        savings_purchase_bond: Purchase United States Savings Bond
-        savings_split_refund: Split my refund between accounts
-        title: If due a refund, are you interested in using these savings options?
       school_supplies:
         help_text: Answer "Yes" if you are a teacher who purchased classroom supplies for your work.
         title:
