@@ -33,10 +33,10 @@ class UserMailer < ApplicationMailer
     mail(to: @assigned_user.email, subject: @subject)
   end
 
-  def incoming_interaction_notification_email(client:, message_sent_at:, user:)
+  def incoming_interaction_notification_email(client:, user:, message_received_at:)
     @client_id = client.id
     @user = user
-    @message_sent_at = message_sent_at.in_time_zone(@user.timezone)
+    @message_received_at = message_received_at.in_time_zone(@user.timezone)
     @subject = "New Message from GetYourRefund Client ##{@client_id}"
     service = MultiTenantService.new(:gyr)
     attachments.inline['logo.png'] = service.email_logo
