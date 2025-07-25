@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/codeforamerica/honeycrisp-gem
-  revision: 0e15fc7d74a330866049d58516c6f2449958fb1b
-  ref: 0e15fc7d74a330866049d58516c6f2449958fb1b
+  revision: 40a4356dd217dacfba82a7b92010111999954c91
+  ref: 40a4356dd217dacfba82a7b92010111999954c91
   branch: main
   specs:
-    cfa-styleguide (0.16.0)
+    cfa-styleguide (0.17.1)
       autoprefixer-rails
       bourbon
       jquery-rails
@@ -105,7 +105,7 @@ GEM
     ast (2.4.2)
     auto_strip_attributes (2.6.0)
       activerecord (>= 4.0)
-    autoprefixer-rails (10.4.19.0)
+    autoprefixer-rails (10.4.21.0)
       execjs (~> 2)
     awesome_print (1.9.2)
     aws-eventstream (1.2.0)
@@ -750,7 +750,7 @@ DEPENDENCIES
   byebug
   cancancan
   capybara (>= 2.15)
-  cfa-styleguide (= 0.16.0)!
+  cfa-styleguide (= 0.17.1)!
   combine_pdf
   csv (~> 3.3)
   data_migrate
