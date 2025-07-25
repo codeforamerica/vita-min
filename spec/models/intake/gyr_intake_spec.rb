@@ -234,6 +234,7 @@
 #  paid_school_supplies                                 :integer          default("unfilled"), not null
 #  paid_self_employment_expenses                        :integer          default("unfilled"), not null
 #  paid_student_loan_interest                           :integer          default("unfilled"), not null
+#  payment_in_installments                              :integer          default(0), not null
 #  phone_carrier                                        :string
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
