@@ -4,23 +4,25 @@ class InteractionTrackingService
     client.touch(:last_outgoing_communication_at)
   end
 
-  # When a client contacts us, update last incoming interaction and last interaction
-  def self.record_incoming_interaction(client, set_flag: true, interaction_type:)
-    if Flipper.enabled?(:hub_email_notifications) && client.tax_returns.present?
-      users_to_contact = client.tax_returns.pluck(:assigned_user_id)
-      users_to_contact.each do |user_id|
-        user = User.find(user_id)
-        next unless user && user.email_notification_yes?
-        internal_email = InternalEmail.create!(
-          mail_class: UserMailer,
-          mail_method: :incoming_interaction_notification_email,
-          mail_args: ActiveJob::Arguments.serialize(
-            client: client,
-            user: user,
-            interaction_type: interaction_type
+  # When a client contacts us, update last incoming & last interaction and send a email notification to assigned users
+  def self.record_incoming_interaction(client, set_flag: true, interaction_type: nil)
+    if (interaction_type == :client_message) && Flipper.enabled?(:hub_email_notifications)
+      users_to_contact = client.tax_returns.pluck(:assigned_user_id).compact
+      unless users_to_contact.empty?
+        users_to_contact.each do |user_id|
+          user = User.find(user_id)
+          next unless user && user.email_notification_yes?
+          internal_email = InternalEmail.create!(
+            mail_class: UserMailer,
+            mail_method: :incoming_interaction_notification_email,
+            mail_args: ActiveJob::Arguments.serialize(
+              client: client,
+              user: user,
+              interaction_type: interaction_type
+            )
           )
-        )
-        SendInternalEmailJob.perform_later(internal_email)
+          SendInternalEmailJob.perform_later(internal_email)
+        end
       end
     end
 

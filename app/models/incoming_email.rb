@@ -34,7 +34,7 @@ class IncomingEmail < ApplicationRecord
   has_many :documents, as: :contact_record
 
   after_create do
-    InteractionTrackingService.record_incoming_interaction(client, interaction_type: 'email')
+    InteractionTrackingService.record_incoming_interaction(client, interaction_type: :client_message)
   end
 
   def body

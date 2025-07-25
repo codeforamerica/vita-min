@@ -25,30 +25,69 @@ describe InteractionTrackingService do
     end
 
     it "sends a notification and enqueues the email job" do
-      described_class.record_incoming_interaction(client, set_flag: true, interaction_type: :email)
+      described_class.record_incoming_interaction(client, set_flag: true, interaction_type: :client_message)
       expect(InternalEmail).to have_received(:create!).with(
         mail_class: UserMailer,
         mail_method: :incoming_interaction_notification_email,
         mail_args: ActiveJob::Arguments.serialize(
           client: client,
           user: user,
-          interaction_type: :email
+          interaction_type: :client_message
         )
       )
       expect(SendInternalEmailJob).to have_received(:perform_later)
     end
 
     it "doesn't send a message for the user that has chosen to opt-out of email notifications" do
-      described_class.record_incoming_interaction(client, set_flag: true, interaction_type: :email)
+      described_class.record_incoming_interaction(client, set_flag: true, interaction_type: :client_message)
       expect(InternalEmail).not_to have_received(:create!).with(
         mail_class: UserMailer,
         mail_method: :incoming_interaction_notification_email,
         mail_args: ActiveJob::Arguments.serialize(
           client: client,
           user: user_no_notifications,
-          interaction_type: :email
+          interaction_type: :client_message
         )
       )
+    end
+
+    context "when the interaction type is not client_message" do
+      it "doesn't send any email notifications" do
+        described_class.record_incoming_interaction(client, set_flag: true, interaction_type: nil)
+        expect(InternalEmail).not_to have_received(:create!)
+        expect(SendInternalEmailJob).not_to have_received(:perform_later)
+      end
+    end
+
+    context "when the client doesn't have any assigned users" do
+      before do
+        tax_return_1.update!(assigned_user: nil)
+        tax_return_2.update!(assigned_user: nil)
+      end
+      it "doesn't send any email notifications" do
+        described_class.record_incoming_interaction(client, set_flag: true, interaction_type: :client_message)
+        expect(InternalEmail).not_to have_received(:create!)
+        expect(SendInternalEmailJob).not_to have_received(:perform_later)
+      end
+    end
+
+    context "when only one tax return has an assigned user" do
+      before do
+        tax_return_2.update!(assigned_user: nil)
+      end
+      it "only sends email notification that user" do
+        described_class.record_incoming_interaction(client, set_flag: true, interaction_type: :client_message)
+        expect(InternalEmail).to have_received(:create!).with(
+          mail_class: UserMailer,
+          mail_method: :incoming_interaction_notification_email,
+          mail_args: ActiveJob::Arguments.serialize(
+            client: client,
+            user: user,
+            interaction_type: :client_message
+          )
+        )
+        expect(SendInternalEmailJob).to have_received(:perform_later)
+      end
     end
 
     context "when the flipper flag 'hub_email_notifications' is disabled" do
@@ -57,7 +96,7 @@ describe InteractionTrackingService do
       end
 
       it "doesn't send any email notifications" do
-        described_class.record_incoming_interaction(client, set_flag: true, interaction_type: :email)
+        described_class.record_incoming_interaction(client, set_flag: true, interaction_type: :client_message)
         expect(InternalEmail).not_to have_received(:create!)
         expect(SendInternalEmailJob).not_to have_received(:perform_later)
       end
@@ -68,7 +107,7 @@ describe InteractionTrackingService do
 
       it "touches last_incoming_interaction_at, first_unanswered_incoming_interaction_at, and flagged_at" do
         Timecop.freeze(fake_time) do
-          InteractionTrackingService.record_incoming_interaction(client, set_flag: true, interaction_type: :email)
+          InteractionTrackingService.record_incoming_interaction(client, set_flag: true, interaction_type: :client_message)
           client.reload
 
           expect(client.last_incoming_interaction_at).to eq fake_time
@@ -84,7 +123,7 @@ describe InteractionTrackingService do
 
       it "only touches last_incoming_interaction_at and flagged_at" do
         Timecop.freeze(fake_time) do
-          InteractionTrackingService.record_incoming_interaction(client, set_flag: true, interaction_type: :email)
+          InteractionTrackingService.record_incoming_interaction(client, set_flag: true, interaction_type: :client_message)
           client.reload
 
           expect(client.last_incoming_interaction_at).to eq fake_time
