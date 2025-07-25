@@ -25,6 +25,19 @@
         font-weight: normal;
         margin-bottom: 2.5rem;
       }
+      .email-contents button {
+          background-color: #121111;
+          border: #121111 2px solid;
+          border-radius: 10px;
+          font-size: 19px;
+          font-weight: 700;
+          padding: 19.5px 25px;
+          width: 80%;
+      }
+      .email-contents button a {
+        text-decoration: none;
+        color: #FFFFFF;
+      }
     </style>
   </head>
 
@@ -36,7 +49,9 @@
       <% if @subject %>
         <h1 class="subject"><%= @subject %></h1>
       <% end %>
-      <%= yield %>
+      <div class="email-contents">
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>
