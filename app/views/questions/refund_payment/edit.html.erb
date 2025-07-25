@@ -13,6 +13,29 @@
           ]
         )
     %>
+
+    <b><%=  t("views.questions.refund_payment.title_2")  %></b>
+
+    <div class="form-card__stacked-checkboxes spacing-above-25">
+      <%= f.cfa_checkbox(
+            :savings_split_refund,
+            t("views.questions.refund_payment.savings_split_refund"),
+            options: {
+              checked_value: "yes",
+              unchecked_value: "no",
+              "aria-describedby": "main-question"
+            }
+          ) %>
+      <%= f.cfa_checkbox(
+            :savings_purchase_bond,
+            t("views.questions.refund_payment.savings_purchase_bond"),
+            options: {
+              checked_value: "yes",
+              unchecked_value: "no",
+              "aria-describedby": "main-question"
+            }
+          ) %>
+    </div>
     <%= f.continue %>
   <% end %>
 <% end %>

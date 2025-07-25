@@ -234,7 +234,7 @@
 #  paid_school_supplies                                 :integer          default("unfilled"), not null
 #  paid_self_employment_expenses                        :integer          default("unfilled"), not null
 #  paid_student_loan_interest                           :integer          default("unfilled"), not null
-#  payment_in_installments                              :integer          default(0), not null
+#  payment_in_installments                              :integer          default("unfilled"), not null
 #  phone_carrier                                        :string
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
@@ -404,6 +404,7 @@ class Intake::GyrIntake < Intake
   enum bought_employer_health_insurance: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_employer_health_insurance
   enum bought_marketplace_health_insurance: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_marketplace_health_insurance
   enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
+  enum payment_in_installments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :payment_in_installments
   enum claimed_by_another: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :claimed_by_another
   enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in
   enum demographic_english_conversation: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_conversation
