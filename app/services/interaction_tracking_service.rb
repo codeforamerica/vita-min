@@ -11,7 +11,7 @@ class InteractionTrackingService
       unless users_to_contact.empty?
         users_to_contact.each do |user_id|
           user = User.find(user_id)
-          next unless user && user.email_notification_yes?
+          next unless user && user.email_notification == "yes"
           internal_email = InternalEmail.create!(
             mail_class: UserMailer,
             mail_method: :incoming_interaction_notification_email,

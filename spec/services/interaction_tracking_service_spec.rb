@@ -77,7 +77,7 @@ describe InteractionTrackingService do
       before do
         tax_return_2.update!(assigned_user: nil)
       end
-      it "only sends email notification that user" do
+      it "only sends email notifications to that user" do
         described_class.record_incoming_interaction(client, set_flag: true, message_received_at: fake_time)
         expect(InternalEmail).to have_received(:create!).with(
           mail_class: UserMailer,
@@ -85,6 +85,15 @@ describe InteractionTrackingService do
           mail_args: ActiveJob::Arguments.serialize(
             client: client,
             user: user,
+            message_received_at: fake_time
+          )
+        )
+        expect(InternalEmail).not_to have_received(:create!).with(
+          mail_class: UserMailer,
+          mail_method: :incoming_interaction_notification_email,
+          mail_args: ActiveJob::Arguments.serialize(
+            client: client,
+            user: user_no_notifications,
             message_received_at: fake_time
           )
         )
