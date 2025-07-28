@@ -19,7 +19,7 @@ gem 'rack', '>= 2.0.8'
 gem 'rails', '~> 7.1'
 gem 'puma', '>= 5.3.2'
 gem 'sass-rails', '~> 5.0'
-gem 'cfa-styleguide', '0.16.0', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '0e15fc7d74a330866049d58516c6f2449958fb1b'
+gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
 
