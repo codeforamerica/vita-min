@@ -2807,6 +2807,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_202752) do
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.citext "email", null: false
+    t.integer "email_notification", default: 0, null: false
     t.string "encrypted_password", default: "", null: false
     t.string "external_provider"
     t.string "external_uid"

@@ -6,6 +6,7 @@
 #  current_sign_in_at             :datetime
 #  current_sign_in_ip             :string
 #  email                          :citext           not null
+#  email_notification             :integer          default("yes"), not null
 #  encrypted_password             :string           default(""), not null
 #  external_provider              :string
 #  external_uid                   :string
@@ -80,6 +81,8 @@ class User < ApplicationRecord
 
   scope :active, -> { where(suspended_at: nil) }
   scope :suspended, -> { where.not(suspended_at: nil) }
+
+  enum email_notification: { yes: 0, no: 1}, _prefix: :email_notification
 
   def valid?(*_args)
     [super, role&.valid?].all?
