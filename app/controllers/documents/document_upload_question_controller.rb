@@ -64,7 +64,7 @@ module Documents
     private
 
     def documents
-      current_intake.documents.of_type(self.class.displayed_document_types)
+      current_intake.documents.includes(upload_attachment: :blob).of_type(self.class.displayed_document_types)
     end
 
     def destroy_document_path(document)
