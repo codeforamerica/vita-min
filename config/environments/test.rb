@@ -16,6 +16,7 @@ Rails.application.configure do
   # recommended that you enable it in continuous integration systems to ensure eager
   # loading is working properly before deploying your code.
   config.eager_load = ENV['EAGER_LOAD'].present? # in the base rails config ENV['CI'] is used here instead
+  config.paths.add 'lib', eager_load: true
 
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
