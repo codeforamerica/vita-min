@@ -15,7 +15,6 @@ module Documents
     def edit
       return if document_type.nil?
 
-      @selectable_document_types = selectable_document_types
       @documents = documents
       @form = form_class.new(document_type_key, current_intake, form_params)
     end
@@ -100,9 +99,6 @@ module Documents
 
     def current_path(params = {})
       document_path(self.class.to_param, params)
-    end
-
-    def selectable_document_types
     end
 
     def user_for_paper_trail

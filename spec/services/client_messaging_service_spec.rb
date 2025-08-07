@@ -48,28 +48,6 @@ RSpec.describe ClientMessagingService do
           end
         end
       end
-
-      context "when an archived intake" do
-        let!(:intake) { create :archived_2021_ctc_intake,
-                               preferred_name: "Mona Lisa",
-                               email_address: email_address,
-                               email_notification_opt_in: email_opt_in
-        }
-
-        it "saves a new outgoing email with the right info, enqueues email job, and broadcasts to ClientChannel" do
-          expect do
-            described_class.send_email(client: client, user: nil, body: "hello from a system email")
-          end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
-
-          outgoing_email = OutgoingEmail.last
-          expect(outgoing_email.subject).to eq("Update from GetCTC")
-          expect(outgoing_email.body).to eq("hello from a system email")
-          expect(outgoing_email.client).to eq client
-          expect(outgoing_email.user).to eq nil
-          expect(outgoing_email.to).to eq intake.email_address
-          expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
-        end
-      end
     end
 
     context "when user is present" do
@@ -86,19 +64,6 @@ RSpec.describe ClientMessagingService do
           expect(outgoing_email.user).to eq user
           expect(outgoing_email.to).to eq client.email_address
           expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_email)
-        end
-      end
-
-      context "with a CTC intake" do
-        let(:intake) { create :ctc_intake, email_address: "client@example.com", sms_phone_number: "+14155551212", email_notification_opt_in: "yes" }
-
-        it "uses the default CTC subject" do
-          expect do
-            described_class.send_email(client: client, user: user, body: "hello, <<Client.PreferredName>>")
-          end.to change(OutgoingEmail, :count).by(1).and have_enqueued_job(SendOutgoingEmailJob)
-
-          outgoing_email = OutgoingEmail.last
-          expect(outgoing_email.subject).to eq("Update from GetCTC")
         end
       end
 
@@ -308,29 +273,6 @@ RSpec.describe ClientMessagingService do
               described_class.send_text_message(client: client, user: nil, body: "hello from a system email")
             end.not_to change(OutgoingTextMessage, :count)
           end
-        end
-      end
-
-      context "with an archived intake" do
-        let!(:intake) { create :archived_2021_ctc_intake,
-                               preferred_name: "Mona Lisa",
-                               sms_phone_number: sms_phone_number,
-                               sms_notification_opt_in: sms_opt_in
-        }
-
-        it "saves a new outgoing text message with the right info, enqueues job, and broadcasts to ClientChannel" do
-          expect do
-            described_class.send_text_message(client: client, user: nil, body: "hello, <<Client.PreferredName>>")
-          end.to change(OutgoingTextMessage, :count).by(1)
-
-          outgoing_text_message = OutgoingTextMessage.last
-          expect(outgoing_text_message.body).to eq("hello, Mona Lisa")
-          expect(outgoing_text_message.client).to eq client
-          expect(outgoing_text_message.user).to eq nil
-          expect(outgoing_text_message.sent_at).to eq expected_time
-          expect(outgoing_text_message.to_phone_number).to eq intake.sms_phone_number
-          expect(ClientChannel).to have_received(:broadcast_contact_record).with(outgoing_text_message)
-          expect(SendOutgoingTextMessageJob).to have_been_enqueued.with(outgoing_text_message.id)
         end
       end
     end

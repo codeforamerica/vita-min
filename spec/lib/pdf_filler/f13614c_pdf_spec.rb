@@ -675,6 +675,64 @@ RSpec.describe PdfFiller::F13614cPdf do
         end
       end
 
+      describe "balance payment section" do
+        context "when paying by bank account" do
+          before { intake.update(balance_pay_from_bank: "yes", payment_in_installments: "no") }
+
+          it "fills out the balance payment section correctly" do
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+                                "form1[0].page1[0].haveBlanceDue[0].blanceBankAccount[0]" => "1",
+                                "form1[0].page1[0].haveBlanceDue[0].blanceMailPayment[0]" => "Off",
+                                "form1[0].page1[0].haveBlanceDue[0].blanceInstallmentAgreement[0]" => "Off"
+                              )
+          end
+        end
+
+        context "when paying by mail" do
+          before { intake.update(balance_pay_from_bank: "no", payment_in_installments: "no") }
+
+          it "fills out the balance payment section correctly" do
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+                                "form1[0].page1[0].haveBlanceDue[0].blanceBankAccount[0]" => "Off",
+                                "form1[0].page1[0].haveBlanceDue[0].blanceMailPayment[0]" => "1",
+                                "form1[0].page1[0].haveBlanceDue[0].blanceInstallmentAgreement[0]" => "Off"
+                              )
+          end
+        end
+
+        context "when paying by installment agreement" do
+          before { intake.update(balance_pay_from_bank: "unfilled", payment_in_installments: "yes") }
+
+          it "fills out the balance payment section correctly" do
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+                                "form1[0].page1[0].haveBlanceDue[0].blanceBankAccount[0]" => "Off",
+                                "form1[0].page1[0].haveBlanceDue[0].blanceMailPayment[0]" => "Off",
+                                "form1[0].page1[0].haveBlanceDue[0].blanceInstallmentAgreement[0]" => "1"
+                              )
+          end
+        end
+
+        context "when payment method is not specified" do
+          before { intake.update(balance_pay_from_bank: "unfilled", payment_in_installments: "unfilled") }
+
+          it "leaves all options unselected" do
+            output_file = intake_pdf.output_file
+            result = non_preparer_fields(output_file.path)
+            expect(result).to include(
+                                "form1[0].page1[0].haveBlanceDue[0].blanceBankAccount[0]" => "Off",
+                                "form1[0].page1[0].haveBlanceDue[0].blanceMailPayment[0]" => "Off",
+                                "form1[0].page1[0].haveBlanceDue[0].blanceInstallmentAgreement[0]" => "Off"
+                              )
+          end
+        end
+      end
+
       describe "you_and_spouse_info" do
         it "should contain the correct information" do
           expect(intake_pdf.you_and_spouse_info).to include({

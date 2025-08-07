@@ -152,8 +152,10 @@ Rails.application.configure do
 
   # Keep GYR and FYST 'open' until the end of 2040 ^_^
   # use the session toggles if you want to emulate/test 'closed' behaviors
-  the_future = Time.find_zone('America/New_York').parse('2040-12-31 23:59:59')
-  config.end_of_intake = the_future
-  config.state_file_end_of_new_intakes = the_future
-  config.state_file_end_of_in_progress_intakes = the_future
+  # use the year "2040" to test what it looks like between these milestones
+  the_earlier_future = Time.find_zone('America/New_York').parse('2039-12-31 23:59:59')
+  the_further_future = Time.find_zone('America/New_York').parse('2040-12-31 23:59:59')
+  config.end_of_intake = the_further_future
+  config.state_file_end_of_new_intakes = the_earlier_future
+  config.state_file_end_of_in_progress_intakes = the_further_future
 end

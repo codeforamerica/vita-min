@@ -213,14 +213,62 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
     end
 
-    context "when there is an incomplete intake that has been sent the pre-deadline reminder in the past 24 hours" do
+    context "when there is an incomplete intake that has been sent the pre-deadline reminder more than a day ago" do
       let!(:intake) do
         create :state_file_az_intake,
                df_data_imported_at: 6.hours.ago,
                email_address_verified_at: 7.hours.ago,
                email_notification_opt_in: "yes",
                email_address: "dezie@example.com",
-               message_tracker: {'messages.state_file.pre_deadline_reminder' => (Time.now - 3.hours)}
+               message_tracker: {'messages.state_file.pre_deadline_reminder' => 2.days.ago}
+      end
+
+      it "does send the message" do
+        StateFile::ReminderToFinishStateReturnService.run
+        expect(StateFile::MessagingService).to have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that has a duplicate intake with the same ssn with an efile submission" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com"
+      end
+
+      it "does send the message" do
+        allow_any_instance_of(StateFileAzIntake).to receive(:other_intake_with_same_ssn_has_submission?).and_return false
+        StateFile::ReminderToFinishStateReturnService.run
+        expect(StateFile::MessagingService).to have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that does not have a duplicate intake with the same ssn with an efile submission" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com"
+      end
+
+      it "does send the message" do
+        allow_any_instance_of(StateFileAzIntake).to receive(:other_intake_with_same_ssn_has_submission?).and_return true
+        StateFile::ReminderToFinishStateReturnService.run
+        expect(StateFile::MessagingService).to_not have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that has been sent the monthly finish return message in the past 24 hours" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com",
+               message_tracker: {'messages.state_file.monthly_finish_return' => 3.hours.ago}
       end
 
       it "does not send the message" do
@@ -229,14 +277,14 @@ describe StateFile::ReminderToFinishStateReturnService do
       end
     end
 
-    context "when there is an incomplete intake that has been sent the pre-deadline reminder more than a day ago" do
+    context "when there is an incomplete intake that has been sent the monthly finish return message more than a day ago" do
       let!(:intake) do
         create :state_file_az_intake,
                df_data_imported_at: 6.hours.ago,
                email_address_verified_at: 7.hours.ago,
                email_notification_opt_in: "yes",
                email_address: "dezie@example.com",
-               message_tracker: {'messages.state_file.pre_deadline_reminder' => (Time.now - 2.days)}
+               message_tracker: {'messages.state_file.monthly_finish_return' => 2.days.ago}
       end
 
       it "does send the message" do

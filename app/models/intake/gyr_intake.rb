@@ -214,13 +214,6 @@
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
 #  need_itin_help                                       :integer          default("unfilled"), not null
-#  needs_help_2016                                      :integer          default("unfilled"), not null
-#  needs_help_2018                                      :integer          default("unfilled"), not null
-#  needs_help_2019                                      :integer          default("unfilled"), not null
-#  needs_help_2020                                      :integer          default("unfilled"), not null
-#  needs_help_2021                                      :integer          default("unfilled"), not null
-#  needs_help_2022                                      :integer          default("unfilled"), not null
-#  needs_help_2023                                      :integer          default("unfilled"), not null
 #  needs_help_current_year                              :integer          default("unfilled"), not null
 #  needs_help_previous_year_1                           :integer          default("unfilled"), not null
 #  needs_help_previous_year_2                           :integer          default("unfilled"), not null
@@ -241,6 +234,7 @@
 #  paid_school_supplies                                 :integer          default("unfilled"), not null
 #  paid_self_employment_expenses                        :integer          default("unfilled"), not null
 #  paid_student_loan_interest                           :integer          default("unfilled"), not null
+#  payment_in_installments                              :integer          default("unfilled"), not null
 #  phone_carrier                                        :string
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
@@ -386,7 +380,6 @@
 #  index_intakes_on_matching_previous_year_intake_id       (matching_previous_year_intake_id)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
-#  index_intakes_on_preferred_name                         (preferred_name)
 #  index_intakes_on_primary_consented_to_service           (primary_consented_to_service)
 #  index_intakes_on_primary_drivers_license_id             (primary_drivers_license_id)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
@@ -411,6 +404,7 @@ class Intake::GyrIntake < Intake
   enum bought_employer_health_insurance: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_employer_health_insurance
   enum bought_marketplace_health_insurance: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_marketplace_health_insurance
   enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
+  enum payment_in_installments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :payment_in_installments
   enum claimed_by_another: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :claimed_by_another
   enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in
   enum demographic_english_conversation: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_conversation
@@ -457,13 +451,6 @@ class Intake::GyrIntake < Intake
   enum married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married
   enum married_for_all_of_tax_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married_for_all_of_tax_year
   enum multiple_states: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :multiple_states
-  enum needs_help_2016: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2016 # TODO: drop this column, it's not populated on anything in `intakes`
-  enum needs_help_2018: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2018
-  enum needs_help_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2019
-  enum needs_help_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2020
-  enum needs_help_2021: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2021
-  enum needs_help_2022: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2022
-  enum needs_help_2023: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needs_help_2023
   enum needs_help_previous_year_3: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_3
   enum needs_help_previous_year_2: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_2
   enum needs_help_previous_year_1: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_1

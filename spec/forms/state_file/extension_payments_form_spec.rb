@@ -71,6 +71,7 @@ RSpec.describe StateFile::ExtensionPaymentsForm do
       it "returns false" do
         form = described_class.new(intake, invalid_params)
         expect(form).not_to be_valid
+        expect(form.errors[:extension_payments_amount]).to include I18n.t("validators.not_a_number")
       end
     end
 
@@ -85,6 +86,60 @@ RSpec.describe StateFile::ExtensionPaymentsForm do
       it "returns false" do
         form = described_class.new(intake, invalid_params)
         expect(form).not_to be_valid
+        expect(form.errors[:extension_payments_amount]).to include I18n.t("state_file.questions.extension_payments.default_payment_validation_message")
+      end
+    end
+
+    context "with yes selected and blank value" do
+      let(:invalid_params) do
+        {
+          paid_extension_payments: "yes",
+          extension_payments_amount: nil
+        }
+      end
+
+      it "returns false" do
+        form = described_class.new(intake, invalid_params)
+        expect(form).not_to be_valid
+        expect(form.errors[:extension_payments_amount]).to include I18n.t("state_file.questions.extension_payments.default_payment_validation_message")
+      end
+    end
+
+    context "when Idaho" do
+      let(:intake) { create :state_file_id_intake }
+      let(:extension_payments_amount) { "0" }
+      let(:invalid_params) do
+        {
+          paid_extension_payments: "yes",
+          extension_payments_amount: extension_payments_amount
+        }
+      end
+
+      context "when value is zero" do
+        it "error_msg_if_blank_or_zero is the Idaho specific payment_validation_message" do
+          form = described_class.new(intake, invalid_params)
+          expect(form).not_to be_valid
+          expect(form.errors[:extension_payments_amount]).to include I18n.t("state_file.questions.extension_payments.id.payment_validation_message")
+          expect(form.error_msg_if_blank_or_zero).to eq I18n.t("state_file.questions.extension_payments.id.payment_validation_message")
+        end
+      end
+
+      context "when value is blank" do
+        let(:extension_payments_amount) { "" }
+        it "error_msg_if_blank_or_zero is the Idaho specific payment_validation_message" do
+          form = described_class.new(intake, invalid_params)
+          expect(form).not_to be_valid
+          expect(form.error_msg_if_blank_or_zero).to eq I18n.t("state_file.questions.extension_payments.id.payment_validation_message")
+        end
+      end
+
+      context "when value is a non-numeric value" do
+        let(:extension_payments_amount) { "hello" }
+        it "error_msg_if_blank_or_zero is the Idaho specific payment_validation_message" do
+          form = described_class.new(intake, invalid_params)
+          expect(form).not_to be_valid
+          expect(form.errors[:extension_payments_amount]).to include I18n.t("validators.not_a_number")
+        end
       end
     end
   end

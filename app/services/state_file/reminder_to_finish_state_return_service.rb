@@ -10,10 +10,9 @@ module StateFile
           .has_verified_contact_info.no_prior_message_history_of(state_code, message.name)
           .left_joins(:efile_submissions).where(efile_submissions: { id: nil })
           .select do |intake|
-            next false if intake.disqualifying_df_data_reason.present?
+            next false if intake.disqualifying_df_data_reason.present? || intake.other_intake_with_same_ssn_has_submission?
 
-            # don't send if we sent the pre_deadline_reminder in the past 24 hours
-            if (msg = intake.message_tracker&.dig("messages.state_file.pre_deadline_reminder"))
+            if (msg = intake.message_tracker&.dig("messages.state_file.monthly_finish_return"))
               Time.parse(msg) < 24.hours.ago
             else
               true

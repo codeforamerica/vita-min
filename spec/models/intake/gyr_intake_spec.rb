@@ -214,13 +214,6 @@
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
 #  need_itin_help                                       :integer          default("unfilled"), not null
-#  needs_help_2016                                      :integer          default("unfilled"), not null
-#  needs_help_2018                                      :integer          default("unfilled"), not null
-#  needs_help_2019                                      :integer          default("unfilled"), not null
-#  needs_help_2020                                      :integer          default("unfilled"), not null
-#  needs_help_2021                                      :integer          default("unfilled"), not null
-#  needs_help_2022                                      :integer          default("unfilled"), not null
-#  needs_help_2023                                      :integer          default("unfilled"), not null
 #  needs_help_current_year                              :integer          default("unfilled"), not null
 #  needs_help_previous_year_1                           :integer          default("unfilled"), not null
 #  needs_help_previous_year_2                           :integer          default("unfilled"), not null
@@ -241,6 +234,7 @@
 #  paid_school_supplies                                 :integer          default("unfilled"), not null
 #  paid_self_employment_expenses                        :integer          default("unfilled"), not null
 #  paid_student_loan_interest                           :integer          default("unfilled"), not null
+#  payment_in_installments                              :integer          default("unfilled"), not null
 #  phone_carrier                                        :string
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
@@ -386,7 +380,6 @@
 #  index_intakes_on_matching_previous_year_intake_id       (matching_previous_year_intake_id)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
-#  index_intakes_on_preferred_name                         (preferred_name)
 #  index_intakes_on_primary_consented_to_service           (primary_consented_to_service)
 #  index_intakes_on_primary_drivers_license_id             (primary_drivers_license_id)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
@@ -415,7 +408,7 @@ describe Intake::GyrIntake do
         client = intake.client.reload
         expect(client.filterable_percentage_of_required_documents_uploaded).to eq(0)
         expect(client.filterable_number_of_required_documents_uploaded).to eq(0)
-        expect(client.filterable_number_of_required_documents).to eq(3)
+        expect(client.filterable_number_of_required_documents).to eq(2)
       end
     end
   end

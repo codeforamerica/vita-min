@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/codeforamerica/honeycrisp-gem
-  revision: 0e15fc7d74a330866049d58516c6f2449958fb1b
-  ref: 0e15fc7d74a330866049d58516c6f2449958fb1b
+  revision: 40a4356dd217dacfba82a7b92010111999954c91
+  ref: 40a4356dd217dacfba82a7b92010111999954c91
   branch: main
   specs:
-    cfa-styleguide (0.16.0)
+    cfa-styleguide (0.17.1)
       autoprefixer-rails
       bourbon
       jquery-rails
@@ -72,8 +72,6 @@ GEM
       activemodel (= 7.1.5.1)
       activesupport (= 7.1.5.1)
       timeout (>= 0.4.0)
-    activerecord-cte (0.3.0)
-      activerecord
     activerecord-postgis-adapter (9.0.1)
       activerecord (~> 7.1.0)
       rgeo-activerecord (~> 7.0.0)
@@ -98,8 +96,8 @@ GEM
       tzinfo (~> 2.0)
     acts_as_list (1.1.0)
       activerecord (>= 4.2)
-    addressable (2.8.5)
-      public_suffix (>= 2.0.2, < 6.0)
+    addressable (2.8.7)
+      public_suffix (>= 2.0.2, < 7.0)
     afm (0.2.2)
     annotate (3.2.0)
       activerecord (>= 3.2, < 8.0)
@@ -107,7 +105,7 @@ GEM
     ast (2.4.2)
     auto_strip_attributes (2.6.0)
       activerecord (>= 4.0)
-    autoprefixer-rails (10.4.19.0)
+    autoprefixer-rails (10.4.21.0)
       execjs (~> 2)
     awesome_print (1.9.2)
     aws-eventstream (1.2.0)
@@ -185,6 +183,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    childprocess (5.1.0)
+      logger (~> 1.5)
     cliver (0.3.2)
     coderay (1.1.3)
     coercible (1.0.0)
@@ -197,6 +197,7 @@ GEM
     crack (0.4.5)
       rexml
     crass (1.0.6)
+    csv (3.3.5)
     data_migrate (9.2.0)
       activerecord (>= 6.1)
       railties (>= 6.1)
@@ -206,13 +207,13 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
-    date (3.4.1)
-    ddtrace (1.9.0)
-      debase-ruby_core_source (>= 0.10.16, <= 3.2.0)
-      libdatadog (~> 1.0.1.1.0)
-      libddwaf (~> 1.5.1.0.0)
+    datadog (2.2.0)
+      debase-ruby_core_source (= 3.3.1)
+      libdatadog (~> 10.0.0.1.0)
+      libddwaf (~> 1.14.0.0.0)
       msgpack
-    debase-ruby_core_source (3.2.0)
+    date (3.4.1)
+    debase-ruby_core_source (3.3.1)
     delayed_job (4.1.11)
       activesupport (>= 3.0, < 8.0)
     delayed_job_active_record (4.1.8)
@@ -340,12 +341,14 @@ GEM
     json (2.9.0)
     jwt (2.7.1)
     language_server-protocol (3.17.0.3)
-    launchy (2.5.2)
+    launchy (3.1.1)
       addressable (~> 2.8)
-    letter_opener (1.8.1)
-      launchy (>= 2.2, < 3)
-    libdatadog (1.0.1.1.0)
-    libddwaf (1.5.1.0.1)
+      childprocess (~> 5.0)
+      logger (~> 1.6)
+    letter_opener (1.10.0)
+      launchy (>= 2.2, < 4)
+    libdatadog (10.0.0.1.0)
+    libddwaf (1.14.0.0.0)
       ffi (~> 1.0)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -376,7 +379,7 @@ GEM
     mime-types-data (3.2023.1003)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.8)
+    mini_portile2 (2.8.9)
     minitest (5.25.4)
     mixpanel-ruby (2.3.0)
     moneta (1.0.0)
@@ -387,7 +390,7 @@ GEM
       ruby2_keywords (~> 0.0.1)
     mutex_m (0.3.0)
     nenv (0.3.0)
-    net-imap (0.4.19)
+    net-imap (0.5.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -398,7 +401,7 @@ GEM
       net-protocol
     netrc (0.11.0)
     nio4r (2.7.3)
-    nokogiri (1.18.8)
+    nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     notiffany (0.1.3)
@@ -411,6 +414,7 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
+    observer (0.1.2)
     omniauth (2.1.1)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
@@ -467,14 +471,15 @@ GEM
     pry-byebug (3.10.1)
       byebug (~> 11.0)
       pry (>= 0.13, < 0.15)
-    psych (5.1.2)
+    psych (5.2.6)
+      date
       stringio
-    public_suffix (5.0.3)
+    public_suffix (6.0.2)
     puma (6.4.3)
       nio4r (~> 2.0)
     pycall (1.5.1)
     racc (1.8.1)
-    rack (2.2.13)
+    rack (2.2.14)
     rack-attack (6.7.0)
       rack (>= 1.0, < 4)
     rack-mini-profiler (3.1.1)
@@ -680,12 +685,12 @@ GEM
       sprockets (>= 3.0.0)
     stackprof (0.2.25)
     statesman (11.0.0)
-    stringio (3.1.0)
+    stringio (3.1.7)
     strong_migrations (1.6.4)
       activerecord (>= 5.2)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
-    thor (1.3.1)
+    thor (1.4.0)
     thread (0.2.2)
     thread_safe (0.3.6)
     tilt (2.3.0)
@@ -738,7 +743,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord-cte
   activerecord-postgis-adapter
   acts_as_list
   annotate
@@ -755,11 +759,12 @@ DEPENDENCIES
   byebug
   cancancan
   capybara (>= 2.15)
-  cfa-styleguide (= 0.16.0)!
+  cfa-styleguide (= 0.17.1)!
   combine_pdf
+  csv (~> 3.3)
   data_migrate
   database_cleaner
-  ddtrace (~> 1.9.0)
+  datadog (~> 2.2.0)
   delayed_job_active_record
   delayed_job_web
   device_detector (~> 1.0.7)
@@ -790,7 +795,9 @@ DEPENDENCIES
   memory_profiler
   method_source
   mixpanel-ruby
+  net-imap (>= 0.4.20)
   nokogiri (>= 1.10.8)
+  observer (~> 0.1.2)
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (~> 1.0)
@@ -852,7 +859,7 @@ DEPENDENCIES
   zxcvbn-ruby
 
 RUBY VERSION
-   ruby 3.2.2p53
+   ruby 3.4.4p34
 
 BUNDLED WITH
    2.3.5

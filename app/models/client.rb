@@ -302,7 +302,6 @@ class Client < ApplicationRecord
     experiment_keys = experiment_participants.includes(:experiment).map { |ep| ep.experiment.key }
     return nil if experiment_keys.blank?
 
-    return IdVerificationExperimentService.new(intake).documents_not_needed if experiment_keys.include?(ExperimentService::ID_VERIFICATION_EXPERIMENT)
     ReturningClientExperimentService.new(intake).documents_not_needed if experiment_keys.include?(ExperimentService::RETURNING_CLIENT_EXPERIMENT)
   end
 

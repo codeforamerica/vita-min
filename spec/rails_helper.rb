@@ -88,6 +88,8 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
+  config.include CapybaraHelpers
+
   config.include Warden::Test::Helpers
   config.include ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :controller
@@ -139,9 +141,6 @@ RSpec.configure do |config|
       mixpanel_token: "fake_mixpanel_token"
     }
     allow(Rails.application).to receive(:credentials).and_return(@test_environment_credentials)
-    allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_intake?).and_return(true)
-    allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_login?).and_return(true)
-    allow_any_instance_of(ApplicationController).to receive(:open_for_ctc_read_write?).and_return(true)
     allow(Rails.configuration).to receive(:end_of_login).and_return(2.days.from_now)
     # Stub valid_email2's network-dependent functionality per https://github.com/micke/valid_email2
     allow_any_instance_of(ValidEmail2::Address).to receive(:valid_mx?) { true }
@@ -194,15 +193,17 @@ RSpec.configure do |config|
   # the browser window needs to be large enough that no elements are outside the viewport, or capybara won't find them
   capybara_window_size = [2000, 4000]
 
-  config.before(:each, js: true) do |example|
-    Capybara.page.current_window.resize_to(*capybara_window_size)
+  config.before(:each, js: true) do |_example|
+    # Monkey patched in spec/support/capybara_window_override.rb
+    Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
   end
 
   config.before(type: :feature) do |example|
     if config.filter.rules[:flow_explorer_screenshot]
       example.metadata[:js] = true
       Capybara.current_driver = Capybara.javascript_driver
-      Capybara.page.current_window.resize_to(*capybara_window_size)
+      # Monkey patched in spec/support/capybara_window_override.rb
+      Capybara.page.current_window.resize_to(*capybara_window_size, override: true)
     end
 
     unless Capybara.current_driver == Capybara.javascript_driver

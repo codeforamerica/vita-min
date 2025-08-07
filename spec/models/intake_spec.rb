@@ -214,13 +214,6 @@
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
 #  need_itin_help                                       :integer          default(0), not null
-#  needs_help_2016                                      :integer          default(0), not null
-#  needs_help_2018                                      :integer          default(0), not null
-#  needs_help_2019                                      :integer          default(0), not null
-#  needs_help_2020                                      :integer          default(0), not null
-#  needs_help_2021                                      :integer          default(0), not null
-#  needs_help_2022                                      :integer          default(0), not null
-#  needs_help_2023                                      :integer          default(0), not null
 #  needs_help_current_year                              :integer          default(0), not null
 #  needs_help_previous_year_1                           :integer          default(0), not null
 #  needs_help_previous_year_2                           :integer          default(0), not null
@@ -241,6 +234,7 @@
 #  paid_school_supplies                                 :integer          default(0), not null
 #  paid_self_employment_expenses                        :integer          default(0), not null
 #  paid_student_loan_interest                           :integer          default(0), not null
+#  payment_in_installments                              :integer          default(0), not null
 #  phone_carrier                                        :string
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default(0), not null
@@ -386,7 +380,6 @@
 #  index_intakes_on_matching_previous_year_intake_id       (matching_previous_year_intake_id)
 #  index_intakes_on_needs_to_flush_searchable_data_set_at  (needs_to_flush_searchable_data_set_at) WHERE (needs_to_flush_searchable_data_set_at IS NOT NULL)
 #  index_intakes_on_phone_number                           (phone_number)
-#  index_intakes_on_preferred_name                         (preferred_name)
 #  index_intakes_on_primary_consented_to_service           (primary_consented_to_service)
 #  index_intakes_on_primary_drivers_license_id             (primary_drivers_license_id)
 #  index_intakes_on_searchable_data                        (searchable_data) USING gin
@@ -933,7 +926,6 @@ describe Intake do
     it "returns list of must have documents" do
       expected_doc_types = [
         DocumentTypes::Identity,
-        DocumentTypes::Selfie,
         DocumentTypes::SsnItin,
         DocumentTypes::Employment,
         DocumentTypes::Form1095A
@@ -943,52 +935,11 @@ describe Intake do
     end
 
     context "with already uploaded documents" do
-      let!(:document) { create :document, intake: intake, document_type: "Selfie" }
+      let!(:document) { create :document, intake: intake, document_type: "ID" }
 
       it "doesn't include already uploaded documents" do
         expected_doc_types = [
-          DocumentTypes::Identity,
           DocumentTypes::SsnItin,
-          DocumentTypes::Employment,
-          DocumentTypes::Form1095A
-        ]
-
-        expect(intake.document_types_definitely_needed).to match_array expected_doc_types
-      end
-    end
-
-    context "in the skip selfies experiment" do
-      before do
-        Experiment.update_all(enabled: true)
-        experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
-        ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :no_selfie)
-      end
-
-      it "doesn't include selfies" do
-        expected_doc_types = [
-          DocumentTypes::Identity,
-          DocumentTypes::SsnItin,
-          DocumentTypes::Employment,
-          DocumentTypes::Form1095A
-        ]
-
-        expect(intake.document_types_definitely_needed).to match_array expected_doc_types
-      end
-    end
-
-    context "in the expanded id type experiment with other doc types uploaded" do
-      let!(:primary_id_document) { create :document, intake: intake, document_type: "Passport" }
-      let!(:secondary_id_document) { create :document, intake: intake, document_type: "Birth Certificate" }
-
-      before do
-        Experiment.update_all(enabled: true)
-        experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
-        ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :expanded_id)
-      end
-
-      it "doesn't include Identity or SsnItin" do
-        expected_doc_types = [
-          DocumentTypes::Selfie,
           DocumentTypes::Employment,
           DocumentTypes::Form1095A
         ]
@@ -1100,7 +1051,6 @@ describe Intake do
     it "returns only the document type classes relevant to the client for types in the navigation flow" do
       doc_types = [
         DocumentTypes::Identity,
-        DocumentTypes::Selfie,
         DocumentTypes::SsnItin,
         DocumentTypes::Employment,
         DocumentTypes::Form1099Div,
@@ -1117,7 +1067,6 @@ describe Intake do
     it "returns only the document type classes relevant to the client for types in the navigation flow" do
       doc_types = [
         DocumentTypes::Identity,
-        DocumentTypes::Selfie,
         DocumentTypes::SsnItin,
         DocumentTypes::Employment,
         DocumentTypes::Other,
@@ -1181,6 +1130,22 @@ describe Intake do
       it "will not find any duplicates" do
         expect(intake.duplicates).to be_empty
         expect(DeduplicationService).not_to have_received(:duplicates)
+      end
+    end
+  end
+
+  describe "#needs_help_with_backtaxes?" do
+    context "when needs help on a year that is not the current year" do
+      let(:intake) { create :intake, needs_help_current_year: "no", needs_help_previous_year_1: "yes", needs_help_previous_year_2: "unfilled", needs_help_previous_year_3: "no" }
+      it "returns true" do
+        expect(intake.needs_help_with_backtaxes?).to eq true
+      end
+    end
+
+    context "when doesn't need help on a year that is not the current year" do
+      let(:intake) { create :intake, needs_help_current_year: "yes", needs_help_previous_year_1: "no", needs_help_previous_year_2: "unfilled", needs_help_previous_year_3: "no" }
+      it "returns true" do
+        expect(intake.needs_help_with_backtaxes?).to eq false
       end
     end
   end

@@ -6,6 +6,7 @@
 #  current_sign_in_at             :datetime
 #  current_sign_in_ip             :string
 #  email                          :citext           not null
+#  email_notification             :integer          default("yes"), not null
 #  encrypted_password             :string           default(""), not null
 #  external_provider              :string
 #  external_uid                   :string
@@ -80,6 +81,8 @@ class User < ApplicationRecord
 
   scope :active, -> { where(suspended_at: nil) }
   scope :suspended, -> { where.not(suspended_at: nil) }
+
+  enum email_notification: { yes: 0, no: 1}, _prefix: :email_notification
 
   def valid?(*_args)
     [super, role&.valid?].all?
@@ -256,6 +259,18 @@ class User < ApplicationRecord
 
   def active?
     !suspended?
+  end
+
+  def has_lead_dashboard_access?
+    site_coordinator? || coalition_lead? || org_lead? || admin?
+  end
+
+  def has_non_lead_dashboard_access?
+    team_member?
+  end
+
+  def has_dashboard_access?
+    has_lead_dashboard_access? || has_non_lead_dashboard_access?
   end
 
   # Takes either a singular role symbol or an enumerable of role symbols and

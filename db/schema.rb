@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_14_203545) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_21_202752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1354,13 +1354,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_14_203545) do
     t.boolean "navigator_has_verified_client_identity"
     t.string "navigator_name"
     t.integer "need_itin_help", default: 0, null: false
-    t.integer "needs_help_2016", default: 0, null: false
-    t.integer "needs_help_2018", default: 0, null: false
-    t.integer "needs_help_2019", default: 0, null: false
-    t.integer "needs_help_2020", default: 0, null: false
-    t.integer "needs_help_2021", default: 0, null: false
-    t.integer "needs_help_2022", default: 0, null: false
-    t.integer "needs_help_2023", default: 0, null: false
     t.integer "needs_help_current_year", default: 0, null: false
     t.integer "needs_help_previous_year_1", default: 0, null: false
     t.integer "needs_help_previous_year_2", default: 0, null: false
@@ -1381,6 +1374,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_14_203545) do
     t.integer "paid_school_supplies", default: 0, null: false
     t.integer "paid_self_employment_expenses", default: 0, null: false
     t.integer "paid_student_loan_interest", default: 0, null: false
+    t.integer "payment_in_installments", default: 0, null: false
     t.string "phone_carrier"
     t.string "phone_number"
     t.integer "phone_number_can_receive_texts", default: 0, null: false
@@ -1520,7 +1514,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_14_203545) do
     t.index ["matching_previous_year_intake_id"], name: "index_intakes_on_matching_previous_year_intake_id"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
-    t.index ["preferred_name"], name: "index_intakes_on_preferred_name"
     t.index ["primary_consented_to_service"], name: "index_intakes_on_primary_consented_to_service"
     t.index ["primary_drivers_license_id"], name: "index_intakes_on_primary_drivers_license_id"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
@@ -1832,6 +1825,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_14_203545) do
   end
 
   create_table "state_file_archived_intakes", force: :cascade do |t|
+    t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "email_address"
     t.integer "failed_attempts", default: 0, null: false
@@ -1845,6 +1839,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_14_203545) do
     t.string "mailing_street"
     t.string "mailing_zip"
     t.datetime "permanently_locked_at"
+    t.string "phone_number"
     t.string "state_code"
     t.integer "tax_year"
     t.boolean "unsubscribed_from_email", default: false, null: false
@@ -2812,6 +2807,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_14_203545) do
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.citext "email", null: false
+    t.integer "email_notification", default: 0, null: false
     t.string "encrypted_password", default: "", null: false
     t.string "external_provider"
     t.string "external_uid"
@@ -2901,7 +2897,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_14_203545) do
     t.string "timezone", default: "America/New_York"
     t.string "type", null: false
     t.datetime "updated_at", null: false
-    t.index ["allows_greeters"], name: "index_vita_partners_on_allows_greeters"
     t.index ["coalition_id"], name: "index_vita_partners_on_coalition_id"
     t.index ["parent_organization_id", "name", "coalition_id"], name: "index_vita_partners_on_parent_name_and_coalition", unique: true
     t.index ["parent_organization_id"], name: "index_vita_partners_on_parent_organization_id"
@@ -2910,7 +2905,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_14_203545) do
   create_table "vita_providers", force: :cascade do |t|
     t.string "appointment_info"
     t.boolean "archived", default: false, null: false
-    t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.geography "coordinates", limit: {srid: 4326, type: "st_point", geographic: true}
     t.datetime "created_at", precision: nil
     t.string "dates"
     t.string "details"
