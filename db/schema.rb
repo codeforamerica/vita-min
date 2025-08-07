@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_21_202752) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_05_222215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -568,6 +568,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_202752) do
     t.datetime "updated_at", null: false
     t.index ["assigned_user_id"], name: "index_btru_on_assigned_user_id"
     t.index ["tax_return_selection_id"], name: "index_btru_on_tax_return_selection_id"
+  end
+
+  create_table "client_interactions", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "interaction_type", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_client_interactions_on_client_id"
   end
 
   create_table "client_success_roles", force: :cascade do |t|
@@ -3012,6 +3020,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_21_202752) do
   add_foreign_key "bulk_signup_messages", "users"
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
+  add_foreign_key "client_interactions", "clients"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "dependents", "intakes"

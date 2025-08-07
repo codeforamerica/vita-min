@@ -4,28 +4,34 @@ class InteractionTrackingService
     client.touch(:last_outgoing_communication_at)
   end
 
-  # When a client contacts us, update last incoming & last interaction and send a email notification to assigned users
-  def self.record_incoming_interaction(client, set_flag: true, message_received_at: nil)
-    if message_received_at.present? && Flipper.enabled?(:hub_email_notifications)
+  def self.record_incoming_interaction(client, set_flag: true, **attrs)
+    # sends email notification to assigned users when client has sent an email, sms or portal message
+    interaction_type = attrs[:interaction_type]
+    should_record_interaction = interaction_type.present? && interaction_type != 'unfilled'
+    if should_record_interaction && Flipper.enabled?(:hub_email_notifications)
       users_to_contact = client.tax_returns.pluck(:assigned_user_id).compact
+      users_to_contact = User.where(id: users_to_contact, email_notification: "yes")
       unless users_to_contact.empty?
-        users_to_contact.each do |user_id|
-          user = User.find(user_id)
-          next unless user && user.email_notification == "yes"
+        users_to_contact.each do |user|
+          interaction = ClientInteraction.create!(client: client, interaction_type: interaction_type)
           internal_email = InternalEmail.create!(
             mail_class: UserMailer,
-            mail_method: :incoming_interaction_notification_email,
+            mail_method: interaction.mail_method,
             mail_args: ActiveJob::Arguments.serialize(
               client: client,
               user: user,
-              message_received_at: message_received_at,
+              message_received_at: attrs[:message_received_at] || Time.current,
             )
           )
-          SendInternalEmailJob.perform_later(internal_email)
+          ClientInteractionNotificationEmailJob.set(wait: 10.minutes).perform_later(
+            internal_email: internal_email,
+            interaction: interaction
+          )
         end
       end
     end
 
+    # updates last interaction
     touches = [:last_incoming_interaction_at]
     touches.push(:first_unanswered_incoming_interaction_at) unless client.first_unanswered_incoming_interaction_at.present?
     touches.push(:flagged_at) if set_flag && !client.flagged?

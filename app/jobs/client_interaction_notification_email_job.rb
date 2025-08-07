@@ -1,0 +1,28 @@
+class ClientInteractionNotificationEmailJob < ApplicationJob
+  retry_on Mailgun::CommunicationError
+
+  def perform(internal_email, interaction)
+    return unless interaction.present? && Flipper.enabled?(:hub_email_notifications)
+
+    window_start = interaction.created_at
+    window_end = interaction.created_at + 10.minutes
+    interactions_in_window = ClientInteraction.where(
+      client: interaction.client,
+      interaction_type: interaction.interaction_type
+    ).where(created_at: window_start..window_end)
+
+    # exit if newer interaction exists, later job will send the message
+    return unless interactions_in_window.maximum(:created_at) == interaction
+
+    # send email
+    # TODO: should we also check if any user has answered?
+    mailer_response = internal_email.mail_class.constantize.send(internal_email.mail_method, **internal_email.deserialized_mail_args).deliver_now
+    internal_email.create_outgoing_message_status(message_id: mailer_response.message_id, message_type: :email)
+
+    interactions_in_window.destroy_all
+  end
+
+  def priority
+    PRIORITY_LOW
+  end
+end
