@@ -3,7 +3,7 @@
 # Table name: client_interactions
 #
 #  id               :bigint           not null, primary key
-#  interaction_type :integer          default(0), not null
+#  interaction_type :integer          default("unfilled"), not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  client_id        :bigint           not null
