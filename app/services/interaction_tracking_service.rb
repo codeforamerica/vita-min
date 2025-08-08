@@ -23,10 +23,7 @@ class InteractionTrackingService
               message_received_at: attrs[:message_received_at] || Time.current,
             )
           )
-          ClientInteractionNotificationEmailJob.set(wait: 10.minutes).perform_later(
-            internal_email: internal_email,
-            interaction: interaction
-          )
+          ClientInteractionNotificationEmailJob.set(wait: 10.minutes).perform_later(internal_email, interaction)
         end
       end
     end
