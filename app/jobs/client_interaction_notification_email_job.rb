@@ -14,10 +14,12 @@ class ClientInteractionNotificationEmailJob < ApplicationJob
     interactions_in_window = interactions.where(created_at: window_start..window_end)
     # exit if newer interaction exists, later job will send the message
     return unless interactions_in_window.last == interaction
-    # send email
-    # TODO: should we also check if any user has answered?
-    mailer_response = internal_email.mail_class.constantize.send(internal_email.mail_method, **internal_email.deserialized_mail_args).deliver_now
-    internal_email.create_outgoing_message_status(message_id: mailer_response.message_id, message_type: :email)
+
+    if interaction.client.first_unanswered_incoming_interaction_at.present?
+      # send email only if client has been unanswered by a user
+      mailer_response = internal_email.mail_class.constantize.send(internal_email.mail_method, **internal_email.deserialized_mail_args).deliver_now
+      internal_email.create_outgoing_message_status(message_id: mailer_response.message_id, message_type: :email)
+    end
 
     interactions_in_window.destroy_all
   end

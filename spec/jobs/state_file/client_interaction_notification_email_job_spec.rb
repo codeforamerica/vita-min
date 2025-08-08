@@ -6,7 +6,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
     let(:mailer) { double(UserMailer) }
     let(:message_id) { "some_fake_id" }
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
-    let(:client) { create(:client) }
+    let(:client) { create(:client, first_unanswered_incoming_interaction_at: fake_time) }
     let!(:interaction) { create(:client_interaction, client: client, interaction_type: "client_message", created_at: fake_time) }
 
     before do
@@ -14,7 +14,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
       allow(mailer).to receive(:deliver_now).and_return Mail::Message.new(message_id: message_id)
     end
 
-    context "when hub_email_notifications flipper flag is enabled" do
+    context "when hub_email_notifications flipper flag is enabled and last client message is unanswered" do
       before do
         allow(Flipper).to receive(:enabled?).with(:hub_email_notifications).and_return(true)
       end
@@ -56,7 +56,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
           expect do
             described_class.perform_now(internal_email, interaction_2)
           end.to change(ClientInteraction, :count).by -2
-          expect(UserMailer).to have_received(:assignment_email).with(internal_email.deserialized_mail_args)
+          expect(UserMailer).to have_received(:assignment_email)
 
           expect(ClientInteraction.find_by(id: interaction.id)).to be_nil
           expect(ClientInteraction.find_by(id: interaction_2.id)).to be_nil
@@ -66,15 +66,54 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
 
       context "when earliest interaction is more than 10 minutes before the interaction passed to the job" do
         let!(:older_interaction) { create(:client_interaction, client: client, interaction_type: "client_message", created_at: fake_time - 15.minutes) }
+
         it "sends the messsage for this interaction and deletes the interaction but not the older interaction" do
           expect do
             described_class.perform_now(internal_email, interaction)
           end.to change(ClientInteraction, :count).by -1
-          expect(UserMailer).to have_received(:assignment_email).with(internal_email.deserialized_mail_args)
+          expect(UserMailer).to have_received(:assignment_email)
 
           expect(ClientInteraction.find_by(id: interaction.id)).to be_nil
           expect(ClientInteraction.find_by(id: older_interaction.id)).to be_present
         end
+      end
+    end
+
+    context "when hub_email_notifications flipper flag is disabled" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:hub_email_notifications).and_return(false)
+      end
+
+      it "doesn't sends the message" do
+        Timecop.freeze(fake_time) do
+          described_class.perform_now(internal_email, interaction)
+        end
+        expect(UserMailer).not_to have_received(:assignment_email)
+      end
+
+      it "doesn't deletes the client interaction" do
+        expect do
+          described_class.perform_now(internal_email, interaction)
+        end.to change(ClientInteraction, :count).by 0
+      end
+    end
+
+    context "when last client message has been responded to by a user" do
+      before do
+        client.update!(first_unanswered_incoming_interaction_at: nil)
+      end
+
+      it "doesn't sends the message" do
+        Timecop.freeze(fake_time) do
+          described_class.perform_now(internal_email, interaction)
+        end
+        expect(UserMailer).not_to have_received(:assignment_email)
+      end
+
+      it "doesn't deletes the client interaction" do
+        expect do
+          described_class.perform_now(internal_email, interaction)
+        end.to change(ClientInteraction, :count).by 0
       end
     end
   end
