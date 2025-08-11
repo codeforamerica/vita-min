@@ -22,7 +22,7 @@ class CopyToNewS3Bucket < Thor
 
     # Default batch 1000 https://apidock.com/rails/ActiveRecord/Batches/find_in_batches
     StateFileArchivedIntake.find_in_batches.with_index do |intakes, batch|
-      puts "Processing group ##{batch}..."
+      say "Processing group ##{batch}..."
 
       intakes.each do |intake|
         key = intake.submission_pdf&.blob&.key
@@ -37,10 +37,9 @@ class CopyToNewS3Bucket < Thor
       end
     end
 
+    say "Uploading the json containing intakes-key hash...", :green
     upload_json_to_s3(intake_to_key_hash)
-
-    say "Copying over the submission_pdfs to new bucket", :green
-
+    say "Success!", :green
   rescue
     say "Something went wrong"
   end
