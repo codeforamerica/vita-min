@@ -4,6 +4,13 @@ require_relative "../config/environment"
 require 'json'
 
 class CopyToNewS3Bucket < Thor
+  # Exits with error instead of status 0
+  # issue: https://github.com/rails/thor/issues/244
+  # code: https://github.com/rails/thor/blob/v1.0.0/lib/thor/base.rb#L521
+  def self.exit_on_failure?
+    true
+  end
+
   desc 'copy', 'Copies only the archived intakes\'s submission pdfs to a new bucket'
   def copy
     unless Rails.env.production? || Rails.env.staging? || Rails.env.demo? || Rails.env.heroku?
