@@ -39,7 +39,7 @@ RSpec.describe UserMailer, type: :mailer do
   describe "#incoming_interaction_notification_email" do
     let(:client) { create :client }
     let(:user) { create :user }
-    let(:message_received_at) { DateTime.now }
+    let(:received_at) { DateTime.now }
 
     it_behaves_like "a mailer with an unsubscribe link" do
       let(:mail_method) { :incoming_interaction_notification_email }
@@ -47,7 +47,8 @@ RSpec.describe UserMailer, type: :mailer do
         {
           client: client,
           user: user,
-          message_received_at: message_received_at
+          received_at: received_at,
+          interaction_count: 1
         }
       end
       let(:email_address) { user.email }
@@ -57,7 +58,8 @@ RSpec.describe UserMailer, type: :mailer do
       email = UserMailer.incoming_interaction_notification_email(
         client: client,
         user: user,
-        message_received_at: message_received_at
+        received_at: received_at,
+        interaction_count: 1
       )
       expect do
         email.deliver_now
@@ -68,6 +70,26 @@ RSpec.describe UserMailer, type: :mailer do
       expect(email.to).to eq [user.email]
       expect(email.text_part.decoded.strip).to include hub_client_url(id: client.id)
       expect(email.html_part.decoded).to include hub_client_url(id: client.id)
+    end
+
+    context "when interaction count is greater than 1" do
+      it "sends the message and includes the plural subject heading" do
+        email = UserMailer.incoming_interaction_notification_email(
+          client: client,
+          user: user,
+          received_at: received_at,
+          interaction_count: 3
+        )
+        expect do
+          email.deliver_now
+        end.to change(ActionMailer::Base.deliveries, :count).by 1
+
+        expect(email.subject).to eq "3 New Messages from GetYourRefund Client ##{client.id}"
+        expect(email.from).to eq ["no-reply@test.localhost"]
+        expect(email.to).to eq [user.email]
+        expect(email.text_part.decoded.strip).to include hub_client_url(id: client.id)
+        expect(email.html_part.decoded).to include hub_client_url(id: client.id)
+      end
     end
   end
 end

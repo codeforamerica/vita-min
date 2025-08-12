@@ -7,6 +7,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
     let(:message_id) { "some_fake_id" }
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
     let(:client) { create(:client, first_unanswered_incoming_interaction_at: fake_time) }
+    let(:user) { create :user }
     let!(:interaction) { create(:client_interaction, client: client, interaction_type: "client_message", created_at: fake_time) }
 
     before do
@@ -22,7 +23,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
       context "one interaction within 10 minutes" do
         it "sends the message using deliver_now and persists the message_id & sent_at" do
           Timecop.freeze(fake_time) do
-            described_class.perform_now(internal_email, interaction)
+            described_class.perform_now(interaction, user)
           end
           expect(UserMailer).to have_received(:assignment_email).with(internal_email.deserialized_mail_args)
           expect(internal_email.reload.outgoing_message_status.message_id).to eq message_id
@@ -30,7 +31,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
 
         it "deletes the client interaction" do
           expect do
-            described_class.perform_now(internal_email, interaction)
+            described_class.perform_now(interaction, user)
           end.to change(ClientInteraction, :count).by -1
         end
       end
@@ -41,7 +42,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
 
         it "doesn't send the message and doesn't delete any ClientInteractions" do
           expect do
-            described_class.perform_now(internal_email, interaction)
+            described_class.perform_now(interaction, user)
           end.to change(ClientInteraction, :count).by 0
 
           expect(UserMailer).not_to have_received(:assignment_email)
@@ -69,7 +70,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
 
         it "sends the messsage for this interaction and deletes the interaction but not the older interaction" do
           expect do
-            described_class.perform_now(internal_email, interaction)
+            described_class.perform_now(interaction, user)
           end.to change(ClientInteraction, :count).by -1
           expect(UserMailer).to have_received(:assignment_email)
 
@@ -86,14 +87,14 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
 
       it "doesn't sends the message" do
         Timecop.freeze(fake_time) do
-          described_class.perform_now(internal_email, interaction)
+          described_class.perform_now(interaction, user)
         end
         expect(UserMailer).not_to have_received(:assignment_email)
       end
 
       it "doesn't deletes the client interaction" do
         expect do
-          described_class.perform_now(internal_email, interaction)
+          described_class.perform_now(interaction, user)
         end.to change(ClientInteraction, :count).by 0
       end
     end
@@ -105,14 +106,14 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
 
       it "doesn't sends the message" do
         Timecop.freeze(fake_time) do
-          described_class.perform_now(internal_email, interaction)
+          described_class.perform_now(interaction, user)
         end
         expect(UserMailer).not_to have_received(:assignment_email)
       end
 
       it "doesn't deletes the client interaction" do
         expect do
-          described_class.perform_now(internal_email, interaction)
+          described_class.perform_now(interaction, user)
         end.to change(ClientInteraction, :count).by 0
       end
     end

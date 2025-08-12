@@ -1,7 +1,7 @@
 class ClientInteractionNotificationEmailJob < ApplicationJob
   retry_on Mailgun::CommunicationError
 
-  def perform(internal_email, interaction)
+  def perform(interaction, user, **attrs)
     return unless interaction.present? && Flipper.enabled?(:hub_email_notifications)
     interactions = ClientInteraction.where(
       client: interaction.client,
@@ -17,6 +17,16 @@ class ClientInteractionNotificationEmailJob < ApplicationJob
 
     if interaction.client.first_unanswered_incoming_interaction_at.present?
       # send email only if client has been unanswered by a user
+      internal_email = InternalEmail.create!(
+        mail_class: UserMailer,
+        mail_method: interaction.mail_method,
+        mail_args: ActiveJob::Arguments.serialize(
+          client: interaction.client,
+          user: user,
+          received_at: attrs[:received_at] || interaction.created_at,
+          interaction_count: interactions_in_window.count
+          )
+      )
       mailer_response = internal_email.mail_class.constantize.send(internal_email.mail_method, **internal_email.deserialized_mail_args).deliver_now
       internal_email.create_outgoing_message_status(message_id: mailer_response.message_id, message_type: :email)
     end
