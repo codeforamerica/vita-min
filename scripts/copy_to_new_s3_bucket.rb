@@ -19,6 +19,7 @@ class CopyToNewS3Bucket < Thor
 
     say "Finding all archived intakes and copying over the submission_pdfs to new bucket...", :green
     intake_to_key_hash = {}
+    intakes_without_keys = []
 
     # Default batch 1000 https://apidock.com/rails/ActiveRecord/Batches/find_in_batches
     StateFileArchivedIntake.find_in_batches.with_index do |intakes, batch|
@@ -27,30 +28,42 @@ class CopyToNewS3Bucket < Thor
       intakes.each do |intake|
         key = intake.submission_pdf&.blob&.key
 
-        if key.nil?
+        # If the key is not present AND state_code is not filled, then log it as a mistake.
+        # Key may not be present if someone attempted to log in with email that is not in our db
+        # (we create a skeleton of an intake with just the email (later phone) populated in #current_archived_intake method)
+        # The state_code should have been populated in the archiver script (for both 2023 and 2024)
+        if key.nil? && !intake.state_code.nil?
           # add key to some log out so that we can track which ones do not have
+          # Will it be easy to see this log in staging/prod? should we preserve it like the json
+          intakes_without_keys << intake.id
           say "Intake #{intake.id} does not have a submission_pdf blob key"
           next
         end
         intake_to_key_hash[intake.id] = key
-        copy_submission_pdfs_to_new_s3_bucket(key)
+        copy_submission_pdfs_to_new_s3_bucket(key, intake.id)
       end
     end
 
     say "Uploading the json containing intakes-key hash...", :green
-    upload_json_to_s3(intake_to_key_hash)
+    upload_json_to_s3(intake_to_key_hash, "intakes-to-key")
+
+    if intakes_without_keys.any?
+      say "Uploading intakes without blob keys...", :green
+      upload_json_to_s3(intakes_without_keys, "intakes-without-keys")
+    end
+
     say "Success!", :green
-  rescue
-    say "Something went wrong"
+  rescue => e
+    say "Something went wrong: #{e.message}"
   end
 
   private
 
-  def copy_submission_pdfs_to_new_s3_bucket(key)
+  def copy_submission_pdfs_to_new_s3_bucket(key, intake_id)
     `aws s3 cp s3://#{source_bucket}/#{key} s3://#{destination_bucket}/#{key}`
-  rescue
-    # Silently move on if something happens during copying?
-    say e.message
+  rescue => e
+    say "was not able to copy #{intake_id} blob #{key}"
+    raise e
   end
 
   def source_bucket
@@ -83,15 +96,14 @@ class CopyToNewS3Bucket < Thor
     end
   end
 
-  def upload_json_to_s3(hash_data)
+  def upload_json_to_s3(hash_data, filename)
     s3_client = Aws::S3::Client.new(region: "us-east-1", credentials: s3_credentials)
     current_time = Time.current
     timestamp_string = current_time.strftime("%Y%m%d-%H%M%S")
 
-
     s3_client.put_object(
       bucket: destination_bucket,
-      key: "#{Rails.env}-intakes-to-submission-pdf-key-#{timestamp_string}.json",
+      key: "#{Rails.env}-#{filename}-#{timestamp_string}.json",
       body: JSON.generate(hash_data)
     )
   end
