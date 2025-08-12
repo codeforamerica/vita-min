@@ -53,8 +53,6 @@ class CopyToNewS3Bucket < Thor
     end
 
     say "Success!", :green
-  rescue => e
-    say "Something went wrong: #{e.message}"
   end
 
   private
@@ -106,6 +104,9 @@ class CopyToNewS3Bucket < Thor
       key: "#{Rails.env}-#{filename}-#{timestamp_string}.json",
       body: JSON.generate(hash_data)
     )
+  rescue => e
+    say "Unable to upload #{filename}"
+    raise e
   end
 
   def s3_credentials
