@@ -41,54 +41,115 @@ RSpec.describe UserMailer, type: :mailer do
     let(:user) { create :user }
     let(:received_at) { DateTime.now }
 
-    it_behaves_like "a mailer with an unsubscribe link" do
-      let(:mail_method) { :incoming_interaction_notification_email }
-      let(:mailer_args) do
-        {
-          client: client,
-          user: user,
-          received_at: received_at,
-          interaction_count: 1
-        }
+    context "when the interaction type is new client message" do
+      it_behaves_like "a mailer with an unsubscribe link" do
+        let(:mail_method) { :incoming_interaction_notification_email }
+        let(:mailer_args) do
+          {
+            client: client,
+            user: user,
+            received_at: received_at,
+            interaction_count: 1,
+            interaction_type: "new_client_message"
+          }
+        end
+        let(:email_address) { user.email }
       end
-      let(:email_address) { user.email }
-    end
 
-    it "delivers the email with the right subject and body" do
-      email = UserMailer.incoming_interaction_notification_email(
-        client: client,
-        user: user,
-        received_at: received_at,
-        interaction_count: 1
-      )
-      expect do
-        email.deliver_now
-      end.to change(ActionMailer::Base.deliveries, :count).by 1
-
-      expect(email.subject).to eq "New Message from GetYourRefund Client ##{client.id}"
-      expect(email.from).to eq ["no-reply@test.localhost"]
-      expect(email.to).to eq [user.email]
-      expect(email.text_part.decoded.strip).to include hub_client_url(id: client.id)
-      expect(email.html_part.decoded).to include hub_client_url(id: client.id)
-    end
-
-    context "when interaction count is greater than 1" do
-      it "sends the message and includes the plural subject heading" do
+      it "delivers the email with the right subject and body" do
         email = UserMailer.incoming_interaction_notification_email(
           client: client,
           user: user,
           received_at: received_at,
-          interaction_count: 3
+          interaction_count: 1,
+          interaction_type: "new_client_message"
         )
         expect do
           email.deliver_now
         end.to change(ActionMailer::Base.deliveries, :count).by 1
 
-        expect(email.subject).to eq "3 New Messages from GetYourRefund Client ##{client.id}"
+        expect(email.subject).to eq "1 New Message(s) from GetYourRefund Client ##{client.id}"
         expect(email.from).to eq ["no-reply@test.localhost"]
         expect(email.to).to eq [user.email]
         expect(email.text_part.decoded.strip).to include hub_client_url(id: client.id)
         expect(email.html_part.decoded).to include hub_client_url(id: client.id)
+      end
+
+      context "when interaction count is greater than 1" do
+        it "sends the message and includes the plural subject heading" do
+          email = UserMailer.incoming_interaction_notification_email(
+            client: client,
+            user: user,
+            received_at: received_at,
+            interaction_count: 3,
+            interaction_type: "new_client_message"
+          )
+          expect do
+            email.deliver_now
+          end.to change(ActionMailer::Base.deliveries, :count).by 1
+
+          expect(email.subject).to eq "3 New Message(s) from GetYourRefund Client ##{client.id}"
+          expect(email.from).to eq ["no-reply@test.localhost"]
+          expect(email.to).to eq [user.email]
+          expect(email.text_part.decoded.strip).to include hub_client_url(id: client.id)
+          expect(email.html_part.decoded).to include hub_client_url(id: client.id)
+        end
+      end
+    end
+
+    context "when the interaction type is document upload" do
+      it_behaves_like "a mailer with an unsubscribe link" do
+        let(:mail_method) { :incoming_interaction_notification_email }
+        let(:mailer_args) do
+          {
+            client: client,
+            user: user,
+            received_at: received_at,
+            interaction_count: 1,
+            interaction_type: "document_upload"
+          }
+        end
+        let(:email_address) { user.email }
+      end
+
+      it "delivers the email with the right subject and body" do
+        email = UserMailer.incoming_interaction_notification_email(
+          client: client,
+          user: user,
+          received_at: received_at,
+          interaction_count: 1,
+          interaction_type: "document_upload"
+        )
+        expect do
+          email.deliver_now
+        end.to change(ActionMailer::Base.deliveries, :count).by 1
+
+        expect(email.subject).to eq "1 New Document(s) Uploaded by GetYourRefund Client ##{client.id}"
+        expect(email.from).to eq ["no-reply@test.localhost"]
+        expect(email.to).to eq [user.email]
+        expect(email.text_part.decoded.strip).to include hub_client_url(id: client.id)
+        expect(email.html_part.decoded).to include hub_client_url(id: client.id)
+      end
+
+      context "when interaction count is greater than 1" do
+        it "sends the message and includes the plural subject heading" do
+          email = UserMailer.incoming_interaction_notification_email(
+            client: client,
+            user: user,
+            received_at: received_at,
+            interaction_count: 3,
+            interaction_type: "document_upload"
+          )
+          expect do
+            email.deliver_now
+          end.to change(ActionMailer::Base.deliveries, :count).by 1
+
+          expect(email.subject).to eq "3 New Document(s) Uploaded by GetYourRefund Client ##{client.id}"
+          expect(email.from).to eq ["no-reply@test.localhost"]
+          expect(email.to).to eq [user.email]
+          expect(email.text_part.decoded.strip).to include hub_client_url(id: client.id)
+          expect(email.html_part.decoded).to include hub_client_url(id: client.id)
+        end
       end
     end
   end
