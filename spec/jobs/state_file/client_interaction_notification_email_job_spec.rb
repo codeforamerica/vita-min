@@ -10,9 +10,11 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
     let(:user) { create :user }
     let!(:interaction) { create(:client_interaction, client: client, interaction_type: "client_message", created_at: fake_time) }
 
+
     before do
-      allow(UserMailer).to receive(:assignment_email).and_return(mailer)
-      allow(mailer).to receive(:deliver_now).and_return Mail::Message.new(message_id: message_id)
+      allow(UserMailer).to receive(:incoming_interaction_notification_email).and_return(mailer)
+      allow(mailer).to receive(:deliver_now).and_return(Mail::Message.new(message_id: message_id))
+      allow(InternalEmail).to receive(:create!).and_call_original
     end
 
     context "when hub_email_notifications flipper flag is enabled and last client message is unanswered" do
@@ -22,11 +24,12 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
 
       context "one interaction within 10 minutes" do
         it "sends the message using deliver_now and persists the message_id & sent_at" do
-          Timecop.freeze(fake_time) do
-            described_class.perform_now(interaction, user)
-          end
-          expect(UserMailer).to have_received(:assignment_email).with(internal_email.deserialized_mail_args)
-          expect(internal_email.reload.outgoing_message_status.message_id).to eq message_id
+          Timecop.freeze(fake_time) { described_class.perform_now(interaction, user, received_at: fake_time) }
+
+          internal = InternalEmail.last
+          expect(UserMailer).to have_received(:incoming_interaction_notification_email)
+                                  .with(internal.deserialized_mail_args)
+          expect(internal.reload.outgoing_message_status.message_id).to eq(message_id)
         end
 
         it "deletes the client interaction" do
@@ -45,7 +48,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
             described_class.perform_now(interaction, user)
           end.to change(ClientInteraction, :count).by 0
 
-          expect(UserMailer).not_to have_received(:assignment_email)
+          expect(UserMailer).not_to have_received(:incoming_interaction_notification_email)
         end
       end
 
@@ -55,9 +58,9 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
 
         it "sends the messsage for first window and deletes their interactions and not the second window" do
           expect do
-            described_class.perform_now(internal_email, interaction_2)
+            described_class.perform_now(interaction_2, user)
           end.to change(ClientInteraction, :count).by -2
-          expect(UserMailer).to have_received(:assignment_email)
+          expect(UserMailer).to have_received(:incoming_interaction_notification_email)
 
           expect(ClientInteraction.find_by(id: interaction.id)).to be_nil
           expect(ClientInteraction.find_by(id: interaction_2.id)).to be_nil
@@ -72,7 +75,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
           expect do
             described_class.perform_now(interaction, user)
           end.to change(ClientInteraction, :count).by -1
-          expect(UserMailer).to have_received(:assignment_email)
+          expect(UserMailer).to have_received(:incoming_interaction_notification_email)
 
           expect(ClientInteraction.find_by(id: interaction.id)).to be_nil
           expect(ClientInteraction.find_by(id: older_interaction.id)).to be_present
@@ -89,7 +92,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
         Timecop.freeze(fake_time) do
           described_class.perform_now(interaction, user)
         end
-        expect(UserMailer).not_to have_received(:assignment_email)
+        expect(UserMailer).not_to have_received(:incoming_interaction_notification_email)
       end
 
       it "doesn't deletes the client interaction" do
@@ -108,7 +111,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
         Timecop.freeze(fake_time) do
           described_class.perform_now(interaction, user)
         end
-        expect(UserMailer).not_to have_received(:assignment_email)
+        expect(UserMailer).not_to have_received(:incoming_interaction_notification_email)
       end
 
       it "doesn't deletes the client interaction" do

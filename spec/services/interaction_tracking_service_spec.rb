@@ -20,7 +20,6 @@ describe InteractionTrackingService do
     let(:job) { spy("JobSpy") }
 
     before do
-      allow(InternalEmail).to receive(:create!).and_call_original
       allow(Flipper).to receive(:enabled?).with(:hub_email_notifications).and_return(true)
       allow(ClientInteractionNotificationEmailJob).to receive(:set).and_call_original
       allow(ClientInteractionNotificationEmailJob).to receive(:set).with(wait: 10.minutes).and_return(job)

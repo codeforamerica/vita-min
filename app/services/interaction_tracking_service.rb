@@ -13,7 +13,6 @@ class InteractionTrackingService
       users_to_contact = User.where(id: users_to_contact, email_notification: "yes")
       unless users_to_contact.empty?
         users_to_contact.each do |user|
-          next unless user.email_notification == "yes"
           interaction = ClientInteraction.create!(client: client, interaction_type: interaction_type)
           ClientInteractionNotificationEmailJob.set(wait: 10.minutes).perform_later(interaction, user, received_at: attrs[:received_at])
         end
