@@ -37,7 +37,7 @@ class IncomingEmail < ApplicationRecord
     InteractionTrackingService.record_incoming_interaction(
       client,
       received_at: datetime,
-      interaction_type: :client_message
+      interaction_type: :new_client_message
     )
   end
 

@@ -19,7 +19,7 @@ class ClientInteractionNotificationEmailJob < ApplicationJob
       # send email only if client has been unanswered by a user
       internal_email = InternalEmail.create!(
         mail_class: UserMailer,
-        mail_method: interaction.mail_method,
+        mail_method: :incoming_interaction_notification_email,
         mail_args: ActiveJob::Arguments.serialize(
           client: interaction.client,
           user: user,

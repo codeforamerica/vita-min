@@ -8,7 +8,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
     let(:fake_time) { Time.utc(2021, 2, 6, 0, 0, 0) }
     let(:client) { create(:client, first_unanswered_incoming_interaction_at: fake_time) }
     let(:user) { create :user }
-    let!(:interaction) { create(:client_interaction, client: client, interaction_type: "client_message", created_at: fake_time) }
+    let!(:interaction) { create(:client_interaction, client: client, interaction_type: "new_client_message", created_at: fake_time) }
 
 
     before do
@@ -40,8 +40,8 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
       end
 
       context "when not the most recent interaction within 10 minutes" do
-        let!(:interaction_2) { create(:client_interaction, client: client, interaction_type: "client_message", created_at: fake_time + 3.minutes) }
-        let!(:interaction_3) { create(:client_interaction, client: client, interaction_type: "client_message", created_at: fake_time + 5.minutes) }
+        let!(:interaction_2) { create(:client_interaction, client: client, interaction_type: "new_client_message", created_at: fake_time + 3.minutes) }
+        let!(:interaction_3) { create(:client_interaction, client: client, interaction_type: "new_client_message", created_at: fake_time + 5.minutes) }
 
         it "doesn't send the message and doesn't delete any ClientInteractions" do
           expect do
@@ -53,8 +53,8 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
       end
 
       context "2 interactions within 10 minutes and 1 interaction after the interaction window" do
-        let!(:interaction_2) { create(:client_interaction, client: client, interaction_type: "client_message", created_at: fake_time + 3.minutes) }
-        let!(:interaction_3) { create(:client_interaction, client: client, interaction_type: "client_message", created_at: fake_time + 11.minutes) }
+        let!(:interaction_2) { create(:client_interaction, client: client, interaction_type: "new_client_message", created_at: fake_time + 3.minutes) }
+        let!(:interaction_3) { create(:client_interaction, client: client, interaction_type: "new_client_message", created_at: fake_time + 11.minutes) }
 
         it "sends the messsage for first window and deletes their interactions and not the second window" do
           expect do
@@ -69,7 +69,7 @@ RSpec.describe ClientInteractionNotificationEmailJob, type: :job do
       end
 
       context "when earliest interaction is more than 10 minutes before the interaction passed to the job" do
-        let!(:older_interaction) { create(:client_interaction, client: client, interaction_type: "client_message", created_at: fake_time - 15.minutes) }
+        let!(:older_interaction) { create(:client_interaction, client: client, interaction_type: "new_client_message", created_at: fake_time - 15.minutes) }
 
         it "sends the messsage for this interaction and deletes the interaction but not the older interaction" do
           expect do
