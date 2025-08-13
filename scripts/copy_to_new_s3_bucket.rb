@@ -61,8 +61,16 @@ class CopyToNewS3Bucket < Thor
 
   private
 
+  def s3_client
+    Aws::S3::Client.new(region: "us-east-1", credentials: s3_credentials)
+  end
+
   def copy_submission_pdfs_to_new_s3_bucket(key, intake_id)
-    `aws s3 cp s3://#{source_bucket}/#{key} s3://#{destination_bucket}`
+    s3_client.copy_object(
+      bucket: destination_bucket,
+      key: key,
+      copy_source: "#{source_bucket}/#{key}"
+    )
   rescue => error
     # do not raise the error so that we can upload the intakes-to-key for the previously successfully copied intake-key hash
     say "was not able to copy #{intake_id} blob #{key} due to error: #{error.message}"
@@ -99,7 +107,6 @@ class CopyToNewS3Bucket < Thor
   end
 
   def upload_json_to_s3(data, filename)
-    s3_client = Aws::S3::Client.new(region: "us-east-1", credentials: s3_credentials)
     current_time = Time.current
     timestamp_string = current_time.strftime("%Y%m%d-%H%M%S")
 
