@@ -94,7 +94,7 @@ class CopyToNewS3Bucket < Thor
     end
   end
 
-  def upload_json_to_s3(hash_data, filename)
+  def upload_json_to_s3(data, filename)
     s3_client = Aws::S3::Client.new(region: "us-east-1", credentials: s3_credentials)
     current_time = Time.current
     timestamp_string = current_time.strftime("%Y%m%d-%H%M%S")
@@ -102,11 +102,11 @@ class CopyToNewS3Bucket < Thor
     s3_client.put_object(
       bucket: destination_bucket,
       key: "#{Rails.env}-#{filename}-#{timestamp_string}.json",
-      body: JSON.generate(hash_data)
+      body: JSON.generate(data)
     )
   rescue => e
-    say "Unable to upload #{filename}"
-    raise e
+    # Swallow error since we might try to upload more data
+    say "Unable to upload #{filename} with data #{data} with error: #{e.message}"
   end
 
   def s3_credentials
