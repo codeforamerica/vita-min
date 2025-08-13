@@ -3,6 +3,10 @@
 require_relative "../config/environment"
 require 'json'
 
+# This script should only be used to move StateFileArchivedIntake submission_pdfs from the generic GetYourRefund
+# vita-min-#{environment}-docs (containing mix of all ActiveStorage blobs from vita-min)
+# to a specific bucket to ONLY store StateFileArchivedIntake submission_pdfs
+# Utilize by running `scripts/copy_to_new_s3_bucket.rb copy` in heroku console or aptible ssh session
 class CopyToNewS3Bucket < Thor
   # Exits with error instead of status 0
   # issue: https://github.com/rails/thor/issues/244
@@ -58,7 +62,7 @@ class CopyToNewS3Bucket < Thor
   private
 
   def copy_submission_pdfs_to_new_s3_bucket(key, intake_id)
-    `aws s3 cp s3://#{source_bucket}/#{key} s3://#{destination_bucket}/#{key}`
+    `aws s3 cp s3://#{source_bucket}/#{key} s3://#{destination_bucket}`
   rescue => error
     # do not raise the error so that we can upload the intakes-to-key for the previously successfully copied intake-key hash
     say "was not able to copy #{intake_id} blob #{key} due to error: #{error.message}"
