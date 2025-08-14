@@ -43,8 +43,11 @@ class CopyToNewS3Bucket < Thor
           say "Intake #{intake.id} does not have a submission_pdf blob key"
           next
         end
-        intake_to_key_hash[intake.id] = key
-        copy_submission_pdfs_to_new_s3_bucket(key, intake.id)
+
+        if key.present?
+          intake_to_key_hash[intake.id] = key
+          copy_submission_pdfs_to_new_s3_bucket(key, intake.id)
+        end
       end
     end
 
