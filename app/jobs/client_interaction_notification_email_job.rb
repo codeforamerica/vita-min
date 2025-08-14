@@ -3,20 +3,17 @@ class ClientInteractionNotificationEmailJob < ApplicationJob
 
   def perform(interaction, user, **attrs)
     return unless interaction.present? && Flipper.enabled?(:hub_email_notifications)
+
+    # all interactions older than this one or within 10 minutes into the future, ordered oldest to youngest,
     interactions = ClientInteraction.where(
       client: interaction.client,
       interaction_type: interaction.interaction_type
-    ).where("created_at > ?", 10.minutes.ago(interaction.created_at)).order(created_at: :asc)
-    return if interactions.empty?
+    ).where("created_at <= ?", 10.minutes.from_now(interaction.created_at)).order(created_at: :asc)
 
-    window_start = interactions.first.created_at
-    window_end = window_start + 10.minutes
-    interactions_in_window = interactions.where(created_at: window_start..window_end)
     # exit if newer interaction exists, later job will send the message
-    return unless interactions_in_window.last == interaction
+    return if interactions.empty? || interactions.last.id != interaction.id
 
-    if interaction.client.first_unanswered_incoming_interaction_at.present?
-      # send email only if client has been unanswered by a user
+    if should_notify?(interaction)
       internal_email = InternalEmail.create!(
         mail_class: UserMailer,
         mail_method: :incoming_interaction_notification_email,
@@ -24,17 +21,31 @@ class ClientInteractionNotificationEmailJob < ApplicationJob
           client: interaction.client,
           user: user,
           received_at: attrs[:received_at] || interaction.created_at,
-          interaction_count: interactions_in_window.count
-          )
+          interaction_count: interactions.count
+        )
       )
-      mailer_response = internal_email.mail_class.constantize.send(internal_email.mail_method, **internal_email.deserialized_mail_args).deliver_now
-      internal_email.create_outgoing_message_status(message_id: mailer_response.message_id, message_type: :email)
+      mailer_response = internal_email.mail_class.constantize.send(
+        internal_email.mail_method,
+        **internal_email.deserialized_mail_args
+      ).deliver_now
+      internal_email.create_outgoing_message_status(
+        message_id: mailer_response.message_id,
+        message_type: :email
+      )
     end
 
-    interactions_in_window.destroy_all
+    interactions.destroy_all
   end
 
   def priority
     PRIORITY_LOW
+  end
+
+  private
+
+  def should_notify?(interaction)
+    # if notifying about new client message, send email only if client has been unanswered by any user
+    return true unless interaction.interaction_type == "new_client_message"
+    interaction.client.first_unanswered_incoming_interaction_at.present?
   end
 end
