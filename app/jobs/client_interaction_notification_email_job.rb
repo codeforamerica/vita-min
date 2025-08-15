@@ -21,7 +21,8 @@ class ClientInteractionNotificationEmailJob < ApplicationJob
           client: interaction.client,
           user: user,
           received_at: attrs[:received_at] || interaction.created_at,
-          interaction_count: interactions.count
+          interaction_count: interactions.count,
+          interaction_type: interaction.interaction_type,
         )
       )
       mailer_response = internal_email.mail_class.constantize.send(
