@@ -92,6 +92,7 @@ class Client < ApplicationRecord
   has_many :efile_security_informations, dependent: :destroy
   has_many :recaptcha_scores, dependent: :destroy
   has_many :verification_attempts, dependent: :destroy
+  has_many :client_interactions
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
   accepts_nested_attributes_for :efile_security_informations

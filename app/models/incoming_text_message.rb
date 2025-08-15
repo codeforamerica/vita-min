@@ -27,8 +27,8 @@ class IncomingTextMessage < ApplicationRecord
   validates_presence_of :received_at
   validates :from_phone_number, presence: true, e164_phone: true
 
-  after_create do
-    InteractionTrackingService.record_incoming_interaction(client, message_received_at: datetime)
+  after_create_commit do
+    InteractionTrackingService.record_incoming_interaction(client, received_at: datetime, interaction_type: :new_client_message)
   end
 
   def datetime

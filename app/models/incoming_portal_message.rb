@@ -18,7 +18,9 @@ class IncomingPortalMessage < ApplicationRecord
 
   belongs_to :client
 
-  after_create { InteractionTrackingService.record_incoming_interaction(client, message_received_at: datetime) }
+  after_create_commit do
+    InteractionTrackingService.record_incoming_interaction(client, received_at: datetime, interaction_type: :new_client_message)
+  end
   validates :body, presence: true
 
   def datetime
