@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
+  include Pundit::Authorization
   around_action :set_time_zone, if: :current_user
   before_action :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
   around_action :switch_locale
@@ -532,7 +533,8 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Mon, 01 Jan 1990 00:00:00 GMT"
   end
 
-  rescue_from CanCan::AccessDenied do |exception|
+  # TODO: remove 'CanCan::AccessDenied' in GYR1-757
+  rescue_from CanCan::AccessDenied, Pundit::NotAuthorizedError do |exception|
     respond_to do |format|
       format.html do
         render status: :forbidden, template: "public_pages/forbidden", layout: "hub"
