@@ -1,0 +1,13 @@
+<h1>New Message from GetYourRefund Client #<%= @client_id %></h1>
+
+<p>Client #<%= @client_id %> sent a new message on <%= long_formatted_datetime(@message_received_at) %>.</p>
+
+<p>To access the client’s message, please visit the following link and sign in to the Hub:</p>
+
+<%= hub_client_url(id: @client_id) %>
+
+<p>As a reminder, please contact the client within five business days to ensure high quality service.</p>
+
+<p>Thanks for supporting clients with GetYourRefund!</p>
+<br />
+<%= t("outgoing_email_mailer.user_message.unsubscribe", unsubscribe_link: @unsubscribe_link) %>

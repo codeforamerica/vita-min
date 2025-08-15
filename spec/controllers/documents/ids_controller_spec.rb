@@ -84,19 +84,6 @@ RSpec.describe Documents::IdsController do
         }
       end
 
-      context "when participating in the expanded ids experiment" do
-        before do
-          Experiment.update_all(enabled: true)
-          experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
-          experiment.experiment_participants.create(record: intake, treatment: :expanded_id)
-        end
-
-        it "persists the document as belonging to the 'primary' person" do
-          post :update, params: params
-          expect(Document.last).to be_person_primary
-        end
-      end
-
       it "updates the tax return status(es) to intake_needs_doc_help" do
         post :update, params: params
 

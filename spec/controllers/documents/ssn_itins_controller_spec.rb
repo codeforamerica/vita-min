@@ -83,21 +83,7 @@ RSpec.describe Documents::SsnItinsController do
       context 'all three required doc types are present' do
         before do
           create :document, document_type: DocumentTypes::Identity.key, intake: intake, client: intake.client
-          create :document, document_type: DocumentTypes::Selfie.key, intake: intake, client: intake.client
-        end
-
-        it "updates the tax return status(es) to intake_ready" do
-          post :update, params: params
-
-          expect(tax_return.reload.current_state).to eq "intake_ready"
-        end
-      end
-
-      context 'In the no selfie experiment treatment and other two required doc types are present' do
-        before do
-          experiment = Experiment.find_by(key: ExperimentService::ID_VERIFICATION_EXPERIMENT)
-          ExperimentParticipant.create!(experiment: experiment, record: intake, treatment: :no_selfie)
-          create :document, document_type: DocumentTypes::Identity.key, intake: intake, client: intake.client
+          create :document, document_type: DocumentTypes::Employment.key, intake: intake, client: intake.client
         end
 
         it "updates the tax return status(es) to intake_ready" do

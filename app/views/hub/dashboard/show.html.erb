@@ -18,11 +18,13 @@
         <% if presenter.capacity_presenter.capacity.present? %>
           <%= render "hub/dashboard/capacity" %>
         <% end %>
-        <%= render "hub/dashboard/returns_by_status" %>
+        <% if current_user.has_lead_dashboard_access? %>
+          <%= render "hub/dashboard/returns_by_status" %>
+        <% end %>
       </div>
       <div class="grid__item width-one-half">
         <%= render "hub/dashboard/action_required_flagged_clients" %>
-        <% if [Organization, Site].include?(presenter.selected_model.class) %>
+        <% if [Organization, Site].include?(presenter.selected_model.class) && current_user.has_lead_dashboard_access? %>
           <%= render "hub/dashboard/team_assignment" %>
         <% end %>
         <%= render "hub/dashboard/resources" %>

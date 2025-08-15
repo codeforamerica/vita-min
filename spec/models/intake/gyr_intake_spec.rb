@@ -234,6 +234,7 @@
 #  paid_school_supplies                                 :integer          default("unfilled"), not null
 #  paid_self_employment_expenses                        :integer          default("unfilled"), not null
 #  paid_student_loan_interest                           :integer          default("unfilled"), not null
+#  payment_in_installments                              :integer          default("unfilled"), not null
 #  phone_carrier                                        :string
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
@@ -407,7 +408,7 @@ describe Intake::GyrIntake do
         client = intake.client.reload
         expect(client.filterable_percentage_of_required_documents_uploaded).to eq(0)
         expect(client.filterable_number_of_required_documents_uploaded).to eq(0)
-        expect(client.filterable_number_of_required_documents).to eq(3)
+        expect(client.filterable_number_of_required_documents).to eq(2)
       end
     end
   end

@@ -3,6 +3,7 @@
 # Table name: state_file_archived_intakes
 #
 #  id                      :bigint           not null, primary key
+#  contact_preference      :integer          default("unfilled"), not null
 #  email_address           :string
 #  failed_attempts         :integer          default(0), not null
 #  fake_address_1          :string
@@ -15,6 +16,7 @@
 #  mailing_street          :string
 #  mailing_zip             :string
 #  permanently_locked_at   :datetime
+#  phone_number            :string
 #  state_code              :string
 #  tax_year                :integer
 #  unsubscribed_from_email :boolean          default(FALSE), not null
@@ -26,6 +28,7 @@ class StateFileArchivedIntake < ApplicationRecord
   devise :lockable, unlock_in: 60.minutes, unlock_strategy: :time
   has_many :state_file_archived_intake_access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
   has_many :state_file_archived_intake_requests, class_name: 'StateFileArchivedIntakeRequest'
+  enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
 
   before_create :populate_fake_addresses
   def full_address

@@ -234,6 +234,7 @@
 #  paid_school_supplies                                 :integer          default(0), not null
 #  paid_self_employment_expenses                        :integer          default(0), not null
 #  paid_student_loan_interest                           :integer          default(0), not null
+#  payment_in_installments                              :integer          default(0), not null
 #  phone_carrier                                        :string
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default(0), not null
@@ -669,23 +670,6 @@ class Intake < ApplicationRecord
   def new_record_token
     verifier = ActiveSupport::MessageVerifier.new(Rails.application.secret_key_base)
     verifier.generate(SecureRandom.base36(24))
-  end
-
-  # TODO: remove this after running the migration, need because hub client presenter
-  def needs_help_2018
-    nil
-  end
-
-  def needs_help_2019
-    nil
-  end
-
-  def needs_help_2020
-    nil
-  end
-
-  def needs_help_2021
-    nil
   end
 
   def itin_applicant?
