@@ -18,14 +18,5 @@
 #
 class ClientInteraction < ApplicationRecord
   belongs_to :client
-  enum interaction_type: { unfilled: 0, document_upload: 1, client_message: 2 }, _prefix: :interaction_type
-
-  def mail_method
-    case interaction_type
-    when 'document_upload'
-      # TODO: :document_uploaded_notification_email
-    when 'client_message'
-      :incoming_interaction_notification_email
-    end
-  end
+  enum interaction_type: { unfilled: 0, document_upload: 1, new_client_message: 2 }, _prefix: :interaction_type
 end

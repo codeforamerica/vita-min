@@ -33,11 +33,11 @@ class IncomingEmail < ApplicationRecord
   belongs_to :client
   has_many :documents, as: :contact_record
 
-  after_create do
+  after_create_commit do
     InteractionTrackingService.record_incoming_interaction(
       client,
       received_at: datetime,
-      interaction_type: :client_message
+      interaction_type: :new_client_message
     )
   end
 

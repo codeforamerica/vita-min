@@ -73,7 +73,15 @@ class Document < ApplicationRecord
   end
 
   after_create_commit do
-    uploaded_by.is_a?(Client) ? InteractionTrackingService.record_incoming_interaction(client) : InteractionTrackingService.record_internal_interaction(client)
+    if uploaded_by.is_a?(Client)
+      InteractionTrackingService.record_incoming_interaction(
+        client,
+        received_at: created_at,
+        interaction_type: :document_upload
+      )
+    else
+      InteractionTrackingService.record_internal_interaction(client)
+    end
 
     HeicToJpgJob.perform_later(id) if is_heic?
   end
