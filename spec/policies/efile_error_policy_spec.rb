@@ -26,7 +26,7 @@ RSpec.describe EfileErrorPolicy, type: :policy do
     let!(:ctc_efile_error){ create :efile_error, service_type: "ctc" }
 
     it 'denies access by default' do
-      expect(Pundit.policy_scope!(other_user, EfileError)).to be_nil
+      expect(Pundit.policy_scope!(other_user, EfileError)).to be_empty
     end
 
     it 'access scoped to certain service types' do

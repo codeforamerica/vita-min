@@ -810,7 +810,8 @@ DEPENDENCIES
   phony
   platform-api
   pry-byebug
-  puma (>= 5.3.2)
+  puma (>= 6.6.1)
+  pundit (~> 2.5)
   pycall
   rack (>= 2.0.8)
   rack-attack

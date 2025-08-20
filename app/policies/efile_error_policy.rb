@@ -1,6 +1,7 @@
 class EfileErrorPolicy < ApplicationPolicy
   %i[index? show? update?].each do |name|
     define_method name do
+      # if any of these user types, than they can access these actions but only for the scope that is returned for them
       user.state_file_admin? || user.state_file_nj_staff? || user.admin?
     end
   end

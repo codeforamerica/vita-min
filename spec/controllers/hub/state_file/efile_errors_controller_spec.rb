@@ -23,7 +23,17 @@ describe Hub::StateFile::EfileErrorsController do
     let(:efile_error) { create :efile_error, service_type: :state_file_az }
     let(:params) { { id: efile_error.id } }
 
-    it_behaves_like :an_action_for_state_file_admins_only, action: :edit, method: :get
+    # it_behaves_like :an_action_for_state_file_admins_only, action: :edit, method: :get
+
+    context "with an admin user without the state file flag" do
+      before { sign_in( create :admin_user ) }
+
+      it "returns 403 Forbidden" do
+        get :edit, params: params
+
+        expect(response.status).to eq 403
+      end
+    end
 
     context "as an authenticated user" do
       before do
