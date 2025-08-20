@@ -11,25 +11,27 @@ RSpec.describe TwilioWebhooksController do
     let(:body) { "Hello, it me" }
     let(:incoming_message_params) do
       {
-          "ToCountry" => "US",
-          "ToState" => "OH",
-          "SmsMessageSid" => "SM7067f0beef82c65f976dc2386a7sgd7w",
-          "NumMedia" => "0",
-          "ToCity" => "",
-          "FromZip" => "95050",
-          "SmsSid" => "SM7067f0beef82c65f976dc2386a7sgd7w",
-          "FromState" => "CA",
-          "SmsStatus" => "received",
-          "FromCity" => "LOS GATOS",
           "Body" => body,
-          "FromCountry" => "US",
-          "To" => "+14158161286",
-          "ToZip" => "",
-          "NumSegments" => "1",
-          "MessageSid" => "SM7067f0beef82c65fb6785v46754v6754",
-          "AccountSid" => "AC70b4e3aa44fe961398q89we7yr98aw7y",
           "From" => "+15005550006",
-          "ApiVersion" => "2010-04-01"
+          "NumMedia" => "0",
+        # NOTE: These keys are not necessary for the controller to do its work. Left
+        # in as a comment for documentation purposes
+        # "AccountSid" => "AC70b4e3aa44fe961398q89we7yr98aw7y",
+        # "ApiVersion" => "2010-04-01"
+        # "FromCity" => "LOS GATOS",
+        # "FromCountry" => "US",
+        # "FromState" => "CA",
+        # "FromZip" => "95050",
+        # "MessageSid" => "SM7067f0beef82c65fb6785v46754v6754",
+        # "NumSegments" => "1",
+        # "SmsMessageSid" => "SM7067f0beef82c65f976dc2386a7sgd7w",
+        # "SmsSid" => "SM7067f0beef82c65f976dc2386a7sgd7w",
+        # "SmsStatus" => "received",
+        # "To" => "+14158161286",
+        # "ToCity" => "",
+        # "ToCountry" => "US",
+        # "ToState" => "OH",
+        # "ToZip" => "",
       }
     end
 
