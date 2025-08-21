@@ -18,5 +18,5 @@
 #
 class ClientInteraction < ApplicationRecord
   belongs_to :client
-  enum interaction_type: { unfilled: 0, document_upload: 1, new_client_message: 2 }, _prefix: :interaction_type
+  enum interaction_type: { unfilled: 0, document_upload: 1, new_client_message: 2, signed_8879: 3 }, _prefix: :interaction_type
 end
