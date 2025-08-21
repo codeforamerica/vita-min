@@ -42,7 +42,7 @@ module Portal
     private
 
     def load_client_tax_return
-      @tax_return = current_client.tax_returns.includes(client: [:intake]).find_by(id: params[:tax_return_id])
+      @tax_return = current_client.tax_returns.find_by(id: params[:tax_return_id])
 
       return render "public_pages/page_not_found", status: 404 unless @tax_return.present?
     end

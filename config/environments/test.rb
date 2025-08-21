@@ -6,6 +6,15 @@ require "active_support/core_ext/integer/time"
 # and recreated between test runs. Don't rely on the data there!
 
 Rails.application.configure do
+  config.after_initialize do
+    Bullet.enable        = true
+    Bullet.bullet_logger = true
+    # raise an error if n+1 query occurs
+    Bullet.raise         = true
+    # detected eager-loaded associations which are not used
+    Bullet.unused_eager_loading_enable = true
+  end
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # While tests run files are not watched, reloading is not necessary.
