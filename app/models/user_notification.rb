@@ -41,4 +41,13 @@ class UserNotification < ApplicationRecord
   def flush_memoized_data
     notifiable.send(__method__) if notifiable.respond_to?(__method__)
   end
+
+  def send_notification_email
+    UserNotificationEmail.create!(
+      user_notification: self,
+      to: user.email_address,
+      body: @message_instance.email_body(locale: locale, **email_args),
+      subject: @message_instance.email_subject(locale: @locale, **email_args),
+      )
+  end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_05_222215) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_25_184908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2799,6 +2799,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_05_222215) do
     t.index ["intake_id"], name: "index_triages_on_intake_id"
   end
 
+  create_table "user_notification_emails", force: :cascade do |t|
+    t.string "body", null: false
+    t.datetime "created_at", null: false
+    t.string "mailgun_status", default: "sending"
+    t.string "message_id"
+    t.datetime "sent_at", precision: nil
+    t.string "subject", null: false
+    t.string "to", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_notification_id", null: false
+    t.index ["user_notification_id"], name: "index_user_notification_emails_on_user_notification_id"
+  end
+
   create_table "user_notifications", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "notifiable_id"
@@ -3074,6 +3087,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_05_222215) do
   add_foreign_key "tax_returns", "users", column: "assigned_user_id"
   add_foreign_key "team_member_roles_vita_partners", "team_member_roles"
   add_foreign_key "team_member_roles_vita_partners", "vita_partners"
+  add_foreign_key "user_notification_emails", "user_notifications"
   add_foreign_key "user_notifications", "users"
   add_foreign_key "users", "users", column: "invited_by_id"
   add_foreign_key "verification_attempt_transitions", "verification_attempts"
