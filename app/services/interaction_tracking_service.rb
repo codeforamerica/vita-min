@@ -35,7 +35,23 @@ class InteractionTrackingService
   end
 
   # "Internal" interactions
-  def self.record_internal_interaction(client)
+  def self.record_internal_interaction(client, **attrs)
+    interaction_type = attrs[:interaction_type]
+
+    if interaction_type == :tagged_in_note
+      user = User.find(attrs[:user_id])
+      if user&.email_notification_yes?
+        internal_email = InternalEmail.create!(
+          mail_class: UserMailer,
+          mail_method: :internal_interaction_notification_email,
+          mail_args: ActiveJob::Arguments.serialize(
+            user: user,
+          )
+        )
+        SendInternalEmailJob.perform_later(internal_email)
+      end
+    end
+
     client&.touch(:last_internal_or_outgoing_interaction_at)
   end
 end

@@ -153,4 +153,36 @@ RSpec.describe UserMailer, type: :mailer do
       end
     end
   end
+
+  describe "#internal_interaction_notification_email" do
+    let(:user) { create :user }
+    let(:received_at) { DateTime.now }
+
+    context "when the interaction type is new tagged in note" do
+      it_behaves_like "a mailer with an unsubscribe link" do
+        let(:mail_method) { :internal_interaction_notification_email }
+        let(:mailer_args) do
+          {
+            user: user,
+            interaction_type: "tagged_in_note"
+          }
+        end
+        let(:email_address) { user.email }
+      end
+
+      it "delivers the email with the right subject and body" do
+        email = UserMailer.internal_interaction_notification_email(
+          user: user,
+          interaction_type: "tagged_in_note"
+        )
+        expect do
+          email.deliver_now
+        end.to change(ActionMailer::Base.deliveries, :count).by 1
+
+        expect(email.subject).to eq "You were tagged in a note"
+        expect(email.from).to eq ["no-reply@test.localhost"]
+        expect(email.to).to eq [user.email]
+      end
+    end
+  end
 end
