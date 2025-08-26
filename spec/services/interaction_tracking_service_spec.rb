@@ -182,11 +182,12 @@ describe InteractionTrackingService do
         end
 
         it "sends creates an InternalEmail and enqueues SendInternalEmailJob" do
-          described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user_id: user.id)
+          received_at = Time.now
+          described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user_id: user.id, received_at: received_at)
           internal_email = InternalEmail.last
           expect(internal_email.mail_class).to eq "UserMailer"
           expect(internal_email.mail_method).to eq "internal_interaction_notification_email"
-          expect(internal_email.mail_args).to eq ActiveJob::Arguments.serialize(user: user)
+          expect(internal_email.mail_args).to eq ActiveJob::Arguments.serialize(client: client, user: user, received_at: received_at)
           expect(SendInternalEmailJob).to have_received(:perform_later).with(internal_email)
         end
       end

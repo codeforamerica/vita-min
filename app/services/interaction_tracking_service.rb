@@ -45,7 +45,9 @@ class InteractionTrackingService
           mail_class: UserMailer,
           mail_method: :internal_interaction_notification_email,
           mail_args: ActiveJob::Arguments.serialize(
+            client: client,
             user: user,
+            received_at: attrs[:received_at],
           )
         )
         SendInternalEmailJob.perform_later(internal_email)

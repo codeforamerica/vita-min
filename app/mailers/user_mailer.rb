@@ -14,7 +14,6 @@ class UserMailer < ApplicationMailer
     @assigned_at = assigned_at.in_time_zone(@assigned_user.timezone)
     @client = tax_return.client
     @subject = "GetYourRefund Client ##{@client.id} Assigned to You"
-    inline_logo
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       {
         host: MultiTenantService.new(:gyr).host,
@@ -25,6 +24,7 @@ class UserMailer < ApplicationMailer
         email_address: signed_email(@assigned_user.email)
       }
     )
+    inline_logo
 
     mail(to: @assigned_user.email, subject: @subject)
   end
@@ -39,7 +39,6 @@ class UserMailer < ApplicationMailer
                elsif interaction_type == "document_upload"
                  "#{@interaction_count} New Document(s) Uploaded by GetYourRefund Client ##{@client_id}"
                end
-    inline_logo
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       {
         host: MultiTenantService.new(:gyr).host,
@@ -50,14 +49,16 @@ class UserMailer < ApplicationMailer
         email_address: signed_email(@user.email)
       }
     )
+    inline_logo
 
     mail(to: @user.email, subject: @subject, template_name: "#{interaction_type}_notification_email")
   end
 
-  def internal_interaction_notification_email(user:, interaction_type:)
+  def internal_interaction_notification_email(client:, user:, received_at:, interaction_type:)
+    @client_id = client.id
     @user = user
-    inline_logo
-    @subject = "You were tagged in a note"
+    @received_at = received_at.in_time_zone(@user.timezone)
+    @subject = "Tagged in a note for GetYourRefund Client ##{@client_id}"
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       {
         host: MultiTenantService.new(:gyr).host,
@@ -68,6 +69,7 @@ class UserMailer < ApplicationMailer
         email_address: signed_email(@user.email)
       }
     )
+    inline_logo
 
     mail(to: @user.email, subject: @subject, template_name: "#{interaction_type}_notification_email")
   end
