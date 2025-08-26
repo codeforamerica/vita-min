@@ -11,6 +11,7 @@ begin
   Flipper.disable :show_retirement_ui unless Flipper.exist?(:show_retirement_ui)
   Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
   Flipper.disable :hub_dashboard unless Flipper.exist?(:hub_dashboard)
+  Flipper.disable :hub_email_notifications unless Flipper.exist?(:hub_email_notifications)
   Flipper.disable :get_your_pdf unless Flipper.exist?(:get_your_pdf)
   Flipper.disable :extension_period unless Flipper.exist?(:extension_period)
   Flipper.disable :income_review_v2 unless Flipper.exist?(:income_review_v2)
