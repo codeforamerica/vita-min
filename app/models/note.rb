@@ -26,5 +26,5 @@ class Note < ApplicationRecord
 
   has_many :user_notifications, as: :notifiable, dependent: :destroy
 
-  after_save { InteractionTrackingService.record_internal_interaction(client, user: user, interaction_type: "tagged_in_note", received_at: created_at) }
+  after_save { InteractionTrackingService.record_internal_interaction(client) }
 end
