@@ -4,7 +4,7 @@
 
 <p>To see this note, please visit the following link and sign in to the Hub:</p>
 
-<%= render partial: 'main_email_button', locals: { button_text: "View Notes", button_link: hub_client_notes_url(client_id: @client_id) } %>
+<%= render partial: 'main_email_button', locals: { button_text: "View Notes", button_link: hub_client_notes_url(client_id: @client_id, anchor: "last-item") } %>
 
 <p>As a reminder, please contact the client within five business days to ensure high quality service.</p>
 
