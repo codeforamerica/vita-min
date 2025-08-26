@@ -820,7 +820,7 @@ DEPENDENCIES
   rack (>= 2.0.8)
   rack-attack
   rack-mini-profiler
-  rails (~> 7.1)
+  rails (~> 7.1.5.2)
   rails-controller-testing
   rails-i18n
   rails_autolink
