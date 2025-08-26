@@ -188,7 +188,7 @@ describe InteractionTrackingService do
           internal_email = InternalEmail.last
           expect(internal_email.mail_class).to eq "UserMailer"
           expect(internal_email.mail_method).to eq "internal_interaction_notification_email"
-          expect(internal_email.mail_args).to eq ActiveJob::Arguments.serialize(client: client, user: user, received_at: received_at)
+          expect(internal_email.mail_args).to match_array ActiveJob::Arguments.serialize(client: client, user: user, interaction_type: "tagged_in_note", received_at: received_at)
           expect(SendInternalEmailJob).to have_received(:perform_later).with(internal_email)
         end
       end
