@@ -158,7 +158,7 @@ RSpec.describe UserMailer, type: :mailer do
     let(:user) { create :user }
     let(:received_at) { DateTime.now }
 
-    context "when the interaction type is new tagged in note" do
+    context "when the interaction type is tagged in note" do
       it_behaves_like "a mailer with an unsubscribe link" do
         let(:mail_method) { :internal_interaction_notification_email }
         let(:mailer_args) do

@@ -38,9 +38,9 @@ class InteractionTrackingService
   def self.record_internal_interaction(client, **attrs)
     interaction_type = attrs[:interaction_type]
 
-    if interaction_type == :tagged_in_note
+    if interaction_type == "tagged_in_note"
       user = User.find(attrs[:user_id])
-      if user&.email_notification_yes?
+      if user&.email_notification_yes? && Flipper.enabled?(:hub_email_notifications)
         internal_email = InternalEmail.create!(
           mail_class: UserMailer,
           mail_method: :internal_interaction_notification_email,
