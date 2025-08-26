@@ -183,7 +183,7 @@ describe InteractionTrackingService do
           end
         end
 
-        it "sends creates an InternalEmail and enqueues SendInternalEmailJob" do
+        it "creates an InternalEmail and enqueues SendInternalEmailJob" do
           described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
           internal_email = InternalEmail.last
           expect(internal_email.mail_class).to eq "UserMailer"

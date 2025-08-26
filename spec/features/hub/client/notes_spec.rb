@@ -9,6 +9,8 @@ RSpec.feature "View and add internal notes for a client" do
     let(:client) { create :client, vita_partner: organization, intake: build(:intake, preferred_name: "Bart Simpson") }
     before do
       login_as user
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:hub_email_notifications).and_return(true)
     end
 
     scenario "add an internal note to a client" do
@@ -40,6 +42,12 @@ RSpec.feature "View and add internal notes for a client" do
 
       note = find(".note#last-item")
       expect(note).to have_text "@#{user.name_with_role}"
+      # creates UserNotification
+      expect(user.notifications.last.notifiable_type).to eq "Note"
+      # sends user an email
+      perform_enqueued_jobs
+      mail = ActionMailer::Base.deliveries.last
+      expect(mail.subject).to eq "Tagged in a note for GetYourRefund Client ##{client.id}"
     end
   end
 end

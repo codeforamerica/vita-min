@@ -48,6 +48,7 @@ class InteractionTrackingService
             client: client,
             user: user,
             received_at: attrs[:received_at],
+            interaction_type: interaction_type,
           )
         )
         SendInternalEmailJob.perform_later(internal_email)
