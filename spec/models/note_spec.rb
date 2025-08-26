@@ -25,4 +25,17 @@ describe Note do
   it_behaves_like "an internal interaction" do
     let(:subject) { build(:note) }
   end
+
+  it "passes extra args to interaction tracking service" do
+    allow(InteractionTrackingService).to receive(:record_internal_interaction)
+
+    note = create(:note)
+
+    expect(InteractionTrackingService).to have_received(:record_internal_interaction).with(
+      note.client,
+      user: note.user,
+      interaction_type: "tagged_in_note",
+      received_at: note.created_at,
+    )
+  end
 end
