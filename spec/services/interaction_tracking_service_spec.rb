@@ -152,6 +152,8 @@ describe InteractionTrackingService do
 
     context "sending the user an email" do
       let(:user) { create(:admin_user, email_notification: "yes") }
+      let(:received_at) { Time.now }
+
       before do
         allow(SendInternalEmailJob).to receive(:perform_later)
       end
@@ -162,7 +164,7 @@ describe InteractionTrackingService do
         end
 
         it "doesn't send any email notifications" do
-          described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user_id: user.id)
+          described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
           expect(SendInternalEmailJob).not_to have_received(:perform_later)
         end
       end
@@ -176,14 +178,13 @@ describe InteractionTrackingService do
           let(:user) { create(:admin_user, email_notification: "no") }
 
           it "doesn't send a message" do
-            described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user_id: user.id)
+            described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
             expect(SendInternalEmailJob).not_to have_received(:perform_later)
           end
         end
 
         it "sends creates an InternalEmail and enqueues SendInternalEmailJob" do
-          received_at = Time.now
-          described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user_id: user.id, received_at: received_at)
+          described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
           internal_email = InternalEmail.last
           expect(internal_email.mail_class).to eq "UserMailer"
           expect(internal_email.mail_method).to eq "internal_interaction_notification_email"
