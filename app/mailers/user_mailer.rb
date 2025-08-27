@@ -33,15 +33,18 @@ class UserMailer < ApplicationMailer
     mail(to: @assigned_user.email, subject: @subject)
   end
 
-  def incoming_interaction_notification_email(client:, user:, received_at:, interaction_count:, interaction_type:)
+  def incoming_interaction_notification_email(client:, user:, received_at:, interaction_count:, interaction_type:, **attrs)
     @client_id = client.id
     @user = user
     @received_at = received_at.in_time_zone(@user.timezone)
     @interaction_count = interaction_count
+    @tax_return = attrs[:tax_return] if attrs[:tax_return].present?
     @subject = if interaction_type == "new_client_message"
                  "#{@interaction_count} New Message(s) from GetYourRefund Client ##{@client_id}"
                elsif interaction_type == "document_upload"
                  "#{@interaction_count} New Document(s) Uploaded by GetYourRefund Client ##{@client_id}"
+               elsif interaction_type == "signed_8879"
+                 "Signature from GetYourRefund Client ##{@client_id}"
                end
     service = MultiTenantService.new(:gyr)
     attachments.inline['logo.png'] = service.email_logo

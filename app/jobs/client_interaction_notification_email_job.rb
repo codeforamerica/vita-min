@@ -14,16 +14,20 @@ class ClientInteractionNotificationEmailJob < ApplicationJob
     return if interactions.empty? || interactions.last.id != interaction.id
 
     if should_notify?(interaction)
+      mail_args_attrs = {
+        client: interaction.client,
+        user: user,
+        received_at: attrs[:received_at] || interaction.created_at,
+        interaction_count: interactions.count,
+        interaction_type: interaction.interaction_type,
+      }
+
+      mail_args_attrs[:tax_return] = attrs[:tax_return] if attrs[:tax_return].present?
+
       internal_email = InternalEmail.create!(
         mail_class: UserMailer,
         mail_method: :incoming_interaction_notification_email,
-        mail_args: ActiveJob::Arguments.serialize(
-          client: interaction.client,
-          user: user,
-          received_at: attrs[:received_at] || interaction.created_at,
-          interaction_count: interactions.count,
-          interaction_type: interaction.interaction_type,
-        )
+        mail_args: ActiveJob::Arguments.serialize(mail_args_attrs)
       )
       mailer_response = internal_email.mail_class.constantize.send(
         internal_email.mail_method,

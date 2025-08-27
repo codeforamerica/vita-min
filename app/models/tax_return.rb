@@ -180,22 +180,41 @@ class TaxReturn < ApplicationRecord
     documents.active.where(document_type: DocumentTypes::FinalTaxDocument.key)
   end
 
-  def sign_primary!(ip)
+  def sign!(primary_or_spouse, ip)
+    prefix = case primary_or_spouse.to_s
+    when "primary", "spouse"
+      primary_or_spouse.to_s
+    else
+      raise ArgumentError, "who must be primary or spouse"
+    end
+
     unless unsigned_8879s.present?
-      raise AlreadySignedError if primary_has_signed_8879?
+      raise AlreadySignedError if public_send("#{prefix}_has_signed_8879?")
     end
 
     sign_successful = ActiveRecord::Base.transaction do
-      self.primary_signed_at = DateTime.current
-      self.primary_signed_ip = ip
-      self.primary_signature = client.legal_name || "N/A"
+      signed_at = DateTime.current
+      public_send("#{prefix}_signed_at", signed_at)
+      public_send("#{prefix}_signed_ip", ip)
+      legal_name_method = prefix == "primary" ? :legal_name : :spouse_legal_name
+      public_send("#{prefix}_signature", client.public_send(legal_name_method) || "N/A")
+
+
+      if completely_signed_8879?
+        InteractionTrackingService.record_incoming_interaction(
+          client,
+          received_at: signed_at,
+          interaction_type: :signed_8879,
+          tax_return: self
+        )
+      end
 
       if ready_to_file?
         system_change_status(:file_ready_to_file)
         Sign8879Service.create(self)
-        SystemNote::SignedDocument.generate!(signed_by_type: :primary, tax_return: self)
+        SystemNote::SignedDocument.generate!(signed_by_type: prefix.to_sym, tax_return: self)
       else
-        SystemNote::SignedDocument.generate!(signed_by_type: :primary, waiting: true, tax_return: self)
+        SystemNote::SignedDocument.generate!(signed_by_type: prefix.to_sym, waiting: true, tax_return: self)
       end
       save!
     end
@@ -205,30 +224,9 @@ class TaxReturn < ApplicationRecord
     true
   end
 
-  def sign_spouse!(ip)
-    unless unsigned_8879s.present?
-      raise AlreadySignedError if spouse_has_signed_8879?
-    end
+  def sign_primary!(ip) = sign!(:primary, ip)
 
-    sign_successful = ActiveRecord::Base.transaction do
-      self.spouse_signed_at = DateTime.current
-      self.spouse_signed_ip = ip
-      self.spouse_signature = client.spouse_legal_name || "N/A"
-
-      if ready_to_file?
-        system_change_status(:file_ready_to_file)
-        Sign8879Service.create(self)
-        SystemNote::SignedDocument.generate!(signed_by_type: :spouse, tax_return: self)
-      else
-        SystemNote::SignedDocument.generate!(signed_by_type: :spouse, waiting: true, tax_return: self)
-      end
-      save!
-    end
-
-    raise FailedToSignReturnError unless sign_successful
-
-    true
-  end
+  def sign_spouse!(ip)  = sign!(:spouse, ip)
 
   def under_submission_limit?
     efile_submissions.count < 20

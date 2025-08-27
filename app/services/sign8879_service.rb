@@ -29,12 +29,6 @@ class Sign8879Service
           identify: false
         }
       )
-
-      InteractionTrackingService.record_incoming_interaction(
-        tax_return.client,
-        received_at: tax_return.primary_signed_at,
-        interaction_type: :signed_8879
-      )
     end
   end
 

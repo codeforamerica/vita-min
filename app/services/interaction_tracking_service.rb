@@ -12,9 +12,14 @@ class InteractionTrackingService
       users_to_contact = client.tax_returns.pluck(:assigned_user_id).compact
       users_to_contact = User.where(id: users_to_contact, email_notification: "yes")
       unless users_to_contact.empty?
+        email_attrs = {
+          received_at: attrs[:received_at] || interaction.created_at
+        }
+        email_attrs[:tax_return] = attrs[:tax_return] if attrs[:tax_return].present?
+
         users_to_contact.each do |user|
           interaction = ClientInteraction.create!(client: client, interaction_type: interaction_type)
-          ClientInteractionNotificationEmailJob.set(wait: 10.minutes).perform_later(interaction, user, received_at: attrs[:received_at])
+          ClientInteractionNotificationEmailJob.set(wait: 10.minutes).perform_later(interaction, user, **email_attrs)
         end
       end
     end
