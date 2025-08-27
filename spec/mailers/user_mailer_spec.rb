@@ -153,4 +153,43 @@ RSpec.describe UserMailer, type: :mailer do
       end
     end
   end
+
+  describe "#internal_interaction_notification_email" do
+    let(:client) { create :client }
+    let(:user) { create :user }
+    let(:received_at) { DateTime.now }
+
+    context "when the interaction type is tagged in note" do
+      it_behaves_like "a mailer with an unsubscribe link" do
+        let(:mail_method) { :internal_interaction_notification_email }
+        let(:mailer_args) do
+          {
+            client: client,
+            user: user,
+            interaction_type: "tagged_in_note",
+            received_at: Time.now,
+          }
+        end
+        let(:email_address) { user.email }
+      end
+
+      it "delivers the email with the right subject and body" do
+        email = UserMailer.internal_interaction_notification_email(
+          client: client,
+          user: user,
+          interaction_type: "tagged_in_note",
+          received_at: Time.now,
+        )
+        expect do
+          email.deliver_now
+        end.to change(ActionMailer::Base.deliveries, :count).by 1
+
+        expect(email.subject).to eq "Tagged in a note for GetYourRefund Client ##{client.id}"
+        expect(email.from).to eq ["no-reply@test.localhost"]
+        expect(email.to).to eq [user.email]
+        expect(email.text_part.decoded.strip).to include hub_client_url(id: client.id)
+        expect(email.html_part.decoded).to include hub_client_url(id: client.id)
+      end
+    end
+  end
 end
