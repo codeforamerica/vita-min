@@ -1,28 +1,40 @@
 class EfileErrorPolicy < ApplicationPolicy
-  %i[index? show? update?].each do |name|
-    define_method name do
-      # if any of these user types, than they can access these actions but only for the scope that is returned for them
-      user.state_file_admin? || user.state_file_nj_staff? || user.admin?
-    end
+  STATE_FILE_SERVICE_TYPES = Set.new(%w[state_file unfilled state_file_az state_file_ny state_file_md state_file_nc state_file_id ctc]).freeze
+
+  # collection actions
+  def index?
+    self.class.permitted_service_types_for(user).any?
   end
 
-  def reprocess?
-    update?
-  end
+  # member actions
+  def show? = permitted_for_single_record?
+  def update? = permitted_for_single_record?
+  def reprocess? = update?
 
   class Scope < ApplicationPolicy::Scope
-    STATE_FILE_SERVICE_TYPES = %w[state_file unfilled state_file_az state_file_ny state_file_md state_file_nc state_file_id ctc].freeze
-
+    # scope is used for collection actions like index or search
     def resolve
-      if user.state_file_admin?
-        scope.where(service_type: STATE_FILE_SERVICE_TYPES)
-      elsif user.state_file_nj_staff?
-        scope.where(service_type: "state_file_nj")
-      elsif user.admin?
-        scope.where(service_type: "ctc")
-      else
-        EfileError.none
-      end
+      allowed_service_types = EfileErrorPolicy.permitted_service_types_for(user)
+      allowed_service_types.any? ? scope.where(service_type: allowed_service_types) : scope.none
     end
+  end
+
+  # shared auth rule
+  def self.permitted_service_types_for(user)
+    if user.state_file_admin?
+      STATE_FILE_SERVICE_TYPES.to_a
+    elsif user.state_file_nj_staff?
+      %w[state_file_nj]
+    elsif user.admin?
+      %w[ctc]
+    else
+      []
+    end
+  end
+
+  private
+
+  def permitted_for_single_record?
+    self.class.permitted_service_types_for(user).include?(record.service_type.to_s)
   end
 end

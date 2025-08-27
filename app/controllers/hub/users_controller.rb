@@ -4,6 +4,7 @@ module Hub
     before_action :load_groups, only: [:edit_role, :update_role]
     before_action :load_and_authorize_role, only: [:update_role]
     load_and_authorize_resource unless: -> { Flipper.enabled?(:use_pundit) }
+    # policy scoped only on index
     after_action :verify_authorized,
                  :verify_policy_scoped,
                  # TODO: When we remove use_pundit flag, change this to except: [:profile]
