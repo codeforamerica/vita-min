@@ -22,7 +22,7 @@ class ClientInteractionNotificationEmailJob < ApplicationJob
         interaction_type: interaction.interaction_type,
       }
 
-      mail_args_attrs[:tax_return] = attrs[:tax_return] if attrs[:tax_return].present?
+      mail_args_attrs[:is_filing_jointly] = attrs[:is_filing_jointly] if attrs[:is_filing_jointly].present?
 
       internal_email = InternalEmail.create!(
         mail_class: UserMailer,

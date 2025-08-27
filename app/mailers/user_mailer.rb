@@ -38,7 +38,7 @@ class UserMailer < ApplicationMailer
     @user = user
     @received_at = received_at.in_time_zone(@user.timezone)
     @interaction_count = interaction_count
-    @tax_return = attrs[:tax_return] if attrs[:tax_return].present?
+    @is_filing_jointly = attrs[:is_filing_jointly] if attrs[:is_filing_jointly].present?
     @subject = if interaction_type == "new_client_message"
                  "#{@interaction_count} New Message(s) from GetYourRefund Client ##{@client_id}"
                elsif interaction_type == "document_upload"

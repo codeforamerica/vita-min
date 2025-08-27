@@ -194,10 +194,10 @@ class TaxReturn < ApplicationRecord
 
     sign_successful = ActiveRecord::Base.transaction do
       signed_at = DateTime.current
-      public_send("#{prefix}_signed_at", signed_at)
-      public_send("#{prefix}_signed_ip", ip)
+      public_send("#{prefix}_signed_at=", signed_at)
+      public_send("#{prefix}_signed_ip=", ip)
       legal_name_method = prefix == "primary" ? :legal_name : :spouse_legal_name
-      public_send("#{prefix}_signature", client.public_send(legal_name_method) || "N/A")
+      public_send("#{prefix}_signature=", client.public_send(legal_name_method) || "N/A")
 
 
       if completely_signed_8879?
@@ -205,7 +205,7 @@ class TaxReturn < ApplicationRecord
           client,
           received_at: signed_at,
           interaction_type: :signed_8879,
-          tax_return: self
+          is_filing_jointly: filing_jointly?
         )
       end
 

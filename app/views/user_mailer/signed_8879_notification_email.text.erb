@@ -1,8 +1,13 @@
 <h1><%= @subject %></h1>
 
-<p>Client #<%= @client_id %> signed the 8879 on <%= long_formatted_datetime(@received_at) %>.</p>
+<% if @is_filing_jointly %>
+  <p>Client #<%= @client_id %> and their spouse have signed Form 8879 on <%= long_formatted_datetime(@received_at) %>.</p>
+<% else %>
+  <p>Client #<%= @client_id %> signed Form 8879 on <%= long_formatted_datetime(@received_at) %>.</p>
+<% end %>
 
-<p>To access the client’s documents, please visit the following link and sign in to the Hub:</p>
+<p>To access the client’s signed form, please visit the following link and sign in to the Hub:</p>
+
 
 <%= hub_client_documents_url(client_id: @client_id) %>
 

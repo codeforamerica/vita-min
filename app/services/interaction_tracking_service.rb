@@ -15,7 +15,7 @@ class InteractionTrackingService
         email_attrs = {
           received_at: attrs[:received_at] || interaction.created_at
         }
-        email_attrs[:tax_return] = attrs[:tax_return] if attrs[:tax_return].present?
+        email_attrs[:is_filing_jointly] = attrs[:is_filing_jointly] if attrs[:is_filing_jointly].present?
 
         users_to_contact.each do |user|
           interaction = ClientInteraction.create!(client: client, interaction_type: interaction_type)

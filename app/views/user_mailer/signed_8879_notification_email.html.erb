@@ -1,6 +1,6 @@
 <h1><%= @subject %></h1>
 
-<% if @tax_return.filing_jointly? %>
+<% if @is_filing_jointly %>
   <p>Client #<%= @client_id %> and their spouse have signed Form 8879 on <%= long_formatted_datetime(@received_at) %>.</p>
 <% else %>
   <p>Client #<%= @client_id %> signed Form 8879 on <%= long_formatted_datetime(@received_at) %>.</p>
