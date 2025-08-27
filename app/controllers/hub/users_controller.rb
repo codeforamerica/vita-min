@@ -3,7 +3,19 @@ module Hub
     include RoleHelper
     before_action :load_groups, only: [:edit_role, :update_role]
     before_action :load_and_authorize_role, only: [:update_role]
-    load_and_authorize_resource
+    load_and_authorize_resource unless: -> { Flipper.enabled?(:use_pundit) }
+    # policy scoped only on index
+    after_action :verify_authorized,
+                 :verify_policy_scoped,
+                 # TODO: When we remove use_pundit flag, change this to except: [:profile]
+                 if: -> (c) do
+                   return false if c.action_name == "profile"
+                   return false unless Flipper.enabled?(:use_pundit)
+                 end
+    before_action :set_and_authorize_user,
+                  except: %i[index profile resend_invitation]
+    before_action :set_and_authorize_users,
+                  only: %i[index]
 
     layout "hub"
 
@@ -75,20 +87,20 @@ module Hub
     end
 
     def unlock
-      authorize!(:update, @user)
+      # authorize!(:update, @user)
       @user.unlock_access! if @user.access_locked?
       flash[:notice] = I18n.t("hub.users.unlock.account_unlocked", name: @user.name)
       redirect_to(hub_users_path)
     end
 
     def suspend
-      authorize!(:update, @user)
+      # authorize!(:update, @user)
       @user.suspend!
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.suspend.success", name: @user.name)
     end
 
     def unsuspend
-      authorize!(:update, @user)
+      # authorize!(:update, @user)
       @user.activate!
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.unsuspend.success", name: @user.name)
     end
@@ -109,14 +121,19 @@ module Hub
     end
 
     def resend_invitation
-      user = User.find_by(id: params[:user_id])
-
-      if current_ability.can?(:manage, user)
-        user&.invite!(current_user)
-        flash[:notice] = "Invitation re-sent to #{user.email}"
-
-        redirect_to hub_users_path
+      begin
+        user = policy_scope(User).find(params[:user_id])
+        authorize user
+      rescue ActiveRecord::RecordNotFound
+        raise Pundit::NotAuthorizedError
       end
+      # Todo: Go behind Pundit flag
+      # user = User.find_by(id: params[:user_id])
+      # if current_ability.can?(:manage, user)
+      user&.invite!(current_user)
+      flash[:notice] = "Invitation re-sent to #{user.email}"
+
+      redirect_to hub_users_path
     end
 
     private
@@ -145,6 +162,20 @@ module Hub
       @role = role_from_params(params.dig(:user, :role), params)
 
       authorize!(:create, @role)
+    end
+
+    def set_and_authorize_user
+      return unless Flipper.enabled?(:use_pundit)
+
+      @user ||= policy_scope(User).find(params[:id])
+      authorize @user
+    end
+
+    def set_and_authorize_users
+      return unless Flipper.enabled?(:use_pundit)
+
+      @users ||= policy_scope(User)
+      authorize User
     end
   end
 end
