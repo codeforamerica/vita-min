@@ -224,6 +224,9 @@ class Seeder
       bank_routing_number: "011234569",
       bank_account_number: "87654323",
       bank_account_type: "checking",
+      preferred_interview_language: "en",
+      primary_ssn: "123456789",
+      state_of_residence: "AL",
       client_attributes: {
         vita_partner: first_org
       },
