@@ -26,6 +26,7 @@ describe Sign8879Service do
       allow(WriteToPdfDocumentService).to receive(:new).and_return document_service_double
       allow(document_service_double).to receive(:tempfile_output).and_return File.open(Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"), "r")
       allow(document_service_double).to receive(:write)
+      allow(InteractionTrackingService).to receive(:record_incoming_interaction).and_call_original
     end
 
     it "writes the primary taxpayers legal name to the document" do
@@ -110,6 +111,12 @@ describe Sign8879Service do
           Sign8879Service.create(tax_return)
         }.to change(tax_return.documents.where(document_type: DocumentTypes::CompletedForm8879.key), :count).by(2)
       end
+    end
+
+    it "records an incoming interaction when signed" do
+        Sign8879Service.create(tax_return)
+        expect(InteractionTrackingService).to have_received(:record_incoming_interaction)
+                                                .with(client, received_at: tax_return.primary_signed_at, interaction_type: :signed_8879)
     end
   end
 end
