@@ -40,7 +40,26 @@ class InteractionTrackingService
   end
 
   # "Internal" interactions
-  def self.record_internal_interaction(client)
+  def self.record_internal_interaction(client, **attrs)
+    interaction_type = attrs[:interaction_type]
+
+    if interaction_type == "tagged_in_note"
+      user = attrs[:user]
+      if user&.email_notification_yes? && Flipper.enabled?(:hub_email_notifications)
+        internal_email = InternalEmail.create!(
+          mail_class: UserMailer,
+          mail_method: :internal_interaction_notification_email,
+          mail_args: ActiveJob::Arguments.serialize(
+            client: client,
+            user: user,
+            received_at: attrs[:received_at],
+            interaction_type: interaction_type,
+          )
+        )
+        SendInternalEmailJob.perform_later(internal_email)
+      end
+    end
+
     client&.touch(:last_internal_or_outgoing_interaction_at)
   end
 end

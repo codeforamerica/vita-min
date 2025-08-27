@@ -1,0 +1,14 @@
+<h1><%= @subject %></h1>
+
+<p>You were tagged in a note for Client #<%= @client_id %> on <%= long_formatted_datetime(@received_at) %>.</p>
+
+<p>To see this note, please visit the following link and sign in to the Hub:</p>
+
+<%= render partial: 'main_email_button', locals: { button_text: "View Notes", button_link: hub_client_notes_url(client_id: @client_id, anchor: "last-item") } %>
+
+<p>As a reminder, please contact the client within five business days to ensure high quality service.</p>
+
+<p>Thanks for supporting clients with GetYourRefund!</p>
+
+<br />
+<%= auto_link(t("outgoing_email_mailer.user_message.unsubscribe", unsubscribe_link: @unsubscribe_link)) %>
