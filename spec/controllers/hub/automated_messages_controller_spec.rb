@@ -29,6 +29,7 @@ describe Hub::AutomatedMessagesController do
               "UserMailer.assignment_email",
               "UserMailer.incoming_interaction_notification_email [new_client_message]",
               "UserMailer.incoming_interaction_notification_email [document_upload]",
+              "UserMailer.incoming_interaction_notification_email [signed_8879]",
               "UserMailer.internal_interaction_notification_email [tagged_in_note]",
               "VerificationCodeMailer.with_code", "VerificationCodeMailer.no_match_found",
               "VerificationCodeMailer.archived_intake_verification_code",
