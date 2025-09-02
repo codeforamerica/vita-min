@@ -23,7 +23,10 @@ module Hub
 
       emails = {
         "UserMailer.assignment_email" => UserMailer.assignment_email(assigned_user: User.last, assigning_user: User.first, tax_return: TaxReturn.last, assigned_at: TaxReturn.last.updated_at),
-        "UserMailer.incoming_interaction_notification_email" => UserMailer.incoming_interaction_notification_email(client: Client.last, message_received_at: Time.now, user: User.last),
+        "UserMailer.incoming_interaction_notification_email [new_client_message]" => UserMailer.incoming_interaction_notification_email(client: Client.last, received_at: Time.now, user: User.last, interaction_count: 3, interaction_type: "new_client_message"),
+        "UserMailer.incoming_interaction_notification_email [document_upload]" => UserMailer.incoming_interaction_notification_email(client: Client.last, received_at: Time.now, user: User.last, interaction_count: 3, interaction_type: "document_upload"),
+        "UserMailer.incoming_interaction_notification_email [signed_8879]" => UserMailer.incoming_interaction_notification_email(client: Client.last, received_at: Time.now, user: User.last, interaction_count: 2, interaction_type: "signed_8879", is_filing_jointly: true),
+        "UserMailer.internal_interaction_notification_email [tagged_in_note]" => UserMailer.internal_interaction_notification_email(client: Client.last, received_at: Time.now, user: User.last, interaction_type: "tagged_in_note"),
         "VerificationCodeMailer.with_code" => VerificationCodeMailer.with(to: "example@example.com", locale: :en, service_type: :gyr, verification_code: '000000').with_code,
         "VerificationCodeMailer.no_match_found" => VerificationCodeMailer.no_match_found(to: "example@example.com", locale: :en, service_type: :gyr),
         "VerificationCodeMailer.archived_intake_verification_code" => VerificationCodeMailer.archived_intake_verification_code(to: "example@example.com", locale: :en, verification_code: '000000'),

@@ -16,7 +16,7 @@ def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
 end
 
 gem 'rack', '>= 2.0.8'
-gem 'rails', '~> 7.1'
+gem 'rails', '~> 7.1.5.2'
 gem 'puma', '>= 6.6.1'
 gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'

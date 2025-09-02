@@ -28,7 +28,10 @@ module Hub
 
     def create_notifications
       mentioned_user_ids = params.dig(:note, :mentioned_ids).split(",")
-      mentioned_user_ids.each { |id| UserNotification.create(notifiable: @note, user_id: id) }
+      mentioned_user_ids.each do |id|
+        UserNotification.create(notifiable: @note, user_id: id)
+        InteractionTrackingService.record_internal_interaction(@note.client, user: User.find(id), interaction_type: "tagged_in_note", received_at: @note.created_at)
+      end
     end
 
     class HubClientPresenter < Hub::ClientsController::HubClientPresenter

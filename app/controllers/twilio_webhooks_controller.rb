@@ -3,41 +3,41 @@ class TwilioWebhooksController < ActionController::Base
   before_action :validate_twilio_request
 
   def update_outgoing_text_message
-    status = params["MessageStatus"]
+    status = strong_params["MessageStatus"]
     DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}")
-    OutgoingTextMessage.find(params[:id]).update_status_if_further(status, error_code: params["ErrorCode"])
+    OutgoingTextMessage.find(strong_params[:id]).update_status_if_further(status, error_code: strong_params["ErrorCode"])
     head :ok
   end
 
   def update_status
-    status = params["MessageStatus"]
+    status = strong_params["MessageStatus"]
     DatadogApi.increment("twilio.outgoing_messages.updated.status.#{status}")
-    OutgoingMessageStatus.find_by(id: params[:id], message_type: :sms).update_status_if_further(status, error_code: params["ErrorCode"])
+    OutgoingMessageStatus.find_by(id: strong_params[:id], message_type: :sms).update_status_if_further(status, error_code: strong_params["ErrorCode"])
     head :ok
   end
 
   def update_outbound_call
-    call = OutboundCall.find(params[:id])
+    call = OutboundCall.find(strong_params[:id])
     return unless call.present?
 
-    update_params = { twilio_status: params["CallStatus"] }
-    DatadogApi.increment("twilio.outbound_calls.updated.status.#{params["CallStatus"]}")
+    update_params = { twilio_status: strong_params["CallStatus"] }
+    DatadogApi.increment("twilio.outbound_calls.updated.status.#{strong_params["CallStatus"]}")
 
-    if params["CallDuration"].present?
-      update_params[:twilio_call_duration] = params["CallDuration"]
-      DatadogApi.gauge("twilio.outbound_calls.updated.duration", params["CallDuration"].to_i)
+    if strong_params["CallDuration"].present?
+      update_params[:twilio_call_duration] = strong_params["CallDuration"]
+      DatadogApi.gauge("twilio.outbound_calls.updated.duration", strong_params["CallDuration"].to_i)
     end
 
     call.update!(update_params)
   end
 
   def create_incoming_text_message
-    IncomingTextMessageService.process(params)
+    IncomingTextMessageService.process(strong_params.to_h)
     head :ok
   end
 
   def outbound_call_connect
-    @outbound_call = OutboundCall.find(params[:id])
+    @outbound_call = OutboundCall.find(strong_params[:id])
     twiml = Twilio::TwiML::VoiceResponse.new
     # The status callback for the call is attached to the dial event to the client.
     # This means that the length of the call will be based on how long the user was connected to the client,
@@ -55,6 +55,27 @@ class TwilioWebhooksController < ActionController::Base
   private
 
   def validate_twilio_request
-    return head 403 unless TwilioService.new.valid_request?(request)
+    head 403 unless TwilioService.new.valid_request?(request)
+  end
+
+  def strong_params
+    num_media = params.permit("NumMedia")["NumMedia"]
+
+    # Have to do this a little weird to get around dealing with embedded indices
+    media_keys = Array.new(num_media.to_i) do |iter|
+      ["MediaUrl#{iter}", "MediaContentType#{iter}"]
+    end.flatten
+
+    params.permit(
+      "id",
+      "ErrorCode",
+      "CallDuration",
+      "MessageStatus",
+      "CallStatus",
+      "Body",
+      "NumMedia",
+      "From",
+      *media_keys
+    )
   end
 end
