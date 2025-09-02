@@ -1,30 +1,26 @@
 class UserPolicy < ApplicationPolicy
-  def index?
-    user.present?
-  end
+  # Collection Actions, these are scoped
+  def index? = user.present?
 
-  def profile?
-    user.present?
-  end
+  # Member Actions
+  def profile? = can_read?
+  def destroy? = can_manage?
+  def update_role? = can_manage?
+  def edit_role? = update_role?
 
-  %i[destroy? update_role? show?].each do |name|
+  %i[unlock? suspend? resend_invitation?].each do |name|
     define_method name do
-      can_manage?
+      can_manage? || site_coordinators_access?
     end
   end
 
-  def edit_role?
-    update_role?
-  end
+  def update? = can_update?
+  def unsuspend? = suspend?
 
-  %i[update? unlock? suspend? resend_invitation?].each do |name|
-    define_method name do
-      can_manage? || site_coordinators_peer?
+  class Scope < ApplicationPolicy::Scope
+    def resolve
+      scope.where(id: user.accessible_users.ids + [user.id])
     end
-  end
-
-  def unsuspend?
-    suspend?
   end
 
   private
@@ -34,26 +30,35 @@ class UserPolicy < ApplicationPolicy
   end
 
   def in_accessible_scope?
-    user.accessible_users.exists?(record.id)
+    user.accessible_users.where(id: record.id).exists?
+  end
+
+  def can_read?
+    # Anyone can read info about themselves or users that they can access
+    record_is_current_user? || in_accessible_scope?
   end
 
   def can_manage?
-    user.admin? || user.org_lead? || record_is_current_user?
+    # Admins and Org-leads can manage users that are accessible to them
+    (user.admin? || user.org_lead?) && in_accessible_scope?
   end
 
-  def site_coordinators_peer?
+  def can_update?
+    # Anyone can manage their own name & email address (roles are handled separately)
+    record_is_current_user? || can_manage? || site_coordinators_access?
+  end
+
+  def site_coordinators_access?
     return false unless user.site_coordinator?
 
-    user_ids = User.where(role: SiteCoordinatorRole.assignable_to_sites(user.role.sites)).or(
-      User.where(role: TeamMemberRole.assignable_to_sites(user.role.sites))
-    ).pluck(:id)
-    user_ids.include?(record.id)
-  end
+    current_user_sites = user.role.sites
+    site_coordinator_ids = User.where(role: SiteCoordinatorRole.assignable_to_sites(current_user_sites)).select(:id)
+    team_member_ids = User.where(role: TeamMemberRole.assignable_to_sites(current_user_sites)).select(:id)
 
-  class Scope < ApplicationPolicy::Scope
-    def resolve
-      scope.where(id: user.accessible_users.ids + [user.id])
-    end
+    # union of site coordinator or team member users that belong to a site that user has access to
+    accessible_users = User.where(id: site_coordinator_ids).or(User.where(id: team_member_ids))
+
+    accessible_users.where(id: record.id).exists?
   end
 end
 

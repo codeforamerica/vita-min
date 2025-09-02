@@ -1,10 +1,16 @@
 module Hub::StateFile
   class EfileErrorsController < Hub::StateFile::BaseController
-    # load_and_authorize_resource # TODO: how do we add the flag here?
-    after_action :verify_authorized
-    after_action :verify_policy_scoped, only: :index
+    after_action :verify_authorized, if: -> (c) do
+      return false unless Flipper.enabled?(:use_pundit)
+    end
+
+    after_action :verify_policy_scoped, if: -> (c) do
+      return false unless Flipper.enabled?(:use_pundit)
+    end, only: :index
+
     before_action :set_and_authorize_efile_error, only: [:edit, :show, :update, :reprocess]
     before_action :set_and_authorize_efile_errors, only: :index
+
     layout "hub"
 
     def index
@@ -71,11 +77,15 @@ module Hub::StateFile
     private
 
     def set_and_authorize_efile_error
+      return unless Flipper.enabled?(:use_pundit)
+
       @efile_error ||= EfileError.find(params[:id])
       authorize @efile_error
     end
 
     def set_and_authorize_efile_errors
+      return unless Flipper.enabled?(:use_pundit)
+
       @efile_errors ||= policy_scope(EfileError)
       authorize EfileError
     end
