@@ -2,9 +2,10 @@ module Hub
   class UsersController < Hub::BaseController
     include RoleHelper
 
+    # TODO: remove CanCan loads in GYR1-757
     before_action :load_groups, only: [:edit_role, :update_role]
     before_action :load_and_authorize_role, only: [:update_role]
-    load_and_authorize_resource unless: -> { Flipper.enabled?(:use_pundit) }
+    load_and_authorize_resource unless Flipper.enabled?(:use_pundit)
 
     after_action :verify_authorized, if: -> (c) do
                                        # TODO: When we remove use_pundit flag if block remember to add "except: [:profile]"
@@ -87,7 +88,7 @@ module Hub
     end
 
     def unlock
-      authorize!(:update, @user) unless Flipper.enabled?(:use_pundit)
+      authorize!(:update, @user) unless Flipper.enabled?(:use_pundit) # TODO: remove CanCan authorizations in GYR1-757
       @user.unlock_access! if @user.access_locked?
       flash[:notice] = I18n.t("hub.users.unlock.account_unlocked", name: @user.name)
       redirect_to(hub_users_path)

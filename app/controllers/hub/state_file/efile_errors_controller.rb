@@ -1,5 +1,7 @@
 module Hub::StateFile
   class EfileErrorsController < Hub::StateFile::BaseController
+    load_and_authorize_resource unless Flipper.enabled?(:use_pundit)
+
     after_action :verify_authorized, if: -> (c) do
       return false unless Flipper.enabled?(:use_pundit)
     end
