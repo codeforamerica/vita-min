@@ -8,7 +8,6 @@ RSpec.describe EfileErrorPolicy, type: :policy do
   let(:policy) { described_class }
 
   permissions :index? do
-
     it 'allow access to admin, state file admin, and nj staff user' do
       expect(policy).to permit(admin_user, EfileError)
       expect(policy).to permit(state_file_admin_user, EfileError)
@@ -56,18 +55,22 @@ RSpec.describe EfileErrorPolicy, type: :policy do
   end
 
   permissions ".scope" do
-    let!(:nj_efile_error){ create :efile_error, service_type: "state_file_nj" }
-    let!(:az_efile_error){ create :efile_error, service_type: "state_file_az" }
-    let!(:ctc_efile_error){ create :efile_error, service_type: "ctc" }
+    let!(:nj_efile_error) { create :efile_error, service_type: "state_file_nj" }
+    let!(:az_efile_error) { create :efile_error, service_type: "state_file_az" }
+    let!(:ctc_efile_error) { create :efile_error, service_type: "ctc" }
 
-    it 'denies access by default' do
-      expect(Pundit.policy_scope!(other_user, EfileError)).to be_empty
+    context "when the user is not an admin" do
+      it 'denies access' do
+        expect(Pundit.policy_scope!(other_user, EfileError)).to be_empty
+      end
     end
 
-    it 'access scoped to certain service types' do
-      expect(Pundit.policy_scope!(state_file_admin_user, EfileError)).to include(az_efile_error, ctc_efile_error)
-      expect(Pundit.policy_scope!(admin_user, EfileError)).to include(ctc_efile_error)
-      expect(Pundit.policy_scope!(nj_staff_user, EfileError)).to include(nj_efile_error)
+    context "when the user is an admin" do
+      it 'access scoped to certain service types' do
+        expect(Pundit.policy_scope!(state_file_admin_user, EfileError)).to include(az_efile_error, ctc_efile_error)
+        expect(Pundit.policy_scope!(admin_user, EfileError)).to include(ctc_efile_error)
+        expect(Pundit.policy_scope!(nj_staff_user, EfileError)).to include(nj_efile_error)
+      end
     end
   end
 end
