@@ -121,20 +121,18 @@ module Hub
     end
 
     def resend_invitation
+      user = User.find_by(id: params[:user_id])
+
       if Flipper.enabled?(:use_pundit)
-        @user&.invite!(current_user)
-        flash[:notice] = "Invitation re-sent to #{@user.email}"
-
-        redirect_to hub_users_path
+        authorize user
       else
-        user = User.find_by(id: params[:user_id])
-        if current_ability.can?(:manage, user)
-          user&.invite!(current_user)
-          flash[:notice] = "Invitation re-sent to #{user.email}"
-
-          redirect_to hub_users_path
-        end
+        return unless current_ability.can?(:manage, user)
       end
+
+      user&.invite!(current_user)
+      flash[:notice] = "Invitation re-sent to #{user.email}"
+
+      redirect_to hub_users_path
     end
 
     private

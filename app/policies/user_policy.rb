@@ -34,17 +34,17 @@ class UserPolicy < ApplicationPolicy
   end
 
   def can_read?
-    # Anyone can read info about themselves or users that they can access
+    # Anyone can read info about themselves or accessible users
     record_is_current_user? || in_accessible_scope?
   end
 
   def can_manage?
-    # Admins and Org-leads can manage users that are accessible to them
+    # Admins and Org-leads can manage accessible users
     (user.admin? || user.org_lead?) && in_accessible_scope?
   end
 
   def can_update?
-    # Anyone can manage their own name & email address (roles are handled separately)
+    # Anyone can manage their own user details (roles are handled separately)
     record_is_current_user? || can_manage? || site_coordinators_access?
   end
 
@@ -55,7 +55,7 @@ class UserPolicy < ApplicationPolicy
     site_coordinator_ids = User.where(role: SiteCoordinatorRole.assignable_to_sites(current_user_sites)).select(:id)
     team_member_ids = User.where(role: TeamMemberRole.assignable_to_sites(current_user_sites)).select(:id)
 
-    # union of site coordinator or team member users that belong to a site that user has access to
+    # site coordinator or team member users that belong to a site that user has access to
     accessible_users = User.where(id: site_coordinator_ids).or(User.where(id: team_member_ids))
 
     accessible_users.where(id: record.id).exists?
@@ -71,6 +71,7 @@ end
 # Organization leads can view and edit users who are organization leads, site coordinators, and team members in their coalition
 # can :manage, User, id: user.accessible_users.pluck(:id) if user.org_lead?
 #
-# # if user.site_coordinator?
-# can [:suspend, :unsuspend, :update, :unlock, :resend_invitation], User, id: User.where(role: SiteCoordinatorRole.assignable_to_sites(user.role.sites)).pluck(:id)
-# can [:suspend, :unsuspend, :update, :unlock, :resend_invitation], User, id: User.where(role: TeamMemberRole.assignable_to_sites(user.role.sites)).pluck(:id)
+# if user.site_coordinator?
+# can [:suspend, :unsuspend, :update, :unlock, :resend_invitation],
+# User, id: User.where(role: SiteCoordinatorRole.assignable_to_sites(user.role.sites)).pluck(:id)
+# or id: User.where(role: TeamMemberRole.assignable_to_sites(user.role.sites)).pluck(:id)
