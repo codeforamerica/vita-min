@@ -34,6 +34,13 @@ class ApplicationPolicy
     false
   end
 
+  private
+
+  def record_exists_in_scope
+    resolved = Pundit.policy_scope!(user, record.class)
+    resolved.where(id: record.id).exists?
+  end
+
   class Scope
     def initialize(user, scope)
       @user = user

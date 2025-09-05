@@ -1,19 +1,15 @@
 module Hub::StateFile
   class EfileErrorsController < Hub::StateFile::BaseController
-    load_and_authorize_resource unless Flipper.enabled?(:use_pundit)
-
-    after_action :verify_authorized, if: -> (c) do
-      return false unless Flipper.enabled?(:use_pundit)
-    end
-
-    after_action :verify_policy_scoped, if: -> (c) do
-      return false unless Flipper.enabled?(:use_pundit)
-    end, only: :index
-
-    before_action :set_and_authorize_efile_error, only: [:edit, :show, :update, :reprocess]
-    before_action :set_and_authorize_efile_errors, only: :index
-
     layout "hub"
+
+    if Flipper.enabled?(:use_pundit)
+      after_action :verify_authorized
+      after_action :verify_policy_scoped, only: :index
+      before_action :set_and_authorize_efile_error, only: [:edit, :show, :update, :reprocess]
+      before_action :set_and_authorize_efile_errors, only: :index
+    else
+      load_and_authorize_resource
+    end
 
     def index
       order = [:source, :code]
@@ -78,18 +74,18 @@ module Hub::StateFile
 
     private
 
+    # what what happens on create/new when it doesn't exist in scope
     def set_and_authorize_efile_error
-      return unless Flipper.enabled?(:use_pundit)
-
       @efile_error ||= EfileError.find(params[:id])
       authorize @efile_error
+      unless policy_scope(EfileError).where(id: @efile_error.id).exists?
+        raise Pundit::NotAuthorizedError
+      end
     end
 
     def set_and_authorize_efile_errors
-      return unless Flipper.enabled?(:use_pundit)
-
-      @efile_errors ||= policy_scope(EfileError)
       authorize EfileError
+      @efile_errors ||= policy_scope(EfileError)
     end
 
     def auto_transition_to_state(efile_error, submission)

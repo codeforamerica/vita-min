@@ -1,24 +1,20 @@
 module Hub
   class UsersController < Hub::BaseController
     include RoleHelper
+    layout "hub"
 
-    # TODO: remove CanCan loads in GYR1-757
     before_action :load_groups, only: [:edit_role, :update_role]
     before_action :load_and_authorize_role, only: [:update_role]
-    load_and_authorize_resource unless Flipper.enabled?(:use_pundit)
 
-    after_action :verify_authorized, if: -> (c) do
-                                       # TODO: When we remove use_pundit flag if block remember to add "except: [:profile]"
-                                       return false if c.action_name == "profile"
-                                       return false unless Flipper.enabled?(:use_pundit)
-                                     end
-    after_action :verify_policy_scoped, if: -> (c) do
-                                         return false unless Flipper.enabled?(:use_pundit)
-                                       end, only: :index
-    before_action :set_and_authorize_user, except: %i[index profile resend_invitation]
-    before_action :set_and_authorize_users, only: %i[index]
-
-    layout "hub"
+    if Flipper.enabled?(:use_pundit)
+      after_action :verify_authorized, except: [:profile]
+      after_action :verify_policy_scoped, only: :index
+      before_action :set_and_authorize_user, except: %i[index profile resend_invitation]
+      before_action :set_and_authorize_users, only: %i[index]
+    else
+      # TODO: remove CanCan loads in GYR1-757
+      load_and_authorize_resource
+    end
 
     def profile; end
 
@@ -165,17 +161,13 @@ module Hub
     end
 
     def set_and_authorize_user
-      return unless Flipper.enabled?(:use_pundit)
-
       @user ||= User.find(params[:id])
       authorize @user
     end
 
     def set_and_authorize_users
-      return unless Flipper.enabled?(:use_pundit)
-
-      @users ||= policy_scope(User)
       authorize User
+      @users ||= policy_scope(User)
     end
   end
 end

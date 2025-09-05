@@ -1,4 +1,11 @@
 class UserPolicy < ApplicationPolicy
+
+  class Scope < ApplicationPolicy::Scope
+    def resolve
+      scope.where(id: user.accessible_users.ids + [user.id])
+    end
+  end
+
   # Collection Actions, these are scoped
   def index? = user.present?
 
@@ -16,12 +23,6 @@ class UserPolicy < ApplicationPolicy
 
   def update? = can_update?
   def unsuspend? = suspend?
-
-  class Scope < ApplicationPolicy::Scope
-    def resolve
-      scope.where(id: user.accessible_users.ids + [user.id])
-    end
-  end
 
   private
 
