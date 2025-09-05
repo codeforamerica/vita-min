@@ -4654,6 +4654,7 @@ en:
         access_request_1_html: FileYourStateTaxes.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>.
         access_request_2: Please note that for personal information about you that we have obtained or received for processing on behalf of a separate, unaffiliated entity—which determined the means and purposes of processing—all such requests should be made to that entity directly. We will honor and support any instructions they provide us with respect to your personal information.
         access_request_header: Access Request
+        access_request: GetYourRefund.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at support@getyourrefund.org.
         additional_services: We may provide additional links to resources we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information.
         additional_services_header: Additional Services and Resources
         analytics_header: Analytics
@@ -4674,7 +4675,7 @@ en:
         data_retention_1: 'We will retain your information as long as necessary to: provide Services to you, operate our business consistent with this Notice, or demonstrate compliance with laws and legal obligations.'
         data_retention_2: If you no longer wish to proceed with the FileYourStateTaxes application and request to remove your information from our Services prior to application submission, we will delete or de-identify your information within 90 days of when the Services are terminated unless we are required by law to retain your information. In that case, we will only retain your information as long as required by such law.
         data_retention_header: Data Retention
-        effective_date: This version of the policy is effective January 15, 2024.
+        effective_date: This version of the policy is effective September, 2025.
         effective_date_header: Effective Date
         header: Privacy Policy
         header_1_html: <a href='%{link}' target='_blank' rel='noopener nofollow'>FileYourStateTaxes.org</a> is a service created by Code for America Labs, Inc. ("Code for America", "we", "us", "our") to help households file their state taxes after using the federal IRS Direct File service.
@@ -5195,6 +5196,7 @@ en:
             vita_providers: VITA providers to help prepare and submit your tax returns
           header: Information shared with others
           limited_personal_information: We may share limited, aggregated, or anonymized personal information with government agencies, such as the IRS, to analyze the use of our Services, free tax preparation service providers, and the Earned Income Tax Credit in order to improve and expand our Services. We will not share any information with the IRS that has not already been disclosed on your tax return.
+          legal_compliance: In certain situations, we may be required to disclose personal data in response to lawful requests by public authorities, including to meet national security or law enforcement requirements. We may also disclose your personal information as required by law, such as to comply with a subpoena or other legal process, when we believe in good faith that disclosure is necessary to protect our rights, protect your safety or the safety of others, investigate fraud, or respond to a government request.
           sell: We do not sell your personal information.
           special_situations: We may share your information with third parties in special situations, such as when required by law, or we believe sharing will help to protect the safety, property, or rights of Code for America, the people we serve, our associates, or other persons.
           third_party: We do not share personal information to any third party, except as provided in this Privacy Policy. We may disclose information to contractors, affiliated organizations, and/or unaffiliated third parties to provide the Services to you, to conduct our business, or to help with our business activities. For example, we may share your information with
@@ -5222,7 +5224,7 @@ en:
             Oakland, CA 94612-2414
           description_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:'
           header: Questions
-          resolve: We will do our best to resolve the issue
+          resolve_html: We will do our best to resolve the issue. If you have an unresolved privacy or data use concern that we have not addressed satisfactorily, please contact our U.S.-based third party dispute resolution provider (free of charge) at <a href='https://feedback-form.truste.com/watchdog/request' target='_blank' rel='noopener noreferrer'>https://feedback-form.truste.com/watchdog/request</a>.
         questions_html: If you have any questions or concerns about this Privacy Notice, please contact us at %{email_link}
         title: Privacy Policy
       sms_terms:
