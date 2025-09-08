@@ -33,11 +33,13 @@ class UserPolicy < ApplicationPolicy
   def unsuspend? = suspend?
 
   def update?
-    # Anyone can manage their own user details (roles are handled separately)
+    # Site coordinators can update site coordinators or team members that are assignable to their sites
     return true if site_coordinators_access?
 
+    # Anyone can manage their own user details (roles are handled separately)
     return true if record_is_current_user?
 
+    # Admins and org leads can update users that are accessible to them
     (user.admin? || user.org_lead?) && in_accessible_scope?
   end
 

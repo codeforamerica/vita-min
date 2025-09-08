@@ -74,10 +74,6 @@ module Hub::StateFile
 
     private
 
-    # what what happens on create/new when it doesn't exist in scope
-    # unless policy_scope(EfileError).where(id: @efile_error.id).exists?
-    #    raise Pundit::NotAuthorizedError
-    # end
     def set_and_authorize_efile_error
       @efile_error ||= EfileError.find(params[:id])
       authorize @efile_error

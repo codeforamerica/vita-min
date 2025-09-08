@@ -14,6 +14,7 @@ module Hub
     else
       # TODO: remove CanCan loads in GYR1-757
       load_and_authorize_resource
+      before_action :authorize_user, only: [:unlock, :suspend, :unsuspend]
     end
 
     def profile; end
@@ -84,20 +85,17 @@ module Hub
     end
 
     def unlock
-      authorize!(:update, @user) unless Flipper.enabled?(:use_pundit) # TODO: remove CanCan authorizations in GYR1-757
       @user.unlock_access! if @user.access_locked?
       flash[:notice] = I18n.t("hub.users.unlock.account_unlocked", name: @user.name)
       redirect_to(hub_users_path)
     end
 
     def suspend
-      authorize!(:update, @user) unless Flipper.enabled?(:use_pundit)
       @user.suspend!
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.suspend.success", name: @user.name)
     end
 
     def unsuspend
-      authorize!(:update, @user) unless Flipper.enabled?(:use_pundit)
       @user.activate!
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.unsuspend.success", name: @user.name)
     end
@@ -158,6 +156,11 @@ module Hub
       @role = role_from_params(params.dig(:user, :role), params)
 
       authorize!(:create, @role)
+    end
+
+    def authorize_user
+      # TODO: remove in GYR1-757
+      authorize!(:update, @user)
     end
 
     def set_and_authorize_user
