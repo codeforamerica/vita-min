@@ -6,23 +6,40 @@ class UserPolicy < ApplicationPolicy
     end
   end
 
-  # Collection Actions, these are scoped
+  # COLLECTION ACTIONS, these are scoped
   def index? = user.present?
 
-  # Member Actions
+  # MEMBER ACTIONS
   def profile? = record_is_current_user?
-  def destroy? = can_manage?
-  def update_role? = can_manage?
+
+  def destroy?
+    # Admins and Org-leads can destroy accessible users
+    (user.admin? || user.org_lead?) && in_accessible_scope?
+  end
+
+  def update_role?
+    # Admins and Org-leads can update roles of accessible users
+    (user.admin? || user.org_lead?) && in_accessible_scope?
+  end
   def edit_role? = update_role?
 
   %i[unlock? suspend? resend_invitation?].each do |name|
     define_method name do
-      can_manage? || site_coordinators_access?
+      return true if site_coordinators_access?
+
+      (user.admin? || user.org_lead?) && in_accessible_scope?
     end
   end
-
-  def update? = can_update?
   def unsuspend? = suspend?
+
+  def update?
+    # Anyone can manage their own user details (roles are handled separately)
+    return true if site_coordinators_access?
+
+    return true if record_is_current_user?
+
+    (user.admin? || user.org_lead?) && in_accessible_scope?
+  end
 
   private
 
@@ -32,16 +49,6 @@ class UserPolicy < ApplicationPolicy
 
   def in_accessible_scope?
     user.accessible_users.where(id: record.id).exists?
-  end
-
-  def can_manage?
-    # Admins and Org-leads can manage accessible users
-    (user.admin? || user.org_lead?) && in_accessible_scope?
-  end
-
-  def can_update?
-    # Anyone can manage their own user details (roles are handled separately)
-    record_is_current_user? || can_manage? || site_coordinators_access?
   end
 
   def site_coordinators_access?
