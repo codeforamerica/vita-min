@@ -13,6 +13,12 @@
           <p class="text--help"><%=t("views.public_pages.privacy_policy.description") %></p>
           <p><%=t("views.public_pages.privacy_policy.questions_html", :email_link => mail_to("support@getyourrefund.org")) %></p>
 
+          <p>
+            <a style="display: inline-block" href="//privacy.truste.com/privacy-seal/validation?rid=fbd38521-2463-471b-85e2-9f705e4d0772 " target="_blank">
+              <img style="border: none" src="//privacy-policy.truste.com/privacy-seal/seal?rid=fbd38521-2463-471b-85e2-9f705e4d0772" alt="TRUSTe"/>
+            </a>
+          </p>
+
           <h2 class="text--caption"><%=t("views.public_pages.privacy_policy.overview.header") %></h2>
           <h3><%=t("views.public_pages.privacy_policy.information_collection.header") %></h3>
           <p><%=t("views.public_pages.privacy_policy.information_collection.site.data.header") %></p>
@@ -66,7 +72,7 @@
           <p><%=t("views.public_pages.privacy_policy.information_sharing.third_party_security") %></p>
           <p><%=t("views.public_pages.privacy_policy.information_sharing.special_situations") %></p>
           <p><%=t("views.public_pages.privacy_policy.information_sharing.limited_personal_information") %></p>
-
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.legal_compliance") %></p>
 
           <h3><%=t("views.public_pages.privacy_policy.information_sharing.choices.header") %></h3>
           <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.respect") %></p>
@@ -78,6 +84,7 @@
             <li><%=t("views.public_pages.privacy_policy.information_sharing.choices.post.unsubscribe") %></li>
           </ul>
           <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.post.unsubscribe_note") %></p>
+          <p><%= t("views.public_pages.privacy_policy.information_sharing.choices.access_request") %></p>
 
           <p class="text--underline"><%=t("views.public_pages.privacy_policy.information_sharing.choices.cookies.header") %></p>
           <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.cookies.description") %></p>
@@ -110,12 +117,12 @@
           <p><%=t("views.public_pages.privacy_policy.changes.info") %></p>
 
           <h2 class="text--caption"><%=t("views.public_pages.privacy_policy.effective_date.header") %></h2>
-          <p><%=t("views.public_pages.privacy_policy.effective_date.info", :effective_date => l(Date.new(2021, 2, 17), :format => :long)) %></p>
+          <p><%=t("views.public_pages.privacy_policy.effective_date.info", :effective_date => l(Date.new(2025, 9, 5), :format => :long)) %></p>
 
           <h2 class="text--caption"><%=t("views.public_pages.privacy_policy.questions.header") %></h2>
           <p><%=t("views.public_pages.privacy_policy.questions.description_html",  :email_link => mail_to("support@getyourrefund.org")) %></p>
           <p><%=t("views.public_pages.privacy_policy.questions.address_html") %></p>
-          <p><%=t("views.public_pages.privacy_policy.questions.resolve") %></p>
+          <p><%=t("views.public_pages.privacy_policy.questions.resolve_html") %></p>
 
         </div>
       </div>
