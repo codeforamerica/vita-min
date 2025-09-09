@@ -9,12 +9,12 @@ module Hub
 
     def profile
       @user = current_user
-      @form = NotificationPreferencesForm.from_user(@user)
+      @form = NotificationSettingsForm.from_user(@user)
     end
 
     def update_notification_preferences
       @user = current_user
-      @form = NotificationPreferencesForm.new(@user, notification_preferences_form_params)
+      @form = NotificationSettingsForm.new(@user, notification_preferences_form_params)
 
       if @form.save
         flash[:notice] = "Saved"
@@ -138,7 +138,7 @@ module Hub
     private
 
     def notification_preferences_form_params
-      params.require(NotificationPreferencesForm.form_param).permit(NotificationPreferencesForm.permitted_params)
+      params.require(NotificationSettingsForm.form_param).permit(NotificationSettingsForm.permitted_params)
     end
 
     def user_params

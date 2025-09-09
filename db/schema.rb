@@ -2812,13 +2812,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_02_173338) do
 
   create_table "users", force: :cascade do |t|
     t.integer "client_assignments_notification", default: 0, null: false
-    t.integer "client_messages_notification", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
-    t.integer "document_uploads_notification", default: 0, null: false
+    t.integer "document_upload_notification", default: 0, null: false
     t.citext "email", null: false
-    t.integer "email_notification", default: 0, null: false
     t.string "encrypted_password", default: "", null: false
     t.string "external_provider"
     t.string "external_uid"
@@ -2835,6 +2833,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_02_173338) do
     t.string "last_sign_in_ip"
     t.datetime "locked_at", precision: nil
     t.string "name"
+    t.integer "new_client_message_notification", default: 0, null: false
     t.string "phone_number"
     t.datetime "reset_password_sent_at", precision: nil
     t.string "reset_password_token"

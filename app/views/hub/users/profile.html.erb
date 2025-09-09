@@ -48,22 +48,18 @@
                     builder: VitaMinFormBuilder,
                     html: { class: 'form-card' } do |f| %>
         <div id="notification_checkboxes">
-          <%= f.hub_checkbox(:client_messages_notification, "<strong>Client Messages</strong>",
-                             options: { checked_value: "yes", unchecked_value: "no" }) %>
-          <p style="margin-left: 30px; margin-top: -35px"><%= t(".client_messages_notification_description") %></p>
+          <%= f.hub_checkbox(:new_client_message_notification, "<strong>Client Messages</strong>", options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <p style="margin-left: 30px; margin-top: -35px"><%= t(".new_client_message_notification_description") %></p>
 
-          <%= f.hub_checkbox(:document_uploads_notification, "<strong>Client document uploads</strong>",
-                             options: { checked_value: "yes", unchecked_value: "no" }) %>
-          <p style="margin-left: 30px; margin-top: -35px"><%= t(".document_uploads_notification_description") %></p>
+          <%= f.hub_checkbox(:document_upload_notification, "<strong>Client document uploads</strong>", options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <p style="margin-left: 30px; margin-top: -35px"><%= t(".document_upload_notification_description") %></p>
 
-          <%= f.hub_checkbox(:client_assignments_notification, "<strong>Client Assignment</strong>",
-                             options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.hub_checkbox(:client_assignments_notification, "<strong>Client Assignment</strong>", options: { checked_value: "yes", unchecked_value: "no" }) %>
           <p style="margin-left: 30px; margin-top: -35px"><%=t(".client_assignments_notification_description") %></p>
         </div>
 
         <div id="unsubscribe_checkbox">
-          <%= f.hub_checkbox(:unsubscribe_all, "<strong>Unsubscribe</strong>",
-                             options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <%= f.hub_checkbox(:unsubscribe_all, "<strong>Unsubscribe</strong>", options: { checked_value: "yes", unchecked_value: "no" }) %>
           <p style="margin-left: 30px; margin-top: -35px"><%=t(".unsubscribe_all_description")%></p>
         </div>
       <% end %>

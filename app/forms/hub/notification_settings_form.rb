@@ -1,9 +1,9 @@
 module Hub
-  class NotificationPreferencesForm < Form
+  class NotificationSettingsForm < Form
     attr_accessor :user
-    attr_accessor :client_messages_notification,
+    attr_accessor :new_client_message_notification,
                   :client_assignments_notification,
-                  :document_uploads_notification,
+                  :document_upload_notification,
                   :unsubscribe_all
 
     validate :notification_selected
@@ -26,42 +26,42 @@ module Hub
     end
 
     def self.permitted_params
-      [:client_messages_notification, :client_assignments_notification, :document_uploads_notification, :unsubscribe_all]
+      [:new_client_message_notification, :client_assignments_notification, :document_upload_notification, :unsubscribe_all]
     end
 
 
     def load_from_user
       return unless user
 
-      self.client_messages_notification = user.client_messages_notification
+      self.new_client_message_notification = user.new_client_message_notification
       self.client_assignments_notification = user.client_assignments_notification
-      self.document_uploads_notification = user.document_uploads_notification
+      self.document_upload_notification = user.document_upload_notification
 
-      self.unsubscribe_all = client_messages_notification == 'no' &&
+      self.unsubscribe_all = new_client_message_notification == 'no' &&
                              client_assignments_notification == 'no' &&
-                             document_uploads_notification == 'no'
+                             document_upload_notification == 'no'
     end
 
     def notification_selected
-      unless client_messages_notification == 'yes' || client_assignments_notification == 'yes' || document_uploads_notification == 'yes' || unsubscribe_all == "yes"
+      unless new_client_message_notification == 'yes' || client_assignments_notification == 'yes' || document_upload_notification == 'yes' || unsubscribe_all == "yes"
         errors.add(:base, I18n.t('hub.users.profile.error'))
       end
     end
 
     def process_unsubscribe_all
       if unsubscribe_all == "yes"
-        self.client_messages_notification = 'no'
+        self.new_client_message_notification = 'no'
         self.client_assignments_notification = 'no'
-        self.document_uploads_notification = 'no'
+        self.document_upload_notification = 'no'
       end
     end
 
 
     def notification_attributes
       {
-        client_messages_notification: client_messages_notification,
+        new_client_message_notification: new_client_message_notification,
         client_assignments_notification: client_assignments_notification,
-        document_uploads_notification: document_uploads_notification
+        document_upload_notification: document_upload_notification
       }
     end
   end

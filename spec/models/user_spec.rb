@@ -4,12 +4,10 @@
 #
 #  id                              :bigint           not null, primary key
 #  client_assignments_notification :integer          default("yes"), not null
-#  client_messages_notification    :integer          default("yes"), not null
 #  current_sign_in_at              :datetime
 #  current_sign_in_ip              :string
-#  document_uploads_notification   :integer          default("yes"), not null
+#  document_upload_notification    :integer          default("yes"), not null
 #  email                           :citext           not null
-#  email_notification              :integer          default("yes"), not null
 #  encrypted_password              :string           default(""), not null
 #  external_provider               :string
 #  external_uid                    :string
@@ -25,6 +23,7 @@
 #  last_sign_in_ip                 :string
 #  locked_at                       :datetime
 #  name                            :string
+#  new_client_message_notification :integer          default("yes"), not null
 #  phone_number                    :string
 #  reset_password_sent_at          :datetime
 #  reset_password_token            :string

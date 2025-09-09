@@ -10,7 +10,7 @@ class InteractionTrackingService
     should_record_interaction = interaction_type.present? && interaction_type != 'unfilled'
     if should_record_interaction && Flipper.enabled?(:hub_email_notifications)
       users_to_contact = client.tax_returns.pluck(:assigned_user_id).compact
-      users_to_contact = User.where(id: users_to_contact, email_notification: "yes")
+      users_to_contact = User.where(id: users_to_contact, "#{interaction_type}_notification" => "yes")
       unless users_to_contact.empty?
         users_to_contact.each do |user|
           interaction = ClientInteraction.create!(client: client, interaction_type: interaction_type)
