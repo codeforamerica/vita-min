@@ -3,11 +3,11 @@
 # Table name: users
 #
 #  id                              :bigint           not null, primary key
-#  client_assignments_notification :integer          default(0), not null
-#  client_messages_notification    :integer          default(0), not null
+#  client_assignments_notification :integer          default("yes"), not null
+#  client_messages_notification    :integer          default("yes"), not null
 #  current_sign_in_at              :datetime
 #  current_sign_in_ip              :string
-#  document_uploads_notification   :integer          default(0), not null
+#  document_uploads_notification   :integer          default("yes"), not null
 #  email                           :citext           not null
 #  email_notification              :integer          default("yes"), not null
 #  encrypted_password              :string           default(""), not null
