@@ -1367,7 +1367,15 @@ es:
         invite_pending: Invitación pendiente
         title: Usuarios
       profile:
+        client_assignments_notification_description: Receive email notifications when a client is assigned.
+        client_messages_notification_description: Receive email notifications when a client messages you.
+        document_uploads_notification_description: Receive email notifications when a client uploads a new document.
+        error: At least one notification type must be picked
+        notifications_subtitle: Choose the email notifications you’d like to receive.
+        notifications_title: Notification Preferences
+        save: Save Preferences
         start_date: Fecha de inicio
+        unsubscribe_all_description: Unsubscribe from all email notifications.
       strong_passwords:
         edit:
           body: En un esfuerzo por mantener toda la información del cliente segura y confidencial, no comparta esta contraseña con nadie.

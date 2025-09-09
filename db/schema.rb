@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_05_222215) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_02_173338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2811,9 +2811,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_05_222215) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer "client_assignments_notification", default: 0, null: false
+    t.integer "client_messages_notification", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
+    t.integer "document_uploads_notification", default: 0, null: false
     t.citext "email", null: false
     t.integer "email_notification", default: 0, null: false
     t.string "encrypted_password", default: "", null: false
