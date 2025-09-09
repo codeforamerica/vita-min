@@ -11,8 +11,8 @@ shared_examples "a mailer with an unsubscribe link" do
     unsubscribe_url = Rails.application.routes.url_helpers.url_for(
       {
         host: MultiTenantService.new(:gyr).host,
-        controller: "notifications_settings",
-        action: :unsubscribe_from_emails,
+        controller: "hub/users",
+        action: :profile,
         locale: I18n.locale,
         _recall: {},
         email_address: signed_email

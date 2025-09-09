@@ -1368,9 +1368,9 @@ es:
         title: Usuarios
       profile:
         client_assignments_notification_description: Receive email notifications when a client is assigned.
-        new_client_message_notification_description: Receive email notifications when a client messages you.
         document_upload_notification_description: Receive email notifications when a client uploads a new document.
         error: At least one notification type must be picked
+        new_client_message_notification_description: Receive email notifications when a client messages you.
         notifications_subtitle: Choose the email notifications you’d like to receive.
         notifications_title: Notification Preferences
         save: Save Preferences
