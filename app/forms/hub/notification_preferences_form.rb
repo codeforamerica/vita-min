@@ -7,7 +7,6 @@ module Hub
                   :unsubscribe_all
 
     validate :notification_selected
-    before_save :process_unsubscribe_all
 
     def initialize(user, params = {})
       @user = user
@@ -21,7 +20,7 @@ module Hub
 
     def save
       return false unless valid?
-
+      process_unsubscribe_all
       user.assign_attributes(notification_attributes)
       user.save
     end
