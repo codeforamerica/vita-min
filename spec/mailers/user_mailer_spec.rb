@@ -42,7 +42,7 @@ RSpec.describe UserMailer, type: :mailer do
     let(:received_at) { DateTime.now }
 
     context "when the interaction type is new client message" do
-      it_behaves_like "a mailer with an unsubscribe link" do
+      it_behaves_like "a mailer with a hub user unsubscribe link" do
         let(:mail_method) { :incoming_interaction_notification_email }
         let(:mailer_args) do
           {
@@ -98,7 +98,7 @@ RSpec.describe UserMailer, type: :mailer do
     end
 
     context "when the interaction type is document upload" do
-      it_behaves_like "a mailer with an unsubscribe link" do
+      it_behaves_like "a mailer with a hub user unsubscribe link" do
         let(:mail_method) { :incoming_interaction_notification_email }
         let(:mailer_args) do
           {
