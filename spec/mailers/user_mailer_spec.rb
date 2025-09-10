@@ -6,7 +6,7 @@ RSpec.describe UserMailer, type: :mailer do
     let(:assigned_user) { create :user }
     let(:tax_return) { create :gyr_tax_return }
 
-    it_behaves_like "a mailer with an unsubscribe link" do
+    it_behaves_like "a mailer with a hub user unsubscribe link" do
       let(:mail_method) { :assignment_email }
       let(:mailer_args) do
         {
