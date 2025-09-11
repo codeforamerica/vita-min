@@ -769,6 +769,7 @@ DEPENDENCIES
   dogapi
   easy_translate
   factory_bot_rails
+  faraday
   fix-db-schema-conflicts
   flamegraph
   flipper

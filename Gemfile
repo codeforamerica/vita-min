@@ -143,6 +143,7 @@ group :development do
   gem 'stackprof'
   gem 'memory_profiler'
   gem "letter_opener"
+  gem "faraday"
 end
 
 group :test do
