@@ -98,16 +98,11 @@ Rails.application.configure do
   # Allow stub views for base controller classes https://stackoverflow.com/questions/5147734/rspec-stubing-view-for-anonymous-controller
   config.paths['app/views'] << "spec/test_views"
 
-  # By default, intake is open in the test suite
-  # GYR
-  config.start_of_unique_links_only_intake = Time.find_zone('America/Los_Angeles').parse('2001-01-01 00:00:00')
-  config.start_of_open_intake = Time.find_zone('America/Los_Angeles').parse('2001-01-01 00:00:00')
-  config.end_of_intake = Time.find_zone('America/Los_Angeles').parse('2038-12-31 23:59:59')
-
-  # StateFile
-  config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-01-01 7:59:59')
-  config.state_file_end_of_new_intakes = Time.find_zone('America/New_York').parse('2038-04-15 23:59:59')
-  config.state_file_end_of_in_progress_intakes = Time.find_zone('America/New_York').parse('2038-04-25 23:59:59')
+  # Keep applications open indefinitely for the test suite to pass
+  the_future = Time.find_zone('America/New_York').parse('2040-12-31 23:59:59')
+  config.end_of_intake = the_future
+  config.state_file_end_of_new_intakes = the_future
+  config.state_file_end_of_in_progress_intakes = the_future
 
   config.active_record.encryption.primary_key = 'test'
   config.active_record.encryption.deterministic_key = 'test'
