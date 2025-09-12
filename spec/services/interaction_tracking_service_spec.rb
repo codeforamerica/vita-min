@@ -15,8 +15,8 @@ describe InteractionTrackingService do
   describe "#record_incoming_interaction" do
     let!(:tax_return_1) { create(:tax_return, assigned_user_id: user.id, year: Rails.configuration.product_year, client: client) }
     let!(:tax_return_2) { create(:tax_return, assigned_user_id: user_no_notifications.id, year: (Rails.configuration.product_year - 1), client: client) }
-    let(:user) { create(:admin_user, email_notification: "yes") }
-    let(:user_no_notifications) { create(:admin_user, email_notification: "no") }
+    let(:user) { create(:admin_user, new_client_message_notification: "yes") }
+    let(:user_no_notifications) { create(:admin_user, new_client_message_notification: "no") }
     let(:job) { spy("JobSpy") }
 
     before do

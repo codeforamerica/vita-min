@@ -17,8 +17,8 @@ class UserMailer < ApplicationMailer
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       {
         host: MultiTenantService.new(:gyr).host,
-        controller: "notifications_settings",
-        action: :unsubscribe_from_emails,
+        controller: "hub/users",
+        action: :profile,
         locale: I18n.locale,
         _recall: {},
         email_address: signed_email(@assigned_user.email)
@@ -45,8 +45,8 @@ class UserMailer < ApplicationMailer
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       {
         host: MultiTenantService.new(:gyr).host,
-        controller: "notifications_settings",
-        action: :unsubscribe_from_emails,
+        controller: "hub/users",
+        action: :profile,
         locale: I18n.locale,
         _recall: {},
         email_address: signed_email(@user.email)

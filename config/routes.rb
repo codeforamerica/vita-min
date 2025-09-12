@@ -359,6 +359,7 @@ Rails.application.routes.draw do
         resources :ctc_intake_capacity, only: [:index, :create]
         resources :admin_toggles, only: [:index, :create]
         get "/profile" => "users#profile", as: :user_profile
+        patch "/profile/notification_preferences" => "users#update_notification_preferences", as: :update_notification_preferences
         resources :trusted_proxies, only: [:index]
       end
 

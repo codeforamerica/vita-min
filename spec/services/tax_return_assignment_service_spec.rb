@@ -111,5 +111,14 @@ describe TaxReturnAssignmentService do
         expect(mail_args[:assigned_at]).to eq tax_return.updated_at
       end
     end
+
+    context "when user has notifications off" do
+      let(:assigned_user) { create :team_member_user, client_assignments_notification: "no" }
+      it "does not send email" do
+        expect {
+          subject.send_notifications
+        }.not_to change(InternalEmail, :count).from(0)
+      end
+    end
   end
 end
