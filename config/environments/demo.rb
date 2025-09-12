@@ -32,19 +32,4 @@ Rails.application.configure do
 
   Rails.application.default_url_options = config.action_mailer.default_url_options
   config.efile_environment = "test"
-
-  # CTC
-  config.ctc_soft_launch = Time.find_zone("America/New_York").parse("2022-03-01 09:00:00")
-  config.ctc_full_launch = Time.find_zone("America/New_York").parse("2022-04-01 09:00:00")
-
-  # StateFile
-  config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-01-01 7:59:59')
-
-  # Keep FYST 'open' until the end of 2040 ^_^
-  # use the session toggles if you want to emulate/test 'closed' behaviors
-  # use the year "2040" to test what it looks like between these milestones
-  the_earlier_future = Time.find_zone('America/New_York').parse('2039-12-31 23:59:59')
-  the_further_future = Time.find_zone('America/New_York').parse('2040-12-31 23:59:59')
-  config.state_file_end_of_new_intakes = the_earlier_future
-  config.state_file_end_of_in_progress_intakes = the_further_future
 end
