@@ -139,4 +139,59 @@ describe InteractionTrackingService do
       end
     end
   end
+
+  describe "#record_internal_interaction" do
+    it "updates last_internal_or_outgoing_interaction_at" do
+      Timecop.freeze(fake_time) do
+        described_class.record_internal_interaction(client)
+        client.reload
+
+        expect(client.last_internal_or_outgoing_interaction_at).to eq fake_time
+      end
+    end
+
+    context "sending the user an email" do
+      let(:user) { create(:admin_user, email_notification: "yes") }
+      let(:received_at) { Time.now }
+
+      before do
+        allow(SendInternalEmailJob).to receive(:perform_later)
+      end
+
+      context "when the flipper flag 'hub_email_notifications' is disabled" do
+        before do
+          allow(Flipper).to receive(:enabled?).with(:hub_email_notifications).and_return(false)
+        end
+
+        it "doesn't send any email notifications" do
+          described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
+          expect(SendInternalEmailJob).not_to have_received(:perform_later)
+        end
+      end
+
+      context "when the flipper flag 'hub_email_notifications' is enabled" do
+        before do
+          allow(Flipper).to receive(:enabled?).with(:hub_email_notifications).and_return(true)
+        end
+
+        context "user that has chosen to opt out of email notifications" do
+          let(:user) { create(:admin_user, email_notification: "no") }
+
+          it "doesn't send a message" do
+            described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
+            expect(SendInternalEmailJob).not_to have_received(:perform_later)
+          end
+        end
+
+        it "creates an InternalEmail and enqueues SendInternalEmailJob" do
+          described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
+          internal_email = InternalEmail.last
+          expect(internal_email.mail_class).to eq "UserMailer"
+          expect(internal_email.mail_method).to eq "internal_interaction_notification_email"
+          expect(internal_email.mail_args).to match_array ActiveJob::Arguments.serialize(client: client, user: user, interaction_type: "tagged_in_note", received_at: received_at)
+          expect(SendInternalEmailJob).to have_received(:perform_later).with(internal_email)
+        end
+      end
+    end
+  end
 end

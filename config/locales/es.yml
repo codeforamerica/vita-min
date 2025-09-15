@@ -5185,6 +5185,7 @@ es:
           important: Proteger su información personal es extremadamente importante para nosotros, por lo que tomamos precauciones administrativas, técnicas y físicas razonables para proteger su información tanto en línea como fuera de línea.
         information_sharing:
           choices:
+            access_request: GetYourRefund.org respeta tu control sobre tu información y, a pedido, confirmaremos si tenemos o estamos procesando información que hemos recopilado de ti. También tienes derecho a corregir o actualizar información personal inexacta o incompleta, solicitar una copia portable o la eliminación de tu información personal o solicitar que dejemos de usarla. En ciertas circunstancias, no podremos cumplir con tu solicitud, como si interfiere con nuestras obligaciones regulatorias, afecta asuntos legales, no podemos verificar tu identidad o implica un costo o esfuerzo desproporcionados, pero de todos modos responderemos a tu solicitud en un plazo razonable y te daremos una explicación. Para hacer tal solicitud, envíanos un correo electrónico a support@getyourrefund.org.
             additional:
               description: Puede ser que le proporcionemos enlaces adicionales a recursos que consideramos que le serán útiles. Estos enlaces pueden llevarlo a sitios que están afiliados con nosotros que pudieran operar bajo diferentes prácticas de privacidad. No somos responsables del contenido ni de las prácticas de dichos sitios. Animamos a nuestros visitantes y usuarios a estar atentos cuando salgan de nuestro sitio y de leer las declaraciones de privacidad de cualquier otro sitio, ya que no controlamos la manera en la cual los demás sitios recopilan información personal.
               header: Servicios y Recursos Adicionales
@@ -5217,6 +5218,7 @@ es:
             research: Terceros para distribuir encuestas, grupos especializados u otros fines administrativos, analíticos y de marketing
             vita_providers: Proveedores de VITA para ayudar a preparar y presentar sus declaraciones de impuestos
           header: Información compartida con terceros
+          legal_compliance: En ciertas situaciones, es posible que se nos requiera compartir datos personales en respuesta a solicitudes legítimas de autoridades públicas, incluyendo para cumplir con requisitos de seguridad nacional o de aplicación de la ley. También puede que compartamos tu información personal según lo exigido por la ley, como para cumplir con una citación u otro proceso legal, cuando creamos de buena fe que la divulgación es necesaria para proteger nuestros derechos, proteger tu seguridad o la seguridad de otros, investigar fraudes o responder a una solicitud gubernamental.
           limited_personal_information: 'Podemos compartir información personal limitada, agregada o anónima con agencias gubernamentales, como el IRS, para analizar el uso de nuestros Servicios, proveedores de servicios de preparación de impuestos gratuitos y el Crédito Tributario por Ingresos Devengados--en inglés: "Earned Income Tax Credit--con el fin de mejorar y ampliar nuestros Servicios. No compartiremos ninguna información con el IRS que no haya sido ya revelada en su declaración de impuestos.'
           sell: No vendemos su información personal.
           special_situations: Podemos compartir su información con terceros en situaciones especiales, como cuando lo requiere la ley, o cuando creemos que compartir dicha información ayudará a proteger la seguridad, propiedad o derechos de Code for America, las personas a las que servimos, nuestros asociados u otras personas.
@@ -5245,7 +5247,7 @@ es:
             Oakland, CA 94612-2414
           description_html: 'Si tiene preguntas, comentarios, inquietudes o quejas sobre este Sitio, comuníquese con nosotros por correo electrónico a support@getyourrefund.org o por correo postal a: %{email_link}'
           header: Preguntas
-          resolve: Haremos todo lo posible para resolver el problema.
+          resolve_html: Si tienes una inquietud no resuelta sobre privacidad o uso de datos que no hayamos respondido satisfactoriamente, comunícate con nuestro proveedor de resolución de disputas de terceros con sede en EE. UU. (sin costo) usando este formulario, disponible en inglés <a href='https://feedback-form.truste.com/watchdog/request' target='_blank' rel='noopener noreferrer'>https://feedback-form.truste.com/watchdog/request</a>.
         questions_html: Si tienes alguna pregunta sobre esta Notificación de Privacidad, contáctanos en %{email_link}
         title: Política de Privacidad
       sms_terms:

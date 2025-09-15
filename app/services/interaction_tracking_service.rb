@@ -12,9 +12,14 @@ class InteractionTrackingService
       users_to_contact = client.tax_returns.pluck(:assigned_user_id).compact
       users_to_contact = User.where(id: users_to_contact, "#{interaction_type}_notification" => "yes")
       unless users_to_contact.empty?
+        email_attrs = {
+          received_at: attrs[:received_at] || interaction.created_at
+        }
+        email_attrs[:is_filing_jointly] = attrs[:is_filing_jointly] if attrs[:is_filing_jointly].present?
+
         users_to_contact.each do |user|
           interaction = ClientInteraction.create!(client: client, interaction_type: interaction_type)
-          ClientInteractionNotificationEmailJob.set(wait: 10.minutes).perform_later(interaction, user, received_at: attrs[:received_at])
+          ClientInteractionNotificationEmailJob.set(wait: 10.minutes).perform_later(interaction, user, **email_attrs)
         end
       end
     end
@@ -35,7 +40,26 @@ class InteractionTrackingService
   end
 
   # "Internal" interactions
-  def self.record_internal_interaction(client)
+  def self.record_internal_interaction(client, **attrs)
+    interaction_type = attrs[:interaction_type]
+
+    if interaction_type == "tagged_in_note"
+      user = attrs[:user]
+      if user&.email_notification_yes? && Flipper.enabled?(:hub_email_notifications)
+        internal_email = InternalEmail.create!(
+          mail_class: UserMailer,
+          mail_method: :internal_interaction_notification_email,
+          mail_args: ActiveJob::Arguments.serialize(
+            client: client,
+            user: user,
+            received_at: attrs[:received_at],
+            interaction_type: interaction_type,
+          )
+        )
+        SendInternalEmailJob.perform_later(internal_email)
+      end
+    end
+
     client&.touch(:last_internal_or_outgoing_interaction_at)
   end
 end

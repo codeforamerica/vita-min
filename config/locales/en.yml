@@ -5170,6 +5170,7 @@ en:
           important: Protecting your personal information is extremely important to us so we take reasonable administrative, technical, and physical precautions to protect your information both online and offline.
         information_sharing:
           choices:
+            access_request: GetYourRefund.org respects your control over your information and, upon request, we will confirm whether we hold or are processing information that we have collected from you. You also have the right to amend or update inaccurate or incomplete personal information, request deletion of your personal information, or request that we no longer use it. Under certain circumstances we will not be able to fulfill your request, such as if it interferes with our regulatory obligations, affects legal matters, we cannot verify your identity, or it involves disproportionate cost or effort, but in any event we will respond to your request within a reasonable timeframe and provide you an explanation. In order to make such a request of us, please email us at support@getyourrefund.org.
             additional:
               description: We may provide additional links to resources we think you'll find useful. These links may lead you to sites that are not affiliated with us and/or may operate under different privacy practices. We are not responsible for the content or privacy practices of such other sites. We encourage our visitors and users to be aware when they leave our site and to read the privacy statements of any other site as we do not control how other sites collect personal information
               header: Additional Services and Resources
@@ -5202,6 +5203,7 @@ en:
             research: Third parties to distribute surveys, focus groups, or for other administrative, analytical, and marketing purposes
             vita_providers: VITA providers to help prepare and submit your tax returns
           header: Information shared with others
+          legal_compliance: In certain situations, we may be required to disclose personal data in response to lawful requests by public authorities, including to meet national security or law enforcement requirements. We may also disclose your personal information as required by law, such as to comply with a subpoena or other legal process, when we believe in good faith that disclosure is necessary to protect our rights, protect your safety or the safety of others, investigate fraud, or respond to a government request.
           limited_personal_information: We may share limited, aggregated, or anonymized personal information with government agencies, such as the IRS, to analyze the use of our Services, free tax preparation service providers, and the Earned Income Tax Credit in order to improve and expand our Services. We will not share any information with the IRS that has not already been disclosed on your tax return.
           sell: We do not sell your personal information.
           special_situations: We may share your information with third parties in special situations, such as when required by law, or we believe sharing will help to protect the safety, property, or rights of Code for America, the people we serve, our associates, or other persons.
@@ -5230,7 +5232,7 @@ en:
             Oakland, CA 94612-2414
           description_html: 'If you have any questions, comments, concerns, or complaints with the Site, please contact us by email at %{email_link} or by mail at:'
           header: Questions
-          resolve: We will do our best to resolve the issue
+          resolve_html: We will do our best to resolve the issue. If you have an unresolved privacy or data use concern that we have not addressed satisfactorily, please contact our U.S.-based third party dispute resolution provider (free of charge) at <a href='https://feedback-form.truste.com/watchdog/request' target='_blank' rel='noopener noreferrer'>https://feedback-form.truste.com/watchdog/request</a>.
         questions_html: If you have any questions or concerns about this Privacy Notice, please contact us at %{email_link}
         title: Privacy Policy
       sms_terms:

@@ -1,7 +1,15 @@
 module Hub::StateFile
   class EfileErrorsController < Hub::StateFile::BaseController
-    load_and_authorize_resource
     layout "hub"
+
+    if Flipper.enabled?(:use_pundit)
+      after_action :verify_authorized
+      after_action :verify_policy_scoped, only: :index
+      before_action :set_and_authorize_efile_error, only: [:edit, :show, :update, :reprocess]
+      before_action :set_and_authorize_efile_errors, only: :index
+    else
+      load_and_authorize_resource
+    end
 
     def index
       order = [:source, :code]
@@ -65,6 +73,16 @@ module Hub::StateFile
     end
 
     private
+
+    def set_and_authorize_efile_error
+      @efile_error ||= EfileError.find(params[:id])
+      authorize @efile_error
+    end
+
+    def set_and_authorize_efile_errors
+      authorize EfileError
+      @efile_errors ||= policy_scope(EfileError)
+    end
 
     def auto_transition_to_state(efile_error, submission)
       return :cancelled if efile_error.auto_cancel

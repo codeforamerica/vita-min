@@ -1,11 +1,21 @@
 module Hub
   class UsersController < Hub::BaseController
     include RoleHelper
+    layout "hub"
+
     before_action :load_groups, only: [:edit_role, :update_role]
     before_action :load_and_authorize_role, only: [:update_role]
-    load_and_authorize_resource
 
-    layout "hub"
+    if Flipper.enabled?(:use_pundit)
+      after_action :verify_authorized, except: [:profile]
+      after_action :verify_policy_scoped, only: :index
+      before_action :set_and_authorize_user, except: %i[index profile resend_invitation]
+      before_action :set_and_authorize_users, only: %i[index]
+    else
+      # TODO: remove CanCan loads in GYR1-757
+      load_and_authorize_resource
+      before_action :authorize_user, only: [:unlock, :suspend, :unsuspend]
+    end
 
     def profile
       @user = current_user
@@ -91,20 +101,17 @@ module Hub
     end
 
     def unlock
-      authorize!(:update, @user)
       @user.unlock_access! if @user.access_locked?
       flash[:notice] = I18n.t("hub.users.unlock.account_unlocked", name: @user.name)
       redirect_to(hub_users_path)
     end
 
     def suspend
-      authorize!(:update, @user)
       @user.suspend!
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.suspend.success", name: @user.name)
     end
 
     def unsuspend
-      authorize!(:update, @user)
       @user.activate!
       redirect_to edit_hub_user_path(id: @user), notice: I18n.t("hub.users.unsuspend.success", name: @user.name)
     end
@@ -127,12 +134,16 @@ module Hub
     def resend_invitation
       user = User.find_by(id: params[:user_id])
 
-      if current_ability.can?(:manage, user)
-        user&.invite!(current_user)
-        flash[:notice] = "Invitation re-sent to #{user.email}"
-
-        redirect_to hub_users_path
+      if Flipper.enabled?(:use_pundit)
+        authorize user
+      else
+        return unless current_ability.can?(:manage, user)
       end
+
+      user&.invite!(current_user)
+      flash[:notice] = "Invitation re-sent to #{user.email}"
+
+      redirect_to hub_users_path
     end
 
     private
@@ -165,6 +176,21 @@ module Hub
       @role = role_from_params(params.dig(:user, :role), params)
 
       authorize!(:create, @role)
+    end
+
+    def authorize_user
+      # TODO: remove in GYR1-757
+      authorize!(:update, @user)
+    end
+
+    def set_and_authorize_user
+      @user ||= User.find(params[:id])
+      authorize @user
+    end
+
+    def set_and_authorize_users
+      authorize User
+      @users ||= policy_scope(User)
     end
   end
 end
