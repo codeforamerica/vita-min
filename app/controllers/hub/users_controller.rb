@@ -18,20 +18,18 @@ module Hub
     end
 
     def profile
-      @user = current_user
-      @form = NotificationSettingsForm.from_user(@user)
+      @form = NotificationSettingsForm.from_user(current_user)
     end
 
     def update_notification_preferences
-      @user = current_user
-      @form = NotificationSettingsForm.new(@user, notification_preferences_form_params)
+      @form = NotificationSettingsForm.new(current_user, notification_preferences_form_params)
 
       if @form.save
         flash[:notice] = "Saved"
-        redirect_to request.referrer
+        render :profile
       else
         flash[:alert] = @form.errors.full_messages.join(", ")
-        redirect_to request.referrer
+        render :profile
       end
     end
 
