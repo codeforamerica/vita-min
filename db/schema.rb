@@ -2843,6 +2843,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_02_173338) do
     t.boolean "should_enforce_strong_password", default: false, null: false
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "suspended_at", precision: nil
+    t.integer "tagged_in_note_notification", default: 0, null: false
     t.string "timezone", default: "America/New_York", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true

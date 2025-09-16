@@ -151,7 +151,7 @@ describe InteractionTrackingService do
     end
 
     context "sending the user an email" do
-      let(:user) { create(:admin_user, email_notification: "yes") }
+      let(:user) { create(:admin_user, tagged_in_note_notification: "yes") }
       let(:received_at) { Time.now }
 
       before do
@@ -175,7 +175,7 @@ describe InteractionTrackingService do
         end
 
         context "user that has chosen to opt out of email notifications" do
-          let(:user) { create(:admin_user, email_notification: "no") }
+          let(:user) { create(:admin_user, tagged_in_note_notification: "no") }
 
           it "doesn't send a message" do
             described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)

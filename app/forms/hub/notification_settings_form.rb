@@ -4,6 +4,7 @@ module Hub
     attr_accessor :new_client_message_notification,
                   :client_assignments_notification,
                   :document_upload_notification,
+                  :tagged_in_note_notification,
                   :unsubscribe_all
 
     validate :notification_selected
@@ -26,7 +27,7 @@ module Hub
     end
 
     def self.permitted_params
-      [:new_client_message_notification, :client_assignments_notification, :document_upload_notification, :unsubscribe_all]
+      [:new_client_message_notification, :client_assignments_notification, :document_upload_notification, :tagged_in_note_notification, :unsubscribe_all]
     end
 
 
@@ -36,14 +37,16 @@ module Hub
       self.new_client_message_notification = user.new_client_message_notification
       self.client_assignments_notification = user.client_assignments_notification
       self.document_upload_notification = user.document_upload_notification
+      self.tagged_in_note_notification = user.tagged_in_note_notification
 
       self.unsubscribe_all = new_client_message_notification == 'no' &&
                              client_assignments_notification == 'no' &&
-                             document_upload_notification == 'no'
+                             document_upload_notification == 'no' &&
+                             tagged_in_note_notification == 'no'
     end
 
     def notification_selected
-      unless new_client_message_notification == 'yes' || client_assignments_notification == 'yes' || document_upload_notification == 'yes' || unsubscribe_all == "yes"
+      unless tagged_in_note_notification == 'yes' || new_client_message_notification == 'yes' || client_assignments_notification == 'yes' || document_upload_notification == 'yes' || unsubscribe_all == "yes"
         errors.add(:base, I18n.t('hub.users.profile.error'))
       end
     end
@@ -53,6 +56,7 @@ module Hub
         self.new_client_message_notification = 'no'
         self.client_assignments_notification = 'no'
         self.document_upload_notification = 'no'
+        self.tagged_in_note_notification = 'no'
       end
     end
 
@@ -61,7 +65,8 @@ module Hub
       {
         new_client_message_notification: new_client_message_notification,
         client_assignments_notification: client_assignments_notification,
-        document_upload_notification: document_upload_notification
+        document_upload_notification: document_upload_notification,
+        tagged_in_note_notification: tagged_in_note_notification
       }
     end
   end

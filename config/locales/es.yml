@@ -1375,6 +1375,7 @@ es:
         notifications_title: Notification Preferences
         save: Save Preferences
         start_date: Fecha de inicio
+        tagged_in_note_notification_description: Receive email notifications when you’re tagged in any internal notes by other Hub users.
         unsubscribe_all_description: Unsubscribe from all email notifications.
       strong_passwords:
         edit:

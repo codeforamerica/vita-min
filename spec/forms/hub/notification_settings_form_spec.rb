@@ -5,13 +5,15 @@ RSpec.describe Hub::NotificationSettingsForm do
     create :user,
            new_client_message_notification: "yes",
            client_assignments_notification: "yes",
-           document_upload_notification: "yes"
+           document_upload_notification: "yes",
+           tagged_in_note_notification: "yes"
   }
   let(:base_form_attributes) do
     {
       new_client_message_notification: "yes",
       client_assignments_notification: "yes",
-      document_upload_notification: "yes"
+      document_upload_notification: "yes",
+      tagged_in_note_notification: "yes"
     }
   end
 
@@ -23,6 +25,7 @@ RSpec.describe Hub::NotificationSettingsForm do
         expect(form.new_client_message_notification).to eq "yes"
         expect(form.client_assignments_notification).to eq "yes"
         expect(form.document_upload_notification).to eq "yes"
+        expect(form.tagged_in_note_notification).to eq "yes"
         expect(form.unsubscribe_all).to be false
       end
     end
@@ -32,7 +35,8 @@ RSpec.describe Hub::NotificationSettingsForm do
         {
           new_client_message_notification: "no",
           client_assignments_notification: "no",
-          document_upload_notification: "no"
+          document_upload_notification: "no",
+          tagged_in_note_notification: "no"
         }
       end
 
@@ -42,6 +46,7 @@ RSpec.describe Hub::NotificationSettingsForm do
         expect(form.new_client_message_notification).to eq "no"
         expect(form.client_assignments_notification).to eq "no"
         expect(form.document_upload_notification).to eq "no"
+        expect(form.tagged_in_note_notification).to eq "no"
       end
     end
   end
@@ -61,7 +66,8 @@ RSpec.describe Hub::NotificationSettingsForm do
         create :user,
                new_client_message_notification: "no",
                client_assignments_notification: "no",
-               document_upload_notification: "no"
+               document_upload_notification: "no",
+               tagged_in_note_notification: "no"
       }
 
       it "sets unsubscribe_all to true" do
@@ -76,7 +82,8 @@ RSpec.describe Hub::NotificationSettingsForm do
         create :user,
                new_client_message_notification: "yes",
                client_assignments_notification: "no",
-               document_upload_notification: "yes"
+               document_upload_notification: "yes",
+               tagged_in_note_notification: "yes"
       }
 
       it "sets unsubscribe_all to false" do
@@ -93,7 +100,8 @@ RSpec.describe Hub::NotificationSettingsForm do
         base_form_attributes.merge(
           new_client_message_notification: "no",
           client_assignments_notification: "yes",
-          document_upload_notification: "yes"
+          document_upload_notification: "yes",
+          tagged_in_note_notification: "yes"
         )
       end
 
@@ -107,6 +115,7 @@ RSpec.describe Hub::NotificationSettingsForm do
         expect(user.new_client_message_notification).to eq "no"
         expect(user.client_assignments_notification).to eq "yes"
         expect(user.document_upload_notification).to eq "yes"
+        expect(user.tagged_in_note_notification).to eq "yes"
       end
     end
 
@@ -125,6 +134,7 @@ RSpec.describe Hub::NotificationSettingsForm do
         expect(user.new_client_message_notification).to eq "no"
         expect(user.client_assignments_notification).to eq "no"
         expect(user.document_upload_notification).to eq "no"
+        expect(user.tagged_in_note_notification).to eq "no"
       end
     end
 
@@ -134,6 +144,7 @@ RSpec.describe Hub::NotificationSettingsForm do
           new_client_message_notification: "no",
           client_assignments_notification: "no",
           document_upload_notification: "no",
+          tagged_in_note_notification: "no",
           unsubscribe_all: "no"
         }
       end
@@ -153,7 +164,8 @@ RSpec.describe Hub::NotificationSettingsForm do
         {
           new_client_message_notification: "yes",
           client_assignments_notification: "no",
-          document_upload_notification: "no"
+          document_upload_notification: "no",
+          tagged_in_note_notification: "no"
         }
       end
 
@@ -169,6 +181,7 @@ RSpec.describe Hub::NotificationSettingsForm do
           new_client_message_notification: "no",
           client_assignments_notification: "no",
           document_upload_notification: "no",
+          tagged_in_note_notification: "no",
           unsubscribe_all: "yes"
         }
       end
@@ -185,6 +198,7 @@ RSpec.describe Hub::NotificationSettingsForm do
           new_client_message_notification: "no",
           client_assignments_notification: "no",
           document_upload_notification: "no",
+          tagged_in_note_notification: "no",
           unsubscribe_all: "no"
         }
       end
@@ -210,6 +224,7 @@ RSpec.describe Hub::NotificationSettingsForm do
         expect(form.new_client_message_notification).to eq "no"
         expect(form.client_assignments_notification).to eq "no"
         expect(form.document_upload_notification).to eq "no"
+        expect(form.tagged_in_note_notification).to eq "no"
       end
     end
 
@@ -256,7 +271,7 @@ RSpec.describe Hub::NotificationSettingsForm do
 
   describe ".permitted_params" do
     it "returns the correct permitted parameters" do
-      expected_params = [:new_client_message_notification, :client_assignments_notification, :document_upload_notification, :unsubscribe_all]
+      expected_params = [:new_client_message_notification, :client_assignments_notification, :document_upload_notification, :tagged_in_note_notification, :unsubscribe_all]
 
       expect(described_class.permitted_params).to eq expected_params
     end
