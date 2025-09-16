@@ -30,20 +30,19 @@
               <%= t(".download_your_record") %>
             <% end %>
           <% else %>
+            <div class="warning">
+              <%= t(".closing_soon_html") %>
+            </div>
+
             <% unless @user_name.present? %>
               <p class="h2">
                 <%= t(".#{@state_code}.built_with_html", default: t(".built_with_html", state_name: @state_name) ) %>
               </p>
             <% end %>
 
-            <div class="partner-logo-wrapper spacing-below-35">
-              <div class="partner-logo-image">
-                <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
-              </div>
-              <div class="partner-logo-text text--body text--bold">
-                <%= t(".#{@state_code}.supported_by") %>
-              </div>
-            </div>
+            <p>
+              <%= t(".visit_faqs_html") %>
+            </p>
 
             <% if @user_name.present? %>
               <p class="h2"><%= t(".welcome_back", user_name: @user_name) %></p>
@@ -58,6 +57,25 @@
                 </h2>
               <% end %>
             <% else %>
+              <p>
+                <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options)) %>
+              </p>
+
+              <% if @state_code == "az" %>
+                <p>
+                  <%= t(".az_get_2023_return_html") %>
+                </p>
+              <% end %>
+
+              <div class="partner-logo-wrapper spacing-below-35">
+                <div class="partner-logo-image">
+                  <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
+                </div>
+                <div class="partner-logo-text text--body text--bold">
+                  <%= t(".#{@state_code}.supported_by") %>
+                </div>
+              </div>
+
               <div class="reveal">
                 <button class="reveal__button">
                   <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_title') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
@@ -71,9 +89,6 @@
               <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder do |f| %>
                 <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
               <% end %>
-              <p class="h2">
-                <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options)) %>
-              </p>
             <% end %>
           <% end %>
         </div>
