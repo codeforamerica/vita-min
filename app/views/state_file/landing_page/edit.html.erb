@@ -41,7 +41,7 @@
             <% end %>
 
             <p>
-              <%= t(".visit_faqs_html", faq_url: state_faq_url) %>
+              <%= t(".visit_faqs_html", faqs_path: state_faq_path) %>
             </p>
 
             <% if @user_name.present? %>
@@ -63,7 +63,7 @@
 
               <% if @state_code == "az" %>
                 <p>
-                  <%= t(".az_get_2023_return_html") %>
+                  <%= t(".az_get_2023_return_html", sign_in_path: state_file_archived_intakes_edit_email_address_path) %>
                 </p>
               <% end %>
 

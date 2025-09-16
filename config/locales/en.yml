@@ -2292,7 +2292,7 @@ en:
             Unfortunately you cannot file your state return with us this year.
           supported_by: Supported by the state of Arizona
           title: File your Arizona state taxes for free
-        az_get_2023_return_html: <strong>Filed your 2023 return with us and want a copy?</strong> <a href="https://www.fileyourstatetaxes.org/en/state_file/archived_intakes/email_address/edit">Sign in here</a> to download a copy of your state return.
+        az_get_2023_return_html: <strong>Filed your 2023 return with us and want a copy?</strong> <a href="%{sign_in_path}">Sign in here</a> to download a copy of your state return.
         built_with_html: |
           <strong>FileYourStateTaxes</strong> takes about 10 to 15 minutes to complete. Get started by setting up your account.
           <br/><br/>
@@ -2349,7 +2349,7 @@ en:
         not_you: Not %{user_name}?
         start_new: Click here to start a new %{state_name} State return.
         title_closed: Our free %{state_name} tax filing service is closed for the season
-        visit_faqs_html: <a href="%{faq_url}">Visit our FAQs</a> for any questions about IRS Direct File’s closure.
+        visit_faqs_html: <a href="%{faqs_path}">Visit our FAQs</a> for any questions about IRS Direct File’s closure.
         welcome_back: Welcome back %{user_name}!
       ny_closed:
         body_html: |
