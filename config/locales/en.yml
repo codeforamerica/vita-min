@@ -2349,7 +2349,7 @@ en:
         not_you: Not %{user_name}?
         start_new: Click here to start a new %{state_name} State return.
         title_closed: Our free %{state_name} tax filing service is closed for the season
-        visit_faqs_html: <a href="https://www.fileyourstatetaxes.org/en/us/faq">Visit our FAQs</a> for any questions about IRS Direct File’s closure.
+        visit_faqs_html: <a href="%{faq_url}">Visit our FAQs</a> for any questions about IRS Direct File’s closure.
         welcome_back: Welcome back %{user_name}!
       ny_closed:
         body_html: |
