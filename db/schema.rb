@@ -2842,6 +2842,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_02_173338) do
     t.string "role_type", null: false
     t.boolean "should_enforce_strong_password", default: false, null: false
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "signed_8879_notification", default: 0, null: false
     t.datetime "suspended_at", precision: nil
     t.integer "tagged_in_note_notification", default: 0, null: false
     t.string "timezone", default: "America/New_York", null: false

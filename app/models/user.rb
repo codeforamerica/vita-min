@@ -31,6 +31,7 @@
 #  role_type                       :string           not null
 #  should_enforce_strong_password  :boolean          default(FALSE), not null
 #  sign_in_count                   :integer          default(0), not null
+#  signed_8879_notification        :integer          default("yes"), not null
 #  suspended_at                    :datetime
 #  tagged_in_note_notification     :integer          default("yes"), not null
 #  timezone                        :string           default("America/New_York"), not null
@@ -90,6 +91,7 @@ class User < ApplicationRecord
   enum client_assignments_notification: { yes: 0, no: 1 }, _prefix: :client_assignments_notification
   enum document_upload_notification: { yes: 0, no: 1 }, _prefix: :document_upload_notification
   enum tagged_in_note_notification: { yes: 0, no: 2 }, _prefix: :tagged_in_note_notification
+  enum signed_8879_notification: { yes: 0, no: 2 }, _prefix: :signed_8879_notification
   enum email_notification: { yes: 0, no: 1}, _prefix: :email_notification
 
   def valid?(*_args)

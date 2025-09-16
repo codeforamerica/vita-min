@@ -31,6 +31,7 @@
 #  role_type                       :string           not null
 #  should_enforce_strong_password  :boolean          default(FALSE), not null
 #  sign_in_count                   :integer          default(0), not null
+#  signed_8879_notification        :integer          default("yes"), not null
 #  suspended_at                    :datetime
 #  tagged_in_note_notification     :integer          default("yes"), not null
 #  timezone                        :string           default("America/New_York"), not null
