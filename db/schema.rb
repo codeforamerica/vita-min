@@ -2817,7 +2817,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_02_173338) do
     t.string "current_sign_in_ip"
     t.integer "document_upload_notification", default: 0, null: false
     t.citext "email", null: false
-    t.integer "email_notification"
+    t.integer "email_notification", default: 0, null: false
     t.string "encrypted_password", default: "", null: false
     t.string "external_provider"
     t.string "external_uid"

@@ -8,7 +8,7 @@
 #  current_sign_in_ip              :string
 #  document_upload_notification    :integer          default("yes"), not null
 #  email                           :citext           not null
-#  email_notification              :integer
+#  email_notification              :integer          default("yes"), not null
 #  encrypted_password              :string           default(""), not null
 #  external_provider               :string
 #  external_uid                    :string
