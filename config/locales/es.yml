@@ -1374,7 +1374,7 @@ es:
         notifications_subtitle: Choose the email notifications you’d like to receive.
         notifications_title: Notification Preferences
         save: Save Preferences
-        signed_8879_notification_description: When client signs their 8879
+        signed_8879_notification_description_html: Receive email notifications when a client signs a <i>Form 8879 (Unsigned).</i>
         start_date: Fecha de inicio
         tagged_in_note_notification_description: Receive email notifications when you’re tagged in any internal notes by other Hub users.
         unsubscribe_all_description: Unsubscribe from all email notifications.
