@@ -2306,7 +2306,7 @@ es:
         az_get_2023_return_html: "<strong>¿Presentaste tu declaración de 2023 de Arizona o Nueva York con nosotros y quieres una copia?</strong> <a href='%{sign_in_path}'>Inicia sesión aquí</a> para descargar una copia de tu declaración estatal."
         built_with_html: "Te tomará alrededor de 10 y 15 minutos completar tu declaración con <strong>FileYourStateTaxes</strong>. \n<br/><br/>\nEste servicio ha sido creado en colaboración con el estado de %{state_name} para conectarse con el servicio Direct File del IRS.\n"
         closing_soon_html: "<strong>El 22 de octubre es el último día en que puedes presentar tu declaración estatal con FileYourStateTaxes.</strong> Para hacerlo, debes haber enviado una declaración federal utilizando IRS Direct File antes de su fecha de cierre, el 15 de octubre. Puedes transferir tus datos a FileYourStateTaxes hasta el 22 de octubre."
-        continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación
+        continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación.
         download_your_record: Descarga tu declaración
         help_text_html: |
           <ul class="list--bulleted">

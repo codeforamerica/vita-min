@@ -2298,7 +2298,7 @@ en:
           <br/><br/>
           This service is built in partnership with the state of %{state_name} to integrate with IRS Direct File.
         closing_soon_html: "<strong>October 22nd is the last day you can file your state return with FileYourStateTaxes.</strong> To do this, you must have submitted a federal return using IRS Direct File by its closing date, October 15th. You can transfer your data to FileYourStateTaxes until October 22nd."
-        continue: To continue filing your %{state_name} State return, please sign in below
+        continue: To continue filing your %{state_name} State return, please sign in below.
         download_your_record: Download Your Record
         help_text_html: |
           <ul class="list--bulleted">
