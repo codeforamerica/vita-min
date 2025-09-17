@@ -40,11 +40,19 @@
               </p>
             <% end %>
 
-            <p>
+            <p class="spacing-above-25">
               <%= t(".visit_faqs_html", faqs_path: state_faq_path) %>
             </p>
 
             <% if @user_name.present? %>
+              <div class="partner-logo-wrapper spacing-below-35">
+                <div class="partner-logo-image">
+                  <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
+                </div>
+                <div class="partner-logo-text text--body text--bold">
+                  <%= t(".#{@state_code}.supported_by") %>
+                </div>
+              </div>
               <p class="h2"><%= t(".welcome_back", user_name: @user_name) %></p>
               <p class="h2"><%= t(".continue", state_name: @state_name) %></p>
               <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", role: "button", id: "firstCta" do %>
