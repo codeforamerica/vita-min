@@ -2284,7 +2284,7 @@ en:
     landing_page:
       edit:
         already_filed_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024.</strong>
-        already_started_html: Already started filing your state return? <a href="%{sign_in_url}">Sign in</a>.
+        already_started_html: <strong>Already started your state taxes with us and need to complete them?</strong> <a href="%{sign_in_url}">Sign in here</a> to continue filing.
         az:
           closed_html: |
             We're closed for the tax season.<br /><br />
@@ -2292,11 +2292,13 @@ en:
             Unfortunately you cannot file your state return with us this year.
           supported_by: Supported by the state of Arizona
           title: File your Arizona state taxes for free
+        az_get_2023_return_html: <strong>Filed your 2023 return with us and want a copy?</strong> <a href="%{sign_in_path}">Sign in here</a> to download a copy of your state return.
         built_with_html: |
           <strong>FileYourStateTaxes</strong> takes about 10 to 15 minutes to complete. Get started by setting up your account.
           <br/><br/>
           This service is built in partnership with the state of %{state_name} to integrate with IRS Direct File.
-        continue: To continue filing your %{state_name} State return, please sign in below
+        closing_soon_html: "<strong>October 22nd is the last day you can file your state return with FileYourStateTaxes.</strong> To do this, you must have submitted a federal return using IRS Direct File by its closing date, October 15th. You can transfer your data to FileYourStateTaxes until October 22nd."
+        continue: To continue filing your %{state_name} State return, please sign in below.
         download_your_record: Download Your Record
         help_text_html: |
           <ul class="list--bulleted">
@@ -2347,6 +2349,7 @@ en:
         not_you: Not %{user_name}?
         start_new: Click here to start a new %{state_name} State return.
         title_closed: Our free %{state_name} tax filing service is closed for the season
+        visit_faqs_html: <a href="%{faqs_path}">Visit our FAQs</a> for any questions about IRS Direct File’s closure.
         welcome_back: Welcome back %{user_name}!
       ny_closed:
         body_html: |
