@@ -1736,6 +1736,8 @@ en:
             Hi %{primary_first_name},
 
             Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+            
+            The last day to resubmit is October 31st.
 
             Need help? Reply to this email.
 
@@ -1744,6 +1746,8 @@ en:
           subject: 'Action Needed: %{state_name} State Return Rejected'
         sms: |
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
+          
+          The last day to resubmit is October 31st.
 
           Need help? Email us at help@fileyourstatetaxes.org.
       still_processing:
