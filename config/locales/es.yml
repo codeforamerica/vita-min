@@ -1367,7 +1367,17 @@ es:
         invite_pending: Invitación pendiente
         title: Usuarios
       profile:
+        client_assignments_notification_description: Receive email notifications when a client is assigned.
+        document_upload_notification_description: Receive email notifications when a client uploads a new document.
+        error: At least one notification type must be picked
+        new_client_message_notification_description: Receive email notifications when a client messages you.
+        notifications_subtitle: Choose the email notifications you’d like to receive.
+        notifications_title: Notification Preferences
+        save: Save Preferences
+        signed_8879_notification_description_html: Receive email notifications when a client signs a <i>Form 8879 (Unsigned).</i>
         start_date: Fecha de inicio
+        tagged_in_note_notification_description: Receive email notifications when you’re tagged in any internal notes by other Hub users.
+        unsubscribe_all_description: Unsubscribe from all email notifications.
       strong_passwords:
         edit:
           body: En un esfuerzo por mantener toda la información del cliente segura y confidencial, no comparta esta contraseña con nadie.
