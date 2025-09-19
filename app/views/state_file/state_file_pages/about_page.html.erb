@@ -4,14 +4,29 @@
   <div class="fyst-home-content">
     <h1 class="h1 strong"><%= title %></h1>
 
-    <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
-      <div>
+    <% if app_time.before?(Rails.configuration.state_file_end_of_new_intakes) %>
+      <div class="warning">
+        <%= t("state_file.landing_page.edit.closing_soon_html") %>
+      </div>
+
+      <div class="spacing-above-25">
         <p><%= t(".subheader_1_html", login_path: login_options_path) %></p>
-        <% if app_time.before?(Rails.configuration.state_file_end_of_new_intakes) %>
-          <p><%= t(".subheader_2_html", login_path: login_options_path) %></p>
-        <% end %>
+        <p>
+          <%= t(".subheader_2_html", login_path: login_options_path, faqs_path: state_faq_path(us_state: :us)) %>
+        </p>
         <p><%= t(".subheader_3_html", login_path: login_options_path) %></p>
       </div>
+
+      <% if Flipper.enabled?(:get_your_pdf) %>
+        <div data-testid="get-your-pdf-sign-in" class="spacing-below-25">
+          <%= t(".looking_for_return_html", link: state_file_archived_intakes_edit_email_address_path )%>
+        </div>
+      <% else %>
+        <div class="spacing-below-25">
+          <p class="text--bold"><%= t(".check_back_for_prior_year_returns") %></p>
+          <%= link_to t(".faq_prior_year_returns"), state_faq_section_path(us_state: :az, section_key: "how_can_i_access_my_2023_state_tax_return") %>
+        </div>
+      <% end %>
 
       <div class="reveal">
         <button class="reveal__button"><%= t('.helper_heading_html') %></button>
@@ -19,13 +34,6 @@
           <%= t(".section1_html", faq_link: state_faq_path(us_state: 'us')) %>
         </div>
       </div>
-
-      <% unless Flipper.enabled?(:get_your_pdf) %>
-        <div>
-          <p class="text--bold"><%= t(".check_back_for_prior_year_returns") %></p>
-          <%= link_to t(".faq_prior_year_returns"), state_faq_section_path(us_state: :az, section_key: "how_can_i_access_my_2023_state_tax_return") %>
-        </div>
-      <% end %>
     <% else %>
       <div>
         <%= t(".closed_subheader_html") %>
@@ -52,10 +60,4 @@
     </div>
   <% end %>
 </section>
-<% end %>
-
-<% if Flipper.enabled?(:get_your_pdf) %>
-  <div data-testid="get-your-pdf-sign-in" class="spacing-below-25">
-      <%= t(".looking_for_return_html", link: state_file_archived_intakes_edit_email_address_path )%>
-  </div>
 <% end %>
