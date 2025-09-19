@@ -4636,6 +4636,7 @@ es:
           <strong>FileYourStateTaxes</strong> se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.<br/><br/>
           Ya cerramos por esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.<br /><br />
           <strong>¿La declaración estatal que presentaste con FileYourStateTaxes fue rechazada?</strong> <a href="%{sign_in_url}">Inicia sesión aquí</a> para corregir y volver a enviar tu declaración.<br /><br />
+        download_return_button: Descarga tu 2024 declaración
         faq_prior_year_returns: Visita nuestra sección de preguntas frecuentes si tienes dudas sobre declaraciones de años anteriores.
         header: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
@@ -4659,7 +4660,6 @@ es:
           <strong>En 2025, este servicio funcionará para presentar los impuestos estatales en Arizona, Idaho, Carolina del Norte, Nueva Jersey y Maryland.</strong>
         subheader_2_html: Para declarar tus declaración de impuestos federales, visita <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a> Si tienes cualquier pregunta sobre el cierre de IRS Direct File, visita <a href='%{faqs_path}'>nuestra sección de Preguntas Frecuentes.</a>
         subheader_3_html: "<strong>¿Ya comenzaste tu declaración de impuestos estatales con nosotros y necesitas completarlos?</strong> <a href=%{login_path}>Inicia sesión aquí</a> para continuar con la declaración."
-        download_return_button: Descarga tu 2024 declaración
       card_postscript:
         responses_saved_html: Tus respuestas fueron guardadas. Puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> en cualquier momento.
       coming_soon:
