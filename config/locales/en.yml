@@ -4619,13 +4619,13 @@ en:
       about_page:
         check_back_for_prior_year_returns: Check back at the start of filing season to download your 2023 Arizona or New York State tax return.
         closed_subheader_html: |
-          <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
-          <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
-          Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
+          <strong>FileYourStateTaxes</strong> integrates with IRS Direct File to help you complete your state tax return for free.<br/><br/>
+          We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.<br /><br />
+          <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.<br /><br />
         faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
         helper_heading_html: "<strong>How does this service work? </strong>"
-        looking_for_return_html: "<strong>Filed your 2023 Arizona or New York return with us and want a copy?</strong> <a href='%{link}'>Sign in</a> to download a copy of your state return."
+        looking_for_return_html: "<strong>Filed your 2023 Arizona or New York return with us and want a copy?</strong> <a href='%{link}'>Sign in here</a> to download a copy of your state return."
         section1_html: |
           <ol class="list--numbered"  style="padding-left: 2rem">
             <li>First, file and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> before using this service. <strong>IRS Direct File will close on October 15th.</strong></li>
@@ -4645,6 +4645,7 @@ en:
           <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
         subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a> For any questions about IRS Direct File’s closure, <a href='%{faqs_path}'>visit our FAQs.</a>
         subheader_3_html: "<strong>Already started your state taxes with us and need to complete them?</strong> <a href=%{login_path}>Sign in here</a> to continue filing."
+        download_return_button: Download your 2024 return
       card_postscript:
         responses_saved_html: Your responses are saved. You can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> anytime.
       coming_soon:
