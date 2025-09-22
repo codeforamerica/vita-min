@@ -17,7 +17,21 @@ module Hub
       before_action :authorize_user, only: [:unlock, :suspend, :unsuspend]
     end
 
-    def profile; end
+    def profile
+      @form = NotificationSettingsForm.from_user(current_user)
+    end
+
+    def update_notification_preferences
+      @form = NotificationSettingsForm.new(current_user, notification_preferences_form_params)
+
+      if @form.save
+        flash[:notice] = "Saved"
+        render :profile
+      else
+        flash[:alert] = @form.errors.full_messages.join(", ")
+        render :profile
+      end
+    end
 
     def index
       role_type = role_type_from_role_name(params[:search])
@@ -131,6 +145,10 @@ module Hub
     end
 
     private
+
+    def notification_preferences_form_params
+      params.require(NotificationSettingsForm.form_param).permit(NotificationSettingsForm.permitted_params)
+    end
 
     def user_params
       params.require(:user).permit(

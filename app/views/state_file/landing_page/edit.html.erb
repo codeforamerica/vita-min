@@ -30,34 +30,70 @@
               <%= t(".download_your_record") %>
             <% end %>
           <% else %>
-            <% unless @user_name.present? %>
-              <p class="h2">
-                <%= t(".#{@state_code}.built_with_html", default: t(".built_with_html", state_name: @state_name) ) %>
-              </p>
-            <% end %>
-
-            <div class="partner-logo-wrapper spacing-below-35">
-              <div class="partner-logo-image">
-                <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
-              </div>
-              <div class="partner-logo-text text--body text--bold">
-                <%= t(".#{@state_code}.supported_by") %>
-              </div>
+            <div class="warning">
+              <%= t(".closing_soon_html") %>
             </div>
 
             <% if @user_name.present? %>
-              <p class="h2"><%= t(".welcome_back", user_name: @user_name) %></p>
-              <p class="h2"><%= t(".continue", state_name: @state_name) %></p>
+              <p class="h2">
+                <%= t(".welcome_back", user_name: @user_name) %>
+              </p>
+
+              <p>
+                <%= t(".visit_faqs_html", faqs_path: state_faq_path) %>
+              </p>
+
+              <p>
+                <%= t(".continue", state_name: @state_name) %>
+              </p>
+
+              <div class="partner-logo-wrapper spacing-below-35">
+                <div class="partner-logo-image">
+                  <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
+                </div>
+                <div class="partner-logo-text text--body text--bold">
+                  <%= t(".#{@state_code}.supported_by") %>
+                </div>
+              </div>
+
               <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", role: "button", id: "firstCta" do %>
                 <%= t("general.sign_in") %>
               <% end %>
+
               <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder, id: "start-again-form" do |f| %>
-                <h2 class="h2">
+                <p class="spacing-above-25">
                   <%= t(".not_you", user_name: @user_name) %>
                   <%= f.submit t(".start_new", state_name: @state_name), class: "button--link" %>
-                </h2>
+                </p>
               <% end %>
             <% else %>
+              <p class="h2">
+                <%= t(".#{@state_code}.built_with_html", default: t(".built_with_html", state_name: @state_name) ) %>
+              </p>
+
+              <p>
+                <%= t(".visit_faqs_html", faqs_path: state_faq_path) %>
+              </p>
+
+              <p>
+                <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options)) %>
+              </p>
+
+              <% if @state_code == "az" %>
+                <p>
+                  <%= t(".az_get_2023_return_html", sign_in_path: state_file_archived_intakes_edit_email_address_path) %>
+                </p>
+              <% end %>
+
+              <div class="partner-logo-wrapper spacing-below-35">
+                <div class="partner-logo-image">
+                  <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
+                </div>
+                <div class="partner-logo-text text--body text--bold">
+                  <%= t(".#{@state_code}.supported_by") %>
+                </div>
+              </div>
+
               <div class="reveal">
                 <button class="reveal__button">
                   <% # i18n-tasks-use t('state_file.landing_page.edit.help_text_title') # hint for the i18n linter that, yes, we are using this key (sometimes) %>
@@ -71,9 +107,6 @@
               <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder do |f| %>
                 <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
               <% end %>
-              <p class="h2">
-                <%= t(".already_started_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options)) %>
-              </p>
             <% end %>
           <% end %>
         </div>

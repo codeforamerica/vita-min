@@ -19,7 +19,7 @@ class TaxReturnAssignmentService
   end
 
   def send_notifications
-    if @assigned_user.present? && (@assigned_user != @assigned_by)
+    if @assigned_user.present? && (@assigned_user != @assigned_by) && @assigned_user.client_assignments_notification_yes?
       UserNotification.create!(
         user: @assigned_user,
         notifiable: TaxReturnAssignment.create!(

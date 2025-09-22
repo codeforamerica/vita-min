@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_05_222215) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_02_173338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2811,9 +2811,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_05_222215) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer "client_assignments_notification", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
+    t.integer "document_upload_notification", default: 0, null: false
     t.citext "email", null: false
     t.integer "email_notification", default: 0, null: false
     t.string "encrypted_password", default: "", null: false
@@ -2832,6 +2834,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_05_222215) do
     t.string "last_sign_in_ip"
     t.datetime "locked_at", precision: nil
     t.string "name"
+    t.integer "new_client_message_notification", default: 0, null: false
     t.string "phone_number"
     t.datetime "reset_password_sent_at", precision: nil
     t.string "reset_password_token"
@@ -2839,7 +2842,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_05_222215) do
     t.string "role_type", null: false
     t.boolean "should_enforce_strong_password", default: false, null: false
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "signed_8879_notification", default: 0, null: false
     t.datetime "suspended_at", precision: nil
+    t.integer "tagged_in_note_notification", default: 0, null: false
     t.string "timezone", default: "America/New_York", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
