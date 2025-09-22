@@ -92,6 +92,7 @@ gem "net-imap", ">= 0.4.20"
 gem 'redis'
 gem "observer", "~> 0.1.2"
 gem "csv", "~> 3.3"
+gem "rexml", ">= 3.4.2"
 
 # Use Flipper for feature flagging
 gem 'flipper'
