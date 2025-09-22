@@ -1681,17 +1681,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: Remember to finish your state tax return
-        sms: |
-          Hi %{primary_first_name} - You started a state tax return with FileYourStateTaxes but have not finished. 
-          
-          Go to http://www.fileyourstatetaxes.org/en/login-options to finish them today. The last day to submit your state tax return is October 22.
-
-          If you have already filed using another service, no action is required.
-
-          Need help? Email us at help@fileyourstatetaxes.org
-          
-          Best,
-          The FileYourStateTaxes team
+        sms: "Hi %{primary_first_name} - You started a state tax return with FileYourStateTaxes but have not finished. \n\nGo to http://www.fileyourstatetaxes.org/en/login-options to finish them today. The last day to submit your state tax return is October 22.\n\nIf you have already filed using another service, no action is required.\n\nNeed help? Email us at help@fileyourstatetaxes.org\n\nBest,\nThe FileYourStateTaxes team\n"
       post_deadline_reminder:
         email:
           body: |-
