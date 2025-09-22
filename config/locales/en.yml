@@ -2293,9 +2293,8 @@ en:
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
     landing_page:
       edit:
-        already_filed_html: <strong>Already filed your state taxes with us?</strong> You can download a copy of your 2024 state return below.
+        already_filed_html: "<strong>Already filed your state taxes with us?</strong> You can download a copy of your 2024 state return below."
         already_started_html: <strong>Already started your state taxes with us and need to complete them?</strong> <a href="%{sign_in_url}">Sign in here</a> to continue filing.
-        rejected_return_html: <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.
         az:
           closed_html: |
             We're closed for the tax season.<br /><br />
@@ -2358,6 +2357,7 @@ en:
           supported_by: Supported by the New Jersey Division of Taxation
           title: File your New Jersey taxes for free
         not_you: Not %{user_name}?
+        rejected_return_html: <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.
         start_new: Click here to start a new %{state_name} State return.
         title_closed: Our free %{state_name} tax filing service is closed for the season
         visit_faqs_html: <a href="%{faqs_path}">Visit our FAQs</a> for any questions about IRS Direct File’s closure.
