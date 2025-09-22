@@ -567,7 +567,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
-    rexml (3.3.9)
+    rexml (3.4.4)
     rgeo (3.0.1)
     rgeo-activerecord (7.0.1)
       activerecord (>= 5.0)
@@ -823,13 +823,14 @@ DEPENDENCIES
   rack (>= 2.0.8)
   rack-attack
   rack-mini-profiler
-  rails (~> 7.1)
+  rails (~> 7.1.5.2)
   rails-controller-testing
   rails-i18n
   rails_autolink
   recaptcha
   redcarpet
   redis
+  rexml (>= 3.4.2)
   rspec-rails
   rspec_junit_formatter
   rubocop (~> 1.53.0)
