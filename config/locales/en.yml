@@ -1662,7 +1662,7 @@ en:
           body: |
             Hi %{primary_first_name},
 
-            It looks like you started a state tax return with FileYourStateTaxes but did not finish the process. Go to <a target="_blank" rel="noopener nofollow" href="http://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today.
+            It looks like you started a state tax return with FileYourStateTaxes but did not finish the process. Go to <a target="_blank" rel="noopener nofollow" href="http://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today. The last day to submit your state tax return is October 22.
 
             If you have already filed using another service, no action is required.
 
