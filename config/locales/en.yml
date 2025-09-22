@@ -1599,7 +1599,7 @@ en:
             on_april_15: |
               Hi %{primary_first_name},
 
-              You haven't submitted your state tax return yet. Remember, state taxes are due today, April 15. Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today.
+              You haven't submitted your state tax return yet. Remember, state taxes are due today, April 15. Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today. The last day to submit your state tax return is October 22.
 
               Need help? Reply to this email.
 
@@ -1631,7 +1631,7 @@ en:
           post_deadline: |
             Hi %{primary_first_name} - You haven't submitted your state tax return yet.
 
-            Go to www.fileyourstatetaxes.org/en/login-options to finish them today
+            Go to www.fileyourstatetaxes.org/en/login-options to finish them today. The last day to submit your state tax return is October 22.
 
             Best,
             The FileYourStateTaxes team
