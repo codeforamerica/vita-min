@@ -8,7 +8,6 @@
 #  current_sign_in_ip              :string
 #  document_upload_notification    :integer          default("yes"), not null
 #  email                           :citext           not null
-#  email_notification              :integer          default("yes"), not null
 #  encrypted_password              :string           default(""), not null
 #  external_provider               :string
 #  external_uid                    :string
@@ -92,7 +91,6 @@ class User < ApplicationRecord
   enum document_upload_notification: { yes: 0, no: 1 }, _prefix: :document_upload_notification
   enum tagged_in_note_notification: { yes: 0, no: 2 }, _prefix: :tagged_in_note_notification
   enum signed_8879_notification: { yes: 0, no: 2 }, _prefix: :signed_8879_notification
-  enum email_notification: { yes: 0, no: 1}, _prefix: :email_notification
 
   def valid?(*_args)
     [super, role&.valid?].all?
