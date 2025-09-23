@@ -10,16 +10,6 @@ describe StateFile::SendDeadlineReminderTomorrowService do
       allow(state_file_messaging_service).to receive(:send_message)
     end
 
-    # client has created an account and hasn’t started the data transfer or
-    #   has completed data transfer but hasn’t submitted a state tax return and
-    #   there are no intakes with the same hashed_ssn that have submitted a return
-    # Ensure that [deadline_reminder_tomorrow] is sent to client’s preferred contact method entered on notification-preferences
-
-    # client created an account and hasn't started data transfer = df_data_imported_at not present but intake is present? (not sure what created account means)
-    # df_data_imported_at present but no efile return
-    # ALSO no dupes (intakes w/same hashed ssn with submitted return)
-    # preferred contact method
-
     context "when there is an incomplete intake with a df transfer" do
       let!(:intake) do
         create :state_file_az_intake,
