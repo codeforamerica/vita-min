@@ -1829,6 +1829,31 @@ es:
           Tu ID de cliente es %{intake_id}. Tenlo a la mano por si necesitas apoyo.
 
           ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org. Envía "STOP" para dejar de recibir mensajes.
+      deadline_reminder_today:
+        email:
+          body: |
+            Hola!
+
+            Al parecer creaste una cuenta con FileYourStateTaxes, pero aún no has enviado tu declaración estatal. Hoy (22 de octubre) es el último día para enviar la declaración. Si quieres enviarlo con nuestro servicio, házlo antes de que se finalice el día.
+
+            ¡Es fácil! Comienza en http://www.fileyourstatetaxes.org/es/login-options
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: Último día para enviar tu declaración estatal
+        sms: |
+          Hola!
+
+          Al parecer creaste una cuenta con FileYourStateTaxes, pero aún no has enviado tu declaración estatal. Mañana (22 de octubre) es el último día para enviar la declaración. Si quieres enviarlo con nuestro servicio, házlo antes del final del día de mañana.
+
+          Es fácil! Comienza en www.fileyourstatetaxes.org/es/login-options
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
+
+          Atentamente,
+          El equipo de FileYourStateTaxes
     successful_submission_drop_off:
       email:
         body: |

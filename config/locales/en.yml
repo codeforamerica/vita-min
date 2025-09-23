@@ -1843,6 +1843,30 @@ en:
           Your Client ID is %{intake_id}. Keep it handy for support.
 
           Need help? Email us at help@fileyourstatetaxes.org Text "STOP" to opt out of notifications.
+      deadline_reminder_today:
+        email:
+          body: |
+            Hi!
+
+            It looks like you created an account with FileYourStateTaxes but haven't submitted your return yet. Today (October 22nd) is the last day you can submit your return. If you want to file your state return with us please do so before end of day.
+
+            It's easy! Get started now at www.fileyourstatetaxes.org/en/login-options
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
+          subject: Last day to file your state tax return
+        sms: |
+          Hi!
+
+          It looks like you created an account with FileYourStateTaxes but haven't submitted your return yet. Today (October 22nd) is the last day you can submit your return. If you want to file your state return with us please do so before end of day.
+
+          It's easy! Get started now at http://www.fileyourstatetaxes.org/en/login-options
+
+          Need help? Email us at help@fileyourstatetaxes.org
+
+          Best,
+          The FileYourStateTaxes team
     successful_submission_drop_off:
       email:
         body: |
