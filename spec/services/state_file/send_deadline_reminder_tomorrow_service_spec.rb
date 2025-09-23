@@ -23,20 +23,34 @@ describe StateFile::SendDeadlineReminderTomorrowService do
     context "when there is an incomplete intake with a df transfer" do
       let!(:intake) do
         create :state_file_az_intake,
-               df_data_imported_at: fake_time,
-               email_address_verified_at: fake_time,
+               df_data_imported_at: DateTime.current,
+               email_address_verified_at: DateTime.current,
                email_notification_opt_in: "yes",
                email_address: "dezie@example.com",
                message_tracker: {}
       end
-      let(:fake_time) { Rails.configuration.tax_deadline - 1.day }
 
       it "sends a message to the email associated with the intake" do
-        Timecop.freeze(fake_time) do
-          StateFile::SendDeadlineReminderTomorrowService.run
-          expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, message: message)
-          expect(state_file_messaging_service).to have_received(:send_message)
-        end
+        StateFile::SendDeadlineReminderTomorrowService.run
+        expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, message: message)
+        expect(state_file_messaging_service).to have_received(:send_message)
+      end
+    end
+
+    context "when there is an incomplete intake with no df transfer" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: nil,
+               email_address_verified_at: DateTime.current,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com",
+               message_tracker: {}
+      end
+
+      it "sends a message to the email associated with the intake" do
+        StateFile::SendDeadlineReminderTomorrowService.run
+        expect(StateFile::MessagingService).not_to have_received(:new).with(intake: intake, message: message)
+        expect(state_file_messaging_service).not_to have_received(:send_message)
       end
     end
 
@@ -76,6 +90,55 @@ describe StateFile::SendDeadlineReminderTomorrowService do
       it "does not send a message to the email associated with the intake" do
         StateFile::SendDeadlineReminderTomorrowService.run
         expect(StateFile::MessagingService).not_to have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that has a disqualifying direct file reason" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com",
+               message_tracker: {}
+      end
+
+      it "does not send the message" do
+        allow_any_instance_of(StateFileAzIntake).to receive(:disqualifying_df_data_reason).and_return :married_filing_separately
+        StateFile::SendDeadlineReminderTomorrowService.run
+        expect(StateFile::MessagingService).not_to have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that has a duplicate intake with the same ssn with an efile submission" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com"
+      end
+
+      it "does send the message" do
+        allow_any_instance_of(StateFileAzIntake).to receive(:other_intake_with_same_ssn_has_submission?).and_return false
+        StateFile::SendDeadlineReminderTomorrowService.run
+        expect(StateFile::MessagingService).to have_received(:new)
+      end
+    end
+
+    context "when there is an incomplete intake that does not have a duplicate intake with the same ssn with an efile submission" do
+      let!(:intake) do
+        create :state_file_az_intake,
+               df_data_imported_at: 6.hours.ago,
+               email_address_verified_at: 7.hours.ago,
+               email_notification_opt_in: "yes",
+               email_address: "dezie@example.com"
+      end
+
+      it "does send the message" do
+        allow_any_instance_of(StateFileAzIntake).to receive(:other_intake_with_same_ssn_has_submission?).and_return true
+        StateFile::SendDeadlineReminderTomorrowService.run
+        expect(StateFile::MessagingService).to_not have_received(:new)
       end
     end
 
@@ -147,55 +210,6 @@ describe StateFile::SendDeadlineReminderTomorrowService do
       it "does not send a message to the phone number with the intake" do
         StateFile::SendDeadlineReminderTomorrowService.run
         expect(StateFile::MessagingService).not_to have_received(:new)
-      end
-    end
-
-    context "when there is an incomplete intake that has a disqualifying direct file reason" do
-      let!(:intake) do
-        create :state_file_az_intake,
-               df_data_imported_at: 6.hours.ago,
-               email_address_verified_at: 7.hours.ago,
-               email_notification_opt_in: "yes",
-               email_address: "dezie@example.com",
-               message_tracker: {}
-      end
-
-      it "does not send the message" do
-        allow_any_instance_of(StateFileAzIntake).to receive(:disqualifying_df_data_reason).and_return :married_filing_separately
-        StateFile::SendDeadlineReminderTomorrowService.run
-        expect(StateFile::MessagingService).not_to have_received(:new)
-      end
-    end
-
-    context "when there is an incomplete intake that has a duplicate intake with the same ssn with an efile submission" do
-      let!(:intake) do
-        create :state_file_az_intake,
-               df_data_imported_at: 6.hours.ago,
-               email_address_verified_at: 7.hours.ago,
-               email_notification_opt_in: "yes",
-               email_address: "dezie@example.com"
-      end
-
-      it "does send the message" do
-        allow_any_instance_of(StateFileAzIntake).to receive(:other_intake_with_same_ssn_has_submission?).and_return false
-        StateFile::SendDeadlineReminderTomorrowService.run
-        expect(StateFile::MessagingService).to have_received(:new)
-      end
-    end
-
-    context "when there is an incomplete intake that does not have a duplicate intake with the same ssn with an efile submission" do
-      let!(:intake) do
-        create :state_file_az_intake,
-               df_data_imported_at: 6.hours.ago,
-               email_address_verified_at: 7.hours.ago,
-               email_notification_opt_in: "yes",
-               email_address: "dezie@example.com"
-      end
-
-      it "does send the message" do
-        allow_any_instance_of(StateFileAzIntake).to receive(:other_intake_with_same_ssn_has_submission?).and_return true
-        StateFile::SendDeadlineReminderTomorrowService.run
-        expect(StateFile::MessagingService).to_not have_received(:new)
       end
     end
   end
