@@ -27,7 +27,7 @@ describe StateFile::SendDeadlineReminderTomorrowService do
       end
     end
 
-    context "when there is an incomplete intake with no df transfer" do
+    context "when there is an incomplete intake without a df transfer" do
       let!(:intake) do
         create :state_file_az_intake,
                df_data_imported_at: nil,
@@ -39,8 +39,8 @@ describe StateFile::SendDeadlineReminderTomorrowService do
 
       it "sends a message to the email associated with the intake" do
         StateFile::SendDeadlineReminderTomorrowService.run
-        expect(StateFile::MessagingService).not_to have_received(:new).with(intake: intake, message: message)
-        expect(state_file_messaging_service).not_to have_received(:send_message)
+        expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, message: message)
+        expect(state_file_messaging_service).to have_received(:send_message)
       end
     end
 
