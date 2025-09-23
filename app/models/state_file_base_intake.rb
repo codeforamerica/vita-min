@@ -79,7 +79,6 @@ class StateFileBaseIntake < ApplicationRecord
   def self.selected_intakes_for_deadline_reminder_soon_notifications
     intakes = left_joins(:efile_submissions)
                 .where(efile_submissions: { id: nil })
-                .where.not(df_data_imported_at: nil)
                 .has_verified_contact_info
                 .where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)
 
