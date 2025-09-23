@@ -11,6 +11,11 @@ namespace :state_file do
     end
   end
 
+  task deadline_reminder_tomorrow: :environment do
+    return unless DateTime.now.year == 2025
+    StateFile::SendDeadlineReminderTomorrowService.run
+  end
+
   task pre_deadline_reminder: :environment do
     return unless DateTime.now.year == 2025
     StateFile::SendPreDeadlineReminderService.run
