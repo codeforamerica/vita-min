@@ -589,6 +589,97 @@ describe StateFileBaseIntake do
     end
   end
 
+  describe ".selected_intakes_for_deadline_reminder_soon_notifications" do
+    let!(:az_intake_with_email_notifications_and_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:az_intake_with_email_notifications_and_df_import_from_last_year) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1,
+             created_at: (1.year.ago)
+    }
+    let!(:az_intake_with_email_notifications_without_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: nil,
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:az_intake_with_text_notifications_and_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             phone_number: "+15551115511",
+             sms_notification_opt_in: 1,
+             phone_number_verified_at: 5.minutes.ago
+    }
+    let!(:az_intake_with_unverified_text_notifications_and_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             phone_number: "+15551115511",
+             sms_notification_opt_in: "yes",
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: "no"
+    }
+    let!(:az_intake_submitted) {
+      create :state_file_az_intake,
+             df_data_imported_at: 2.minutes.ago,
+             email_address: 'test+01@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:efile_submission) { create :efile_submission, :for_state, data_source: az_intake_submitted }
+    let!(:az_intake_has_disqualifying_df_data) {
+      create :state_file_az_intake,
+             filing_status: :married_filing_separately,
+             email_address: "test@example.com",
+             email_address_verified_at: 1.hour.ago,
+             email_notification_opt_in: 1,
+             df_data_imported_at: 2.minutes.ago
+    }
+    let!(:az_intake_submitted_ssn_duplicate) {
+      create :state_file_az_intake,
+             email_address: "test@example.com",
+             email_address_verified_at: 1.hour.ago,
+             email_notification_opt_in: 1,
+             phone_number: nil,
+             df_data_imported_at: 2.minutes.ago,
+             hashed_ssn: "111443333"
+    }
+    let!(:az_intake_submitted_ssn_duplicate_1) {
+      create :state_file_az_intake,
+             email_address: "test@example.com",
+             email_address_verified_at: 1.hour.ago,
+             email_notification_opt_in: 1,
+             phone_number: nil,
+             df_data_imported_at: 2.minutes.ago,
+             hashed_ssn: "111443333"
+    }
+    let!(:efile_submission_for_duplicate) { create :efile_submission, :for_state, data_source: az_intake_submitted_ssn_duplicate }
+
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(Flipper).to receive(:enabled?).with(:prevent_duplicate_ssn_messaging).and_return(true)
+    end
+
+    it "returns intakes with verified contact info, valid df data, and without recent finish return messages or efile submissions or duplicate (same hashed_ssn) intake with efile submission" do
+      results = StateFileAzIntake.selected_intakes_for_deadline_reminder_soon_notifications
+      intakes_to_message = [
+        az_intake_with_email_notifications_and_df_import,
+        az_intake_with_text_notifications_and_df_import,
+        az_intake_with_unverified_text_notifications_and_df_import,
+      ]
+      expect(results).to match_array(intakes_to_message)
+    end
+  end
+
   describe "#should_be_sent_reminder?" do
     let(:message_tracker) { nil }
     let(:intake) { create :state_file_az_intake, message_tracker: message_tracker }
