@@ -4312,6 +4312,7 @@ es:
           title: Has enviado tu declaración de impuestos de %{state_name} de %{filing_year}
           waiting_for acceptance: Tu declaración de impuestos estatal aún está esperando ser aceptada.
         rejected:
+          closing_soon_html: "<strong>Puedes editar y volver a enviar tu declaración de impuestos estatal hasta el 31 de octubre.</strong> Después de esa fecha, solo podrás descargar una copia de la declaración estatal que enviaste."
           edit_return: Edita tu declaración estatal
           email_us_html: Envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           have_questions: "¿Tienes preguntas?"
@@ -4324,7 +4325,7 @@ es:
               title: "¿Qué puedo hacer a continuación?"
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
-          title: Lamentablemente, tu declaración de impuestos estatal de %{state_name}de %{filing_year} fue rechazada
+          title: Lamentablemente, tu declaración de impuestos estatal de %{state_name} de %{filing_year} fue rechazada
       review:
         county: Condado donde vivías el 31 de diciembre de %{filing_year}
         county_during_hurricane: Otro condado donde vivías (o actualmente vives) entre el 25 de septiembre y la fecha de hoy
