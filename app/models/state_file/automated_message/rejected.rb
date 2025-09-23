@@ -14,7 +14,12 @@ module StateFile::AutomatedMessage
     end
 
     def sms_body(**args)
-      I18n.t("messages.state_file.rejected.sms", **args)
+      time = app_time(args)
+      if time >= end_of_login.beginning_of_day
+        I18n.t("messages.state_file.rejected.sms_with_deadline", **args)
+      else
+        I18n.t("messages.state_file.rejected.sms", **args)
+      end
     end
 
     def email_subject(**args)
@@ -22,7 +27,12 @@ module StateFile::AutomatedMessage
     end
 
     def email_body(**args)
-      I18n.t("messages.state_file.rejected.email.body", **args)
+      time = app_time(args)
+      if time >= end_of_login.beginning_of_day
+        I18n.t("messages.state_file.rejected.email.body_with_deadline", **args)
+      else
+        I18n.t("messages.state_file.rejected.email.body", **args)
+      end
     end
   end
 end

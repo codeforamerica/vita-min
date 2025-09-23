@@ -1370,7 +1370,17 @@ en:
         invite_pending: Invite pending
         title: Users
       profile:
+        client_assignments_notification_description: Receive email notifications when a client is assigned to you by other Hub users.
+        document_upload_notification_description: Receive email notifications when a client uploads a new document.
+        error: At least one notification type must be picked
+        new_client_message_notification_description: Receive email notifications when a client messages you.
+        notifications_subtitle: Choose the email notifications you’d like to receive.
+        notifications_title: Notification Preferences
+        save: Save Preferences
+        signed_8879_notification_description_html: Receive email notifications when a client signs a <i>Form 8879 (Unsigned).</i>
         start_date: Start date
+        tagged_in_note_notification_description: Receive email notifications when you’re tagged in any internal notes by other Hub users.
+        unsubscribe_all_description: Unsubscribe from all email notifications.
       strong_passwords:
         edit:
           body: In an effort to keep all client information safe and confidential please do not share this password with anyone.
@@ -1766,9 +1776,26 @@ en:
 
             Best,
             The FileYourStateTaxes team
+          body_with_deadline: |
+            Hi %{primary_first_name},
+
+            Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            The last day to resubmit is October 31st.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
           subject: 'Action Needed: %{state_name} State Return Rejected'
         sms: |
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
+
+          Need help? Email us at help@fileyourstatetaxes.org.
+        sms_with_deadline: |
+          Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
+
+          The last day to resubmit is October 31st.
 
           Need help? Email us at help@fileyourstatetaxes.org.
       still_processing:

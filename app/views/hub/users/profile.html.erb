@@ -35,5 +35,90 @@
         <span class="label-value"><%= current_user.role.engineer? %></span>
       </div>
     <% end %>
+
+    <% if Flipper.enabled?(:hub_email_notifications) %>
+      <h1 class="spacing-below-10"><%= t(".notifications_title") %></h1>
+      <p><%= t(".notifications_subtitle") %></p>
+
+
+      <%= form_with model: @form,
+                    url: hub_update_notification_preferences_path,
+                    method: :patch,
+                    local: true,
+                    builder: VitaMinFormBuilder,
+                    html: { class: 'form-card' } do |f| %>
+
+        <div id="notification_checkboxes">
+          <%= f.hub_checkbox(:new_client_message_notification, "<strong>Client messages</strong>", options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <p style="margin-left: 30px; margin-top: -35px; max-width: unset;"><%= t(".new_client_message_notification_description") %></p>
+
+          <%= f.hub_checkbox(:document_upload_notification, "<strong>Client document uploads</strong>", options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <p style="margin-left: 30px; margin-top: -35px; max-width: unset;"><%= t(".document_upload_notification_description") %></p>
+
+          <%= f.hub_checkbox(:client_assignments_notification, "<strong>Client assignment</strong>", options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <p style="margin-left: 30px; margin-top: -35px; max-width: unset;"><%=t(".client_assignments_notification_description") %></p>
+
+          <%= f.hub_checkbox(:signed_8879_notification, "<strong>Client 8879 signatures</strong>", options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <p style="margin-left: 30px; margin-top: -35px; max-width: unset;"><%=t(".signed_8879_notification_description_html") %></p>
+
+          <%= f.hub_checkbox(:tagged_in_note_notification, "<strong>Tags in internal notes</strong>", options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <p style="margin-left: 30px; margin-top: -35px; max-width: unset;"><%=t(".tagged_in_note_notification_description") %></p>
+        </div>
+
+        <div id="unsubscribe_checkbox">
+          <%= f.hub_checkbox(:unsubscribe_all, "<strong>Unsubscribe</strong>", options: { checked_value: "yes", unchecked_value: "no" }) %>
+          <p style="margin-left: 30px; margin-top: -35px; max-width: unset;"><%=t(".unsubscribe_all_description")%></p>
+        </div>
+
+        <%= f.submit(t(".save"), class: "button button--cta button--no-margin") %>
+      <% end %>
+    <% end %>
   </section>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          // Function to uncheck and disable all notification checkboxes
+          function disableNotificationCheckboxes() {
+              $('#notification_checkboxes input[type="checkbox"]').each(function() {
+                  $(this).prop('checked', false);
+                  $(this).prop('disabled', true);
+                  // Add disabled class to the parent label
+                  $(this).closest('label').addClass('is-disabled');
+              });
+          }
+
+          // Function to enable all notification checkboxes
+          function enableNotificationCheckboxes() {
+              $('#notification_checkboxes input[type="checkbox"]').each(function() {
+                  $(this).prop('disabled', false);
+                  // Remove disabled class from the parent label
+                  $(this).closest('label').removeClass('is-disabled');
+              });
+          }
+
+          // Check initially if unsubscribe_all is checked
+          if ($('#unsubscribe_checkbox input[type="checkbox"]').is(':checked')) {
+              disableNotificationCheckboxes();
+          }
+
+          // Attach change event listener to unsubscribe_all checkbox
+          $('#unsubscribe_checkbox input[type="checkbox"]').change(function() {
+              if (this.checked) {
+                  disableNotificationCheckboxes();
+              } else {
+                  enableNotificationCheckboxes();
+              }
+          });
+
+          // Attach change event listeners to notification checkboxes
+          $('#notification_checkboxes input[type="checkbox"]').change(function() {
+              // If any notification checkbox is checked, uncheck unsubscribe_all
+              if ($(this).is(':checked')) {
+                  $('#unsubscribe_checkbox input[type="checkbox"]').prop('checked', false);
+              }
+          });
+      });
+  </script>
 <% end %>
