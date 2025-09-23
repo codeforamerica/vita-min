@@ -5,6 +5,10 @@ module StateFile::AutomatedMessage
       'messages.state_file.deadline_reminder_tomorrow'.freeze
     end
 
+    def self.send_only_once?
+      true
+    end
+
     def sms_body(**args)
       I18n.t("messages.state_file.deadline_reminder_tomorrow.sms", **args)
     end
