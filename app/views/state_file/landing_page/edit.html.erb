@@ -16,6 +16,9 @@
               <%= t(".#{@state_code}.closed_html") %>
             </p>
             <p class="h2">
+              <%= t(".rejected_return_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options)) %>
+            </p>
+            <p class="h2">
               <%= t(".already_filed_html") %>
             </p>
             <div class="partner-logo-wrapper spacing-below-35">
@@ -26,7 +29,7 @@
                 <%= t(".#{@state_code}.supported_by") %>
               </div>
             </div>
-            <%= link_to StateFile::StateFilePagesController.to_path_helper(action: :login_options), class: "button button--primary button--wide", role: "button", id: "firstCta" do %>
+            <%= link_to questions_return_status_path(locale: I18n.locale), class: "button button--primary button--wide", role: "button", id: "firstCta" do %>
               <%= t(".download_your_record") %>
             <% end %>
           <% else %>
