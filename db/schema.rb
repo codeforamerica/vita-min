@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_02_173338) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_23_204400) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2817,7 +2817,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_02_173338) do
     t.string "current_sign_in_ip"
     t.integer "document_upload_notification", default: 0, null: false
     t.citext "email", null: false
-    t.integer "email_notification", default: 0, null: false
     t.string "encrypted_password", default: "", null: false
     t.string "external_provider"
     t.string "external_uid"
