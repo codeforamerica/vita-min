@@ -1678,6 +1678,19 @@ en:
 
           Best,
           The FileYourStateTaxes team
+      october_transfer_reminder:
+        email:
+          body: |-
+            Hi!
+            It looks like you created an account with FileYourStateTaxes but haven't transferred your federal return information from IRS Direct File. If you want to file your state return with us please do so before October 22nd.
+            It's easy!  Get started now at <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a>. Need help? Reply to this email.
+            Best, The FileYourStateTaxes team
+          subject: Remember to start your state tax return
+        sms: |-
+          Hi!
+          It looks like you created an account with FileYourStateTaxes but haven't transferred your federal return information from IRS Direct File. If you want to file your state return with us please do so before October 22nd.
+          It's easy! Get started now at http://www.fileyourstatetaxes.org/en/login-options .
+          Need help? Email us at help@fileyourstatetaxes.org
       post_deadline_reminder:
         email:
           body: |-

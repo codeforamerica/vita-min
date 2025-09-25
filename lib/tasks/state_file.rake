@@ -25,6 +25,11 @@ namespace :state_file do
     StateFile::SendMarketingEmailService.run
   end
 
+  task send_october_transfer_reminder: :environment do
+    return unless DateTime.now.year == 2025
+    StateFile::OctoberTransferReminderService.run
+  end
+
   task backfill_intake_submission_pdfs: :environment do
     batch_size = 5
     intake_types = StateFile::StateInformationService.state_intake_classes

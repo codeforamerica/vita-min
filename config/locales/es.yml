@@ -1688,6 +1688,21 @@ es:
 
           Saludos,
           El equipo de FileYourStateTaxes
+      october_transfer_reminder:
+        email:
+          body: |-
+            Hi!
+            ¡Hola! Al parecer creaste una cuenta con FileYourStateTaxes, pero aún no has transferido la información de tu declaración federal desde IRS Direct File. Si deseas presentar tu declaración estatal con nosotros, hazlo antes del 22 de octubre.
+            ¡Es fácil! Comienza ahora en <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+            Atentamente, El equipo de FileYourStateTaxes
+          subject: Recuerda comenzar tu declaración de impuestos estatales
+        sms: |-
+          ¡Hola!
+          Al parecer creaste una cuenta con FileYourStateTaxes, pero aún no has transferido la información de tu declaración federal desde IRS Direct File. Si deseas presentar tu declaración estatal con nosotros, hazlo antes del 22 de octubre.
+          Es fácil! Comienza en http://www.fileyourstatetaxes.org/es/login-options  .
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
+          Atentamente, El equipo de FileYourStateTaxes
       post_deadline_reminder:
         email:
           body: |-
