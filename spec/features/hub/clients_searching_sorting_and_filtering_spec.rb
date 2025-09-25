@@ -381,30 +381,56 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page).to have_text "All Clients"
         expect(page.all('.client-row').length).to eq 12
 
-        # last contact dropdown
-        select "Less than 1 day", from: "Last contact"
-        click_on "Filter results"
-        expect(page.all('.client-row').length).to eq 1
-        click_link "Clear"
+        page_change_block do
+          # last contact dropdown
+          select "Less than 1 day", from: "Last contact"
+          click_on "Filter results"
+        end
 
-        select "4-5 day", from: "Last contact"
-        click_on "Filter results"
-        expect(page.all('.client-row').length).to eq 3
-        click_link "Clear"
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 1
+          click_link "Clear"
+        end
 
-        select "6+ day", from: "Last contact"
-        click_on "Filter results"
-        expect(page.all('.client-row').length).to eq 3
-        click_link "Clear"
+        page_change_block do
+          select "4-5 day", from: "Last contact"
+          click_on "Filter results"
+        end
 
-        # quick filter buttons
-        click_on "Approaching SLA"
-        expect(page.all('.client-row').length).to eq 3
-        click_link "Clear"
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 3
+          click_link "Clear"
+        end
 
-        click_on "Breached SLA"
-        expect(page.all('.client-row').length).to eq 2
-        page.find('a', text: "Breached SLA").find('.clear-filter').click
+        page_change_block do
+          select "6+ day", from: "Last contact"
+          click_on "Filter results"
+        end
+
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 3
+          click_link "Clear"
+        end
+
+        page_change_block do
+          # quick filter buttons
+          click_on "Approaching SLA"
+        end
+
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 3
+          click_link "Clear"
+        end
+
+        page_change_block do
+          click_on "Breached SLA"
+        end
+
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 2
+          page.find('a', text: "Breached SLA").find('.clear-filter').click
+        end
+
         expect(page.all('.client-row').length).to eq 12
       end
     end
