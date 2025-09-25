@@ -3732,8 +3732,8 @@ en:
         edit:
           continue: Click "Continue" if all these people had health insurance.
           coverage_heading: What is health insurance with minimum essential coverage?
-          label: 'Check all the people that did NOT have health insurance:'
-          title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in %{filing_year}.
+          label: 'Check all the dependents that do NOT have health insurance:'
+          title_html: In %{current_year}, who in your tax household doesn’t have health insurance with <a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Minimum Essential Coverage</a>?
       nj_disabled_exemption:
         edit:
           instructions_html: "<p>In New Jersey, you are considered disabled if you have a \"<strong>total and permanent</strong> inability to engage in any substantial gainful activity because of any physical or mental impairment, including blindness.\"</p>  \n<p>(This is different from the federal tax definition. New Jersey doesn’t consider your age or your receipt of taxable disability income.)</p>\n"
