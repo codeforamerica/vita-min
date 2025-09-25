@@ -33,7 +33,13 @@ class IncomingEmail < ApplicationRecord
   belongs_to :client
   has_many :documents, as: :contact_record
 
-  after_create { InteractionTrackingService.record_incoming_interaction(client) }
+  after_create_commit do
+    InteractionTrackingService.record_incoming_interaction(
+      client,
+      received_at: datetime,
+      interaction_type: :new_client_message
+    )
+  end
 
   def body
     stripped_text.present? ? [stripped_text, stripped_signature].map(&:presence).compact.join("\n") : body_plain

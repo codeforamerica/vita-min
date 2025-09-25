@@ -17,7 +17,7 @@ RSpec.describe Documents::IntroController do
       before do
         create :document, intake: intake, document_type: DocumentTypes::Identity.key
         create :document, intake: intake, document_type: DocumentTypes::SsnItin.key
-        create :document, intake: intake, document_type: DocumentTypes::Selfie.key
+        create :document, intake: intake, document_type: DocumentTypes::Employment.key
       end
 
       it "returns false" do

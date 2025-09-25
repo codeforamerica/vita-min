@@ -39,13 +39,7 @@ Rails.application.configure do
   config.efile_environment = "test"
   config.google_login_enabled = (ENV['GOOGLE_LOGIN_ENABLED'] == 'true')
 
-  # StateFile
-  config.state_file_start_of_open_intake = Time.find_zone('America/New_York').parse('2024-01-01 7:59:59')
-
-  # Keep GYR and FYST 'open' until the end of 2040 ^_^
-  # use the session toggles if you want to emulate/test 'closed' behaviors
+  # Keep GYR 'open' until the end of 2040 ^_^
   the_future = Time.find_zone('America/New_York').parse('2040-12-31 23:59:59')
   config.end_of_intake = the_future
-  config.state_file_end_of_new_intakes = the_future
-  config.state_file_end_of_in_progress_intakes = the_future
 end

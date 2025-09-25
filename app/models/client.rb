@@ -92,6 +92,7 @@ class Client < ApplicationRecord
   has_many :efile_security_informations, dependent: :destroy
   has_many :recaptcha_scores, dependent: :destroy
   has_many :verification_attempts, dependent: :destroy
+  has_many :client_interactions
   accepts_nested_attributes_for :tax_returns
   accepts_nested_attributes_for :intake
   accepts_nested_attributes_for :efile_security_informations
@@ -302,7 +303,6 @@ class Client < ApplicationRecord
     experiment_keys = experiment_participants.includes(:experiment).map { |ep| ep.experiment.key }
     return nil if experiment_keys.blank?
 
-    return IdVerificationExperimentService.new(intake).documents_not_needed if experiment_keys.include?(ExperimentService::ID_VERIFICATION_EXPERIMENT)
     ReturningClientExperimentService.new(intake).documents_not_needed if experiment_keys.include?(ExperimentService::RETURNING_CLIENT_EXPERIMENT)
   end
 

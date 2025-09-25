@@ -11,4 +11,187 @@ describe InteractionTrackingService do
       end
     end
   end
+
+  describe "#record_incoming_interaction" do
+    let!(:tax_return_1) { create(:tax_return, assigned_user_id: user.id, year: Rails.configuration.product_year, client: client) }
+    let!(:tax_return_2) { create(:tax_return, assigned_user_id: user_no_notifications.id, year: (Rails.configuration.product_year - 1), client: client) }
+    let(:user) { create(:admin_user, new_client_message_notification: "yes") }
+    let(:user_no_notifications) { create(:admin_user, new_client_message_notification: "no") }
+    let(:job) { spy("JobSpy") }
+
+    before do
+      allow(Flipper).to receive(:enabled?).with(:hub_email_notifications).and_return(true)
+      allow(ClientInteractionNotificationEmailJob).to receive(:set).and_call_original
+      allow(ClientInteractionNotificationEmailJob).to receive(:set).with(wait: 10.minutes).and_return(job)
+      allow(job).to receive(:perform_later).with(any_args)
+      allow(ClientInteraction).to receive(:create!).and_call_original
+    end
+
+    context "client has assigned users, flipper flag hub_email_notifications is enabled and assigned users have opted-in to notifications" do
+      it "sends a notification, enqueues the email job and creates an Internal Email" do
+        described_class.record_incoming_interaction(client, received_at: fake_time, interaction_type: "new_client_message")
+        expect(ClientInteraction).to have_received(:create!).with(
+          client: client,
+          interaction_type: "new_client_message"
+        )
+        expect(ClientInteractionNotificationEmailJob).to have_received(:set).with(wait: 10.minutes)
+        expect(job).to have_received(:perform_later)
+      end
+    end
+
+    context "user that has chosen to opt-out of email notifications" do
+      it "doesn't send a message" do
+        described_class.record_incoming_interaction(client, received_at: fake_time, interaction_type: "new_client_message")
+        expect(job).not_to have_received(:perform_later).with(hash_including(user_no_notifications, received_at: fake_time))
+        expect(job).to have_received(:perform_later).with(anything, user, hash_including(received_at: fake_time))
+      end
+    end
+
+    context "when the interaction type is not client_message" do
+      it "doesn't send any email notifications" do
+        described_class.record_incoming_interaction(client, received_at: nil, interaction_type: "unfilled")
+        expect(ClientInteractionNotificationEmailJob).not_to have_received(:set).with(wait: 10.minutes)
+      end
+    end
+
+    context "when the client doesn't have any assigned users" do
+      before do
+        tax_return_1.update!(assigned_user: nil)
+        tax_return_2.update!(assigned_user: nil)
+      end
+      it "doesn't send any email notifications" do
+        described_class.record_incoming_interaction(client, received_at: fake_time, interaction_type: "new_client_message")
+        expect(ClientInteraction).not_to have_received(:create!)
+        expect(ClientInteractionNotificationEmailJob).not_to have_received(:set).with(wait: 10.minutes)
+      end
+    end
+
+    context "when only one tax return has an assigned user" do
+      before do
+        tax_return_2.update!(assigned_user: nil)
+      end
+      it "only sends email notifications to that user" do
+        described_class.record_incoming_interaction(client, set_flag: true, received_at: fake_time, interaction_type: "new_client_message")
+        expect(ClientInteraction).to have_received(:create!).with(
+          client: client,
+          interaction_type: "new_client_message"
+        )
+        expect(ClientInteractionNotificationEmailJob).to have_received(:set).with(wait: 10.minutes)
+        expect(job).to have_received(:perform_later)
+      end
+    end
+
+    context "when the flipper flag 'hub_email_notifications' is disabled" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:hub_email_notifications).and_return(false)
+      end
+
+      it "doesn't send any email notifications" do
+        described_class.record_incoming_interaction(client, set_flag: true, received_at: fake_time, interaction_type: "new_client_message")
+        expect(ClientInteractionNotificationEmailJob).not_to have_received(:set).with(wait: 10.minutes)
+        expect(job).not_to have_received(:perform_later)
+      end
+    end
+
+    context "when first_unanswered_incoming_interaction_at is nil and set_flag is true" do
+      let(:client) { create(:client, first_unanswered_incoming_interaction_at: nil, flagged_at: nil, last_incoming_interaction_at: 2.days.ago) }
+
+      it "touches last_incoming_interaction_at, first_unanswered_incoming_interaction_at, and flagged_at" do
+        Timecop.freeze(fake_time) do
+          InteractionTrackingService.record_incoming_interaction(client, set_flag: true)
+          client.reload
+
+          expect(client.last_incoming_interaction_at).to eq fake_time
+          expect(client.first_unanswered_incoming_interaction_at).to eq fake_time
+          expect(client.flagged_at).to eq fake_time
+        end
+      end
+    end
+
+    context "when first_unanswered_incoming_interaction_at is already present" do
+      let(:existing_time) { fake_time - 3.days }
+      let(:client) { create(:client, first_unanswered_incoming_interaction_at: existing_time, flagged_at: nil, last_incoming_interaction_at: fake_time - 4.days) }
+
+      it "only touches last_incoming_interaction_at and flagged_at" do
+        Timecop.freeze(fake_time) do
+          InteractionTrackingService.record_incoming_interaction(client, set_flag: true)
+          client.reload
+
+          expect(client.last_incoming_interaction_at).to eq fake_time
+          expect(client.first_unanswered_incoming_interaction_at).to eq existing_time
+          expect(client.flagged_at).to eq fake_time
+        end
+      end
+    end
+
+    context "when set_flag is false" do
+      let(:client) { create(:client, first_unanswered_incoming_interaction_at: nil, flagged_at: nil, last_incoming_interaction_at: fake_time - 5.days) }
+
+      it "touches only last_incoming_interaction_at and first_unanswered_incoming_interaction_at, but leaves flagged_at nil" do
+        Timecop.freeze(fake_time) do
+          InteractionTrackingService.record_incoming_interaction(client, set_flag: false)
+          client.reload
+
+          expect(client.last_incoming_interaction_at).to eq fake_time
+          expect(client.first_unanswered_incoming_interaction_at).to eq fake_time
+          expect(client.flagged_at).to be_nil
+        end
+      end
+    end
+  end
+
+  describe "#record_internal_interaction" do
+    it "updates last_internal_or_outgoing_interaction_at" do
+      Timecop.freeze(fake_time) do
+        described_class.record_internal_interaction(client)
+        client.reload
+
+        expect(client.last_internal_or_outgoing_interaction_at).to eq fake_time
+      end
+    end
+
+    context "sending the user an email" do
+      let(:user) { create(:admin_user, tagged_in_note_notification: "yes") }
+      let(:received_at) { Time.now }
+
+      before do
+        allow(SendInternalEmailJob).to receive(:perform_later)
+      end
+
+      context "when the flipper flag 'hub_email_notifications' is disabled" do
+        before do
+          allow(Flipper).to receive(:enabled?).with(:hub_email_notifications).and_return(false)
+        end
+
+        it "doesn't send any email notifications" do
+          described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
+          expect(SendInternalEmailJob).not_to have_received(:perform_later)
+        end
+      end
+
+      context "when the flipper flag 'hub_email_notifications' is enabled" do
+        before do
+          allow(Flipper).to receive(:enabled?).with(:hub_email_notifications).and_return(true)
+        end
+
+        context "user that has chosen to opt out of email notifications" do
+          let(:user) { create(:admin_user, tagged_in_note_notification: "no") }
+
+          it "doesn't send a message" do
+            described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
+            expect(SendInternalEmailJob).not_to have_received(:perform_later)
+          end
+        end
+
+        it "creates an InternalEmail and enqueues SendInternalEmailJob" do
+          described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
+          internal_email = InternalEmail.last
+          expect(internal_email.mail_class).to eq "UserMailer"
+          expect(internal_email.mail_method).to eq "internal_interaction_notification_email"
+          expect(internal_email.mail_args).to match_array ActiveJob::Arguments.serialize(client: client, user: user, interaction_type: "tagged_in_note", received_at: received_at)
+          expect(SendInternalEmailJob).to have_received(:perform_later).with(internal_email)
+        end
+      end
+    end
+  end
 end

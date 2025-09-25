@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
+  include Pundit::Authorization
   around_action :set_time_zone, if: :current_user
-  before_action :set_eitc_beta_cookie, :set_ctc_beta_cookie, :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
+  before_action :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
   around_action :switch_locale
   before_action :check_maintenance_mode
   before_action :redirect_state_file_in_off_season
@@ -13,7 +14,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :include_analytics?, :current_intake, :show_progress?, :canonical_url, :hreflang_url, :hub?, :state_file?, :wrapping_layout
+  helper_method :include_analytics?, :current_intake, :show_progress?, :canonical_url, :hreflang_url, :hub?, :state_file?, :wrapping_layout, :ctc?
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -54,6 +55,11 @@ class ApplicationController < ActionController::Base
   # but the devise controllers are not under the hub namespace so I'm leaving the request.path.include? string as well.
   def hub?
     self.class.name.include?("Hub::") || request.path.include?("hub")
+  end
+
+  # This is only used to render ctc specific views in the CTC home page
+  def ctc?
+    self.class.name.include?("Ctc::")
   end
 
   def state_file?
@@ -163,24 +169,6 @@ class ApplicationController < ActionController::Base
     if source_from_params.present?
       # Use at most 100 chars in session so we don't overflow it.
       session[:source] = source_from_params.slice(0, 100)
-    end
-  end
-
-  def set_ctc_beta_cookie
-    return unless Routes::CtcDomain.new.matches?(request)
-    ctc_beta = params[:ctc_beta]
-    if ctc_beta == "1"
-      cookies.permanent[:ctc_beta] = true
-    end
-  end
-
-  def set_eitc_beta_cookie
-    return unless Routes::CtcDomain.new.matches?(request)
-    return unless app_time >= Rails.configuration.eitc_soft_launch
-
-    eitc_beta = params[:eitc_beta]
-    if eitc_beta == "1"
-      cookies.permanent[:eitc_beta] = true
     end
   end
 
@@ -380,35 +368,6 @@ class ApplicationController < ActionController::Base
     app_time <= Rails.configuration.end_of_in_progress_intake
   end
 
-  def open_for_ctc_intake?
-    return false if app_time >= Rails.configuration.ctc_end_of_intake
-    return true if app_time >= Rails.configuration.ctc_full_launch
-
-    app_time >= Rails.configuration.ctc_soft_launch && cookies[:ctc_beta].present?
-  end
-  helper_method :open_for_ctc_intake?
-
-  def open_for_eitc_intake?
-    return true if Flipper.enabled?(:eitc)
-    return true if app_time >= Rails.configuration.eitc_full_launch
-
-    app_time >= Rails.configuration.eitc_soft_launch && cookies[:eitc_beta].present?
-  end
-  helper_method :open_for_eitc_intake?
-
-  def open_for_ctc_login?
-    return false if app_time >= Rails.configuration.ctc_end_of_login
-
-    return true if app_time >= Rails.configuration.ctc_full_launch
-    app_time >= Rails.configuration.ctc_soft_launch && cookies[:ctc_beta].present?
-  end
-  helper_method :open_for_ctc_login?
-
-  def open_for_ctc_read_write?
-    app_time <= Rails.configuration.ctc_end_of_read_write
-  end
-  helper_method :open_for_ctc_read_write?
-
   def open_for_state_file_intake?
     app_time.between?(Rails.configuration.state_file_start_of_open_intake, Rails.configuration.state_file_end_of_in_progress_intakes)
   end
@@ -574,7 +533,8 @@ class ApplicationController < ActionController::Base
     response.headers["Expires"] = "Mon, 01 Jan 1990 00:00:00 GMT"
   end
 
-  rescue_from CanCan::AccessDenied do |exception|
+  # TODO: remove 'CanCan::AccessDenied' in GYR1-757
+  rescue_from CanCan::AccessDenied, Pundit::NotAuthorizedError do |exception|
     respond_to do |format|
       format.html do
         render status: :forbidden, template: "public_pages/forbidden", layout: "hub"

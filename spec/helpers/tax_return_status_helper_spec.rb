@@ -77,6 +77,7 @@ describe TaxReturnStatusHelper do
     expected = [
       ["Intake",
        [
+         ["Not ready", "intake_in_progress", {:disabled=>true}],
          ["Needs doc help", "intake_needs_doc_help"],
          ["Info requested", "intake_info_requested"],
          ["Greeter - info requested", "intake_greeter_info_requested"],
@@ -141,6 +142,24 @@ describe TaxReturnStatusHelper do
                       ["Needs doc help", "intake_needs_doc_help"]]],
                     ["Final steps", [["Not filing", "file_not_filing"], ["Hold", "file_hold"]]]]
                  )
+      end
+    end
+
+    context "as an admin" do
+      let(:user_double) { double(User) }
+
+      before do
+        allow(helper).to receive(:current_user).and_return user_double
+        allow(user_double).to receive(:role_type).and_return "AdminRole"
+      end
+
+      it "does not disable any statuses" do
+        result = helper.grouped_status_options_for_partner
+
+        intake_group = result.find { |group| group[0] == "Intake" }
+        intake_in_progress_option = intake_group[1].find { |opt| opt[1] == "intake_in_progress" }
+
+        expect(intake_in_progress_option).to eq(["Not ready", "intake_in_progress"])
       end
     end
   end

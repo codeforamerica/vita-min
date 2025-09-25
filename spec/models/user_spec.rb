@@ -2,37 +2,43 @@
 #
 # Table name: users
 #
-#  id                             :bigint           not null, primary key
-#  current_sign_in_at             :datetime
-#  current_sign_in_ip             :string
-#  email                          :citext           not null
-#  encrypted_password             :string           default(""), not null
-#  external_provider              :string
-#  external_uid                   :string
-#  failed_attempts                :integer          default(0), not null
-#  high_quality_password_as_of    :datetime
-#  invitation_accepted_at         :datetime
-#  invitation_created_at          :datetime
-#  invitation_limit               :integer
-#  invitation_sent_at             :datetime
-#  invitation_token               :string
-#  invitations_count              :integer          default(0)
-#  last_sign_in_at                :datetime
-#  last_sign_in_ip                :string
-#  locked_at                      :datetime
-#  name                           :string
-#  phone_number                   :string
-#  reset_password_sent_at         :datetime
-#  reset_password_token           :string
-#  role_type                      :string           not null
-#  should_enforce_strong_password :boolean          default(FALSE), not null
-#  sign_in_count                  :integer          default(0), not null
-#  suspended_at                   :datetime
-#  timezone                       :string           default("America/New_York"), not null
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#  invited_by_id                  :bigint
-#  role_id                        :bigint           not null
+#  id                              :bigint           not null, primary key
+#  client_assignments_notification :integer          default("yes"), not null
+#  current_sign_in_at              :datetime
+#  current_sign_in_ip              :string
+#  document_upload_notification    :integer          default("yes"), not null
+#  email                           :citext           not null
+#  email_notification              :integer          default("yes"), not null
+#  encrypted_password              :string           default(""), not null
+#  external_provider               :string
+#  external_uid                    :string
+#  failed_attempts                 :integer          default(0), not null
+#  high_quality_password_as_of     :datetime
+#  invitation_accepted_at          :datetime
+#  invitation_created_at           :datetime
+#  invitation_limit                :integer
+#  invitation_sent_at              :datetime
+#  invitation_token                :string
+#  invitations_count               :integer          default(0)
+#  last_sign_in_at                 :datetime
+#  last_sign_in_ip                 :string
+#  locked_at                       :datetime
+#  name                            :string
+#  new_client_message_notification :integer          default("yes"), not null
+#  phone_number                    :string
+#  reset_password_sent_at          :datetime
+#  reset_password_token            :string
+#  role_type                       :string           not null
+#  should_enforce_strong_password  :boolean          default(FALSE), not null
+#  sign_in_count                   :integer          default(0), not null
+#  signed_8879_notification        :integer          default("yes"), not null
+#  suspended_at                    :datetime
+#  tagged_in_note_notification     :integer          default("yes"), not null
+#  timezone                        :string           default("America/New_York"), not null
+#  created_at                      :datetime         not null
+#  updated_at                      :datetime         not null
+#  invited_by_id                   :bigint
+#  role_id                         :bigint           not null
 #
 # Indexes
 #
@@ -586,7 +592,6 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     end
   end
 
-
   describe "#state_file_admin?" do
     context "when the user has AdminRole type and state_file is true" do
       let(:user) { create :admin_user, role: role }
@@ -902,6 +907,82 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
 
       it "returns nil" do
         expect(User.from_omniauth(auth_hash)).to eq nil
+      end
+    end
+  end
+
+  describe "#has_lead_dashboard_access?" do
+    context "a site coordinator" do
+      let(:user) { create :site_coordinator_user }
+      it "returns true" do
+        expect(user.has_lead_dashboard_access?).to eq true
+      end
+    end
+
+    context "a coalition lead" do
+      let(:user) { create :coalition_lead_user }
+      it "returns true" do
+        expect(user.has_lead_dashboard_access?).to eq true
+      end
+    end
+
+    context "a org lead" do
+      let(:user) { create :organization_lead_user }
+      it "returns true" do
+        expect(user.has_lead_dashboard_access?).to eq true
+      end
+    end
+
+    context "a team member" do
+      let(:user) { create :team_member_user }
+      it "returns false" do
+        expect(user.has_lead_dashboard_access?).to eq false
+      end
+    end
+  end
+
+  describe "#has_non_lead_dashboard_access?" do
+    context "a greeter" do
+      let(:user) { create :greeter_user }
+      it "returns true" do
+        expect(user.has_non_lead_dashboard_access?).to eq false
+      end
+    end
+
+    context "a team member" do
+      let(:user) { create :team_member_user }
+      it "returns false" do
+        expect(user.has_non_lead_dashboard_access?).to eq true
+      end
+    end
+  end
+
+  describe "#has_dashboard_access?" do
+    context "a site coordinator" do
+      let(:user) { create :site_coordinator_user }
+      it "returns true" do
+        expect(user.has_dashboard_access?).to eq true
+      end
+    end
+
+    context "a coalition lead" do
+      let(:user) { create :coalition_lead_user }
+      it "returns true" do
+        expect(user.has_dashboard_access?).to eq true
+      end
+    end
+
+    context "a org lead" do
+      let(:user) { create :organization_lead_user }
+      it "returns true" do
+        expect(user.has_dashboard_access?).to eq true
+      end
+    end
+
+    context "a team member" do
+      let(:user) { create :team_member_user }
+      it "returns false" do
+        expect(user.has_dashboard_access?).to eq true
       end
     end
   end

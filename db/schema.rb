@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_02_204822) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_02_173338) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -568,6 +568,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_02_204822) do
     t.datetime "updated_at", null: false
     t.index ["assigned_user_id"], name: "index_btru_on_assigned_user_id"
     t.index ["tax_return_selection_id"], name: "index_btru_on_tax_return_selection_id"
+  end
+
+  create_table "client_interactions", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "interaction_type", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_client_interactions_on_client_id"
   end
 
   create_table "client_success_roles", force: :cascade do |t|
@@ -1354,13 +1362,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_02_204822) do
     t.boolean "navigator_has_verified_client_identity"
     t.string "navigator_name"
     t.integer "need_itin_help", default: 0, null: false
-    t.integer "needs_help_2016", default: 0, null: false
-    t.integer "needs_help_2018", default: 0, null: false
-    t.integer "needs_help_2019", default: 0, null: false
-    t.integer "needs_help_2020", default: 0, null: false
-    t.integer "needs_help_2021", default: 0, null: false
-    t.integer "needs_help_2022", default: 0, null: false
-    t.integer "needs_help_2023", default: 0, null: false
     t.integer "needs_help_current_year", default: 0, null: false
     t.integer "needs_help_previous_year_1", default: 0, null: false
     t.integer "needs_help_previous_year_2", default: 0, null: false
@@ -1381,6 +1382,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_02_204822) do
     t.integer "paid_school_supplies", default: 0, null: false
     t.integer "paid_self_employment_expenses", default: 0, null: false
     t.integer "paid_student_loan_interest", default: 0, null: false
+    t.integer "payment_in_installments", default: 0, null: false
     t.string "phone_carrier"
     t.string "phone_number"
     t.integer "phone_number_can_receive_texts", default: 0, null: false
@@ -1831,6 +1833,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_02_204822) do
   end
 
   create_table "state_file_archived_intakes", force: :cascade do |t|
+    t.integer "contact_preference", default: 0, null: false
     t.datetime "created_at", null: false
     t.string "email_address"
     t.integer "failed_attempts", default: 0, null: false
@@ -1844,6 +1847,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_02_204822) do
     t.string "mailing_street"
     t.string "mailing_zip"
     t.datetime "permanently_locked_at"
+    t.string "phone_number"
     t.string "state_code"
     t.integer "tax_year"
     t.boolean "unsubscribed_from_email", default: false, null: false
@@ -2807,10 +2811,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_02_204822) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer "client_assignments_notification", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "current_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
+    t.integer "document_upload_notification", default: 0, null: false
     t.citext "email", null: false
+    t.integer "email_notification", default: 0, null: false
     t.string "encrypted_password", default: "", null: false
     t.string "external_provider"
     t.string "external_uid"
@@ -2827,6 +2834,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_02_204822) do
     t.string "last_sign_in_ip"
     t.datetime "locked_at", precision: nil
     t.string "name"
+    t.integer "new_client_message_notification", default: 0, null: false
     t.string "phone_number"
     t.datetime "reset_password_sent_at", precision: nil
     t.string "reset_password_token"
@@ -2834,7 +2842,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_02_204822) do
     t.string "role_type", null: false
     t.boolean "should_enforce_strong_password", default: false, null: false
     t.integer "sign_in_count", default: 0, null: false
+    t.integer "signed_8879_notification", default: 0, null: false
     t.datetime "suspended_at", precision: nil
+    t.integer "tagged_in_note_notification", default: 0, null: false
     t.string "timezone", default: "America/New_York", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -2908,7 +2918,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_02_204822) do
   create_table "vita_providers", force: :cascade do |t|
     t.string "appointment_info"
     t.boolean "archived", default: false, null: false
-    t.geography "coordinates", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}
+    t.geography "coordinates", limit: {srid: 4326, type: "st_point", geographic: true}
     t.datetime "created_at", precision: nil
     t.string "dates"
     t.string "details"
@@ -3015,6 +3025,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_02_204822) do
   add_foreign_key "bulk_signup_messages", "users"
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
+  add_foreign_key "client_interactions", "clients"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "dependents", "intakes"

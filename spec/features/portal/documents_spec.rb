@@ -20,8 +20,6 @@ RSpec.feature "a client on their portal" do
 
       click_on I18n.t('portal.portal.home.document_link.view_documents')
 
-      expect(page).to have_content "Here's a list of your documents"
-
       within '#id-docs' do
         expect(page).to have_content "Photo ID"
         expect(page).to have_content "picture_id.jpg"
@@ -43,26 +41,6 @@ RSpec.feature "a client on their portal" do
         expect(page).to have_content "picture_id.jpg"
         expect(page).to have_content "combined-test-pdf.pdf"
         expect(page).not_to have_content "Please add documents for you and your spouse."
-      end
-
-      within '#selfie-docs' do
-        expect(page).to have_content "Photo Holding ID"
-        expect(page).to have_content "Please add document."
-        click_on "add"
-      end
-
-      expect(page).to have_content "Add a document"
-      upload_file("portal_document_upload_form[upload]", Rails.root.join("spec", "fixtures", "files", "test-pattern.png"))
-
-      expect(page).to have_content "test-pattern.png"
-      click_on 'Continue'
-
-      expect(page).to have_content "Here's a list of your documents"
-
-      within '#selfie-docs' do
-        expect(page).to have_content "Photo Holding ID"
-        expect(page).to have_content "test-pattern.png"
-        expect(page).to have_content "Please add documents for you and your spouse."
       end
 
       within '#final-tax-return-docs' do

@@ -128,7 +128,6 @@ RSpec.describe Hub::TakeActionForm do
 
             Para continuar presentando sus impuestos, necesitamos que nos envíe:
               - Identificación con foto
-              - Foto de usted sosteniendo su identificación con la foto cerca de su barbilla (para verificación de identidad)
               - Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes
             Inicie sesión para cargar los documentos de forma segura: http://test.host/es/portal/login
 

@@ -217,4 +217,11 @@ RSpec.describe PublicPagesController do
       expect(response.body).to include "GetYourRefund - Volunteer Signup"
     end
   end
+
+  describe "#maintenance" do
+    it "renders successfully" do
+      get :maintenance
+      expect(response).to be_ok
+    end
+  end
 end

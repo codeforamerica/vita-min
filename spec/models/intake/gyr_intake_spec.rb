@@ -214,13 +214,6 @@
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
 #  need_itin_help                                       :integer          default("unfilled"), not null
-#  needs_help_2016                                      :integer          default("unfilled"), not null
-#  needs_help_2018                                      :integer          default("unfilled"), not null
-#  needs_help_2019                                      :integer          default("unfilled"), not null
-#  needs_help_2020                                      :integer          default("unfilled"), not null
-#  needs_help_2021                                      :integer          default("unfilled"), not null
-#  needs_help_2022                                      :integer          default("unfilled"), not null
-#  needs_help_2023                                      :integer          default("unfilled"), not null
 #  needs_help_current_year                              :integer          default("unfilled"), not null
 #  needs_help_previous_year_1                           :integer          default("unfilled"), not null
 #  needs_help_previous_year_2                           :integer          default("unfilled"), not null
@@ -241,6 +234,7 @@
 #  paid_school_supplies                                 :integer          default("unfilled"), not null
 #  paid_self_employment_expenses                        :integer          default("unfilled"), not null
 #  paid_student_loan_interest                           :integer          default("unfilled"), not null
+#  payment_in_installments                              :integer          default("unfilled"), not null
 #  phone_carrier                                        :string
 #  phone_number                                         :string
 #  phone_number_can_receive_texts                       :integer          default("unfilled"), not null
@@ -414,7 +408,7 @@ describe Intake::GyrIntake do
         client = intake.client.reload
         expect(client.filterable_percentage_of_required_documents_uploaded).to eq(0)
         expect(client.filterable_number_of_required_documents_uploaded).to eq(0)
-        expect(client.filterable_number_of_required_documents).to eq(3)
+        expect(client.filterable_number_of_required_documents).to eq(2)
       end
     end
   end

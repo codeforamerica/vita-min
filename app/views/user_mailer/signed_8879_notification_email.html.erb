@@ -1,0 +1,17 @@
+<h1><%= @subject %></h1>
+
+<% if @is_filing_jointly %>
+  <p>Client #<%= @client_id %> and their spouse have signed Form 8879 on <%= long_formatted_datetime(@received_at) %>.</p>
+<% else %>
+  <p>Client #<%= @client_id %> signed Form 8879 on <%= long_formatted_datetime(@received_at) %>.</p>
+<% end %>
+
+<p>To access the client’s signed form, please visit the following link and sign in to the Hub:</p>
+
+<%= render partial: 'main_email_button', locals: { button_text: "View documents", button_link: hub_client_messages_url(client_id: @client_id) } %>
+
+<p>As a reminder, please contact the client within five business days to ensure high quality service.</p>
+
+<p>Thanks for supporting clients with GetYourRefund!</p>
+<br/>
+<%= auto_link(t("outgoing_email_mailer.user_message.unsubscribe", unsubscribe_link: @unsubscribe_link)) %>

@@ -44,12 +44,12 @@ describe Document do
     context "when a document is created or is updated" do
       it "denormalizes document info onto the client" do
         intake = create :intake
-        document = create :document, document_type: DocumentTypes::Selfie.key, intake: intake
+        document = create :document, document_type: DocumentTypes::PrimaryIdentification::DriversLicense.key, intake: intake
 
         client = document.client.reload
-        expect(client.filterable_percentage_of_required_documents_uploaded).to be_within(0.1).of(1 / 3.0)
+        expect(client.filterable_percentage_of_required_documents_uploaded).to be_within(0.1).of(1 / 2.0)
         expect(client.filterable_number_of_required_documents_uploaded).to eq(1)
-        expect(client.filterable_number_of_required_documents).to eq(3)
+        expect(client.filterable_number_of_required_documents).to eq(2)
       end
     end
   end

@@ -7,6 +7,7 @@ RSpec.describe Hub::NotesController, type: :controller do
   let(:timezone) { "America/New_York" }
   let(:user) { create(:user, role: create(:organization_lead_role, organization: organization), timezone: timezone) }
   let(:other_user) { create(:user) }
+
   describe "#create" do
     let(:mentions) { "" }
     let(:params) do
@@ -24,11 +25,13 @@ RSpec.describe Hub::NotesController, type: :controller do
     context "as an authenticated user" do
       before do
         sign_in user
+        allow(InteractionTrackingService).to receive(:record_internal_interaction)
       end
 
       context "with mentions" do
         let(:mentions) { "#{user.id},#{other_user.id}" }
-        it "creates a new note and saves notifications for mentioned users" do
+
+        it "creates a new note, creates user notifications for mentioned users, and updates interaction tracking for those users" do
           expect {
             post :create, params: params
           }.to change(client.notes, :count).by(1)
@@ -40,6 +43,18 @@ RSpec.describe Hub::NotesController, type: :controller do
           expect(user.notifications.last.notifiable).to eq note
           expect(other_user.notifications.last.notifiable).to eq note
           expect(response).to redirect_to hub_client_notes_path(client_id: client.id, anchor: "last-item")
+          expect(InteractionTrackingService).to have_received(:record_internal_interaction).with(
+            note.client,
+            user: user,
+            interaction_type: "tagged_in_note",
+            received_at: note.created_at,
+          )
+          expect(InteractionTrackingService).to have_received(:record_internal_interaction).with(
+            note.client,
+            user: other_user,
+            interaction_type: "tagged_in_note",
+            received_at: note.created_at,
+          )
         end
       end
 
