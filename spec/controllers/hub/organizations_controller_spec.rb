@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Hub::OrganizationsController, type: :controller do
+  include MockAirtable
+
   let(:parent_coalition) { create :coalition }
   let(:user) { create :admin_user }
   let(:form_instance) { instance_double(Hub::OrganizationForm) }
