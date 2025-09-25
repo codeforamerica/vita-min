@@ -1370,7 +1370,17 @@ en:
         invite_pending: Invite pending
         title: Users
       profile:
+        client_assignments_notification_description: Receive email notifications when a client is assigned to you by other Hub users.
+        document_upload_notification_description: Receive email notifications when a client uploads a new document.
+        error: At least one notification type must be picked
+        new_client_message_notification_description: Receive email notifications when a client messages you.
+        notifications_subtitle: Choose the email notifications you’d like to receive.
+        notifications_title: Notification Preferences
+        save: Save Preferences
+        signed_8879_notification_description_html: Receive email notifications when a client signs a <i>Form 8879 (Unsigned).</i>
         start_date: Start date
+        tagged_in_note_notification_description: Receive email notifications when you’re tagged in any internal notes by other Hub users.
+        unsubscribe_all_description: Unsubscribe from all email notifications.
       strong_passwords:
         edit:
           body: In an effort to keep all client information safe and confidential please do not share this password with anyone.
@@ -1598,7 +1608,7 @@ en:
             post_deadline: |
               Hi %{primary_first_name},
 
-              You haven't submitted your state tax return yet. Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today.
+              You haven't submitted your state tax return yet. Go to <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today. The last day to submit your state tax return is October 22.
 
               Need help? Reply to this email.
 
@@ -1621,7 +1631,7 @@ en:
           post_deadline: |
             Hi %{primary_first_name} - You haven't submitted your state tax return yet.
 
-            Go to www.fileyourstatetaxes.org/en/login-options to finish them today
+            Go to www.fileyourstatetaxes.org/en/login-options to finish them today. The last day to submit your state tax return is October 22.
 
             Best,
             The FileYourStateTaxes team
@@ -1662,7 +1672,7 @@ en:
           body: |
             Hi %{primary_first_name},
 
-            It looks like you started a state tax return with FileYourStateTaxes but did not finish the process. Go to <a target="_blank" rel="noopener nofollow" href="http://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today.
+            You haven't submitted your state tax return yet. Go to <a target="_blank" rel="noopener nofollow" href="http://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a> to finish them today. The last day to submit your state tax return is October 22.
 
             If you have already filed using another service, no action is required.
 
@@ -1671,13 +1681,7 @@ en:
             Best,
             The FileYourStateTaxes team
           subject: Remember to finish your state tax return
-        sms: |
-          Hi %{primary_first_name} - You started a state tax return with FileYourStateTaxes but have not finished. Go to http://www.fileyourstatetaxes.org/en/login-options to finish them today
-
-          If you have already filed using another service, no action is required.
-
-          Best,
-          The FileYourStateTaxes team
+        sms: "Hi %{primary_first_name} - You started a state tax return with FileYourStateTaxes but have not finished. \n\nGo to http://www.fileyourstatetaxes.org/en/login-options to finish them today. The last day to submit your state tax return is October 22.\n\nIf you have already filed using another service, no action is required.\n\nNeed help? Email us at help@fileyourstatetaxes.org\n\nBest,\nThe FileYourStateTaxes team\n"
       october_transfer_reminder:
         email:
           body: |-
@@ -1754,9 +1758,26 @@ en:
 
             Best,
             The FileYourStateTaxes team
+          body_with_deadline: |
+            Hi %{primary_first_name},
+
+            Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at <a href="%{return_status_link}" target="_blank" rel="noopener nofollow">%{return_status_link}</a>.
+
+            The last day to resubmit is October 31st.
+
+            Need help? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
           subject: 'Action Needed: %{state_name} State Return Rejected'
         sms: |
           Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
+
+          Need help? Email us at help@fileyourstatetaxes.org.
+        sms_with_deadline: |
+          Hi %{primary_first_name} - Unfortunately, %{state_name} rejected your state tax return. Don't worry! We can help you fix and resubmit it at %{return_status_link}.
+
+          The last day to resubmit is October 31st.
 
           Need help? Email us at help@fileyourstatetaxes.org.
       still_processing:
@@ -4622,32 +4643,33 @@ en:
       about_page:
         check_back_for_prior_year_returns: Check back at the start of filing season to download your 2023 Arizona or New York State tax return.
         closed_subheader_html: |
-          <strong>FileYourStateTaxes</strong> integrates with <strong>IRS Direct File</strong> to help you complete your state tax return <strong>for free.</strong> <br/><br/>
-          <strong>We're closed for the tax season. Unfortunately you can no longer file your state return with us this year.</strong><br /><br />
-          Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024</strong><br /><br />
+          <strong>FileYourStateTaxes</strong> integrates with IRS Direct File to help you complete your state tax return for free.<br/><br/>
+          We're closed for the tax season. Unfortunately, you can no longer file your state return with us this year.<br /><br />
+          <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.<br /><br />
+        download_return_button: Download your 2024 return
         faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
         helper_heading_html: "<strong>How does this service work? </strong>"
-        looking_for_return_html: "<strong>Looking for your 2023 Arizona or New York State Tax Return?</strong> <a href='%{link}'>Sign in</a> to download a copy of your state return."
+        looking_for_return_html: "<strong>Filed your 2023 Arizona or New York return with us and want a copy?</strong> <a href='%{link}'>Sign in here</a> to download a copy of your state return."
         section1_html: |
           <ol class="list--numbered"  style="padding-left: 2rem">
-            <li>First, file and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> before using this service.</li>
+            <li>First, file and submit your federal return with <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a> before using this service. <strong>IRS Direct File will close on October 15th.</strong></li>
             <li>Follow the link from Direct File to FileYourStateTaxes.</li>
             <li>Answer a few questions to make sure this is the right service for you. <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Learn more</a> about who is eligible for this tax year.</li>
             <li>Transfer your federal return to fill in most of your state return.</li>
             <li>Answer a few additional questions to help maximize your state tax refund.</li>
             <li>E-file your return for free!</li>
           </ol>
-          <br /><br />
+          <br />
           <strong>To learn more, check out the <a href=%{faq_link}>FAQs</a>.</strong>
         subheader_1_html: |
           FileYourStateTaxes connects with IRS Direct File to help you complete your state tax return for free.
           <br /><br />
-          This site is now open and will remain open until October 15, 2025 for you to file your state tax returns.
+          This site will remain open until October 22nd, 2025 for you to file your state tax returns.
           <br /><br />
-          <strong>For the 2025 tax season, this service supports filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
-        subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a>
-        subheader_3_html: "<strong>Already started your state return and need to complete it?</strong> <a href=%{login_path}>Sign in here</a>."
+          <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
+        subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a> For any questions about IRS Direct File’s closure, <a href='%{faqs_path}'>visit our FAQs.</a>
+        subheader_3_html: "<strong>Already started your state taxes with us and need to complete them?</strong> <a href=%{login_path}>Sign in here</a> to continue filing."
       card_postscript:
         responses_saved_html: Your responses are saved. You can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> anytime.
       coming_soon:

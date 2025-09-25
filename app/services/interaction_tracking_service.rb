@@ -10,7 +10,7 @@ class InteractionTrackingService
     should_record_interaction = interaction_type.present? && interaction_type != 'unfilled'
     if should_record_interaction && Flipper.enabled?(:hub_email_notifications)
       users_to_contact = client.tax_returns.pluck(:assigned_user_id).compact
-      users_to_contact = User.where(id: users_to_contact, email_notification: "yes")
+      users_to_contact = User.where(id: users_to_contact, "#{interaction_type}_notification" => "yes")
       unless users_to_contact.empty?
         email_attrs = {
           received_at: attrs[:received_at] || interaction.created_at
@@ -45,7 +45,7 @@ class InteractionTrackingService
 
     if interaction_type == "tagged_in_note"
       user = attrs[:user]
-      if user&.email_notification_yes? && Flipper.enabled?(:hub_email_notifications)
+      if user&.tagged_in_note_notification_yes? && Flipper.enabled?(:hub_email_notifications)
         internal_email = InternalEmail.create!(
           mail_class: UserMailer,
           mail_method: :internal_interaction_notification_email,

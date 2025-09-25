@@ -76,6 +76,15 @@ class StateFileBaseIntake < ApplicationRecord
   end
   delegate :state_code, to: :class
 
+  def self.selected_intakes_for_deadline_reminder_soon_notifications
+    intakes = left_joins(:efile_submissions)
+                .where(efile_submissions: { id: nil })
+                .has_verified_contact_info
+                .where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)
+
+    intakes.select { |i| !i.disqualifying_df_data_reason.present? && !i.other_intake_with_same_ssn_has_submission? }
+  end
+
   def self.selected_intakes_for_deadline_reminder_notifications
     self.left_joins(:efile_submissions)
       .where(efile_submissions: { id: nil })

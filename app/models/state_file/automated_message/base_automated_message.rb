@@ -11,6 +11,7 @@ module StateFile::AutomatedMessage
 
     # Convenience methods for time
     def tax_deadline = Rails.application.config.tax_deadline
+    def end_of_login = Rails.configuration.end_of_login
 
     def app_time(body_args)
       body_args.fetch(:app_time, Time.current).to_datetime
