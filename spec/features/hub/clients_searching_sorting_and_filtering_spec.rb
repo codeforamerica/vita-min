@@ -431,7 +431,9 @@ RSpec.describe "searching, sorting, and filtering clients" do
           page.find('a', text: "Breached SLA").find('.clear-filter').click
         end
 
-        expect(page.all('.client-row').length).to eq 12
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 12
+        end
       end
     end
   end
