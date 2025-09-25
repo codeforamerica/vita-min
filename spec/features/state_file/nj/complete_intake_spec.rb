@@ -110,6 +110,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       continue
     end
 
+    def advance_dependents_health_insurance
+      page_change_check("In 2025, who in your household doesn't have health insurance with Minimum Essential Coverage?")
+      continue
+    end
+
     def advance_medical_expenses(amount: 1000)
       page_change_check("You may be able to deduct medical expenses.")
       fill_in I18n.t('state_file.questions.nj_medical_expenses.edit.label', filing_year: filing_year), with: amount
@@ -244,6 +249,9 @@ RSpec.feature "Completing a state file intake", active_job: true do
       if has_text? I18n.t("state_file.questions.nj_college_dependents_exemption.edit.title")
         advance_college_dependents
       end
+      if has_text? I18n.t("state_file.questions.nj_dependents_health_insurance.edit.title")
+        advance_dependents_health_insurance
+      end
       advance_medical_expenses
     end
 
@@ -278,6 +286,11 @@ RSpec.feature "Completing a state file intake", active_job: true do
       page_change_block do
         expect(page).to be_axe_clean
         advance_college_dependents
+      end
+
+      page_change_block do
+        expect(page).to be_axe_clean
+        advance_dependents_health_insurance
       end
       
       page_change_block do
