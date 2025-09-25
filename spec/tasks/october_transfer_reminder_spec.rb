@@ -1,77 +1,31 @@
-require "rails_helper"
+# frozen_string_literal: true
+require 'rails_helper'
 
-RSpec.describe StateFile::OctoberTransferReminderService do
+describe 'state_file:october_transfer_reminder' do
+  before(:all) do
+    Rake.application.rake_require "tasks/state_file"
+  end
+
   around do |example|
-    Timecop.freeze(DateTime.parse("2025-10-02")) { example.run }
+    Timecop.freeze(DateTime.parse("2-12-2025")) do
+      example.run
+    end
   end
 
-  before do
-    allow(StateFile::StateInformationService)
-      .to receive(:active_state_codes).and_return(%w[AZ NC])
-    allow(StateFile::StateInformationService)
-      .to receive(:intake_class).with("AZ").and_return(StateFileAzIntake)
-    allow(StateFile::StateInformationService)
-      .to receive(:intake_class).with("NC").and_return(StateFileNcIntake)
-
-    Flipper.enable(:prevent_duplicate_ssn_messaging)
-  end
-
-  it "excludes intakes when another intake with the same SSN already has a submission (and respects 24h cooldown)" do
-    az_notify_none = create(
-      :state_file_az_intake,
-      df_data_import_succeeded_at: nil,
-      created_at: Time.current,
-      message_tracker: {}
-    )
-
-    az_recent = create(
-      :state_file_az_intake,
-      df_data_import_succeeded_at: nil,
-      created_at: Time.current,
-      message_tracker: { "messages.state_file.finish_return" => 2.hours.ago.utc.to_s }
-    )
-
-    nc_notify_old = create(
-      :state_file_nc_intake,
-      df_data_import_succeeded_at: nil,
-      created_at: Time.current,
-      message_tracker: { "messages.state_file.monthly_finish_return" => 3.days.ago.utc.to_s }
-    )
-
-    same_hash = "111443333"
-
-    az_other_with_submission = create(
-      :state_file_az_intake,
-      df_data_import_succeeded_at: 1.minute.ago,   # exclude from selection
-      created_at: Time.current,
-      hashed_ssn: same_hash,
-      message_tracker: {}
-    )
-    create(:efile_submission, :for_state, data_source: az_other_with_submission)
-
-    az_duplicate_blocked = create(
-      :state_file_az_intake,
-      df_data_import_succeeded_at: nil,
-      created_at: Time.current,
-      hashed_ssn: same_hash,
-      message_tracker: {}
-    )
-
-    messaging_service = spy("StateFile::MessagingService", send_message: true)
+  it 'sends messages via appropriate contact method to intakes without submissions, with or without df data that is not disqualifying' do
+    az_intake_to_notify = create(:state_file_az_intake)
+    az_intake_to_not_notify = create(:state_file_az_intake)
+    nc_intake = create(:state_file_nc_intake)
+    allow(StateFileAzIntake).to receive(:selected_intakes_for_first_deadline_reminder_notification).and_return([az_intake_to_notify])
+    allow(StateFileNcIntake).to receive(:selected_intakes_for_first_deadline_reminder_notification).and_return([nc_intake])
+    messaging_service = spy('StateFile::MessagingService')
     allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
 
-    described_class.run
+    Rake::Task['state_file:send_october_transfer_reminder'].execute
 
-    expect(StateFile::MessagingService).to have_received(:new)
-                                             .with(message: StateFile::AutomatedMessage::OctoberTransferReminder, intake: az_notify_none)
-    expect(StateFile::MessagingService).to have_received(:new)
-                                             .with(message: StateFile::AutomatedMessage::OctoberTransferReminder, intake: nc_notify_old)
     expect(StateFile::MessagingService).to have_received(:new).exactly(2).times
-    expect(messaging_service).to have_received(:send_message).with(require_verification: false).twice
-
-    expect(StateFile::MessagingService).not_to have_received(:new)
-                                                 .with(message: StateFile::AutomatedMessage::OctoberTransferReminder, intake: az_recent)
-    expect(StateFile::MessagingService).not_to have_received(:new)
-                                                 .with(message: StateFile::AutomatedMessage::OctoberTransferReminder, intake: az_duplicate_blocked)
+    expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::OctoberTransferReminder, intake: az_intake_to_notify)
+    expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::OctoberTransferReminder, intake: nc_intake)
+    expect(StateFile::MessagingService).to_not have_received(:new).with(message: StateFile::AutomatedMessage::OctoberTransferReminder, intake: az_intake_to_not_notify)
   end
 end

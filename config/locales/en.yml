@@ -1712,7 +1712,7 @@ en:
           body: |
             Hi!
 
-            It looks like you created an account with FileYourStateTaxes but haven't transferred your federal return information from IRS Direct File. If you want to file your state return with us please do so before October 22nd.
+            It looks like you created an account with href="https://www.fileyourstatetaxes.org/">FileYourStateTaxes</a> but haven't transferred your federal return information from IRS Direct File. If you want to file your state return with us please do so before October 22nd.
 
             It's easy!  Get started now at <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/en/login-options">www.fileyourstatetaxes.org/en/login-options</a>. Need help? Reply to this email.
 
