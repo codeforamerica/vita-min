@@ -38,8 +38,6 @@ module StateFile
             StateFile::MessagingService
               .new(message: message, intake: intake)
               .send_message(require_verification: false)
-          rescue => e
-            Sentry.capture_exception(e, extra: { intake_id: intake.id })
           end
         end
       end
