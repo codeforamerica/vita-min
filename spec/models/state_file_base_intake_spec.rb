@@ -669,7 +669,7 @@ describe StateFileBaseIntake do
       allow(Flipper).to receive(:enabled?).with(:prevent_duplicate_ssn_messaging).and_return(true)
     end
 
-    it "returns intakes with verified contact info, valid df data, no df data, and without recent finish return messages or efile submissions or duplicate (same hashed_ssn) intake with efile submission" do
+    it "returns intakes with verified contact info, with or without df data, and without efile submissions or duplicate (same hashed_ssn) intake with efile submission" do
       results = StateFileAzIntake.selected_intakes_for_deadline_reminder_soon_notifications
       intakes_to_message = [
         az_intake_with_email_notifications_and_df_import,
