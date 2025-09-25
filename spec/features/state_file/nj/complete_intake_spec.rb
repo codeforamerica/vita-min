@@ -111,7 +111,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
     end
 
     def advance_dependents_health_insurance
-      page_change_check("In 2025, who in your household doesn't have health insurance with Minimum Essential Coverage?")
+      page_change_check(I18n.t("state_file.questions.nj_dependents_health_insurance.edit.label"))
       continue
     end
 
@@ -249,7 +249,7 @@ RSpec.feature "Completing a state file intake", active_job: true do
       if has_text? I18n.t("state_file.questions.nj_college_dependents_exemption.edit.title")
         advance_college_dependents
       end
-      if has_text? I18n.t("state_file.questions.nj_dependents_health_insurance.edit.title")
+      if has_text? I18n.t("state_file.questions.nj_dependents_health_insurance.edit.label")
         advance_dependents_health_insurance
       end
       advance_medical_expenses
