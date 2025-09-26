@@ -1,12 +1,10 @@
 class FakeAirtableClient
-  # Store records like FakeTwilioClient stores messages
   cattr_accessor :organizations
   self.organizations = []
 
   def initialize(*_args)
   end
 
-  # Mock the table access pattern
   def table(base_key, table_name)
     FakeAirtableTable.new(base_key, table_name, self)
   end
@@ -30,31 +28,87 @@ class FakeAirtableTable
   end
 end
 
+class FakeAirtableRecord
+  attr_accessor :fields
+
+  def initialize(fields:)
+    @fields = fields
+  end
+
+  def [](key)
+    @fields[key]
+  end
+end
+
+class FakeAirtableRecordContext
+  def initialize(table)
+    @table = table
+  end
+
+  def all
+    FakeAirtableClient.organizations
+  end
+end
+
 class FakeAirtableOrganization
   def self.all
     FakeAirtableClient.organizations
   end
 
-  def self.primary_locations
+  def self.language_offerings
     all.each_with_object({}) do |record, hash|
       org_name = record["Organization Name"]
-      primary_location = record["Primary location"]
-      hash[org_name] = primary_location if org_name.present?
+      languages = record["Language offerings"]
+      hash[org_name] = parse_languages(languages) if org_name.present?
     end
   end
-  
-  def self.add_record(org_name, location)
+
+  def self.organization_data
+    all.each_with_object({}) do |record, hash|
+      org_name = record["Organization Name"]
+      if org_name.present?
+        hash[org_name] = {
+          language_offerings: parse_languages(record["Language offerings"]),
+          primary_location: record["Primary location"],
+          services: record["Services"],
+          hours: record["Hours"],
+          contact_email: record["Contact Email"],
+          phone: record["Phone"]
+        }
+      end
+    end
+  end
+
+  def self.add_record(org_name, languages, additional_fields = {})
     record = FakeAirtableRecord.new(
       fields: {
         "Organization Name" => org_name,
-        "Primary location" => location
-      }
+        "Language offerings" => languages
+      }.merge(additional_fields)
     )
     FakeAirtableClient.organizations << record
     record
   end
 
+  def self.add_record_with_location(org_name, location, languages = [])
+    add_record(org_name, languages, { "Primary location" => location })
+  end
+
   def self.reset!
     FakeAirtableClient.organizations = []
+  end
+
+  private
+
+  def self.parse_languages(languages_field)
+    return [] if languages_field.blank?
+
+    if languages_field.is_a?(Array)
+      languages_field
+    elsif languages_field.is_a?(String)
+      languages_field.split(',').map(&:strip)
+    else
+      []
+    end
   end
 end
