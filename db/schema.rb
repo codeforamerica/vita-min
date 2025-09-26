@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_23_204400) do
+ActiveRecord::Schema[7.1].define(version: 2025_09_26_151436) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1941,8 +1941,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_23_204400) do
     t.string "visitor_id"
     t.integer "was_incarcerated", default: 0, null: false
     t.integer "withdraw_amount"
+    t.index ["created_at"], name: "index_state_file_az_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_az_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_az_intakes_on_hashed_ssn"
+    t.index ["id"], name: "index_state_file_az_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
+    t.index ["id"], name: "index_state_file_az_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
     t.index ["primary_state_id_id"], name: "index_state_file_az_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_az_intakes_on_spouse_state_id_id"
   end
@@ -2088,8 +2091,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_23_204400) do
     t.decimal "veterans_support_fund_donation", precision: 12, scale: 2
     t.string "visitor_id"
     t.integer "withdraw_amount"
+    t.index ["created_at"], name: "index_state_file_id_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_id_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_id_intakes_on_hashed_ssn"
+    t.index ["id"], name: "index_state_file_id_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
+    t.index ["id"], name: "index_state_file_id_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
     t.index ["primary_state_id_id"], name: "index_state_file_id_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_id_intakes_on_spouse_state_id_id"
   end
@@ -2206,8 +2212,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_23_204400) do
     t.string "visitor_id"
     t.decimal "withdraw_amount", precision: 12, scale: 2
     t.string "zip_code"
+    t.index ["created_at"], name: "index_state_file_md_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_md_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_md_intakes_on_hashed_ssn"
+    t.index ["id"], name: "index_state_file_md_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
+    t.index ["id"], name: "index_state_file_md_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
     t.index ["primary_state_id_id"], name: "index_state_file_md_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_md_intakes_on_spouse_state_id_id"
   end
@@ -2304,7 +2313,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_23_204400) do
     t.string "visitor_id"
     t.integer "withdraw_amount"
     t.string "zip_code"
+    t.index ["created_at"], name: "index_state_file_nc_intakes_on_created_at"
     t.index ["hashed_ssn"], name: "index_state_file_nc_intakes_on_hashed_ssn"
+    t.index ["id"], name: "index_state_file_nc_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
+    t.index ["id"], name: "index_state_file_nc_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
     t.index ["primary_state_id_id"], name: "index_state_file_nc_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_nc_intakes_on_spouse_state_id_id"
   end
@@ -2461,8 +2473,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_23_204400) do
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
+    t.index ["created_at"], name: "index_state_file_nj_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_nj_intakes_on_email_address"
     t.index ["hashed_ssn"], name: "index_state_file_nj_intakes_on_hashed_ssn"
+    t.index ["id"], name: "index_state_file_nj_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
+    t.index ["id"], name: "index_state_file_nj_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
     t.index ["primary_state_id_id"], name: "index_state_file_nj_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_nj_intakes_on_spouse_state_id_id"
   end
