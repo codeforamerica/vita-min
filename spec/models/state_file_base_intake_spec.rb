@@ -593,14 +593,14 @@ describe StateFileBaseIntake do
     let!(:az_intake_with_email_notifications_and_df_import) {
       create :state_file_az_intake,
              df_data_imported_at: 2.minutes.ago,
-             email_address: 'test@example.com',
+             email_address: 'test_1@example.com',
              email_address_verified_at: 5.minutes.ago,
              email_notification_opt_in: 1
     }
-    let!(:az_intake_with_email_notifications_and_df_import_from_last_year) {
+    let!(:az_intake_from_last_year) {
       create :state_file_az_intake,
              df_data_imported_at: 2.minutes.ago,
-             email_address: 'test@example.com',
+             email_address: 'test_2@example.com',
              email_address_verified_at: 5.minutes.ago,
              email_notification_opt_in: 1,
              created_at: (1.year.ago)
@@ -608,13 +608,14 @@ describe StateFileBaseIntake do
     let!(:az_intake_with_email_notifications_without_df_import) {
       create :state_file_az_intake,
              df_data_imported_at: nil,
-             email_address: 'test@example.com',
+             email_address: 'test_3@example.com',
              email_address_verified_at: 5.minutes.ago,
              email_notification_opt_in: 1
     }
     let!(:az_intake_with_text_notifications_and_df_import) {
       create :state_file_az_intake,
              df_data_imported_at: 2.minutes.ago,
+             email_address: 'test_4@example.com',
              phone_number: "+15551115511",
              sms_notification_opt_in: 1,
              phone_number_verified_at: 5.minutes.ago
@@ -622,6 +623,7 @@ describe StateFileBaseIntake do
     let!(:az_intake_with_unverified_text_notifications_and_df_import) {
       create :state_file_az_intake,
              df_data_imported_at: 2.minutes.ago,
+             email_address: 'test_5@example.com',
              phone_number: "+15551115511",
              sms_notification_opt_in: "yes",
              email_address: 'test@example.com',
@@ -631,7 +633,7 @@ describe StateFileBaseIntake do
     let!(:az_intake_submitted) {
       create :state_file_az_intake,
              df_data_imported_at: 2.minutes.ago,
-             email_address: 'test+01@example.com',
+             email_address: 'test_6@example.com',
              email_address_verified_at: 5.minutes.ago,
              email_notification_opt_in: 1
     }
@@ -639,14 +641,14 @@ describe StateFileBaseIntake do
     let!(:az_intake_has_disqualifying_df_data) {
       create :state_file_az_intake,
              filing_status: :married_filing_separately,
-             email_address: "test@example.com",
+             email_address: "test_7@example.com",
              email_address_verified_at: 1.hour.ago,
              email_notification_opt_in: 1,
              df_data_imported_at: 2.minutes.ago
     }
     let!(:az_intake_submitted_ssn_duplicate) {
       create :state_file_az_intake,
-             email_address: "test@example.com",
+             email_address: "test_8@example.com",
              email_address_verified_at: 1.hour.ago,
              email_notification_opt_in: 1,
              phone_number: nil,
@@ -676,6 +678,8 @@ describe StateFileBaseIntake do
         az_intake_with_text_notifications_and_df_import,
         az_intake_with_email_notifications_without_df_import,
         az_intake_with_unverified_text_notifications_and_df_import,
+        az_intake_has_disqualifying_df_data,
+        az_intake_submitted_ssn_duplicate
       ]
       expect(results).to match_array(intakes_to_message)
     end

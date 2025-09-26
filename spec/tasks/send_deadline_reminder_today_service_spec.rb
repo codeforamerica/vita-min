@@ -6,12 +6,6 @@ describe 'state_file:send_deadline_reminder_today' do
     Rake.application.rake_require "tasks/state_file"
   end
 
-  around do |example|
-    Timecop.freeze(DateTime.parse("2-12-2025")) do
-      example.run
-    end
-  end
-
   it 'sends messages via appropriate contact method to intakes without submissions, with or without df data that is not disqualifying' do
     az_intake_to_notify = create(:state_file_az_intake)
     az_intake_to_not_notify = create(:state_file_az_intake)
