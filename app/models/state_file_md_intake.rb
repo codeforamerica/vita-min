@@ -143,8 +143,8 @@ class StateFileMdIntake < StateFileBaseIntake
   enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
 
   def disqualifying_df_data_reason
-    return :spouse_nra_html if nra_spouse?
     return unless direct_file_data.present?
+    return :spouse_nra_html if nra_spouse?
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     return :has_out_of_state_w2 if w2_states.any? do |state|
       (state.text || '').upcase != state_code.upcase
