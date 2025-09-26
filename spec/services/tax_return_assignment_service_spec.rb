@@ -120,5 +120,17 @@ describe TaxReturnAssignmentService do
         }.not_to change(InternalEmail, :count).from(0)
       end
     end
+
+    context "when client has an archived intake" do
+      before do
+        allow_any_instance_of(Client).to receive(:has_archived_intake?).and_return true
+      end
+
+      it "does not send email" do
+        expect {
+          subject.send_notifications
+        }.not_to change(InternalEmail, :count).from(0)
+      end
+    end
   end
 end
