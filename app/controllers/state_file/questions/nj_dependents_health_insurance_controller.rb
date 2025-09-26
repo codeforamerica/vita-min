@@ -3,7 +3,7 @@ module StateFile
     class NjDependentsHealthInsuranceController < QuestionsController
 
       def self.show?(intake)
-        intake.dependents.any? && intake.has_health_insurance_requirement_exception?
+        intake.dependents.any?
       end
 
       def form_params
