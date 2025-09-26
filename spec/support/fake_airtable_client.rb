@@ -69,11 +69,6 @@ class FakeAirtableOrganization
       if org_name.present?
         hash[org_name] = {
           language_offerings: parse_languages(record["Language offerings"]),
-          primary_location: record["Primary location"],
-          services: record["Services"],
-          hours: record["Hours"],
-          contact_email: record["Contact Email"],
-          phone: record["Phone"]
         }
       end
     end
@@ -88,10 +83,6 @@ class FakeAirtableOrganization
     )
     FakeAirtableClient.organizations << record
     record
-  end
-
-  def self.add_record_with_location(org_name, location, languages = [])
-    add_record(org_name, languages, { "Primary location" => location })
   end
 
   def self.reset!

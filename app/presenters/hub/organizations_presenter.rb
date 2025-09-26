@@ -4,7 +4,6 @@ module Hub
 
     def initialize(current_ability)
       @current_ability = current_ability
-      @airtable_locations = load_airtable_locations
       accessible_organizations = Organization.accessible_by(current_ability)
       @organizations = accessible_organizations.includes(:child_sites).with_computed_client_count.load
       @coalitions = Coalition.accessible_by(current_ability)
@@ -19,13 +18,6 @@ module Hub
     Capacity = Struct.new(:current_count, :total_capacity) do
       def initialize(current_count = 0, total_capacity = 0)
         super
-      end
-    end
-
-    def load_airtable_locations
-      # caching cause airtable data can be updated
-      Rails.cache.fetch('airtable_primary_locations', expires_in: 1.hour) do
-        Airtable::Organization.primary_locations
       end
     end
 
