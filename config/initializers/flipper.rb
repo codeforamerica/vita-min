@@ -13,7 +13,6 @@ begin
   Flipper.disable :hub_dashboard unless Flipper.exist?(:hub_dashboard)
   Flipper.disable :hub_email_notifications unless Flipper.exist?(:hub_email_notifications)
   Flipper.disable :income_review_v2 unless Flipper.exist?(:income_review_v2)
-  Flipper.disable :enable_rack_attack unless Flipper.exist?(:enable_rack_attack)
   Flipper.disable :show_retirement_ui unless Flipper.exist?(:show_retirement_ui)
   Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
   Flipper.disable :use_pundit unless Flipper.exist?(:use_pundit)
