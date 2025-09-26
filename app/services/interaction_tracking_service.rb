@@ -56,7 +56,7 @@ class InteractionTrackingService
             interaction_type: interaction_type,
           )
         )
-        SendInternalEmailJob.perform_later(internal_email)
+        SendInternalEmailJob.perform_later(internal_email) unless client.has_archived_intake?
       end
     end
 
