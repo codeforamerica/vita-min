@@ -208,7 +208,8 @@ class StateFileNyIntake < StateFileBaseIntake
   IRC_125_CODES = ['IRC125S', 'IRS125']
   YONKERS_CODES = ['YK', 'YON', 'YNK', 'CITYOFYK', 'CTYOFYKR', 'CITYOF YK', 'CTY OF YK']
   def disqualifying_df_data_reason
-    return unless direct_file_data.present?
+    return unless raw_direct_file_data.present?
+
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')
     return :has_out_of_state_w2 if w2_states.any? do |state|
       (state.text || '').upcase != state_code.upcase

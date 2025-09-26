@@ -31,7 +31,7 @@ describe 'state_file:send_deadline_reminder_today' do
     }
     let!(:az_intake_with_email_notifications_without_df_import) {
       create :state_file_az_intake,
-             df_data_imported_at: nil,
+             raw_direct_file_data: nil,
              email_address: 'test_3@example.com',
              email_address_verified_at: 5.minutes.ago,
              email_notification_opt_in: 1
@@ -118,6 +118,34 @@ describe 'state_file:send_deadline_reminder_today' do
       expect(StateFile::MessagingService).to have_received(:new).with(
         message: StateFile::AutomatedMessage::DeadlineReminderToday,
         intake: az_intake_with_no_raw_direct_file_data
+      )
+    end
+  end
+
+  context "for NJ intakes" do
+    let!(:nj_intake_with_email_notifications_and_df_import) {
+      create :state_file_nj_intake,
+             email_address: 'test_1@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:nj_intake_with_email_notifications_without_df_import) {
+      create :state_file_nj_intake,
+             raw_direct_file_data: nil,
+             email_address: 'test_3@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    it 'sends to intakes with verified contact info, with or without df data, and without efile submissions or duplicate (same hashed_ssn) intakes with efile submission' do
+      Rake::Task['state_file:send_deadline_reminder_today'].execute
+      expect(StateFile::MessagingService).to have_received(:new).exactly(2).times
+      expect(StateFile::MessagingService).to have_received(:new).with(
+        message: StateFile::AutomatedMessage::DeadlineReminderToday,
+        intake: nj_intake_with_email_notifications_and_df_import
+      )
+      expect(StateFile::MessagingService).to have_received(:new).with(
+        message: StateFile::AutomatedMessage::DeadlineReminderToday,
+        intake: nj_intake_with_email_notifications_without_df_import
       )
     end
   end
