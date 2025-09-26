@@ -8,10 +8,5 @@
       (<%= t(".site_count", count: organization.child_sites.length) %>)
     </div>
   </div>
-  <% if (primary_location = @presenter.load_airtable_locations[organization.name]) %>
-    <div class="location-text item-5l">
-      <%= "Primary locations: " %><%= primary_location %>
-    </div>
-  <% end %>
   <div><%= display_capacity(@presenter.organization_capacity(organization)) %></div>
 </li>
