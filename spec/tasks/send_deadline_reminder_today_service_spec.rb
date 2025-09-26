@@ -114,6 +114,5 @@ describe 'state_file:send_deadline_reminder_today' do
         intake: az_intake_with_no_raw_direct_file_data
       )
     end
-
   end
 end

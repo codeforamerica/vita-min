@@ -77,13 +77,13 @@ class StateFileBaseIntake < ApplicationRecord
   delegate :state_code, to: :class
 
   def self.selected_intakes_for_deadline_reminder_soon_notifications
-    self.missing(:efile_submissions)
+    self.where.missing(:efile_submissions)
         .has_verified_contact_info
         .where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)
   end
 
   def self.selected_intakes_for_deadline_reminder_notifications
-    self.missing(:efile_submissions)
+    self.where.missing(:efile_submissions)
       .where.not(df_data_imported_at: nil)
       .has_verified_contact_info
       .select(&:should_be_sent_reminder?)
