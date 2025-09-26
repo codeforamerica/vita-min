@@ -2,8 +2,11 @@
 require 'rails_helper'
 
 describe 'state_file:send_deadline_reminder_today' do
-  before(:all) do
+  before do
     Rake.application.rake_require "tasks/state_file"
+    allow(Flipper).to receive(:enabled?).with(:prevent_duplicate_ssn_messaging).and_return(true)
+    messaging_service = spy('StateFile::MessagingService')
+    allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
   end
 
   around do |example|
@@ -12,20 +15,110 @@ describe 'state_file:send_deadline_reminder_today' do
     end
   end
 
-  it 'sends messages via appropriate contact method to intakes without submissions, with or without df data that is not disqualifying' do
-    az_intake_to_notify = create(:state_file_az_intake)
-    az_intake_to_not_notify = create(:state_file_az_intake)
-    nc_intake = create(:state_file_nc_intake)
-    allow(StateFileAzIntake).to receive(:selected_intakes_for_deadline_reminder_soon_notifications).and_return([az_intake_to_notify])
-    allow(StateFileNcIntake).to receive(:selected_intakes_for_deadline_reminder_soon_notifications).and_return([nc_intake])
-    messaging_service = spy('StateFile::MessagingService')
-    allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
+  context "for AZ intakes" do
+    let!(:az_intake_with_email_notifications_and_df_import) {
+      create :state_file_az_intake,
+             email_address: 'test_1@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:az_intake_with_email_notifications_and_df_import_from_last_year) {
+      create :state_file_az_intake,
+             email_address: 'test_2@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1,
+             created_at: (1.year.ago)
+    }
+    let!(:az_intake_with_email_notifications_without_df_import) {
+      create :state_file_az_intake,
+             df_data_imported_at: nil,
+             email_address: 'test_3@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:az_intake_with_sms_and_df_import) {
+      create :state_file_az_intake,
+             email_address: 'test_4@example.com',
+             phone_number: "+15551115511",
+             sms_notification_opt_in: 1,
+             phone_number_verified_at: 5.minutes.ago
+    }
+    let!(:az_intake_with_unverified_sms_verified_email) {
+      create :state_file_az_intake,
+             phone_number: "+15551115511",
+             sms_notification_opt_in: "yes",
+             email_address: 'test_5@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: "no"
+    }
+    let!(:az_intake_submitted) {
+      create :state_file_az_intake,
+             email_address: 'test_6@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:efile_submission) { create :efile_submission, :for_state, data_source: az_intake_submitted }
+    let!(:az_intake_has_disqualifying_df_data) {
+      create :state_file_az_intake,
+             filing_status: :married_filing_separately,
+             email_address: "test_7@example.com",
+             email_address_verified_at: 1.hour.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:az_intake_with_no_raw_direct_file_data) {
+      create :state_file_az_intake,
+             raw_direct_file_data: nil,
+             raw_direct_file_intake_data: nil,
+             email_address: 'test_9@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1
+    }
+    let!(:az_intake_submitted_ssn_dupe_with_submission) {
+      create :state_file_az_intake,
+             email_address: "test_8@example.com",
+             email_address_verified_at: 1.hour.ago,
+             email_notification_opt_in: 1,
+             phone_number: nil,
+             hashed_ssn: "111443333"
+    }
+    let!(:efile_submission_for_duplicate) {
+      create :efile_submission,
+             :for_state,
+             data_source: az_intake_submitted_ssn_dupe_with_submission
+    }
+    let!(:az_intake_submitted_ssn_match_for_dupe) {
+      create :state_file_az_intake,
+             email_address: "test_8@example.com",
+             email_address_verified_at: 1.hour.ago,
+             email_notification_opt_in: 1,
+             phone_number: nil,
+             hashed_ssn: "111443333"
+    }
 
-    Rake::Task['state_file:send_deadline_reminder_today'].execute
 
-    expect(StateFile::MessagingService).to have_received(:new).exactly(2).times
-    expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::DeadlineReminderToday, intake: az_intake_to_notify)
-    expect(StateFile::MessagingService).to have_received(:new).with(message: StateFile::AutomatedMessage::DeadlineReminderToday, intake: nc_intake)
-    expect(StateFile::MessagingService).to_not have_received(:new).with(message: StateFile::AutomatedMessage::DeadlineReminderToday, intake: az_intake_to_not_notify)
+    it 'sends to intakes with verified contact info, with or without df data, and without efile submissions or duplicate (same hashed_ssn) intakes with efile submission' do
+      Rake::Task['state_file:send_deadline_reminder_today'].execute
+      expect(StateFile::MessagingService).to have_received(:new).exactly(5).times
+      expect(StateFile::MessagingService).to have_received(:new).with(
+        message: StateFile::AutomatedMessage::DeadlineReminderToday,
+        intake: az_intake_with_email_notifications_and_df_import
+      )
+      expect(StateFile::MessagingService).to have_received(:new).with(
+        message: StateFile::AutomatedMessage::DeadlineReminderToday,
+        intake: az_intake_with_email_notifications_without_df_import
+      )
+      expect(StateFile::MessagingService).to have_received(:new).with(
+        message: StateFile::AutomatedMessage::DeadlineReminderToday,
+        intake: az_intake_with_sms_and_df_import
+      )
+      expect(StateFile::MessagingService).to have_received(:new).with(
+        message: StateFile::AutomatedMessage::DeadlineReminderToday,
+        intake: az_intake_with_unverified_sms_verified_email
+      )
+      expect(StateFile::MessagingService).to have_received(:new).with(
+        message: StateFile::AutomatedMessage::DeadlineReminderToday,
+        intake: az_intake_with_no_raw_direct_file_data
+      )
+    end
   end
 end
