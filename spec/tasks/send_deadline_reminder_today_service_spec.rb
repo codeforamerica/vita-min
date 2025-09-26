@@ -8,7 +8,7 @@ describe 'state_file:send_deadline_reminder_today' do
     messaging_service = spy('StateFile::MessagingService')
     allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
   end
-  
+
   around do |example|
     Timecop.freeze(DateTime.parse("2-12-2025")) do
       example.run
