@@ -8,6 +8,12 @@ describe 'state_file:send_deadline_reminder_today' do
     messaging_service = spy('StateFile::MessagingService')
     allow(StateFile::MessagingService).to receive(:new).and_return(messaging_service)
   end
+  
+  around do |example|
+    Timecop.freeze(DateTime.parse("2-12-2025")) do
+      example.run
+    end
+  end
 
   context "for AZ intakes" do
     let!(:az_intake_with_email_notifications_and_df_import) {
