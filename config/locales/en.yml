@@ -4341,6 +4341,7 @@ en:
           title: You have submitted your %{filing_year} %{state_name} state tax return
           waiting_for acceptance: Your state tax return is still waiting to be accepted.
         rejected:
+          closing_soon_html: "<strong>You can edit and resubmit your state tax return until October 31st.</strong> After that date, you can only download a copy of your submitted state tax return."
           edit_return: Edit your state return
           email_us_html: Email us at <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           have_questions: Have questions?
