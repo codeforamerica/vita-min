@@ -94,12 +94,9 @@ class StateFileBaseIntake < ApplicationRecord
   end
 
   def self.selected_intakes_for_first_deadline_reminder_notification
-    intakes = left_joins(:efile_submissions)
-                .where(df_data_imported_at: nil)
-                .where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)
-                .select(&:should_be_sent_reminder?)
-
-    intakes.select { |i| !i.disqualifying_df_data_reason.present? && !i.other_intake_with_same_ssn_has_submission? }
+    self.where(df_data_imported_at: nil)
+        .where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)
+        .select(&:should_be_sent_reminder?)
   end
 
   def should_be_sent_reminder?
