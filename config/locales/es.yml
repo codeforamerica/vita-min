@@ -3709,7 +3709,7 @@ es:
           continue: Haz clic en "Continuar" si todas estas personas tenían seguro médico.
           coverage_heading: "¿Qué es el seguro de salud con cobertura mínima esencial?"
           label: 'Marca a todas las personas dependientes que NO tienen seguro de salud:'
-          title_html: ¿En %{current_year}, quién en tu hogar tributario/fiscal no tiene seguro de salud con <a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Cobertura Esencial Mínima</a>?
+          title_html: ¿En %{current_year}, quién en tu hogar tributario/fiscal no tiene seguro de salud con <a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Cobertura Esencial Mínima?</a>
       nj_disabled_exemption:
         edit:
           instructions_html: "<p>En New Jersey, se considera que una persona tiene una discapacidad si tiene una \"incapacidad <strong>total y permanente</strong> para realizar cualquier actividad lucrativa sustancial debido a cualquier discapacidad física o mental, incluida la ceguera.\"</p>  \n<p>(Esto es diferente de la definición de impuestos federales. New Jersey no considera tu edad ni la recepción de ingresos por discapacidad imponibles).</p>\n"
