@@ -77,9 +77,12 @@ class StateFileBaseIntake < ApplicationRecord
   delegate :state_code, to: :class
 
   def self.selected_intakes_for_deadline_reminder_soon_notifications
-    self.where.missing(:efile_submissions)
-        .has_verified_contact_info
-        .where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)
+    intakes = self.where.missing(:efile_submissions)
+                  .where.not(df_data_imported_at: nil)
+                  .has_verified_contact_info
+                  .where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)
+
+    intakes.select { |i| !i.disqualifying_df_data_reason.present? && !i.other_intake_with_same_ssn_has_submission? }
   end
 
   def self.selected_intakes_for_deadline_reminder_notifications

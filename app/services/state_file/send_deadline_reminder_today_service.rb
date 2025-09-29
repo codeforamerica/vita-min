@@ -10,20 +10,10 @@ module StateFile
 
       intakes_to_notify.each_slice(BATCH_SIZE) do |batch|
         batch.each do |intake|
-          begin
-            if (intake.raw_direct_file_data.present? && intake.disqualifying_df_data_reason.present?) || intake.other_intake_with_same_ssn_has_submission?
-              next
-            end
-            StateFile::MessagingService.new(
-              message: StateFile::AutomatedMessage::DeadlineReminderToday,
-              intake: intake
-            ).send_message
-          rescue Exception => e
-            Sentry.capture_exception(e, extra: {
-              intake_id: intake.id,
-              intake_class: intake.class.table_name
-            })
-          end
+          StateFile::MessagingService.new(
+            message: StateFile::AutomatedMessage::DeadlineReminderToday,
+            intake: intake
+          ).send_message
         end
       end
     end
