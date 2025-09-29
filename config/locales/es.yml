@@ -2304,7 +2304,7 @@ es:
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
     landing_page:
       edit:
-        already_filed_html: "<strong>¿Ya presentaste tus impuestos estatales con nosotros?</strong> You can download a copy of your state return below."
+        already_filed_html: "<strong>¿Ya presentaste tus impuestos estatales con nosotros?</strong> Puedes descargar una copia de tu declaración estatal a continuación."
         already_started_html: "<strong>¿Ya comenzaste tu declaración de impuestos estatales con nosotros y necesitas completarlos?</strong> <a href='%{sign_in_url}'>Inicia sesión aquí</a> para continuar con la declaración."
         az:
           closed_html: |
