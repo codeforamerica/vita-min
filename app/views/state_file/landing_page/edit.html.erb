@@ -34,7 +34,13 @@
             <% end %>
           <% else %>
             <div class="warning">
-              <%= t(".closing_soon_html") %>
+              <% if Flipper.enabled?(:immediate_df_closure) %>
+                <%= t(".immediate_df_closure_closing_soon_html",
+                      closing_verb_phrase: app_time > Rails.configuration.state_file_immediate_df_closure ? t(".immediate_df_closure_closed") : t(".immediate_df_closure_will_close"),
+                      closing_date: I18n.l(Rails.configuration.state_file_immediate_df_closure.to_date, format: :long)) %>
+              <% else %>
+                <%= t(".closing_soon_html") %>
+              <% end %>
             </div>
 
             <% if @user_name.present? %>

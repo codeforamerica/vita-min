@@ -2362,6 +2362,9 @@ en:
             Unfortunately, you can no longer file your state return with us this year.
           supported_by: Supported by the state of Idaho
           title: File your Idaho state taxes for free
+        immediate_df_closure_closed: closed
+        immediate_df_closure_closing_soon_html: "<strong>IRS Direct File %{closing_verb_phrase} on %{closing_date}, and October 22nd is the last day you can file your state return with FileYourStateTaxes.</strong> To do this, you must have submitted a federal return using IRS Direct File by %{closing_date}."
+        immediate_df_closure_will_close: will close
         md:
           closed_html: |
             We're closed for the tax season.<br /><br />

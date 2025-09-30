@@ -2346,6 +2346,9 @@ es:
             Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Idaho
           title: Declara tus impuestos estatales de Idaho sin costo
+        immediate_df_closure_closed: cerró
+        immediate_df_closure_closing_soon_html: "<strong>IRS Direct File %{closing_verb_phrase} el %{closing_date} y el 22 de octubre es el último día en que puedes presentar tu declaración estatal con FileYourStateTaxes.</strong> Para hacerlo, debes haber enviado una declaración federal utilizando IRS Direct File antes de el %{closing_date}."
+        immediate_df_closure_will_close: cerrará
         md:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
