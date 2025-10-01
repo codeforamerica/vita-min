@@ -1,10 +1,29 @@
 <% title = t(".title") %>
 <% content_for :page_title, title %>
 <% content_for :card do %>
-  <h1 class="h2" id="main-question"><%= title %></h1>
-  <p><%= t('.description_html') %></p>
+  <% transfer_disabled = app_time > Rails.configuration.state_file_end_of_new_intakes || Flipper.enabled?(:immediate_df_closure) %>
 
-  <%= render "state_file/questions/initiate_data_transfer/data_transfer_buttons" %>
+  <% if transfer_disabled %>
+    <h1 class="h2" id="main-question"><%= t(".immediate_df_closure_title") %></h1>
+    <p>
+      <%= t('.immediate_df_closure_description_html',
+             closing_date: I18n.l(Rails.configuration.state_file_immediate_df_closure.to_date, format: :long)) %>
+    </p>
+    <div class="reveal">
+      <button class="reveal__button">
+        <%= t(".immediate_df_closure_other_filing_options_header") %>
+      </button>
+      <div class="reveal__content">
+        <%= t(".immediate_df_closure_other_filing_options_content_html", faq_path: "/#{I18n.locale}/az/faq/other_state_filing_options") %>
+      </div>
+    </div>
+  <% else %>
+    <h1 class="h2" id="main-question"><%= title %></h1>
+    <p><%= t('.description_html') %></p>
+  <% end %>
 
-  <div class="card-postscript"><%= t('.button_help_text') %></div>
+  <% unless transfer_disabled %>
+    <%= render "state_file/questions/initiate_data_transfer/data_transfer_buttons" %>
+    <div class="card-postscript"><%= t('.button_help_text') %></div>
+  <% end %>
 <% end %>

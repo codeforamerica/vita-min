@@ -3357,6 +3357,21 @@ en:
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email and spam folder for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
           title: Now, let’s complete your state tax return
+          immediate_df_closure_title: You can no longer transfer your federal return data from IRS Direct File
+          immediate_df_closure_description_html: |
+            <p>IRS Direct File closed on %{closing_date}. Unfortunately, the deadline to transfer your federal return data from IRS Direct File to FileYourStateTaxes has passed.</p>
+            <p>Since FileYourStateTaxes uses data from IRS Direct File to file your state return, you can no longer complete your state return with us.</p>
+            <p>If you’ve already transferred your data over from IRS Direct File and are seeing this screen, you unfortunately missed the deadline to file your state return with FileYourStateTaxes.</p>
+          immediate_df_closure_other_filing_options_header: What are my other state filing options?
+          immediate_df_closure_other_filing_options_content_html: |
+            <p>Many commercial tax preparation services offer state-only filing. Here are some quick tips:</p>
+            <ul>
+              <li>Confirm that the service lets you file just your state return. You might need to check with customer support.</li>
+              <li>Be ready to reenter info from your federal return, as it’s needed for your state return.</li>
+              <li>When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.</li>
+            </ul>
+            <p>Fees may apply.</p>
+            <p>Learn more <a href=%{faq_path}>here.</a></p>
       md_county:
         edit:
           county_html: "<strong>County</strong>"
