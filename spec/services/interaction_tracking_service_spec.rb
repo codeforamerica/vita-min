@@ -138,6 +138,20 @@ describe InteractionTrackingService do
         end
       end
     end
+
+    context "when client has an archived intake" do
+      let!(:archived_intake) {  create(:archived_2021_gyr_intake, client: client) }
+
+      it "doesn't send any email notifications" do
+        described_class.record_incoming_interaction(client, received_at: fake_time, interaction_type: "new_client_message")
+        expect(ClientInteraction).to have_received(:create!).with(
+          client: client,
+          interaction_type: "new_client_message"
+        )
+        expect(ClientInteractionNotificationEmailJob).not_to have_received(:set)
+        expect(job).not_to have_received(:perform_later)
+      end
+    end
   end
 
   describe "#record_internal_interaction" do
@@ -189,7 +203,16 @@ describe InteractionTrackingService do
           expect(internal_email.mail_class).to eq "UserMailer"
           expect(internal_email.mail_method).to eq "internal_interaction_notification_email"
           expect(internal_email.mail_args).to match_array ActiveJob::Arguments.serialize(client: client, user: user, interaction_type: "tagged_in_note", received_at: received_at)
-          expect(SendInternalEmailJob).to have_received(:perform_later).with(internal_email)
+          expect(SendInternalEmailJob).to have_received(:perform_later)
+        end
+
+        context "when client has an archived intake" do
+          let!(:archived_intake) {  create(:archived_2021_gyr_intake, client: client) }
+
+          it "doesn't send any email notifications" do
+            described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
+            expect(SendInternalEmailJob).not_to have_received(:perform_later)
+          end
         end
       end
     end

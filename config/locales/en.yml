@@ -2351,13 +2351,13 @@ en:
       no_match_sms: Someone tried to sign in to FileYourStateTaxes with this phone number, but we couldn't find a match. Did you sign up with a different phone number? You can also visit %{url} to get started.
     landing_page:
       edit:
-        already_filed_html: Already filed your state taxes with us? <strong>You can download a copy of your state return until December 31, 2024.</strong>
+        already_filed_html: "<strong>Already filed your state taxes with us?</strong> You can download a copy of your 2024 state return below."
         already_started_html: <strong>Already started your state taxes with us and need to complete them?</strong> <a href="%{sign_in_url}">Sign in here</a> to continue filing.
         az:
           closed_html: |
             We're closed for the tax season.<br /><br />
             <strong>FileYourStateTaxes</strong> is built in partnership with the state of Arizona to integrate with IRS Direct File.<br /><br />
-            Unfortunately you cannot file your state return with us this year.
+            Unfortunately, you can no longer file your state return with us this year.
           supported_by: Supported by the state of Arizona
           title: File your Arizona state taxes for free
         az_get_2023_return_html: <strong>Filed your 2023 return with us and want a copy?</strong> <a href="%{sign_in_path}">Sign in here</a> to download a copy of your state return.
@@ -2367,7 +2367,7 @@ en:
           This service is built in partnership with the state of %{state_name} to integrate with IRS Direct File.
         closing_soon_html: "<strong>October 22nd is the last day you can file your state return with FileYourStateTaxes.</strong> To do this, you must have submitted a federal return using IRS Direct File by its closing date, October 15th. You can transfer your data to FileYourStateTaxes until October 22nd."
         continue: To continue filing your %{state_name} State return, please sign in below.
-        download_your_record: Download Your Record
+        download_your_record: Download your 2024 return
         help_text_html: |
           <ul class="list--bulleted">
             <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
@@ -2381,21 +2381,21 @@ en:
           closed_html: |
             We're closed for the tax season.<br /><br />
             <strong>FileYourStateTaxes</strong> is built in partnership with the state of Idaho to integrate with IRS Direct File.<br /><br />
-            Unfortunately you cannot file your state return with us this year.
+            Unfortunately, you can no longer file your state return with us this year.
           supported_by: Supported by the state of Idaho
           title: File your Idaho state taxes for free
         md:
           closed_html: |
             We're closed for the tax season.<br /><br />
             <strong>FileYourStateTaxes</strong> is built in partnership with the state of Maryland to integrate with IRS Direct File.<br /><br />
-            Unfortunately you cannot file your state return with us this year.
+            Unfortunately, you can no longer file your state return with us this year.
           supported_by: Supported by the state of Maryland
           title: File your Maryland state taxes for free
         nc:
           closed_html: |
             We're closed for the tax season.<br /><br />
             <strong>FileYourStateTaxes</strong> is built in partnership with the state of North Carolina to integrate with IRS Direct File.<br /><br />
-            Unfortunately you cannot file your state return with us this year.
+            Unfortunately, you can no longer file your state return with us this year.
           supported_by: Supported by the state of North Carolina
           title: File your North Carolina state taxes for free
         nj:
@@ -2403,7 +2403,7 @@ en:
             <strong>FileYourStateTaxes</strong> takes about 10 to 15 minutes to complete. Get started by setting up your account.
             <br/><br/>
             This service is built in partnership with the New Jersey Office of Innovation to integrate with IRS Direct File.
-          closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with IRS Direct File.<br /><br />\nWe're closed for the tax season. Unfortunately you can no longer file your state return with us this year.              \n"
+          closed_html: "<strong>FileYourStateTaxes</strong> is built in partnership with the New Jersey Office of Innovation to integrate with IRS Direct File.<br /><br />\nWe're closed for the tax season. Unfortunately, you can no longer file your state return with us this year.              \n"
           help_text_html: |
             <ul class="list--bulleted">
               <li>To have filed your 2024 federal return using <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode" target="_blank" rel="noopener nofollow">IRS Direct File</a></li>
@@ -2415,6 +2415,7 @@ en:
           supported_by: Supported by the New Jersey Division of Taxation
           title: File your New Jersey taxes for free
         not_you: Not %{user_name}?
+        rejected_return_html: <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.
         start_new: Click here to start a new %{state_name} State return.
         title_closed: Our free %{state_name} tax filing service is closed for the season
         visit_faqs_html: <a href="%{faqs_path}">Visit our FAQs</a> for any questions about IRS Direct File’s closure.
@@ -3754,8 +3755,8 @@ en:
         edit:
           continue: Click "Continue" if all these people had health insurance.
           coverage_heading: What is health insurance with minimum essential coverage?
-          label: 'Check all the people that did NOT have health insurance:'
-          title_html: Please tell us which dependents were missing health insurance (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">with minimum essential health coverage</a>) in %{filing_year}.
+          label: 'Check all the dependents that do NOT have health insurance:'
+          title_html: In %{current_year}, who in your tax household doesn’t have health insurance with <a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Minimum Essential Coverage?</a>
       nj_disabled_exemption:
         edit:
           instructions_html: "<p>In New Jersey, you are considered disabled if you have a \"<strong>total and permanent</strong> inability to engage in any substantial gainful activity because of any physical or mental impairment, including blindness.\"</p>  \n<p>(This is different from the federal tax definition. New Jersey doesn’t consider your age or your receipt of taxable disability income.)</p>\n"
