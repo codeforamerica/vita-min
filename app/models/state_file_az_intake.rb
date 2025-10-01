@@ -84,10 +84,13 @@
 #
 # Indexes
 #
+#  index_state_file_az_intakes_email_verified          (id) WHERE ((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))
+#  index_state_file_az_intakes_on_created_at           (created_at)
 #  index_state_file_az_intakes_on_email_address        (email_address)
 #  index_state_file_az_intakes_on_hashed_ssn           (hashed_ssn)
 #  index_state_file_az_intakes_on_primary_state_id_id  (primary_state_id_id)
 #  index_state_file_az_intakes_on_spouse_state_id_id   (spouse_state_id_id)
+#  index_state_file_az_intakes_phone_verified          (id) WHERE ((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))
 #
 class StateFileAzIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
@@ -131,6 +134,8 @@ class StateFileAzIntake < StateFileBaseIntake
   end
 
   def disqualifying_df_data_reason
+    return unless raw_direct_file_data.present?
+
     return :married_filing_separately if direct_file_data.filing_status == 3
 
     w2_states = direct_file_data.parsed_xml.css('W2StateLocalTaxGrp W2StateTaxGrp StateAbbreviationCd')

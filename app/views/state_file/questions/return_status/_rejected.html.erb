@@ -8,6 +8,10 @@
   <%= t("state_file.questions.return_status.rejected.title", state_name: current_state_name, filing_year: current_tax_year) %>
 </h1>
 
+<div class="warning spacing-below-25">
+  <%= t("state_file.questions.return_status.rejected.closing_soon_html") %>
+</div>
+
 <% if @error&.expose %>
   <% if @error.code.present? %>
     <section class="spacing-below-15">

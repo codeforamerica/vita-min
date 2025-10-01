@@ -2331,20 +2331,20 @@ es:
       no_match_sms: Alguien intentó iniciar sesión en FileYourStateTaxes con este número de teléfono, pero no pudimos encontrar una coincidencia. ¿Te registraste con otro número de teléfono? También puedes visitar %{url} para comenzar.
     landing_page:
       edit:
-        already_filed_html: "¿Ya presentaste tus impuestos estatales con nosotros? <strong>Puedes descargar una copia de tu declaración de impuestos estatales hasta el 31 de diciembre de 2024.</strong>"
+        already_filed_html: "<strong>¿Ya presentaste tus impuestos estatales con nosotros?</strong> Puedes descargar una copia de tu declaración estatal a continuación."
         already_started_html: "<strong>¿Ya comenzaste tu declaración de impuestos estatales con nosotros y necesitas completarlos?</strong> <a href='%{sign_in_url}'>Inicia sesión aquí</a> para continuar con la declaración."
         az:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
             <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Arizona para integrarse con el servicio Direct File del IRS.<br /><br />
-            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+            Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Arizona
           title: Declara tus impuestos estatales de Arizona sin costo
         az_get_2023_return_html: "<strong>¿Presentaste tu declaración de 2023 de Arizona o Nueva York con nosotros y quieres una copia?</strong> <a href='%{sign_in_path}'>Inicia sesión aquí</a> para descargar una copia de tu declaración estatal."
         built_with_html: "Te tomará alrededor de 10 y 15 minutos completar tu declaración con <strong>FileYourStateTaxes</strong>. \n<br/><br/>\nEste servicio ha sido creado en colaboración con el estado de %{state_name} para conectarse con el servicio Direct File del IRS.\n"
         closing_soon_html: "<strong>El 22 de octubre es el último día en que puedes presentar tu declaración estatal con FileYourStateTaxes.</strong> Para hacerlo, debes haber enviado una declaración federal utilizando IRS Direct File antes de su fecha de cierre, el 15 de octubre. Puedes transferir tus datos a FileYourStateTaxes hasta el 22 de octubre."
         continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación.
-        download_your_record: Descarga tu declaración
+        download_your_record: Descarga tu declaración 2024
         help_text_html: |
           <ul class="list--bulleted">
             <li>Una declaración federal de impuestos de %{filing_year} <strong>aceptada</strong> a través de <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí)
@@ -2358,21 +2358,21 @@ es:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
             <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Idaho para integrarse con el servicio Direct File del IRS.<br /><br />
-            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+            Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Idaho
           title: Declara tus impuestos estatales de Idaho sin costo
         md:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
             <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Maryland para integrarse con el servicio Direct File del IRS.<br /><br />
-            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+            Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Maryland
           title: Declara tus impuestos estatales de Maryland sin costo
         nc:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
             <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de Carolina del Norte para integrarse con el servicio Direct File del IRS.<br /><br />
-            Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+            Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Carolina del Norte
           title: Declara tus impuestos estatales de Carolina del Norte sin costo
         nj:
@@ -2382,7 +2382,7 @@ es:
             Este servicio se creó en colaboración con la Oficina de Innovación de New Jersey para integrarse con el servicio IRS Direct File.
           closed_html: |
             <strong>FileYourStateTaxes</strong> ha sido creado en colaboración con el estado de New Jersey Office of Innovation para integrarse con el servicio Direct File del IRS.<br /><br />
-            Ya cerramos por esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración de impuestos estatales con nosotros este año.
+            Ya cerramos por esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.
           help_text_html: |
             <ul class="list--bulleted">
               <li>Haber presentado tu declaración federal de 2024 usando <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode" target="_blank" rel="noopener nofollow">IRS Direct File</a></li>
@@ -2394,6 +2394,7 @@ es:
           supported_by: Respaldado por la División de Impuestos de New Jersey
           title: "¡Presenta gratis tus impuestos de New Jersey!"
         not_you: "¿No es %{user_name}?"
+        rejected_return_html: "<strong>¿La declaración estatal que presentaste con FileYourStateTaxes fue rechazada?</strong> <a href='%{sign_in_url}'>Inicia sesión aquí</a> para corregir y volver a enviar tu declaración."
         start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
         title_closed: Nuestro servicio gratuito para declarar tus impuestos estatales de %{state_name} está cerrado por la temporada
         visit_faqs_html: Visita nuestra sección de <a href='%{faqs_path}'>preguntas frecuentes</a> si tienes cualquier pregunta sobre el cierre de IRS Direct File.
@@ -3723,8 +3724,8 @@ es:
         edit:
           continue: Haz clic en "Continuar" si todas estas personas tenían seguro médico.
           coverage_heading: "¿Qué es el seguro de salud con cobertura mínima esencial?"
-          label: 'Marca todas las personas que NO tuvieron seguro médico:'
-          title_html: Por favor, dinos qué dependientes no tuvieron seguro médico (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">con cobertura médica mínima esencial</a>) en %{filing_year}.
+          label: 'Marca a todas las personas dependientes que NO tienen seguro de salud:'
+          title_html: ¿En %{current_year}, quién en tu hogar tributario/fiscal no tiene seguro de salud con <a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Cobertura Esencial Mínima?</a>
       nj_disabled_exemption:
         edit:
           instructions_html: "<p>En New Jersey, se considera que una persona tiene una discapacidad si tiene una \"incapacidad <strong>total y permanente</strong> para realizar cualquier actividad lucrativa sustancial debido a cualquier discapacidad física o mental, incluida la ceguera.\"</p>  \n<p>(Esto es diferente de la definición de impuestos federales. New Jersey no considera tu edad ni la recepción de ingresos por discapacidad imponibles).</p>\n"
@@ -4327,6 +4328,7 @@ es:
           title: Has enviado tu declaración de impuestos de %{state_name} de %{filing_year}
           waiting_for acceptance: Tu declaración de impuestos estatal aún está esperando ser aceptada.
         rejected:
+          closing_soon_html: "<strong>Puedes editar y volver a enviar tu declaración de impuestos estatal hasta el 31 de octubre.</strong> Después de esa fecha, solo podrás descargar una copia de la declaración estatal que enviaste."
           edit_return: Edita tu declaración estatal
           email_us_html: Envíanos un correo electrónico a <a href="mailto:help@fileyourstatetaxes.org">help@fileyourstatetaxes.org</a>
           have_questions: "¿Tienes preguntas?"
@@ -4339,7 +4341,7 @@ es:
               title: "¿Qué puedo hacer a continuación?"
           reject_code: 'Código de Rechazo:'
           reject_desc: 'Descripción del Rechazo:'
-          title: Lamentablemente, tu declaración de impuestos estatal de %{state_name}de %{filing_year} fue rechazada
+          title: Lamentablemente, tu declaración de impuestos estatal de %{state_name} de %{filing_year} fue rechazada
       review:
         county: Condado donde vivías el 31 de diciembre de %{filing_year}
         county_during_hurricane: Otro condado donde vivías (o actualmente vives) entre el 25 de septiembre y la fecha de hoy

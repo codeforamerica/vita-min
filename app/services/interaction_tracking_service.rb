@@ -19,7 +19,7 @@ class InteractionTrackingService
 
         users_to_contact.each do |user|
           interaction = ClientInteraction.create!(client: client, interaction_type: interaction_type)
-          ClientInteractionNotificationEmailJob.set(wait: 10.minutes).perform_later(interaction, user, **email_attrs)
+          ClientInteractionNotificationEmailJob.set(wait: 10.minutes).perform_later(interaction, user, **email_attrs) unless client.has_archived_intake?
         end
       end
     end
@@ -56,7 +56,7 @@ class InteractionTrackingService
             interaction_type: interaction_type,
           )
         )
-        SendInternalEmailJob.perform_later(internal_email)
+        SendInternalEmailJob.perform_later(internal_email) unless client.has_archived_intake?
       end
     end
 
