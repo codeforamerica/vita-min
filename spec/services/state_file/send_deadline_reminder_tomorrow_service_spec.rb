@@ -37,10 +37,10 @@ describe StateFile::SendDeadlineReminderTomorrowService do
                message_tracker: {}
       end
 
-      it "sends a message to the email associated with the intake" do
+      it "doesn't send a message to the email associated with the intake" do
         StateFile::SendDeadlineReminderTomorrowService.run
-        expect(StateFile::MessagingService).to have_received(:new).with(intake: intake, message: message)
-        expect(state_file_messaging_service).to have_received(:send_message)
+        expect(StateFile::MessagingService).not_to have_received(:new).with(intake: intake, message: message)
+        expect(state_file_messaging_service).not_to have_received(:send_message)
       end
     end
 
