@@ -702,7 +702,16 @@ describe StateFileBaseIntake do
              df_data_imported_at: nil,
              email_address: 'test@example.com',
              email_address_verified_at: 5.minutes.ago,
-             email_notification_opt_in: 1
+             email_notification_opt_in: 1,
+             message_tracker: { "messages.state_file.welcome" => 2.days.ago.utc.strftime("%Y-%m-%d %H:%M:%S UTC") }
+    }
+    let!(:az_intake_with_recent_message) {
+      create :state_file_az_intake,
+             df_data_imported_at: nil,
+             email_address: 'test@example.com',
+             email_address_verified_at: 5.minutes.ago,
+             email_notification_opt_in: 1,
+             message_tracker: { "messages.state_file.welcome" => DateTime.now.utc.strftime("%Y-%m-%d %H:%M:%S UTC") }
     }
     let!(:az_intake_with_text_notifications_and_df_import) {
       create :state_file_az_intake,
@@ -765,7 +774,7 @@ describe StateFileBaseIntake do
       allow_any_instance_of(StateFileAzIntake).to receive(:should_be_sent_reminder?).and_return(true)
     end
 
-    it "returns only current-year intakes without df data that pass should_be_sent_reminder? and have no disqualifying/duplicate-with-submission issues" do
+    it "returns only current-year intakes without df data that have no other messages within the past 24 hours and have no disqualifying/duplicate-with-submission issues" do
       results = StateFileAzIntake.selected_intakes_for_first_deadline_reminder_notification
 
       expect(results).to match_array([az_intake_with_email_notifications_without_df_import])
