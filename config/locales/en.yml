@@ -1861,7 +1861,22 @@ en:
 
             Best,
             The FileYourStateTaxes team
+          immediate_df_closure_body: |
+            Hi,
+
+            Due to the immediate closure of Direct File, you unfortunately can no longer file your state return with FileYourStateTaxes this year.
+
+            Have questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
           subject: Welcome to FileYourStateTaxes
+        immediate_df_closure_sms: |
+          Hello - due to the immediate closure of Direct File as ordered by the Treasury, you unfortunately can no longer file your state return with FileYourStateTaxes this year.
+
+          Have questions? Email us at help@fileyourstatetaxes.org
+
+          Need help? Email us at help@fileyourstatetaxes.org Text "STOP" to opt out of notifications.
         sms: |
           Hi! Your FileYourStateTaxes account is ready to use. We'll send updates when you submit your state tax return. Your progress is saved as you go, so you can log back in anytime.
 
