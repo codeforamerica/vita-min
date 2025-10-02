@@ -84,34 +84,42 @@ class IrsApiService
       return
     end
 
+    decrypted_response = decrypt_response(
+      cert_finder.client_key,
+      Base64.decode64(response.header['SESSION-KEY']),
+      Base64.decode64(response.header['INITIALIZATION-VECTOR']),
+      Base64.decode64(JSON.parse(response.body)['taxReturn']),
+      Base64.decode64(response.header['AUTHENTICATION-TAG'])
+    )
+
+    decrypted_json = JSON.parse(decrypted_response)
+    decrypted_json['xml'] = Nokogiri::XML(decrypted_json['xml']).to_xml
+
+    decrypted_json
+  end
+
+  def self.decrypt_response(private_key, encrypted_secret, initialization_vector, encrypted_data, authentication_tag = nil)
     decipher = OpenSSL::Cipher.new('aes-256-gcm')
     decipher.decrypt
-    client_key = cert_finder.client_key
-    encrypted_session_key = Base64.decode64(response.header['SESSION-KEY'])
 
     label = ''
     md_oaep = OpenSSL::Digest::SHA256
     md_mgf1 = OpenSSL::Digest::SHA1
 
-    decipher.key = client_key.private_decrypt_oaep(encrypted_session_key, label, md_oaep, md_mgf1)
-    decipher.iv = Base64.decode64(response.header['INITIALIZATION-VECTOR'])
-    encrypted_tax_return_bytes = Base64.decode64(JSON.parse(response.body)['taxReturn'])
+    decipher.key = private_key.private_decrypt_oaep(encrypted_secret, label, md_oaep, md_mgf1)
+    decipher.iv = initialization_vector
 
     if ENV['IRS_API_LOCALHOST']
-      decipher.auth_tag = Base64.decode64(response.header['AUTHENTICATION-TAG'])
+      decipher.auth_tag = authentication_tag
     else
-      char_array = encrypted_tax_return_bytes.unpack("C*")
-      encrypted_tax_return_bytes = char_array[0..-17].pack("C*")
+      char_array = encrypted_data.unpack("C*")
+      encrypted_data = char_array[0..-17].pack("C*")
       auth_tag = char_array.last(16).pack("C*")
 
       decipher.auth_tag = auth_tag
     end
-    plain = decipher.update(encrypted_tax_return_bytes) + decipher.final
 
-    decrypted_json = JSON.parse(plain)
-    decrypted_json['xml'] = Nokogiri::XML(decrypted_json['xml']).to_xml
-
-    decrypted_json
+    decipher.update(encrypted_data) + decipher.final
   end
 
   private
