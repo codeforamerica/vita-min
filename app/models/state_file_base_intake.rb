@@ -101,10 +101,14 @@ class StateFileBaseIntake < ApplicationRecord
 
   def send_october_transfer_reminder?
     received_message_recently = if message_tracker.present?
-                                  message_tracker.values.any? { |time_msg_sent| Time.parse(time_msg_sent) > 24.hours.ago }
+                                  message_tracker.values.compact.any? do |time_msg_sent|
+                                    next false if time_msg_sent.blank?
+                                    Time.parse(time_msg_sent.to_s) > 24.hours.ago
+                                  end
                                 else
                                   false
                                 end
+
     !received_message_recently && !other_intake_with_same_ssn_has_submission?
   end
 
