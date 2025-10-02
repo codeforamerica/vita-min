@@ -32,6 +32,7 @@ namespace :state_file do
 
   task send_october_transfer_reminder: :environment do
     return unless DateTime.now.year == 2025
+    return if Flipper.enabled?(:immediate_df_closure)
     StateFile::OctoberTransferReminderService.run
   end
 
