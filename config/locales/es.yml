@@ -1698,6 +1698,20 @@ es:
           body: "Hola %{primary_first_name},\n\nTodavía no has enviado tu declaración de impuestos estatales. \n\nCompleta tu declaración hoy visitando <a target=\"_blank\" rel=\"noopener nofollow\" href=\"http://www.fileyourstatetaxes.org/es/login-options\">www.fileyourstatetaxes.org/es/login-options</a>. El último día para enviar tu declaración estatal es el 22 de octubre.\n\nSi ya presentaste tu declaración usando otro servicio, no necesitas hacer nada.\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
           subject: Recuerda terminar tu declaración de impuestos estatales
         sms: "Hola %{primary_first_name} - Aún no has enviado tu declaración de impuestos estatales.\n\nCompleta tu declaración hoy en http://www.fileyourstatetaxes.org/es/login-options . El último día para enviar tu declaración estatal es el 22 de octubre. \n\nSi ya presentaste tu declaración usando otro servicio, no necesitas hacer nada.\n\n¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
+      october_transfer_reminder:
+        email:
+          body: "¡Hola! \n\nAl parecer creaste una cuenta con <a target=\"_blank\" rel=\"noopener nofollow\" href=\"https://www.fileyourstatetaxes.org/\">FileYourStateTaxes</a>, pero aún no has transferido la información de tu declaración federal desde IRS Direct File. Si deseas presentar tu declaración estatal con nosotros, hazlo antes del 22 de octubre.\n\n¡Es fácil! Comienza ahora en <a target=\"_blank\" rel=\"noopener nofollow\" href=\"https://www.fileyourstatetaxes.org/es/login-options\">www.fileyourstatetaxes.org/es/login-options</a>.\n\n¿Necesitas ayuda? Responde a este correo electrónico.\n\nAtentamente, El equipo de FileYourStateTaxes\n"
+          subject: Recuerda comenzar tu declaración de impuestos estatales
+        sms: |
+          ¡Hola!
+
+          Al parecer creaste una cuenta con FileYourStateTaxes, pero aún no has transferido la información de tu declaración federal desde IRS Direct File. Si deseas presentar tu declaración estatal con nosotros, hazlo antes del 22 de octubre.
+
+          Es fácil! Comienza en http://www.fileyourstatetaxes.org/es/login-options .
+
+          ¿Necesitas ayuda? Envíanos un email a help@fileyourstatetaxes.org.
+
+          Atentamente, El equipo de FileYourStateTaxes
       post_deadline_reminder:
         email:
           body: |-
@@ -2185,7 +2199,7 @@ es:
   signups:
     flash_notice: "¡Gracias! Recibirás una notificación cuando abramos."
     new:
-      banner: Se cerraron nuevas inscripciones para GetYourRefund para 2023. Vuelva en enero para presentar la solicitud el próximo año.
+      banner: Se cerraron nuevas inscripciones para GetYourRefund para %{year}. Vuelva en enero para presentar la solicitud el próximo año.
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarle gratuitamente a declarar sus impuestos!"
       opt_in_message:
         01_intro: 'Aviso: Proporcionar su número de teléfono significa que usted ha optado por lo siguiente para usar el servicio GetYourRefund:'
@@ -3742,8 +3756,8 @@ es:
         edit:
           continue: Haz clic en "Continuar" si todas estas personas tenían seguro médico.
           coverage_heading: "¿Qué es el seguro de salud con cobertura mínima esencial?"
-          label: 'Marca todas las personas que NO tuvieron seguro médico:'
-          title_html: Por favor, dinos qué dependientes no tuvieron seguro médico (<a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">con cobertura médica mínima esencial</a>) en %{filing_year}.
+          label: 'Marca a todas las personas dependientes que NO tienen seguro de salud:'
+          title_html: ¿En %{current_year}, quién en tu hogar tributario/fiscal no tiene seguro de salud con <a target=" _blank" rel="noopener noreferrer" href="https://nj.gov/treasury/njhealthinsurancemandate/getinfo.shtml">Cobertura Esencial Mínima?</a>
       nj_disabled_exemption:
         edit:
           instructions_html: "<p>En New Jersey, se considera que una persona tiene una discapacidad si tiene una \"incapacidad <strong>total y permanente</strong> para realizar cualquier actividad lucrativa sustancial debido a cualquier discapacidad física o mental, incluida la ceguera.\"</p>  \n<p>(Esto es diferente de la definición de impuestos federales. New Jersey no considera tu edad ni la recepción de ingresos por discapacidad imponibles).</p>\n"

@@ -77,9 +77,12 @@ class StateFileBaseIntake < ApplicationRecord
   delegate :state_code, to: :class
 
   def self.selected_intakes_for_deadline_reminder_soon_notifications
-    self.where.missing(:efile_submissions)
-        .has_verified_contact_info
-        .where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)
+    intakes = self.where.missing(:efile_submissions)
+                  .where.not(df_data_imported_at: nil)
+                  .has_verified_contact_info
+                  .where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)
+
+    intakes.select { |i| !i.disqualifying_df_data_reason.present? && !i.other_intake_with_same_ssn_has_submission? }
   end
 
   def self.selected_intakes_for_deadline_reminder_notifications
@@ -87,6 +90,26 @@ class StateFileBaseIntake < ApplicationRecord
       .where.not(df_data_imported_at: nil)
       .has_verified_contact_info
       .select(&:should_be_sent_reminder?)
+  end
+
+  def self.selected_intakes_for_first_deadline_reminder_notification
+    self.where(df_data_imported_at: nil)
+        .has_verified_contact_info
+        .where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)
+        .select(&:send_october_transfer_reminder?)
+  end
+
+  def send_october_transfer_reminder?
+    received_message_recently = if message_tracker.present?
+                                  message_tracker.values.compact.any? do |time_msg_sent|
+                                    next false if time_msg_sent.blank?
+                                    Time.parse(time_msg_sent.to_s) > 24.hours.ago
+                                  end
+                                else
+                                  false
+                                end
+
+    !received_message_recently && !other_intake_with_same_ssn_has_submission?
   end
 
   def should_be_sent_reminder?

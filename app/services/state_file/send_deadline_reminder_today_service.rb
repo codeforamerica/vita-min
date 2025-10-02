@@ -11,9 +11,6 @@ module StateFile
       intakes_to_notify.each_slice(BATCH_SIZE) do |batch|
         batch.each do |intake|
           begin
-            if (intake.raw_direct_file_data.present? && intake.disqualifying_df_data_reason.present?) || intake.other_intake_with_same_ssn_has_submission?
-              next
-            end
             StateFile::MessagingService.new(
               message: StateFile::AutomatedMessage::DeadlineReminderToday,
               intake: intake
