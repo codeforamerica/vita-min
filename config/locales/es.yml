@@ -1847,7 +1847,22 @@ es:
 
             Atentamente,
             El equipo de FileYourStateTaxes
+          immediate_df_closure_body: |
+            Hi,
+
+            Due to the immediate closure of Direct File, you unfortunately can no longer file your state return with FileYourStateTaxes this year.
+
+            Have questions? Reply to this email.
+
+            Best,
+            The FileYourStateTaxes team
           subject: Bienvenido a FileYourStateTaxes
+        immediate_df_closure_sms: |
+          Hello - due to the immediate closure of Direct File as ordered by the Treasury, you unfortunately can no longer file your state return with FileYourStateTaxes this year.
+
+          Have questions? Email us at help@fileyourstatetaxes.org
+
+          Need help? Email us at help@fileyourstatetaxes.org Text "STOP" to opt out of notifications.
         sms: |
           ¡Hola! Tu cuenta de FileYourStateTaxes está lista. Te mandaremos actualizaciones cuando envíes tu declaración de impuestos estatales. Tu progreso se guarda mientras avanzas, así que puedes volver a entrar en cualquier momento.
 
