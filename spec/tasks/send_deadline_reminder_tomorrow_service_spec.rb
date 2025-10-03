@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'state_file:send_deadline_reminder_today' do
+describe 'state_file:send_deadline_reminder_tomorrow' do
   let(:az_intake_1) { create :state_file_az_intake }
   let!(:az_intake_2) { create :state_file_az_intake }
   let(:md_intake) { create :state_file_md_intake }
@@ -19,16 +19,16 @@ describe 'state_file:send_deadline_reminder_today' do
   context "in 2025" do
     around do |example|
       # freezing the time to any time in 2025, since this task will only run in 2025
-      Timecop.freeze(DateTime.parse("22-10-2025")) do
+      Timecop.freeze(DateTime.parse("21-10-2025")) do
         example.run
       end
     end
 
     it 'sends to intakes with verified contact info, with or without df data, and without efile submissions or duplicate (same hashed_ssn) intakes with efile submission' do
-      message = StateFile::AutomatedMessage::DeadlineReminderToday
+      message = StateFile::AutomatedMessage::DeadlineReminderTomorrow
       service = StateFile::MessagingService
 
-      Rake::Task['state_file:send_deadline_reminder_today'].execute
+      Rake::Task['state_file:send_deadline_reminder_tomorrow'].execute
       expect(service).to have_received(:new).exactly(5).times
 
       expect(service).to have_received(:new).with(message: message, intake: az_intake_1)
@@ -47,7 +47,7 @@ describe 'state_file:send_deadline_reminder_today' do
       end
 
       it "doesn't run the task" do
-        Rake::Task['state_file:send_deadline_reminder_today'].execute
+        Rake::Task['state_file:send_deadline_reminder_tomorrow'].execute
         expect(StateFile::MessagingService).not_to have_received(:new)
       end
     end
@@ -55,13 +55,13 @@ describe 'state_file:send_deadline_reminder_today' do
 
   context "when not in 2025" do
     around do |example|
-      Timecop.freeze(DateTime.parse("22-10-2026")) do
+      Timecop.freeze(DateTime.parse("21-10-2026")) do
         example.run
       end
     end
 
     it "doesn't run the task" do
-      Rake::Task['state_file:send_deadline_reminder_today'].execute
+      Rake::Task['state_file:send_deadline_reminder_tomorrow'].execute
       expect(StateFile::MessagingService).not_to have_received(:new)
     end
   end
