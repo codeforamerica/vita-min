@@ -12,32 +12,39 @@ namespace :state_file do
   end
 
   task pre_deadline_reminder: :environment do
-    return unless DateTime.now.year == 2025
+    next unless DateTime.now.year == 2025
     StateFile::SendPreDeadlineReminderService.run
   end
 
   task post_deadline_reminder: :environment do
-    return unless DateTime.now.year == 2025
+    next unless DateTime.now.year == 2025
+
     StateFile::SendPostDeadlineReminderService.run
   end
 
+  task send_october_transfer_reminder: :environment do
+    next if Rails.env.demo?
+    next unless DateTime.now.year == 2025
+
+    StateFile::OctoberTransferReminderService.run
+  end
+
   task send_deadline_reminder_tomorrow: :environment do
-    return unless DateTime.now.year == 2025
+    next if Rails.env.demo?
+    next unless DateTime.now.year == 2025
+
     StateFile::SendDeadlineReminderTomorrowService.run
   end
 
   task send_deadline_reminder_today: :environment do
-    return unless DateTime.now.year == 2025
+    next if Rails.env.demo?
+    next unless DateTime.now.year == 2025
+
     StateFile::SendDeadlineReminderTodayService.run
   end
 
   task send_marketing_email: :environment do
     StateFile::SendMarketingEmailService.run
-  end
-
-  task send_october_transfer_reminder: :environment do
-    return unless DateTime.now.year == 2025
-    StateFile::OctoberTransferReminderService.run
   end
 
   task backfill_intake_submission_pdfs: :environment do
