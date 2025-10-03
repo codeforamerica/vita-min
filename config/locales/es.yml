@@ -1616,6 +1616,21 @@ es:
 
           Atentamente,
           El equipo de FileYourStateTaxes
+      deadline_reminder_tomorrow:
+        email:
+          body: |
+            Hola!
+
+            Al parecer creaste una cuenta con <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/">FileYourStateTaxes</a>, pero aún no has enviado tu declaración estatal. Mañana (22 de octubre) es el último día para enviar la declaración. Si quieres enviarlo con nuestro servicio, házlo antes del final del día de mañana.
+
+            Es fácil! Comienza en <a target="_blank" rel="noopener nofollow" href="https://www.fileyourstatetaxes.org/es/login-options">www.fileyourstatetaxes.org/es/login-options</a>.
+
+            ¿Necesitas ayuda? Responde a este correo electrónico.
+
+            Atentamente,
+            El equipo de FileYourStateTaxes
+          subject: Último día para enviar tu declaración estatal
+        sms: "Hola! \n\nAl parecer creaste una cuenta con FileYourStateTaxes, pero aún no has enviado tu declaración estatal. Mañana (22 de octubre) es el último día para enviar la declaración. Si quieres enviarlo con nuestro servicio, házlo antes del final del día de mañana. \n\nEs fácil! Comienza en www.fileyourstatetaxes.org/es/login-options. \n\n¿Necesita ayuda? Envíenos un correo electrónico a help@fileyourstatetaxes.org\n\nAtentamente,\nEl equipo de FileYourStateTaxes\n"
       df_transfer_issue_message:
         email:
           body: |
