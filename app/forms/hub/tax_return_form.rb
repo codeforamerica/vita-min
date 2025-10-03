@@ -13,8 +13,9 @@ module Hub
     validates :current_state, presence: true
     validates :year, presence: true
 
-    def initialize(client, gyr_filing_years, params={})
+    def initialize(client, current_user, gyr_filing_years, params={})
       @client = client
+      @current_user = current_user
       super(params)
       @service_type ||= client.tax_returns.pluck(:service_type).include?("drop_off") ? "drop_off" : "online_intake"
       @current_state ||= "intake_in_progress"
@@ -25,7 +26,7 @@ module Hub
     def save
       @tax_return.assign_attributes(attributes_for(:tax_return))
       @tax_return.save!
-      tax_return.transition_to!(current_state)
+      tax_return.transition_to!(current_state, initiated_by_user_id: @current_user.id)
     end
 
     def self.permitted_params
