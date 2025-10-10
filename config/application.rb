@@ -124,6 +124,7 @@ module VitaMin
     config.ctc_end_of_login = et.parse("2024-12-31 23:59:00")
 
     # StateFile
+    config.state_file_immediate_df_closure = et.parse('2025-10-02 00:00:00')
     config.state_file_start_of_open_intake = et.parse('2025-01-15 00:00:00')
     config.state_file_end_of_new_intakes = et.parse('2025-10-22 23:59:59')
     config.state_file_end_of_in_progress_intakes = et.parse('2025-10-31 23:59:59')

@@ -16,6 +16,7 @@ begin
   Flipper.disable :show_retirement_ui unless Flipper.exist?(:show_retirement_ui)
   Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
   Flipper.disable :use_pundit unless Flipper.exist?(:use_pundit)
+  Flipper.disable :immediate_df_closure unless Flipper.exist?(:immediate_df_closure)
   if Rails.env.heroku? || Rails.env.demo?
     Flipper.disable :prevent_duplicate_accepted_statefile_submissions unless Flipper.exist?(:prevent_duplicate_accepted_statefile_submissions)
     Flipper.disable :prevent_duplicate_ssn_messaging unless Flipper.exist?(:prevent_duplicate_ssn_messaging)

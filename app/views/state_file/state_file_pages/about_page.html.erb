@@ -6,7 +6,13 @@
 
     <% if app_time.before?(Rails.configuration.state_file_end_of_new_intakes) %>
       <div class="warning">
-        <%= t("state_file.landing_page.edit.closing_soon_html") %>
+        <% if Flipper.enabled?(:immediate_df_closure) %>
+          <%= t("state_file.landing_page.edit.immediate_df_closure_closing_soon_html",
+                closing_verb_phrase: app_time > Rails.configuration.state_file_immediate_df_closure ? t("state_file.landing_page.edit.immediate_df_closure_closed") : t("state_file.landing_page.edit.immediate_df_closure_will_close"),
+                closing_date: I18n.l(Rails.configuration.state_file_immediate_df_closure.to_date, format: :long)) %>
+        <% else %>
+          <%= t("state_file.landing_page.edit.closing_soon_html") %>
+        <% end %>
       </div>
 
       <div class="spacing-above-25">

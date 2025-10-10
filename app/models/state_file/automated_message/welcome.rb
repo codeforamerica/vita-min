@@ -9,7 +9,11 @@ module StateFile::AutomatedMessage
     end
 
     def sms_body(**args)
-      I18n.t("messages.state_file.welcome.sms", **args)
+      if Flipper.enabled?(:immediate_df_closure)
+        I18n.t("messages.state_file.welcome.immediate_df_closure_sms", **args)
+      else
+        I18n.t("messages.state_file.welcome.sms", **args)
+      end
     end
 
     def email_subject(**args)
@@ -17,7 +21,11 @@ module StateFile::AutomatedMessage
     end
 
     def email_body(**args)
-      I18n.t("messages.state_file.welcome.email.body", **args)
+      if Flipper.enabled?(:immediate_df_closure)
+        I18n.t("messages.state_file.welcome.email.immediate_df_closure_body", **args)
+      else
+        I18n.t("messages.state_file.welcome.email.body", **args)
+      end
     end
   end
 end
