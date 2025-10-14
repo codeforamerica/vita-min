@@ -106,6 +106,9 @@ jobs:
             - "SHA256:EXWjLe9Ii75NBbYkzOBWosq89GW7n7XuIiTovZoPZPk"
       - run: git diff --quiet || (git commit -am "Run i18n-tasks normalize" && git push origin translations_a24d8971fccee9a494b7267ce7f7deae_es)
   run_js_tests:
+    environment:
+      RAILS_DB_USERNAME: ""
+      RAILS_DB_PASSWORD: ""
     executor: ruby_executor
     steps:
       - checkout
