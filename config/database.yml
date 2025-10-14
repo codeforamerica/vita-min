@@ -26,8 +26,6 @@ test:
   <<: *local_default
   database: vita-min_test<%= ENV['TEST_ENV_NUMBER'] == '1' ? '' : ENV['TEST_ENV_NUMBER'] %>
   pool: 10
-  username: <%= ENV.fetch("RAILS_DB_USERNAME", 'postgres') %>
-  password: <%= ENV.fetch("RAILS_DB_PASSWORD", 'password') %>
 
 production:
   <<: *deploy_default
