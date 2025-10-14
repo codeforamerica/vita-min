@@ -22,7 +22,7 @@ executors:
           POSTGRES_PASSWORD: circle_ci_password
           POSTGRES_DB: circle-test_test
           POSTGRES_HOST_AUTH_METHOD: trust
-          RAILS_DB_USER: root
+          RAILS_DB_USERNAME: root
           RAILS_DB_PASSWORD: circle_ci_password
         command: postgres -c 'fsync=false' -c 'synchronous_commit=off'
     resource_class: xlarge
