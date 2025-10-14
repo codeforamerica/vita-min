@@ -13,14 +13,17 @@ executors:
     working_directory: /mnt/ramdisk
     docker:
       - image: cimg/ruby:3.4.4-browsers
-        environment:
-          PGHOST: 127.0.0.1
-          PGUSER: root
+        # environment:
+        #   PGHOST: 127.0.0.1
+        #   PGUSER: root
       - image: cimg/postgres:13.4-postgis
         environment:
           POSTGRES_USER: root
+          POSTGRES_PASSWORD: circle_ci_password
           POSTGRES_DB: circle-test_test
           POSTGRES_HOST_AUTH_METHOD: trust
+          RAILS_DB_USER: root
+          RAILS_DB_PASSWORD: circle_ci_password
         command: postgres -c 'fsync=false' -c 'synchronous_commit=off'
     resource_class: xlarge
 commands:
@@ -106,9 +109,6 @@ jobs:
             - "SHA256:EXWjLe9Ii75NBbYkzOBWosq89GW7n7XuIiTovZoPZPk"
       - run: git diff --quiet || (git commit -am "Run i18n-tasks normalize" && git push origin translations_a24d8971fccee9a494b7267ce7f7deae_es)
   run_js_tests:
-    environment:
-      RAILS_DB_USERNAME: ""
-      RAILS_DB_PASSWORD: ""
     executor: ruby_executor
     steps:
       - checkout
