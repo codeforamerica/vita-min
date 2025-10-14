@@ -92,6 +92,26 @@ class StateFileBaseIntake < ApplicationRecord
       .select(&:should_be_sent_reminder?)
   end
 
+  def self.selected_intakes_for_first_deadline_reminder_notification
+    self.where(df_data_imported_at: nil)
+        .has_verified_contact_info
+        .where(created_at: Time.current.beginning_of_year..Time.current.end_of_year)
+        .select(&:send_october_transfer_reminder?)
+  end
+
+  def send_october_transfer_reminder?
+    received_message_recently = if message_tracker.present?
+                                  message_tracker.values.compact.any? do |time_msg_sent|
+                                    next false if time_msg_sent.blank?
+                                    Time.parse(time_msg_sent.to_s) > 24.hours.ago
+                                  end
+                                else
+                                  false
+                                end
+
+    !received_message_recently && !other_intake_with_same_ssn_has_submission?
+  end
+
   def should_be_sent_reminder?
     received_reminder_recently = if message_tracker.present? && message_tracker["messages.state_file.finish_return"]
                                    finish_return_msg_sent_time = Time.parse(message_tracker["messages.state_file.finish_return"])
