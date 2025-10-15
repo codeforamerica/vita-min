@@ -13,17 +13,6 @@ module Airtable
       end
     end
 
-    def self.organization_data
-      all.each_with_object({}) do |record, hash|
-        org_name = record["Organization Name"]
-        if org_name.present?
-          hash[org_name] = {
-            language_offerings: parse_languages(record["Language offerings"]),
-          }
-        end
-      end
-    end
-
     private
 
     def self.parse_languages(languages_field)
