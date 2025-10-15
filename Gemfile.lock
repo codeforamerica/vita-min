@@ -244,6 +244,7 @@ GEM
     dogapi (1.45.0)
       multi_json
     domain_name (0.6.20231109)
+    dotenv (3.1.8)
     drb (2.2.3)
     dumb_delegator (1.0.0)
     easy_translate (0.5.1)
@@ -784,6 +785,7 @@ DEPENDENCIES
   devise-i18n
   devise_invitable
   dogapi
+  dotenv (~> 3.1)
   easy_translate
   factory_bot_rails
   fix-db-schema-conflicts
