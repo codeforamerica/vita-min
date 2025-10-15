@@ -1,0 +1,2 @@
+RAILS_DB_USERNAME = postgres
+RAILS_DB_PASSWORD = password
