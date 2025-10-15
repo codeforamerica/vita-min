@@ -15,7 +15,7 @@ def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
   end
 end
 
-gem 'rack', '>= 2.0.8'
+gem 'rack', '>= 2.2.18'
 gem 'rails', '~> 7.1.5.2'
 gem 'puma', '>= 6.6.1'
 gem 'sass-rails', '~> 5.0'
@@ -87,7 +87,6 @@ gem 'jwt'
 gem 'method_source'
 gem 'ordinalize_full'
 gem 'awesome_print'
-gem 'rack-attack'
 gem 'holidays'
 gem "net-imap", ">= 0.4.20"
 gem 'redis'
