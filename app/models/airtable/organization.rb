@@ -1,7 +1,7 @@
 module Airtable
   class Organization < Airrecord::Table
-    self.base_key = "app2IiqmlIPb0D6c6" # not sure if this should be in a credential file or not
-    self.table_name = "tblbu4Lggkcb0hj3M"
+    self.base_key = Rails.application.credentials.dig(:airtable, :base_key)
+    self.table_name = Rails.application.credentials.dig(:airtable, :table_name)
 
     Airrecord.api_key = Rails.application.credentials.dig(:airtable, :token)
 
