@@ -39,6 +39,7 @@ class Organization < VitaPartner
   has_many :state_routing_targets, as: :target
   validates :capacity_limit, gyr_numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
   validates :name, uniqueness: { scope: [:coalition] }
+  has_many :state_routing_targets, as: :target, dependent: :destroy
   validate :no_state_routing_targets_if_in_coalition
 
   default_scope -> { includes(:child_sites).order(name: :asc) }
@@ -73,35 +74,11 @@ class Organization < VitaPartner
     )
   end
 
-  def self.airtable_language_offerings
-    Rails.cache.fetch('airtable_language_offerings', expires_in: 1.hour) do
+  def language_offerings
+    all_offerings = Rails.cache.fetch('airtable_language_offerings', expires_in: 1.hour) do
       Airtable::Organization.language_offerings
     end
-  end
-
-  def airtable_languages
-    self.class.airtable_language_offerings[name] || []
-  end
-
-  def offers_language?(language)
-    airtable_languages.map(&:downcase).include?(language.downcase)
-  end
-
-  def has_language_offerings?
-    airtable_languages.present?
-  end
-
-  def self.offering_language(language)
-    language_data = airtable_language_offerings
-    org_names = language_data.select { |_name, languages|
-      languages.map(&:downcase).include?(language.downcase)
-    }.keys
-    where(name: org_names)
-  end
-
-  def self.with_language_offerings
-    language_data = airtable_language_offerings
-    where(name: language_data.keys)
+    all_offerings[name] || []
   end
 
   def at_capacity?

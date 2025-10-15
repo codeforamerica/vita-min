@@ -90,6 +90,7 @@ module Hub
     end
 
     private
+
     def orgs_by_coalition_id
       @orgs_by_coalition_id ||= organizations.group_by(&:coalition_id)
     end
