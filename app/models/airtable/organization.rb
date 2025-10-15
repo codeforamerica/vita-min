@@ -13,17 +13,10 @@ module Airtable
       end
     end
 
-    private
-
     def self.parse_languages(languages_field)
       return [] if languages_field.blank?
-      if languages_field.is_a?(Array)
-        languages_field
-      elsif languages_field.is_a?(String)
-        languages_field.split(',').map(&:strip)
-      else
-        []
-      end
+
+      Array(languages_field).flatten.map(&:strip).reject(&:blank?)
     end
   end
 end
