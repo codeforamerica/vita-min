@@ -3,15 +3,22 @@ name: vita-min
 services:
   db:
     container_name: db
+    platform: linux/amd64
     image: postgis/postgis:13-3.4-alpine
     user: postgres
     ports:
-      - 5432:5432
+      - 127.0.0.1:5432:5432
     volumes:
       - database:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "postgres"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
   worker:
     container_name: worker
     volumes:
@@ -45,7 +52,7 @@ services:
       - db
       - shakapacker
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://0.0.0.0:3000/up" ]
+      test: ["CMD", "curl", "-f", "http://0.0.0.0:3000/up"]
       interval: 30s
       timeout: 30s
       retries: 15

@@ -2,7 +2,8 @@ require "rails_helper"
 
 describe Hub::TaxReturnForm do
   describe "#new" do
-    subject { described_class.new(client, params) }
+    subject { described_class.new(client, current_user, params) }
+    let(:current_user) { tax_return.assigned_user }
 
     context "with no params" do
       let(:params) { {} }
@@ -27,7 +28,7 @@ describe Hub::TaxReturnForm do
     end
 
     context "when explicit service_type is passed as a param" do
-      subject { described_class.new(client, MultiTenantService.gyr.filing_years, { service_type: "custom" }) }
+      subject { described_class.new(client, current_user, MultiTenantService.gyr.filing_years, { service_type: "custom" }) }
       let(:params) { {} }
       let(:tax_return) { create :gyr_tax_return, :intake_in_progress, service_type: "drop_off" }
       let(:client) { tax_return.client }
@@ -39,7 +40,7 @@ describe Hub::TaxReturnForm do
   end
 
   describe "#save" do
-    subject { described_class.new(client, MultiTenantService.gyr.filing_years, params) }
+    subject { described_class.new(client, user, MultiTenantService.gyr.filing_years, params) }
 
     let(:client) { create :client, intake: (build :intake) }
     let(:user) { create :user }
@@ -58,6 +59,8 @@ describe Hub::TaxReturnForm do
       expect(tax_return.assigned_user).to eq user
       expect(tax_return.certification_level).to eq "basic"
       expect(tax_return.year).to eq 2019
+
+      expect(tax_return.last_transition.metadata).to eq({ "initiated_by_user_id" => user.id })
     end
   end
 end
