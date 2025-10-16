@@ -48,7 +48,7 @@ FileUtils.chdir APP_ROOT do
   system! "yarn install"
 
   puts "\n== Starting database =="
-  system! "brew services stop postgresql"
+  system! "docker compose pull db"
   system! "docker compose up --wait -d db"
 
   puts "\n== Preparing database =="
