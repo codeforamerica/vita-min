@@ -269,4 +269,24 @@ describe Organization do
       end
     end
   end
+
+  describe "#language_offerings" do
+    let(:organization) { create :organization, name: "Test Organization" }
+
+    before do
+      allow(Airtable::Organization).to receive(:language_offerings).and_return({
+                                                                                 "Test Organization" => ["English", "Spanish", "French"],
+                                                                                 "Another Org" => ["Mandarin", "Korean"]
+                                                                               })
+    end
+
+    it "returns languages for the organization" do
+      expect(organization.language_offerings).to eq(["English", "Spanish", "French"])
+    end
+
+    it "returns empty array when organization not in Airtable" do
+      unknown_org = create :organization, name: "Org Not In AirTable"
+      expect(unknown_org.language_offerings).to eq([])
+    end
+  end
 end
