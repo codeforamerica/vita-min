@@ -15,7 +15,7 @@ def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
   end
 end
 
-gem 'rack', '>= 2.2.20'
+gem 'rack', '>= 2.2.18'
 gemn 'rails', '~> 7.1.5.2', next_version: "~> 8.0.0"
 gem 'puma', '>= 6.6.1'
 gem 'sass-rails', '~> 5.0'
@@ -92,7 +92,6 @@ gem 'redis'
 gem "observer", "~> 0.1.2"
 gem "csv", "~> 3.3"
 gem "rexml", ">= 3.4.2"
-# gem "sinatra", "~> 4.2"
 
 # Use Flipper for feature flagging
 gem 'flipper'
