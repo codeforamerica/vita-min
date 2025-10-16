@@ -7,12 +7,12 @@ services:
     image: postgis/postgis:13-3.4-alpine
     user: postgres
     ports:
-      - 127.0.0.1:5432:5432
+      - 127.0.0.1:${RAILS_DB_PORT:-5432}:5432
     volumes:
       - database:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: ${RAILS_DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${RAILS_DB_PASSWORD:-password}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready", "-d", "postgres"]
       interval: 30s
@@ -31,11 +31,11 @@ services:
       web:
         condition: service_healthy
     environment:
-      - DOCKER=true
-      - RAILS_DB_HOST=db
-      - RAILS_DB_USERNAME=postgres
-      - RAILS_DB_PORT=5432
-      - RAILS_DB_PASSWORD=password
+      DOCKER: true
+      RAILS_DB_HOST: db
+      RAILS_DB_USERNAME: ${RAILS_DB_USERNAME:-postgres}
+      RAILS_DB_PORT: ${RAILS_DB_PORT:-5432}
+      RAILS_DB_PASSWORD: ${RAILS_DB_PASSWORD:-password}
   web:
     container_name: web
     build:
