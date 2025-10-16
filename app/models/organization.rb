@@ -74,6 +74,13 @@ class Organization < VitaPartner
     )
   end
 
+  def language_offerings
+    all_offerings = Rails.cache.fetch('airtable_language_offerings', expires_in: 1.hour) do
+      Airtable::Organization.language_offerings
+    end
+    all_offerings[name] || []
+  end
+
   def at_capacity?
     return false if capacity_limit.nil?
 
