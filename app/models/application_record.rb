@@ -13,13 +13,14 @@ class ApplicationRecord < ActiveRecord::Base
       enums[:prefix] = enums.delete(:_prefix)
 
       super enum_name, enum_values, **enums
+      self.new_enum_api(enum_name, **enums)
     else
       super
-      old_enum_api(**enums)
+      self.old_enum_api(**enums)
     end
   end
 
-  def old_enum_api(**enums)
+  def self.old_enum_api(**enums)
     enums.each do |enum_name, _|
       mapping = defined_enums[enum_name.to_s]
       next if mapping.nil?
@@ -32,7 +33,7 @@ class ApplicationRecord < ActiveRecord::Base
     end
   end
 
-  def new_enum_api(enum_name, **enums)
+  def self.new_enum_api(enum_name, **enums)
     mapping = defined_enums[enum_name.to_s]
     return if mapping.nil?
     attribute(enum_name) do |subtype|
