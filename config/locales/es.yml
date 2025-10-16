@@ -4677,7 +4677,6 @@ es:
         closed_subheader_html: |
           <strong>FileYourStateTaxes</strong> se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.<br/><br/>
           Nuestro servicio ya está cerrado para esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.<br /><br />
-          <strong>¿La declaración estatal que presentaste con FileYourStateTaxes fue rechazada?</strong> <a href="%{sign_in_url}">Inicia sesión aquí</a> para corregir y volver a enviar tu declaración.<br /><br />
         download_return_button: Descarga tu 2024 declaración
         faq_prior_year_returns: Visita nuestra sección de preguntas frecuentes si tienes dudas sobre declaraciones de años anteriores.
         header: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
