@@ -16,7 +16,7 @@ def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
 end
 
 gem 'rack', '>= 2.2.20'
-gem 'rails', '~> 7.1.5.2'
+gemn 'rails', '~> 7.1.5.2', next_version: "~> 8.0.0"
 gem 'puma', '>= 6.6.1'
 gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
@@ -92,6 +92,7 @@ gem 'redis'
 gem "observer", "~> 0.1.2"
 gem "csv", "~> 3.3"
 gem "rexml", ">= 3.4.2"
+# gem "sinatra", "~> 4.2"
 
 # Use Flipper for feature flagging
 gem 'flipper'

@@ -7,8 +7,19 @@ class ApplicationRecord < ActiveRecord::Base
   scope :count_greater_than?, ->(n) { limit(n + 1).count > n }
 
   def self.enum(**enums)
-    super
+    if ENV['NEXT']
+      enum_name, enum_values = enums.shift
 
+      enums[:prefix] = enums.delete(:_prefix)
+
+      super enum_name, enum_values, **enums
+    else
+      super
+      old_enum_api(**enums)
+    end
+  end
+
+  def old_enum_api(**enums)
     enums.each do |enum_name, _|
       mapping = defined_enums[enum_name.to_s]
       next if mapping.nil?
@@ -19,5 +30,16 @@ class ApplicationRecord < ActiveRecord::Base
 
       validates_inclusion_of enum_name, { in: mapping.keys + mapping.values, allow_blank: true }
     end
+  end
+
+  def new_enum_api(enum_name, **enums)
+    mapping = defined_enums[enum_name.to_s]
+    return if mapping.nil?
+    attribute(enum_name) do |subtype|
+      subtype = subtype.subtype if ActiveRecord::Enum::EnumType === subtype # rubocop:disable Style/CaseEquality
+      EnumTypeWithoutValidValueAssertion.new(enum_name, mapping, subtype)
+    end
+
+    validates_inclusion_of enum_name, { in: mapping.keys + mapping.values, allow_blank: true }
   end
 end
