@@ -6,7 +6,7 @@ ruby ruby_version
 plugin 'bootboot', '~> 0.2.2'
 
 def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
-  gem gem_name, version, **kwargs if next_version.nil?
+  return gem gem_name, version, **kwargs if next_version.nil? || next_name.nil?
 
   if ENV['NEXT']
     gem (next_name || gem_name), next_version, **kwargs
@@ -18,7 +18,7 @@ end
 gem 'rack', '>= 2.2.20'
 gemn 'rails', '~> 7.1.5.2', next_version: "~> 8.0.0"
 gem 'puma', '>= 6.6.1'
-gem 'sass-rails', '~> 5.0'
+gemn 'sass-rails', '~> 5.0', next_name: "dartsass-rails"
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
