@@ -2440,7 +2440,6 @@ en:
           supported_by: Supported by the New Jersey Division of Taxation
           title: File your New Jersey taxes for free
         not_you: Not %{user_name}?
-        rejected_return_html: <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.
         start_new: Click here to start a new %{state_name} State return.
         title_closed: Our free %{state_name} tax filing service is closed for the season
         visit_faqs_html: <a href="%{faqs_path}">Visit our FAQs</a> for any questions about IRS Direct File’s closure.
