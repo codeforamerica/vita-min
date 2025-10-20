@@ -3355,6 +3355,21 @@ es:
             <p><strong>¿Cómo sé si fue aceptada?</strong></p>
             <p>Recibirás dos correos electrónicos del IRS: uno al enviar tu declaración federal de impuestos y otro cuando tu declaración haya sido aceptada. Revisa tu correo electrónico y carpeta de spam para confirmar si recibiste uno de aceptación. </p>
             <p>La transferencia segura desde el servicio de Direct File del IRS generalmente toma 3 minutos o menos.</p>
+          df_closure_description_html: |
+            <p>IRS Direct File cerró el %{closing_date}. Desafortunadamente ya pasó la fecha límite para transferir información de IRS Direct File a FileYourStateTaxes.</p>
+            <p>Como FileYourStateTaxes usa la información de IRS Direct File para completar tu declaración de impuestos estatales, ya no puedes presentar tu declaración usando nuestro servicio.</p>
+            <p>Si ya habías transferido la información de IRS Direct File y te sale este mensaje, desafortunadamente ya pasó la fecha límite para presentar tu declaración estatal con FileYourStateTaxes.</p>
+          df_closure_other_filing_options_content_html: |
+            <p>Muchos servicios comerciales de preparación de impuestos ofrecen la opción de declarar sólo los impuestos estatales. Aquí tienes algunos consejos rápidos:</p>
+            <ul>
+              <li>Confirma que el servicio te permita presentar sólo tu declaración estatal. Es posible que necesites consultar con el soporte al cliente.</li>
+              <li>Prepárate para volver a ingresar la información de tu declaración federal, ya que se necesita para tu declaración estatal.</li>
+              <li>Al declarar, envía sólo tu declaración estatal. Si vuelves a enviar tu declaración federal, puede ser rechazada.</li>
+            </ul>
+            <p>Es posible que apliquen costos.</p>
+            <p>Obtén más información <a href=%{faq_path}>aquí.</a></p>
+          df_closure_other_filing_options_header: "¿Cuáles son mis otras opciones para declarar mis impuestos estatales?"
+          df_closure_title: Ya no es posible que transfieras la información de tu declaración federal de IRS Direct File
           title: Ahora completemos tu declaración de impuestos estatal
       md_county:
         edit:
