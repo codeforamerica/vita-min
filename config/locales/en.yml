@@ -4705,6 +4705,7 @@ en:
         closed_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with IRS Direct File to help you complete your state tax return for free.<br/><br/>
           We're closed for the tax season. Unfortunately, you can no longer file your state return with us this year.<br /><br />
+          <strong>Already filed your state taxes with us?</strong> You can download a copy of your 2024 state return below.<br /><br />
         download_return_button: Download your 2024 return
         faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
