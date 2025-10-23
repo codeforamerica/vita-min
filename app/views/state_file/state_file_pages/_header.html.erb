@@ -14,7 +14,7 @@
         <% if I18n.locale != :es %>
           <%= link_to_spanish(class: "toolbar__item text--small") %>
         <% end %>
-        <% if app_time.before?(Rails.configuration.state_file_end_of_new_intakes) %>
+        <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
           <%= link_to t("general.sign_in"), login_options_path, class: "toolbar__item text--small" %>
         <% end %>
       </div>
