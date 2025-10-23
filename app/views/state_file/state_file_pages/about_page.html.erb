@@ -38,7 +38,7 @@
       <div>
         <%= t(".closed_subheader_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options)) %>
         <p>
-          <%= t(".looking_for_return_html", link: state_file_archived_intakes_edit_email_address_path )%>
+          <%= t(".looking_for_return_html") %>
         </p>
         <%= link_to questions_return_status_path(locale: I18n.locale), class: "button button--primary button--wide", role: "button", id: "firstCta" do %>
           <%= t(".download_return_button") %>
