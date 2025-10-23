@@ -14,9 +14,8 @@
         <% if I18n.locale != :es %>
           <%= link_to_spanish(class: "toolbar__item text--small") %>
         <% end %>
-        <% if app_time.before?(Rails.configuration.state_file_end_of_new_intakes) %>
-          <%= link_to t("general.sign_in"), login_options_path, class: "toolbar__item text--small" %>
-        <% end %>
+
+        <%= link_to t("general.sign_in"), login_options_path, class: "toolbar__item text--small" %>
       </div>
       <a data-component="ClientMenuTrigger" class="client-menu-trigger is-desktop-hidden toolbar__item text--small">Menu</a>
       <a class="is-desktop-hidden client-menu-closer" data-component="ClientMenuCloser">
