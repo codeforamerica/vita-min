@@ -17,7 +17,6 @@ module Efile
       /HTTP transport error: javax.net.ssl.SSLException/,
     ]
 
-    # TODO: Update this to unconditionally return the newer commit hash (8c46c9) after Jan 1 2026
     def self.current_version
       if Rails.env.production? && Date.today.year < 2026
         'ae332c44bac585fb9dbec9bf32ffff0d34a72830'
