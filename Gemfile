@@ -22,6 +22,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
 gem 'nokogiri', '>= 1.10.8'
 gem 'recaptcha'
+gem 'airrecord'
 
 # Use ActiveStorage variant
 gem 'image_processing'
@@ -159,3 +160,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "pundit", "~> 2.5"
+
+gem "openssl", ">= 3.3.1"

@@ -2444,6 +2444,7 @@ en:
         title_closed: Our free %{state_name} tax filing service is closed for the season
         visit_faqs_html: <a href="%{faqs_path}">Visit our FAQs</a> for any questions about IRS Direct File’s closure.
         welcome_back: Welcome back %{user_name}!
+        were_you_rejected_html: <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.<br /><br />
       ny_closed:
         body_html: |
           This service doesn’t support New York State tax returns for 2024. You can still file with IRS Direct File and New York State Direct File. To see if you’re eligible and start your federal return, visit <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>.
@@ -3399,6 +3400,21 @@ en:
             <p><strong>How do I know if it’s accepted?</strong></p>
             <p>You will receive two emails from the IRS: one for a submitted return, one for an accepted return. Please check your email and spam folder for an accepted return.</p>
             <p>This secure transfer from IRS Direct File usually takes 3 minutes or less.</p>
+          df_closure_description_html: |
+            <p>IRS Direct File closed on %{closing_date}. Unfortunately, the deadline to transfer your federal return data from IRS Direct File to FileYourStateTaxes has passed.</p>
+            <p>Since FileYourStateTaxes uses data from IRS Direct File to file your state return, you can no longer complete your state return with us.</p>
+            <p>If you’ve already transferred your data over from IRS Direct File and are seeing this screen, you unfortunately missed the deadline to file your state return with FileYourStateTaxes.</p>
+          df_closure_other_filing_options_content_html: |
+            <p>Many commercial tax preparation services offer state-only filing. Here are some quick tips:</p>
+            <ul>
+              <li>Confirm that the service lets you file just your state return. You might need to check with customer support.</li>
+              <li>Be ready to reenter info from your federal return, as it’s needed for your state return.</li>
+              <li>When filing, only submit your state return. If you submit your federal return again, your federal return may be rejected.</li>
+            </ul>
+            <p>Fees may apply.</p>
+            <p>Learn more <a href=%{faq_path}>here.</a></p>
+          df_closure_other_filing_options_header: What are my other state filing options?
+          df_closure_title: You can no longer transfer your federal return data from IRS Direct File
           title: Now, let’s complete your state tax return
       md_county:
         edit:

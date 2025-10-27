@@ -31,8 +31,8 @@ namespace :setup do
 
   task download_gyr_efiler: :environment do |_task|
     paths = [
-      Rails.root.join('vendor', 'gyr_efiler', "gyr-efiler-classes-#{Efile::GyrEfilerService::CURRENT_VERSION}.zip"),
-      Rails.root.join('vendor', 'gyr_efiler', "gyr-efiler-config-#{Efile::GyrEfilerService::CURRENT_VERSION}.zip")
+      Rails.root.join('vendor', 'gyr_efiler', "gyr-efiler-classes-#{Efile::GyrEfilerService.current_version}.zip"),
+      Rails.root.join('vendor', 'gyr_efiler', "gyr-efiler-config-#{Efile::GyrEfilerService.current_version}.zip")
     ]
     # If the file already exists, do not re-download.
     next if paths.all? { |p| File.exist?(p) }
