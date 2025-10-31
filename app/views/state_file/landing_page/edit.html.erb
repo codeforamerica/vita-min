@@ -11,7 +11,7 @@
         <div class="landing-page-content">
           <% if Flipper.enabled?(:fyst_sunset) %>
             <div class="warning">
-              <%= t("state_file.state_file_pages.about_page.closed_warning", tax_year: current_tax_year) %>
+              <%= t("state_file.state_file_pages.about_page.closed_warning") %>
             </div>
           <% end %>
           <h1 class="h1"><%= title %></h1>
@@ -23,7 +23,7 @@
               <%= t(".was_built_html", state_name:@state_name ) %>
             </p>
             <p class="h2">
-              <%= t(".if_you_filed_html", faqs_path: state_faq_path(us_state: "us", locale: I18n.locale)) %>
+              <%= t(".if_you_filed_html", faqs_path: state_faq_path(us_state: "us")) %>
             </p>
             <p class="h2">
               <%= t(".for_support") %>
@@ -41,7 +41,7 @@
                 <%= t("state_file.state_file_pages.about_page.download_your_return") %>
               <% end %>
             </div>
-            <%= link_to "https://pya.fileyourstatetaxes.org/#{I18n.locale == :en ? '' : I18n.locale}/",
+            <%= link_to "https://pya.fileyourstatetaxes.org/year_select#{I18n.locale == :en ? '' : I18n.locale}/",
                         class: "button button--icon button--wide",
                         id: "firstCta",
                         role: "button",

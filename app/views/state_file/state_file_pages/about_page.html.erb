@@ -16,7 +16,7 @@
       <%= link_to questions_return_status_path(locale: I18n.locale), class: "button button--primary button--wide", role: "button", id: "firstCta" do %>
         <%= t(".download_your_return") %>
       <% end %>
-      <%= link_to "https://pya.fileyourstatetaxes.org/#{I18n.locale == :en ? '' : I18n.locale}/",
+      <%= link_to "https://pya.fileyourstatetaxes.org/year_select#{I18n.locale == :en ? '' : I18n.locale}/",
                   class: "button button--icon button--wide",
                   id: "firstCta",
                   role: "button",

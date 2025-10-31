@@ -2359,6 +2359,7 @@ es:
         closing_soon_html: "<strong>El 22 de octubre es el último día en que puedes presentar tu declaración estatal con FileYourStateTaxes.</strong> Para hacerlo, debes haber enviado una declaración federal utilizando IRS Direct File antes de su fecha de cierre, el 15 de octubre. Puedes transferir tus datos a FileYourStateTaxes hasta el 22 de octubre."
         continue: Para continuar presentando su declaración estatal de %{state_name}, inicie sesión a continuación.
         download_your_record: Descarga tu declaración 2024
+        for_support: Para recibir ayuda para presentar tus impuestos federales y estatales sin costo, visita GetYourRefund.
         help_text_html: |
           <ul class="list--bulleted">
             <li>Una declaración federal de impuestos de %{filing_year} <strong>aceptada</strong> a través de <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>. (No necesitas una copia de esta declaración; transferirás tu declaración aquí)
@@ -2375,6 +2376,7 @@ es:
             Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.
           supported_by: Respaldada por el estado de Idaho
           title: Declara tus impuestos estatales de Idaho sin costo
+        if_you_filed_html: Si presentaste tu declaración con nosotros en 2025 o 2024, puedes descargar una copia de tu declaración estatal. Para obtener más información sobre cómo acceder a tus reembolsos federales y estatales, <a href="%{faqs_path}">visita nuestras Preguntas Frecuentes</a>.
         md:
           closed_html: |
             Ya cerramos por esta temporada de impuestos. <br /><br />
@@ -2411,6 +2413,7 @@ es:
         start_new: Haga clic aquí para iniciar una nueva declaración estatal de %{state_name}.
         title_closed: Nuestro servicio gratuito para declarar tus impuestos estatales de %{state_name} está cerrado por la temporada
         visit_faqs_html: Visita nuestra sección de <a href='%{faqs_path}'>preguntas frecuentes</a> si tienes cualquier pregunta sobre el cierre de IRS Direct File.
+        was_built_html: "<strong>FileYourStateTaxes</strong>fue creado en colaboración con el estado de %{state_name} para integrarse con el servicio Direct File del IRS."
         welcome_back: "¡Bienvenido de nuevo %{user_name}!"
         were_you_rejected_html: <strong>¿La declaración estatal que presentaste con FileYourStateTaxes fue rechazada?</strong> <a href="%{sign_in_url}">Inicia sesión aquí</a> para corregir y volver a enviar tu declaración.<br /><br />
       ny_closed:
@@ -4690,22 +4693,21 @@ es:
     state_file_pages:
       about_page:
         check_back_for_prior_year_returns: Vuelve a consultar al inicio de la temporada de impuestos para descargar tu declaración estatal de Arizona o Nueva York de 2023.
-        closed_subheader_html: |
-          <strong>FileYourStateTaxes</strong> se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.<br/><br/>
-          Nuestro servicio ya está cerrado para esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.<br /><br />
-          <strong>¿La declaración estatal que presentaste con FileYourStateTaxes fue rechazada?</strong> <a href="%{sign_in_url}">Inicia sesión aquí</a> para corregir y volver a enviar tu declaración.<br /><br />
-        download_return_button: Descarga tu 2024 declaración
-        end_of_in_progress_intakes_subheader_html: |
-          <strong>FileYourStateTaxes</strong> se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.<br/><br/>
-          Nuestro servicio ya está cerrado para esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.<br /><br />
-          <strong>¿Ya presentaste tus impuestos estatales con nosotros?</strong> Puedes descargar una copia de tu declaración estatal a continuación.  <br /><br />
-        closed_warning: FileYourStateTaxes cerró el [fecha, incluyendo el año] y no fue renovado para la temporada de impuestos%{tax_year}.
-        download_your_return: Descarga tu declaración
-        visit_gyr: Visita GetYourRefund
         closed_forever_subheader_html: |
           <strong>FileYourStateTaxes</strong> se integraba con  el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo, y este servicio ya no está activo.<br/><br/>
           Si presentaste tu declaración con nosotros en 2025 o 2024, puedes descargar una copia de tu declaración estatal. Para obtener más información sobre cómo acceder a tus reembolsos federales y estatales, <a href=%{faq_link}>visita nuestras Preguntas Frecuentes</a><br /><br />
           Para recibir ayuda para presentar tus impuestos federales y estatales sin costo, visita GetYourRefund.
+        closed_subheader_html: |
+          <strong>FileYourStateTaxes</strong> se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.<br/><br/>
+          Nuestro servicio ya está cerrado para esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.<br /><br />
+          <strong>¿La declaración estatal que presentaste con FileYourStateTaxes fue rechazada?</strong> <a href="%{sign_in_url}">Inicia sesión aquí</a> para corregir y volver a enviar tu declaración.<br /><br />
+        closed_warning: FileYourStateTaxes cerró el [fecha, incluyendo el año] y no fue renovado para la temporada de impuestos 2025.
+        download_return_button: Descarga tu 2024 declaración
+        download_your_return: Descarga tu declaración
+        end_of_in_progress_intakes_subheader_html: |
+          <strong>FileYourStateTaxes</strong> se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.<br/><br/>
+          Nuestro servicio ya está cerrado para esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.<br /><br />
+          <strong>¿Ya presentaste tus impuestos estatales con nosotros?</strong> Puedes descargar una copia de tu declaración estatal a continuación.  <br /><br />
         faq_prior_year_returns: Visita nuestra sección de preguntas frecuentes si tienes dudas sobre declaraciones de años anteriores.
         header: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"
@@ -4729,6 +4731,7 @@ es:
           <strong>En 2025, este servicio funcionará para presentar los impuestos estatales en Arizona, Idaho, Carolina del Norte, Nueva Jersey y Maryland.</strong>
         subheader_2_html: Para declarar tus declaración de impuestos federales, visita <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a> Si tienes cualquier pregunta sobre el cierre de IRS Direct File, visita <a href='%{faqs_path}'>nuestra sección de Preguntas Frecuentes.</a>
         subheader_3_html: "<strong>¿Ya comenzaste tu declaración de impuestos estatales con nosotros y necesitas completarlos?</strong> <a href=%{login_path}>Inicia sesión aquí</a> para continuar con la declaración."
+        visit_gyr: Visita GetYourRefund
       card_postscript:
         responses_saved_html: Tus respuestas fueron guardadas. Puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> en cualquier momento.
       coming_soon:

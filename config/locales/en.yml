@@ -2393,6 +2393,7 @@ en:
         closing_soon_html: "<strong>October 22nd is the last day you can file your state return with FileYourStateTaxes.</strong> To do this, you must have submitted a federal return using IRS Direct File by its closing date, October 15th. You can transfer your data to FileYourStateTaxes until October 22nd."
         continue: To continue filing your %{state_name} State return, please sign in below.
         download_your_record: Download your 2024 return
+        for_support: For support in filing your federal and state taxes for free, visit GetYourRefund.
         help_text_html: |
           <ul class="list--bulleted">
             <li>An <strong>accepted</strong> %{filing_year} federal return using <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">IRS Direct File</a>. (You don’t need a copy of this return; you’ll transfer your return here.)
@@ -2409,6 +2410,7 @@ en:
             Unfortunately, you can no longer file your state return with us this year.
           supported_by: Supported by the state of Idaho
           title: File your Idaho state taxes for free
+        if_you_filed_html: If you filed with us in 2025 or 2024, you can download a copy of your state return. For more information on accessing your federal and state refunds, <a href="%{faqs_path}">Visit our FAQs</a>.
         md:
           closed_html: |
             We're closed for the tax season.<br /><br />
@@ -2439,13 +2441,11 @@ en:
           help_text_title: 'What you’ll need:'
           supported_by: Supported by the New Jersey Division of Taxation
           title: File your New Jersey taxes for free
-        was_built_html: <strong>FileYourStateTaxes</strong>  was built in partnership with %{state_name} to integrate with the IRS Direct File tool.
-        if_you_filed_html: If you filed with us in 2025 or 2024, you can download a copy of your state return. For more information on accessing your federal and state refunds, <a href="%{faqs_path}">Visit our FAQs</a>
-        for_support: For support in filing your federal and state taxes for free, visit GetYourRefund.
         not_you: Not %{user_name}?
         start_new: Click here to start a new %{state_name} State return.
         title_closed: Our free %{state_name} tax filing service is closed for the season
         visit_faqs_html: <a href="%{faqs_path}">Visit our FAQs</a> for any questions about IRS Direct File’s closure.
+        was_built_html: "<strong>FileYourStateTaxes</strong> was built in partnership with %{state_name} to integrate with the IRS Direct File tool."
         welcome_back: Welcome back %{user_name}!
         were_you_rejected_html: <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.<br /><br />
       ny_closed:
@@ -4721,21 +4721,20 @@ en:
     state_file_pages:
       about_page:
         check_back_for_prior_year_returns: Check back at the start of filing season to download your 2023 Arizona or New York State tax return.
-        closed_subheader_html: |
-          <strong>FileYourStateTaxes</strong> integrates with IRS Direct File to help you complete your state tax return for free.<br/><br/>
-          We're closed for the tax season. Unfortunately, you can no longer file your state return with us this year.<br /><br />
-          <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.<br /><br />
-        download_return_button: Download your 2024 return
-        end_of_in_progress_intakes_subheader_html: |
-          <strong>FileYourStateTaxes</strong> integrates with IRS Direct File to help you complete your state tax return for free.<br/><br/>
-          <strong>Already filed your state taxes with us?</strong> You can download a copy of your 2024 state return below.<br /><br />
-        closed_warning: FileYourStateTaxes closed on October 31rst 2025 and was not renewed for the %{tax_year} season.
-        download_your_return: Download your return
-        visit_gyr: Visit GetYourRefund
         closed_forever_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrated with IRS Direct File to help you complete your state tax return for free, and is now closed.<br/><br/>
           If you filed with us in 2025 or 2024, you can download a copy of your state return. For more information on accessing your federal and state refunds, <a href=%{faq_link}>visit our FAQs</a><br /><br />
           For support in filing your federal and state taxes for free, visit GetYourRefund.
+        closed_subheader_html: |
+          <strong>FileYourStateTaxes</strong> integrates with IRS Direct File to help you complete your state tax return for free.<br/><br/>
+          We're closed for the tax season. Unfortunately, you can no longer file your state return with us this year.<br /><br />
+          <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.<br /><br />
+        closed_warning: FileYourStateTaxes closed on October 31 2025 and was not renewed for the 2025 season.
+        download_return_button: Download your 2024 return
+        download_your_return: Download your return
+        end_of_in_progress_intakes_subheader_html: |
+          <strong>FileYourStateTaxes</strong> integrates with IRS Direct File to help you complete your state tax return for free.<br/><br/>
+          <strong>Already filed your state taxes with us?</strong> You can download a copy of your 2024 state return below.<br /><br />
         faq_prior_year_returns: Visit our FAQ for questions about prior year returns
         header: A free state filing service for taxpayers using IRS Direct File
         helper_heading_html: "<strong>How does this service work? </strong>"
@@ -4759,6 +4758,7 @@ en:
           <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
         subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a> For any questions about IRS Direct File’s closure, <a href='%{faqs_path}'>visit our FAQs.</a>
         subheader_3_html: "<strong>Already started your state taxes with us and need to complete them?</strong> <a href=%{login_path}>Sign in here</a> to continue filing."
+        visit_gyr: Visit GetYourRefund
       card_postscript:
         responses_saved_html: Your responses are saved. You can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> anytime.
       coming_soon:
