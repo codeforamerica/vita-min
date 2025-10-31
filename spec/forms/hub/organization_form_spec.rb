@@ -103,6 +103,7 @@ RSpec.describe Hub::OrganizationForm do
         capacity_limit: 9001,
         allows_greeters: true,
         accepts_itin_applicants: true,
+        national_overflow_location: true,
         is_independent: "yes",
         states: "CA"
       }.merge(extra_params)
@@ -117,6 +118,7 @@ RSpec.describe Hub::OrganizationForm do
           capacity_limit: 9001,
           allows_greeters: true,
           accepts_itin_applicants: true,
+          national_overflow_location: true,
           is_independent: "yes",
           states: "CA"
         }
@@ -140,6 +142,7 @@ RSpec.describe Hub::OrganizationForm do
           capacity_limit: "-5",
           allows_greeters: true,
           accepts_itin_applicants: true,
+          national_overflow_location: true,
           is_independent: "yes",
           states: "CA"
         }
@@ -163,6 +166,7 @@ RSpec.describe Hub::OrganizationForm do
           capacity_limit: "-5",
           allows_greeters: true,
           accepts_itin_applicants: true,
+          national_overflow_location: true,
           is_independent: "yes",
           states: "CA"
         }
@@ -185,6 +189,7 @@ RSpec.describe Hub::OrganizationForm do
       expect(organization.capacity_limit).to eq(9001)
       expect(organization.allows_greeters).to eq true
       expect(organization.accepts_itin_applicants).to eq true
+      expect(organization.national_overflow_location).to eq true
     end
 
     context "when is_independent is yes" do

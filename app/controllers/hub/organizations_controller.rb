@@ -95,7 +95,7 @@ module Hub
 
     def organization_form_params
       params.require(:hub_organization_form).permit(
-        :name, :is_independent, :states, :coalition_id, :timezone, :accepts_itin_applicants, :capacity_limit, :allows_greeters, source_parameters_attributes: [:_destroy, :id, :code]
+        :name, :is_independent, :states, :coalition_id, :timezone, :accepts_itin_applicants, :capacity_limit, :allows_greeters, :national_overflow_location, source_parameters_attributes: [:_destroy, :id, :code]
       )
     end
 

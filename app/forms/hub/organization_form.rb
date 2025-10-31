@@ -4,7 +4,7 @@ module Hub
 
     attr_accessor :organization
 
-    set_attributes_for :organization, :name, :coalition_id, :accepts_itin_applicants, :timezone, :capacity_limit, :allows_greeters
+    set_attributes_for :organization, :name, :coalition_id, :accepts_itin_applicants, :timezone, :capacity_limit, :allows_greeters, :national_overflow_location
     set_attributes_for :state_routing_targets, :states
     set_attributes_for :organization_synthetic_attributes, :is_independent
 
