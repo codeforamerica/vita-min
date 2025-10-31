@@ -4701,7 +4701,7 @@ es:
           <strong>FileYourStateTaxes</strong> se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.<br/><br/>
           Nuestro servicio ya está cerrado para esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.<br /><br />
           <strong>¿La declaración estatal que presentaste con FileYourStateTaxes fue rechazada?</strong> <a href="%{sign_in_url}">Inicia sesión aquí</a> para corregir y volver a enviar tu declaración.<br /><br />
-        closed_warning: FileYourStateTaxes cerró el [fecha, incluyendo el año] y no fue renovado para la temporada de impuestos 2025.
+        closed_warning: FileYourStateTaxes cerró el 31 de octubre de 2025 y no fue renovado para la temporada de impuestos 2025.
         download_return_button: Descarga tu 2024 declaración
         download_your_return: Descarga tu declaración
         end_of_in_progress_intakes_subheader_html: |
