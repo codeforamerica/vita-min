@@ -26,6 +26,14 @@
 require 'rails_helper'
 
 RSpec.describe StateFileArchivedIntake, type: :model do
+  describe ".for_pya" do
+    let!(:state_file_archived_intake_with_ssn) { create :state_file_archived_intake }
+    let!(:state_file_archived_intake_without_ssn) { create :state_file_archived_intake, hashed_ssn: nil }
+    it "filters out records without a hashed_ssn" do
+      expect(described_class.for_pya.count).to be 1
+    end
+  end
+
   describe "#increment_failed_attempts" do
     let!(:state_file_archived_intake) { create :state_file_archived_intake, failed_attempts: 1 }
     it "locks access when failed attempts is incremented to 2" do
