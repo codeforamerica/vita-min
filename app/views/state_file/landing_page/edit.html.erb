@@ -15,8 +15,41 @@
             </div>
           <% end %>
           <h1 class="h1"><%= title %></h1>
-          <% if Flipper.enabled?(:fyst_sunset) %>
-
+          <% def questions_return_status_path(locale:)
+               # code here
+             end
+             if Flipper.enabled?(:fyst_sunset) %>
+            <p class="h2">
+              <%= t(".was_built_html", state_name:@state_name ) %>
+            </p>
+            <p class="h2">
+              <%= t(".if_you_filed_html", faqs_path: state_faq_path(us_state: "us", locale: I18n.locale)) %>
+            </p>
+            <p class="h2">
+              <%= t(".for_support") %>
+            </p>
+            <div class="partner-logo-wrapper spacing-below-35">
+              <div class="partner-logo-image">
+                <%= image_tag state_image_path, alt: "#{@state_name} state logo", class: "" %>
+              </div>
+              <div class="partner-logo-text text--body text--bold">
+                <%= t(".#{@state_code}.supported_by") %>
+              </div>
+            </div>
+            <div class="spacing-below-25">
+              <%= link_to questions_return_status_path(locale: I18n.locale), class: "button button--primary button--wide", role: "button", id: "firstCta" do %>
+                <%= t("state_file.state_file_pages.about_page.download_your_return") %>
+              <% end %>
+            </div>
+            <%= link_to "https://pya.fileyourstatetaxes.org/#{I18n.locale == :en ? '' : I18n.locale}/",
+                        class: "button button--icon button--wide",
+                        id: "firstCta",
+                        role: "button",
+                        target: "_blank",
+                        rel: "noopener noreferrer" do %>
+              <%= image_tag("icons/link-white.svg", alt: "") %>
+              <%= t("state_file.state_file_pages.about_page.visit_gyr") %>
+            <% end %>
           <% else %>
             <% if @closed %>
               <p class="h2">

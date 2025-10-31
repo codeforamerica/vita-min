@@ -2439,6 +2439,9 @@ en:
           help_text_title: 'What you’ll need:'
           supported_by: Supported by the New Jersey Division of Taxation
           title: File your New Jersey taxes for free
+        was_built_html: <strong>FileYourStateTaxes</strong>  was built in partnership with %{state_name} to integrate with the IRS Direct File tool.
+        if_you_filed_html: If you filed with us in 2025 or 2024, you can download a copy of your state return. For more information on accessing your federal and state refunds, <a href="%{faqs_path}">Visit our FAQs</a>
+        for_support: For support in filing your federal and state taxes for free, visit GetYourRefund.
         not_you: Not %{user_name}?
         start_new: Click here to start a new %{state_name} State return.
         title_closed: Our free %{state_name} tax filing service is closed for the season
