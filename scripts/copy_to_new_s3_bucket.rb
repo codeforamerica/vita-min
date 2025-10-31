@@ -26,7 +26,7 @@ class CopyToNewS3Bucket < Thor
     intakes_without_keys = []
 
     # Default batch 1000 https://apidock.com/rails/ActiveRecord/Batches/find_in_batches
-    StateFileArchivedIntake.find_in_batches.with_index do |intakes, batch|
+    StateFileArchivedIntake.for_pya.find_in_batches.with_index do |intakes, batch|
       say "Processing group ##{batch}..."
 
       intakes.each do |intake|
