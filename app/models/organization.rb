@@ -74,11 +74,44 @@ class Organization < VitaPartner
     )
   end
 
-  def language_offerings
-    all_offerings = Rails.cache.fetch('airtable_language_offerings', expires_in: 1.hour) do
+  scope :with_language_capability, ->(language) do
+    lang = language.to_s.strip.downcase
+    if lang.blank? || lang == "english"
+      all
+    else
+      names = lang_to_names_index_cached[lang]
+      names.present? ? where(name: names) : none
+    end
+  end
+
+  def self.all_language_offerings
+    # English is not listed in the airtable but implied in all orgs language offerings
+    Rails.cache.fetch('airtable_language_offerings', expires_in: 1.hour) do
       Airtable::Organization.language_offerings
     end
-    all_offerings[name] || []
+  end
+
+  def language_offerings
+    Organization.all_language_offerings[name] || []
+  end
+
+  def self.lang_to_names_index
+    # cross-request cache
+    Rails.cache.fetch('airtable_lang_to_names', expires_in: 1.hour) do
+      lang_to_org_names_hash = {}
+      all_language_offerings.each do |org_name, langs|
+        Array(langs).each do |l|
+          key = l.to_s.strip.downcase
+          (lang_to_org_names_hash[key] ||= []) << org_name
+        end
+      end
+      lang_to_org_names_hash
+    end
+  end
+
+  def self.lang_to_names_index_cached
+    # stores in cache per request
+    RequestStore.store[:lang_to_names] ||= lang_to_names_index
   end
 
   def at_capacity?
