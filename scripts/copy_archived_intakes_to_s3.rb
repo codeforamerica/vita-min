@@ -42,7 +42,7 @@ class CopyArchivedIntakesToS3 < Thor
     end
 
     def write_output(output, file_name)
-      if Rails.env.development?
+      if Rails.env.development? && ENV["AWS_ACCESS_KEY_ID"].blank?
         write_to_file(output, file_name)
       else
         write_to_s3(output, file_name)
@@ -57,6 +57,11 @@ class CopyArchivedIntakesToS3 < Thor
     end
 
     def write_to_s3(output, file_name)
+      s3_client.put_object(
+        bucket: 'archived-intakes',
+        key: tagged_path(file_name),
+        body: Zlib.gzip(output)
+      )
     end
 
     def tagged_path(file_name)
@@ -70,7 +75,14 @@ class CopyArchivedIntakesToS3 < Thor
     def source_bucket
     end
 
-    def s3_client = Aws::S3::Client.new(region: 'us-east-1', credentials: s3_credentials)
+    def s3_client
+      Aws::S3::Client.new(
+        region: 'us-east-1',
+        credentials: s3_credentials,
+        force_path_style: true,
+        endpoint: ENV.fetch('LOCALSTACK_ENDPOINT', nil)
+      )
+    end
 
     def s3_credentials
       if ENV["AWS_ACCESS_KEY_ID"].present? # is this for local?
