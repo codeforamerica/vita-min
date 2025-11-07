@@ -6,11 +6,11 @@ orbs:
 
 executors:
   ruby_executor:
-    working_directory: /mnt/ramdisk
+    working_directory: ~/vita-min
     docker:
       - image: cimg/ruby:3.4.4-browsers
   rails_executor:
-    working_directory: /mnt/ramdisk
+    working_directory: ~/vita-min
     docker:
       - image: cimg/ruby:3.4.4-browsers
         environment:
@@ -47,7 +47,7 @@ commands:
       - save_cache:
           key: yarn-{{ checksum "yarn.lock" }}
           paths:
-            - /mnt/ramdisk/node_modules
+            - ~/vita-min/node_modules
             - ~/.npm
   install_ruby_dependencies:
     description: "Install Ruby dependencies"
@@ -65,7 +65,7 @@ commands:
             bundle install --jobs=4 --retry=3 --path vendor/bundle
       - save_cache:
           key: bundle-{{ checksum "Gemfile.lock" }}
-          paths: [/mnt/ramdisk/vendor/bundle]
+          paths: [~/vita-min/vendor/bundle]
   install_efile_schemas:
     description: "Install IRS e-File schemas"
     steps:
@@ -75,8 +75,8 @@ commands:
       - save_cache:
           key: bundle-{{ checksum "app/lib/schema_file_loader.rb" }}-{{ checksum "app/services/state_file/state_information_service.rb" }}-v2
           paths:
-            - /mnt/ramdisk/vendor/irs
-            - /mnt/ramdisk/vendor/us_states
+            - ~/vita-min/vendor/irs
+            - ~/vita-min/vendor/us_states
   setup_test_db_for_parallel:
     description: "Setup test database"
     steps:
