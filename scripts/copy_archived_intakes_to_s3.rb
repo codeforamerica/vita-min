@@ -69,19 +69,25 @@ class CopyArchivedIntakesToS3 < Thor
       timestamp_string = current_time.strftime("%Y%m%d-%H%M%S")
 
       "#{file_name}-#{timestamp_string}.gz"
-      # "#{file_name}.gz"
     end
 
     def source_bucket
     end
 
     def s3_client
-      Aws::S3::Client.new(
-        region: 'us-east-1',
-        credentials: s3_credentials,
-        force_path_style: true,
-        endpoint: ENV.fetch('LOCALSTACK_ENDPOINT', nil)
-      )
+      if ENV["LOCALSTACK_ENDPOINT"].present?
+        Aws::S3::Client.new(
+          region: "us-east-1",
+          credentials: s3_credentials,
+          force_path_style: true,
+          endpoint: ENV["LOCALSTACK_ENDPOINT"]
+        )
+      else
+        Aws::S3::Client.new(
+          region: "us-east-1",
+          credentials: s3_credentials
+        )
+      end
     end
 
     def s3_credentials
