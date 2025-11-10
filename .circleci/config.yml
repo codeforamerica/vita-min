@@ -138,6 +138,8 @@ jobs:
       - run: bundle exec annotate --frozen
   run_ruby_tests:
     executor: rails_executor
+    environment:
+      BUNDLE_GITHUB__COM: x-access-token:${HONEYCRISP_PAT}
     steps:
       - checkout
       - install_js_dependencies
