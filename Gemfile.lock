@@ -439,6 +439,7 @@ GEM
     omniauth-rails_csrf_protection (1.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
+    openssl (3.3.1)
     openssl-oaep (0.1.0)
     ordinalize_full (3.1.0)
       i18n (~> 1.8)
@@ -788,6 +789,7 @@ DEPENDENCIES
   dotenv
   easy_translate
   factory_bot_rails
+  faraday
   fix-db-schema-conflicts
   flamegraph
   flipper
@@ -815,6 +817,7 @@ DEPENDENCIES
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (~> 1.0)
+  openssl (>= 3.3.1)
   openssl-oaep
   ordinalize_full
   paper_trail

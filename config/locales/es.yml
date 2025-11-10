@@ -2412,6 +2412,7 @@ es:
         title_closed: Nuestro servicio gratuito para declarar tus impuestos estatales de %{state_name} está cerrado por la temporada
         visit_faqs_html: Visita nuestra sección de <a href='%{faqs_path}'>preguntas frecuentes</a> si tienes cualquier pregunta sobre el cierre de IRS Direct File.
         welcome_back: "¡Bienvenido de nuevo %{user_name}!"
+        were_you_rejected_html: <strong>¿La declaración estatal que presentaste con FileYourStateTaxes fue rechazada?</strong> <a href="%{sign_in_url}">Inicia sesión aquí</a> para corregir y volver a enviar tu declaración.<br /><br />
       ny_closed:
         body_html: |
           Este servicio no acepta declaraciones de impuestos del estado de Nueva York para 2024. Puedes declarar usando el servicio Direct File del IRS y Direct File del Estado de Nueva York. Para ver si eres elegible y comenzar tu declaración federal, visita <a href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">Direct File del IRS</a>.
@@ -4694,6 +4695,10 @@ es:
           Nuestro servicio ya está cerrado para esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.<br /><br />
           <strong>¿La declaración estatal que presentaste con FileYourStateTaxes fue rechazada?</strong> <a href="%{sign_in_url}">Inicia sesión aquí</a> para corregir y volver a enviar tu declaración.<br /><br />
         download_return_button: Descarga tu 2024 declaración
+        end_of_in_progress_intakes_subheader_html: |
+          <strong>FileYourStateTaxes</strong> se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.<br/><br/>
+          Nuestro servicio ya está cerrado para esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.<br /><br />
+          <strong>¿Ya presentaste tus impuestos estatales con nosotros?</strong> Puedes descargar una copia de tu declaración estatal a continuación.  <br /><br />
         faq_prior_year_returns: Visita nuestra sección de preguntas frecuentes si tienes dudas sobre declaraciones de años anteriores.
         header: Un servicio sin costo para declarar los impuestos estatales para las personas que usaron IRS Direct File
         helper_heading_html: "<strong>¿Cómo funciona este servicio?</strong>"

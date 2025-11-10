@@ -15,6 +15,11 @@
             <p class="h2">
               <%= t(".#{@state_code}.closed_html") %>
             </p>
+            <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
+              <p class="h2">
+                <%= t(".were_you_rejected_html", sign_in_url: StateFile::StateFilePagesController.to_path_helper(action: :login_options)) %>
+              </p>
+            <% end %>
             <p class="h2">
               <%= t(".already_filed_html") %>
             </p>

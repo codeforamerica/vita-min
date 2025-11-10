@@ -2,7 +2,6 @@ require 'zip'
 
 module Efile
   class GyrEfilerService
-    CURRENT_VERSION = 'ae332c44bac585fb9dbec9bf32ffff0d34a72830'
     POSTGRES_LOCK_PREFIX = 1640661264
     RETRYABLE_LOG_CONTENTS = [
       /Transaction Result: The server sent HTTP status code 302: Moved Temporarily/,
@@ -17,6 +16,14 @@ module Efile
       /HTTP transport error: java.net.ConnectException/,
       /HTTP transport error: javax.net.ssl.SSLException/,
     ]
+
+    def self.current_version
+      if Rails.env.production? && Date.today.year < 2026
+        'ae332c44bac585fb9dbec9bf32ffff0d34a72830'
+      else
+        '8c46c9dccfc4da4b0acec5813966b1ba68abe245'
+      end
+    end
 
     def self.run_efiler_command(*args)
       Dir.mktmpdir do |working_directory|
@@ -80,7 +87,7 @@ module Efile
       FileUtils.mkdir_p(config_dir)
       return if File.exist?(File.join(config_dir, '.ready'))
 
-      config_zip_path = Dir.glob(Rails.root.join("vendor", "gyr_efiler", "gyr-efiler-config-#{CURRENT_VERSION}.zip"))[0]
+      config_zip_path = Dir.glob(Rails.root.join("vendor", "gyr_efiler", "gyr-efiler-config-#{current_version}.zip"))[0]
       raise StandardError.new("Please run rake setup:download_gyr_efiler then try again") if config_zip_path.nil?
 
       system!("unzip -o #{config_zip_path} -d #{Rails.root.join("tmp", "gyr_efiler")}")
@@ -108,7 +115,7 @@ module Efile
     end
 
     def self.ensure_gyr_efiler_downloaded
-      classes_zip_path = Dir.glob(Rails.root.join("vendor", "gyr_efiler", "gyr-efiler-classes-#{CURRENT_VERSION}.zip"))[0]
+      classes_zip_path = Dir.glob(Rails.root.join("vendor", "gyr_efiler", "gyr-efiler-classes-#{current_version}.zip"))[0]
       raise StandardError.new("You must run rails setup:download_gyr_efiler") if classes_zip_path.nil?
 
       return classes_zip_path
