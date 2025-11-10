@@ -57,12 +57,10 @@ commands:
       - run:
           name: Configure Git credentials for private gems
           command: |
-            unset BUNDLE_GITHUB__COM
             git config --global url."https://x-access-token:${HONEYCRISP_PAT}@github.com/".insteadOf "https://github.com/"
       - run:
           name: install bundler & ruby dependencies
           command: |
-            unset BUNDLE_GITHUB__COM
             gem install bundler:2.5.18 --no-document
             bundle config set --local path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
