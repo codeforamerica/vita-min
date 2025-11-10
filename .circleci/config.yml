@@ -57,8 +57,7 @@ commands:
       - run:
           name: Configure Git credentials for private gems
           command: |
-            git config --global url."https://${HONEYCRISP_PAT}@github.com/".insteadOf "https://github.com/"
-            bundle config set --global BUNDLE_GITHUB__COM $HONEYCRISP_PAT
+            git config --global url."https://x-access-token:${HONEYCRISP_PAT}@github.com/".insteadOf "https://github.com/"
       - run:
           name: install bundler & ruby dependencies
           command: |
