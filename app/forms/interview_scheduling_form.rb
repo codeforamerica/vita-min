@@ -11,6 +11,8 @@ class InterviewSchedulingForm < QuestionsForm
   end
 
   def language_options
+    # grab options from airtable instead?
+    # what to do about spanish translations? send an alert if they don't match
     I18n.backend.translations[I18n.locale][:general][:language_options].invert
   end
 

@@ -48,7 +48,7 @@ class PartnerRoutingService
     return from_national_routing if from_national_routing.present?
 
     # If previous steps result in no vita-partner with the intake's language preference,
-    # then do zip-code, state and national routing steps again without factoring in the language preference
+    # then we repeat the zip-code, state and national-overflow routing steps without factoring in the language preference
     set_base_vita_partners(language_routing: false)
     from_zip_code = vita_partner_from_zip_code if @zip_code.present?
     return from_zip_code if from_zip_code.present?
@@ -67,13 +67,13 @@ class PartnerRoutingService
 
   def set_base_vita_partners(language_routing:)
     @base_orgs = if language_routing
-                   Organization.with_language_capability(@intake.preferred_interview_language)
+                   Organization.with_language_capability(@intake&.preferred_interview_language)
                  else
                    Organization
                  end
 
     @base_vita_partners = if language_routing
-                            VitaPartner.with_language_capability(@intake.preferred_interview_language)
+                            VitaPartner.with_language_capability(@intake&.preferred_interview_language)
                           else
                             VitaPartner
                           end

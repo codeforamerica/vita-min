@@ -25,7 +25,7 @@ describe PartnerRoutingService do
       let!(:srf_one) { create(:state_routing_fraction, routing_fraction: 0.1, vita_partner: vita_partner, state_routing_target: srt_one) }
       let!(:srf_two) { create(:state_routing_fraction, routing_fraction: 0.3, vita_partner: vita_partner_in_state_no_itin, state_routing_target: srt_two) }
       let(:vita_partner_in_state_no_itin) { create :organization, accepts_itin_applicants: false }
-      let(:intake) { create :intake, state: "CA", zip_code: "94606", need_itin_help: 'yes' }
+      let(:intake) { create :intake, state: "CA", zip_code: "94606", need_itin_help: 'yes', preferred_interview_language: 'English' }
       subject { PartnerRoutingService.new(intake: intake, zip_code: "94606") }
 
       before { vita_partner.update(accepts_itin_applicants: true) }
@@ -359,5 +359,7 @@ describe PartnerRoutingService do
         end
       end
     end
+
+    # TODO: add zip code routing with lang preference
   end
 end

@@ -53,7 +53,7 @@ class VitaPartner < ApplicationRecord
   }
 
   scope :with_language_capability, -> (language) do
-    org_ids = Organization.with_language_capability.pluck(:id)
+    org_ids = Organization.with_language_capability(language).pluck(:id)
 
     # Organizations with language capability and Sites under those Orgs
     where(id: org_ids).or(where(type: Site::TYPE, parent_organization_id: org_ids))
