@@ -58,11 +58,20 @@ class CopyArchivedIntakesToS3 < Thor
 
     def write_to_s3(output, file_name)
       s3_client.put_object(
-        bucket: 'archived-intakes',
+        bucket: destination_bucket,
         key: tagged_path(file_name),
         body: Zlib.gzip(output)
       )
     end
+
+    def destination_bucket
+      if Rails.env.production?
+        "vita-min-archived-intakes-submission-pdfs"
+      else
+        "vita-min-demo-archived-intakes-submission-pdfs"
+      end
+    end
+
 
     def tagged_path(file_name)
       current_time = Time.current
@@ -71,23 +80,11 @@ class CopyArchivedIntakesToS3 < Thor
       "#{file_name}-#{timestamp_string}.gz"
     end
 
-    def source_bucket
-    end
-
     def s3_client
-      if ENV["LOCALSTACK_ENDPOINT"].present?
-        Aws::S3::Client.new(
-          region: "us-east-1",
-          credentials: s3_credentials,
-          force_path_style: true,
-          endpoint: ENV["LOCALSTACK_ENDPOINT"]
-        )
-      else
-        Aws::S3::Client.new(
-          region: "us-east-1",
-          credentials: s3_credentials
-        )
-      end
+      Aws::S3::Client.new(
+        region: "us-east-1",
+        credentials: s3_credentials
+      )
     end
 
     def s3_credentials
