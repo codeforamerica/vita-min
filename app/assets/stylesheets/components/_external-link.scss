@@ -4,8 +4,13 @@
 $theme-external-link-sr-label-tab-same: "External.";
 $theme-external-link-sr-label-tab-new: "External, opens in a new tab";
 
-@mixin external-link($contrast-bg: "default") {
-  display: inline;
+// add params to control layout-y stuff
+// $set-display: whether to force display:inline
+// $with-spacing: whether to add padding/margins for the icon
+@mixin external-link($contrast-bg: "default", $set-display: true, $with-spacing: true) {
+  @if $set-display {
+    display: inline;
+  }
 
   &::before {
     @include sr-only;
@@ -22,18 +27,21 @@ $theme-external-link-sr-label-tab-new: "External, opens in a new tab";
     color: currentColor;
     content: "";
     display: inline;
-    margin-top: 0.7ex;
-    margin-left: 2px;
-    padding-left: 1.75ex;
+
+    @if $with-spacing {
+      margin-top: 0.7ex;
+      margin-left: 2px;
+      padding-left: 1.75ex;
+    }
+
     vertical-align: middle;
 
     @supports (mask: url("")) {
       background: none;
       background-color: currentColor;
       mask-image: url("icons/uswds-launch.svg"),
-        linear-gradient(transparent, transparent);
+      linear-gradient(transparent, transparent);
       mask-repeat: no-repeat;
     }
   }
-
 }

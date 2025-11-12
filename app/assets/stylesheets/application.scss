@@ -248,7 +248,7 @@ body {
   @include sr-only;
 }
 
-a[href^='http']:not([href*=request_domain i]) {
+a[href^='http']:not([href*=request_domain i]):not(.no-external) {
   @include external-link;
 }
 
@@ -356,5 +356,14 @@ ol.with-bullets {
     display: none; /* Hides the home page image on mobile */
   }
 }
+
+.button__icon {
+  width: 1.6rem;     // or 20px
+  height: 1.6rem;
+  display: inline-block;
+  margin-right: 0.6rem;
+  vertical-align: middle;
+}
+
 
 
