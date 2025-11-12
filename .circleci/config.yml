@@ -55,10 +55,15 @@ commands:
       - restore_cache:
           key: bundle-{{ checksum "Gemfile.lock" }}
       - run:
+          name: Configure Git credentials for private gems
+          command: |
+            git config --global url."https://x-access-token:${HONEYCRISP_PAT}@github.com/".insteadOf "https://github.com/"
+      - run:
           name: install bundler & ruby dependencies
           command: |
-            gem install bundler:2.3.5 --no-document && \
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            gem install bundler:2.5.18 --no-document
+            bundle config set --local path 'vendor/bundle'
+            bundle install --jobs=4 --retry=3
       - save_cache:
           key: bundle-{{ checksum "Gemfile.lock" }}
           paths: [/mnt/ramdisk/vendor/bundle]
