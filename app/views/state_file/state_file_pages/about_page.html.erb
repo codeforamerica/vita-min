@@ -1,6 +1,6 @@
 <% title = t(".header") %>
 
-<% if Flipper.enabled?(:fyst_sunset) %>
+<% if Flipper.enabled?(:fyst_sunset_pya_live) %>
   <div class="warning">
     <%= t(".closed_warning", tax_year: current_tax_year) %>
   </div>
@@ -9,7 +9,7 @@
     <%= t(".closed_forever_subheader_html", faq_link: state_faq_path(us_state: 'us')) %>
   </div>
 
-  <%= link_to "https://pya.fileyourstatetaxes.org/year_select#{I18n.locale == :en ? '' : I18n.locale}/", class: "button button--primary button--icon button--wide spacing-below-15 no-external", id: "firstCta", role: "button", style: "display: flex; justify-content: center; align-items: center; text-align: center;"  do %>
+  <%= link_to "https://pya.fileyourstatetaxes.org/year_select#{I18n.locale}/", class: "button button--primary button--icon button--wide spacing-below-15 no-external", id: "firstCta", role: "button", style: "display: flex; justify-content: center; align-items: center; text-align: center;"  do %>
     <%= t(".download_your_return") %>
   <% end %>
 
@@ -22,13 +22,13 @@
 <% else %>
   <div class="fyst-home-container">
     <div class="fyst-home-content">
-      <% if Flipper.enabled?(:fyst_sunset) %>
+      <% if Flipper.enabled?(:fyst_sunset_pya_live) %>
         <div class="warning">
           <%= t(".closed_warning", tax_year: current_tax_year) %>
         </div>
       <% end %>
       <h1 class="h1 strong"><%= title %></h1>
-      <% if Flipper.enabled?(:fyst_sunset) %>
+      <% if Flipper.enabled?(:fyst_sunset_pya_live) %>
         <div class="spacing-below-25">
           <%= t(".closed_forever_subheader_html", faq_link: state_faq_path(us_state: 'us')) %>
         </div>
