@@ -23,7 +23,7 @@ module StateFile
     end
 
     def require_state_file_intake_login
-      if current_intake.blank?
+      if current_intake.blank? && Flipper.disabled?(:fyst_sunset_pya_live)
         session[:after_state_file_intake_login_path] = request.original_fullpath if request.get?
         flash[:notice] = I18n.t("devise.failure.timeout")
         redirect_to StateFile::StateFilePagesController.to_path_helper(action: :login_options)
