@@ -105,4 +105,16 @@ describe VitaPartner, requires_default_vita_partners: true do
       end
     end
   end
+
+  describe "with_capacity" do
+    let!(:org_without_capacity) { create :organization, capacity_limit: 0 }
+    let!(:org_with_capacity) { create :organization, capacity_limit: nil }
+    let!(:site_without_capacity) { create :site, parent_organization: create(:organization, capacity_limit: 0) }
+    let!(:site_with_capacity) { create :site, parent_organization: create(:organization, capacity_limit: nil) }
+
+    it "returns orgs and sites with capacity" do
+      expect(VitaPartner.with_capacity).to include(org_with_capacity, site_with_capacity)
+      expect(VitaPartner.with_capacity).not_to include(org_without_capacity, site_without_capacity)
+    end
+  end
 end
