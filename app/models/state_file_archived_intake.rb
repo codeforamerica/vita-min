@@ -30,6 +30,8 @@ class StateFileArchivedIntake < ApplicationRecord
   has_many :state_file_archived_intake_requests, class_name: 'StateFileArchivedIntakeRequest'
   enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
 
+  scope :for_pya, -> { where.not(hashed_ssn: nil) }
+
   before_create :populate_fake_addresses
   def full_address
     address_parts = [mailing_street, mailing_apartment, mailing_city, mailing_state, mailing_zip]
