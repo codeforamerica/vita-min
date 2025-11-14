@@ -93,7 +93,7 @@
   </div>
 <% end %>
 
-<% unless acts_like_production? || Flipper.enabled?(:fyst_sunset)%>
+<% unless acts_like_production? || Flipper.enabled?(:fyst_sunset_pya_live)%>
 <section>
   <% StateFile::StateInformationService.active_state_codes.each do |state_code| %>
     <%= link_to "Start Test #{state_code.upcase}",
