@@ -85,9 +85,15 @@ class Organization < VitaPartner
   end
 
   def self.all_language_offerings
-    # English is not listed in the airtable but implied in all orgs language offerings
+    # English is not listed in the airtable but implied in all orgs' language offerings
     Rails.cache.fetch('airtable_language_offerings', expires_in: 1.hour) do
       Airtable::Organization.language_offerings
+    end
+  end
+
+  def self.language_options_list
+    Rails.cache.fetch('airtable_lang_options_list', expires_in: 1.hour) do
+      Organization.all_language_offerings.values.flatten.uniq.sort.reject { |k| k == "Other" }.unshift("English")
     end
   end
 
