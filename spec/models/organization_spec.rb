@@ -275,18 +275,64 @@ describe Organization do
 
     before do
       allow(Airtable::Organization).to receive(:language_offerings).and_return({
-                                                                                 "Test Organization" => ["English", "Spanish", "French"],
+                                                                                 "Test Organization" => ["Spanish", "French"],
                                                                                  "Another Org" => ["Mandarin", "Korean"]
                                                                                })
     end
 
     it "returns languages for the organization" do
-      expect(organization.language_offerings).to eq(["English", "Spanish", "French"])
+      expect(organization.language_offerings).to eq(["Spanish", "French"])
     end
 
     it "returns empty array when organization not in Airtable" do
       unknown_org = create :organization, name: "Org Not In AirTable"
       expect(unknown_org.language_offerings).to eq([])
+    end
+  end
+
+  describe "#with_language_capability" do
+    let(:org1) { create :organization, name: "Test Organization" }
+    let(:org2) { create :organization, name: "Another Org" }
+    let(:org3) { create :organization, name: "Melon Org" }
+
+    before do
+      allow(Airtable::Organization)
+        .to receive(:language_offerings)
+        .and_return({
+                      "Test Organization" => %w[Spanish French],
+                      "Another Org" => %w[Mandarin Korean],
+                      "Melon Org" => %w[Spanish Japanese Korean],
+                    })
+    end
+
+    context "for spanish" do
+      it "returns all the orgs that have spanish language capability" do
+        expect(Organization.with_language_capability(" Spanish ")).to contain_exactly(org1, org3)
+      end
+    end
+
+    context "for korean" do
+      it "returns all the orgs that have korean language capability" do
+        expect(Organization.with_language_capability("korean")).to contain_exactly(org2, org3)
+      end
+    end
+
+    context "for english" do
+      it "returns all orgs" do
+        expect(Organization.with_language_capability("english")).to eq(Organization.all)
+      end
+    end
+
+    context "for nil" do
+      it "returns all orgs" do
+        expect(Organization.with_language_capability(nil)).to eq(Organization.all)
+      end
+    end
+
+    context "for blank" do
+      it "returns all orgs" do
+        expect(Organization.with_language_capability("")).to eq(Organization.all)
+      end
     end
   end
 end

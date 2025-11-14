@@ -11,7 +11,7 @@ class InterviewSchedulingForm < QuestionsForm
   end
 
   def language_options
-    I18n.backend.translations[I18n.locale][:general][:language_options].invert
+    Organization.language_options_list
   end
 
   def written_language_options
