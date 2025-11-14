@@ -9,12 +9,12 @@
     <%= t(".closed_forever_subheader_html", faq_link: state_faq_path(us_state: 'us')) %>
   </div>
 
-  <%= link_to "https://pya.fileyourstatetaxes.org/year_select/#{I18n.locale}/", class: "button button--primary button--icon button--wide spacing-below-15 no-external", id: "firstCta", role: "button", style: "display: flex; justify-content: center; align-items: center; text-align: center;"  do %>
+  <%= link_to "https://pya.fileyourstatetaxes.org/#{I18n.locale}/year_select", class: "button button--primary button--icon button--wide spacing-below-15 no-external", id: "firstCta", role: "button", style: "display: flex; justify-content: center; align-items: center; text-align: center;"  do %>
     <%= t(".download_your_return") %>
   <% end %>
 
   <div class="spacing-below-25">
-    <%= link_to "https://www.getyourrefund.org/en", class: "button button--icon button--wide no-external", id: "firstCta", role: "button", style: "display: flex; justify-content: center; align-items: center; text-align: center;" do %>
+    <%= link_to "https://www.getyourrefund.org/#{I18n.locale}", class: "button button--icon button--wide no-external", id: "firstCta", role: "button", style: "display: flex; justify-content: center; align-items: center; text-align: center;" do %>
       <%= image_tag("icons/uswds-launch.svg", alt: "", class: "button__icon") %>
       <%= t(".visit_gyr") %>
     <% end %>
@@ -33,12 +33,12 @@
           <%= t(".closed_forever_subheader_html", faq_link: state_faq_path(us_state: 'us')) %>
         </div>
         <div class="spacing-below-25">
-          <%= link_to "https://pya.fileyourstatetaxes.org/year_select#{I18n.locale == :en ? '' : I18n.locale}/", class: "button button--primary button--icon button--full-width spacing-below-15", role: "button", id: "firstCta" do %>
+          <%= link_to "https://pya.fileyourstatetaxes.org/#{I18n.locale}", class: "button button--primary button--icon button--full-width spacing-below-15", role: "button", id: "firstCta" do %>
             <%= t(".download_your_return") %>
           <% end %>
         </div>
 
-        <%= link_to "https://getyourrefund.org/year_select#{I18n.locale == :en ? '' : I18n.locale}/", class: "button button--primary button--icon button--full-width", role: "button", id: "firstCta" do %>
+        <%= link_to "https://getyourrefund.org/#{I18n.locale}", class: "button button--primary button--icon button--full-width", role: "button", id: "firstCta" do %>
           <%= t(".visit_gyr") %>
         <% end %>
       <% else %>
