@@ -4726,7 +4726,7 @@ en:
           <strong>FileYourStateTaxes</strong> integrates with IRS Direct File to help you complete your state tax return for free.<br/><br/>
           We're closed for the tax season. Unfortunately, you can no longer file your state return with us this year.<br /><br />
           <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.<br /><br />
-        closed_warning: FileYourStateTaxes closed on October 31, 2025 and was not renewed for the 2025 season.
+        closed_warning: FileYourStateTaxes closed on October 31, 2025 and was not renewed for the 2026 season.
         download_return_button: Download your 2024 return
         download_your_return: Download your return
         end_of_in_progress_intakes_subheader_html: |
