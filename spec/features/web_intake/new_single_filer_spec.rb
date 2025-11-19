@@ -48,6 +48,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       # Interview time preferences
       expect(intake.reload.current_step).to end_with("/questions/interview-scheduling")
       fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
+      expect(page).to have_select("What is your preferred language for the review?", selected: "English")
       select("Spanish", from: "What is your preferred language for the review?")
       click_on "Continue"
     end
@@ -387,7 +388,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     intake
   end
 
-  scenario "new client filing single without dependents fills out intake up to documents flow", screenshot: true do
+  scenario "new client filing single without dependents fills out intake up to documents flow" do
     answer_gyr_triage_questions(choices: :defaults)
 
     # creates intake and triage

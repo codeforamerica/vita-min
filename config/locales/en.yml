@@ -484,26 +484,26 @@ en:
     itin: ITIN
     language: Language
     language_options:
+      ar: Arabic
       de: German
       en: English
       es: Spanish
       fa: Farsi
       fr: French
-      ru: Russian
-      zh: Mandarin
-      ar: Arabic
       gu: Gujarati
-      ht: Haitian Creole
       hi: Hindi
+      ht: Haitian Creole
       it: Italian
       ja: Japanese
       ko: Korean
       pl: Polish
       pt: Portuguese
-      tgl: Tagalog
+      ru: Russian
       te: Telugu
+      tgl: Tagalog
       vi: Vietnamese
       yi: Yiddish
+      zh: Mandarin
     languages: Languages
     last_four_ssn: Last 4 of SSN/ITIN
     last_name: Last name

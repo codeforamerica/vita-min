@@ -485,26 +485,26 @@ es:
     itin: Número de Identificación Personal (ITIN)
     language: Idioma
     language_options:
+      ar: Árabe
       de: Alemán
       en: Inglés
       es: Español
       fa: Farsi
       fr: Francés
-      ru: Ruso
-      zh: Mandarín
-      ar: Árabe
       gu: Guyaratí
-      ht: Criollo haitiano
       hi: Hindi
+      ht: Criollo haitiano
       it: Italiano
       ja: Japonés
       ko: Coreano
       pl: Polaco
       pt: Portugués
-      tgl: Tagalo
+      ru: Ruso
       te: Telugu
+      tgl: Tagalo
       vi: Vietnamita
       yi: Yídish
+      zh: Mandarín
     languages: Idiomas
     last_four_ssn: Últimos 4 de SSN)/ITIN
     last_name: Apellido
