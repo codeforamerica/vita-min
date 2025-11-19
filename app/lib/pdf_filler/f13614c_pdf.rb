@@ -102,6 +102,9 @@ module PdfFiller
       answers["form1[0].page1[0].anyoneElseClaim[0].otherClaimYes[0]"] = yes_no_unfilled_to_checkbox(@intake.claimed_by_another)
       answers["form1[0].page1[0].anyoneElseClaim[0].otherClaimNo[0]"] = yes_no_unfilled_to_opposite_checkbox(@intake.claimed_by_another)
 
+      answers["form1[0].page1[0].howToVote[0].voteInformationYes[0]"] = yes_no_unfilled_to_checkbox(@intake.register_to_vote)
+      answers["form1[0].page1[0].howToVote[0].voteInformationNo[0]"] = yes_no_unfilled_to_opposite_checkbox(@intake.register_to_vote)
+
       # PAGE 2
       answers.merge!(
         keep_and_normalize(
