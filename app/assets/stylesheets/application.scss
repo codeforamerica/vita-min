@@ -358,12 +358,27 @@ ol.with-bullets {
 }
 
 .button__icon {
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 2rem;
+  height: 2rem;
   display: inline-block;
   margin-right: 0.6rem;
   vertical-align: middle;
 }
 
+
+.button--home {
+  @media screen and (min-width: $tablet-up) {
+    max-width: 34.5rem;
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &:first-of-type {
+    margin-left: 1.25rem;
+  }
+}
 
 
