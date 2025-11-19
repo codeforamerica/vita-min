@@ -74,14 +74,26 @@ class Organization < VitaPartner
     )
   end
 
-  scope :with_language_capability, ->(language) do
-    lang = language.to_s.strip.downcase
-    if lang.blank? || lang == "english"
+  scope :with_language_capability, ->(locale) do
+    if locale.blank? || locale.to_sym == :en
       all
     else
-      names = lang_to_names_index_cached[lang]
+      names = lang_to_names_index_cached[locale_to_full_lang(locale).downcase]
       names.present? ? where(name: names) : none
     end
+  end
+
+  def self.locale_to_full_lang(locale)
+    locale_code = locale.to_s.strip.downcase
+    languages_hash = I18n.backend.translations[I18n.locale][:general][:language_options]
+    languages_hash[locale_code.to_sym] # returns full_language_name, TODO: what to return if nil, which means that the language doesn't exist
+  end
+
+  def self.full_lang_to_locale(full_lang)
+    full_language_name = full_lang.to_s.strip
+    # {"German" => :de, "English" => :en, "Spanish" => :es, etc...}
+    languages_hash = I18n.backend.translations[I18n.locale][:general][:language_options].invert
+    languages_hash[full_language_name] # returns locale, TODO: what do we do if there is no match?
   end
 
   def self.all_language_offerings

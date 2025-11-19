@@ -301,25 +301,25 @@ describe Organization do
         .and_return({
                       "Test Organization" => %w[Spanish French],
                       "Another Org" => %w[Mandarin Korean],
-                      "Melon Org" => %w[Spanish Japanese Korean],
+                      "Melon Org" => %w[Spanish Japanese Mandarin],
                     })
     end
 
     context "for spanish" do
       it "returns all the orgs that have spanish language capability" do
-        expect(Organization.with_language_capability(" Spanish ")).to contain_exactly(org1, org3)
+        expect(Organization.with_language_capability(" es ")).to contain_exactly(org1, org3)
       end
     end
 
     context "for korean" do
       it "returns all the orgs that have korean language capability" do
-        expect(Organization.with_language_capability("korean")).to contain_exactly(org2, org3)
+        expect(Organization.with_language_capability("zh")).to contain_exactly(org2, org3)
       end
     end
 
     context "for english" do
       it "returns all orgs" do
-        expect(Organization.with_language_capability("english")).to eq(Organization.all)
+        expect(Organization.with_language_capability("en")).to eq(Organization.all)
       end
     end
 

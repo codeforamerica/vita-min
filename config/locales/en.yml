@@ -483,7 +483,7 @@ en:
     irs_free_file: IRS Free File
     itin: ITIN
     language: Language
-    language_options: # TODO: do these need to be update to what is in the airtable
+    language_options:
       de: German
       en: English
       es: Spanish
@@ -491,6 +491,19 @@ en:
       fr: French
       ru: Russian
       zh: Mandarin
+      ar: Arabic
+      gu: Gujarati
+      ht: Haitian Creole
+      hi: Hindi
+      it: Italian
+      ja: Japanese
+      ko: Korean
+      pl: Polish
+      pt: Portuguese
+      tgl: Tagalog
+      te: Telugu
+      vi: Vietnamese
+      yi: Yiddish
     languages: Languages
     last_four_ssn: Last 4 of SSN/ITIN
     last_name: Last name
