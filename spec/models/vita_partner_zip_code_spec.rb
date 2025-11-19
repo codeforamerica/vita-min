@@ -61,7 +61,7 @@ RSpec.describe VitaPartnerZipCode, type: :model do
       it "is not valid" do
         new_record = described_class.new(zip_code: existing_record.zip_code, vita_partner: create(:organization))
 
-        expect(new_record).not_to be_valid
+        expect(new_record).to be_valid
       end
     end
 

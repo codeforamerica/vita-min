@@ -11,6 +11,19 @@ describe Hub::ZipCodeRoutingForm do
     }
   end
   describe "#valid?" do
+    context "when the zip code is already in use" do
+      context "when it belongs to current vita partner" do
+        before do
+          create :vita_partner_zip_code, vita_partner: vita_partner, zip_code: zip_code
+        end
+
+        it "is invalid with appropriate message" do
+          expect(subject.valid?).to eq false
+          expect(subject.errors[:zip_code]).to include "94606 is already routed to this partner."
+        end
+      end
+    end
+
     context "when the zip code is not valid" do
       let(:zip_code) { "A2345"}
       it "is invalid" do

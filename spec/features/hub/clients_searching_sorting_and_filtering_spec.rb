@@ -41,6 +41,9 @@ RSpec.describe "searching, sorting, and filtering clients" do
 
         expect(page).to have_text "All Clients"
 
+        expect(page).to have_css('.client-table')
+        expect(page).to have_css('.client-row', count: 4)
+
         # Default sort order
         expected_rows = [
           {

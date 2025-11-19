@@ -4,6 +4,7 @@ module Hub
     attr_accessor :vita_partner
     delegate :edit_hub_organization_path, :edit_hub_site_path, to: 'Rails.application.routes.url_helpers'
 
+    validate :unused_zipcode
     validate :valid_serviced_zip_code
 
     def initialize(vita_partner, form_params = nil)
@@ -18,6 +19,13 @@ module Hub
 
     def vita_partner_id
       vita_partner.id
+    end
+
+    def unused_zipcode
+      existing = VitaPartnerZipCode.find_by(zip_code: @params[:zip_code], vita_partner_id: vita_partner.id)
+      if existing.present?
+        errors.add(:zip_code, I18n.t("hub.zip_codes.already_applied", zip_code: existing.zip_code))
+      end
     end
 
     def valid_serviced_zip_code
