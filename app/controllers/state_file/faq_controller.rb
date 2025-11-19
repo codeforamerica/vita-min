@@ -2,9 +2,7 @@ class StateFile::FaqController < ApplicationController
   layout "state_file"
 
   def index
-    years_to_show = filing_years_to_show # calculate once per request
     visible_state_code_names = StateFile::StateInformationService.state_code_to_name_map
-      .filter { |state_code, _| (years_to_show - StateFile::StateInformationService.filing_years(state_code)).empty? }
       .transform_values { |state_name| { state_name: } }
     visible_state_code_names.slice!(params[:us_state]) unless params[:us_state] == "us"
     product_types = visible_state_code_names.keys.map do |code|
@@ -20,10 +18,6 @@ class StateFile::FaqController < ApplicationController
   end
 
   def show
-    if params[:us_state] == 'ny'
-      redirect_to state_landing_page_path(us_state: "ny")
-      return
-    end
     @section_key = params[:section_key]
     @faq_category = FaqCategory.find_by(slug: @section_key, product_type: FaqCategory.state_to_product_type(params[:us_state]))
 
@@ -32,6 +26,7 @@ class StateFile::FaqController < ApplicationController
 
   private
 
+  # @deprecated FYST is retired now, show all categories all the time!
   def filing_years_to_show
     faq_show_start = Rails.configuration.state_file_show_faq_date_start
     faq_show_end = Rails.configuration.state_file_show_faq_date_end
@@ -48,12 +43,10 @@ class StateFile::FaqController < ApplicationController
         # show states that were open this year and will open next year
         [tax_year, tax_year + 1]
       end
+    elsif app_time > faq_show_end
+      [tax_year + 1]
     else
-      if app_time > faq_show_end
-        [tax_year + 1]
-      else
-        [tax_year]
-      end
+      [tax_year]
     end
   end
 end
