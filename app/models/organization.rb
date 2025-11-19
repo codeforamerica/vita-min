@@ -87,7 +87,7 @@ class Organization < VitaPartner
   def self.locale_to_full_lang(locale)
     locale_code = locale.to_s.strip.downcase
     languages_hash = I18n.backend.translations[I18n.locale][:general][:language_options]
-    languages_hash[locale_code.to_sym] # returns full_language_name, TODO: what to return if nil, which means that the language doesn't exist
+    languages_hash[locale_code.to_sym] # returns the full language name
   end
 
   def self.all_language_offerings
