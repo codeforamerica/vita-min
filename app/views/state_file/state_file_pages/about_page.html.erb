@@ -1,7 +1,7 @@
 <% title = t(".header") %>
 
 <% if Flipper.enabled?(:fyst_sunset_pya_live) %>
-  <div class="warning">
+  <div class="warning spacing-above-15">
     <%= t(".closed_warning", tax_year: current_tax_year) %>
   </div>
   <h1 class="h1 strong"><%= title %></h1>
