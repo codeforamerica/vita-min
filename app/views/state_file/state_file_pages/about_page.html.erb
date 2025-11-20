@@ -1,7 +1,7 @@
 <% title = t(".header") %>
 
 <% if Flipper.enabled?(:fyst_sunset_pya_live) %>
-  <div class="warning">
+  <div class="warning spacing-above-10">
     <%= t(".closed_warning", tax_year: current_tax_year) %>
   </div>
   <h1 class="h1 strong"><%= title %></h1>
@@ -9,12 +9,12 @@
     <%= t(".closed_forever_subheader_html", faq_link: state_faq_path(us_state: 'us')) %>
   </div>
 
-  <%= link_to "https://pya.fileyourstatetaxes.org/#{I18n.locale}/year_select", class: "button button--primary button--icon button--wide spacing-below-15 no-external", id: "firstCta", role: "button", style: "display: flex; justify-content: center; align-items: center; text-align: center;"  do %>
+  <%= link_to "https://pya.fileyourstatetaxes.org/#{I18n.locale}/year_select", class: "button button--primary button--home", id: "firstCta", role: "button", style: "display: flex; justify-content: center; align-items: center; text-align: center;"  do %>
     <%= t(".download_your_return") %>
   <% end %>
 
   <div class="spacing-below-25">
-    <%= link_to "https://www.getyourrefund.org/#{I18n.locale}", class: "button button--icon button--wide no-external", id: "firstCta", role: "button", style: "display: flex; justify-content: center; align-items: center; text-align: center;" do %>
+    <%= link_to "https://www.getyourrefund.org/#{I18n.locale}", class: "button button--home no-external", id: "firstCta", role: "button", style: "display: flex; justify-content: center; align-items: center; text-align: center;" do %>
       <%= image_tag("icons/uswds-launch.svg", alt: "", class: "button__icon") %>
       <%= t(".visit_gyr") %>
     <% end %>
