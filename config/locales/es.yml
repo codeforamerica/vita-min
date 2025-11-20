@@ -4690,11 +4690,17 @@ es:
     state_file_pages:
       about_page:
         check_back_for_prior_year_returns: Vuelve a consultar al inicio de la temporada de impuestos para descargar tu declaración estatal de Arizona o Nueva York de 2023.
+        closed_forever_subheader_html: |
+          <strong>FileYourStateTaxes</strong> se integraba con  el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo, y este servicio ya no está activo.<br/><br/>
+          Si presentaste tu declaración con nosotros en 2025 o 2024, puedes descargar una copia de tu declaración estatal. Para obtener más información sobre cómo acceder a tus reembolsos federales y estatales, <a href=%{faq_link}>visita nuestras Preguntas Frecuentes</a><br /><br />
+          Para recibir ayuda para presentar tus impuestos federales y estatales sin costo, visita GetYourRefund.
         closed_subheader_html: |
           <strong>FileYourStateTaxes</strong> se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.<br/><br/>
           Nuestro servicio ya está cerrado para esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.<br /><br />
           <strong>¿La declaración estatal que presentaste con FileYourStateTaxes fue rechazada?</strong> <a href="%{sign_in_url}">Inicia sesión aquí</a> para corregir y volver a enviar tu declaración.<br /><br />
+        closed_warning: FileYourStateTaxes cerró el 31 de octubre de 2025 y no fue renovado para la temporada de impuestos 2026.
         download_return_button: Descarga tu 2024 declaración
+        download_your_return: Descarga tu declaración
         end_of_in_progress_intakes_subheader_html: |
           <strong>FileYourStateTaxes</strong> se conecta con el servicio Direct File del IRS para ayudarte a completar tu declaración de impuestos estatal sin costo.<br/><br/>
           Nuestro servicio ya está cerrado para esta temporada de impuestos. Desafortunadamente, ya no puedes presentar tu declaración estatal con nosotros este año.<br /><br />
@@ -4722,6 +4728,7 @@ es:
           <strong>En 2025, este servicio funcionará para presentar los impuestos estatales en Arizona, Idaho, Carolina del Norte, Nueva Jersey y Maryland.</strong>
         subheader_2_html: Para declarar tus declaración de impuestos federales, visita <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a> Si tienes cualquier pregunta sobre el cierre de IRS Direct File, visita <a href='%{faqs_path}'>nuestra sección de Preguntas Frecuentes.</a>
         subheader_3_html: "<strong>¿Ya comenzaste tu declaración de impuestos estatales con nosotros y necesitas completarlos?</strong> <a href=%{login_path}>Inicia sesión aquí</a> para continuar con la declaración."
+        visit_gyr: Visita GetYourRefund
       card_postscript:
         responses_saved_html: Tus respuestas fueron guardadas. Puedes regresar e iniciar sesión en tu cuenta en <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> en cualquier momento.
       coming_soon:
