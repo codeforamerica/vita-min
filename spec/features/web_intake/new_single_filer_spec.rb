@@ -6,6 +6,14 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
+  before do
+    allow(Airtable::Organization)
+      .to receive(:language_offerings)
+            .and_return({
+                          "Test Organization" => %w[Spanish French],
+                        })
+  end
+
   def intake_up_to_documents
     answer_gyr_triage_questions(choices: :defaults)
 
@@ -37,6 +45,15 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
   def intake_after_triage_up_to_documents(intake)
     page_change_block do
+      # Interview time preferences
+      expect(intake.reload.current_step).to end_with("/questions/interview-scheduling")
+      fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
+      expect(page).to have_select("What is your preferred language for the review?", selected: "English")
+      select("Spanish", from: "What is your preferred language for the review?")
+      click_on "Continue"
+    end
+
+    page_change_block do
       select "Social Security Number (SSN)", from: "Identification Type"
       fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
       fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
@@ -57,17 +74,6 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     page_change_block(0.5) do
       # Start with current year
       expect(page).to have_selector("h1", text: I18n.t("views.questions.start_with_current_year.title", year: current_tax_year))
-      click_on "Continue"
-    end
-
-    page_change_block do
-      # Interview time preferences
-      expect(intake.reload.current_step).to end_with("/questions/interview-scheduling")
-      fill_in "Do you have any time preferences for your interview phone call?", with: "Wednesday or Tuesday nights"
-      expect(page).to have_select(
-                        "What is your preferred language for the review?", selected: "English"
-                      )
-      select("Spanish", from: "What is your preferred language for the review?")
       click_on "Continue"
     end
 

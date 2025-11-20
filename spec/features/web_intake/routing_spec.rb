@@ -71,6 +71,14 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
   let!(:state_routing_fraction) { create(:state_routing_fraction, state_routing_target: state_routing_target, routing_fraction: 0.2, vita_partner: expected_state_vita_partner) }
   let(:current_tax_year) { MultiTenantService.new(:gyr).current_tax_year }
 
+  before do
+    allow(Airtable::Organization)
+      .to receive(:language_offerings)
+            .and_return({
+                          "Test Organization" => %w[Spanish French],
+                        })
+  end
+
   scenario "routing by source param" do
     visit "/cobra"
     # expect redirect to locale path
@@ -88,6 +96,9 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
 
     expect(Intake.last.source).to eq "cobra"
 
+    fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
+    click_on I18n.t('general.continue')
+
     fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
     click_on I18n.t('general.continue')
@@ -97,9 +108,6 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
-    click_on I18n.t('general.continue')
-
-    fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
     click_on I18n.t('general.continue')
 
     fill_out_notification_preferences
@@ -114,6 +122,9 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
 
     expect(Intake.last.source).to eq nil
 
+    fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
+    click_on I18n.t('general.continue')
+
     fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
     click_on I18n.t('general.continue')
@@ -123,9 +134,6 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     click_on I18n.t('general.continue')
 
     expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
-    click_on I18n.t('general.continue')
-
-    fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
     click_on I18n.t('general.continue')
 
     fill_out_notification_preferences
@@ -153,9 +161,6 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
     click_on I18n.t('general.continue')
 
-    fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
-    click_on I18n.t('general.continue')
-
     fill_out_notification_preferences
 
     expect(page.html).to have_text I18n.t("views.questions.chat_with_us.title", partner_name: "Hogwarts")
@@ -176,6 +181,9 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
 
       expect(Intake.last.source).to eq nil
 
+      fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
+      click_on I18n.t('general.continue')
+
       fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
       fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
       click_on I18n.t('general.continue')
@@ -185,9 +193,6 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
       click_on I18n.t('general.continue')
 
       expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
-      click_on I18n.t('general.continue')
-
-      fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
       click_on I18n.t('general.continue')
 
       fill_out_notification_preferences
@@ -208,6 +213,9 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
 
       expect(page).to have_text I18n.t('views.questions.personal_info.title')
       fill_out_personal_information(zip_code: "28806")
+
+      fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
+      click_on I18n.t('general.continue')
 
       expect(Intake.last.source).to eq nil
 
