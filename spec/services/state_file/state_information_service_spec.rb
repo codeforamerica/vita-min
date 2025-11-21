@@ -8,28 +8,60 @@ describe StateFile::StateInformationService do
   end
 
   describe ".state_code_to_name_map" do
-    it "returns a map of all the state codes to state names" do
-      result = {
-        "az" => "Arizona",
-        "md" => "Maryland",
-        "nc" => "North Carolina",
-        "nj" => "New Jersey",
-        "ny" => "New York",
-        "id" => "Idaho",
-      }
-      expect(described_class.state_code_to_name_map).to eq result
+    it "returns a map of all the state codes to state names in English by default" do
+      I18n.with_locale(:en) do
+        result = {
+          "az" => "Arizona",
+          "md" => "Maryland",
+          "nc" => "North Carolina",
+          "nj" => "New Jersey",
+          "ny" => "New York",
+          "id" => "Idaho",
+        }
+
+        expect(described_class.state_code_to_name_map).to eq(result)
+      end
+    end
+
+    it "is locale aware and returns localized state names for the current locale" do
+      I18n.with_locale(:es) do
+        result = {
+          "az" => I18n.t("state_file.state_information_service.az.state_name"),
+          "md" => I18n.t("state_file.state_information_service.md.state_name"),
+          "nc" => I18n.t("state_file.state_information_service.nc.state_name"),
+          "nj" => I18n.t("state_file.state_information_service.nj.state_name"),
+          "ny" => I18n.t("state_file.state_information_service.ny.state_name"),
+          "id" => I18n.t("state_file.state_information_service.id.state_name"),
+        }
+
+        expect(described_class.state_code_to_name_map).to eq(result)
+      end
     end
   end
 
   describe ".state_intake_classes" do
     it "returns an array of the intake classes" do
-      expect(described_class.state_intake_classes).to match_array [StateFileAzIntake, StateFileIdIntake, StateFileMdIntake, StateFileNcIntake, StateFileNjIntake, StateFileNyIntake]
+      expect(described_class.state_intake_classes).to match_array [
+                                                                    StateFileAzIntake,
+                                                                    StateFileIdIntake,
+                                                                    StateFileMdIntake,
+                                                                    StateFileNcIntake,
+                                                                    StateFileNjIntake,
+                                                                    StateFileNyIntake,
+                                                                  ]
     end
   end
 
   describe ".state_intake_class_names" do
     it "returns an array of the intake classes as strings" do
-      expect(described_class.state_intake_class_names).to match_array ["StateFileAzIntake", "StateFileIdIntake", "StateFileMdIntake", "StateFileNcIntake", "StateFileNjIntake", "StateFileNyIntake"]
+      expect(described_class.state_intake_class_names).to match_array [
+                                                                        "StateFileAzIntake",
+                                                                        "StateFileIdIntake",
+                                                                        "StateFileMdIntake",
+                                                                        "StateFileNcIntake",
+                                                                        "StateFileNjIntake",
+                                                                        "StateFileNyIntake",
+                                                                      ]
     end
   end
 
