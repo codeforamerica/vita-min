@@ -382,5 +382,32 @@ describe PartnerRoutingService do
         end
       end
     end
+
+    context "when multiple Vita Partners serve the same zip code" do
+      let(:vita_partner_2) { create :organization, name: "Partner 2" }
+      before do
+        create :vita_partner_zip_code, zip_code: "94606", vita_partner: vita_partner_2
+      end
+
+      subject { PartnerRoutingService.new(zip_code: "94606") }
+
+      it "routes to one of the partners with capacity" do
+        result = subject.determine_partner
+
+        expect([vita_partner, vita_partner_2]).to include(result)
+        expect(subject.routing_method).to eq :zip_code
+      end
+
+      context "when one partner is at capacity" do
+        before do
+          vita_partner.update(capacity_limit: 0)
+        end
+
+        it "routes only to partners with capacity" do
+          expect(subject.determine_partner).to eq vita_partner_2
+          expect(subject.routing_method).to eq :zip_code
+        end
+      end
+    end
   end
 end

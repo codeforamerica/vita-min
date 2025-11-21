@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_26_151436) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_19_181821) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -2906,7 +2906,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_26_151436) do
     t.bigint "vita_partner_id", null: false
     t.string "zip_code", null: false
     t.index ["vita_partner_id"], name: "index_vita_partner_zip_codes_on_vita_partner_id"
-    t.index ["zip_code"], name: "index_vita_partner_zip_codes_on_zip_code", unique: true
+    t.index ["zip_code"], name: "index_vita_partner_zip_codes_on_zip_code"
   end
 
   create_table "vita_partners", force: :cascade do |t|

@@ -11,7 +11,7 @@
 # Indexes
 #
 #  index_vita_partner_zip_codes_on_vita_partner_id  (vita_partner_id)
-#  index_vita_partner_zip_codes_on_zip_code         (zip_code) UNIQUE
+#  index_vita_partner_zip_codes_on_zip_code         (zip_code)
 #
 # Foreign Keys
 #
