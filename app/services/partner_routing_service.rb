@@ -104,7 +104,7 @@ class PartnerRoutingService
     eligible_with_capacity = Organization.with_capacity.joins(:serviced_zip_codes).
       where(vita_partner_zip_codes: { zip_code: @zip_code })
 
-    vita_partner = eligible_with_capacity.order(Arel.sql('RANDOM()')).first
+    vita_partner = eligible_with_capacity.sample
 
     if vita_partner.present?
       @routing_method = :zip_code
