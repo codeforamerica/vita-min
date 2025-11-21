@@ -42,9 +42,9 @@ module StateFile
         end
       end
 
-      def state_name(state_code, locale = I18n.locale)
+      def state_name(state_code)
         raise InvalidStateCodeError, state_code unless STATES_INFO.key?(state_code)
-        I18n.t("state_file.state_information_service.#{state_code}.state_name", locale: locale)
+        I18n.t("state_file.state_information_service.#{state_code}.state_name")
       end
 
       def department_of_taxation(state_code)
@@ -96,11 +96,8 @@ module StateFile
         @_active_state_codes ||= STATES_INFO.keys.map(&:to_s).freeze
       end
 
-      def state_code_to_name_map(locale = I18n.locale)
-        @_state_code_to_name_map ||= {}
-        @_state_code_to_name_map[locale] ||= active_state_codes.to_h do |state_code|
-          [state_code, state_name(state_code, locale)]
-        end.freeze
+      def state_code_to_name_map
+        @_state_code_to_name_map ||= active_state_codes.to_h { |state_code, _| [state_code, state_name(state_code)] }.freeze
       end
 
       def state_intake_classes
