@@ -269,14 +269,14 @@ RSpec.describe PdfFiller::F13614cPdf do
       end
 
       # TODO reenable for TY2025
-      xit "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
+      it "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
         expect(intake_pdf.hash_for_pdf.length).to be > 100 # sanity check
         all_fields_in_pdf = PdfForms.new.get_fields(intake_pdf.output_file).map(&:name)
         expect(intake_pdf.hash_for_pdf.keys & all_fields_in_pdf).to match_array(intake_pdf.hash_for_pdf.keys)
       end
 
       # TODO reenable for TY2025
-      xit 'fills out written language preference and voter information sections correctly' do
+      it 'fills out written language preference and voter information sections correctly' do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to include(
