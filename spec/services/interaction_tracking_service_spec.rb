@@ -225,6 +225,15 @@ describe InteractionTrackingService do
             expect(SendInternalEmailJob).not_to have_received(:perform_later)
           end
         end
+
+        context "user has been suspended" do
+          let(:user) { create(:admin_user, tagged_in_note_notification: "yes", suspended_at: 1.day.ago) }
+
+          it "doesn't send a message" do
+            described_class.record_internal_interaction(client, interaction_type: "tagged_in_note", user: user, received_at: received_at)
+            expect(SendInternalEmailJob).not_to have_received(:perform_later)
+          end
+        end
       end
     end
   end
