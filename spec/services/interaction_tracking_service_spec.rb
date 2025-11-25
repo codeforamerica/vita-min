@@ -152,6 +152,17 @@ describe InteractionTrackingService do
         expect(job).not_to have_received(:perform_later)
       end
     end
+
+    context "user that has been suspended" do
+      let!(:suspended_user) { create(:admin_user, new_client_message_notification: "yes", suspended_at: 1.day.ago) }
+      let!(:tax_return_3) { create(:tax_return, assigned_user_id: suspended_user.id, year: Rails.configuration.product_year-2, client: client) }
+
+      it "doesn't send a message to suspended user" do
+        described_class.record_incoming_interaction(client, received_at: fake_time, interaction_type: "new_client_message")
+        expect(job).not_to have_received(:perform_later).with(anything, suspended_user, hash_including(received_at: fake_time))
+        expect(job).to have_received(:perform_later).with(anything, user, hash_including(received_at: fake_time))
+      end
+    end
   end
 
   describe "#record_internal_interaction" do
