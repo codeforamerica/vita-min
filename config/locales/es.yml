@@ -1393,7 +1393,6 @@ es:
     waiting_on: En espera
     zip_codes:
       already_applied: "%{zip_code} ya está enrutado a este socio."
-      already_taken: "%{zip_code} ya está enrutado a <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
       confirm: "¿Estás segura de que quieres eliminar? %{code} de %{name}?"
       success: Se agregó %{code} a %{name}.
   invitations:

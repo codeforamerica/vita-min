@@ -41,15 +41,38 @@ describe Hub::ZipCodesController do
         end
       end
 
-      context "when the code already exists" do
+      context "when the code already exists for a different partner" do
         before do
           create :vita_partner_zip_code, zip_code: zip_code, vita_partner: create(:organization)
         end
 
-        it "does not make a new source parameter" do
+        it "creates a new vita partner zip code for this partner" do
+          expect {
+            post :create, params: params, format: :js, xhr: true
+          }.to change(vita_partner.serviced_zip_codes, :count).by 1
+        end
+
+        it "increases the total count of VitaPartnerZipCodes" do
+          expect {
+            post :create, params: params, format: :js, xhr: true
+          }.to change(VitaPartnerZipCode, :count).by 1
+        end
+      end
+
+      context "when the code already exists for the same partner" do
+        before do
+          create :vita_partner_zip_code, zip_code: zip_code, vita_partner: vita_partner
+        end
+
+        it "does not create a duplicate zip code for the same partner" do
           expect {
             post :create, params: params, format: :js, xhr: true
           }.not_to change(VitaPartnerZipCode, :count)
+        end
+
+        it "shows an error" do
+          post :create, params: params, format: :js, xhr: true
+          expect(flash.now[:alert]).to be_present
         end
       end
     end
