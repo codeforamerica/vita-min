@@ -102,6 +102,7 @@ module VitaMin
     config.end_of_login = et.parse('2026-10-23 23:59:00')
 
     config.tax_year_filing_seasons = {
+      2025 => [et.parse("2026-01-29 00:00:00"), et.parse("2026-04-15 23:59:59")],
       2024 => [et.parse("2025-01-29 00:00:00"), et.parse("2025-04-15 23:59:59")],
       2023 => [et.parse("2024-01-29 00:00:00"), et.parse("2024-04-15 23:59:59")],
       2022 => [et.parse("2023-01-23 00:00:00"), et.parse("2023-04-18 23:59:59")],
