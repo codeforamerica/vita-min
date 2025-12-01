@@ -568,6 +568,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page4[0].yourSpousesRaceEthnicity[0].middleEsternNorthAfrican[0]" => "Off",
                             "form1[0].page4[0].yourSpousesRaceEthnicity[0].white[0]" => "Off",
                             "form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]" => "if there is another gnome living in my garden but only i have an income, does that make me head of household?",
+                            "form1[0].page6[0].ifYouBelieve[0].hyperlink[0]" => nil,
                             "form1[0].page6[0].primaryDateSigned[0]" => nil,
                             "form1[0].page6[0].primaryTaxpayer[0]" => nil,
                             "form1[0].page6[0].secondaryDateSigned[0]" => nil,
