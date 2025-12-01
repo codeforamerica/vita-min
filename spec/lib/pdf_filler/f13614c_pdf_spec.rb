@@ -463,7 +463,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page2[0].receivedMoneyFrom[0].disabilityBenefits[0].disabilityBenefits[0]" => "Off",
                             "form1[0].page2[0].receivedMoneyFrom[0].gamblingLotteryWinnings[0]" => "1",
                             "form1[0].page2[0].receivedMoneyFrom[0].howManyJobs[0]" => "5",
-                            "form1[0].page2[0].receivedMoneyFrom[0].incomeRentingHouse[0].incomeRentingHouse[0]" => "1",
+                            "form1[0].page2[0].receivedMoneyFrom[0].incomeRentingHouse[0]" => "1",
                             "form1[0].page2[0].receivedMoneyFrom[0].incomeRentingVehicle[0]" => "Off",
                             "form1[0].page2[0].receivedMoneyFrom[0].interestOrDividends[0]" => "1",
                             "form1[0].page2[0].receivedMoneyFrom[0].lossLastReturn[0].reportLossNo[0]" => "Off",

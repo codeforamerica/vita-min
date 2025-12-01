@@ -122,7 +122,7 @@ module PdfFiller
               "reportALoss[0].reportLossYes[0]" => @intake.reported_asset_sale_loss_yes?,
               "reportALoss[0].reportLossNo[0]" => @intake.reported_asset_sale_loss_no?,
               "receivedAlimony[0]" => @intake.received_alimony_yes?,
-              "incomeRentingHouse[0].incomeRentingHouse[0]" => @intake.had_rental_income_yes?,
+              "incomeRentingHouse[0]" => @intake.had_rental_income_yes?,
               "useAsPersonal[0].personalResidenceYes[0]" => @intake.had_rental_income_and_used_dwelling_as_residence_yes?,
               "useAsPersonal[0].personalResidenceNo[0]" => @intake.had_rental_income_and_used_dwelling_as_residence_no?,
               "incomeRentingVehicle[0]" => @intake.had_rental_income_from_personal_property_yes?,
