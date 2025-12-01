@@ -86,8 +86,8 @@ module PdfFiller
               "statusLegallySeparated[0].statusLegallySeparated[0]" => @intake.separated_yes?,
               "statusDivorced[0].statusDivorced[0]" => @intake.divorced_yes?,
               "statusWidowed[0].statusWidowed[0]" => @intake.widowed_yes?,
-              "liveWithSpouse[0].liveWithYes[0]" => @intake.lived_with_spouse_yes?,
-              "liveWithSpouse[0].liveWithNo[0]" => @intake.lived_with_spouse_no?,
+              "liveApart[0].liveApartNo[0]" => @intake.lived_with_spouse_yes?,
+              "liveApart[0].liveApartYes[0]" => @intake.lived_with_spouse_no?,
               "marriedForAll[0].forAllYes[0]" => @intake.married_for_all_of_tax_year_yes?,
               "marriedForAll[0].forAllNo[0]" => @intake.married_for_all_of_tax_year_no?,
             }
@@ -101,9 +101,6 @@ module PdfFiller
 
       answers["form1[0].page1[0].anyoneElseClaim[0].otherClaimYes[0]"] = yes_no_unfilled_to_checkbox(@intake.claimed_by_another)
       answers["form1[0].page1[0].anyoneElseClaim[0].otherClaimNo[0]"] = yes_no_unfilled_to_opposite_checkbox(@intake.claimed_by_another)
-
-      answers["form1[0].page1[0].howToVote[0].voteInformationYes[0]"] = yes_no_unfilled_to_checkbox(@intake.register_to_vote)
-      answers["form1[0].page1[0].howToVote[0].voteInformationNo[0]"] = yes_no_unfilled_to_opposite_checkbox(@intake.register_to_vote)
 
       # PAGE 2
       answers.merge!(
@@ -307,7 +304,7 @@ module PdfFiller
           {
             "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundYou[0]" => (@intake.presidential_campaign_fund_donation_primary? || @intake.presidential_campaign_fund_donation_primary_and_spouse?),
             "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundSpouse[0]" => (@intake.presidential_campaign_fund_donation_spouse? || @intake.presidential_campaign_fund_donation_primary_and_spouse?),
-            "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundNo[0]" => (!(@intake.presidential_campaign_fund_donation_spouse? || @intake.presidential_campaign_fund_donation_primary_and_spouse?) && !(@intake.presidential_campaign_fund_donation_primary? || @intake.presidential_campaign_fund_donation_primary_and_spouse?)),
+            "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundNo[0]" => (!@intake.presidential_campaign_fund_donation_unfilled? && !(@intake.presidential_campaign_fund_donation_spouse? || @intake.presidential_campaign_fund_donation_primary_and_spouse?) && !(@intake.presidential_campaign_fund_donation_primary? || @intake.presidential_campaign_fund_donation_primary_and_spouse?)),
           }
         )
       )
@@ -315,7 +312,7 @@ module PdfFiller
 
       # ty2024 page 5
 
-      answers["form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]"] = (@intake.additional_notes_comments || '') << "\n\n" << dependents_4th_and_up
+      answers["form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]"] = (@intake.additional_notes_comments || '') << "\n\n" << dependents_5th_and_up
 
       # end - ty2024 page 5
 
@@ -451,7 +448,7 @@ module PdfFiller
 
     def dependents_info
       answers = {}
-      @dependents.first(3).each_with_index do |dependent, index|
+      @dependents.first(4).each_with_index do |dependent, index|
         single_dependent_params(dependent, index: index + 1).each do |key, value|
           answers[key] = value
         end
@@ -583,13 +580,13 @@ module PdfFiller
       }
     end
 
-    def dependents_4th_and_up
-      return '' if @dependents.length < 4
+    def dependents_5th_and_up
+      return '' if @dependents.length < 5
 
       s = "Additional Dependents:\n"
       sep = ' // '
 
-      @dependents[3..].map do |dependent|
+      @dependents[4..].map do |dependent|
         s << dependent.full_name << sep
         s << strftime_date(dependent.birth_date) << sep
         s << dependent.relationship << sep
