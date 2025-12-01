@@ -496,7 +496,9 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page3[0].followingHappenDuring[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].forgaveByLender[0].forgaveByLender[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].healthSavingsAccount[0]" => "Off",
+                            "form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].lossRelatedDisaster[0]" => "1",
+                            "form1[0].page3[0].followingHappenDuring[0].otherPurchase[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].purchaseMarketplaceInsurance[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].receivedLetterBill[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].sellAHome[0]" => "Off",
@@ -508,7 +510,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page3[0].informationToReport[0].disallowedPreviousYear[0]" => "",
                             "form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]" => "",
                             "form1[0].page3[0].informationToReport[0].educationCreditTuition[0]" => "",
-                            "form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]" => "",
+                            "form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0].efficientHomeImprovement[0]" => "",
                             "form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]" => "",
                             "form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => "",
                             "form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]" => "",
@@ -523,6 +525,8 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]" => "",
                             "form1[0].page3[0].informationToReport[0].saleOfHome[0]" => "",
                             "form1[0].page3[0].informationToReport[0].taxableScholarshipIncome[0]" => "",
+                            "form1[0].page3[0].informationToReport[0].vinNumber[0].numberVIN[0]" => "Off",
+                            "form1[0].page3[0].informationToReport[0].vinNumber[0].vinNumber[0]" => nil,
                             "form1[0].page3[0].paidExpenses[0].alimonyPayments[0]" => "1",
                             "form1[0].page3[0].paidExpenses[0].childDependentCare[0]" => "Off",
                             "form1[0].page3[0].paidExpenses[0].contributionsRetirementAccount[0]" => "Off",
@@ -863,8 +867,7 @@ RSpec.describe PdfFiller::F13614cPdf do
         end
 
         describe 'section 3 on 3 ' do
-          # TODO reenable for TY2025
-          xit 'looks good when all choices are no and fields are nil' do
+          it 'looks good when all choices are no and fields are nil' do
             intake.update(
               cv_taxable_scholarship_income_cb: 'no',
               cv_1098t_cb: 'no',
@@ -899,7 +902,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => '',
               'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => '',
               'form1[0].page3[0].informationToReport[0].form1095A[0]' => '',
-              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => '',
+              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0].efficientHomeImprovement[0]' => '',
               'form1[0].page3[0].informationToReport[0].form1099C[0]' => '',
               'form1[0].page3[0].informationToReport[0].form1099A[0]' => '',
               'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => '',
@@ -916,8 +919,7 @@ RSpec.describe PdfFiller::F13614cPdf do
             )
           end
 
-          # TODO reenable for TY2025
-          xit 'works when all choices are all yes and filled in' do
+          it 'works when all choices are all yes and filled in' do
             intake.update(
               cv_taxable_scholarship_income_cb: 'yes',
               cv_1098t_cb: 'yes',
@@ -952,7 +954,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => '1',
               'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => '1',
               'form1[0].page3[0].informationToReport[0].form1095A[0]' => '1',
-              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0].efficientHomeImprovement[0]' => '1',
               'form1[0].page3[0].informationToReport[0].form1099C[0]' => '1',
               'form1[0].page3[0].informationToReport[0].form1099A[0]' => '1',
               'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => '1',
