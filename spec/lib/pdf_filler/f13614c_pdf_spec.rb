@@ -1106,6 +1106,26 @@ RSpec.describe PdfFiller::F13614cPdf do
                             )
         end
       end
+
+      context "when presidential campaign fund is unfilled" do
+        let(:intake) do
+          create(
+            :intake,
+            client: build(:client, :with_consent, consented_to_service_at: Date.new(2024, 1, 1)),
+            presidential_campaign_fund_donation: "unfilled"
+          )
+        end
+
+        it "leaves all presidential election fund options unselected" do
+          output_file = intake_pdf.output_file
+          result = non_preparer_fields(output_file.path)
+          expect(result).to include(
+                              "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundYou[0]" => "Off",
+                              "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundSpouse[0]" => "Off",
+                              "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundNo[0]" => "Off"
+                            )
+        end
+      end
     end
   end
 end
