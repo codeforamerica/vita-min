@@ -219,6 +219,7 @@
 #  needs_help_previous_year_2                           :integer          default("unfilled"), not null
 #  needs_help_previous_year_3                           :integer          default("unfilled"), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
+#  new_vehicle_purchased                                :integer          default("unfilled")
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
 #  no_ssn                                               :integer          default("unfilled"), not null
 #  not_full_time_student                                :integer          default(0), not null
@@ -525,6 +526,7 @@ class Intake::GyrIntake < Intake
   enum receive_written_communication: { unfilled: 0, yes: 1, no: 2 }, _prefix: :receive_written_communication
   enum presidential_campaign_fund_donation: { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3, no: 4 }, _prefix: :presidential_campaign_fund_donation
   enum register_to_vote: { unfilled: 0, yes: 1, no: 2 }, _prefix: :register_to_vote
+  enum new_vehicle_purchased: { unfilled: 0, yes: 1, no: 2 }, _prefix: :new_vehicle_purchased
   enum cv_1098_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1098_cb
   enum cv_med_expense_standard_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_med_expense_standard_deduction_cb
   enum cv_med_expense_itemized_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_med_expense_itemized_deduction_cb

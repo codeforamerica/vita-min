@@ -219,6 +219,7 @@
 #  needs_help_previous_year_2                           :integer          default(0), not null
 #  needs_help_previous_year_3                           :integer          default(0), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
+#  new_vehicle_purchased                                :integer          default(0)
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
 #  not_full_time_student                                :integer          default("unfilled"), not null

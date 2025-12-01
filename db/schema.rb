@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_19_181821) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_01_215441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1367,6 +1367,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_19_181821) do
     t.integer "needs_help_previous_year_2", default: 0, null: false
     t.integer "needs_help_previous_year_3", default: 0, null: false
     t.datetime "needs_to_flush_searchable_data_set_at", precision: nil
+    t.integer "new_vehicle_purchased", default: 0
     t.integer "no_eligibility_checks_apply", default: 0, null: false
     t.integer "no_ssn", default: 0, null: false
     t.integer "not_full_time_student", default: 0, null: false
