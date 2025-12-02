@@ -350,12 +350,62 @@ describe PartnerRoutingService do
 
     context "when there are no matches on other data or routing rules" do
       context "when national overflow partners exist" do
-        let!(:overflow_partner) { create :organization, national_overflow_location: true }
+        context "with capacity" do
+          let!(:overflow_partner) { create :organization, national_overflow_location: true, capacity_limit: nil }
 
-        it "routes to a national overflow partner" do
-          subject { PartnerRoutingService.new(zip_code: "11111") }
-          expect(subject.determine_partner).to eq overflow_partner
-          expect(subject.routing_method).to eq :national_overflow
+          it "routes to a national overflow partner" do
+            subject { PartnerRoutingService.new(zip_code: "11111") }
+            expect(subject.determine_partner).to eq overflow_partner
+            expect(subject.routing_method).to eq :national_overflow
+          end
+        end
+
+        context "without capacity" do
+          let!(:overflow_partner) { create :organization, national_overflow_location: true, capacity_limit: 0 }
+
+          it "doesn't route to a national overflow partner" do
+            subject { PartnerRoutingService.new(zip_code: "11111") }
+            expect(subject.determine_partner).not_to eq overflow_partner
+            expect(subject.routing_method).to eq :at_capacity
+          end
+        end
+
+        context "with national overflow partners that do have capacity and partners that don't" do
+          let!(:overflow_partner_with_capacity) { create :organization, national_overflow_location: true, capacity_limit: nil }
+          let!(:overflow_partner_without_capacity) { create :site, national_overflow_location: true, parent_organization: create(:organization, capacity_limit: 0) }
+
+          it "routes national overflow partner with capacity" do
+            subject { PartnerRoutingService.new(zip_code: "11111") }
+            expect(subject.determine_partner).to eq overflow_partner_with_capacity
+            expect(subject.routing_method).to eq :national_overflow
+          end
+        end
+      end
+    end
+
+    context "when multiple Vita Partners serve the same zip code" do
+      let(:vita_partner_2) { create :organization, name: "Partner 2" }
+      before do
+        create :vita_partner_zip_code, zip_code: "94606", vita_partner: vita_partner_2
+      end
+
+      subject { PartnerRoutingService.new(zip_code: "94606") }
+
+      it "routes to one of the partners with capacity" do
+        result = subject.determine_partner
+
+        expect([vita_partner, vita_partner_2]).to include(result)
+        expect(subject.routing_method).to eq :zip_code
+      end
+
+      context "when one partner is at capacity" do
+        before do
+          vita_partner.update(capacity_limit: 0)
+        end
+
+        it "routes only to partners with capacity" do
+          expect(subject.determine_partner).to eq vita_partner_2
+          expect(subject.routing_method).to eq :zip_code
         end
       end
     end

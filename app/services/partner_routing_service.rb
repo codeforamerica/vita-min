@@ -103,7 +103,8 @@ class PartnerRoutingService
 
     eligible_with_capacity = Organization.with_capacity.joins(:serviced_zip_codes).
       where(vita_partner_zip_codes: { zip_code: @zip_code })
-    vita_partner = eligible_with_capacity.first
+
+    vita_partner = eligible_with_capacity.sample
 
     if vita_partner.present?
       @routing_method = :zip_code
@@ -141,8 +142,8 @@ class PartnerRoutingService
   end
 
   def route_to_national_overflow_partner
-    national_overflow_locations = VitaPartner.where(national_overflow_location: true).order(Arel.sql('RANDOM()'))
-    vita_partner = national_overflow_locations.first
+    national_overflow_locations = VitaPartner.with_capacity.where(national_overflow_location: true).order(Arel.sql("RANDOM()")).limit(1)
+    vita_partner = national_overflow_locations&.first
     if vita_partner.present?
       @routing_method = :national_overflow
       vita_partner
