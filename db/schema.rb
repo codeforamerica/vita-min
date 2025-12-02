@@ -1495,6 +1495,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_01_215441) do
     t.integer "usps_address_late_verification_attempts", default: 0
     t.datetime "usps_address_verified_at"
     t.boolean "viewed_at_capacity", default: false
+    t.string "vin_number"
     t.string "visitor_id"
     t.bigint "vita_partner_id"
     t.integer "wants_to_itemize", default: 0, null: false

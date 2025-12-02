@@ -57,7 +57,9 @@ module Hub
                        :cv_last_years_return_available_cb,
                        :cv_14c_page_3_notes_part_1,
                        :cv_14c_page_3_notes_part_2,
-                       :cv_14c_page_3_notes_part_3
+                       :cv_14c_page_3_notes_part_3,
+                       :new_vehicle_purchased,
+                       :vin_number
 
     attr_accessor :client
 

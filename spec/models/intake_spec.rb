@@ -344,6 +344,7 @@
 #  usps_address_late_verification_attempts              :integer          default(0)
 #  usps_address_verified_at                             :datetime
 #  viewed_at_capacity                                   :boolean          default(FALSE)
+#  vin_number                                           :string
 #  wants_to_itemize                                     :integer          default(0), not null
 #  was_blind                                            :integer          default(0), not null
 #  was_full_time_student                                :integer          default(0), not null
