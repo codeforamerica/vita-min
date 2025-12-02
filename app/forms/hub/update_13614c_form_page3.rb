@@ -76,7 +76,8 @@ module Hub
               :cv_last_years_refund_applied_to_this_yr_amt,
               :cv_14c_page_3_notes_part_1,
               :cv_14c_page_3_notes_part_2,
-              :cv_14c_page_3_notes_part_3]
+              :cv_14c_page_3_notes_part_3,
+              :vin_number]
       self.class.scoped_attributes[model].reduce({}) do |hash, attribute_name|
         v = send(attribute_name)
         unless skip.include? attribute_name
