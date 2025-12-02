@@ -275,7 +275,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     page_change_block do
       # Claimed status
-      expect(page).to have_css("h1", text: "Can anyone else claim you on their tax return?")
+      expect(page).to have_css("h1", text: "Can anyone else claim you or your spouse on their tax return?")
       click_on "No"
     end
 
