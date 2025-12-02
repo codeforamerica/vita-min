@@ -58,6 +58,9 @@ module Navigation
       # Filing status
       Questions::FilingJointController,
 
+      # Claiming
+      Questions::ClaimingController,
+
       # Alimony
       Questions::ReceivedAlimonyController,
       Questions::PaidAlimonyController,

@@ -5536,6 +5536,13 @@ es:
           partner_info: De nuevo, nuestro equipo en %{partner_name}está aquí para ayudarle a presentar su declaración.
           title: "¡Bienvenido de nuevo %{name}!"
         title: "¡Nuestro equipo en %{partner_name} está aquí para ayudar!"
+      claiming:
+        body:
+          one: Responda ‘sí’ si puede ser reclamado como dependiente.
+          other: Responda “Sí” si es posible que a usted o a su cónyuge los incluyan como dependientes.
+        title:
+          one: "¿Puede alguien más reclamarlo a usted en su declaración de impuestos?"
+          other: "¿Alguien podría incluirlo a usted o a su cónyuge en su declaración de impuestos?"
       consent:
         birth_date: Fecha de nacimiento
         cta: Estoy de acuerdo

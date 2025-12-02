@@ -274,6 +274,12 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
 
     page_change_block do
+      # Claimed status
+      expect(page).to have_css("h1", text: "Can anyone else claim you on their tax return?")
+      click_on "No"
+    end
+
+    page_change_block do
       # Alimony
       screenshot_after do
         expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you or your spouse receive any income from alimony?")
