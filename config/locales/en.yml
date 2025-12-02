@@ -5551,6 +5551,13 @@ en:
           partner_info: Our team at %{partner_name} is here to help you file again.
           title: Welcome back %{name}!
         title: Our team at %{partner_name} is here to help!
+      claiming:
+        body:
+          one: Answer yes if you could be claimed as a dependent.
+          other: Answer yes if you or your spouse could be claimed as a dependent.
+        title:
+          one: Can anyone else claim you on their tax return?
+          other: Can anyone else claim you or your spouse on their tax return?
       consent:
         birth_date: Date of birth
         cta: I agree
