@@ -87,22 +87,22 @@ RSpec.describe Hub::ClientsController do
           vita_partner_id: vita_partner_id,
           tax_returns_attributes: {
             "0": {
-              year: Rails.configuration.gyr_current_tax_year.to_s,
+              year: MultiTenantService.new(:gyr).current_tax_year.to_s,
               is_hsa: true,
               certification_level: "advanced"
             },
             "1": {
-              year: (Rails.configuration.gyr_current_tax_year - 1).to_s,
+              year: (MultiTenantService.new(:gyr).current_tax_year - 1).to_s,
               is_hsa: false,
               certification_level: "basic"
             },
             "2": {
-              year: (Rails.configuration.gyr_current_tax_year - 2).to_s,
+              year: (MultiTenantService.new(:gyr).current_tax_year - 2).to_s,
               is_hsa: false,
               certification_level: "basic"
             },
             "3": {
-              year: (Rails.configuration.gyr_current_tax_year - 3).to_s,
+              year: (MultiTenantService.new(:gyr).current_tax_year - 3).to_s,
               is_hsa: false,
               certification_level: "advanced"
             },

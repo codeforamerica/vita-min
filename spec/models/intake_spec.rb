@@ -764,12 +764,12 @@ describe Intake do
 
     context "with a couple filing years selected" do
       let!(:client) { create :client, tax_returns: [
-        build(:tax_return, year: (Rails.configuration.gyr_current_tax_year - 1)),
+        build(:tax_return, year: (MultiTenantService.new(:gyr).current_tax_year - 1)),
         build(:gyr_tax_return)
       ], intake: intake }
 
       it "returns them as an array" do
-        expect(intake.filing_years).to eq([Rails.configuration.gyr_current_tax_year, (Rails.configuration.gyr_current_tax_year - 1)])
+        expect(intake.filing_years).to eq([MultiTenantService.new(:gyr).current_tax_year, (MultiTenantService.new(:gyr).current_tax_year - 1)])
       end
     end
   end
