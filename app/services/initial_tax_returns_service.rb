@@ -1,10 +1,11 @@
 class InitialTaxReturnsService < BaseService
-  def initialize(intake:)
+  def initialize(intake:, time: DateTime.now)
     @intake = intake
+    @time = time
   end
 
   def create!
-    create_year(MultiTenantService.new(:gyr).current_tax_year) if @intake.needs_help_current_year == "yes"
+    create_year(MultiTenantService.new(:gyr).current_tax_year(@time)) if @intake.needs_help_current_year == "yes"
     create_year(MultiTenantService.new(:gyr).backtax_years[0]) if @intake.needs_help_previous_year_1 == "yes"
     create_year(MultiTenantService.new(:gyr).backtax_years[1]) if @intake.needs_help_previous_year_2 == "yes"
     create_year(MultiTenantService.new(:gyr).backtax_years[2]) if @intake.needs_help_previous_year_3 == "yes"

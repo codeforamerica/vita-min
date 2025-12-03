@@ -615,7 +615,7 @@ class Intake::GyrIntake < Intake
   end
 
   def self.current_tax_year
-    Rails.application.config.gyr_current_tax_year.to_i
+    MultiTenantService.gyr.current_tax_year.to_i
   end
 
   def most_recent_filing_year

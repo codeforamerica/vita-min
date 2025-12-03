@@ -132,7 +132,7 @@ module Hub
     end
 
     def create_tax_return_for_year?(year)
-      current_year = MultiTenantService.new(:gyr).current_tax_year
+      current_year = MultiTenantService.new(:gyr).current_tax_year(app_time)
       if current_year.to_i == year.to_i
         attributes_for(:intake)[:needs_help_current_year] == "yes"
       else

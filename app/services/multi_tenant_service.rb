@@ -83,12 +83,21 @@ class MultiTenantService
     end
   end
 
-  def current_tax_year
+  def current_tax_year(time = DateTime.now)
     case service_type
     when :ctc then Rails.configuration.ctc_current_tax_year
-    when :gyr then Rails.configuration.gyr_current_tax_year
+    when :gyr then gyr_current_tax_year(time)
     when :statefile then Rails.configuration.statefile_current_tax_year
     end
+  end
+
+  def gyr_current_tax_year(time)
+    filing_seasons = Rails.configuration.tax_year_filing_seasons.select do |key, val|
+      # val = open, closed date
+      time > val[0]
+    end
+
+    filing_seasons.keys.max
   end
 
   def end_of_current_tax_year
@@ -115,6 +124,12 @@ class MultiTenantService
       years
     end
   end
+  # not showing 2025 when we are not in 2026
+  #
+
+  # latest_filing_year = MultiTenantService.new(:gyr).current_tax_year #Rails.configuration.tax_year_filing_seasons.keys.max
+  # raise StandardError, "check year" if latest_filing_year != current_tax_year
+  # years = [latest_filing_year, latest_filing_year - 1, latest_filing_year - 2, latest_filing_year - 3]
 
   def backtax_years(now = DateTime.now)
     filing_years(now).without(current_tax_year)

@@ -137,7 +137,7 @@
       <div id="marital-status-fields">
         <h2>Part II – Marital Status and Household Information</h2>
         <hr style="margin-top: 0;"/>
-        <h3><%= t(".what_was_your_marital_status", current_tax_year: MultiTenantService.new(:gyr).current_tax_year) %></h3>
+        <h3><%= t(".what_was_your_marital_status", current_tax_year: MultiTenantService.new(:gyr).current_tax_year(app_time)) %></h3>
         <div class="hub-form__row">
           <%= f.hub_checkbox(:never_married, t(".fields.never_married"), options: { classes: ["checkbox--wide"], checked_value: "yes", unchecked_value: "no" }) %>
         </div>
