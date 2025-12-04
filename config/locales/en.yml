@@ -2158,7 +2158,7 @@ en:
         description: File quickly on your own.
         list:
           file: File for %{current_tax_year} only
-          income: 'Income: under $84,000'
+          income: 'Income: under $89,000'
         timeframe: 45 minutes to file
         title: File Myself
       gyr_tile:
@@ -2166,7 +2166,7 @@ en:
         description: File confidently with assistance from our IRS-certified volunteers.
         list:
           file: File for %{oldest_filing_year}-%{current_tax_year}
-          income: 'Income: under $67,000'
+          income: 'Income: under $69,000'
           ssn: Must show copies of your Social Security card or ITIN paperwork
         timeframe: 2-3 weeks to file
         title: File with Help
@@ -2219,9 +2219,9 @@ en:
             12500_to_25000: "$15,000 - 30,000"
             1_to_12500: "$1 - $15,000"
             25000_to_40000: "$30,000 - 45,000"
-            40000_to_66000: "$45,000 - 67,000"
-            66000_to_79000: "$67,000 - 84,000"
-            over_79000: over $84,000
+            40000_to_66000: "$45,000 - 69,000"
+            66000_to_79000: "$69,000 - 89,000"
+            over_79000: over $89,000
             zero: "$0"
         title: Tell us about your filing status and income.
         vita_income_ineligible:
@@ -5193,7 +5193,7 @@ en:
           quote:
             courtney: "“I'm excited to extend our free services to those who can't come into one of our physical locations.I know taxes can be intimidating, which is why we are here to help!”"
             denise: "“Being part of an organization that works to bridge the gap between where people are and where they want (or need) to be is both fulfilling and always exciting.”"
-          subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $67,000 a year.
+          subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $69,000 a year.
         title: About Us
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
@@ -6023,7 +6023,7 @@ en:
         income_limit:
           direct_file: Most filers under $200,000
           diy: under $84,000
-          full_service: under $67,000
+          full_service: under $69,000
           title: 'Income guidance:'
         mobile_friendly: Mobile-friendly
         required_information: Required information
