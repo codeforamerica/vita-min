@@ -828,9 +828,9 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
   end
 
-  scenario "after the tax deadline and before end of inprogress intake selecting all years", js: true do
+  scenario "after the tax deadline and before end of inprogress intake only past 3 years available", js: true do
     Timecop.freeze(Date.new(2025, 6, 23)) do
-      intake_up_to_documents(backtax_year_offsets: [0, 1, 2, 3])
+      intake_up_to_documents(backtax_year_offsets: [0, 1, 2])
     end
   end
 end
