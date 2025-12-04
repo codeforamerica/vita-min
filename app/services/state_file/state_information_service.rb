@@ -63,7 +63,7 @@ module StateFile
       def payment_deadline_date(state_code, time = Time.current)
         time ||= Time.current
         return get_md_payment_deadline(time) if state_code == "md"
-        Rails.configuration.tax_deadline.to_date
+        Rails.configuration.state_file_tax_deadline.to_date
       end
 
       # Check if the day of a given DateTime is before the payment deadline date, using the state-specific/government timezone
@@ -76,7 +76,7 @@ module StateFile
       # Check if the day of a given DateTime is after the tax deadline date, using the state-specific/government timezone
       def after_payment_deadline?(time, state_code)
         timezone = StateInformationService.timezone(state_code)
-        deadline = Rails.configuration.tax_deadline.to_date
+        deadline = Rails.configuration.state_file_tax_deadline.to_date
         time.in_time_zone(timezone).to_date.after?(deadline)
       end
 
@@ -85,7 +85,7 @@ module StateFile
       # 2. If filing on or after April 16: payment cannot be scheduled (same as other States)
       def get_md_payment_deadline(time)
         timezone = StateInformationService.timezone("md")
-        day_after_deadline = Rails.configuration.tax_deadline.to_date + 1.day
+        day_after_deadline = Rails.configuration.state_file_tax_deadline.to_date + 1.day
         on_or_before_deadline = time.in_time_zone(timezone).to_date.before?(day_after_deadline)
 
         return Date.new(time.year, 4, 30) if on_or_before_deadline

@@ -126,6 +126,7 @@ module VitaMin
 
     # StateFile
     config.state_file_start_of_open_intake = et.parse('2025-01-15 00:00:00')
+    config.state_file_tax_deadline = et.parse('2025-04-15 23:59:59')
     config.state_file_end_of_new_intakes = et.parse('2025-10-22 23:59:59')
     config.state_file_end_of_in_progress_intakes = et.parse('2025-10-31 23:59:59')
     config.state_file_show_faq_date_start = pt.parse('2024-12-10 00:00:00')

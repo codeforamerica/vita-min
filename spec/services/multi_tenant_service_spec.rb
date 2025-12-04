@@ -28,7 +28,7 @@ describe MultiTenantService do
   describe "#current_tax_year" do
     before do
       allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2017)
-      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(2018)
+      allow(MultiTenantService.gyr).to receive(:current_tax_year).and_return(2018)
       allow(Rails.application.config).to receive(:statefile_current_tax_year).and_return(2023)
     end
 
@@ -42,7 +42,7 @@ describe MultiTenantService do
   describe "#prior_tax_year" do
     before do
       allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2017)
-      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(2018)
+      allow(MultiTenantService.gyr).to receive(:current_tax_year).and_return(2018)
     end
 
     it "returns the prior years for ctc and gyr given the current tax years" do
@@ -120,7 +120,7 @@ describe MultiTenantService do
   describe "#backtax_years" do
     before do
       allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2017)
-      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(2018)
+      allow(MultiTenantService.gyr).to receive(:current_tax_year).and_return(2018)
     end
 
     around do |example|

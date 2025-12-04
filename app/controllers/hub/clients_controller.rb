@@ -21,12 +21,12 @@ module Hub
 
     def new
       @current_year = MultiTenantService.new(:gyr).current_tax_year(app_time)
-      @form = CreateClientForm.new(gyr_filing_years)
+      @form = CreateClientForm.new(gyr_filing_years, time: app_time)
     end
 
     def create
       @current_year = MultiTenantService.new(:gyr).current_tax_year(app_time)
-      @form = CreateClientForm.new(gyr_filing_years, create_client_form_params)
+      @form = CreateClientForm.new(gyr_filing_years, create_client_form_params, time: app_time)
       assigned_vita_partner = @vita_partners.find_by(id: create_client_form_params["vita_partner_id"])
 
       if can?(:read, assigned_vita_partner) && @form.save(current_user)

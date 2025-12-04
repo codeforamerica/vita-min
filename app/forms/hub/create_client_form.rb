@@ -67,9 +67,10 @@ module Hub
     validates :spouse_ssn, social_security_number: true, if: -> { ["ssn", "ssn_no_employment"].include?(spouse_tin_type) && filing_joint == "yes" }
     validates :spouse_ssn, individual_taxpayer_identification_number: true, if: -> { spouse_tin_type == "itin" && filing_joint == "yes" }
 
-    def initialize(gyr_filing_years, attributes = {})
+    def initialize(gyr_filing_years, attributes = {}, time: DateTime.now)
       @gyr_filing_years = gyr_filing_years
       @tax_returns = selectable_years.map { |year| TaxReturn.new(year: year) }
+      @time = time
       super(attributes)
     end
 
@@ -132,7 +133,7 @@ module Hub
     end
 
     def create_tax_return_for_year?(year)
-      current_year = MultiTenantService.new(:gyr).current_tax_year(app_time)
+      current_year = MultiTenantService.new(:gyr).current_tax_year(@time)
       if current_year.to_i == year.to_i
         attributes_for(:intake)[:needs_help_current_year] == "yes"
       else

@@ -32,7 +32,7 @@ describe StateFile::Questions::TaxesOwedController do
       end
 
       context "before the tax deadline" do
-        let(:post_deadline) { Rails.configuration.tax_deadline - 2.days }
+        let(:post_deadline) { Rails.configuration.state_file_tax_deadline - 2.days }
         it "does not display the interest warning" do
           Timecop.freeze(post_deadline) do
             get :edit

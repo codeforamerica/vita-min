@@ -8,7 +8,7 @@ module Portal
 
     def home
       @tax_returns = current_client.tax_returns.order(year: :desc).to_a
-      @tax_returns << PseudoTaxReturn.new(intake: current_intake) if @tax_returns.empty?
+      @tax_returns << PseudoTaxReturn.new(intake: current_intake, time: app_time) if @tax_returns.empty?
     end
 
     def current_intake
@@ -20,9 +20,10 @@ module Portal
     class PseudoTaxReturn
       attr_reader :client, :intake
 
-      def initialize(intake:)
+      def initialize(intake:, time: DateTime.now)
         @intake = intake
         @client = intake.client
+        @time = time
       end
 
       def current_state
@@ -30,7 +31,7 @@ module Portal
       end
 
       def year
-        MultiTenantService.new(:gyr).current_tax_year(app_time)
+        MultiTenantService.new(:gyr).current_tax_year(@time)
       end
 
       def documents
