@@ -218,7 +218,7 @@ FactoryBot.define do
       spouse_first_name { "Marty" }
       spouse_middle_initial { "B" }
       spouse_last_name { "Lando" }
-      spouse_birth_date { age_at_end_of_tax_year(40) }
+      spouse_birth_date { DateTime.new(MultiTenantService.statefile.current_tax_year).end_of_year.years_ago(40) }
     end
 
     trait :with_spouse_ssn_nil do
@@ -228,12 +228,12 @@ FactoryBot.define do
       spouse_middle_initial { "B" }
       spouse_last_name { "Lando" }
       spouse_ssn { nil }
-      spouse_birth_date { age_at_end_of_tax_year(40) }
+      spouse_birth_date { DateTime.new(MultiTenantService.statefile.current_tax_year).end_of_year.years_ago(40) }
     end
 
     trait :with_senior_spouse do
       with_spouse
-      spouse_birth_date { age_at_end_of_tax_year(70) }
+      spouse_birth_date { DateTime.new(MultiTenantService.statefile.current_tax_year).end_of_year.years_ago(70) }
     end
 
     trait :df_data_2_w2s do

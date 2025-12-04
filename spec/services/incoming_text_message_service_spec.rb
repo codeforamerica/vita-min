@@ -71,7 +71,7 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
       end
 
       context "has all tax return status in file_accepted, file_mailed or file_not_filing" do
-        let!(:tax_returns) { [(build :gyr_tax_return, :file_not_filing), (build :tax_return, :file_accepted, year: 2019)] }
+        let!(:tax_returns) { [(build :gyr_tax_return, :file_not_filing), (build :tax_return, :file_accepted, year: MultiTenantService.gyr.current_tax_year - 2)] }
 
         before do
           AdminToggle.create(name: AdminToggle::FORWARD_MESSAGES_TO_INTERCOM, value: true, user: create(:admin_user))
