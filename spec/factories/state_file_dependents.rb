@@ -37,46 +37,49 @@
 #  index_state_file_dependents_on_intake  (intake_type,intake_id)
 #
 FactoryBot.define do
+  age_at_statefile_tax_year_end = lambda  do |age|
+    DateTime.new(MultiTenantService.statefile.current_tax_year)
+            .end_of_year.years_ago(age)
+  end
+
   factory :state_file_dependent do
     intake { create :state_file_az_intake }
     first_name { "Ali" }
     middle_initial {"U"}
     last_name { "Poppyseed" }
     relationship { "biologicalChild" }
-    ssn { "123456789" }
     dob { Date.today - 20.years }
 
     factory :az_senior_dependent_missing_intake_answers do
-      dob { StateFileDependent.senior_cutoff_date }
+      dob { age_at_statefile_tax_year_end.call(65) }
       months_in_home { 12 }
       relationship { "parent" }
     end
 
     factory :az_senior_dependent do
-      dob { StateFileDependent.senior_cutoff_date }
+      dob { age_at_statefile_tax_year_end.call(65) }
       needed_assistance { "yes" }
       months_in_home { 12 }
       relationship { "parent" }
     end
 
     factory :az_senior_dependent_no_assistance do
-      dob { StateFileDependent.senior_cutoff_date }
+      dob { age_at_statefile_tax_year_end.call(65) }
       needed_assistance { "no" }
       months_in_home { 12 }
       relationship { "parent" }
     end
 
     factory :az_hoh_qualifying_person_nonparent do
-      dob { StateFileDependent.senior_cutoff_date + 10.years }
+      dob { age_at_statefile_tax_year_end.call(55) }
       first_name { "Nonparent" }
       last_name { "Qualifying" }
       months_in_home { 12 }
       relationship { "biologicalChild" }
     end
 
-
     factory :az_hoh_qualifying_person_parent do
-      dob { StateFileDependent.senior_cutoff_date + 1.years }
+      dob { age_at_statefile_tax_year_end.call(64) }
       first_name { "Parent" }
       last_name { "Qualifying" }
       months_in_home { 0 }
@@ -84,7 +87,7 @@ FactoryBot.define do
     end
 
     factory :az_hoh_nonqualifying_person_nonparent do
-      dob { StateFileDependent.senior_cutoff_date + 5.years }
+      dob { age_at_statefile_tax_year_end.call(60) }
       first_name { "Nonparent" }
       last_name { "Nonqualifying" }
       months_in_home { 5 }
@@ -92,7 +95,7 @@ FactoryBot.define do
     end
 
     factory :az_hoh_nonqualifying_person_none_relationship do
-      dob { StateFileDependent.senior_cutoff_date + 20.years }
+      dob { age_at_statefile_tax_year_end.call(45) }
       first_name { "NoneRelationship" }
       last_name { "Nonqualifying" }
       months_in_home { 12 }

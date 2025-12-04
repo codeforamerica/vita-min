@@ -158,7 +158,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       end
 
       context "when a dependent is over 65 and a qualifying parent or grandparent" do
-        let(:dob) { MultiTenantService.statefile.end_of_current_tax_year - 65.years }
+        let(:dob) {  age_at_end_of_tax_year(65) }
 
         before do
           create :state_file_dependent,

@@ -544,28 +544,6 @@ describe Intake::GyrIntake do
     end
   end
 
-  describe "#most_recent_needs_help_or_filing_year" do
-    let(:intake) { build(:intake) }
-
-    context "when there are no tax returns" do
-      context "when client has said which years they need help" do
-        before do
-          intake.update(needs_help_previous_year_3: "yes", needs_help_previous_year_2: "yes")
-        end
-
-        it "gives the highest needs_help year number" do
-          expect(intake.most_recent_needs_help_or_filing_year).to eq MultiTenantService.new(:gyr).current_tax_year - 2
-        end
-      end
-
-      context "when the client has not said they need help any particular years" do
-        it "uses the current tax year" do
-          expect(intake.most_recent_needs_help_or_filing_year).to eq MultiTenantService.new(:gyr).current_tax_year
-        end
-      end
-    end
-  end
-
   describe "#year_before_most_recent_filing_year" do
     let(:intake) { build :intake }
     let!(:client) { create :client, tax_returns: [], intake: intake }

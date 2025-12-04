@@ -162,7 +162,7 @@ module ApplicationHelper
   end
 
   def ctc_prior_tax_year
-    MultiTenantService.new(:ctc).prior_tax_year
+    MultiTenantService.new(:ctc).current_tax_year - 1
   end
 
   def request_domain

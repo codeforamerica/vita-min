@@ -22,18 +22,15 @@
     </p>
     <div class="form-card__stacked-checkboxes spacing-above-0">
       <% gyr_backtax_years.reverse.each do |backtax_year| %>
-<!--        does this need to use the filing year instead?-->
-<!--        MultiTenantService.gyr.current_tax_year should be gyr_backtax_years.max instead?-->
-        <% previous_year_index = gyr_backtax_years.max - backtax_year %>
+        <% previous_year_index = MultiTenantService.gyr.current_tax_year(app_time) - backtax_year %>
         <%= f.cfa_checkbox("needs_help_previous_year_#{previous_year_index}".to_sym,
                            backtax_year.to_s,
                            options: { checked_value: "yes", unchecked_value: "no" }) %>
       <% end %>
       <%= f.cfa_checkbox("needs_help_current_year".to_sym,
-                         MultiTenantService.gyr.current_tax_year.to_s,
+                         MultiTenantService.gyr.current_tax_year(app_time).to_s,
                          options: { checked_value: "yes", unchecked_value: "no" }) %>
     </div>
-    <% binding.pry %>
 
     <%= f.continue %>
   <% end %>

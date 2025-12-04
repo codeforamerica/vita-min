@@ -12,8 +12,8 @@ RSpec.describe StateFile::Questions::IdDisabilityController do
     render_views
 
     let!(:state_file1099_r) { create(:state_file1099_r, intake: intake, taxable_amount: 25) }
-    let(:between_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 63), 1, 1) }
-    let(:not_between_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 60), 1, 1) }
+    let(:between_dob) { age_at_end_of_tax_year(63) }
+    let(:not_between_dob) { age_at_end_of_tax_year(60) }
 
     it 'succeeds' do
       get :edit
