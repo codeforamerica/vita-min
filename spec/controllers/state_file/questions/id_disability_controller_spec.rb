@@ -1,6 +1,8 @@
 require "rails_helper"
 
 RSpec.describe StateFile::Questions::IdDisabilityController do
+  include StateFileIntakeHelper
+
   let(:intake) { create :state_file_id_intake }
   before do
     allow(Flipper).to receive(:enabled?).and_call_original
