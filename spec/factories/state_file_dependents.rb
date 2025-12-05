@@ -37,9 +37,8 @@
 #  index_state_file_dependents_on_intake  (intake_type,intake_id)
 #
 FactoryBot.define do
-  age_at_statefile_tax_year_end = lambda  do |age|
-    DateTime.new(MultiTenantService.statefile.current_tax_year)
-            .end_of_year.years_ago(age)
+  age_at_statefile_tax_year_end = ->(age) do
+    DateTime.new(MultiTenantService.statefile.current_tax_year - age).end_of_year
   end
 
   factory :state_file_dependent do

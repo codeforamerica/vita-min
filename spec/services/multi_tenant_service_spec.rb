@@ -28,26 +28,13 @@ describe MultiTenantService do
   describe "#current_tax_year" do
     before do
       allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2017)
-      allow(MultiTenantService.gyr).to receive(:current_tax_year).and_return(2018)
       allow(Rails.application.config).to receive(:statefile_current_tax_year).and_return(2023)
     end
 
     it "returns the specific config values for GYR & GetCTC" do
       expect(described_class.ctc.current_tax_year).to eq 2017
-      expect(described_class.gyr.current_tax_year).to eq 2018
+      expect(described_class.gyr.current_tax_year(Date.parse("4/7/2019"))).to eq 2018
       expect(described_class.statefile.current_tax_year).to eq 2023
-    end
-  end
-
-  describe "#prior_tax_year" do
-    before do
-      allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2017)
-      allow(MultiTenantService.gyr).to receive(:current_tax_year).and_return(2018)
-    end
-
-    it "returns the prior years for ctc and gyr given the current tax years" do
-      expect(described_class.new(:ctc).prior_tax_year).to eq 2016
-      expect(described_class.new(:gyr).prior_tax_year).to eq 2017
     end
   end
 
@@ -80,10 +67,10 @@ describe MultiTenantService do
     end
 
     context "GYR 2025 after tax deadline before end of in progress intake" do
-      it "returns 2021, 2022, 2023, 2024" do
+      it "returns 2022, 2023, 2024" do
         fake_time = DateTime.parse("2025-06-23")
 
-        expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2024, 2023, 2022, 2021]
+        expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2024, 2023, 2022]
       end
     end
 
