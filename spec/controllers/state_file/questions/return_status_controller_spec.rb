@@ -284,7 +284,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
 
             context "before the tax deadline" do
               it "shows the content for direct debit for before the deadline" do
-                Timecop.freeze(Rails.configuration.tax_deadline - 3.days) do
+                Timecop.freeze(Rails.configuration.state_file_tax_deadline - 3.days) do
                   allow_any_instance_of(StateFile::StateInformationService.calculator_class(state_code)).to receive(:refund_or_owed_amount).and_return -100
                   get :edit
                   expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.direct_debit.before_deadline_html", tax_payment_info_url: assigns(:tax_payment_info_url), tax_payment_info_text: assigns(:tax_payment_info_text))
@@ -294,7 +294,7 @@ RSpec.describe StateFile::Questions::ReturnStatusController do
 
             context "after the tax deadline" do
               it "shows the content for direct debit for after the deadline and the penalty interest warning" do
-                Timecop.freeze(Rails.configuration.tax_deadline + 3.days) do
+                Timecop.freeze(Rails.configuration.state_file_tax_deadline + 3.days) do
                   allow_any_instance_of(StateFile::StateInformationService.calculator_class(state_code)).to receive(:refund_or_owed_amount).and_return -100
                   get :edit
                   expect(response.body).to include I18n.t("state_file.questions.return_status.accepted.direct_debit.after_deadline_html", tax_payment_info_url: assigns(:tax_payment_info_url), tax_payment_info_text: assigns(:tax_payment_info_text))

@@ -320,7 +320,7 @@ class FlowsController < ApplicationController
       client = Client.create(
         consented_to_service_at: Time.zone.now,
         intake_attributes: intake_attributes,
-        tax_returns_attributes: [{ year: MultiTenantService.new(:gyr).current_tax_year(app_time), is_ctc: false }],
+        tax_returns_attributes: [{ year: MultiTenantService.new(:gyr).current_tax_year, is_ctc: false }],
       )
       unless client.valid?
         return

@@ -96,6 +96,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include ChannelHelpers, type: :channel
   config.include ActiveSupport::Testing::TimeHelpers
+  config.include NavigationHelpers
   config.include FeatureHelpers, type: :feature
   config.include ResponsiveHelper, type: :feature
   config.include JavascriptHelpers, type: :feature

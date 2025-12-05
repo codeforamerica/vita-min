@@ -550,7 +550,7 @@ describe Intake::GyrIntake do
 
     context "with unfilled filing years" do
       it "returns prior tax year" do
-        expect(intake.year_before_most_recent_filing_year).to eq (Rails.application.config.gyr_current_tax_year - 1)
+        expect(intake.year_before_most_recent_filing_year).to eq (MultiTenantService.gyr.current_tax_year - 1)
       end
     end
 
