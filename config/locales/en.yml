@@ -105,7 +105,7 @@ en:
     file_yourself:
       edit:
         info:
-        - File taxes online on your own using our partner website. This is our quickest option for households earning under $84,000 to file taxes and collect the tax credits you are owed!
+        - File taxes online on your own using our partner website. This is our quickest option for households earning under $89,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
         title: File taxes on your own
   documents:
@@ -2177,7 +2177,7 @@ en:
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
-        help_text: Our free service is available to households earning less than $84,000 a year.
+        help_text: Our free service is available to households earning less than $89,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
     triage_gyr:
       edit:
@@ -6022,7 +6022,7 @@ en:
         in_person_link_text: VITA location finder
         income_limit:
           direct_file: Most filers under $200,000
-          diy: under $84,000
+          diy: under $89,000
           full_service: under $69,000
           title: 'Income guidance:'
         mobile_friendly: Mobile-friendly
