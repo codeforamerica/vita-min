@@ -49,7 +49,7 @@ describe Portal::StillNeedsHelpsController do
 
         context "client indicates they still need help" do
           it "saves answer, tax return statuses, first_unanswered_incoming_interaction_at, and clears triggered_still_needs_help_at" do
-            allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(2021)
+            allow(MultiTenantService.gyr).to receive(:current_tax_year).and_return(2021)
             Timecop.freeze(fake_time) { put :update, params: { still_needs_help: "yes" } }
 
             # updates client still needs help fields

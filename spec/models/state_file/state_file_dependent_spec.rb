@@ -1,6 +1,8 @@
 require "rails_helper"
 
 describe StateFileDependent do
+  include StateFileIntakeHelper
+
   describe "validations" do
     context "in the az_senior_form context" do
       context "when needed assistance is yes" do
@@ -52,7 +54,7 @@ describe StateFileDependent do
   describe "#ask_senior_questions?" do
     let(:dependent) { build(:state_file_dependent, dob: dob, months_in_home: months_in_home, relationship: relationship, intake: intake) }
     let(:relationship) { "grandParent" }
-    let(:dob) { described_class.senior_cutoff_date }
+    let(:dob) { senior_cutoff_date }
     let(:months_in_home) { 12 }
     let(:intake) { build :state_file_az_intake }
 
@@ -96,14 +98,14 @@ describe StateFileDependent do
       end
 
       context "when a dependent is younger than 65" do
-        let(:dob) { described_class.senior_cutoff_date + 1.week }
+        let(:dob) { senior_cutoff_date + 1.week }
         it "does NOT ask more questions" do
           expect(dependent.ask_senior_questions?).to be false
         end
       end
 
       context "when dependent's birthday is one day from the cutoff (January 1st)" do
-        let(:dob) { described_class.senior_cutoff_date + 1.day }
+        let(:dob) { senior_cutoff_date + 1.day }
         context "when Maryland intake" do
           let(:intake) { build :state_file_md_intake }
           it "doesn't ask more questions" do
@@ -131,35 +133,35 @@ describe StateFileDependent do
     it "only returns dependents that are 65+ by end of tax year, a grandparent or parent, spent 12 months in home, and needed assistance" do
       qualifying_grandparent = build(
         :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
+        dob: senior_cutoff_date,
         months_in_home: 12,
         needed_assistance: "yes",
         relationship: "grandParent"
       )
       qualifying_parent = build(
         :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
+        dob: senior_cutoff_date,
         months_in_home: 12,
         needed_assistance: "yes",
         relationship: "parent"
       )
       too_young = build(
         :state_file_dependent,
-        dob: described_class.senior_cutoff_date + 2.day,
+        dob: senior_cutoff_date + 2.day,
         months_in_home: 12,
         needed_assistance: "yes",
         relationship: "grandParent"
       )
       jan_1_az_intake = build(
         :state_file_dependent,
-        dob: described_class.senior_cutoff_date + 1.day,
+        dob: senior_cutoff_date + 1.day,
         months_in_home: 12,
         needed_assistance: "yes",
         relationship: "grandParent"
       )
       jan_1_md_intake = build(
         :state_file_dependent,
-        dob: described_class.senior_cutoff_date + 1.day,
+        dob: senior_cutoff_date + 1.day,
         months_in_home: 12,
         needed_assistance: "yes",
         relationship: "grandParent",
@@ -167,21 +169,21 @@ describe StateFileDependent do
       )
       not_ancestor = build(
         :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
+        dob: senior_cutoff_date,
         months_in_home: 12,
         needed_assistance: "yes",
         relationship: "biologicalChild"
       )
       too_few_months = build(
         :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
+        dob: senior_cutoff_date,
         months_in_home: 11,
         needed_assistance: "yes",
         relationship: "grandParent"
       )
       did_not_need_assistance = build(
         :state_file_dependent,
-        dob: described_class.senior_cutoff_date,
+        dob: senior_cutoff_date,
         months_in_home: 12,
         needed_assistance: "no",
         relationship: "grandParent"
@@ -270,10 +272,10 @@ describe StateFileDependent do
   end
 
   describe "#senior?" do
-    let(:dob_jan_1_64_years_ago) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
+    let(:dob_jan_1_64_years_ago) { Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1) }
     let(:dependent_65_next_year) { create :state_file_dependent, dob: dob_jan_1_64_years_ago, intake: intake }
 
-    let(:dob_jan_1_65_years_ago) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+    let(:dob_jan_1_65_years_ago) { Date.new((MultiTenantService.statefile.current_tax_year - 65), 1, 1) }
     let(:dependent_65_this_year) { create :state_file_dependent, dob: dob_jan_1_65_years_ago, intake: intake }
 
     let(:intake) { create :state_file_az_intake }

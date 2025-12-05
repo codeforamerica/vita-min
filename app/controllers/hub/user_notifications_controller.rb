@@ -5,7 +5,13 @@ module Hub
 
     def index
       @page_title = I18n.t("hub.clients.navigation.notifications")
-      @user_notifications = current_user.notifications.where('created_at >= ?', Date.new(Rails.configuration.product_year)).order(created_at: :desc).page(params[:page])
+      cutoff = [
+        app_time - 7.days,
+        Date.new(Rails.configuration.product_year)
+      ].min
+      @user_notifications = current_user.notifications
+                                        .where('created_at >= ?', cutoff)
+                                        .order(created_at: :desc).page(params[:page])
     end
 
     def mark_all_notifications_read

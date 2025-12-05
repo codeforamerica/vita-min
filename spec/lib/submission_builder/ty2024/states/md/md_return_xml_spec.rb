@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "md" do
+  include StateFileIntakeHelper
+
   describe ".build" do
     let(:intake) { create(:state_file_md_intake, primary_esigned: "yes", primary_esigned_at: Time.now, primary_signature_pin: "11111" ) }
     let(:submission) { create(:efile_submission, data_source: intake.reload) }
@@ -100,7 +102,7 @@ describe SubmissionBuilder::Ty2024::States::Md::MdReturnXml, required_schema: "m
 
       context "502B" do
         context "when there are dependents" do
-          let!(:dependent) { create :state_file_dependent, dob: StateFileDependent.senior_cutoff_date + 20.years, intake: intake }
+          let!(:dependent) { create :state_file_dependent, dob: age_at_end_of_tax_year(45), intake: intake }
 
           it "includes the document" do
             expect(xml.document.at('ReturnDataState Form502B')).to be_an_instance_of Nokogiri::XML::Element

@@ -15,11 +15,18 @@ RSpec.feature "Income Review", active_job: true do
       click_on "Start Test NJ"
       click_on "Get Started", id: "firstCta"
       click_on I18n.t("general.continue")
+
       step_through_initial_authentication(contact_preference: :email)
+
+      page_change_check(I18n.t("state_file.questions.notification_preferences.edit.title"))
       check "Text message"
       fill_in "Your phone number", with: "+12025551212"
       click_on "Continue"
+
+      page_change_check(I18n.t("state_file.questions.sms_terms.edit.title"))
       click_on I18n.t("general.accept")
+
+      page_change_check(I18n.t("state_file.questions.terms_and_conditions.edit.title"))
       click_on I18n.t("state_file.questions.terms_and_conditions.edit.accept")
     end
 

@@ -1,10 +1,12 @@
 require "rails_helper"
 
 RSpec.describe StateFile::IdDisabilityForm do
+  include StateFileIntakeHelper
+
   let(:intake) { create :state_file_id_intake }
   let(:form) { described_class.new(intake, params) }
-  let(:senior_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
-  let(:not_senior_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 63), 1, 1) }
+  let(:senior_dob) { age_at_end_of_tax_year(65) }
+  let(:not_senior_dob) { age_at_end_of_tax_year(63) }
 
 
   describe "#valid?" do

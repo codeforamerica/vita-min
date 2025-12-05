@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe PdfFiller::Md502bPdf do
   include PdfSpecHelper
+  include StateFileIntakeHelper
 
   let(:primary_ssn) { "345678901" }
   let(:spouse_ssn) { "987654321" }
@@ -21,8 +22,8 @@ RSpec.describe PdfFiller::Md502bPdf do
   end
   let(:submission) { create :efile_submission, :for_state, data_source: intake }
   let(:pdf) { described_class.new(submission) }
-  let(:young_dob) { StateFileDependent.senior_cutoff_date + 60.years }
-  let(:old_dob) { StateFileDependent.senior_cutoff_date }
+  let(:young_dob) { age_at_end_of_tax_year(5) }
+  let(:old_dob) { senior_cutoff_date }
   let!(:dependent) do
     create(
       :state_file_dependent,

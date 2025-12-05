@@ -26,7 +26,7 @@ describe InitialTaxReturnsService do
       let(:intake) { create :intake, needs_help_current_year: "yes", needs_help_previous_year_1: "yes", needs_help_previous_year_3: "yes" }
 
       before do
-        allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(2023)
+        allow(MultiTenantService.gyr).to receive(:current_tax_year).and_return(2023)
       end
 
       around do |example|
