@@ -134,7 +134,6 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       before do
         create(:state_file_dependent, intake: intake, dob: dob, relationship: "biologicalChild", months_in_home: 8, ssn: "123456789")
       end
-
       it "translates the relationship to the appropriate AZ XML relationship key" do
         expect(xml.at("DependentDetails DependentSSN").text).to eq "123456789"
         expect(xml.at("DependentDetails RelationShip").text).to eq "CHILD"
