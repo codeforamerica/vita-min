@@ -129,13 +129,14 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
     end
 
     context "when there are dependents" do
-      let(:dob) { 12.years.ago }
+      let(:dob) { age_at_end_of_tax_year(12) }
 
       before do
-        create(:state_file_dependent, intake: intake, dob: dob, relationship: "biologicalChild", months_in_home: 8)
+        create(:state_file_dependent, intake: intake, dob: dob, relationship: "biologicalChild", months_in_home: 8, ssn: "123456789")
       end
 
       it "translates the relationship to the appropriate AZ XML relationship key" do
+        expect(xml.at("DependentDetails DependentSSN").text).to eq "123456789"
         expect(xml.at("DependentDetails RelationShip").text).to eq "CHILD"
       end
 
@@ -149,7 +150,7 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       end
 
       context "when a dependent is over 17" do
-        let(:dob) { 19.years.ago }
+        let(:dob) { age_at_end_of_tax_year(19) }
 
         it "marks Dep17AndOlder checkbox as checked" do
           over_17_node = xml.at("Dep17AndOlder")
@@ -159,8 +160,8 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
         end
       end
 
-      context "when a dependent is over 65 and a qualifying parent or grandparent" do
-        let(:dob) {  age_at_end_of_tax_year(65) }
+      context "when a dependent is 65 or over and a qualifying parent or grandparent" do
+        let(:dob) { age_at_end_of_tax_year(65) }
 
         before do
           create :state_file_dependent,

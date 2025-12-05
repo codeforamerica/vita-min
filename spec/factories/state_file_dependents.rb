@@ -47,7 +47,7 @@ FactoryBot.define do
     middle_initial {"U"}
     last_name { "Poppyseed" }
     relationship { "biologicalChild" }
-    dob { Date.today - 20.years }
+    dob { age_at_statefile_tax_year_end.call(20) }
 
     factory :az_senior_dependent_missing_intake_answers do
       dob { age_at_statefile_tax_year_end.call(65) }
