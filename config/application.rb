@@ -98,7 +98,7 @@ module VitaMin
     config.end_of_docs = et.parse('2026-10-08 23:59:59')
     config.doc_submission_deadline = et.parse('2026-04-01 23:59:59')
     config.end_of_closing = et.parse('2026-10-15 23:59:59')
-    config.end_of_in_progress_intake = et.parse('2026-10-15 23:59:59') # is inprogress just for docs or will they have access to these other pages
+    config.end_of_in_progress_intake = et.parse('2026-10-15 23:59:59')
     config.end_of_login = et.parse('2026-10-23 23:59:00')
 
     config.tax_year_filing_seasons = {
