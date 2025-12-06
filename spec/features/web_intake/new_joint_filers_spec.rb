@@ -612,6 +612,13 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     page_change_block do
       screenshot_after do
+        expect(page).to have_selector("h1", text: "Did you or your spouse purchase a new vehicle in #{current_tax_year}?")
+      end
+      click_on "Yes"
+    end
+
+    page_change_block do
+      screenshot_after do
         expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you or your spouse purchase energy efficient home items?")
       end
       click_on "Yes"

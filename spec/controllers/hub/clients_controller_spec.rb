@@ -2055,7 +2055,9 @@ RSpec.describe Hub::ClientsController do
           commit: I18n.t('general.save'),
           hub_update13614c_form_page3: {
             bought_energy_efficient_items: "unfilled",
-            tax_credit_disallowed_year: "2001"
+            tax_credit_disallowed_year: "2001",
+            new_vehicle_purchased: "yes",
+            vin_number: "123456",
           }
         }
       }
@@ -2082,7 +2084,10 @@ RSpec.describe Hub::ClientsController do
           system_note = SystemNote::ClientChange.last
           expect(system_note.client).to eq(client)
           expect(system_note.user).to eq(user)
-          expect(system_note.data['changes']).to match({"bought_energy_efficient_items"=>[nil, "unfilled"], "tax_credit_disallowed_year"=>[nil, 2001]})
+          expect(system_note.data['changes']).to match({"bought_energy_efficient_items" => [nil, "unfilled"], 
+                                                        "tax_credit_disallowed_year" => [nil, 2001],
+                                                        "new_vehicle_purchased" => ["unfilled", "yes"],
+                                                        "vin_number" => [nil, "123456"]})
           expect(client.last_13614c_update_at).to be_within(1.second).of(DateTime.now)
         end
 

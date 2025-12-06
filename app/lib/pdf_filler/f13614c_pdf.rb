@@ -250,6 +250,7 @@ module PdfFiller
           "form1[0].page3[0].followingHappenDuring[0].energyEfficientItems[0].energyEfficientItems[0]" => @intake.bought_energy_efficient_items_yes?,
           "form1[0].page3[0].followingHappenDuring[0].forgaveByLender[0].forgaveByLender[0]" => @intake.had_debt_forgiven_yes?,
           "form1[0].page3[0].followingHappenDuring[0].lossRelatedDisaster[0]" => @intake.had_disaster_loss_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].otherPurchase[0]" => @intake.new_vehicle_purchased_yes?,
           "form1[0].page3[0].followingHappenDuring[0].taxCreditDisallowed[0].taxCreditDisallowed[0]" => @intake.had_tax_credit_disallowed_yes?,
           "form1[0].page3[0].followingHappenDuring[0].receivedLetterBill[0]" => @intake.received_irs_letter_yes?,
           "form1[0].page3[0].followingHappenDuring[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => @intake.made_estimated_tax_payments_yes?,
@@ -277,6 +278,8 @@ module PdfFiller
 
           # page 3 rhs section 3 of 3
           'form1[0].page3[0].informationToReport[0].taxableScholarshipIncome[0]' => bool_checkbox(@intake.cv_taxable_scholarship_income_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].vinNumber[0].numberVIN[0]' => bool_checkbox(@intake.vin_number.present?),
+          'form1[0].page3[0].informationToReport[0].vinNumber[0].vinNumber[0]' => @intake.vin_number,
           'form1[0].page3[0].informationToReport[0].form1098T[0]' => bool_checkbox(@intake.cv_1098t_cb_yes?),
           'form1[0].page3[0].informationToReport[0].educationCreditTuition[0]' => bool_checkbox(@intake.cv_edu_credit_or_tuition_deduction_cb_yes?),
           'form1[0].page3[0].informationToReport[0].saleOfHome[0]' => bool_checkbox(@intake.cv_1099s_cb_yes?),
