@@ -5011,7 +5011,7 @@ es:
           <strong>Autorizo al sitio VITA:</strong>
           Global Carry Forward de datos permite a TaxSlayer LLC, el proveedor del software de impuestos VITA/TCE, poner la información de su declaración de impuestos a disposición de CUALQUIER sitio voluntario que participe en el programa VITA/TCE del IRS que usted seleccione para preparar una declaración de impuestos en la próxima temporada de presentación. Esto significa que podrá visitar cualquier sitio voluntario que utilice TaxSlayer el próximo año y que su declaración de impuestos se complete con sus datos del año en curso, independientemente de dónde haya presentado su declaración de impuestos este año.
 
-          <strong>Este consentimiento es válido hasta el 30 de noviembre de 2026</strong>
+          <strong>Este consentimiento es válido hasta el 30 de noviembre de %{year}</strong>
 
           La información de la declaración de impuestos que se divulgará incluye, pero no se limita a, información demográfica, financiera y otra información de identificación personal, sobre usted, su declaración de impuestos y sus fuentes de ingresos, que se introdujo en el software de preparación de impuestos con el fin de preparar su declaración de impuestos.
 

@@ -19,8 +19,9 @@ module Hub
       end
 
       def load_template_variables
-        @locale_counts = @clients.where.not(id: @clients.with_insufficient_contact_info).locale_counts
-        @no_contact_info_count = @clients.with_insufficient_contact_info.size
+        insufficient_contact_ids = @clients.with_insufficient_contact_info.pluck(:id)
+        @locale_counts = @clients.where.not(id: insufficient_contact_ids).locale_counts
+        @no_contact_info_count = insufficient_contact_ids.size
       end
     end
   end
