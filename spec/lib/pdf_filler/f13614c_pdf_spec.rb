@@ -288,8 +288,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             )
       end
 
-      # TODO reenable for TY2025
-      xit "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
+      it "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
         expect(intake_pdf.hash_for_pdf.length).to be > 100 # sanity check
         all_fields_in_pdf = PdfForms.new.get_fields(intake_pdf.output_file).map(&:name)
         expect(intake_pdf.hash_for_pdf.keys & all_fields_in_pdf).to match_array(intake_pdf.hash_for_pdf.keys)
@@ -305,8 +304,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                           )
       end
 
-      # TODO reenable for TY2025
-      xit "fills out answers from the DB into the pdf" do
+      it "fills out answers from the DB into the pdf" do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to include(
@@ -333,8 +331,6 @@ RSpec.describe PdfFiller::F13614cPdf do
                             +"form1[0].page1[0].maritalStatus[0].lastDay[0].lastDayYes[0]" => "Off",
                             "form1[0].page1[0].maritalStatus[0].liveApart[0].liveApartYes[0]" => "Off",
                             "form1[0].page1[0].maritalStatus[0].liveApart[0].liveApartNo[0]" => "1",
-                            "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllNo[0]" => "Off",
-                            "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllYes[0]" => "Off",
                             "form1[0].page1[0].maritalStatus[0].statusDivorced[0].dateFinalDecree[0]" => "2015",
                             "form1[0].page1[0].maritalStatus[0].statusDivorced[0].statusDivorced[0]" => "Off",
                             "form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].dateSeparateDecree[0]" => "2016",
@@ -604,6 +600,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page4[0].yourSpousesRaceEthnicity[0].middleEsternNorthAfrican[0]" => "Off",
                             "form1[0].page4[0].yourSpousesRaceEthnicity[0].white[0]" => "Off",
                             "form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]" => "if there is another gnome living in my garden but only i have an income, does that make me head of household?",
+                            "form1[0].page6[0].ifYouBelieve[0].hyperlink[0]" => nil,
                             "form1[0].page6[0].primaryDateSigned[0]" => nil,
                             "form1[0].page6[0].primaryTaxpayer[0]" => nil,
                             "form1[0].page6[0].secondaryDateSigned[0]" => nil,
