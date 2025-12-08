@@ -87,9 +87,7 @@ module PdfFiller
               "statusDivorced[0].statusDivorced[0]" => @intake.divorced_yes?,
               "statusWidowed[0].statusWidowed[0]" => @intake.widowed_yes?,
               "liveApart[0].liveApartNo[0]" => @intake.lived_with_spouse_yes?,
-              "liveApart[0].liveApartYes[0]" => @intake.lived_with_spouse_no?,
-              "marriedForAll[0].forAllYes[0]" => @intake.married_for_all_of_tax_year_yes?,
-              "marriedForAll[0].forAllNo[0]" => @intake.married_for_all_of_tax_year_no?,
+              "liveApart[0].liveApartYes[0]" => @intake.lived_with_spouse_no?
             }
           end
         )
