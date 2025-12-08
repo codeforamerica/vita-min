@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_19_181821) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_08_205505) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1162,6 +1162,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_19_181821) do
     t.integer "bought_employer_health_insurance", default: 0, null: false
     t.integer "bought_energy_efficient_items"
     t.integer "bought_marketplace_health_insurance", default: 0, null: false
+    t.integer "brought_last_years_return", default: 0, null: false
     t.integer "cannot_claim_me_as_a_dependent", default: 0, null: false
     t.string "canonical_email_address"
     t.string "city"

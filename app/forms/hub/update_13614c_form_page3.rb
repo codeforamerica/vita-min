@@ -50,6 +50,7 @@ module Hub
                        :cv_tax_credit_disallowed_reason,
                        :cv_eligible_for_litc_referral_cb,
                        :made_estimated_tax_payments_amount,
+                       :brought_last_years_return,
                        :cv_estimated_tax_payments_cb,
                        :cv_estimated_tax_payments_amt,
                        :cv_last_years_refund_applied_to_this_yr_cb,
