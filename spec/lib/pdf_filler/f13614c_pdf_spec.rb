@@ -137,6 +137,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           widowed_year: "2017",
           zip_code: "08052",
           spouse_consented_to_service_at: Date.new(2024, 1, 1),
+          brought_last_years_return: "no"
         )
       end
       before do
@@ -522,9 +523,9 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page3[0].expensesToReport[0].iraBasicRoth[0]" => "",
                             "form1[0].page3[0].followingHappenDuring[0].energyEfficientItems[0].energyEfficientItems[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => "Off",
+                            'form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]' => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].forgaveByLender[0].forgaveByLender[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].healthSavingsAccount[0]" => "Off",
-                            "form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].lossRelatedDisaster[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].otherPurchase[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].purchaseMarketplaceInsurance[0]" => "1",
