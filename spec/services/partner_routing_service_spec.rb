@@ -25,7 +25,7 @@ describe PartnerRoutingService do
       let!(:srf_one) { create(:state_routing_fraction, routing_fraction: 0.1, vita_partner: vita_partner, state_routing_target: srt_one) }
       let!(:srf_two) { create(:state_routing_fraction, routing_fraction: 0.3, vita_partner: vita_partner_in_state_no_itin, state_routing_target: srt_two) }
       let(:vita_partner_in_state_no_itin) { create :organization, accepts_itin_applicants: false }
-      let(:intake) { create :intake, state: "CA", zip_code: "94606", need_itin_help: 'yes' }
+      let(:intake) { create :intake, state: "CA", zip_code: "94606", need_itin_help: 'yes', preferred_interview_language: 'English' }
       subject { PartnerRoutingService.new(intake: intake, zip_code: "94606") }
 
       before { vita_partner.update(accepts_itin_applicants: true) }
@@ -228,13 +228,32 @@ describe PartnerRoutingService do
       end
     end
 
-    context "when source param is not provided" do
+    context "when source param is not provided but zip code is present" do
       context "when clients zip code corresponds to a Vita Partner" do
         subject { PartnerRoutingService.new(zip_code: "94606") }
 
         it "returns the vita partner that has the associated vita partner zip code" do
           expect(subject.determine_partner).to eq vita_partner
           expect(subject.routing_method).to eq :zip_code
+        end
+
+        context "when client has a non-English language preference" do
+          let!(:intake) { create :intake, zip_code: "28806", need_itin_help: 'no', preferred_interview_language: 'Vietnamese' }
+          let!(:org) { create :organization }
+          let!(:zip) { create :vita_partner_zip_code, zip_code: "28806", vita_partner: org }
+          subject { PartnerRoutingService.new(intake: intake, zip_code: "28806") }
+
+          before do
+            allow(Organization).to receive(:with_language_capability).with(nil).and_return(Organization.all)
+            allow(Organization).to receive(:with_language_capability).with("English").and_return(Organization.all)
+            allow(Organization).to receive(:with_language_capability).with("Vietnamese").and_return(Organization.where(id: org.id))
+            allow(VitaPartner).to receive(:with_language_capability).with("Vietnamese").and_return(VitaPartner.where(id: org.id))
+          end
+
+          it "returns vita partner with that language capabiltiy" do
+            expect(subject.determine_partner).to eq org
+            expect(subject.routing_method).to eq :zip_code
+          end
         end
 
         context "when a Vita Partner matches the zip code but they do not have capacity" do
@@ -311,6 +330,25 @@ describe PartnerRoutingService do
                   ]
                 )
               )
+            end
+
+            context "when intake has a non-English language preference" do
+              let(:intake) { create :intake, zip_code: "28806", need_itin_help: 'no', preferred_interview_language: 'Russian' }
+              let(:vita_partner) { nc_org_with_capacity_state_routing_fraction.vita_partner }
+
+              before do
+                allow(Organization).to receive(:with_language_capability).with(nil).and_return(Organization.all)
+                allow(Organization).to receive(:with_language_capability).with("English").and_return(Organization.all)
+                allow(Organization).to receive(:with_language_capability).with("Russian").and_return(Organization.where(id: vita_partner.id))
+                allow(VitaPartner).to receive(:with_language_capability).with("Russian").and_return(VitaPartner.where(id: vita_partner.id))
+              end
+
+              subject { PartnerRoutingService.new(intake: intake, zip_code: "28806") }
+
+              it "routes to vita partner with that language capability" do
+                expect(subject.determine_partner.id).to eq vita_partner.id
+                expect(subject.routing_method).to eq :state
+              end
             end
           end
 
@@ -406,6 +444,25 @@ describe PartnerRoutingService do
         it "routes only to partners with capacity" do
           expect(subject.determine_partner).to eq vita_partner_2
           expect(subject.routing_method).to eq :zip_code
+        end
+
+        context "when intake has a non-English language preference" do
+          let!(:overflow_partner_with_spanish) { create :organization, national_overflow_location: true }
+          let(:intake) { create :intake, need_itin_help: 'no', preferred_interview_language: 'Spanish' }
+
+          before do
+            allow(Organization).to receive(:with_language_capability).with(nil).and_return(Organization.all)
+            allow(Organization).to receive(:with_language_capability).with("English").and_return(Organization.all)
+            allow(Organization).to receive(:with_language_capability).with("Spanish").and_return(Organization.where(id: overflow_partner_with_spanish.id))
+            allow(VitaPartner).to receive(:with_language_capability).with("Spanish").and_return(VitaPartner.where(id: overflow_partner_with_spanish.id))
+          end
+
+          subject { PartnerRoutingService.new(intake: intake) }
+
+          it "routes to vita partner with that language capability" do
+            expect(subject.determine_partner.id).to eq overflow_partner_with_spanish.id
+            expect(subject.routing_method).to eq :national_overflow
+          end
         end
       end
     end
