@@ -191,6 +191,12 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     end
 
     page_change_block do
+      # Claimed status
+      expect(page).to have_css("h1", text: "Can anyone else claim you on their tax return?")
+      click_on "No"
+    end
+
+    page_change_block do
       # Dependents
       page_change_check(I18n.t("views.questions.had_dependents.title", year: intake.most_recent_filing_year, count: intake.filer_count ))
       expect(intake.reload.current_step).to end_with("/questions/had-dependents")
