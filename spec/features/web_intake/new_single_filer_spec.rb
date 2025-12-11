@@ -349,6 +349,11 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     end
 
     page_change_block do
+      expect(page).to have_selector("h1", text: "Did you purchase a new vehicle in #{current_tax_year}?")
+      click_on "Yes"
+    end
+
+    page_change_block do
       expect(page).to have_selector("h1", text: "In #{current_tax_year}, did you purchase energy efficient home items?")
       click_on "Yes"
     end

@@ -464,6 +464,9 @@ RSpec.describe "a user editing a clients 13614c form" do
       select "Yes", from: "hub_update13614c_form_page3_bought_energy_efficient_items"
       select "Yes", from: "hub_update13614c_form_page3_cv_energy_efficient_home_improv_credit_cb"
 
+      select "Yes", from: "hub_update13614c_form_page3_new_vehicle_purchased"
+      fill_in "hub_update13614c_form_page3_vin_number", with: "123456"
+
       select "Yes", from: "hub_update13614c_form_page3_had_debt_forgiven"
       select "Yes", from: "hub_update13614c_form_page3_cv_1099c_cb"
 
@@ -547,6 +550,9 @@ RSpec.describe "a user editing a clients 13614c form" do
 
       expect(intake.bought_energy_efficient_items).to eq "yes"
       expect(intake.cv_energy_efficient_home_improv_credit_cb).to eq "yes"
+
+      expect(intake.new_vehicle_purchased).to eq "yes"
+      expect(intake.vin_number).to eq "123456"
 
       expect(intake.had_debt_forgiven).to eq "yes"
       expect(intake.cv_1099c_cb).to eq "yes"
