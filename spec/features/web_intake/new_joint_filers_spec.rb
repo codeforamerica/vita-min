@@ -5,6 +5,13 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
   let!(:vita_partner) { create :organization, name: "Virginia Partner" }
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
+  before do
+    allow(Airtable::Organization)
+      .to receive(:language_offerings)
+            .and_return({
+                          "Test Organization" => %w[Spanish French],
+                        })
+  end
 
   def intake_up_to_documents(backtax_year_offsets: [0, 2])
     answer_gyr_triage_questions(screenshot_method: self.method(:screenshot_after), choices: :defaults)
@@ -41,6 +48,14 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     page_change_block do
       screenshot_after do
+        # Interview time preferences
+        fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
+      end
+      click_on "Continue"
+    end
+
+    page_change_block do
+      screenshot_after do
         # SSN or ITIN
         select "Social Security Number (SSN)", from: "Identification Type"
         fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
@@ -64,14 +79,6 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     page_change_block do
       screenshot_after do
         expect(page).to have_selector("h1", text: I18n.t("views.questions.start_with_current_year.title", year: current_tax_year))
-      end
-      click_on "Continue"
-    end
-
-    page_change_block do
-      screenshot_after do
-        # Interview time preferences
-        fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
       end
       click_on "Continue"
     end
@@ -271,6 +278,12 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
         expect(page).to have_selector("h1", text: "Are you filing joint taxes with your spouse?")
       end
       click_on "Yes"
+    end
+
+    page_change_block do
+      # Claimed status
+      expect(page).to have_css("h1", text: "Can anyone else claim you or your spouse on their tax return?")
+      click_on "No"
     end
 
     page_change_block do

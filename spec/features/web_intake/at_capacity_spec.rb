@@ -11,6 +11,8 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       allow(PartnerRoutingService).to receive(:new).and_return routing_service_double
       visit personal_info_questions_path
       fill_out_personal_information(name: "Gary", zip_code: "19143", birth_date: Date.parse("1983-10-12"), phone_number: "555-555-1212")
+      fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
+      click_on "Continue"
     end
 
     it "shows an at capacity page and logs the client out" do

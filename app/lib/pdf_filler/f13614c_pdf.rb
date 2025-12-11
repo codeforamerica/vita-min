@@ -87,9 +87,7 @@ module PdfFiller
               "statusDivorced[0].statusDivorced[0]" => @intake.divorced_yes?,
               "statusWidowed[0].statusWidowed[0]" => @intake.widowed_yes?,
               "liveApart[0].liveApartNo[0]" => @intake.lived_with_spouse_yes?,
-              "liveApart[0].liveApartYes[0]" => @intake.lived_with_spouse_no?,
-              "marriedForAll[0].forAllYes[0]" => @intake.married_for_all_of_tax_year_yes?,
-              "marriedForAll[0].forAllNo[0]" => @intake.married_for_all_of_tax_year_no?,
+              "liveApart[0].liveApartYes[0]" => @intake.lived_with_spouse_no?
             }
           end
         )
@@ -286,7 +284,7 @@ module PdfFiller
           'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => bool_checkbox(@intake.cv_hsa_contrib_cb_yes?),
           'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => bool_checkbox(@intake.cv_hsa_distrib_cb_yes?),
           'form1[0].page3[0].informationToReport[0].form1095A[0]' => bool_checkbox(@intake.cv_1095a_cb_yes?),
-          'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => bool_checkbox(@intake.cv_energy_efficient_home_improv_credit_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0].efficientHomeImprovement[0]' => bool_checkbox(@intake.cv_energy_efficient_home_improv_credit_cb_yes?),
           'form1[0].page3[0].informationToReport[0].form1099C[0]' => bool_checkbox(@intake.cv_1099c_cb_yes?),
           'form1[0].page3[0].informationToReport[0].form1099A[0]' => bool_checkbox(@intake.cv_1099a_cb_yes?),
           'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => bool_checkbox(@intake.cv_disaster_relief_impacts_return_cb_yes?),

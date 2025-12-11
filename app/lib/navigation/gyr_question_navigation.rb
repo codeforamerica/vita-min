@@ -17,12 +17,12 @@ module Navigation
 
       # Contact information and preferences
       Questions::PersonalInfoController, # creates Intake record and Client record, if triage was skipped
+      Questions::InterviewSchedulingController,
       Questions::AtCapacityController, # possible off-boarding when at capacity
       Questions::SsnItinController,
       Questions::BacktaxesController,
       Questions::StartWithCurrentYearController,
       Questions::ReturningClientController, # possible off-boarding from flow
-      Questions::InterviewSchedulingController,
       Questions::NotificationPreferenceController,
       Questions::PhoneNumberCanReceiveTextsController,
       Questions::CellPhoneNumberController,
@@ -57,6 +57,9 @@ module Navigation
 
       # Filing status
       Questions::FilingJointController,
+
+      # Claiming
+      Questions::ClaimingController,
 
       # Alimony
       Questions::ReceivedAlimonyController,

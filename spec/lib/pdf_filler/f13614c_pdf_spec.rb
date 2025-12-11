@@ -290,8 +290,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             )
       end
 
-      # TODO reenable for TY2025
-      xit "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
+      it "can successfully write everything that comes out of #hash_for_pdf to the PDF" do
         expect(intake_pdf.hash_for_pdf.length).to be > 100 # sanity check
         all_fields_in_pdf = PdfForms.new.get_fields(intake_pdf.output_file).map(&:name)
         expect(intake_pdf.hash_for_pdf.keys & all_fields_in_pdf).to match_array(intake_pdf.hash_for_pdf.keys)
@@ -307,8 +306,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                           )
       end
 
-      # TODO reenable for TY2025
-      xit "fills out answers from the DB into the pdf" do
+      it "fills out answers from the DB into the pdf" do
         output_file = intake_pdf.output_file
         result = non_preparer_fields(output_file.path)
         expect(result).to include(
@@ -335,8 +333,6 @@ RSpec.describe PdfFiller::F13614cPdf do
                             +"form1[0].page1[0].maritalStatus[0].lastDay[0].lastDayYes[0]" => "Off",
                             "form1[0].page1[0].maritalStatus[0].liveApart[0].liveApartYes[0]" => "Off",
                             "form1[0].page1[0].maritalStatus[0].liveApart[0].liveApartNo[0]" => "1",
-                            "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllNo[0]" => "Off",
-                            "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllYes[0]" => "Off",
                             "form1[0].page1[0].maritalStatus[0].statusDivorced[0].dateFinalDecree[0]" => "2015",
                             "form1[0].page1[0].maritalStatus[0].statusDivorced[0].statusDivorced[0]" => "Off",
                             "form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].dateSeparateDecree[0]" => "2016",
@@ -530,6 +526,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page3[0].followingHappenDuring[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].forgaveByLender[0].forgaveByLender[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].healthSavingsAccount[0]" => "Off",
+                            "form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].lossRelatedDisaster[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].otherPurchase[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].purchaseMarketplaceInsurance[0]" => "1",
@@ -543,7 +540,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page3[0].informationToReport[0].disallowedPreviousYear[0]" => "",
                             "form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]" => "",
                             "form1[0].page3[0].informationToReport[0].educationCreditTuition[0]" => "",
-                            "form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]" => "",
+                            "form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0].efficientHomeImprovement[0]" => "",
                             "form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]" => "",
                             "form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => "",
                             "form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]" => "",
@@ -605,6 +602,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page4[0].yourSpousesRaceEthnicity[0].middleEsternNorthAfrican[0]" => "Off",
                             "form1[0].page4[0].yourSpousesRaceEthnicity[0].white[0]" => "Off",
                             "form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]" => "if there is another gnome living in my garden but only i have an income, does that make me head of household?",
+                            "form1[0].page6[0].ifYouBelieve[0].hyperlink[0]" => nil,
                             "form1[0].page6[0].primaryDateSigned[0]" => nil,
                             "form1[0].page6[0].primaryTaxpayer[0]" => nil,
                             "form1[0].page6[0].secondaryDateSigned[0]" => nil,
@@ -900,8 +898,7 @@ RSpec.describe PdfFiller::F13614cPdf do
         end
 
         describe 'section 3 on 3 ' do
-          # TODO reenable for TY2025
-          xit 'looks good when all choices are no and fields are nil' do
+          it 'looks good when all choices are no and fields are nil' do
             intake.update(
               cv_taxable_scholarship_income_cb: 'no',
               cv_1098t_cb: 'no',
@@ -936,7 +933,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => '',
               'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => '',
               'form1[0].page3[0].informationToReport[0].form1095A[0]' => '',
-              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => '',
+              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0].efficientHomeImprovement[0]' => '',
               'form1[0].page3[0].informationToReport[0].form1099C[0]' => '',
               'form1[0].page3[0].informationToReport[0].form1099A[0]' => '',
               'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => '',
@@ -953,8 +950,7 @@ RSpec.describe PdfFiller::F13614cPdf do
             )
           end
 
-          # TODO reenable for TY2025
-          xit 'works when all choices are all yes and filled in' do
+          it 'works when all choices are all yes and filled in' do
             intake.update(
               cv_taxable_scholarship_income_cb: 'yes',
               cv_1098t_cb: 'yes',
@@ -989,7 +985,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => '1',
               'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => '1',
               'form1[0].page3[0].informationToReport[0].form1095A[0]' => '1',
-              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0].efficientHomeImprovement[0]' => '1',
               'form1[0].page3[0].informationToReport[0].form1099C[0]' => '1',
               'form1[0].page3[0].informationToReport[0].form1099A[0]' => '1',
               'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => '1',
