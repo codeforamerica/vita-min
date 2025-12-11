@@ -48,7 +48,7 @@ module Hub
                        :spouse_us_citizen,
                        :spouse_visa,
                        :never_married,
-                       :married_for_all_of_tax_year,
+                       :married_last_day_of_year,
                        :receive_written_communication,
                        :preferred_written_language,
                        :presidential_campaign_fund_donation,
