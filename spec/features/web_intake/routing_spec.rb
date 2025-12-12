@@ -96,7 +96,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     check (MultiTenantService.new(:gyr).current_tax_year - 2).to_s
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: MultiTenantService.new(:gyr).current_tax_year - 2)
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -122,7 +122,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     check (MultiTenantService.new(:gyr).current_tax_year - 2).to_s
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: MultiTenantService.new(:gyr).current_tax_year - 2)
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -150,7 +150,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     check (MultiTenantService.new(:gyr).current_tax_year - 2).to_s
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
+    expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: MultiTenantService.new(:gyr).current_tax_year - 2)
     click_on I18n.t('general.continue')
 
     fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
@@ -184,7 +184,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
       check (MultiTenantService.new(:gyr).current_tax_year - 2).to_s
       click_on I18n.t('general.continue')
 
-      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: current_tax_year)
+      expect(page).to have_text I18n.t('views.questions.start_with_current_year.title', year: MultiTenantService.new(:gyr).current_tax_year - 2)
       click_on I18n.t('general.continue')
 
       fill_in I18n.t('views.questions.interview_scheduling.title'), with: "During school hours"
