@@ -522,6 +522,7 @@ describe Intake::GyrIntake do
       end
     end
   end
+
   describe "#most_recent_filing_year" do
     let(:intake) { build :intake }
     let!(:client) { create :client, tax_returns: [], intake: intake }
@@ -540,6 +541,46 @@ describe Intake::GyrIntake do
 
       it "returns most recent" do
         expect(intake.most_recent_filing_year).to eq(2019)
+      end
+    end
+
+    context "when tax returns haven't been created yet (before consent page)" do
+      # we call this method between the backtaxes page and the consent page before the tax returns have been created
+      let(:intake) { create :intake,
+                            needs_help_current_year: "no",
+                            needs_help_previous_year_1: "unfilled",
+                            needs_help_previous_year_2: "yes",
+                            needs_help_previous_year_3: "yes",
+                            client: nil
+      }
+
+      it "pulls the year by matching via the needs_help columns" do
+        Timecop.freeze(DateTime.new(2026, 3, 15)) do
+          expect(intake.most_recent_filing_year).to eq(2023)
+        end
+
+        Timecop.freeze(DateTime.new(2025, 3, 15)) do
+          expect(intake.most_recent_filing_year).to eq(2022)
+        end
+
+        Timecop.freeze(DateTime.new(2024, 3, 15)) do
+          expect(intake.most_recent_filing_year).to eq(2021)
+        end
+      end
+    end
+
+    context "when there are no tax returns and needs_help columns not filled" do
+      let(:intake) { create :intake,
+                            needs_help_current_year: "unfilled",
+                            needs_help_previous_year_1: "unfilled",
+                            needs_help_previous_year_2: "unfilled",
+                            needs_help_previous_year_3: "unfilled",
+                            client: nil
+      }
+      it "returns the current tax year" do
+        Timecop.freeze(DateTime.new(2026, 3, 15)) do
+          expect(intake.most_recent_filing_year).to eq(2025)
+        end
       end
     end
   end
