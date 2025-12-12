@@ -74,7 +74,7 @@ module CtcIntakeFeatureHelper
 
   def fill_in_basic_info(home_location: "fifty_states", birthdate: DateTime.new(1996, 8, 24))
     ctc_current_tax_year = MultiTenantService.new(:ctc).current_tax_year
-    ctc_prior_tax_year = MultiTenantService.new(:ctc).prior_tax_year
+    ctc_prior_tax_year = ctc_prior_tax_year
 
     # =========== BASIC INFO ===========
     expect(page).to have_selector("h1", text: I18n.t('views.ctc.questions.legal_consent.title'))
@@ -595,6 +595,6 @@ module CtcIntakeFeatureHelper
   end
 
   def prior_tax_year
-    MultiTenantService.new(:ctc).prior_tax_year
+    ctc_prior_tax_year
   end
 end

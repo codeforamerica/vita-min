@@ -37,7 +37,7 @@ describe ApplicationHelper do
     let(:fake_multitenant_service) { double(MultiTenantService) }
     before do
       allow(MultiTenantService).to receive(:new).with(:ctc).and_return(fake_multitenant_service)
-      allow(fake_multitenant_service).to receive(:prior_tax_year).and_return(2017)
+      allow(fake_multitenant_service).to receive(:current_tax_year).and_return(2018)
     end
 
     it "returns the GetCTC prior tax year" do

@@ -19,7 +19,7 @@ describe StateFile::MonthlyFinishStateReturnService do
                email_address: "dezie@example.com",
                message_tracker: {}
       end
-      let(:fake_time) { Rails.configuration.tax_deadline - 1.day }
+      let(:fake_time) { Rails.configuration.state_file_tax_deadline - 1.day }
 
       it "sends a message to the email associated with the intake" do
         Timecop.freeze(fake_time) do

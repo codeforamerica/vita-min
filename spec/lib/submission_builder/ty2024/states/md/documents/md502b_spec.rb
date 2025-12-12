@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502b, required_schema: "md" do
+  include StateFileIntakeHelper
+
   describe ".document" do
     let(:intake) { create(:state_file_md_intake) }
     let(:submission) { create(:efile_submission, data_source: intake) }
@@ -30,8 +32,8 @@ describe SubmissionBuilder::Ty2024::States::Md::Documents::Md502b, required_sche
     end
 
     context "filling out dependent details" do
-      let(:young_dob) { StateFileDependent.senior_cutoff_date + 60.years }
-      let(:old_dob) { StateFileDependent.senior_cutoff_date }
+      let(:young_dob) { age_at_end_of_tax_year(5) }
+      let(:old_dob) { senior_cutoff_date }
       let!(:dependent) do
         create(
           :state_file_dependent,

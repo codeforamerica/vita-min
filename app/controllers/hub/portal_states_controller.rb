@@ -49,7 +49,7 @@ module Hub
       end
 
       def year
-        MultiTenantService.new(:gyr).current_tax_year
+        MultiTenantService.new(:gyr).current_tax_year(app_time)
       end
 
       def documents

@@ -68,7 +68,7 @@ describe TaxReturn do
           "greetable" => false,
           "service_type" => "online_intake",
           "stage" => nil,
-          "year" => Rails.configuration.gyr_current_tax_year
+          "year" => MultiTenantService.new(:gyr).current_tax_year
         }
         expect(tax_return.client.reload.filterable_tax_return_properties).to eq([expected_tax_return_properties])
       end
@@ -87,7 +87,7 @@ describe TaxReturn do
           "greetable" => false,
           "service_type" => "online_intake",
           "stage" => nil,
-          "year" => Rails.configuration.gyr_current_tax_year
+          "year" => MultiTenantService.new(:gyr).current_tax_year
         }
         expect(client.reload.filterable_tax_return_properties).to eq([expected_properties])
         tax_return.destroy
@@ -934,7 +934,7 @@ describe TaxReturn do
 
     context "when born on/after Jan 2, 1958 for tax year 64 years ago" do
       before do
-        tax_return.intake.update(primary_birth_date: Date.new(Rails.configuration.gyr_current_tax_year - 64, 1, 2))
+        tax_return.intake.update(primary_birth_date: Date.new(MultiTenantService.new(:gyr).current_tax_year - 64, 1, 2))
       end
 
       it "returns false" do
@@ -948,7 +948,7 @@ describe TaxReturn do
 
     context "when born before Jan 2, 1958 for tax year 64 years ago" do
       before do
-        tax_return.intake.update(spouse_birth_date: Date.new(Rails.configuration.gyr_current_tax_year - 64, 1, 1))
+        tax_return.intake.update(spouse_birth_date: Date.new(MultiTenantService.new(:gyr).current_tax_year - 64, 1, 1))
       end
 
       it "returns true" do
@@ -958,7 +958,7 @@ describe TaxReturn do
 
     context "when born on/after Jan 2, 1958 for tax year 64 years ago" do
       before do
-        tax_return.intake.update(spouse_birth_date: Date.new(Rails.configuration.gyr_current_tax_year - 64, 1, 2))
+        tax_return.intake.update(spouse_birth_date: Date.new(MultiTenantService.new(:gyr).current_tax_year - 64, 1, 2))
       end
 
       it "returns false" do

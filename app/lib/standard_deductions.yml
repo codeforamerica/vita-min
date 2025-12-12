@@ -30,6 +30,12 @@ standard_deductions:
       head_of_household: 21900
       married_filing_jointly: 29200
       qualifying_widow: 29200
+    2025:
+      single: 15750
+      married_filing_separately: 15750
+      head_of_household: 23625
+      married_filing_jointly: 31500
+      qualifying_widow: 31500
   base_puerto_rico:
     2021:
       single: 75000

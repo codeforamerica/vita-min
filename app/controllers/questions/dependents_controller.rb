@@ -77,8 +77,8 @@ module Questions
 
     def mixpanel_data(dependent)
       {
-        dependent_age_at_end_of_tax_year: dependent.age_during(MultiTenantService.new(:gyr).current_tax_year).to_s,
-        dependent_under_6: dependent.age_during(MultiTenantService.new(:gyr).current_tax_year) < 6 ? "yes" : "no",
+        dependent_age_at_end_of_tax_year: dependent.age_during(MultiTenantService.new(:gyr).current_tax_year(app_time)).to_s,
+        dependent_under_6: dependent.age_during(MultiTenantService.new(:gyr).current_tax_year(app_time)) < 6 ? "yes" : "no",
         dependent_months_in_home: dependent.months_in_home.to_s,
         dependent_was_student: dependent.was_student,
         dependent_us_citizen: dependent.us_citizen,

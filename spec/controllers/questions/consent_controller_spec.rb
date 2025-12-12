@@ -58,10 +58,12 @@ RSpec.describe Questions::ConsentController do
         end
 
         it "creates initial tax returns" do
-          post :update, params: params
+          Timecop.freeze(DateTime.new(2025, 4, 17)) do
+            post :update, params: params
 
-          expect(InitialTaxReturnsService).to have_received(:new).with(intake: intake)
-          expect(fake_service).to have_received(:create!)
+            expect(InitialTaxReturnsService).to have_received(:new).with(intake: intake, time: DateTime.new(2025, 4, 17))
+            expect(fake_service).to have_received(:create!)
+          end
         end
       end
 
