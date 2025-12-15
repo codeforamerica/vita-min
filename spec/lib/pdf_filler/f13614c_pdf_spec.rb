@@ -139,6 +139,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           widowed_year: "2017",
           zip_code: "08052",
           spouse_consented_to_service_at: Date.new(2024, 1, 1),
+          brought_last_years_return: "no"
         )
       end
       before do
@@ -524,9 +525,9 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page3[0].expensesToReport[0].iraBasicRoth[0]" => "",
                             "form1[0].page3[0].followingHappenDuring[0].energyEfficientItems[0].energyEfficientItems[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => "Off",
+                            'form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]' => "",
                             "form1[0].page3[0].followingHappenDuring[0].forgaveByLender[0].forgaveByLender[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].healthSavingsAccount[0]" => "Off",
-                            "form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].lossRelatedDisaster[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].otherPurchase[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].purchaseMarketplaceInsurance[0]" => "1",
@@ -916,6 +917,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               cv_tax_credit_disallowed_reason: nil,
               cv_eligible_for_litc_referral_cb: 'no',
               cv_estimated_tax_payments_cb: 'no',
+              brought_last_years_return: 'no',
               cv_estimated_tax_payments_amt: nil,
               cv_last_years_refund_applied_to_this_yr_cb: 'no',
               cv_last_years_refund_applied_to_this_yr_amt: nil,
@@ -942,6 +944,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].reasonDisallowed[0]' => '',
               'form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]' => '',
               'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]' => '',
+              'form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]' => '',
               'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]' => '',
               'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].lastYearsRefund[0]' => '',
               'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]' => '',
@@ -968,6 +971,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               cv_tax_credit_disallowed_reason: 'an explanation',
               cv_eligible_for_litc_referral_cb: 'yes',
               cv_estimated_tax_payments_cb: 'yes',
+              brought_last_years_return: 'yes',
               cv_estimated_tax_payments_amt: 2816,
               cv_last_years_refund_applied_to_this_yr_cb: 'yes',
               cv_last_years_refund_applied_to_this_yr_amt: 2817,
@@ -994,6 +998,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].reasonDisallowed[0]' => 'an explanation',
               'form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]' => '1',
               'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]' => '1',
+              'form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]' => '1',
               'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]' => '2816.0',
               'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].lastYearsRefund[0]' => '1',
               'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]' => '2817.0',

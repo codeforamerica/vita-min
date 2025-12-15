@@ -1162,6 +1162,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_11_172223) do
     t.integer "bought_employer_health_insurance", default: 0, null: false
     t.integer "bought_energy_efficient_items"
     t.integer "bought_marketplace_health_insurance", default: 0, null: false
+    t.integer "brought_last_years_return", default: 0, null: false
     t.integer "cannot_claim_me_as_a_dependent", default: 0, null: false
     t.string "canonical_email_address"
     t.string "city"
