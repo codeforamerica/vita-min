@@ -1357,6 +1357,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_11_181212) do
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.decimal "made_estimated_tax_payments_amount", precision: 12, scale: 2
     t.integer "married", default: 0, null: false
+    t.integer "married_for_all_of_tax_year"
     t.integer "married_last_day_of_year", default: 0, null: false
     t.bigint "matching_previous_year_intake_id"
     t.integer "multiple_states", default: 0, null: false
