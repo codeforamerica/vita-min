@@ -509,7 +509,7 @@ es:
     last_four_ssn: Últimos 4 de SSN)/ITIN
     last_name: Apellido
     less_than_one_day: "<1 día"
-    lived_with_spouse: Vivieron con su cónyuge
+    lived_without_spouse: Vivieron sin cónyuge
     locked: Bloqueada
     log_out: Cerrar sesión
     login: Iniciar sesión

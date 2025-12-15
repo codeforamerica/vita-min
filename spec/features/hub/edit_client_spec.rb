@@ -250,7 +250,7 @@ RSpec.describe "a user editing a clients intake fields" do
 
       expect(changes_table_contents('.changes-table')).to match({
         "divorced" => ["unfilled", "no"],
-        "lived_with_spouse" => ["unfilled", "no"],
+        "lived_without_spouse" => ["unfilled", "no"],
         "married" => ["unfilled", "no"],
         "preferred_name" => ["Colleen Cauliflower", "Colly Cauliflower"],
         "separated" => ["unfilled", "no"],

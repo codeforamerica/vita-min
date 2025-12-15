@@ -109,7 +109,7 @@ FactoryBot.define do
     divorced { "yes" }
     divorced_year { "2018" }
     ever_married { "yes" }
-    lived_with_spouse { "yes" }
+    lived_without_spouse { "yes" }
     widowed { "no" }
     widowed_year { "2016" }
     separated { "yes" }
