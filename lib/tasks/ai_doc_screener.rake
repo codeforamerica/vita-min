@@ -113,8 +113,7 @@ namespace :ai_doc_screener do
     puts "Prompt: '#{user_prompt}'"
 
     begin
-      doc_data = BedrockDocumentScreener.prepare_doc_data_for_bedrock(file_path)
-      body_payload = BedrockDocumentScreener.construct_bedrock_payload(doc_data, user_prompt)
+      body_payload = BedrockDocumentScreener.construct_bedrock_payload(file_path)
       response = BedrockDocumentScreener.invoke_bedrock_model(body_payload)
       generated_text = BedrockDocumentScreener.extract_text_from_response(response)
 
