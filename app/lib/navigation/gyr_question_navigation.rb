@@ -140,6 +140,7 @@ module Navigation
       Questions::TaxCreditDisallowedController,
       Questions::EstimatedTaxPaymentsController,
       Questions::SelfEmploymentLossController,
+      Questions::VehicleCreditController,
       Questions::EnergyEfficientPurchasesController, # sets 'completed_yes_no_questions_at'
                                                      # generate and replace the "Preliminary" 13614-C signed by the primary and spouse with yes/no questions filled out
 
