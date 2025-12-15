@@ -5947,6 +5947,11 @@ es:
           many: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
           one: "¿Ha sido rechazado en el año anterior el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos, el Crédito por Oportunidad Estadounidense o el estado civil de Jefe de Familia?"
           other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
+      vehicle_credit:
+        body: Si compró un vehículo ensamblado en Estados Unidos, es posible que califique para un crédito fiscal. La persona que prepare sus impuestos usará el número VIN para confirmar si califica.
+        title:
+          one: "¿Compró usted un vehículo nuevo en %{year}?"
+          other: "¿Usted o su cónyuge compraron un vehículo nuevo en %{year}?"
       verification:
         body: 'Se le ha enviado un mensaje con su código a:'
         error_message: El código de verificación es incorrecto

@@ -1368,6 +1368,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_11_181212) do
     t.integer "needs_help_previous_year_2", default: 0, null: false
     t.integer "needs_help_previous_year_3", default: 0, null: false
     t.datetime "needs_to_flush_searchable_data_set_at", precision: nil
+    t.integer "new_vehicle_purchased", default: 0
     t.integer "no_eligibility_checks_apply", default: 0, null: false
     t.integer "no_ssn", default: 0, null: false
     t.integer "not_full_time_student", default: 0, null: false
@@ -1495,6 +1496,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_11_181212) do
     t.integer "usps_address_late_verification_attempts", default: 0
     t.datetime "usps_address_verified_at"
     t.boolean "viewed_at_capacity", default: false
+    t.string "vin_number"
     t.string "visitor_id"
     t.bigint "vita_partner_id"
     t.integer "wants_to_itemize", default: 0, null: false

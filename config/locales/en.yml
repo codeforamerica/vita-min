@@ -5925,6 +5925,11 @@ en:
         title:
           one: Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
           other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
+      vehicle_credit:
+        body: If you purchased a vehicle assembled in the US, you may be eligible for a tax credit! Your tax preparer will collect your VIN number to confirm if you qualify.
+        title:
+          one: Did you purchase a new vehicle in %{year}?
+          other: Did you or your spouse purchase a new vehicle in %{year}?
       verification:
         body: 'A message with your code has been sent to:'
         error_message: Incorrect verification code.
