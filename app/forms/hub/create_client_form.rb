@@ -9,7 +9,7 @@ module Hub
                        :married,
                        :separated,
                        :widowed,
-                       :lived_with_spouse,
+                       :lived_without_spouse,
                        :divorced,
                        :divorced_year,
                        :separated_year,

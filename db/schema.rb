@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_11_181212) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_15_185245) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1353,6 +1353,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_11_181212) do
     t.integer "issued_identity_pin", default: 0, null: false
     t.integer "job_count"
     t.integer "lived_with_spouse", default: 0, null: false
+    t.integer "lived_without_spouse", default: 0, null: false
     t.string "locale"
     t.integer "made_estimated_tax_payments", default: 0, null: false
     t.decimal "made_estimated_tax_payments_amount", precision: 12, scale: 2

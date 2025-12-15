@@ -76,7 +76,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           has_ssn_of_alimony_recipient: "yes",
           issued_identity_pin: "no",
           job_count: 5,
-          lived_with_spouse: "yes",
+          lived_without_spouse: "no",
           made_estimated_tax_payments: "unsure",
           made_estimated_tax_payments_amount: 0,
           married: "yes",

@@ -206,6 +206,7 @@
 #  issued_identity_pin                                  :integer          default(0), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default(0), not null
+#  lived_without_spouse                                 :integer          default(0), not null
 #  locale                                               :string
 #  made_estimated_tax_payments                          :integer          default(0), not null
 #  made_estimated_tax_payments_amount                   :decimal(12, 2)
