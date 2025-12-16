@@ -30,7 +30,7 @@ RSpec.describe Hub::CreateClientForm do
         married: "yes",
         separated: "no",
         widowed: "no",
-        lived_witout_spouse: "yes",
+        lived_without_spouse: "yes",
         divorced: "no",
         divorced_year: "",
         separated_year: "",
