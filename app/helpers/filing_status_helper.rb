@@ -25,7 +25,7 @@ module FilingStatusHelper
 
     statuses = [
       (I18n.t("general.married") if intake.married == "yes"),
-      (I18n.t("general.lived_without_spouse") if intake.lived_without_spouse == "yes"),
+      (I18n.t("general.lived_without_spouse") if intake.try(:lived_without_spouse) == "yes" || intake.try(:lived_with_spouse) == "no"),
       ("#{I18n.t("general.separated")} #{intake.separated_year}" if intake.separated == "yes"),
       ("#{I18n.t("general.divorced")} #{intake.divorced_year}" if intake.divorced == "yes"),
       ("#{I18n.t("general.widowed")} #{intake.widowed_year}" if intake.widowed == "yes"),

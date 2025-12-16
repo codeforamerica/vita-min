@@ -89,7 +89,7 @@ RSpec.feature "Read and send messages to a client", js: true do
       let(:intake) { nil }
       let!(:archived_intake) do
         create(
-          :intake,
+          :archived_2021_gyr_intake,
           client: client,
           preferred_name: "Tobias",
           email_address: "tfunke@example.com",
