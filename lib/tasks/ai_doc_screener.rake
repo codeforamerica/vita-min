@@ -1,10 +1,9 @@
-# frozen_string_literal: true
 require 'aws-sdk-bedrockruntime'
 require 'json'
 require 'base64' # Required for Base64.strict_encode64
 
 module BedrockDocumentScreener
-  MODEL_ID = 'us.anthropic.claude-haiku-4-5-20251001-v1:0'
+  MODEL_ID = 'us.anthropic.claude-haiku-4-5-20251001-v1:0' # routes request to specific Bedrock model
   REGION = 'us-east-1'
   MIME_TYPES = {
     '.pdf' => 'application/pdf',
@@ -13,40 +12,36 @@ module BedrockDocumentScreener
     '.jpeg' => 'image/jpeg'
   }.freeze
   DEFAULT_FILE_PATH = Rails.root.join("spec", "fixtures", "files", "picture_id.jpg").freeze
-  DEFAULT_PROMPT = "Is this a photo id?"
+  DEFAULT_PROMPT = "Is this a photo id?" # change this for different file types
+
+  # matches the Anthropic Messages API JSON shape that Bedrock expects for Anthropic models
   CLAUDE_MESSAGES_API_TEMPLATE = {
-    anthropic_version: "bedrock-2023-05-31",
-    max_tokens: 100,
-    messages: [
-      {
-        role: "user",
-        content: [
-          {
-            type: "image",
-            source: {
-              type: "base64",
-              media_type: nil, # populated later
-              data: nil # populated later
-            }
-          },
-          {
-            type: "text",
-            text: DEFAULT_PROMPT
-          }
-        ]
-      }
-    ]
+    anthropic_version: "bedrock-2023-05-31", # Interpret this request body using the Anthropic Messages API schema from May 31, 2023.”
+    max_tokens: 100, # limits the output of the output of the model, token is a unit the model uses to read and write text
+    messages: [{ role: "user",
+                 content: [
+                   { type: "image",
+                     source: {
+                       type: "base64",
+                       media_type: nil, # populated later
+                       data: nil # populated later
+                     } },
+                   { type: "text", text: DEFAULT_PROMPT }
+                 ] }]
   }.freeze
 
+  # gets the file extension from the file path and checks if its a accepted type
   def self.file_media_type(file_path)
     media_type = MIME_TYPES[File.extname(file_path).downcase]
+    # skip instead of raise? capture sentry
     raise "Unsupported file type: #{File.extname(file_path)}. Supported types: #{MIME_TYPES.keys.join(', ')}." unless media_type
     media_type
   end
 
+  # reads the file as bytes, encodes it
   def self.file_data(file_path)
     base64_data = Base64.strict_encode64(File.binread(file_path))
-    raise "Could not read and encode file: #{file_path}" unless base64_data
+    # skip if can't encode file?
     base64_data
   end
 
