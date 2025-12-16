@@ -91,8 +91,8 @@ module VitaMin
 
     # These defaults can be overridden per-environment if needed
     # GetYourRefund
-    config.start_of_unique_links_only_intake = pt.parse('2026-01-24 12:00:00')
-    config.start_of_open_intake = pt.parse('2026-01-31 09:59:59')
+    config.start_of_unique_links_only_intake = pt.parse('2026-01-20 09:59:59')
+    config.start_of_open_intake = pt.parse('2026-01-27 09:59:59')
     config.tax_deadline = et.parse('2026-04-15 23:59:59')
     config.end_of_intake = et.parse('2026-10-01 23:59:59')
     config.end_of_docs = et.parse('2026-10-08 23:59:59')

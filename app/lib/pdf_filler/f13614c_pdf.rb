@@ -87,9 +87,7 @@ module PdfFiller
               "statusDivorced[0].statusDivorced[0]" => @intake.divorced_yes?,
               "statusWidowed[0].statusWidowed[0]" => @intake.widowed_yes?,
               "liveApart[0].liveApartNo[0]" => @intake.lived_with_spouse_yes?,
-              "liveApart[0].liveApartYes[0]" => @intake.lived_with_spouse_no?,
-              "marriedForAll[0].forAllYes[0]" => @intake.married_for_all_of_tax_year_yes?,
-              "marriedForAll[0].forAllNo[0]" => @intake.married_for_all_of_tax_year_no?,
+              "liveApart[0].liveApartYes[0]" => @intake.lived_with_spouse_no?
             }
           end
         )
@@ -250,6 +248,7 @@ module PdfFiller
           "form1[0].page3[0].followingHappenDuring[0].energyEfficientItems[0].energyEfficientItems[0]" => @intake.bought_energy_efficient_items_yes?,
           "form1[0].page3[0].followingHappenDuring[0].forgaveByLender[0].forgaveByLender[0]" => @intake.had_debt_forgiven_yes?,
           "form1[0].page3[0].followingHappenDuring[0].lossRelatedDisaster[0]" => @intake.had_disaster_loss_yes?,
+          "form1[0].page3[0].followingHappenDuring[0].otherPurchase[0]" => @intake.new_vehicle_purchased_yes?,
           "form1[0].page3[0].followingHappenDuring[0].taxCreditDisallowed[0].taxCreditDisallowed[0]" => @intake.had_tax_credit_disallowed_yes?,
           "form1[0].page3[0].followingHappenDuring[0].receivedLetterBill[0]" => @intake.received_irs_letter_yes?,
           "form1[0].page3[0].followingHappenDuring[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => @intake.made_estimated_tax_payments_yes?,
@@ -277,13 +276,15 @@ module PdfFiller
 
           # page 3 rhs section 3 of 3
           'form1[0].page3[0].informationToReport[0].taxableScholarshipIncome[0]' => bool_checkbox(@intake.cv_taxable_scholarship_income_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].vinNumber[0].numberVIN[0]' => bool_checkbox(@intake.vin_number.present?),
+          'form1[0].page3[0].informationToReport[0].vinNumber[0].vinNumber[0]' => @intake.vin_number,
           'form1[0].page3[0].informationToReport[0].form1098T[0]' => bool_checkbox(@intake.cv_1098t_cb_yes?),
           'form1[0].page3[0].informationToReport[0].educationCreditTuition[0]' => bool_checkbox(@intake.cv_edu_credit_or_tuition_deduction_cb_yes?),
           'form1[0].page3[0].informationToReport[0].saleOfHome[0]' => bool_checkbox(@intake.cv_1099s_cb_yes?),
           'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => bool_checkbox(@intake.cv_hsa_contrib_cb_yes?),
           'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => bool_checkbox(@intake.cv_hsa_distrib_cb_yes?),
           'form1[0].page3[0].informationToReport[0].form1095A[0]' => bool_checkbox(@intake.cv_1095a_cb_yes?),
-          'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => bool_checkbox(@intake.cv_energy_efficient_home_improv_credit_cb_yes?),
+          'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0].efficientHomeImprovement[0]' => bool_checkbox(@intake.cv_energy_efficient_home_improv_credit_cb_yes?),
           'form1[0].page3[0].informationToReport[0].form1099C[0]' => bool_checkbox(@intake.cv_1099c_cb_yes?),
           'form1[0].page3[0].informationToReport[0].form1099A[0]' => bool_checkbox(@intake.cv_1099a_cb_yes?),
           'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => bool_checkbox(@intake.cv_disaster_relief_impacts_return_cb_yes?),
@@ -292,6 +293,7 @@ module PdfFiller
           'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].reasonDisallowed[0]' => @intake.cv_tax_credit_disallowed_reason,
           'form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]' => bool_checkbox(@intake.cv_eligible_for_litc_referral_cb_yes?),
           'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]' => bool_checkbox(@intake.cv_estimated_tax_payments_cb_yes?),
+          'form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]' => bool_checkbox(@intake.brought_last_years_return_yes?),
           'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]' => @intake.cv_estimated_tax_payments_amt.to_s,
           'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].lastYearsRefund[0]' => bool_checkbox(@intake.cv_last_years_refund_applied_to_this_yr_cb_yes?),
           'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]' => @intake.cv_last_years_refund_applied_to_this_yr_amt.to_s,

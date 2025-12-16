@@ -105,7 +105,7 @@ es:
     file_yourself:
       edit:
         info:
-        - Presente tus impuestos en línea por su cuenta usando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $84,000 para declarar impuestos y cobrar los créditos tributarios que se le deben!
+        - Presente tus impuestos en línea por su cuenta usando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $89,000 para declarar impuestos y cobrar los créditos tributarios que se le deben!
         - Para comenzar, necesitaremos recopilar información básica.
         title: "¡Declare aquí sus impuestos usted mismo!"
   documents:
@@ -485,12 +485,25 @@ es:
     itin: Número de Identificación Personal (ITIN)
     language: Idioma
     language_options:
+      ar: Árabe
       de: Alemán
       en: Inglés
       es: Español
       fa: Farsi
       fr: Francés
+      gu: Guyaratí
+      hi: Hindi
+      ht: Criollo haitiano
+      it: Italiano
+      ja: Japonés
+      ko: Coreano
+      pl: Polaco
+      pt: Portugués
       ru: Ruso
+      te: Telugu
+      tgl: Tagalo
+      vi: Vietnamita
+      yi: Yídish
       zh: Mandarín
     languages: Idiomas
     last_four_ssn: Últimos 4 de SSN)/ITIN
@@ -2127,7 +2140,7 @@ es:
         description: Declare rápidamente por su cuenta.
         list:
           file: Declare solo para %{current_tax_year}
-          income: 'Ingresos: menos de $84,000'
+          income: 'Ingresos: menos de $89,000'
         timeframe: 45 minutos para declarar
         title: Declarar por cuenta propia
       gyr_tile:
@@ -2135,7 +2148,7 @@ es:
         description: Presente su declaración de impuestos con confianza con la ayuda de nuestros voluntarios certificados por el IRS.
         list:
           file: Presentar para %{oldest_filing_year}-%{current_tax_year}
-          income: 'Ingresos: menos de $67,000'
+          income: 'Ingresos: menos de $69,000'
           ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo de su Número de Identificación Personal (ITIN)
         timeframe: De 2-3 semanas para declarar sus impuestos
         title: " Declare con Ayuda"
@@ -2146,7 +2159,7 @@ es:
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
-        help_text: Nuestro servicio sin costo está disponible para hogares con ingresos inferiores a $84,000 al año.
+        help_text: Nuestro servicio sin costo está disponible para hogares con ingresos inferiores a $89,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
     triage_gyr:
       edit:
@@ -2188,9 +2201,9 @@ es:
             12500_to_25000: "$15,000 - 30,000"
             1_to_12500: "$1 - $15,000"
             25000_to_40000: "$30,000 - 45,000"
-            40000_to_66000: "$45,000 - 67,000"
-            66000_to_79000: "$67,000 - 84,000"
-            over_79000: más de $84,000
+            40000_to_66000: "$45,000 - 69,000"
+            66000_to_79000: "$69,000 - 89,000"
+            over_79000: más de $89,000
             zero: "$0"
         title: Hablemos sobre su estado civil y sus ingresos.
         vita_income_ineligible:
@@ -4998,7 +5011,7 @@ es:
           <strong>Autorizo al sitio VITA:</strong>
           Global Carry Forward de datos permite a TaxSlayer LLC, el proveedor del software de impuestos VITA/TCE, poner la información de su declaración de impuestos a disposición de CUALQUIER sitio voluntario que participe en el programa VITA/TCE del IRS que usted seleccione para preparar una declaración de impuestos en la próxima temporada de presentación. Esto significa que podrá visitar cualquier sitio voluntario que utilice TaxSlayer el próximo año y que su declaración de impuestos se complete con sus datos del año en curso, independientemente de dónde haya presentado su declaración de impuestos este año.
 
-          <strong>Este consentimiento es válido hasta el 30 de noviembre de 2026</strong>
+          <strong>Este consentimiento es válido hasta el 30 de noviembre de %{year}</strong>
 
           La información de la declaración de impuestos que se divulgará incluye, pero no se limita a, información demográfica, financiera y otra información de identificación personal, sobre usted, su declaración de impuestos y sus fuentes de ingresos, que se introdujo en el software de preparación de impuestos con el fin de preparar su declaración de impuestos.
 
@@ -5166,7 +5179,7 @@ es:
           quote:
             courtney: '"Me alegra mucho poder extender nuestros servicios gratuitos a aquellos que no están cerca de nuestras oficinas. Sé que preparar una declaración de impuestos puede asustar a algunas personas, ¡pero estamos aquí para ayudarlas!"'
             denise: '"Formar parte de una organización que hace todo lo posible por disminuir la distancia entre el lugar donde están las personas y el lugar en el que quieren (o necesitan) estar, es muy gratificante y siempre emocionante".'
-          subheader: Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $67,000 dólares al año.
+          subheader: Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $69,000 dólares al año.
         title: Quiénes somos
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
@@ -5536,6 +5549,13 @@ es:
           partner_info: De nuevo, nuestro equipo en %{partner_name}está aquí para ayudarle a presentar su declaración.
           title: "¡Bienvenido de nuevo %{name}!"
         title: "¡Nuestro equipo en %{partner_name} está aquí para ayudar!"
+      claiming:
+        body:
+          one: Responda ‘sí’ si puede ser reclamado como dependiente.
+          other: Responda “Sí” si es posible que a usted o a su cónyuge los incluyan como dependientes.
+        title:
+          one: "¿Puede alguien más reclamarlo a usted en su declaración de impuestos?"
+          other: "¿Alguien podría incluirlo a usted o a su cónyuge en su declaración de impuestos?"
       consent:
         birth_date: Fecha de nacimiento
         cta: Estoy de acuerdo
@@ -5927,6 +5947,11 @@ es:
           many: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
           one: "¿Ha sido rechazado en el año anterior el Crédito por Ingreso del Trabajo, el Crédito Tributario por Hijos, el Crédito por Oportunidad Estadounidense o el estado civil de Jefe de Familia?"
           other: "¿Ha tenido usted o su pareja el crédito por ingreso del trabajo, el crédito tributario por hijos, el crédito por oportunidad estadounidense o el estado civil de cabeza de familia rechazado en un año anterior?"
+      vehicle_credit:
+        body: Si compró un vehículo ensamblado en Estados Unidos, es posible que califique para un crédito fiscal. La persona que prepare sus impuestos usará el número VIN para confirmar si califica.
+        title:
+          one: "¿Compró usted un vehículo nuevo en %{year}?"
+          other: "¿Usted o su cónyuge compraron un vehículo nuevo en %{year}?"
       verification:
         body: 'Se le ha enviado un mensaje con su código a:'
         error_message: El código de verificación es incorrecto
@@ -6049,8 +6074,8 @@ es:
         in_person_link_text: Localizador de VITA
         income_limit:
           direct_file: La mayoría de los declarantes que ganan menos de $200,000
-          diy: menos de $84,000
-          full_service: menos de $67,000
+          diy: menos de $89,000
+          full_service: menos de $69,000
           title: Guía de ingresos
         mobile_friendly: Adaptable para dispositivos móviles
         required_information: Información obligatoria

@@ -18,6 +18,7 @@
 #  bought_employer_health_insurance                     :integer          default(0), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_marketplace_health_insurance                  :integer          default(0), not null
+#  brought_last_years_return                            :integer          default("unfilled"), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default("unfilled"), not null
 #  canonical_email_address                              :string
 #  city                                                 :string
@@ -219,6 +220,7 @@
 #  needs_help_previous_year_2                           :integer          default(0), not null
 #  needs_help_previous_year_3                           :integer          default(0), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
+#  new_vehicle_purchased                                :integer          default(0)
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
 #  not_full_time_student                                :integer          default("unfilled"), not null
@@ -343,6 +345,7 @@
 #  usps_address_late_verification_attempts              :integer          default(0)
 #  usps_address_verified_at                             :datetime
 #  viewed_at_capacity                                   :boolean          default(FALSE)
+#  vin_number                                           :string
 #  wants_to_itemize                                     :integer          default(0), not null
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default(0), not null

@@ -32,6 +32,9 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
     visit personal_info_questions_path
     fill_out_personal_information(name: "Dupe", zip_code: "20121")
 
+    fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
+    click_on "Continue"
+
     fill_in I18n.t("attributes.primary_ssn"), with: gyr_ssn
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: gyr_ssn
     click_on I18n.t('general.continue')
@@ -67,6 +70,9 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
     visit personal_info_questions_path
     fill_out_personal_information(name: "Dupe", zip_code: "20121")
 
+    fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
+    click_on "Continue"
+
     fill_in I18n.t("attributes.primary_ssn"), with: ctc_ssn
     fill_in I18n.t("attributes.confirm_primary_ssn"), with: ctc_ssn
     click_on I18n.t('general.continue')
@@ -78,6 +84,6 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
     # start with current year
     click_on I18n.t('general.continue')
 
-    expect(page).to have_text I18n.t("views.questions.interview_scheduling.title")
+    expect(page).to have_text I18n.t("views.questions.notification_preference.title")
   end
 end

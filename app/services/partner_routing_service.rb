@@ -27,6 +27,8 @@ class PartnerRoutingService
       end
     end
 
+    set_base_vita_partners(language_routing: true)
+
     from_itin_enabled = vita_partner_from_itin_enabled if @intake.present? && @intake.itin_applicant?
     return from_itin_enabled if from_itin_enabled.present?
 
@@ -45,11 +47,37 @@ class PartnerRoutingService
     from_national_routing = route_to_national_overflow_partner
     return from_national_routing if from_national_routing.present?
 
+    # If previous steps result in no vita-partner with the intake's language preference,
+    # then we repeat the zip-code, state and national-overflow routing steps without factoring in the language preference
+    set_base_vita_partners(language_routing: false)
+    from_zip_code = vita_partner_from_zip_code if @zip_code.present?
+    return from_zip_code if from_zip_code.present?
+
+    from_state_routing = vita_partner_from_state if @zip_code.present?
+    return from_state_routing if from_state_routing.present?
+
+    from_national_routing = route_to_national_overflow_partner
+    return from_national_routing if from_national_routing.present?
+
     @routing_method = :at_capacity
     return
   end
 
   private
+
+  def set_base_vita_partners(language_routing:)
+    @base_orgs = if language_routing
+                   Organization.with_language_capability(@intake&.preferred_interview_language)
+                 else
+                   Organization
+                 end
+
+    @base_vita_partners = if language_routing
+                            VitaPartner.with_language_capability(@intake&.preferred_interview_language)
+                          else
+                            VitaPartner
+                          end
+  end
 
   def previous_year_partner
     return false unless @intake
@@ -101,8 +129,8 @@ class PartnerRoutingService
   def vita_partner_from_zip_code
     return unless @zip_code.present?
 
-    eligible_with_capacity = Organization.with_capacity.joins(:serviced_zip_codes).
-      where(vita_partner_zip_codes: { zip_code: @zip_code })
+    eligible_with_capacity = @base_orgs.with_capacity.joins(:serviced_zip_codes)
+                                       .where(vita_partner_zip_codes: { zip_code: @zip_code })
 
     vita_partner = eligible_with_capacity.sample
 
@@ -119,7 +147,7 @@ class PartnerRoutingService
     in_state_routing_fractions = StateRoutingFraction.joins(:state_routing_target)
                                                      .where(state_routing_targets: { state_abbreviation: state })
     # get state routing fractions associated with organizations that have capacity
-    organization_ids_with_capacity = Organization.with_capacity.pluck('id')
+    organization_ids_with_capacity = @base_orgs.with_capacity.pluck('id')
     with_capacity_organization_fractions = in_state_routing_fractions
       .joins(:organization)
       .where(organization: organization_ids_with_capacity)
@@ -142,7 +170,7 @@ class PartnerRoutingService
   end
 
   def route_to_national_overflow_partner
-    national_overflow_locations = VitaPartner.with_capacity.where(national_overflow_location: true).order(Arel.sql("RANDOM()")).limit(1)
+    national_overflow_locations = @base_vita_partners.with_capacity.where(national_overflow_location: true).order(Arel.sql("RANDOM()")).limit(1)
     vita_partner = national_overflow_locations&.first
     if vita_partner.present?
       @routing_method = :national_overflow

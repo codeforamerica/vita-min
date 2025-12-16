@@ -18,6 +18,7 @@
 #  bought_employer_health_insurance                     :integer          default("unfilled"), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_marketplace_health_insurance                  :integer          default("unfilled"), not null
+#  brought_last_years_return                            :integer          default("unfilled"), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
 #  canonical_email_address                              :string
 #  city                                                 :string
@@ -219,6 +220,7 @@
 #  needs_help_previous_year_2                           :integer          default("unfilled"), not null
 #  needs_help_previous_year_3                           :integer          default("unfilled"), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
+#  new_vehicle_purchased                                :integer          default("unfilled")
 #  no_eligibility_checks_apply                          :integer          default("unfilled"), not null
 #  no_ssn                                               :integer          default("unfilled"), not null
 #  not_full_time_student                                :integer          default(0), not null
@@ -343,6 +345,7 @@
 #  usps_address_late_verification_attempts              :integer          default(0)
 #  usps_address_verified_at                             :datetime
 #  viewed_at_capacity                                   :boolean          default(FALSE)
+#  vin_number                                           :string
 #  wants_to_itemize                                     :integer          default("unfilled"), not null
 #  was_blind                                            :integer          default("unfilled"), not null
 #  was_full_time_student                                :integer          default("unfilled"), not null
@@ -525,6 +528,7 @@ class Intake::GyrIntake < Intake
   enum receive_written_communication: { unfilled: 0, yes: 1, no: 2 }, _prefix: :receive_written_communication
   enum presidential_campaign_fund_donation: { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3, no: 4 }, _prefix: :presidential_campaign_fund_donation
   enum register_to_vote: { unfilled: 0, yes: 1, no: 2 }, _prefix: :register_to_vote
+  enum new_vehicle_purchased: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :new_vehicle_purchased
   enum cv_1098_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1098_cb
   enum cv_med_expense_standard_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_med_expense_standard_deduction_cb
   enum cv_med_expense_itemized_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_med_expense_itemized_deduction_cb

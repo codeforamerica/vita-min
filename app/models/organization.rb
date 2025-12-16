@@ -74,11 +74,56 @@ class Organization < VitaPartner
     )
   end
 
-  def language_offerings
-    all_offerings = Rails.cache.fetch('airtable_language_offerings', expires_in: 1.hour) do
+  scope :with_language_capability, ->(locale) do
+    language = locale_to_full_lang(locale)&.downcase
+    if language.blank? || language == "english"
+      all
+    else
+      names = lang_to_names_index_cached[language]
+      names.present? ? where(name: names) : none
+    end
+  end
+
+  def self.locale_to_full_lang(locale)
+    locale_code = locale.to_s.strip.downcase
+    languages_hash = I18n.backend.translations[I18n.locale][:general][:language_options]
+    languages_hash[locale_code.to_sym] # returns the full language name
+  end
+
+  def self.all_language_offerings
+    # English is not listed in the airtable but implied in all orgs' language offerings
+    Rails.cache.fetch('airtable_language_offerings', expires_in: 1.hour) do
       Airtable::Organization.language_offerings
     end
-    all_offerings[name] || []
+  end
+
+  def self.language_options_list
+    Rails.cache.fetch('airtable_lang_options_list', expires_in: 1.hour) do
+      Organization.all_language_offerings.values.flatten.uniq.sort.reject { |k| k == "Other" }.unshift("English")
+    end
+  end
+
+  def language_offerings
+    Organization.all_language_offerings[name] || []
+  end
+
+  def self.lang_to_names_index
+    # cross-request cache
+    Rails.cache.fetch('airtable_lang_to_names', expires_in: 1.hour) do
+      lang_to_org_names_hash = {}
+      all_language_offerings.each do |org_name, langs|
+        Array(langs).each do |l|
+          key = l.to_s.strip.downcase
+          (lang_to_org_names_hash[key] ||= []) << org_name
+        end
+      end
+      lang_to_org_names_hash
+    end
+  end
+
+  def self.lang_to_names_index_cached
+    # stores in cache per request
+    RequestStore.store[:lang_to_names] ||= lang_to_names_index
   end
 
   def at_capacity?
