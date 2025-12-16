@@ -126,6 +126,16 @@ class Organization < VitaPartner
     RequestStore.store[:lang_to_names] ||= lang_to_names_index
   end
 
+  def self.serving_prior_year_returns
+    Rails.cache.fetch('airtable_orgs_serving_prior_year_returns', expires_in: 1.hour) do
+      Airtable::Organization.prior_year_return_orgs
+    end
+  end
+
+  def serves_prior_year_returns?
+    Organization.serving_prior_year_returns[name].present?
+  end
+
   def at_capacity?
     return false if capacity_limit.nil?
 

@@ -18,5 +18,13 @@ module Airtable
 
       Array(languages_field).flatten.map(&:strip).reject(&:blank?)
     end
+
+    def self.prior_year_return_orgs
+      all.filter_map do |record|
+        scope = record["Expanded scope offerings"]
+        # TODO: check with product, I don't see any orgs with "Prior year returns"??
+        record["Organization Name"] if scope&.include?("Amendments")
+      end
+    end
   end
 end

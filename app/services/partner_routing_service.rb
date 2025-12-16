@@ -26,8 +26,8 @@ class PartnerRoutingService
         return
       end
     end
-
-    set_base_vita_partners(language_routing: true)
+    # TODO: call steps in another way
+    set_base_vita_partners(prior_year_return: true)
 
     from_itin_enabled = vita_partner_from_itin_enabled if @intake.present? && @intake.itin_applicant?
     return from_itin_enabled if from_itin_enabled.present?
@@ -47,9 +47,23 @@ class PartnerRoutingService
     from_national_routing = route_to_national_overflow_partner
     return from_national_routing if from_national_routing.present?
 
-    # If previous steps result in no vita-partner with the intake's language preference,
-    # then we repeat the zip-code, state and national-overflow routing steps without factoring in the language preference
-    set_base_vita_partners(language_routing: false)
+    # If previous steps result in no vita-partner that can serve a prior-year-return,
+    # then we repeat the zip-code, state and national-overflow routing steps
+    # without factoring in the prior-year-return and factoring in language preference
+    set_base_vita_partners(prior_year_return: false, language_routing: true)
+
+    from_zip_code = vita_partner_from_zip_code if @zip_code.present?
+    return from_zip_code if from_zip_code.present?
+
+    from_state_routing = vita_partner_from_state if @zip_code.present?
+    return from_state_routing if from_state_routing.present?
+
+    from_national_routing = route_to_national_overflow_partner
+    return from_national_routing if from_national_routing.present?
+
+    # If previous steps result in no vita-partner with the intake's language-preference,
+    # then we repeat the zip-code, state and national-overflow routing steps without factoring in the language-preference
+    set_base_vita_partners(prior_year_return: false, language_routing: false)
     from_zip_code = vita_partner_from_zip_code if @zip_code.present?
     return from_zip_code if from_zip_code.present?
 
@@ -65,14 +79,18 @@ class PartnerRoutingService
 
   private
 
-  def set_base_vita_partners(language_routing:)
-    @base_orgs = if language_routing
+  def set_base_vita_partners(prior_year_return: nil, language_routing: nil)
+    @base_orgs = if prior_year_return
+                   Organization.serving_prior_year_returns
+                 elsif language_routing
                    Organization.with_language_capability(@intake&.preferred_interview_language)
                  else
                    Organization
                  end
 
-    @base_vita_partners = if language_routing
+    @base_vita_partners = if prior_year_return
+                            VitaPartner.serving_prior_year_returns
+                          elsif language_routing
                             VitaPartner.with_language_capability(@intake&.preferred_interview_language)
                           else
                             VitaPartner
