@@ -1,6 +1,14 @@
 require 'intercom'
 
 class IntercomService
+  # client will send email fyst help email
+  # hits our pya messaging service
+  # in messaging service we need to mirror the message in intercom
+  # first we need to match it to an existing client in intercom based off of identifying information or intake
+  # if you can't find that then create a new client
+  # sends message to intercom interface so that client success can view it
+  # then when client success sends a message back
+  # intercom message needs to hit pya intercom service which then creates email message back to client
   def self.create_message(email_address:, phone_number:, body:, client:, has_documents:)
     if has_documents && client.present?
       body = [body, "[client sent an attachment, see #{Rails.application.routes.url_helpers.hub_client_documents_url(client_id: client.id)}]"].compact.join(' ')
