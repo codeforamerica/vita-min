@@ -1,15 +1,13 @@
 .service-card--title {
-  font-family: 'Public Sans', sans-serif;
   font-weight: bold;
-  font-size: 2.5rem;
+  font-size: 3rem;
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   margin-top: 0.5rem;
 }
 
 .service-card--body {
   text-align: center;
-  font-size: 1.7rem;
   font-weight: bold;
   margin-bottom: 2rem;
   line-height: 100%;
@@ -17,8 +15,8 @@
 
 .service-card--list {
   list-style: none;
-  padding: 0 3rem;
-  margin: 0;
+  padding: 0 2rem;
+  margin-bottom: 3rem;
 }
 
 .service-card--list-item {
@@ -26,10 +24,5 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem 0;
-
-  // Optional: add border between items
-  &:not(:last-child) {
-    border-bottom: 1px solid #e5e5e5;
-  }
 }
 
