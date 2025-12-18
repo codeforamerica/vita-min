@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_09_26_151436) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_11_172223) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1162,6 +1162,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_26_151436) do
     t.integer "bought_employer_health_insurance", default: 0, null: false
     t.integer "bought_energy_efficient_items"
     t.integer "bought_marketplace_health_insurance", default: 0, null: false
+    t.integer "brought_last_years_return", default: 0, null: false
     t.integer "cannot_claim_me_as_a_dependent", default: 0, null: false
     t.string "canonical_email_address"
     t.string "city"
@@ -1367,6 +1368,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_26_151436) do
     t.integer "needs_help_previous_year_2", default: 0, null: false
     t.integer "needs_help_previous_year_3", default: 0, null: false
     t.datetime "needs_to_flush_searchable_data_set_at", precision: nil
+    t.integer "new_vehicle_purchased", default: 0
     t.integer "no_eligibility_checks_apply", default: 0, null: false
     t.integer "no_ssn", default: 0, null: false
     t.integer "not_full_time_student", default: 0, null: false
@@ -1494,6 +1496,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_26_151436) do
     t.integer "usps_address_late_verification_attempts", default: 0
     t.datetime "usps_address_verified_at"
     t.boolean "viewed_at_capacity", default: false
+    t.string "vin_number"
     t.string "visitor_id"
     t.bigint "vita_partner_id"
     t.integer "wants_to_itemize", default: 0, null: false
@@ -2906,7 +2909,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_09_26_151436) do
     t.bigint "vita_partner_id", null: false
     t.string "zip_code", null: false
     t.index ["vita_partner_id"], name: "index_vita_partner_zip_codes_on_vita_partner_id"
-    t.index ["zip_code"], name: "index_vita_partner_zip_codes_on_zip_code", unique: true
+    t.index ["zip_code"], name: "index_vita_partner_zip_codes_on_zip_code"
   end
 
   create_table "vita_partners", force: :cascade do |t|

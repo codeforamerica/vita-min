@@ -248,7 +248,7 @@ body {
   @include sr-only;
 }
 
-a[href^='http']:not([href*=request_domain i]) {
+a[href^='http']:not([href*=request_domain i]):not(.no-external) {
   @include external-link;
 }
 
@@ -354,6 +354,30 @@ ol.with-bullets {
 @media (max-width: 767px) {
   .fyst-home-image {
     display: none; /* Hides the home page image on mobile */
+  }
+}
+
+.button__icon {
+  width: 2rem;
+  height: 2rem;
+  display: inline-block;
+  margin-right: 0.6rem;
+  vertical-align: middle;
+}
+
+
+.button--home {
+  @media screen and (min-width: $tablet-up) {
+    max-width: 34.5rem;
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &:first-of-type {
+    margin-left: 1.25rem;
   }
 }
 

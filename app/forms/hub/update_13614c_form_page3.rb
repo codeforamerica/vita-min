@@ -50,6 +50,7 @@ module Hub
                        :cv_tax_credit_disallowed_reason,
                        :cv_eligible_for_litc_referral_cb,
                        :made_estimated_tax_payments_amount,
+                       :brought_last_years_return,
                        :cv_estimated_tax_payments_cb,
                        :cv_estimated_tax_payments_amt,
                        :cv_last_years_refund_applied_to_this_yr_cb,
@@ -57,7 +58,9 @@ module Hub
                        :cv_last_years_return_available_cb,
                        :cv_14c_page_3_notes_part_1,
                        :cv_14c_page_3_notes_part_2,
-                       :cv_14c_page_3_notes_part_3
+                       :cv_14c_page_3_notes_part_3,
+                       :new_vehicle_purchased,
+                       :vin_number
 
     attr_accessor :client
 
@@ -74,7 +77,8 @@ module Hub
               :cv_last_years_refund_applied_to_this_yr_amt,
               :cv_14c_page_3_notes_part_1,
               :cv_14c_page_3_notes_part_2,
-              :cv_14c_page_3_notes_part_3]
+              :cv_14c_page_3_notes_part_3,
+              :vin_number]
       self.class.scoped_attributes[model].reduce({}) do |hash, attribute_name|
         v = send(attribute_name)
         unless skip.include? attribute_name

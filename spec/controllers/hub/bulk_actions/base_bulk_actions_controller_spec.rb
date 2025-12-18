@@ -87,6 +87,36 @@ RSpec.describe Hub::BulkActions::BaseBulkActionsController do
             expect(assigns(:locale_counts).values.sum).to eq(0)
           end
         end
+
+        context "with mixed client contact info statuses" do
+          let(:intake_with_email) { build :intake, email_notification_opt_in: "yes", email_address: "test@example.com" }
+          let(:intake_with_sms) { build :intake, sms_notification_opt_in: "yes", sms_phone_number: "+14155551212", locale: "es" }
+          let(:intake_without_contact) { build :intake, email_notification_opt_in: "yes", email_address: nil }
+
+          let(:client_with_email) { create :client, vita_partner: organization, intake: intake_with_email }
+          let(:client_with_sms) { create :client, vita_partner: organization, intake: intake_with_sms }
+          let(:client_without_contact) { create :client, vita_partner: organization, intake: intake_without_contact }
+
+          let(:tax_return_4) { create :tax_return, client: client_with_email, year: 2020 }
+          let(:tax_return_5) { create :tax_return, client: client_with_sms, year: 2020 }
+          let(:tax_return_6) { create :tax_return, client: client_without_contact, year: 2020 }
+          let(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_4, tax_return_5, tax_return_6] }
+
+          it "correctly separates clients with and without contact info" do
+            get :edit, params: params
+
+            expect(assigns(:no_contact_info_count)).to eq(1)
+            expect(assigns(:locale_counts).values.sum).to eq(2)
+          end
+
+          it "locale_counts includes only clients with sufficient contact info" do
+            get :edit, params: params
+
+            locale_counts = assigns(:locale_counts)
+            expect(locale_counts["en"]).to eq(1)
+            expect(locale_counts["es"]).to eq(1)
+          end
+        end
       end
     end
   end

@@ -39,6 +39,10 @@ class Site < VitaPartner
   validate :no_capacity
   validate :no_allows_greeters
 
+  scope :with_capacity, -> {
+    where(parent_organization_id: Organization.with_capacity.pluck(:id))
+  }
+
   def coalition
     parent_organization.coalition
   end

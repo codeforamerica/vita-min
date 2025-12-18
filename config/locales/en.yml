@@ -105,7 +105,7 @@ en:
     file_yourself:
       edit:
         info:
-        - File taxes online on your own using our partner website. This is our quickest option for households earning under $84,000 to file taxes and collect the tax credits you are owed!
+        - File taxes online on your own using our partner website. This is our quickest option for households earning under $89,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
         title: File taxes on your own
   documents:
@@ -484,12 +484,25 @@ en:
     itin: ITIN
     language: Language
     language_options:
+      ar: Arabic
       de: German
       en: English
       es: Spanish
       fa: Farsi
       fr: French
+      gu: Gujarati
+      hi: Hindi
+      ht: Haitian Creole
+      it: Italian
+      ja: Japanese
+      ko: Korean
+      pl: Polish
+      pt: Portuguese
       ru: Russian
+      te: Telugu
+      tgl: Tagalog
+      vi: Vietnamese
+      yi: Yiddish
       zh: Mandarin
     languages: Languages
     last_four_ssn: Last 4 of SSN/ITIN
@@ -1396,7 +1409,6 @@ en:
     waiting_on: Waiting on
     zip_codes:
       already_applied: "%{zip_code} is already routed to this partner."
-      already_taken: "%{zip_code} is already routed to <a href=%{vita_partner_path}>%{vita_partner_name}</a>."
       confirm: Are you sure you want to delete %{code} from %{name}?
       success: Added %{code} to %{name}.
   invitations:
@@ -2159,7 +2171,7 @@ en:
         description: File quickly on your own.
         list:
           file: File for %{current_tax_year} only
-          income: 'Income: under $84,000'
+          income: 'Income: under $89,000'
         timeframe: 45 minutes to file
         title: File Myself
       gyr_tile:
@@ -2167,7 +2179,7 @@ en:
         description: File confidently with assistance from our IRS-certified volunteers.
         list:
           file: File for %{oldest_filing_year}-%{current_tax_year}
-          income: 'Income: under $67,000'
+          income: 'Income: under $69,000'
           ssn: Must show copies of your Social Security card or ITIN paperwork
         timeframe: 2-3 weeks to file
         title: File with Help
@@ -2178,7 +2190,7 @@ en:
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
-        help_text: Our free service is available to households earning less than $84,000 a year.
+        help_text: Our free service is available to households earning less than $89,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
     triage_gyr:
       edit:
@@ -2220,9 +2232,9 @@ en:
             12500_to_25000: "$15,000 - 30,000"
             1_to_12500: "$1 - $15,000"
             25000_to_40000: "$30,000 - 45,000"
-            40000_to_66000: "$45,000 - 67,000"
-            66000_to_79000: "$67,000 - 84,000"
-            over_79000: over $84,000
+            40000_to_66000: "$45,000 - 69,000"
+            66000_to_79000: "$69,000 - 89,000"
+            over_79000: over $89,000
             zero: "$0"
         title: Tell us about your filing status and income.
         vita_income_ineligible:
@@ -4718,11 +4730,17 @@ en:
     state_file_pages:
       about_page:
         check_back_for_prior_year_returns: Check back at the start of filing season to download your 2023 Arizona or New York State tax return.
+        closed_forever_subheader_html: |
+          <strong>FileYourStateTaxes</strong> integrated with IRS Direct File to help you complete your state tax return for free, and is now closed.<br/><br/>
+          If you filed with us in 2025 or 2024, you can download a copy of your state return. For more information on accessing your federal and state refunds, <a href=%{faq_link}>visit our FAQs</a><br /><br />
+          For support in filing your federal and state taxes for free, visit GetYourRefund.
         closed_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with IRS Direct File to help you complete your state tax return for free.<br/><br/>
           We're closed for the tax season. Unfortunately, you can no longer file your state return with us this year.<br /><br />
           <strong>Was the state return you filed with FileYourStateTaxes rejected?</strong> <a href="%{sign_in_url}">Sign in here</a> to correct and resubmit your return.<br /><br />
+        closed_warning: FileYourStateTaxes closed on October 31, 2025 and was not renewed for the 2026 season.
         download_return_button: Download your 2024 return
+        download_your_return: Download your return
         end_of_in_progress_intakes_subheader_html: |
           <strong>FileYourStateTaxes</strong> integrates with IRS Direct File to help you complete your state tax return for free.<br/><br/>
           We're closed for the tax season. Unfortunately, you can no longer file your state return with us this year.<br /><br />
@@ -4750,6 +4768,7 @@ en:
           <strong>In 2025, this service will support filing state tax returns in Arizona, Idaho, North Carolina, New Jersey, and Maryland.</strong>
         subheader_2_html: To start filing your federal return, go to <a target="_blank" rel="nofollow noopener" href="https://directfile.irs.gov/?utm_source=CA-Nonprofit&utm_medium=email&utm_campaign=gyr&utm_id=directfile&utm_content=QRcode">directfile.irs.gov.</a> For any questions about IRS Direct File’s closure, <a href='%{faqs_path}'>visit our FAQs.</a>
         subheader_3_html: "<strong>Already started your state taxes with us and need to complete them?</strong> <a href=%{login_path}>Sign in here</a> to continue filing."
+        visit_gyr: Visit GetYourRefund
       card_postscript:
         responses_saved_html: Your responses are saved. You can come back and log in to your account at <a href="https://fileyourstatetaxes.org">fileyourstatetaxes.org</a> anytime.
       coming_soon:
@@ -5022,7 +5041,7 @@ en:
           <strong>I authorize the VITA site:</strong>
           Global Carry Forward of data allows TaxSlayer LLC, the provider of the VITA/TCE tax software to make your tax return information available to ANY volunteer site participating in the IRS's VITA/TCE program that you select to prepare a tax return in the next filing season. This means you will be able to visit any volunteer site using TaxSlayer next year and have your tax return populate with your current year data, regardless of where you filed your tax return this year.
 
-          <strong>This consent is valid through November 30, 2026</strong>
+          <strong>This consent is valid through November 30, %{year}</strong>
 
           The tax return information that will be disclosed includes, but is not limited to, demographic, financial and other personally identifiable information, about you, your tax return and your sources of income, which was input into the tax preparation software for the purpose of preparing your tax return.
 
@@ -5187,7 +5206,7 @@ en:
           quote:
             courtney: "“I'm excited to extend our free services to those who can't come into one of our physical locations.I know taxes can be intimidating, which is why we are here to help!”"
             denise: "“Being part of an organization that works to bridge the gap between where people are and where they want (or need) to be is both fulfilling and always exciting.”"
-          subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $67,000 a year.
+          subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $69,000 a year.
         title: About Us
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
@@ -5545,6 +5564,13 @@ en:
           partner_info: Our team at %{partner_name} is here to help you file again.
           title: Welcome back %{name}!
         title: Our team at %{partner_name} is here to help!
+      claiming:
+        body:
+          one: Answer yes if you could be claimed as a dependent.
+          other: Answer yes if you or your spouse could be claimed as a dependent.
+        title:
+          one: Can anyone else claim you on their tax return?
+          other: Can anyone else claim you or your spouse on their tax return?
       consent:
         birth_date: Date of birth
         cta: I agree
@@ -5899,6 +5925,11 @@ en:
         title:
           one: Have you had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
           other: Have you or your spouse had the Earned Income Credit, Child Tax Credit, American Opportunity Credit, or Head of Household filing status disallowed in a prior year?
+      vehicle_credit:
+        body: If you purchased a vehicle assembled in the US, you may be eligible for a tax credit! Your tax preparer will collect your VIN number to confirm if you qualify.
+        title:
+          one: Did you purchase a new vehicle in %{year}?
+          other: Did you or your spouse purchase a new vehicle in %{year}?
       verification:
         body: 'A message with your code has been sent to:'
         error_message: Incorrect verification code.
@@ -6016,8 +6047,8 @@ en:
         in_person_link_text: VITA location finder
         income_limit:
           direct_file: Most filers under $200,000
-          diy: under $84,000
-          full_service: under $67,000
+          diy: under $89,000
+          full_service: under $69,000
           title: 'Income guidance:'
         mobile_friendly: Mobile-friendly
         required_information: Required information

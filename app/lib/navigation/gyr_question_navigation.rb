@@ -17,12 +17,12 @@ module Navigation
 
       # Contact information and preferences
       Questions::PersonalInfoController, # creates Intake record and Client record, if triage was skipped
+      Questions::InterviewSchedulingController,
       Questions::AtCapacityController, # possible off-boarding when at capacity
       Questions::SsnItinController,
       Questions::BacktaxesController,
       Questions::StartWithCurrentYearController,
       Questions::ReturningClientController, # possible off-boarding from flow
-      Questions::InterviewSchedulingController,
       Questions::NotificationPreferenceController,
       Questions::PhoneNumberCanReceiveTextsController,
       Questions::CellPhoneNumberController,
@@ -57,6 +57,9 @@ module Navigation
 
       # Filing status
       Questions::FilingJointController,
+
+      # Claiming
+      Questions::ClaimingController,
 
       # Alimony
       Questions::ReceivedAlimonyController,
@@ -137,6 +140,7 @@ module Navigation
       Questions::TaxCreditDisallowedController,
       Questions::EstimatedTaxPaymentsController,
       Questions::SelfEmploymentLossController,
+      Questions::VehicleCreditController,
       Questions::EnergyEfficientPurchasesController, # sets 'completed_yes_no_questions_at'
                                                      # generate and replace the "Preliminary" 13614-C signed by the primary and spouse with yes/no questions filled out
 

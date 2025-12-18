@@ -1,6 +1,7 @@
 module StateFile
   class LandingPageController < ApplicationController
     include StateFile::StateFileControllerConcern
+    include StateFile::FystSunsetRedirectConcern
     layout "state_file"
 
     def edit

@@ -81,6 +81,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           made_estimated_tax_payments_amount: 0,
           married: "yes",
           multiple_states: "yes",
+          new_vehicle_purchased: "yes",
           had_other_income: "yes",
           other_income_types: "garden gnoming",
           paid_alimony: "yes",
@@ -130,6 +131,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           state: "nj",
           street_address: "789 Garden Green Ln",
           tax_credit_disallowed_year: 2018,
+          vin_number: "123456",
           wants_to_itemize: "yes",
           was_blind: "no",
           was_full_time_student: "no",
@@ -137,6 +139,7 @@ RSpec.describe PdfFiller::F13614cPdf do
           widowed_year: "2017",
           zip_code: "08052",
           spouse_consented_to_service_at: Date.new(2024, 1, 1),
+          brought_last_years_return: "no"
         )
       end
       before do
@@ -199,6 +202,26 @@ RSpec.describe PdfFiller::F13614cPdf do
           filer_provided_over_half_support: "na",
           filer_provided_over_half_housing_support: "yes",
         )
+        create(
+          :dependent,
+          intake: intake,
+          first_name: "Polly",
+          last_name: "Pony",
+          relationship: "Parent",
+          birth_date: Date.new(1955, 7, 20),
+          months_in_home: 8,
+          was_married: "yes",
+          disabled: "yes",
+          north_american_resident: "no",
+          us_citizen: "yes",
+          was_student: "no",
+          can_be_claimed_by_other: "no",
+          provided_over_half_own_support: "no",
+          below_qualifying_relative_income_requirement: "yes",
+          filer_provided_over_half_support: "yes",
+          filer_provided_over_half_housing_support: "yes",
+          has_ip_pin: "no",
+          )
       end
 
       it 'fills out the dependent info section on page 1 correctly' do
@@ -281,8 +304,6 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageNo[0]" => '',
                             "form1[0].page1[0].writtenCommunicationLanguage[0].otherLanguageYou[0]" => '1',
                             "form1[0].page1[0].writtenCommunicationLanguage[0].whatLanguage[0]" => "Russian",
-                            "form1[0].page1[0].howToVote[0].voteInformationYes[0]" => "",
-                            "form1[0].page1[0].howToVote[0].voteInformationNo[0]" => "1",
                           )
       end
 
@@ -301,8 +322,6 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page1[0].haveBlanceDue[0].blanceDirectPay[0]" => "Off",
                             "form1[0].page1[0].haveBlanceDue[0].blanceInstallmentAgreement[0]" => "Off",
                             "form1[0].page1[0].haveBlanceDue[0].blanceMailPayment[0]" => "1",
-                            "form1[0].page1[0].howToVote[0].voteInformationNo[0]" => "1",
-                            "form1[0].page1[0].howToVote[0].voteInformationYes[0]" => "",
                             "form1[0].page1[0].hyperlink[0]" => nil,
                             "form1[0].page1[0].liveWorkStates[0].liveWorkNo[0]" => "Off",
                             "form1[0].page1[0].liveWorkStates[0].liveWorkYes[0]" => "1",
@@ -311,10 +330,10 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page1[0].mailingState[0]" => "NJ",
                             "form1[0].page1[0].mailingZIPCode[0]" => "08052",
                             "form1[0].page1[0].maillingApartmentNumber[0]" => "",
-                            "form1[0].page1[0].maritalStatus[0].liveWithSpouse[0].liveWithNo[0]" => "Off",
-                            "form1[0].page1[0].maritalStatus[0].liveWithSpouse[0].liveWithYes[0]" => "1",
-                            "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllNo[0]" => "Off",
-                            "form1[0].page1[0].maritalStatus[0].marriedForAll[0].forAllYes[0]" => "Off",
+                            +"form1[0].page1[0].maritalStatus[0].lastDay[0].lastDayNo[0]" => "Off",
+                            +"form1[0].page1[0].maritalStatus[0].lastDay[0].lastDayYes[0]" => "Off",
+                            "form1[0].page1[0].maritalStatus[0].liveApart[0].liveApartYes[0]" => "Off",
+                            "form1[0].page1[0].maritalStatus[0].liveApart[0].liveApartNo[0]" => "1",
                             "form1[0].page1[0].maritalStatus[0].statusDivorced[0].dateFinalDecree[0]" => "2015",
                             "form1[0].page1[0].maritalStatus[0].statusDivorced[0].statusDivorced[0]" => "Off",
                             "form1[0].page1[0].maritalStatus[0].statusLegallySeparated[0].dateSeparateDecree[0]" => "2016",
@@ -368,6 +387,21 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page1[0].namesOf[0].Row3[0].supportForPerson[0]" => "N/A",
                             "form1[0].page1[0].namesOf[0].Row3[0].totallyPermanentlyDisabled[0]" => "Y",
                             "form1[0].page1[0].namesOf[0].Row3[0].usCitizen[0]" => "N",
+                            "form1[0].page1[0].namesOf[0].Row4[0].costMaintainingHome[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row4[0].dateOfBirth[0]" => "7/20/1955",
+                            "form1[0].page1[0].namesOf[0].Row4[0].fullTimeStudent[0]" => "N",
+                            "form1[0].page1[0].namesOf[0].Row4[0].issuedIPPIN[0]" => "N",
+                            "form1[0].page1[0].namesOf[0].Row4[0].lessThanIncome[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row4[0].monthsLivedHome[0]" => "8",
+                            "form1[0].page1[0].namesOf[0].Row4[0].nameFirstLast[0]" => "Polly Pony",
+                            "form1[0].page1[0].namesOf[0].Row4[0].ownSupport[0]" => "No",
+                            "form1[0].page1[0].namesOf[0].Row4[0].qualifyingChildDependent[0]" => "No",
+                            "form1[0].page1[0].namesOf[0].Row4[0].relationshipToYou[0]" => "Parent",
+                            "form1[0].page1[0].namesOf[0].Row4[0].residentUSCandaMexico[0]" => "N",
+                            "form1[0].page1[0].namesOf[0].Row4[0].singleMarried[0]" => "M",
+                            "form1[0].page1[0].namesOf[0].Row4[0].supportForPerson[0]" => "Yes",
+                            "form1[0].page1[0].namesOf[0].Row4[0].totallyPermanentlyDisabled[0]" => "Y",
+                            "form1[0].page1[0].namesOf[0].Row4[0].usCitizen[0]" => "Y",
                             "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundNo[0]" => "Off",
                             "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundSpouse[0]" => "Off",
                             "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundYou[0]" => "1",
@@ -460,7 +494,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page2[0].receivedMoneyFrom[0].disabilityBenefits[0].disabilityBenefits[0]" => "Off",
                             "form1[0].page2[0].receivedMoneyFrom[0].gamblingLotteryWinnings[0]" => "1",
                             "form1[0].page2[0].receivedMoneyFrom[0].howManyJobs[0]" => "5",
-                            "form1[0].page2[0].receivedMoneyFrom[0].incomeRentingHouse[0].incomeRentingHouse[0]" => "1",
+                            "form1[0].page2[0].receivedMoneyFrom[0].incomeRentingHouse[0]" => "1",
                             "form1[0].page2[0].receivedMoneyFrom[0].incomeRentingVehicle[0]" => "Off",
                             "form1[0].page2[0].receivedMoneyFrom[0].interestOrDividends[0]" => "1",
                             "form1[0].page2[0].receivedMoneyFrom[0].lossLastReturn[0].reportLossNo[0]" => "Off",
@@ -491,9 +525,11 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page3[0].expensesToReport[0].iraBasicRoth[0]" => "",
                             "form1[0].page3[0].followingHappenDuring[0].energyEfficientItems[0].energyEfficientItems[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => "Off",
+                            'form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]' => "",
                             "form1[0].page3[0].followingHappenDuring[0].forgaveByLender[0].forgaveByLender[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].healthSavingsAccount[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].lossRelatedDisaster[0]" => "1",
+                            "form1[0].page3[0].followingHappenDuring[0].otherPurchase[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].purchaseMarketplaceInsurance[0]" => "1",
                             "form1[0].page3[0].followingHappenDuring[0].receivedLetterBill[0]" => "Off",
                             "form1[0].page3[0].followingHappenDuring[0].sellAHome[0]" => "Off",
@@ -505,7 +541,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page3[0].informationToReport[0].disallowedPreviousYear[0]" => "",
                             "form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]" => "",
                             "form1[0].page3[0].informationToReport[0].educationCreditTuition[0]" => "",
-                            "form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]" => "",
+                            "form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0].efficientHomeImprovement[0]" => "",
                             "form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]" => "",
                             "form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]" => "",
                             "form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]" => "",
@@ -520,6 +556,8 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]" => "",
                             "form1[0].page3[0].informationToReport[0].saleOfHome[0]" => "",
                             "form1[0].page3[0].informationToReport[0].taxableScholarshipIncome[0]" => "",
+                            "form1[0].page3[0].informationToReport[0].vinNumber[0].numberVIN[0]" => "1",
+                            "form1[0].page3[0].informationToReport[0].vinNumber[0].vinNumber[0]" => "123456",
                             "form1[0].page3[0].paidExpenses[0].alimonyPayments[0]" => "1",
                             "form1[0].page3[0].paidExpenses[0].childDependentCare[0]" => "Off",
                             "form1[0].page3[0].paidExpenses[0].contributionsRetirementAccount[0]" => "Off",
@@ -565,6 +603,7 @@ RSpec.describe PdfFiller::F13614cPdf do
                             "form1[0].page4[0].yourSpousesRaceEthnicity[0].middleEsternNorthAfrican[0]" => "Off",
                             "form1[0].page4[0].yourSpousesRaceEthnicity[0].white[0]" => "Off",
                             "form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]" => "if there is another gnome living in my garden but only i have an income, does that make me head of household?",
+                            "form1[0].page6[0].ifYouBelieve[0].hyperlink[0]" => nil,
                             "form1[0].page6[0].primaryDateSigned[0]" => nil,
                             "form1[0].page6[0].primaryTaxpayer[0]" => nil,
                             "form1[0].page6[0].secondaryDateSigned[0]" => nil,
@@ -878,6 +917,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               cv_tax_credit_disallowed_reason: nil,
               cv_eligible_for_litc_referral_cb: 'no',
               cv_estimated_tax_payments_cb: 'no',
+              brought_last_years_return: 'no',
               cv_estimated_tax_payments_amt: nil,
               cv_last_years_refund_applied_to_this_yr_cb: 'no',
               cv_last_years_refund_applied_to_this_yr_amt: nil,
@@ -895,7 +935,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => '',
               'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => '',
               'form1[0].page3[0].informationToReport[0].form1095A[0]' => '',
-              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => '',
+              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0].efficientHomeImprovement[0]' => '',
               'form1[0].page3[0].informationToReport[0].form1099C[0]' => '',
               'form1[0].page3[0].informationToReport[0].form1099A[0]' => '',
               'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => '',
@@ -904,6 +944,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].reasonDisallowed[0]' => '',
               'form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]' => '',
               'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]' => '',
+              'form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]' => '',
               'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]' => '',
               'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].lastYearsRefund[0]' => '',
               'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]' => '',
@@ -930,6 +971,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               cv_tax_credit_disallowed_reason: 'an explanation',
               cv_eligible_for_litc_referral_cb: 'yes',
               cv_estimated_tax_payments_cb: 'yes',
+              brought_last_years_return: 'yes',
               cv_estimated_tax_payments_amt: 2816,
               cv_last_years_refund_applied_to_this_yr_cb: 'yes',
               cv_last_years_refund_applied_to_this_yr_amt: 2817,
@@ -947,7 +989,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               'form1[0].page3[0].informationToReport[0].hsaContributions[0]' => '1',
               'form1[0].page3[0].informationToReport[0].hsaDistributions[0]' => '1',
               'form1[0].page3[0].informationToReport[0].form1095A[0]' => '1',
-              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0]' => '1',
+              'form1[0].page3[0].informationToReport[0].efficientHomeImprovement[0].efficientHomeImprovement[0]' => '1',
               'form1[0].page3[0].informationToReport[0].form1099C[0]' => '1',
               'form1[0].page3[0].informationToReport[0].form1099A[0]' => '1',
               'form1[0].page3[0].informationToReport[0].disasterReliefImpacts[0]' => '1',
@@ -956,6 +998,7 @@ RSpec.describe PdfFiller::F13614cPdf do
               'form1[0].page3[0].informationToReport[0].YearDisallowedReason[0].reasonDisallowed[0]' => 'an explanation',
               'form1[0].page3[0].informationToReport[0].eligibleLITCReferral[0]' => '1',
               'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].estimatedTaxPayments[0]' => '1',
+              'form1[0].page3[0].followingHappenDuring[0].lastYearsReturn[0]' => '1',
               'form1[0].page3[0].informationToReport[0].estimatedTaxPayments[0].taxPaymentsAmount[0]' => '2816.0',
               'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].lastYearsRefund[0]' => '1',
               'form1[0].page3[0].informationToReport[0].lastYearsRefund[0].refundAmount[0]' => '2817.0',
@@ -970,7 +1013,7 @@ RSpec.describe PdfFiller::F13614cPdf do
         describe 'additional comments field' do
           let(:additional_comments_key) { "form1[0].page5[0].AdditionalComments[0].AdditionalNotesComments[0]" }
 
-          context "when there are only 3 or less dependents" do
+          context "when there are only 4 or less dependents" do
             it "does not reference additional dependents" do
               expect(intake_pdf.hash_for_pdf[additional_comments_key]).to eq("if there is another gnome living in my garden but only i have an income, does that make me head of household?\n\n")
             end
@@ -1066,6 +1109,26 @@ RSpec.describe PdfFiller::F13614cPdf do
                               "form1[0].page6[0].primaryDateSigned[0]" => nil,
                               "form1[0].page6[0].secondaryTaxpayer[0]" => nil,
                               "form1[0].page6[0].secondaryDateSigned[0]" => nil
+                            )
+        end
+      end
+
+      context "when presidential campaign fund is unfilled" do
+        let(:intake) do
+          create(
+            :intake,
+            client: build(:client, :with_consent, consented_to_service_at: Date.new(2024, 1, 1)),
+            presidential_campaign_fund_donation: "unfilled"
+          )
+        end
+
+        it "leaves all presidential election fund options unselected" do
+          output_file = intake_pdf.output_file
+          result = non_preparer_fields(output_file.path)
+          expect(result).to include(
+                              "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundYou[0]" => "Off",
+                              "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundSpouse[0]" => "Off",
+                              "form1[0].page1[0].presidentialElectionFund[0].presidentialElectionFundNo[0]" => "Off"
                             )
         end
       end

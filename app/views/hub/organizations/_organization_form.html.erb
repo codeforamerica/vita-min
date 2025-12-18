@@ -10,6 +10,11 @@
                          taggable_states(@organization.state_routing_targets.pluck(:state_abbreviation)),
                          id: "state-select", class: "text-input multi-select-state") %>
   </div>
+  <% if @organization_form&.errors[:states]&.any? %>
+    <div class="text--error">
+      <%= @organization_form.errors[:states].join(", ") %>
+    </div>
+  <% end %>
 </div>
 <%= f.cfa_select(:timezone, t("general.timezone"), timezone_select_options) %>
 <div class="grid-flex center-aligned">

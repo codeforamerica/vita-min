@@ -91,8 +91,8 @@ module VitaMin
 
     # These defaults can be overridden per-environment if needed
     # GetYourRefund
-    config.start_of_unique_links_only_intake = pt.parse('2025-01-24 12:00:00')
-    config.start_of_open_intake = pt.parse('2025-01-31 09:59:59')
+    config.start_of_unique_links_only_intake = pt.parse('2026-01-20 09:59:59')
+    config.start_of_open_intake = pt.parse('2026-01-27 09:59:59')
     config.tax_deadline = et.parse('2025-04-15 23:59:59')
     config.end_of_intake = et.parse('2025-10-01 23:59:59')
     config.end_of_docs = et.parse('2025-10-08 23:59:59')
@@ -128,7 +128,7 @@ module VitaMin
     config.state_file_end_of_new_intakes = et.parse('2025-10-22 23:59:59')
     config.state_file_end_of_in_progress_intakes = et.parse('2025-10-31 23:59:59')
     config.state_file_show_faq_date_start = pt.parse('2024-12-10 00:00:00')
-    config.state_file_show_faq_date_end = pt.parse('2025-11-18 23:59:59')
+    config.state_file_show_faq_date_end = pt.parse('2025-11-15 23:59:59')
 
     config.allow_magic_verification_code = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku? || Rails.env.staging?)
     config.allow_magic_ssn = (Rails.env.demo? || Rails.env.development? || Rails.env.heroku? || Rails.env.staging?)

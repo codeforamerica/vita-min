@@ -39,5 +39,42 @@ RSpec.describe Questions::InterviewSchedulingController do
          )
       end
     end
+
+    context "routing the client when routing service returns nil and routing_method is at_capacity" do
+      let!(:organization_router) { double }
+      let(:params) do
+        {
+          interview_scheduling_form: {
+            interview_timing_preference: "After 11am, before 6pm",
+            preferred_interview_language: "es",
+            preferred_written_language: "en"
+          }
+        }
+      end
+
+      before do
+        allow(PartnerRoutingService).to receive(:new).and_return organization_router
+        allow(organization_router).to receive(:determine_partner).and_return nil
+        allow(organization_router).to receive(:routing_method).and_return :at_capacity
+      end
+
+      it "saves routing method to at capacity, does not set a vita partner, does not create tax returns" do
+        post :update, params: params
+
+        intake = Intake.last
+        expect(intake.client.routing_method).to eq("at_capacity")
+        expect(intake.client.vita_partner).to eq nil
+        expect(PartnerRoutingService).to have_received(:new).with(
+          {
+            intake: intake,
+            source_param: intake.source,
+            zip_code: intake.zip_code
+          }
+        )
+        expect(organization_router).to have_received(:determine_partner)
+        expect(intake.tax_returns.count).to eq 0
+        expect(response).to redirect_to Questions::AtCapacityController.to_path_helper
+      end
+    end
   end
 end

@@ -18,6 +18,7 @@
 #  bought_employer_health_insurance                     :integer          default(0), not null
 #  bought_energy_efficient_items                        :integer
 #  bought_marketplace_health_insurance                  :integer          default(0), not null
+#  brought_last_years_return                            :integer          default("unfilled"), not null
 #  cannot_claim_me_as_a_dependent                       :integer          default(0), not null
 #  canonical_email_address                              :string
 #  city                                                 :string
@@ -219,6 +220,7 @@
 #  needs_help_previous_year_2                           :integer          default(0), not null
 #  needs_help_previous_year_3                           :integer          default(0), not null
 #  needs_to_flush_searchable_data_set_at                :datetime
+#  new_vehicle_purchased                                :integer          default(0)
 #  no_eligibility_checks_apply                          :integer          default(0), not null
 #  no_ssn                                               :integer          default(0), not null
 #  not_full_time_student                                :integer          default(0), not null
@@ -343,6 +345,7 @@
 #  usps_address_late_verification_attempts              :integer          default(0)
 #  usps_address_verified_at                             :datetime
 #  viewed_at_capacity                                   :boolean          default(FALSE)
+#  vin_number                                           :string
 #  wants_to_itemize                                     :integer          default(0), not null
 #  was_blind                                            :integer          default(0), not null
 #  was_full_time_student                                :integer          default(0), not null
@@ -472,6 +475,7 @@ class Intake < ApplicationRecord
   enum claim_owed_stimulus_money: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_owed_stimulus_money
   enum primary_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :primary_tin_type
   enum spouse_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :spouse_tin_type
+  enum brought_last_years_return: { unfilled: 0, yes: 1, no: 2 }, _prefix: :brought_last_years_return
   enum irs_language_preference: { english: 0, spanish: 1, korean: 2, vietnamese: 3, russian: 4, arabic: 5, haitian_creole: 6, tagalog: 7, portuguese: 8, polish: 9, farsi: 10, french: 11, japanese: 12, gujarati: 13, punjabi: 14, khmer: 15, urdu: 16, bengali: 17, italian: 18, chinese_traditional: 19, chinese_simplified: 20 }, _prefix: :irs_language_preference
 
   NAVIGATOR_TYPES = {

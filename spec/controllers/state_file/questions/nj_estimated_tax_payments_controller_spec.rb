@@ -4,6 +4,8 @@ RSpec.describe StateFile::Questions::NjEstimatedTaxPaymentsController do
   let(:intake) { create :state_file_nj_intake }
   before do
     sign_in intake
+
+    allow(Flipper).to receive(:enabled?).and_return(false)
   end
 
   describe "#edit" do

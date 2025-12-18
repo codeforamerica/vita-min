@@ -11,7 +11,7 @@
 # Indexes
 #
 #  index_vita_partner_zip_codes_on_vita_partner_id  (vita_partner_id)
-#  index_vita_partner_zip_codes_on_zip_code         (zip_code) UNIQUE
+#  index_vita_partner_zip_codes_on_zip_code         (zip_code)
 #
 # Foreign Keys
 #
@@ -22,7 +22,7 @@ class VitaPartnerZipCode < ApplicationRecord
   belongs_to :organization, optional: true, foreign_key: 'vita_partner_id', class_name: 'Organization'
   belongs_to :site, optional: true, foreign_key: 'vita_partner_id', class_name: 'Site'
   validate :record_of_zip_code
-  validates :zip_code, uniqueness: true
+  validates :zip_code, uniqueness: { scope: :vita_partner_id }
 
   def city_state
     ZipCodes.details(zip_code)[:name]

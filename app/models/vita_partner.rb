@@ -52,6 +52,20 @@ class VitaPartner < ApplicationRecord
     greetable_organizations.or(greetable_sites)
   }
 
+  scope :with_language_capability, -> (language) do
+    org_ids = Organization.with_language_capability(language).pluck(:id)
+
+    # Organizations with language capability and Sites under those Orgs
+    where(id: org_ids).or(where(type: Site::TYPE, parent_organization_id: org_ids))
+  end
+
+  scope :with_capacity, -> {
+    org_ids = Organization.with_capacity.pluck(:id)
+
+    # Organizations with capacity and Sites under those Orgs
+    where(id: org_ids).or(where(type: Site::TYPE, parent_organization_id: org_ids))
+  }
+
   def self.client_support_org
     VitaPartner.find_by!(name: "GYR National Organization")
   end

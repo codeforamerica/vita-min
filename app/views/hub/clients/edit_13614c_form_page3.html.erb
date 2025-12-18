@@ -23,7 +23,7 @@
         <hr style="margin: 5px; height:5px;"/>
         <!-- ************************************ SECTION ONE ******************************** -->
 
-        <h3>Paid any of the following expenses to itemize in 2024?</h3>
+        <h3>Paid any of the following expenses to itemize in <%= MultiTenantService.gyr.current_tax_year %>?</h3>
 
         <!-- MORTGAGE -->
         <div class="grid">
@@ -80,7 +80,7 @@
         <hr style="margin: 5px; margin-top: 40px; height:5px;"/>
         <!-- *********************************** SECTION TWO ******************************** -->
 
-        <h3>Did any of the following happen during 2024?</h3>
+        <h3>Did any of the following happen during <%= MultiTenantService.gyr.current_tax_year %>?</h3>
 
         <!-- STUDENT LOAN INTEREST -->
         <div class="grid">
@@ -159,7 +159,7 @@
         <hr style="margin: 5px; margin-top: 40px; height:5px;"/>
         <!-- *********************************** SECTION THREE ******************************** -->
 
-        <h3>Did any of the following happen during 2024?</h3>
+        <h3>Did any of the following happen during <%= MultiTenantService.gyr.current_tax_year %>?</h3>
 
         <!-- EDU EXPENSES ROW 1 -->
         <div class="grid">
@@ -236,7 +236,18 @@
 windows, furnace, insulation, etc.)", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_select(:cv_energy_efficient_home_improv_credit_cb, "(B) Energy efficient home improvement credits", yes_no_options_for_select) %>
+            <%= f.cfa_select(:cv_energy_efficient_home_improv_credit_cb, "(A) Energy efficient home improvement credit (Form 5695, Part II only)", yes_no_options_for_select) %>
+          </div>
+        </div>
+        <hr style="margin: 5px;"/>
+
+        <!-- VEHICLE PURCHASED INFO HERE -->
+        <div class="grid">
+          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:new_vehicle_purchased, "(A) Other (example: purchased a new vehicle, etc.)", yes_no_options_for_select) %>
+          </div>
+          <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_input_field(:vin_number, "VIN #", classes: ["form-width--short"], options: { maxlength: 17 }) %>
           </div>
         </div>
         <hr style="margin: 5px;"/>
@@ -295,8 +306,7 @@ child tax credit, or American opportunity credit)", yes_no_options_for_select) %
         <!-- ESTIMATED TAX PAYMENTS ROW 1 -->
         <div class="grid">
           <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
-            <%= f.cfa_select(:made_estimated_tax_payments, "(B) Make estimated tax payments or apply last year’s refund to
-2024 taxes", yes_no_options_for_select) %>
+            <%= f.cfa_select(:made_estimated_tax_payments, "(B) Make estimated tax payments or apply last year’s refund to #{MultiTenantService.gyr.current_tax_year} taxes", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
             <%= f.cfa_select(:cv_estimated_tax_payments_cb, "Estimated tax payments", yes_no_options_for_select) %>
@@ -319,8 +329,8 @@ child tax credit, or American opportunity credit)", yes_no_options_for_select) %
 
         <!-- ESTIMATED TAX PAYMENTS ROW 3 -->
         <div class="grid">
-          <div class="grid__item width-one-half" style="display: flex; align-items: flex-start; justify-content: space-between;">
-            &nbsp;
+          <div class="grid__item width-one-half" style="display: flex; padding: 10px; align-items: flex-start; justify-content: space-between;">
+            <%= f.cfa_select(:brought_last_years_return, "Brought last year’s return", yes_no_options_for_select) %>
           </div>
           <div class="grid__item width-one-half" style="background-color:#e5e5e5; padding: 10px; display: flex; align-items: flex-start; justify-content: space-between;">
             <%= f.cfa_select(:cv_last_years_return_available_cb, "Last year’s return available", yes_no_options_for_select) %>
