@@ -5527,10 +5527,7 @@ en:
           other: Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
       at_capacity:
         body: We're sorry we're experiencing a high volume of clients right now. We can offer a free alternative option below to help you file your taxes today!
-        continue_to_diy: Continue to File Myself
-        file_myself: File today using File Myself, our online service that lets you prepare your taxes for free.
         title: Wow, it looks like we are at capacity right now.
-        warning_html: "<b>A friendly reminder that the filing deadline is %{tax_deadline}.</b> We recommend filing as soon as possible."
       backtaxes:
         after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
         after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
@@ -6018,6 +6015,23 @@ en:
       dependents_fields:
         add_dependent: Add dependent
         remove: Remove
+      diy_card:
+        bullet_1: Chat and email support
+        bullet_2: State and Federal tax returns
+        bullet_3: 1-2 hours to file
+        bullet_4: Available online
+        bullet_5_html: Social Security or Individual Taxpayer Identification <b>Number</b> required
+        reveal_b1: All states
+        reveal_b2: Puerto Rico
+        reveal_b3: Non-residents
+        reveal_b4: Disponible en español
+        reveal_body_1: Income must be under $89,000
+        reveal_body_2: Official tax documents (W2’s, 1099’s, etc.) are required to file
+        reveal_body_3: 'Available to residents of:'
+        reveal_body_4: 'Other features:'
+        reveal_title: Additional information
+        subtitle: File on your own and get help when you need it
+        title: DIY
       document_deadline_warning:
         body_html: "<strong>Reminder: You must submit your documents by %{doc_submission_deadline} in order to meet the federal income tax filing deadline of %{tax_deadline}. You can submit your taxes after the deadline without penalty if you don't owe.</strong> If you aren't sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
       environment_warning:
