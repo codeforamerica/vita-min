@@ -1,13 +1,11 @@
 class DocScreenerJob < ApplicationJob
-  PROMPT_VERSION = "v1".freeze
-
   def perform(document_id)
     document = Document.find(document_id)
     return unless document.upload.attached?
 
     assessment = DocAssessment.find_or_create_by!(
       document_id: document.id,
-      prompt_version: PROMPT_VERSION,
+      prompt_version: BedrockDocScreener::PROMPT_VERSION,
       input_blob_id: document.upload.blob_id
     )
 

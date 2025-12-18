@@ -6,12 +6,36 @@ module BedrockDocScreener
   MODEL_ID = 'us.anthropic.claude-haiku-4-5-20251001-v1:0'.freeze
   REGION = 'us-east-1'.freeze
   SUPPORTED_MEDIA_TYPES = %w[
-    application/pdf
     image/png
     image/jpeg
   ].freeze
-  # since the payload is `type: "image"` it won't work for pdfs
+  # since the payload is `type: "image"` it won't work for application/pdf
   # can convert the pdf to image or use another bedrock flow for docs
+
+  # Update the prompt version if you are updating the prompt
+  PROMPT_VERSION = "v1".freeze
+  def self.prompt_for(document_type:)
+    <<~PROMPT
+      You are validating an uploaded client document.
+
+      Document type: #{document_type}
+
+      Return ONLY valid JSON with this exact schema:
+
+      {
+        "verdict": "pass" | "fail" | "needs_review",
+        "reasons": [string, brief explanation],
+        "confidence": number between 0.0-1.0,
+      }
+
+      Rules:
+      - If the document is unreadable, set verdict="needs_review" and include reason "unreadable".
+      - If it does not appear to match the stated document type, verdict="fail" and include reason "wrong_document_type".
+      - If it appears valid and readable, verdict="pass".
+      - "confidence" must be between 0.0 and 1.0.
+      - Do not include any keys other than verdict, reasons and confidence
+    PROMPT
+  end
 
   def self.screen_document!(document:)
     raise "Document has no upload attached" unless document.upload.attached?
@@ -35,30 +59,6 @@ module BedrockDocScreener
     result_json = parse_strict_json!(generated_text)
 
     [result_json, raw_response_json]
-  end
-
-  def self.prompt_for(document_type:)
-    <<~PROMPT
-      You are validating an uploaded client document.
-
-      Document type: #{document_type}
-
-      Return ONLY valid JSON with this exact schema:
-
-      {
-        "verdict": "pass" | "fail" | "needs_review",
-        "reasons": [string],
-        "confidence": number,
-        "notes": string
-      }
-
-      Rules:
-      - If the image/PDF is unreadable, set verdict="needs_review" and include reason "unreadable".
-      - If it does not appear to match the stated document type, verdict="fail" and include reason "wrong_document_type".
-      - If it appears valid and readable, verdict="pass".
-      - "confidence" must be between 0 and 1.
-      - Do not include any keys other than verdict, reasons, confidence, notes.
-    PROMPT
   end
 
   def self.construct_bedrock_payload(base64_data:, media_type:, user_prompt:)
