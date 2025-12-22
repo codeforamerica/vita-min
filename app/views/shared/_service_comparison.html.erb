@@ -34,7 +34,7 @@
                 </h2>
               </div>
               <div class="service__description">
-                <%= t("views.shared.service_comparison.services.diy.service_description", year: MultiTenantService.new(:gyr).current_tax_year) %>
+                <%= t("views.shared.service_comparison.services.diy.service_description", year: MultiTenantService.new(:gyr).current_tax_year(app_time)) %>
               </div>
               <div class="service__cta">
                 <%= link_to t("views.shared.service_comparison.services.diy.cta"), Diy::FileYourselfController.to_path_helper, class: "button", "data-track-click": "service-comparison-diy" %>
@@ -107,11 +107,11 @@
               <%= gyr_filing_years.last %>-<%= gyr_filing_years.first %>
             </div>
             <div class="service diy">
-              <%= MultiTenantService.new(:gyr).current_tax_year %>
+              <%= MultiTenantService.new(:gyr).current_tax_year(app_time) %>
             </div>
             <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
               <div class="service direct-file">
-                <%= MultiTenantService.new(:gyr).current_tax_year %>
+                <%= MultiTenantService.new(:gyr).current_tax_year(app_time) %>
               </div>
             <% end %>
           </div>

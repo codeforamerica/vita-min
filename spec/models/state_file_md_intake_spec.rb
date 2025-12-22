@@ -119,9 +119,11 @@
 require 'rails_helper'
 
 RSpec.describe StateFileMdIntake, type: :model do
+  include StateFileIntakeHelper
+
   describe "#calculate_age" do
     let(:intake) { create :state_file_md_intake, primary_birth_date: dob }
-    let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 10), 1, 1) }
+    let(:dob) { Date.new((MultiTenantService.statefile.current_tax_year - 10), 1, 1) }
 
     it "doesn't include Jan 1st in the past tax year" do
       expect(intake.calculate_age(dob, inclusive_of_jan_1: true)).to eq 10
@@ -132,7 +134,7 @@ RSpec.describe StateFileMdIntake, type: :model do
   describe "is_filer_55_and_older?" do
 
     context "when primary is 55 or older" do
-      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+      let(:dob) { Date.new((MultiTenantService.statefile.current_tax_year - 55), 1, 1) }
       let(:intake) { create :state_file_md_intake, primary_birth_date: dob }
       it "returns true" do
         expect(intake.is_filer_55_and_older?(:primary)).to eq true
@@ -141,14 +143,14 @@ RSpec.describe StateFileMdIntake, type: :model do
 
     context "when the primary is younger than 55" do
       let!(:intake) { create :state_file_md_intake, primary_birth_date: dob }
-      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 54), 1, 1) }
+      let(:dob) { Date.new((MultiTenantService.statefile.current_tax_year - 54), 1, 1) }
       it "returns true" do
         expect(intake.is_filer_55_and_older?(:primary)).to eq false
       end
     end
 
     context "when the spouse is 55 or older" do
-      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+      let(:dob) { Date.new((MultiTenantService.statefile.current_tax_year - 55), 1, 1) }
       let(:intake) { create :state_file_md_intake, spouse_birth_date: dob }
       it "returns true" do
         expect(intake.is_filer_55_and_older?(:spouse)).to eq true
@@ -156,7 +158,7 @@ RSpec.describe StateFileMdIntake, type: :model do
     end
 
     context "when the spouse is younger than 55" do
-      let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 54), 1, 1) }
+      let(:dob) { Date.new((MultiTenantService.statefile.current_tax_year - 54), 1, 1) }
       let(:intake) { create :state_file_md_intake, spouse_birth_date: dob }
       it "returns true" do
         expect(intake.is_filer_55_and_older?(:spouse)).to eq false
@@ -459,8 +461,8 @@ RSpec.describe StateFileMdIntake, type: :model do
     before do
       allow_any_instance_of(StateFileMdIntake).to receive(:at_least_one_disabled_filer_with_proof?).and_return is_disabled
     end
-    let(:senior_primary_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
-    let(:non_senior_spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 64), 1, 1) }
+    let(:senior_primary_dob) { Date.new((MultiTenantService.statefile.current_tax_year - 65), 1, 1) }
+    let(:non_senior_spouse_dob) { Date.new((MultiTenantService.statefile.current_tax_year - 64), 1, 1) }
     let(:intake) { create :state_file_md_intake, :with_spouse, primary_birth_date: senior_primary_dob, spouse_birth_date: non_senior_spouse_dob }
 
 
@@ -501,7 +503,7 @@ RSpec.describe StateFileMdIntake, type: :model do
       let(:spouse_dob) { nil }
 
       context "under 65" do
-        let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+        let(:dob) { age_at_end_of_tax_year(55) }
 
         it "returns true" do
           expect(intake.has_filer_under_65?).to eq(true)
@@ -509,7 +511,7 @@ RSpec.describe StateFileMdIntake, type: :model do
       end
 
       context "over 65" do
-        let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+        let(:dob) { age_at_end_of_tax_year(66) }
 
         it "returns true" do
           expect(intake.has_filer_under_65?).to eq(false)
@@ -519,11 +521,11 @@ RSpec.describe StateFileMdIntake, type: :model do
 
     context "mfj" do
       let(:filing_status) { "married_filing_jointly" }
-      let(:spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 70), 1, 1) }
+      let(:spouse_dob) { age_at_end_of_tax_year(70) }
 
       context "primary" do
         context "under 65" do
-          let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+          let(:dob) { age_at_end_of_tax_year(64) }
 
           it "returns true" do
             expect(intake.has_filer_under_65?).to eq(true)
@@ -531,7 +533,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         end
 
         context "over 65" do
-          let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+          let(:dob) { age_at_end_of_tax_year(66) }
 
           it "returns true" do
             expect(intake.has_filer_under_65?).to eq(false)
@@ -540,10 +542,10 @@ RSpec.describe StateFileMdIntake, type: :model do
       end
 
       context "spouse" do
-        let(:dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 70), 1, 1) }
+        let(:dob) { age_at_end_of_tax_year(70) }
 
         context "under 65" do
-          let(:spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 55), 1, 1) }
+          let(:spouse_dob) { age_at_end_of_tax_year(55) }
 
           it "returns true" do
             expect(intake.has_filer_under_65?).to eq(true)
@@ -551,7 +553,7 @@ RSpec.describe StateFileMdIntake, type: :model do
         end
 
         context "over 65" do
-          let(:spouse_dob) { Date.new((MultiTenantService.statefile.end_of_current_tax_year.year - 65), 1, 1) }
+          let(:spouse_dob) { age_at_end_of_tax_year(66) }
 
           it "returns true" do
             expect(intake.has_filer_under_65?).to eq(false)

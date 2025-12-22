@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 describe Efile::Md::Md502bCalculator do
+  include StateFileIntakeHelper
+
   let(:intake) { create(:state_file_md_intake) }
-  let!(:regular_dependent) { create(:state_file_dependent, intake: intake, dob: StateFileDependent.senior_cutoff_date + 60.years) }
-  let!(:senior_dependent) { create(:state_file_dependent, intake: intake, dob: StateFileDependent.senior_cutoff_date) }
+  let!(:regular_dependent) { create(:state_file_dependent, intake: intake, dob: age_at_end_of_tax_year(5)) }
+  let!(:senior_dependent) { create(:state_file_dependent, intake: intake, dob: senior_cutoff_date) }
   let(:main_calculator) do
     Efile::Md::Md502Calculator.new(
       year: MultiTenantService.statefile.current_tax_year,

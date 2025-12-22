@@ -91,11 +91,6 @@ class StateFileDependent < ApplicationRecord
     message: :blank
   }, if: -> { id_has_grocery_credit_ineligible_months == "yes" }, on: :id_grocery_credit_form
 
-  def self.senior_cutoff_date
-    # Deprecated: please use `#senior?` (this method used only in tests)
-    MultiTenantService.statefile.end_of_current_tax_year.years_ago(65)
-  end
-
   def full_name
     parts = [first_name, middle_initial, last_name]
     parts << suffix if suffix.present?
