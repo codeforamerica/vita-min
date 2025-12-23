@@ -43,7 +43,7 @@ RSpec.describe "a user editing a clients 13614c form" do
                             spouse_owned_or_held_any_digital_currencies: 'no',
                             spouse_was_full_time_student: "no",
                             issued_identity_pin: "unsure",
-                            lived_with_spouse: "unsure",
+                            lived_without_spouse: "unsure",
                             dependents: [
                               create(:dependent, first_name: "Lara", last_name: "Legume", birth_date: "2007-03-06"),
                             ],

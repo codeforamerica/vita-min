@@ -54,7 +54,7 @@ RSpec.describe Hub::ClientsController do
           married: "yes",
           separated: "no",
           widowed: "no",
-          lived_with_spouse: "yes",
+          lived_without_spouse: "yes",
           divorced: "no",
           divorced_year: "",
           separated_year: "",
@@ -211,7 +211,7 @@ RSpec.describe Hub::ClientsController do
              needs_help_current_year: "yes",
              needs_help_previous_year_1: "yes",
              married: "yes",
-             lived_with_spouse: "yes",
+             lived_without_spouse: "yes",
              filing_joint: "yes",
              state: "CA",
              city: "Oakland",
@@ -252,7 +252,7 @@ RSpec.describe Hub::ClientsController do
         expect(profile).to have_text(client.email_address)
         expect(profile).to have_text(client.phone_number)
         expect(profile).to have_text("English")
-        expect(profile).to have_text("Married, Lived with spouse")
+        expect(profile).to have_text("Married, Lived without spouse")
         expect(profile).to have_text("Filing jointly")
         expect(profile).to have_text("Oakland, CA 94606")
         expect(profile).to have_text("Spouse Contact Info")
@@ -976,7 +976,7 @@ RSpec.describe Hub::ClientsController do
                        married: intake.married,
                        separated: intake.separated,
                        widowed: intake.widowed,
-                       lived_with_spouse: intake.lived_with_spouse,
+                       lived_without_spouse: intake.lived_without_spouse,
                        divorced: intake.divorced,
                        divorced_year: intake.divorced_year,
                        separated_year: intake.separated_year,
@@ -1723,7 +1723,7 @@ RSpec.describe Hub::ClientsController do
             got_married_during_tax_year: "unfilled",
             separated: intake.separated,
             widowed: intake.widowed,
-            lived_with_spouse: intake.lived_with_spouse,
+            lived_without_spouse: intake.lived_without_spouse,
             divorced: intake.divorced,
             divorced_year: intake.divorced_year,
             separated_year: intake.separated_year,
