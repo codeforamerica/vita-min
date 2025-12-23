@@ -14,20 +14,8 @@
         <div class="offboarding--help-text">
           <%= t("views.questions.at_capacity.body") %>
         </div>
-
-        <div class="notice--warning">
-          <p><%= t("views.questions.at_capacity.warning_html", tax_deadline: I18n.l(Rails.configuration.tax_deadline.to_date, format: :medium, locale: locale)) %></p>
-        </div>
-
-        <div class="offboarding--help-text text--bold">
-          <%= t("views.questions.at_capacity.file_myself") %>
-        </div>
-
-        <div>
-          <%= link_to t("views.questions.at_capacity.continue_to_diy"), diy_file_yourself_path, class: "button text--centered button--wide" %>
-        </div>
-
       </div>
     </div>
   </div>
+  <%= render "shared/diy_card" %>
 </section>

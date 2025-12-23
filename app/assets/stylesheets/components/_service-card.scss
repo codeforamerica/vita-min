@@ -1,0 +1,28 @@
+.service-card--title {
+  font-weight: bold;
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  margin-top: 0.5rem;
+}
+
+.service-card--body {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  line-height: 100%;
+}
+
+.service-card--list {
+  list-style: none;
+  padding: 0 2rem;
+  margin-bottom: 3rem;
+}
+
+.service-card--list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+}
+
