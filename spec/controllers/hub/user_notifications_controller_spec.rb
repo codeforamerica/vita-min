@@ -157,6 +157,35 @@ RSpec.describe Hub::UserNotificationsController, type: :controller do
           end
         end
       end
+
+      context "when there are notifications before the product year" do
+        let(:before_product_year) { DateTime.new(Rails.configuration.product_year) - 1.month }
+        let!(:old_notification) { create :user_notification, user: user, read: false, created_at: before_product_year }
+
+        context "app_time is before the start of the current product year" do
+          it "shows notifications from the last 7 days" do
+            Timecop.freeze(before_product_year) do
+              get :index
+
+              expect(response).to be_ok
+              expect(assigns(:user_notifications)).to include old_notification
+              expect(assigns(:user_notifications)).to include notification_first
+            end
+          end
+        end
+
+        context "app_time is after the start of the product year" do
+          it "shows notifications from the beginning of the year" do
+            Timecop.freeze(DateTime.new(Rails.configuration.product_year) + 5.month) do
+              get :index
+
+              expect(response).to be_ok
+              expect(assigns(:user_notifications)).not_to include old_notification
+              expect(assigns(:user_notifications)).to include notification_first
+            end
+          end
+        end
+      end
     end
   end
 

@@ -525,6 +525,7 @@ describe Intake::GyrIntake do
       end
     end
   end
+
   describe "#most_recent_filing_year" do
     let(:intake) { build :intake }
     let!(:client) { create :client, tax_returns: [], intake: intake }
@@ -545,25 +546,43 @@ describe Intake::GyrIntake do
         expect(intake.most_recent_filing_year).to eq(2019)
       end
     end
-  end
 
-  describe "#most_recent_needs_help_or_filing_year" do
-    let(:intake) { build(:intake) }
+    context "when tax returns haven't been created yet (before consent page)" do
+      # we call this method between the backtaxes page and the consent page before the tax returns have been created
+      let(:intake) { create :intake,
+                            needs_help_current_year: "no",
+                            needs_help_previous_year_1: "unfilled",
+                            needs_help_previous_year_2: "yes",
+                            needs_help_previous_year_3: "yes",
+                            client: nil
+      }
 
-    context "when there are no tax returns" do
-      context "when client has said which years they need help" do
-        before do
-          intake.update(needs_help_previous_year_3: "yes", needs_help_previous_year_2: "yes")
+      it "pulls the year by matching via the needs_help columns" do
+        Timecop.freeze(DateTime.new(2026, 3, 15)) do
+          expect(intake.most_recent_filing_year).to eq(2023)
         end
 
-        it "gives the highest needs_help year number" do
-          expect(intake.most_recent_needs_help_or_filing_year).to eq MultiTenantService.new(:gyr).current_tax_year - 2
+        Timecop.freeze(DateTime.new(2025, 3, 15)) do
+          expect(intake.most_recent_filing_year).to eq(2022)
+        end
+
+        Timecop.freeze(DateTime.new(2024, 3, 15)) do
+          expect(intake.most_recent_filing_year).to eq(2021)
         end
       end
+    end
 
-      context "when the client has not said they need help any particular years" do
-        it "uses the current tax year" do
-          expect(intake.most_recent_needs_help_or_filing_year).to eq MultiTenantService.new(:gyr).current_tax_year
+    context "when there are no tax returns and needs_help columns not filled" do
+      let(:intake) { create :intake,
+                            needs_help_current_year: "unfilled",
+                            needs_help_previous_year_1: "unfilled",
+                            needs_help_previous_year_2: "unfilled",
+                            needs_help_previous_year_3: "unfilled",
+                            client: nil
+      }
+      it "returns the current tax year" do
+        Timecop.freeze(DateTime.new(2026, 3, 15)) do
+          expect(intake.most_recent_filing_year).to eq(2025)
         end
       end
     end
@@ -575,7 +594,7 @@ describe Intake::GyrIntake do
 
     context "with unfilled filing years" do
       it "returns prior tax year" do
-        expect(intake.year_before_most_recent_filing_year).to eq (Rails.application.config.gyr_current_tax_year - 1)
+        expect(intake.year_before_most_recent_filing_year).to eq (MultiTenantService.gyr.current_tax_year - 1)
       end
     end
 

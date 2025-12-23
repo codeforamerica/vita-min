@@ -40,7 +40,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
     click_on I18n.t('general.continue')
 
     # backtaxes
-    check (Rails.configuration.gyr_current_tax_year - 2).to_s
+    check (MultiTenantService.new(:gyr).current_tax_year - 2).to_s
     click_on I18n.t('general.continue')
 
     # start with current year
@@ -78,7 +78,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
     click_on I18n.t('general.continue')
 
     # backtaxes
-    check (Rails.configuration.gyr_current_tax_year - 2).to_s
+    check (MultiTenantService.new(:gyr).current_tax_year - 2).to_s
     click_on I18n.t('general.continue')
 
     # start with current year

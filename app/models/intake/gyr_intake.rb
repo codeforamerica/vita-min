@@ -619,20 +619,17 @@ class Intake::GyrIntake < Intake
   end
 
   def self.current_tax_year
-    Rails.application.config.gyr_current_tax_year.to_i
+    MultiTenantService.gyr.current_tax_year.to_i
   end
 
-  def most_recent_filing_year
-    filing_years.first || MultiTenantService.new(:gyr).current_tax_year
-  end
+  def most_recent_filing_year(time = DateTime.now)
+    return filing_years.first if filing_years.present?
 
-  def most_recent_needs_help_or_filing_year
-    return filing_years.first if filing_years.first.present?
-    return MultiTenantService.new(:gyr).current_tax_year - 1 if needs_help_previous_year_1_yes?
-    return MultiTenantService.new(:gyr).current_tax_year - 2 if needs_help_previous_year_2_yes?
-    return MultiTenantService.new(:gyr).current_tax_year - 3 if needs_help_previous_year_3_yes?
+    available_filing_years = MultiTenantService.gyr.filing_years(time)
 
-    MultiTenantService.new(:gyr).current_tax_year
+    needs_help_years = [needs_help_current_year_yes?, needs_help_previous_year_1_yes?, needs_help_previous_year_2_yes?, needs_help_previous_year_3_yes?]
+
+    available_filing_years.zip(needs_help_years).detect { |(_, y)| y }&.first || MultiTenantService.new(:gyr).current_tax_year(time)
   end
 
   def year_before_most_recent_filing_year

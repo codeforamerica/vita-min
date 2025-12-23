@@ -95,6 +95,8 @@
 require "rails_helper"
 
 describe StateFileAzIntake do
+  include StateFileIntakeHelper
+
   it_behaves_like :state_file_base_intake, factory: :state_file_az_intake
 
   describe "before_save" do
@@ -256,7 +258,7 @@ describe StateFileAzIntake do
 
     it 'returns the correct dependents under 17' do
       create :state_file_dependent, intake: intake,
-                                    dob: (MultiTenantService.statefile.end_of_current_tax_year - 10.years)
+                                    dob: age_at_end_of_tax_year(10)
                                       .strftime("%Y-%m-%d")
       expect(intake.federal_dependent_count_under_17).to eq(1)
       expect(intake.federal_dependent_count_over_17_non_qualifying_senior).to eq(0)
@@ -265,7 +267,7 @@ describe StateFileAzIntake do
 
     it 'returns the correct dependents over 17' do
       create :state_file_dependent, intake: intake,
-                                    dob: (MultiTenantService.statefile.end_of_current_tax_year - 20.years)
+                                    dob: age_at_end_of_tax_year(20)
                                       .strftime("%Y-%m-%d")
       expect(intake.federal_dependent_count_under_17).to eq(0)
       expect(intake.federal_dependent_count_over_17_non_qualifying_senior).to eq(1)
