@@ -777,6 +777,8 @@ class Seeder
       filename: "document_bundle.pdf"
     ) unless document.upload.present?
     document.save
+
+    DocScreenerJob.perform_later(document.id)
   end
 
   def find_or_create_state_file_archived_intake(attributes)
