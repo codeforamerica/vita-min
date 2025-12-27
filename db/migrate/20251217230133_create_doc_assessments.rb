@@ -16,8 +16,5 @@ class CreateDocAssessments < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
-
-    # prevents dupes for the same document/file/prompt-version
-    add_index :doc_assessments, %i[document_id prompt_version input_blob_id], unique: true, name: "index_doc_assessments_on_doc_and_version_and_blob"
   end
 end

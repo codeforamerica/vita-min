@@ -44,6 +44,8 @@ class Document < ApplicationRecord
   belongs_to :contact_record, polymorphic: true, optional: true
   belongs_to :tax_return, optional: true
   belongs_to :uploaded_by, polymorphic: true, optional: true
+  has_many :assessments, class_name: "DocAssessment", dependent: :destroy
+  has_one :latest_assessment, -> { order(created_at: :desc) }, class_name: "DocAssessment"
 
   validates_presence_of :client
   validates_presence_of :upload
@@ -88,6 +90,7 @@ class Document < ApplicationRecord
   end
   after_save_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
   after_destroy_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
+  after_update_commit :rerun_screener_if_document_type_changed, if: :saved_change_to_document_type?
 
   # has_one_attached needs to be called after defining any callbacks that access attachments, like
   # the HEIC conversion; see https://github.com/rails/rails/issues/37304
@@ -149,6 +152,12 @@ class Document < ApplicationRecord
   end
 
   private
+
+  def rerun_screener_if_document_type_changed
+    return unless upload.attached?
+
+    DocScreenerJob.perform_later(id)
+  end
 
   def tax_return_belongs_to_client
     errors.add(:tax_return_id, I18n.t("forms.errors.tax_return_belongs_to_client")) unless tax_return.blank? || tax_return.client == client

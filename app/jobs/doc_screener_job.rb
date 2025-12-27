@@ -1,5 +1,7 @@
 class DocScreenerJob < ApplicationJob
   def perform(document_id)
+    return if Flipper.enabled?(:disable_ai_doc_screener)
+
     document = Document.find(document_id)
     return unless document.upload.attached?
 
@@ -9,7 +11,13 @@ class DocScreenerJob < ApplicationJob
       input_blob_id: document.upload.blob_id
     )
 
-    return if assessment.status == "complete"
+    if assessment.status == "complete"
+      assessment = DocAssessment.create!(
+        document_id: document.id,
+        prompt_version: BedrockDocScreener::PROMPT_VERSION,
+        input_blob_id: document.upload.blob_id
+      )
+    end
 
     assessment.update!(
       status: "processing",

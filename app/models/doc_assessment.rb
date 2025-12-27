@@ -16,8 +16,7 @@
 #
 # Indexes
 #
-#  index_doc_assessments_on_doc_and_version_and_blob  (document_id,prompt_version,input_blob_id) UNIQUE
-#  index_doc_assessments_on_document_id               (document_id)
+#  index_doc_assessments_on_document_id  (document_id)
 #
 # Foreign Keys
 #

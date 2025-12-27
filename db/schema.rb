@@ -779,7 +779,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_17_230133) do
     t.jsonb "result_json", default: {}, null: false
     t.string "status", default: "pending", null: false
     t.datetime "updated_at", null: false
-    t.index ["document_id", "prompt_version", "input_blob_id"], name: "index_doc_assessments_on_doc_and_version_and_blob", unique: true
     t.index ["document_id"], name: "index_doc_assessments_on_document_id"
   end
 
