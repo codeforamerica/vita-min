@@ -1,0 +1,31 @@
+#doc-assessments-table {
+  margin: 10rem 5rem 5rem 5rem;
+
+
+  table {
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  tr.error {
+    background-color: #FEF2E7;
+  }
+
+  tr.fail {
+    background-color: #FEE7E7;
+  }
+
+  tr.pass {
+    background-color: #E7FEEC;
+  }
+
+  td, th {
+    border: 1px solid black;
+    padding: 10px 20px;
+  }
+
+  th {
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+}

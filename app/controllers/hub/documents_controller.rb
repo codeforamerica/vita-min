@@ -66,6 +66,14 @@ module Hub
       redirect_back(fallback_location: hub_client_documents_path)
     end
 
+    def rerun_screener
+      return head :forbidden if acts_like_production? || !current_user.admin?
+
+      DocScreenerJob.perform_now(@document.id)
+
+      redirect_back(fallback_location: edit_hub_client_document_path(client_id: @document.client.id, id: @document), notice: "Re-ran document screening.")
+    end
+
     private
 
     def load_document_type_options

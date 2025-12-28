@@ -286,6 +286,7 @@ Rails.application.routes.draw do
           resources :documents do
             get "/archived", to: "documents#archived", on: :collection, as: :archived
             get "/confirm", to: "documents#confirm", on: :member, as: :confirm
+            post :rerun_screener, on: :member
           end
           resources :notes, only: [:create, :index]
           resources :messages, only: [:index]
