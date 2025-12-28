@@ -46,7 +46,7 @@ module BedrockDocScreener
       {
         "verdict": "pass" | "fail",
         "reason": "unreadable" | "no_doc_type_match" | "wrong_document_type" | expired" | "fake" | "other",
-        "explanation": [Brief 1-2 sentence explanation of reason. Explain why valid/invalid.],
+        "explanation": [Brief 1-2 sentence explanation of reason. Explain why invalid if so. The briefer the better, please do not be redundant.],
         "confidence": number between 0.0-1.0,
       }
     PROMPT

@@ -190,9 +190,9 @@ class Seeder
     document1 = Document.find_or_initialize_by(display_name: "My Employment", document_type: "Employment", client: client, intake: intake)
     attach_upload_to_document(document1)
     document2 = Document.find_or_initialize_by(display_name: "Identity Document", document_type: "ID", client: client, intake: intake)
-    attach_upload_to_document(document2)
+    attach_upload_to_document(document2, pass_screener: false)
     document3 = Document.find_or_initialize_by(display_name: "An old document type", document_type: "F13614C / F15080 2020", client: client, intake: intake)
-    attach_upload_to_document(document3)
+    attach_upload_to_document(document3, pass_screener: false)
 
     unless client.outgoing_text_messages.present?
       OutgoingTextMessage.create!(client: client, body: "Hey client, nice to meet you", user: user, sent_at: 3.days.ago, to_phone_number: "+14155551212")
@@ -771,14 +771,38 @@ class Seeder
     intake
   end
 
-  def attach_upload_to_document(document)
+  def attach_upload_to_document(document, pass_screener: true)
     document.upload.attach(
       io: File.open(Rails.root.join("spec", "fixtures", "files", "document_bundle.pdf")),
       filename: "document_bundle.pdf"
     ) unless document.upload.present?
     document.save
 
-    DocScreenerJob.perform_later(document.id)
+    # DocScreenerJob.perform_later(document.id)
+    add_fake_doc_assessment(document, pass: pass_screener) unless document.assessments.present?
+  end
+
+  def add_fake_doc_assessment(doc, pass: true)
+    verdict = pass ? "pass" : "fail"
+    reason = pass ? "" : "wrong_document_type"
+    DocAssessment.create!(
+      document_id: doc.id,
+      input_blob_id: doc.upload.blob_id,
+      model_id: BedrockDocScreener::MODEL_ID,
+      prompt_version: "v1",
+      status: "complete",
+      raw_response_json: { "id" => "msg_bdrk_idxxxxxx", "role" => "assistant", "type" => "message", "model" => "claude-haiku-4-5-20251001",
+                           "usage" => { "input_tokens" => 17728, "output_tokens" => 90, "cache_creation" => { "ephemeral_1h_input_tokens" => 0, "ephemeral_5m_input_tokens" => 0 }, "cache_read_input_tokens" => 0, "cache_creation_input_tokens" => 0 },
+                           "content" => [{ "text" => "```json\n{\n  \"verdict\": \"#{verdict}\",\n  \"reason\":#{reason}\"\",\n  \"explanation\": \"This Form W-2 (Wage and Tax Statement) doc is #{pass ? "valid" : "invalid."}.\",\n  \"confidence\": 0.99\n}\n```", "type" => "text" }],
+                           "stop_reason" => "end_turn",
+                           "stop_sequence" => nil },
+      result_json:
+        { "reason" => reason,
+          "verdict" => verdict,
+          "confidence" => 0.99,
+          "explanation" =>
+            "This Form W-2 (Wage and Tax Statement) doc is #{pass ? 'valid' : 'invalid.'}" },
+    )
   end
 
   def find_or_create_state_file_archived_intake(attributes)
