@@ -508,7 +508,7 @@ en:
     last_four_ssn: Last 4 of SSN/ITIN
     last_name: Last name
     less_than_one_day: "<1 day"
-    lived_with_spouse: Lived with spouse
+    lived_without_spouse: Lived without spouse
     locked: Locked
     log_out: Log out
     login: Login
@@ -783,7 +783,7 @@ en:
           job_title: Job Title
           last_name: Last Name
           lived_or_worked_in_two_or_more_states: Did you live or work in two or more states in 2024?
-          lived_with_spouse: B. Did you live with your spouse during any part of the last six months of 2024?
+          lived_without_spouse: Did you and your spouse live apart all of the last 6 months of the year
           middle_initial: M.I.
           months_in_home: "# of mos. lived in home last year:"
           never_married: Never Married

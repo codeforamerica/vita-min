@@ -93,7 +93,7 @@ RSpec.describe "a user editing a clients intake fields" do
       within "#marital-status-fields" do
         check "Filing jointly"
         check "Married"
-        check "Lived with spouse"
+        check "Lived without spouse"
         check "Separated"
         fill_in "Separated year", with: "2017"
         check "Widowed"
@@ -174,7 +174,7 @@ RSpec.describe "a user editing a clients intake fields" do
       expect(page).to have_text "Married"
       expect(page).to have_text "Separated 2017"
       expect(page).to have_text "Widowed 2015"
-      expect(page).to have_text "Lived with spouse"
+      expect(page).to have_text "Lived without spouse"
       expect(page).to have_text "Divorced 2018"
       expect(page).to have_text "Filing jointly"
       expect(page).to have_text "Pacific Time (US & Canada)"
@@ -250,7 +250,7 @@ RSpec.describe "a user editing a clients intake fields" do
 
       expect(changes_table_contents('.changes-table')).to match({
         "divorced" => ["unfilled", "no"],
-        "lived_with_spouse" => ["unfilled", "no"],
+        "lived_without_spouse" => ["unfilled", "no"],
         "married" => ["unfilled", "no"],
         "preferred_name" => ["Colleen Cauliflower", "Colly Cauliflower"],
         "separated" => ["unfilled", "no"],

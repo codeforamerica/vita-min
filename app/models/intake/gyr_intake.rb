@@ -206,11 +206,13 @@
 #  issued_identity_pin                                  :integer          default("unfilled"), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default("unfilled"), not null
+#  lived_without_spouse                                 :integer          default("unfilled"), not null
 #  locale                                               :string
 #  made_estimated_tax_payments                          :integer          default("unfilled"), not null
 #  made_estimated_tax_payments_amount                   :decimal(12, 2)
 #  married                                              :integer          default("unfilled"), not null
 #  married_for_all_of_tax_year                          :integer          default("unfilled"), not null
+#  married_last_day_of_year                             :integer          default("unfilled"), not null
 #  multiple_states                                      :integer          default("unfilled"), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
@@ -450,9 +452,11 @@ class Intake::GyrIntake < Intake
   enum income_over_limit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :income_over_limit
   enum issued_identity_pin: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :issued_identity_pin
   enum lived_with_spouse: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :lived_with_spouse
+  enum lived_without_spouse: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :lived_without_spouse
   enum made_estimated_tax_payments: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :made_estimated_tax_payments
   enum married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married
   enum married_for_all_of_tax_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married_for_all_of_tax_year
+  enum married_last_day_of_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married_last_day_of_year
   enum multiple_states: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :multiple_states
   enum needs_help_previous_year_3: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_3
   enum needs_help_previous_year_2: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_2
