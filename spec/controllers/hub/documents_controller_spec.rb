@@ -487,4 +487,52 @@ RSpec.describe Hub::DocumentsController, type: :controller do
       end
     end
   end
+
+  describe "#rerun_screener" do
+    let!(:document) { create :document, intake: client.intake }
+    let(:params) do
+      { client_id: client.id,
+        id: document.id,
+      }
+    end
+
+    before do
+      sign_in(user)
+    end
+
+    context "when in production" do
+      let(:user) { create :admin_user }
+
+      before do
+        allow(Rails.env).to receive(:production?).and_return true
+      end
+
+      it "returns forbidden" do
+        post :rerun_screener, params: params
+        expect(response).to be_forbidden
+      end
+    end
+
+    context "user is not admin" do
+      it "returns forbidden" do
+        post :rerun_screener, params: params
+        expect(response).to be_forbidden
+      end
+    end
+
+    context "in demo and admin user" do
+      let(:user) { create :admin_user }
+      before do
+        allow(Rails.env).to receive(:demo?).and_return true
+        allow(DocScreenerJob).to receive(:perform_now)
+      end
+
+      it "run the document screener" do
+        post :rerun_screener, params: params
+        expect(response).not_to be_forbidden
+        expect(DocScreenerJob).to have_received(:perform_now)
+        expect(response).to redirect_to edit_hub_client_document_path(params)
+      end
+    end
+  end
 end

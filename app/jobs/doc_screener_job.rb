@@ -5,19 +5,7 @@ class DocScreenerJob < ApplicationJob
     document = Document.find(document_id)
     return unless document.upload.attached?
 
-    assessment = DocAssessment.find_or_create_by!(
-      document_id: document.id,
-      prompt_version: BedrockDocScreener::PROMPT_VERSION,
-      input_blob_id: document.upload.blob_id
-    )
-
-    if assessment.status == "complete"
-      assessment = DocAssessment.create!(
-        document_id: document.id,
-        prompt_version: BedrockDocScreener::PROMPT_VERSION,
-        input_blob_id: document.upload.blob_id
-      )
-    end
+    assessment = find_or_create_assessment_for(document)
 
     assessment.update!(
       status: "processing",
@@ -32,8 +20,6 @@ class DocScreenerJob < ApplicationJob
       result_json: result_json,
       raw_response_json: raw_response_json
     )
-  rescue ActiveRecord::RecordNotUnique
-    retry
   rescue => e
     assessment&.update!(
       status: "failed",
@@ -44,5 +30,25 @@ class DocScreenerJob < ApplicationJob
 
   def priority
     PRIORITY_LOW
+  end
+
+  private
+
+  def find_or_create_assessment_for(document)
+    attrs = {
+      document_id: document.id,
+      prompt_version: BedrockDocScreener::PROMPT_VERSION,
+      input_blob_id: document.upload.blob_id
+    }
+
+    DocAssessment.transaction do
+      assessment = DocAssessment.lock.find_by(attrs)
+      if assessment.nil? || assessment.status == "complete"
+        assessment = DocAssessment.create!(attrs)
+      end
+      assessment
+    end
+  rescue ActiveRecord::RecordNotUnique
+    retry
   end
 end
