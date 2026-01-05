@@ -117,9 +117,9 @@ module BedrockDocScreener
   def self.extract_text_from_response(response)
     Array(response['content'])
       .select { |content| content['type'] == 'text' }
-      .map { |content| content['text'] }
+      .map { |content| content['text'].to_s.strip }
+      .reject(&:empty?)
       .join("\n")
-      .strip
   end
 
   def self.parse_strict_json!(text)
@@ -171,5 +171,4 @@ module BedrockDocScreener
   rescue MiniMagick::Error, MiniMagick::Invalid => e
     raise "failed to convert pdf pages to images (perhaps minimagick or ghostscript issue). #{e.class}: #{e.message}"
   end
-
 end
