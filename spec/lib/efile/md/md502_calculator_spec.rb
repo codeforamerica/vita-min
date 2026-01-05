@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 describe Efile::Md::Md502Calculator do
+  include StateFileIntakeHelper
+
   let(:filing_status) { "single" }
   let(:county) { "Allegany" }
   let(:includes_spouse) { filing_status == "married_filing_jointly" ? :with_spouse : nil}
@@ -525,8 +527,8 @@ describe Efile::Md::Md502Calculator do
 
     context "taxpayers over 65" do
       context "primary over 65" do
-        let(:primary_birth_date) { 66.years.ago }
-        let(:spouse_birth_date) { 60.years.ago }
+        let(:primary_birth_date) { age_at_end_of_tax_year(66) }
+        let(:spouse_birth_date) { age_at_end_of_tax_year(60) }
 
         {
           single: 16_550,
@@ -575,8 +577,8 @@ describe Efile::Md::Md502Calculator do
       end
 
       context "primary and spouse both over 65" do
-        let(:primary_birth_date) { 66.years.ago }
-        let(:spouse_birth_date) { 66.years.ago }
+        let(:primary_birth_date) { age_at_end_of_tax_year(66) }
+        let(:spouse_birth_date) { age_at_end_of_tax_year(66) }
         let(:filing_status) { "married_filing_jointly" }
         let(:filing_minimum) { 32_300 }
         let(:intake) { create(:state_file_md_intake, primary_birth_date: primary_birth_date, spouse_birth_date: spouse_birth_date, filing_status: filing_status) }

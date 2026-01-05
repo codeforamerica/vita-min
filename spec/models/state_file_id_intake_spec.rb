@@ -100,6 +100,7 @@
 require 'rails_helper'
 
 RSpec.describe StateFileIdIntake, type: :model do
+  include StateFileIntakeHelper
   it_behaves_like :state_file_base_intake, factory: :state_file_id_intake
 
   describe "#eligible_1099rs" do
@@ -132,7 +133,7 @@ RSpec.describe StateFileIdIntake, type: :model do
 
         context "senior" do
           before do
-            intake.update(primary_birth_date: 66.years.ago)
+            intake.update(primary_birth_date: age_at_end_of_tax_year(66))
           end
 
           it "contains primary's 1099r" do
@@ -162,7 +163,7 @@ RSpec.describe StateFileIdIntake, type: :model do
 
         context "senior" do
           before do
-            intake.update(spouse_birth_date: 66.years.ago)
+            intake.update(spouse_birth_date: age_at_end_of_tax_year(66))
           end
 
           it "contains spouse's 1099r" do
@@ -184,7 +185,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       context "even when primary senior and disabled" do
         let(:ssn) { intake.primary.ssn }
         before do
-          intake.update(primary_disabled: "yes", primary_birth_date: 65.years.ago)
+          intake.update(primary_disabled: "yes", primary_birth_date: age_at_end_of_tax_year(65))
         end
 
         it "does not contain primary's 1099r" do
@@ -195,7 +196,7 @@ RSpec.describe StateFileIdIntake, type: :model do
       context "even when spouse senior and disabled" do
         let(:ssn) { intake.spouse.ssn }
         before do
-          intake.update(spouse_disabled: "yes", spouse_birth_date: 65.years.ago)
+          intake.update(spouse_disabled: "yes", spouse_birth_date: age_at_end_of_tax_year(65))
         end
 
         it "does not contain spouse's 1099r" do
@@ -211,8 +212,8 @@ RSpec.describe StateFileIdIntake, type: :model do
         :state_file_id_intake, :with_spouse,
         primary_disabled: "no",
         spouse_disabled: "no",
-        primary_birth_date: 66.years.ago,
-        spouse_birth_date: 66.years.ago,
+        primary_birth_date: age_at_end_of_tax_year(66),
+        spouse_birth_date: age_at_end_of_tax_year(66),
         )
     }
     let!(:first_1099_r) { create(:state_file1099_r, intake: intake, recipient_ssn: intake.primary.ssn) }
