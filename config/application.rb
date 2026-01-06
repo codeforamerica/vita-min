@@ -81,27 +81,28 @@ module VitaMin
     config.middleware.use Middleware::CleanupMimeTypeHeaders
     config.middleware.use Middleware::RejectInvalidParams
     config.middleware.use Middleware::RejectBadlyEncodedHeaders
-    config.gyr_current_tax_year = 2024
+
     config.ctc_current_tax_year = 2021
     config.statefile_current_tax_year = 2024
-    config.product_year = 2025
+    config.product_year = 2026
 
     pt = Time.find_zone('America/Los_Angeles')
     et = Time.find_zone('America/New_York')
 
     # These defaults can be overridden per-environment if needed
     # GetYourRefund
-    config.start_of_unique_links_only_intake = pt.parse('2025-01-24 12:00:00')
-    config.start_of_open_intake = pt.parse('2025-01-31 09:59:59')
-    config.tax_deadline = et.parse('2025-04-15 23:59:59')
-    config.end_of_intake = et.parse('2025-10-01 23:59:59')
-    config.end_of_docs = et.parse('2025-10-08 23:59:59')
-    config.doc_submission_deadline = et.parse('2025-04-01 23:59:59')
-    config.end_of_closing = et.parse('2025-10-15 23:59:59')
-    config.end_of_in_progress_intake = et.parse('2025-10-15 23:59:59')
-    config.end_of_login = et.parse('2025-10-23 23:59:00')
+    config.start_of_unique_links_only_intake = pt.parse('2026-01-20 09:59:59')
+    config.start_of_open_intake = pt.parse('2026-01-27 09:59:59')
+    config.tax_deadline = et.parse('2026-04-15 23:59:59')
+    config.end_of_intake = et.parse('2026-10-01 23:59:59')
+    config.end_of_docs = et.parse('2026-10-08 23:59:59')
+    config.doc_submission_deadline = et.parse('2026-04-01 23:59:59')
+    config.end_of_closing = et.parse('2026-10-15 23:59:59')
+    config.end_of_in_progress_intake = et.parse('2026-10-15 23:59:59')
+    config.end_of_login = et.parse('2026-10-23 23:59:00')
 
     config.tax_year_filing_seasons = {
+      2025 => [et.parse("2026-01-29 00:00:00"), et.parse("2026-04-15 23:59:59")],
       2024 => [et.parse("2025-01-29 00:00:00"), et.parse("2025-04-15 23:59:59")],
       2023 => [et.parse("2024-01-29 00:00:00"), et.parse("2024-04-15 23:59:59")],
       2022 => [et.parse("2023-01-23 00:00:00"), et.parse("2023-04-18 23:59:59")],
@@ -125,6 +126,7 @@ module VitaMin
 
     # StateFile
     config.state_file_start_of_open_intake = et.parse('2025-01-15 00:00:00')
+    config.state_file_tax_deadline = et.parse('2025-04-15 23:59:59')
     config.state_file_end_of_new_intakes = et.parse('2025-10-22 23:59:59')
     config.state_file_end_of_in_progress_intakes = et.parse('2025-10-31 23:59:59')
     config.state_file_show_faq_date_start = pt.parse('2024-12-10 00:00:00')

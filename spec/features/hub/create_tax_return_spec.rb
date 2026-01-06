@@ -10,7 +10,7 @@ RSpec.feature "Add a tax return for an existing client" do
     let(:fake_time) { DateTime.parse("2024-04-14") }
 
     before do
-      allow(Rails.application.config).to receive(:gyr_current_tax_year).and_return(fake_current_tax_year)
+      allow(MultiTenantService.gyr).to receive(:current_tax_year).and_return(fake_current_tax_year)
       login_as user
     end
 

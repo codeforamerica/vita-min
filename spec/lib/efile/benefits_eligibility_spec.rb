@@ -919,7 +919,7 @@ describe Efile::BenefitsEligibility do
     context "when they pass tin type test, don't exceed the income limit, are 23, have no qcs and are not former foster care, homeless youth or fulltime student" do
       before do
         intake.update(exceeded_investment_income_limit: "no")
-        intake.update(primary_birth_date: 23.years.ago)
+        intake.update(primary_birth_date: Date.new(MultiTenantService.new(:ctc).current_tax_year - 23, 12, 11))
 
         allow_any_instance_of(Dependent).to receive(:qualifying_eitc?).and_return(false)
       end

@@ -83,20 +83,12 @@ class MultiTenantService
     end
   end
 
-  def current_tax_year
+  def current_tax_year(time = DateTime.now)
     case service_type
     when :ctc then Rails.configuration.ctc_current_tax_year
-    when :gyr then Rails.configuration.gyr_current_tax_year
+    when :gyr then gyr_current_tax_year(time)
     when :statefile then Rails.configuration.statefile_current_tax_year
     end
-  end
-
-  def end_of_current_tax_year
-    DateTime.new(current_tax_year).end_of_year
-  end
-
-  def prior_tax_year
-    current_tax_year - 1
   end
 
   def between_deadline_and_end_of_in_progress_intake?(now = DateTime.now)
@@ -116,8 +108,8 @@ class MultiTenantService
     end
   end
 
-  def backtax_years(now = DateTime.now)
-    filing_years(now).without(current_tax_year)
+  def backtax_years(time = DateTime.now)
+    filing_years(time).without(current_tax_year(time))
   end
 
   def twilio_creds
@@ -147,5 +139,13 @@ class MultiTenantService
     def statefile
       new(:statefile)
     end
+  end
+
+  private
+
+  def gyr_current_tax_year(time)
+    Rails.configuration.tax_year_filing_seasons.select do |_year, (open_date, _close_date)|
+      time > open_date
+    end.keys.max
   end
 end

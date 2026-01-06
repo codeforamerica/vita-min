@@ -47,7 +47,12 @@ class VitaProvidersController < ApplicationController
   end
 
   def map
-    @provider = VitaProvider.find_by_id(params[:id])
+    @provider = VitaProvider&.find_by_id(params[:id])
+    if @provider.nil?
+      redirect_to vita_providers_path
+      return
+    end
+
     track_provider_page_map_click
 
     redirect_to @provider.google_maps_url, allow_other_host: true

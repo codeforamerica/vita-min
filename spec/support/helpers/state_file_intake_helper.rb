@@ -3,6 +3,14 @@ module StateFileIntakeHelper
     MultiTenantService.statefile.current_tax_year
   end
 
+  def senior_cutoff_date
+    age_at_end_of_tax_year(65)
+  end
+
+  def age_at_end_of_tax_year(age)
+    DateTime.new(filing_year).end_of_year.years_ago(age)
+  end
+
   def step_through_eligibility_screener(us_state:)
     case us_state
     when "ny"

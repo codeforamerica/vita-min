@@ -281,5 +281,13 @@ RSpec.describe VitaProvidersController do
         expect(subject).to have_received(:send_mixpanel_event).with(event_name: "provider_page_map_click", data: expected_data)
       end
     end
+
+    context "when can't find provider" do
+      it "redirects to providers page" do
+        get :map, params: { id: nil }
+
+        expect(response).to redirect_to vita_providers_path
+      end
+    end
   end
 end

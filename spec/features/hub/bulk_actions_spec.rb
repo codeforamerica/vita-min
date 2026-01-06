@@ -27,14 +27,14 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
 
     click_on "Change organization"
 
-    expect(page).to have_text "You’ve selected Change Organization for 2 clients"
+    page_change_check("You’ve selected Change Organization for 2 clients")
     select "Orange Organization", from: "New organization"
     fill_in "Send message (English)", with: "Orange is your best bet"
     fill_in "Send message (Spanish)", with: "Naranja es la mejor"
     fill_in "Add an internal note", with: "Moved!"
     click_on "Submit"
 
-    expect(current_path).to eq hub_user_notifications_path
+    page_change_check(hub_user_notifications_path, path: true)
     perform_enqueued_jobs
     visit page.current_path
     expect(page).to have_text "You successfully moved 2 clients to Orange Organization."
@@ -51,12 +51,12 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
       click_on "Nombre"
     end
     click_on "Notes"
-    expect(page).to have_text "Moved!"
+    page_change_check("Moved!")
 
     perform_enqueued_jobs
 
     click_on "Messages"
-    expect(page).to have_text "Naranja es la mejor"
+    page_change_check("Naranja es la mejor")
 
     visit hub_user_notifications_path
     within ".in-progress" do
@@ -86,12 +86,12 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
 
     click_on "Send a message"
 
-    expect(page).to have_text "You’ve selected Send a Message for 2 clients"
+    page_change_check("You’ve selected Send a Message for 2 clients")
     fill_in "Send message (English)", with: "Orange is your best bet"
     fill_in "Send message (Spanish)", with: "Naranja es la mejor"
     click_on "Submit"
 
-    expect(current_path).to eq hub_user_notifications_path
+    page_change_check(hub_user_notifications_path, path: true)
     perform_enqueued_jobs
     visit page.current_path
     expect(page).to have_text "Bulk Send a Message In Progress"
@@ -106,7 +106,7 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
       click_on "Nombre"
     end
     click_on "Messages"
-    expect(page).to have_text "Naranja es la mejor"
+    page_change_check("Naranja es la mejor")
 
     visit hub_user_notifications_path
     within ".in-progress" do
@@ -117,7 +117,7 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
       click_on "Name"
     end
     click_on "Messages"
-    expect(page).to have_text "Orange is your best bet"
+    page_change_check("Orange is your best bet")
   end
 
   scenario "bulk changing assignee and/or status", js: true do

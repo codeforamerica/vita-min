@@ -14,6 +14,7 @@ describe StateFile::ReminderToFinishStateReturnService do
       let!(:intake) do
         create :state_file_az_intake,
                df_data_imported_at: fake_time - 6.hours - 1.minute,
+               created_at: fake_time,
                email_address_verified_at: 7.hours.ago,
                email_notification_opt_in: "yes",
                email_address: "dezie@example.com",
