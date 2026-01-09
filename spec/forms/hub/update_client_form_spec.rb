@@ -25,7 +25,7 @@ RSpec.describe Hub::UpdateClientForm do
         married: intake.married,
         separated: intake.separated,
         widowed: intake.widowed,
-        lived_with_spouse: intake.lived_with_spouse,
+        lived_without_spouse: intake.lived_without_spouse,
         divorced: intake.divorced,
         divorced_year: intake.divorced_year,
         separated_year: intake.separated_year,
