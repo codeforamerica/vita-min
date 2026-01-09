@@ -384,8 +384,11 @@ ol.with-bullets {
 
 .rounded-box {
   border-radius: 1rem;
-  padding: 2rem 4rem;
+  padding: 2rem;
   border: 1px solid #000000;
-  max-width: 42.5rem;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 

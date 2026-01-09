@@ -5526,8 +5526,8 @@ en:
           one: Did you report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
           other: Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
       at_capacity:
-        body: We're sorry we're experiencing a high volume of clients right now. We can offer a free alternative option below to help you file your taxes today!
-        title: Wow, it looks like we are at capacity right now.
+        body: We’re sorry—our tax pros are currently busy. If you need to file right away, you can use our free alternative below.
+        title: We are at capacity right now
       backtaxes:
         after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
         after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
