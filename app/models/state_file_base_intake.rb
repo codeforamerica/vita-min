@@ -61,19 +61,19 @@ class StateFileBaseIntake < ApplicationRecord
     where("state_file_#{state_code.downcase}_intakes.message_tracker #> '{#{message_name}}' IS NULL")
   }
 
-  scope :sms_messageable, lambda {
+  scope :sms_contactable, lambda {
     where.not(phone_number: [nil, ""])
          .where.not(phone_number_verified_at: nil)
          .where(sms_notification_opt_in: sms_notification_opt_ins[:yes])
   }
 
-  scope :email_messageable, lambda {
+  scope :email_contactable, lambda {
     where.not(email_address: [nil, ""])
          .where.not(email_address_verified_at: nil)
          .where(email_notification_opt_in: email_notification_opt_ins[:yes])
   }
 
-  scope :messageable, -> { sms_messageable.or(email_messageable) }
+  scope :contactable, -> { sms_contactable.or(email_contactable) }
 
 
   before_save :save_nil_enums_with_unfilled
