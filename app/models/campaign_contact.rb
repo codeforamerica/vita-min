@@ -5,7 +5,7 @@
 #  id                        :bigint           not null, primary key
 #  email_address             :citext
 #  email_notification_opt_in :boolean          default(FALSE)
-#  first_name                :string           not null
+#  first_name                :string
 #  gyr_2025_preseason_email  :datetime
 #  gyr_2025_preseason_sms    :datetime
 #  gyr_intake_ids            :bigint           default([]), is an Array

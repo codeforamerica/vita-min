@@ -105,7 +105,7 @@ RSpec.describe "campaign_contacts:backfill" do
         upsert_campaign_contact!(
           source: :state_file,
           source_id: 9,
-          first_name: "Joe",
+          first_name: nil,
           last_name: "Smith",
           email: nil,
           phone: "+15551234567",
