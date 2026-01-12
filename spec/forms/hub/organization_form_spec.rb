@@ -14,11 +14,22 @@ RSpec.describe Hub::OrganizationForm do
     end
 
     context "when is_independent=yes" do
-      let(:params) { { is_independent: "yes" }}
+      context "when national_overflow_location is check" do
+        let(:params) { { is_independent: "yes", national_overflow_location: "true" }}
 
-      it "requires name and states" do
-        expect(subject).not_to be_valid
-        expect(subject.errors.attribute_names).to match_array([:name, :states])
+        it "requires name only" do
+          expect(subject).not_to be_valid
+          expect(subject.errors.attribute_names).to match_array([:name])
+        end
+      end
+
+      context "when national_overflow_location is not checked" do
+        let(:params) { { is_independent: "yes", national_overflow_location: "false"}}
+
+        it "requires name and states" do
+          expect(subject).not_to be_valid
+          expect(subject.errors.attribute_names).to match_array([:name, :states])
+        end
       end
     end
 

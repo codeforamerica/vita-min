@@ -206,11 +206,13 @@
 #  issued_identity_pin                                  :integer          default(0), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default(0), not null
+#  lived_without_spouse                                 :integer          default(0), not null
 #  locale                                               :string
 #  made_estimated_tax_payments                          :integer          default(0), not null
 #  made_estimated_tax_payments_amount                   :decimal(12, 2)
 #  married                                              :integer          default(0), not null
 #  married_for_all_of_tax_year                          :integer          default(0), not null
+#  married_last_day_of_year                             :integer          default(0), not null
 #  multiple_states                                      :integer          default(0), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
