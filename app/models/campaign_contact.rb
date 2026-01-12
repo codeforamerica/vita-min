@@ -33,6 +33,46 @@ class CampaignContact < ApplicationRecord
   validates :sms_phone_number, e164_phone: true, allow_blank: true
   validates :email_address, 'valid_email_2/email': true
 
-  # def send email
-  # def send sms
+  def self.send_emails(message_name, sent_at_column, batch_size: 100)
+    message = "AutomatedMessage::#{message_name.camelize}".constantize.new
+
+    contacts = CampaignContact
+                 .where(sent_at_column => nil, email_notification_opt_in: true)
+                 .where.not(email_address: nil)
+
+    contacts.find_each(batch_size: batch_size) do |contact|
+      next if contact.email_address.blank?
+
+      updated = CampaignContact.where(id: contact.id, sent_at_column => nil)
+                               .update_all(sent_at_column => Time.current, updated_at: Time.current)
+      # skip if no matches and claim to prevent dupe
+      next unless updated == 1
+
+      CampaignMailer.followup(
+        email_address: contact.email_address,
+        message: message,
+        locale: contact.locale.presence || "en"
+      ).deliver_later
+    end
+  end
+
+  def self.send_sms_messages(message_name, sent_at_column, batch_size: 100)
+    message = "AutomatedMessage::#{message_name.camelize}".constantize.new
+
+    contacts = CampaignContact
+                 .where(sent_at_column => nil, sms_notification_opt_in: true)
+                 .where.not(sms_phone_number: nil)
+
+    contacts.find_each(batch_size: batch_size) do |contact|
+      next if contact.email_address.blank?
+
+      updated = CampaignContact.where(id: contact.id, sent_at_column => nil)
+                               .update_all(sent_at_column => Time.current, updated_at: Time.current)
+      # skip if no matches and claim to prevent dupe
+      next unless updated == 1
+
+      TwilioService.new(:gyr)
+                   .send_text_message(to: contact.sms_phone_number, body: message.sms_body)
+    end
+  end
 end

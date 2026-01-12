@@ -1,6 +1,8 @@
 namespace :campaign_contacts do
   desc "Backfill campaign_contacts from state file intakes, GYR intakes, and signups"
   task backfill: :environment do
+    # TODO: when running this task after the first time, we should have a "created after: time of first run" param and only do signups
+    # or should it be on create of signup, ask if we expect to have more signups through out the season??
     puts "🌸 🌸 🌸 Current CampaignContact count is: #{CampaignContact.count} 🌸 🌸 🌸"
 
     backfill_from_state_file_intakes
