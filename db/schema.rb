@@ -793,20 +793,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_08_220043) do
     t.string "zip_code"
   end
 
-  create_table "doc_assessments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.bigint "document_id", null: false
-    t.text "error"
-    t.bigint "input_blob_id", null: false
-    t.string "model_id"
-    t.string "prompt_version", default: "v1", null: false
-    t.jsonb "raw_response_json", default: {}, null: false
-    t.jsonb "result_json", default: {}, null: false
-    t.string "status", default: "pending", null: false
-    t.datetime "updated_at", null: false
-    t.index ["document_id"], name: "index_doc_assessments_on_document_id"
-  end
-
   create_table "documents", force: :cascade do |t|
     t.boolean "archived", default: false, null: false
     t.float "blur_score"
@@ -3087,7 +3073,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_08_220043) do
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "dependents", "intakes"
-  add_foreign_key "doc_assessments", "documents"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
   add_foreign_key "documents", "tax_returns"
