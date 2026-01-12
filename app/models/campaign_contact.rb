@@ -5,7 +5,11 @@
 #  id                        :bigint           not null, primary key
 #  email_address             :citext
 #  email_notification_opt_in :boolean          default(FALSE)
+<<<<<<< HEAD
 #  first_name                :string           not null
+=======
+#  first_name                :string
+>>>>>>> origin/main
 #  gyr_2025_preseason_email  :datetime
 #  gyr_2025_preseason_sms    :datetime
 #  gyr_intake_ids            :bigint           default([]), is an Array
@@ -31,6 +35,7 @@
 #
 class CampaignContact < ApplicationRecord
   validates :sms_phone_number, e164_phone: true, allow_blank: true
+<<<<<<< HEAD
   validates :email_address, 'valid_email_2/email': true, allow_blank: true
 
   def self.send_emails(message_name, sent_at_column, batch_size: 100)
@@ -67,4 +72,10 @@ class CampaignContact < ApplicationRecord
   def self.sms_unique_phone_count(sent_at_column)
     sms_contacts_for(sent_at_column).distinct.count(:sms_phone_number)
   end
+=======
+  validates :email_address, 'valid_email_2/email': true
+
+  # def send email
+  # def send sms
+>>>>>>> origin/main
 end

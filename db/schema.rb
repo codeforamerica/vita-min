@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_08_220043) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_12_230832) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -574,7 +574,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_08_220043) do
     t.datetime "created_at", null: false
     t.citext "email_address"
     t.boolean "email_notification_opt_in", default: false
-    t.string "first_name", null: false
+    t.string "first_name"
     t.datetime "gyr_2025_preseason_email"
     t.datetime "gyr_2025_preseason_sms"
     t.bigint "gyr_intake_ids", default: [], array: true
