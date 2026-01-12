@@ -217,30 +217,6 @@ class ApplicationController < ActionController::Base
     session[:navigator]
   end
 
-  def set_utm_medium
-    return unless params[:utm_medium].present?
-
-    unless utm_medium.present?
-      session[:utm_medium] = params[:utm_medium].slice(0, 50)
-    end
-  end
-
-  def utm_medium
-    session[:utm_medium]
-  end
-
-  def set_utm_campaign
-    return unless params[:utm_campaign].present?
-
-    unless utm_campaign.present?
-      session[:utm_campaign] = params[:utm_campaign].slice(0, 50)
-    end
-  end
-
-  def utm_campaign
-    session[:utm_campaign]
-  end
-
   def set_get_started_link
     I18n.with_locale(locale) do
       @get_started_link = open_for_gyr_intake? ? question_path(Questions::TriagePersonalInfoController) : nil
