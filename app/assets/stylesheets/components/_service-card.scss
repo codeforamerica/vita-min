@@ -1,0 +1,78 @@
+.service-card--title {
+  font-weight: bold;
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 3rem;
+  margin-top: 0.5rem;
+}
+
+.service-card--body {
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  line-height: 100%;
+}
+
+.service-card--list {
+  list-style: none;
+  padding: 0;
+  margin: 2rem;
+  max-width: 300px;
+}
+
+.service-card--list-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  padding: 1rem 0;
+  align-items: center;
+}
+
+.service-card__icon-wrapper {
+  justify-self: end;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-card__item-text {
+  justify-self: start;
+  text-align: left;
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.2;
+}
+
+img {
+  max-width: none;
+}
+
+.button-wrapper {
+  font-size: 22px;
+  align-self: stretch;
+
+  @media screen and (min-width: $tablet-up) {
+    align-self: center;
+  }
+}
+
+.reveal--service-card {
+  box-sizing: border-box;
+  color: #333333;
+  border: 2px solid #d1d1d1;
+  background-color: #f5f5f5;
+  align-self: stretch;
+
+  @media screen and (min-width: $tablet-up) {
+    width: 34.5rem;
+    align-self: center;
+  }
+
+  .reveal__button {
+    color: #000000;
+    font-weight: normal;
+    font-size: inherit;
+  }
+}
