@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_15_185245) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_08_220043) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -568,6 +568,31 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_15_185245) do
     t.datetime "updated_at", null: false
     t.index ["assigned_user_id"], name: "index_btru_on_assigned_user_id"
     t.index ["tax_return_selection_id"], name: "index_btru_on_tax_return_selection_id"
+  end
+
+  create_table "campaign_contacts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.citext "email_address"
+    t.boolean "email_notification_opt_in", default: false
+    t.string "first_name", null: false
+    t.datetime "gyr_2025_preseason_email"
+    t.datetime "gyr_2025_preseason_sms"
+    t.bigint "gyr_intake_ids", default: [], array: true
+    t.string "last_name"
+    t.string "locale"
+    t.bigint "sign_up_ids", default: [], array: true
+    t.boolean "sms_notification_opt_in", default: false
+    t.string "sms_phone_number"
+    t.jsonb "state_file_intake_refs", default: [], null: false
+    t.datetime "updated_at", null: false
+    t.index ["email_address"], name: "index_campaign_contacts_on_email_address", unique: true, where: "(email_address IS NOT NULL)"
+    t.index ["email_notification_opt_in"], name: "index_campaign_contacts_on_email_notification_opt_in"
+    t.index ["first_name", "last_name"], name: "index_campaign_contacts_on_first_name_and_last_name"
+    t.index ["gyr_intake_ids"], name: "index_campaign_contacts_on_gyr_intake_ids", using: :gin
+    t.index ["sign_up_ids"], name: "index_campaign_contacts_on_sign_up_ids", using: :gin
+    t.index ["sms_notification_opt_in"], name: "index_campaign_contacts_on_sms_notification_opt_in"
+    t.index ["sms_phone_number"], name: "index_campaign_contacts_on_sms_phone_number"
+    t.index ["state_file_intake_refs"], name: "index_campaign_contacts_on_state_file_intake_refs", using: :gin
   end
 
   create_table "client_interactions", force: :cascade do |t|
