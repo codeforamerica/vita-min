@@ -31,48 +31,40 @@
 #
 class CampaignContact < ApplicationRecord
   validates :sms_phone_number, e164_phone: true, allow_blank: true
-  validates :email_address, 'valid_email_2/email': true
+  validates :email_address, 'valid_email_2/email': true, allow_blank: true
 
   def self.send_emails(message_name, sent_at_column, batch_size: 100)
     message = "AutomatedMessage::#{message_name.camelize}".constantize.new
+    now = Time.current
 
-    contacts = CampaignContact
-                 .where(sent_at_column => nil, email_notification_opt_in: true)
-                 .where.not(email_address: nil)
-
-    contacts.find_each(batch_size: batch_size) do |contact|
-      next if contact.email_address.blank?
+    email_contacts_for(sent_at_column).find_each(batch_size: batch_size) do |contact|
+      email = contact.email_address.to_s.strip
+      next if contact.email.blank?
 
       updated = CampaignContact.where(id: contact.id, sent_at_column => nil)
-                               .update_all(sent_at_column => Time.current, updated_at: Time.current)
+                               .update_all(sent_at_column => now, updated_at: now)
       # skip if no matches and claim to prevent dupe
       next unless updated == 1
 
       CampaignMailer.followup(
-        email_address: contact.email_address,
+        email_address: email,
         message: message,
         locale: contact.locale.presence || "en"
       ).deliver_later
     end
   end
 
-  def self.send_sms_messages(message_name, sent_at_column, batch_size: 100)
-    message = "AutomatedMessage::#{message_name.camelize}".constantize.new
+  def self.email_contacts_for(sent_at_column)
+    where(sent_at_column => nil, email_notification_opt_in: true)
+      .where.not(email_address: nil)
+  end
 
-    contacts = CampaignContact
-                 .where(sent_at_column => nil, sms_notification_opt_in: true)
-                 .where.not(sms_phone_number: nil)
+  def self.sms_contacts_for(sent_at_column)
+    where(sent_at_column => nil, sms_notification_opt_in: true)
+      .where.not(sms_phone_number: nil)
+  end
 
-    contacts.find_each(batch_size: batch_size) do |contact|
-      next if contact.email_address.blank?
-
-      updated = CampaignContact.where(id: contact.id, sent_at_column => nil)
-                               .update_all(sent_at_column => Time.current, updated_at: Time.current)
-      # skip if no matches and claim to prevent dupe
-      next unless updated == 1
-
-      TwilioService.new(:gyr)
-                   .send_text_message(to: contact.sms_phone_number, body: message.sms_body)
-    end
+  def self.sms_unique_phone_count(sent_at_column)
+    sms_contacts_for(sent_at_column).distinct.count(:sms_phone_number)
   end
 end
