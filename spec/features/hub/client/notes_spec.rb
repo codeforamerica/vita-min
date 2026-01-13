@@ -13,6 +13,7 @@ RSpec.feature "View and add internal notes for a client" do
       login_as user
       allow(Flipper).to receive(:enabled?).and_call_original
       allow(Flipper).to receive(:enabled?).with(:hub_email_notifications).and_return(true)
+      allow(BedrockDocScreener).to receive(:screen_document!).and_return(["{}", "{}"])
     end
 
     scenario "add an internal note to a client" do
