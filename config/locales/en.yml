@@ -2248,11 +2248,8 @@ en:
 
             <p class="text--small spacing-above-15">Your income level should not include stimulus payments, public benefits, or SSI.</p>
           options:
-            15000_to_30000: "$15,000 - 30,000"
-            1_to_15000: "$1 - $15,000"
-            30000_to_45000: "$30,000 - 45,000"
-            45000_to_69000: "$45,000 - 69,000"
-            69000_to_89000: "$69,000 - 89,000"
+            1_to_69000: "$1 - $69,000"
+            69001_to_89000: "$69,001 - 89,000"
             over_89000: over $89,000
             zero: "$0"
         title: Tell us about your filing status and income.
