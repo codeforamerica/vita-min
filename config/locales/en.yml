@@ -2248,12 +2248,12 @@ en:
 
             <p class="text--small spacing-above-15">Your income level should not include stimulus payments, public benefits, or SSI.</p>
           options:
-            12500_to_25000: "$15,000 - 30,000"
-            1_to_12500: "$1 - $15,000"
-            25000_to_40000: "$30,000 - 45,000"
-            40000_to_66000: "$45,000 - 69,000"
-            66000_to_79000: "$69,000 - 89,000"
-            over_79000: over $89,000
+            15000_to_30000: "$15,000 - 30,000"
+            1_to_15000: "$1 - $15,000"
+            30000_to_45000: "$30,000 - 45,000"
+            45000_to_69000: "$45,000 - 69,000"
+            69000_to_89000: "$69,000 - 89,000"
+            over_89000: over $89,000
             zero: "$0"
         title: Tell us about your filing status and income.
         vita_income_ineligible:
