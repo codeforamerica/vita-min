@@ -206,11 +206,13 @@
 #  issued_identity_pin                                  :integer          default(0), not null
 #  job_count                                            :integer
 #  lived_with_spouse                                    :integer          default(0), not null
+#  lived_without_spouse                                 :integer          default(0), not null
 #  locale                                               :string
 #  made_estimated_tax_payments                          :integer          default(0), not null
 #  made_estimated_tax_payments_amount                   :decimal(12, 2)
 #  married                                              :integer          default(0), not null
 #  married_for_all_of_tax_year                          :integer          default(0), not null
+#  married_last_day_of_year                             :integer          default(0), not null
 #  multiple_states                                      :integer          default(0), not null
 #  navigator_has_verified_client_identity               :boolean
 #  navigator_name                                       :string
@@ -425,6 +427,20 @@ class Intake < ApplicationRecord
   validates :phone_number, :sms_phone_number, allow_blank: true, e164_phone: true
   validates_presence_of :visitor_id
   validates_presence_of :product_year
+
+  scope :sms_contactable, lambda {
+    where.not(sms_phone_number: [nil, ""])
+         .where.not(sms_phone_number_verified_at: nil)
+         .where(sms_notification_opt_in: sms_notification_opt_ins[:yes])
+  }
+
+  scope :email_contactable, lambda {
+    where.not(email_address: [nil, ""])
+         .where.not(email_address_verified_at: nil)
+         .where(email_notification_opt_in: email_notification_opt_ins[:yes])
+  }
+
+  scope :contactable, -> { sms_contactable.or(email_contactable) }
 
   before_validation do
     self.primary_ssn = self.primary_ssn.remove(/\D/) if primary_ssn_changed? && self.primary_ssn

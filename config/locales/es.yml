@@ -509,7 +509,7 @@ es:
     last_four_ssn: Últimos 4 de SSN)/ITIN
     last_name: Apellido
     less_than_one_day: "<1 día"
-    lived_with_spouse: Vivieron con su cónyuge
+    lived_without_spouse: Vivieron sin cónyuge
     locked: Bloqueada
     log_out: Cerrar sesión
     login: Iniciar sesión
@@ -791,7 +791,7 @@ es:
           job_title: Título de puesto
           last_name: Apellido
           lived_or_worked_in_two_or_more_states: Did you live or work in two or more states in 2024?
-          lived_with_spouse: B. Did you live with your spouse during any part of the last six months of 2024?
+          lived_without_spouse: Did you and your spouse live apart all of the last 6 months of the year
           middle_initial: Inicial de su segundo nombre
           months_in_home: "# o número de meses que vivió en su casa el año pasado:"
           never_married: Nunca se ha casado
@@ -1503,6 +1503,25 @@ es:
         Hola <<Client.PreferredName>>,
         Parece que no a terminado nuestra aplicación. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperamos trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
         ¡Gracias!
+    preseason_outreach:
+      email:
+        body: |
+          Esta temporada de impuestos será un poco diferente para muchas personas, pero hay algo que sigue siendo igual: <strong>el equipo de GetYourRefund está aquí para ayudarle a presentar sus impuestos de forma rápida, sencilla y gratuita.</strong> Sin costo, sin trucos, solo servicios de impuestos de alta calidad ofrecidos por una organización sin fines de lucro.
+
+          Vienen nuevas leyes tributarias para 2026, que traerán cambios como un EITC más alto y impuestos reducidos sobre propinas y horas extra. Aunque estas actualizaciones pueden parecer complejas, ¡nuestro equipo de expertos en impuestos está aquí para ayudarle a entenderlas! Para que su experiencia al presentar impuestos sea lo más sencilla posible, le recomendamos reunir sus documentos desde ahora. Así estará listo para presentar su declaración tan pronto como se abra nuestra temporada a finales de enero.
+
+          Estamos trabajando fuertemente para mejorar nuestro servicio digital de presentación de impuestos de GetYourRefund para 2026. ¿Quiere que un preparador de impuestos certificado por el IRS prepare su declaración? Nosotros podemos ayudarle. ¿Prefiere preparar su propia declaración, pero recibir apoyo de expertos cuando lo necesite? También hacemos eso. ¿Quiere evitar costos y ofertas de ventas adicionales? Nosotros también, por eso <strong>todo lo que hacemos es gratis.</strong>
+
+          Recientemente, el gobierno federal anunció que no ofrecerá Direct File el próximo año, su software gratuito para presentar impuestos que, aunque estuvo disponible poco tiempo, fue muy apreciado. Como resultado, tendremos que parar FileYourStateTaxes, nuestra herramienta que permitía a los usuarios de Direct File presentar gratuitamente sus declaraciones estatales en 7 estados. Aunque este no es el resultado que esperábamos, <strong>no abandonamos nuestra lucha por hacer que los impuestos sean gratis, simples y accesibles, para que todas las personas reciban los reembolsos y créditos que les corresponden.</strong>
+
+          Aún faltan algunas semanas para que comience la temporada de declaración, y las empresas de impuestos con fines de lucro ya han lanzado campañas publicitarias de millones de dólares. Entre todo ese ruido, no lo olvide: presentar su declaración de impuestos de forma 100% gratuita sí es posible. <strong>La mayoría de los hogares con ingresos menores a $89,000 califican para presentar sus impuestos federales y estatales completamente gratis a través de GetYourRefund.</strong>
+
+          Nos vemos cuando comience la temporada. Si tiene preguntas mientras tanto, visite nuestra sección de <a href="https://www.getyourrefund.org/es/faq" target="_blank" rel="noopener nofollow">Preguntas Frecuentes</a> o vaya a <a href="https://www.getyourrefund.org/es" target="_blank" rel="noopener nofollow">GetYourRefund.org</a> y haga clic en el botón Chatee con nosotros para hablar con nuestro equipo de apoyo.
+
+          El equipo de GetYourRefund
+
+          (Las respuestas a este correo electrónico no son monitoreadas.)
+        subject: Prepárese para presentar sus impuestos gratis
     save_ctc_letter:
       email:
         body: |
@@ -5510,11 +5529,8 @@ es:
           one: "¿Reportó una pérdida por la venta de acciones, bonos o bienes inmuebles en su declaración %{year}?"
           other: "¿Usted o su cónyuge informaron una pérdida por la venta de acciones, bonos o bienes inmuebles en su declaración %{year}?"
       at_capacity:
-        body: Lamentamos que estemos experimentando un gran volumen de clientes en este momento. ¡Podemos ofrecerle una opción alternativa gratuita a continuación para ayudarlo a presentar sus impuestos hoy!
-        continue_to_diy: Continuar a File Myself--declarar yo mismo
-        file_myself: Presente su declaración hoy usando File Myself, nuestro servicio en línea que le permite preparar sus impuestos de forma gratuita.
-        title: Vaya, parece que estamos al límite de capacidad en este momento.
-        warning_html: "<b>Un recordatorio amistoso de que la fecha límite de presentación es el %{tax_deadline}.</b> Recomendamos presentar la solicitud lo antes posible."
+        body: 'Lo sentimos: nuestros profesionales de impuestos están ocupados en este momento. Si necesita presentar su declaración de inmediato, puede usar nuestra alternativa gratuita a continuación.'
+        title: En este momento estamos a capacidad máxima
       backtaxes:
         after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
         after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
@@ -6045,6 +6061,23 @@ es:
       dependents_fields:
         add_dependent: Agregar dependiente
         remove: Eliminado
+      diy_card:
+        bullet_1: Soporte por chat y correo electrónico
+        bullet_2: Declaraciones de impuestos estatales y federales
+        bullet_3: De 1 a 2 horas para presentar la declaración
+        bullet_4: Disponible en línea
+        bullet_5_html: Se requiere el número de Seguro Social o el <b>Número</b> de Identificación Personal del Contribuyente (ITIN)
+        reveal_b1: Todos los estados
+        reveal_b2: Puerto Rico
+        reveal_b3: No residentes
+        reveal_b4: Disponible en español
+        reveal_body_1: El ingreso debe ser menor a $89,000
+        reveal_body_2: Se requieren documentos oficiales de impuestos (formularios W-2, 1099, etc.) para presentar la declaración.
+        reveal_body_3: 'Disponible para residentes de:'
+        reveal_body_4: 'Otras características:'
+        reveal_title: Información adicional
+        subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
+        title: Hágalo usted mismo
       document_deadline_warning:
         body_html: "<strong>Recordatorio: Debes enviar tus documentos antes del %{doc_submission_deadline} para cumplir con la fecha límite de presentación de impuestos federales del %{tax_deadline}. Puedes presentar tus impuestos después de la fecha límite sin penalización si no debes.</strong> Si no estás seguro de si deberás o no, puedes completar y enviar por correo <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una extensión."
       environment_warning:

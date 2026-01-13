@@ -71,6 +71,7 @@
 @import "components/info-box";
 @import "components/form-cards";
 @import "components/offboarding";
+@import "components/service-card";
 @import "components/external-link";
 @import "pages/form_13614c";
 @import "pages/provider-list";
@@ -382,4 +383,13 @@ ol.with-bullets {
   }
 }
 
+.rounded-box {
+  border-radius: 1rem;
+  padding: 2rem;
+  border: 1px solid #000000;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
