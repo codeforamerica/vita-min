@@ -428,6 +428,20 @@ class Intake < ApplicationRecord
   validates_presence_of :visitor_id
   validates_presence_of :product_year
 
+  scope :sms_contactable, lambda {
+    where.not(sms_phone_number: [nil, ""])
+         .where.not(sms_phone_number_verified_at: nil)
+         .where(sms_notification_opt_in: sms_notification_opt_ins[:yes])
+  }
+
+  scope :email_contactable, lambda {
+    where.not(email_address: [nil, ""])
+         .where.not(email_address_verified_at: nil)
+         .where(email_notification_opt_in: email_notification_opt_ins[:yes])
+  }
+
+  scope :contactable, -> { sms_contactable.or(email_contactable) }
+
   before_validation do
     self.primary_ssn = self.primary_ssn.remove(/\D/) if primary_ssn_changed? && self.primary_ssn
     self.spouse_ssn = self.spouse_ssn.remove(/\D/) if spouse_ssn_changed? && self.spouse_ssn

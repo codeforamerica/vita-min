@@ -9,9 +9,9 @@
         <%= render 'form', url: [:hub, @client, @document], method: "patch", file_upload_enabled: false %>
       </div>
       <div id="image-and-button-wrapper">
-        <div class="item" id="image-container" >
+        <div class="item" id="image-container">
           <% if @document.is_pdf? %>
-            <embed src="<%= transient_storage_url(@document.upload.blob) %>" width="800px" height="100%" type="application/pdf" />
+            <embed src="<%= transient_storage_url(@document.upload.blob) %>" width="800px" height="100%" type="application/pdf"/>
           <% else %>
             <%= image_tag transient_storage_url(@document.upload.blob), id: 'image', class: 'rotatable-image', data: { rotation: 0 } %>
           <% end %>
@@ -23,4 +23,39 @@
     </div>
 
   </div>
+
+  <% if !acts_like_production? && current_user.admin? %>
+    <div id="doc-assessments-table">
+      <%= button_to "Re-run screener",
+                    rerun_screener_hub_client_document_path(client_id: @document.client.id, id: @document.id),
+                    method: :post %>
+      <br>
+      <% if @document.assessments.present? %>
+        <table class="index-table">
+          <tr>
+            <th>job complete?</th>
+            <th>error?</th>
+            <th>updated at</th>
+            <th>verdict</th>
+            <th>confidence</th>
+            <th>reason</th>
+            <th>explanation</th>
+          </tr>
+          <% @document.assessments.order('created_at DESC').each do |assessment| %>
+            <% result = assessment&.result_json %>
+            <% error = assessment&.error %>
+          <tr class="<%= error.present? ? "error" : result["verdict"] %>">
+            <td><%= assessment.status %></td>
+            <td><%= "Error: #{JSON.pretty_generate(error)}" unless error.blank? %></td>
+            <td><%= long_formatted_datetime(assessment.updated_at) %></td>
+            <td><%= result["verdict"] %></td>
+            <td><%= result["confidence"] %></td>
+            <td><u><%= result["reason"] %></u></td>
+            <td><%= result["explanation"] %></td>
+          </tr>
+      <% end %>
+      </table>
+  <% end %>
+  </div>
+<% end %>
 <% end %>

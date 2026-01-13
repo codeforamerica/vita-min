@@ -1517,6 +1517,25 @@ en:
         Hi <<Client.PreferredName>>,
         It looks like you stepped away before finishing our application. Our preparers at <<Client.AssignedOrganization>> look forward to working with you! To complete our form, simply login here: <<Client.LoginLink>>
         Thanks!
+    preseason_outreach:
+      email:
+        body: |
+          This tax season will look a little different for a lot of people, but one thing remains the same: <strong>the team at GetYourRefund is here to help you quickly and easily file your taxes for free.</strong> No fees, no gimmicks, just high-quality tax services provided by a nonprofit.
+
+          The federal government recently announced it won’t be offering Direct File next year, its short-lived but much-loved free tax filing software. As a result, we’ll have to pause FileYourStateTaxes, our software that allowed Direct File users to file their state returns for free in 7 states. While this isn’t the outcome we wanted, <strong>we’re not giving up on our fight to make taxes free, simple, and accessible, so everyone gets the refunds and credits they’re owed.</strong>
+
+          New tax laws are coming for 2026, bringing changes like a larger EITC and reduced taxes on tips/overtime. While these updates can feel complex, our team of tax experts is here to help you navigate them! To make your filing experience as easy as possible, we recommend gathering your documents now. You'll be ready to file right when our season opens in late January.
+
+          We’re hard at work improving our GetYourRefund digital tax filing service for 2026. Want to have your taxes prepared for you by an IRS-certified tax preparer? We’ve got you covered. Want to prepare your own return, but get help from tax experts when you need it? Yes, we do that too. Want to avoid fees and upsells? Yeah, us too, which is why <strong>free is all we do.</strong>
+
+          We’re still a few weeks away from the start of tax season, and for-profit tax companies have already launched their multi-million dollar advertising campaigns. Amidst all their noise, don’t forget: 100% free tax filing does exist. <strong>Most households making less than $89k are eligible for 100% free state and federal filing through GetYourRefund.</strong>
+
+          See you when the season starts. If you have questions in the meantime, check out our <a href="https://www.getyourrefund.org/en/faq" target="_blank" rel="noopener nofollow">FAQs</a> or head to <a href="https://www.getyourrefund.org/en" target="_blank" rel="noopener nofollow">GetYourRefund.org</a> and hit the Chat with Us button to talk with our support team.
+
+          The team at GetYourRefund
+
+          (Replies to this email are not monitored.)
+        subject: Getting ready to file your taxes for free
     save_ctc_letter:
       email:
         body: |
@@ -5526,11 +5545,8 @@ en:
           one: Did you report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
           other: Did you or your spouse report a loss from the sale of stocks, bonds, or real estate on your %{year} return?
       at_capacity:
-        body: We're sorry we're experiencing a high volume of clients right now. We can offer a free alternative option below to help you file your taxes today!
-        continue_to_diy: Continue to File Myself
-        file_myself: File today using File Myself, our online service that lets you prepare your taxes for free.
-        title: Wow, it looks like we are at capacity right now.
-        warning_html: "<b>A friendly reminder that the filing deadline is %{tax_deadline}.</b> We recommend filing as soon as possible."
+        body: We’re sorry—our tax pros are currently busy. If you need to file right away, you can use our free alternative below.
+        title: We are at capacity right now
       backtaxes:
         after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
         after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
@@ -6018,6 +6034,23 @@ en:
       dependents_fields:
         add_dependent: Add dependent
         remove: Remove
+      diy_card:
+        bullet_1: Chat and email support
+        bullet_2: State and Federal tax returns
+        bullet_3: 1-2 hours to file
+        bullet_4: Available online
+        bullet_5_html: Social Security or Individual Taxpayer Identification <b>Number</b> required
+        reveal_b1: All states
+        reveal_b2: Puerto Rico
+        reveal_b3: Non-residents
+        reveal_b4: Disponible en español
+        reveal_body_1: Income must be under $89,000
+        reveal_body_2: Official tax documents (W2’s, 1099’s, etc.) are required to file
+        reveal_body_3: 'Available to residents of:'
+        reveal_body_4: 'Other features:'
+        reveal_title: Additional information
+        subtitle: File on your own and get help when you need it
+        title: DIY
       document_deadline_warning:
         body_html: "<strong>Reminder: You must submit your documents by %{doc_submission_deadline} in order to meet the federal income tax filing deadline of %{tax_deadline}. You can submit your taxes after the deadline without penalty if you don't owe.</strong> If you aren't sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
       environment_warning:
