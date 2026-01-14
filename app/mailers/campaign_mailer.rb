@@ -1,6 +1,6 @@
 class CampaignMailer < ApplicationMailer
   def email_message(email_address:, message_name:, locale: "en")
-    message = "AutomatedMessage::#{message_name.camelize}".constantize.new
+    message = "CampaignMessage::#{message_name.camelize}".constantize.new
     @body = message.email_body(locale: locale)
 
     service = MultiTenantService.new(:gyr)

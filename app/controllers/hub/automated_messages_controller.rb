@@ -12,6 +12,7 @@ module Hub
     def messages_preview
       Rails.application.eager_load!
       automated_message_subclasses = AutomatedMessage::AutomatedMessage.descendants
+      campaign_message_subclasses = CampaignMessage::CampaignMessage.descendants # todo display these dynamically
       survey_message_classes = [SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey]
 
       message_classes = automated_message_subclasses + survey_message_classes
@@ -32,7 +33,7 @@ module Hub
         "VerificationCodeMailer.archived_intake_verification_code" => VerificationCodeMailer.archived_intake_verification_code(to: "example@example.com", locale: :en, verification_code: '000000'),
         "DiyIntakeEmailMailer.high_support_message" => DiyIntakeEmailMailer.high_support_message(diy_intake: DiyIntake.new(email_address: 'example@example.com', preferred_first_name: "Preferredfirstname")),
         "CtcSignupMailer.launch_announcement" => CtcSignupMailer.launch_announcement(email_address: "example@example.com", name: "Preferredfirstname"),
-        "CampaignMailer.email_message" => CampaignMailer.email_message(email_address: "example@example.com", message_name: "preseason_outreach", locale: :en)
+        "CampaignMailer.email_message" => CampaignMailer.email_message(email_address: "example@example.com", message_name: "preseason_outreach", locale: params[:locale])
       }
 
       emails.merge(automated_messages_and_mailers).transform_values do |message|

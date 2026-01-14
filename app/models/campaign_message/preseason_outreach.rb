@@ -1,5 +1,5 @@
-module AutomatedMessage
-  class PreseasonOutreach < AutomatedMessage
+module CampaignMessage
+  class PreseasonOutreach < CampaignMessage
     def self.name
       'messages.preseason_outreach'.freeze
     end
