@@ -3,7 +3,7 @@ class UpsertSourceIntoCampaignContacts
     new(**kwargs).call
   end
 
-  def initialize(source:, source_id:, first_name:, last_name:, email:, phone:, email_opt_in:, sms_opt_in:, locale: "en", state_file_ref: [])
+  def initialize(source:, source_id:, first_name:, last_name:, email:, phone:, email_opt_in:, sms_opt_in:, locale: "en", state_file_ref: nil)
     @source = source
     @source_id = source_id
     @first_name = first_name
@@ -19,19 +19,19 @@ class UpsertSourceIntoCampaignContacts
   def call
     contact = find_contact || CampaignContact.new
 
-    contact.email_address = @email if @email.present?
-    contact.sms_phone_number ||= @phone
+    contact.email_address = @email unless @email.blank?
+    contact.sms_phone_number = @phone unless @phone.blank?
     contact.first_name = choose_name(contact.first_name, @first_name, source: @source)
     contact.last_name = choose_name(contact.last_name, @last_name, source: @source)
     contact.email_notification_opt_in = contact.email_notification_opt_in || @email_opt_in
     contact.sms_notification_opt_in = contact.sms_notification_opt_in || @sms_opt_in
-    contact.locale ||= @locale
+    contact.locale = @locale unless @locale.blank?
 
     case @source
     when :gyr
-      contact.gyr_intake_ids = (contact.gyr_intake_ids + [@source_id]).uniq
+      contact.gyr_intake_ids = ((contact.gyr_intake_ids || []) + [@source_id]).uniq
     when :signup
-      contact.sign_up_ids = (contact.sign_up_ids + [@source_id]).uniq
+      contact.sign_up_ids = ((contact.sign_up_ids || []) + [@source_id]).uniq
     end
 
     if @state_file_ref.present?
@@ -40,17 +40,18 @@ class UpsertSourceIntoCampaignContacts
       contact.state_file_intake_refs = refs
     end
 
-    contact.save!
+    contact.tap(&:save!)
   end
 
   private
 
   def find_contact
-    if @email.present?
-      CampaignContact.find_by(email_address: @email)
-    elsif @phone.present? && (!@email_opt_in && @email.blank?)
-      CampaignContact.find_by(sms_phone_number: @phone)
-    end
+    return CampaignContact.find_by(email_address: @email) if @email.present?
+
+    return unless @phone.present?
+    return if @email_opt_in
+
+    CampaignContact.find_by(sms_phone_number: @phone, email_address: nil)
   end
 
   def choose_name(existing, incoming, source:)
