@@ -33,27 +33,6 @@ class CampaignContact < ApplicationRecord
   validates :sms_phone_number, e164_phone: true, allow_blank: true
   validates :email_address, 'valid_email_2/email': true, allow_blank: true
 
-  def self.send_emails(message_name, sent_at_column, batch_size: 100)
-    message = "AutomatedMessage::#{message_name.camelize}".constantize.new
-    now = Time.current
-
-    email_contacts_for(sent_at_column).find_each(batch_size: batch_size) do |contact|
-      email = contact.email_address.to_s.strip
-      next if contact.email.blank?
-
-      updated = CampaignContact.where(id: contact.id, sent_at_column => nil)
-                               .update_all(sent_at_column => now, updated_at: now)
-      # skip if no matches and claim to prevent dupe
-      next unless updated == 1
-
-      CampaignMailer.followup(
-        email_address: email,
-        message: message,
-        locale: contact.locale.presence || "en"
-      ).deliver_later
-    end
-  end
-
   def self.email_contacts_for(sent_at_column)
     where(sent_at_column => nil, email_notification_opt_in: true)
       .where.not(email_address: nil)
