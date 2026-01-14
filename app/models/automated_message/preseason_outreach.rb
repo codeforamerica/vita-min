@@ -4,9 +4,9 @@ module AutomatedMessage
       'messages.preseason_outreach'.freeze
     end
 
-    # def sms_body(**args)
-    #   I18n.t("messages.preseason_outreach.sms", **args)
-    # end
+    def sms_body(**args)
+      # I18n.t("messages.preseason_outreach.sms", **args)
+    end
 
     def email_subject(**args)
       I18n.t("messages.preseason_outreach.email.subject", **args)
