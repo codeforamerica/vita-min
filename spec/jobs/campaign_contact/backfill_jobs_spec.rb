@@ -4,11 +4,13 @@ RSpec.describe "CampaignContacts backfill jobs" do
   before do
     allow(UpsertSourceIntoCampaignContacts).to receive(:call)
   end
+
   let(:start_date) { 1.year.ago }
   let(:end_date) { Time.current }
 
   describe CampaignContacts::BackfillGyrIntakesJob do
     subject(:job) { described_class.new }
+
     let!(:gyr_intake) do
       create :intake,
              primary_first_name: "Joe",
@@ -38,7 +40,7 @@ RSpec.describe "CampaignContacts backfill jobs" do
         )
       )
 
-      job.perform(1, 10, start_date, end_date)
+      job.perform(gyr_intake.id, gyr_intake.id, start_date, end_date)
     end
 
     it "uses PRIORITY_LOW" do
@@ -50,13 +52,13 @@ RSpec.describe "CampaignContacts backfill jobs" do
     subject(:job) { described_class.new }
 
     context "when there are signups" do
-      let!(:signup) {
+      let!(:signup) do
         create :signup,
                name: "Chris",
                email_address: "chris@example.com",
                phone_number: "+15550001111",
                created_at: 1.day.ago
-      }
+      end
 
       it "iterates over signups in the id range and calls the upsert service" do
         expect(UpsertSourceIntoCampaignContacts).to receive(:call).with(
@@ -71,18 +73,19 @@ RSpec.describe "CampaignContacts backfill jobs" do
           )
         )
 
-        job.perform(signup.id, 20, start_date, end_date)
+        job.perform(signup.id, signup.id, start_date, end_date)
       end
     end
 
     context "when contact info is missing" do
-      let!(:signup_no_phone) {
+      let!(:signup_no_phone) do
         create :signup,
                name: "bella",
                email_address: "bella@example.com",
                phone_number: nil,
                created_at: 1.day.ago
-      }
+      end
+
       it "sets opt-ins for that method to false" do
         expect(UpsertSourceIntoCampaignContacts).to receive(:call).with(
           hash_including(
@@ -96,7 +99,7 @@ RSpec.describe "CampaignContacts backfill jobs" do
           )
         )
 
-        job.perform(1, 20, start_date, end_date)
+        job.perform(signup_no_phone.id, signup_no_phone.id, start_date, end_date)
       end
     end
 
@@ -121,7 +124,7 @@ RSpec.describe "CampaignContacts backfill jobs" do
     end
 
     it "grab intakes between id range and upserts state file intake information" do
-      allow(state_intake).to receive(:tax_return_year).and_return(2024)
+      allow_any_instance_of(StateFileAzIntake).to receive(:tax_return_year).and_return(2024)
 
       expect(UpsertSourceIntoCampaignContacts).to receive(:call).with(
         hash_including(
@@ -143,7 +146,13 @@ RSpec.describe "CampaignContacts backfill jobs" do
         )
       )
 
-      CampaignContacts::BackfillStateFileIntakesJob.perform_now("StateFileAzIntake", 1, 20, start_date, end_date)
+      CampaignContacts::BackfillStateFileIntakesJob.perform_now(
+        "StateFileAzIntake",
+        state_intake.id,
+        state_intake.id,
+        start_date,
+        end_date
+      )
     end
 
     it "uses PRIORITY_LOW" do
