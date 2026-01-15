@@ -27,10 +27,10 @@ module CampaignEmailSubscriptionUpdaterConcern
                          I18n.t("notifications_settings.campaign_messages.unsubscribe_from_emails.flash")
                        end
 
-      render :campaign_email_preferences
+      render :unsubscribe_from_campaign_emails
     rescue ActiveSupport::MessageVerifier::InvalidSignature
       flash[:alert] = I18n.t("notifications_settings.invalid_link")
-      render :campaign_email_preferences
+      render :unsubscribe_from_campaign_emails
     end
   end
 end

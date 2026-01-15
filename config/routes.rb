@@ -154,7 +154,9 @@ Rails.application.routes.draw do
       get "/relational-efin", to: "consent_pages#relational_efin"
       get "/global-carryforward", to: "consent_pages#global_carryforward"
       get "/unsubscribe_from_emails", to: "notifications_settings#unsubscribe_from_emails", as: :unsubscribe_from_emails
+      get "/unsubscribe_from_campaign_emails", to: "notifications_settings#unsubscribe_from_campaign_emails", as: :unsubscribe_from_campaign_emails
       post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
+      post "/subscribe_to_campaign_emails", to: "notifications_settings#subscribe_to_campaign_emails", as: :subscribe_to_campaign_emails
 
       namespace :portal do
         root "portal#home"

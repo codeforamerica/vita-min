@@ -1,4 +1,4 @@
-<% content_for :page_title, t(".notifications_settings.campaign_messages.title") %>
+<% content_for :page_title, t("notifications_settings.campaign_messages.title") %>
 
 <section class="slab slab--white slab--not-padded question-layout">
   <div class="grid">
@@ -7,7 +7,7 @@
 
       <p>
         <%= t("notifications_settings.unsubscribe_from_emails.mistake") %>
-        <%= link_to t("notifications_settings.unsubscribe_from_emails.link_text"), subscribe_to_campaign_emails(email_address: params[:email_address]), method: :post %>
+        <%= link_to t("notifications_settings.unsubscribe_from_emails.link_text"), subscribe_to_campaign_emails_path(email_address: params[:email_address]), method: :post %>
       </p>
 
       <p><%= t("notifications_settings.unsubscribe_from_emails.help_text_html") %></p>
