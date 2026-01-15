@@ -12,7 +12,7 @@ module Hub
     def messages_preview
       Rails.application.eager_load!
       automated_message_subclasses = AutomatedMessage::AutomatedMessage.descendants
-      campaign_message_subclasses = CampaignMessage::CampaignMessage.descendants # todo display these dynamically
+      campaign_message_subclasses = CampaignMessage::CampaignMessage.descendants # TODO: start displaying these dynamically when we add more
       survey_message_classes = [SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey]
 
       message_classes = automated_message_subclasses + survey_message_classes
