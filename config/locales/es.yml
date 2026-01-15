@@ -1505,22 +1505,7 @@ es:
         ¡Gracias!
     preseason_outreach:
       email:
-        body: |
-          Esta temporada de impuestos será un poco diferente para muchas personas, pero hay algo que sigue siendo igual: <strong>el equipo de GetYourRefund está aquí para ayudarle a presentar sus impuestos de forma rápida, sencilla y gratuita.</strong> Sin costo, sin trucos, solo servicios de impuestos de alta calidad ofrecidos por una organización sin fines de lucro.
-
-          Vienen nuevas leyes tributarias para 2026, que traerán cambios como un EITC más alto y impuestos reducidos sobre propinas y horas extra. Aunque estas actualizaciones pueden parecer complejas, ¡nuestro equipo de expertos en impuestos está aquí para ayudarle a entenderlas! Para que su experiencia al presentar impuestos sea lo más sencilla posible, le recomendamos reunir sus documentos desde ahora. Así estará listo para presentar su declaración tan pronto como se abra nuestra temporada a finales de enero.
-
-          Estamos trabajando fuertemente para mejorar nuestro servicio digital de presentación de impuestos de GetYourRefund para 2026. ¿Quiere que un preparador de impuestos certificado por el IRS prepare su declaración? Nosotros podemos ayudarle. ¿Prefiere preparar su propia declaración, pero recibir apoyo de expertos cuando lo necesite? También hacemos eso. ¿Quiere evitar costos y ofertas de ventas adicionales? Nosotros también, por eso <strong>todo lo que hacemos es gratis.</strong>
-
-          Recientemente, el gobierno federal anunció que no ofrecerá Direct File el próximo año, su software gratuito para presentar impuestos que, aunque estuvo disponible poco tiempo, fue muy apreciado. Como resultado, tendremos que parar FileYourStateTaxes, nuestra herramienta que permitía a los usuarios de Direct File presentar gratuitamente sus declaraciones estatales en 7 estados. Aunque este no es el resultado que esperábamos, <strong>no abandonamos nuestra lucha por hacer que los impuestos sean gratis, simples y accesibles, para que todas las personas reciban los reembolsos y créditos que les corresponden.</strong>
-
-          <strong>Aún faltan algunas semanas para que comience la temporada de declaración,</strong> y las empresas de impuestos con fines de lucro ya han lanzado campañas publicitarias de millones de dólares. Entre todo ese ruido, no lo olvide: presentar su declaración de impuestos de forma 100% gratuita sí es posible. <strong>La mayoría de los hogares con ingresos menores a $89,000 califican para presentar sus impuestos federales y estatales completamente gratis a través de GetYourRefund.</strong>
-
-          Nos vemos cuando comience la temporada. Si tiene preguntas mientras tanto, visite nuestra sección de <a href="https://www.getyourrefund.org/es/faq" target="_blank" rel="noopener nofollow">Preguntas Frecuentes</a> o vaya a <a href="https://www.getyourrefund.org/es" target="_blank" rel="noopener nofollow">GetYourRefund.org</a> y haga clic en el botón Chatee con nosotros para hablar con nuestro equipo de apoyo.
-
-          El equipo de GetYourRefund
-
-          (Las respuestas a este correo electrónico no son monitoreadas.)
+        body: "Esta temporada de impuestos será un poco diferente para muchas personas, pero hay algo que sigue siendo igual: <strong>el equipo de GetYourRefund está aquí para ayudarle a presentar sus impuestos de forma rápida, sencilla y gratuita.</strong> Sin costo, sin trucos, solo servicios de impuestos de alta calidad ofrecidos por una organización sin fines de lucro.\n\nVienen nuevas leyes tributarias para 2026, que traerán cambios como un EITC más alto y impuestos reducidos sobre propinas y horas extra. Aunque estas actualizaciones pueden parecer complejas, ¡nuestro equipo de expertos en impuestos está aquí para ayudarle a entenderlas! Para que su experiencia al presentar impuestos sea lo más sencilla posible, le recomendamos reunir sus documentos desde ahora. Así estará listo para presentar su declaración tan pronto como se abra nuestra temporada a finales de enero.\n\nEstamos trabajando fuertemente para mejorar nuestro servicio digital de presentación de impuestos de GetYourRefund para 2026. ¿Quiere que un preparador de impuestos certificado por el IRS prepare su declaración? Nosotros podemos ayudarle. ¿Prefiere preparar su propia declaración, pero recibir apoyo de expertos cuando lo necesite? También hacemos eso. ¿Quiere evitar costos y ofertas de ventas adicionales? Nosotros también, por eso <strong>todo lo que hacemos es gratis.</strong>\n\nRecientemente, el gobierno federal anunció que no ofrecerá Direct File el próximo año, su software gratuito para presentar impuestos que, aunque estuvo disponible poco tiempo, fue muy apreciado. \nComo resultado, tendremos que parar FileYourStateTaxes, nuestra herramienta que permitía a los usuarios de Direct File presentar gratuitamente sus declaraciones estatales en 7 estados. Aunque este no es el resultado que esperábamos, <strong>no abandonamos nuestra lucha por hacer que los impuestos sean gratis, simples y accesibles, para que todas las personas reciban los reembolsos y créditos que les corresponden.</strong>\n\n<strong>Aún faltan algunas semanas para que comience la temporada de declaración,</strong> y las empresas de impuestos con fines de lucro ya han lanzado campañas publicitarias de millones de dólares. Entre todo ese ruido, no lo olvide: presentar su declaración de impuestos de forma 100% gratuita sí es posible. <strong>La mayoría de los hogares con ingresos menores a $89,000 califican para presentar sus impuestos federales y estatales completamente gratis a través de GetYourRefund.</strong>\n\nNos vemos cuando comience la temporada. Si tiene preguntas mientras tanto, visite nuestra sección de <a href=\"https://www.getyourrefund.org/es/faq\" target=\"_blank\" rel=\"noopener nofollow\">Preguntas Frecuentes</a> o vaya a <a href=\"https://www.getyourrefund.org/es\" target=\"_blank\" rel=\"noopener nofollow\">GetYourRefund.org</a> y haga clic en el botón Chatee con nosotros para hablar con nuestro equipo de apoyo.\n\nEl equipo de GetYourRefund\n\n(Las respuestas a este correo electrónico no son monitoreadas.)\n"
         subject: Prepárese para presentar sus impuestos gratis
     save_ctc_letter:
       email:
@@ -2000,6 +1985,12 @@ es:
     intake:
       your_spouse: Su cónyuge
   notifications_settings:
+    campaign_messages:
+      subscribe_to_emails:
+        flash: Se ha vuelto a suscribir correctamente para recibir notificaciones por correo electrónico sobre los mensajes de la campaña de difusión.
+      title: Has desactivado las notificaciones por correo electrónico de las campañas de difusión de GetYourRefund.
+      unsubscribe_from_emails:
+        flash: Se ha dado de baja correctamente de las notificaciones por correo electrónico de la campaña de difusión.
     invalid_link: Enlace de suscripción no válido
     no_record: Ningún record fue encontrado
     subscribe_to_emails:
@@ -2009,12 +2000,6 @@ es:
       link_text: Vuelve a suscribirte.
       mistake: "¿Fue un error?"
       title: Te has dado de baja de las notificaciones por correo electrónico de GetYourRefund.
-    campaign_messages:
-      title: Has desactivado las notificaciones por correo electrónico de las campañas de difusión de GetYourRefund.
-      unsubscribe_from_emails:
-        flash: Se ha dado de baja correctamente de las notificaciones por correo electrónico de la campaña de difusión.
-      subscribe_to_emails:
-        flash: Se ha vuelto a suscribir correctamente para recibir notificaciones por correo electrónico sobre los mensajes de la campaña de difusión.
   number:
     currency:
       format:
