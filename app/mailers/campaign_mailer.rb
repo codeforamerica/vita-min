@@ -7,7 +7,7 @@ class CampaignMailer < ApplicationMailer
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       { host: service.host,
         controller: "notifications_settings",
-        action: :unsubscribe_from_emails,
+        action: :unsubscribe_from_campaign_emails,
         locale: locale,
         _recall: {},
         email_address: signed_email(email_address) })
