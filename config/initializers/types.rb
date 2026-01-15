@@ -11,4 +11,5 @@ Rails.application.reloader.to_prepare do
   ActiveRecord::Type::Decimal.prepend(DecimalCleaner)
 
   ActiveRecord::Type.register(:money, MoneyType, adapter: :postgis)
+  ActiveRecord::Type.register(:money, MoneyType, adapter: :postgresql)
 end
