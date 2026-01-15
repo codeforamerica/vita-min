@@ -13,7 +13,7 @@ class CampaignMailer < ApplicationMailer
         email_address: signed_email(email_address) })
     inline_logo(service)
 
-    DatadogApi.increment("mailgun.campaign_emails.sent")
+    DatadogApi.increment("mailgun.campaign_emails.sent") # if env prod?
     mail(
       to: email_address,
       subject: message.email_subject(locale: locale),

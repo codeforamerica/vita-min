@@ -2040,6 +2040,12 @@ en:
       link_text: Opt in again.
       mistake: Is this a mistake?
       title: You've opted out of email notifications from GetYourRefund.
+    campaign_messages:
+      title: You've opted out of outreach campaign email notifications from GetYourRefund.
+      unsubscribe_from_emails:
+        flash: You are successfully unsubscribed from outreach campaign message email notifications.
+      subscribe_to_emails:
+        flash: You are successfully re-subscribed to outreach campaign message email notifications.
   number:
     currency:
       format:

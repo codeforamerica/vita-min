@@ -2009,6 +2009,12 @@ es:
       link_text: Vuelve a suscribirte.
       mistake: "¿Fue un error?"
       title: Te has dado de baja de las notificaciones por correo electrónico de GetYourRefund.
+    campaign_messages:
+      title: Has desactivado las notificaciones por correo electrónico de las campañas de difusión de GetYourRefund.
+      unsubscribe_from_emails:
+        flash: Se ha dado de baja correctamente de las notificaciones por correo electrónico de la campaña de difusión.
+      subscribe_to_emails:
+        flash: Se ha vuelto a suscribir correctamente para recibir notificaciones por correo electrónico sobre los mensajes de la campaña de difusión.
   number:
     currency:
       format:
