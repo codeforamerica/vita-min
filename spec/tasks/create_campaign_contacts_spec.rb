@@ -51,6 +51,8 @@ RSpec.describe "create_campaign_contacts:backfill" do
            locale: "es",
            created_at: Date.parse("2025-11-02")
   end
+  let(:gyr_min_id) { Intake::GyrIntake.contactable.where(created_at: window_start..window_end).minimum(:id) }
+  let(:gyr_max_id) { Intake::GyrIntake.contactable.where(created_at: window_start..window_end).maximum(:id) }
 
   before do
     task.reenable
@@ -74,14 +76,14 @@ RSpec.describe "create_campaign_contacts:backfill" do
 
   it "enqueues jobs for GYR, Signups, and each StateFile intake class using the env date window and chunk size" do
     expect(CampaignContacts::BackfillGyrIntakesJob)
-      .to receive(:perform_later).with(1, 5, window_start.to_date, window_end.to_date)
+      .to receive(:perform_later).with(gyr_min_id, gyr_max_id, window_start.to_date, window_end.to_date)
 
     expect(CampaignContacts::BackfillSignupsJob)
-      .to receive(:perform_later).with(1, 1, window_start.to_date, window_end.to_date)
+      .to receive(:perform_later).with(signup.id, signup.id, window_start.to_date, window_end.to_date)
 
     expect(CampaignContacts::BackfillStateFileIntakesJob)
       .to receive(:perform_later)
-            .with("StateFileAzIntake", 1, 1, window_start.to_date, window_end.to_date)
+            .with("StateFileAzIntake", state_intake.id, state_intake.id, window_start.to_date, window_end.to_date)
 
     task.invoke
   end
