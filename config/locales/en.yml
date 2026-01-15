@@ -6064,6 +6064,25 @@ en:
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
       ice_warning_html: "<strong>Immigrant filers:</strong> As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href='%{faq_link}' target='_blank'>Please see our FAQ for more information.</a>"
+      in_person_vita_card:
+        bullet_1: Hands-on support
+        bullet_2: State and Federal tax returns
+        bullet_3: Varies by location
+        bullet_4: Available in-person
+        bullet_5_html: <b>Physical copies</b> of Social Security or Individual Taxpayer Identification Number Card required
+        reveal_b1: All states
+        reveal_b2: Non-residents [varies by location]
+        reveal_b3: Puerto Rico residents [varies by location]
+        reveal_b4: Disponible en español
+        reveal_b5: File for multiple tax years
+        reveal_b6_html: <a href="https://www.irs.gov/tin/itin/how-to-apply-for-an-itin" target='_blank'>ITIN application</a> assistance
+        reveal_body_1: Suggested Income under $69,000
+        reveal_body_2: Official tax documents (W2’s, 1099’s, etc.) are required to file
+        reveal_body_3: 'Available to residents of:'
+        reveal_body_4: 'Other features:'
+        reveal_title: Additional Information
+        subtitle: Answer a few questions and let a tax pro file for you
+        title: In-person VITA
       progress_bar:
         progress_text: 'Intake progress:'
       service_comparison:

@@ -6091,6 +6091,23 @@ es:
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
       ice_warning_html: "<strong>Declarantes inmigrantes:</strong> A partir del 7 de abril, el IRS y el Departamento de Seguridad Nacional (incluyendo ICE) han llegado a un acuerdo para compartir datos entre las agencias. <a href='%{faq_link}' target='_blank'>Consulte nuestras preguntas frecuentes para más información.</a>"
+      in_person_vita_card:
+        bullet_1: Soporte por chat y correo electrónico
+        bullet_2: Declaraciones de impuestos estatales y federales
+        bullet_3: De 1 a 2 horas para presentar la declaración
+        bullet_4: Disponible en línea
+        bullet_5_html: Se requiere el número de Seguro Social o el <b>Número</b> de Identificación Personal del Contribuyente (ITIN)
+        reveal_b1: Todos los estados
+        reveal_b2: Puerto Rico
+        reveal_b3: No residentes
+        reveal_b4: Disponible en español
+        reveal_body_1: El ingreso debe ser menor a $89,000
+        reveal_body_2: Se requieren documentos oficiales de impuestos (formularios W-2, 1099, etc.) para presentar la declaración.
+        reveal_body_3: 'Disponible para residentes de:'
+        reveal_body_4: 'Otras características:'
+        reveal_title: Información adicional
+        subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
+        title: Hágalo usted mismo
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:

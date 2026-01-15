@@ -383,6 +383,21 @@ ol.with-bullets {
   }
 }
 
+.service-recommendation {
+  display: flex;
+  gap: 1rem; /* spacing between boxes */
+  flex-wrap: wrap; /* allows wrapping on smaller screens */
+
+  &:has(.rounded-box:nth-child(2)) {
+    gap: 0.5rem;
+  }
+
+  // Stack vertically on mobile
+  @media screen and (max-width: $tablet-up) {
+    flex-direction: column;
+  }
+}
+
 .rounded-box {
   border-radius: 1rem;
   padding: 2rem;
@@ -391,5 +406,26 @@ ol.with-bullets {
   display: flex;
   flex-direction: column;
   width: 100%;
+  flex: 1; /* boxes grow to fill space equally */
+  min-width: 0;
+
+  .button--wide {
+    @media screen and (min-width: $tablet-up) {
+      width: 100%;
+      max-width: 34.5rem;
+    }
+  }
+}
+
+.service-recommendation .rounded-box:only-child {
+  .button--wide {
+    @media screen and (min-width: $tablet-up) {
+      width: 34.5rem;
+    }
+  }
+}
+
+.service-recommendation:has(.rounded-box:nth-child(2)) .rounded-box {
+  padding: 1rem;
 }
 
