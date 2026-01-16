@@ -6158,26 +6158,3 @@ es:
       tax_return_list:
         add_tax_year: Agregar año tributario
         select_tax_return: Seleccione %{tax_year}
-    vita_providers:
-      index:
-        enter_zip: Ingrese su código postal para encontrar proveedores cercanos.
-        header: Obtenga ayuda gratuita en declarar sus impuestos
-        info: Los programas de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) del IRS ofrecen ayuda con los impuestos gratis, a los contribuyentes que califiquen.
-        no_results: "¡Disculpe! No hemos encontrado ningún resultado dentro de 50 millas de su dirección."
-        results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip}
-        search:
-          header: Ingrese su código postal para encontrar proveedores cercanos.
-          no_results: No hemos encontrado ningún resultado dentro de 50 millas de %{zip} (%{zip_name}).
-          placeholder: Ingrese su código postal
-          prepare_your_own_html: También puede preparar su propia declaración de impuestos utilizando el %{free_file_link} para encontrar una manera gratuita de hacerlo en línea.
-          results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip} (%{zip_name}).
-          try_another_or_apply_html: Intente otro código postal.
-        title: Ubicar
-      show:
-        appointment_info: Las citas son %{appointment_info}.
-        call_to_schedule: Llame para programar.
-        maps_link_title: Vínculo de Google Maps por %{provider_name}
-        no_hours_listed: Disculpe, no hay horario de apertura.
-        no_phone_number_listed: Disculpe, no hay número de teléfono.
-        phone_number_title: Llame a %{provider_name}
-        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})
