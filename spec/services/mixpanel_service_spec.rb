@@ -604,7 +604,7 @@ describe MixpanelService do
             with_unhoused_navigator: false,
             triage_filing_status: "single",
             triage_filing_frequency: "some_years",
-            triage_income_level: "12500_to_25000",
+            triage_income_level: "1_to_69000",
             triage_vita_income_ineligible: "no",
           )
         end
@@ -678,7 +678,7 @@ describe MixpanelService do
                                              already_applied_for_stimulus: "no",
                                              triage_filing_status: "single",
                                              triage_filing_frequency: "some_years",
-                                             triage_income_level: "12500_to_25000",
+                                             triage_income_level: "1_to_69000",
                                              triage_vita_income_ineligible: "no",
                                            })
           end

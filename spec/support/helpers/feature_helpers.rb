@@ -50,7 +50,7 @@ module FeatureHelpers
   def answer_gyr_triage_questions(screenshot_method: nil, **options)
     if options[:choices] == :defaults
       options = {
-        triage_income_level: "1_to_12500",
+        triage_income_level: "1_to_69000",
         triage_filing_status: "single",
         triage_filing_frequency: "not_filed",
         triage_vita_income_ineligible: false,
