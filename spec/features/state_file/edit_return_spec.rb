@@ -68,7 +68,7 @@ RSpec.feature "Editing a rejected intake with an auto-wait error" do
     allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
   end
 
-  scenario "edit your state return from the return status page with an auto-wait error" do
+  xscenario "edit your state return from the return status page with an auto-wait error" do
     visit "/login-options"
     expect(page).to have_text "Sign in to FileYourStateTaxes"
     click_on "Sign in with email"

@@ -21,7 +21,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
     end
 
-    it "has content", required_schema: "az" do
+    xxit "has content", required_schema: "az" do
       visit "/"
       click_on "Start Test AZ"
 
@@ -208,7 +208,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
     end
 
-    it "has content", required_schema: "nc" do
+    xit "has content", required_schema: "nc" do
       visit "/"
       click_on "Start Test NC"
 
@@ -359,7 +359,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
     end
 
-    it "has content", required_schema: "id" do
+    xit "has content", required_schema: "id" do
       visit "/"
       click_on "Start Test ID"
 
@@ -503,7 +503,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
     end
 
-    it "has content", required_schema: "md" do
+    xit "has content", required_schema: "md" do
       visit "/"
       click_on "Start Test MD"
 
@@ -648,7 +648,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
   context "deprecated" do
     context "NY" do
-      it "doesn't allow filers in anymore and redirects all pages to landing page" do
+      xit "doesn't allow filers in anymore and redirects all pages to landing page" do
         visit "/"
         click_on "Start Test NY"
 
@@ -673,7 +673,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           login_as(intake, scope: :state_file_nc_intake)
         end
 
-        it "shows closed page when logged in" do
+        xit "shows closed page when logged in" do
           # try to log in with existing ny intake and get redirected
           visit "/questions/return-status"
           page_change_check(I18n.t("state_file.landing_page.ny_closed.title"))

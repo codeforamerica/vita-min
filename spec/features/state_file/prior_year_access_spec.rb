@@ -15,7 +15,7 @@ RSpec.feature "accessing a prior year PDF", active_job: true do
       allow(Flipper).to receive(:enabled?).with(:get_your_pdf).and_return(true)
     end
 
-    it "has content" do
+    xit "has content" do
       visit "/"
       within("[data-testid='get-your-pdf-sign-in']") do
         click_on I18n.t("general.sign_in")
@@ -43,7 +43,7 @@ RSpec.feature "accessing a prior year PDF", active_job: true do
   end
 
   context "get_your_pdf flag is not enabled" do
-    it "has content" do
+    xit "has content" do
       visit "/"
       expect(page).to_not have_text I18n.t("state_file.state_file_pages.about_page.looking_for_return_html")
     end

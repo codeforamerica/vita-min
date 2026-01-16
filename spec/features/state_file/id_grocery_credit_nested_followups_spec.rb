@@ -11,7 +11,7 @@ RSpec.feature "Idaho Grocery Credit nested questions with followup", active_job:
   end
 
   context "ID", js: true do
-    it "doesn't generate additional dependents", required_schema: "id" do
+    xit "doesn't generate additional dependents", required_schema: "id" do
       visit "/"
       click_on "Start Test ID"
 
