@@ -21,7 +21,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       allow(Flipper).to receive(:enabled?).with(:extension_period).and_return(true)
     end
 
-    xxit "has content", required_schema: "az" do
+    xit "has content", required_schema: "az" do
       visit "/"
       click_on "Start Test AZ"
 
