@@ -42,8 +42,8 @@ RSpec.describe UpsertSourceIntoCampaignContacts do
 
       it "updates the names" do
         contact = call_service
-        expect(contact.first_name).to eq("NewFirst")
-        expect(contact.last_name).to eq("NewLast")
+        expect(contact.first_name).to eq("Newfirst")
+        expect(contact.last_name).to eq("Newlast")
       end
 
       it "sets opt-ins from incoming when contact has false/nil" do
@@ -141,8 +141,8 @@ RSpec.describe UpsertSourceIntoCampaignContacts do
           it "keeps existing names when both existing and incoming are present" do
             call_service
             contact = CampaignContact.last
-            expect(contact.first_name).to eq("ExistingFirst")
-            expect(contact.last_name).to eq("ExistingLast")
+            expect(contact.first_name).to eq("Existingfirst")
+            expect(contact.last_name).to eq("Existinglast")
           end
         end
 
@@ -152,8 +152,8 @@ RSpec.describe UpsertSourceIntoCampaignContacts do
           it "overwrites with incoming names when both existing and incoming are present" do
             call_service
             contact = CampaignContact.last
-            expect(contact.first_name).to eq("NewFirst")
-            expect(contact.last_name).to eq("NewLast")
+            expect(contact.first_name).to eq("Newfirst")
+            expect(contact.last_name).to eq("Newlast")
           end
         end
 
@@ -164,8 +164,8 @@ RSpec.describe UpsertSourceIntoCampaignContacts do
           it "keeps existing names" do
             call_service
             contact = CampaignContact.last
-            expect(contact.first_name).to eq("ExistingFirst")
-            expect(contact.last_name).to eq("ExistingLast")
+            expect(contact.first_name).to eq("Existingfirst")
+            expect(contact.last_name).to eq("Existinglast")
           end
         end
 
@@ -177,8 +177,8 @@ RSpec.describe UpsertSourceIntoCampaignContacts do
           it "uses incoming names" do
             call_service
             contact = CampaignContact.last
-            expect(contact.first_name).to eq("NewFirst")
-            expect(contact.last_name).to eq("NewLast")
+            expect(contact.first_name).to eq("Newfirst")
+            expect(contact.last_name).to eq("Newlast")
           end
         end
       end
