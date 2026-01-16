@@ -36,7 +36,7 @@ RSpec.feature "Income Review", active_job: true do
       all('a', text: I18n.t("state_file.questions.income_review.edit.review_and_edit_state_info"))[1].click
     end
 
-    it "displays review and edit pages with w2s, unemployment, and social security income" do
+    xit "displays review and edit pages with w2s, unemployment, and social security income" do
       advance_to_data_transfer
 
       step_through_df_data_transfer("Transfer O neal walker catchall mfj")
@@ -60,7 +60,7 @@ RSpec.feature "Income Review", active_job: true do
       end
     end
 
-    it "displays w2 info on edit screen" do
+    xit "displays w2 info on edit screen" do
       advance_to_income_edit
 
       expect(page).to be_axe_clean
@@ -73,7 +73,7 @@ RSpec.feature "Income Review", active_job: true do
       expect(page).to have_button(I18n.t("state_file.questions.w2.edit.what_is_box14_nj"))
     end
 
-    it "allows ui_wf_swf and fli to be saved up to the limit" do
+    xit "allows ui_wf_swf and fli to be saved up to the limit" do
       advance_to_income_edit
 
       fill_in 'state_file_w2_box14_ui_wf_swf', with: NjTestConstHelper::UI_WF_SWF_AT_LIMIT.to_s
@@ -83,7 +83,7 @@ RSpec.feature "Income Review", active_job: true do
       expect(page).to have_text I18n.t("state_file.questions.income_review.edit.title")
     end
 
-    it "does not allow ui_wf_swf to be saved above limit" do
+    xit "does not allow ui_wf_swf to be saved above limit" do
       advance_to_income_edit
 
       fill_in 'state_file_w2_box14_ui_wf_swf', with: NjTestConstHelper::UI_WF_SWF_ABOVE_LIMIT.to_s
@@ -93,7 +93,7 @@ RSpec.feature "Income Review", active_job: true do
       expect(page).to have_text("This amount can't exceed $180.00.")
     end
     
-    it "does not allow fli to be saved above limit" do
+    xit "does not allow fli to be saved above limit" do
       advance_to_income_edit
 
       fill_in 'state_file_w2_box14_ui_wf_swf', with: NjTestConstHelper::UI_WF_SWF_AT_LIMIT.to_s

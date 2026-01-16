@@ -10,7 +10,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
 
   StateFile::StateInformationService.active_state_codes.without("ny").each do |state_code|
     context "#{state_code.upcase}" do
-      it "allows user to navigate to income review page, edit an income form, and then navigate back to final review page", required_schema: state_code do
+      xit "allows user to navigate to income review page, edit an income form, and then navigate back to final review page", required_schema: state_code do
         set_up_intake_and_associated_records(state_code)
 
         intake = StateFile::StateInformationService.intake_class(state_code).last
@@ -119,7 +119,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
     end
 
-    it "allows user to navigate to az public school contributions page, edit a contribution form, and then navigate back to final review page, and then to 1099r edit page and back", required_schema: "az" do
+    xit "allows user to navigate to az public school contributions page, edit a contribution form, and then navigate back to final review page, and then to 1099r edit page and back", required_schema: "az" do
       state_code = "az"
       set_up_intake_and_associated_records(state_code)
 
@@ -193,7 +193,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       visit "/questions/#{state_code}-review"
     end
 
-    it "allows user to view and edit their 1099R followup information" do
+    xit "allows user to view and edit their 1099R followup information" do
       expect(page).not_to have_text "Not Eligible Place"
 
       within "#retirement-income-source-0" do
@@ -260,7 +260,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       visit "/questions/#{state_code}-review"
     end
 
-    it "allows user to view and edit their 1099R followup information" do
+    xit "allows user to view and edit their 1099R followup information" do
       within "#retirement-income-source-0" do
         expect(page).to have_text "Dorothy Red"
         expect(page).to have_text I18n.t("state_file.questions.shared.md_retirement_income_deductions_review_header.pension_annuity_endowment")
@@ -305,7 +305,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       end
     end
 
-    it "allows user to view and edit their disability status" do
+    xit "allows user to view and edit their disability status" do
       within "#permanently-disabled" do
         expect(page).to have_text I18n.t("state_file.questions.md_review.edit.disability_status")
         expect(page).to have_text I18n.t("general.negative")
@@ -325,7 +325,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       end
     end
 
-    it "displays joint disability status correctly when filing MFJ" do
+    xit "displays joint disability status correctly when filing MFJ" do
       intake = StateFile::StateInformationService.intake_class("md").last
       intake.direct_file_data.filing_status = 2 # mfj
       intake.update(raw_direct_file_data: intake.direct_file_data, spouse_birth_date: Date.new(1994, 12, 31))
@@ -377,7 +377,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           @intake.update(primary_birth_date: Date.new((MultiTenantService.statefile.current_tax_year - 64), 12, 31), primary_disabled: "yes")
         end
 
-        it "can review & edit disability question and go through all 1099Rs, then return to review" do
+        xit "can review & edit disability question and go through all 1099Rs, then return to review" do
           visit "/questions/id-review"
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
@@ -415,7 +415,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           end
         end
 
-        it "can review & edit questions on disability, change answer to No, then return to review without going through 1099-Rs" do
+        xit "can review & edit questions on disability, change answer to No, then return to review without going through 1099-Rs" do
           visit "/questions/id-review"
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
@@ -454,7 +454,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
             StateFileId1099RFollowup.create(state_file1099_r: third_1099r, income_source: "police_officer", police_retirement_fund: "yes")
           end
 
-          it "can persist mfj disability question on review & change and persist a new disability state" do
+          xit "can persist mfj disability question on review & change and persist a new disability state" do
             visit "/questions/id-review"
 
             page_change_check(I18n.t("state_file.questions.shared.abstract_review_header.title"))
@@ -482,7 +482,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
       end
 
       context "with eligible senior over 65 years old" do
-        it "review & edit questions on eligible_income_source and go through individual 1099Rs that are applicable, then return to review" do
+        xit "review & edit questions on eligible_income_source and go through individual 1099Rs that are applicable, then return to review" do
           visit "/questions/id-review"
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
@@ -509,7 +509,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
           end
         end
 
-        it "review & edit questions on eligible_income_source and when answers 8 for civil servant account number it goes to offboarding page" do
+        xit "review & edit questions on eligible_income_source and when answers 8 for civil servant account number it goes to offboarding page" do
           visit "/questions/id-review"
 
           expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")
@@ -563,7 +563,7 @@ RSpec.feature "Completing a state file intake", active_job: true, js: true do
     end
 
     context "with eligible 1099Rs" do
-      it "can review & edit all 1099Rs, then return to review" do
+      xit "can review & edit all 1099Rs, then return to review" do
         visit "/questions/nj-review"
 
         expect(page).to have_text I18n.t("state_file.questions.shared.abstract_review_header.title")

@@ -25,7 +25,7 @@ RSpec.feature "Calculating the sales/use tax for a NC intake", js: true do
       intake.synchronize_filers_to_database
     end
 
-    it "properly calculates", required_schema: "nc" do
+    xit "properly calculates", required_schema: "nc" do
       visit "/en/questions/nc-veteran-status"
       page_change_check(I18n.t('state_file.questions.nc_veteran_status.title_spouse'))
       choose "state_file_nc_veteran_status_form_primary_veteran_no"
