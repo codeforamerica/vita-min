@@ -5240,7 +5240,7 @@ es:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Nos comprometemos a mantener la seguridad de su información.
         subheader: "¡Reclama miles de dólares a través de los créditos tributarios que te corresponden! Trabajamos contigo para obtener tu mayor reembolso."
-        subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir el 31 de enero a la 1pm EST."
+        subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir a finales de enero."
         subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:
