@@ -586,7 +586,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     scenario "new client filing single without dependents" do
       visit root_path
 
-      click_on I18n.t('general.get_started')
+      find('[data-track-click="service-comparison-full-service"]').click
 
       # fill in personal
       expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
