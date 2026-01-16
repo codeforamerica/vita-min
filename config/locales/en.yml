@@ -1522,15 +1522,15 @@ en:
         body: |
           This tax season will look a little different for a lot of people, but one thing remains the same: <strong>the team at GetYourRefund is here to help you quickly and easily file your taxes for free.</strong> No fees, no gimmicks, just high-quality tax services provided by a nonprofit.
 
-          The federal government recently announced it won’t be offering Direct File next year, its short-lived but much-loved free tax filing software. As a result, we’ll have to pause FileYourStateTaxes, our software that allowed Direct File users to file their state returns for free in 7 states. While this isn’t the outcome we wanted, <strong>we’re not giving up on our fight to make taxes free, simple, and accessible, so everyone gets the refunds and credits they’re owed.</strong>
-
           New tax laws are coming for 2026, bringing changes like a larger EITC and reduced taxes on tips/overtime. While these updates can feel complex, our team of tax experts is here to help you navigate them! To make your filing experience as easy as possible, we recommend gathering your documents now. You'll be ready to file right when our season opens in late January.
 
           We’re hard at work improving our GetYourRefund digital tax filing service for 2026. Want to have your taxes prepared for you by an IRS-certified tax preparer? We’ve got you covered. Want to prepare your own return, but get help from tax experts when you need it? Yes, we do that too. Want to avoid fees and upsells? Yeah, us too, which is why <strong>free is all we do.</strong>
 
-          We’re still a few weeks away from the start of tax season, and for-profit tax companies have already launched their multi-million dollar advertising campaigns. Amidst all their noise, don’t forget: 100% free tax filing does exist. <strong>Most households making less than $89k are eligible for 100% free state and federal filing through GetYourRefund.</strong>
+          The federal government recently announced it won’t be offering Direct File next year, its short-lived but much-loved free tax filing software. As a result, we’ll have to pause FileYourStateTaxes, our software that allowed Direct File users to file their state returns for free in 7 states. While this isn’t the outcome we wanted, <strong>we’re not giving up on our fight to make taxes free, simple, and accessible, so everyone gets the refunds and credits they’re owed.</strong>
 
-          See you when the season starts. If you have questions in the meantime, check out our <a href="https://www.getyourrefund.org/en/faq" target="_blank" rel="noopener nofollow">FAQs</a> or head to <a href="https://www.getyourrefund.org/en" target="_blank" rel="noopener nofollow">GetYourRefund.org</a> and hit the Chat with Us button to talk with our support team.
+          Tax season starts later this month, and for-profit tax companies have already launched their multi-million dollar advertising campaigns. Amidst all their noise, don’t forget: 100% free tax filing does exist. <strong>Most households making less than $89k are eligible for 100% free state and federal filing through GetYourRefund.</strong>
+
+          See you when the season starts. If you have questions in the meantime, check out our <a href="https://www.getyourrefund.org/en/faq/?utm_source=gyr&utm_medium=email&utm_campaign=w0" target="_blank" rel="noopener nofollow">FAQs</a> or head to <a href="https://www.getyourrefund.org/en/?utm_source=gyr&utm_medium=email&utm_campaign=w0" target="_blank" rel="noopener nofollow">GetYourRefund.org</a> and hit the Chat with Us button to talk with our support team.
 
           The team at GetYourRefund
 
@@ -2031,6 +2031,12 @@ en:
     intake:
       your_spouse: Your spouse
   notifications_settings:
+    campaign_messages:
+      subscribe_to_emails:
+        flash: You are successfully re-subscribed to outreach campaign message email notifications.
+      title: You've opted out of outreach campaign email notifications from GetYourRefund.
+      unsubscribe_from_emails:
+        flash: You are successfully unsubscribed from outreach campaign message email notifications.
     invalid_link: Invalid subscription link
     no_record: No record found
     subscribe_to_emails:
