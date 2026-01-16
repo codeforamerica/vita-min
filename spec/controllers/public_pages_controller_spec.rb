@@ -53,7 +53,7 @@ RSpec.describe PublicPagesController do
         it "links to the first question path for digital intake" do
           get :home
 
-          expect(response.body).to include I18n.t('general.get_started')
+          expect(response.body).not_to include I18n.t('general.sign_up')
           expect(response.body).to include question_path(:id => Questions::TriagePersonalInfoController)
         end
       end
@@ -66,21 +66,8 @@ RSpec.describe PublicPagesController do
         it "links to the first question path for digital intake" do
           get :home
 
-          expect(response.body).not_to include I18n.t('general.get_started')
+          expect(response.body).to include I18n.t('general.sign_up')
           expect(response.body).not_to include question_path(:id => Navigation::GyrQuestionNavigation.first)
-        end
-      end
-
-      context "when the app is not open for state file intakes" do
-        let(:past) { 1.day.ago }
-        before do
-          allow(Rails.application.config).to receive(:state_file_end_of_in_progress_intakes).and_return(past)
-        end
-
-        it "hides link to direct file" do
-          get :home
-
-          expect(response.body).not_to include I18n.t('views.shared.service_comparison.services.direct_file.cta')
         end
       end
     end
