@@ -6092,83 +6092,54 @@ es:
         provider_homepage: Portada de %{provider_name}
       ice_warning_html: "<strong>Declarantes inmigrantes:</strong> A partir del 7 de abril, el IRS y el Departamento de Seguridad Nacional (incluyendo ICE) han llegado a un acuerdo para compartir datos entre las agencias. <a href='%{faq_link}' target='_blank'>Consulte nuestras preguntas frecuentes para más información.</a>"
       in_person_vita_card:
-        bullet_1: Soporte por chat y correo electrónico
+        bullet_1: Apoyo personalizado
         bullet_2: Declaraciones de impuestos estatales y federales
-        bullet_3: De 1 a 2 horas para presentar la declaración
-        bullet_4: Disponible en línea
-        bullet_5_html: Se requiere el número de Seguro Social o el <b>Número</b> de Identificación Personal del Contribuyente (ITIN)
+        bullet_3: Varía según la ubicación
+        bullet_4: Disponible de manera presencial
+        bullet_5_html: Se requieren <b>copias físicas</b> de la tarjeta del Seguro Social o del Número de Identificación Personal del Contribuyente (ITIN)
         reveal_b1: Todos los estados
-        reveal_b2: Puerto Rico
-        reveal_b3: No residentes
+        reveal_b2: No residentes (varía según la ubicación)
+        reveal_b3: Residentes de Puerto Rico (varía según la ubicación)
         reveal_b4: Disponible en español
-        reveal_body_1: El ingreso debe ser menor a $89,000
+        reveal_b5: Presente declaraciones de varios años fiscales
+        reveal_b6_html: Asistencia para <a href="https://www.irs.gov/tin/itin/how-to-apply-for-an-itin" target='_blank' rel="noopener nofollow">solicitar un ITIN</a>
+        reveal_body_1: 'Ingreso sugerido: menos de $69,000'
         reveal_body_2: Se requieren documentos oficiales de impuestos (formularios W-2, 1099, etc.) para presentar la declaración.
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
         subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
-        title: Hágalo usted mismo
+        title: VITA presencial
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
-        additional_benefits: Beneficios adicionales
-        all_services: Todos los servicios ofrecen soporte por correo electrónico y están disponibles en Inglés y Español.
-        chat_support: Asistencia por chat
-        filing_years:
-          title: 'Años en que se hicieron declaraciones:'
-        id_documents:
-          diy: Números de identificación o ID en inglés
-          full_service: Foto
-          title: Tarjeta de Seguro Social o documentos de Número de Identificación Personal (ITIN)
-        in_person: "¿Prefiere hablar con alguien en persona? Encuentre un sitio de preparación de impuestos gratuito cerca de usted utilizando nuestro"
-        in_person_link_text: Localizador de VITA
-        income_limit:
-          direct_file: La mayoría de los declarantes que ganan menos de $200,000
-          diy: menos de $89,000
-          full_service: menos de $69,000
-          title: Guía de ingresos
-        mobile_friendly: Adaptable para dispositivos móviles
-        required_information: Información obligatoria
-        select_service_html: "<i>Selecciona la opción en la que estás interesado para obtener más información sobre la lista completa de requisitos.</i>"
-        services:
-          direct_file:
-            cta: Selecciona Direct File
-            service_description: Presenta rápidamente tu declaración por tu cuenta directamente con el IRS.
-            service_name: IRS Direct File
-          diy:
-            cta: Elegir declarar por cuenta propia
-            service_description: Declare rápidamente por su cuenta para %{year}.
-            service_name: Declarar por mi cuenta o "File Myself" en inglés
-          full_service:
-            cta: Elija GetYourRefund
-            service_description: Presente la declaración de varios años con un preparador de impuestos certificado por el IRS.
-            service_name: GetYourRefund
-            service_name_short: GYR
-        still_need_help: "¿Todavía necesita ayuda para elegir el mejor servicio?"
-        tax_documents:
-          subtitle: "(w2s, 1099s, etc)"
-          title: Documentos tributarios oficiales
-        tax_payer_residency:
-          direct_file: Disponible para residentes de tiempo completo de Alaska, Arizona, California, Connecticut, Florida, Idaho, Illinois, Kansas, Maine, Maryland, Massachusetts, Nevada, New Hampshire, New Jersey, New Mexico, Nueva York, Carolina del Norte, Oregon, Pennsylvania, Dakota del Sur, Tennessee, Texas, Washington, Wisconsin, y Wyoming.
-          diy: Disponible para residentes de todos los estados, Puerto Rico y no residentes.
-          full_service_html: |
-            Disponible para residentes de todos los estados.<br>
-            <br>
-             Disponibilidad limitada para no residentes y residentes de Puerto Rico.
-          title: Residencia del Contribuyente
-        time_to_file:
-          diy: 45 minutos
-          full_service: De 2 a 3 semanas
-          subtitle: Los plazos de tramitación de los pagos del IRS varían de 3-6 semanas
-          title: 'Plazo de tiempo para presentar la declaración:'
-        title_html: |-
-          Declaración de impuestos gratuita para las familias que califican.<br/>
-          ¡Encuentre el servicio de impuestos adecuado para usted!
-        triage_link_text: "¡Responda a unas preguntas sencillas y le recomendaremos el servicio más adecuado para usted!"
-        vita: Equipo de impuestos VITA certificado por el IRS
+        subtitle_1: The highest accuracy rates on your return. Completely free. Choose the tax service that’s right for you!
+        subtitle_2: Not sure what to choose?
+        title_html: Choose the product that works for you.
+        triage_link_text: Answer a few questions and we’ll recommend the right service.
       tax_return_list:
         add_tax_year: Agregar año tributario
         select_tax_return: Seleccione %{tax_year}
+      virtual_vita_card:
+        bullet_1: Revisión en línea y soporte por chat
+        bullet_2: Declaraciones de impuestos estatales y federales
+        bullet_3: De 2 a 3 semanas para presentar la declaración
+        bullet_4: Disponible en línea
+        bullet_5_html: Se requieren <b>fotos</b> de la tarjeta del Seguro Social o del Número de Identificación Personal del Contribuyente (ITIN)
+        reveal_b1: Todos los estados
+        reveal_b2: No residentes (limitado)
+        reveal_b3: Residentes de Puerto Rico (limitado)
+        reveal_b4: Disponible en español
+        reveal_b5: Presente declaraciones de varios años fiscales
+        reveal_b6_html: Asistencia para <a href="https://www.irs.gov/tin/itin/how-to-apply-for-an-itin" target='_blank' rel="noopener nofollow">solicitar un ITIN</a> (limitada)
+        reveal_b7: Compatible con dispositivos móviles
+        reveal_body_1: 'Ingreso sugerido: menos de $69,000'
+        reveal_body_2: Se requieren documentos oficiales de impuestos (formularios W-2, 1099, etc.) para presentar la declaración.
+        reveal_body_3: 'Disponible para residentes de:'
+        reveal_body_4: 'Otras características:'
+        reveal_title: Información adicional
+        subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
+        title: VITA virtual
     vita_providers:
       index:
         enter_zip: Ingrese su código postal para encontrar proveedores cercanos.
