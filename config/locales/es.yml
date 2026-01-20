@@ -5762,7 +5762,7 @@ es:
           was_on_visa: Yo estaba en los Estados Unidos con una visa
         title: Seleccione las situaciones que fueron verdaderas para usted en el %{year}
       lived_with_spouse:
-        title: "¿Usted y su cónyuge vivieron separados durante los últimos seis meses del año?"
+        title: "¿Usted y su cónyuge vivieron separados durante los últimos 6 meses del año?"
       local_tax:
         help_text: Responda "Sí" si era propietario de una casa o compró un automóvil en %{year}. Puede encontrar esto en un formulario 1098.
         title:
