@@ -214,7 +214,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     page_change_block do
       screenshot_after do
-        expect(page).to have_selector("h1", text: "Did you live with your spouse during any part of the last six months of #{current_tax_year}?")
+        expect(page).to have_selector("h1", text: "Did you and your spouse live apart all of the last 6 months of the year?")
       end
       click_on "Yes"
     end

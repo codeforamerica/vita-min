@@ -5757,7 +5757,7 @@ en:
           was_on_visa: I was in the US on a visa
         title: Select any situations that were true for you in %{year}
       lived_with_spouse:
-        title: Did you live with your spouse during any part of the last six months of %{year}?
+        title: Did you and your spouse live apart all of the last 6 months of the year?
       local_tax:
         help_text: Answer "Yes" if you owned a home or bought a car in %{year}. You might find this listed on a 1098 form.
         title:
