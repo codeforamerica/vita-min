@@ -1514,9 +1514,9 @@ es:
 
           Recientemente, el gobierno federal anunció que no ofrecerá Direct File el próximo año, su software gratuito para presentar impuestos que, aunque estuvo disponible poco tiempo, fue muy apreciado. Como resultado, tendremos que parar FileYourStateTaxes, nuestra herramienta que permitía a los usuarios de Direct File presentar gratuitamente sus declaraciones estatales en 7 estados. Aunque este no es el resultado que esperábamos, <strong>no abandonamos nuestra lucha por hacer que los impuestos sean gratis, simples y accesibles, para que todas las personas reciban los reembolsos y créditos que les corresponden.</strong>
 
-          Aún faltan algunas semanas para que comience la temporada de declaración, y las empresas de impuestos con fines de lucro ya han lanzado campañas publicitarias de millones de dólares. Entre todo ese ruido, no lo olvide: presentar su declaración de impuestos de forma 100% gratuita sí es posible. <strong>La mayoría de los hogares con ingresos menores a $89,000 califican para presentar sus impuestos federales y estatales completamente gratis a través de GetYourRefund.</strong>
+          La temporada de impuestos comienza a finales de este mes, y las empresas de impuestos con fines de lucro ya han lanzado sus campañas publicitarias multimillonarias. Entre todo ese ruido, no lo olvide: presentar su declaración de impuestos de forma 100% gratuita sí es posible. <strong>La mayoría de los hogares con ingresos menores a $89,000 califican para presentar sus impuestos federales y estatales completamente gratis a través de GetYourRefund.</strong>
 
-          Nos vemos cuando comience la temporada. Si tiene preguntas mientras tanto, visite nuestra sección de <a href="https://www.getyourrefund.org/es/faq" target="_blank" rel="noopener nofollow">Preguntas Frecuentes</a> o vaya a <a href="https://www.getyourrefund.org/es" target="_blank" rel="noopener nofollow">GetYourRefund.org</a> y haga clic en el botón Chatee con nosotros para hablar con nuestro equipo de apoyo.
+          Nos vemos cuando comience la temporada. Si tiene preguntas mientras tanto, visite nuestra sección de <a href="https://www.getyourrefund.org/es/faq/?utm_source=gyr&utm_medium=email&utm_campaign=w0" target="_blank" rel="noopener nofollow">Preguntas Frecuentes</a> o vaya a <a href="https://www.getyourrefund.org/es/?utm_source=gyr&utm_medium=email&utm_campaign=w0" target="_blank" rel="noopener nofollow">GetYourRefund.org</a> y haga clic en el botón Chatee con nosotros para hablar con nuestro equipo de apoyo.
 
           El equipo de GetYourRefund
 
@@ -2000,6 +2000,12 @@ es:
     intake:
       your_spouse: Su cónyuge
   notifications_settings:
+    campaign_messages:
+      subscribe_to_emails:
+        flash: Se ha vuelto a suscribir correctamente para recibir notificaciones por correo electrónico sobre los mensajes de la campaña de difusión.
+      title: Has desactivado las notificaciones por correo electrónico de las campañas de difusión de GetYourRefund.
+      unsubscribe_from_emails:
+        flash: Se ha dado de baja correctamente de las notificaciones por correo electrónico de la campaña de difusión.
     invalid_link: Enlace de suscripción no válido
     no_record: Ningún record fue encontrado
     subscribe_to_emails:
@@ -5234,7 +5240,7 @@ es:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Nos comprometemos a mantener la seguridad de su información.
         subheader: "¡Reclama miles de dólares a través de los créditos tributarios que te corresponden! Trabajamos contigo para obtener tu mayor reembolso."
-        subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir el 31 de enero a la 1pm EST."
+        subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir a finales de enero."
         subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:

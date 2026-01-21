@@ -35,6 +35,7 @@ describe Hub::AutomatedMessagesController do
               "VerificationCodeMailer.archived_intake_verification_code",
               "DiyIntakeEmailMailer.high_support_message",
               "CtcSignupMailer.launch_announcement",
+              "CampaignMailer.email_message",
               SurveyMessages::GyrCompletionSurvey,
               SurveyMessages::CtcExperienceSurvey
             ]

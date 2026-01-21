@@ -21,8 +21,8 @@ class UpsertSourceIntoCampaignContacts
 
     contact.email_address = @email unless @email.blank?
     contact.sms_phone_number = @phone unless @phone.blank?
-    contact.first_name = choose_name(contact.first_name, @first_name, source: @source)
-    contact.last_name = choose_name(contact.last_name, @last_name, source: @source)
+    contact.first_name = format_name(choose_name(contact.first_name, @first_name, source: @source))
+    contact.last_name = format_name(choose_name(contact.last_name, @last_name, source: @source))
     contact.email_notification_opt_in = contact.email_notification_opt_in || @email_opt_in
     contact.sms_notification_opt_in = contact.sms_notification_opt_in || @sms_opt_in
     contact.locale = @locale unless @locale.blank?
@@ -44,6 +44,10 @@ class UpsertSourceIntoCampaignContacts
   end
 
   private
+
+  def format_name(name)
+    name.to_s.strip.tr("_", " ").squeeze(" ").split.map(&:capitalize).join(" ").presence
+  end
 
   def find_contact
     return CampaignContact.find_by(email_address: @email) if @email.present?
