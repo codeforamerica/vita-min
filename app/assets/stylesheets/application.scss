@@ -403,14 +403,14 @@ ol.with-bullets {
   width: 100%;
   flex: 1;
   align-self: flex-start;
-
-  @media screen and (min-width: $tablet-up) {
-    min-height: 617px;
-  }
 }
 
 .service-recommendation:has(.rounded-box:nth-child(2)) .rounded-box {
   padding: 1rem;
+  @media screen and (min-width: $tablet-up) {
+    min-height: 617px;
+  }
+
   .button-wrapper {
     align-self: stretch;
   }
