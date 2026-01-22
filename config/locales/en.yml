@@ -108,6 +108,21 @@ en:
         - File taxes online on your own using our partner website. This is our quickest option for households earning under $89,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
         title: File taxes on your own
+    qualifications:
+      edit:
+        button_1: Yes, I qualify
+        button_2: No, find another option
+        not_included:
+          header: "✗ Not included"
+          p1: Filing tax returns for 2020-2024
+        qualifications:
+          header: "✓ Qualifications"
+          p1: US citizen or resident
+          p2: Non-resident international students
+          p3: Must have ID numbers and income tax information to submit
+          p4: Household income under $89,000
+        subtitle: This service helps you file your federal and state tax return and maximize your refund.
+        title: Use DIY to file your Federal and State taxes—confirm you qualify to get started
   documents:
     documents_help:
       show:
@@ -5838,6 +5853,21 @@ en:
       phone_number_can_receive_texts:
         standard_rates_apply: Standard message rates apply. We will not share your information with any outside parties.
         title: Can we text the phone number you previously entered?
+      qualifications:
+        button_1: Yes, I qualify
+        button_2: No, find another option
+        not_included:
+          header: "✗ Not included"
+          p1: Cryptocurrency
+          p2: Rental income
+          p3: Farm income
+        qualifications:
+          header: "✓ Qualifications"
+          p1: US citizen or resident
+          p2: Must have digital copies of your IDs and documents to submit
+          p3: Suggested household income under $67,000
+        subtitle: This service helps you file your federal and state tax return and maximize your refund.
+        title: Use Virtual VITA to file your Federal and State taxes—confirm you qualify to get started
       received_alimony:
         help_text: Answer "Yes" even if you did not receive an official IRS document about the alimony. Do not include child support you received.
         title:

@@ -1,4 +1,4 @@
-<div class="slab slab--service-comparison">
+<div class="slab slab--service-comparison" id="service-comparison">
   <div class="grid">
     <div class="service-comparison">
       <h2 class="title spacing-above-0">
@@ -21,7 +21,7 @@
               </div>
               <div class="service__cta">
                 <% if open_for_gyr_intake? %>
-                  <%= link_to t("views.shared.service_comparison.services.full_service.cta"), Questions::PersonalInfoController.to_path_helper, class: "button", "data-track-click": "service-comparison-full-service" %>
+                  <%= link_to t("views.shared.service_comparison.services.full_service.cta"), Questions::QualificationsController.to_path_helper, class: "button", "data-track-click": "service-comparison-full-service" %>
                 <% else %>
                   <%= link_to t("views.shared.service_comparison.services.full_service.cta"), new_signup_path, class: "button", "data-track-click": "service-comparison-full-service" %>
                 <% end %>
@@ -37,7 +37,7 @@
                 <%= t("views.shared.service_comparison.services.diy.service_description", year: MultiTenantService.new(:gyr).current_tax_year(app_time)) %>
               </div>
               <div class="service__cta">
-                <%= link_to t("views.shared.service_comparison.services.diy.cta"), Diy::FileYourselfController.to_path_helper, class: "button", "data-track-click": "service-comparison-diy" %>
+                <%= link_to t("views.shared.service_comparison.services.diy.cta"), Diy::QualificationsController.to_path_helper, class: "button", "data-track-click": "service-comparison-diy" %>
               </div>
             </div>
             <% if app_time.before?(Rails.configuration.state_file_end_of_in_progress_intakes) %>
