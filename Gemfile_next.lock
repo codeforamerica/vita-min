@@ -447,7 +447,7 @@ GEM
       i18n (~> 1.8)
     orm_adapter (0.5.0)
     ostruct (0.6.0)
-    package_json (0.1.0)
+    package_json (0.2.0)
     paper_trail (15.1.0)
       activerecord (>= 6.1)
       request_store (~> 1.4)
@@ -658,7 +658,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
+    semantic_range (3.1.0)
     sentry-delayed_job (5.13.0)
       delayed_job (>= 4.0)
       sentry-ruby (~> 5.13.0)
@@ -667,7 +667,7 @@ GEM
       sentry-ruby (~> 5.13.0)
     sentry-ruby (5.13.0)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    shakapacker (7.2.3)
+    shakapacker (9.5.0)
       activesupport (>= 5.2)
       package_json
       rack-proxy (>= 0.6.1)
@@ -861,7 +861,7 @@ DEPENDENCIES
   sentry-delayed_job
   sentry-rails
   sentry-ruby
-  shakapacker (= 7.2.3)
+  shakapacker (= 9.5.0)
   shoulda-matchers
   simplecov
   spring
