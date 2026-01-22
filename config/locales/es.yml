@@ -2223,12 +2223,9 @@ es:
 
             <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o Seguridad de Ingreso Suplementario (SSI)</p>
           options:
-            12500_to_25000: "$15,000 - 30,000"
-            1_to_12500: "$1 - $15,000"
-            25000_to_40000: "$30,000 - 45,000"
-            40000_to_66000: "$45,000 - 69,000"
-            66000_to_79000: "$69,000 - 89,000"
-            over_79000: más de $89,000
+            1_to_69000: "$1 - $69,000"
+            69001_to_89000: "$69,001 - 89,000"
+            over_89000: más de $89,000
             zero: "$0"
         title: Hablemos sobre su estado civil y sus ingresos.
         vita_income_ineligible:
