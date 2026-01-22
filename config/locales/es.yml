@@ -6119,10 +6119,10 @@ es:
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
-        subtitle_1: The highest accuracy rates on your return. Completely free. Choose the tax service that’s right for you!
-        subtitle_2: Not sure what to choose?
-        title_html: Choose the product that works for you.
-        triage_link_text: Answer a few questions and we’ll recommend the right service.
+        subtitle_1: Declaraciones de impuestos precisas y confiables ¡Elija el servicio de impuestos ideal para usted!
+        subtitle_2: "¿No sabe cuál elegir?"
+        title_html: Elija el producto que mejor le funcione
+        triage_link_text: Responda unas cuantas preguntas y le ayudaremos a elegir la mejor opción para usted.
       tax_return_list:
         add_tax_year: Agregar año tributario
         select_tax_return: Seleccione %{tax_year}

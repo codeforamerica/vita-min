@@ -1,11 +1,9 @@
 <div class="slab slab--service-comparison">
   <div class="grid">
     <div class="service-comparison">
-      <div class="grid__item width-one-half">
       <h1 class="title spacing-above-0">
         <%= t("views.shared.service_comparison.title_html") %>
       </h1>
-      </div>
       <p class="spacing-above-15"><%= t("views.shared.service_comparison.subtitle_1") %></p>
       <p class="spacing-below-35"><%= t("views.shared.service_comparison.subtitle_2") %> <%= link_to  t("views.shared.service_comparison.triage_link_text"), Questions::TriagePersonalInfoController.to_path_helper, "data-track-click": "service-comparison-triage" %></p>
       <div class="service-recommendation">

@@ -406,9 +406,9 @@ ol.with-bullets {
 }
 
 .service-recommendation:has(.rounded-box:nth-child(2)) .rounded-box {
-  padding: 1rem;
+  padding: 3rem 1rem 1rem;
   @media screen and (min-width: $tablet-up) {
-    min-height: 617px;
+    min-height: 637px;
   }
 
   .button-wrapper {
