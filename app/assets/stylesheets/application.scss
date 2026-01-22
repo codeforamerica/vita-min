@@ -423,6 +423,6 @@ ol.with-bullets {
 
 .service-recommendation[data-locale="es"]:has(.rounded-box:nth-child(2)) .rounded-box {
   @media screen and (min-width: $tablet-up) {
-    min-height: 700px !important;
+    min-height: 700px;
   }
 }
