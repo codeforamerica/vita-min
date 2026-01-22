@@ -6070,65 +6070,55 @@ en:
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
       ice_warning_html: "<strong>Immigrant filers:</strong> As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href='%{faq_link}' target='_blank'>Please see our FAQ for more information.</a>"
+      in_person_vita_card:
+        bullet_1: Hands-on support
+        bullet_2: State and Federal tax returns
+        bullet_3: Varies by location
+        bullet_4: Available in-person
+        bullet_5_html: "<b>Physical copies</b> of Social Security or Individual Taxpayer Identification Number Card required"
+        reveal_b1: All states
+        reveal_b2: Non-residents [varies by location]
+        reveal_b3: Puerto Rico residents [varies by location]
+        reveal_b4: Disponible en español
+        reveal_b5: File for multiple tax years
+        reveal_b6_html: <a href="https://www.irs.gov/tin/itin/how-to-apply-for-an-itin" target='_blank' rel="noopener nofollow">ITIN application</a> assistance
+        reveal_body_1: Suggested Income under $69,000
+        reveal_body_2: Official tax documents (W2’s, 1099’s, etc.) are required to file
+        reveal_body_3: 'Available to residents of:'
+        reveal_body_4: 'Other features:'
+        reveal_title: Additional Information
+        subtitle: Answer a few questions and let a tax pro file for you
+        title: In-person VITA
       progress_bar:
         progress_text: 'Intake progress:'
       service_comparison:
-        additional_benefits: Additional benefits
-        all_services: All services provide email support and are available in English and Spanish.
-        chat_support: Chat support
-        filing_years:
-          title: 'Filing years:'
-        id_documents:
-          diy: ID numbers
-          full_service: Photo
-          title: Social Security Card or ITIN paperwork
-        in_person: Prefer to talk to someone in person? Find a free tax preparation site near you using our
-        in_person_link_text: VITA location finder
-        income_limit:
-          direct_file: Most filers under $200,000
-          diy: under $89,000
-          full_service: under $69,000
-          title: 'Income guidance:'
-        mobile_friendly: Mobile-friendly
-        required_information: Required information
-        select_service_html: "<i>Please select the option you're interested in to learn more about the full list of requirements.</i>"
-        services:
-          direct_file:
-            cta: Choose Direct File
-            service_description: File quickly on your own directly with the IRS.
-            service_name: IRS Direct File
-          diy:
-            cta: Choose File Myself
-            service_description: File quickly on your own for %{year}.
-            service_name: File Myself
-          full_service:
-            cta: Choose GetYourRefund
-            service_description: File for multiple years with an IRS-certified tax preparer.
-            service_name: GetYourRefund
-            service_name_short: GYR
-        still_need_help: Still need help selecting the best service?
-        tax_documents:
-          subtitle: "(w2s, 1099s, etc)"
-          title: Official tax documents
-        tax_payer_residency:
-          direct_file: Available to full-year residents of Alaska, Arizona, California, Connecticut, Florida, Idaho, Illinois, Kansas, Maine, Maryland, Massachusetts, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina, Oregon, Pennsylvania, South Dakota, Tennessee, Texas, Washington, Wisconsin, and Wyoming.
-          diy: Available to residents of all states, Puerto Rico, and non-residents.
-          full_service_html: |
-            Available to residents of all states.<br>
-            <br>
-            Limited availability for non-residents and Puerto Rico residents
-          title: Tax Payer Residency
-        time_to_file:
-          diy: 45 minutes
-          full_service: 2-3 weeks
-          subtitle: IRS payment processing times vary 3-6 weeks
-          title: 'Length of time to file:'
-        title_html: Free tax filing for households that qualify. <br/> Find the tax service that’s right for you!
-        triage_link_text: Answer a few simple questions and we'll recommend the right service for you!
-        vita: IRS-certified VITA tax team
+        subtitle_1: The highest accuracy rates on your return. Completely free. Choose the tax service that’s right for you!
+        subtitle_2: Not sure what to choose?
+        title_html: Choose the product that works for you.
+        triage_link_text: Answer a few questions and we’ll recommend the right service.
       tax_return_list:
         add_tax_year: Add tax year
         select_tax_return: Select %{tax_year}
+      virtual_vita_card:
+        bullet_1: Online review and chat support
+        bullet_2: State and Federal tax returns
+        bullet_3: 2-3 weeks to file
+        bullet_4: Available online
+        bullet_5_html: "<b>Photos</b> of Social Security or Individual Taxpayer Identification Number card required"
+        reveal_b1: All states
+        reveal_b2: Non-residents [limited]
+        reveal_b3: Puerto Rico residents [limited]
+        reveal_b4: Disponible en español
+        reveal_b5: File for multiple tax years
+        reveal_b6_html: <a href="https://www.irs.gov/tin/itin/how-to-apply-for-an-itin" target='_blank' rel="noopener nofollow">ITIN application</a> assistance [limited]
+        reveal_b7: Mobile friendly
+        reveal_body_1: Suggested Income under $69,000
+        reveal_body_2: Official tax documents (W2’s, 1099’s, etc.) are required to file
+        reveal_body_3: 'Available to residents of:'
+        reveal_body_4: 'Other features:'
+        reveal_title: Additional Information
+        subtitle: Answer a few questions and let a tax pro file for you
+        title: Virtual VITA
     vita_providers:
       index:
         enter_zip: Enter your zip code to find providers near you.
