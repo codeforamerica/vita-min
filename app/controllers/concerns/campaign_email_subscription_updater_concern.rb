@@ -16,7 +16,7 @@ module CampaignEmailSubscriptionUpdaterConcern
 
       if contact.nil?
         flash[:alert] = I18n.t("notifications_settings.no_record")
-        return render :campaign_email_preferences
+        return render :unsubscribe_from_campaign_emails
       end
 
       contact.update!(email_notification_opt_in: opt_in)

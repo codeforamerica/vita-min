@@ -45,9 +45,10 @@ describe MultiTenantService do
 
     it "returns just the current year for ctc and valid filing years for gyr when using DateTime.now" do
       fake_time = Rails.configuration.tax_year_filing_seasons[2020][1] + 3.years - 1.day
+      # this is May 16, 2024 in which the deadline has passes and thus should show 3 years of filing
       Timecop.freeze(fake_time) do
         expect(described_class.new(:ctc).filing_years).to eq [2023]
-        expect(described_class.new(:gyr).filing_years).to eq [2023, 2022, 2021, 2020]
+        expect(described_class.new(:gyr).filing_years).to eq [2023, 2022, 2021]
       end
     end
 
@@ -66,7 +67,7 @@ describe MultiTenantService do
       end
     end
 
-    context "GYR 2025 after tax deadline before end of in progress intake" do
+    context "GYR 2025 after tax deadline but before end of login" do
       it "returns 2022, 2023, 2024" do
         fake_time = DateTime.parse("2025-06-23")
 
@@ -74,11 +75,11 @@ describe MultiTenantService do
       end
     end
 
-    context "GYR 2025 after end of in progress intake" do
-      it "returns 2022, 2023, 2024" do
+    context "GYR 2025 after end of login" do
+      it "returns 2022, 2023, 2024 and 2025" do
         fake_time = DateTime.parse("2025-12-21")
 
-        expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2024, 2023, 2022]
+        expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2025, 2024, 2023, 2022]
       end
     end
   end

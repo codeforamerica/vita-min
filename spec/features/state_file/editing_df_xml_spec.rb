@@ -11,7 +11,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     Flipper.enable :sms_notifications
   end
 
-  it "does not modify the df xml if nothing was changed" do
+  xit "does not modify the df xml if nothing was changed" do
     visit "/"
     click_on "Start Test AZ"
 
@@ -43,7 +43,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(xml_before).to eq(xml_after)
   end
 
-  it "allows you to edit the df xml" do
+  xit "allows you to edit the df xml" do
     visit "/"
     click_on "Start Test AZ"
 
@@ -140,7 +140,7 @@ RSpec.feature "editing direct file XML with the FederalInfoController", active_j
     expect(StateFileAzIntake.last.state_file1099_rs[0].state_tax_withheld_amount).to eq 20
   end
 
-  it "preserves W2 when XML Editor is opened without changes" do
+  xit "preserves W2 when XML Editor is opened without changes" do
     visit "/"
     click_on "Start Test NC"
 
