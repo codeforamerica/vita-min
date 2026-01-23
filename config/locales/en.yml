@@ -6116,26 +6116,3 @@ en:
         reveal_title: Additional Information
         subtitle: Answer a few questions and let a tax pro file for you
         title: Virtual VITA
-    vita_providers:
-      index:
-        enter_zip: Enter your zip code to find providers near you.
-        header: Get Free Tax Prep Help
-        info: The IRS Volunteer Income Tax Assistance (VITA) programs offer free tax help for taxpayers who qualify.
-        no_results: We're sorry! We found no results within 50 miles of your address.
-        results: We found %{total_entries} results within 50 miles of %{zip}
-        search:
-          header: Enter your zip code to find providers near you.
-          no_results: We found no results within 50 miles of %{zip} (%{zip_name}).
-          placeholder: Enter Zip Code
-          prepare_your_own_html: You can also prepare your own taxes by using the %{free_file_link} to find a free way to file your taxes online.
-          results: We found %{total_entries} results within 50 miles of %{zip} (%{zip_name}).
-          try_another_or_apply_html: Please try another zip code.
-        title: Find a Location
-      show:
-        appointment_info: Appointments are %{appointment_info}.
-        call_to_schedule: Please call to schedule.
-        maps_link_title: Google Maps link for %{provider_name}
-        no_hours_listed: Sorry, no hours listed.
-        no_phone_number_listed: Sorry, no phone number listed.
-        phone_number_title: Call %{provider_name}
-        search_radius: Within %{distance} miles of %{zip} (%{zip_name})
