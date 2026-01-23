@@ -20,32 +20,47 @@ module BedrockDocScreener
       Clients are uploading documents and you need to verify the validity of the document using these rules:
          1) If the photo is a poor quality image (poorly lit, blurry, cropped & missing information, pixelated screen etc.) 
             so much so that it renders the document illegible, 
-            then set reason="unreadable" and set verdict="fail".
+            then add "unreadable" to document_quality_issues array.
          2) If the document does not fit any of the doc types in the available-doc-types list,
-            then set reason="no_doc_type_match" and set verdict="fail".
+            then set suggested_document_type=null and set matches_doc_type_verdict="fail".
          3) If it does not appear to match the stated doc type (in this case #{document_type}) 
             but does match another type in the available-doc-types list,
-            then set reason="wrong_document_type", verdict="fail" 
+            then set matches_doc_type_verdict="fail" 
+            and set suggested_document_type to the key of the doc-type that matches.
             and include the doc-types that might be match in the explanation field by their label name.
-         4) If the document is expired, then set reason="expired" and verdict="fail".
-         5) If the document is fake (for example if it is labeled as a 'sample'),
-            then set reason="fake" and verdict="fail".
+         4) If the document is expired, then add "expired" to document_quality_issues array.
+            Note: Expired documents can still pass matches_doc_type_verdict if the type is correct.
+         5) If the document is fake ONLY if it is glaringly obvious (for example if it is labeled as 'SAMPLE', etc),
+            then add "potentially_fake" to document_quality_issues array.
+            Note: Potentially fake documents can still pass matches_doc_type_verdict if the type appears to match.
+            IMPORTANT: matches_doc_type_verdict should ONLY be determined by whether the document type matches, not by fake considerations.
+            Even if a document appears to be a sample, still pass the type match if it's the correct document type.
          6) If there is another reason that the document is not valid, 
-            then set reason="other" and verdict="fail".
+            then set reason="other"
          7) If the document seems to be a valid document, readable and the selected document type matches,
-            then set reason="" and verdict="pass".
+            then set document_quality_issues=[] (empty array) and matches_doc_type_verdict="pass".
          8) "confidence" must be between 0.0 and 1.0.
-         9) Do not include any keys other than "verdict", "reason", "explanation" and "confidence"
-         10) verdict should only be "pass" or "fail"
+         9) Do not include any keys other than "matches_doc_type_verdict", "suggested_document_type", "document_quality_issues", "explanation" and "confidence"
+         10) matches_doc_type_verdict should only be "pass" or "fail"
+         11) Always set suggested_document_type to the key of the doc type that best matches the document.
+            If none of the available doc types are a good fit, set suggested_document_type=null.
+            Do not force a selection if there is no clear match.
+         12) document_quality_issues is an array that can include: "unreadable", "expired", "potentially_fake", "other"
+             Multiple issues can be present at the same time.
       
+      Document Type Guidelines:
+      - IDs (like driver's licenses, state IDs, passports) are any documents that have a photo of the person, their name, 
+        their birthday, and are issued by a state or federal government.
+
       available-doc-types: #{available_doc_types}
 
       Selected document type: #{document_type}
 
       Return ONLY valid JSON with this exact schema:
       {
-        "verdict": "pass" | "fail",
-        "reason": "unreadable" | "no_doc_type_match" | "wrong_document_type" | expired" | "fake" | "other",
+        "matches_doc_type_verdict": "pass" | "fail",
+        "suggested_document_type": "key from available-doc-types" | null,
+        "document_quality_issues": ["unreadable" | "expired" | "potentially_fake" | "other"],
         "explanation": [Brief 1-2 sentence explanation of reason. Explain why invalid if so. The briefer the better, please do not be redundant.],
         "confidence": number between 0.0-1.0,
       }
@@ -55,7 +70,11 @@ module BedrockDocScreener
   def self.available_doc_types
     # matches @doc_type_options in document controller
     available_doc_types = [DocumentTypes::Identity, DocumentTypes::SsnItin] + (DocumentTypes::ALL_TYPES - DocumentTypes::IDENTITY_TYPES - DocumentTypes::SECONDARY_IDENTITY_TYPES)
-    available_doc_types.map { |d| {key: d.key, label: d.label} }
+    available_doc_types.map do |d|
+      result = { key: d.key, label: d.label }
+      result[:description] = d.description if d.respond_to?(:description)
+      result
+    end
   end
 
   def self.screen_document!(document:)

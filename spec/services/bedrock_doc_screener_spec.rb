@@ -84,15 +84,15 @@ describe BedrockDocScreener do
       let(:text) do
         <<~TEXT
           Some preamble
-
-          ```json
+```json
           {
-            "verdict": "pass",
-            "reason": "",
+            "matches_doc_type_verdict": "pass",
+            "suggested_document_type": "W2",
+            "document_quality_issues": [],
             "explanation": "Looks valid",
             "confidence": 0.95
           }
-          ```
+```
         TEXT
       end
 
@@ -100,8 +100,9 @@ describe BedrockDocScreener do
         result = described_class.parse_strict_json!(text)
 
         expect(result).to eq(
-                            "verdict" => "pass",
-                            "reason" => "",
+                            "matches_doc_type_verdict" => "pass",
+                            "suggested_document_type" => "W2",
+                            "document_quality_issues" => [],
                             "explanation" => "Looks valid",
                             "confidence" => 0.95
                           )
@@ -112,8 +113,9 @@ describe BedrockDocScreener do
       let(:text) do
         <<~JSON
           {
-            "verdict": "fail",
-            "reason": "unreadable",
+            "matches_doc_type_verdict": "fail",
+            "suggested_document_type": null,
+            "document_quality_issues": ["unreadable"],
             "explanation": "too blurry",
             "confidence": 0.2
           }
@@ -123,8 +125,9 @@ describe BedrockDocScreener do
       it "parses the JSON directly" do
         result = described_class.parse_strict_json!(text)
 
-        expect(result["verdict"]).to eq("fail")
-        expect(result["reason"]).to eq("unreadable")
+        expect(result["matches_doc_type_verdict"]).to eq("fail")
+        expect(result["suggested_document_type"]).to be_nil
+        expect(result["document_quality_issues"]).to eq(["unreadable"])
       end
     end
 
@@ -147,14 +150,15 @@ describe BedrockDocScreener do
           {
             "type" => "text",
             "text" => <<~JSON_TEXT
-              ```json
+```json
               {
-                "verdict": "pass",
-                "reason": "",
+                "matches_doc_type_verdict": "pass",
+                "suggested_document_type": "Employment",
+                "document_quality_issues": [],
                 "explanation": "Valid doc",
                 "confidence": 0.99
               }
-              ```
+```
             JSON_TEXT
           }
         ]
@@ -192,8 +196,9 @@ describe BedrockDocScreener do
         described_class.screen_document!(document: document)
 
       expect(result_json).to eq(
-                               "verdict" => "pass",
-                               "reason" => "",
+                               "matches_doc_type_verdict" => "pass",
+                               "suggested_document_type" => "Employment",
+                               "document_quality_issues" => [],
                                "explanation" => "Valid doc",
                                "confidence" => 0.99
                              )
