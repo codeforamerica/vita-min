@@ -40,6 +40,13 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       click_on I18n.t('general.continue_example')
     end
 
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
+      end
+      click_on I18n.t("views.questions.qualifications.button_1")
+    end
+
     intake_after_triage_up_to_documents(intake)
   end
 
@@ -416,6 +423,13 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(page).to have_text I18n.t('views.questions.environment_warning.title')
     click_on I18n.t('general.continue_example')
 
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
+      end
+      click_on I18n.t("views.questions.qualifications.button_1")
+    end
+
     intake_after_triage_up_to_documents(intake)
   end
 
@@ -588,6 +602,14 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
       find('[data-track-click="service-comparison-full-service"]').click
 
+      page_change_block do
+        screenshot_after do
+          expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
+        end
+        click_on I18n.t("views.questions.qualifications.button_1")
+      end
+
+      page_change_block do
       # fill in personal
       expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
       fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
@@ -598,6 +620,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
       fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
       click_on I18n.t('general.continue')
+      end
 
       intake = Intake.last
       intake_after_triage_up_to_documents(intake)
