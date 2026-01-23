@@ -47,6 +47,11 @@ module BedrockDocScreener
             Do not force a selection if there is no clear match.
          12) document_quality_issues is an array that can include: "unreadable", "expired", "potentially_fake", "other"
              Multiple issues can be present at the same time.
+         13) "confidence" must be one of these discrete values based on how clear the assessment is:
+            - 0.95: Very obvious case (e.g., clearly readable standard document, or glaringly obvious issues)
+            - 0.8: Confident assessment (most typical cases with clear characteristics)
+            - 0.5: Somewhat confident (some ambiguity in the document or categorization)
+            - 0.2: Very uncertain/ambiguous (poor quality, unusual format, or unclear what document is)
       
       Document Type Guidelines:
       - IDs (like driver's licenses, state IDs, passports) are any documents that have a photo of the person, their name, 
