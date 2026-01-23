@@ -84,7 +84,8 @@ describe BedrockDocScreener do
       let(:text) do
         <<~TEXT
           Some preamble
-```json
+
+          ```json
           {
             "matches_doc_type_verdict": "pass",
             "suggested_document_type": "W2",
@@ -92,7 +93,7 @@ describe BedrockDocScreener do
             "explanation": "Looks valid",
             "confidence": 0.95
           }
-```
+          ```
         TEXT
       end
 
@@ -150,7 +151,7 @@ describe BedrockDocScreener do
           {
             "type" => "text",
             "text" => <<~JSON_TEXT
-```json
+              ```json
               {
                 "matches_doc_type_verdict": "pass",
                 "suggested_document_type": "Employment",
@@ -158,7 +159,7 @@ describe BedrockDocScreener do
                 "explanation": "Valid doc",
                 "confidence": 0.99
               }
-```
+              ```
             JSON_TEXT
           }
         ]
