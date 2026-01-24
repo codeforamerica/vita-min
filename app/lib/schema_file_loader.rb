@@ -45,6 +45,7 @@ class SchemaFileLoader
       end
     end
 
+    # todo: change this
     def s3_credentials
       # On Circle CI, get AWS credentials from environment.
       # In staging, demo, heroku, and prod environment, get credentials from Rails credentials.
