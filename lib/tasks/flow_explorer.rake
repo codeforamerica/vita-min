@@ -18,6 +18,7 @@ namespace :flow_explorer do
   task upload_screenshots: :environment do |_task|
     screenshots_path = Rails.root.join('public', 'assets', 'flow_screenshots')
 
+    # here
     credentials = if ENV["AWS_ACCESS_KEY_ID"].present?
                     Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV["AWS_SECRET_ACCESS_KEY"])
                   else

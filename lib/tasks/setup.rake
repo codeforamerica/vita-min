@@ -41,6 +41,7 @@ namespace :setup do
     # In staging, demo, and prod environment, get credentials from Rails credentials.
     #
     # In development, download the file manually from S3. This allows us to avoid storing any AWS credentials in the development secrets.
+    # todo: here
     credentials = if ENV["AWS_ACCESS_KEY_ID"].present?
                     Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV["AWS_SECRET_ACCESS_KEY"])
                   else
