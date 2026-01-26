@@ -785,7 +785,7 @@ class Seeder
   def add_fake_doc_assessment(doc, pass: true)
     matches_doc_type_verdict = pass ? "pass" : "fail"
     suggested_document_type = pass ? doc.document_type : nil
-    document_quality_issues = pass ? [] : ["other"]
+    document_quality_issues = pass ? ["N/A"] : ["other"]
 
     DocAssessment.create!(
       document_id: doc.id,

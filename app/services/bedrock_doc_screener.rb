@@ -19,39 +19,35 @@ module BedrockDocScreener
     <<~PROMPT
       Clients are uploading documents and you need to verify the validity of the document using these rules:
          1) If the photo is a poor quality image (poorly lit, blurry, cropped & missing information, pixelated screen etc.) 
-            so much so that it renders the document illegible, 
-            then add "unreadable" to document_quality_issues array.
+            so much so that it renders the document illegible, then add "unreadable" to document_quality_issues array.
          2) If the document does not fit any of the doc types in the available-doc-types list,
             then set suggested_document_type=null and set matches_doc_type_verdict="fail".
+            If the document seems to be a valid document, readable and the selected document type matches,
+            then set document_quality_issues=["N/A"] and matches_doc_type_verdict="pass".
          3) If it does not appear to match the stated doc type (in this case #{document_type}) 
-            but does match another type in the available-doc-types list,
-            then set matches_doc_type_verdict="fail" 
+            but does match another type in the available-doc-types list, then set matches_doc_type_verdict="fail" 
             and set suggested_document_type to the key of the doc-type that matches.
             and include the doc-types that might be match in the explanation field by their label name.
          4) If the document is expired, then add "expired" to document_quality_issues array.
-            Note: Expired documents can still pass matches_doc_type_verdict if the type is correct.
          5) If the document is fake ONLY if it is glaringly obvious (for example if it is labeled as 'SAMPLE', etc),
             then add "potentially_fake" to document_quality_issues array.
-            Note: Potentially fake documents can still pass matches_doc_type_verdict if the type appears to match.
-            IMPORTANT: matches_doc_type_verdict should ONLY be determined by whether the document type matches, not by fake considerations.
-            Even if a document appears to be a sample, still pass the type match if it's the correct document type.
-         6) If there is another reason that the document is not valid, 
-            then set reason="other"
-         7) If the document seems to be a valid document, readable and the selected document type matches,
-            then set document_quality_issues=[] (empty array) and matches_doc_type_verdict="pass".
-         8) "confidence" must be between 0.0 and 1.0.
-         9) Do not include any keys other than "matches_doc_type_verdict", "suggested_document_type", "document_quality_issues", "explanation" and "confidence"
-         10) matches_doc_type_verdict should only be "pass" or "fail"
-         11) Always set suggested_document_type to the key of the doc type that best matches the document.
+            Do not flag documents as potentially fake based on subtle concerns or suspicions.
+         6) matches_doc_type_verdict should ONLY be determined by whether the document type matches, 
+            not by document_quality_issues such as being expired, potentially fake, or unreadable.
+            A document can pass the type match even if it has quality issues.
+         7) If there is another reason that the document is not valid, then set document_quality_issues="other"
+         8) Do not include any keys other than "matches_doc_type_verdict", "suggested_document_type", "document_quality_issues", "explanation" and "confidence"
+         9) matches_doc_type_verdict should only be "pass" or "fail"
+         10) Always set suggested_document_type to the key of the doc type that best matches the document.
             If none of the available doc types are a good fit, set suggested_document_type=null.
             Do not force a selection if there is no clear match.
-         12) document_quality_issues is an array that can include: "unreadable", "expired", "potentially_fake", "other"
+         11) document_quality_issues is an array that can include: "unreadable", "expired", "potentially_fake", "other"
              Multiple issues can be present at the same time.
-         13) "confidence" must be one of these discrete values based on how clear the assessment is:
-            - 0.95: Very obvious case (e.g., clearly readable standard document, or glaringly obvious issues)
-            - 0.8: Confident assessment (most typical cases with clear characteristics)
-            - 0.5: Somewhat confident (some ambiguity in the document or categorization)
-            - 0.2: Very uncertain/ambiguous (poor quality, unusual format, or unclear what document is)
+         12) "confidence" must be between 0.0 and 1.0. "confidence" must be one of these discrete values based on how clear the assessment is:
+              - 0.95: Near-certain. The document clearly matches (or clearly does not match) the suggested document type with no ambiguity.
+              - 0.8:  High confidence. Strong evidence supports your verification decision; unlikely to be wrong but not absolute.
+              - 0.5:  Moderate confidence. The document probably is (or is not) the suggested type, but there are features that create uncertainty.
+              - 0.2:  Low confidence. Verification is a best guess; the document has ambiguous characteristics that make it difficult to confirm or reject the suggested type.
       
       Document Type Guidelines:
       - IDs (like driver's licenses, state IDs, passports) are any documents that have a photo of the person, their name, 
