@@ -51,11 +51,10 @@ RSpec.feature "Visit home page" do
     end
   end
 
-  scenario "showing the ICE warning banner" do
+  scenario "show no banner" do
     visit "/"
 
-    expect(page).to have_text "Immigrant filers: As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. Please see our FAQ for more information."
-    expect(page.all(:css, '.slab--banner').length).to eq 1
+    expect(page.all(:css, '.slab--banner').length).to eq 0
   end
 
   xcontext "shows the correct date-dependent banners" do

@@ -2264,7 +2264,6 @@ en:
   signups:
     flash_notice: Thank you! You will receive a notification when we open.
     new:
-      banner: New intakes for GetYourRefund have closed for %{year}. Please come back in January to file next year.
       header: We'd love to work with you next year to help you file your taxes for free!
       opt_in_message:
         01_intro: 'Note: Providing your phone number means you have opted in to the following in order to use the GetYourRefund service:'
@@ -5911,7 +5910,7 @@ en:
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.
-        warning_html: '⚠️ <b>Immigrant filers</b>: As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Please see our FAQ for more information if you have any concerns.</a>'
+        warning_html: '⚠️ <b>Immigrant filers</b>: As of April 2025, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Please see our FAQ for more information if you have any concerns.</a>'
       start_with_current_year:
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: We’ll start by asking about your situation in %{year}.
@@ -6066,7 +6065,6 @@ en:
         volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
-      ice_warning_html: "<strong>Immigrant filers:</strong> As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href='%{faq_link}' target='_blank'>Please see our FAQ for more information.</a>"
       in_person_vita_card:
         bullet_1: Hands-on support
         bullet_2: State and Federal tax returns
