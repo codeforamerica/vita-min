@@ -35,7 +35,7 @@ class SchemaFileLoader
     end
 
     def download_schemas_from_s3(dest_dir)
-      s3_client = Aws::S3::Client.new(region: REGION, credentials: s3_credentials)
+      s3_client = Aws::S3::Client.new(region: REGION)
       get_missing_downloads(dest_dir).each do |(download_path, _)|
         s3_client.get_object(
           response_target: download_path,
@@ -43,22 +43,6 @@ class SchemaFileLoader
           key: File.basename(download_path),
         )
       end
-    end
-
-    # todo: change this
-    def s3_credentials
-      # On Circle CI, get AWS credentials from environment.
-      # In staging, demo, heroku, and prod environment, get credentials from Rails credentials.
-      #
-      # In development, download the file manually from S3. This allows us to avoid storing any AWS credentials in the development secrets.
-      if ENV["AWS_ACCESS_KEY_ID"].present?
-        return Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV["AWS_SECRET_ACCESS_KEY"])
-      end
-
-      Aws::Credentials.new(
-        Rails.application.credentials.dig(:aws, :access_key_id),
-        Rails.application.credentials.dig(:aws, :secret_access_key),
-      )
     end
 
     def prepare_directories(dest_dir)

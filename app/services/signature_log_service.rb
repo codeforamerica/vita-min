@@ -13,13 +13,7 @@ class SignatureLogService
     record = "Type: #{record_type}\nName: #{name}\nUser agent (browser info): #{user_agent}\nIP address: #{ip_address}\nTime: #{Time.now}"
     unique_filename = "#{client_id}/#{Time.now.to_i}.#{SecureRandom.hex(20)}.txt"
 
-    # here
-    s3 = Aws::S3::Client.new(region: 'us-east-1', credentials: Aws::Credentials.new(
-      Rails.application.credentials.dig(:aws, :access_key_id),
-      Rails.application.credentials.dig(:aws, :secret_access_key),
-    ))
-
-    s3.put_object(
+    Aws::S3::Client.new(region: 'us-east-1').put_object(
       key: unique_filename,
       body: record,
       bucket: Rails.configuration.signature_log_bucket
