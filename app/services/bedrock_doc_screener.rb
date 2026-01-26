@@ -158,7 +158,6 @@ module BedrockDocScreener
     raise "Bedrock did not return valid JSON. \n Error: #{e.message} \n Output: #{text.inspect}"
   end
 
-
   def self.pdf_to_png_base64(upload)
     images = []
 
