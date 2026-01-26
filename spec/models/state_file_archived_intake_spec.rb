@@ -37,29 +37,6 @@ RSpec.describe StateFileArchivedIntake, type: :model do
     end
   end
 
-  describe "#s3_credentials" do
-    context "AWS_ACCESS_KEY_ID in ENV" do
-      it "uses the environment variables" do
-        stub_const("ENV", {
-          "AWS_ACCESS_KEY_ID" => "mock-aws-access-key-id",
-          "AWS_SECRET_ACCESS_KEY" => "mock-aws-secret-access-key"
-        })
-        credentials = SchemaFileLoader.s3_credentials
-        expect(credentials.access_key_id).to eq "mock-aws-access-key-id"
-      end
-    end
-
-    context "without AWS_ACCESS_KEY_ID in ENV" do
-      it "uses the rails credentials" do
-        stub_const("ENV", {})
-        expect(Rails.application.credentials).to receive(:dig).with(:aws, :access_key_id).and_return "mock-aws-access-key-id"
-        expect(Rails.application.credentials).to receive(:dig).with(:aws, :secret_access_key).and_return "mock-aws-secret-access-key"
-        credentials = SchemaFileLoader.s3_credentials
-        expect(credentials.access_key_id).to eq "mock-aws-access-key-id"
-      end
-    end
-  end
-
   describe "#fetch_random_addresses" do
     let!(:state_file_archived_intake) { create(:state_file_archived_intake)}
 
