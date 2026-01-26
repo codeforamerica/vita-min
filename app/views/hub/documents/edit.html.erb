@@ -36,25 +36,27 @@
             <th>job complete?</th>
             <th>error?</th>
             <th>updated at</th>
-            <th>verdict</th>
+            <th>matches doc type verdict</th>
+            <th>suggested document type</th>
+            <th>document quality issues</th>
             <th>confidence</th>
-            <th>reason</th>
             <th>explanation</th>
           </tr>
           <% @document.assessments.order('created_at DESC').each do |assessment| %>
             <% result = assessment&.result_json %>
             <% error = assessment&.error %>
-          <tr class="<%= error.present? ? "error" : result["verdict"] %>">
-            <td><%= assessment.status %></td>
-            <td><%= "Error: #{JSON.pretty_generate(error)}" unless error.blank? %></td>
-            <td><%= long_formatted_datetime(assessment.updated_at) %></td>
-            <td><%= result["verdict"] %></td>
-            <td><%= result["confidence"] %></td>
-            <td><u><%= result["reason"] %></u></td>
-            <td><%= result["explanation"] %></td>
-          </tr>
-      <% end %>
-      </table>
+            <tr class="<%= error.present? ? "error" : result["matches_doc_type_verdict"] %>">
+              <td><%= assessment.status %></td>
+              <td><%= "Error: #{JSON.pretty_generate(error)}" unless error.blank? %></td>
+              <td><%= long_formatted_datetime(assessment.updated_at) %></td>
+              <td><%= result["matches_doc_type_verdict"] %></td>
+              <td><%= result["suggested_document_type"] || "—" %></td>
+              <td><%= result["document_quality_issues"]&.presence&.join(", ") || "none" %></td>
+              <td><%= result["confidence"] %></td>
+              <td><%= result["explanation"] %></td>
+            </tr>
+          <% end %>
+        </table>
   <% end %>
   </div>
 <% end %>
