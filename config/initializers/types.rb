@@ -10,5 +10,5 @@ Rails.application.reloader.to_prepare do
   end
   ActiveRecord::Type::Decimal.prepend(DecimalCleaner)
 
-  ActiveRecord::Type.register(:money, MoneyType)
+  ActiveRecord::Type.register(:custom_money, MoneyType)
 end
