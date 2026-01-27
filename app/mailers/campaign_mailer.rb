@@ -3,6 +3,7 @@ class CampaignMailer < ApplicationMailer
     message = "CampaignMessage::#{message_name.camelize}".constantize.new
     @body = message.email_body(locale: locale)
     service = MultiTenantService.new(:gyr)
+    email_domain = ENV.fetch("MAILGUN_OUTREACH_DOMAIN")
 
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       { host: service.host,
@@ -18,9 +19,9 @@ class CampaignMailer < ApplicationMailer
     mail(
       to: email_address,
       subject: message.email_subject(locale: locale),
-      from: "no-reply@#{ENV.fetch("MAILGUN_CAMPAIGN_DOMAIN")}",
-      delivery_method_options: { api_key: ENV.fetch("MAILGUN_CAMPAIGN_API_KEY"),
-                                 domain: ENV.fetch("MAILGUN_CAMPAIGN_DOMAIN") },
+      from: "no-reply@#{email_domain}",
+      delivery_method_options: { api_key: ENV.fetch("MAILGUN_OUTREACH_API_KEY"),
+                                 domain: email_domain },
       template_path: "outgoing_email_mailer",
       template_name: "user_message"
     )
