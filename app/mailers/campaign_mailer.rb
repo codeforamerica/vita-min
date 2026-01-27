@@ -18,8 +18,9 @@ class CampaignMailer < ApplicationMailer
     mail(
       to: email_address,
       subject: message.email_subject(locale: locale),
-      from: service.noreply_email,
-      delivery_method_options: service.delivery_method_options,
+      from: "no-reply@#{ENV.fetch("MAILGUN_CAMPAIGN_DOMAIN")}",
+      delivery_method_options: { api_key: ENV.fetch("MAILGUN_CAMPAIGN_API_KEY"),
+                                 domain: ENV.fetch("MAILGUN_CAMPAIGN_DOMAIN") },
       template_path: "outgoing_email_mailer",
       template_name: "user_message"
     )
