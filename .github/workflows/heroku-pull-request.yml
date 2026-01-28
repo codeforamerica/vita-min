@@ -48,11 +48,11 @@ jobs:
 
       - name: Add nodejs buildpack
         if: ${{ env.RUN_APP_SETUP == 'true' }}
-        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 1 heroku/nodejs
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 1 https://github.com/heroku/heroku-buildpack-nodejs
 
       - name: Add ruby buildpack
         if: ${{ env.RUN_APP_SETUP == 'true' }}
-        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 2 heroku/ruby
+        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 2 https://github.com/heroku/heroku-buildpack-ruby
 
       - name: Add activestorage-preview buildpack
         if: ${{ env.RUN_APP_SETUP == 'true' }}
