@@ -12,7 +12,17 @@ class VerificationCodeMailer < ApplicationMailer
                else
                  I18n.t('messages.default_subject_with_service_name', service_name: @service_name, locale: @locale)
                end
-    mail(to: params[:to], subject: @subject, from: service.noreply_email, delivery_method_options: service.delivery_method_options)
+    mail(
+      to: params[:to],
+      subject: @subject,
+      from: service.noreply_email,
+      delivery_method_options: service.delivery_method_options
+    ) do |format|
+      format.html {
+        # retry period for failed messages is 15min
+        headers['X-Mailgun-Deliverytime'] = '15m'
+      }
+    end
   end
 
   def no_match_found(to:, locale:, service_type:)

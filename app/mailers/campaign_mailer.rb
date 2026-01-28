@@ -20,11 +20,18 @@ class CampaignMailer < ApplicationMailer
       to: email_address,
       subject: message.email_subject(locale: locale),
       from: "no-reply@#{email_domain}",
-      delivery_method_options: { api_key: ENV.fetch("MAILGUN_OUTREACH_API_KEY"),
-                                 domain: email_domain },
+      delivery_method_options: {
+        api_key: ENV.fetch("MAILGUN_OUTREACH_API_KEY"),
+        domain: email_domain
+      },
       template_path: "outgoing_email_mailer",
       template_name: "user_message"
-    )
+    ) do |format|
+      format.html {
+        # the period in which MailGun will retry sending a failed message is 8 hours
+        headers['X-Mailgun-Deliverytime'] = '8h'
+      }
+    end
   end
 
   private

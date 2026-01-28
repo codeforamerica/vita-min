@@ -10,7 +10,8 @@ class CampaignContacts::SendEmailsBatchJob < ApplicationJob
     return if ids.empty?
 
     # claim to prevent concurrent tasks
-    updated = CampaignContact.where(id: ids, sent_at_column => nil).update_all(sent_at_column => now, updated_at: now)
+    updated = CampaignContact.where(id: ids, sent_at_column => nil)
+                .update_all(sent_at_column => now, updated_at: now)
     return if updated.zero?
 
     CampaignContact.where(id: ids).find_each do |contact|
