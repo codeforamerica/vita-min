@@ -2159,6 +2159,24 @@ es:
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
   questions:
+    eligibility_wages:
+      edit:
+        income_level:
+          label: Seleccione el ingreso de su hogar
+          options:
+            1_to_69000: "$1 - $69,000"
+            69001_to_89000: "$69,001 - 89,000"
+            over_89000: más de $89,000
+            zero: "$0"
+        page: Paso 1 de 2
+        subtitle: Le haremos algunas preguntas sobre lo que prefiere para guiarle a los servicios a los que puede calificar.
+        title: "¡Le ayudaremos a encontrar el servicio adecuado!"
+        vita_income_ineligible:
+          label: 'Seleccione todas las opciones que apliquen a sus ingresos en 2025:'
+          options:
+            crypto: Ingresos por criptomonedas
+            none: Ninguna de estas opciones aplica
+            property: Ingresos por propiedades de alquiler o agrícolas
     triage:
       diy_tile:
         choose_diy: Elegir declarar por mi cuenta o "File Myself" en inglés

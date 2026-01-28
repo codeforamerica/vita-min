@@ -1,0 +1,37 @@
+<% content_for :page_title, t('.title') %>
+<% content_for :card do %>
+
+  <div class="text--centered text--small text--bold">
+    <%= t(".page") %>
+  </div>
+
+  <h2 class="text--semibold"><%= content_for(:page_title) %></h2>
+
+  <p><%= t(".subtitle") %></p>
+
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <div class="rounded-box">
+      <%= f.cfa_select(
+            :triage_income_level,
+            t(".income_level.label"),
+            [
+              [t(".income_level.options.zero"), :zero],
+              [t(".income_level.options.1_to_69000"), "1_to_69000"],
+              [t(".income_level.options.69001_to_89000"), "69001_to_89000"],
+              [t(".income_level.options.over_89000"), :over_89000],
+            ],
+            include_blank: t('general.select_prompt')
+          ) %>
+    </div>
+    <div class="rounded-box">
+      <p class="spacing-below-10"><b><%= t(".vita_income_ineligible.label") %></b></p>
+      <div class="tight-checkboxes">
+        <%= f.simplified_cfa_checkbox(:has_property_income, t(".vita_income_ineligible.options.property"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.simplified_cfa_checkbox(:has_crypto_income, t(".vita_income_ineligible.options.crypto"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.simplified_cfa_checkbox(:triage_vita_income_ineligible, t(".vita_income_ineligible.options.none"), options: { checked_value: "no", unchecked_value: "yes" }) %>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>
