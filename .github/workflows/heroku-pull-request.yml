@@ -76,6 +76,13 @@ jobs:
             git config user.email "nobody@example.com" && \
             git commit -m "Disable Reline autocomplete"
 
+      - name: Clear and reset buildpacks
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          heroku buildpacks:clear --app ${{ env.HEROKU_APP_NAME }}
+          echo "Buildpacks cleared. Heroku will now use .buildpacks file."
+
       - name: Push to Heroku
         run: git push heroku ${{ github.head_ref }}:main --force
 
