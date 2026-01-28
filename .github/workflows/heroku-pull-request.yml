@@ -46,25 +46,15 @@ jobs:
         if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku config:set HEROKU_APP_NAME=${{ env.HEROKU_APP_NAME }} HEROKU_PR_NUMBER=${{ github.event.number }} -a ${{ env.HEROKU_APP_NAME }}
 
-      - name: Add nodejs buildpack
+      - name: Configure buildpacks
         if: ${{ env.RUN_APP_SETUP == 'true' }}
-        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 1 https://github.com/heroku/heroku-buildpack-nodejs
-
-      - name: Add ruby buildpack
-        if: ${{ env.RUN_APP_SETUP == 'true' }}
-        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 2 https://github.com/heroku/heroku-buildpack-ruby
-
-      - name: Add activestorage-preview buildpack
-        if: ${{ env.RUN_APP_SETUP == 'true' }}
-        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 3 https://github.com/heroku/heroku-buildpack-activestorage-preview
-
-      - name: Add jvm buildpack
-        if: ${{ env.RUN_APP_SETUP == 'true' }}
-        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 4 heroku/jvm
-
-      - name: Add heroku-buildpack-run buildpack
-        if: ${{ env.RUN_APP_SETUP == 'true' }}
-        run: heroku buildpacks:set --app ${{ env.HEROKU_APP_NAME }} --index 5 https://github.com/weibeld/heroku-buildpack-run.git
+        run: |
+          heroku buildpacks:clear --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-nodejs --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-ruby --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add --index 3 https://github.com/heroku/heroku-buildpack-activestorage-preview --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add --index 4 https://github.com/heroku/heroku-buildpack-jvm --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add --index 5 https://github.com/weibeld/heroku-buildpack-run.git --app ${{ env.HEROKU_APP_NAME }}
 
       - name: Copy environment variables to Heroku app
         if: ${{ env.RUN_APP_SETUP == 'true' }}
