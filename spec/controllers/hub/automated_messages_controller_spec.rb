@@ -7,7 +7,11 @@ describe Hub::AutomatedMessagesController do
     context "as an authenticated user" do
       before do
         sign_in create(:admin_user)
+        allow(ENV).to receive(:fetch).and_call_original
+        allow(ENV).to receive(:fetch).with("MAILGUN_OUTREACH_API_KEY").and_return("fake-key")
+        allow(ENV).to receive(:fetch).with("MAILGUN_OUTREACH_DOMAIN").and_return("example.test")
       end
+
 
       let!(:tax_return) { create :tax_return, :intake_in_progress, year: 2021 }
 
