@@ -2190,6 +2190,24 @@ en:
     home:
       already_started: Already started? Sign in
   questions:
+    eligibility_wages:
+      edit:
+        income_level:
+          label: Select your household income
+          options:
+            1_to_69000: "$1 - $69,000"
+            69001_to_89000: "$69,001 - 89,000"
+            over_89000: over $89,000
+            zero: "$0"
+        page: Step 1 of 2
+        subtitle: We’ll ask a few questions about your preferences to guide you to the services you qualify for.
+        title: Let’s help you find the right service!
+        vita_income_ineligible:
+          label: 'Select all that apply to your income in 2025:'
+          options:
+            crypto: Cryptocurrency income
+            none: None of these apply
+            property: Rental or farm property income
     triage:
       diy_tile:
         choose_diy: Choose File Myself
