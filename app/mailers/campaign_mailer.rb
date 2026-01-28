@@ -16,6 +16,9 @@ class CampaignMailer < ApplicationMailer
 
     DatadogApi.increment("mailgun.campaign_emails.sent") if Rails.env.production?
 
+    # the period in which MailGun will retry sending a failed message is 8 hours
+    headers['X-Mailgun-Deliverytime'] = '8h'
+
     mail(
       to: email_address,
       subject: message.email_subject(locale: locale),
@@ -26,12 +29,7 @@ class CampaignMailer < ApplicationMailer
       },
       template_path: "outgoing_email_mailer",
       template_name: "user_message"
-    ) do |format|
-      format.html {
-        # the period in which MailGun will retry sending a failed message is 8 hours
-        headers['X-Mailgun-Deliverytime'] = '8h'
-      }
-    end
+    )
   end
 
   private
