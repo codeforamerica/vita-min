@@ -9,7 +9,7 @@
 
     <p><%= t("views.questions.qualifications.subtitle") %></p>
 
-    <div class="review-box spacing-above-35">
+    <div class="review-box spacing-above-15">
       <p><strong><%= t("views.questions.qualifications.qualifications.header") %></strong></p>
       <ul class="list--bulleted">
         <li><%= t("views.questions.qualifications.qualifications.p1") %></li>
@@ -18,7 +18,7 @@
       </ul>
     </div>
 
-    <div class="review-box spacing-above-35">
+    <div class="review-box spacing-above-15">
       <p><strong><%= t("views.questions.qualifications.not_included.header") %></strong></p>
       <ul class="list--bulleted">
         <li><%= t("views.questions.qualifications.not_included.p1") %></li>
@@ -27,11 +27,11 @@
       </ul>
     </div>
 
-    <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-35" do %>
+    <%= link_to next_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
       <%= t("views.questions.qualifications.button_1") %>
     <% end %>
 
-    <%= link_to root_path(anchor: "service-comparison"), class: "button button--wide text--centered spacing-above-35" do %>
+    <%= link_to root_path(anchor: "service-comparison"), class: "button button--wide text--centered spacing-above-15" do %>
       <%= t("views.questions.qualifications.button_2") %>
     <% end %>
   </div>

@@ -10,7 +10,7 @@
 
         <p><%= t(".subtitle") %></p>
 
-        <div class="review-box spacing-above-35">
+        <div class="review-box spacing-above-15">
           <p><strong><%= t(".qualifications.header") %></strong></p>
           <ul class="list--bulleted">
             <li><%= t(".qualifications.p1") %></li>
@@ -20,18 +20,18 @@
           </ul>
         </div>
 
-        <div class="review-box spacing-above-35">
+        <div class="review-box spacing-above-15">
           <p><strong><%= t(".not_included.header") %></strong></p>
           <ul class="list--bulleted">
             <li><%= t(".not_included.p1") %></li>
           </ul>
         </div>
 
-        <%= link_to diy_file_yourself_path, class: "button button--primary button--wide text--centered spacing-above-35" do %>
+        <%= link_to diy_file_yourself_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
           <%= t(".button_1") %>
         <% end %>
 
-        <%= link_to root_path(anchor: "service-comparison"), class: "button button--wide text--centered spacing-above-35" do %>
+        <%= link_to root_path(anchor: "service-comparison"), class: "button button--wide text--centered spacing-above-15" do %>
           <%= t(".button_2") %>
         <% end %>
 
