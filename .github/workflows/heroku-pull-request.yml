@@ -38,15 +38,9 @@ jobs:
             echo "RUN_APP_SETUP=true" >> $GITHUB_ENV;
           fi
 
-      - name: Create Heroku app and configure buildpacks
+      - name: Create Heroku app
         if: ${{ env.RUN_APP_SETUP == 'true' }}
-        run: |
-          heroku apps:create ${{ env.HEROKU_APP_NAME }} --team getyourrefund --stack heroku-22
-          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-nodejs --app ${{ env.HEROKU_APP_NAME }}
-          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-ruby --app ${{ env.HEROKU_APP_NAME }}
-          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-activestorage-preview --app ${{ env.HEROKU_APP_NAME }}
-          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-jvm --app ${{ env.HEROKU_APP_NAME }}
-          heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git --app ${{ env.HEROKU_APP_NAME }}
+        run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --team getyourrefund --stack heroku-22
 
       - name: Save app name and PR number as heroku environment variable
         if: ${{ env.RUN_APP_SETUP == 'true' }}
@@ -73,6 +67,15 @@ jobs:
 
       - name: Add Heroku remote
         run: heroku git:remote --app=${{ env.HEROKU_APP_NAME }}
+
+      - name: Configure buildpacks (right before push)
+        run: |
+          heroku buildpacks:clear --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-nodejs --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-ruby --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-activestorage-preview --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-jvm --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git --app ${{ env.HEROKU_APP_NAME }}
 
       - name: Disable Reline autocomplete
         run: |
