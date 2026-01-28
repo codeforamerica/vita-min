@@ -1,0 +1,5 @@
+https://github.com/heroku/heroku-buildpack-nodejs
+https://github.com/heroku/heroku-buildpack-ruby
+https://github.com/heroku/heroku-buildpack-activestorage-preview
+https://github.com/heroku/heroku-buildpack-jvm
+https://github.com/weibeld/heroku-buildpack-run.git

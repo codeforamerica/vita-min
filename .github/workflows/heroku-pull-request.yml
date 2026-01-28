@@ -38,23 +38,19 @@ jobs:
             echo "RUN_APP_SETUP=true" >> $GITHUB_ENV;
           fi
 
-      - name: Create Heroku app
+      - name: Create Heroku app and configure buildpacks
         if: ${{ env.RUN_APP_SETUP == 'true' }}
-        run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --team getyourrefund --stack heroku-22
+        run: |
+          heroku apps:create ${{ env.HEROKU_APP_NAME }} --team getyourrefund --stack heroku-22
+          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-nodejs --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-ruby --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-activestorage-preview --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add https://github.com/heroku/heroku-buildpack-jvm --app ${{ env.HEROKU_APP_NAME }}
+          heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git --app ${{ env.HEROKU_APP_NAME }}
 
       - name: Save app name and PR number as heroku environment variable
         if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: heroku config:set HEROKU_APP_NAME=${{ env.HEROKU_APP_NAME }} HEROKU_PR_NUMBER=${{ github.event.number }} -a ${{ env.HEROKU_APP_NAME }}
-
-      - name: Configure buildpacks
-        if: ${{ env.RUN_APP_SETUP == 'true' }}
-        run: |
-          heroku buildpacks:clear --app ${{ env.HEROKU_APP_NAME }}
-          heroku buildpacks:add --index 1 https://github.com/heroku/heroku-buildpack-nodejs --app ${{ env.HEROKU_APP_NAME }}
-          heroku buildpacks:add --index 2 https://github.com/heroku/heroku-buildpack-ruby --app ${{ env.HEROKU_APP_NAME }}
-          heroku buildpacks:add --index 3 https://github.com/heroku/heroku-buildpack-activestorage-preview --app ${{ env.HEROKU_APP_NAME }}
-          heroku buildpacks:add --index 4 https://github.com/heroku/heroku-buildpack-jvm --app ${{ env.HEROKU_APP_NAME }}
-          heroku buildpacks:add --index 5 https://github.com/weibeld/heroku-buildpack-run.git --app ${{ env.HEROKU_APP_NAME }}
 
       - name: Copy environment variables to Heroku app
         if: ${{ env.RUN_APP_SETUP == 'true' }}
