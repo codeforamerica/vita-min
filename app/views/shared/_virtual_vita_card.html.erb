@@ -1,3 +1,5 @@
+<% show_get_started ||= false %>
+
 <div class="rounded-box">
   <div class="service-card--title">
     <%= t("views.shared.virtual_vita_card.title") %>
@@ -5,15 +7,17 @@
   <div class="service-card--body">
     <%= t("views.shared.virtual_vita_card.subtitle") %>
   </div>
-  <div class="button-wrapper">
-    <div>
-      <% if open_for_gyr_intake? %>
-        <%= link_to t("general.get_started"), Questions::PersonalInfoController.to_path_helper, class:  "button text--centered button--wide", "data-track-click": "service-comparison-full-service" %>
-      <% else %>
-        <%= link_to t("general.get_started"), new_signup_path, class: "button text--centered button--wide", "data-track-click": "service-comparison-full-service" %>
-      <% end %>
+  <% if show_get_started %>
+    <div class="button-wrapper">
+      <div>
+        <% if open_for_gyr_intake? %>
+          <%= link_to t("general.get_started"), Questions::PersonalInfoController.to_path_helper, class:  "button text--centered button--wide", "data-track-click": "service-comparison-full-service" %>
+        <% else %>
+          <%= link_to t("general.get_started"), new_signup_path, class: "button text--centered button--wide", "data-track-click": "service-comparison-full-service" %>
+        <% end %>
+      </div>
     </div>
-  </div>
+  <% end %>
   <div class="service-card--list">
     <div class="service-card--list-item">
       <div class="service-card__icon-wrapper">

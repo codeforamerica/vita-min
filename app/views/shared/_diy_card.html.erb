@@ -1,3 +1,5 @@
+<% show_get_started ||= false %>
+
 <div class="rounded-box">
   <div class="service-card--title">
     <%= t("views.shared.diy_card.title") %>
@@ -5,11 +7,13 @@
   <div class="service-card--body">
     <%= t("views.shared.diy_card.subtitle") %>
   </div>
-  <div class="button-wrapper">
-    <div>
-      <%= link_to t("general.get_started"), diy_file_yourself_path, "data-track-click": "service-comparison-diy", class: "button text--centered button--wide" %>
+  <% if show_get_started %>
+    <div class="button-wrapper">
+      <div>
+        <%= link_to t("general.get_started"), diy_file_yourself_path, "data-track-click": "service-comparison-diy", class: "button text--centered button--wide" %>
+      </div>
     </div>
-  </div>
+  <% end %>
   <div class="service-card--list">
     <div class="service-card--list-item">
       <div class="service-card__icon-wrapper">

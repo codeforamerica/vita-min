@@ -1482,7 +1482,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_29_144003) do
     t.tsvector "searchable_data"
     t.integer "separated", default: 0, null: false
     t.string "separated_year"
-    t.integer "service_preference", default: 0, null: false
+    t.integer "service_preference", default: 0
     t.integer "signature_method", default: 0, null: false
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "sms_phone_number"

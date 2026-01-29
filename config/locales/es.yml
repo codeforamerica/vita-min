@@ -2203,8 +2203,7 @@ es:
         title: " Declare con Ayuda"
     triage_diy:
       edit:
-        subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con la opción a continuación!"
-        title: "¡Recomendamos usar nuestra opción gratuita File Myself!"
+        title: "Nuestra recomencación"
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
@@ -2212,8 +2211,7 @@ es:
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
     triage_gyr:
       edit:
-        subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con la opción a continuación!"
-        title: "¡Recomendamos utilizar nuestra opción gratuita Declare con Ayuda!"
+        title: "Nuestra recomencación"
     triage_gyr_diy:
       edit:
         subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con las opciones a continuación!"
