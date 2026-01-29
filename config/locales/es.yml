@@ -116,6 +116,8 @@ es:
         - Presente tus impuestos en línea por su cuenta usando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $89,000 para declarar impuestos y cobrar los créditos tributarios que se le deben!
         - Para comenzar, necesitaremos recopilar información básica.
         title: "¡Declare aquí sus impuestos usted mismo!"
+    notification_preference:
+      body: Pondremos en contacto con usted sobre apoyo gratuito para presentar impuestos y otros servicios gratuitos. También podríamos enviarle encuestas para mejorar su experiencia con nosotros. ¡Seleccione la(s) opción(es) que mejor se adapte(n) a usted!
     qualifications:
       edit:
         button_1: Sí, califico

@@ -10,7 +10,8 @@ module Diy
       if @form.valid?
         @form.save
         session[:diy_intake_id] = diy_intake.id
-        redirect_to(diy_continue_to_fsa_path)
+        #redirect_to(diy_continue_to_fsa_path)
+        redirect_to(diy_diy_notification_preference_path)
       else
         render :edit
       end

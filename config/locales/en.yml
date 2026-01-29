@@ -116,6 +116,8 @@ en:
         - File taxes online on your own using our partner website. This is our quickest option for households earning under $89,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
         title: File taxes on your own
+    notification_preference:
+      body: We will reach out about free tax filing support and other free services. We may also send surveys to improve your experience. Please select the option(s) that work best for you!
     qualifications:
       edit:
         button_1: Yes, I qualify

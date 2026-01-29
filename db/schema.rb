@@ -781,11 +781,13 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_29_144003) do
     t.datetime "clicked_chat_with_us_at"
     t.datetime "created_at", null: false
     t.string "email_address"
+    t.integer "email_notification_opt_in", default: 0
     t.integer "filing_frequency", default: 0, null: false
     t.string "locale"
     t.string "preferred_first_name"
     t.integer "received_1099", default: 0, null: false
     t.string "referrer"
+    t.integer "sms_notification_opt_in", default: 0
     t.string "source"
     t.string "token"
     t.datetime "updated_at", null: false

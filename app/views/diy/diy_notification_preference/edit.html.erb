@@ -1,0 +1,34 @@
+<% content_for :page_title, t("views.questions.notification_preference.title") %>
+
+<% content_for :card do %>
+  <%= form_with model: @form, url: diy_diy_notification_preference_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
+    <h1 class="h2"><%= content_for(:page_title) %></h1>
+
+    <p>
+      <%=t("diy.notification_preference.body") %>
+    </p>
+
+    <% if @form.errors[:base].any? %>
+      <div class="form-group form-group--error">
+        <p class="text--error"><i class="icon-warning"></i>
+          <%= @form.errors.full_messages.first %>
+        </p>
+      </div>
+    <% end %>
+
+    <div class="form-card__stacked-checkboxes spacing-above-35">
+      <%= f.cfa_checkbox(:email_notification_opt_in, t("views.questions.notification_preference.options.email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+      <div class="question-with-follow-up">
+        <div class="question-with-follow-up__question">
+          <%= f.cfa_checkbox(:sms_notification_opt_in, t("views.questions.notification_preference.options.sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
+        </div>
+
+        <p class="text--small spacing-above-25">
+          <%= t("views.questions.notification_preference.note_html", terms_url: sms_terms_url, privacy_url: privacy_url) %>
+        </p>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>
