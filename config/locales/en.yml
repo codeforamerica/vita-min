@@ -2269,12 +2269,9 @@ en:
 
             <p class="text--small spacing-above-15">Your income level should not include stimulus payments, public benefits, or SSI.</p>
           options:
-            12500_to_25000: "$15,000 - 30,000"
-            1_to_12500: "$1 - $15,000"
-            25000_to_40000: "$30,000 - 45,000"
-            40000_to_66000: "$45,000 - 69,000"
-            66000_to_79000: "$69,000 - 89,000"
-            over_79000: over $89,000
+            1_to_69000: "$1 - $69,000"
+            69001_to_89000: "$69,001 - 89,000"
+            over_89000: over $89,000
             zero: "$0"
         title: Tell us about your filing status and income.
         vita_income_ineligible:
@@ -2282,7 +2279,6 @@ en:
   signups:
     flash_notice: Thank you! You will receive a notification when we open.
     new:
-      banner: New intakes for GetYourRefund have closed for %{year}. Please come back in January to file next year.
       header: We'd love to work with you next year to help you file your taxes for free!
       opt_in_message:
         01_intro: 'Note: Providing your phone number means you have opted in to the following in order to use the GetYourRefund service:'
@@ -5772,7 +5768,7 @@ en:
           was_on_visa: I was in the US on a visa
         title: Select any situations that were true for you in %{year}
       lived_with_spouse:
-        title: Did you live with your spouse during any part of the last six months of %{year}?
+        title: Did you and your spouse live apart all of the last 6 months of the year?
       local_tax:
         help_text: Answer "Yes" if you owned a home or bought a car in %{year}. You might find this listed on a 1098 form.
         title:
@@ -5944,7 +5940,7 @@ en:
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.
-        warning_html: '⚠️ <b>Immigrant filers</b>: As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Please see our FAQ for more information if you have any concerns.</a>'
+        warning_html: '⚠️ <b>Immigrant filers</b>: As of April 2025, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Please see our FAQ for more information if you have any concerns.</a>'
       start_with_current_year:
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: We’ll start by asking about your situation in %{year}.
@@ -6099,7 +6095,6 @@ en:
         volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
-      ice_warning_html: "<strong>Immigrant filers:</strong> As of April 7th, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href='%{faq_link}' target='_blank'>Please see our FAQ for more information.</a>"
       in_person_vita_card:
         bullet_1: Hands-on support
         bullet_2: State and Federal tax returns
@@ -6149,26 +6144,3 @@ en:
         reveal_title: Additional Information
         subtitle: Answer a few questions and let a tax pro file for you
         title: Virtual VITA
-    vita_providers:
-      index:
-        enter_zip: Enter your zip code to find providers near you.
-        header: Get Free Tax Prep Help
-        info: The IRS Volunteer Income Tax Assistance (VITA) programs offer free tax help for taxpayers who qualify.
-        no_results: We're sorry! We found no results within 50 miles of your address.
-        results: We found %{total_entries} results within 50 miles of %{zip}
-        search:
-          header: Enter your zip code to find providers near you.
-          no_results: We found no results within 50 miles of %{zip} (%{zip_name}).
-          placeholder: Enter Zip Code
-          prepare_your_own_html: You can also prepare your own taxes by using the %{free_file_link} to find a free way to file your taxes online.
-          results: We found %{total_entries} results within 50 miles of %{zip} (%{zip_name}).
-          try_another_or_apply_html: Please try another zip code.
-        title: Find a Location
-      show:
-        appointment_info: Appointments are %{appointment_info}.
-        call_to_schedule: Please call to schedule.
-        maps_link_title: Google Maps link for %{provider_name}
-        no_hours_listed: Sorry, no hours listed.
-        no_phone_number_listed: Sorry, no phone number listed.
-        phone_number_title: Call %{provider_name}
-        search_radius: Within %{distance} miles of %{zip} (%{zip_name})

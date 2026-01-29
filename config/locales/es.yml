@@ -2238,12 +2238,9 @@ es:
 
             <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o Seguridad de Ingreso Suplementario (SSI)</p>
           options:
-            12500_to_25000: "$15,000 - 30,000"
-            1_to_12500: "$1 - $15,000"
-            25000_to_40000: "$30,000 - 45,000"
-            40000_to_66000: "$45,000 - 69,000"
-            66000_to_79000: "$69,000 - 89,000"
-            over_79000: más de $89,000
+            1_to_69000: "$1 - $69,000"
+            69001_to_89000: "$69,001 - 89,000"
+            over_89000: más de $89,000
             zero: "$0"
         title: Hablemos sobre su estado civil y sus ingresos.
         vita_income_ineligible:
@@ -2251,7 +2248,6 @@ es:
   signups:
     flash_notice: "¡Gracias! Recibirás una notificación cuando abramos."
     new:
-      banner: Se cerraron nuevas inscripciones para GetYourRefund para %{year}. Vuelva en enero para presentar la solicitud el próximo año.
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarle gratuitamente a declarar sus impuestos!"
       opt_in_message:
         01_intro: 'Aviso: Proporcionar su número de teléfono significa que usted ha optado por lo siguiente para usar el servicio GetYourRefund:'
@@ -5777,7 +5773,7 @@ es:
           was_on_visa: Yo estaba en los Estados Unidos con una visa
         title: Seleccione las situaciones que fueron verdaderas para usted en el %{year}
       lived_with_spouse:
-        title: "¿Vivió con su cónyuge durante alguna parte de los últimos seis meses de %{year}?"
+        title: "¿Usted y su cónyuge vivieron separados durante los últimos 6 meses del año?"
       local_tax:
         help_text: Responda "Sí" si era propietario de una casa o compró un automóvil en %{year}. Puede encontrar esto en un formulario 1098.
         title:
@@ -5964,7 +5960,7 @@ es:
         title: Seleccione cualquier situación que haya sido cierta para su cónyuge en %{year}
       ssn_itin:
         title: Favor de proporcionar su información de identificación del contribuyente, "taxpayer identification information" en inglés.
-        warning_html: ⚠️ <b>Declarantes inmigrantes:</b> A partir del 7 de abril, el IRS y el Departamento de Seguridad Nacional (incluyendo ICE) han llegado a un acuerdo para compartir datos entre las agencias. <a href="https://www.getyourrefund.org/es/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Consulte nuestras preguntas frecuentes para más información</a>
+        warning_html: ⚠️ <b>Declarantes inmigrantes:</b> Desde abril de 2025, el IRS y el Departamento de Seguridad Nacional (incluyendo ICE) llegaron a un acuerdo para compartir datos entre las agencias. <a href="https://www.getyourrefund.org/es/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Consulte nuestras preguntas frecuentes para más información</a>
       start_with_current_year:
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
         title: Comenzaremos preguntando sobre su situación en el %{year}.
@@ -6126,7 +6122,6 @@ es:
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
-      ice_warning_html: "<strong>Declarantes inmigrantes:</strong> A partir del 7 de abril, el IRS y el Departamento de Seguridad Nacional (incluyendo ICE) han llegado a un acuerdo para compartir datos entre las agencias. <a href='%{faq_link}' target='_blank'>Consulte nuestras preguntas frecuentes para más información.</a>"
       in_person_vita_card:
         bullet_1: Apoyo personalizado
         bullet_2: Declaraciones de impuestos estatales y federales
@@ -6176,26 +6171,3 @@ es:
         reveal_title: Información adicional
         subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
         title: VITA virtual
-    vita_providers:
-      index:
-        enter_zip: Ingrese su código postal para encontrar proveedores cercanos.
-        header: Obtenga ayuda gratuita en declarar sus impuestos
-        info: Los programas de Asistencia Voluntaria al Contribuyente (VITA, por sus siglas en inglés) del IRS ofrecen ayuda con los impuestos gratis, a los contribuyentes que califiquen.
-        no_results: "¡Disculpe! No hemos encontrado ningún resultado dentro de 50 millas de su dirección."
-        results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip}
-        search:
-          header: Ingrese su código postal para encontrar proveedores cercanos.
-          no_results: No hemos encontrado ningún resultado dentro de 50 millas de %{zip} (%{zip_name}).
-          placeholder: Ingrese su código postal
-          prepare_your_own_html: También puede preparar su propia declaración de impuestos utilizando el %{free_file_link} para encontrar una manera gratuita de hacerlo en línea.
-          results: Hemos encontrado %{total_entries} resultados dentro de 50 millas de %{zip} (%{zip_name}).
-          try_another_or_apply_html: Intente otro código postal.
-        title: Ubicar
-      show:
-        appointment_info: Las citas son %{appointment_info}.
-        call_to_schedule: Llame para programar.
-        maps_link_title: Vínculo de Google Maps por %{provider_name}
-        no_hours_listed: Disculpe, no hay horario de apertura.
-        no_phone_number_listed: Disculpe, no hay número de teléfono.
-        phone_number_title: Llame a %{provider_name}
-        search_radius: Dentro de %{distance} millas de %{zip} (%{zip_name})

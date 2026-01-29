@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe TriageIncomeLevelForm do
   let(:intake) { create :intake }
-  let(:income_level) { "1_to_12500" }
+  let(:income_level) { "1_to_69000" }
   let(:filing_status) { "single" }
   let(:filing_frequency) { "some_years" }
   let(:vita_income_ineligible) { "yes" }
@@ -38,7 +38,7 @@ RSpec.describe TriageIncomeLevelForm do
       end
 
       context "when params includes a valid value for income" do
-        let(:income_level) { "1_to_12500" }
+        let(:income_level) { "1_to_69000" }
 
         it "passes validation" do
           expect(described_class.new(intake, params)).to be_valid
@@ -142,7 +142,7 @@ RSpec.describe TriageIncomeLevelForm do
     let(:params) do
       {
         triage_filing_status: "single",
-        triage_income_level: "1_to_12500",
+        triage_income_level: "1_to_69000",
         triage_filing_frequency: "some_years",
         triage_vita_income_ineligible: "yes",
       }
@@ -153,7 +153,7 @@ RSpec.describe TriageIncomeLevelForm do
 
       intake.reload
       expect(intake.triage_filing_status).to eq "single"
-      expect(intake.triage_income_level).to eq "1_to_12500"
+      expect(intake.triage_income_level).to eq "1_to_69000"
       expect(intake.triage_filing_frequency).to eq "some_years"
       expect(intake.triage_vita_income_ineligible).to eq "yes"
     end
