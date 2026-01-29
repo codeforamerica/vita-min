@@ -1,0 +1,24 @@
+<% content_for :page_title, t('.title') %>
+<% content_for :card do %>
+
+  <div class="text--centered text--small text--bold">
+    <%= t(".page") %>
+  </div>
+
+  <h2 class="text--normal"><%= content_for(:page_title) %></h2>
+
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <div class="rounded-box" style="padding: 0rem 2rem 2rem 2rem;">
+      <%= f.cfa_radio_set(
+            :service_preference,
+            collection: [
+              { value: :diy, label: t(".diy_html") },
+              { value: :virtual_vita, label: t(".virtual_vita_html") },
+            ]
+          )
+      %>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_12_230832) do
+ActiveRecord::Schema[7.1].define(version: 2026_01_29_144003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1482,6 +1482,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_12_230832) do
     t.tsvector "searchable_data"
     t.integer "separated", default: 0, null: false
     t.string "separated_year"
+    t.integer "service_preference", default: 0, null: false
     t.integer "signature_method", default: 0, null: false
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "sms_phone_number"

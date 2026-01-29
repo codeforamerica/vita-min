@@ -34,4 +34,41 @@
 
     <%= f.continue %>
   <% end %>
+
+
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          let uncheckOthers = function (noneCheckbox, otherCheckboxes) {
+              if (noneCheckbox.checked) {
+                  otherCheckboxes.forEach(function (checkbox) {
+                      checkbox.checked = false;
+                  });
+              }
+          };
+
+          let uncheckNone = function (currentCheckbox, noneCheckbox) {
+              if (currentCheckbox.checked) {
+                  noneCheckbox.checked = false;
+              }
+          };
+
+          let noneCheckbox = document.getElementById("eligibility_wages_form_triage_vita_income_ineligible");
+          let otherCheckboxes = [
+              document.getElementById("eligibility_wages_form_has_property_income"),
+              document.getElementById("eligibility_wages_form_has_crypto_income")
+          ];
+
+          // When "none apply" is checked, uncheck property and crypto
+          noneCheckbox.addEventListener("change", function () {
+              uncheckOthers(noneCheckbox, otherCheckboxes);
+          });
+
+          // When property or crypto is checked, uncheck "none apply"
+          otherCheckboxes.forEach(function (checkbox) {
+              checkbox.addEventListener("change", function () {
+                  uncheckNone(this, noneCheckbox);
+              });
+          });
+      });
+  </script>
 <% end %>

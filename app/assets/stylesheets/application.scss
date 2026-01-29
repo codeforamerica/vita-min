@@ -435,7 +435,6 @@ ol.with-bullets {
   border-radius: 6px;
 
   .checkbox--simplified {
-    //font-size: 2rem;
     padding-left: 3rem;
     }
 
@@ -460,5 +459,21 @@ ol.with-bullets {
   .select__element {
     border: 1px solid #121111;
     font-weight: 400;
+  }
+
+  .radio-button {
+    border: none;
+    background-color: transparent;
+    font-size: 1.8rem;
+    font-weight: normal;
+    margin: 0;
+    min-height: auto;
+    max-width: none;
+    padding: 1rem 0 1rem 3.5rem;
+
+    input[type="radio"] {
+      left: 0.5rem;
+      top: 1.3rem;
+    }
   }
 }

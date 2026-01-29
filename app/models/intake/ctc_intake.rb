@@ -294,6 +294,7 @@
 #  searchable_data                                      :tsvector
 #  separated                                            :integer          default(0), not null
 #  separated_year                                       :string
+#  service_preference                                   :integer          default(0), not null
 #  signature_method                                     :integer          default("online"), not null
 #  sms_notification_opt_in                              :integer          default("unfilled"), not null
 #  sms_phone_number                                     :string

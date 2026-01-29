@@ -2159,6 +2159,12 @@ es:
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
   questions:
+    eligibility_state:
+      edit:
+        diy_html: "<b>Get expert help as you go:</b> chat with a tax pro as you file to answer any questions you have along the way"
+        page: Step 2 of 2
+        title: What kind of support do you prefer while you file your taxes?
+        virtual_vita_html: "<b>Have an expert do your taxes:</b> match with a tax pro who will prepare and submit your return"
     eligibility_wages:
       edit:
         income_level:
