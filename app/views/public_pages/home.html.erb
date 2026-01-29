@@ -2,15 +2,10 @@
   <%= t("views.public_pages.home.title") %>
 <% end %>
 
-<% content_for :notice do %>
-  <div class="slab slab--banner">
-    <div class="grid">
-      <div class="grid__item">
-        <%= image_tag 'icons/warning-triangle.svg', style: "margin-right: 0.5rem" %><%= t("views.shared.ice_warning_html", faq_link: "https://www.getyourrefund.org/#{locale}/faq/security_and_confidentiality") %>
-      </div>
-    </div>
-  </div>
-<% end %>
+<!--TODO: GYR1-908 Review and Re-enable Time-based Banners -->
+<%# content_for :notice do %>
+  <%#= render "shared/homepage_banner" %>
+<%# end %>
 
 <% content_for :body_class, "body--home" %>
 
