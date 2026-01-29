@@ -3,8 +3,9 @@ module Navigation
     include ControllerNavigation
 
     FLOW = [
-             Diy::FileYourselfController,
-             Diy::ContinueToFsaController
-           ].freeze
+      Diy::QualificationsController,
+      Diy::FileYourselfController,
+      Diy::ContinueToFsaController
+    ].freeze
   end
 end

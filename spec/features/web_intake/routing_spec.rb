@@ -92,6 +92,13 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     expect(page).to have_text I18n.t('views.questions.environment_warning.title')
     click_on I18n.t('general.continue_example')
 
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
+      end
+      click_on I18n.t("views.questions.qualifications.button_1")
+    end
+
     fill_out_personal_information(zip_code: zip_code)
 
     expect(Intake.last.source).to eq "cobra"

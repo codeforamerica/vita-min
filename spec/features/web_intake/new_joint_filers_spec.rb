@@ -48,6 +48,13 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     page_change_block do
       screenshot_after do
+        expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
+      end
+      click_on I18n.t("views.questions.qualifications.button_1")
+    end
+
+    page_change_block do
+      screenshot_after do
         # Interview time preferences
         fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
       end

@@ -14,6 +14,7 @@ module Navigation
 
       ## Main flow
       Questions::EnvironmentWarningController,
+      Questions::QualificationsController,
 
       # Contact information and preferences
       Questions::PersonalInfoController, # creates Intake record and Client record, if triage was skipped

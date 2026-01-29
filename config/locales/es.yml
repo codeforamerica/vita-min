@@ -108,6 +108,21 @@ es:
         - Presente tus impuestos en línea por su cuenta usando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $89,000 para declarar impuestos y cobrar los créditos tributarios que se le deben!
         - Para comenzar, necesitaremos recopilar información básica.
         title: "¡Declare aquí sus impuestos usted mismo!"
+    qualifications:
+      edit:
+        button_1: Sí, califico
+        button_2: No, buscar otra opción
+        not_included:
+          header: "✗ No incluye"
+          p1: Presentación de declaraciones de impuestos de los años 2020 a 2024
+        qualifications:
+          header: "✓ Requisitos"
+          p1: Ciudadano o residente de los Estados Unidos
+          p2: Estudiantes internacionales no residentes
+          p3: Debe tener números de identificación e información de ingresos para poder presentar la declaración
+          p4: Menos de $89,000 de ingresos en el hogar
+        subtitle: Este servicio le ayuda a presentar sus declaraciones de impuestos federales y estatales y a maximizar su reembolso.
+        title: Use DIY para presentar sus impuestos federales y estatales - Para comenzar aseurese de que califica
   documents:
     documents_help:
       show:
@@ -5846,6 +5861,21 @@ es:
       phone_number_can_receive_texts:
         standard_rates_apply: Se aplican las tarifas estándar de los mensajes. No compartiremos su información con terceros.
         title: "¿Podemos enviarle mensajes de texto al número de teléfono que indicó anteriormente?"
+      qualifications:
+        button_1: Sí, califico
+        button_2: No, buscar otra opción
+        not_included:
+          header: "✗ No incluye"
+          p1: Ingresos por criptomonedas
+          p2: Ingresos por alquiler
+          p3: Ingresos agrícolas
+        qualifications:
+          header: "✓ Requisitos"
+          p1: Ciudadano o residente de los Estados Unidos
+          p2: Debe tener copias digitales de sus identificaciones y documentos para poder presentar la declaración
+          p3: Menos de $67,000 de ingresos en el hogar (sugerido)
+        subtitle: Este servicio le ayuda a presentar sus declaraciones de impuestos federales y estatales y a maximizar su reembolso.
+        title: Use VITA virtual para presentar sus impuestos federales y estatales - Para comenzar aseurese de que califica
       received_alimony:
         help_text: Responda "Sí" incluso si no recibió un documento oficial del IRS sobre la pensión alimenticia. No incluya la manutención de niños que recibió.
         title:
