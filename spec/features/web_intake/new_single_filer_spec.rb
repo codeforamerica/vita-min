@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: true do
   include MockTwilio
 
-  let!(:vita_partner) { create :organization, name: "Virginia Partner" }
+  let!(:vita_partner) { create :organization, name: "Virginia Partner", national_overflow_location: true}
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
 
   before do
