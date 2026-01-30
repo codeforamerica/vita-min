@@ -6,8 +6,6 @@ module Navigation
       Questions::WelcomeController, # deprecated. exists only for redirect. will be removed in future
       Questions::EligibilityWagesController, # creates Intake record and Client record
       Questions::EligibilityStateController,
-      Questions::TriagePersonalInfoController, # creates Intake record and Client record
-      Questions::TriageIncomeLevelController,
       Questions::TriageGyrController,
       Questions::TriageDiyController,
       Questions::TriageDoNotQualifyController,
