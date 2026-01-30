@@ -19,7 +19,7 @@ RSpec.feature "Visit home page" do
     within ".slab--hero" do
       click_on I18n.t('general.get_started')
     end
-    expect(page).to have_text I18n.t('questions.eligibility_state.edit.title')
+    expect(page).to have_text I18n.t('questions.eligibility_wages.edit.title')
   end
 
   context "hide_intercom flipper flag is enabled" do

@@ -41,7 +41,7 @@ class EligibilityWagesForm < QuestionsForm
 
   def answered_vita_income_ineligible
     if had_rental_income == "no" &&
-       has_crypto_income == false &&
+       has_crypto_income != true &&
        triage_vita_income_ineligible != "no"
       errors.add(:triage_vita_income_ineligible, I18n.t("general.please_select_at_least_one_option"))
     end
