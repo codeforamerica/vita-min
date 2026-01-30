@@ -1,6 +1,11 @@
 <% content_for :page_title, t("views.questions.notification_preference.title") %>
 
-<% content_for :card do %>
+<section class="slab slab--white question-layout">
+  <div class="grid">
+    <div class="grid__item question-wrapper">
+      <div class="main-content-inner">
+        <%= image_tag("questions/contact-preference.svg", alt: "") %>
+
   <%= form_with model: @form, url: diy_diy_notification_preference_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card" } do |f| %>
     <h1 class="h2"><%= content_for(:page_title) %></h1>
 
@@ -30,5 +35,5 @@
     </div>
 
     <%= f.continue %>
-  <% end %>
 <% end %>
+</div></div></div></section>
