@@ -6,7 +6,8 @@ module Diy
 
     def update
       diy_intake = current_diy_intake
-      @form = DiyNotificationPreferenceForm.new(diy_intake)
+      form_params = params.fetch(:diy_notification_preference_form, {}).permit(*DiyNotificationPreferenceForm.attribute_names)
+      @form = DiyNotificationPreferenceForm.new(diy_intake, form_params)
       if @form.valid?
         @form.save
         session[:diy_intake_id] = diy_intake.id
@@ -14,16 +15,6 @@ module Diy
       else
         render :edit
       end
-    end
-
-    private
-
-    def tracking_data
-      @form.attributes_for(:diy_intake)
-    end
-
-    def illustration_path
-      "contact-preference.svg"
     end
   end
 end

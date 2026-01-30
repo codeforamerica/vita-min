@@ -9,7 +9,7 @@ class DiyNotificationPreferenceForm < Form
   end
 
   def save
-    diy_intake.update(attributes_for(:diy_intake))
+    diy_intake.update!(attributes_for(:diy_intake))
   end
 
   def self.existing_attributes(diy_intake)
