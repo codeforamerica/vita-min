@@ -5,7 +5,7 @@ RSpec.describe EligibilityWagesForm do
   let(:income_level) { "1_to_69000" }
   let(:vita_income_ineligible) { "no" }
   let(:had_rental_income) { "no" }
-  let(:has_crypto_income) { false }
+  let(:has_crypto_income) { "false" }
   let(:params) do
     {
       triage_income_level: income_level,
@@ -54,7 +54,7 @@ RSpec.describe EligibilityWagesForm do
       context "when none apply is not selected and neither property nor crypto is selected" do
         let(:vita_income_ineligible) { "yes" }
         let(:had_rental_income) { "no" }
-        let(:has_crypto_income) { false }
+        let(:has_crypto_income) { "false" }
 
         it "does not pass validation" do
           form = described_class.new(intake, params)
@@ -66,7 +66,7 @@ RSpec.describe EligibilityWagesForm do
       context "when none apply is selected" do
         let(:vita_income_ineligible) { "no" }
         let(:had_rental_income) { "no" }
-        let(:has_crypto_income) { false }
+        let(:has_crypto_income) { "false" }
 
         it "passes validation" do
           expect(described_class.new(intake, params)).to be_valid
@@ -76,7 +76,7 @@ RSpec.describe EligibilityWagesForm do
       context "when property income is selected" do
         let(:vita_income_ineligible) { "yes" }
         let(:had_rental_income) { "yes" }
-        let(:has_crypto_income) { false }
+        let(:has_crypto_income) { "false" }
 
         it "passes validation" do
           expect(described_class.new(intake, params)).to be_valid
@@ -86,7 +86,7 @@ RSpec.describe EligibilityWagesForm do
       context "when crypto income is selected" do
         let(:vita_income_ineligible) { "yes" }
         let(:had_rental_income) { "no" }
-        let(:has_crypto_income) { true }
+        let(:has_crypto_income) { "true" }
 
         it "passes validation" do
           expect(described_class.new(intake, params)).to be_valid
@@ -96,7 +96,7 @@ RSpec.describe EligibilityWagesForm do
       context "when both property and crypto income are selected" do
         let(:vita_income_ineligible) { "yes" }
         let(:had_rental_income) { "yes" }
-        let(:has_crypto_income) { true }
+        let(:has_crypto_income) { "true" }
 
         it "passes validation" do
           expect(described_class.new(intake, params)).to be_valid
