@@ -5,12 +5,12 @@
     <%= t(".page") %>
   </div>
 
-  <h2 class="text--semibold"><%= content_for(:page_title) %></h2>
+  <h2 class="text--normal"><%= content_for(:page_title) %></h2>
 
   <p><%= t(".subtitle") %></p>
 
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <div class="rounded-box">
+    <div class="eligibility-card">
       <%= f.cfa_select(
             :triage_income_level,
             t(".income_level.label"),
@@ -23,7 +23,7 @@
             include_blank: t('general.select_prompt')
           ) %>
     </div>
-    <div class="rounded-box">
+    <div class="eligibility-card">
       <p class="spacing-below-10"><b><%= t(".vita_income_ineligible.label") %></b></p>
       <div class="tight-checkboxes">
         <%= f.simplified_cfa_checkbox(:has_property_income, t(".vita_income_ineligible.options.property"), options: { checked_value: "yes", unchecked_value: "no" }) %>

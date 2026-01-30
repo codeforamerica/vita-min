@@ -392,8 +392,8 @@ ol.with-bullets {
     flex-direction: column;
   }
 
-  .rounded-box {
-    border-radius: 1rem;
+  .service-card {
+    border-radius: 2rem;
     padding: 2rem;
     border: 1px solid #000000;
     align-items: center;
@@ -405,7 +405,7 @@ ol.with-bullets {
   }
 }
 
-.service-recommendation:has(.rounded-box:nth-child(2)) .rounded-box {
+.service-recommendation:has(.service-card:nth-child(2)) .service-card {
   padding: 3rem 1rem 1rem;
   @media screen and (min-width: $tablet-up) {
     min-height: 637px;
@@ -421,13 +421,13 @@ ol.with-bullets {
   }
 }
 
-.service-recommendation[data-locale="es"]:has(.rounded-box:nth-child(2)) .rounded-box {
+.service-recommendation[data-locale="es"]:has(.service-card:nth-child(2)) .service-card {
   @media screen and (min-width: $tablet-up) {
     min-height: 700px;
   }
 }
 
-.rounded-box {
+.eligibility-card {
   padding: 2rem;
   margin-bottom: 3rem;
   background: white;

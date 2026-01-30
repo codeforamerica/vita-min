@@ -2249,8 +2249,7 @@ en:
         title: File with Help
     triage_diy:
       edit:
-        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the option below!
-        title: We recommend using our free File Myself option!
+        title: Our Recommendation
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
@@ -2258,8 +2257,7 @@ en:
         title: Unfortunately, it looks like you do not qualify for our free service.
     triage_gyr:
       edit:
-        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the option below!
-        title: Our Recommendation
+       title: Our Recommendation
     triage_gyr_diy:
       edit:
         subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the options below!

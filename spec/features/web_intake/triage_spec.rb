@@ -90,7 +90,7 @@ RSpec.feature "triage flow" do
 
     def expected_controllers
       [
-        Questions::TriageIncomeLevelController,
+        Questions::EligibilityStateController,
         final_page
       ].compact
     end
@@ -103,13 +103,13 @@ RSpec.feature "triage flow" do
       row['triage_income_level'].strip
     end
 
-    def filing_status
-      row['triage_filing_status'].strip
-    end
-
     def vita_income_ineligible
       answer = row['triage_vita_income_ineligible'].strip
       answer == 'Yes' ? true : false
+    end
+
+    def service_preference
+      row['service_preference'].strip
     end
   end
 
@@ -118,9 +118,8 @@ RSpec.feature "triage flow" do
       it test_case.test_name, test_case.rspec_metadata do
         pages = answer_gyr_triage_questions(
           triage_income_level: test_case.income_level,
-          triage_filing_status: test_case.filing_status,
-          triage_filing_frequency: "some_years",
           triage_vita_income_ineligible: test_case.vita_income_ineligible,
+          service_preference: test_case.service_preference,
         )
 
         expect(pages).to eq(test_case.expected_paths)

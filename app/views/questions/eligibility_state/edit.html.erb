@@ -8,7 +8,7 @@
   <h2 class="text--normal"><%= content_for(:page_title) %></h2>
 
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
-    <div class="rounded-box" style="padding: 0rem 2rem 2rem 2rem;">
+    <div class="eligibility-card" style="padding: 0rem 2rem 2rem 2rem;">
       <%= f.cfa_radio_set(
             :service_preference,
             collection: [
