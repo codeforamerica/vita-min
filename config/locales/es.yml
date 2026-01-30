@@ -104,6 +104,15 @@ es:
         title: "¡Obtenga apoyo mientras presenta su propia solicitud!"
     file_yourself:
       edit:
+        filing_frequency:
+          label_html: |-
+            En los últimos 4 años, ¿cuántas veces ha declarado impuestos?
+
+            <p class="text--small spacing-above-15">Es bastante común no declarar algunos años  debido a circunstancias de la vida y cambios de empleo.</p>
+          options:
+            every_year: He declarado todos los años
+            not_filed: No he declarado
+            some_years: Declaré unos años
         info:
         - Presente tus impuestos en línea por su cuenta usando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $89,000 para declarar impuestos y cobrar los créditos tributarios que se le deben!
         - Para comenzar, necesitaremos recopilar información básica.
@@ -573,7 +582,7 @@ es:
       mena: Oriente Medio o norteafricano
       native_hawaiian_pacific_islander: Nativo de Hawái u otra isla del Pacífico
       white: Blanco
-    recommendation: "Nuestra recomencación"
+    recommendation: Nuestra recomencación
     register: Regístrate
     remove: Quitar
     resend_invitation: Reenviar email de invitación
@@ -2234,35 +2243,6 @@ es:
         no_diy: No. Voy a continuar con File Myself.
         title: Antes de continuar, ¿tiene una copia física de su documento de identificación con fotografía y de su tarjeta de Seguro Social o de los documentos de Número de Identificación Personal (ITIN)?
         yes_i_have_id: Sí, tengo mi tarjeta de identificación
-    triage_income_level:
-      edit:
-        filing_frequency:
-          label_html: |-
-            En los últimos 4 años, ¿cuántas veces ha declarado impuestos?
-
-            <p class="text--small spacing-above-15">Es bastante común no declarar algunos años  debido a circunstancias de la vida y cambios de empleo.</p>
-          options:
-            every_year: He declarado todos los años
-            not_filed: No he declarado
-            some_years: Declaré unos años
-        filing_status:
-          label: "¿Cómo desea presentar su declaración de impuestos?"
-          options:
-            jointly: Declarar con mi cónyuge (presentación conjunta)
-            single: Declarar independientemente (soltero)
-        income_level:
-          label_html: |-
-            ¿Cuál fue su nivel de ingresos?
-
-            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o Seguridad de Ingreso Suplementario (SSI)</p>
-          options:
-            1_to_69000: "$1 - $69,000"
-            69001_to_89000: "$69,001 - 89,000"
-            over_89000: más de $89,000
-            zero: "$0"
-        title: Hablemos sobre su estado civil y sus ingresos.
-        vita_income_ineligible:
-          label: "¿Obtuvo ingresos de una propiedad de alquiler (por ejemplo: casa o coche), de una granja o de criptomonedas?"
   signups:
     flash_notice: "¡Gracias! Recibirás una notificación cuando abramos."
     new:

@@ -25,20 +25,12 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     end
 
     page_change_block do
-      expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_diy.edit.title'))
-      click_on I18n.t('questions.triage.gyr_tile.choose_gyr')
+      screenshot_after do
+        expect(page).to have_text(I18n.t('views.shared.virtual_vita_card.title'))
+      end
     end
 
-    page_change_block do
-      expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ids.edit.title'))
-      click_on I18n.t('questions.triage_gyr_ids.edit.yes_i_have_id')
-    end
-
-    page_change_block do
-      # Non-production environment warning
-      expect(page).to have_text I18n.t('views.questions.environment_warning.title')
-      click_on I18n.t('general.continue_example')
-    end
+    click_on I18n.t('general.continue')
 
     page_change_block do
       screenshot_after do
@@ -413,15 +405,13 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     intake = Intake.last
     expect(intake.triage).to eq(Triage.last)
 
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_diy.edit.title'))
-    click_on I18n.t('questions.triage.gyr_tile.choose_gyr')
+    page_change_block do
+      screenshot_after do
+        expect(page).to have_text(I18n.t('views.shared.virtual_vita_card.title'))
+      end
+    end
 
-    expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ids.edit.title'))
-    click_on I18n.t('questions.triage_gyr_ids.edit.yes_i_have_id')
-
-    # Non-production environment warning
-    expect(page).to have_text I18n.t('views.questions.environment_warning.title')
-    click_on I18n.t('general.continue_example')
+    click_on I18n.t('general.continue')
 
     page_change_block do
       screenshot_after do

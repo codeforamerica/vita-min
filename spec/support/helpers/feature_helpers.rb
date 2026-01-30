@@ -52,7 +52,7 @@ module FeatureHelpers
       options = {
         triage_income_level: "1_to_69000",
         triage_vita_income_ineligible: false,
-        service_preference: "diy",
+        service_preference: "virtual_vita",
       }
     end
 

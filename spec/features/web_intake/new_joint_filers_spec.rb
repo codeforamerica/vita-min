@@ -25,26 +25,11 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     page_change_block do
       screenshot_after do
-        expect(page).to have_css("h1", text: I18n.t('questions.triage_gyr_diy.edit.title'))
+        expect(page).to have_text(I18n.t('views.shared.virtual_vita_card.title'))
       end
     end
 
-    click_on I18n.t('questions.triage.gyr_tile.choose_gyr')
-
-    page_change_block do
-      screenshot_after do
-        expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ids.edit.title'))
-        click_on I18n.t('questions.triage_gyr_ids.edit.yes_i_have_id')
-      end
-    end
-
-    page_change_block do
-      # Non-production environment warning
-      screenshot_after do
-        expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
-      end
-      click_on "Continue to example"
-    end
+    click_on I18n.t('general.continue')
 
     page_change_block do
       screenshot_after do

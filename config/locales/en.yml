@@ -104,6 +104,15 @@ en:
         title: Get support while you file on your own!
     file_yourself:
       edit:
+        filing_frequency:
+          label_html: |-
+            In the last 4 years, how often have you filed?
+
+            <p class="text--small spacing-above-15">It’s fairly common to skip filing for certain years due to life circumstances and employment changes.</p>
+          options:
+            every_year: I filed every year
+            not_filed: I have not filed
+            some_years: I filed some years
         info:
         - File taxes online on your own using our partner website. This is our quickest option for households earning under $89,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
@@ -2265,35 +2274,6 @@ en:
         no_diy: No, I will proceed with File Myself
         title: Before we proceed, do you have a physical copy of your photo ID and Social Security card or ITIN paperwork?
         yes_i_have_id: Yes, I have my ID card
-    triage_income_level:
-      edit:
-        filing_frequency:
-          label_html: |-
-            In the last 4 years, how often have you filed?
-
-            <p class="text--small spacing-above-15">It’s fairly common to skip filing for certain years due to life circumstances and employment changes.</p>
-          options:
-            every_year: I filed every year
-            not_filed: I have not filed
-            some_years: I filed some years
-        filing_status:
-          label: How will you be filing this year?
-          options:
-            jointly: Filing with my spouse (filing jointly)
-            single: Filing by myself (single)
-        income_level:
-          label_html: |-
-            What was your income level?
-
-            <p class="text--small spacing-above-15">Your income level should not include stimulus payments, public benefits, or SSI.</p>
-          options:
-            1_to_69000: "$1 - $69,000"
-            69001_to_89000: "$69,001 - 89,000"
-            over_89000: over $89,000
-            zero: "$0"
-        title: Tell us about your filing status and income.
-        vita_income_ineligible:
-          label: 'Did you earn income from a rental property (ex: home or car), a farm, or cryptocurrency?'
   signups:
     flash_notice: Thank you! You will receive a notification when we open.
     new:
