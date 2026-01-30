@@ -460,6 +460,7 @@ en:
     ethnicity:
       hispanic: Hispanic or Latino
       not_hispanic: Not Hispanic or Latino
+    explore_other_options: Explore other options
     faq: FAQ
     file_my_taxes: File my taxes
     filing_joint: Filing jointly
@@ -571,6 +572,7 @@ en:
       mena: Middle Eastern or North African
       native_hawaiian_pacific_islander: Native Hawaiian or other Pacific Islander
       white: White
+    recommendation: Our Recommendation
     register: Sign Up
     remove: Remove
     resend_invitation: Resend invitation email
@@ -2247,17 +2249,11 @@ en:
           ssn: Must show copies of your Social Security card or ITIN paperwork
         timeframe: 2-3 weeks to file
         title: File with Help
-    triage_diy:
-      edit:
-        title: Our Recommendation
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
         help_text: Our free service is available to households earning less than $89,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
-    triage_gyr:
-      edit:
-       title: Our Recommendation
     triage_gyr_diy:
       edit:
         subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the options below!

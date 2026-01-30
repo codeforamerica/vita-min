@@ -3,7 +3,7 @@ class EligibilityWagesForm < QuestionsForm
     :intake,
     :triage_income_level,
     :triage_vita_income_ineligible,
-    :has_property_income,
+    :had_rental_income,
     :has_crypto_income,
     :timezone,
     :source,
@@ -12,21 +12,13 @@ class EligibilityWagesForm < QuestionsForm
     :visitor_id,
     )
 
-  attr_accessor :has_property_income, :has_crypto_income
-
   validates :triage_income_level, presence: true
   validates :triage_income_level, inclusion: Intake::GyrIntake.triage_income_levels.keys, if: -> { triage_income_level.present? }
   validate :answered_vita_income_ineligible
 
-  def initialize(intake = nil, params = {})
-    @has_property_income = params[:has_property_income]
-    @has_crypto_income = params[:has_crypto_income]
-    super(intake, params)
-  end
-
   def save
     client = Client.create!(
-      intake_attributes: attributes_for(:intake).except(:has_property_income, :has_crypto_income).merge(type: @intake.type, product_year: Rails.configuration.product_year)
+      intake_attributes: attributes_for(:intake).merge(type: @intake.type, product_year: Rails.configuration.product_year)
     )
     @intake = client.intake
 
@@ -48,8 +40,8 @@ class EligibilityWagesForm < QuestionsForm
   end
 
   def answered_vita_income_ineligible
-    if @has_property_income == "no" &&
-       @has_crypto_income == "no" &&
+    if had_rental_income == "no" &&
+       has_crypto_income == false &&
        triage_vita_income_ineligible != "no"
       errors.add(:triage_vita_income_ineligible, I18n.t("general.please_select_at_least_one_option"))
     end

@@ -461,6 +461,7 @@ es:
     ethnicity:
       hispanic: Hispano o Latino
       not_hispanic: No soy Hispano o Latino
+    explore_other_options: Ver otras opciones
     faq: Preguntas frecuentes
     file_my_taxes: Declarar mis impuestos
     filing_joint: Presentación conjunta
@@ -572,6 +573,7 @@ es:
       mena: Oriente Medio o norteafricano
       native_hawaiian_pacific_islander: Nativo de Hawái u otra isla del Pacífico
       white: Blanco
+    recommendation: "Nuestra recomencación"
     register: Regístrate
     remove: Quitar
     resend_invitation: Reenviar email de invitación
@@ -2216,17 +2218,11 @@ es:
           ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo de su Número de Identificación Personal (ITIN)
         timeframe: De 2-3 semanas para declarar sus impuestos
         title: " Declare con Ayuda"
-    triage_diy:
-      edit:
-        title: "Nuestra recomencación"
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
         help_text: Nuestro servicio sin costo está disponible para hogares con ingresos inferiores a $89,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
-    triage_gyr:
-      edit:
-        title: "Nuestra recomencación"
     triage_gyr_diy:
       edit:
         subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con las opciones a continuación!"

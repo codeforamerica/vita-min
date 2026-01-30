@@ -4,13 +4,13 @@ RSpec.describe EligibilityWagesForm do
   let(:intake) { Intake::GyrIntake.new }
   let(:income_level) { "1_to_69000" }
   let(:vita_income_ineligible) { "no" }
-  let(:has_property_income) { "no" }
-  let(:has_crypto_income) { "no" }
+  let(:had_rental_income) { "no" }
+  let(:has_crypto_income) { false }
   let(:params) do
     {
       triage_income_level: income_level,
       triage_vita_income_ineligible: vita_income_ineligible,
-      has_property_income: has_property_income,
+      had_rental_income: had_rental_income,
       has_crypto_income: has_crypto_income,
       visitor_id: "visitor_1",
       source: "source",
@@ -53,8 +53,8 @@ RSpec.describe EligibilityWagesForm do
     describe "#answered_vita_income_ineligible" do
       context "when none apply is not selected and neither property nor crypto is selected" do
         let(:vita_income_ineligible) { "yes" }
-        let(:has_property_income) { "no" }
-        let(:has_crypto_income) { "no" }
+        let(:had_rental_income) { "no" }
+        let(:has_crypto_income) { false }
 
         it "does not pass validation" do
           form = described_class.new(intake, params)
@@ -65,8 +65,8 @@ RSpec.describe EligibilityWagesForm do
 
       context "when none apply is selected" do
         let(:vita_income_ineligible) { "no" }
-        let(:has_property_income) { "no" }
-        let(:has_crypto_income) { "no" }
+        let(:had_rental_income) { "no" }
+        let(:has_crypto_income) { false }
 
         it "passes validation" do
           expect(described_class.new(intake, params)).to be_valid
@@ -75,8 +75,8 @@ RSpec.describe EligibilityWagesForm do
 
       context "when property income is selected" do
         let(:vita_income_ineligible) { "yes" }
-        let(:has_property_income) { "yes" }
-        let(:has_crypto_income) { "no" }
+        let(:had_rental_income) { "yes" }
+        let(:has_crypto_income) { false }
 
         it "passes validation" do
           expect(described_class.new(intake, params)).to be_valid
@@ -85,8 +85,8 @@ RSpec.describe EligibilityWagesForm do
 
       context "when crypto income is selected" do
         let(:vita_income_ineligible) { "yes" }
-        let(:has_property_income) { "no" }
-        let(:has_crypto_income) { "yes" }
+        let(:had_rental_income) { "no" }
+        let(:has_crypto_income) { true }
 
         it "passes validation" do
           expect(described_class.new(intake, params)).to be_valid
@@ -95,8 +95,8 @@ RSpec.describe EligibilityWagesForm do
 
       context "when both property and crypto income are selected" do
         let(:vita_income_ineligible) { "yes" }
-        let(:has_property_income) { "yes" }
-        let(:has_crypto_income) { "yes" }
+        let(:had_rental_income) { "yes" }
+        let(:has_crypto_income) { true }
 
         it "passes validation" do
           expect(described_class.new(intake, params)).to be_valid
@@ -110,8 +110,8 @@ RSpec.describe EligibilityWagesForm do
       {
         triage_income_level: "1_to_69000",
         triage_vita_income_ineligible: "no",
-        has_property_income: "no",
-        has_crypto_income: "no",
+        had_rental_income: "no",
+        has_crypto_income: false,
         visitor_id: "visitor_1",
         source: "source",
         referrer: "referrer",
@@ -142,6 +142,8 @@ RSpec.describe EligibilityWagesForm do
       expect(intake.type).to eq "Intake::GyrIntake"
       expect(intake.triage_income_level).to eq "1_to_69000"
       expect(intake.triage_vita_income_ineligible).to eq "no"
+      expect(intake.had_rental_income).to eq "no"
+      expect(intake.has_crypto_income).to eq false
       expect(intake.visitor_id).to eq "visitor_1"
       expect(intake.source).to eq "source"
       expect(intake.referrer).to eq "referrer"
@@ -152,7 +154,7 @@ RSpec.describe EligibilityWagesForm do
       let(:params_none_apply) do
         valid_params.merge(
           triage_vita_income_ineligible: "no",
-          has_property_income: "no",
+          had_rental_income: "no",
           has_crypto_income: "no"
         )
       end

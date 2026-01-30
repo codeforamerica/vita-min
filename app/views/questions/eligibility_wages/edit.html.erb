@@ -26,8 +26,8 @@
     <div class="eligibility-card">
       <p class="spacing-below-10"><b><%= t(".vita_income_ineligible.label") %></b></p>
       <div class="tight-checkboxes">
-        <%= f.simplified_cfa_checkbox(:has_property_income, t(".vita_income_ineligible.options.property"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-        <%= f.simplified_cfa_checkbox(:has_crypto_income, t(".vita_income_ineligible.options.crypto"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.simplified_cfa_checkbox(:had_rental_income, t(".vita_income_ineligible.options.property"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.simplified_cfa_checkbox(:has_crypto_income, t(".vita_income_ineligible.options.crypto"), options: { checked_value: true, unchecked_value: false }) %>
         <%= f.simplified_cfa_checkbox(:triage_vita_income_ineligible, t(".vita_income_ineligible.options.none"), options: { checked_value: "no", unchecked_value: "yes" }) %>
       </div>
     </div>
@@ -54,7 +54,7 @@
 
           let noneCheckbox = document.getElementById("eligibility_wages_form_triage_vita_income_ineligible");
           let otherCheckboxes = [
-              document.getElementById("eligibility_wages_form_has_property_income"),
+              document.getElementById("eligibility_wages_form_had_rental_income"),
               document.getElementById("eligibility_wages_form_has_crypto_income")
           ];
 
@@ -63,7 +63,6 @@
               uncheckOthers(noneCheckbox, otherCheckboxes);
           });
 
-          // When property or crypto is checked, uncheck "none apply"
           otherCheckboxes.forEach(function (checkbox) {
               checkbox.addEventListener("change", function () {
                   uncheckNone(this, noneCheckbox);
