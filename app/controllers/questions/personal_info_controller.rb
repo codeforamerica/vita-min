@@ -26,9 +26,9 @@ module Questions
     ##
     # sets new intake id in session and associates triage source to that intake
     def after_update_success
-      new_intake = @form.intake
-      session[:intake_id] = new_intake.id
-      new_intake.set_navigator(session[:navigator])
+      intake = @form.intake
+      session[:intake_id] = intake.id
+      intake.set_navigator(session[:navigator])
     end
 
     def form_params

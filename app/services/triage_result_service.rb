@@ -6,23 +6,15 @@ class TriageResultService
   end
 
   def after_income_levels_triaged_route
-    if intake.triage_income_level_zero?
-      if intake.service_preference_diy?
+    if intake.triage_income_level_zero? && intake.service_preference_diy?
+      route_to_diy
+    elsif intake.triage_income_level_1_to_69000? || intake.triage_income_level_69001_to_89000?
+      if intake.triage_vita_income_ineligible_yes? || intake.service_preference_diy?
         route_to_diy
       else
         route_to_gyr
       end
-    elsif intake.triage_income_level_1_to_69000? || intake.triage_income_level_69001_to_89000?
-      if intake.triage_vita_income_ineligible_yes?
-        route_to_diy
-      else
-        if intake.service_preference_diy?
-          route_to_diy
-        else
-          route_to_gyr
-        end
-      end
-    elsif intake.triage_income_level_over_89000?
+    else
       route_to_gyr
     end
   end
