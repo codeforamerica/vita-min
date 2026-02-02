@@ -39,6 +39,19 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     end
 
     page_change_block do
+      # fill in personal
+      expect(page).to have_css("h1", text: I18n.t('views.questions.personal_info.title'))
+      fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
+      select I18n.t("date.month_names")[3], from: "personal_info_form_birth_date_month"
+      select "5", from: "personal_info_form_birth_date_day"
+      select "1971", from: "personal_info_form_birth_date_year"
+      fill_in I18n.t('views.questions.personal_info.phone_number'), with: "8286345533"
+      fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
+      fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
+      click_on I18n.t('general.continue')
+    end
+
+    page_change_block do
       screenshot_after do
         # Interview time preferences
         fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
