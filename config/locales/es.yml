@@ -2207,33 +2207,11 @@ es:
             crypto: Ingresos por criptomonedas
             none: Ninguna de estas opciones aplica
             property: Ingresos por propiedades de alquiler o agrícolas
-    triage:
-      diy_tile:
-        choose_diy: Elegir declarar por mi cuenta o "File Myself" en inglés
-        description: Declare rápidamente por su cuenta.
-        list:
-          file: Declare solo para %{current_tax_year}
-          income: 'Ingresos: menos de $89,000'
-        timeframe: 45 minutos para declarar
-        title: Declarar por cuenta propia
-      gyr_tile:
-        choose_gyr: Elija Declare con Ayuda
-        description: Presente su declaración de impuestos con confianza con la ayuda de nuestros voluntarios certificados por el IRS.
-        list:
-          file: Presentar para %{oldest_filing_year}-%{current_tax_year}
-          income: 'Ingresos: menos de $69,000'
-          ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo de su Número de Identificación Personal (ITIN)
-        timeframe: De 2-3 semanas para declarar sus impuestos
-        title: " Declare con Ayuda"
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
         help_text: Nuestro servicio sin costo está disponible para hogares con ingresos inferiores a $89,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
-    triage_gyr_diy:
-      edit:
-        subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con las opciones a continuación!"
-        title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
     triage_gyr_ids:
       edit:
         help_text_1: Le pediremos que suba una copia de su documento de identificación (licencia de conducir o documento de identidad emitido por el estado) y la tarjeta de la seguridad social o los documentos del Número de Identificación Personal (ITIN).

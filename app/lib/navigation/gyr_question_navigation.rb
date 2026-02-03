@@ -9,7 +9,6 @@ module Navigation
       Questions::TriageGyrController,
       Questions::TriageDiyController,
       Questions::TriageDoNotQualifyController,
-      Questions::TriageGyrDiyController,
       Questions::TriageGyrIdsController,
 
       ## Main flow
