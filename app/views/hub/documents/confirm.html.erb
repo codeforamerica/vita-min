@@ -9,7 +9,7 @@
           <%= t("hub.documents.confirm.text_html",
                 document_type: @document.document_type,
                 client_name: @document.client.legal_name,
-                filing_year: @document.tax_return.year
+                filing_year: @document.tax_return&.year
                 )
           %>
         </p>

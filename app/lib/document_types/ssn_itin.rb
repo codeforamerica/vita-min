@@ -5,6 +5,10 @@ module DocumentTypes
         !ReturningClientExperimentService.new(intake).skip_identity_documents?
       end
 
+      def description
+        "Social Security cards are a valid SSN document"
+      end
+
       def key
         "SSN or ITIN"
       end

@@ -1,14 +1,15 @@
-<% content_for :notice do %>
-  <% unless open_for_gyr_intake? %>
-    <div class="slab slab--banner">
-      <div class="grid">
-        <div class="grid__item">
-          <strong><%= t('.banner', year: app_time.year) %></strong>
-        </div>
-      </div>
-    </div>
-  <% end %>
-<% end %>
+<!--TODO: GYR1-908 Review and Re-enable Time-based Banners -->
+<%# content_for :notice do %>
+  <%# unless open_for_gyr_intake? %>
+<!--    <div class="slab slab--banner">-->
+<!--      <div class="grid">-->
+<!--        <div class="grid__item">-->
+<!--          <strong><%#= t('.banner', year: app_time.year) %></strong>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+  <%# end %>
+<%# end %>
 
 <% @header = t(".header") %>
 <% content_for :page_title do %>
