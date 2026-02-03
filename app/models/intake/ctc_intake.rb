@@ -406,10 +406,10 @@
 class Intake::CtcIntake < Intake
   TEST_ENV_TAX_YEAR = 2023
 
-  attribute :eip1_amount_received, :money
-  attribute :eip2_amount_received, :money
-  attribute :primary_prior_year_agi_amount, :money
-  attribute :spouse_prior_year_agi_amount, :money
+  attribute :eip1_amount_received, :custom_money
+  attribute :eip2_amount_received, :custom_money
+  attribute :primary_prior_year_agi_amount, :custom_money
+  attribute :spouse_prior_year_agi_amount, :custom_money
 
   enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
   enum exceeded_investment_income_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :exceeded_investment_income_limit
