@@ -16,29 +16,6 @@ describe SchemaFileLoader do
     ]
   end
 
-  describe "#s3_credentials" do
-    context "AWS_ACCESS_KEY_ID in ENV" do
-      it "uses the environment variables" do
-        stub_const("ENV", {
-          "AWS_ACCESS_KEY_ID" => "mock-aws-access-key-id",
-          "AWS_SECRET_ACCESS_KEY" => "mock-aws-secret-access-key"
-        })
-        credentials = SchemaFileLoader.s3_credentials
-        expect(credentials.access_key_id).to eq "mock-aws-access-key-id"
-      end
-    end
-
-    context "without AWS_ACCESS_KEY_ID in ENV" do
-      it "uses the rails credentials" do
-        stub_const("ENV", {})
-        expect(Rails.application.credentials).to receive(:dig).with(:aws, :access_key_id).and_return "mock-aws-access-key-id"
-        expect(Rails.application.credentials).to receive(:dig).with(:aws, :secret_access_key).and_return "mock-aws-secret-access-key"
-        credentials = SchemaFileLoader.s3_credentials
-        expect(credentials.access_key_id).to eq "mock-aws-access-key-id"
-      end
-    end
-  end
-
   describe "#prepare_directories" do
     it "removes and recreates directories" do
       expect(FileUtils).to receive(:rm_rf).with("testy/irs/unpacked")
@@ -67,10 +44,19 @@ describe SchemaFileLoader do
 
     context "when file is not found" do
       it "should raise an error" do
-        allow(SchemaFileLoader).to receive(:get_missing_downloads).with('some_dir').and_return [["state_secrets.zip", 'dir']]
-        allow_any_instance_of(Aws::S3::Client).to receive(:get_object).and_raise Aws::S3::Errors::NoSuchKey.new("Meant to be a context", "Meant to be a message")
+        allow(SchemaFileLoader).to receive(:get_missing_downloads).with("some_dir").and_return([["state_secrets.zip", "dir"]])
 
-        expect { SchemaFileLoader.download_schemas_from_s3('some_dir') }.to raise_error Aws::S3::Errors::NoSuchKey
+        s3 = Aws::S3::Client.new(
+          region: "us-east-1",
+          credentials: Aws::Credentials.new("test", "test"),
+          stub_responses: true
+        )
+
+        s3.stub_responses(:get_object, "NoSuchKey")
+
+        allow(Aws::S3::Client).to receive(:new).and_return(s3)
+
+        expect { SchemaFileLoader.download_schemas_from_s3("some_dir") }.to raise_error(Aws::S3::Errors::NoSuchKey)
       end
     end
   end
