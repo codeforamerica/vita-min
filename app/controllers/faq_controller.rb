@@ -1,6 +1,5 @@
 class FaqController < ApplicationController
   skip_before_action :check_maintenance_mode
-  rescue_from ActionController::RoutingError, with: :redirect_to_faq
 
   def index
     @search = params[:search] || ""
@@ -51,15 +50,5 @@ class FaqController < ApplicationController
       return FaqItem.send(:"search_#{search_locale}", @search)
     end
     FaqItem.all
-  end
-
-  def redirect_to_faq
-    section_key = params[:section_key]
-
-    if section_key.present? && FaqCategory.exists?(slug: section_key)
-      redirect_to faq_section_path(section_key: section_key)
-    else
-      redirect_to faq_path
-    end
   end
 end
