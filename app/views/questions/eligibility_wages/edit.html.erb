@@ -24,7 +24,7 @@
           ) %>
     </div>
     <div class="eligibility-card">
-      <p class="spacing-below-10"><b><%= t(".vita_income_ineligible.label") %></b></p>
+      <p class="spacing-below-10"><strong><%= t(".vita_income_ineligible.label") %></strong></p>
       <div class="tight-checkboxes">
         <%= f.simplified_cfa_checkbox(:had_rental_income, t(".vita_income_ineligible.options.property"), options: { checked_value: "yes", unchecked_value: "no" }) %>
         <%= f.simplified_cfa_checkbox(:has_crypto_income, t(".vita_income_ineligible.options.crypto"), options: { checked_value: true, unchecked_value: false }) %>

@@ -2187,7 +2187,7 @@ es:
       edit:
         diy_html: "<strong>Reciba ayuda de expertos mientras presenta su declaración:</strong> chatee con un profesional de impuestos mientras presenta su declaración para resolver cualquier duda durante el proceso."
         page: Paso 2 de 2
-        title: ¿Qué tipo de apoyo prefiere recibir mientras presenta su declaración de impuestos?
+        title: "¿Qué tipo de apoyo prefiere recibir mientras presenta su declaración de impuestos?"
         virtual_vita_html: "<strong>Deje que un experto prepare sus impuestos: </strong> conéctese con un profesional de impuestos que preparará y enviará su declaración."
     eligibility_wages:
       edit:
