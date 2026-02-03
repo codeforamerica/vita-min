@@ -37,11 +37,20 @@ namespace :setup do
     # If the file already exists, do not re-download.
     next if paths.all? { |p| File.exist?(p) }
 
-    # In staging, demo, Circle CI and prod environment, get AWS credentials from env variables
-    # In heroku, put in github secrets
+    # On Circle CI, get AWS credentials from environment.
+    # In staging, demo, and prod environment, get credentials from Rails credentials.
+    #
     # In development, download the file manually from S3. This allows us to avoid storing any AWS credentials in the development secrets.
+    credentials = if ENV["AWS_ACCESS_KEY_ID"].present?
+                    Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV["AWS_SECRET_ACCESS_KEY"])
+                  else
+                    Aws::Credentials.new(
+                      Rails.application.credentials.dig(:aws, :access_key_id),
+                      Rails.application.credentials.dig(:aws, :secret_access_key),
+                      )
+                  end
     paths.each do |path|
-      Aws::S3::Client.new(region: 'us-east-1').get_object(
+      Aws::S3::Client.new(region: 'us-east-1', credentials: credentials).get_object(
         response_target: path,
         bucket: "gyr-efiler-releases",
         key: File.basename(path),

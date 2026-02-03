@@ -149,20 +149,20 @@ RSpec.describe Hub::DashboardController do
     context "with a team member user" do
       let(:vita_partner) { create(:site) }
       let!(:first_breached_client) {
-        create :client, flagged_at: time, vita_partner: vita_partner,
-                        last_outgoing_communication_at: 7.business_days.before(time),
+        create :client, flagged_at: Time.now, vita_partner: vita_partner,
+                        last_outgoing_communication_at: 7.business_days.ago,
                         tax_returns: [build(:gyr_tax_return, :review_reviewing, assigned_user: user, year: Rails.configuration.product_year)],
                         intake: build(:intake, preferred_name: "Joanna", product_year: Rails.configuration.product_year)
       }
       let!(:second_client) {
-        create :client, flagged_at: time, vita_partner: vita_partner,
-                        last_outgoing_communication_at: 2.business_days.before(time),
+        create :client, flagged_at: Time.now, vita_partner: vita_partner,
+                        last_outgoing_communication_at: 2.business_days.ago,
                         tax_returns: [build(:gyr_tax_return, :review_reviewing, assigned_user: user, year: Rails.configuration.product_year)],
                         intake: build(:intake, preferred_name: "Kinsley")
       }
       let!(:unflagged_approaching_sla_client) {
         create :client, flagged_at: nil, vita_partner: vita_partner,
-                        last_outgoing_communication_at: 5.business_days.before(time),
+                        last_outgoing_communication_at: 5.business_days.ago,
                         tax_returns: [build(:gyr_tax_return, :review_reviewing, assigned_user: user, year: Rails.configuration.product_year)],
                         intake: build(:intake, preferred_name: "Lava")
       }
@@ -174,14 +174,6 @@ RSpec.describe Hub::DashboardController do
       let(:user) { create :user, role: create(:team_member_role, sites: [vita_partner]) }
       before { sign_in user }
       render_views
-
-      let(:time) { Time.zone.parse("2026-01-21 10:00:00") }
-
-      around do |example|
-        Timecop.freeze(time) do
-          example.run
-        end
-      end
 
       it "responds with ok" do
         get :show, params: { id: vita_partner.id, type: vita_partner.class.name.downcase }

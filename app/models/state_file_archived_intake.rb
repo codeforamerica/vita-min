@@ -79,12 +79,23 @@ class StateFileArchivedIntake < ApplicationRecord
   end
 
   def download_file_from_s3(bucket, file_key, file_path)
-    s3_client = Aws::S3::Client.new(region: 'us-east-1')
+    s3_client = Aws::S3::Client.new(region: 'us-east-1', credentials: s3_credentials)
     s3_client.get_object(
       response_target: file_path,
       bucket: bucket,
       key: file_key
     )
+  end
+
+  def s3_credentials
+    if ENV["AWS_ACCESS_KEY_ID"].present?
+      Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID"], ENV["AWS_SECRET_ACCESS_KEY"])
+    else
+      Aws::Credentials.new(
+        Rails.application.credentials.dig(:aws, :access_key_id),
+        Rails.application.credentials.dig(:aws, :secret_access_key)
+      )
+    end
   end
 
   def select_bucket
