@@ -488,6 +488,21 @@ RSpec.describe Hub::DocumentsController, type: :controller do
     end
   end
 
+  describe "#confirm" do
+    context "with an authenticated user" do
+      before { sign_in(user) }
+      let!(:document) { create :document, client: client, tax_return_id: nil }
+
+      context "with no tax return" do
+        it "returns 200 OK" do
+          get :confirm, params: { client_id: client.id, id: document.id }
+
+          expect(response).to be_ok
+        end
+      end
+    end
+  end
+
   describe "#rerun_screener" do
     let!(:document) { create :document, intake: client.intake }
     let(:params) do

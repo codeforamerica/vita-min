@@ -1,0 +1,41 @@
+<% @title = t(".title") %>
+<% content_for :page_title, @title %>
+
+<section class="slab slab--white question-layout">
+  <div class="grid">
+    <div class="grid__item question-wrapper">
+      <div class="main-content-inner">
+
+        <div class="h2"><%= @title %></div>
+
+        <p><%= t(".subtitle") %></p>
+
+        <div class="review-box spacing-above-15">
+          <p><strong><%= t(".qualifications.header") %></strong></p>
+          <ul class="list--bulleted">
+            <li><%= t(".qualifications.p1") %></li>
+            <li><%= t(".qualifications.p2") %></li>
+            <li><%= t(".qualifications.p3") %></li>
+            <li><%= t(".qualifications.p4") %></li>
+          </ul>
+        </div>
+
+        <div class="review-box spacing-above-15">
+          <p><strong><%= t(".not_included.header") %></strong></p>
+          <ul class="list--bulleted">
+            <li><%= t(".not_included.p1") %></li>
+          </ul>
+        </div>
+
+        <%= link_to diy_file_yourself_path, class: "button button--primary button--wide text--centered spacing-above-60" do %>
+          <%= t(".button_1") %>
+        <% end %>
+
+        <%= link_to root_path(anchor: "service-comparison"), class: "button button--wide text--centered spacing-above-15" do %>
+          <%= t(".button_2") %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</section>

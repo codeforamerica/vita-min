@@ -128,8 +128,8 @@ Rails.application.routes.draw do
                 via: :put
         end
       end
-      get "/diy", to: redirect { Diy::FileYourselfController.to_path_helper }
-      get "/diy/email", to: redirect { Diy::FileYourselfController.to_path_helper }
+      get "/diy", to: redirect { Diy::QualificationsController.to_path_helper }
+      get "/diy/email", to: redirect { Diy::QualificationsController.to_path_helper }
       get "/diy/click_fsa_link", to: "diy/continue_to_fsa#click_fsa_link", as: :click_fsa_link
 
       unless Rails.env.production?
