@@ -15,7 +15,7 @@ class TriageResultService
         route_to_gyr_diy_choice
       end
     elsif intake.triage_income_level_over_89000?
-      route_to_gyr
+      intake.triage_vita_income_ineligible_yes? ? route_to_offboarding : route_to_gyr
     end
   end
 
@@ -35,5 +35,9 @@ class TriageResultService
 
   def route_to_gyr_diy_choice
     Questions::TriageGyrDiyController.to_path_helper
+  end
+
+  def route_to_offboarding
+    Questions::TriageOffboardingController.to_path_helper
   end
 end

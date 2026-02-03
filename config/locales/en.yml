@@ -2247,6 +2247,16 @@ en:
         no_diy: No, I will proceed with File Myself
         title: Before we proceed, do you have a physical copy of your photo ID and Social Security card or ITIN paperwork?
         yes_i_have_id: Yes, I have my ID card
+    triage_offboarding:
+      edit:
+        title: Unfortunately, you do not qualify for our services
+        options: "Some income levels and certain IRS forms are out of scope for our services. If you can’t use GetYourRefund there are still many ways to file your taxes:"
+        option_1: Prepare your own return using Free File Fillable Forms
+        option_2: Prepare your own return using file by mail
+        option_3: Prepare your own return using paid tax preparation software
+        option_4: Find a paid preparer to prepare your return
+        more_guidance: For more guidance on your options, please visit our FAQ.
+        visit_faq: Visit our FAQ
     triage_income_level:
       edit:
         filing_frequency:
