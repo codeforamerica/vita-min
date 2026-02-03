@@ -105,10 +105,8 @@ en:
     file_yourself:
       edit:
         filing_frequency:
-          label_html: |-
-            In the last 4 years, how often have you filed?
-
-            <p class="text--small spacing-above-15">It’s fairly common to skip filing for certain years due to life circumstances and employment changes.</p>
+          label_line_1: In the last 4 years, how often have you filed?
+          label_line_2: It’s fairly common to skip filing for certain years due to life circumstances and employment changes.
           options:
             every_year: I filed every year
             not_filed: I have not filed
