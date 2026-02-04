@@ -23,7 +23,7 @@ RSpec.describe CampaignContacts::SendEmailsBatchJob, type: :job do
         allow(CampaignContact).to receive(:email_contacts_for).with(sent_at_column)
                                                               .and_return(CampaignContact.none)
 
-        expect(CampaignMailer).not_to receive(:email_message)
+        expect(CampaignEmail).not_to receive(:create)
         expect(described_class).not_to receive(:perform_later)
 
         perform_job
@@ -56,37 +56,30 @@ RSpec.describe CampaignContacts::SendEmailsBatchJob, type: :job do
         expect(contact_blank_locale.reload.public_send(sent_at_column)).to eq(Time.current)
       end
 
-      it "enqueues an email for each claimed contact with locale fallback to 'en'" do
-        mail = instance_double(ActionMailer::MessageDelivery, deliver_later: true)
-
-        expect(CampaignMailer).to receive(:email_message).with(
-          email_address: "a@example.com",
+      it "creates a CampaignEmail for each claimed contact" do
+        expect(CampaignEmail).to receive(:create).with(
+          campaign_contact_id: contact_en.id,
           message_name: message_name,
-          locale: "en"
-        ).and_return(mail)
+          to_email: "a@example.com",
+          )
 
-        expect(CampaignMailer).to receive(:email_message).with(
-          email_address: "b@example.com",
+        expect(CampaignEmail).to receive(:create).with(
+          campaign_contact_id: contact_es.id,
           message_name: message_name,
-          locale: "es"
-        ).and_return(mail)
+          to_email: "b@example.com",
+          )
 
-        expect(CampaignMailer).to receive(:email_message).with(
-          email_address: "c@example.com",
+        expect(CampaignEmail).to receive(:create).with(
+          campaign_contact_id: contact_blank_locale.id,
           message_name: message_name,
-          locale: "en"
-        ).and_return(mail)
-
-        expect(mail).to receive(:deliver_later).exactly(3).times
+          to_email: "c@example.com",
+          )
 
         perform_job
       end
 
       it "enqueues the next batch job" do
-        allow(CampaignMailer).to receive_message_chain(:email_message, :deliver_later)
-
         expect(described_class).to receive(:perform_later).with(message_name, sent_at_column)
-
         perform_job
       end
     end
@@ -103,8 +96,8 @@ RSpec.describe CampaignContacts::SendEmailsBatchJob, type: :job do
         allow(CampaignContact).to receive_message_chain(:where, :update_all).and_return(0)
       end
 
-      it "does not send emails and does not enqueue the next batch" do
-        expect(CampaignMailer).not_to receive(:email_message)
+      it "does not create CampaignEmails and does not enqueue the next batch" do
+        expect(CampaignEmail).not_to receive(:create)
         expect(described_class).not_to receive(:perform_later)
 
         perform_job
@@ -119,7 +112,7 @@ RSpec.describe CampaignContacts::SendEmailsBatchJob, type: :job do
         expect(scope).to receive(:limit).with(described_class::BATCH_SIZE).and_return(scope)
         expect(scope).to receive(:pluck).with(:id).and_return([])
 
-        expect(CampaignMailer).not_to receive(:email_message)
+        expect(CampaignEmail).not_to receive(:create)
         expect(described_class).not_to receive(:perform_later)
 
         perform_job
