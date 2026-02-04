@@ -10,15 +10,16 @@ class CampaignContacts::SendEmailsBatchJob < ApplicationJob
     return if ids.empty?
 
     # claim to prevent concurrent tasks
+    # todo: update this sent at logic??
     updated = CampaignContact.where(id: ids, sent_at_column => nil).update_all(sent_at_column => now, updated_at: now)
     return if updated.zero?
 
     CampaignContact.where(id: ids).find_each do |contact|
-      CampaignMailer.email_message(
-        email_address: contact.email_address,
+      OutgoingCampaignEmail.create(
+        campaign_contact_id: contact.id,
         message_name: message_name,
-        locale: contact.locale.presence || "en"
-      ).deliver_later
+        to_email: contact.email_address,
+      )
     end
 
     # queues up the next batch once this one is done

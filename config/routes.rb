@@ -395,11 +395,14 @@ Rails.application.routes.draw do
     post "/outbound_calls/:id", to: "twilio_webhooks#update_outbound_call", as: :outbound_calls_webhook
     post "/incoming_text_messages", to: "twilio_webhooks#create_incoming_text_message", as: :incoming_text_messages
     post "/outbound_calls/connect/:id", to: "twilio_webhooks#outbound_call_connect", as: :twilio_connect_to_client, defaults: { format: "xml" }
+
     # Mailgun webhook routes
     post "/incoming_emails", to: "mailgun_webhooks#create_incoming_email", as: :incoming_emails
     post "/outgoing_email_status", to: "mailgun_webhooks#update_outgoing_email_status", as: :outgoing_email_status
+
     # OAuth login callback routes
     devise_for :users, path: "hub", only: :omniauth_callbacks, skip: [:session, :invitation], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+
     # AWS IP ranges update trigger
     post "/update_aws_ip_ranges", to: "aws_ip_ranges_webhooks#update_aws_ip_ranges", as: :update_aws_ip_ranges
 

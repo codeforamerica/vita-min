@@ -32,6 +32,7 @@
 class CampaignContact < ApplicationRecord
   validates :sms_phone_number, e164_phone: true, allow_blank: true
   validates :email_address, 'valid_email_2/email': true, allow_blank: true
+  has_many :outgoing_campaign_emails
 
   def self.email_contacts_for(sent_at_column)
     where(sent_at_column => nil, email_notification_opt_in: true)

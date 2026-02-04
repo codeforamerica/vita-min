@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_12_230832) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_03_223845) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1619,6 +1619,23 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_12_230832) do
     t.index ["user_id"], name: "index_outbound_calls_on_user_id"
   end
 
+  create_table "outgoing_campaign_emails", force: :cascade do |t|
+    t.bigint "campaign_contact_id", null: false
+    t.datetime "created_at", null: false
+    t.string "delivery_status", default: "created", null: false
+    t.string "error_code"
+    t.jsonb "event_data"
+    t.string "from_email"
+    t.string "mailgun_message_id"
+    t.string "message_name"
+    t.datetime "sent_at"
+    t.text "subject"
+    t.string "to_email"
+    t.datetime "updated_at", null: false
+    t.index ["campaign_contact_id"], name: "index_outgoing_campaign_emails_on_campaign_contact_id"
+    t.index ["mailgun_message_id"], name: "index_outgoing_campaign_emails_on_mailgun_message_id", unique: true
+  end
+
   create_table "outgoing_emails", force: :cascade do |t|
     t.string "body", null: false
     t.bigint "client_id", null: false
@@ -3114,6 +3131,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_12_230832) do
   add_foreign_key "notes", "clients"
   add_foreign_key "notes", "users"
   add_foreign_key "organization_lead_roles", "vita_partners"
+  add_foreign_key "outgoing_campaign_emails", "campaign_contacts"
   add_foreign_key "outgoing_emails", "clients"
   add_foreign_key "outgoing_emails", "users"
   add_foreign_key "outgoing_text_messages", "clients"
