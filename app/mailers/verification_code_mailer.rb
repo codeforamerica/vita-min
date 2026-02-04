@@ -13,9 +13,6 @@ class VerificationCodeMailer < ApplicationMailer
                  I18n.t('messages.default_subject_with_service_name', service_name: @service_name, locale: @locale)
                end
 
-    # retry period for failed messages is 15min
-    headers['X-Mailgun-Deliverytime'] = '15m'
-
     mail(
       to: params[:to],
       subject: @subject,
