@@ -1,12 +1,12 @@
 # == Schema Information
 #
-# Table name: outgoing_campaign_emails
+# Table name: campaign_emails
 #
 #  id                  :bigint           not null, primary key
-#  delivery_status     :string           default("created"), not null
 #  error_code          :string
 #  event_data          :jsonb
 #  from_email          :string
+#  mailgun_status      :string           default("created"), not null
 #  message_name        :string
 #  sent_at             :datetime
 #  subject             :text
@@ -18,14 +18,14 @@
 #
 # Indexes
 #
-#  index_outgoing_campaign_emails_on_campaign_contact_id  (campaign_contact_id)
-#  index_outgoing_campaign_emails_on_mailgun_message_id   (mailgun_message_id) UNIQUE
+#  index_campaign_emails_on_campaign_contact_id  (campaign_contact_id)
+#  index_campaign_emails_on_mailgun_message_id   (mailgun_message_id) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (campaign_contact_id => campaign_contacts.id)
 #
-class OutgoingCampaignEmail < ApplicationRecord
+class CampaignEmail < ApplicationRecord
   # todo: add locale?
   belongs_to :campaign_contact
   after_create :deliver

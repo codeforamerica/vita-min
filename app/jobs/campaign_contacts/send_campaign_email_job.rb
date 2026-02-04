@@ -4,7 +4,7 @@ class CampaignContacts::SendCampaignEmailJob < ApplicationJob
   retry_on Mailgun::CommunicationError # stop if throttling??
 
   def perform(email_id)
-    email = OutgoingCampaignEmail.find(email_id)
+    email = CampaignEmail.find(email_id)
     contact = email.campaign_contact
 
     response = CampaignMailer.email_message(

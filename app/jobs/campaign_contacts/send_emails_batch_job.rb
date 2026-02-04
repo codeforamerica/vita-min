@@ -15,7 +15,7 @@ class CampaignContacts::SendEmailsBatchJob < ApplicationJob
     return if updated.zero?
 
     CampaignContact.where(id: ids).find_each do |contact|
-      OutgoingCampaignEmail.create(
+      CampaignEmail.create(
         campaign_contact_id: contact.id,
         message_name: message_name,
         to_email: contact.email_address,
