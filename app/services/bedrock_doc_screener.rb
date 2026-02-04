@@ -69,7 +69,8 @@ module BedrockDocScreener
   end
 
   def self.available_doc_types
-    # matches @doc_type_options in document controller
+    # should always match @document_type_options in hub/document controller,
+    # since those are the only types available in the drop down
     available_doc_types = [DocumentTypes::Identity, DocumentTypes::SsnItin] + (DocumentTypes::ALL_TYPES - DocumentTypes::IDENTITY_TYPES - DocumentTypes::SECONDARY_IDENTITY_TYPES)
     available_doc_types.map do |d|
       result = { key: d.key, label: d.label }

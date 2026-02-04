@@ -3,6 +3,7 @@ class CampaignMailer < ApplicationMailer
     message = "CampaignMessage::#{message_name.camelize}".constantize.new
     @body = message.email_body(locale: locale)
     service = MultiTenantService.new(:gyr)
+    email_domain = ENV.fetch("MAILGUN_OUTREACH_DOMAIN")
 
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       { host: service.host,
@@ -15,11 +16,17 @@ class CampaignMailer < ApplicationMailer
 
     DatadogApi.increment("mailgun.campaign_emails.sent") if Rails.env.production?
 
+    # the period in which MailGun will retry sending a failed message is 8 hours
+    headers['X-Mailgun-Deliverytime'] = '8h'
+
     mail(
       to: email_address,
       subject: message.email_subject(locale: locale),
-      from: service.noreply_email,
-      delivery_method_options: service.delivery_method_options,
+      from: "no-reply@#{email_domain}",
+      delivery_method_options: {
+        api_key: ENV.fetch("MAILGUN_OUTREACH_API_KEY"),
+        domain: email_domain
+      },
       template_path: "outgoing_email_mailer",
       template_name: "user_message"
     )

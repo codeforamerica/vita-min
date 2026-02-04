@@ -79,7 +79,9 @@ jobs:
             FRAUD_INDICATORS_KEY=${{ secrets.FRAUD_INDICATORS_KEY }} \
             HEROKU_DNS_AWS_ACCESS_KEY_ID=${{ secrets.HEROKU_DNS_AWS_ACCESS_KEY_ID }} \
             HEROKU_DNS_SECRET_ACCESS_KEY=${{ secrets.HEROKU_DNS_SECRET_ACCESS_KEY }} \
-            HEROKU_PLATFORM_KEY=${{ secrets.HEROKU_PLATFORM_KEY }}
+            HEROKU_PLATFORM_KEY=${{ secrets.HEROKU_PLATFORM_KEY }} \
+            AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+            AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Create database
         if: ${{ env.RUN_APP_SETUP == 'true' }}
