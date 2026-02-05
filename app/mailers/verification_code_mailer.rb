@@ -14,7 +14,7 @@ class VerificationCodeMailer < ApplicationMailer
                end
 
     # retry period for failed messages is 15min
-    headers['X-Mailgun-Deliverytime'] = '15m'
+    # headers['X-Mailgun-Deliverytime'] = '15m'
 
     mail(
       to: params[:to],

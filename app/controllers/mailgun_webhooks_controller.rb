@@ -165,6 +165,10 @@ class MailgunWebhooksController < ActionController::Base
     DatadogApi.increment("mailgun.update_campaign_email_status.email_not_found") if email_to_update.nil?
 
     email_to_update&.update(mailgun_status: params.dig("event-data", "event"))
+    # if the state is failed then we should save the event-data to event_data and error_code
+    # 602 => permanent failed tried resending for 8 hours
+    # 421, 615  => throttling?
+    # if there are alot of fails then we should stop
     head :ok
   end
 

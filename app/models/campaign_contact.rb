@@ -6,8 +6,6 @@
 #  email_address             :citext
 #  email_notification_opt_in :boolean          default(FALSE)
 #  first_name                :string
-#  gyr_2025_preseason_email  :datetime
-#  gyr_2025_preseason_sms    :datetime
 #  gyr_intake_ids            :bigint           default([]), is an Array
 #  last_name                 :string
 #  locale                    :string
@@ -33,12 +31,31 @@ class CampaignContact < ApplicationRecord
   validates :sms_phone_number, e164_phone: true, allow_blank: true
   validates :email_address, 'valid_email_2/email': true, allow_blank: true
   has_many :campaign_emails
+  has_many :signups, -> { where("signups.id = ANY(campaign_contacts.sign_up_ids)") },
+           class_name: "Signup"
 
-  def self.email_contacts_for(sent_at_column)
-    where(sent_at_column => nil, email_notification_opt_in: true)
-      .where.not(email_address: nil)
+  def self.with_signups_from_recent_off_season
+    joins(:signups).where("signups.created_at >= ?", 1.year.ago).distinct
   end
 
+  # Email -------------
+  def self.not_emailed(message_name)
+    where.not(id: CampaignEmail.where(message_name: message_name).select(:campaign_contact_id))
+  end
+
+  def self.emailed(message_name)
+    where(id: CampaignEmail.where(message_name: message_name).select(:campaign_contact_id))
+  end
+
+  def self.emailed_successfully(message_name)
+    where(id: CampaignEmail.succeeded.where(message_name: message_name).select(:campaign_contact_id))
+  end
+
+  def self.email_contacts_opted_in
+    where(email_notification_opt_in: true).where.not(email_address: [nil, ""])
+  end
+
+  # SMS -------------
   def self.sms_contacts_for(sent_at_column)
     where(sent_at_column => nil, sms_notification_opt_in: true)
       .where.not(sms_phone_number: nil)

@@ -1,9 +1,13 @@
 class CampaignMailer < ApplicationMailer
-  def email_message(email_address:, message_name:, locale: "en")
-    message = "CampaignMessage::#{message_name.camelize}".constantize.new
+  def email_message(email_address:, message_name:, locale: "en", campaign_email_id: nil)
+    klass = "CampaignMessage::#{message_name.camelize}".safe_constantize
+    raise ArgumentError, "Unknown message_name: #{message_name}" unless klass
+    message = klass.new
+
     @body = message.email_body(locale: locale)
+
     service = MultiTenantService.new(:gyr)
-    email_domain = ENV.fetch("MAILGUN_OUTREACH_DOMAIN")
+    email_domain = ENV.fetch("MAILGUN_OUTREACH_DOMAIN","local.example.com" )
 
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       { host: service.host,
@@ -16,26 +20,29 @@ class CampaignMailer < ApplicationMailer
 
     DatadogApi.increment("mailgun.campaign_emails.sent") if Rails.env.production?
 
-    # the period in which MailGun will retry sending a failed message is 8 hours
-    headers['X-Mailgun-Deliverytime'] = '8h'
+    headers_hash = {
+      "X-Campaign-Email-Id" => campaign_email_id&.to_s,
+      "X-Mailgun-Deliverytime" => (Time.current + 8.hours).rfc2822
+    }.compact
 
     mail(
       to: email_address,
       subject: message.email_subject(locale: locale),
       from: "no-reply@#{email_domain}",
       delivery_method_options: {
-        api_key: ENV.fetch("MAILGUN_OUTREACH_API_KEY"),
+        api_key: ENV.fetch("MAILGUN_OUTREACH_API_KEY", "fake-key-for-development"),
         domain: email_domain
       },
       template_path: "outgoing_email_mailer",
-      template_name: "user_message"
+      template_name: "user_message",
+      headers: headers_hash
     )
   end
 
   private
 
   def inline_logo(service)
-    attachments.inline['logo.png'] = service.email_logo
+    attachments.inline["logo.png"] = service.email_logo
   end
 
   def signed_email(email)
