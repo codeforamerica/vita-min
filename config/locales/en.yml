@@ -129,7 +129,7 @@ en:
           p3: Must have ID numbers and income tax information to submit
           p4: Household income under $89,000
         subtitle: This service helps you file your federal and state tax return and maximize your refund.
-        title: Use DIY to file your Federal and State taxes—confirm you qualify to get started
+        title: Use File Myself to file your Federal and State taxes—confirm you qualify to get started
   documents:
     documents_help:
       show:
@@ -5774,12 +5774,12 @@ en:
           one: In %{year}, did you pay any mortgage interest?
           other: In %{year}, did you or your spouse pay any mortgage interest?
       notification_preference:
-        note_html: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply. Text HELP to 58750 for help. Text STOP to 58750 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a href="%{terms_url}">Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.
+        note_html: <p>By clicking continue, you agree to receive tax return updates, service information, and occasional surveys. We will not share your information with any outside parties.</p><p>Message frequency will vary. Message and data rates may apply. Text HELP to 46207 for help. Text STOP to 46207 to cancel. See our <a href="%{terms_url}">SMS Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.</p>
         options:
           email_notification_opt_in: Email Me
-          header: We’ll need to reach out with questions and updates. Please select the option(s) that work best for you!
+          header: We’ll need to reach out with questions and updates about your return and information about free tax filing support and other free services. We may also send surveys to improve your experience. Please select the option(s) that work best for you!
           sms_notification_opt_in: Text Me
-        title: What is the best way to reach you?
+        title: Opt in to receive messages from us
       optional_consent:
         consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consent to Disclose:</a> You allow us to send tax information to the tax software company and financial institution you specify (if any).
         consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consent to Use:</a> You allow us to count your return in reports.
@@ -5837,7 +5837,7 @@ en:
           p2: Must have digital copies of your IDs and documents to submit
           p3: Suggested household income under $67,000
         subtitle: This service helps you file your federal and state tax return and maximize your refund.
-        title: Use Virtual VITA to file your Federal and State taxes—confirm you qualify to get started
+        title: Use File with Help to file your Federal and State taxes—confirm you qualify to get started
       received_alimony:
         help_text: Answer "Yes" even if you did not receive an official IRS document about the alimony. Do not include child support you received.
         title:
@@ -6056,7 +6056,7 @@ en:
         reveal_body_4: 'Other features:'
         reveal_title: Additional information
         subtitle: File on your own and get help when you need it
-        title: DIY
+        title: File Myself
       document_deadline_warning:
         body_html: "<strong>Reminder: You must submit your documents by %{doc_submission_deadline} in order to meet the federal income tax filing deadline of %{tax_deadline}. You can submit your taxes after the deadline without penalty if you don't owe.</strong> If you aren't sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
       environment_warning:
@@ -6117,4 +6117,4 @@ en:
         reveal_body_4: 'Other features:'
         reveal_title: Additional Information
         subtitle: Answer a few questions and let a tax pro file for you
-        title: Virtual VITA
+        title: File with Help
