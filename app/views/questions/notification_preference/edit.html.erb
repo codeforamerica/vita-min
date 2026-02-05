@@ -23,9 +23,9 @@
           <%= f.cfa_checkbox(:sms_notification_opt_in, t("views.questions.notification_preference.options.sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
         </div>
 
-        <p class="text--small spacing-above-25">
+        <div class="text--small spacing-above-25">
           <%= t("views.questions.notification_preference.note_html", terms_url: sms_terms_url, privacy_url: privacy_url) %>
-        </p>
+        </div>
       </div>
     </div>
 
