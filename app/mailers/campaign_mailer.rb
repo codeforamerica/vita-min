@@ -7,7 +7,7 @@ class CampaignMailer < ApplicationMailer
     @body = message.email_body(locale: locale)
 
     service = MultiTenantService.new(:gyr)
-    email_domain = ENV.fetch("MAILGUN_OUTREACH_DOMAIN","local.example.com" )
+    email_domain = ENV.fetch("MAILGUN_OUTREACH_DOMAIN", "local.example.com")
 
     @unsubscribe_link = Rails.application.routes.url_helpers.url_for(
       { host: service.host,
