@@ -99,7 +99,8 @@ en:
         chat_with_us: Chat with us
         continue_help_text: By clicking continue you will go to our partner site to finish filing your taxes.
         email_us_html: Email us at <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
-        file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our <a href="%{file_myself_guide_link}" target="_blank">File Myself Guide</a>.
+        file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our %{file_myself_guide_link}.
+        guide_link: File Myself Guide
         help_text: If you get stuck or have a question, we can help!
         title: Get support while you file on your own!
     file_yourself:
