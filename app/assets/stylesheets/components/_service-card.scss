@@ -66,11 +66,6 @@ img {
   align-self: stretch;
   width: 100%;
 
-  @media screen and (min-width: $tablet-up) {
-    max-width: 34.5rem;
-    align-self: center;
-  }
-
   .reveal__button {
     color: #000000;
     font-weight: normal;
