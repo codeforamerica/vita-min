@@ -6,8 +6,6 @@
 #  email_address             :citext
 #  email_notification_opt_in :boolean          default(FALSE)
 #  first_name                :string
-#  gyr_2025_preseason_email  :datetime
-#  gyr_2025_preseason_sms    :datetime
 #  gyr_intake_ids            :bigint           default([]), is an Array
 #  last_name                 :string
 #  locale                    :string
