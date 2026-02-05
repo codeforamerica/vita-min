@@ -122,7 +122,7 @@ en:
           p3: Must have ID numbers and income tax information to submit
           p4: Household income under $89,000
         subtitle: This service helps you file your federal and state tax return and maximize your refund.
-        title: Use DIY to file your Federal and State taxes—confirm you qualify to get started
+        title: Use File Myself to file your Federal and State taxes—confirm you qualify to get started
   documents:
     documents_help:
       show:
@@ -5863,7 +5863,7 @@ en:
           p2: Must have digital copies of your IDs and documents to submit
           p3: Suggested household income under $67,000
         subtitle: This service helps you file your federal and state tax return and maximize your refund.
-        title: Use Virtual VITA to file your Federal and State taxes—confirm you qualify to get started
+        title: Use File with Help to file your Federal and State taxes—confirm you qualify to get started
       received_alimony:
         help_text: Answer "Yes" even if you did not receive an official IRS document about the alimony. Do not include child support you received.
         title:
@@ -6082,7 +6082,7 @@ en:
         reveal_body_4: 'Other features:'
         reveal_title: Additional information
         subtitle: File on your own and get help when you need it
-        title: DIY
+        title: File Myself
       document_deadline_warning:
         body_html: "<strong>Reminder: You must submit your documents by %{doc_submission_deadline} in order to meet the federal income tax filing deadline of %{tax_deadline}. You can submit your taxes after the deadline without penalty if you don't owe.</strong> If you aren't sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
       environment_warning:
@@ -6143,4 +6143,4 @@ en:
         reveal_body_4: 'Other features:'
         reveal_title: Additional Information
         subtitle: Answer a few questions and let a tax pro file for you
-        title: Virtual VITA
+        title: File with Help
