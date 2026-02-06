@@ -2,22 +2,25 @@
 #
 # Table name: diy_intakes
 #
-#  id                        :bigint           not null, primary key
-#  clicked_chat_with_us_at   :datetime
-#  email_address             :string
-#  email_notification_opt_in :integer          default("unfilled")
-#  filing_frequency          :integer          default("unfilled"), not null
-#  locale                    :string
-#  preferred_first_name      :string
-#  received_1099             :integer          default("unfilled"), not null
-#  referrer                  :string
-#  sms_notification_opt_in   :integer          default("unfilled")
-#  source                    :string
-#  token                     :string
-#  zip_code                  :string
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
-#  visitor_id                :string
+#  id                           :bigint           not null, primary key
+#  clicked_chat_with_us_at      :datetime
+#  email_address                :string
+#  email_address_verified_at    :datetime
+#  email_notification_opt_in    :integer          default("unfilled")
+#  filing_frequency             :integer          default("unfilled"), not null
+#  locale                       :string
+#  preferred_first_name         :string
+#  received_1099                :integer          default("unfilled"), not null
+#  referrer                     :string
+#  sms_notification_opt_in      :integer          default("unfilled")
+#  sms_phone_number             :string
+#  sms_phone_number_verified_at :datetime
+#  source                       :string
+#  token                        :string
+#  zip_code                     :string
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
+#  visitor_id                   :string
 #
 FactoryBot.define do
   factory :diy_intake do

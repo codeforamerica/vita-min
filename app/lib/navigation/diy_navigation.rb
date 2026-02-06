@@ -6,6 +6,10 @@ module Navigation
       Diy::QualificationsController,
       Diy::FileYourselfController,
       Diy::DiyNotificationPreferenceController,
+      Diy::DiyCellPhoneNumberController,
+      #Diy::DiyPhoneVerificationController,
+      #Diy::DiyEmailAddressController,
+      #Diy::DiyEmailAddressVerificationController,
       Diy::ContinueToFsaController
     ].freeze
   end
