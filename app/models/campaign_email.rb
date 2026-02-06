@@ -8,6 +8,7 @@
 #  from_email          :string
 #  mailgun_status      :string           default("created"), not null
 #  message_name        :string
+#  scheduled_send_at   :datetime
 #  sent_at             :datetime
 #  subject             :text
 #  to_email            :string
@@ -44,6 +45,10 @@ class CampaignEmail < ApplicationRecord
   private
 
   def deliver
-    CampaignContacts::SendCampaignEmailJob.perform_later(id)
+    if scheduled_send_at.present? || Time.current >= scheduled_send_at
+      CampaignContacts::SendCampaignEmailJob.perform_later(id)
+    else
+      CampaignContacts::SendCampaignEmailJob.set(wait_until: email.scheduled_send_at).perform_later(id)
+    end
   end
 end

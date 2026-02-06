@@ -7,12 +7,20 @@ class CampaignContacts::SendCampaignEmailJob < ApplicationJob
            attempts: 8
 
   def perform(email_id)
-    email = CampaignEmail.find_by(id: email_id)
-    return unless email
+    return if Flipper.enabled?(:cancel_campaign_emails)
+
+    email = CampaignEmail.find(email_id)
+    contact = email.campaign_contact
+
+    return unless email || contact
 
     return if email.mailgun_message_id.present? || email.sent_at.present?
 
-    contact = email.campaign_contact
+    send_at = email.scheduled_send_at || Time.current
+    if send_at > Time.current
+      self.class.set(wait_until: send_at).perform_later(email_id)
+      return
+    end
 
     response = CampaignMailer.email_message(
       email_address: contact.email_address,
@@ -31,7 +39,6 @@ class CampaignContacts::SendCampaignEmailJob < ApplicationJob
     email.update(mailgun_status: "failed", error_code: e.class.name)
     raise
   end
-
 
   def priority
     PRIORITY_LOW

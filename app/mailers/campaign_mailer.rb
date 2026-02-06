@@ -22,7 +22,7 @@ class CampaignMailer < ApplicationMailer
 
     headers_hash = {
       "X-Campaign-Email-Id" => campaign_email_id&.to_s,
-      "X-Mailgun-Deliverytime" => (Time.current + 8.hours).rfc2822
+      "X-Mailgun-Delivery-Time-Optimize-Period" => "72h",
     }.compact
 
     mail(
