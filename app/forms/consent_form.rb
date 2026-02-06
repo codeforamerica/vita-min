@@ -17,6 +17,7 @@ class ConsentForm < QuestionsForm
     attributes = attributes_for(:intake).except(:birth_date_year, :birth_date_month, :birth_date_day)
     attributes = attributes.merge(primary_birth_date: parse_date_params(birth_date_year, birth_date_month, birth_date_day)) if collect_dob?
     intake.update(attributes)
+    @intake.create_or_update_campaign_contact unless @intake.primary_first_name.blank?
   end
 
   def self.existing_attributes(intake)

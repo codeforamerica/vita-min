@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_04_225046) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_05_191850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -582,6 +582,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_04_225046) do
     t.boolean "sms_notification_opt_in", default: false
     t.string "sms_phone_number"
     t.jsonb "state_file_intake_refs", default: [], null: false
+    t.integer "suppressed_for_gyr_product_year"
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_campaign_contacts_on_email_address", unique: true, where: "(email_address IS NOT NULL)"
     t.index ["email_notification_opt_in"], name: "index_campaign_contacts_on_email_notification_opt_in"
@@ -591,6 +592,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_04_225046) do
     t.index ["sms_notification_opt_in"], name: "index_campaign_contacts_on_sms_notification_opt_in"
     t.index ["sms_phone_number"], name: "index_campaign_contacts_on_sms_phone_number"
     t.index ["state_file_intake_refs"], name: "index_campaign_contacts_on_state_file_intake_refs", using: :gin
+    t.index ["suppressed_for_gyr_product_year"], name: "index_campaign_contacts_on_gyr_suppression"
   end
 
   create_table "campaign_emails", force: :cascade do |t|

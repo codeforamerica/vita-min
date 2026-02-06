@@ -3,7 +3,14 @@ class UpsertSourceIntoCampaignContacts
     new(**kwargs).call
   end
 
-  def initialize(source:, source_id:, first_name:, last_name:, email:, phone:, email_opt_in:, sms_opt_in:, locale: "en", state_file_ref: nil)
+  def initialize(
+    source:, source_id:,
+    first_name:, last_name:,
+    email:, phone:,
+    email_opt_in:, sms_opt_in:,
+    locale: "en", state_file_ref: nil,
+    suppressed_for_gyr_product_year: nil
+  )
     @source = source
     @source_id = source_id
     @first_name = first_name
@@ -14,6 +21,7 @@ class UpsertSourceIntoCampaignContacts
     @sms_opt_in = sms_opt_in
     @locale = locale
     @state_file_ref = state_file_ref
+    @suppressed_for_gyr_product_year = suppressed_for_gyr_product_year
   end
 
   def call
@@ -26,6 +34,7 @@ class UpsertSourceIntoCampaignContacts
     contact.email_notification_opt_in = contact.email_notification_opt_in || @email_opt_in
     contact.sms_notification_opt_in = contact.sms_notification_opt_in || @sms_opt_in
     contact.locale = @locale unless @locale.blank?
+    contact.suppressed_for_gyr_product_year = @suppressed_for_gyr_product_year
 
     case @source
     when :gyr

@@ -718,4 +718,21 @@ class Intake::GyrIntake < Intake
   def preferred_written_language_string
     I18n.t("general.written_language_options.#{preferred_written_language}", default: nil) || preferred_written_language&.capitalize
   end
+
+  def create_or_update_campaign_contact
+    return if email_address.blank? && sms_phone_number.blank?
+
+    UpsertSourceIntoCampaignContacts.call(
+      source: :gyr,
+      source_id: id,
+      first_name: primary_first_name,
+      last_name: primary_last_name,
+      email: email_address,
+      phone: sms_phone_number,
+      email_opt_in: email_notification_opt_in == "yes",
+      sms_opt_in: sms_notification_opt_in == "yes",
+      locale: locale,
+      suppressed_for_gyr_product_year: product_year,
+    )
+  end
 end

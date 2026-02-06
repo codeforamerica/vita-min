@@ -22,7 +22,8 @@ module CampaignContacts
             phone: phone,
             email_opt_in: intake.email_notification_opt_in == "yes",
             sms_opt_in: intake.sms_notification_opt_in == "yes",
-            locale: intake.locale
+            locale: intake.locale,
+            suppressed_for_gyr_product_year: intake.product_year,
           )
         rescue => e
           Sentry.capture_exception(e, extra: { job: self.class.name, gyr_id: intake.id, })
