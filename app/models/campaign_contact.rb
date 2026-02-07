@@ -30,6 +30,7 @@
 #  index_campaign_contacts_on_state_file_intake_refs     (state_file_intake_refs) USING gin
 #
 class CampaignContact < ApplicationRecord
+  self.ignored_columns += %w[gyr_2025_preseason_email gyr_2025_preseason_sms]
   validates :sms_phone_number, e164_phone: true, allow_blank: true
   validates :email_address, 'valid_email_2/email': true, allow_blank: true
   has_many :campaign_emails

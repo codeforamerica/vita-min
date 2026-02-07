@@ -122,7 +122,7 @@ es:
           p3: Debe tener números de identificación e información de ingresos para poder presentar la declaración
           p4: Menos de $89,000 de ingresos en el hogar
         subtitle: Este servicio le ayuda a presentar sus declaraciones de impuestos federales y estatales y a maximizar su reembolso.
-        title: Use DIY para presentar sus impuestos federales y estatales - Para comenzar aseurese de que califica
+        title: Use "Declarar por mi cuenta"" para presentar sus impuestos federales y estatales - Para comenzar aseurese de que califica
   documents:
     documents_help:
       show:
@@ -5809,12 +5809,12 @@ es:
           one: En %{year}, ¿pagó algún interés hipotecario?
           other: En %{year}, ¿Pagó usted o su pareja algún interés hipotecario?
       notification_preference:
-        note_html: La frecuencia del mensaje variará. Pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Envíe el texto "HELP" al 58750 para ayuda. Envía STOP al 58750 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes retrasados o no entregados. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.
+        note_html: <p>Al hacer clic en Continuar, usted acepta recibir actualizaciones sobre su declaración de impuestos, información sobre nuestros servicios y encuestas ocasionales. No compartiremos su información con terceros.</p><p>La frecuencia de los mensajes puede variar. Pueden aplicarse cargos por mensajes y datos. Envíe el texto HELP al 58750 para ayuda. Envía STOP al 58750 para cancelar. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.</p>
         options:
           email_notification_opt_in: Envíeme un correo electrónico
-          header: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o actualizaciones. Por favor, selecciona la(s) opción(es) que mejor te funcione.
+          header: Necesitaremos ponernos en contacto con usted para hacerle preguntas y enviarle actualizaciones sobre su declaración de impuestos, así como información sobre apoyo gratuito para presentar impuestos y otros servicios gratuitos. También podríamos enviarle encuestas para mejorar su experiencia con nosotros. ¡Seleccione la(s) opción(es) que mejor se adapte(n) a usted!
           sms_notification_opt_in: Mensaje de Texto
-        title: "¿Cuál es la mejor manera de contactarte?"
+        title: Acepte recibir mensajes de nuestra parte
       optional_consent:
         consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consentimiento para divulgar:</a> Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde).
         consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consentimiento para usar:</a> Usted nos permite incluir su declaración de impuestos en informes.
@@ -5875,7 +5875,7 @@ es:
           p2: Debe tener copias digitales de sus identificaciones y documentos para poder presentar la declaración
           p3: Menos de $67,000 de ingresos en el hogar (sugerido)
         subtitle: Este servicio le ayuda a presentar sus declaraciones de impuestos federales y estatales y a maximizar su reembolso.
-        title: Use VITA virtual para presentar sus impuestos federales y estatales - Para comenzar aseurese de que califica
+        title: Use "Declarar con ayuda" para presentar sus impuestos federales y estatales - Para comenzar aseurese de que califica
       received_alimony:
         help_text: Responda "Sí" incluso si no recibió un documento oficial del IRS sobre la pensión alimenticia. No incluya la manutención de niños que recibió.
         title:
@@ -6109,7 +6109,7 @@ es:
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
         subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
-        title: Hágalo usted mismo
+        title: Declarar por mi cuenta
       document_deadline_warning:
         body_html: "<strong>Recordatorio: Debes enviar tus documentos antes del %{doc_submission_deadline} para cumplir con la fecha límite de presentación de impuestos federales del %{tax_deadline}. Puedes presentar tus impuestos después de la fecha límite sin penalización si no debes.</strong> Si no estás seguro de si deberás o no, puedes completar y enviar por correo <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una extensión."
       environment_warning:
@@ -6170,4 +6170,4 @@ es:
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
         subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
-        title: VITA virtual
+        title: Declarar con ayuda
