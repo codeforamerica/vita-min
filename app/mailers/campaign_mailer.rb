@@ -18,8 +18,6 @@ class CampaignMailer < ApplicationMailer
         email_address: signed_email(email_address) })
     inline_logo(service)
 
-    DatadogApi.increment("mailgun.campaign_emails.sent") if Rails.env.production?
-
     headers_hash = {
       "X-Campaign-Email-Id" => campaign_email_id&.to_s,
       "X-Mailgun-Delivery-Time-Optimize-Period" => "72h",

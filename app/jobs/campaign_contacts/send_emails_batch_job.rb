@@ -11,6 +11,7 @@ class CampaignContacts::SendEmailsBatchJob < ApplicationJob
 
   def perform(message_name, batch_size: 100, batch_delay: 1.minute, queue_next_batch: false)
     return if Flipper.enabled?(:cancel_campaign_emails)
+    return if rate_limited?
 
     contacts_to_message = CampaignContact.email_contacts_opted_in
                          .not_emailed(message_name).limit(batch_size).pluck(:id)
@@ -46,6 +47,30 @@ class CampaignContacts::SendEmailsBatchJob < ApplicationJob
   end
 
   private
+
+  def rate_limited?
+    failed_emails = CampaignEmail.where("sent_at > ?", 1.hour.ago)
+                                 .where(mailgun_status: "failed")
+
+    return false if failed_emails.empty?
+
+    total_count = failed_emails.count
+    rate_limited_count = failed_emails.where(
+      "error_code = ? OR event_data::text ILIKE ?",
+      "421",
+      "%rate limit%"
+    ).count
+
+    failure_rate = (rate_limited_count.to_f / total_count * 100)
+
+    if failure_rate > 15
+      Flipper.enable(:cancel_campaign_emails)
+      Sentry.capture_exception("Rate limiting detected: #{failure_rate}% failure rate. Pausing campaigns.")
+      return true
+    end
+
+    false
+  end
 
   def next_business_hour_start
     now = Time.current.in_time_zone("America/New_York")

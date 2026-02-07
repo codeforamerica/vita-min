@@ -160,41 +160,37 @@ class MailgunWebhooksController < ActionController::Base
   end
 
   def update_campaign_email_status
-    message_id = params.dig("event-data", "message", "headers", "message-id")
+    mg_data = params["event-data"]
+    message_id = mg_data.dig("message", "headers", "message-id")
     email_to_update = CampaignEmail.find_by(mailgun_message_id: message_id)
-    DatadogApi.increment("mailgun.update_campaign_email_status.email_not_found") if email_to_update.nil?
 
-    email_to_update&.update(mailgun_status: params.dig("event-data", "event"))
-    head :ok
-  end
-
-  def update_campaign_email_status
-    event_data = params["event-data"] || {}
-    event = event_data["event"]
-    message_headers = event_data.dig("message", "headers") || {}
-    campaign_email_id = message_headers["x-campaign-email-id"] #|| message_headers["X-Campaign-Email-Id"]
-
-    email = if campaign_email_id.present?
-              CampaignEmail.find_by(id: campaign_email_id)
-            else
-              message_id = message_headers["message-id"] #|| message_headers["Message-Id"]
-              CampaignEmail.find_by(mailgun_message_id: message_id)
-            end
-
-    if email.nil?
-      DatadogApi.increment("mailgun.update_campaign_email_status.email_not_found") if Rails.env.production?
+    if email_to_update.nil?
+      DatadogApi.increment("mailgun.update_campaign_email_status.email_not_found")
     else
-      email.update(mailgun_status: event, event_data: event_data)
+      status = mg_data["event"]&.to_s
+      updates = { mailgun_status: status }
+
+      if %w[failed permanent_fail].include?(status)
+        updates[:error_code] = mg_data.dig("delivery-status", "code")
+        updates[:event_data] = {
+          error_reason: mg_data["reason"],
+          error_message: mg_data.dig("delivery-status", "message")
+        }
+      else
+        updates[:error_code] = nil
+        updates[:event_data] = nil
+      end
+
+      email_to_update.update(updates)
     end
 
     head :ok
   end
 
-
   # if the state is failed then we should save the event-data to event_data and error_code
   # 602 => permanent failed tried resending for 8 hours
   # 421, 615  => throttling?
-  # if there are alot of fails then we should stop
+  # if there are a lot of fails then we should stop
 
   private
 

@@ -1,10 +1,6 @@
 class CampaignContacts::SendCampaignEmailJob < ApplicationJob
   queue_as :campaign_mailer
-  retry_on Mailgun::CommunicationError,
-           Net::ReadTimeout,
-           Timeout::Error,
-           wait: :exponentially_longer,
-           attempts: 8
+  retry_on Mailgun::CommunicationError
 
   def perform(email_id)
     return if Flipper.enabled?(:cancel_campaign_emails)
@@ -12,9 +8,8 @@ class CampaignContacts::SendCampaignEmailJob < ApplicationJob
     email = CampaignEmail.find(email_id)
     contact = email.campaign_contact
 
-    return unless email || contact
-
-    return if email.mailgun_message_id.present? || email.sent_at.present?
+    return unless email && contact
+    return if email.mailgun_message_id.present?
 
     send_at = email.scheduled_send_at || Time.current
     if send_at > Time.current
@@ -25,7 +20,8 @@ class CampaignContacts::SendCampaignEmailJob < ApplicationJob
     response = CampaignMailer.email_message(
       email_address: contact.email_address,
       message_name: email.message_name,
-      locale: contact.locale.presence || "en"
+      locale: contact.locale.presence || "en",
+      campaign_email_id: email.id
     ).deliver_now
 
     email.update!(
@@ -35,6 +31,8 @@ class CampaignContacts::SendCampaignEmailJob < ApplicationJob
       subject: response.subject,
       sent_at: response.date
     )
+
+    DatadogApi.increment("mailgun.campaign_emails.sent") if Rails.env.production?
   rescue Mailgun::CommunicationError, Net::ReadTimeout, Timeout::Error => e
     email.update(mailgun_status: "failed", error_code: e.class.name)
     raise
