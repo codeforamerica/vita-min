@@ -1,10 +1,13 @@
 # Do these things before running this job to prevent against throttling:
-# 1. Check the number of messages you expect to run
-# 2. Check if our IPs have been warmed up recently
-# 3. Message MailGun Rep and tell them how many messages we are expecting to send and when?
-# 4. Add appropriate delays and monitor MailGun logs to make sure messages aren't getting throttled
-# 5. If messages are getting throttled, cancel either via hub/delayed_jobs select campaign_mailers queue and cancel jobs
-# or by enabling flipper flag :cancel_campaign_emails
+#   1. Check the number of messages you expect to run
+#   2. Check if our IPs have been warmed up recently
+#   3. Message MailGun Rep and tell them how many messages we are expecting to send, when and over what period of time
+#   4. Add appropriate delays and monitor MailGun logs to make sure messages aren't getting throttled
+#      (signs of throttling include lots of temporary failures (status = "failed"),
+#       mentions of getting "rate limit"ed in the mailgun reason or delivery-message,
+#       or error codes of 421, although across different servers the error codes could be different)
+#   5. If messages are getting throttled and not getting caught by the 'rate_limited?' check,
+#      then you can kill the jobs by enabling the :cancel_campaign_emails flipper flag manually
 
 class CampaignContacts::SendEmailsBatchJob < ApplicationJob
   queue_as :campaign_mailer
@@ -56,9 +59,10 @@ class CampaignContacts::SendEmailsBatchJob < ApplicationJob
 
     total_count = failed_emails.count
     rate_limited_count = failed_emails.where(
-      "error_code = ? OR event_data::text ILIKE ?",
+      "error_code = ? OR event_data::text ILIKE ANY(ARRAY[?, ?])",
       "421",
-      "%rate limit%"
+      "%rate limit%",
+      "%ratelimit%"
     ).count
 
     failure_rate = (rate_limited_count.to_f / total_count * 100)

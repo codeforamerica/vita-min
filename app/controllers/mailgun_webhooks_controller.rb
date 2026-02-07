@@ -187,11 +187,6 @@ class MailgunWebhooksController < ActionController::Base
     head :ok
   end
 
-  # if the state is failed then we should save the event-data to event_data and error_code
-  # 602 => permanent failed tried resending for 8 hours
-  # 421, 615  => throttling?
-  # if there are a lot of fails then we should stop
-
   private
 
   def re_optin_when_client_replies
