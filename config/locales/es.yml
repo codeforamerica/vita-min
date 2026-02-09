@@ -2247,14 +2247,14 @@ es:
           label: "¿Obtuvo ingresos de una propiedad de alquiler (por ejemplo: casa o coche), de una granja o de criptomonedas?"
     triage_offboarding:
       edit:
-        more_guidance: For more guidance on your options, please visit our FAQ.
-        option_1: Prepare your own return using Free File Fillable Forms
-        option_2: Prepare your own return using file by mail
-        option_3: Prepare your own return using paid tax preparation software
-        option_4: Find a paid preparer to prepare your return
-        options: 'Some income levels and certain IRS forms are out of scope for our services. If you can’t use GetYourRefund there are still many ways to file your taxes:'
-        title: Unfortunately, you do not qualify for our services
-        visit_faq: Visit our FAQ
+        more_guidance: Para obtener más orientación sobre sus opciones, visite nuestra página de Preguntas Frecuentes.
+        option_1: Preparar su declaración por su cuenta usando Free File Fillable Forms
+        option_2: Preparar su declaración por su cuenta y enviarla por correo
+        option_3: Preparar su declaración por su cuenta usando software pago de preparación de impuestos
+        option_4: Encontrar y pagarle a un preparador de impuestos para que prepare su declaración
+        options: 'Algunos niveles de ingresos y ciertos formularios del IRS están fuera del alcance de nuestros servicios. Aunque no puede usar GetYourRefund, tiene varias opciones para presentar sus impuestos:'
+        title: Lamentablemente, no cumple con los requisitos para usar nuestros servicios.
+        visit_faq: Visite nuestras Preguntas Frecuentes
   signups:
     flash_notice: "¡Gracias! Recibirás una notificación cuando abramos."
     new:
