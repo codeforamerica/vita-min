@@ -36,7 +36,8 @@ RSpec.describe "CampaignContacts backfill jobs" do
           phone: "+15551234567",
           email_opt_in: true,
           sms_opt_in: false,
-          locale: "en"
+          locale: "en",
+          suppressed_for_gyr_product_year: gyr_intake.product_year
         )
       )
 

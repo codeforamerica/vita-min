@@ -20,6 +20,16 @@ describe PhoneVerificationForm do
           described_class.new(intake, params).save
         }.to change { intake.reload.sms_phone_number_verified_at }.from(nil)
       end
+
+      it "updates the campaign contact" do
+        expect {
+          described_class.new(intake, params).save
+        }.to change(CampaignContact, :count).by(1)
+
+        contact = CampaignContact.last
+
+        expect(contact).to have_attributes(sms_phone_number: '+15125551234', suppressed_for_gyr_product_year: intake.product_year)
+      end
     end
   end
 
