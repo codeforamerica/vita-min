@@ -5,11 +5,11 @@
         <%= t("views.shared.service_comparison.title_html") %>
       </h1>
       <p class="spacing-above-15"><%= t("views.shared.service_comparison.subtitle_1") %></p>
-      <p class="spacing-below-35"><%= t("views.shared.service_comparison.subtitle_2") %> <%= link_to  t("views.shared.service_comparison.triage_link_text"), Questions::TriagePersonalInfoController.to_path_helper, "data-track-click": "service-comparison-triage" %></p>
+      <p class="spacing-below-35"><%= t("views.shared.service_comparison.subtitle_2") %> <%= link_to  t("views.shared.service_comparison.triage_link_text"), Questions::EligibilityWagesController.to_path_helper, "data-track-click": "service-comparison-triage" %></p>
       <div class="service-recommendation" data-locale="<%= I18n.locale %>">
-        <%= render "shared/diy_card" %>
-        <%= render "shared/virtual_vita_card" %>
-        <%= render "shared/in_person_vita_card" %>
+        <%= render "shared/diy_card", show_get_started: true %>
+        <%= render "shared/virtual_vita_card", show_get_started: true  %>
+        <%= render "shared/in_person_vita_card", show_get_started: true  %>
       </div>
     </div>
   </div>

@@ -2594,7 +2594,6 @@ Style/SingleLineMethods:
     - 'app/controllers/questions/triage_diy_controller.rb'
     - 'app/controllers/questions/triage_do_not_qualify_controller.rb'
     - 'app/controllers/questions/triage_gyr_controller.rb'
-    - 'app/controllers/questions/triage_gyr_diy_controller.rb'
     - 'app/controllers/questions/triage_gyr_ids_controller.rb'
     - 'app/models/archived/dependent_2021.rb'
     - 'spec/validators/irs_business_name_type_validator_spec.rb'

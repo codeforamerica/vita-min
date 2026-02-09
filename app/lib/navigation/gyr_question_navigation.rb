@@ -4,12 +4,11 @@ module Navigation
 
     FLOW = [
       Questions::WelcomeController, # deprecated. exists only for redirect. will be removed in future
-      Questions::TriagePersonalInfoController, # creates Intake record and Client record
-      Questions::TriageIncomeLevelController,
+      Questions::EligibilityWagesController, # creates Intake record and Client record
+      Questions::EligibilityStateController,
       Questions::TriageGyrController,
       Questions::TriageDiyController,
       Questions::TriageDoNotQualifyController,
-      Questions::TriageGyrDiyController,
       Questions::TriageGyrIdsController,
 
       ## Main flow

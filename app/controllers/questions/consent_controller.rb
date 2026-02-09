@@ -39,7 +39,7 @@ module Questions
 
     def check_required_attributes
       if current_intake.primary_ssn.blank?
-        redirect_to Questions::TriagePersonalInfoController.to_path_helper
+        redirect_to Questions::PersonalInfoController.to_path_helper
       end
     end
 

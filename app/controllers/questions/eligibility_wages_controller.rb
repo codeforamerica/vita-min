@@ -1,5 +1,5 @@
 module Questions
-  class TriagePersonalInfoController < PersonalInfoController
+  class EligibilityWagesController < PersonalInfoController
     before_action :redirect_if_matching_source_param
     before_action :redirect_if_completed_intake_present
 

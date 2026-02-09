@@ -1,7 +1,10 @@
-triage_income_level,triage_filing_status,triage_filing_frequency,triage_vita_income_ineligible,service,notes
-zero,single or jointly,Any,Any,GYR-DIY,we'll allow these people to connect with VITA partners through GYR for help with other potential state credits
-1_to_69000,single or jointly,Any,Yes,DIY,
-,,Any,No,GYR-DIY,
-69001_to_89000,single or jointly,Any,Yes,DIY,
-,,Any,No,GYR-DIY,
-over_89000,single or jointly,Any,Any,GYR,
+triage_income_level,triage_vita_income_ineligible,service_preference,service,notes
+zero,Any,virtual_vita,GYR,we'll allow these people to connect with VITA partners through GYR for help with other potential state credits
+zero,Any,diy,DIY,
+1_to_69000,Yes,virtual_vita,DIY,
+1_to_69000,No,diy,DIY,
+1_to_69000,No,virtual_vita,GYR,
+69001_to_89000,Yes,virtual_vita,DIY,
+69001_to_89000,No,diy,DIY,
+69001_to_89000,No,virtual_vita,GYR,
+over_89000,Any,diy,GYR,

@@ -104,6 +104,13 @@ en:
         title: Get support while you file on your own!
     file_yourself:
       edit:
+        filing_frequency:
+          label_line_1: In the last 4 years, how often have you filed?
+          label_line_2: It’s fairly common to skip filing for certain years due to life circumstances and employment changes.
+          options:
+            every_year: I filed every year
+            not_filed: I have not filed
+            some_years: I filed some years
         info:
         - File taxes online on your own using our partner website. This is our quickest option for households earning under $89,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
@@ -460,6 +467,7 @@ en:
     ethnicity:
       hispanic: Hispanic or Latino
       not_hispanic: Not Hispanic or Latino
+    explore_other_options: Explore other options
     faq: FAQ
     file_my_taxes: File my taxes
     filing_joint: Filing jointly
@@ -571,6 +579,7 @@ en:
       mena: Middle Eastern or North African
       native_hawaiian_pacific_islander: Native Hawaiian or other Pacific Islander
       white: White
+    recommendation: Our Recommendation
     register: Sign Up
     remove: Remove
     resend_invitation: Resend invitation email
@@ -2205,41 +2214,35 @@ en:
     home:
       already_started: Already started? Sign in
   questions:
-    triage:
-      diy_tile:
-        choose_diy: Choose File Myself
-        description: File quickly on your own.
-        list:
-          file: File for %{current_tax_year} only
-          income: 'Income: under $89,000'
-        timeframe: 45 minutes to file
-        title: File Myself
-      gyr_tile:
-        choose_gyr: Choose File with Help
-        description: File confidently with assistance from our IRS-certified volunteers.
-        list:
-          file: File for %{oldest_filing_year}-%{current_tax_year}
-          income: 'Income: under $69,000'
-          ssn: Must show copies of your Social Security card or ITIN paperwork
-        timeframe: 2-3 weeks to file
-        title: File with Help
-    triage_diy:
+    eligibility_state:
       edit:
-        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the option below!
-        title: We recommend using our free File Myself option!
+        diy_html: "<strong>Get expert help as you go:</strong> chat with a tax pro as you file to answer any questions you have along the way"
+        page: Step 2 of 2
+        title: What kind of support do you prefer while you file your taxes?
+        virtual_vita_html: "<strong>Have an expert do your taxes:</strong> match with a tax pro who will prepare and submit your return"
+    eligibility_wages:
+      edit:
+        income_level:
+          label: Select your household income
+          options:
+            1_to_69000: "$1 - $69,000"
+            69001_to_89000: "$69,001 - 89,000"
+            over_89000: over $89,000
+            zero: "$0"
+        page: Step 1 of 2
+        subtitle: We’ll ask a few questions about your preferences to guide you to the services you qualify for.
+        title: Let’s help you find the right service!
+        vita_income_ineligible:
+          label: 'Select all that apply to your income in 2025:'
+          options:
+            crypto: Cryptocurrency income
+            none: None of these apply
+            property: Rental or farm property income
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
         help_text: Our free service is available to households earning less than $89,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
-    triage_gyr:
-      edit:
-        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the option below!
-        title: We recommend using our free File with Help option!
-    triage_gyr_diy:
-      edit:
-        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the options below!
-        title: We have two free options that may work for you!
     triage_gyr_ids:
       edit:
         help_text_1: We will ask you to upload a copy of your ID card (driver's license or state issued ID) and social security card or ITIN paperwork.
@@ -2247,35 +2250,6 @@ en:
         no_diy: No, I will proceed with File Myself
         title: Before we proceed, do you have a physical copy of your photo ID and Social Security card or ITIN paperwork?
         yes_i_have_id: Yes, I have my ID card
-    triage_income_level:
-      edit:
-        filing_frequency:
-          label_html: |-
-            In the last 4 years, how often have you filed?
-
-            <p class="text--small spacing-above-15">It’s fairly common to skip filing for certain years due to life circumstances and employment changes.</p>
-          options:
-            every_year: I filed every year
-            not_filed: I have not filed
-            some_years: I filed some years
-        filing_status:
-          label: How will you be filing this year?
-          options:
-            jointly: Filing with my spouse (filing jointly)
-            single: Filing by myself (single)
-        income_level:
-          label_html: |-
-            What was your income level?
-
-            <p class="text--small spacing-above-15">Your income level should not include stimulus payments, public benefits, or SSI.</p>
-          options:
-            1_to_69000: "$1 - $69,000"
-            69001_to_89000: "$69,001 - 89,000"
-            over_89000: over $89,000
-            zero: "$0"
-        title: Tell us about your filing status and income.
-        vita_income_ineligible:
-          label: 'Did you earn income from a rental property (ex: home or car), a farm, or cryptocurrency?'
   signups:
     flash_notice: Thank you! You will receive a notification when we open.
     new:

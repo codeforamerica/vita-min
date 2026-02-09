@@ -1,5 +1,5 @@
 module Questions
-  class TriageIncomeLevelController < QuestionsController
+  class EligibilityStateController < QuestionsController
     include AnonymousIntakeConcern
 
     layout "intake"
@@ -8,10 +8,6 @@ module Questions
       TriageResultService.new(current_intake).after_income_levels_triaged_route || super
     end
 
-    private
-
-    def illustration_path
-      "balance-payment.svg"
-    end
+    def illustration_path; end
   end
 end
