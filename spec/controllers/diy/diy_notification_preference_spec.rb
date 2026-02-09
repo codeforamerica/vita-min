@@ -16,7 +16,7 @@ RSpec.describe Diy::DiyNotificationPreferenceController do
     let!(:diy_intake) { create :diy_intake, email_address: example_email_addr }
 
     it "renders successfully" do
-      get :edit
+      get :edit, session: { diy_intake_id: diy_intake.id }
       expect(response).to be_successful
     end
   end
@@ -36,22 +36,18 @@ RSpec.describe Diy::DiyNotificationPreferenceController do
         expect(diy_intake.sms_notification_opt_in).to eq("unfilled")
         expect(diy_intake.email_notification_opt_in).to eq("unfilled")
 
-        post :update, params: params
+        post :update, params: params, session: { diy_intake_id: diy_intake.id }
 
         diy_intake.reload
         expect(diy_intake.sms_notification_opt_in).to eq("no")
         expect(diy_intake.email_notification_opt_in).to eq("yes")
       end
 
-      xit "sends an event to mixpanel with relevant data" do
-        post :update, params: params
+      it "sends an event to mixpanel with relevant data" do
+        post :update, params: params, session: { diy_intake_id: diy_intake.id }
 
         expect(subject).to have_received(:send_mixpanel_event).with(
-          event_name: "question_answered",
-          data: {
-            email_notification_opt_in: "yes",
-            sms_notification_opt_in: "no",
-          }
+          event_name: "form_submission"
         )
       end
     end

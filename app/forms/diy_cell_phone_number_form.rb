@@ -12,6 +12,6 @@ class DiyCellPhoneNumberForm < DiyForm
   end
 
   def save
-    @diy_intake.update(attributes_for(:diy_intake).except(:sms_phone_number_confirmation))
+    @diy_intake.update!(attributes_for(:diy_intake).except(:sms_phone_number_confirmation))
   end
 end

@@ -3,16 +3,15 @@ module Diy
     before_action :require_diy_intake
 
     def edit
-      @form = DiyNotificationPreferenceForm.new
+      @form = DiyCellPhoneNumberForm.new
     end
 
     def update
       diy_intake = current_diy_intake
-      form_params = params.fetch(:diy_notification_preference_form, {}).permit(*DiyCellPhoneNumberForm.attribute_names)
+      form_params = params.fetch(:diy_cell_phone_number_form, {}).permit(*DiyCellPhoneNumberForm.attribute_names)
       @form = DiyCellPhoneNumberForm.new(diy_intake, form_params)
       if @form.valid?
         @form.save
-        session[:diy_intake_id] = diy_intake.id
         redirect_to(diy_continue_to_fsa_path)
       else
         render :edit
