@@ -16,7 +16,8 @@
                 <%= image_tag "paper.svg", alt: "", class: "document-list__icon" %>
               </div>
               <div class="document-list__item-text">
-                <%= t(".file_myself_guide_html", file_myself_guide_link: "https://drive.google.com/file/d/1O8e2qlfd8P7Hp3wiCLifdBb9QX_psn8-/view") %>
+                <%=t(".file_myself_guide_html", :file_myself_guide_link => link_to(t(".guide_link"),  mobile? ? "https://drive.google.com/file/d/1cMVSu9jLWwbgWybUO6vHcytVywOWmaBo/view" : "https://drive.google.com/file/d/16Dz4pAQsmr9LMu3MA02QQ271H4YFg5pc/view",
+                                                                        target: "_blank", "data-track-click": "diy-guide-link")) %>
               </div>
             </li>
           </ul>

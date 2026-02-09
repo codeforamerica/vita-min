@@ -93,6 +93,7 @@ gem 'redis'
 gem "observer", "~> 0.1.2"
 gem "csv", "~> 3.3"
 gem "rexml", ">= 3.4.2"
+gem 'useragent'
 
 # Use Flipper for feature flagging
 gem 'flipper'

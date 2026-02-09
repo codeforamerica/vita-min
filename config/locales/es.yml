@@ -99,7 +99,8 @@ es:
         chat_with_us: Chatea con nosotros
         continue_help_text: Al hacer clic en continuar, irá al sitio de nuestro socio para terminar de declarar sus impuestos.
         email_us_html: envíenos un correo electrónico a <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
-        file_myself_guide_html: para obtener instrucciones paso a paso, consejos y prácticas recomendadas, consulte nuestra <a href="%{file_myself_guide_link}" target="_blank">Guía de autoarchivo</a>.
+        file_myself_guide_html: para obtener instrucciones paso a paso, consejos y prácticas recomendadas, consulte nuestra %{file_myself_guide_link}.
+        guide_link: Guía de autoarchivo
         help_text: Si te quedas atascado o tienes alguna pregunta, ¡podemos ayudarte!
         title: "¡Obtenga apoyo mientras presenta su propia solicitud!"
     file_yourself:
