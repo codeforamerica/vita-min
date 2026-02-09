@@ -12,6 +12,10 @@ module Diy
 
     private
 
+    def after_update_success; end
+
+    def after_update_failure; end
+
     def require_diy_intake
       redirect_to diy_qualifications_path unless session[:diy_intake_id].present?
     end

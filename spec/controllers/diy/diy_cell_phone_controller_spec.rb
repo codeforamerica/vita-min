@@ -62,7 +62,9 @@ RSpec.describe Diy::DiyCellPhoneNumberController do
         post :update, params: params, session: { diy_intake_id: diy_intake.id }
 
         expect(MixpanelService).to have_received(:send_event).with(hash_including(
-          event_name: "form_submission",
+          #event_name: "form_submission",
+          #data: {}
+          event_name: "question_answered",
           data: {}
         ))
       end

@@ -47,7 +47,13 @@ RSpec.describe Diy::DiyNotificationPreferenceController do
         post :update, params: params, session: { diy_intake_id: diy_intake.id }
 
         expect(subject).to have_received(:send_mixpanel_event).with(
-          event_name: "form_submission"
+          #event_name: "form_submission"
+          event_name: "question_answered",
+          data: {
+            email_notification_opt_in: "yes",
+            sms_notification_opt_in: "no",
+          }
+ 
         )
       end
     end

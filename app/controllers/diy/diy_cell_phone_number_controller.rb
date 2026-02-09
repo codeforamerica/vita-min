@@ -12,8 +12,12 @@ module Diy
       @form = DiyCellPhoneNumberForm.new(diy_intake, form_params)
       if @form.valid?
         @form.save
+        after_update_success
+        track_question_answer
         redirect_to(diy_continue_to_fsa_path)
       else
+        after_update_failure
+        track_validation_error
         render :edit
       end
     end
@@ -30,6 +34,7 @@ module Diy
 
     def after_update_success
       if @form.diy_intake.sms_notification_opt_in_yes?
+        # TODO create DiyMessagingService stack
         ClientMessagingService.send_system_text_message(
           client: @form.diy_intake.client,
           body: I18n.t("messages.sms_opt_in")
