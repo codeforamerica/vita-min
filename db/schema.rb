@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_09_225933) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -612,6 +612,24 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_09_225933) do
     t.index ["campaign_contact_id", "message_name"], name: "index_campaign_emails_on_contact_id_and_message_name", unique: true
     t.index ["campaign_contact_id"], name: "index_campaign_emails_on_campaign_contact_id"
     t.index ["mailgun_message_id"], name: "index_campaign_emails_on_mailgun_message_id", unique: true
+  end
+
+  create_table "campaign_text_messages", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "campaign_contact_id", null: false
+    t.datetime "created_at", null: false
+    t.string "error_code"
+    t.jsonb "event_data"
+    t.string "message_name", null: false
+    t.datetime "scheduled_send_at"
+    t.datetime "sent_at"
+    t.string "to_phone_number", null: false
+    t.string "twilio_sid"
+    t.string "twilio_status"
+    t.datetime "updated_at", null: false
+    t.index ["campaign_contact_id"], name: "index_campaign_text_messages_on_campaign_contact_id"
+    t.index ["message_name", "to_phone_number"], name: "idx_on_message_name_to_phone_number_c3810f5b9c", unique: true
+    t.index ["twilio_sid"], name: "index_campaign_text_messages_on_twilio_sid", unique: true
   end
 
   create_table "client_interactions", force: :cascade do |t|
@@ -3103,6 +3121,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_09_225933) do
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "campaign_emails", "campaign_contacts"
+  add_foreign_key "campaign_text_messages", "campaign_contacts"
   add_foreign_key "client_interactions", "clients"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"

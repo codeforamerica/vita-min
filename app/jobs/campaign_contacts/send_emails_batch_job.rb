@@ -12,11 +12,15 @@
 class CampaignContacts::SendEmailsBatchJob < ApplicationJob
   queue_as :campaign_mailer
 
-  def perform(message_name, batch_size: 100, batch_delay: 1.minute, queue_next_batch: false)
+  def perform(message_name, batch_size: 100, batch_delay: 1.minute, queue_next_batch: false, recent_signups_only: false)
     return if Flipper.enabled?(:cancel_campaign_emails)
     return if rate_limited?
 
-    contacts_to_message = CampaignContact.eligible_for_campaign_email(message_name).limit(batch_size).pluck(:id)
+    contacts_to_message = if recent_signups_only
+                            CampaignContact.eligible_for_email_with_recent_signup(message_name).limit(batch_size).pluck(:id)
+                          else
+                            CampaignContact.eligible_for_email(message_name).limit(batch_size).pluck(:id)
+                          end
 
     return if contacts_to_message.empty?
 
@@ -68,7 +72,7 @@ class CampaignContacts::SendEmailsBatchJob < ApplicationJob
 
     if failure_rate > 15
       Flipper.enable(:cancel_campaign_emails)
-      Sentry.capture_exception("Rate limiting detected: #{failure_rate}% failure rate. Pausing campaigns.")
+      Sentry.capture_exception("CAMPAIGN EMAILS: Rate limiting detected: #{failure_rate}% failure rate. Pausing campaign emails. Disable :cancel_campaign_emails to start again.")
       return true
     end
 

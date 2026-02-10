@@ -5,7 +5,7 @@ module CampaignMessage
     end
 
     def sms_body(**args)
-      # I18n.t("messages.preseason_outreach.sms", **args)
+      "hello this is a preseason outreach SMS"
     end
 
     def email_subject(**args)
