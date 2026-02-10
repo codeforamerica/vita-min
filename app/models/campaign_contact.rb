@@ -42,8 +42,12 @@ class CampaignContact < ApplicationRecord
   end
 
   # Email -------------
-  def self.not_emailed(message_name)
-    where.not(id: CampaignEmail.where(message_name: message_name).select(:campaign_contact_id))
+  def self.eligible_for_campaign_email(message_name)
+    emailed_contact_ids = CampaignEmail.where(message_name:).select(:campaign_contact_id)
+
+    where(email_notification_opt_in: true).where.not(email_address: [nil, ""]) # opted-in
+      .where.not(id: emailed_contact_ids) # hasn't been sent this message before
+      .where.not(suppressed_for_gyr_product_year: Rails.configuration.product_year) # hasn't started an intake this year yet
   end
 
   def self.emailed(message_name)
@@ -54,8 +58,8 @@ class CampaignContact < ApplicationRecord
     where(id: CampaignEmail.succeeded.where(message_name: message_name).select(:campaign_contact_id))
   end
 
-  def self.email_contacts_opted_in
-    where(email_notification_opt_in: true).where.not(email_address: [nil, ""])
+  def self.emailed_failed(message_name)
+    where(id: CampaignEmail.failed.where(message_name: message_name).select(:campaign_contact_id))
   end
 
   # SMS -------------

@@ -41,7 +41,7 @@ describe CampaignContacts::SendEmailsBatchJob, type: :job do
       it "does nothing" do
         allow(Flipper).to receive(:enabled?).with(:cancel_campaign_emails).and_return(true)
 
-        expect(CampaignContact).not_to receive(:email_contacts_opted_in)
+        expect(CampaignContact).not_to receive(:eligible_for_campaign_email)
         expect(CampaignEmail).not_to receive(:create!)
 
         perform_job
@@ -52,7 +52,7 @@ describe CampaignContacts::SendEmailsBatchJob, type: :job do
       it "does nothing" do
         allow_any_instance_of(described_class).to receive(:rate_limited?).and_return(true)
 
-        expect(CampaignContact).not_to receive(:email_contacts_opted_in)
+        expect(CampaignContact).not_to receive(:eligible_for_campaign_email)
         expect(CampaignEmail).not_to receive(:create!)
 
         perform_job
@@ -63,8 +63,7 @@ describe CampaignContacts::SendEmailsBatchJob, type: :job do
       it "does nothing" do
         scope = double("CampaignContact scope")
 
-        expect(CampaignContact).to receive(:email_contacts_opted_in).and_return(scope)
-        expect(scope).to receive(:not_emailed).with(message_name).and_return(scope)
+        expect(CampaignContact).to receive(:eligible_for_campaign_email).and_return(scope)
         expect(scope).to receive(:limit).with(batch_size).and_return(scope)
         expect(scope).to receive(:pluck).with(:id).and_return([])
 
@@ -84,7 +83,7 @@ describe CampaignContacts::SendEmailsBatchJob, type: :job do
       before do
         scope = double("CampaignContact scope")
 
-        allow(CampaignContact).to receive(:email_contacts_opted_in).and_return(scope)
+        allow(CampaignContact).to receive(:eligible_for_campaign_email).and_return(scope)
         allow(scope).to receive(:not_emailed).with(message_name).and_return(scope)
         allow(scope).to receive(:limit).with(batch_size).and_return(scope)
         allow(scope).to receive(:pluck).with(:id).and_return(ids)
@@ -160,8 +159,7 @@ describe CampaignContacts::SendEmailsBatchJob, type: :job do
       it "only processes up to batch_size contacts per run" do
         scope = double("CampaignContact scope")
 
-        expect(CampaignContact).to receive(:email_contacts_opted_in).and_return(scope)
-        expect(scope).to receive(:not_emailed).with(message_name).and_return(scope)
+        expect(CampaignContact).to receive(:eligible_for_campaign_email).and_return(scope)
         expect(scope).to receive(:limit).with(batch_size).and_return(scope)
         expect(scope).to receive(:pluck).with(:id).and_return([])
 

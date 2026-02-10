@@ -16,8 +16,7 @@ class CampaignContacts::SendEmailsBatchJob < ApplicationJob
     return if Flipper.enabled?(:cancel_campaign_emails)
     return if rate_limited?
 
-    contacts_to_message = CampaignContact.email_contacts_opted_in
-                         .not_emailed(message_name).limit(batch_size).pluck(:id)
+    contacts_to_message = CampaignContact.eligible_for_campaign_email(message_name).limit(batch_size).pluck(:id)
 
     return if contacts_to_message.empty?
 
