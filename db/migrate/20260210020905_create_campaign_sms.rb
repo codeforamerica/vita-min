@@ -1,6 +1,6 @@
-class CreateCampaignTextMessages < ActiveRecord::Migration[7.1]
+class CreateCampaignSms < ActiveRecord::Migration[7.1]
   def change
-    create_table :campaign_text_messages do |t|
+    create_table :campaign_sms do |t|
       t.references :campaign_contact, null: false, foreign_key: true
       t.string :to_phone_number, null: false
       t.string :message_name, null: false
@@ -19,7 +19,7 @@ class CreateCampaignTextMessages < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    add_index :campaign_text_messages, [:message_name, :to_phone_number], unique: true # cannot double send message to same phone number
-    add_index :campaign_text_messages, :twilio_sid, unique: true
+    add_index :campaign_sms, [:message_name, :to_phone_number], unique: true
+    add_index :campaign_sms, :twilio_sid, unique: true
   end
 end

@@ -614,7 +614,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
     t.index ["mailgun_message_id"], name: "index_campaign_emails_on_mailgun_message_id", unique: true
   end
 
-  create_table "campaign_text_messages", force: :cascade do |t|
+  create_table "campaign_sms", force: :cascade do |t|
     t.text "body", null: false
     t.bigint "campaign_contact_id", null: false
     t.datetime "created_at", null: false
@@ -627,9 +627,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
     t.string "twilio_sid"
     t.string "twilio_status"
     t.datetime "updated_at", null: false
-    t.index ["campaign_contact_id"], name: "index_campaign_text_messages_on_campaign_contact_id"
-    t.index ["message_name", "to_phone_number"], name: "idx_on_message_name_to_phone_number_c3810f5b9c", unique: true
-    t.index ["twilio_sid"], name: "index_campaign_text_messages_on_twilio_sid", unique: true
+    t.index ["campaign_contact_id"], name: "index_campaign_sms_on_campaign_contact_id"
+    t.index ["message_name", "to_phone_number"], name: "index_campaign_sms_on_message_name_and_to_phone_number", unique: true
+    t.index ["twilio_sid"], name: "index_campaign_sms_on_twilio_sid", unique: true
   end
 
   create_table "client_interactions", force: :cascade do |t|
@@ -3121,7 +3121,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
   add_foreign_key "campaign_emails", "campaign_contacts"
-  add_foreign_key "campaign_text_messages", "campaign_contacts"
+  add_foreign_key "campaign_sms", "campaign_contacts"
   add_foreign_key "client_interactions", "clients"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"

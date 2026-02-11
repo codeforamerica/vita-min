@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: campaign_text_messages
+# Table name: campaign_sms
 #
 #  id                  :bigint           not null, primary key
 #  body                :text             not null
@@ -18,15 +18,15 @@
 #
 # Indexes
 #
-#  idx_on_message_name_to_phone_number_c3810f5b9c       (message_name,to_phone_number) UNIQUE
-#  index_campaign_text_messages_on_campaign_contact_id  (campaign_contact_id)
-#  index_campaign_text_messages_on_twilio_sid           (twilio_sid) UNIQUE
+#  index_campaign_sms_on_campaign_contact_id               (campaign_contact_id)
+#  index_campaign_sms_on_message_name_and_to_phone_number  (message_name,to_phone_number) UNIQUE
+#  index_campaign_sms_on_twilio_sid                        (twilio_sid) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (campaign_contact_id => campaign_contacts.id)
 #
-class CampaignTextMessage < ApplicationRecord
+class CampaignSms < ApplicationRecord
   include RecordsTwilioStatus
 
   def self.status_column

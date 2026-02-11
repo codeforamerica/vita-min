@@ -35,7 +35,7 @@ class Campaign::SendSmsBatchJob < ApplicationJob
       # add delays between sms-messages to prevent throttling
       scheduled_send_at = start_time + (index * 0.2).seconds
 
-      CampaignTextMessage.create!(
+      Campaign::CampaignSms.create!(
         campaign_contact_id: contact.id,
         message_name: message_name,
         body: message(message_name).sms_body(contact: contact),
@@ -72,7 +72,7 @@ class Campaign::SendSmsBatchJob < ApplicationJob
   end
 
   def rate_limited?
-    recent_texts = CampaignTextMessage.where("sent_at > ?", 1.hour.ago)
+    recent_texts = Campaign::CampaignSms.where("sent_at > ?", 1.hour.ago)
     total_count = recent_texts.count
     return false if total_count.zero?
 

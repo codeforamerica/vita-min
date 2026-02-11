@@ -16,7 +16,7 @@ class TwilioWebhooksController < ActionController::Base
 
     DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}")
 
-    record = (OutgoingTextMessage.find_by(id: strong_params[:id]) || CampaignTextMessage.find_by(twilio_sid: sid))
+    record = (OutgoingTextMessage.find_by(id: strong_params[:id]) || Campaign::CampaignSms.find_by(twilio_sid: sid))
 
     unless record
       DatadogApi.increment("twilio.outgoing_text_messages.updated.missing_record")
