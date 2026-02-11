@@ -7,21 +7,16 @@
           <%= image_tag("checkbox-logo--white.png", alt: "") %>
         </p>
         <p>
-          <% cfa_link = link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link") %>
-          <% if variation == "ctc" %>
-            <%= t("views.shared.footer.ctc_service_description_html", link: cfa_link) %>
-          <% else %>
-            <%= t("views.shared.footer.service_description_html",
-                  cfa_link: cfa_link,
-                  vita_link: link_to("VITA", "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank", rel: "noopener", class: "footer__link")) %>
-          <% end %>
+          <%= t("views.shared.footer.service_description_html",
+                cfa_link: link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link"),
+                vita_link: link_to("VITA", "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank", rel: "noopener", class: "footer__link")) %>
         </p>
       </div>
 
       <ul class="grid__item width-one-fourth footer-links">
 
         <li>
-          <%= mail_to "support@getyourrefund.org", t("general.contact_us")  %>
+          <%= mail_to "support@getyourrefund.org", t("general.contact_us") %>
         </li>
 
         <li>
