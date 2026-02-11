@@ -83,7 +83,7 @@ RSpec.describe CampaignEmail, type: :model do
       it "enqueues SendCampaignEmailJob immediately" do
         expect do
           create(:campaign_email, :with_delivery, campaign_contact: contact, scheduled_send_at: nil)
-        end.to have_enqueued_job(CampaignContacts::SendCampaignEmailJob).with(kind_of(Integer))
+        end.to have_enqueued_job(Campaign::SendCampaignEmailJob).with(kind_of(Integer))
       end
     end
 
@@ -93,7 +93,7 @@ RSpec.describe CampaignEmail, type: :model do
 
         expect do
           email.send(:deliver)
-        end.to have_enqueued_job(CampaignContacts::SendCampaignEmailJob).with(email.id)
+        end.to have_enqueued_job(Campaign::SendCampaignEmailJob).with(email.id)
       end
     end
 
@@ -104,7 +104,7 @@ RSpec.describe CampaignEmail, type: :model do
 
         expect do
           email.send(:deliver)
-        end.to have_enqueued_job(CampaignContacts::SendCampaignEmailJob).with(email.id).at(scheduled_time)
+        end.to have_enqueued_job(Campaign::SendCampaignEmailJob).with(email.id).at(scheduled_time)
       end
     end
 

@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe CampaignContacts::SendEmailsBatchJob, type: :job do
+describe Campaign::SendEmailsBatchJob, type: :job do
   include ActiveJob::TestHelper
 
   subject(:perform_job) do

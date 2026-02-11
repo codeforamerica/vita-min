@@ -722,7 +722,7 @@ class Intake::GyrIntake < Intake
   def create_or_update_campaign_contact
     return if email_address.blank? && sms_phone_number.blank?
 
-    UpsertSourceIntoCampaignContacts.call(
+    Campaign::UpsertSourceIntoCampaignContacts.call(
       source: :gyr,
       source_id: id,
       first_name: primary_first_name,

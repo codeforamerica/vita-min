@@ -45,9 +45,9 @@ class CampaignTextMessage < ApplicationRecord
 
   def deliver
     if scheduled_send_at.blank? || Time.current >= scheduled_send_at
-      CampaignContacts::SendCampaignTextMessageJob.perform_later(id)
+      Campaign::SendCampaignSmsJob.perform_later(id)
     else
-      CampaignContacts::SendCampaignTextMessageJob.set(wait_until: scheduled_send_at).perform_later(id)
+      Campaign::SendCampaignSmsJob.set(wait_until: scheduled_send_at).perform_later(id)
     end
   end
 end

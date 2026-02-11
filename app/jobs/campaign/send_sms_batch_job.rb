@@ -5,10 +5,17 @@
 #   3. If messages are getting throttled and not getting caught by the 'rate_limited?' check,
 #      then you can kill the jobs by enabling the :cancel_campaign_sms flipper flag manually
 
-class CampaignContacts::SendTextMessageBatchJob < ApplicationJob
+class Campaign::SendSmsBatchJob < ApplicationJob
   queue_as :campaign_sms
+  include Campaign::Scheduling
 
-  def perform(message_name, batch_size: 100, batch_delay: 1.minute, queue_next_batch: false, recent_signups_only: false)
+  def perform(
+    message_name,
+    batch_size: 100,
+    batch_delay: 1.minute,
+    queue_next_batch: false,
+    recent_signups_only: false
+  )
     return if Flipper.enabled?(:cancel_campaign_sms)
     return if rate_limited?
 
@@ -18,12 +25,8 @@ class CampaignContacts::SendTextMessageBatchJob < ApplicationJob
                             CampaignContact.eligible_for_text_message(message_name).limit(batch_size).pluck(:id)
                           end
 
-    puts "*********************MESSAGING: #{contacts_to_message.count}"
+    puts "*********************MESSAGING: #{contacts_to_message.count} contacts"
     return if contacts_to_message.empty?
-
-    klass = "CampaignMessage::#{message_name.camelize}".safe_constantize
-    raise ArgumentError, "Unknown message_name: #{message_name}" unless klass
-    message = klass.new
 
     start_time = next_business_hour_start
 
@@ -35,7 +38,7 @@ class CampaignContacts::SendTextMessageBatchJob < ApplicationJob
       CampaignTextMessage.create!(
         campaign_contact_id: contact.id,
         message_name: message_name,
-        body: message.sms_body(locale: contact.locale), # need to pass this in where we can find locale,
+        body: message(message_name).sms_body(contact: contact),
         to_phone_number: contact.sms_phone_number,
         scheduled_send_at: scheduled_send_at
       )
@@ -45,8 +48,14 @@ class CampaignContacts::SendTextMessageBatchJob < ApplicationJob
     end
 
     if queue_next_batch
-      CampaignContacts::SendTextMessageBatchJob.set(wait: batch_delay)
-          .perform_later(message_name, batch_size: batch_size, batch_delay: batch_delay)
+      Campaign::SendSmsBatchJob.set(wait: batch_delay)
+                               .perform_later(
+                                 message_name,
+                                 batch_size: batch_size,
+                                 batch_delay: batch_delay,
+                                 queue_next_batch: true,
+                                 recent_signups_only: recent_signups_only
+                               )
     end
   end
 
@@ -56,50 +65,36 @@ class CampaignContacts::SendTextMessageBatchJob < ApplicationJob
 
   private
 
-  def rate_limited?
-    failed_texts = CampaignTextMessage.where("sent_at > ?", 1.hour.ago)
-                                      .where(twilio_status: %w[failed undelivered])
+  def message(message_name)
+    klass = "CampaignMessage::#{message_name.camelize}".safe_constantize
+    raise ArgumentError, "Unknown message_name: #{message_name}" unless klass
+    klass.new
+  end
 
-    return false if failed_texts.empty?
+  def rate_limited?
+    recent_texts = CampaignTextMessage.where("sent_at > ?", 1.hour.ago)
+    total_count = recent_texts.count
+    return false if total_count.zero?
 
     rate_limit_codes = [63038, 20429, 30001]
-    rate_limit_phrases = [
-      "%Message rate exceeded%",
-      "%Too many requests%",
-      "%Queue overflow%"
-    ]
+    rate_limit_phrases = ["%Message rate exceeded%", "%Too many requests%", "%Queue overflow%"]
 
-    rate_limited_count = failed_texts.where(
+    rate_limited_count = recent_texts.where(
       "error_code IN (?) OR event_data::text ILIKE ANY(ARRAY[?])",
       rate_limit_codes,
       rate_limit_phrases
     ).count
 
-    failure_rate = (rate_limited_count.to_f / total_count * 100)
+    failure_rate = ((rate_limited_count.to_f / total_count) * 100).round(1)
 
     if failure_rate > 15
-      Flipper.enable(:cancel_campaign_emails)
-      Sentry.capture_exception("CAMPAIGN TEXT MESSAGES: Rate limiting detected: #{failure_rate}% failure rate. Pausing campaigns text messages. Disable :cancel_campaign_sms to start again.")
+      Flipper.enable(:cancel_campaign_sms)
+      Sentry.capture_exception(
+        "Campaign Text Messages: Rate limiting detected: #{failure_rate}% rate-limited. Pausing campaign text messages. Disable :cancel_campaign_sms to start again."
+      )
       return true
     end
 
     false
-  end
-
-  def next_business_hour_start
-    now = Time.current.in_time_zone("America/New_York")
-
-    # within business hours (8am-9pm) => start now
-    if now.hour >= 8 && now.hour < 21
-      return Time.current
-    end
-
-    # before 8am => schedule for 8am same day
-    if now.hour < 8
-      return now.change(hour: 8, min: 0, sec: 0).in_time_zone('UTC')
-    end
-
-    # after 9pm => schedule for 8am next day
-    (now + 1.day).change(hour: 8, min: 0, sec: 0).in_time_zone('UTC')
   end
 end

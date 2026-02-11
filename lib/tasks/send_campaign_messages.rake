@@ -4,7 +4,7 @@ namespace :send_campaign_messages do
     next if Rails.env.demo? || Rails.env.staging?
     next unless DateTime.now.year == 2026
 
-    CampaignContacts::SendEmailsBatchJob.perform_later(
+    Campaign::SendEmailsBatchJob.perform_later(
       "preseason_outreach",
       batch_size: 100,
       batch_delay: 30.seconds,
@@ -17,7 +17,7 @@ namespace :send_campaign_messages do
     next if Rails.env.demo? || Rails.env.staging?
     next unless DateTime.now.year == 2026
 
-    CampaignContacts::SendTextMessageBatchJob.perform_later(
+    Campaign::SendSmsBatchJob.perform_later(
       "preseason_outreach",
       batch_size: 100,
       batch_delay: 30.seconds,

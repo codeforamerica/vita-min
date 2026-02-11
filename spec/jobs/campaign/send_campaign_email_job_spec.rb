@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe CampaignContacts::SendCampaignEmailJob, type: :job do
+RSpec.describe Campaign::SendCampaignEmailJob, type: :job do
   include ActiveJob::TestHelper
 
   subject(:perform_job) { described_class.new.perform(email.id) }

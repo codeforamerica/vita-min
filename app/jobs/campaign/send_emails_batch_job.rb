@@ -9,10 +9,17 @@
 #   5. If messages are getting throttled and not getting caught by the 'rate_limited?' check,
 #      then you can kill the jobs by enabling the :cancel_campaign_emails flipper flag manually
 
-class CampaignContacts::SendEmailsBatchJob < ApplicationJob
+class Campaign::SendEmailsBatchJob < ApplicationJob
   queue_as :campaign_mailer
+  include Campaign::Scheduling
 
-  def perform(message_name, batch_size: 100, batch_delay: 1.minute, queue_next_batch: false, recent_signups_only: false)
+  def perform(
+    message_name,
+    batch_size: 100,
+    batch_delay: 1.minute,
+    queue_next_batch: false,
+    recent_signups_only: false
+  )
     return if Flipper.enabled?(:cancel_campaign_emails)
     return if rate_limited?
 
@@ -24,10 +31,11 @@ class CampaignContacts::SendEmailsBatchJob < ApplicationJob
 
     return if contacts_to_message.empty?
 
+    puts "CAMPAIGN EMAILS: message_name=#{message_name} batch_size=#{contacts_to_message.count} recent_signups_only=#{recent_signups_only} queue_next_batch=#{queue_next_batch}"
+
     start_time = next_business_hour_start
 
-    index = 0
-    CampaignContact.where(id: contacts_to_message).find_each do |contact|
+    CampaignContact.where(id: contacts_to_message).find_each.with_index do |contact, index|
       # add delays between emails to prevent throttling
       scheduled_send_at = start_time + (index * 0.2).seconds
 
@@ -37,14 +45,14 @@ class CampaignContacts::SendEmailsBatchJob < ApplicationJob
         to_email: contact.email_address,
         scheduled_send_at: scheduled_send_at
       )
-      index += 1
     rescue ActiveRecord::RecordNotUnique
       next # already claimed by another worker
     end
 
     if queue_next_batch
-      CampaignContacts::SendEmailsBatchJob.set(wait: batch_delay)
-          .perform_later(message_name, batch_size: batch_size, batch_delay: batch_delay)
+      Campaign::SendEmailsBatchJob.set(wait: batch_delay)
+                                  .perform_later(message_name, batch_size: batch_size, batch_delay: batch_delay,
+                                                               queue_next_batch: true, recent_signups_only: recent_signups_only)
     end
   end
 
@@ -55,44 +63,27 @@ class CampaignContacts::SendEmailsBatchJob < ApplicationJob
   private
 
   def rate_limited?
-    failed_emails = CampaignEmail.where("sent_at > ?", 1.hour.ago)
-                                 .where(mailgun_status: "failed")
+    recent_emails = CampaignEmail.where("sent_at > ?", 1.hour.ago)
 
-    return false if failed_emails.empty?
+    total_count = recent_emails.count
+    return false if total_count.zero?
 
-    total_count = failed_emails.count
-    rate_limited_count = failed_emails.where(
-      "error_code = ? OR event_data::text ILIKE ANY(ARRAY[?, ?])",
+    rate_limit_phrases = ["%rate limit%", "%ratelimit%"]
+
+    rate_limited_count = recent_emails.where(
+      "error_code = ? OR event_data::text ILIKE ANY(ARRAY[?])",
       "421",
-      "%rate limit%",
-      "%ratelimit%"
+      rate_limit_phrases
     ).count
 
-    failure_rate = (rate_limited_count.to_f / total_count * 100)
+    rate_limited_rate = ((rate_limited_count.to_f / total_count) * 100).round(1)
 
-    if failure_rate > 15
+    if rate_limited_rate > 15
       Flipper.enable(:cancel_campaign_emails)
-      Sentry.capture_exception("CAMPAIGN EMAILS: Rate limiting detected: #{failure_rate}% failure rate. Pausing campaign emails. Disable :cancel_campaign_emails to start again.")
+      Sentry.capture_exception("Campaign Emails: Rate limiting detected: #{rate_limited_rate}% rate-limited. Pausing campaign emails. Disable :cancel_campaign_emails to start again.")
       return true
     end
 
     false
-  end
-
-  def next_business_hour_start
-    now = Time.current.in_time_zone("America/New_York")
-
-    # within business hours (8am-9pm) => start now
-    if now.hour >= 8 && now.hour < 21
-      return Time.current
-    end
-
-    # before 8am => schedule for 8am same day
-    if now.hour < 8
-      return now.change(hour: 8, min: 0, sec: 0).in_time_zone('UTC')
-    end
-
-    # after 9pm => schedule for 8am next day
-    (now + 1.day).change(hour: 8, min: 0, sec: 0).in_time_zone('UTC')
   end
 end

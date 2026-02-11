@@ -1,4 +1,4 @@
-class CampaignContacts::SendCampaignEmailJob < ApplicationJob
+class Campaign::SendCampaignEmailJob < ApplicationJob
   queue_as :campaign_mailer
   retry_on Mailgun::CommunicationError
 

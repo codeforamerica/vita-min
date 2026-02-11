@@ -1,14 +1,14 @@
 require "rails_helper"
 
-RSpec.describe "CampaignContacts backfill jobs" do
+RSpec.describe "Campaign::SyncContacts backfill jobs" do
   before do
-    allow(UpsertSourceIntoCampaignContacts).to receive(:call)
+    allow(Campaign::UpsertSourceIntoCampaignContacts).to receive(:call)
   end
 
   let(:start_date) { 1.year.ago }
   let(:end_date) { Time.current }
 
-  describe CampaignContacts::BackfillGyrIntakesJob do
+  describe Campaign::SyncContacts::BackfillGyrIntakesJob do
     subject(:job) { described_class.new }
 
     let!(:gyr_intake) do
@@ -26,7 +26,7 @@ RSpec.describe "CampaignContacts backfill jobs" do
     end
 
     it "iterates over eligible GYR intakes in the id range and calls the upsert service" do
-      expect(UpsertSourceIntoCampaignContacts).to receive(:call).with(
+      expect(Campaign::UpsertSourceIntoCampaignContacts).to receive(:call).with(
         hash_including(
           source: :gyr,
           source_id: gyr_intake.id,
@@ -49,7 +49,7 @@ RSpec.describe "CampaignContacts backfill jobs" do
     end
   end
 
-  describe CampaignContacts::BackfillSignupsJob do
+  describe Campaign::SyncContacts::BackfillSignupsJob do
     subject(:job) { described_class.new }
 
     context "when there are signups" do
@@ -62,7 +62,7 @@ RSpec.describe "CampaignContacts backfill jobs" do
       end
 
       it "iterates over signups in the id range and calls the upsert service" do
-        expect(UpsertSourceIntoCampaignContacts).to receive(:call).with(
+        expect(Campaign::UpsertSourceIntoCampaignContacts).to receive(:call).with(
           hash_including(
             source: :signup,
             source_id: signup.id,
@@ -88,7 +88,7 @@ RSpec.describe "CampaignContacts backfill jobs" do
       end
 
       it "sets opt-ins for that method to false" do
-        expect(UpsertSourceIntoCampaignContacts).to receive(:call).with(
+        expect(Campaign::UpsertSourceIntoCampaignContacts).to receive(:call).with(
           hash_including(
             source: :signup,
             source_id: signup_no_phone.id,
@@ -109,7 +109,7 @@ RSpec.describe "CampaignContacts backfill jobs" do
     end
   end
 
-  describe CampaignContacts::BackfillStateFileIntakesJob do
+  describe Campaign::SyncContacts::BackfillStateFileIntakesJob do
     let!(:state_intake) do
       create :state_file_az_intake,
              primary_first_name: "Sarah",
@@ -127,7 +127,7 @@ RSpec.describe "CampaignContacts backfill jobs" do
     it "grab intakes between id range and upserts state file intake information" do
       allow_any_instance_of(StateFileAzIntake).to receive(:tax_return_year).and_return(2024)
 
-      expect(UpsertSourceIntoCampaignContacts).to receive(:call).with(
+      expect(Campaign::UpsertSourceIntoCampaignContacts).to receive(:call).with(
         hash_including(
           source: :state_file,
           source_id: state_intake.id,
@@ -147,7 +147,7 @@ RSpec.describe "CampaignContacts backfill jobs" do
         )
       )
 
-      CampaignContacts::BackfillStateFileIntakesJob.perform_now(
+      Campaign::SyncContacts::BackfillStateFileIntakesJob.perform_now(
         "StateFileAzIntake",
         state_intake.id,
         state_intake.id,
@@ -157,7 +157,7 @@ RSpec.describe "CampaignContacts backfill jobs" do
     end
 
     it "uses PRIORITY_LOW" do
-      expect(CampaignContacts::BackfillStateFileIntakesJob.new.priority).to eq(ApplicationJob::PRIORITY_LOW)
+      expect(Campaign::SyncContacts::BackfillStateFileIntakesJob.new.priority).to eq(ApplicationJob::PRIORITY_LOW)
     end
   end
 end

@@ -51,7 +51,7 @@ class Signup < ApplicationRecord
   end
 
   def create_or_update_campaign_contact
-    UpsertSourceIntoCampaignContacts.call(
+    Campaign::UpsertSourceIntoCampaignContacts.call(
       source: :signup,
       source_id: id,
       first_name: name,

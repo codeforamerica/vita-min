@@ -1518,25 +1518,23 @@ es:
         Hola <<Client.PreferredName>>,
         Parece que no a terminado nuestra aplicación. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperamos trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
         ¡Gracias!
-    preseason_outreach:
+    start_of_season_outreach:
       email:
         body: |
-          Esta temporada de impuestos será un poco diferente para muchas personas, pero hay algo que sigue siendo igual: <strong>el equipo de GetYourRefund está aquí para ayudarle a presentar sus impuestos de forma rápida, sencilla y gratuita.</strong> Sin costo, sin trucos, solo servicios de impuestos de alta calidad ofrecidos por una organización sin fines de lucro.
-
-          Vienen nuevas leyes tributarias para 2026, que traerán cambios como un EITC más alto y impuestos reducidos sobre propinas y horas extra. Aunque estas actualizaciones pueden parecer complejas, ¡nuestro equipo de expertos en impuestos está aquí para ayudarle a entenderlas! Para que su experiencia al presentar impuestos sea lo más sencilla posible, le recomendamos reunir sus documentos desde ahora. Así estará listo para presentar su declaración tan pronto como se abra nuestra temporada a finales de enero.
-
-          Estamos trabajando fuertemente para mejorar nuestro servicio digital de presentación de impuestos de GetYourRefund para 2026. ¿Quiere que un preparador de impuestos certificado por el IRS prepare su declaración? Nosotros podemos ayudarle. ¿Prefiere preparar su propia declaración, pero recibir apoyo de expertos cuando lo necesite? También hacemos eso. ¿Quiere evitar costos y ofertas de ventas adicionales? Nosotros también, por eso <strong>todo lo que hacemos es gratis.</strong>
-
-          Recientemente, el gobierno federal anunció que no ofrecerá Direct File el próximo año, su software gratuito para presentar impuestos que, aunque estuvo disponible poco tiempo, fue muy apreciado. Como resultado, tendremos que parar FileYourStateTaxes, nuestra herramienta que permitía a los usuarios de Direct File presentar gratuitamente sus declaraciones estatales en 7 estados. Aunque este no es el resultado que esperábamos, <strong>no abandonamos nuestra lucha por hacer que los impuestos sean gratis, simples y accesibles, para que todas las personas reciban los reembolsos y créditos que les corresponden.</strong>
-
-          La temporada de impuestos comienza a finales de este mes, y las empresas de impuestos con fines de lucro ya han lanzado sus campañas publicitarias multimillonarias. Entre todo ese ruido, no lo olvide: presentar su declaración de impuestos de forma 100% gratuita sí es posible. <strong>La mayoría de los hogares con ingresos menores a $89,000 califican para presentar sus impuestos federales y estatales completamente gratis a través de GetYourRefund.</strong>
-
-          Nos vemos cuando comience la temporada. Si tiene preguntas mientras tanto, visite nuestra sección de <a href="https://www.getyourrefund.org/es/faq/?utm_source=gyr&utm_medium=email&utm_campaign=w0" target="_blank" rel="noopener nofollow">Preguntas Frecuentes</a> o vaya a <a href="https://www.getyourrefund.org/es/?utm_source=gyr&utm_medium=email&utm_campaign=w0" target="_blank" rel="noopener nofollow">GetYourRefund.org</a> y haga clic en el botón Chatee con nosotros para hablar con nuestro equipo de apoyo.
-
+          Hola %{first_name}:
+          ¡GetYourRefund ya está de regreso para la nueva temporada de impuestos!
+          
+          Nos encantaría ayudarle a presentar sus impuestos gratis nuevamente este año. Nuestro equipo certificado por el IRS está aquí para ayudarle.
+          
+          Cuando esté listo(a) para comenzar, visite head to <a href="https://www.getyourrefund.org/es/outreach" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
+          
+          Saludos cordiales,
           El equipo de GetYourRefund
-
+          
           (Las respuestas a este correo electrónico no son monitoreadas.)
-        subject: Prepárese para presentar sus impuestos gratis
+        subject: ¿Listo para presentar sus impuestos? ¡GetYourRefund ya está abierto!
+      sms: |
+        Hola %{first_name}. ¡GetYourRefund ya está de regreso para la nueva temporada de impuestos! Nos encantaría ayudarle a presentar sus impuestos gratis nuevamente este año.Nuestro equipo certificado por el IRS está listo para ayudarle cuando usted lo esté: https://www.getyourrefund.org/es/outreach
     save_ctc_letter:
       email:
         body: |

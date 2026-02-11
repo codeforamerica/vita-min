@@ -401,6 +401,9 @@ Rails.application.routes.draw do
     post "/outgoing_email_status", to: "mailgun_webhooks#update_outgoing_email_status", as: :outgoing_email_status
     post "/campaign_email_status", to: "mailgun_webhooks#update_campaign_email_status", as: :campaign_email_status
 
+    # Text messaging redirect short-links
+    get "/outreach", to: "redirects#outreach"
+
     # OAuth login callback routes
     devise_for :users, path: "hub", only: :omniauth_callbacks, skip: [:session, :invitation], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
 
