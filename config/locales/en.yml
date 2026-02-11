@@ -6064,7 +6064,7 @@ en:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_filing: We are unable to accept new clients after %{end_of_intake_date}. If your return is in progress, log in and submit your documents by %{end_of_docs_date} in order to file by the deadline.
       footer:
-        service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with the IRS.
+        service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
         service_status: Service status
         volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:

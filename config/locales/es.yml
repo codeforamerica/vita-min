@@ -6091,7 +6091,7 @@ es:
         banner: Este sitio es sólo para pruebas. Si necesitas ayuda con tus impuestos, visita
         off_season_filing: No podemos aceptar nuevos clientes después de %{end_of_intake_date}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de %{end_of_docs_date} para presentarla antes de la fecha límite.
       footer:
-        service_description_html: GetYourRefund.org es un servicio sin fines de lucro ofrecido por %{cfa_link}, realizado en colaboración con el IRS.
+        service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
         service_status: Estado del servicio
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
