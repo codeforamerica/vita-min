@@ -3,7 +3,7 @@ class Campaign::SendCampaignSmsJob < ApplicationJob
   queue_as :campaign_sms
 
   def perform(text_message_id)
-    return if Flipper.enabled?(:cancel_campaign_emails)
+    return if Flipper.enabled?(:cancel_campaign_sms)
 
     text_message = CampaignSms.find(text_message_id)
     contact = text_message.campaign_contact
