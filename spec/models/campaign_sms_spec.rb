@@ -1,3 +1,31 @@
+# == Schema Information
+#
+# Table name: campaign_sms
+#
+#  id                  :bigint           not null, primary key
+#  body                :text             not null
+#  error_code          :string
+#  event_data          :jsonb
+#  message_name        :string           not null
+#  scheduled_send_at   :datetime
+#  sent_at             :datetime
+#  to_phone_number     :string           not null
+#  twilio_sid          :string
+#  twilio_status       :string
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  campaign_contact_id :bigint           not null
+#
+# Indexes
+#
+#  index_campaign_sms_on_campaign_contact_id               (campaign_contact_id)
+#  index_campaign_sms_on_message_name_and_to_phone_number  (message_name,to_phone_number) UNIQUE
+#  index_campaign_sms_on_twilio_sid                        (twilio_sid) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (campaign_contact_id => campaign_contacts.id)
+#
 require "rails_helper"
 
 RSpec.describe CampaignSms, type: :model do
