@@ -5,8 +5,15 @@ RSpec.describe RedirectsController, type: :controller do
     it "redirects to the outreach URL" do
       get :outreach
 
+      expect(response).to redirect_to(
+                            "http://test.host/en?utm_campaign=w1&utm_medium=sms&utm_source=gyr"
+                          )
+    end
+
+    it "returns a 302 status" do
+      get :outreach
+
       expect(response).to have_http_status(:found)
-      expect(response).to redirect_to("https://www.getyourrefund.org/?utm_source=gyr&utm_medium=sms&utm_campaign=w1")
     end
   end
 end

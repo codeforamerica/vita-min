@@ -71,6 +71,9 @@ Rails.application.routes.draw do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
       root "public_pages#home"
 
+      # Text messaging redirect short-links
+      get "/outreach", to: "redirects#outreach"
+
       resources :vita_providers, only: [:index, :show]
       get "/vita_provider/map", to: "vita_providers#map"
 
@@ -400,9 +403,6 @@ Rails.application.routes.draw do
     post "/incoming_emails", to: "mailgun_webhooks#create_incoming_email", as: :incoming_emails
     post "/outgoing_email_status", to: "mailgun_webhooks#update_outgoing_email_status", as: :outgoing_email_status
     post "/campaign_email_status", to: "mailgun_webhooks#update_campaign_email_status", as: :campaign_email_status
-
-    # Text messaging redirect short-links
-    get "/outreach", to: "redirects#outreach"
 
     # OAuth login callback routes
     devise_for :users, path: "hub", only: :omniauth_callbacks, skip: [:session, :invitation], controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
