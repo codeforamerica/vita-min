@@ -66,13 +66,13 @@ RSpec.describe Questions::PersonalInfoController do
 
         before { session[:intake_id] = intake.id }
 
-        it "creates a new intake and overwrites the one in the session" do
+        it "uses the existing intake and updates the params" do
           expect {
             post :update, params: params
-          }.to change(Intake, :count).by(1)
+          }.to change(Intake, :count).by(0)
 
-          created_intake = Intake.last
-          expect(session[:intake_id]).to eq created_intake.id
+          existing_intake = Intake.last
+          expect(session[:intake_id]).to eq existing_intake.id
         end
       end
 

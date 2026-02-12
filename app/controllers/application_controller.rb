@@ -246,7 +246,7 @@ class ApplicationController < ActionController::Base
 
   def set_get_started_link
     I18n.with_locale(locale) do
-      @get_started_link = open_for_gyr_intake? ? question_path(Questions::TriagePersonalInfoController) : nil
+      @get_started_link = open_for_gyr_intake? ? question_path(Questions::EligibilityWagesController) : nil
     end
   end
 

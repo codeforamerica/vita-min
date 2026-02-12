@@ -3,21 +3,7 @@
   <%= render 'shared/header', variation: "gyr", home_link: root_path %>
 <% end %>
 <% content_for :footer do %>
-  <footer class="footer">
-    <div class="slab slab--footer">
-      <div class="grid">
-        <div class="grid__item width-three-fourths footer-description">
-          <p>
-            <%= image_tag("checkbox-logo--white.png", alt: "") %>
-          </p>
-          <p>
-            <% cfa_link = link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link") %>
-            <%= t("views.shared.footer.service_description_html", cfa_link: cfa_link) %>
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <%= render "shared/footer" %>
 <% end %>
 
 <div class="main-content-inner">
@@ -34,7 +20,7 @@
 
           <div class="offboarding--help-text">
             <p>
-              <%=t("views.ctc.questions.at_capacity.p1") %>
+              <%= t("views.ctc.questions.at_capacity.p1") %>
             </p>
           </div>
         </div>
