@@ -6,7 +6,7 @@ module Navigation
       Diy::QualificationsController,
       Diy::FileYourselfController,
       Diy::DiyNotificationPreferenceController,
-      #Diy::DiyEmailAddressController,
+      Diy::DiyEmailAddressController,
       Diy::ContinueToFsaController
     ].freeze
   end

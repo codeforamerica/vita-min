@@ -25,7 +25,9 @@
       <%= f.cfa_checkbox(:email_notification_opt_in, t("views.questions.notification_preference.options.email_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no" }) %>
       <div class="question-with-follow-up">
         <div class="question-with-follow-up__question">
-          <%= f.cfa_checkbox(:sms_notification_opt_in, t("views.questions.notification_preference.options.sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) %>
+          <%# TODO remove once phone_number screen added.
+          <X= f.cfa_checkbox(:sms_notification_opt_in, t("views.questions.notification_preference.options.sms_notification_opt_in"), options: { checked_value: "yes", unchecked_value: "no", "data-follow-up": "#sms-opt-in" }) X>
+          %>
         </div>
 
         <p class="text--small spacing-above-25">

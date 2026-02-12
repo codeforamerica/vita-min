@@ -15,7 +15,7 @@ module Diy
         after_update_success
         track_question_answer
         session[:diy_intake_id] = diy_intake.id
-        redirect_to(diy_continue_to_fsa_path)
+        redirect_to(diy_diy_email_address_path)
       else
         after_update_failure
         track_validation_error
