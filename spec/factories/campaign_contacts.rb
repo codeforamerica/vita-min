@@ -45,7 +45,7 @@ FactoryBot.define do
 
     trait :email_opted_in do
       email_notification_opt_in { true }
-      email_address { "opted_in@example.com" }
+      sequence(:email_address) { |n| "opted_in#{n}@example.com"  }
     end
 
     trait :sms_opted_in do

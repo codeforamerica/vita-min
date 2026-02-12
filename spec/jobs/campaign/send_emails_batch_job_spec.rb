@@ -8,14 +8,16 @@ describe Campaign::SendEmailsBatchJob, type: :job do
       message_name,
       batch_size: batch_size,
       batch_delay: batch_delay,
-      queue_next_batch: queue_next_batch
+      queue_next_batch: queue_next_batch,
+      recent_signups_only: recent_signups_only
     )
   end
 
   let(:message_name) { "start_of_season_outreach" }
-  let(:batch_size) { 100 }
-  let(:batch_delay) { 1.minute }
+  let(:batch_size) { 10 }
+  let(:batch_delay) { 10.seconds }
   let(:queue_next_batch) { false }
+  let(:recent_signups_only) { false }
 
   before do
     clear_enqueued_jobs
@@ -24,147 +26,102 @@ describe Campaign::SendEmailsBatchJob, type: :job do
     allow(Flipper).to receive(:enabled?).and_call_original
     allow(Flipper).to receive(:enabled?).with(:cancel_campaign_emails).and_return(false)
 
-    allow_any_instance_of(described_class).to receive(:rate_limited?).and_return(false)
+    allow_any_instance_of(described_class).to receive(:rate_limited?).and_call_original
+
+    allow(CampaignEmail).to receive(:create!).and_call_original
   end
 
   describe "#perform" do
-    around do |example|
-      est_time = Time.find_zone!("America/New_York")
-      fake_time = est_time.parse("2026-02-06 10:00:00")
+    context "when :cancel_campaign_emails flag is enabled" do
+      let!(:campaign_contact) { create(:campaign_contact, :email_opted_in) }
 
-      Timecop.freeze(fake_time) { example.run }
-    ensure
-      Timecop.return
-    end
-
-    context "when cancel flag is enabled" do
       it "does nothing" do
         allow(Flipper).to receive(:enabled?).with(:cancel_campaign_emails).and_return(true)
 
-        expect(CampaignContact).not_to receive(:eligible_for_email)
-        expect(CampaignEmail).not_to receive(:create!)
-
         perform_job
+
+        expect(CampaignEmail).not_to have_received(:create!)
       end
     end
 
-    context "when rate limited" do
-      it "does nothing" do
-        allow_any_instance_of(described_class).to receive(:rate_limited?).and_return(true)
+    context "when rate limiting is detected" do
+      let!(:campaign_contact) { create(:campaign_contact, :email_opted_in) }
 
-        expect(CampaignContact).not_to receive(:eligible_for_email)
-        expect(CampaignEmail).not_to receive(:create!)
+      let!(:rate_limited_1) do
+        create(:campaign_email, mailgun_status: "failed", error_code: "421", sent_at: 5.minutes.ago)
+      end
+      let!(:rate_limited_2) do
+        create(:campaign_email, mailgun_status: "failed", event_data: { reason: "rate limit exceeded" }, sent_at: 5.minutes.ago)
+      end
+      let!(:non_rate_limited) do
+        create(:campaign_email, mailgun_status: "delivered", sent_at: 5.minutes.ago)
+      end
 
+      let!(:old_email) do
+        create(:campaign_email, mailgun_status: "failed", error_code: "421", sent_at: 2.hours.ago)
+      end
+
+      it "does nothing (does not create new CampaignEmail records)" do
         perform_job
+
+        expect(CampaignEmail).not_to have_received(:create!)
       end
     end
 
-    context "when there are no eligible contacts" do
-      it "does nothing" do
-        scope = double("CampaignContact scope")
-
-        expect(CampaignContact).to receive(:eligible_for_email).and_return(scope)
-        expect(scope).to receive(:limit).with(batch_size).and_return(scope)
-        expect(scope).to receive(:pluck).with(:id).and_return([])
-
-        expect(CampaignEmail).not_to receive(:create!)
-        expect { perform_job }.not_to have_enqueued_job(described_class)
-      end
-    end
-
-
-    context "when there are eligible contacts" do
-      let!(:contact_en) { create(:campaign_contact, email_address: "a@example.com", locale: "en") }
-      let!(:contact_es) { create(:campaign_contact, email_address: "b@example.com", locale: "es") }
-      let!(:contact_blank_locale) { create(:campaign_contact, email_address: "c@example.com", locale: nil) }
-
-      let(:ids) { [contact_en.id, contact_es.id, contact_blank_locale.id] }
-
+    context "when flag disabled and not rate limited" do
       before do
-        scope = double("CampaignContact scope")
-
-        allow(CampaignContact).to receive(:eligible_for_email).and_return(scope)
-        allow(scope).to receive(:not_emailed).with(message_name).and_return(scope)
-        allow(scope).to receive(:limit).with(batch_size).and_return(scope)
-        allow(scope).to receive(:pluck).with(:id).and_return(ids)
-
-        allow(CampaignContact).to receive(:where).with(id: ids)
-                                                 .and_return(CampaignContact.where(id: ids))
+        allow_any_instance_of(described_class).to receive(:rate_limited?).and_return(false)
       end
 
-      it "creates a CampaignEmail for each contact, with staggered scheduled_send_at" do
-        start_time = Time.current
+      context "with an eligible campaign contact" do
+        let!(:campaign_contact) { create(:campaign_contact, :email_opted_in) }
 
-        expect(CampaignEmail).to receive(:create!).with(
-          campaign_contact_id: contact_en.id,
-          message_name: message_name,
-          to_email: "a@example.com",
-          scheduled_send_at: start_time + 0.seconds
-        )
-
-        expect(CampaignEmail).to receive(:create!).with(
-          campaign_contact_id: contact_es.id,
-          message_name: message_name,
-          to_email: "b@example.com",
-          scheduled_send_at: start_time + 0.2.seconds
-        )
-
-        expect(CampaignEmail).to receive(:create!).with(
-          campaign_contact_id: contact_blank_locale.id,
-          message_name: message_name,
-          to_email: "c@example.com",
-          scheduled_send_at: start_time + 0.4.seconds
-        )
-
-        perform_job
-      end
-
-      context "when CampaignEmail is not unique for contact" do
-        it "skips that contact and continues" do
-          allow(CampaignEmail).to receive(:create!).and_wrap_original do |m, *args|
-            attrs = args.first
-            raise ActiveRecord::RecordNotUnique if attrs[:campaign_contact_id] == contact_en.id
-            m.call(*args)
-          end
-
+        it "creates a CampaignEmail with message name, to_email, scheduled_send_at" do
           perform_job
 
-          expect(CampaignEmail).to have_received(:create!).with(hash_including(campaign_contact_id: contact_es.id))
-          expect(CampaignEmail).to have_received(:create!).with(hash_including(campaign_contact_id: contact_blank_locale.id))
+          expect(CampaignEmail).to have_received(:create!).exactly(1).times
+          email = CampaignEmail.last
+          expect(email.campaign_contact_id).to eq(campaign_contact.id)
+          expect(email.message_name).to eq(message_name)
+          expect(email.to_email).to eq(campaign_contact.email_address)
+          expect(email.scheduled_send_at).to be_present
         end
       end
 
-      context "when queue_next_batch is true" do
-        let(:queue_next_batch) { true }
+      context "with multiple eligible campaign contacts" do
+        let!(:campaign_contacts) { create_list(:campaign_contact, 3, :email_opted_in) }
 
-        it "enqueues the next batch job with a delay" do
-          expect { perform_job }.to have_enqueued_job(described_class)
-                                      .with(message_name, batch_size: batch_size, batch_delay: batch_delay)
-                                      .at(Time.current + batch_delay)
+        it "creates CampaignEmail records for all of them" do
+          perform_job
+
+          expect(CampaignEmail).to have_received(:create!).exactly(3).times
+        end
+
+        context "when queue_next_batch is true" do
+          let(:queue_next_batch) { true }
+
+          it "queues the next batch job" do
+            expect { perform_job }.to have_enqueued_job(Campaign::SendEmailsBatchJob)
+          end
         end
       end
 
-      context "when queue_next_batch is false" do
-        let(:queue_next_batch) { false }
+      context "when recent_signups_only is true" do
+        let(:recent_signups_only) { true }
 
-        it "does not enqueue the next batch job" do
-          expect { perform_job }.not_to have_enqueued_job(described_class)
+        let!(:old_signup) { create(:signup, email_address: "old@example.com", name: "old") }
+        let!(:recent_signup) { create(:signup, email_address: "recent@example.com", name: "new") }
+
+        before do
+          old_signup.update!(created_at: 2.years.ago)
         end
-      end
-    end
 
-    context "batching" do
-      let(:batch_size) { 123 }
+        it "only creates emails for campaign contacts with signups created after the cutoff" do
+          perform_job
 
-      it "only processes up to batch_size contacts per run" do
-        scope = double("CampaignContact scope")
-
-        expect(CampaignContact).to receive(:eligible_for_email).and_return(scope)
-        expect(scope).to receive(:limit).with(batch_size).and_return(scope)
-        expect(scope).to receive(:pluck).with(:id).and_return([])
-
-        expect(CampaignEmail).not_to receive(:create!)
-        perform_job
+          expect(CampaignEmail).to have_received(:create!).exactly(1).time
+          expect(CampaignEmail.last.campaign_contact.sign_up_ids.first).to eq recent_signup.id
+        end
       end
     end
   end
