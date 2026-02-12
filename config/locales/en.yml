@@ -1431,6 +1431,25 @@ en:
       invitation:
         sent_at: Sent at %{datetime}
       title: Invitations
+  campaign_messages:
+    start_of_season_outreach:
+      email:
+        body: |
+          Hi %{first_name},
+          GetYourRefund is back for the new tax season!
+
+          We would love to help you file your taxes for free again this year. Our IRS-certified team is here to help.
+
+          When you are ready to start, head to <a href="https://www.getyourrefund.org/en/outreach" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
+
+          Best,
+
+          The team at GetYourRefund
+
+          (Replies to this email are not monitored.)
+        subject: Ready to file your taxes? GetYourRefund is open!
+      sms: |
+        Hi %{first_name}! GetYourRefund is back for the new tax season. We'd love to help you file for free again this year. Our IRS-certified team is ready when you are: https://www.getyourrefund.org/outreach
   messages:
     closing_soon:
       email:
@@ -1532,24 +1551,6 @@ en:
         Hi <<Client.PreferredName>>,
         It looks like you stepped away before finishing our application. Our preparers at <<Client.AssignedOrganization>> look forward to working with you! To complete our form, simply login here: <<Client.LoginLink>>
         Thanks!
-    start_of_season_outreach:
-      email:
-        body: |
-          Hi %{first_name},
-          GetYourRefund is back for the new tax season!
-
-          We would love to help you file your taxes for free again this year. Our IRS-certified team is here to help.
-
-          When you are ready to start, head to <a href="https://www.getyourrefund.org/en/outreach" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
-
-          Best,
-
-          The team at GetYourRefund
-          
-          (Replies to this email are not monitored.)
-        subject: Ready to file your taxes? GetYourRefund is open!
-      sms: |
-        Hi %{first_name}! GetYourRefund is back for the new tax season. We'd love to help you file for free again this year. Our IRS-certified team is ready when you are: https://www.getyourrefund.org/outreach
     save_ctc_letter:
       email:
         body: |

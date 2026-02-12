@@ -28,7 +28,7 @@ describe Hub::AutomatedMessagesController do
 
         shown_message_classes = assigns(:messages).keys
         message_class_names = (
-          AutomatedMessage::AutomatedMessage.descendants +
+          AutomatedMessage::AutomatedMessage.descendants + CampaignMessage::CampaignMessage.descendants +
             [
               "UserMailer.assignment_email",
               "UserMailer.incoming_interaction_notification_email [new_client_message]",
@@ -39,7 +39,6 @@ describe Hub::AutomatedMessagesController do
               "VerificationCodeMailer.archived_intake_verification_code",
               "DiyIntakeEmailMailer.high_support_message",
               "CtcSignupMailer.launch_announcement",
-              "CampaignMailer.email_message",
               SurveyMessages::GyrCompletionSurvey,
               SurveyMessages::CtcExperienceSurvey
             ]

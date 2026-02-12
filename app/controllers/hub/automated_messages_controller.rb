@@ -12,7 +12,6 @@ module Hub
     def messages_preview
       Rails.application.eager_load!
       automated_message_subclasses = AutomatedMessage::AutomatedMessage.descendants
-      campaign_message_subclasses = CampaignMessage::CampaignMessage.descendants # TODO: start displaying these dynamically when we add more
       survey_message_classes = [SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey]
 
       message_classes = automated_message_subclasses + survey_message_classes
@@ -20,6 +19,18 @@ module Hub
         replaced_body = klass.new.email_body.gsub('<<', '&lt;&lt;').gsub('>>', '&gt;&gt;')
         email = OutgoingEmail.new(to: "example@example.com", body: replaced_body, subject: klass.new.email_subject, client: Client.new(intake: Intake::GyrIntake.new))
         [klass, OutgoingEmailMailer.user_message(outgoing_email: email)]
+      end.to_h
+
+      campaign_message_subclasses = CampaignMessage::CampaignMessage.descendants
+      campaign_messages_and_mailers = campaign_message_subclasses.to_h do |klass|
+        contact = CampaignContact.new(email_address: "example@example.com", first_name: "Rose")
+        email = CampaignEmail.new(
+          to_email: "example@example.com",
+          message_name: klass.name.demodulize.underscore,
+          campaign_contact: contact,
+          scheduled_send_at: Time.current
+        )
+        [klass, CampaignMailer.email_message(campaign_email: email)]
       end.to_h
 
       emails = {
@@ -33,10 +44,9 @@ module Hub
         "VerificationCodeMailer.archived_intake_verification_code" => VerificationCodeMailer.archived_intake_verification_code(to: "example@example.com", locale: :en, verification_code: '000000'),
         "DiyIntakeEmailMailer.high_support_message" => DiyIntakeEmailMailer.high_support_message(diy_intake: DiyIntake.new(email_address: 'example@example.com', preferred_first_name: "Preferredfirstname")),
         "CtcSignupMailer.launch_announcement" => CtcSignupMailer.launch_announcement(email_address: "example@example.com", name: "Preferredfirstname"),
-        "CampaignMailer.email_message" => CampaignMailer.email_message(email_address: "example@example.com", message_name: "start_of_season_outreach", locale: params[:locale])
       }
 
-      emails.merge(automated_messages_and_mailers).transform_values do |message|
+      emails.merge(automated_messages_and_mailers).merge(campaign_messages_and_mailers).transform_values do |message|
         ActionMailer::Base.preview_interceptors.each do |interceptor|
           interceptor.previewing_email(message)
         end

@@ -55,10 +55,7 @@ RSpec.describe Campaign::SendCampaignEmailJob, type: :job do
         mailer_delivery = instance_double("MailerDelivery", deliver_now: response)
 
         expect(CampaignMailer).to receive(:email_message).with(
-          email_address: "a@example.com",
-          message_name: email.message_name,
-          locale: "es",
-          campaign_email_id: email.id
+          campaign_email: email
         ).and_return(mailer_delivery)
 
         expect { perform_job }.to change { email.reload.mailgun_message_id }.from(nil).to("<mailgun-id-123>")
@@ -84,10 +81,7 @@ RSpec.describe Campaign::SendCampaignEmailJob, type: :job do
         mailer_delivery = instance_double("MailerDelivery", deliver_now: response)
 
         expect(CampaignMailer).to receive(:email_message).with(
-          email_address: "a@example.com",
-          message_name: email.message_name,
-          locale: "en",
-          campaign_email_id: email.id
+          campaign_email: email
         ).and_return(mailer_delivery)
 
         perform_job

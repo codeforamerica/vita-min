@@ -1428,6 +1428,24 @@ es:
       invitation:
         sent_at: Enviado a las %{datetime}
       title: Invitaciones
+  campaign_messages:
+    start_of_season_outreach:
+      email:
+        body: |
+          Hola %{first_name}:
+          ¡GetYourRefund ya está de regreso para la nueva temporada de impuestos!
+
+          Nos encantaría ayudarle a presentar sus impuestos gratis nuevamente este año. Nuestro equipo certificado por el IRS está aquí para ayudarle.
+
+          Cuando esté listo(a) para comenzar, visite head to <a href="https://www.getyourrefund.org/es/outreach" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
+
+          Saludos cordiales,
+          El equipo de GetYourRefund
+
+          (Las respuestas a este correo electrónico no son monitoreadas.)
+        subject: ¿Listo para presentar sus impuestos? ¡GetYourRefund ya está abierto!
+      sms: |
+        Hola %{first_name}. ¡GetYourRefund ya está de regreso para la nueva temporada de impuestos! Nos encantaría ayudarle a presentar sus impuestos gratis nuevamente este año.Nuestro equipo certificado por el IRS está listo para ayudarle cuando usted lo esté: https://www.getyourrefund.org/es/outreach
   messages:
     closing_soon:
       email:
@@ -1518,23 +1536,6 @@ es:
         Hola <<Client.PreferredName>>,
         Parece que no a terminado nuestra aplicación. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperamos trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
         ¡Gracias!
-    start_of_season_outreach:
-      email:
-        body: |
-          Hola %{first_name}:
-          ¡GetYourRefund ya está de regreso para la nueva temporada de impuestos!
-          
-          Nos encantaría ayudarle a presentar sus impuestos gratis nuevamente este año. Nuestro equipo certificado por el IRS está aquí para ayudarle.
-          
-          Cuando esté listo(a) para comenzar, visite head to <a href="https://www.getyourrefund.org/es/outreach" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
-          
-          Saludos cordiales,
-          El equipo de GetYourRefund
-          
-          (Las respuestas a este correo electrónico no son monitoreadas.)
-        subject: ¿Listo para presentar sus impuestos? ¡GetYourRefund ya está abierto!
-      sms: |
-        Hola %{first_name}. ¡GetYourRefund ya está de regreso para la nueva temporada de impuestos! Nos encantaría ayudarle a presentar sus impuestos gratis nuevamente este año.Nuestro equipo certificado por el IRS está listo para ayudarle cuando usted lo esté: https://www.getyourrefund.org/es/outreach
     save_ctc_letter:
       email:
         body: |

@@ -17,12 +17,7 @@ class Campaign::SendCampaignEmailJob < ApplicationJob
       return
     end
 
-    response = CampaignMailer.email_message(
-      email_address: contact.email_address,
-      message_name: email.message_name,
-      locale: contact.locale.presence || "en",
-      campaign_email_id: email.id
-    ).deliver_now
+    response = CampaignMailer.email_message(campaign_email: email).deliver_now
 
     email.update!(
       mailgun_message_id: response.message_id,
