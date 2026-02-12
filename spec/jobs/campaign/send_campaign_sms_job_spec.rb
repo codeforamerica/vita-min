@@ -2,6 +2,7 @@ require "rails_helper"
 
 describe Campaign::SendCampaignSmsJob, type: :job do
   include ActiveJob::TestHelper
+  include ActiveSupport::Testing::TimeHelpers
 
   subject(:perform_job) { described_class.new.perform(campaign_sms.id) }
 
@@ -59,14 +60,19 @@ describe Campaign::SendCampaignSmsJob, type: :job do
     end
 
     context "when scheduled_send_at is in the future" do
-      let(:scheduled_send_at) { 30.minutes.from_now }
+      let(:scheduled_send_at) { 30.minutes.from_now.change(usec: 0).utc }
 
       it "re-enqueues itself for the scheduled time and returns" do
-        expect { perform_job }.to have_enqueued_job(described_class)
-                .with(campaign_sms.id).at(scheduled_send_at)
+        travel_to(Time.current.change(usec: 0)) do
+          scheduled_send_at = 30.minutes.from_now
 
-        expect(campaign_sms.reload.twilio_sid).to be_nil
-        expect(campaign_sms.sent_at).to be_nil
+          expect { perform_job }.to have_enqueued_job(described_class)
+                                      .with(campaign_sms.id)
+                                      .at(scheduled_send_at)
+
+          expect(campaign_sms.reload.twilio_sid).to be_nil
+          expect(campaign_sms.sent_at).to be_nil
+        end
       end
     end
 
