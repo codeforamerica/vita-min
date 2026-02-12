@@ -81,10 +81,6 @@ RSpec.describe "create_campaign_contacts:backfill" do
     expect(Campaign::SyncContacts::BackfillSignupsJob)
       .to receive(:perform_later).with(signup.id, signup.id, window_start.to_date, window_end.to_date)
 
-    expect(Campaign::SyncContacts::BackfillStateFileIntakesJob)
-      .to receive(:perform_later)
-            .with("StateFileAzIntake", state_intake.id, state_intake.id, window_start.to_date, window_end.to_date)
-
     task.invoke
   end
 
@@ -96,7 +92,6 @@ RSpec.describe "create_campaign_contacts:backfill" do
 
       expect(Campaign::SyncContacts::BackfillGyrIntakesJob).not_to receive(:perform_later)
       expect(Campaign::SyncContacts::BackfillSignupsJob).not_to receive(:perform_later)
-      expect(Campaign::SyncContacts::BackfillStateFileIntakesJob).not_to receive(:perform_later)
 
       task.invoke
     end

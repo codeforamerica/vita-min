@@ -25,7 +25,6 @@ class Campaign::SendSmsBatchJob < ApplicationJob
                             CampaignContact.eligible_for_text_message(message_name).limit(batch_size).pluck(:id)
                           end
 
-    # todo: remove
     puts "*****CAMPAIGN SMS: message_name=#{message_name} batch_size=#{contacts_to_message.count} recent_signups_only=#{recent_signups_only} queue_next_batch=#{queue_next_batch}*****" unless Rails.env.test?
     return if contacts_to_message.empty?
 

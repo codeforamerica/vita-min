@@ -3,8 +3,6 @@ class Campaign::SendCampaignSmsJob < ApplicationJob
   queue_as :campaign_sms
 
   def perform(text_message_id)
-    return if Flipper.enabled?(:cancel_campaign_sms)
-
     text_message = CampaignSms.find(text_message_id)
     contact = text_message.campaign_contact
 
@@ -21,7 +19,7 @@ class Campaign::SendCampaignSmsJob < ApplicationJob
       message = TwilioService.new(:gyr).send_text_message(
         to: text_message.to_phone_number,
         body: text_message.body,
-        status_callback: outgoing_text_message_url(text_message, locale: nil), #do i need to change this
+        status_callback: outgoing_text_message_url(text_message, locale: nil),
         outgoing_text_message: text_message
       )
 

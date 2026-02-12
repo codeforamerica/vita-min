@@ -3,8 +3,6 @@ class Campaign::SendCampaignEmailJob < ApplicationJob
   retry_on Mailgun::CommunicationError
 
   def perform(email_id)
-    return if Flipper.enabled?(:cancel_campaign_emails)
-
     email = CampaignEmail.find(email_id)
     contact = email.campaign_contact
 
