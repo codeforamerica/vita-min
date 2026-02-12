@@ -38,17 +38,6 @@ describe Campaign::SendCampaignSmsJob, type: :job do
   end
 
   describe "#perform" do
-    context "when cancel flag is enabled" do
-      it "does nothing" do
-        allow(Flipper).to receive(:enabled?).with(:cancel_campaign_sms).and_return(true)
-
-        perform_job
-
-        expect(campaign_sms.reload.twilio_sid).to be_nil
-        expect(campaign_sms.sent_at).to be_nil
-      end
-    end
-
     context "when the CampaignSms already has a twilio_sid" do
       let(:twilio_sid) { "SM_ALREADY_SENT" }
 

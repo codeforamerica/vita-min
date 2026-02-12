@@ -76,7 +76,7 @@ class Campaign::SendSmsBatchJob < ApplicationJob
     total_count = recent_texts.count
     return false if total_count.zero?
 
-    rate_limit_codes = ["63038", "20429", "30001"]
+    rate_limit_codes = ["63038", "20429", "30001", "14107", "25021"]
     rate_limit_phrases = ["%message rate exceeded%", "%too many requests%", "%queue overflow%"]
 
     rate_limited_count = recent_texts.where(

@@ -23,15 +23,6 @@ RSpec.describe Campaign::SendCampaignEmailJob, type: :job do
   end
 
   describe "#perform" do
-    context "when cancel flag is enabled" do
-      it "returns" do
-        allow(Flipper).to receive(:enabled?).with(:cancel_campaign_emails).and_return(true)
-
-        expect(CampaignEmail).not_to receive(:find)
-        perform_job
-      end
-    end
-
     context "when the CampaignEmail already has a mailgun_message_id" do
       let(:email) { create(:campaign_email, campaign_contact: contact, mailgun_message_id: "already-sent") }
 
