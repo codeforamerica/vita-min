@@ -781,7 +781,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_29_144003) do
     t.datetime "clicked_chat_with_us_at"
     t.datetime "created_at", null: false
     t.string "email_address"
-    t.datetime "email_address_verified_at"
     t.integer "email_notification_opt_in", default: 0
     t.integer "filing_frequency", default: 0, null: false
     t.string "locale"
@@ -790,7 +789,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_29_144003) do
     t.string "referrer"
     t.integer "sms_notification_opt_in", default: 0
     t.string "sms_phone_number"
-    t.datetime "sms_phone_number_verified_at"
     t.string "source"
     t.string "token"
     t.datetime "updated_at", null: false

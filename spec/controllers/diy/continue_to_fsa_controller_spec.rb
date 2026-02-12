@@ -27,7 +27,7 @@ RSpec.describe Diy::ContinueToFsaController do
       it "redirects to file yourself page" do
         get :edit
 
-        expect(response).to redirect_to diy_file_yourself_path
+        expect(response).to redirect_to diy_qualifications_path
       end
     end
   end
@@ -120,7 +120,7 @@ RSpec.describe Diy::ContinueToFsaController do
         it "redirects to file yourself page" do
           get :edit
 
-          expect(response).to redirect_to diy_file_yourself_path
+          expect(response).to redirect_to diy_qualifications_path
         end
       end
     end
