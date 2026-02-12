@@ -27,6 +27,26 @@ en:
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
     primary_ssn: SSN or ITIN
     spouse_ssn: Spouse's SSN or ITIN
+  campaign_messages:
+    start_of_season_outreach:
+      email:
+        body: |
+          Hi %{first_name},
+          GetYourRefund is back for the new tax season!
+
+          We would love to help you file your taxes for free again this year. Our IRS-certified team is here to help.
+
+          When you are ready to start, head to <a href="https://www.getyourrefund.org/en/outreach" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
+
+          Best,
+
+          The team at GetYourRefund
+
+          (Replies to this email are not monitored.)
+        subject: Ready to file your taxes? GetYourRefund is open!
+      sms: 'Hi %{first_name}! GetYourRefund is back for the new tax season. We''d love to help you file for free again this year. Our IRS-certified team is ready when you are: https://www.getyourrefund.org/outreach
+
+        '
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance for about 1 hour starting at %{time}.
@@ -1431,25 +1451,6 @@ en:
       invitation:
         sent_at: Sent at %{datetime}
       title: Invitations
-  campaign_messages:
-    start_of_season_outreach:
-      email:
-        body: |
-          Hi %{first_name},
-          GetYourRefund is back for the new tax season!
-
-          We would love to help you file your taxes for free again this year. Our IRS-certified team is here to help.
-
-          When you are ready to start, head to <a href="https://www.getyourrefund.org/en/outreach" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
-
-          Best,
-
-          The team at GetYourRefund
-
-          (Replies to this email are not monitored.)
-        subject: Ready to file your taxes? GetYourRefund is open!
-      sms: |
-        Hi %{first_name}! GetYourRefund is back for the new tax season. We'd love to help you file for free again this year. Our IRS-certified team is ready when you are: https://www.getyourrefund.org/outreach
   messages:
     closing_soon:
       email:

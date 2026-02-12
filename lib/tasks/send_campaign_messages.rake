@@ -1,6 +1,6 @@
 namespace :send_campaign_messages do
-  desc "Send GYR 2025 preseason emails"
-  task preseason_emails: :environment do
+  desc "Send GYR 2025 start of season emails"
+  task sos_season_emails: :environment do
     next if Rails.env.demo? || Rails.env.staging?
     next unless DateTime.now.year == 2026
 
@@ -13,7 +13,8 @@ namespace :send_campaign_messages do
     )
   end
 
-  task preseason_text_messages: :environment do
+  desc "Send GYR 2025 start of season sms messages"
+  task sos_season_sms: :environment do
     next if Rails.env.demo? || Rails.env.staging?
     next unless DateTime.now.year == 2026
 

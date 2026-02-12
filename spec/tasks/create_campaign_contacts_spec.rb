@@ -75,13 +75,13 @@ RSpec.describe "create_campaign_contacts:backfill" do
   end
 
   it "enqueues jobs for GYR, Signups, and each StateFile intake class using the env date window and chunk size" do
-    expect(Campaign::BackfillGyrIntakesJob)
+    expect(Campaign::SyncContacts::BackfillGyrIntakesJob)
       .to receive(:perform_later).with(gyr_min_id, gyr_max_id, window_start.to_date, window_end.to_date)
 
-    expect(Campaign::BackfillSignupsJob)
+    expect(Campaign::SyncContacts::BackfillSignupsJob)
       .to receive(:perform_later).with(signup.id, signup.id, window_start.to_date, window_end.to_date)
 
-    expect(Campaign::BackfillStateFileIntakesJob)
+    expect(Campaign::SyncContacts::BackfillStateFileIntakesJob)
       .to receive(:perform_later)
             .with("StateFileAzIntake", state_intake.id, state_intake.id, window_start.to_date, window_end.to_date)
 
@@ -94,9 +94,9 @@ RSpec.describe "create_campaign_contacts:backfill" do
       ENV["END_DATE"] = "2025-11-20"
       ENV["CHUNK_SIZE"] = "10"
 
-      expect(Campaign::BackfillGyrIntakesJob).not_to receive(:perform_later)
-      expect(Campaign::BackfillSignupsJob).not_to receive(:perform_later)
-      expect(Campaign::BackfillStateFileIntakesJob).not_to receive(:perform_later)
+      expect(Campaign::SyncContacts::BackfillGyrIntakesJob).not_to receive(:perform_later)
+      expect(Campaign::SyncContacts::BackfillSignupsJob).not_to receive(:perform_later)
+      expect(Campaign::SyncContacts::BackfillStateFileIntakesJob).not_to receive(:perform_later)
 
       task.invoke
     end
@@ -109,9 +109,9 @@ RSpec.describe "create_campaign_contacts:backfill" do
     it "splits ranges according to CHUNK_SIZE" do
       ENV["CHUNK_SIZE"] = "2"
 
-      expect(Campaign::BackfillGyrIntakesJob).to receive(:perform_later).with(gyr_min_id, (gyr_min_id + 1), window_start.to_date, window_end.to_date)
-      expect(Campaign::BackfillGyrIntakesJob).to receive(:perform_later).with((gyr_min_id + 2), (gyr_min_id + 3), window_start.to_date, window_end.to_date)
-      expect(Campaign::BackfillGyrIntakesJob).to receive(:perform_later).with(gyr_max_id, gyr_max_id, window_start.to_date, window_end.to_date)
+      expect(Campaign::SyncContacts::BackfillGyrIntakesJob).to receive(:perform_later).with(gyr_min_id, (gyr_min_id + 1), window_start.to_date, window_end.to_date)
+      expect(Campaign::SyncContacts::BackfillGyrIntakesJob).to receive(:perform_later).with((gyr_min_id + 2), (gyr_min_id + 3), window_start.to_date, window_end.to_date)
+      expect(Campaign::SyncContacts::BackfillGyrIntakesJob).to receive(:perform_later).with(gyr_max_id, gyr_max_id, window_start.to_date, window_end.to_date)
       task.invoke
     end
   end
