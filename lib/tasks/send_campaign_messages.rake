@@ -5,7 +5,7 @@ namespace :send_campaign_messages do
     next unless DateTime.now.year == 2026
 
     Campaign::SendEmailsBatchJob.perform_later(
-      "preseason_outreach",
+      "start_of_season_outreach",
       batch_size: 100,
       batch_delay: 30.seconds,
       queue_next_batch: true,
@@ -18,7 +18,7 @@ namespace :send_campaign_messages do
     next unless DateTime.now.year == 2026
 
     Campaign::SendSmsBatchJob.perform_later(
-      "preseason_outreach",
+      "start_of_season_outreach",
       batch_size: 100,
       batch_delay: 30.seconds,
       queue_next_batch: true,

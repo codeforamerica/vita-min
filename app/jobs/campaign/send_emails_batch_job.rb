@@ -31,7 +31,7 @@ class Campaign::SendEmailsBatchJob < ApplicationJob
 
     return if contacts_to_message.empty?
 
-    puts "CAMPAIGN EMAILS: message_name=#{message_name} batch_size=#{contacts_to_message.count} recent_signups_only=#{recent_signups_only} queue_next_batch=#{queue_next_batch}"
+    puts "*****CAMPAIGN EMAILS: message_name=#{message_name} batch_size=#{contacts_to_message.count} recent_signups_only=#{recent_signups_only} queue_next_batch=#{queue_next_batch}*****"
 
     start_time = next_business_hour_start
 
@@ -80,7 +80,7 @@ class Campaign::SendEmailsBatchJob < ApplicationJob
 
     if rate_limited_rate > 15
       Flipper.enable(:cancel_campaign_emails)
-      Sentry.capture_exception("Campaign Emails: Rate limiting detected: #{rate_limited_rate}% rate-limited. Pausing campaign emails. Disable :cancel_campaign_emails to start again.")
+      Sentry.capture_message("Campaign Emails: Rate limiting detected: #{rate_limited_rate}% rate-limited. Pausing campaign emails. Disable :cancel_campaign_emails to start again.")
       return true
     end
 

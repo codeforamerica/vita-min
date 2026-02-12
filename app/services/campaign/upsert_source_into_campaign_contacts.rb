@@ -35,7 +35,7 @@ module Campaign
       contact.email_notification_opt_in = contact.email_notification_opt_in || @email_opt_in
       contact.sms_notification_opt_in = contact.sms_notification_opt_in || @sms_opt_in
       contact.locale = @locale unless @locale.blank?
-      contact.suppressed_for_gyr_product_year = @suppressed_for_gyr_product_year
+      contact.suppressed_for_gyr_product_year = @suppressed_for_gyr_product_year unless nil
 
       case @source
       when :gyr

@@ -25,7 +25,8 @@ class Campaign::SendSmsBatchJob < ApplicationJob
                             CampaignContact.eligible_for_text_message(message_name).limit(batch_size).pluck(:id)
                           end
 
-    puts "*********************MESSAGING: #{contacts_to_message.count} contacts"
+    # todo: remove
+    puts "*****CAMPAIGN SMS: message_name=#{message_name} batch_size=#{contacts_to_message.count} recent_signups_only=#{recent_signups_only} queue_next_batch=#{queue_next_batch}*****" unless Rails.env.test?
     return if contacts_to_message.empty?
 
     start_time = next_business_hour_start
@@ -35,7 +36,7 @@ class Campaign::SendSmsBatchJob < ApplicationJob
       # add delays between sms-messages to prevent throttling
       scheduled_send_at = start_time + (index * 0.2).seconds
 
-      Campaign::CampaignSms.create!(
+      CampaignSms.create!(
         campaign_contact_id: contact.id,
         message_name: message_name,
         body: message(message_name).sms_body(contact: contact),
@@ -72,12 +73,12 @@ class Campaign::SendSmsBatchJob < ApplicationJob
   end
 
   def rate_limited?
-    recent_texts = Campaign::CampaignSms.where("sent_at > ?", 1.hour.ago)
+    recent_texts = CampaignSms.where("sent_at > ?", 1.hour.ago)
     total_count = recent_texts.count
     return false if total_count.zero?
 
-    rate_limit_codes = [63038, 20429, 30001]
-    rate_limit_phrases = ["%Message rate exceeded%", "%Too many requests%", "%Queue overflow%"]
+    rate_limit_codes = ["63038", "20429", "30001"]
+    rate_limit_phrases = ["%message rate exceeded%", "%too many requests%", "%queue overflow%"]
 
     rate_limited_count = recent_texts.where(
       "error_code IN (?) OR event_data::text ILIKE ANY(ARRAY[?])",
@@ -89,7 +90,7 @@ class Campaign::SendSmsBatchJob < ApplicationJob
 
     if failure_rate > 15
       Flipper.enable(:cancel_campaign_sms)
-      Sentry.capture_exception(
+      Sentry.capture_message(
         "Campaign Text Messages: Rate limiting detected: #{failure_rate}% rate-limited. Pausing campaign text messages. Disable :cancel_campaign_sms to start again."
       )
       return true

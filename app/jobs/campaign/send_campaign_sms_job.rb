@@ -5,7 +5,7 @@ class Campaign::SendCampaignSmsJob < ApplicationJob
   def perform(text_message_id)
     return if Flipper.enabled?(:cancel_campaign_emails)
 
-    text_message = Campaign::CampaignSms.find(text_message_id)
+    text_message = CampaignSms.find(text_message_id)
     contact = text_message.campaign_contact
 
     return unless text_message && contact

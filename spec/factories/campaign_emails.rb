@@ -31,7 +31,7 @@ FactoryBot.define do
   factory :campaign_email do
     association :campaign_contact
 
-    message_name { "preseason_outreach" }
+    message_name { "start_of_season_outreach" }
     to_email { "test@example.com" }
     from_email { "noreply@example.com" }
     subject { "Test subject" }

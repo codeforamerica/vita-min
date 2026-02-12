@@ -12,7 +12,7 @@ describe Campaign::SendEmailsBatchJob, type: :job do
     )
   end
 
-  let(:message_name) { "preseason_outreach" }
+  let(:message_name) { "start_of_season_outreach" }
   let(:batch_size) { 100 }
   let(:batch_delay) { 1.minute }
   let(:queue_next_batch) { false }

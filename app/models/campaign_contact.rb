@@ -71,7 +71,7 @@ class CampaignContact < ApplicationRecord
   # SMS -------------
   def self.eligible_for_text_message(message_name)
     already_messaged_phones =
-      Campaign::CampaignSms.where(message_name: message_name).select(:to_phone_number)
+      CampaignSms.where(message_name: message_name).select(:to_phone_number)
 
     where(sms_notification_opt_in: true).where.not(sms_phone_number: [nil, ""])
        .not_suppressed_for_year(Rails.configuration.product_year)
