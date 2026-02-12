@@ -1145,19 +1145,7 @@ en:
     ssn_itins:
       displayed: Displaying SSN or ITIN
     status_macros:
-      file_accepted: |
-        Hello <<Client.PreferredName>>,
-
-        Your <<TaxReturn.TaxYear>> tax return has been accepted!
-
-        If you have questions about your refund and/or amount owed, please address them to the IRS or your state Department of Revenue offices.
-
-        You can check the status of your federal refund online at the IRS' Where's My Refund Site: https://sa.www4.irs.gov/irfof/lang/en/irfofgetstatus.jsp
-
-        Thanks for trusting GetYourRefund with your <<TaxReturn.TaxYear>> taxes.
-
-        Thanks,
-        <<Preparer.FirstName>> at GetYourRefund
+      file_accepted: "Great news, <<Client.Preferred Name>>, Your tax return has been successfully accepted by the IRS 🎉.\n\nBe sure to ⬇️ Download a Copy for Your Records by logging in at:\nhttps://getyourrefund.org/en/portal/login. We recommend keeping a copy for your personal records for at least three years.\n\nYou can check the status of your 💰refund using the IRS “Where’s My Refund?” tool: https://sa.www4.irs.gov/irfof/lang/en/irfofgetstatus.jsp. For state refunds, please visit your state’s department of tax revenue website.\n\nThank you for trusting GetYourRefund to help with your taxes and please tell a friend! <<Preparer.FirstName>> at GetYourRefund\n"
       file_efiled: |
         Hello <<Client.PreferredName>>,
 
@@ -1168,29 +1156,10 @@ en:
         Thanks,
 
         <<Preparer.FirstName>> at GetYourRefund
-      file_mailed: |
-        Hello <<Client.PreferredName>>,
-
-        Your <<TaxReturn.TaxYear>> tax returns are ready to be filed by mail. You can download a copy of your returns here: <<Client.LoginLink>>.
-
-        Remember to sign your tax returns and attach proof of income before mailing to the IRS and/or your state department of revenue.
-
-        Thanks,
-        <<Preparer.FirstName>> at GetYourRefund
-      intake_greeter_info_requested: |
-        Hello <<Client.PreferredName>>,
-
-        In order to continue filing your taxes, sign in here: <<Client.LoginLink>>
-
-        You can submit your tax documents once you finish your intake form. Have your photo ID, Social Security card, and any income documents ready.
-
-        We still need:
-        <<Documents.List>>
-
-        If you don’t need help with filing your taxes anymore, please reply “STOP” and we will close your account here at GetYourRefund.
-
-        Let us know if you have any questions,
-        Your tax team at GetYourRefund
+      file_mailed: "Hi <<Client.PreferredName>>,\n\nYour tax return is ready to be mailed. To complete the process and file your return, you will need to complete these steps:\n\n⬇️ Download and Print:\nDownload your tax return from this secure link:\nhttps://getyourrefund.org/en/portal/login\n\n🖊️Sign and Prepare:\nBe sure to sign your tax return and attach all required income documents (such as W-2s, 1099s, etc.).\n\n📩Mail Your Federal Return:\nFind the correct IRS mailing address for your federal return here: https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment\n- Double-check the address based on your state and whether you’re including a payment.\n- When mailing it through the US Postal Service, we recommend that you send it by certified mail with acknowledgment of delivery receipt (also known as a Return Receipt). Mailing prices may vary.\n\nIf you need to 📨Mail Your State Return you can find the addresses on TaxSlayer here: https://support.taxslayer.com/hc/en-us/articles/360015704372-Where-do-I-mail-my-state-tax-return\n  \nIf you have any questions or need help completing this step, please let us know!\n  \nThanks, <<Preparer.FirstName>> at GetYourRefund\n"
+      intake_greeter_info_requested: "Hi <<Client.PreferredName>>,\n\nThis is <<Preparer.FirstName>> at GetYourRefund.\n⚠️ We need more information from you to move forward with your tax return including:\n<<Documents.List>>\n\nYou can login securely and upload those documents here:\n🔗 https://getyourrefund.org/en/portal/login\n\nReply to this message if you have any questions - we're here to help!\n"
+      intake_needs_more_information: "Hi <<Client.PreferredName>>,\n\nThis is <<Preparer.FirstName>> at GetYourRefund.\n⚠️ We need more information from you to move forward with your tax return including:\n<<Documents.List>>\n\nYou can login securely and upload those documents here:\n🔗 https://getyourrefund.org/en/portal/login\n\nReply to this message if you have any questions - we're here to help!\n"
+      intake_ready: "Hi <<Client.PreferredName>>, \n\nWe'll let your tax preparer know we have what we need to begin your tax return and they will get in touch soon! If you don't hear back from us in five business days or have any questions, please reply to this message or log in https://getyourrefund.org/en/portal/login and click Chat with Us for help. \n\nThanks for signing up with GetYourRefund 💰.\n"
       intake_ready_for_call: |
         Hello <<Client.PreferredName>>,
 
@@ -1211,38 +1180,10 @@ en:
 
         Thank you,
         <<Preparer.FirstName>> at GetYourRefund
-      needs_more_information: |
-        Hello <<Client.PreferredName>>,
-
-        In order to continue filing your taxes, we still need:
-        <<Documents.List>>
-        Log in to securely upload your documents at:
-        <<Client.LoginLink>>
-
-        Please let us know if you have any questions. We can't begin preparing your taxes without this information.
-
-        Thanks,
-        <<Preparer.FirstName>> at GetYourRefund
-      prep_preparing: |
-        Hello <<Client.PreferredName>>,
-
-        I'm currently preparing your taxes. I'll reach out with any questions.
-
-        After your taxes are prepared, I'll pass them to another preparer to review. Then, we'll schedule a call to discuss your return with you.
-
-        Thanks,
-        <<Preparer.FirstName>> at GetYourRefund
-      review_ready_for_call: |
-        Hello <<Client.PreferredName>>,
-
-        Your return has been prepared and reviewed. I'm ready to give you a call to discuss the results of your return.
-
-        Please look for a call on/at REPLACE ME from <<GetYourRefund.PhoneNumber>>.
-
-        If this time doesn't work for you, let me know and we'll reschedule.
-
-        Thank you,
-        <<Preparer.FirstName>> at GetYourRefund
+      prep_needs_more_information: "This is <<Preparer.FirstName>> with GetYourRefund. We're preparing your tax return but cannot move forward without additional information from you. Please upload REPLACE ME securely here: 🔗https://getyourrefund.org/en/portal/login\n\nReply to this message if you have any questions - we're here to help!\n"
+      prep_preparing: "Hi <<Client.PreferredName>>,\n\nYour tax return is being prepared 👏! We'll get in touch with updates or if we need additional information from you and will reach out again when it's time to schedule a call to review your return with you. If you have any questions, simply reply to this message.\n\nThanks! <<Preparer.FirstName>> at GetYourRefund\n"
+      review_needs_more_information: "This is <<Preparer.FirstName>> with GetYourRefund. We are almost finished with your tax return but cannot move forward without additional information from you. Please upload REPLACE ME securely here: 🔗https://getyourrefund.org/en/portal/login\n\nReply to this message if you have any questions - we're here to help!\n"
+      review_ready_for_call: "Great news, <<Client.Preferred Name>>! Your tax return is ready for us to review together 🎉 and I can give you a call to go over it. Please look for a call on/at REPLACE ME from 14156393361. If this time doesn't work, reply with your preferred time and we can reschedule.\n\nThank you! <<Preparer.FirstName>> at GetYourRefund\n"
       review_reviewing: |
         Hello <<Client.PreferredName>>,
 
@@ -1251,29 +1192,16 @@ en:
         Thanks,
         <<Preparer.FirstName>> at GetYourRefund
       review_signature_requested: |
-        Hello!
+        Hi <<Client.Preferred Name>>,
 
-        Your <<TaxReturn.TaxYear>> tax return is ready for you to sign.
+        Your tax return is ready for your final review and electronic signature!
 
-        Please check:
+        ✅ Double check all names, addresses, bank info, and income
+        ❗ If anything looks incorrect or you have questions, don’t sign — just reply to this message and we'll get it fixed
 
-        * your street address and bank account numbers (This can affect your final numbers and/or delay your refund if not correct.)
-        * any dependent information
-        * make sure all income is included (including unemployment).
+        Log in securely https://getyourrefund.org/en/portal/login and approve your return. If filing jointly with your spouse, they'll need to approve too.
 
-        If anything on your return needs to change or if you have any questions, please respond and do not sign your return.
-
-        To approve your return, click on the link below enter the last four digits of your social security number OR your Client ID, review your return, and click a box saying you approve your return.
-
-        For jointly filed returns: your spouse also needs to review and sign.
-
-        Once you electronically sign, we can efile your return.
-
-        Log in to access your return and give your approval:
-        <<Client.LoginLink>>
-
-        Thanks!
-        <<Preparer.FirstName>> at GetYourRefund
+        Thanks! <<Preparer.FirstName>> at GetYourRefund
     suspend_account: Suspend account
     suspend_confirmation: Suspend %{name}'s account? This will remove them from all currently assigned tax returns and prevent them from logging in.
     suspended_user_name: "%{name} (Suspended)"
