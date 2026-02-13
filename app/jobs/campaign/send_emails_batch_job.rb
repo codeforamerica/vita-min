@@ -36,7 +36,7 @@ class Campaign::SendEmailsBatchJob < ApplicationJob
     start_time = next_business_hour_start
 
     CampaignContact.where(id: contacts_to_message).find_each.with_index do |contact, index|
-      # add delays between emails to prevent throttling
+      # add delays between individual emails to prevent throttling
       scheduled_send_at = start_time + (index * 0.2).seconds
 
       CampaignEmail.create!(

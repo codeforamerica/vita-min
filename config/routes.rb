@@ -71,9 +71,6 @@ Rails.application.routes.draw do
     scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
       root "public_pages#home"
 
-      # Text messaging redirect short-links
-      get "/outreach", to: "redirects#outreach"
-
       resources :vita_providers, only: [:index, :show]
       get "/vita_provider/map", to: "vita_providers#map"
 
@@ -158,6 +155,8 @@ Rails.application.routes.draw do
       get "/global-carryforward", to: "consent_pages#global_carryforward"
       get "/unsubscribe_from_emails", to: "notifications_settings#unsubscribe_from_emails", as: :unsubscribe_from_emails
       get "/unsubscribe_from_campaign_emails", to: "notifications_settings#unsubscribe_from_campaign_emails", as: :unsubscribe_from_campaign_emails
+      get "/outreach", to: "redirects#outreach"
+
       post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
       post "/subscribe_to_campaign_emails", to: "notifications_settings#subscribe_to_campaign_emails", as: :subscribe_to_campaign_emails
 

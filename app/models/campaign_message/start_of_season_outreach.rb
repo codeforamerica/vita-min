@@ -13,7 +13,7 @@ module CampaignMessage
     end
 
     def email_body(contact:, **args)
-      I18n.t("campaign_messages.start_of_season_outreach.email.body", **vars(contact), **args)
+      I18n.t("campaign_messages.start_of_season_outreach.email.body_html", **vars(contact), **args)
     end
   end
 end

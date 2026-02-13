@@ -30,8 +30,9 @@ en:
   campaign_messages:
     start_of_season_outreach:
       email:
-        body: |
+        body_html: |
           Hi %{first_name},
+          
           GetYourRefund is back for the new tax season!
 
           We would love to help you file your taxes for free again this year. Our IRS-certified team is here to help.
@@ -44,9 +45,7 @@ en:
 
           (Replies to this email are not monitored.)
         subject: Ready to file your taxes? GetYourRefund is open!
-      sms: 'Hi %{first_name}! GetYourRefund is back for the new tax season. We''d love to help you file for free again this year. Our IRS-certified team is ready when you are: https://www.getyourrefund.org/outreach
-
-        '
+      sms: 'Hi %{first_name}! GetYourRefund is back for the new tax season. We''d love to help you file for free again this year. Our IRS-certified team is ready when you are: https://www.getyourrefund.org/outreach'
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance for about 1 hour starting at %{time}.

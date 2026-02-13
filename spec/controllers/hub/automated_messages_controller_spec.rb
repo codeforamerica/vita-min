@@ -18,7 +18,7 @@ describe Hub::AutomatedMessagesController do
       render_views
 
       it "successfully renders messages that are sent to client in an automated way" do
-        get :index
+        get :index, params: {locale: :en}
 
         expect(response.body).to have_text(AutomatedMessage::SuccessfulSubmissionOnlineIntake.new.sms_body)
       end
@@ -38,9 +38,7 @@ describe Hub::AutomatedMessagesController do
               "VerificationCodeMailer.with_code", "VerificationCodeMailer.no_match_found",
               "VerificationCodeMailer.archived_intake_verification_code",
               "DiyIntakeEmailMailer.high_support_message",
-              "CtcSignupMailer.launch_announcement",
               SurveyMessages::GyrCompletionSurvey,
-              SurveyMessages::CtcExperienceSurvey
             ]
         )
 

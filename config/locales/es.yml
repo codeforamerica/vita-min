@@ -30,8 +30,9 @@ es:
   campaign_messages:
     start_of_season_outreach:
       email:
-        body: |
+        body_html: |
           Hola %{first_name}:
+          
           ¡GetYourRefund ya está de regreso para la nueva temporada de impuestos!
 
           Nos encantaría ayudarle a presentar sus impuestos gratis nuevamente este año. Nuestro equipo certificado por el IRS está aquí para ayudarle.
@@ -43,9 +44,7 @@ es:
 
           (Las respuestas a este correo electrónico no son monitoreadas.)
         subject: "¿Listo para presentar sus impuestos? ¡GetYourRefund ya está abierto!"
-      sms: 'Hola %{first_name}. ¡GetYourRefund ya está de regreso para la nueva temporada de impuestos! Nos encantaría ayudarle a presentar sus impuestos gratis nuevamente este año.Nuestro equipo certificado por el IRS está listo para ayudarle cuando usted lo esté: https://www.getyourrefund.org/es/outreach
-
-        '
+      sms: 'Hola %{first_name}. ¡GetYourRefund ya está de regreso para la nueva temporada de impuestos! Nos encantaría ayudarle a presentar sus impuestos gratis nuevamente este año. Nuestro equipo certificado por el IRS está listo para ayudarle cuando usted lo esté: https://www.getyourrefund.org/es/outreach'
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará inactivo para mantenimiento programado durante aproximadamente 1 hora a partir de %{time}.
