@@ -32,7 +32,7 @@ en:
       email:
         body_html: |
           Hi %{first_name},
-          
+
           GetYourRefund is back for the new tax season!
 
           We would love to help you file your taxes for free again this year. Our IRS-certified team is here to help.

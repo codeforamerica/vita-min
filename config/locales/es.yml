@@ -32,7 +32,7 @@ es:
       email:
         body_html: |
           Hola %{first_name}:
-          
+
           ¡GetYourRefund ya está de regreso para la nueva temporada de impuestos!
 
           Nos encantaría ayudarle a presentar sus impuestos gratis nuevamente este año. Nuestro equipo certificado por el IRS está aquí para ayudarle.
