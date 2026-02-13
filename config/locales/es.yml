@@ -2220,6 +2220,16 @@ es:
         no_diy: No. Voy a continuar con File Myself.
         title: Antes de continuar, ¿tiene una copia física de su documento de identificación con fotografía y de su tarjeta de Seguro Social o de los documentos de Número de Identificación Personal (ITIN)?
         yes_i_have_id: Sí, tengo mi tarjeta de identificación
+    triage_offboarding:
+      edit:
+        more_guidance: Para obtener más orientación sobre sus opciones, visite nuestra página de Preguntas Frecuentes.
+        option_1: Preparar su declaración por su cuenta usando Free File Fillable Forms
+        option_2: Preparar su declaración por su cuenta y enviarla por correo
+        option_3: Preparar su declaración por su cuenta usando software pago de preparación de impuestos
+        option_4: Encontrar y pagarle a un preparador de impuestos para que prepare su declaración
+        options: 'Algunos niveles de ingresos y ciertos formularios del IRS están fuera del alcance de nuestros servicios. Aunque no puede usar GetYourRefund, tiene varias opciones para presentar sus impuestos:'
+        title: Lamentablemente, no cumple con los requisitos para usar nuestros servicios.
+        visit_faq: Visite nuestras Preguntas Frecuentes
   signups:
     flash_notice: "¡Gracias! Recibirás una notificación cuando abramos."
     new:

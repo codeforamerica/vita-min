@@ -5,6 +5,7 @@ module Navigation
     FLOW = [
       Questions::WelcomeController, # deprecated. exists only for redirect. will be removed in future
       Questions::EligibilityWagesController, # creates Intake record and Client record
+      Questions::TriageOffboardingController,
       Questions::EligibilityStateController,
       Questions::TriageGyrController,
       Questions::TriageDiyController,
