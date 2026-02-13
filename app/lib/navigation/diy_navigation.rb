@@ -5,6 +5,8 @@ module Navigation
     FLOW = [
       Diy::QualificationsController,
       Diy::FileYourselfController,
+      Diy::DiyNotificationPreferenceController,
+      Diy::DiyEmailAddressController,
       Diy::ContinueToFsaController
     ].freeze
   end
