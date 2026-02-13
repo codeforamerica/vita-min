@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe UpsertSourceIntoCampaignContacts do
+RSpec.describe Campaign::UpsertSourceIntoCampaignContacts do
   describe ".call" do
     subject(:call_service) do
       described_class.call(

@@ -26,5 +26,6 @@
 
     def save
       @intake.touch(:email_address_verified_at)
+      @intake.create_or_update_campaign_contact unless @intake.email_address.blank?
     end
   end

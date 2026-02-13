@@ -9,24 +9,16 @@ namespace :create_campaign_contacts do
     window_start = Date.parse(ENV.fetch("START_DATE")).beginning_of_day
     window_end = Date.parse(ENV.fetch("END_DATE")).end_of_day
 
-    # StateFile intakes
-    StateFile::StateInformationService.state_intake_classes.each do |klass|
-      sf_scope = klass.contactable.where(created_at: window_start..window_end)
-      enqueue_in_id_ranges(sf_scope, chunk) do |min_id, max_id|
-        CampaignContacts::BackfillStateFileIntakesJob.perform_later(klass.name, min_id, max_id, window_start.to_date, window_end.to_date)
-      end
-    end
-
     # Signups
     signup_scope = Signup.where(created_at: window_start..window_end)
     enqueue_in_id_ranges(signup_scope, chunk) do |min_id, max_id|
-      CampaignContacts::BackfillSignupsJob.perform_later(min_id, max_id, window_start.to_date, window_end.to_date)
+      Campaign::SyncContacts::BackfillSignupsJob.perform_later(min_id, max_id, window_start.to_date, window_end.to_date)
     end
 
     # GYR-intakes
     gyr_scope = Intake::GyrIntake.contactable.where(created_at: window_start..window_end)
     enqueue_in_id_ranges(gyr_scope, chunk) do |min_id, max_id|
-      CampaignContacts::BackfillGyrIntakesJob.perform_later(min_id, max_id, window_start.to_date, window_end.to_date)
+      Campaign::SyncContacts::BackfillGyrIntakesJob.perform_later(min_id, max_id, window_start.to_date, window_end.to_date)
     end
   end
 end

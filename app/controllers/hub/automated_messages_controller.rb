@@ -11,9 +11,10 @@ module Hub
 
     def messages_preview
       Rails.application.eager_load!
+      locale = params["locale"] || :en
+
       automated_message_subclasses = AutomatedMessage::AutomatedMessage.descendants
-      campaign_message_subclasses = CampaignMessage::CampaignMessage.descendants # TODO: start displaying these dynamically when we add more
-      survey_message_classes = [SurveyMessages::GyrCompletionSurvey, SurveyMessages::CtcExperienceSurvey]
+      survey_message_classes = [SurveyMessages::GyrCompletionSurvey]
 
       message_classes = automated_message_subclasses + survey_message_classes
       automated_messages_and_mailers = message_classes.to_h do |klass|
@@ -22,21 +23,31 @@ module Hub
         [klass, OutgoingEmailMailer.user_message(outgoing_email: email)]
       end.to_h
 
+      campaign_message_subclasses = CampaignMessage::CampaignMessage.descendants
+      campaign_messages_and_mailers = campaign_message_subclasses.to_h do |klass|
+        contact = CampaignContact.new(email_address: "example@example.com", first_name: "Rose", locale: locale)
+        email = CampaignEmail.new(
+          to_email: "example@example.com",
+          message_name: klass.name.demodulize.underscore,
+          campaign_contact: contact,
+          scheduled_send_at: Time.current
+        )
+        [klass, CampaignMailer.email_message(campaign_email: email)]
+      end.to_h
+
       emails = {
         "UserMailer.assignment_email" => UserMailer.assignment_email(assigned_user: User.last, assigning_user: User.first, tax_return: TaxReturn.last, assigned_at: TaxReturn.last.updated_at),
         "UserMailer.incoming_interaction_notification_email [new_client_message]" => UserMailer.incoming_interaction_notification_email(client: Client.last, received_at: Time.now, user: User.last, interaction_count: 3, interaction_type: "new_client_message"),
         "UserMailer.incoming_interaction_notification_email [document_upload]" => UserMailer.incoming_interaction_notification_email(client: Client.last, received_at: Time.now, user: User.last, interaction_count: 3, interaction_type: "document_upload"),
         "UserMailer.incoming_interaction_notification_email [signed_8879]" => UserMailer.incoming_interaction_notification_email(client: Client.last, received_at: Time.now, user: User.last, interaction_count: 2, interaction_type: "signed_8879", is_filing_jointly: true),
         "UserMailer.internal_interaction_notification_email [tagged_in_note]" => UserMailer.internal_interaction_notification_email(client: Client.last, received_at: Time.now, user: User.last, interaction_type: "tagged_in_note"),
-        "VerificationCodeMailer.with_code" => VerificationCodeMailer.with(to: "example@example.com", locale: :en, service_type: :gyr, verification_code: '000000').with_code,
-        "VerificationCodeMailer.no_match_found" => VerificationCodeMailer.no_match_found(to: "example@example.com", locale: :en, service_type: :gyr),
-        "VerificationCodeMailer.archived_intake_verification_code" => VerificationCodeMailer.archived_intake_verification_code(to: "example@example.com", locale: :en, verification_code: '000000'),
+        "VerificationCodeMailer.with_code" => VerificationCodeMailer.with(to: "example@example.com", locale: locale, service_type: :gyr, verification_code: '000000').with_code,
+        "VerificationCodeMailer.no_match_found" => VerificationCodeMailer.no_match_found(to: "example@example.com", locale: locale, service_type: :gyr),
+        "VerificationCodeMailer.archived_intake_verification_code" => VerificationCodeMailer.archived_intake_verification_code(to: "example@example.com", locale: locale, verification_code: '000000'),
         "DiyIntakeEmailMailer.high_support_message" => DiyIntakeEmailMailer.high_support_message(diy_intake: DiyIntake.new(email_address: 'example@example.com', preferred_first_name: "Preferredfirstname")),
-        "CtcSignupMailer.launch_announcement" => CtcSignupMailer.launch_announcement(email_address: "example@example.com", name: "Preferredfirstname"),
-        "CampaignMailer.email_message" => CampaignMailer.email_message(email_address: "example@example.com", message_name: "preseason_outreach", locale: params[:locale])
       }
 
-      emails.merge(automated_messages_and_mailers).transform_values do |message|
+      emails.merge(automated_messages_and_mailers).merge(campaign_messages_and_mailers).transform_values do |message|
         ActionMailer::Base.preview_interceptors.each do |interceptor|
           interceptor.previewing_email(message)
         end

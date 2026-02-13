@@ -1,6 +1,7 @@
 class MailgunWebhooksController < ActionController::Base
   skip_before_action :verify_authenticity_token
-  before_action :authenticate_mailgun_request
+  before_action :authenticate_mailgun_request, except: [:update_campaign_email_status]
+  before_action :authenticate_outreach_mailgun_request, only: [:update_campaign_email_status]
   before_action :re_optin_when_client_replies, only: :create_incoming_email
 
   REGEX_FROM_ENVELOPE = /.*\<(?<address>(.*))>/.freeze
@@ -143,7 +144,8 @@ class MailgunWebhooksController < ActionController::Base
       OutgoingEmail.find_by(message_id: message_id) ||
         VerificationEmail.find_by(mailgun_id: message_id) ||
         OutgoingMessageStatus.find_by(message_id: message_id, message_type: :email) ||
-        StateFileNotificationEmail.find_by(message_id: message_id)
+        StateFileNotificationEmail.find_by(message_id: message_id) ||
+        CampaignEmail.find_by(mailgun_message_id: message_id)
     )
     DatadogApi.increment("mailgun.update_outgoing_email_status.email_not_found") if email_to_update.nil?
     status_key =
@@ -153,6 +155,34 @@ class MailgunWebhooksController < ActionController::Base
         :mailgun_status
       end
     email_to_update&.update(status_key => params.dig("event-data", "event"))
+
+    head :ok
+  end
+
+  def update_campaign_email_status
+    mg_data = params["event-data"]
+    message_id = mg_data.dig("message", "headers", "message-id")
+    email_to_update = CampaignEmail.find_by(mailgun_message_id: message_id)
+
+    if email_to_update.nil?
+      DatadogApi.increment("mailgun.update_campaign_email_status.email_not_found")
+    else
+      status = mg_data["event"]&.to_s
+      updates = { mailgun_status: status }
+
+      if %w[failed permanent_fail].include?(status)
+        updates[:error_code] = mg_data.dig("delivery-status", "code")
+        updates[:event_data] = {
+          error_reason: mg_data["reason"],
+          error_message: mg_data.dig("delivery-status", "message")
+        }
+      else
+        updates[:error_code] = nil
+        updates[:event_data] = nil
+      end
+
+      email_to_update.update(updates)
+    end
 
     head :ok
   end
@@ -191,6 +221,15 @@ class MailgunWebhooksController < ActionController::Base
     authenticate_or_request_with_http_basic do |name, password|
       expected_name = EnvironmentCredentials.dig(:mailgun, :basic_auth_name)
       expected_password = EnvironmentCredentials.dig(:mailgun, :basic_auth_password)
+      ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
+        ActiveSupport::SecurityUtils.secure_compare(password, expected_password)
+    end
+  end
+
+  def authenticate_outreach_mailgun_request
+    authenticate_or_request_with_http_basic do |name, password|
+      expected_name = ENV["MAILGUN_OUTREACH_BASIC_AUTH_NAME"]
+      expected_password = ENV["MAILGUN_OUTREACH_BASIC_AUTH_PASSWORD"]
       ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
         ActiveSupport::SecurityUtils.secure_compare(password, expected_password)
     end

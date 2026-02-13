@@ -26,5 +26,6 @@ class PhoneVerificationForm < QuestionsForm
 
   def save
     @intake.touch(:sms_phone_number_verified_at)
+    @intake.create_or_update_campaign_contact unless @intake.sms_phone_number.blank?
   end
 end
