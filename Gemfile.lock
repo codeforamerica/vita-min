@@ -725,6 +725,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
+    useragent (0.16.11)
     valid_email2 (4.0.6)
       activemodel (>= 3.2)
       mail (~> 2.5)
@@ -874,6 +875,7 @@ DEPENDENCIES
   turbo_tests
   twilio-ruby
   tzinfo-data
+  useragent
   valid_email2 (~> 4.0.6)
   warning
   web-console (>= 3.3.0)

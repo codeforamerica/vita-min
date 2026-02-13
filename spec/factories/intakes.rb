@@ -239,6 +239,7 @@ FactoryBot.define do
     triage_income_level { "zero" }
     triage_filing_status { "single" }
     triage_filing_frequency { "some_years" }
+    service_preference {"diy"}
 
     after(:build) do |intake|
       # default any unsupplied enum values to 'no' if possible

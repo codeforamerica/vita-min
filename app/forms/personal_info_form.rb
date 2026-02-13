@@ -36,24 +36,36 @@ class PersonalInfoForm < QuestionsForm
 
   def save
     state = ZipCodes.details(zip_code)[:state]
-    client = Client.create!(
-      intake_attributes: attributes_for(:intake)
-                           .except(:birth_date_year, :birth_date_month, :birth_date_day)
-                           .merge(
-                             type: @intake.type,
-                             state_of_residence: state,
-                             product_year: Rails.configuration.product_year,
-                             primary_birth_date: parse_date_params(birth_date_year, birth_date_month, birth_date_day)
-                           )
-    )
-    @intake = client.intake
 
-    data = MixpanelService.data_from([@intake.client, @intake])
-    MixpanelService.send_event(
-      distinct_id: @intake.visitor_id,
-      event_name: "intake_started",
-      data: data
-    )
+    if @intake.client.present?
+      @intake.update!(
+        attributes_for(:intake)
+          .except(:birth_date_year, :birth_date_month, :birth_date_day)
+          .merge(
+            state_of_residence: state,
+            primary_birth_date: parse_date_params(birth_date_year, birth_date_month, birth_date_day)
+          )
+      )
+    else
+      client = Client.create!(
+        intake_attributes: attributes_for(:intake)
+                             .except(:birth_date_year, :birth_date_month, :birth_date_day)
+                             .merge(
+                               type: @intake.type,
+                               state_of_residence: state,
+                               product_year: Rails.configuration.product_year,
+                               primary_birth_date: parse_date_params(birth_date_year, birth_date_month, birth_date_day)
+                             )
+      )
+      @intake = client.intake
+
+      data = MixpanelService.data_from([@intake.client, @intake])
+      MixpanelService.send_event(
+        distinct_id: @intake.visitor_id,
+        event_name: "intake_started",
+        data: data
+      )
+    end
   end
 
   def self.existing_attributes(intake)

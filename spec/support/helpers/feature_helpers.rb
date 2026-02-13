@@ -15,14 +15,14 @@ module FeatureHelpers
     def assert_page(title_key, &blk)
       first_line = I18n.t(title_key).split(/\n+/).first
 
-      if @page.all('h1', text: first_line, wait: 0).length == 0
+      if @page.all('h2', text: first_line, wait: 0).length == 0
         return unless raise_instead
         raise Capybara::ElementNotFound
       end
 
       @seen_pages << @page.current_path
 
-      @page.assert_selector("h1", text: first_line)
+      @page.assert_selector("h2", text: first_line)
       maybe_screenshot(&blk)
     end
 
@@ -51,13 +51,12 @@ module FeatureHelpers
     if options[:choices] == :defaults
       options = {
         triage_income_level: "1_to_69000",
-        triage_filing_status: "single",
-        triage_filing_frequency: "not_filed",
         triage_vita_income_ineligible: false,
+        service_preference: "virtual_vita",
       }
     end
 
-    visit "/en/questions/triage-personal-info"
+    visit "/en/questions/eligibility-wages"
 
     # expect(page).to have_selector("h1", text: I18n.t('views.public_pages.home.header'))
     # click_on I18n.t('general.get_started')
@@ -66,27 +65,22 @@ module FeatureHelpers
     page_change_block do
       triage_feature_helper.maybe_screenshot do
         # Personal Info
-        expect(page).to have_selector("h1", text: I18n.t('views.questions.personal_info.title'))
-        fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
-        fill_in I18n.t('views.questions.personal_info.phone_number'), with: "8286345533"
-        fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
-        fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
+        expect(page).to have_selector("h2", text: I18n.t('questions.eligibility_wages.edit.title'))
+        select I18n.t("questions.eligibility_wages.edit.income_level.options.#{options[:triage_income_level]}")
+        check options[:triage_vita_income_ineligible] ? I18n.t('questions.eligibility_wages.edit.vita_income_ineligible.options.crypto') : I18n.t('questions.eligibility_wages.edit.vita_income_ineligible.options.none')
         click_on I18n.t('general.continue')
       end
     end
 
     page_change_block do
-      triage_feature_helper.assert_page('questions.triage_income_level.edit.title') do
-        select I18n.t("questions.triage_income_level.edit.filing_status.options.#{options[:triage_filing_status]}")
-        select I18n.t("questions.triage_income_level.edit.income_level.options.#{options[:triage_income_level]}")
-        select I18n.t("questions.triage_income_level.edit.filing_frequency.options.#{options[:triage_filing_frequency]}")
-        select options[:triage_vita_income_ineligible] ? I18n.t('general.affirmative') : I18n.t('general.negative'), from: I18n.t('questions.triage_income_level.edit.vita_income_ineligible.label')
+      triage_feature_helper.assert_page('questions.eligibility_state.edit.title') do
+        choose "eligibility_state_form_service_preference_#{options[:service_preference]}"
         click_on I18n.t('general.continue')
       end
     end
 
     page_change_block do
-      expect(page).not_to have_css("h1", text: I18n.t('questions.triage_income_level.edit.title'))
+      expect(page).not_to have_css("h1", text: I18n.t('questions.eligibility_state.edit.title'))
     end
 
     triage_feature_helper.seen_pages

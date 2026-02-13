@@ -87,8 +87,9 @@ describe BedrockDocScreener do
 
           ```json
           {
-            "verdict": "pass",
-            "reason": "",
+            "matches_doc_type_verdict": "pass",
+            "suggested_document_type": "W2",
+            "document_quality_issues": [],
             "explanation": "Looks valid",
             "confidence": 0.95
           }
@@ -100,8 +101,9 @@ describe BedrockDocScreener do
         result = described_class.parse_strict_json!(text)
 
         expect(result).to eq(
-                            "verdict" => "pass",
-                            "reason" => "",
+                            "matches_doc_type_verdict" => "pass",
+                            "suggested_document_type" => "W2",
+                            "document_quality_issues" => [],
                             "explanation" => "Looks valid",
                             "confidence" => 0.95
                           )
@@ -112,8 +114,9 @@ describe BedrockDocScreener do
       let(:text) do
         <<~JSON
           {
-            "verdict": "fail",
-            "reason": "unreadable",
+            "matches_doc_type_verdict": "fail",
+            "suggested_document_type": null,
+            "document_quality_issues": ["unreadable"],
             "explanation": "too blurry",
             "confidence": 0.2
           }
@@ -123,8 +126,9 @@ describe BedrockDocScreener do
       it "parses the JSON directly" do
         result = described_class.parse_strict_json!(text)
 
-        expect(result["verdict"]).to eq("fail")
-        expect(result["reason"]).to eq("unreadable")
+        expect(result["matches_doc_type_verdict"]).to eq("fail")
+        expect(result["suggested_document_type"]).to be_nil
+        expect(result["document_quality_issues"]).to eq(["unreadable"])
       end
     end
 
@@ -149,8 +153,9 @@ describe BedrockDocScreener do
             "text" => <<~JSON_TEXT
               ```json
               {
-                "verdict": "pass",
-                "reason": "",
+                "matches_doc_type_verdict": "pass",
+                "suggested_document_type": "Employment",
+                "document_quality_issues": [],
                 "explanation": "Valid doc",
                 "confidence": 0.99
               }
@@ -192,8 +197,9 @@ describe BedrockDocScreener do
         described_class.screen_document!(document: document)
 
       expect(result_json).to eq(
-                               "verdict" => "pass",
-                               "reason" => "",
+                               "matches_doc_type_verdict" => "pass",
+                               "suggested_document_type" => "Employment",
+                               "document_quality_issues" => [],
                                "explanation" => "Valid doc",
                                "confidence" => 0.99
                              )
@@ -212,12 +218,9 @@ describe BedrockDocScreener do
 
     before do
       allow(upload).to receive(:download).and_return("%PDF-1.4 ... fake pdf bytes ...") # pretend the "download" returns the PDF bytes
-      fake_image = double("MiniMagick::Image")
-      fake_pages = [double("page1"), double("page2")] # fake MiniMagick image with two pages
-      convert_stub = double("MiniMagick::Tool::Convert").as_null_object
-      allow(MiniMagick::Image).to receive(:open).and_return(fake_image)
-      allow(fake_image).to receive(:pages).and_return(fake_pages)
-      allow(MiniMagick::Tool::Convert).to receive(:new).and_yield(convert_stub)
+      allow(Dir).to receive(:mktmpdir).and_yield("/tmp/fake_dir")
+      allow(described_class).to receive(:system).and_return(true)
+      allow(Dir).to receive(:glob).and_return(%w[/tmp/fake_dir/page-1.png /tmp/fake_dir/page-2.png])
       allow(File).to receive(:binread).and_return("png-binary-data")
     end
 
@@ -232,7 +235,7 @@ describe BedrockDocScreener do
     end
 
     it "raises error when conversion fails" do
-      allow(MiniMagick::Image).to receive(:open).and_raise(MiniMagick::Error.new("boom"))
+      allow(described_class).to receive(:system).and_return(false)
 
       expect { described_class.pdf_to_png_base64(upload) }.to raise_error(/failed to convert pdf pages to images/)
     end

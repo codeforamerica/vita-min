@@ -99,11 +99,19 @@ es:
         chat_with_us: Chatea con nosotros
         continue_help_text: Al hacer clic en continuar, irá al sitio de nuestro socio para terminar de declarar sus impuestos.
         email_us_html: envíenos un correo electrónico a <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
-        file_myself_guide_html: para obtener instrucciones paso a paso, consejos y prácticas recomendadas, consulte nuestra <a href="%{file_myself_guide_link}" target="_blank">Guía de autoarchivo</a>.
+        file_myself_guide_html: para obtener instrucciones paso a paso, consejos y prácticas recomendadas, consulte nuestra %{file_myself_guide_link}.
+        guide_link: Guía de autoarchivo
         help_text: Si te quedas atascado o tienes alguna pregunta, ¡podemos ayudarte!
         title: "¡Obtenga apoyo mientras presenta su propia solicitud!"
     file_yourself:
       edit:
+        filing_frequency:
+          label_line_1: En los últimos 4 años, ¿cuántas veces ha declarado impuestos?
+          label_line_2: Es bastante común no declarar algunos años  debido a circunstancias de la vida y cambios de empleo.
+          options:
+            every_year: He declarado todos los años
+            not_filed: No he declarado
+            some_years: Declaré unos años
         info:
         - Presente tus impuestos en línea por su cuenta usando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $89,000 para declarar impuestos y cobrar los créditos tributarios que se le deben!
         - Para comenzar, necesitaremos recopilar información básica.
@@ -122,7 +130,7 @@ es:
           p3: Debe tener números de identificación e información de ingresos para poder presentar la declaración
           p4: Menos de $89,000 de ingresos en el hogar
         subtitle: Este servicio le ayuda a presentar sus declaraciones de impuestos federales y estatales y a maximizar su reembolso.
-        title: Use DIY para presentar sus impuestos federales y estatales - Para comenzar aseurese de que califica
+        title: Use "Declarar por mi cuenta"" para presentar sus impuestos federales y estatales - Para comenzar aseurese de que califica
   documents:
     documents_help:
       show:
@@ -461,6 +469,7 @@ es:
     ethnicity:
       hispanic: Hispano o Latino
       not_hispanic: No soy Hispano o Latino
+    explore_other_options: Ver otras opciones
     faq: Preguntas frecuentes
     file_my_taxes: Declarar mis impuestos
     filing_joint: Presentación conjunta
@@ -572,6 +581,7 @@ es:
       mena: Oriente Medio o norteafricano
       native_hawaiian_pacific_islander: Nativo de Hawái u otra isla del Pacífico
       white: Blanco
+    recommendation: Nuestra recomencación
     register: Regístrate
     remove: Quitar
     resend_invitation: Reenviar email de invitación
@@ -2174,41 +2184,35 @@ es:
     home:
       already_started: "¿Ya iniciado? Iniciar sesión"
   questions:
-    triage:
-      diy_tile:
-        choose_diy: Elegir declarar por mi cuenta o "File Myself" en inglés
-        description: Declare rápidamente por su cuenta.
-        list:
-          file: Declare solo para %{current_tax_year}
-          income: 'Ingresos: menos de $89,000'
-        timeframe: 45 minutos para declarar
-        title: Declarar por cuenta propia
-      gyr_tile:
-        choose_gyr: Elija Declare con Ayuda
-        description: Presente su declaración de impuestos con confianza con la ayuda de nuestros voluntarios certificados por el IRS.
-        list:
-          file: Presentar para %{oldest_filing_year}-%{current_tax_year}
-          income: 'Ingresos: menos de $69,000'
-          ssn: Debe mostrar copias de su tarjeta de Seguro Social o papeleo de su Número de Identificación Personal (ITIN)
-        timeframe: De 2-3 semanas para declarar sus impuestos
-        title: " Declare con Ayuda"
-    triage_diy:
+    eligibility_state:
       edit:
-        subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con la opción a continuación!"
-        title: "¡Recomendamos usar nuestra opción gratuita File Myself!"
+        diy_html: "<strong>Reciba ayuda de expertos mientras presenta su declaración:</strong> chatee con un profesional de impuestos mientras presenta su declaración para resolver cualquier duda durante el proceso."
+        page: Paso 2 de 2
+        title: "¿Qué tipo de apoyo prefiere recibir mientras presenta su declaración de impuestos?"
+        virtual_vita_html: "<strong>Deje que un experto prepare sus impuestos: </strong> conéctese con un profesional de impuestos que preparará y enviará su declaración."
+    eligibility_wages:
+      edit:
+        income_level:
+          label: Seleccione el ingreso de su hogar
+          options:
+            1_to_69000: "$1 - $69,000"
+            69001_to_89000: "$69,001 - 89,000"
+            over_89000: más de $89,000
+            zero: "$0"
+        page: Paso 1 de 2
+        subtitle: Le haremos algunas preguntas sobre lo que prefiere para guiarle a los servicios a los que puede calificar.
+        title: "¡Le ayudaremos a encontrar el servicio adecuado!"
+        vita_income_ineligible:
+          label: 'Seleccione todas las opciones que apliquen a sus ingresos en 2025:'
+          options:
+            crypto: Ingresos por criptomonedas
+            none: Ninguna de estas opciones aplica
+            property: Ingresos por propiedades de alquiler o agrícolas
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.
         help_text: Nuestro servicio sin costo está disponible para hogares con ingresos inferiores a $89,000 al año.
         title: Desafortunadamente, parece que no califica para nuestro servicio gratuito.
-    triage_gyr:
-      edit:
-        subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con la opción a continuación!"
-        title: "¡Recomendamos utilizar nuestra opción gratuita Declare con Ayuda!"
-    triage_gyr_diy:
-      edit:
-        subtitle: "¡Recoja sus pagos de estímulo faltantes, el Crédito Tributario por Ingreso del Trabajo y cualquier crédito estatal adicional con las opciones a continuación!"
-        title: "¡Tenemos dos opciones gratis que pueden funcionar para usted!"
     triage_gyr_ids:
       edit:
         help_text_1: Le pediremos que suba una copia de su documento de identificación (licencia de conducir o documento de identidad emitido por el estado) y la tarjeta de la seguridad social o los documentos del Número de Identificación Personal (ITIN).
@@ -2216,35 +2220,6 @@ es:
         no_diy: No. Voy a continuar con File Myself.
         title: Antes de continuar, ¿tiene una copia física de su documento de identificación con fotografía y de su tarjeta de Seguro Social o de los documentos de Número de Identificación Personal (ITIN)?
         yes_i_have_id: Sí, tengo mi tarjeta de identificación
-    triage_income_level:
-      edit:
-        filing_frequency:
-          label_html: |-
-            En los últimos 4 años, ¿cuántas veces ha declarado impuestos?
-
-            <p class="text--small spacing-above-15">Es bastante común no declarar algunos años  debido a circunstancias de la vida y cambios de empleo.</p>
-          options:
-            every_year: He declarado todos los años
-            not_filed: No he declarado
-            some_years: Declaré unos años
-        filing_status:
-          label: "¿Cómo desea presentar su declaración de impuestos?"
-          options:
-            jointly: Declarar con mi cónyuge (presentación conjunta)
-            single: Declarar independientemente (soltero)
-        income_level:
-          label_html: |-
-            ¿Cuál fue su nivel de ingresos?
-
-            <p class="text--small spacing-above-15">Su nivel de ingresos no debe incluir pagos de estímulo, prestaciones públicas o Seguridad de Ingreso Suplementario (SSI)</p>
-          options:
-            1_to_69000: "$1 - $69,000"
-            69001_to_89000: "$69,001 - 89,000"
-            over_89000: más de $89,000
-            zero: "$0"
-        title: Hablemos sobre su estado civil y sus ingresos.
-        vita_income_ineligible:
-          label: "¿Obtuvo ingresos de una propiedad de alquiler (por ejemplo: casa o coche), de una granja o de criptomonedas?"
     triage_offboarding:
       edit:
         more_guidance: Para obtener más orientación sobre sus opciones, visite nuestra página de Preguntas Frecuentes.
@@ -5819,12 +5794,12 @@ es:
           one: En %{year}, ¿pagó algún interés hipotecario?
           other: En %{year}, ¿Pagó usted o su pareja algún interés hipotecario?
       notification_preference:
-        note_html: La frecuencia del mensaje variará. Pueden aplicar tarifas de mensajes y datos enviados por usted a nosotros o de nosotros a usted. Envíe el texto "HELP" al 58750 para ayuda. Envía STOP al 58750 para cancelar. Los operadores (por ejemplo, AT&T, Verizon, T-Mobile, Sprint, etc.) no son responsables de los mensajes retrasados o no entregados. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.
+        note_html: <p>Al hacer clic en Continuar, usted acepta recibir actualizaciones sobre su declaración de impuestos, información sobre nuestros servicios y encuestas ocasionales. No compartiremos su información con terceros.</p><p>La frecuencia de los mensajes puede variar. Pueden aplicarse cargos por mensajes y datos. Envíe el texto HELP al 58750 para ayuda. Envía STOP al 58750 para cancelar. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.</p>
         options:
           email_notification_opt_in: Envíeme un correo electrónico
-          header: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o actualizaciones. Por favor, selecciona la(s) opción(es) que mejor te funcione.
+          header: Necesitaremos ponernos en contacto con usted para hacerle preguntas y enviarle actualizaciones sobre su declaración de impuestos, así como información sobre apoyo gratuito para presentar impuestos y otros servicios gratuitos. También podríamos enviarle encuestas para mejorar su experiencia con nosotros. ¡Seleccione la(s) opción(es) que mejor se adapte(n) a usted!
           sms_notification_opt_in: Mensaje de Texto
-        title: "¿Cuál es la mejor manera de contactarte?"
+        title: Acepte recibir mensajes de nuestra parte
       optional_consent:
         consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consentimiento para divulgar:</a> Usted nos permite enviar su información fiscal a la empresa de software de impuestos y a la institución financiera que especificó (si corresponde).
         consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consentimiento para usar:</a> Usted nos permite incluir su declaración de impuestos en informes.
@@ -5885,7 +5860,7 @@ es:
           p2: Debe tener copias digitales de sus identificaciones y documentos para poder presentar la declaración
           p3: Menos de $67,000 de ingresos en el hogar (sugerido)
         subtitle: Este servicio le ayuda a presentar sus declaraciones de impuestos federales y estatales y a maximizar su reembolso.
-        title: Use VITA virtual para presentar sus impuestos federales y estatales - Para comenzar aseurese de que califica
+        title: Use "Declarar con ayuda" para presentar sus impuestos federales y estatales - Para comenzar aseurese de que califica
       received_alimony:
         help_text: Responda "Sí" incluso si no recibió un documento oficial del IRS sobre la pensión alimenticia. No incluya la manutención de niños que recibió.
         title:
@@ -6119,15 +6094,14 @@ es:
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
         subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
-        title: Hágalo usted mismo
+        title: Declarar por mi cuenta
       document_deadline_warning:
         body_html: "<strong>Recordatorio: Debes enviar tus documentos antes del %{doc_submission_deadline} para cumplir con la fecha límite de presentación de impuestos federales del %{tax_deadline}. Puedes presentar tus impuestos después de la fecha límite sin penalización si no debes.</strong> Si no estás seguro de si deberás o no, puedes completar y enviar por correo <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una extensión."
       environment_warning:
         banner: Este sitio es sólo para pruebas. Si necesitas ayuda con tus impuestos, visita
         off_season_filing: No podemos aceptar nuevos clientes después de %{end_of_intake_date}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de %{end_of_docs_date} para presentarla antes de la fecha límite.
       footer:
-        ctc_service_description_html: GetCTC.org es un servicio sin fines de lucro creado por %{link}.
-        service_description_html: GetYourRefund.org es un servicio sin fines de lucro ofrecido por %{cfa_link}, realizado en colaboración con el IRS, con el apoyo de la Casa Blanca y el Departamento del Tesoro de EE. UU.
+        service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
         service_status: Estado del servicio
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
@@ -6180,4 +6154,4 @@ es:
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
         subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
-        title: VITA virtual
+        title: Declarar con ayuda

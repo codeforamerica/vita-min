@@ -99,11 +99,19 @@ en:
         chat_with_us: Chat with us
         continue_help_text: By clicking continue you will go to our partner site to finish filing your taxes.
         email_us_html: Email us at <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
-        file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our <a href="%{file_myself_guide_link}" target="_blank">File Myself Guide</a>.
+        file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our %{file_myself_guide_link}.
+        guide_link: File Myself Guide
         help_text: If you get stuck or have a question, we can help!
         title: Get support while you file on your own!
     file_yourself:
       edit:
+        filing_frequency:
+          label_line_1: In the last 4 years, how often have you filed?
+          label_line_2: It’s fairly common to skip filing for certain years due to life circumstances and employment changes.
+          options:
+            every_year: I filed every year
+            not_filed: I have not filed
+            some_years: I filed some years
         info:
         - File taxes online on your own using our partner website. This is our quickest option for households earning under $89,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
@@ -122,7 +130,7 @@ en:
           p3: Must have ID numbers and income tax information to submit
           p4: Household income under $89,000
         subtitle: This service helps you file your federal and state tax return and maximize your refund.
-        title: Use DIY to file your Federal and State taxes—confirm you qualify to get started
+        title: Use File Myself to file your Federal and State taxes—confirm you qualify to get started
   documents:
     documents_help:
       show:
@@ -460,6 +468,7 @@ en:
     ethnicity:
       hispanic: Hispanic or Latino
       not_hispanic: Not Hispanic or Latino
+    explore_other_options: Explore other options
     faq: FAQ
     file_my_taxes: File my taxes
     filing_joint: Filing jointly
@@ -571,6 +580,7 @@ en:
       mena: Middle Eastern or North African
       native_hawaiian_pacific_islander: Native Hawaiian or other Pacific Islander
       white: White
+    recommendation: Our Recommendation
     register: Sign Up
     remove: Remove
     resend_invitation: Resend invitation email
@@ -2205,41 +2215,35 @@ en:
     home:
       already_started: Already started? Sign in
   questions:
-    triage:
-      diy_tile:
-        choose_diy: Choose File Myself
-        description: File quickly on your own.
-        list:
-          file: File for %{current_tax_year} only
-          income: 'Income: under $89,000'
-        timeframe: 45 minutes to file
-        title: File Myself
-      gyr_tile:
-        choose_gyr: Choose File with Help
-        description: File confidently with assistance from our IRS-certified volunteers.
-        list:
-          file: File for %{oldest_filing_year}-%{current_tax_year}
-          income: 'Income: under $69,000'
-          ssn: Must show copies of your Social Security card or ITIN paperwork
-        timeframe: 2-3 weeks to file
-        title: File with Help
-    triage_diy:
+    eligibility_state:
       edit:
-        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the option below!
-        title: We recommend using our free File Myself option!
+        diy_html: "<strong>Get expert help as you go:</strong> chat with a tax pro as you file to answer any questions you have along the way"
+        page: Step 2 of 2
+        title: What kind of support do you prefer while you file your taxes?
+        virtual_vita_html: "<strong>Have an expert do your taxes:</strong> match with a tax pro who will prepare and submit your return"
+    eligibility_wages:
+      edit:
+        income_level:
+          label: Select your household income
+          options:
+            1_to_69000: "$1 - $69,000"
+            69001_to_89000: "$69,001 - 89,000"
+            over_89000: over $89,000
+            zero: "$0"
+        page: Step 1 of 2
+        subtitle: We’ll ask a few questions about your preferences to guide you to the services you qualify for.
+        title: Let’s help you find the right service!
+        vita_income_ineligible:
+          label: 'Select all that apply to your income in 2025:'
+          options:
+            crypto: Cryptocurrency income
+            none: None of these apply
+            property: Rental or farm property income
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
         help_text: Our free service is available to households earning less than $89,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
-    triage_gyr:
-      edit:
-        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the option below!
-        title: We recommend using our free File with Help option!
-    triage_gyr_diy:
-      edit:
-        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the options below!
-        title: We have two free options that may work for you!
     triage_gyr_ids:
       edit:
         help_text_1: We will ask you to upload a copy of your ID card (driver's license or state issued ID) and social security card or ITIN paperwork.
@@ -2247,35 +2251,6 @@ en:
         no_diy: No, I will proceed with File Myself
         title: Before we proceed, do you have a physical copy of your photo ID and Social Security card or ITIN paperwork?
         yes_i_have_id: Yes, I have my ID card
-    triage_income_level:
-      edit:
-        filing_frequency:
-          label_html: |-
-            In the last 4 years, how often have you filed?
-
-            <p class="text--small spacing-above-15">It’s fairly common to skip filing for certain years due to life circumstances and employment changes.</p>
-          options:
-            every_year: I filed every year
-            not_filed: I have not filed
-            some_years: I filed some years
-        filing_status:
-          label: How will you be filing this year?
-          options:
-            jointly: Filing with my spouse (filing jointly)
-            single: Filing by myself (single)
-        income_level:
-          label_html: |-
-            What was your income level?
-
-            <p class="text--small spacing-above-15">Your income level should not include stimulus payments, public benefits, or SSI.</p>
-          options:
-            1_to_69000: "$1 - $69,000"
-            69001_to_89000: "$69,001 - 89,000"
-            over_89000: over $89,000
-            zero: "$0"
-        title: Tell us about your filing status and income.
-        vita_income_ineligible:
-          label: 'Did you earn income from a rental property (ex: home or car), a farm, or cryptocurrency?'
     triage_offboarding:
       edit:
         more_guidance: For more guidance on your options, please visit our FAQ.
@@ -5810,12 +5785,12 @@ en:
           one: In %{year}, did you pay any mortgage interest?
           other: In %{year}, did you or your spouse pay any mortgage interest?
       notification_preference:
-        note_html: We will not share your information with any outside parties. Message frequency will vary. Message and data rates may apply. Text HELP to 58750 for help. Text STOP to 58750 to cancel. Carriers (e.g. AT&T, Verizon, T-Mobile, Sprint, etc.) are not responsible or liable for undelivered or delayed messages. See our <a href="%{terms_url}">Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.
+        note_html: <p>By clicking continue, you agree to receive tax return updates, service information, and occasional surveys. We will not share your information with any outside parties.</p><p>Message frequency will vary. Message and data rates may apply. Text HELP to 58750 for help. Text STOP to 58750 to cancel. See our <a href="%{terms_url}">SMS Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.</p>
         options:
           email_notification_opt_in: Email Me
-          header: We’ll need to reach out with questions and updates. Please select the option(s) that work best for you!
+          header: We’ll need to reach out with questions and updates about your return and information about free tax filing support and other free services. We may also send surveys to improve your experience. Please select the option(s) that work best for you!
           sms_notification_opt_in: Text Me
-        title: What is the best way to reach you?
+        title: Opt in to receive messages from us
       optional_consent:
         consent_to_disclose_html: <a href="%{consent_to_disclose_url}" target="_blank" rel="noopener">Consent to Disclose:</a> You allow us to send tax information to the tax software company and financial institution you specify (if any).
         consent_to_use_html: <a href="%{consent_to_use_url}" target="_blank" rel="noopener">Consent to Use:</a> You allow us to count your return in reports.
@@ -5873,7 +5848,7 @@ en:
           p2: Must have digital copies of your IDs and documents to submit
           p3: Suggested household income under $67,000
         subtitle: This service helps you file your federal and state tax return and maximize your refund.
-        title: Use Virtual VITA to file your Federal and State taxes—confirm you qualify to get started
+        title: Use File with Help to file your Federal and State taxes—confirm you qualify to get started
       received_alimony:
         help_text: Answer "Yes" even if you did not receive an official IRS document about the alimony. Do not include child support you received.
         title:
@@ -6092,15 +6067,14 @@ en:
         reveal_body_4: 'Other features:'
         reveal_title: Additional information
         subtitle: File on your own and get help when you need it
-        title: DIY
+        title: File Myself
       document_deadline_warning:
         body_html: "<strong>Reminder: You must submit your documents by %{doc_submission_deadline} in order to meet the federal income tax filing deadline of %{tax_deadline}. You can submit your taxes after the deadline without penalty if you don't owe.</strong> If you aren't sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_filing: We are unable to accept new clients after %{end_of_intake_date}. If your return is in progress, log in and submit your documents by %{end_of_docs_date} in order to file by the deadline.
       footer:
-        ctc_service_description_html: GetCTC.org is a non-profit service built by %{link}.
-        service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with the IRS with support from the White House and U.S. Department of Treasury.
+        service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
         service_status: Service status
         volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
@@ -6153,4 +6127,4 @@ en:
         reveal_body_4: 'Other features:'
         reveal_title: Additional Information
         subtitle: Answer a few questions and let a tax pro file for you
-        title: Virtual VITA
+        title: File with Help

@@ -294,6 +294,7 @@
 #  searchable_data                                      :tsvector
 #  separated                                            :integer          default("unfilled"), not null
 #  separated_year                                       :string
+#  service_preference                                   :integer          default("unfilled")
 #  signature_method                                     :integer          default("online"), not null
 #  sms_notification_opt_in                              :integer          default("unfilled"), not null
 #  sms_phone_number                                     :string
@@ -403,6 +404,7 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Intake::GyrIntake < Intake
+  enum service_preference: { unfilled: 0, diy: 1, virtual_vita: 2 }, _prefix: :service_preference
   enum adopted_child: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :adopted_child
   enum already_applied_for_stimulus: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :already_applied_for_stimulus
   enum bought_energy_efficient_items: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_energy_efficient_items

@@ -9,6 +9,10 @@ module DocumentTypes
         "SSA-1099"
       end
 
+      def description
+        "It should say SSA-1099 and Social Security Benefit Statement on the top of the document"
+      end
+
       def provide_doc_help?
         true
       end
