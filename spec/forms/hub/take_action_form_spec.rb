@@ -103,7 +103,7 @@ RSpec.describe Hub::TakeActionForm do
         end
 
         it "sets message body to the template with replacement parameters substituted" do
-          expect(form.message_body).to start_with("Hello")
+          expect(form.message_body).to start_with("Hi")
           expect(form.message_body).to include client.preferred_name
           expect(form.message_body).to include current_user.first_name
         end
@@ -124,17 +124,15 @@ RSpec.describe Hub::TakeActionForm do
         let(:form) { Hub::TakeActionForm.new(client, current_user, { status: "intake_info_requested", locale: "es" }) }
         let(:filled_out_template) {
           <<~MESSAGE
-            ¡Hola Luna Lemon!
-
-            Para continuar presentando sus impuestos, necesitamos que nos envíe:
-              - Identificación con foto
+            Hola Luna Lemon,
+      
+            Soy Marilyn de GetYourRefund.
+            ⚠️ Para continuar con su declaración de impuestos, necesitamos más información, incluyendo:  - Identificación con foto
               - Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes
-            Inicie sesión para cargar los documentos de forma segura: http://test.host/es/portal/login
-
-            Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
-
-            ¡Gracias!
-            Marilyn en GetYourRefund.org
+      
+            Puede iniciar sesión de forma segura y subir esos documentos aquí:🔗 https://www.getyourrefund.org/es/portal/login
+      
+            Si tiene alguna pregunta, responda a este mensaje. Estamos para ayudarle.
           MESSAGE
         }
 
