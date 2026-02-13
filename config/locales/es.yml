@@ -1155,7 +1155,7 @@ es:
     ssn_itins:
       displayed: Visualización de la SSN o ITIN
     status_macros:
-      file_accepted: "Buenas noticias, <<Client.Preferred Name>> 🎉\n\nSu declaración de impuestos fue aceptada por el IRS.\n\nAsegúrese de descargar ⬇️ una copia ingresando a: https://getyourrefund.org/es/portal/login Recomendamos guardarla por al menos tres años.\n\nPuede revisar el estado de su 💰reembolso con la herramienta del IRS “¿Dónde está mi reembolso?”: https://sa.www4.irs.gov/wmr/es/\nPara reembolsos estatales, visite la página del departamento de impuestos de su estado.\n\nGracias por confiar en GetYourRefund. Si conoce a alguien que necesite ayuda con sus impuestos, ¡comparta esta información!\n<<Preparer.FirstName>> GetYourRefund\n"
+      file_accepted: "Buenas noticias, <<Client.PreferredName>> 🎉\n\nSu declaración de impuestos fue aceptada por el IRS.\n\nAsegúrese de descargar ⬇️ una copia ingresando a: https://getyourrefund.org/es/portal/login Recomendamos guardarla por al menos tres años.\n\nPuede revisar el estado de su 💰reembolso con la herramienta del IRS “¿Dónde está mi reembolso?”: https://sa.www4.irs.gov/wmr/es/\nPara reembolsos estatales, visite la página del departamento de impuestos de su estado.\n\nGracias por confiar en GetYourRefund. Si conoce a alguien que necesite ayuda con sus impuestos, ¡comparta esta información!\n<<Preparer.FirstName>> GetYourRefund\n"
       file_efiled: |
         Hola <<Client.PreferredName>>,
 
@@ -1180,7 +1180,7 @@ es:
       prep_needs_more_information: "Soy <<Preparer.FirstName>> de GetYourRefund.\nEstamos preparando su declaración, pero no podemos avanzar sin información adicional.\nPor favor, suba con la opción REPLACE ME aquí:🔗 https://getyourrefund.org/es/portal/login \nSi tiene alguna pregunta, responda a este mensaje. Estamos para ayudarle.\n"
       prep_preparing: "Hola <<Client.PreferredName>>,\n\n¡Su declaración está siendo preparada 👏!\nNos comunicaremos con actualizaciones o si necesitamos más información. También le avisaremos cuando sea momento de coordinar la llamada para revisar su declaración. Si tiene alguna pregunta, responda a este mensaje.\n\nGracias, <<Preparer.FirstName>> GetYourRefund\n"
       review_needs_more_information: "Soy <<Preparer.FirstName>> de GetYourRefund.\nEstamos preparando su declaración, pero no podemos avanzar sin información adicional.\nPor favor, suba con la opción REPLACE ME aquí: 🔗 https://getyourrefund.org/es/portal/login \nSi tiene alguna pregunta, responda a este mensaje. Estamos para ayudarle.\n"
-      review_ready_for_call: "¡Tenemos buenas noticias, <<Client.Preferred Name>>!\nSu declaración está lista para revisarla 🎉. Puedo llamarle para hacerlo juntos.\nEsté pendiente de una llamada desde 14156393361 el REPLACE ME\nSi ese horario no le funciona, responda a este mensaje con una hora que prefiera y podemos reprogramar.\n\nMuchas gracias,<<Preparer.FirstName>>GetYourRefund\n"
+      review_ready_for_call: "¡Tenemos buenas noticias, <<Client.PreferredName>>!\nSu declaración está lista para revisarla 🎉. Puedo llamarle para hacerlo juntos.\nEsté pendiente de una llamada desde 14156393361 el REPLACE ME\nSi ese horario no le funciona, responda a este mensaje con una hora que prefiera y podemos reprogramar.\n\nMuchas gracias, <<Preparer.FirstName>> GetYourRefund\n"
       review_reviewing: |
         ¡Hola <<Client.PreferredName>>!
 
@@ -1189,7 +1189,7 @@ es:
         ¡Gracias!
         <<Preparer.FirstName>> en GetYourRefund.org
       review_signature_requested: |
-        Hola <<Client.Preferred Name>>,
+        Hola <<Client.PreferredName>>,
 
         ¡Su declaración está lista para que haga una última revisión y firme electrónicamente!
 
