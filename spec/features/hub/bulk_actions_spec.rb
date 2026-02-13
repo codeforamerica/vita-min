@@ -144,7 +144,7 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
     expect(page).to have_text new_user.name
 
     # Messages should be autofilled by templates due to status update
-    expect(page).to have_text "Hello"
+    expect(page).to have_text "Hi"
     expect(page).to have_text "Hola"
 
     click_on "Submit"

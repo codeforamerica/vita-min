@@ -50,9 +50,9 @@ RSpec.feature "Change tax return status on a client", :js do
 
       expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
 
-      expect(page).to have_text("In order to continue filing your taxes, sign in here")
+      expect(page).to have_text("You can login securely and upload those documents here")
       select "Accepted", from: "Updated status"
-      expect(page).to have_text("Your #{tax_return.year} tax return has been accepted!")
+      expect(page).to have_text("Your tax return has been successfully accepted by the IRS")
 
       expect(page).to have_select("hub_take_action_form_tax_return_id", selected: "2019")
       expect(page).to have_select("hub_take_action_form_status", selected: "Accepted")
