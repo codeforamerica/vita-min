@@ -114,15 +114,15 @@ es:
   diy:
     continue_to_fsa:
       edit:
-        chat_with_us: Chatea con nosotros
         continue_help_text: Al hacer clic en continuar, irá al sitio de nuestro socio para terminar de declarar sus impuestos.
-        email_us_html: envíenos un correo electrónico a <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
         file_myself_guide_html: para obtener instrucciones paso a paso, consejos y prácticas recomendadas, consulte nuestra %{file_myself_guide_link}.
         guide_link: Guía de autoarchivo
         help_text: Si te quedas atascado o tienes alguna pregunta, ¡podemos ayudarte!
         title: "¡Obtenga apoyo mientras presenta su propia solicitud!"
     file_yourself:
       edit:
+        chat_with_us: Chatee con nosotros
+        email_us_html: Envíenos un correo electrónico a <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
         filing_frequency:
           label_line_1: En los últimos 4 años, ¿cuántas veces ha declarado impuestos?
           label_line_2: Es bastante común no declarar algunos años  debido a circunstancias de la vida y cambios de empleo.
@@ -131,9 +131,10 @@ es:
             not_filed: No he declarado
             some_years: Declaré unos años
         info:
-        - Presente tus impuestos en línea por su cuenta usando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $89,000 para declarar impuestos y cobrar los créditos tributarios que se le deben!
-        - Para comenzar, necesitaremos recopilar información básica.
-        title: "¡Declare aquí sus impuestos usted mismo!"
+        - Estamos aquí para que su experiencia al presentar impuestos sea sencilla y sin estrés. Explore nuestras guías y preguntas frecuentes para encontrar respuestas rápidas y tener la seguridad que necesita mientras presenta su declaración de impuestos.
+
+        - "Si en algún momento no sabe cómo avanzar o tiene preguntas, comuníquese con nuestro equipo de servicio al cliente:"
+        title: "Presente su declaración por su cuenta y reciba apoyo cuando lo necesite"
     qualifications:
       edit:
         button_1: Sí, califico
