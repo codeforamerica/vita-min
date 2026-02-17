@@ -822,7 +822,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_18_162315) do
     t.datetime "clicked_chat_with_us_at"
     t.datetime "created_at", null: false
     t.string "email_address"
-    t.integer "filing_frequency", default: 0, null: false
+    t.integer "filing_frequency", default: 0
     t.string "locale"
     t.string "preferred_first_name"
     t.integer "received_1099", default: 0, null: false
