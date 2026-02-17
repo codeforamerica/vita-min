@@ -6,7 +6,7 @@
 #  clicked_chat_with_us_at   :datetime
 #  email_address             :string
 #  email_notification_opt_in :integer          default("unfilled")
-#  filing_frequency          :integer          default("unfilled"), not null
+#  filing_frequency          :integer          default("unfilled")
 #  locale                    :string
 #  preferred_first_name      :string
 #  received_1099             :integer          default("unfilled"), not null
