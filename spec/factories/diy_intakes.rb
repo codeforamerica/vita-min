@@ -5,7 +5,7 @@
 #  id                      :bigint           not null, primary key
 #  clicked_chat_with_us_at :datetime
 #  email_address           :string
-#  filing_frequency        :integer          default("unfilled"), not null
+#  filing_frequency        :integer          default("unfilled")
 #  locale                  :string
 #  preferred_first_name    :string
 #  received_1099           :integer          default("unfilled"), not null
