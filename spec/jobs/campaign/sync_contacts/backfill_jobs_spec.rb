@@ -37,7 +37,7 @@ RSpec.describe "Campaign::SyncContacts backfill jobs" do
           email_opt_in: true,
           sms_opt_in: false,
           locale: "en",
-          suppressed_for_gyr_product_year: gyr_intake.product_year
+          latest_gyr_intake_at: gyr_intake.created_at
         )
       )
 
@@ -70,7 +70,8 @@ RSpec.describe "Campaign::SyncContacts backfill jobs" do
             email: "chris@example.com",
             phone: "+15550001111",
             email_opt_in: true,
-            sms_opt_in: true
+            sms_opt_in: true,
+            latest_signup_at: signup.created_at
           )
         )
 
