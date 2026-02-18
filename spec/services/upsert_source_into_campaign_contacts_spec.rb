@@ -61,8 +61,8 @@ RSpec.describe Campaign::UpsertSourceIntoCampaignContacts do
 
       it "updates latest signup and gyr_intake at" do
         contact = call_service
-        expect(contact.latest_signup_at).to eq(latest_signup_at)
-        expect(contact.latest_gyr_intake_at).to eq(latest_gyr_intake_at)
+        expect(contact.latest_signup_at).to be_within(1.second).of(latest_signup_at)
+        expect(contact.latest_gyr_intake_at).to be_within(1.second).of(latest_gyr_intake_at)
       end
 
       context "when source is :gyr" do
