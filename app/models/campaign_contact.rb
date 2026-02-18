@@ -79,6 +79,6 @@ class CampaignContact < ApplicationRecord
   end
 
   def self.gyr_intake_cutoff
-    Rails.configuration.start_of_unique_links_only_intak
+    Rails.configuration.start_of_unique_links_only_intake
   end
 end

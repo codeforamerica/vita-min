@@ -53,7 +53,7 @@ FactoryBot.define do
 
     trait :sms_opted_in do
       sms_notification_opt_in { true }
-      sequence(:sms_phone_number) { |n| "+155512#{n}4567" }
+      sequence(:sms_phone_number) { |n| "+1415555#{format('%04d', n)}" }
     end
 
     trait :with_gyr_intake_ids do

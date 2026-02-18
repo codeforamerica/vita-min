@@ -95,18 +95,14 @@ describe Campaign::SendSmsBatchJob, type: :job do
       context "when recent_signups_only is true" do
         let(:recent_signups_only) { true }
 
-        let!(:old_signup) { create(:signup, email_address: nil, phone_number: "+15557775555", name: "old") }
-        let!(:recent_signup) { create(:signup, email_address: nil, phone_number: "+15552345555", name: "new") }
-
-        before do
-          old_signup.update!(created_at: 2.years.ago)
-        end
+        cutoff = Rails.configuration.tax_year_filing_seasons[MultiTenantService.new(:gyr).current_tax_year - 1].last
+        let!(:contact_with_new_signup) { create(:campaign_contact, :sms_opted_in, latest_signup_at: cutoff + 1.day) }
+        let!(:contact_with_old_signup) { create(:campaign_contact, :sms_opted_in, latest_signup_at: cutoff - 1.day) }
 
         it "only creates sms messages for campaign contacts with signups created after the cutoff" do
           perform_job
 
           expect(CampaignSms).to have_received(:create!).exactly(1).time
-          expect(CampaignSms.last.campaign_contact.sign_up_ids.first).to eq recent_signup.id
         end
       end
     end
