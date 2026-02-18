@@ -2,22 +2,21 @@
 #
 # Table name: campaign_contacts
 #
-#  id                              :bigint           not null, primary key
-#  email_address                   :citext
-#  email_notification_opt_in       :boolean          default(FALSE)
-#  first_name                      :string
-#  gyr_intake_ids                  :bigint           default([]), is an Array
-#  last_name                       :string
-#  latest_gyr_intake_at            :datetime
-#  latest_signup_at                :datetime
-#  locale                          :string
-#  sign_up_ids                     :bigint           default([]), is an Array
-#  sms_notification_opt_in         :boolean          default(FALSE)
-#  sms_phone_number                :string
-#  state_file_intake_refs          :jsonb            not null
-#  suppressed_for_gyr_product_year :integer
-#  created_at                      :datetime         not null
-#  updated_at                      :datetime         not null
+#  id                        :bigint           not null, primary key
+#  email_address             :citext
+#  email_notification_opt_in :boolean          default(FALSE)
+#  first_name                :string
+#  gyr_intake_ids            :bigint           default([]), is an Array
+#  last_name                 :string
+#  latest_gyr_intake_at      :datetime
+#  latest_signup_at          :datetime
+#  locale                    :string
+#  sign_up_ids               :bigint           default([]), is an Array
+#  sms_notification_opt_in   :boolean          default(FALSE)
+#  sms_phone_number          :string
+#  state_file_intake_refs    :jsonb            not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
 #
 # Indexes
 #
