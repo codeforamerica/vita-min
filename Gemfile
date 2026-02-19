@@ -146,7 +146,7 @@ group :development do
   gem 'stackprof'
   gem 'memory_profiler'
   gem "letter_opener"
-  gem "faraday"
+  gem "faraday", '>= 2.14.1'
 end
 
 group :test do
