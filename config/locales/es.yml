@@ -1183,19 +1183,7 @@ es:
     ssn_itins:
       displayed: Visualización de la SSN o ITIN
     status_macros:
-      file_accepted: |
-        ¡Hola <<Client.PreferredName>>!
-
-        ¡Se han aceptado sus declaraciones federales y estatales (si es aplicable) de <<TaxReturn.TaxYear>>!
-
-        Si tiene preguntas sobre su reembolso y / o el monto adeudado, diríjase al Servicio de Impuestos Internos (IRS) oa las oficinas del Departamento de Ingresos de su estado.
-
-        Puede verificar el estado de su reembolso federal en línea en sitio del IRS' ¿Dónde está mi reembolso?: https://sa.www4.irs.gov/irfof/lang/en/irfofgetstatus.jsp
-
-        Gracias por confiar en GetYourRefund con sus impuestos <<TaxReturn.TaxYear>>.
-
-        Gracias,
-        <<Preparer.FirstName>> en GetYourRefund
+      file_accepted: "Buenas noticias, <<Client.PreferredName>> 🎉\n\nSu declaración de impuestos fue aceptada por el IRS.\n\nAsegúrese de descargar ⬇️ una copia ingresando a: https://getyourrefund.org/es/portal/login Recomendamos guardarla por al menos tres años.\n\nPuede revisar el estado de su 💰reembolso con la herramienta del IRS “¿Dónde está mi reembolso?”: https://sa.www4.irs.gov/wmr/es/\nPara reembolsos estatales, visite la página del departamento de impuestos de su estado.\n\nGracias por confiar en GetYourRefund. Si conoce a alguien que necesite ayuda con sus impuestos, ¡comparta esta información!\n<<Preparer.FirstName>> GetYourRefund\n"
       file_efiled: |
         Hola <<Client.PreferredName>>,
 
@@ -1205,29 +1193,10 @@ es:
 
         Muchas gracias,
         <<Preparer.FirstName>> en GetYourRefund
-      file_mailed: |
-        Hola <<Client.PreferredName>>,
-
-        Su declaración de impuestos de <<TaxReturn.TaxYear>> están listos para ser enviados mediante correo.
-
-        Usted puede descargar una copia de sus impuestos aquí <<Client.LoginLink>>: Recuerde que usted debe firmar su declaración y enviar adjunto documentos de ingreso antes de enviar la declaración al IRS y a su correspondiente oficina estatal de ingresos.
-
-        Muchas gracias,
-        <<Preparer.FirstName>> en GetYourRefund
-      intake_greeter_info_requested: |
-        ¡Hola <<Client.PreferredName>>!
-
-        Para continuar presentando sus impuestos, iniciar sesión en https://www.getyourrefund.org/es/portal/login
-
-        Cuando termine su formulario de admisión, puede enviar sus documentos fiscales. Tenga a mano su identificación con foto, tarjeta de Seguro Social y cualquier documento de ingresos.
-
-        Necesitamos que nos envíe:
-        <<Documents.List>>
-
-        Si ya no necesita ayuda para presentar sus impuestos, responda "STOP" y cerraremos su cuenta aquí en GetYourRefund.
-
-        Háganos saber si usted tiene alguna pregunta,
-        Tu equipo de impuestos en GetYourRefund
+      file_mailed: "Hola <<Client.PreferredName>>,\n\nYa puede enviar su declaración por correo. Para completar el proceso, siga estos pasos:\n\n⬇️ Descargar e imprima\nDescargue su declaración desde este enlace seguro: https://getyourrefund.org/es/portal/login\n\n🖊️ Firme y prepare\nAsegúrese de firmar su declaración y adjuntar todos los documentos de ingresos requeridos (como W-2, 1099, etc.).\n\n📩 Envíe la declaración federal por correo\nEncuentre la dirección correcta del IRS aquí: https://www.irs.gov/es/filing/where-to-file-paper-tax-returns-with-or-without-a-payment\n-La dirección depende del estado y de si incluye un pago.\n-Recomendamos enviarla usando correo certificado (certified mail) con comprobante de entrega.\n\nSi necesita enviar su declaración estatal por correo, consulte TaxSlayer aquí (disponible en inglés): https://support.taxslayer.com/hc/en-us/articles/360015704372-Where-do-I-mail-my-state-tax-return\n\nSi tiene alguna pregunta o necesita ayuda, déjenos saber.\n\nMuchas gracias, <<Preparer.FirstName>> GetYourRefund\n"
+      intake_greeter_info_requested: "Hola <<Client.PreferredName>>,\n\nSoy <<Preparer.FirstName>> de GetYourRefund.\n\n⚠️ Para continuar con su declaración de impuestos, necesitamos más información, incluyendo:\n<<Documents.List>>\n\nPuede iniciar sesión de forma segura y subir esos documentos aquí:\n🔗 https://getyourrefund.org/es/portal/login\n\nSi tiene alguna pregunta, responda a este mensaje. Estamos para ayudarle.\n"
+      intake_needs_more_information: "Hola <<Client.PreferredName>>,\n\nSoy <<Preparer.FirstName>> de GetYourRefund.\n⚠️ Para continuar con su declaración de impuestos, necesitamos más información, incluyendo:<<Documents.List>>\n\nPuede iniciar sesión de forma segura y subir esos documentos aquí:🔗 https://www.getyourrefund.org/es/portal/login\n\nSi tiene alguna pregunta, responda a este mensaje. Estamos para ayudarle.\n"
+      intake_ready: "Hola <<Client.PreferredName>>,\n\nLe informaremos a su preparador que ya tenemos lo necesario para comenzar con su declaración, y se comunicarán con usted pronto.\nSi no recibe un mensaje dentro de cinco días laborables o si tiene alguna pregunta, responda a este mensaje o ingrese a https://getyourrefund.org/es/portal/login y haga clic en “Chatee con nosotros” para recibir ayuda.\n\nGracias por registrarse con GetYourRefund 💰\n"
       intake_ready_for_call: "Hola <<Client.PreferredName>>!\n\nRevisé su información fiscal para <<TaxReturn.TaxYear>>. El próximo paso es que revisemos su devolución en una llamada telefónica.\n\nEsté atento a una llamada telefónica en REPLACE ME desde <<GetYourRefund.PhoneNumber>>. \n\nSi este tiempo no funciona para usted, hágamelo saber y podemos reprogramarlo.\n\nMuchas gracias, \n<<Preparer.FirstName>> en GetYourRefund\n"
       intake_reviewing: |
         Hola <<Client.PreferredName>>!
@@ -1236,35 +1205,10 @@ es:
 
         Muchas gracias,
         <<Preparer.FirstName>> en GetYourRefund
-      needs_more_information: |
-        ¡Hola <<Client.PreferredName>>!
-
-        Para continuar presentando sus impuestos, necesitamos que nos envíe:
-        <<Documents.List>>
-        Inicie sesión para cargar los documentos de forma segura: <<Client.LoginLink>>
-
-        Por favor, háganos saber si usted tiene alguna pregunta. No podemos preparar sus impuestos sin esta información.
-
-        ¡Gracias!
-        <<Preparer.FirstName>> en GetYourRefund.org
-      prep_preparing: |
-        Hola <<Client.PreferredName>>!
-
-        Si tengo alguna pregunta, le notificare. Si usted tiene alguna pregunta, por favor responda a este mensaje.
-
-        Muchas gracias,
-        <<Preparer.FirstName>> de GetYourRefund
-      review_ready_for_call: |
-        Hola <<Client.PreferredName>>,
-
-        Su declaración de impuestos ha sido preparada y revisada. Estamos listos para llamarle para conversar acerca de los resultados.
-
-        Busque una llamada a REPLACE ME desde <<GetYourRefund.PhoneNumber>>.
-
-        Si este tiempo no funciona para usted, hágamelo saber para que podamos reprogramarlo.
-
-        Thank you!
-        <<Preparer.FirstName>> en GetYourRefund
+      prep_needs_more_information: "Soy <<Preparer.FirstName>> de GetYourRefund.\nEstamos preparando su declaración, pero no podemos avanzar sin información adicional.\nPor favor, suba con la opción REPLACE ME aquí:🔗 https://getyourrefund.org/es/portal/login \nSi tiene alguna pregunta, responda a este mensaje. Estamos para ayudarle.\n"
+      prep_preparing: "Hola <<Client.PreferredName>>,\n\n¡Su declaración está siendo preparada 👏!\nNos comunicaremos con actualizaciones o si necesitamos más información. También le avisaremos cuando sea momento de coordinar la llamada para revisar su declaración. Si tiene alguna pregunta, responda a este mensaje.\n\nGracias, <<Preparer.FirstName>> GetYourRefund\n"
+      review_needs_more_information: "Soy <<Preparer.FirstName>> de GetYourRefund.\nEstamos preparando su declaración, pero no podemos avanzar sin información adicional.\nPor favor, suba con la opción REPLACE ME aquí: 🔗 https://getyourrefund.org/es/portal/login \nSi tiene alguna pregunta, responda a este mensaje. Estamos para ayudarle.\n"
+      review_ready_for_call: "¡Tenemos buenas noticias, <<Client.PreferredName>>!\nSu declaración está lista para revisarla 🎉. Puedo llamarle para hacerlo juntos.\nEsté pendiente de una llamada desde 14156393361 el REPLACE ME\nSi ese horario no le funciona, responda a este mensaje con una hora que prefiera y podemos reprogramar.\n\nMuchas gracias, <<Preparer.FirstName>> GetYourRefund\n"
       review_reviewing: |
         ¡Hola <<Client.PreferredName>>!
 
@@ -1273,28 +1217,16 @@ es:
         ¡Gracias!
         <<Preparer.FirstName>> en GetYourRefund.org
       review_signature_requested: |
-        ¡Hola!
+        Hola <<Client.PreferredName>>,
 
-        Su declaración de impuestos de <<TaxReturn.TaxYear>> está lista para que la firme.
+        ¡Su declaración está lista para que haga una última revisión y firme electrónicamente!
 
-        Por favor Verifique:
+        ✅ Revise todos los nombres, direcciones, información bancaria y cantidades de ingresos.❗ Si algo no está correcto o tiene preguntas, no firme. Responda a este mensaje y lo solucionaremos.
 
-        * su dirección postal y números de cuenta bancaria (si esto no es correcto puede afectar sus números finales y/o retrasar su reembolso).
-        * toda la información de dependientes
-        * asegúrese de que todos los ingresos estén incluidos (incluido el desempleo).
+        Inicie sesión de forma segura en https://getyourrefund.org/es/portal/login para aprobar su declaración.
+        Si presenta una declaración en conjunto con su cónyuge, su cónyuge también deberá aprobarla.
 
-        Si necesita cambiar algo en su declaración o si tiene alguna pregunta, porfavor responda a este mensaje y no firme su declaración.
-
-        Para aprobar su declaración, haga clic en el enlace a continuación, ingrese los últimos cuatro dígitos de su número de seguro social o su número de cliente, revise su declaración y haga clic en el cuadro que dice que aprueba su declaración.
-
-        Para declaraciones presentadas con su cónyuge: su cónyuge también debe revisar y firmar.
-
-        Una vez que firme, podemos presentar su declaración electrónicamente.
-
-        Inicie sesión para acceder a su declaración y aprovar su declaración: <<Client.LoginLink>>
-
-        ¡Gracias!
-        <<Preparer.FirstName>> en Get Your Refund
+        Muchas gracias, <<Preparer.FirstName>> GetYourRefund
     suspend_account: Suspender usuario
     suspend_confirmation: "¿Suspender la cuenta de %{name}? Esto los eliminará de todas las declaraciones de impuestos asignadas actualmente y evitará que inicien sesión."
     suspended_user_name: "%{name} (Suspendido)"

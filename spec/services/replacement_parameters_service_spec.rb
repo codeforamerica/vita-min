@@ -7,7 +7,7 @@ describe ReplacementParametersService do
   subject { ReplacementParametersService.new(body: body, client: client, preparer: user, tax_return: client.tax_returns.first, locale: locale) }
 
   before do
-    @test_environment_credentials.merge!(twilio: { voice_phone_number: "+13444444444" })
+    @test_environment_credentials.merge!(twilio: { voice_phone_number: "14156393361" })
   end
 
   context "<<Client.ClientId>>" do
@@ -128,26 +128,26 @@ describe ReplacementParametersService do
       allow(client.intake).to receive(:relevant_document_types).and_return [DocumentTypes::Identity, DocumentTypes::Selfie, DocumentTypes::SsnItin, DocumentTypes::Other]
     end
 
-    context "needs_more_information" do
+    context "needs_more_information for intake" do
       context "in english" do
-        let(:body) { I18n.t("hub.status_macros.needs_more_information") }
+        let(:body) { I18n.t("hub.status_macros.intake_needs_more_information") }
 
         it "replaces the replacement strings in the template" do
           expect(subject.process).to include client.preferred_name
           expect(subject.process).to include "- Photo of your ID"
           expect(subject.process).to include "- Photo of your SSN or ITIN cards for yourself, spouse, and dependents, if applicable"
-          expect(subject.process).to include "http://test.host/en/portal/login"
+          expect(subject.process).to include "https://getyourrefund.org/en/portal/login"
           expect(subject.process).to include user.first_name
         end
       end
 
       context "in spanish" do
-        let(:body) { I18n.t("hub.status_macros.needs_more_information", locale: "es") }
+        let(:body) { I18n.t("hub.status_macros.intake_needs_more_information", locale: "es") }
         let(:locale){ "es" }
 
         it "replaces the replacement strings in the template" do
           expect(subject.process).to include client.preferred_name
-          expect(subject.process).to include "http://test.host/es/portal/login"
+          expect(subject.process).to include "https://www.getyourrefund.org/es/portal/login"
           expect(subject.process).to include "- Identificación con foto"
           expect(subject.process).to include "- Foto de la tarjeta SSN o del documento ITIN para usted, su cónyuge y sus dependientes"
 
@@ -304,8 +304,7 @@ describe ReplacementParametersService do
 
         it "replaces the replacement strings in the template" do
           result = subject.process
-          expect(result).to include "Your #{client.tax_returns.first.year}"
-          expect(result).to include "http://test.host/en/portal/login"
+          expect(result).to include "https://getyourrefund.org/en/portal/login"
         end
       end
 
@@ -315,8 +314,7 @@ describe ReplacementParametersService do
 
         it "replaces the replacement strings in the template" do
           result = subject.process
-          expect(result).to include "de #{client.tax_returns.first.year}"
-          expect(result).to include "http://test.host/es/portal/login"
+          expect(result).to include "https://getyourrefund.org/es/portal/login"
         end
       end
     end
@@ -329,7 +327,6 @@ describe ReplacementParametersService do
           result = subject.process
           expect(result).to include client.preferred_name
           expect(result).to include user.first_name
-          expect(result).to include "Your #{client.tax_returns.first.year}"
         end
       end
 
@@ -341,7 +338,6 @@ describe ReplacementParametersService do
           result = subject.process
           expect(result).to include client.preferred_name
           expect(result).to include user.first_name
-          expect(result).to include "de #{client.tax_returns.first.year}"
         end
       end
     end

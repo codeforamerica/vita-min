@@ -119,8 +119,8 @@ RSpec.describe Hub::BulkActionForm do
         end
 
         it "sets message body to the template" do
-          expect(form.message_body_en).to start_with("Hello")
-          expect(form.message_body_es).to start_with("¡Hola")
+          expect(form.message_body_en).to start_with("Hi")
+          expect(form.message_body_es).to start_with("Hola")
         end
 
         context "when the message body is overwritten with a blank string" do
