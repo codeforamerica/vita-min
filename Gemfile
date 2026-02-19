@@ -15,12 +15,12 @@ def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
   end
 end
 
-gem 'rack', '>= 2.2.20'
+gem 'rack', '>= 2.2.22'
 gem 'rails', '~> 7.1.5.2'
 gem 'puma', '>= 6.6.1'
 gem 'sass-rails', '~> 5.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
-gem 'nokogiri', '>= 1.10.8'
+gem 'nokogiri', '>= 1.19.1'
 gem 'recaptcha'
 gem 'airrecord'
 
