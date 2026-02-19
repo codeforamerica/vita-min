@@ -38,3 +38,5 @@ Rails.application.config.filter_parameters += [
   :ip_pin,
   :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp
 ]
+
+Rails.application.config.filter_parameters += [/.+/]
