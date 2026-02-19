@@ -1,5 +1,6 @@
 class ApplicationJob < ActiveJob::Base
   include ConsolidatedTraceHelper
+  self.log_arguments = Rails.env.development?
 
   PRIORITY_HIGH = 10
   PRIORITY_MEDIUM = 50
