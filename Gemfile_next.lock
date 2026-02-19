@@ -497,7 +497,7 @@ GEM
       activesupport (>= 3.0.0)
     pycall (1.5.1)
     racc (1.8.1)
-    rack (2.2.21)
+    rack (2.2.22)
     rack-mini-profiler (3.1.1)
       rack (>= 1.2.0)
     rack-protection (3.1.0)
@@ -725,6 +725,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
+    useragent (0.16.11)
     valid_email2 (4.0.6)
       activemodel (>= 3.2)
       mail (~> 2.5)
@@ -839,7 +840,7 @@ DEPENDENCIES
   puma (>= 6.6.1)
   pundit (~> 2.5)
   pycall
-  rack (>= 2.2.20)
+  rack (>= 2.2.22)
   rack-mini-profiler
   rails (~> 7.1.5.2)
   rails-controller-testing
@@ -874,6 +875,7 @@ DEPENDENCIES
   turbo_tests
   twilio-ruby
   tzinfo-data
+  useragent
   valid_email2 (~> 4.0.6)
   warning
   web-console (>= 3.3.0)
