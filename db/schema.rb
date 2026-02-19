@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_18_162315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -577,6 +577,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
     t.string "first_name"
     t.bigint "gyr_intake_ids", default: [], array: true
     t.string "last_name"
+    t.datetime "latest_gyr_intake_at"
+    t.datetime "latest_signup_at"
     t.string "locale"
     t.bigint "sign_up_ids", default: [], array: true
     t.boolean "sms_notification_opt_in", default: false
@@ -588,6 +590,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
     t.index ["email_notification_opt_in"], name: "index_campaign_contacts_on_email_notification_opt_in"
     t.index ["first_name", "last_name"], name: "index_campaign_contacts_on_first_name_and_last_name"
     t.index ["gyr_intake_ids"], name: "index_campaign_contacts_on_gyr_intake_ids", using: :gin
+    t.index ["latest_gyr_intake_at"], name: "index_campaign_contacts_on_latest_gyr_intake_at"
+    t.index ["latest_signup_at"], name: "index_campaign_contacts_on_latest_signup_at"
     t.index ["sign_up_ids"], name: "index_campaign_contacts_on_sign_up_ids", using: :gin
     t.index ["sms_notification_opt_in"], name: "index_campaign_contacts_on_sms_notification_opt_in"
     t.index ["sms_phone_number"], name: "index_campaign_contacts_on_sms_phone_number"

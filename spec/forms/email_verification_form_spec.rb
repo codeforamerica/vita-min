@@ -28,7 +28,7 @@ describe EmailVerificationForm do
 
         contact = CampaignContact.last
 
-        expect(contact).to have_attributes(email_address: "foo@example.com", suppressed_for_gyr_product_year: intake.product_year)
+        expect(contact).to have_attributes(email_address: "foo@example.com", latest_gyr_intake_at: intake.created_at)
       end
     end
   end

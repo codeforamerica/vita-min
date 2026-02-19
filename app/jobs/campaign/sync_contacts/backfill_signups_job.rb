@@ -23,7 +23,8 @@ module Campaign
               phone: phone,
               email_opt_in: email.present?,
               sms_opt_in: phone.present?,
-              locale: nil
+              locale: nil,
+              latest_signup_at: signup.created_at
             )
           rescue => e
             Sentry.capture_exception(e, extra: { job: self.class.name, signup_id: signup.id, })
