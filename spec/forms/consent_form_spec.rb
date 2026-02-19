@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe ConsentForm do
-  let(:intake) { create :intake, primary_birth_date: dob }
+  let(:intake) { create :intake, primary_birth_date: dob, email_address: "greta@example.com" }
   let(:dob) { nil }
   let(:valid_params_with_dob) do
     {
@@ -11,6 +11,13 @@ RSpec.describe ConsentForm do
       primary_first_name: "Greta",
       primary_last_name: "Gnome",
     }
+  end
+  let!(:contact) do
+    create :campaign_contact,
+           first_name: nil,
+           last_name: nil,
+           gyr_intake_ids: [intake.id],
+           email_address: "greta@example.com"
   end
 
   let(:valid_params_without_dob) do
@@ -169,6 +176,14 @@ RSpec.describe ConsentForm do
           form.save
         }.not_to change(intake, :primary_birth_date)
       end
+    end
+
+    it "updates the campaign contact" do
+      form = ConsentForm.new(intake, valid_params_without_dob)
+      expect {
+        form.save
+      }.to change { contact.reload.first_name }.to("Greta")
+       .and change { contact.reload.last_name }.to("Gnome")
     end
   end
 

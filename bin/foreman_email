@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+LETTER_OPENER=1 foreman start -m all=1,server=0
+

@@ -54,7 +54,7 @@ RSpec.describe PublicPagesController do
           get :home
 
           expect(response.body).not_to include I18n.t('general.sign_up')
-          expect(response.body).to include question_path(:id => Questions::TriagePersonalInfoController)
+          expect(response.body).to include question_path(:id => Questions::EligibilityWagesController)
         end
       end
 

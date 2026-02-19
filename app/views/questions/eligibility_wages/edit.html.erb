@@ -1,0 +1,73 @@
+<% content_for :page_title, t('.title') %>
+<% content_for :card do %>
+
+  <div class="text--centered text--small text--bold">
+    <%= t(".page") %>
+  </div>
+
+  <h2 class="text--normal"><%= content_for(:page_title) %></h2>
+
+  <p><%= t(".subtitle") %></p>
+
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <div class="eligibility-card">
+      <%= f.cfa_select(
+            :triage_income_level,
+            t(".income_level.label"),
+            [
+              [t(".income_level.options.zero"), :zero],
+              [t(".income_level.options.1_to_69000"), "1_to_69000"],
+              [t(".income_level.options.69001_to_89000"), "69001_to_89000"],
+              [t(".income_level.options.over_89000"), :over_89000],
+            ],
+            include_blank: t('general.select_prompt')
+          ) %>
+    </div>
+    <div class="eligibility-card">
+      <p class="spacing-below-10"><strong><%= t(".vita_income_ineligible.label") %></strong></p>
+      <div class="tight-checkboxes">
+        <%= f.simplified_cfa_checkbox(:had_rental_income, t(".vita_income_ineligible.options.property"), options: { checked_value: "yes", unchecked_value: "no" }) %>
+        <%= f.simplified_cfa_checkbox(:has_crypto_income, t(".vita_income_ineligible.options.crypto"), options: { checked_value: true, unchecked_value: false }) %>
+        <%= f.simplified_cfa_checkbox(:triage_vita_income_ineligible, t(".vita_income_ineligible.options.none"), options: { checked_value: "no", unchecked_value: "yes" }) %>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+
+
+  <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          let uncheckOthers = function (noneCheckbox, otherCheckboxes) {
+              if (noneCheckbox.checked) {
+                  otherCheckboxes.forEach(function (checkbox) {
+                      checkbox.checked = false;
+                  });
+              }
+          };
+
+          let uncheckNone = function (currentCheckbox, noneCheckbox) {
+              if (currentCheckbox.checked) {
+                  noneCheckbox.checked = false;
+              }
+          };
+
+          let noneCheckbox = document.getElementById("eligibility_wages_form_triage_vita_income_ineligible");
+          let otherCheckboxes = [
+              document.getElementById("eligibility_wages_form_had_rental_income"),
+              document.getElementById("eligibility_wages_form_has_crypto_income")
+          ];
+
+          // When "none apply" is checked, uncheck property and crypto
+          noneCheckbox.addEventListener("change", function () {
+              uncheckOthers(noneCheckbox, otherCheckboxes);
+          });
+
+          otherCheckboxes.forEach(function (checkbox) {
+              checkbox.addEventListener("change", function () {
+                  uncheckNone(this, noneCheckbox);
+              });
+          });
+      });
+  </script>
+<% end %>

@@ -2,7 +2,10 @@ class ApplicationController < ActionController::Base
   include ConsolidatedTraceHelper
   include Pundit::Authorization
   around_action :set_time_zone, if: :current_user
-  before_action :set_visitor_id, :set_source, :set_referrer, :set_utm_state, :set_navigator, :set_sentry_context, :set_collapse_main_menu, :set_get_started_link
+  before_action :set_visitor_id, :set_source, :set_referrer,
+                :set_utm_state, :set_navigator, :set_sentry_context,
+                :set_collapse_main_menu, :set_get_started_link,
+                :set_utm_medium, :set_utm_campaign
   around_action :switch_locale
   before_action :check_maintenance_mode
   before_action :redirect_state_file_in_off_season
@@ -243,7 +246,7 @@ class ApplicationController < ActionController::Base
 
   def set_get_started_link
     I18n.with_locale(locale) do
-      @get_started_link = open_for_gyr_intake? ? question_path(Questions::TriagePersonalInfoController) : nil
+      @get_started_link = open_for_gyr_intake? ? question_path(Questions::EligibilityWagesController) : nil
     end
   end
 

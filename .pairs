@@ -2,30 +2,22 @@
 #
 pairs:
   # <initials>: <Firstname> <Lastname>[; <email-id>]
-  ac: Arin Choi
   ar: Anisha Ramnani
-  dbd: Dimitri DeFigueiredo
   dp: Drew Proebstel
   em: Em Barnard-Shao
-  hm: Hugo Melo
   jh: Jenny Heath
   ti: Tahsina Islam
-  tc: Tiffany Chang
   mr: Mike Rotondo
   mp: Martha Pidcock
   jf: jey flores
   kd: Kevin Diale
   sp: Sean Pompea
 email_addresses:
-  ac: achoi@codeforamerica.org
   ar: aramnani@codeforamerica.org
-  dbd: ddefigueiredo@codeforamerica.org
   dp: dproebstel@codeforamerica.org
   em: ebarnard@codeforamerica.org
-  hm: hmelo@codeforamerica.org
   jh: jheath@codeforamerica.org
   ti: tislam@codeforamerica.org
-  tc: tchang@codeforamerica.org
   mr: mrotondo@codeforamerica.org
   mp: mpidcock@codeforamerica.org
   jf: jflores@codeforamerica.org

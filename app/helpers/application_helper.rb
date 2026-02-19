@@ -1,5 +1,9 @@
 require "ordinalize_full/integer"
 module ApplicationHelper
+  def mobile?
+    @mobile ||= UserAgent.parse(request.user_agent).mobile?
+  end
+
   def number_in_words(number)
     number.ordinalize_in_full
   end

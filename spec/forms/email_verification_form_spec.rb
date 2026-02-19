@@ -1,6 +1,6 @@
 require "rails_helper"
 
-describe PhoneVerificationForm do
+describe EmailVerificationForm do
   let(:params) do
     {
       verification_code: '000001'
@@ -12,19 +12,29 @@ describe PhoneVerificationForm do
       allow(EmailAccessToken).to receive(:lookup).and_return([EmailAccessToken.new])
     end
 
-    context 'when sms was the verification medium' do
+    context 'when email was the verification medium' do
       let(:intake) { create :intake, email_address: 'foo@example.com', email_notification_opt_in: 'yes' }
 
       it 'updates the verified_at timestamp for the verification medium used' do
         expect {
           described_class.new(intake, params).save
-        }.to change { intake.reload.sms_phone_number_verified_at }.from(nil)
+        }.to change { intake.reload.email_address_verified_at }.from(nil)
+      end
+
+      it "updates the campaign contact" do
+        expect {
+          described_class.new(intake, params).save
+        }.to change(CampaignContact, :count).by(1)
+
+        contact = CampaignContact.last
+
+        expect(contact).to have_attributes(email_address: "foo@example.com", latest_gyr_intake_at: intake.created_at)
       end
     end
   end
 
   describe "#valid?" do
-    let(:intake) { create :intake, sms_phone_number: '+15125551234', sms_notification_opt_in: 'yes' }
+    let(:intake) { create :intake, email_address: 'foo@example.com', email_notification_opt_in: 'yes' }
     let(:form) { described_class.new(intake, params) }
 
     it_behaves_like :a_verification_form_that_accepts_the_magic_code

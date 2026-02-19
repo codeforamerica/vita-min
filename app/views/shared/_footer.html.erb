@@ -7,14 +7,9 @@
           <%= image_tag("checkbox-logo--white.png", alt: "") %>
         </p>
         <p>
-          <% cfa_link = link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link") %>
-          <% if variation == "ctc" %>
-            <%= t("views.shared.footer.ctc_service_description_html", link: cfa_link) %>
-          <% else %>
-            <%= t("views.shared.footer.service_description_html",
-                  cfa_link: cfa_link,
-                  vita_link: link_to("VITA", "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank", rel: "noopener", class: "footer__link")) %>
-          <% end %>
+          <%= t("views.shared.footer.service_description_html",
+                cfa_link: link_to("Code for America", "https://www.codeforamerica.org", target: "_blank", rel: "noopener", class: "footer__link"),
+                vita_link: link_to("VITA", "https://www.irs.gov/individuals/free-tax-return-preparation-for-you-by-volunteers", target: "_blank", rel: "noopener", class: "footer__link")) %>
         </p>
       </div>
 
@@ -26,37 +21,34 @@
         </li>
 
         <li>
-          <%= link_to variation == "ctc" ?
-                        url_for(host: MultiTenantService.new(:gyr).host, controller: "/faq", action: "section_index", section_key: :child_tax_credit) :
-                        faq_path do %>
-          <%= t("general.faq") %>
-            <% end %>
+          <%= link_to faq_path do %>
+            <%= t("general.faq") %>
+          <% end %>
         </li>
 
 
-        <% unless variation == "ctc" %>
-          <li>
-            <%= mail_to "support@getyourrefund.org", t("general.contact_us")  %>
-          </li>
+        <li>
+          <%= mail_to "support@getyourrefund.org", t("general.contact_us") %>
+        </li>
 
-          <li>
-            <%= link_to about_us_path do %>
-              <%= t("views.public_pages.about_us.title") %>
-            <% end %>
-          </li>
+        <li>
+          <%= link_to about_us_path do %>
+            <%= t("views.public_pages.about_us.title") %>
+          <% end %>
+        </li>
 
-          <li>
-            <%= link_to vita_providers_path, "data-track-click": "service-comparison-in-person-vita-providers" do %>
-              <%= t("general.find_location") %>
-            <% end %>
-          </li>
+        <li>
+          <%= link_to vita_providers_path, "data-track-click": "service-comparison-in-person-vita-providers" do %>
+            <%= t("general.find_location") %>
+          <% end %>
+        </li>
 
-          <li>
-            <%= link_to new_user_session_path do %>
-              <%= t("views.shared.footer.volunteer_sign_in") %>
-            <% end %>
-          </li>
-        <% end %>
+        <li>
+          <%= link_to new_user_session_path do %>
+            <%= t("views.shared.footer.volunteer_sign_in") %>
+          <% end %>
+        </li>
+
 
         <li>
           <%= link_to "https://www.getyourrefundstatus.org/" do %>

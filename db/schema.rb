@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_01_12_230832) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_18_162315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -575,24 +575,65 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_12_230832) do
     t.citext "email_address"
     t.boolean "email_notification_opt_in", default: false
     t.string "first_name"
-    t.datetime "gyr_2025_preseason_email"
-    t.datetime "gyr_2025_preseason_sms"
     t.bigint "gyr_intake_ids", default: [], array: true
     t.string "last_name"
+    t.datetime "latest_gyr_intake_at"
+    t.datetime "latest_signup_at"
     t.string "locale"
     t.bigint "sign_up_ids", default: [], array: true
     t.boolean "sms_notification_opt_in", default: false
     t.string "sms_phone_number"
     t.jsonb "state_file_intake_refs", default: [], null: false
+    t.integer "suppressed_for_gyr_product_year"
     t.datetime "updated_at", null: false
     t.index ["email_address"], name: "index_campaign_contacts_on_email_address", unique: true, where: "(email_address IS NOT NULL)"
     t.index ["email_notification_opt_in"], name: "index_campaign_contacts_on_email_notification_opt_in"
     t.index ["first_name", "last_name"], name: "index_campaign_contacts_on_first_name_and_last_name"
     t.index ["gyr_intake_ids"], name: "index_campaign_contacts_on_gyr_intake_ids", using: :gin
+    t.index ["latest_gyr_intake_at"], name: "index_campaign_contacts_on_latest_gyr_intake_at"
+    t.index ["latest_signup_at"], name: "index_campaign_contacts_on_latest_signup_at"
     t.index ["sign_up_ids"], name: "index_campaign_contacts_on_sign_up_ids", using: :gin
     t.index ["sms_notification_opt_in"], name: "index_campaign_contacts_on_sms_notification_opt_in"
     t.index ["sms_phone_number"], name: "index_campaign_contacts_on_sms_phone_number"
     t.index ["state_file_intake_refs"], name: "index_campaign_contacts_on_state_file_intake_refs", using: :gin
+    t.index ["suppressed_for_gyr_product_year"], name: "index_campaign_contacts_on_gyr_suppression"
+  end
+
+  create_table "campaign_emails", force: :cascade do |t|
+    t.bigint "campaign_contact_id", null: false
+    t.datetime "created_at", null: false
+    t.string "error_code"
+    t.jsonb "event_data"
+    t.string "from_email"
+    t.string "mailgun_message_id"
+    t.string "mailgun_status", default: "created", null: false
+    t.string "message_name"
+    t.datetime "scheduled_send_at"
+    t.datetime "sent_at"
+    t.text "subject"
+    t.string "to_email"
+    t.datetime "updated_at", null: false
+    t.index ["campaign_contact_id", "message_name"], name: "index_campaign_emails_on_contact_id_and_message_name", unique: true
+    t.index ["campaign_contact_id"], name: "index_campaign_emails_on_campaign_contact_id"
+    t.index ["mailgun_message_id"], name: "index_campaign_emails_on_mailgun_message_id", unique: true
+  end
+
+  create_table "campaign_sms", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "campaign_contact_id", null: false
+    t.datetime "created_at", null: false
+    t.string "error_code"
+    t.jsonb "event_data"
+    t.string "message_name", null: false
+    t.datetime "scheduled_send_at"
+    t.datetime "sent_at"
+    t.string "to_phone_number", null: false
+    t.string "twilio_sid"
+    t.string "twilio_status"
+    t.datetime "updated_at", null: false
+    t.index ["campaign_contact_id"], name: "index_campaign_sms_on_campaign_contact_id"
+    t.index ["message_name", "to_phone_number"], name: "index_campaign_sms_on_message_name_and_to_phone_number", unique: true
+    t.index ["twilio_sid"], name: "index_campaign_sms_on_twilio_sid", unique: true
   end
 
   create_table "client_interactions", force: :cascade do |t|
@@ -1482,6 +1523,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_12_230832) do
     t.tsvector "searchable_data"
     t.integer "separated", default: 0, null: false
     t.string "separated_year"
+    t.integer "service_preference", default: 0
     t.integer "signature_method", default: 0, null: false
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "sms_phone_number"
@@ -3083,6 +3125,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_01_12_230832) do
   add_foreign_key "bulk_signup_messages", "users"
   add_foreign_key "bulk_tax_return_updates", "tax_return_selections"
   add_foreign_key "bulk_tax_return_updates", "users", column: "assigned_user_id"
+  add_foreign_key "campaign_emails", "campaign_contacts"
+  add_foreign_key "campaign_sms", "campaign_contacts"
   add_foreign_key "client_interactions", "clients"
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"

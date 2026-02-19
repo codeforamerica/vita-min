@@ -1,10 +1,14 @@
-<% content_for :page_title, t('.title') %>
+<% content_for :page_title, t('general.recommendation') %>
 
 <% content_for :card do %>
-  <h1 class="form-question">
+  <div class="text--centered text--small text--bold">
     <%= content_for(:page_title) %>
-  </h1>
-  <p><%= t('.subtitle') %></p>
+  </div>
+  <div class="service-recommendation">
+    <%= render "shared/diy_card" %>
+  </div>
 
-  <%= render "questions/triage/diy_tile", click_tracking_event_name: "triage-diy-choose-file-myself" %>
+  <%= link_to t('general.continue'), Diy::QualificationsController.to_path_helper, class: "button button--primary button--wide text--centered spacing-above-35", "data-track-click": "triage-diy-choose-file-myself" %>
+
+  <%= link_to t('general.explore_other_options'), root_path(anchor: "service-comparison"), class: "button button--wide text--centered spacing-above-25" %>
 <% end %>

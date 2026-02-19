@@ -166,17 +166,21 @@ module BedrockDocScreener
       pdf.binmode
       pdf.write(upload.download)
       pdf.flush
+      
+      Dir.mktmpdir do |tmpdir|
+        output_prefix = File.join(tmpdir, "page")
+        success = system("pdftoppm", "-png", "-r", "200", pdf.path, output_prefix,
+                         out: File::NULL, err: File::NULL)
+        unless success
+          raise "pdftoppm command failed with exit code #{$?.exitstatus}"
+        end
+        
+        png_files = Dir.glob(File.join(tmpdir, "page-*.png")).sort_by do |f|
+          File.basename(f)[/(\d+)\.png$/, 1].to_i
+        end
 
-      MiniMagick::Image.open(pdf.path).pages.each_with_index do |page, index|
-        Tempfile.create(["pdf_page_#{index}", ".png"]) do |png|
-          MiniMagick::Tool::Convert.new do |convert|
-            convert.density(200)
-            convert.quality(90)
-            convert << "#{pdf.path}[#{index}]"
-            convert << png.path
-          end
-
-          data = File.binread(png.path)
+        png_files.each do |png_path|
+          data = File.binread(png_path)
 
           images << {
             media_type: "image/png",
@@ -188,7 +192,7 @@ module BedrockDocScreener
 
     raise "pdf produced no pages" if images.empty?
     images
-  rescue MiniMagick::Error, MiniMagick::Invalid => e
-    raise "failed to convert pdf pages to images (perhaps minimagick or ghostscript issue). #{e.class}: #{e.message}"
+  rescue StandardError => e
+    raise "failed to convert pdf pages to images (pdftoppm issue). #{e.class}: #{e.message}"
   end
 end

@@ -6,15 +6,17 @@ class TriageResultService
   end
 
   def after_income_levels_triaged_route
-    if intake.triage_income_level_zero?
-      route_to_gyr_diy_choice
+    if intake.triage_income_level_zero? && intake.service_preference_diy?
+      route_to_diy
     elsif intake.triage_income_level_1_to_69000? || intake.triage_income_level_69001_to_89000?
-      if intake.triage_vita_income_ineligible_yes?
+      if intake.triage_vita_income_ineligible_yes? || intake.service_preference_diy?
         route_to_diy
       else
-        route_to_gyr_diy_choice
+        route_to_gyr
       end
-    elsif intake.triage_income_level_over_89000?
+    elsif intake.triage_income_level_over_89000? && intake.triage_vita_income_ineligible_yes?
+      route_to_offboarding
+    else
       route_to_gyr
     end
   end
@@ -35,5 +37,9 @@ class TriageResultService
 
   def route_to_gyr_diy_choice
     Questions::TriageGyrDiyController.to_path_helper
+  end
+
+  def route_to_offboarding
+    Questions::TriageOffboardingController.to_path_helper
   end
 end

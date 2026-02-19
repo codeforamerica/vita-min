@@ -4,10 +4,22 @@ class TwilioWebhooksController < ActionController::Base
 
   def update_outgoing_text_message
     status = strong_params["MessageStatus"]
+    error_code = strong_params["ErrorCode"]
+    sid = strong_params["MessageSid"]
+
     DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}")
-    OutgoingTextMessage.find(strong_params[:id]).update_status_if_further(status, error_code: strong_params["ErrorCode"])
+
+    record = (OutgoingTextMessage.find_by(id: strong_params[:id]) || CampaignSms.find_by(twilio_sid: sid))
+
+    unless record
+      DatadogApi.increment("twilio.outgoing_text_messages.updated.missing_record")
+      head :ok and return
+    end
+
+    record.update_status_if_further(status, error_code: error_code)
     head :ok
   end
+
 
   def update_status
     status = strong_params["MessageStatus"]
@@ -68,6 +80,7 @@ class TwilioWebhooksController < ActionController::Base
 
     params.permit(
       "id",
+      "MessageSid",
       "ErrorCode",
       "CallDuration",
       "MessageStatus",

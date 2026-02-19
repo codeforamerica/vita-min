@@ -495,4 +495,130 @@ RSpec.describe MailgunWebhooksController do
       end
     end
   end
+
+  describe "#update_campaign_email_status" do
+    around do |example|
+      ENV["MAILGUN_OUTREACH_BASIC_AUTH_NAME"] = "validuser"
+      ENV["MAILGUN_OUTREACH_BASIC_AUTH_PASSWORD"] = "p@sswrd!"
+
+      example.run
+    end
+
+    before do
+      request.env["HTTP_AUTHORIZATION"] = valid_auth_credentials
+      allow(DatadogApi).to receive(:increment)
+    end
+
+    let(:message_id) { "<some-message-id@mailgun.example>" }
+
+    let(:base_params) do
+      {
+        "signature" => {
+          "timestamp" => "1529006854",
+          "token" => "a8ce0edb2dd8301dee6c2405235584e45aa91d1e9f979f3de0",
+          "signature" => "d2271d12299f6592d9d44cd9d250f0704e4674c30d79d07c47a66f95ce71cf55"
+        },
+        "event-data" => {
+          "event" => event_name,
+          "timestamp" => 1529006854.329574,
+          "message" => {
+            "headers" => {
+              "message-id" => message_id
+            }
+          },
+          "delivery-status" => delivery_status,
+          "reason" => reason
+        }
+      }
+    end
+
+    let(:delivery_status) { {} }
+    let(:reason) { nil }
+
+    context "when there is a matching CampaignEmail" do
+      let!(:campaign_email) do
+        create(
+          :campaign_email,
+          mailgun_message_id: message_id,
+          mailgun_status: "created",
+          error_code: "550",
+          event_data: { "old" => "data" }
+        )
+      end
+
+      context "with a non-failure event" do
+        let(:event_name) { "delivered" }
+
+        it "updates mailgun_status and clears error fields" do
+          post :update_campaign_email_status, params: base_params
+
+          campaign_email.reload
+          expect(campaign_email.mailgun_status).to eq("delivered")
+          expect(campaign_email.error_code).to be_nil
+          expect(campaign_email.event_data).to be_nil
+          expect(response).to be_ok
+        end
+      end
+
+      context "with a failed event" do
+        let(:event_name) { "failed" }
+        let(:reason) { "bounce" }
+        let(:delivery_status) do
+          {
+            "code" => 550,
+            "message" => "Requested action not taken: mailbox unavailable"
+          }
+        end
+
+        it "updates mailgun_status, sets error_code, and stores event_data" do
+          post :update_campaign_email_status, params: base_params
+
+          campaign_email.reload
+          expect(campaign_email.mailgun_status).to eq("failed")
+          expect(campaign_email.error_code).to eq("550")
+          expect(campaign_email.event_data).to eq(
+                                                 "error_reason" => "bounce",
+                                                 "error_message" => "Requested action not taken: mailbox unavailable"
+                                               )
+          expect(response).to be_ok
+        end
+      end
+
+      context "with a permanent_fail event" do
+        let(:event_name) { "permanent_fail" }
+        let(:reason) { "suppress-bounce" }
+        let(:delivery_status) do
+          {
+            "code" => 605,
+            "message" => "Not delivering to previously bounced address"
+          }
+        end
+
+        it "updates mailgun_status, sets error_code, and stores event_data" do
+          post :update_campaign_email_status, params: base_params
+
+          campaign_email.reload
+          expect(campaign_email.mailgun_status).to eq("permanent_fail")
+          expect(campaign_email.error_code).to eq("605")
+          expect(campaign_email.event_data).to eq(
+                                                 "error_reason" => "suppress-bounce",
+                                                 "error_message" => "Not delivering to previously bounced address"
+                                               )
+          expect(response).to be_ok
+        end
+      end
+    end
+
+    context "when there is no CampaignEmail with a matching mailgun_message_id" do
+      let(:event_name) { "opened" }
+
+      it "increments a metric and returns ok" do
+        post :update_campaign_email_status, params: base_params
+
+        expect(DatadogApi).to have_received(:increment).with("mailgun.update_campaign_email_status.email_not_found")
+        expect(response).to be_ok
+      end
+    end
+  end
+
 end

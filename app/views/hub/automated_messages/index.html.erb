@@ -25,7 +25,11 @@
             <% if message_class.respond_to?(:new) %>
               <div class="with-padding-med" style="display: inline-block; width: 35%; margin-right: 8px;">
                 <div class="client-messages__sms">
-                  <div style="white-space: pre-line;"><%= message_class.new.sms_body %></div>
+                  <% if message_class.name.start_with?("CampaignMessage::") %>
+                    <div style="white-space: pre-line;"><%= message_class.new.sms_body(contact: CampaignContact.new(sms_phone_number: "+15555555555", first_name: "Rose", locale: params["locale"])) %></div>
+                  <% else %>
+                    <div style="white-space: pre-line;"><%= message_class.new.sms_body %></div>
+                  <% end %>
                 </div>
               </div>
             <% end %>

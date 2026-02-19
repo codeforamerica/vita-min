@@ -27,6 +27,25 @@ en:
     confirm_spouse_ssn: Confirm spouse's SSN or ITIN
     primary_ssn: SSN or ITIN
     spouse_ssn: Spouse's SSN or ITIN
+  campaign_messages:
+    start_of_season_outreach:
+      email:
+        body_html: |
+          Hi %{first_name},
+
+          GetYourRefund is back for the new tax season!
+
+          We would love to help you file your taxes for free again this year. Our IRS-certified team is here to help.
+
+          When you are ready to start, head to <a href="https://www.getyourrefund.org/en/outreach" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
+
+          Best,
+
+          The team at GetYourRefund
+
+          (Replies to this email are not monitored.)
+        subject: Ready to file your taxes? GetYourRefund is open!
+      sms: 'Hi %{first_name}! GetYourRefund is back for the new tax season. We''d love to help you file for free again this year. Our IRS-certified team is ready when you are: https://www.getyourrefund.org/outreach'
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance for about 1 hour starting at %{time}.
@@ -99,11 +118,19 @@ en:
         chat_with_us: Chat with us
         continue_help_text: By clicking continue you will go to our partner site to finish filing your taxes.
         email_us_html: Email us at <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
-        file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our <a href="%{file_myself_guide_link}" target="_blank">File Myself Guide</a>.
+        file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our %{file_myself_guide_link}.
+        guide_link: File Myself Guide
         help_text: If you get stuck or have a question, we can help!
         title: Get support while you file on your own!
     file_yourself:
       edit:
+        filing_frequency:
+          label_line_1: In the last 4 years, how often have you filed?
+          label_line_2: It’s fairly common to skip filing for certain years due to life circumstances and employment changes.
+          options:
+            every_year: I filed every year
+            not_filed: I have not filed
+            some_years: I filed some years
         info:
         - File taxes online on your own using our partner website. This is our quickest option for households earning under $89,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
@@ -460,6 +487,7 @@ en:
     ethnicity:
       hispanic: Hispanic or Latino
       not_hispanic: Not Hispanic or Latino
+    explore_other_options: Explore other options
     faq: FAQ
     file_my_taxes: File my taxes
     filing_joint: Filing jointly
@@ -571,6 +599,7 @@ en:
       mena: Middle Eastern or North African
       native_hawaiian_pacific_islander: Native Hawaiian or other Pacific Islander
       white: White
+    recommendation: Our Recommendation
     register: Sign Up
     remove: Remove
     resend_invitation: Resend invitation email
@@ -1460,25 +1489,6 @@ en:
         Hi <<Client.PreferredName>>,
         It looks like you stepped away before finishing our application. Our preparers at <<Client.AssignedOrganization>> look forward to working with you! To complete our form, simply login here: <<Client.LoginLink>>
         Thanks!
-    preseason_outreach:
-      email:
-        body: |
-          This tax season will look a little different for a lot of people, but one thing remains the same: <strong>the team at GetYourRefund is here to help you quickly and easily file your taxes for free.</strong> No fees, no gimmicks, just high-quality tax services provided by a nonprofit.
-
-          New tax laws are coming for 2026, bringing changes like a larger EITC and reduced taxes on tips/overtime. While these updates can feel complex, our team of tax experts is here to help you navigate them! To make your filing experience as easy as possible, we recommend gathering your documents now. You'll be ready to file right when our season opens in late January.
-
-          We’re hard at work improving our GetYourRefund digital tax filing service for 2026. Want to have your taxes prepared for you by an IRS-certified tax preparer? We’ve got you covered. Want to prepare your own return, but get help from tax experts when you need it? Yes, we do that too. Want to avoid fees and upsells? Yeah, us too, which is why <strong>free is all we do.</strong>
-
-          The federal government recently announced it won’t be offering Direct File next year, its short-lived but much-loved free tax filing software. As a result, we’ll have to pause FileYourStateTaxes, our software that allowed Direct File users to file their state returns for free in 7 states. While this isn’t the outcome we wanted, <strong>we’re not giving up on our fight to make taxes free, simple, and accessible, so everyone gets the refunds and credits they’re owed.</strong>
-
-          Tax season starts later this month, and for-profit tax companies have already launched their multi-million dollar advertising campaigns. Amidst all their noise, don’t forget: 100% free tax filing does exist. <strong>Most households making less than $89k are eligible for 100% free state and federal filing through GetYourRefund.</strong>
-
-          See you when the season starts. If you have questions in the meantime, check out our <a href="https://www.getyourrefund.org/en/faq/?utm_source=gyr&utm_medium=email&utm_campaign=w0" target="_blank" rel="noopener nofollow">FAQs</a> or head to <a href="https://www.getyourrefund.org/en/?utm_source=gyr&utm_medium=email&utm_campaign=w0" target="_blank" rel="noopener nofollow">GetYourRefund.org</a> and hit the Chat with Us button to talk with our support team.
-
-          The team at GetYourRefund
-
-          (Replies to this email are not monitored.)
-        subject: Getting ready to file your taxes for free
     save_ctc_letter:
       email:
         body: |
@@ -2133,41 +2143,35 @@ en:
     home:
       already_started: Already started? Sign in
   questions:
-    triage:
-      diy_tile:
-        choose_diy: Choose File Myself
-        description: File quickly on your own.
-        list:
-          file: File for %{current_tax_year} only
-          income: 'Income: under $89,000'
-        timeframe: 45 minutes to file
-        title: File Myself
-      gyr_tile:
-        choose_gyr: Choose File with Help
-        description: File confidently with assistance from our IRS-certified volunteers.
-        list:
-          file: File for %{oldest_filing_year}-%{current_tax_year}
-          income: 'Income: under $69,000'
-          ssn: Must show copies of your Social Security card or ITIN paperwork
-        timeframe: 2-3 weeks to file
-        title: File with Help
-    triage_diy:
+    eligibility_state:
       edit:
-        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the option below!
-        title: We recommend using our free File Myself option!
+        diy_html: "<strong>Get expert help as you go:</strong> chat with a tax pro as you file to answer any questions you have along the way"
+        page: Step 2 of 2
+        title: What kind of support do you prefer while you file your taxes?
+        virtual_vita_html: "<strong>Have an expert do your taxes:</strong> match with a tax pro who will prepare and submit your return"
+    eligibility_wages:
+      edit:
+        income_level:
+          label: Select your household income
+          options:
+            1_to_69000: "$1 - $69,000"
+            69001_to_89000: "$69,001 - 89,000"
+            over_89000: over $89,000
+            zero: "$0"
+        page: Step 1 of 2
+        subtitle: We’ll ask a few questions about your preferences to guide you to the services you qualify for.
+        title: Let’s help you find the right service!
+        vita_income_ineligible:
+          label: 'Select all that apply to your income in 2025:'
+          options:
+            crypto: Cryptocurrency income
+            none: None of these apply
+            property: Rental or farm property income
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
         help_text: Our free service is available to households earning less than $89,000 a year.
         title: Unfortunately, it looks like you do not qualify for our free service.
-    triage_gyr:
-      edit:
-        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the option below!
-        title: We recommend using our free File with Help option!
-    triage_gyr_diy:
-      edit:
-        subtitle: Collect your missing stimulus payments, Earned Income Tax Credit, and any additional state credits with the options below!
-        title: We have two free options that may work for you!
     triage_gyr_ids:
       edit:
         help_text_1: We will ask you to upload a copy of your ID card (driver's license or state issued ID) and social security card or ITIN paperwork.
@@ -2175,35 +2179,16 @@ en:
         no_diy: No, I will proceed with File Myself
         title: Before we proceed, do you have a physical copy of your photo ID and Social Security card or ITIN paperwork?
         yes_i_have_id: Yes, I have my ID card
-    triage_income_level:
+    triage_offboarding:
       edit:
-        filing_frequency:
-          label_html: |-
-            In the last 4 years, how often have you filed?
-
-            <p class="text--small spacing-above-15">It’s fairly common to skip filing for certain years due to life circumstances and employment changes.</p>
-          options:
-            every_year: I filed every year
-            not_filed: I have not filed
-            some_years: I filed some years
-        filing_status:
-          label: How will you be filing this year?
-          options:
-            jointly: Filing with my spouse (filing jointly)
-            single: Filing by myself (single)
-        income_level:
-          label_html: |-
-            What was your income level?
-
-            <p class="text--small spacing-above-15">Your income level should not include stimulus payments, public benefits, or SSI.</p>
-          options:
-            1_to_69000: "$1 - $69,000"
-            69001_to_89000: "$69,001 - 89,000"
-            over_89000: over $89,000
-            zero: "$0"
-        title: Tell us about your filing status and income.
-        vita_income_ineligible:
-          label: 'Did you earn income from a rental property (ex: home or car), a farm, or cryptocurrency?'
+        more_guidance: For more guidance on your options, please visit our FAQ.
+        option_1: Prepare your own return using Free File Fillable Forms
+        option_2: Prepare your own return using file by mail
+        option_3: Prepare your own return using paid tax preparation software
+        option_4: Find a paid preparer to prepare your return
+        options: 'Some income levels and certain IRS forms are out of scope for our services. If you can’t use GetYourRefund there are still many ways to file your taxes:'
+        title: Unfortunately, you do not qualify for our services
+        visit_faq: Visit our FAQ
   signups:
     flash_notice: Thank you! You will receive a notification when we open.
     new:
@@ -5170,7 +5155,7 @@ en:
           quote:
             courtney: "“I'm excited to extend our free services to those who can't come into one of our physical locations.I know taxes can be intimidating, which is why we are here to help!”"
             denise: "“Being part of an organization that works to bridge the gap between where people are and where they want (or need) to be is both fulfilling and always exciting.”"
-          subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than about $69,000 a year.
+          subheader: We've formed a national coalition of community partners and dedicated volunteers to help us provide free tax filing assistance to families earning less than $89,000 a year.
         title: About Us
       error:
         body: It looks like there was a server error. We've been notified of the issue and will work to fix it!
@@ -5193,7 +5178,7 @@ en:
             header: Very professional, very friendly
           rating: Rated 4.8 / 5 stars
           trusted_support:
-            body: We are a free virtual service supported by the IRS, U.S. Department of Treasury, and the White House that helps low-income households across America receive high quality tax services from the convenience of your home.
+            body: We are a free IRS-certified virtual service that helps low-income households across America receive high quality tax services from the convenience of your home.
             title: Claim your credits easily with our trusted support.
         closed_banner: GetYourRefund will reopen %{start_of_open_intake}.
         closed_open_for_login_banner_html: GetYourRefund services are closed for this tax season. We look forward to providing our free tax assistance again starting in January. For free tax prep now, you can search for a <a href="https://www.getyourrefund.org/en/vita_providers">VITA location</a> in your area.
@@ -5728,7 +5713,7 @@ en:
           one: In %{year}, did you pay any mortgage interest?
           other: In %{year}, did you or your spouse pay any mortgage interest?
       notification_preference:
-        note_html: <p>By clicking continue, you agree to receive tax return updates, service information, and occasional surveys. We will not share your information with any outside parties.</p><p>Message frequency will vary. Message and data rates may apply. Text HELP to 46207 for help. Text STOP to 46207 to cancel. See our <a href="%{terms_url}">SMS Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.</p>
+        note_html: <p>By clicking continue, you agree to receive tax return updates, service information, and occasional surveys. We will not share your information with any outside parties.</p><p>Message frequency will vary. Message and data rates may apply. Text HELP to 58750 for help. Text STOP to 58750 to cancel. See our <a href="%{terms_url}">SMS Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.</p>
         options:
           email_notification_opt_in: Email Me
           header: We’ll need to reach out with questions and updates about your return and information about free tax filing support and other free services. We may also send surveys to improve your experience. Please select the option(s) that work best for you!
@@ -5789,7 +5774,7 @@ en:
           header: "✓ Qualifications"
           p1: US citizen or resident
           p2: Must have digital copies of your IDs and documents to submit
-          p3: Suggested household income under $67,000
+          p3: Suggested household income under $69,000
         subtitle: This service helps you file your federal and state tax return and maximize your refund.
         title: Use File with Help to file your Federal and State taxes—confirm you qualify to get started
       received_alimony:
@@ -6017,8 +6002,7 @@ en:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_filing: We are unable to accept new clients after %{end_of_intake_date}. If your return is in progress, log in and submit your documents by %{end_of_docs_date} in order to file by the deadline.
       footer:
-        ctc_service_description_html: GetCTC.org is a non-profit service built by %{link}.
-        service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with the IRS with support from the White House and U.S. Department of Treasury.
+        service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link} in partnership with IRS-certified Volunteer Income Tax Assistance (%{vita_link}) sites nationally.
         service_status: Service status
         volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:

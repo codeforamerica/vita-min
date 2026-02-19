@@ -1114,5 +1114,23 @@
     "description_en": "",
     "description_es": "",
     "items": []
+  },
+  "about_getyourrefund": {
+    "position": 20,
+    "name_en": "About GetYourRefund",
+    "name_es": "Acerca de GetYourRefund",
+    "product_type": "gyr",
+    "description_en": "",
+    "description_es": "",
+    "items": [
+      {
+        "position": 1,
+        "question_en": "What if I can’t use GetYourRefund? What are my filing options?",
+        "question_es": "¿Qué pasa si no puedo usar GetYourRefund? ¿Qué otras opciones tengo para presentar mi declaración?",
+        "slug": "what_if_i_can_t_use_getyourrefund_what_are_my_filing_options",
+        "answer_en": "Some income levels and certain IRS forms are out of scope for our services. If you can’t use GetYourRefund there are still many ways to file your taxes...",
+        "answer_es": "Algunos niveles de ingresos y ciertos formularios del IRS quedan fuera del alcance de nuestros servicios. Si no puede usar GetYourRefund, existen muchas otras maneras de presentar su declaración de impuestos..."
+      }
+    ]
   }
 }

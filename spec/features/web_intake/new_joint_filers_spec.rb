@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
   include MockTwilio
 
-  let!(:vita_partner) { create :organization, name: "Virginia Partner" }
+  let!(:vita_partner) { create :organization, name: "Virginia Partner", national_overflow_location: true}
   let!(:vita_partner_zip_code) { create :vita_partner_zip_code, zip_code: "20121", vita_partner: vita_partner }
   before do
     allow(Airtable::Organization)
@@ -25,32 +25,30 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     page_change_block do
       screenshot_after do
-        expect(page).to have_css("h1", text: I18n.t('questions.triage_gyr_diy.edit.title'))
+        expect(page).to have_text(I18n.t('views.shared.virtual_vita_card.title'))
       end
     end
 
-    click_on I18n.t('questions.triage.gyr_tile.choose_gyr')
-
-    page_change_block do
-      screenshot_after do
-        expect(page).to have_selector("h1", text: I18n.t('questions.triage_gyr_ids.edit.title'))
-        click_on I18n.t('questions.triage_gyr_ids.edit.yes_i_have_id')
-      end
-    end
-
-    page_change_block do
-      # Non-production environment warning
-      screenshot_after do
-        expect(page).to have_selector("h1", text: "Thanks for visiting the GetYourRefund demo application!")
-      end
-      click_on "Continue to example"
-    end
+    click_on I18n.t('general.continue')
 
     page_change_block do
       screenshot_after do
         expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
       end
       click_on I18n.t("views.questions.qualifications.button_1")
+    end
+
+    page_change_block do
+      # fill in personal
+      expect(page).to have_css("h1", text: I18n.t('views.questions.personal_info.title'))
+      fill_in I18n.t('views.questions.personal_info.preferred_name'), with: "Gary"
+      select I18n.t("date.month_names")[3], from: "personal_info_form_birth_date_month"
+      select "5", from: "personal_info_form_birth_date_day"
+      select "1971", from: "personal_info_form_birth_date_year"
+      fill_in I18n.t('views.questions.personal_info.phone_number'), with: "8286345533"
+      fill_in I18n.t('views.questions.personal_info.phone_number_confirmation'), with: "828-634-5533"
+      fill_in I18n.t('views.questions.personal_info.zip_code'), with: "20121"
+      click_on I18n.t('general.continue')
     end
 
     page_change_block do

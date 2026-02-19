@@ -391,21 +391,21 @@ ol.with-bullets {
   @media screen and (max-width: $tablet-up) {
     flex-direction: column;
   }
+
+  .service-card {
+    border-radius: 2rem;
+    padding: 2rem;
+    border: 1px solid #000000;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+    align-self: flex-start;
+  }
 }
 
-.rounded-box {
-  border-radius: 1rem;
-  padding: 2rem;
-  border: 1px solid #000000;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  flex: 1;
-  align-self: flex-start;
-}
-
-.service-recommendation:has(.rounded-box:nth-child(2)) .rounded-box {
+.service-recommendation:has(.service-card:nth-child(2)) .service-card {
   padding: 3rem 1rem 1rem;
   @media screen and (min-width: $tablet-up) {
     min-height: 637px;
@@ -421,8 +421,59 @@ ol.with-bullets {
   }
 }
 
-.service-recommendation[data-locale="es"]:has(.rounded-box:nth-child(2)) .rounded-box {
+.service-recommendation[data-locale="es"]:has(.service-card:nth-child(2)) .service-card {
   @media screen and (min-width: $tablet-up) {
     min-height: 700px;
+  }
+}
+
+.eligibility-card {
+  padding: 2rem;
+  margin-bottom: 3.2rem;
+  background: white;
+  border: 2px solid $color-grey-medium-light;
+  border-radius: 6px;
+
+  .checkbox--simplified {
+    padding-left: 3rem;
+    }
+
+  .tight-checkboxes {
+    .form-group {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 0;
+  }
+
+  .form-question {
+    margin-bottom: 1rem;
+  }
+
+  .select {
+    width: 100%;
+  }
+
+  .select__element {
+    border: 1px solid #121111;
+    font-weight: 400;
+  }
+
+  .radio-button {
+    border: none;
+    background-color: transparent;
+    font-size: 1.8rem;
+    font-weight: normal;
+    margin: 0;
+    min-height: auto;
+    max-width: none;
+    padding: 1rem 0 1rem 3.5rem;
+
+    input[type="radio"] {
+      left: 0.5rem;
+      top: 1.3rem;
+    }
   }
 }

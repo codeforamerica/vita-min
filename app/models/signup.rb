@@ -20,6 +20,8 @@ class Signup < ApplicationRecord
   validates :phone_number, e164_phone: true, allow_blank: true
   validates :email_address, 'valid_email_2/email': true
 
+  after_create_commit :create_or_update_campaign_contact
+
   def self.send_message(message_name, batch_size=100, after: nil)
     message_class = "AutomatedMessage::#{message_name.camelize}".constantize
     message = message_class.new
@@ -46,5 +48,20 @@ class Signup < ApplicationRecord
     if phone_number.blank? && email_address.blank?
       errors.add(:email_address, I18n.t("forms.errors.need_one_communication_method"))
     end
+  end
+
+  def create_or_update_campaign_contact
+    Campaign::UpsertSourceIntoCampaignContacts.call(
+      source: :signup,
+      source_id: id,
+      first_name: name,
+      last_name: nil,
+      email: email_address,
+      phone: phone_number,
+      email_opt_in: email_address.present?,
+      sms_opt_in: phone_number.present?,
+      locale: nil,
+      latest_signup_at: created_at,
+    )
   end
 end
