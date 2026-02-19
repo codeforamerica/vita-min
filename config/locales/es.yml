@@ -5199,7 +5199,7 @@ es:
           quote:
             courtney: '"Me alegra mucho poder extender nuestros servicios gratuitos a aquellos que no están cerca de nuestras oficinas. Sé que preparar una declaración de impuestos puede asustar a algunas personas, ¡pero estamos aquí para ayudarlas!"'
             denise: '"Formar parte de una organización que hace todo lo posible por disminuir la distancia entre el lugar donde están las personas y el lugar en el que quieren (o necesitan) estar, es muy gratificante y siempre emocionante".'
-          subheader: Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $69,000 dólares al año.
+          subheader: Hemos formado una coalición nacional de socios comunitarios y voluntarios dedicados a ayudarnos a proporcionarles asistencia gratuita para la declaración de impuestos a las familias que ganan menos de $89,000 dólares al año.
         title: Quiénes somos
       error:
         body: Parece que hubo un error en el servidor. Nos han informado del problema y haremos lo posible para solucionarlo.
@@ -5857,7 +5857,7 @@ es:
           header: "✓ Requisitos"
           p1: Ciudadano o residente de los Estados Unidos
           p2: Debe tener copias digitales de sus identificaciones y documentos para poder presentar la declaración
-          p3: Menos de $67,000 de ingresos en el hogar (sugerido)
+          p3: Menos de $69,000 de ingresos en el hogar (sugerido)
         subtitle: Este servicio le ayuda a presentar sus declaraciones de impuestos federales y estatales y a maximizar su reembolso.
         title: Use "Declarar con ayuda" para presentar sus impuestos federales y estatales - Para comenzar aseurese de que califica
       received_alimony:
