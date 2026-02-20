@@ -1073,14 +1073,13 @@ en:
         client_doc: Client
         edit_file_info: Edit File Info
         empty_file: "(empty file)"
-        needs_review: Needs Review
         fail: Fail
-        pass: Pass
         file_name: File Name
-        smart_scan: Smart Scan
+        needs_review: Needs Review
         not_needed_docs: documents not needed due to experiment.
+        pass: Pass
+        smart_scan: Smart Scan
         system_generated_doc: Auto-generated
-        upload_by: Uploaded By
         upload_date: Upload Date
     has_duplicates: Potential duplicates detected
     has_previous_year_intakes: Previous year intake(s)
