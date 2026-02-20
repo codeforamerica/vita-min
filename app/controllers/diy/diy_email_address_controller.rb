@@ -2,14 +2,10 @@ module Diy
   class DiyEmailAddressController < BaseController
     before_action :require_diy_intake
 
-    def self.show?(diy_intake)
-      # TODO: Use this version after GYR1-877 merged:
-      # diy_intake.email_address.blank? && diy_intake.email_notification_opt_in_yes?
-      # TEMP:
-      diy_intake.email_notification_opt_in_yes?
-    end
-
     def edit
+      if ! current_diy_intake.email_notification_opt_in_yes?
+        redirect_to(diy_continue_to_fsa_path)
+      end
       @form = DiyEmailAddressForm.new
     end
 

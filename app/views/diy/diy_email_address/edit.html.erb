@@ -8,9 +8,6 @@
 
           <%= form_with model: @form, url: diy_diy_email_address_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
           <h1 class="h2"><%= @main_question %></h1>
-          <p class="text--help">
-            <%=t("views.questions.email_address.info") %>
-          </p>
 
           <div class="form-card__content">
             <%= f.cfa_input_field(:email_address, t("views.questions.email_address.email_address"), classes: ["form-width--long"]) %>
