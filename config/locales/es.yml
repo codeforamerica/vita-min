@@ -1081,6 +1081,9 @@ es:
         edit_file_info: Editar información del archivo
         empty_file: "(archivo vacío)"
         file_name: Nombre de archivo
+        fail: Fail
+        pass: Pass
+        smart_scan: Smart Scan
         not_needed_docs: documentos no necesario debido al experimento.
         system_generated_doc: Auto-generado
         upload_by: Subido por
