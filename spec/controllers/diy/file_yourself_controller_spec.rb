@@ -32,16 +32,7 @@ RSpec.describe Diy::FileYourselfController do
       allow(controller).to receive(:open_for_diy?).and_return(true)
     end
 
-    context "with valid params" do
-      let(:params) do
-        {
-          file_yourself_form: {
-            email_address: "example@example.com",
-            preferred_first_name: "Robot",
-            filing_frequency: "some_years",
-          }
-        }
-      end
+    context "upon update (though note the page no longer has a form as of Feb 2026)" do
       before do
         session[:source] = "beep"
         session[:referrer] = "boop"
@@ -51,7 +42,7 @@ RSpec.describe Diy::FileYourselfController do
       context "without a diy intake in the session" do
         it "creates a new diy intake and stores the id in the session" do
           expect do
-            post :update, params: params
+            post :update
           end.to change(DiyIntake, :count).by(1)
 
           diy_intake = DiyIntake.last
@@ -72,14 +63,10 @@ RSpec.describe Diy::FileYourselfController do
 
         it "updates the intake from the session except source, referrer, etc" do
           expect do
-            post :update, params: params
+            post :update
           end.not_to change(DiyIntake, :count)
 
           existing_diy_intake.reload
-          expect(existing_diy_intake.email_address).to eq "example@example.com"
-          expect(existing_diy_intake.preferred_first_name).to eq "Robot"
-          expect(existing_diy_intake.filing_frequency).to eq "some_years"
-
           expect(existing_diy_intake.source).to eq "existing_source"
           expect(existing_diy_intake.referrer).to eq "existing_referrer"
           expect(existing_diy_intake.visitor_id).to eq "existing_visitor_id"
@@ -88,29 +75,9 @@ RSpec.describe Diy::FileYourselfController do
       end
 
       it "redirects to the tax slayer link page" do
-        post :update, params: params
+        post :update
 
         expect(response).to redirect_to diy_continue_to_fsa_path
-      end
-    end
-
-    context "with invalid params" do
-      let(:invalid_params) do
-        {
-          file_yourself_form: {
-            email_address: nil,
-            preferred_first_name: "Robot",
-            filing_frequency: "some_years",
-          }
-        }
-      end
-
-      it "returns 200 and doesn't make a diy intake record" do
-        expect do
-          post :update, params: invalid_params
-        end.not_to change(DiyIntake, :count)
-
-        expect(response).to render_template :edit
       end
     end
   end

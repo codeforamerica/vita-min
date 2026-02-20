@@ -9,47 +9,27 @@
           <%= @main_heading %>
         </h1>
 
-        <div class="document-list">
-          <ul>
-            <li class="spacing-above-25">
-              <div class="document-list__icon-wrapper">
-                <%= image_tag "paper.svg", alt: "", class: "document-list__icon" %>
-              </div>
-              <div class="document-list__item-text">
-                <%=t(".file_myself_guide_html", :file_myself_guide_link => link_to(t(".guide_link"),  mobile? ? "https://drive.google.com/file/d/1cMVSu9jLWwbgWybUO6vHcytVywOWmaBo/view" : "https://drive.google.com/file/d/16Dz4pAQsmr9LMu3MA02QQ271H4YFg5pc/view",
-                                                                        target: "_blank", "data-track-click": "diy-guide-link")) %>
-              </div>
-            </li>
-          </ul>
+        <div class="service-recommendation" style="background-color: #efefef; border-radius: 20px;">
+          <div class="service-card">
+            <%= t(".taxslayer_steps_html") %>
+          </div>
         </div>
 
-        <hr class="spacing-above-25 spacing-below-25"/>
-
-        <div><%= t(".help_text") %></div>
-
         <div class="document-list">
           <ul>
             <li class="spacing-above-25">
               <div class="document-list__icon-wrapper">
-                <%= image_tag "paper.svg", alt: "", class: "document-list__icon" %>
+                <%= image_tag "question-bubble.svg", alt: "", class: "document-list__icon" %>
               </div>
               <div class="document-list__item-text">
-                <a class="open-intercom button--link"><%= t(".chat_with_us") %></a>
-              </div>
-            </li>
-            <li class="spacing-above-25">
-              <div class="document-list__icon-wrapper">
-                <%= image_tag "envelope.svg", alt: "", class: "document-list__icon" %>
-              </div>
-              <div class="document-list__item-text">
-                <%= t(".email_us_html") %>
+                <%=t(".file_myself_guide_html", :file_myself_guide_link => link_to(t(".guide_link"),  mobile? ? "https://drive.google.com/file/d/1cMVSu9jLWwbgWybUO6vHcytVywOWmaBo/view" : "https://drive.google.com/file/d/16Dz4pAQsmr9LMu3MA02QQ271H4YFg5pc/view", target: "_blank", "data-track-click": "diy-guide-link")) %>
               </div>
             </li>
           </ul>
         </div>
 
         <div class="text--small text--italic spacing-above-60 spacing-below-20"><%= t(".continue_help_text") %></div>
-        <%= link_to t("general.continue"), 'https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2025&sidn=01011934', target: "_blank", class: "button button--primary text--centered button--wide", "data-track-click": "diy-cfa-taxslayer-link" %>
+        <%= link_to t(".button"), 'https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2025&sidn=01011934', target: "_blank", class: "button button--primary text--centered button--wide", "data-track-click": "diy-cfa-taxslayer-link" %>
       </div>
     </div>
   </section>
