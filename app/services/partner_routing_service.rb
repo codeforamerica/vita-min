@@ -137,7 +137,7 @@ class PartnerRoutingService
 
     # Step 1/2: Check sites.
     eligible_with_capacity = @base_sites.joins(:serviced_zip_codes)
-                                       .where(vita_partner_zip_codes: { zip_code: @zip_code })
+                                        .where(vita_partner_zip_codes: { zip_code: @zip_code })
 
     vita_partner = eligible_with_capacity.sample
 
@@ -146,7 +146,7 @@ class PartnerRoutingService
       return vita_partner
     end
 
-    # Step 2/2: check orgs.
+    # Step 2/2: Check orgs.
     eligible_with_capacity = @base_orgs.with_capacity.joins(:serviced_zip_codes)
                                        .where(vita_partner_zip_codes: { zip_code: @zip_code })
 
