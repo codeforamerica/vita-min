@@ -87,10 +87,10 @@ RSpec.describe Diy::FileYourselfController do
         end
       end
 
-      it "redirects to the tax slayer link page" do
+      it "redirects to the notification preference page" do
         post :update, params: params
 
-        expect(response).to redirect_to diy_continue_to_fsa_path
+        expect(response).to redirect_to diy_diy_notification_preference_path
       end
     end
 
