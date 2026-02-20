@@ -1,7 +1,9 @@
 class MarriedForm < QuestionsForm
-  set_attributes_for :intake, :married
+  set_attributes_for :intake, :married, :married_last_day_of_year
 
   def save
-    @intake.update(attributes_for(:intake))
+    status = attributes_for(:intake)[:married]
+    @intake.update(married: status,
+                   married_last_day_of_year: status)
   end
 end
