@@ -5,7 +5,7 @@ RSpec.describe Diy::DiyEmailAddressController do
 
   test_email_address = 'test@test.test'
 
-  let(:diy_intake) { create(:diy_intake, email_address: test_email_address) }
+  let(:diy_intake) { create(:diy_intake, email_address: test_email_address, email_notification_opt_in: "yes") }
 
   before do
     allow(subject).to receive(:current_diy_intake).and_return(diy_intake)
