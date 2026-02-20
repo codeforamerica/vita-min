@@ -115,25 +115,18 @@ en:
   diy:
     continue_to_fsa:
       edit:
+        button: Continue to TaxSlayer
         continue_help_text: By clicking continue you will go to our partner site to finish filing your taxes.
-        file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our %{file_myself_guide_link}.
-        guide_link: File Myself Guide
-        help_text: If you get stuck or have a question, we can help!
-        title: Get support while you file on your own!
+        file_myself_guide_html: Want more guidance? %{file_myself_guide_link} for step-by-step instructions, tips, and best practices!
+        guide_link: Follow our DIY Guide
+        taxslayer_steps_html: '<ol class="list--numbered"><li><strong>Continue to TaxSlayer:</strong> Click continue, to access our referral link for a free version of TaxSlayer.<li><strong>Get started with TaxSlayer:</strong> You will be taken to a transition page titled “Welcome to the TaxSlayer VITA/TCE self-prep kiosk” click continue.<li><strong>Create a login:</strong> You will need to make a login on TaxSlayer’s website.<ol class="list--checkmark" style="padding-top: 1em;"><li>Once you login, make sure you are using TaxSlayer’s free <i>American Pledge</i> website.</ol><li><strong>File your tax return:</strong> Enter the required information from your tax forms and submit your tax return.</ol>'
+        title: What to expect by filing on your own with TaxSlayer
     file_yourself:
       edit:
         chat_with_us: Chat with us
         email_us_html: Email us at <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
-        filing_frequency:
-          label_line_1: In the last 4 years, how often have you filed?
-          label_line_2: It’s fairly common to skip filing for certain years due to life circumstances and employment changes.
-          options:
-            every_year: I filed every year
-            not_filed: I have not filed
-            some_years: I filed some years
-        info: 
+        info:
         - We’re here to make your tax-filing experience smooth and stress-free. Explore our guides and FAQs to find quick answers and stay confident as you file.
-
         - If you get stuck at any point or have questions, reach out to our support team!
         title: File on your own and get support when you need it
     qualifications:

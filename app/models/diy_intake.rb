@@ -25,7 +25,6 @@ class DiyIntake < ApplicationRecord
 
   has_secure_token :token
 
-  #validates :email_address, presence: true, 'valid_email_2/email': { mx: true }, confirmation: true
   validates :email_address, 'valid_email_2/email': { mx: true }, confirmation: true
   
   def self.should_carry_over_params_from?(intake)
