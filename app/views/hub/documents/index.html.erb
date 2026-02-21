@@ -79,7 +79,6 @@
             <td class="index-table__cell document-column__smart-scan">
               <% latest_assessment = document.assessments.order(created_at: :desc).first %>
               <% verdict = latest_assessment&.result_json&.dig("matches_doc_type_verdict") %>
-
               <% if verdict == "pass" %>
                 <span class="label--status" data-status="pass"><%= t(".pass") %></span>
               <% elsif verdict.present? %>

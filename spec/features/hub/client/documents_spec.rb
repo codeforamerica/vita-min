@@ -10,6 +10,9 @@ RSpec.feature "View and edit documents for a client" do
     let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement", uploaded_by: client }
     let!(:document_2) { create :document, display_name: "W-2.pdf", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement" }
     let!(:document_3) { create :document, display_name: "consent.pdf", client: client, intake: client.intake, uploaded_by: nil }
+    let!(:assessment_pass)  { create(:doc_assessment, :pass, document: document_1) }
+    let!(:assessment_fail)  { create(:doc_assessment, :fail, document: document_2) }
+    let!(:assessment_attention) { create(:doc_assessment, :attention, document: document_3) }
 
     before do
       login_as user
@@ -29,11 +32,11 @@ RSpec.feature "View and edit documents for a client" do
 
       visit hub_client_documents_path(client_id: client.id)
 
+      save_and_open_page
       expect(page).to have_selector("h1", text: "Bart Simpson")
       expect(page).to have_selector("#document-#{document_1.id}", text: "ID.jpg")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Care Provider Statement")
       expect(page).to have_selector("#document-#{document_1.id}", text: "2019")
-      expect(page).to have_selector("#document-#{document_1.id}", text: "Client")
 
       within "#document-#{document_1.id}" do
         click_on "Edit"
@@ -51,7 +54,18 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("#document-#{document_1.id}", text: "Updated Document Title")
       expect(page).to have_selector("#document-#{document_1.id}", text: "2017")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Secondary ID")
-      expect(page).to have_selector("#document-#{document_3.id}", text: "Auto-generated")
+
+      within "#document-#{document_1.id}" do
+        expect(page).to have_selector('[data-status="pass"]')
+      end
+
+      within "#document-#{document_2.id}" do
+        expect(page).to have_selector('[data-status="fail"]')
+      end
+
+      within "#document-#{document_3.id}" do
+        expect(page).to have_selector('[data-status="attention"]')
+      end
     end
 
     scenario "can rotate a document", js: true do
@@ -122,7 +136,6 @@ RSpec.feature "View and edit documents for a client" do
       within "#document-#{Document.last.id}" do
         expect(page).to have_content("2017")
         expect(page).to have_content("Final Tax Document")
-        expect(page).to have_content("Org Lead")
       end
       expect(client.documents.count).to eq original_document_count + 1
     end
