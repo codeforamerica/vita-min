@@ -436,7 +436,7 @@ ol.with-bullets {
 
   .checkbox--simplified {
     padding-left: 3rem;
-    }
+  }
 
   .tight-checkboxes {
     .form-group {
@@ -476,4 +476,27 @@ ol.with-bullets {
       top: 1.3rem;
     }
   }
+}
+
+.smart-scan-card {
+  background-color: $color-smart-scan-pink;
+  border: 2px solid $color-smart-scan-brick;
+  border-radius: 2rem;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.smart-scan-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.smart-scan-card__divider {
+  height: 1px;
+  width: 100%;
+  background-color: rgba($color-smart-scan-brick, 0.3);
 }

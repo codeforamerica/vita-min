@@ -1,27 +1,61 @@
 <% @title = "#{t(".title")} | #{@client.legal_name}" %>
 <% content_for :page_title, @title %>
+
 <% content_for :card do %>
   <div class="slab slab--not-padded">
     <%= render "hub/read_only_client_header", client: @client %>
     <hr/>
-    <div class="grid-flex">
-      <div class="item no-shrink">
+
+    <div class="doc-edit-layout">
+      <div class="doc-edit-layout__sidebar">
         <%= render 'form', url: [:hub, @client, @document], method: "patch", file_upload_enabled: false %>
+
+        <div class="smart-scan-card smart-scan-card--compact">
+          <div class="smart-scan-card__header">
+            <%= image_tag "icons/ai_page.svg", class: "smart-scan-card__icon", alt: "" %>
+            <span>Smart Scan Notes</span>
+          </div>
+
+          <div class="smart-scan-card__divider"></div>
+
+          <div>
+            <strong>Validation fail</strong>
+          </div>
+
+          <div>
+            Drivers license name does not match taxpayer name.
+          </div>
+
+          <div>
+            Suggested document type: Current Drivers License.
+          </div>
+        </div>
       </div>
-      <div id="image-and-button-wrapper">
-        <div class="item" id="image-container">
-          <% if @document.is_pdf? %>
-            <embed src="<%= transient_storage_url(@document.upload.blob) %>" width="800px" height="100%" type="application/pdf"/>
-          <% else %>
-            <%= image_tag transient_storage_url(@document.upload.blob), id: 'image', class: 'rotatable-image', data: { rotation: 0 } %>
+
+      <div class="doc-edit-layout__preview">
+        <div id="image-and-button-wrapper">
+          <div class="item" id="image-container">
+            <% if @document.is_pdf? %>
+              <div class="doc-edit-layout__pdf-message">
+                PDF preview is handled elsewhere.
+              </div>
+            <% else %>
+              <%= image_tag transient_storage_url(@document.upload.blob),
+                            id: "image",
+                            class: "rotatable-image",
+                            data: { rotation: 0 },
+                            alt: "" %>
+            <% end %>
+          </div>
+
+          <% unless @document.is_pdf? || @document.is_txt_file? %>
+            <button id="rotate-button" class="button">
+              Rotate Image <%= image_tag("rotate.svg", alt: "") %>
+            </button>
           <% end %>
         </div>
-        <% unless @document.is_pdf? || @document.is_txt_file? %>
-          <button id="rotate-button" class="button">Rotate Image <%= image_tag("rotate.svg", alt: "") %></button>
-        <% end %>
       </div>
     </div>
-
   </div>
 
   <% if !acts_like_production? && current_user.admin? %>
@@ -30,6 +64,7 @@
                     rerun_screener_hub_client_document_path(client_id: @document.client.id, id: @document.id),
                     method: :post %>
       <br>
+
       <% if @document.assessments.present? %>
         <table class="index-table">
           <tr>
@@ -42,8 +77,9 @@
             <th>confidence</th>
             <th>explanation</th>
           </tr>
+
           <% @document.assessments.order('created_at DESC').each do |assessment| %>
-            <% result = assessment&.result_json %>
+            <% result = assessment&.result_json || {} %>
             <% error = assessment&.error %>
             <tr class="<%= error.present? ? "error" : result["matches_doc_type_verdict"] %>">
               <td><%= assessment.status %></td>
@@ -57,7 +93,7 @@
             </tr>
           <% end %>
         </table>
+      <% end %>
+    </div>
   <% end %>
-  </div>
-<% end %>
 <% end %>
