@@ -32,7 +32,6 @@ RSpec.feature "View and edit documents for a client" do
 
       visit hub_client_documents_path(client_id: client.id)
 
-      save_and_open_page
       expect(page).to have_selector("h1", text: "Bart Simpson")
       expect(page).to have_selector("#document-#{document_1.id}", text: "ID.jpg")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Care Provider Statement")
