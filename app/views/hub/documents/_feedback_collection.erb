@@ -1,4 +1,4 @@
-<% if current_user.admin? && @document.latest_assessment&.feedbacks.blank? %>
+<% if current_user.admin? && (@document.latest_assessment.present? && @document.latest_assessment&.feedbacks.blank?) %>
   <div class="feedback-box">
     <div id="top-question">
       <span>Is the Smart Scan label correct?</span>
