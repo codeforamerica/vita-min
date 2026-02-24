@@ -550,4 +550,44 @@ RSpec.describe Hub::DocumentsController, type: :controller do
       end
     end
   end
+
+  describe "#record_feedback" do
+    let(:document) { create :document, intake: client.intake }
+    let!(:assessment) { create :doc_assessment, :with_json, document: document }
+    let(:params) do
+      {
+        client_id: client.id,
+        id: document.id,
+        feedback: "incorrect",
+        feedback_notes: "wrong doc type"
+      }
+    end
+
+    before do
+      sign_in(user)
+    end
+
+    context "user is not admin" do
+      it "returns forbidden" do
+        post :record_feedback, params: params
+        expect(response).to be_forbidden
+      end
+    end
+
+    context "in demo and admin user" do
+      let(:user) { create :admin_user }
+
+      it "creates a DocAssessmentFeedback record" do
+        expect {
+          post :record_feedback, params: params
+        }.to change(DocAssessmentFeedback, :count).by(1)
+
+        expect(response).not_to be_forbidden
+        expect(response).to redirect_to edit_hub_client_document_path({client_id: client.id, id: document.id})
+
+        expect(DocAssessmentFeedback.last.feedback).to eq "incorrect"
+        expect(DocAssessmentFeedback.last.feedback_notes).to eq "wrong doc type"
+      end
+    end
+  end
 end

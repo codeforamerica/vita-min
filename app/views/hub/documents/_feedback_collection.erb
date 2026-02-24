@@ -6,13 +6,13 @@
       <%= button_to record_feedback_hub_client_document_path,
                     params: { feedback: "correct" },
                     style: "background:none; border:none; padding:0; cursor:pointer;" do %>
-        <%= image_tag('icons/checkmark-green-circle.svg', alt: "Yes") %>
+        <%= image_tag('icons/checkmark-green-circle.svg', alt: "correct") %>
       <% end %>
 
       <button type="button"
               data-feedback-x
               style="background:none; border:none; padding:0; cursor:pointer;">
-        <%= image_tag('icons/crossmark-red-circle.svg', alt: "No") %>
+        <%= image_tag('icons/crossmark-red-circle.svg', alt: "incorrect") %>
       </button>
     </div>
 

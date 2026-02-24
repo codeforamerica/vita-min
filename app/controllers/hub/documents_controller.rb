@@ -75,6 +75,8 @@ module Hub
     end
 
     def record_feedback
+      return head :forbidden unless current_user.admin?
+
       DocAssessmentFeedback.create!(
         doc_assessment: @document.latest_assessment,
         user: current_user,
