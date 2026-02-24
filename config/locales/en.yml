@@ -119,7 +119,11 @@ en:
         continue_help_text: By clicking continue you will go to our partner site to finish filing your taxes.
         file_myself_guide_html: Want more guidance? %{file_myself_guide_link} for step-by-step instructions, tips, and best practices!
         guide_link: Follow our DIY Guide
-        taxslayer_steps_html: '<ol class="list--numbered"><li><strong>Continue to TaxSlayer:</strong> Click continue, to access our referral link for a free version of TaxSlayer.<li><strong>Get started with TaxSlayer:</strong> You will be taken to a transition page titled “Welcome to the TaxSlayer VITA/TCE self-prep kiosk” click continue.<li><strong>Create a login:</strong> You will need to make a login on TaxSlayer’s website.<ol class="list--checkmark" style="padding-top: 1em;"><li>Once you login, make sure you are using TaxSlayer’s free <i>American Pledge</i> website.</ol><li><strong>File your tax return:</strong> Enter the required information from your tax forms and submit your tax return.</ol>'
+        taxslayer_step_1_html: "<b>Continue to TaxSlayer:</b> Click continue, to access our referral link for a free version of TaxSlayer."
+        taxslayer_step_2_html: "<b>Get started with TaxSlayer:</b> You will be taken to a transition page titled “Welcome to the TaxSlayer VITA/TCE self-prep kiosk” click continue."
+        taxslayer_step_3_html: "<b>Create a login:</b> You will need to make a login on TaxSlayer’s website."
+        taxslayer_step_3a_html: Once you login, make sure you are using TaxSlayer’s free <i>American Pledge</i> website.
+        taxslayer_step_4_html: "<b>File your tax return:</b> Enter the required information from your tax forms and submit your tax return."
         title: What to expect by filing on your own with TaxSlayer
     file_yourself:
       edit:

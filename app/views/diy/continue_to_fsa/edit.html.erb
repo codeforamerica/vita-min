@@ -11,7 +11,15 @@
 
         <div class="service-recommendation" style="background-color: #efefef; border-radius: 20px;">
           <div class="service-card">
-            <%= t(".taxslayer_steps_html") %>
+            <ol class="list--numbered">
+              <li><%= t(".taxslayer_step_1_html") %>
+              <li><%= t(".taxslayer_step_2_html") %>
+              <li><%= t(".taxslayer_step_3_html") %>
+              <ol class="list--checkmark" style="padding-top: 1em;">
+                <li><%= t(".taxslayer_step_3a_html") %>
+              </ol>
+              <li><%= t(".taxslayer_step_4_html") %>
+            </ol>
           </div>
         </div>
 
