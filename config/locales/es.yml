@@ -5876,7 +5876,6 @@ es:
         title: Seleccione cualquier situación que haya sido cierta para su cónyuge en %{year}
       ssn_itin:
         title: Favor de proporcionar su información de identificación del contribuyente, "taxpayer identification information" en inglés.
-        warning_html: ⚠️ <b>Declarantes inmigrantes:</b> Desde abril de 2025, el IRS y el Departamento de Seguridad Nacional (incluyendo ICE) llegaron a un acuerdo para compartir datos entre las agencias. <a href="https://www.getyourrefund.org/es/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Consulte nuestras preguntas frecuentes para más información</a>
       start_with_current_year:
         starting_point: Este es solo un punto de partida, podrá discutir su situación en profundidad con su especialista en impuestos por teléfono.
         title: Comenzaremos preguntando sobre su situación en el %{year}.
