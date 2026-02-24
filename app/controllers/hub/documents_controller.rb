@@ -74,6 +74,17 @@ module Hub
       redirect_back(fallback_location: edit_hub_client_document_path(client_id: @document.client.id, id: @document), notice: "Re-ran document screening.")
     end
 
+    def record_feedback
+      DocAssessmentFeedback.create!(
+        doc_assessment: @document.latest_assessment,
+        user: current_user,
+        feedback: params[:feedback],
+        feedback_notes: params[:feedback_notes]
+      )
+
+      redirect_back fallback_location: edit_hub_client_document_path(client_id: @document.client.id, id: @document)
+    end
+
     private
 
     def load_document_type_options

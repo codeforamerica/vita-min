@@ -1,0 +1,31 @@
+<% if current_user.admin? && @document.latest_assessment&.feedbacks.blank? %>
+  <div class="feedback-box">
+    <div id="top-question">
+      <span>Is the Smart Scan label correct?</span>
+
+      <%= button_to record_feedback_hub_client_document_path,
+                    params: { feedback: "correct" },
+                    style: "background:none; border:none; padding:0; cursor:pointer;" do %>
+        <%= image_tag('icons/checkmark-green-circle.svg', alt: "Yes") %>
+      <% end %>
+
+      <button type="button"
+              data-feedback-x
+              style="background:none; border:none; padding:0; cursor:pointer;">
+        <%= image_tag('icons/crossmark-red-circle.svg', alt: "No") %>
+      </button>
+    </div>
+
+    <div data-feedback-notes class="hidden spacing-above-15 spacing-below-0">
+      <p class="spacing-below-5">Provide additional feedback</p>
+      <%= form_with url: record_feedback_hub_client_document_path, method: :post do |f| %>
+        <%= f.hidden_field :feedback, value: "incorrect" %>
+        <%= f.text_area :feedback_notes, id: "additional-feedback" %>
+        <div class="spacing-above-10 spacing-below-0">
+          <%= f.submit "Submit feedback", class: "button" %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+<% end %>
