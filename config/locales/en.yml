@@ -1073,11 +1073,17 @@ en:
         client_doc: Client
         edit_file_info: Edit File Info
         empty_file: "(empty file)"
-        file_name: File Name
+        file_name: File Namev
         not_needed_docs: documents not needed due to experiment.
         system_generated_doc: Auto-generated
         upload_by: Uploaded By
         upload_date: Upload Date
+      smart_scan_card:
+        is_accurate: "%{document_type} is accurate"
+        is_inaccurate: 'Suggested document type: %{document_type}.'
+        validation_fail: Validation Fail
+        validation_passed: Validation Passed
+        validoc_notes: Validoc Notes
     has_duplicates: Potential duplicates detected
     has_previous_year_intakes: Previous year intake(s)
     itin_applicant: ITIN applicant

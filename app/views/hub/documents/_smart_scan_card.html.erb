@@ -1,0 +1,24 @@
+<div class="smart-scan-card smart-scan-card--<%= state %>">
+  <div class="smart-scan-card__header">
+    <span class="smart-scan-card__icon" aria-hidden="true"></span>
+    <strong><%= t("hub.documents.smart_scan_card.validoc_notes") %></strong>
+  </div>
+
+  <div class="smart-scan-card__divider"></div>
+
+  <div>
+    <strong><%= state == "success" ? t("hub.documents.smart_scan_card.validation_passed") : t("hub.documents.smart_scan_card.validation_fail") %></strong>
+  </div>
+
+  <% if state == "fail" %>
+    <div>
+      <%= document.latest_assessment&.explanation %>
+    </div>
+  <% end %>
+
+  <% if document.latest_assessment&.suggested_document_type.present? %>
+    <div>
+      <%= state == "success" ? t("hub.documents.smart_scan_card.is_accurate", document_type: document.latest_assessment&.suggested_document_type) : t("hub.documents.smart_scan_card.is_inaccurate", document_type: document.latest_assessment&.suggested_document_type) %>
+    </div>
+  <% end %>
+</div>

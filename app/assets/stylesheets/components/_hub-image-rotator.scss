@@ -1,54 +1,24 @@
-.doc-edit-layout {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-.doc-edit-layout__sidebar {
-  width: 360px;
-  flex-shrink: 0;
-}
-
-.doc-edit-layout__preview {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
 #image-and-button-wrapper {
+  width: 75%;
   height: 70vh;
-  display: flex;
-  flex-direction: column;
 }
 
 #image-container {
   position: relative;
   overflow: hidden;
-  border: 2px solid lightgray;
+  border: solid lightgray 2px;
   background-color: lightgray;
-  width: 100%;
-  height: 100%;
+  width: 75%;
+  height: 70vh;
 }
 
 .rotatable-image {
-  position: absolute;
   top: 0;
   left: 0;
   max-width: 100%;
   max-height: 100%;
-  transform-origin: center center;
 }
 
 #rotate-button {
   margin-top: 16px;
-  align-self: flex-start;
-}
-
-@media screen and (max-width: $mobile-up) {
-  .doc-edit-layout {
-    flex-direction: column;
-  }
-
-  .doc-edit-layout__sidebar {
-    width: 100%;
-  }
 }

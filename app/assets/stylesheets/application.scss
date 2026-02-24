@@ -500,3 +500,57 @@ ol.with-bullets {
   width: 100%;
   background-color: rgba($color-smart-scan-brick, 0.3);
 }
+
+.smart-scan-card {
+  border-radius: 2rem;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.smart-scan-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.smart-scan-card__divider {
+  height: 1px;
+  width: 100%;
+  opacity: 0.3;
+}
+
+.smart-scan-card--fail {
+  background-color: $color-smart-scan-pink;
+  border: 2px solid $color-smart-scan-brick;
+  color: $color-smart-scan-brick;
+}
+
+.smart-scan-card--fail .smart-scan-card__divider {
+  background-color: $color-smart-scan-brick;
+}
+
+.smart-scan-card--success {
+  background-color: $color-smart-scan-light-green;
+  border: 2px solid $color-smart-scan-dark-green;
+  color: $color-smart-scan-dark-green;
+}
+
+.smart-scan-card--success .smart-scan-card__divider {
+  background-color: $color-smart-scan-dark-green;
+}
+
+.smart-scan-card__icon {
+  width: 13px;
+  height: 15px;
+  display: inline-block;
+
+  background-color: currentColor;
+
+  -webkit-mask: asset-url("icons/ai_page.svg") no-repeat center / contain;
+  mask: asset-url("icons/ai_page.svg") no-repeat center / contain;
+
+  flex: 0 0 auto;
+}

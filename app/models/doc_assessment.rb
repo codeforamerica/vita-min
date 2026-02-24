@@ -24,4 +24,25 @@
 #
 class DocAssessment < ApplicationRecord
   belongs_to :document
+
+  def matches_doc_type_verdict
+    result_json&.dig("matches_doc_type_verdict")
+  end
+
+  def smart_scan_status
+    verdict = matches_doc_type_verdict
+
+    return "pass" if verdict == "pass"
+    return "fail" if verdict.present?
+
+    "attention"
+  end
+
+  def explanation
+    result_json&.dig("explanation")
+  end
+
+  def suggested_document_type
+    result_json&.dig("suggested_document_type")
+  end
 end
