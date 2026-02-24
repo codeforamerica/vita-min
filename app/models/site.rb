@@ -43,6 +43,13 @@ class Site < VitaPartner
     where(parent_organization_id: Organization.with_capacity.pluck(:id))
   }
 
+  scope :with_language_capability, -> (language) do
+    org_ids = Organization.with_language_capability(language).pluck(:id)
+
+    # Sites under those Orgs
+    where(type: Site::TYPE, parent_organization_id: org_ids)
+  end
+
   def coalition
     parent_organization.coalition
   end
