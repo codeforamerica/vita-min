@@ -1073,7 +1073,7 @@ en:
         client_doc: Client
         edit_file_info: Edit File Info
         empty_file: "(empty file)"
-        file_name: File Namev
+        file_name: File Name
         not_needed_docs: documents not needed due to experiment.
         system_generated_doc: Auto-generated
         upload_by: Uploaded By
