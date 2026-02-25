@@ -268,6 +268,19 @@ describe PartnerRoutingService do
         end
       end
 
+      context "when client zip corresponds to a Site but not the Site's parent Org" do
+        # That is, the Site and its parent Org have no zips in common (GYR1-930).
+        let!(:org) { create :organization }
+        let!(:zip) { create :vita_partner_zip_code, zip_code: "78729", vita_partner: org }
+        let!(:site) { create :site, parent_organization: org }
+        let!(:zip) { create :vita_partner_zip_code, zip_code: "12345", vita_partner: site }
+        subject { PartnerRoutingService.new(zip_code: "12345") }
+        it "routes to the Site" do
+          expect(subject.determine_partner).to eq site
+          expect(subject.routing_method).to eq :zip_code
+        end
+      end
+
       context "when clients zip code doesn't correspond to a Vita Partner" do
         context "when state for that zip code has associated Vita Partners" do
           subject { PartnerRoutingService.new(zip_code: "28806") } #NC
