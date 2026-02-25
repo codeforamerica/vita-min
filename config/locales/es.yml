@@ -114,26 +114,24 @@ es:
   diy:
     continue_to_fsa:
       edit:
-        chat_with_us: Chatea con nosotros
+        button: Visite TaxSlayer
         continue_help_text: Al hacer clic en continuar, irá al sitio de nuestro socio para terminar de declarar sus impuestos.
-        email_us_html: envíenos un correo electrónico a <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
-        file_myself_guide_html: para obtener instrucciones paso a paso, consejos y prácticas recomendadas, consulte nuestra %{file_myself_guide_link}.
-        guide_link: Guía de autoarchivo
-        help_text: Si te quedas atascado o tienes alguna pregunta, ¡podemos ayudarte!
-        title: "¡Obtenga apoyo mientras presenta su propia solicitud!"
+        file_myself_guide_html: "¿Desea recibir apoyo? %{file_myself_guide_link} para ver instrucciones paso a paso, consejos y mejores prácticas."
+        guide_link: Siga nuestra guía “hágalo usted mismo”
+        taxslayer_step_1_html: "<b>Navegue a TaxSlayer:</b> Haga clic en Continuar para acceder a nuestro enlace de referencia de una versión gratuita de TaxSlayer. Este sitio sólo está disponible en inglés."
+        taxslayer_step_2_html: "<b>Empiece el proceso con TaxSlayer:</b> Será dirigido a una página de transición titulada “Welcome to the TaxSlayer VITA/TCE self-prep kiosk”. Haga clic en Continue."
+        taxslayer_step_3_html: "<b>Cree una cuenta:</b> Deberá crear una cuenta en el sitio web de TaxSlayer."
+        taxslayer_step_3a_html: Una vez que inicie sesión, asegúrese de estar utilizando el sitio gratuito <i>American Pledge</i> de TaxSlayer.
+        taxslayer_step_4_html: "<b>Presente su declaración de impuestos:</b> Ingrese la información requerida de sus formularios de impuestos y envíe su declaración."
+        title: Qué puede esperar al presentar su declaración por su cuenta con TaxSlayer
     file_yourself:
       edit:
-        filing_frequency:
-          label_line_1: En los últimos 4 años, ¿cuántas veces ha declarado impuestos?
-          label_line_2: Es bastante común no declarar algunos años  debido a circunstancias de la vida y cambios de empleo.
-          options:
-            every_year: He declarado todos los años
-            not_filed: No he declarado
-            some_years: Declaré unos años
+        chat_with_us: Chatee con nosotros
+        email_us_html: Envíenos un correo electrónico a <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
         info:
-        - Presente tus impuestos en línea por su cuenta usando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $89,000 para declarar impuestos y cobrar los créditos tributarios que se le deben!
-        - Para comenzar, necesitaremos recopilar información básica.
-        title: "¡Declare aquí sus impuestos usted mismo!"
+        - Estamos aquí para que su experiencia al presentar impuestos sea sencilla y sin estrés. Explore nuestras guías y preguntas frecuentes para encontrar respuestas rápidas y tener la seguridad que necesita mientras presenta su declaración de impuestos.
+        - 'Si en algún momento no sabe cómo avanzar o tiene preguntas, comuníquese con nuestro equipo de servicio al cliente:'
+        title: Presente su declaración por su cuenta y reciba apoyo cuando lo necesite
     qualifications:
       edit:
         button_1: Sí, califico
