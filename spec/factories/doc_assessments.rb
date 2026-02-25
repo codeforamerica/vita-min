@@ -84,13 +84,40 @@ FactoryBot.define do
       status { "complete" }
     end
 
-    trait :failed do
-      status { "failed" }
-      error  { "Something went wrong" }
+    trait :pass do
+      complete
+      result_json do
+        {
+          "matches_doc_type_verdict" => "pass",
+          "confidence" => 0.99
+        }
+      end
+    end
+
+    trait :fail do
+      complete
+      result_json do
+        {
+          "matches_doc_type_verdict" => "fail",
+          "confidence" => 0.25
+        }
+      end
+    end
+
+    trait :attention do
+      complete
+      result_json { {} } # no verdict key → attention state
     end
 
     trait :processing do
       status { "processing" }
+      result_json { {} }
+    end
+
+    trait :failed do
+      status { "failed" }
+      error  { "Something went wrong" }
+      result_json { {} }
     end
   end
 end
