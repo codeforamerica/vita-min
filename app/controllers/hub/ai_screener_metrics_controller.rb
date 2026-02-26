@@ -3,7 +3,7 @@ module Hub
     before_action :require_admin
 
     def show
-      @ai_accuracy = Doccu
+      @ai_accuracy = Document
     end
   end
 end
