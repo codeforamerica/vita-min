@@ -5777,7 +5777,7 @@ en:
           one: In %{year}, did you pay any mortgage interest?
           other: In %{year}, did you or your spouse pay any mortgage interest?
       notification_preference:
-        note_html: By clicking continue, you agree to receive tax return updates, service information, and occasional surveys. We will not share your information with any outside parties.
+        note_html: By clicking continue, you agree to receive tax return updates, service information, and occasional surveys. We will not share your information with any outside parties. See our <a href="%{terms_url}">SMS Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.
         options:
           email_notification_opt_in: Email Me
           header: We’ll need to reach out with questions and updates. Please select the option(s) that work best for you!

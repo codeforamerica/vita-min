@@ -5786,7 +5786,7 @@ es:
           one: En %{year}, ¿pagó algún interés hipotecario?
           other: En %{year}, ¿Pagó usted o su pareja algún interés hipotecario?
       notification_preference:
-        note_html: Al hacer clic en Continuar, usted acepta recibir actualizaciones sobre su declaración de impuestos, información sobre nuestros servicios y encuestas ocasionales. No compartiremos su información con terceros.
+        note_html: Al hacer clic en Continuar, usted acepta recibir actualizaciones sobre su declaración de impuestos, información sobre nuestros servicios y encuestas ocasionales. No compartiremos su información con terceros. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.
         options:
           email_notification_opt_in: Envíeme un correo electrónico
           header: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o actualizaciones. Por favor, selecciona la(s) opción(es) que mejor te funcione.
