@@ -1,0 +1,62 @@
+<h1>AI Screener</h1>
+
+<h2>Client Classification Accuracy</h2>
+<% acc = @metrics[:client_classification_accuracy] %>
+<ul>
+  <li>Total latest assessments: <%= acc[:total] %></li>
+  <li>Pass: <%= acc[:pass] %> (<%= number_to_percentage(acc[:pass_pct] * 100, precision: 1) %>)</li>
+  <li>Fail: <%= acc[:fail] %> (<%= number_to_percentage(acc[:fail_pct] * 100, precision: 1) %>)</li>
+  <li>Undetermined: <%= acc[:undetermined] %> (<%= number_to_percentage(acc[:undetermined_pct] * 100, precision: 1) %>)</li>
+</ul>
+
+<h2>AI Efficacy (Screener Feedback)</h2>
+<% eff = @metrics[:ai_efficacy] %>
+<ul>
+  <li>Total feedback: <%= eff[:total_feedback] %></li>
+  <li>Correct (✅): <%= eff[:correct] %> (<%= number_to_percentage(eff[:correct_pct] * 100, precision: 1) %>)</li>
+  <li>Incorrect (❌): <%= eff[:incorrect] %> (<%= number_to_percentage(eff[:incorrect_pct] * 100, precision: 1) %>)</li>
+</ul>
+
+<h2>AI Classification Accuracy</h2>
+<% cls = @metrics[:ai_classification_accuracy] %>
+<ul>
+  <li>Total feedback: <%= cls[:total_feedback] %></li>
+  <li>Agree: <%= cls[:correct] %> (<%= number_to_percentage(cls[:correct_pct] * 100, precision: 1) %>)</li>
+  <li>Disagree: <%= cls[:incorrect] %> (<%= number_to_percentage(cls[:incorrect_pct] * 100, precision: 1) %>)</li>
+</ul>
+
+<h2>Most Common AI Suggestions Marked Incorrect (Top 3)</h2>
+<% wrong_suggestions = @metrics[:most_common_wrong_ai_suggestions] %>
+<% if wrong_suggestions.blank? %>
+  <p>No incorrect feedback yet.</p>
+<% else %>
+  <ol>
+    <% wrong_suggestions.each do |suggested_type, count| %>
+      <li><strong><%= suggested_type %></strong>: <%= count %></li>
+    <% end %>
+  </ol>
+<% end %>
+
+<h2>Document Types AI Struggles With (Top 3)</h2>
+<% wrong_docs = @metrics[:most_common_document_types_ai_struggles_with] %>
+<% if wrong_docs.blank? %>
+  <p>No incorrect feedback yet.</p>
+<% else %>
+  <ol>
+    <% wrong_docs.each do |doc_type, count| %>
+      <li><strong><%= doc_type %></strong>: <%= count %></li>
+    <% end %>
+  </ol>
+<% end %>
+
+<h2>AI Suggested Document Type Distribution (Top 20)</h2>
+<% dist = @metrics[:ai_suggested_document_type_distribution] %>
+<% if dist.blank? %>
+  <p>No AI suggestions recorded yet.</p>
+<% else %>
+  <ul>
+    <% dist.each do |suggested_type, count| %>
+      <li><strong><%= suggested_type %></strong>: <%= count %></li>
+    <% end %>
+  </ul>
+<% end %>

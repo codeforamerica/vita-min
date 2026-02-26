@@ -14,6 +14,7 @@ module Hub
         [Hub::Admin::ExperimentsController.to_path_helper(action: :index), "Experiments"],
         [Hub::PortalStatesController.to_path_helper(action: :index), "Portal States"],
         [Hub::FaqCategoriesController.to_path_helper(action: :index), "FAQ (Frequently Asked Questions)"],
+        [Hub::AiScreenerMetricsController.to_path_helper(action: :show), "AI Screener Metrics"],
       ]
     end
   end
