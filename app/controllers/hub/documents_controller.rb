@@ -5,6 +5,7 @@ module Hub
     load_and_authorize_resource through: :client
     before_action :load_document_type_options
     helper_method :transient_storage_url
+    before_action :require_admin, only: [:rerun_screener, :record_feedback]
 
     layout "hub"
 
@@ -67,7 +68,7 @@ module Hub
     end
 
     def rerun_screener
-      return head :forbidden if acts_like_production? || !current_user.admin?
+      return head :forbidden if acts_like_production?
 
       DocScreenerJob.perform_now(@document.id)
 
@@ -75,8 +76,6 @@ module Hub
     end
 
     def record_feedback
-      return head :forbidden unless current_user.admin?
-
       DocAssessmentFeedback.create!(
         doc_assessment: @document.latest_assessment,
         user: current_user,
