@@ -7,5 +7,15 @@ module CampaignMessage
         locale: contact&.locale || :en,
       }
     end
+
+    def self.msg_for_name(message_name)
+      klass = "CampaignMessage::#{message_name.camelize}".safe_constantize
+      raise ArgumentError, "Unknown message_name: #{message_name}" unless klass
+      klass.new
+    end
+
+    def self.valid_msg_name?(message_name)
+      "CampaignMessage::#{message_name.camelize}".safe_constantize.present?
+    end
   end
 end

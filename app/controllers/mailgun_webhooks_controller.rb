@@ -176,6 +176,11 @@ class MailgunWebhooksController < ActionController::Base
           error_reason: mg_data["reason"],
           error_message: mg_data.dig("delivery-status", "message")
         }
+
+        if CampaignEmail.rate_limit_signal?(email_to_update)
+          domain = CampaignEmail.domain_for(email_to_update.to_email)
+          CampaignEmail.rate_limited_for_domain?(domain)
+        end
       else
         updates[:error_code] = nil
         updates[:event_data] = nil
@@ -230,8 +235,13 @@ class MailgunWebhooksController < ActionController::Base
     authenticate_or_request_with_http_basic do |name, password|
       expected_name = ENV["MAILGUN_OUTREACH_BASIC_AUTH_NAME"]
       expected_password = ENV["MAILGUN_OUTREACH_BASIC_AUTH_PASSWORD"]
-      ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
+
+      is_valid = ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
         ActiveSupport::SecurityUtils.secure_compare(password, expected_password)
+
+      Sentry.capture_message("Mailgun authentication failed") unless is_valid
+
+      is_valid
     end
   end
 

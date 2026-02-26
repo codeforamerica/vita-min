@@ -39,16 +39,21 @@ class CampaignContact < ApplicationRecord
   has_many :campaign_emails
   has_many :signups, -> { where("signups.id = ANY(campaign_contacts.sign_up_ids)") },
            class_name: "Signup"
-  
-  def self.with_signups_from_recent_off_season
-    joins(:signups).where("signups.created_at >= ?", 1.year.ago).distinct
-  end
+
+  scope :excluding_paused_email_domains, lambda {
+    paused_domains = PausedEmailDomain.active.select(:domain)
+
+    where.not(
+      "lower(split_part(#{table_name}.email_address, '@', 2)) IN (#{paused_domains.to_sql})"
+    )
+  }
 
   # Email -------------
   def self.eligible_for_email(message_name)
     emailed_contact_ids = CampaignEmail.where(message_name: message_name).select(:campaign_contact_id)
 
     where(email_notification_opt_in: true).where.not(email_address: [nil, ""]) # opted-in
+      .excluding_paused_email_domains
       .where.not(id: emailed_contact_ids) # hasn't been sent this message before
       .where("latest_gyr_intake_at IS NULL OR latest_gyr_intake_at <= ?", gyr_intake_cutoff) # hasn't started an intake this year yet
   end
