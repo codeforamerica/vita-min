@@ -24,4 +24,6 @@
 #
 class DocAssessment < ApplicationRecord
   belongs_to :document
+  has_many :feedbacks, class_name: "DocAssessmentFeedback", dependent: :destroy
+
 end

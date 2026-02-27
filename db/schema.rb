@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_18_162315) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_23_212700) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -835,6 +835,17 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_18_162315) do
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.string "zip_code"
+  end
+
+  create_table "doc_assessment_feedbacks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "doc_assessment_id", null: false
+    t.integer "feedback", default: 0, null: false
+    t.text "feedback_notes"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["doc_assessment_id"], name: "index_doc_assessment_feedbacks_on_doc_assessment_id"
+    t.index ["user_id"], name: "index_doc_assessment_feedbacks_on_user_id"
   end
 
   create_table "doc_assessments", force: :cascade do |t|
@@ -3134,6 +3145,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_18_162315) do
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "dependents", "intakes"
+  add_foreign_key "doc_assessment_feedbacks", "doc_assessments"
+  add_foreign_key "doc_assessment_feedbacks", "users"
   add_foreign_key "doc_assessments", "documents"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"
