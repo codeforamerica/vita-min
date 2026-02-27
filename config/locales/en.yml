@@ -135,6 +135,8 @@ en:
         - File taxes online on your own using our partner website. This is our quickest option for households earning under $89,000 to file taxes and collect the tax credits you are owed!
         - To get started, we’ll need to collect some basic information.
         title: File taxes on your own
+    notification_preference:
+      body: We will reach out about free tax filing support and other free services. We may also send surveys to improve your experience. Please select the option(s) that work best for you!
     qualifications:
       edit:
         button_1: Yes, I qualify
@@ -5713,10 +5715,10 @@ en:
           one: In %{year}, did you pay any mortgage interest?
           other: In %{year}, did you or your spouse pay any mortgage interest?
       notification_preference:
-        note_html: <p>By clicking continue, you agree to receive tax return updates, service information, and occasional surveys. We will not share your information with any outside parties.</p><p>Message frequency will vary. Message and data rates may apply. Text HELP to 58750 for help. Text STOP to 58750 to cancel. See our <a href="%{terms_url}">SMS Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.</p>
+        note_html: By clicking continue, you agree to receive tax return updates, service information, and occasional surveys. We will not share your information with any outside parties. See our <a href="%{terms_url}">SMS Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.
         options:
           email_notification_opt_in: Email Me
-          header: We’ll need to reach out with questions and updates about your return and information about free tax filing support and other free services. We may also send surveys to improve your experience. Please select the option(s) that work best for you!
+          header: We’ll need to reach out with questions and updates. Please select the option(s) that work best for you!
           sms_notification_opt_in: Text Me
         title: Opt in to receive messages from us
       optional_consent:

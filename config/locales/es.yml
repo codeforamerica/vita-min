@@ -134,6 +134,8 @@ es:
         - Presente tus impuestos en línea por su cuenta usando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $89,000 para declarar impuestos y cobrar los créditos tributarios que se le deben!
         - Para comenzar, necesitaremos recopilar información básica.
         title: "¡Declare aquí sus impuestos usted mismo!"
+    notification_preference:
+      body: Pondremos en contacto con usted sobre apoyo gratuito para presentar impuestos y otros servicios gratuitos. También podríamos enviarle encuestas para mejorar su experiencia con nosotros. ¡Seleccione la(s) opción(es) que mejor se adapte(n) a usted!
     qualifications:
       edit:
         button_1: Sí, califico
@@ -5725,10 +5727,10 @@ es:
           one: En %{year}, ¿pagó algún interés hipotecario?
           other: En %{year}, ¿Pagó usted o su pareja algún interés hipotecario?
       notification_preference:
-        note_html: <p>Al hacer clic en Continuar, usted acepta recibir actualizaciones sobre su declaración de impuestos, información sobre nuestros servicios y encuestas ocasionales. No compartiremos su información con terceros.</p><p>La frecuencia de los mensajes puede variar. Pueden aplicarse cargos por mensajes y datos. Envíe el texto HELP al 58750 para ayuda. Envía STOP al 58750 para cancelar. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.</p>
+        note_html: Al hacer clic en Continuar, usted acepta recibir actualizaciones sobre su declaración de impuestos, información sobre nuestros servicios y encuestas ocasionales. No compartiremos su información con terceros. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.
         options:
           email_notification_opt_in: Envíeme un correo electrónico
-          header: Necesitaremos ponernos en contacto con usted para hacerle preguntas y enviarle actualizaciones sobre su declaración de impuestos, así como información sobre apoyo gratuito para presentar impuestos y otros servicios gratuitos. También podríamos enviarle encuestas para mejorar su experiencia con nosotros. ¡Seleccione la(s) opción(es) que mejor se adapte(n) a usted!
+          header: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o actualizaciones. Por favor, selecciona la(s) opción(es) que mejor te funcione.
           sms_notification_opt_in: Mensaje de Texto
         title: Acepte recibir mensajes de nuestra parte
       optional_consent:
