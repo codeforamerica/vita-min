@@ -32,7 +32,7 @@ module SurveyMessages
     end
 
     def self.survey_link(client, locale: nil)
-      "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_cBCciMO9tvDpDX8?ExternalDataReference=#{client.id}"
+      "https://codeforamerica.co1.qualtrics.com/jfe/form/SV_9vIHaPA2x0ghDpQ?ExternalDataReference=#{client.id}"
     end
 
     def sms_body(**args)
