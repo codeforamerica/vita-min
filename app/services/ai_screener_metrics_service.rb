@@ -1,5 +1,5 @@
 class AiScreenerMetricsService
-  def initialize(document_scope: Document.all)
+  def initialize(document_scope: Document.with_assessments)
     @document_scope = document_scope
   end
 
@@ -7,7 +7,6 @@ class AiScreenerMetricsService
     {
       client_classification_accuracy: client_classification_accuracy,
       ai_efficacy: ai_efficacy,
-      ai_classification_accuracy: ai_classification_accuracy,
       most_common_wrong_ai_suggestions: most_common_wrong_ai_suggestions,
       most_common_document_types_ai_struggles_with: most_common_document_types_ai_struggles_with,
       ai_suggested_document_type_distribution: ai_suggested_document_type_distribution,
@@ -63,9 +62,9 @@ class AiScreenerMetricsService
       pass: pass_count,
       fail: fail_count,
       undetermined: undetermined_count,
-      pass_pct: pct(pass_count, total),
-      fail_pct: pct(fail_count, total),
-      undetermined_pct: pct(undetermined_count, total)
+      pass_percent: percent(pass_count, total),
+      fail_percent: percent(fail_count, total),
+      undetermined_percent: percent(undetermined_count, total)
     }
   end
 
@@ -83,13 +82,9 @@ class AiScreenerMetricsService
       total_feedback: total,
       correct: correct,
       incorrect: incorrect,
-      correct_pct: pct(correct, total),
-      incorrect_pct: pct(incorrect, total)
+      correct_percent: percent(correct, total),
+      incorrect_percent: percent(incorrect, total)
     }
-  end
-
-  def ai_classification_accuracy
-    ai_efficacy
   end
 
   def most_common_wrong_ai_suggestions(limit: 3)
@@ -127,7 +122,7 @@ class AiScreenerMetricsService
       .count
   end
 
-  def pct(numerator, denominator)
+  def percent(numerator, denominator)
     return 0.0 if denominator.to_i.zero?
     numerator.to_f / denominator.to_f
   end

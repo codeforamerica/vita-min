@@ -17,14 +17,6 @@
   <li>Incorrect (❌): <%= eff[:incorrect] %> (<%= number_to_percentage(eff[:incorrect_pct] * 100, precision: 1) %>)</li>
 </ul>
 
-<h2>AI Classification Accuracy</h2>
-<% cls = @metrics[:ai_classification_accuracy] %>
-<ul>
-  <li>Total feedback: <%= cls[:total_feedback] %></li>
-  <li>Agree: <%= cls[:correct] %> (<%= number_to_percentage(cls[:correct_pct] * 100, precision: 1) %>)</li>
-  <li>Disagree: <%= cls[:incorrect] %> (<%= number_to_percentage(cls[:incorrect_pct] * 100, precision: 1) %>)</li>
-</ul>
-
 <h2>Most Common AI Suggestions Marked Incorrect (Top 3)</h2>
 <% wrong_suggestions = @metrics[:most_common_wrong_ai_suggestions] %>
 <% if wrong_suggestions.blank? %>

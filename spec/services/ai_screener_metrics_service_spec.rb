@@ -65,20 +65,19 @@ RSpec.describe AiScreenerMetricsService do
                                                            total: 3,
                                                            pass: 1,
                                                            fail: 1,
-                                                           undetermined: 1
+                                                           undetermined: 1,
+                                                           pass_percent: 1.0 / 3.0,
+                                                           fail_percent: 1.0 / 3.0,
+                                                           undetermined_percent: 1.0 / 3.0
                                                          )
 
       expect(result[:ai_efficacy]).to include(
                                         total_feedback: 2,
                                         correct: 1,
-                                        incorrect: 1
+                                        incorrect: 1,
+                                        correct_percent: 0.5,
+                                        incorrect_percent: 0.5
                                       )
-
-      expect(result[:ai_classification_accuracy]).to include(
-                                                       total_feedback: 2,
-                                                       correct: 1,
-                                                       incorrect: 1
-                                                     )
 
       expect(result[:most_common_wrong_ai_suggestions]).to eq({ form1099_key => 1 })
       expect(result[:most_common_document_types_ai_struggles_with]).to eq({ form1099_key => 1 })
@@ -89,24 +88,26 @@ RSpec.describe AiScreenerMetricsService do
     end
 
     it "handles the case where there are no assessments" do
-      result = described_class.new.call
+
+      service = described_class.new(document_scope: Document.none)
+      result = service.call
 
       expect(result[:client_classification_accuracy]).to include(
                                                            total: 0,
                                                            pass: 0,
                                                            fail: 0,
                                                            undetermined: 0,
-                                                           pass_pct: 0.0,
-                                                           fail_pct: 0.0,
-                                                           undetermined_pct: 0.0
+                                                           pass_percent: 0.0,
+                                                           fail_percent: 0.0,
+                                                           undetermined_percent: 0.0
                                                          )
 
       expect(result[:ai_efficacy]).to include(
                                         total_feedback: 0,
                                         correct: 0,
                                         incorrect: 0,
-                                        correct_pct: 0.0,
-                                        incorrect_pct: 0.0
+                                        correct_percent: 0.0,
+                                        incorrect_percent: 0.0
                                       )
 
       expect(result[:most_common_wrong_ai_suggestions]).to eq({})
@@ -141,13 +142,18 @@ RSpec.describe AiScreenerMetricsService do
                                                            total: 1,
                                                            pass: 0,
                                                            fail: 1,
-                                                           undetermined: 0
+                                                           undetermined: 0,
+                                                           pass_percent: 0.0,
+                                                           fail_percent: 1.0,
+                                                           undetermined_percent: 0.0
                                                          )
 
       expect(result[:ai_efficacy]).to include(
                                         total_feedback: 1,
                                         correct: 0,
-                                        incorrect: 1
+                                        incorrect: 1,
+                                        correct_percent: 0.0,
+                                        incorrect_percent: 1.0
                                       )
 
       expect(result[:most_common_wrong_ai_suggestions]).to eq({ w2_key => 1 })
