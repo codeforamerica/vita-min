@@ -11,7 +11,9 @@ module Questions
     private
 
     def after_update_success
-      PartnerRoutingService.update_intake_partner(current_intake)
+      if current_intake.client.routing_method.blank? || current_intake.client.routing_method_at_capacity?
+        PartnerRoutingService.update_intake_partner(current_intake)
+      end
     end
 
     def tracking_data

@@ -269,7 +269,7 @@ describe PartnerRoutingService do
       end
 
       context "when client zip corresponds to a Site but not the Site's parent Org" do
-        # That is, the Site and its parent Org have no zips in common (GYR1-930).
+        # That is, the Site and its parent Org have no zips in common (GYR1-925).
         let!(:org) { create :organization }
         let!(:zip) { create :vita_partner_zip_code, zip_code: "78729", vita_partner: org }
         let!(:site) { create :site, parent_organization: org }
