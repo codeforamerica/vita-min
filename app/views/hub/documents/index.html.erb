@@ -48,9 +48,11 @@
         <th scope="col" class="index-table__header document-column__upload-date">
           <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
         </th>
-        <th scope="col" class="index-table__header document-column__screener_verdict">
-          <%= render "shared/column_sort_link", title: "Matches doc-type", column_name: "screener_verdict" %>
-        </th>
+        <% if current_user.admin? %>
+          <th scope="col" class="index-table__header document-column__screener_verdict">
+            <%= render "shared/column_sort_link", title: "Matches doc-type", column_name: "screener_verdict" %>
+          </th>
+        <% end %>
         <th></th>
       </tr>
       </thead>
