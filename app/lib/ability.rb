@@ -17,8 +17,6 @@ class Ability
                  :cancel_13614c, :save_and_maybe_exit,
                  to: :hub_client_management
 
-    accessible_groups = user.accessible_vita_partners
-
     # Admins can do everything
     if user.admin?
       # All admins who are also state file
@@ -51,6 +49,10 @@ class Ability
       return
     end
 
+    accessible_groups = user.accessible_vita_partners
+    accessible_group_ids = accessible_groups.pluck(:id)
+    accessible_user_ids = user.accessible_users.pluck(:id)
+
     if user.client_success?
       # Allow client success to manage basically everything in regards to clients
       can :manage, :all
@@ -71,11 +73,11 @@ class Ability
     can :manage, User, id: user.id
 
     # Anyone can read info about users that they can access
-    can :read, User, id: user.accessible_users.pluck(:id)
+    can :read, User, id: accessible_user_ids
 
     # Anyone can read info about an organization or site they can access
-    can :read, Organization, id: accessible_groups.pluck(:id)
-    can :read, Site, id: accessible_groups.pluck(:id)
+    can :read, Organization, id: accessible_group_ids
+    can :read, Site, id: accessible_group_ids
 
     # HUB CLIENT CONTROLLER PERMISSIONS
     # overly permissive, need to narrow permissions
@@ -86,30 +88,30 @@ class Ability
     ].freeze
 
     if user.role?(client_role_whitelist)
-      can :read, Client, vita_partner: accessible_groups
+      can :read, Client, vita_partner_id: accessible_group_ids
 
       can [:create, :update, :hub_client_management],
-          Client, vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
+          Client, vita_partner_id: accessible_group_ids, intake: { product_year: Rails.configuration.product_year }
     end
 
     if user.role?([:admin, :org_lead, :site_coordinator])
-      can :unlock, Client, vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
+      can :unlock, Client, vita_partner_id: accessible_group_ids, intake: { product_year: Rails.configuration.product_year }
     end
 
     if user.greeter?
       general_states = %w[intake_ready intake_greeter_info_requested intake_needs_doc_help]
       assigned_states = %w[file_not_filing file_hold]
 
-      can :read, Client, tax_returns: { current_state: general_states }, vita_partner: accessible_groups
-      can :read, Client, tax_returns: { current_state: assigned_states, assigned_user: user }, vita_partner: accessible_groups
+      can :read, Client, tax_returns: { current_state: general_states }, vita_partner_id: accessible_group_ids
+      can :read, Client, tax_returns: { current_state: assigned_states, assigned_user: user }, vita_partner_id: accessible_group_ids
 
       can [:update, :hub_client_management], Client,
           tax_returns: { current_state: general_states },
-          vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
+          vita_partner_id: accessible_group_ids, intake: { product_year: Rails.configuration.product_year }
 
       can [:update, :hub_client_management], Client,
           tax_returns: { current_state: assigned_states, assigned_user: user },
-          vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year }
+          vita_partner_id: accessible_group_ids, intake: { product_year: Rails.configuration.product_year }
     end
 
     # Only admins can destroy clients
@@ -119,15 +121,15 @@ class Ability
       Note,
       Document,
       TaxReturn
-    ], client: { vita_partner: accessible_groups }
+    ], client: { vita_partner_id: accessible_group_ids }
 
     can [:create, :update, :destroy], [
       Note,
       TaxReturn
-    ], client: { vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year } }
+    ], client: { vita_partner_id: accessible_group_ids, intake: { product_year: Rails.configuration.product_year } }
 
     can [:create, :update, :destroy, :archived, :confirm],
-        Document, client: { vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year } }
+        Document, client: { vita_partner_id: accessible_group_ids, intake: { product_year: Rails.configuration.product_year } }
 
     can :manage, [
       IncomingEmail,
@@ -135,15 +137,15 @@ class Ability
       OutgoingEmail,
       OutgoingTextMessage,
       SystemNote,
-    ], client: { vita_partner: accessible_groups }
+    ], client: { vita_partner_id: accessible_group_ids }
 
-    can :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: accessible_groups, intake: { product_year: Rails.configuration.product_year } } }
-    cannot :manage, TaxReturnSelection, tax_returns: { client: { vita_partner: VitaPartner.where.not(id: accessible_groups) } }
+    can :manage, TaxReturnSelection, tax_returns: { client: { vita_partner_id: accessible_group_ids, intake: { product_year: Rails.configuration.product_year } } }
+    cannot :manage, TaxReturnSelection, tax_returns: { client: { vita_partner_id: VitaPartner.where.not(id: accessible_group_ids).pluck(:id) } }
     cannot :manage, TaxReturnSelection do |selection|
       selection.tax_returns.any? { |tax_return| tax_return.client.has_archived_intake? }
     end
 
-    can :manage, EfileSubmission, tax_return: { client: { vita_partner: accessible_groups } }
+    can :manage, EfileSubmission, tax_return: { client: { vita_partner_id: accessible_group_ids } }
 
     cannot :index, EfileSubmission unless user.admin? || user.client_success?
     StateFile::StateInformationService.state_intake_classes.each do |intake_class|
@@ -168,7 +170,7 @@ class Ability
       can :read, Coalition, id: user.role.coalition_id
 
       # Coalition leads can view and edit users who are coalition leads, organization leads, site coordinators, and team members in their coalition
-      can :manage, User, id: user.accessible_users.pluck(:id)
+      can :manage, User, id: accessible_user_ids
 
       # Coalition leads can create coalition leads, organization leads, site coordinators, and team members in their coalition
       can :manage, CoalitionLeadRole, coalition: user.role.coalition
@@ -179,7 +181,7 @@ class Ability
 
     if user.org_lead?
       # Organization leads can view and edit users who are organization leads, site coordinators, and team members in their coalition
-      can :manage, User, id: user.accessible_users.pluck(:id)
+      can :manage, User, id: accessible_user_ids
 
       # Organization leads can create organization leads, site coordinators, and team members in their org
       can :manage, OrganizationLeadRole, organization: user.role.organization

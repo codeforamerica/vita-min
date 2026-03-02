@@ -13,11 +13,14 @@ RSpec.describe ClientSorter do
     allow(clients_query_double).to receive(:after_consent).and_return clients_query_double
     allow(clients_query_double).to receive(:distinct).and_return clients_query_double
     allow(clients_query_double).to receive(:joins).and_return clients_query_double
+    allow(clients_query_double).to receive(:merge).and_return clients_query_double
     allow(clients_query_double).to receive(:or).and_return clients_query_double
     allow(clients_query_double).to receive(:greetable).and_return clients_query_double
     allow(clients_query_double).to receive(:delegated_order).and_return clients_query_double
     allow(clients_query_double).to receive(:where).and_return clients_query_double
     allow(clients_query_double).to receive(:not).and_return clients_query_double
+    allow(clients_query_double).to receive(:select).and_return clients_query_double
+    allow(clients_query_double).to receive(:to_i).and_return clients_query_double
     allow(Intake).to receive(:search).and_return intakes_query_double
   end
 

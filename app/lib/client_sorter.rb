@@ -31,42 +31,32 @@ class ClientSorter
   end
 
   def filtered_clients
-    clients = if current_user&.greeter?
-                @clients
-              else
-                @clients.after_consent
-              end
-    # Filter on product_year to only show clients who used this-year's product
-    if @use_product_year
-      clients = clients.where(filterable_product_year: Rails.configuration.product_year)
-    end
-    clients = clients.where(intake: Intake.where(type: "Intake::CtcIntake")) if @filters[:ctc_client].present?
+    clients = current_user&.greeter? ? @clients : @clients.after_consent
+    clients = clients.where(filterable_product_year: Rails.configuration.product_year) if @use_product_year
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
 
+    # Join intake early so all subsequent filters can reference intakes.*
+    needs_intake_join = @filters[:language].present? || @filters[:used_navigator].present? ||
+      @filters[:search].present? || @filters[:ctc_client].present?
+    clients = clients.joins(:intake) if needs_intake_join
+
+    clients = clients.where("intakes.type = 'Intake::CtcIntake'") if @filters[:ctc_client].present?
+    clients = clients.where("intakes.locale = :lang OR intakes.preferred_interview_language = :lang", lang: @filters[:language]) if @filters[:language].present?
+    clients = clients.where("intakes.with_general_navigator = true OR intakes.with_incarcerated_navigator = true OR intakes.with_limited_english_navigator = true OR intakes.with_unhoused_navigator = true") if @filters[:used_navigator].present?
+    clients = clients.merge(Intake.search(@filters[:search])) if @filters[:search].present?
+
+    # Tax return filters AFTER join is established
     tax_return_filters = {}
-    if @filters[:stage].present?
-      tax_return_filters[:stage] = @filters[:stage]
-    end
-    if @filters[:year].present?
-      tax_return_filters[:year] = @filters[:year].to_i
-    end
-    if @filters[:status].present?
-      tax_return_filters[:current_state] = @filters[:status]
-    end
-    if @filters[:active_returns].present?
-      tax_return_filters[:active] = @filters[:active_returns].in?([true, "true"])
-    end
-    if @filters[:service_type].present?
-      tax_return_filters[:service_type] = @filters[:service_type]
-    end
+    tax_return_filters[:stage] = @filters[:stage] if @filters[:stage].present?
+    tax_return_filters[:year] = @filters[:year].to_i if @filters[:year].present?
+    tax_return_filters[:current_state] = @filters[:status] if @filters[:status].present?
+    tax_return_filters[:active] = @filters[:active_returns].in?([true, "true"]) if @filters[:active_returns].present?
+    tax_return_filters[:service_type] = @filters[:service_type] if @filters[:service_type].present?
 
     tax_return_filters_expanded = []
-
     if limited_user_ids.present?
       special_tax_return_filters = current_user&.greeter? ? tax_return_filters.merge(greetable: true) : tax_return_filters
-      limited_user_ids.each do |id|
-        tax_return_filters_expanded << special_tax_return_filters.merge(assigned_user_id: id)
-      end
+      limited_user_ids.each { |id| tax_return_filters_expanded << special_tax_return_filters.merge(assigned_user_id: id) }
     elsif current_user&.greeter?
       tax_return_filters_expanded = [tax_return_filters.merge(greetable: true), tax_return_filters.merge(assigned_user_id: current_user.id)]
     elsif tax_return_filters.present?
@@ -74,16 +64,12 @@ class ClientSorter
     end
 
     if tax_return_filters_expanded.present?
-      clients = tax_return_filters_expanded.map do |tax_return_filters|
-        clients.where("filterable_tax_return_properties @> ?::jsonb", [tax_return_filters].to_json)
-      end.reduce do |all_queries, this_query|
-        all_queries.or(this_query)
-      end
+      clients = tax_return_filters_expanded.map do |f|
+        clients.where("filterable_tax_return_properties @> ?::jsonb", [f].to_json)
+      end.reduce { |all, this| all.or(this) }
     end
 
-    clients = clients.where(intake: Intake.where(locale: @filters[:language]).or(Intake.where(preferred_interview_language: @filters[:language]))) if @filters[:language].present?
-    clients = clients.where(vita_partner: VitaPartner.allows_greeters) if @filters[:greetable].present?
-    clients = clients.where(intake: Intake.where(with_general_navigator: true).or(Intake.where(with_incarcerated_navigator: true)).or(Intake.where(with_limited_english_navigator: true)).or(Intake.where(with_unhoused_navigator: true))) if @filters[:used_navigator].present?
+    clients = clients.joins(:vita_partner).merge(VitaPartner.allows_greeters) if @filters[:greetable].present?
 
     case @filters[:last_contact]
     when "recently_contacted"
@@ -95,15 +81,13 @@ class ClientSorter
     end
 
     if @filters[:vita_partners].present?
-      # For backwards compatibility for users in the middle of a search while this is deployed,
-      # we support both hash and number (In future only number will be needed)
-      ids = JSON.parse(@filters[:vita_partners]).map do |vita_partner|
-        vita_partner.instance_of?(Hash) ? vita_partner["id"] : vita_partner
-      end
+      ids = JSON.parse(@filters[:vita_partners]).map { |vp| vp.instance_of?(Hash) ? vp["id"] : vp }
       clients = clients.where(vita_partner_id: ids)
     end
-    clients = clients.where(intake: Intake.search(@filters[:search])) if @filters[:search].present?
-    clients
+
+    return Client.where(id: clients.select("clients.id")) if @filters[:search].present?
+
+    clients.distinct
   end
 
   # see if there are any overlapping keys in the provided params and search/sort set
