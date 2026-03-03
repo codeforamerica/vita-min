@@ -22,6 +22,7 @@
 #
 class DiyIntake < ApplicationRecord
   attr_accessor :email_address_confirmation
+  has_one :campaign_contact
 
   enum received_1099: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_1099
   enum filing_frequency: { unfilled: 0, every_year: 1, some_years: 2, not_filed: 3 }, _prefix: :filing_frequency
@@ -34,5 +35,22 @@ class DiyIntake < ApplicationRecord
   
   def self.should_carry_over_params_from?(intake)
     intake && intake.updated_at > 30.minutes.ago && intake.preferred_name.present? && intake.triage_filing_frequency.present?
+  end
+
+  def create_or_update_campaign_contact
+    return if email_address.blank? && sms_phone_number.blank?
+
+    Campaign::UpsertSourceIntoCampaignContacts.call(
+      source: :diy,
+      source_id: id,
+      first_name: preferred_first_name,
+      last_name: nil,
+      email: email_address,
+      phone: sms_phone_number,
+      email_opt_in: email_notification_opt_in == "yes",
+      sms_opt_in: sms_notification_opt_in == "yes",
+      locale: locale,
+      latest_diy_intake_at: created_at,
+      )
   end
 end

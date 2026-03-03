@@ -28,6 +28,10 @@ en:
     primary_ssn: SSN or ITIN
     spouse_ssn: Spouse's SSN or ITIN
   campaign_messages:
+    diy_followup_survey:
+      email:
+        body_html: "Hello,\n\nWhether you’ve already filed or are still working on your return, we’re glad you’re here!\n\nFiled already? Please consider filling out our short survey to share your experience. Your feedback helps us improve our tools.\n\n<a href=\"https://codeforamerica.co1.qualtrics.com/jfe/form/SV_a48BAqQ7hknW2YC\" target=\"_blank\" rel=\"noopener nofollow\">Online Survey Software | Qualtrics Survey Solutions</a>\n\nStill working on your return? \n\nYou can return to the <a href=\"https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2025&sidn=01011934\" target=\"_blank\" rel=\"noopener nofollow\">File Myself tool by clicking this link</a>\n\nYou can take a look at our guides here (<a href=\"http://codeforamerica.org/diyclientguide\" target=\"_blank\" rel=\"noopener nofollow\">PDF for Computer</a> | <a href=\"http://codeforamerica.org/diyclientguidemobile\" target=\"_blank\" rel=\"noopener nofollow\">PDF for Mobile</a>).\n\nOur Client Support team is available through the “Chat” feature on our website or by email at <a href=\"mailto:DIY@getyourrefund.org\">diy@getyourrefund.org</a>. \n\nYou don’t have to figure it out alone! We’re happy to support you, wherever you are in the filing process.\n\nTake care,\nGetYourRefund’s Support Team\n\n(Replies to this email are not monitored.)\n"
+        subject: Checking in on your taxes
     start_of_season_outreach:
       email:
         body_html: |

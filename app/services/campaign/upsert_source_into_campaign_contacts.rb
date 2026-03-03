@@ -24,6 +24,7 @@ module Campaign
       @locale = locale
       @latest_signup_at = latest_signup_at
       @latest_gyr_intake_at = latest_gyr_intake_at
+      @latest_diy_intake_at = latest_diy_intake_at
     end
 
     def call
@@ -45,11 +46,17 @@ module Campaign
         contact.latest_gyr_intake_at = [contact.latest_gyr_intake_at, @latest_gyr_intake_at].compact.max
       end
 
+      if @latest_diy_intake_at.present?
+        contact.latest_diy_intake_at = [contact.latest_diy_intake_at, @latest_diy_intake_at].compact.max
+      end
+
       case @source
       when :gyr
         contact.gyr_intake_ids = ((contact.gyr_intake_ids || []) + [@source_id]).uniq
       when :signup
         contact.sign_up_ids = ((contact.sign_up_ids || []) + [@source_id]).uniq
+      when :diy
+        contact.diy_intake_ids = ((contact.diy_intake_ids || []) + [@source_id]).uniq
       end
 
       contact.tap(&:save!)

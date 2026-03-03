@@ -3,11 +3,13 @@
 # Table name: campaign_contacts
 #
 #  id                        :bigint           not null, primary key
+#  diy_intake_ids            :integer          default([]), is an Array
 #  email_address             :citext
 #  email_notification_opt_in :boolean          default(FALSE)
 #  first_name                :string
 #  gyr_intake_ids            :bigint           default([]), is an Array
 #  last_name                 :string
+#  latest_diy_intake_at      :datetime
 #  latest_gyr_intake_at      :datetime
 #  latest_signup_at          :datetime
 #  locale                    :string
