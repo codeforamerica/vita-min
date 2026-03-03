@@ -60,14 +60,21 @@ RSpec.describe ClientSorter do
     end
 
     context "with a 'search' param" do
-      let(:params) do
-        { search: "que" }
+      let(:params) { { search: "que" } }
+
+      let(:subquery_double) { double("clients_id_subquery") }
+
+      before do
+        allow(clients_query_double).to receive(:select).with("clients.id").and_return(subquery_double)
+        allow(Client).to receive(:where).with(id: subquery_double).and_return(clients_query_double)
       end
 
-      it "creates a search query for intakes and queries clients for those intakes" do
+      it "creates a search query for intakes and merges it into the client scope" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(Intake).to have_received(:search).with "que"
-        expect(clients_query_double).to have_received(:where).with(intake: intakes_query_double)
+
+        expect(clients_query_double).to have_received(:joins).with(:intake)
+        expect(Intake).to have_received(:search).with("que")
+        expect(clients_query_double).to have_received(:merge).with(intakes_query_double)
       end
     end
 
@@ -79,10 +86,24 @@ RSpec.describe ClientSorter do
         }
       end
 
+      let(:subquery_double) { double("clients_id_subquery") }
+
+      before do
+        allow(clients_query_double).to receive(:select).with("clients.id").and_return(subquery_double)
+        allow(Client).to receive(:where).with(id: subquery_double).and_return(clients_query_double)
+      end
+
       it "creates a query for the search and scopes by other provided queries" do
         expect(subject.filtered_and_sorted_clients).to eq clients_query_double
-        expect(clients_query_double).to have_received(:where).with("filterable_tax_return_properties @> ?::jsonb", [{ current_state: params[:status] }].to_json)
-        expect(clients_query_double).to have_received(:where).with(intake: intakes_query_double)
+
+        expect(clients_query_double).to have_received(:where).with(
+          "filterable_tax_return_properties @> ?::jsonb",
+          [{ current_state: params[:status] }].to_json
+        )
+
+        expect(clients_query_double).to have_received(:joins).with(:intake)
+        expect(Intake).to have_received(:search).with("query")
+        expect(clients_query_double).to have_received(:merge).with(intakes_query_double)
       end
     end
 
