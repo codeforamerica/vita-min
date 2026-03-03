@@ -11,6 +11,7 @@ module Campaign
       email_opt_in:, sms_opt_in:,
       latest_signup_at: nil,
       latest_gyr_intake_at: nil,
+      latest_diy_intake_at: nil,
       locale: nil
     )
       @source = source

@@ -18,7 +18,7 @@
                   <%= email.subject %>
                 </div>
                 <div>
-                  <%= content_tag :iframe, nil, style: "width: 100%", sandbox: "allow-same-origin allow-scripts", srcdoc: email.html_part.body.decoded %>
+                  <%= content_tag :iframe, nil, style: "width: 100%", sandbox: "allow-same-origin allow-scripts allow-popups", srcdoc: email.html_part.body.decoded %>
                 </div>
               </div>
             </div>
@@ -43,16 +43,25 @@
 <% end %>
 <% content_for :script do %>
   <script>
-      function resizeIFrameToFitContent( iFrame ) {
-          iFrame.height = iFrame.contentWindow.document.body.scrollHeight + 20;
+      function resizeIFrameToFitContent(iFrame) {
+          try {
+              iFrame.height = iFrame.contentWindow.document.body.scrollHeight + 20;
+          } catch (e) {
+              // Cross-origin iframe — can't access document, skip it
+          }
       }
+
       document.querySelectorAll('iframe').forEach((iframe) => {
-          if (iframe.contentDocument.readyState === 'complete') {
-              resizeIFrameToFitContent(iframe);
-          } else {
-              iframe.onload = function () {
+          try {
+              if (iframe.contentDocument.readyState === 'complete') {
                   resizeIFrameToFitContent(iframe);
+              } else {
+                  iframe.onload = function () {
+                      resizeIFrameToFitContent(iframe);
+                  }
               }
+          } catch (e) {
+              // Cross-origin iframe — skip
           }
       });
   </script>
