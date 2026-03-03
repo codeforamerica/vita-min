@@ -64,9 +64,13 @@ class ClientSorter
     end
 
     if tax_return_filters_expanded.present?
-      clients = tax_return_filters_expanded.map do |f|
-        clients.where("filterable_tax_return_properties @> ?::jsonb", [f].to_json)
-      end.reduce { |all, this| all.or(this) }
+      # Instead of chaining .or() per filter set, use a single ANY check
+      json_filters = tax_return_filters_expanded.map { |f| [f].to_json }
+
+      clients = clients.where(
+        "filterable_tax_return_properties @> ANY(ARRAY[?]::jsonb[])",
+        json_filters
+      )
     end
 
     clients = clients.joins(:vita_partner).merge(VitaPartner.allows_greeters) if @filters[:greetable].present?
@@ -85,9 +89,7 @@ class ClientSorter
       clients = clients.where(vita_partner_id: ids)
     end
 
-    return Client.where(id: clients.select("clients.id")) if @filters[:search].present?
-
-    clients.distinct
+    Client.where(id: clients.select("clients.id"))
   end
 
   # see if there are any overlapping keys in the provided params and search/sort set
