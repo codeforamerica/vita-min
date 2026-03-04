@@ -79,6 +79,7 @@ class User < ApplicationRecord
   has_many :access_logs
   has_many :notifications, class_name: "UserNotification"
   belongs_to :role, polymorphic: true
+  has_many :doc_assessment_feedbacks
 
   validates_presence_of :name
   validates_inclusion_of :timezone, in: ActiveSupport::TimeZone.country_zones("us").map { |tz| tz.tzinfo.name }

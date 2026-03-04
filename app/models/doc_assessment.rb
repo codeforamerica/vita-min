@@ -24,6 +24,7 @@
 #
 class DocAssessment < ApplicationRecord
   belongs_to :document
+  has_many :feedbacks, class_name: "DocAssessmentFeedback", dependent: :destroy
 
   def matches_doc_type_verdict
     result_json&.dig("matches_doc_type_verdict")
