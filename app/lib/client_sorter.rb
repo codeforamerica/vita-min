@@ -35,7 +35,6 @@ class ClientSorter
     clients = clients.where(filterable_product_year: Rails.configuration.product_year) if @use_product_year
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
 
-    # Join intake early so all subsequent filters can reference intakes.*
     needs_intake_join = @filters[:language].present? || @filters[:used_navigator].present? ||
       @filters[:search].present? || @filters[:ctc_client].present?
     clients = clients.joins(:intake) if needs_intake_join
@@ -45,7 +44,6 @@ class ClientSorter
     clients = clients.where("intakes.with_general_navigator = true OR intakes.with_incarcerated_navigator = true OR intakes.with_limited_english_navigator = true OR intakes.with_unhoused_navigator = true") if @filters[:used_navigator].present?
     clients = clients.merge(Intake.search(@filters[:search])) if @filters[:search].present?
 
-    # Tax return filters AFTER join is established
     tax_return_filters = {}
     tax_return_filters[:stage] = @filters[:stage] if @filters[:stage].present?
     tax_return_filters[:year] = @filters[:year].to_i if @filters[:year].present?
@@ -64,7 +62,6 @@ class ClientSorter
     end
 
     if tax_return_filters_expanded.present?
-      # Instead of chaining .or() per filter set, use a single ANY check
       json_filters = tax_return_filters_expanded.map { |f| [f].to_json }
 
       clients = clients.where(
@@ -167,11 +164,13 @@ class ClientSorter
   end
 
   def limited_user_ids
-    val = []
-    val.push(current_user.id) if @filters[:assigned_to_me].present?
-    val.push(@filters[:assigned_user_id].to_i) if @filters[:assigned_user_id].present?
-    val.push(nil) if @filters[:unassigned].present?
-    val
+    @limited_user_ids ||= begin
+                            val = []
+                            val.push(current_user.id) if @filters[:assigned_to_me].present?
+                            val.push(@filters[:assigned_user_id].to_i) if @filters[:assigned_user_id].present?
+                            val.push(nil) if @filters[:unassigned].present?
+                            val
+                          end
   end
 
   def normalize_phone_number_if_present(full_query)
