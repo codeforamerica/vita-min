@@ -116,7 +116,7 @@ en:
     continue_to_fsa:
       edit:
         button: Continue to TaxSlayer
-        file_myself_guide_html: <b>Want more guidance?</b> %{file_myself_guide_link} for step-by-step instructions, tips, and best practices!
+        file_myself_guide_html: "<b>Want more guidance?</b> %{file_myself_guide_link} for step-by-step instructions, tips, and best practices!"
         guide_link: Follow our DIY Guide
         taxslayer_step_1_html: "<b>Continue to TaxSlayer:</b> Click continue, to access our referral link for a free version of TaxSlayer."
         taxslayer_step_2_html: "<b>Get started with TaxSlayer:</b> You will be taken to a transition page titled “Welcome to the TaxSlayer VITA/TCE self-prep kiosk” click continue."
@@ -130,7 +130,7 @@ en:
         email_us_html: Email us at <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
         info_html:
         - We’re here to make your tax-filing experience smooth and stress-free. Explore our guides and FAQs to find quick answers and stay confident as you file.
-        - <b>If you get stuck at any point or have questions, reach out to our support team!</b>
+        - "<b>If you get stuck at any point or have questions, reach out to our support team!</b>"
         title: File on your own and get support when you need it
     notification_preference:
       body: We will reach out about free tax filing support and other free services. We may also send surveys to improve your experience. Please select the option(s) that work best for you!
