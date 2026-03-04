@@ -6,7 +6,7 @@
 #  clicked_chat_with_us_at   :datetime
 #  email_address             :string
 #  email_notification_opt_in :integer          default("unfilled")
-#  filing_frequency          :integer          default("unfilled"), not null
+#  filing_frequency          :integer          default("unfilled")
 #  locale                    :string
 #  preferred_first_name      :string
 #  received_1099             :integer          default("unfilled"), not null
@@ -30,7 +30,7 @@ class DiyIntake < ApplicationRecord
 
   has_secure_token :token
 
-  validates :email_address, presence: true, 'valid_email_2/email': { mx: true }, confirmation: true
+  validates :email_address, 'valid_email_2/email': { mx: true }, confirmation: true
   
   def self.should_carry_over_params_from?(intake)
     intake && intake.updated_at > 30.minutes.ago && intake.preferred_name.present? && intake.triage_filing_frequency.present?
