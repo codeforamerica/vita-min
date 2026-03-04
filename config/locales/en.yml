@@ -1085,7 +1085,7 @@ en:
         is_inaccurate: 'Suggested document type: %{document_type}.'
         validation_fail: Validation Fail
         validation_passed: Validation Passed
-        validoc_notes: Validoc Notes
+        validoc_notes: Smart Scan Notes
     has_duplicates: Potential duplicates detected
     has_previous_year_intakes: Previous year intake(s)
     itin_applicant: ITIN applicant

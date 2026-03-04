@@ -1092,7 +1092,7 @@ es:
         is_inaccurate: 'Suggested document type: %{document_type}.'
         validation_fail: Validation Fail
         validation_passed: Validation Passed
-        validoc_notes: Validoc Notes
+        validoc_notes: Smart Scan Notes
     has_duplicates: Posibles duplicados detectados
     has_previous_year_intakes: Ingreso(s) del año anterior
     itin_applicant: Solicitante de Número de Identificación Personal (ITIN)
