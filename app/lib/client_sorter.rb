@@ -32,6 +32,7 @@ class ClientSorter
 
   def filtered_clients
     clients = current_user&.greeter? ? @clients : @clients.after_consent
+    # Filter on product_year to only show clients who used this-year's product
     clients = clients.where(filterable_product_year: Rails.configuration.product_year) if @use_product_year
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
 
@@ -80,7 +81,8 @@ class ClientSorter
     when "breached_sla"
       clients = clients.where("last_outgoing_communication_at < ?", 6.business_days.ago)
     end
-
+    # For backwards compatibility for users in the middle of a search while this is deployed,
+    # we support both hash and number (In future only number will be needed)
     if @filters[:vita_partners].present?
       ids = JSON.parse(@filters[:vita_partners]).map { |vp| vp.instance_of?(Hash) ? vp["id"] : vp }
       clients = clients.where(vita_partner_id: ids)

@@ -326,11 +326,9 @@ RSpec.describe ClientSorter do
   describe "#has_search_and_sort_params?" do
     let(:user) { create(:user) }
     let(:subject) { described_class.new(Client.all, user, params, {}) }
-
     context "when containing a sort or search param" do
       context "search" do
         let(:params) { { search: "que" } }
-
         it "returns true" do
           expect(subject.has_search_and_sort_params?).to eq true
         end
@@ -338,7 +336,6 @@ RSpec.describe ClientSorter do
 
       context "status" do
         let(:params) { { status: "prep_ready_for_prep" } }
-
         it "returns true" do
           expect(subject.has_search_and_sort_params?).to eq true
         end
@@ -346,7 +343,6 @@ RSpec.describe ClientSorter do
 
       context "unassigned" do
         let(:params) { { unassigned: true } }
-
         it "returns true" do
           expect(subject.has_search_and_sort_params?).to eq true
         end
@@ -354,15 +350,13 @@ RSpec.describe ClientSorter do
 
       context "assigned_to_me" do
         let(:params) { { assigned_to_me: true } }
-
         it "returns true" do
           expect(subject.has_search_and_sort_params?).to eq true
         end
       end
 
-      context "flagged" do
+      context "flagged_at" do
         let(:params) { { flagged: true } }
-
         it "returns true" do
           expect(subject.has_search_and_sort_params?).to eq true
         end
@@ -370,7 +364,6 @@ RSpec.describe ClientSorter do
 
       context "year" do
         let(:params) { { year: 2019 } }
-
         it "returns true" do
           expect(subject.has_search_and_sort_params?).to eq true
         end
@@ -390,8 +383,7 @@ RSpec.describe ClientSorter do
     end
 
     context "without a search or sort param" do
-      let(:params) { { something: "hello" } }
-
+      let(:params) { { something: 'hello' } }
       it "returns false" do
         expect(subject.has_search_and_sort_params?).to eq false
       end
