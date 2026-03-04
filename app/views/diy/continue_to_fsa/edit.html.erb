@@ -15,7 +15,7 @@
               <li><%= t(".taxslayer_step_1_html") %>
               <li><%= t(".taxslayer_step_2_html") %>
               <li><%= t(".taxslayer_step_3_html") %>
-              <ol class="list--checkmark" style="padding-top: 1em;">
+              <ol class="list--bulleted" style="padding-top: 1em;">
                 <li><%= t(".taxslayer_step_3a_html") %>
               </ol>
               <li><%= t(".taxslayer_step_4_html") %>
@@ -23,20 +23,15 @@
           </div>
         </div>
 
-        <div class="document-list">
-          <ul>
-            <li class="spacing-above-25">
-              <div class="document-list__icon-wrapper">
-                <%= image_tag "question-bubble.svg", alt: "", class: "document-list__icon" %>
-              </div>
-              <div class="document-list__item-text">
-                <%=t(".file_myself_guide_html", :file_myself_guide_link => link_to(t(".guide_link"),  mobile? ? "https://drive.google.com/file/d/1cMVSu9jLWwbgWybUO6vHcytVywOWmaBo/view" : "https://drive.google.com/file/d/16Dz4pAQsmr9LMu3MA02QQ271H4YFg5pc/view", target: "_blank", "data-track-click": "diy-guide-link")) %>
-              </div>
-            </li>
-          </ul>
+        <div style="width: 100%; overflow: hidden; padding-top: 30px; padding-bottom: 70px">
+          <div style="float: left; width: 30px">
+            <%= image_tag "question-bubble.svg", alt: "", class: "document-list__icon" %>
+          </div>
+          <div style="margin-left: 30px">
+            <%=t(".file_myself_guide_html", :file_myself_guide_link => link_to(t(".guide_link"),  mobile? ? "https://drive.google.com/file/d/1cMVSu9jLWwbgWybUO6vHcytVywOWmaBo/view" : "https://drive.google.com/file/d/16Dz4pAQsmr9LMu3MA02QQ271H4YFg5pc/view", target: "_blank", "data-track-click": "diy-guide-link")) %>
+          </div>
         </div>
 
-        <div class="text--small text--italic spacing-above-60 spacing-below-20"><%= t(".continue_help_text") %></div>
         <%= link_to t(".button"), 'https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2025&sidn=01011934', target: "_blank", class: "button button--primary text--centered button--wide", "data-track-click": "diy-cfa-taxslayer-link" %>
       </div>
     </div>

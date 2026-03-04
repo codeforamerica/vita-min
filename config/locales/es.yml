@@ -115,8 +115,7 @@ es:
     continue_to_fsa:
       edit:
         button: Visite TaxSlayer
-        continue_help_text: Al hacer clic en continuar, irá al sitio de nuestro socio para terminar de declarar sus impuestos.
-        file_myself_guide_html: "¿Desea recibir apoyo? %{file_myself_guide_link} para ver instrucciones paso a paso, consejos y mejores prácticas."
+        file_myself_guide_html: "<b>¿Desea recibir apoyo?</b> %{file_myself_guide_link} para ver instrucciones paso a paso, consejos y mejores prácticas."
         guide_link: Siga nuestra guía “hágalo usted mismo”
         taxslayer_step_1_html: "<b>Navegue a TaxSlayer:</b> Haga clic en Continuar para acceder a nuestro enlace de referencia de una versión gratuita de TaxSlayer. Este sitio sólo está disponible en inglés."
         taxslayer_step_2_html: "<b>Empiece el proceso con TaxSlayer:</b> Será dirigido a una página de transición titulada “Welcome to the TaxSlayer VITA/TCE self-prep kiosk”. Haga clic en Continue."
@@ -128,9 +127,9 @@ es:
       edit:
         chat_with_us: Chatee con nosotros
         email_us_html: Envíenos un correo electrónico a <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
-        info:
+        info_html:
         - Estamos aquí para que su experiencia al presentar impuestos sea sencilla y sin estrés. Explore nuestras guías y preguntas frecuentes para encontrar respuestas rápidas y tener la seguridad que necesita mientras presenta su declaración de impuestos.
-        - 'Si en algún momento no sabe cómo avanzar o tiene preguntas, comuníquese con nuestro equipo de servicio al cliente:'
+        - '<b>Si en algún momento no sabe cómo avanzar o tiene preguntas, comuníquese con nuestro equipo de servicio al cliente:</b>'
         title: Presente su declaración por su cuenta y reciba apoyo cuando lo necesite
     notification_preference:
       body: Pondremos en contacto con usted sobre apoyo gratuito para presentar impuestos y otros servicios gratuitos. También podríamos enviarle encuestas para mejorar su experiencia con nosotros. ¡Seleccione la(s) opción(es) que mejor se adapte(n) a usted!
