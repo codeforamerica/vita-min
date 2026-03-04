@@ -5,13 +5,13 @@
 #  id                        :bigint           not null, primary key
 #  clicked_chat_with_us_at   :datetime
 #  email_address             :string
-#  email_notification_opt_in :integer          default(0)
+#  email_notification_opt_in :integer          default("unfilled")
 #  filing_frequency          :integer          default("unfilled"), not null
 #  locale                    :string
 #  preferred_first_name      :string
 #  received_1099             :integer          default("unfilled"), not null
 #  referrer                  :string
-#  sms_notification_opt_in   :integer          default(0)
+#  sms_notification_opt_in   :integer          default("unfilled")
 #  sms_phone_number          :string
 #  source                    :string
 #  token                     :string

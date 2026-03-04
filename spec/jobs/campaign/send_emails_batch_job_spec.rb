@@ -74,7 +74,11 @@ describe Campaign::SendEmailsBatchJob, type: :job do
       end
 
       context "with an eligible campaign contact" do
-        let!(:campaign_contact) { create(:campaign_contact, :email_opted_in) }
+        let!(:campaign_contact) { create(:campaign_contact, :email_opted_in, latest_gyr_intake_at: Rails.configuration.start_of_unique_links_only_intake - 1.day) }
+
+        let!(:already_sent_campaign_contact) { create(:campaign_contact, :email_opted_in) }
+        let!(:campaign_email) { create :campaign_email, message_name: message_name, campaign_contact: already_sent_campaign_contact }
+        let!(:ineligible_campaign_contact) { create(:campaign_contact, :email_opted_in, latest_gyr_intake_at: Rails.configuration.start_of_unique_links_only_intake + 1.day) }
 
         it "creates a CampaignEmail with message name, to_email, scheduled_send_at" do
           perform_job
@@ -108,19 +112,14 @@ describe Campaign::SendEmailsBatchJob, type: :job do
 
       context "when recent_signups_only is true" do
         let(:recent_signups_only) { true }
-
-        let!(:old_signup) { create(:signup, email_address: "old@example.com", name: "old") }
-        let!(:recent_signup) { create(:signup, email_address: "recent@example.com", name: "new") }
-
-        before do
-          old_signup.update!(created_at: 2.years.ago)
-        end
+        cutoff = Rails.configuration.tax_year_filing_seasons[MultiTenantService.new(:gyr).current_tax_year - 1].last
+        let!(:contact_with_new_signup) { create(:campaign_contact, :email_opted_in, latest_signup_at: cutoff + 1.day) }
+        let!(:contact_with_old_signup) { create(:campaign_contact, :email_opted_in, latest_signup_at: cutoff - 1.day) }
 
         it "only creates emails for campaign contacts with signups created after the cutoff" do
           perform_job
 
           expect(CampaignEmail).to have_received(:create!).exactly(1).time
-          expect(CampaignEmail.last.campaign_contact.sign_up_ids.first).to eq recent_signup.id
         end
       end
     end

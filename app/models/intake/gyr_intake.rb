@@ -734,7 +734,7 @@ class Intake::GyrIntake < Intake
       email_opt_in: email_notification_opt_in == "yes",
       sms_opt_in: sms_notification_opt_in == "yes",
       locale: locale,
-      suppressed_for_gyr_product_year: product_year,
+      latest_gyr_intake_at: created_at,
     )
   end
 end

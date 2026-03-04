@@ -29,3 +29,26 @@
     text-transform: capitalize;
   }
 }
+
+.feedback-box {
+  padding: 2.5rem 2rem;
+  border: 1px solid #525252;
+  border-radius: 8px;
+  word-break: break-word;
+  background-color: #F7F7F7;
+  font-weight: bold;
+
+  #top-question{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #additional-feedback{
+    width: 100%;
+    background: white;
+    box-sizing: border-box;
+    min-height: 10rem;
+    font-weight: $font-weight-normal;
+  }
+}

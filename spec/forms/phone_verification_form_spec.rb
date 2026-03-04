@@ -28,7 +28,7 @@ describe PhoneVerificationForm do
 
         contact = CampaignContact.last
 
-        expect(contact).to have_attributes(sms_phone_number: '+15125551234', suppressed_for_gyr_product_year: intake.product_year)
+        expect(contact).to have_attributes(sms_phone_number: '+15125551234', latest_gyr_intake_at: intake.created_at)
       end
     end
   end

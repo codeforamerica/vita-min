@@ -13,7 +13,8 @@ RSpec.describe Campaign::UpsertSourceIntoCampaignContacts do
         email_opt_in: email_opt_in,
         sms_opt_in: sms_opt_in,
         locale: locale,
-        state_file_ref: state_file_ref
+        latest_signup_at: latest_signup_at,
+        latest_gyr_intake_at: latest_gyr_intake_at
       )
     end
 
@@ -26,7 +27,8 @@ RSpec.describe Campaign::UpsertSourceIntoCampaignContacts do
     let(:email_opt_in) { true }
     let(:sms_opt_in) { true }
     let(:locale) { "es" }
-    let(:state_file_ref) { [] }
+    let(:latest_signup_at) { 1.day.ago }
+    let(:latest_gyr_intake_at) { 2.days.ago }
 
     context "when no existing contact matches" do
       it "creates a new CampaignContact" do
@@ -55,6 +57,12 @@ RSpec.describe Campaign::UpsertSourceIntoCampaignContacts do
       it "sets locale when provided" do
         contact = call_service
         expect(contact.locale).to eq("es")
+      end
+
+      it "updates latest signup and gyr_intake at" do
+        contact = call_service
+        expect(contact.latest_signup_at).to be_within(1.second).of(latest_signup_at)
+        expect(contact.latest_gyr_intake_at).to be_within(1.second).of(latest_gyr_intake_at)
       end
 
       context "when source is :gyr" do
@@ -231,34 +239,6 @@ RSpec.describe Campaign::UpsertSourceIntoCampaignContacts do
           expect(contact.sign_up_ids).to match_array([9, 10])
         end
       end
-
-      context "state_file_ref behavior" do
-        let(:state_file_ref) { { id: 1, type: "StateFileAzIntake" } }
-
-        it "appends the ref when not present yet" do
-          call_service
-          contact = CampaignContact.last
-          expect(contact.state_file_intake_refs).to include(hash_including("id" => 1, "type" => "StateFileAzIntake"))
-        end
-
-        it "does not add a duplicate ref with same id+type" do
-          existing.update!(state_file_intake_refs: [{ "id" => 1, "type" => "StateFileAzIntake" }])
-
-          call_service
-          contact = CampaignContact.last
-          matches = contact.state_file_intake_refs.select { |r| r["id"] == 1 && r["type"] == "StateFileAzIntake" }
-          expect(matches.length).to eq(1)
-        end
-
-        it "allows another ref if id matches but type differs" do
-          existing.update!(state_file_intake_refs: [{ "id" => 1, "type" => "StateFileNyIntake" }])
-
-          call_service
-          contact = CampaignContact.last
-          expect(contact.state_file_intake_refs).to include({ "id" => 1, "type" => "StateFileNyIntake" })
-          expect(contact.state_file_intake_refs).to include(hash_including("id" => 1, "type" => "StateFileAzIntake"))
-        end
-      end
     end
 
     context "when matching by phone" do
@@ -270,7 +250,6 @@ RSpec.describe Campaign::UpsertSourceIntoCampaignContacts do
       let(:phone) { "+15551234567" }
       let(:sms_opt_in) { true }
       let(:locale) { "en" }
-      let(:state_file_ref) { nil }
 
       let!(:existing) do
         create(

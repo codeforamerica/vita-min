@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
+ActiveRecord::Schema[7.1].define(version: 2026_02_23_212700) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -577,6 +577,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
     t.string "first_name"
     t.bigint "gyr_intake_ids", default: [], array: true
     t.string "last_name"
+    t.datetime "latest_gyr_intake_at"
+    t.datetime "latest_signup_at"
     t.string "locale"
     t.bigint "sign_up_ids", default: [], array: true
     t.boolean "sms_notification_opt_in", default: false
@@ -588,6 +590,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
     t.index ["email_notification_opt_in"], name: "index_campaign_contacts_on_email_notification_opt_in"
     t.index ["first_name", "last_name"], name: "index_campaign_contacts_on_first_name_and_last_name"
     t.index ["gyr_intake_ids"], name: "index_campaign_contacts_on_gyr_intake_ids", using: :gin
+    t.index ["latest_gyr_intake_at"], name: "index_campaign_contacts_on_latest_gyr_intake_at"
+    t.index ["latest_signup_at"], name: "index_campaign_contacts_on_latest_signup_at"
     t.index ["sign_up_ids"], name: "index_campaign_contacts_on_sign_up_ids", using: :gin
     t.index ["sms_notification_opt_in"], name: "index_campaign_contacts_on_sms_notification_opt_in"
     t.index ["sms_phone_number"], name: "index_campaign_contacts_on_sms_phone_number"
@@ -831,6 +835,17 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.string "zip_code"
+  end
+
+  create_table "doc_assessment_feedbacks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "doc_assessment_id", null: false
+    t.integer "feedback", default: 0, null: false
+    t.text "feedback_notes"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["doc_assessment_id"], name: "index_doc_assessment_feedbacks_on_doc_assessment_id"
+    t.index ["user_id"], name: "index_doc_assessment_feedbacks_on_user_id"
   end
 
   create_table "doc_assessments", force: :cascade do |t|
@@ -3130,6 +3145,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_10_020905) do
   add_foreign_key "clients", "vita_partners"
   add_foreign_key "coalition_lead_roles", "coalitions"
   add_foreign_key "dependents", "intakes"
+  add_foreign_key "doc_assessment_feedbacks", "doc_assessments"
+  add_foreign_key "doc_assessment_feedbacks", "users"
   add_foreign_key "doc_assessments", "documents"
   add_foreign_key "documents", "clients"
   add_foreign_key "documents", "documents_requests"

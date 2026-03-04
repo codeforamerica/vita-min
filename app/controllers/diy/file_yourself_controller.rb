@@ -10,21 +10,13 @@ module Diy
       if @form.valid?
         @form.save
         session[:diy_intake_id] = diy_intake.id
-        redirect_to(diy_continue_to_fsa_path)
+        redirect_to(diy_diy_notification_preference_path)
       else
         render :edit
       end
     end
 
     private
-
-    def current_diy_intake
-      if session[:diy_intake_id]
-        DiyIntake.find(session[:diy_intake_id])
-      else
-        DiyIntake.new(preferred_first_name: "temp")
-      end
-    end
 
     def create_params
       form_params = params.fetch(:file_yourself_form, {}).permit(*FileYourselfForm.attribute_names)

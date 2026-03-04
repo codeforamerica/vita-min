@@ -60,7 +60,8 @@ class Signup < ApplicationRecord
       phone: phone_number,
       email_opt_in: email_address.present?,
       sms_opt_in: phone_number.present?,
-      locale: nil
+      locale: nil,
+      latest_signup_at: created_at,
     )
   end
 end
