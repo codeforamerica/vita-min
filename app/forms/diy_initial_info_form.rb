@@ -14,7 +14,6 @@ class DiyInitialInfoForm < Form
     attrs[:state_of_residence] ||= 'unfilled'
     attrs[:zip_code] ||= 'unfilled'
     diy_intake.update!(attrs)
-    #diy_intake.update!(attributes_for(:diy_intake))
   end
 
   def self.existing_attributes(diy_intake)
