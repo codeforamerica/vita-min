@@ -1,5 +1,7 @@
 module CampaignMessage
   class DiyFollowupSurvey < CampaignMessage
+    include Rails.application.routes.url_helpers
+
     def self.message_name
       'campaign_messages.diy_followup_survey'.freeze
     end
@@ -9,6 +11,12 @@ module CampaignMessage
     end
 
     def email_body(contact:, **args)
+      args[:survey_link] = url_for(
+          host: MultiTenantService.new(:gyr).host,
+          controller: "/redirects",
+          action: "diy_survey"
+        )
+
       I18n.t("campaign_messages.diy_followup_survey.email.body_html", **vars(contact), **args)
     end
   end
