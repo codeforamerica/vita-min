@@ -98,9 +98,10 @@ RSpec.describe ClientSorter do
     context "with a vita partner" do
       let(:user_role) { build :admin_role }
       let(:vita_partner) { create :organization }
+
       let(:params) do
         {
-          vita_partners: [{ id: vita_partner.id, name: vita_partner.name, value: vita_partner.id }].to_json
+          vita_partners: [vita_partner.id].to_json
         }
       end
 
@@ -139,10 +140,7 @@ RSpec.describe ClientSorter do
 
         let(:params) do
           {
-            vita_partners: [
-              { id: vita_partner.id, name: vita_partner.name, value: vita_partner.id },
-              { id: site.id, name: site.name, value: site.id }
-            ].to_json
+            vita_partners: [vita_partner.id, site.id].to_json
           }
         end
 

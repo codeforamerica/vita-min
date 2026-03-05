@@ -81,10 +81,9 @@ class ClientSorter
     when "breached_sla"
       clients = clients.where("last_outgoing_communication_at < ?", 6.business_days.ago)
     end
-    # For backwards compatibility for users in the middle of a search while this is deployed,
-    # we support both hash and number (In future only number will be needed)
+
     if @filters[:vita_partners].present?
-      ids = JSON.parse(@filters[:vita_partners]).map { |vp| vp.instance_of?(Hash) ? vp["id"] : vp }
+      ids = JSON.parse(@filters[:vita_partners])
       clients = clients.where(vita_partner_id: ids)
     end
 
