@@ -157,7 +157,13 @@ es:
         info_html:
         - Estamos aquí para que su experiencia al presentar impuestos sea sencilla y sin estrés. Explore nuestras guías y preguntas frecuentes para encontrar respuestas rápidas y tener la seguridad que necesita mientras presenta su declaración de impuestos.
         - "<b>Si en algún momento no sabe cómo avanzar o tiene preguntas, comuníquese con nuestro equipo de servicio al cliente:</b>"
-        title: Presente su declaración por su cuenta y reciba apoyo cuando lo necesite
+        title: resente su declaración por su cuenta y reciba apoyo cuando lo necesite
+    initial_info:
+      edit:
+        first_name: Primer nombre
+        state_of_residence: Estado de residencia
+        title: Para comenzar, necesitaremos recopilar información básica.
+        zip_code: Código postal
     notification_preference:
       body: Pondremos en contacto con usted sobre apoyo gratuito para presentar impuestos y otros servicios gratuitos. También podríamos enviarle encuestas para mejorar su experiencia con nosotros. ¡Seleccione la(s) opción(es) que mejor se adapte(n) a usted!
     qualifications:

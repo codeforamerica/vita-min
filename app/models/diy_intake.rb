@@ -14,6 +14,7 @@
 #  sms_notification_opt_in   :integer          default("unfilled")
 #  sms_phone_number          :string
 #  source                    :string
+#  state_of_residence        :string
 #  token                     :string
 #  zip_code                  :string
 #  created_at                :datetime         not null

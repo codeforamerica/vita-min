@@ -159,6 +159,12 @@ en:
         - We’re here to make your tax-filing experience smooth and stress-free. Explore our guides and FAQs to find quick answers and stay confident as you file.
         - "<b>If you get stuck at any point or have questions, reach out to our support team!</b>"
         title: File on your own and get support when you need it
+    initial_info:
+      edit:
+        first_name: First name
+        state_of_residence: State of residence
+        title: To get started, we’ll need some basic information.
+        zip_code: Zip code
     notification_preference:
       body: We will reach out about free tax filing support and other free services. We may also send surveys to improve your experience. Please select the option(s) that work best for you!
     qualifications:
