@@ -204,6 +204,8 @@ RSpec.describe Campaign::UpsertSourceIntoCampaignContacts do
         let(:sms_opt_in) { false }
 
         context "when its coming from a backfill" do
+          let(:backfill) { true }
+
           it "does not turn off existing true opt-ins" do
             existing.update!(email_notification_opt_in: true, sms_notification_opt_in: true)
             contact = call_service
