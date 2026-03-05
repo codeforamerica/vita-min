@@ -55,9 +55,9 @@ RSpec.describe Diy::DiyInitialInfoController do
 
         expect(session[:diy_intake_id]).to eq diy_intake.id
 
-        expect(diy_intake.preferred_first_name).to eq "unfilled"
-        expect(diy_intake.state_of_residence).to eq "unfilled"
-        expect(diy_intake.zip_code).to eq "unfilled"
+        expect(diy_intake.preferred_first_name).to eq nil
+        expect(diy_intake.state_of_residence).to eq nil
+        expect(diy_intake.zip_code).to eq nil
       end
     end
   end
