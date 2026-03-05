@@ -19,6 +19,7 @@ module Campaign
               source: :diy,
               source_id: intake.id,
               first_name: intake.preferred_first_name,
+              last_name: nil,
               email: email,
               phone: phone,
               email_opt_in: intake.email_notification_opt_in == "yes",
@@ -28,6 +29,7 @@ module Campaign
               backfill: true
             )
           rescue => e
+            puts "Error: #{e.message}" if Rails.env.development?
             Sentry.capture_exception(e, extra: { job: self.class.name, diy_id: intake.id, })
             next
           end
