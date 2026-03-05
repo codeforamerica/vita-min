@@ -12,7 +12,8 @@ module Campaign
       latest_signup_at: nil,
       latest_gyr_intake_at: nil,
       latest_diy_intake_at: nil,
-      locale: nil
+      locale: nil,
+      backfill: false
     )
       @source = source
       @source_id = source_id
@@ -26,6 +27,7 @@ module Campaign
       @latest_signup_at = latest_signup_at
       @latest_gyr_intake_at = latest_gyr_intake_at
       @latest_diy_intake_at = latest_diy_intake_at
+      @backfill = backfill
     end
 
     def call
@@ -35,9 +37,17 @@ module Campaign
       contact.sms_phone_number = @phone unless @phone.blank?
       contact.first_name = format_name(choose_name(contact.first_name, @first_name, source: @source))
       contact.last_name = format_name(choose_name(contact.last_name, @last_name, source: @source))
-      contact.email_notification_opt_in = contact.email_notification_opt_in || @email_opt_in
-      contact.sms_notification_opt_in = contact.sms_notification_opt_in || @sms_opt_in
       contact.locale = @locale.presence || contact.locale.presence || "en"
+
+      if @backfill
+        contact.email_notification_opt_in = contact.email_notification_opt_in || @email_opt_in
+        contact.sms_notification_opt_in = contact.sms_notification_opt_in || @sms_opt_in
+      else
+        # for campaign contacts that are created or updated going forward
+        # we should respect their most recent opt-in choices
+        contact.email_notification_opt_in = @email_opt_in
+        contact.sms_notification_opt_in = @sms_opt_in
+      end
 
       if @latest_signup_at.present?
         contact.latest_signup_at = [contact.latest_signup_at, @latest_signup_at].compact.max

@@ -28,12 +28,14 @@ module Diy
       current_diy_intake.create_or_update_campaign_contact
 
       if Flipper.enabled?(:send_diy_survey)
-        return unless contact = current_diy_intake.campaign_contact
-        CampaignEmail.create!(
+        contact = current_diy_intake.campaign_contact
+        return unless contact.present?
+
+        CampaignEmail.create(
           campaign_contact_id: contact.id,
           message_name: "diy_followup_survey",
           to_email: contact.email_address,
-          scheduled_send_at: Time.current + 3.days
+          scheduled_send_at: Time.current + 1.day
         )
       end
     end

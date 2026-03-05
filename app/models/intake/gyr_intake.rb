@@ -735,6 +735,7 @@ class Intake::GyrIntake < Intake
       sms_opt_in: sms_notification_opt_in == "yes",
       locale: locale,
       latest_gyr_intake_at: created_at,
+      backfill: false
     )
   end
 end

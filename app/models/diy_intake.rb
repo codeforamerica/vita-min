@@ -22,7 +22,6 @@
 #
 class DiyIntake < ApplicationRecord
   attr_accessor :email_address_confirmation
-  has_one :campaign_contact
 
   enum received_1099: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_1099
   enum filing_frequency: { unfilled: 0, every_year: 1, some_years: 2, not_filed: 3 }, _prefix: :filing_frequency
@@ -32,9 +31,25 @@ class DiyIntake < ApplicationRecord
   has_secure_token :token
 
   validates :email_address, presence: true, 'valid_email_2/email': { mx: true }, confirmation: true
+
+  scope :sms_contactable, lambda {
+    where.not(sms_phone_number: [nil, ""])
+         .where(sms_notification_opt_in: sms_notification_opt_ins[:yes])
+  }
+
+  scope :email_contactable, lambda {
+    where.not(email_address: [nil, ""])
+         .where(email_notification_opt_in: email_notification_opt_ins[:yes])
+  }
+
+  scope :contactable, -> { sms_contactable.or(email_contactable) }
   
   def self.should_carry_over_params_from?(intake)
     intake && intake.updated_at > 30.minutes.ago && intake.preferred_name.present? && intake.triage_filing_frequency.present?
+  end
+
+  def campaign_contact
+    CampaignContact.where("? = ANY(diy_intake_ids)", id).first
   end
 
   def create_or_update_campaign_contact
@@ -51,6 +66,7 @@ class DiyIntake < ApplicationRecord
       sms_opt_in: sms_notification_opt_in == "yes",
       locale: locale,
       latest_diy_intake_at: created_at,
+      backfill: false
       )
   end
 end
