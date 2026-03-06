@@ -12,25 +12,62 @@ RSpec.describe ClientSorter do
 
   describe "#filtered_and_sorted_clients" do
     context "when user is a greeter" do
-      let!(:assigned_tax_return) { create :gyr_tax_return, :prep_ready_for_prep, assigned_user: user }
       let(:user_role) { build(:greeter_role) }
-      let(:params) do
-        {}
-      end
+      let(:params) { {} }
 
-      context "there are greetable clients" do
-        let!(:greetable_tax_return) { create :gyr_tax_return, :intake_ready }
+      context "with a broad input scope" do
+        let(:subject) { described_class.new(Client.all, user, params, {}) }
 
-        it "limits to greetable clients and assigned clients" do
-          result = subject.filtered_and_sorted_clients.to_a
-          expect(result).to match_array([assigned_tax_return.client, greetable_tax_return.client])
+        let!(:assigned_tax_return) do
+          create(:gyr_tax_return, :prep_ready_for_prep, assigned_user: user)
         end
-      end
 
-      context "there are not greetable clients" do
-        it "limits to assigned clients only" do
-          result = subject.filtered_and_sorted_clients.to_a
-          expect(result).to match_array([assigned_tax_return.client])
+        let!(:other_user) { create(:user) }
+        let!(:other_assigned_tax_return) do
+          create(:gyr_tax_return, :prep_ready_for_prep, assigned_user: other_user)
+        end
+
+        context "there are greetable clients" do
+          let!(:greetable_tax_return) { create(:gyr_tax_return, :intake_ready) }
+
+          before do
+            [assigned_tax_return, other_assigned_tax_return, greetable_tax_return].each do |tr|
+              tr.client.update!(filterable_product_year: Rails.configuration.product_year)
+            end
+
+            SearchIndexer.refresh_filterable_properties([
+                                                          assigned_tax_return.client_id,
+                                                          other_assigned_tax_return.client_id,
+                                                          greetable_tax_return.client_id
+                                                        ])
+          end
+
+          it "returns assigned clients plus greetable clients, but not other user's assigned clients" do
+            result = subject.filtered_and_sorted_clients.to_a
+
+            expect(result).to include(assigned_tax_return.client)
+            expect(result).to include(greetable_tax_return.client)
+            expect(result).not_to include(other_assigned_tax_return.client)
+          end
+        end
+
+        context "there are not greetable clients" do
+          before do
+            [assigned_tax_return, other_assigned_tax_return].each do |tr|
+              tr.client.update!(filterable_product_year: Rails.configuration.product_year)
+            end
+
+            SearchIndexer.refresh_filterable_properties([
+                                                          assigned_tax_return.client_id,
+                                                          other_assigned_tax_return.client_id
+                                                        ])
+          end
+
+          it "returns assigned clients only (not other user's assigned clients)" do
+            result = subject.filtered_and_sorted_clients.to_a
+
+            expect(result).to match_array([assigned_tax_return.client])
+          end
         end
       end
     end
