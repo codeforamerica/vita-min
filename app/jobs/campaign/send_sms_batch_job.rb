@@ -10,12 +10,10 @@ class Campaign::SendSmsBatchJob < ApplicationJob
   include Campaign::Scheduling
 
   def perform(
-    message_name,
-    batch_size: 100,
-    batch_delay: 1.minute,
-    queue_next_batch: false,
-    recent_signups_only: false
+    message_name, batch_size: 100, msg_delay: 1.second,
+    queue_next_batch: false, recent_signups_only: false
   )
+    return unless CampaignMessage::CampaignMessage.valid_msg_name?(message_name)
     return if Flipper.enabled?(:cancel_campaign_sms)
     return if rate_limited?
 

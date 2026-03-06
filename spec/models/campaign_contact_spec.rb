@@ -1,3 +1,39 @@
+# == Schema Information
+#
+# Table name: campaign_contacts
+#
+#  id                        :bigint           not null, primary key
+#  diy_intake_ids            :integer          default([]), is an Array
+#  email_address             :citext
+#  email_notification_opt_in :boolean          default(FALSE)
+#  first_name                :string
+#  gyr_intake_ids            :bigint           default([]), is an Array
+#  last_name                 :string
+#  latest_diy_intake_at      :datetime
+#  latest_gyr_intake_at      :datetime
+#  latest_signup_at          :datetime
+#  locale                    :string
+#  sign_up_ids               :bigint           default([]), is an Array
+#  sms_notification_opt_in   :boolean          default(FALSE)
+#  sms_phone_number          :string
+#  state_file_intake_refs    :jsonb            not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#
+# Indexes
+#
+#  index_campaign_contacts_on_email_address              (email_address) UNIQUE WHERE (email_address IS NOT NULL)
+#  index_campaign_contacts_on_email_notification_opt_in  (email_notification_opt_in)
+#  index_campaign_contacts_on_first_name_and_last_name   (first_name,last_name)
+#  index_campaign_contacts_on_gyr_intake_ids             (gyr_intake_ids) USING gin
+#  index_campaign_contacts_on_gyr_suppression            (suppressed_for_gyr_product_year)
+#  index_campaign_contacts_on_latest_gyr_intake_at       (latest_gyr_intake_at)
+#  index_campaign_contacts_on_latest_signup_at           (latest_signup_at)
+#  index_campaign_contacts_on_sign_up_ids                (sign_up_ids) USING gin
+#  index_campaign_contacts_on_sms_notification_opt_in    (sms_notification_opt_in)
+#  index_campaign_contacts_on_sms_phone_number           (sms_phone_number)
+#  index_campaign_contacts_on_state_file_intake_refs     (state_file_intake_refs) USING gin
+#
 require "rails_helper"
 
 RSpec.describe CampaignContact, type: :model do

@@ -70,7 +70,7 @@ class CampaignEmail < ApplicationRecord
     domain
   end
 
-  def self.rate_limited_for_domain?(domain, window: 20.minutes, threshold: 15, min_sample: 20, pause_for: 60.minutes)
+  def self.pause_if_rate_limited!(domain, window: 20.minutes, threshold: 15, min_sample: 20, pause_for: 60.minutes)
     domain = domain.to_s.downcase.strip
     return false if domain.blank?
 

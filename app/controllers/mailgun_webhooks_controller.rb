@@ -179,7 +179,7 @@ class MailgunWebhooksController < ActionController::Base
 
         if CampaignEmail.rate_limit_signal?(email_to_update)
           domain = CampaignEmail.domain_for(email_to_update.to_email)
-          CampaignEmail.rate_limited_for_domain?(domain)
+          CampaignEmail.pause_if_rate_limited!(domain)
         end
       else
         updates[:error_code] = nil
