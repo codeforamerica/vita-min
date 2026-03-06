@@ -31,11 +31,5 @@ module Diy
       end
       redirect_to DiySupportExperimentService.fsa_link(treatment.to_s, diy_intake.received_1099_yes?), allow_other_host: true
     end
-
-    private
-
-    def require_diy_intake
-      redirect_to diy_file_yourself_path unless session[:diy_intake_id].present?
-    end
   end
 end

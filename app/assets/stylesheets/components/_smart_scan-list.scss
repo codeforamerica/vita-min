@@ -1,0 +1,18 @@
+.label--status {
+  // More info about styling with data attributes can be found at
+  // https://css-tricks.com/a-complete-guide-to-data-attributes/
+  &[data-status="fail"] {
+    background-color: $color-failure-red;
+    border-color: $color-failure-red;
+  }
+
+  &[data-status^="pass"] {
+    background-color: $color-pass-green;
+    border-color: $color-pass-green;
+  }
+
+  &[data-status^="attention"] {
+    background-color: $color-review-yellow;
+    border-color: $color-review-yellow;
+  }
+}

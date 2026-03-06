@@ -114,26 +114,25 @@ es:
   diy:
     continue_to_fsa:
       edit:
-        chat_with_us: Chatea con nosotros
-        continue_help_text: Al hacer clic en continuar, irá al sitio de nuestro socio para terminar de declarar sus impuestos.
-        email_us_html: envíenos un correo electrónico a <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
-        file_myself_guide_html: para obtener instrucciones paso a paso, consejos y prácticas recomendadas, consulte nuestra %{file_myself_guide_link}.
-        guide_link: Guía de autoarchivo
-        help_text: Si te quedas atascado o tienes alguna pregunta, ¡podemos ayudarte!
-        title: "¡Obtenga apoyo mientras presenta su propia solicitud!"
+        button: Visite TaxSlayer
+        file_myself_guide_html: "<b>¿Desea recibir apoyo?</b> %{file_myself_guide_link} para ver instrucciones paso a paso, consejos y mejores prácticas."
+        guide_link: Siga nuestra guía “hágalo usted mismo”
+        taxslayer_step_1_html: "<b>Navegue a TaxSlayer:</b> Haga clic en Continuar para acceder a nuestro enlace de referencia de una versión gratuita de TaxSlayer. Este sitio sólo está disponible en inglés."
+        taxslayer_step_2_html: "<b>Empiece el proceso con TaxSlayer:</b> Será dirigido a una página de transición titulada “Welcome to the TaxSlayer VITA/TCE self-prep kiosk”. Haga clic en Continue."
+        taxslayer_step_3_html: "<b>Cree una cuenta:</b> Deberá crear una cuenta en el sitio web de TaxSlayer."
+        taxslayer_step_3a_html: Una vez que inicie sesión, asegúrese de estar utilizando el sitio gratuito <i>American Pledge</i> de TaxSlayer.
+        taxslayer_step_4_html: "<b>Presente su declaración de impuestos:</b> Ingrese la información requerida de sus formularios de impuestos y envíe su declaración."
+        title: Qué puede esperar al presentar su declaración por su cuenta con TaxSlayer
     file_yourself:
       edit:
-        filing_frequency:
-          label_line_1: En los últimos 4 años, ¿cuántas veces ha declarado impuestos?
-          label_line_2: Es bastante común no declarar algunos años  debido a circunstancias de la vida y cambios de empleo.
-          options:
-            every_year: He declarado todos los años
-            not_filed: No he declarado
-            some_years: Declaré unos años
-        info:
-        - Presente tus impuestos en línea por su cuenta usando nuestro sitio web asociado. ¡Esta es nuestra opción más rápida para los hogares que ganan menos de $89,000 para declarar impuestos y cobrar los créditos tributarios que se le deben!
-        - Para comenzar, necesitaremos recopilar información básica.
-        title: "¡Declare aquí sus impuestos usted mismo!"
+        chat_with_us: Chatee con nosotros
+        email_us_html: Envíenos un correo electrónico a <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
+        info_html:
+        - Estamos aquí para que su experiencia al presentar impuestos sea sencilla y sin estrés. Explore nuestras guías y preguntas frecuentes para encontrar respuestas rápidas y tener la seguridad que necesita mientras presenta su declaración de impuestos.
+        - "<b>Si en algún momento no sabe cómo avanzar o tiene preguntas, comuníquese con nuestro equipo de servicio al cliente:</b>"
+        title: Presente su declaración por su cuenta y reciba apoyo cuando lo necesite
+    notification_preference:
+      body: Pondremos en contacto con usted sobre apoyo gratuito para presentar impuestos y otros servicios gratuitos. También podríamos enviarle encuestas para mejorar su experiencia con nosotros. ¡Seleccione la(s) opción(es) que mejor se adapte(n) a usted!
     qualifications:
       edit:
         button_1: Sí, califico
@@ -1080,10 +1079,13 @@ es:
         client_doc: Cliente
         edit_file_info: Editar información del archivo
         empty_file: "(archivo vacío)"
+        fail: Fail
         file_name: Nombre de archivo
+        needs_review: Needs Review
         not_needed_docs: documentos no necesario debido al experimento.
+        pass: Pass
+        smart_scan: Smart Scan
         system_generated_doc: Auto-generado
-        upload_by: Subido por
         upload_date: Fecha de carga
     has_duplicates: Posibles duplicados detectados
     has_previous_year_intakes: Ingreso(s) del año anterior
@@ -5725,10 +5727,10 @@ es:
           one: En %{year}, ¿pagó algún interés hipotecario?
           other: En %{year}, ¿Pagó usted o su pareja algún interés hipotecario?
       notification_preference:
-        note_html: <p>Al hacer clic en Continuar, usted acepta recibir actualizaciones sobre su declaración de impuestos, información sobre nuestros servicios y encuestas ocasionales. No compartiremos su información con terceros.</p><p>La frecuencia de los mensajes puede variar. Pueden aplicarse cargos por mensajes y datos. Envíe el texto HELP al 58750 para ayuda. Envía STOP al 58750 para cancelar. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.</p>
+        note_html: Al hacer clic en Continuar, usted acepta recibir actualizaciones sobre su declaración de impuestos, información sobre nuestros servicios y encuestas ocasionales. No compartiremos su información con terceros. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.
         options:
           email_notification_opt_in: Envíeme un correo electrónico
-          header: Necesitaremos ponernos en contacto con usted para hacerle preguntas y enviarle actualizaciones sobre su declaración de impuestos, así como información sobre apoyo gratuito para presentar impuestos y otros servicios gratuitos. También podríamos enviarle encuestas para mejorar su experiencia con nosotros. ¡Seleccione la(s) opción(es) que mejor se adapte(n) a usted!
+          header: Necesitaremos comunicarnos contigo en caso de que tengamos preguntas o actualizaciones. Por favor, selecciona la(s) opción(es) que mejor te funcione.
           sms_notification_opt_in: Mensaje de Texto
         title: Acepte recibir mensajes de nuestra parte
       optional_consent:

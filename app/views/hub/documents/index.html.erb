@@ -33,25 +33,30 @@
     <table class="index-table documents-index-table">
       <thead class="index-table__head">
       <tr class="index-table__row">
+        <th scope="col" class="index-table__header document-column__tax-return">
+          <%= render "shared/column_sort_link", title: t("general.tax_return"), column_name: "tax_return" %>
+        </th>
+
         <th scope="col" class="index-table__header document-column__doc-type">
           <%= render "shared/column_sort_link", title: t("general.document_type"), column_name: "document_type" %>
         </th>
-        <th scope="col" class="index-table__header document-column__link">
+
+        <th scope="col" class="index-table__header document-column__smart-scan">
+          <%= render "shared/column_sort_link", title: t(".smart_scan"), column_name: "smart_scan" %>
+        </th>
+
+        <th scope="col" class="index-table__header document-column__edit-action">
+          <!-- no sort link for an action column -->
+          <span class="sr-only"><%= t(".edit_file_info") %></span>
+        </th>
+
+        <th scope="col" class="index-table__header document-column__file-name">
           <%= render "shared/column_sort_link", title: t(".file_name"), column_name: "display_name" %>
         </th>
-        <th class="index-table__header document-column__link">
-          <%= render "shared/column_sort_link", title: t("general.tax_return"), column_name: "tax_return" %>
-        </th>
-        <th class="index-table__header document-column__link">
-          <%= render "shared/column_sort_link", title: t(".upload_by"), column_name: "uploaded_by" %>
-        </th>
+
         <th scope="col" class="index-table__header document-column__upload-date">
           <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
         </th>
-        <th scope="col" class="index-table__header document-column__screener_verdict">
-          <%= render "shared/column_sort_link", title: "Matches doc-type", column_name: "screener_verdict" %>
-        </th>
-        <th></th>
       </tr>
       </thead>
 
@@ -59,38 +64,46 @@
       <% if @documents.present? %>
         <% @documents.each do |document| %>
           <tr id="document-<%= document.id %>" class="index-table__row">
+
             <td class="index-table__cell">
-              <% id_type = DocumentTypes::IDENTITY_TYPES.map(&:label).include?(document.document_type_label) ? "ID - " : "" %>
-              <% id_type = "SSN - " if DocumentTypes::SECONDARY_IDENTITY_TYPES.map(&:label).include?(document.document_type_label) %>
-              <%= id_type + document.document_type_label %>
+              <%= document.tax_return&.year %>
             </td>
-            <td class="index-table__cell">
+
+            <td class="index-table__cell document-column__doc-type">
+              <% id_prefix = "" %>
+              <% id_prefix = "ID - " if DocumentTypes::IDENTITY_TYPES.map(&:label).include?(document.document_type_label) %>
+              <% id_prefix = "SSN - " if DocumentTypes::SECONDARY_IDENTITY_TYPES.map(&:label).include?(document.document_type_label) %>
+              <%= id_prefix + document.document_type_label.to_s %>
+            </td>
+
+            <td class="index-table__cell document-column__smart-scan">
+              <% latest_assessment = document.assessments.order(created_at: :desc).first %>
+              <% case latest_assessment&.smart_scan_status %>
+              <% when "pass" %>
+                <span class="label--status" data-status="pass"><%= t(".pass") %></span>
+              <% when "fail" %>
+                <span class="label--status" data-status="fail"><%= t(".fail") %></span>
+              <% else %>
+                <span class="label--status" data-status="attention"><%= t(".needs_review") %></span>
+              <% end %>
+            </td>
+
+            <td class="index-table__cell document-column__edit-action">
+              <%= link_to(
+                    t(".edit_file_info"),
+                    edit_hub_client_document_path(client_id: @client.id, id: document.id),
+                    class: "button button--small button--secondary spacing-below-0"
+                  ) %>
+            </td>
+
+            <td class="index-table__cell document-column__file-name">
               <%= link_to hub_client_document_path(client_id: @client.id, id: document.id), target: "_blank", rel: "noopener noreferrer" do %>
                 <%= document.display_name %> <%= t(".empty_file") if document.upload.blob.byte_size.zero? %>
               <% end %>
             </td>
-            <td class="index-table__cell">
-              <%= document.tax_return&.year %>
-            </td>
-            <td class="index-table__cell">
-              <%= document.uploaded_by_name_label %>
-            </td>
-            <td class="index-table__cell">
+
+            <td class="index-table__cell document-column__upload-date">
               <%= timestamp document.created_at %>
-            </td>
-            <td class="index-table__cell">
-              <% latest_assessment = document.assessments.order(created_at: :desc).first %>
-              <% if latest_assessment&.result_json.present? %>
-                <% verdict = latest_assessment.result_json["matches_doc_type_verdict"] %>
-                <span class="<%= verdict %>">
-                  <%= verdict&.capitalize %>
-                </span>
-              <% else %>
-                <span class="text--help">Not screened</span>
-              <% end %>
-            </td>
-            <td class="index-table__cell edit">
-              <%= link_to t(".edit_file_info"), edit_hub_client_document_path(client_id: @client.id, id: document.id) %>
             </td>
           </tr>
         <% end %>
@@ -105,9 +118,9 @@
           </td>
         </tr>
       <% end %>
-
       </tbody>
     </table>
+
   </div>
 
   <%= render "hub/clients/client_take_action_footer" %>
