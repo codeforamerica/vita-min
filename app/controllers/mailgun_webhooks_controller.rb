@@ -235,13 +235,8 @@ class MailgunWebhooksController < ActionController::Base
     authenticate_or_request_with_http_basic do |name, password|
       expected_name = ENV["MAILGUN_OUTREACH_BASIC_AUTH_NAME"]
       expected_password = ENV["MAILGUN_OUTREACH_BASIC_AUTH_PASSWORD"]
-
-      is_valid = ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
+      ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
         ActiveSupport::SecurityUtils.secure_compare(password, expected_password)
-
-      Sentry.capture_message("Mailgun authentication failed") unless is_valid
-
-      is_valid
     end
   end
 
