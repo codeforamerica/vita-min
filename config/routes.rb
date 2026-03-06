@@ -206,6 +206,7 @@ Rails.application.routes.draw do
           mount DelayedJobWeb => "/delayed_job"
         end
 
+        resource :ai_screener_metrics, only: :show
         resources :metrics, only: [:index]
         resources :data_migrations, only: [:index] do
           collection do
@@ -291,6 +292,7 @@ Rails.application.routes.draw do
             get "/archived", to: "documents#archived", on: :collection, as: :archived
             get "/confirm", to: "documents#confirm", on: :member, as: :confirm
             post :rerun_screener, on: :member
+            post :record_feedback, on: :member
           end
           resources :notes, only: [:create, :index]
           resources :messages, only: [:index]
