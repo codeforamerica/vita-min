@@ -66,6 +66,12 @@ class PartnerRoutingService
   private
 
   def set_base_vita_partners(language_routing:)
+    @base_sites = if language_routing
+                   Site.with_language_capability(@intake&.preferred_interview_language)
+                 else
+                   Site
+                 end
+
     @base_orgs = if language_routing
                    Organization.with_language_capability(@intake&.preferred_interview_language)
                  else
@@ -129,6 +135,18 @@ class PartnerRoutingService
   def vita_partner_from_zip_code
     return unless @zip_code.present?
 
+    # Step 1/2: Check sites.
+    eligible_with_capacity = @base_sites.joins(:serviced_zip_codes)
+                                        .where(vita_partner_zip_codes: { zip_code: @zip_code })
+
+    vita_partner = eligible_with_capacity.sample
+
+    if vita_partner.present?
+      @routing_method = :zip_code
+      return vita_partner
+    end
+
+    # Step 2/2: Check orgs.
     eligible_with_capacity = @base_orgs.with_capacity.joins(:serviced_zip_codes)
                                        .where(vita_partner_zip_codes: { zip_code: @zip_code })
 

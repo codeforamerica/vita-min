@@ -115,26 +115,23 @@ en:
   diy:
     continue_to_fsa:
       edit:
-        chat_with_us: Chat with us
-        continue_help_text: By clicking continue you will go to our partner site to finish filing your taxes.
-        email_us_html: Email us at <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
-        file_myself_guide_html: For step-by-step instructions, tips, and best practices, see our %{file_myself_guide_link}.
-        guide_link: File Myself Guide
-        help_text: If you get stuck or have a question, we can help!
-        title: Get support while you file on your own!
+        button: Continue to TaxSlayer
+        file_myself_guide_html: "<b>Want more guidance?</b> %{file_myself_guide_link} for step-by-step instructions, tips, and best practices!"
+        guide_link: Follow our DIY Guide
+        taxslayer_step_1_html: "<b>Continue to TaxSlayer:</b> Click continue, to access our referral link for a free version of TaxSlayer."
+        taxslayer_step_2_html: "<b>Get started with TaxSlayer:</b> You will be taken to a transition page titled “Welcome to the TaxSlayer VITA/TCE self-prep kiosk” click continue."
+        taxslayer_step_3_html: "<b>Create a login:</b> You will need to make a login on TaxSlayer’s website."
+        taxslayer_step_3a_html: Once you login, make sure you are using TaxSlayer’s free <i>American Pledge</i> website.
+        taxslayer_step_4_html: "<b>File your tax return:</b> Enter the required information from your tax forms and submit your tax return."
+        title: What to expect by filing on your own with TaxSlayer
     file_yourself:
       edit:
-        filing_frequency:
-          label_line_1: In the last 4 years, how often have you filed?
-          label_line_2: It’s fairly common to skip filing for certain years due to life circumstances and employment changes.
-          options:
-            every_year: I filed every year
-            not_filed: I have not filed
-            some_years: I filed some years
-        info:
-        - File taxes online on your own using our partner website. This is our quickest option for households earning under $89,000 to file taxes and collect the tax credits you are owed!
-        - To get started, we’ll need to collect some basic information.
-        title: File taxes on your own
+        chat_with_us: Chat with us
+        email_us_html: Email us at <a href="mailto:DIY@getyourrefund.org">DIY@getyourrefund.org</a>
+        info_html:
+        - We’re here to make your tax-filing experience smooth and stress-free. Explore our guides and FAQs to find quick answers and stay confident as you file.
+        - "<b>If you get stuck at any point or have questions, reach out to our support team!</b>"
+        title: File on your own and get support when you need it
     notification_preference:
       body: We will reach out about free tax filing support and other free services. We may also send surveys to improve your experience. Please select the option(s) that work best for you!
     qualifications:
@@ -1075,10 +1072,13 @@ en:
         client_doc: Client
         edit_file_info: Edit File Info
         empty_file: "(empty file)"
+        fail: Fail
         file_name: File Name
+        needs_review: Needs Review
         not_needed_docs: documents not needed due to experiment.
+        pass: Pass
+        smart_scan: Smart Scan
         system_generated_doc: Auto-generated
-        upload_by: Uploaded By
         upload_date: Upload Date
       smart_scan_card:
         is_accurate: "%{document_type} is accurate"
@@ -5861,7 +5861,6 @@ en:
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.
-        warning_html: '⚠️ <b>Immigrant filers</b>: As of April 2025, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Please see our FAQ for more information if you have any concerns.</a>'
       start_with_current_year:
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: We’ll start by asking about your situation in %{year}.
