@@ -7,9 +7,18 @@ class TwilioWebhooksController < ActionController::Base
     error_code = strong_params["ErrorCode"]
     sid = strong_params["MessageSid"]
 
-    DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}")
-
     record = (OutgoingTextMessage.find_by(id: strong_params[:id]) || CampaignSms.find_by(twilio_sid: sid))
+
+    message_name = record.respond_to?(:message_name) ? record.message_name : "n/a"
+
+    DatadogApi.increment("twilio.outgoing_text_messages.updated", tags: [
+                           "status:#{status}",
+                           "record_type:#{record_type}",  # "outgoing_text_message" or "campaign_sms"
+                           "message_name:#{message_name}"
+                         ])
+
+    DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}") # TODO: get rid of this, once we graph and group the above line
+    Rails.logger.info("Twilio webhook status: #{status.inspect}, error_code: #{error_code.inspect}")
 
     unless record
       DatadogApi.increment("twilio.outgoing_text_messages.updated.missing_record")
@@ -19,7 +28,6 @@ class TwilioWebhooksController < ActionController::Base
     record.update_status_if_further(status, error_code: error_code)
     head :ok
   end
-
 
   def update_status
     status = strong_params["MessageStatus"]
