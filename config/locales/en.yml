@@ -1080,6 +1080,12 @@ en:
         smart_scan: Smart Scan
         system_generated_doc: Auto-generated
         upload_date: Upload Date
+      smart_scan_card:
+        is_accurate: "%{document_type} is accurate"
+        is_inaccurate: 'Suggested document type: %{document_type}.'
+        validation_fail: Validation Fail
+        validation_passed: Validation Passed
+        validoc_notes: Smart Scan Notes
     has_duplicates: Potential duplicates detected
     has_previous_year_intakes: Previous year intake(s)
     itin_applicant: ITIN applicant
