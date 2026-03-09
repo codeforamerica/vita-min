@@ -9,51 +9,47 @@ class Campaign::SendSmsBatchJob < ApplicationJob
   queue_as :campaign_sms
   include Campaign::Scheduling
 
-  def perform(
-    message_name,
-    batch_size: 100,
-    batch_delay: 1.minute,
-    queue_next_batch: false,
-    recent_signups_only: false
-  )
+  def perform(message_name: nil, batch_size: 100, msg_delay: 1.second,
+              queue_next_batch: false, recent_signups_only: false)
+    raise ArgumentError, "message_name is required" if message_name.nil?
     return if Flipper.enabled?(:cancel_campaign_sms)
     return if rate_limited?
 
     contacts_to_message = if recent_signups_only
-                            CampaignContact.eligible_for_text_message_with_recent_signup(message_name).limit(batch_size).pluck(:id)
+                            CampaignContact.eligible_for_text_message_with_recent_signup(message_name).limit(batch_size)
                           else
-                            CampaignContact.eligible_for_text_message(message_name).limit(batch_size).pluck(:id)
+                            CampaignContact.eligible_for_text_message(message_name).limit(batch_size)
                           end
 
-    puts "*****CAMPAIGN SMS: message_name=#{message_name} batch_size=#{contacts_to_message.count} recent_signups_only=#{recent_signups_only} queue_next_batch=#{queue_next_batch}*****" unless Rails.env.test?
     return if contacts_to_message.empty?
 
-    start_time = next_business_hour_start
+    max_scheduled_send_at = nil
+    send_index = 0
 
-    index = 0
-    CampaignContact.where(id: contacts_to_message).find_each do |contact|
+    contacts_to_message.each do |contact|
       # add delays between sms-messages to prevent throttling
-      scheduled_send_at = start_time + (index * 0.2).seconds
+      scheduled_send_at = message_start_time + (send_index * msg_delay)
 
-      CampaignSms.create!(
+      sms = CampaignSms.create!(
         campaign_contact_id: contact.id,
         message_name: message_name,
         body: message(message_name).sms_body(contact: contact),
         to_phone_number: contact.sms_phone_number,
         scheduled_send_at: scheduled_send_at
       )
-      index += 1
-    rescue ActiveRecord::RecordNotUnique
-      next # already claimed by another worker
+
+      next unless sms.previously_new_record?
+
+      max_scheduled_send_at = [max_scheduled_send_at, sms.scheduled_send_at].compact.max
+
+      send_index += 1
     end
 
     if queue_next_batch
-      Campaign::SendSmsBatchJob.set(wait: batch_delay)
+      Campaign::SendSmsBatchJob.set(wait: batch_buffer(max_scheduled_send_at))
                                .perform_later(
-                                 message_name,
-                                 batch_size: batch_size,
-                                 batch_delay: batch_delay,
-                                 queue_next_batch: true,
+                                 message_name: message_name, batch_size: batch_size,
+                                 msg_delay: msg_delay, queue_next_batch: true,
                                  recent_signups_only: recent_signups_only
                                )
     end
@@ -64,6 +60,25 @@ class Campaign::SendSmsBatchJob < ApplicationJob
   end
 
   private
+
+  def message_start_time
+    # determine delay between last batch's messages and this batch's
+    last_scheduled_for_message = CampaignEmail.where(message_name: message_name, sent_at: nil).maximum(:scheduled_send_at)
+    if last_scheduled_for_message.present?
+      [(Time.current + 5.seconds), last_scheduled_for_message + email_delay].max
+    else
+      Time.current + 5.seconds
+    end
+  end
+
+  def batch_buffer(max_scheduled_send_at)
+    # buffer for the actual batch job
+    if max_scheduled_send_at.present?
+      [(max_scheduled_send_at + 5.seconds) - Time.current, 0].max
+    else
+      5.seconds
+    end
+  end
 
   def message(message_name)
     klass = "CampaignMessage::#{message_name.camelize}".safe_constantize
