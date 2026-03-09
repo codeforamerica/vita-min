@@ -68,6 +68,7 @@ class Document < ApplicationRecord
   scope :of_type, ->(type) { where(document_type: type) }
   scope :active, ->() { where(archived: false) }
   scope :archived, ->() { where(archived: true) }
+  scope :with_assessments, -> { joins(:assessments).distinct }
 
   after_save do
     # Skip AnalyzeJob when initially creating .heic files, since we will analyze them after JPG conversion

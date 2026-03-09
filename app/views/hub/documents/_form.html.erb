@@ -42,6 +42,11 @@
     hub_client_documents_path(client_id: @client),
     class: "button" %>
   <% end %>
+  <% if @document.latest_assessment&.matches_doc_type_verdict %>
+    <%= render "hub/documents/smart_scan_card",
+               document: @document,
+               state: (@document.latest_assessment&.matches_doc_type_verdict == "pass" ? "success" : "fail") %>
+  <% end %>
 
   <%= render 'hub/documents/feedback_collection' %>
 </div>
