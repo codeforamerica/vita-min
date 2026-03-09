@@ -2003,9 +2003,16 @@ es:
           bad_input: ID de cliente o los 4 últimos de SSN/ITIN incorrectos. Después de 3 intentos fallidos, las cuentas se bloquean.
           bad_verification_code: Código incorrecto. Después de 3 intentos fallidos, las cuentas se bloquean.
       new:
+        client_id: client ID
+        contact: the email or phone number on your file
+        created_an_account_last_year: What if I created an account last year?
+        full_name: full name
         one_form_of_contact: 'Ingresa una forma de contacto a continuación:'
+        please_include: Please include the following in your message
+        reason: reason for log in
         send_code: Enviar el código
         title: Le enviaremos un código seguro para iniciar sesión
+        to_log_in_html: To log in to an account made in previous year, please reach out to <a href="mailto:support@getyourrefund.org">support@getyourrefund.org.</a>
     closed_logins:
       show:
         body_html: Si desea recibir una notificación sobre cuándo abriremos el próximo año en enero, regístrese <a href="%{link}">aquí</a>.

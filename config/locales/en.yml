@@ -2031,16 +2031,16 @@ en:
           bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 3 failed attempts, accounts are locked.
           bad_verification_code: Incorrect verification code. After 3 failed attempts, accounts are locked.
       new:
-        one_form_of_contact: This page lets you sign in to your GetYourRefund account that you created this year. Please enter one from of contact below.
-        send_code: Send code
-        title: We’ll send you a secure code to sign in
-        created_an_account_last_year: What if I created an account last year?
-        to_log_in_html: To log in to an account made in previous year, please reach out to <a href="mailto:support@getyourrefund.org">support@getyourrefund.org.</a>
-        please_include: "Please include the following in your message"
-        reason: reason for log in
-        full_name: full name
         client_id: client ID
         contact: the email or phone number on your file
+        created_an_account_last_year: What if I created an account last year?
+        full_name: full name
+        one_form_of_contact: This page lets you sign in to your GetYourRefund account that you created this year. Please enter one from of contact below.
+        please_include: Please include the following in your message
+        reason: reason for log in
+        send_code: Send code
+        title: We’ll send you a secure code to sign in
+        to_log_in_html: To log in to an account made in previous year, please reach out to <a href="mailto:support@getyourrefund.org">support@getyourrefund.org.</a>
     closed_logins:
       show:
         body_html: If you would like to receive a notification for when we open next year in January, please sign up <a href="%{link}">here</a>.
