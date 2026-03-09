@@ -8,17 +8,19 @@
       <%= f.cfa_input_field(:sms_phone_number, t("general.sms_phone_number"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:email_address, t("general.email_address"), classes: ["form-width--long"]) %>
     </div>
-    <div class="reveal">
-      <button class="reveal__button"><%= t('.created_an_account_last_year') %></button>
-      <div class="reveal__content">
-        <%= t(".to_log_in_html") %>
-        <%= t(".please_include") %>
-        <ul>
-          <li><%= t(".reason") %></li>
-          <li><%= t(".full_name") %></li>
-          <li><%= t(".client_id") %></li>
-          <li><%= t(".contact") %></li>
-        </ul>
+    <div class="reveal-shrink-wrapper">
+      <div class="reveal">
+        <button class="reveal__button"><%= t('.created_an_account_last_year') %></button>
+        <div class="reveal__content">
+          <%= t(".to_log_in_html") %>
+          <%= t(".please_include") %>
+          <ul>
+            <li><%= t(".reason") %></li>
+            <li><%= t(".full_name") %></li>
+            <li><%= t(".client_id") %></li>
+            <li><%= t(".contact") %></li>
+          </ul>
+        </div>
       </div>
     </div>
 
