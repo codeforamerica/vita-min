@@ -20,7 +20,8 @@ class Campaign::SendCampaignSmsJob < ApplicationJob
         to: text_message.to_phone_number,
         body: text_message.body,
         status_callback: outgoing_text_message_url(text_message, locale: nil),
-        outgoing_text_message: text_message
+        outgoing_text_message: text_message,
+        send_at: text_message.scheduled_send_at
       )
 
       if message
@@ -30,8 +31,22 @@ class Campaign::SendCampaignSmsJob < ApplicationJob
         )
         text_message.update_status_if_further(message.status, error_code: message.error_code)
       end
+    rescue Twilio::REST::RestError => e
+      if e.code == 20429
+        if executions < 5
+          DatadogApi.increment("twilio.campaign_sms.rate_limited")
+          retry_job wait: (executions ** 2).minutes
+        else
+          DatadogApi.increment("twilio.campaign_sms.rate_limited.gave_up")
+          text_message.update_status_if_further("twilio_error", error_code: e.code.to_s)
+        end
+      else
+        DatadogApi.increment("twilio.campaign_sms.failure.twilio_error")
+        text_message.update_status_if_further("twilio_error", error_code: e.code.to_s)
+        raise unless e.code == 21211
+      end
     rescue Net::OpenTimeout
-      DatadogApi.increment("twilio.outgoing_text_message.failure.timeout")
+      DatadogApi.increment("twilio.campaign_sms.failure.timeout")
       text_message.update_status_if_further("twilio_error", error_code: nil)
       retry_job
     end

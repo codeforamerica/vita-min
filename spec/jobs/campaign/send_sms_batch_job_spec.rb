@@ -5,9 +5,9 @@ describe Campaign::SendSmsBatchJob, type: :job do
 
   subject(:perform_job) do
     described_class.new.perform(
-      message_name,
+      message_name: message_name,
       batch_size: batch_size,
-      batch_delay: batch_delay,
+      msg_delay: batch_delay,
       queue_next_batch: queue_next_batch,
       recent_signups_only: recent_signups_only
     )

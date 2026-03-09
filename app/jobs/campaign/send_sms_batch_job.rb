@@ -1,7 +1,6 @@
 # Do these things before running this job to prevent against throttling:
 #   1. Check the number of messages you expect to run
 #   2. Add appropriate delays and monitor Twilio logs to make sure messages aren't getting throttled
-#      (signs of throttling include ....)
 #   3. If messages are getting throttled and not getting caught by the 'rate_limited?' check,
 #      then you can kill the jobs by enabling the :cancel_campaign_sms flipper flag manually
 
@@ -23,14 +22,16 @@ class Campaign::SendSmsBatchJob < ApplicationJob
 
     return if contacts_to_message.empty?
 
+    msg_start_time = message_start_time(message_name: message_name, msg_delay: msg_delay)
     max_scheduled_send_at = nil
     send_index = 0
 
     contacts_to_message.each do |contact|
-      # add delays between sms-messages to prevent throttling
-      scheduled_send_at = message_start_time + (send_index * msg_delay)
+      # add delays between sms-messages to prevent throttling,
+      # eventually we can get rid of this and use Twilio's traffic shaping feature when its out of beta
+      scheduled_send_at = msg_start_time + (send_index * msg_delay)
 
-      sms = CampaignSms.create!(
+      sms = CampaignSms.create(
         campaign_contact_id: contact.id,
         message_name: message_name,
         body: message(message_name).sms_body(contact: contact),
@@ -40,8 +41,7 @@ class Campaign::SendSmsBatchJob < ApplicationJob
 
       next unless sms.previously_new_record?
 
-      max_scheduled_send_at = [max_scheduled_send_at, sms.scheduled_send_at].compact.max
-
+      max_scheduled_send_at = [max_scheduled_send_at, scheduled_send_at].compact.max
       send_index += 1
     end
 
@@ -61,13 +61,13 @@ class Campaign::SendSmsBatchJob < ApplicationJob
 
   private
 
-  def message_start_time
-    # determine delay between last batch's messages and this batch's
-    last_scheduled_for_message = CampaignEmail.where(message_name: message_name, sent_at: nil).maximum(:scheduled_send_at)
+  def message_start_time(message_name:, msg_delay:)
+    twilio_scheduled_sent_at_minimum = 16.minutes
+    last_scheduled_for_message = CampaignSms.where(message_name: message_name, sent_at: nil).maximum(:scheduled_send_at)
     if last_scheduled_for_message.present?
-      [(Time.current + 5.seconds), last_scheduled_for_message + email_delay].max
+      [(Time.current + twilio_scheduled_sent_at_minimum), last_scheduled_for_message + msg_delay].max
     else
-      Time.current + 5.seconds
+      Time.current + twilio_scheduled_sent_at_minimum
     end
   end
 

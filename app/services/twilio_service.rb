@@ -32,7 +32,7 @@ class TwilioService
     @client = Twilio::REST::Client.new(creds[:account_sid], auth_token)
   end
 
-  def send_text_message(to:, body:, status_callback: nil, outgoing_text_message: nil)
+  def send_text_message(to:, body:, status_callback: nil, outgoing_text_message: nil, send_at: nil)
     arguments = {
       messaging_service_sid: ENV['MESSAGING_SERVICE_SID'] || messaging_service_sid,
       to: to,
@@ -40,6 +40,11 @@ class TwilioService
     }
     arguments[:status_callback] = status_callback if status_callback.present?
     arguments[:send_as_mms] = true if !self.class.is_gsm7?(body) || body.length > MMS_MESSAGE_LENGTH_THRESHOLD
+
+    if send_at.present? && send_at > Time.current + 15.minutes
+      arguments[:send_at] = send_at.utc.iso8601
+      arguments[:schedule_type] = "fixed"
+    end
 
     DatadogApi.increment("twilio.outgoing_text_messages.sent")
 
