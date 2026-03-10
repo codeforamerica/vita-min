@@ -78,7 +78,7 @@ describe Campaign::SendCampaignSmsJob, type: :job do
         campaign_sms.reload
         expect(campaign_sms.twilio_sid).to eq("SM123")
         expect(campaign_sms.sent_at).to be_present
-        expect(campaign_sms.twilio_status).to eq("sent").or be_present # depending on your update_status_if_further behavior
+        expect(campaign_sms.twilio_status).to eq("sent").or be_present # depending update_status_if_further behavior
       end
 
       it "passes status_callback and outgoing_text_message into TwilioService" do
@@ -89,6 +89,7 @@ describe Campaign::SendCampaignSmsJob, type: :job do
           expect(kwargs[:body]).to eq(campaign_sms.body)
           expect(kwargs[:outgoing_text_message]).to eq(campaign_sms)
           expect(kwargs[:status_callback]).to be_present
+          expect(kwargs[:send_at]).to be_present
         end.and_return(message)
 
         perform_job
@@ -117,7 +118,7 @@ describe Campaign::SendCampaignSmsJob, type: :job do
 
         perform_job
 
-        expect(DatadogApi).to have_received(:increment).with("twilio.outgoing_text_message.failure.timeout")
+        expect(DatadogApi).to have_received(:increment).with("twilio.campaign_sms.failure.timeout")
 
         campaign_sms.reload
         expect(campaign_sms.twilio_status).to eq("twilio_error").or be_present
