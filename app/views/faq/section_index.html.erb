@@ -4,7 +4,7 @@
 <%= render 'shared/breadcrumb_array', items: [
   [t('general.home'), root_path],
   ["FAQ", faq_path],
-  @faq_category.name(I18n.locale),
+  @faq_category.title,
 ] %>
 
 <div class="main-content-inner">
@@ -12,15 +12,15 @@
 
     <div class="grid">
       <div class="grid__item width-one-whole faq-wrapper">
-        <h1 class="h2"><%= @faq_category.name(I18n.locale) %></h1>
+        <h1 class="h2"><%= @faq_category.title %></h1>
 
-        <% if @faq_category.description_en || @faq_category.description_es %>
-          <p><%= @faq_category.description(I18n.locale) %></p>
+        <% if @faq_category.description.present? %>
+          <p><%= @faq_category.description %></p>
         <% end %>
         <% @faq_items.each do |faq_item| %>
           <p>
-            <%= link_to faq_item.question(I18n.locale),
-            faq_question_path(section_key: @section_key, question_key: faq_item.slug) %>
+            <%= link_to faq_item.question,
+                        faq_question_path(section_key: @section_key, question_key: faq_item.slug) %>
           </p>
         <% end %>
       </div>

@@ -3,8 +3,8 @@ class FaqController < ApplicationController
 
   def index
     @search = params[:search] || ""
-    @faq_categories = FaqCategory.where(product_type: :gyr)
-    @faq_items = faq_items.joins(:faq_category).where(faq_categories: { product_type: :gyr})
+    @faq_categories = ContentfulService.faq_categories
+    @faq_items = ContentfulService.faq_items(search: @search)
   end
 
   def section_index
@@ -12,15 +12,18 @@ class FaqController < ApplicationController
 
     @section_key = params[:section_key]
     @search = params[:search] || ""
-    @faq_category = FaqCategory.find_by(slug: @section_key)
+    @faq_category = ContentfulService.faq_category_by_slug(@section_key)
     raise ActionController::RoutingError.new('Not found') unless @faq_category
-    @faq_items = faq_items.where(faq_category_id: @faq_category.id)
+    @faq_items = ContentfulService.faq_items(category_id: @faq_category.id, search: @search)
   end
 
   def show
     @section_key = params[:section_key]
     @question_key = params[:question_key].underscore
-    @faq_item = FaqCategory.find_by(slug: @section_key)&.faq_items&.find_by(slug: @question_key)
+    @faq_item = ContentfulService.faq_item_by_slug(
+      section_slug: @section_key,
+      question_slug: @question_key
+    )
     raise ActionController::RoutingError.new('Not found') unless @faq_item
 
     @survey = FaqSurvey.find_or_initialize_by(visitor_id: visitor_id, question_key: @question_key)
@@ -42,13 +45,5 @@ class FaqController < ApplicationController
 
   def include_analytics?
     true
-  end
-
-  def faq_items
-    search_locale = locale&.to_sym
-    if @search.present? && I18n.available_locales.include?(search_locale)
-      return FaqItem.send(:"search_#{search_locale}", @search)
-    end
-    FaqItem.all
   end
 end
