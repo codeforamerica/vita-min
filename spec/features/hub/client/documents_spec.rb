@@ -166,8 +166,6 @@ RSpec.feature "View and edit documents for a client" do
 
     before do
       login_as user
-      create :tax_return, client: client, year: 2017
-      allow(BedrockDocScreener).to receive(:screen_document!).and_return([{}, {}])
     end
 
     scenario "the Smart Scan column *is* visible for admins" do
