@@ -206,6 +206,7 @@ Rails.application.routes.draw do
           mount DelayedJobWeb => "/delayed_job"
         end
 
+        resource :ai_screener_metrics, only: :show
         resources :metrics, only: [:index]
         resources :data_migrations, only: [:index] do
           collection do
