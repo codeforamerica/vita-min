@@ -40,12 +40,13 @@ es:
           <a href="%{survey_link}" target="_blank" rel="noopener nofollow">%{survey_link}</a>
 
           Still working on your return?
+          <ul>
+            <li>You can return to the <a href="https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2025&sidn=01011934" target="_blank" rel="noopener nofollow">File Myself tool by clicking this link</a></li>
 
-          You can return to the <a href="https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2025&sidn=01011934" target="_blank" rel="noopener nofollow">File Myself tool by clicking this link</a>
+            <li>You can take a look at our guides here (<a href="http://codeforamerica.org/diyclientguide" target="_blank" rel="noopener nofollow">PDF for Computer</a> | <a href="http://codeforamerica.org/diyclientguidemobile" target="_blank" rel="noopener nofollow">PDF for Mobile</a>).</li>
 
-          You can take a look at our guides here (<a href="http://codeforamerica.org/diyclientguide" target="_blank" rel="noopener nofollow">PDF for Computer</a> | <a href="http://codeforamerica.org/diyclientguidemobile" target="_blank" rel="noopener nofollow">PDF for Mobile</a>).
-
-          Our Client Support team is available through the “Chat” feature on our website or by email at <a href="mailto:DIY@getyourrefund.org">diy@getyourrefund.org</a>.
+            <li>Our Client Support team is available through the “Chat” feature on our website or by email at <a href="mailto:DIY@getyourrefund.org">diy@getyourrefund.org</a>.</li>
+          </ul>
 
           You don’t have to figure it out alone! We’re happy to support you, wherever you are in the filing process.
 
@@ -4917,15 +4918,17 @@ es:
       subject: Código de verificación de seis dígitos para FileYourStateTaxes
     no_match:
       body_html: |
-        Hola, <br /><br />
+        <p>Hola,</p>
 
-        Parece que usted intentó acceder a %{service_name}, pero no encontramos una cuenta que corresponde a su información de contacto.<br />
-        Es posible que usted usó un correo electrónico diferente para crear su cuenta de %{service_name}.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.<br />
-        Si aún no ha enviado su información de impuestos a %{service_name}, <a href="%{url}">visite %{service_name}.org</a> para empezar.<br /><br />
+        <p>Parece que usted intentó acceder a %{service_name}, pero no encontramos una cuenta que corresponde a su información de contacto.</p>
 
-        Estamos aquí para servirle,<br /><br />
+        <p>Es posible que usted usó un correo electrónico diferente para crear su cuenta de %{service_name}.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.</p>
 
-        Su equipo de impuestos de %{service_name}
+        <p>Si aún no ha enviado su información de impuestos a %{service_name}, <a href="%{url}">visite %{service_name}.org</a> para empezar.</p>
+
+        <p>Estamos aquí para servirle,</p>
+
+        <p>Su equipo de impuestos de %{service_name}</p>
       body_text: |
         Hola,
 
