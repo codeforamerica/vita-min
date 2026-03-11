@@ -158,10 +158,8 @@ RSpec.feature "View and edit documents for a client" do
   end
 
   context "As an authenticated admin user" do
-    let(:org_user) { create :organization_lead_user, name: "Org Lead" } # for assigning client to an org
-    let(:client) { create :client, vita_partner: user.role.organization, intake: build(:intake, preferred_name: "Bart Simpson") }
     let(:user) { create :admin_user, name: "Admin User 1138" }
-    let(:client) { create :client, vita_partner: org_user.role.organization, intake: build(:intake, preferred_name: "Bart Simpson") }
+    let(:client) { create :client, intake: build(:intake, preferred_name: "Bart Simpson") }
     let(:tax_return_1) { create :tax_return, client: client, year: 2019 }
     let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement", uploaded_by: client }
     let!(:assessment_pass)  { create(:doc_assessment, :pass, document: document_1) }
