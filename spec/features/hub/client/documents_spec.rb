@@ -3,7 +3,7 @@ require 'mini_magick'
 
 
 RSpec.feature "View and edit documents for a client" do
-  context "As an authenticated user" do
+  context "As an authenticated (non-admin) user" do
     let(:user) { create :organization_lead_user, name: "Org Lead" }
     let(:client) { create :client, vita_partner: user.role.organization, intake: build(:intake, preferred_name: "Bart Simpson") }
     let(:tax_return_1) { create :tax_return, client: client, year: 2019 }
@@ -54,16 +54,17 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("#document-#{document_1.id}", text: "2017")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Secondary ID")
 
+      # Smart Scan column should be hidden for non-admin users.
       within "#document-#{document_1.id}" do
-        expect(page).to have_selector('[data-status="pass"]')
+        expect(page).not_to have_selector('[data-status="pass"]')
       end
 
       within "#document-#{document_2.id}" do
-        expect(page).to have_selector('[data-status="fail"]')
+        expect(page).not_to have_selector('[data-status="fail"]')
       end
 
       within "#document-#{document_3.id}" do
-        expect(page).to have_selector('[data-status="attention"]')
+        expect(page).not_to have_selector('[data-status="attention"]')
       end
     end
 
@@ -153,6 +154,30 @@ RSpec.feature "View and edit documents for a client" do
       click_on "Save"
 
       expect(page).to have_text("File is corrupt. Please generate a new PDF and try uploading again.")
+    end
+  end
+
+  context "As an authenticated admin user" do
+    let(:org_user) { create :organization_lead_user, name: "Org Lead" } # for assigning client to an org
+    let(:client) { create :client, vita_partner: user.role.organization, intake: build(:intake, preferred_name: "Bart Simpson") }
+    let(:user) { create :admin_user, name: "Admin User 1138" }
+    let(:client) { create :client, vita_partner: org_user.role.organization, intake: build(:intake, preferred_name: "Bart Simpson") }
+    let(:tax_return_1) { create :tax_return, client: client, year: 2019 }
+    let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement", uploaded_by: client }
+    let!(:assessment_pass)  { create(:doc_assessment, :pass, document: document_1) }
+
+    before do
+      login_as user
+      create :tax_return, client: client, year: 2017
+      allow(BedrockDocScreener).to receive(:screen_document!).and_return([{}, {}])
+    end
+
+    scenario "the Smart Scan column *is* visible for admins" do
+      visit hub_client_documents_path(client_id: client.id)
+
+      within "#document-#{document_1.id}" do
+        expect(page).to have_selector('[data-status="pass"]')
+      end
     end
   end
 end
