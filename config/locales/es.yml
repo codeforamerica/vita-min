@@ -5259,7 +5259,7 @@ es:
             respect: Valoramos y respetamos su privacidad, y le ofrecemos opciones sobre la manera en que recopilamos, usamos y compartimos su información.
             sms:
               header: Mensajes SMS transaccionales (texto)
-              unsubscribe: Puede darse de baja, de los mensajes operativos, enviando un mensaje de texto con la palabra STOP al 58750, en cualquier momento. Después de recibir su solicitud de exclusión voluntaria, le enviaremos un último mensaje de texto, para confirmar su exclusión voluntaria. Consulte los Términos de SMS de CFA para obtener detalles adicionales e instrucciones de exclusión voluntaria para estos servicios. Los datos obtenidos a través del programa de código corto, no se compartirán con terceros por motivos/propósitos de marketing.
+              unsubscribe_html: Puede darse de baja, de los mensajes operativos, enviando un mensaje de texto con la palabra STOP al 58750, en cualquier momento. Después de recibir su solicitud de exclusión voluntaria, le enviaremos un último mensaje de texto, para confirmar su exclusión voluntaria. Consulte los <a href='%{link}' target="_blank" rel="noopener nofollow">Términos de SMS de CFA</a> para obtener detalles adicionales e instrucciones de exclusión voluntaria para estos servicios. Los datos obtenidos a través del programa de código corto, no se compartirán con terceros por motivos/propósitos de marketing.
           examples:
             business_relationship: Terceros con los que tenemos una relación profesional para enviarle a usted información sobre otros programas y servicios
             research: Terceros para distribuir encuestas, grupos especializados u otros fines administrativos, analíticos y de marketing
