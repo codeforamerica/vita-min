@@ -3,7 +3,7 @@ module DiyStates
   # This module is needed b/c the list of states/territories for the DIY flow differs
   # slightly (specifically, it's shorter) from the States module used in the primary flow. 
 
-  @@excluded = %w(AA AE AP FM PW MH).freeze
+  EXCLUDED = %w(AA AE AP FM PW MH).freeze
 
   def self.hash
     @hash ||= IceNine.deep_freeze!(self.states.to_h.invert)
@@ -20,8 +20,7 @@ module DiyStates
       (YAML.load_file(Rails.root.join("db/states.yml"))['states']).
         filter_map do |state|
           [state["name"], state["abbreviation"]] unless
-            @@excluded.include? state["abbreviation"]
+            EXCLUDED.include? state["abbreviation"]
         end.sort)
-    @states
   end
 end

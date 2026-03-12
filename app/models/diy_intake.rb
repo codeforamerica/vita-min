@@ -43,6 +43,8 @@ class DiyIntake < ApplicationRecord
   }
   scope :contactable, -> { sms_contactable.or(email_contactable) }
 
+  validates :state_of_residence, inclusion: { in: DiyStates.hash.keys, allow_blank: true }
+  
   def self.should_carry_over_params_from?(intake)
     intake && intake.updated_at > 30.minutes.ago && intake.preferred_name.present? && intake.triage_filing_frequency.present?
   end
