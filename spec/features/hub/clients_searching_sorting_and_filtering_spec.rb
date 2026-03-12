@@ -61,7 +61,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         # search for client
         fill_in "Search", with: "Zach"
         click_button "Filter results"
-        sleep 0.5
+        sleep 0.1
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
         click_link "Clear"
@@ -70,8 +70,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           fill_in_tagify '.multi-select-vita-partner', "Alan's Org"
 
           click_button "Filter results"
-          sleep 0.5
-          expect(page).to have_text("Alan's Org")
+          page_change_check("Alan's Org")
         end
 
         expect(page.all('.client-row').length).to eq 1
@@ -86,20 +85,20 @@ RSpec.describe "searching, sorting, and filtering clients" do
           fill_in "Search", with: "Zach"
 
           click_button "Filter results"
-          sleep 0.5
-          expect(page).to have_text("Alan's Org")
+          page_change_check("Alan's Org")
           expect(page).to have_select("year", selected: "2023")
           expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
           expect(page).to have_select("status", selected: "Ready for prep")
 
           # reload page and filters persist
           visit hub_clients_path
-          expect(page).to have_text("Alan's Org")
+          page_change_check("Alan's Org")
           expect(page).to have_select("year", selected: "2023")
           expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
           expect(page).to have_select("status", selected: "Ready for prep")
 
           visit hub_assigned_clients_path
+          sleep 0.1
           expect(page).not_to have_text("Alan's Org")
           expect(page).to have_select("year", selected: "")
           expect(page).to have_select("status", selected: "")
@@ -109,9 +108,8 @@ RSpec.describe "searching, sorting, and filtering clients" do
           select "Not filing", from: "status"
           fill_in "Search", with: "Bob"
           click_button "Filter results"
-          sleep 0.5
           # Filters persist after submitting with filters
-          expect(page).to have_text("Some Other Org")
+          page_change_check("Some Other Org")
           expect(page).to have_select("year", selected: "2022")
           expect(page).to have_select("status", selected: "Not filing")
 
@@ -134,7 +132,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".filter-form" do
           select mona_user.name_with_role, from: "assigned_user_id"
           click_button "Filter results"
-          sleep 0.5
+          sleep 0.1
           expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
         end
 
@@ -145,7 +143,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".filter-form" do
           select "Ready for prep", from: "status"
           click_button "Filter results"
-          sleep 0.5
+          sleep 0.1
           expect(page).to have_select("status-filter", selected: "Ready for prep")
         end
 
@@ -274,6 +272,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".filter-form" do
           select "2022", from: "year"
           click_button "Filter results"
+          sleep 0.1
           expect(page).to have_select("year", selected: "2022")
         end
         within ".client-table" do
@@ -283,6 +282,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         # search for client within 2022 filtered results
         fill_in "Search", with: "Banana"
         click_button "Filter results"
+        sleep 0.1
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name)
 
@@ -296,6 +296,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           select "2022", from: "year"
           select "Ready for prep", from: "status"
           click_button "Filter results"
+          sleep 0.1
           expect(page).to have_select("status-filter", selected: "Ready for prep")
           expect(page).to have_select("year", selected: "2022")
         end
@@ -313,6 +314,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           select "Ready for prep", from: "status"
           select "2022", from: "year"
           click_button "Filter results"
+          sleep 0.1
           expect(page).to have_select("status-filter", selected: "Ready for prep")
           expect(page).to have_select("year", selected: "2022")
           expect(page).to have_checked_field("assigned_to_me")
@@ -323,6 +325,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".filter-form" do
           select "2023", from: "year"
           click_button "Filter results"
+          sleep 0.1
           expect(page).to have_select("status-filter", selected: "Ready for prep")
           expect(page).to have_checked_field("assigned_to_me")
           expect(page).to have_select("year", selected: "2023")
@@ -335,6 +338,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           click_link "Clear"
           check "greetable"
           click_button "Filter results"
+          sleep 0.1
         end
         within ".client-table" do
           expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
@@ -348,6 +352,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           click_link "Clear"
           check "used_navigator"
           click_button "Filter results"
+          sleep 0.1
         end
         within ".client-table" do
           expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
@@ -362,6 +367,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           click_link "Clear"
           check "ctc_client"
           click_button "Filter results"
+          sleep 0.1
         end
         expect(page).not_to have_selector(".client-table")
       end
