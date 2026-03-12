@@ -28,7 +28,7 @@ describe Campaign::SendSmsBatchJob, type: :job do
 
     allow_any_instance_of(described_class).to receive(:rate_limited?).and_call_original
 
-    allow(CampaignSms).to receive(:create).and_call_original
+    allow(CampaignSms).to receive(:create_or_find_for).and_call_original
   end
 
   describe "#perform" do
@@ -40,7 +40,7 @@ describe Campaign::SendSmsBatchJob, type: :job do
 
         perform_job
 
-        expect(CampaignSms).to_not have_received(:create)
+        expect(CampaignSms).to_not have_received(:create_or_find_for)
       end
     end
 
@@ -54,7 +54,7 @@ describe Campaign::SendSmsBatchJob, type: :job do
       it "does nothing" do
         perform_job
 
-        expect(CampaignSms).not_to have_received(:create)
+        expect(CampaignSms).not_to have_received(:create_or_find_for)
       end
     end
 
@@ -65,7 +65,7 @@ describe Campaign::SendSmsBatchJob, type: :job do
         it "creates CampaignSms with sms-body, message name, phone number" do
           perform_job
 
-          expect(CampaignSms).to have_received(:create).exactly(1).times
+          expect(CampaignSms).to have_received(:create_or_find_for).exactly(1).times
           sms = CampaignSms.last
           expect(sms.campaign_contact_id).to eq campaign_contact.id
           expect(sms.message_name).to eq message_name
@@ -81,7 +81,7 @@ describe Campaign::SendSmsBatchJob, type: :job do
         it "creates CampaignSms for all of them" do
           perform_job
 
-          expect(CampaignSms).to have_received(:create).exactly(3).times
+          expect(CampaignSms).to have_received(:create_or_find_for).exactly(3).times
         end
 
         context "when queue_next_batch is true" do
@@ -103,7 +103,7 @@ describe Campaign::SendSmsBatchJob, type: :job do
         it "only creates sms messages for campaign contacts with signups created after the cutoff" do
           perform_job
 
-          expect(CampaignSms).to have_received(:create).exactly(1).time
+          expect(CampaignSms).to have_received(:create_or_find_for).exactly(1).time
         end
       end
     end

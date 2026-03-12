@@ -49,7 +49,7 @@ class CampaignSms < ApplicationRecord
     create!(
       campaign_contact_id: contact.id,
       message_name: message_name,
-      to_phone_number: contact.email_address,
+      to_phone_number: contact.sms_phone_number,
       body: message_body,
       scheduled_send_at: scheduled_send_at
     )
