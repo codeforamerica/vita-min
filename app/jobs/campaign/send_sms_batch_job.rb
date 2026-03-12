@@ -10,7 +10,9 @@ class Campaign::SendSmsBatchJob < ApplicationJob
 
   def perform(message_name: nil, batch_size: 100, msg_delay: 1.second,
               queue_next_batch: false, recent_signups_only: false)
-    raise ArgumentError, "message_name is required" if message_name.nil?
+    raise ArgumentError, "'#{message_name}' message_name is required" if message_name.nil?
+    raise ArgumentError, "'#{message_name}' message has no sms body" unless message(message_name)&.sms_body(contact: nil).present?
+
     return if Flipper.enabled?(:cancel_campaign_sms)
     return if rate_limited?
 
@@ -31,11 +33,9 @@ class Campaign::SendSmsBatchJob < ApplicationJob
       # eventually we can get rid of this and use Twilio's traffic shaping feature when its out of beta
       scheduled_send_at = msg_start_time + (send_index * msg_delay)
 
-      sms = CampaignSms.create(
-        campaign_contact_id: contact.id,
+      sms = CampaignSms.create_or_find_for(
+        contact: contact,
         message_name: message_name,
-        body: message(message_name).sms_body(contact: contact),
-        to_phone_number: contact.sms_phone_number,
         scheduled_send_at: scheduled_send_at
       )
 

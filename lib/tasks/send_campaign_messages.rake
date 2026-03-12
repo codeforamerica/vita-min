@@ -21,7 +21,7 @@ namespace :send_campaign_messages do
     Campaign::SendSmsBatchJob.perform_later(
       "start_of_season_outreach",
       batch_size: 100,
-      batch_delay: 30.seconds,
+      msg_delay: 1.second,
       queue_next_batch: true,
       recent_signups_only: true
     )

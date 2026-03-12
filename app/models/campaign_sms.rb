@@ -28,6 +28,7 @@
 #
 class CampaignSms < ApplicationRecord
   include RecordsTwilioStatus
+  belongs_to :campaign_contact
 
   def self.status_column
     :twilio_status
@@ -40,6 +41,21 @@ class CampaignSms < ApplicationRecord
   scope :succeeded, -> { where(twilio_status: TwilioService::SUCCESSFUL_STATUSES) }
   scope :failed, -> { where(twilio_status: TwilioService::FAILED_STATUSES) }
   scope :in_progress, -> { where(twilio_status: TwilioService::IN_PROGRESS_STATUSES) }
+
+  def self.create_or_find_for(contact:, message_name:, scheduled_send_at:)
+    message_body = "CampaignMessage::#{message_name.camelize}".safe_constantize&.new&.sms_body(contact: contact)
+    return unless message_body
+
+    create!(
+      campaign_contact_id: contact.id,
+      message_name: message_name,
+      to_phone_number: contact.email_address,
+      body: message_body,
+      scheduled_send_at: scheduled_send_at
+    )
+  rescue ActiveRecord::RecordNotUnique
+    find_by!(to_phone_number: to_phone_number, message_name: message_name)
+  end
 
   private
 
