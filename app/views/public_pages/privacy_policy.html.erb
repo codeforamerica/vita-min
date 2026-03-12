@@ -95,7 +95,7 @@
           <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.cookies.restrict") %></p>
 
           <p class="text--underline"><%=t("views.public_pages.privacy_policy.information_sharing.choices.sms.header") %></p>
-          <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.sms.unsubscribe_html", link: url_for(host: MultiTenantService.new(:gyr).host, controller: "state_file/state_file_pages", action: 'sms_terms')) %></p>
+          <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.sms.unsubscribe_html", link: url_for(host: MultiTenantService.new(:gyr).host, action: 'sms_terms')) %></p>
 
           <p class="text--underline"><%=t("views.public_pages.privacy_policy.information_sharing.choices.analytics.header") %></p>
           <p><%=t("views.public_pages.privacy_policy.information_sharing.choices.analytics.mixpanel_html") %></p>
