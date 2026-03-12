@@ -61,6 +61,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         # search for client
         fill_in "Search", with: "Zach"
         click_button "Filter results"
+        sleep 0.5
         expect(page.all('.client-row').length).to eq 1
         expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
         click_link "Clear"
@@ -69,6 +70,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           fill_in_tagify '.multi-select-vita-partner', "Alan's Org"
 
           click_button "Filter results"
+          sleep 0.5
           expect(page).to have_text("Alan's Org")
         end
 
@@ -84,6 +86,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           fill_in "Search", with: "Zach"
 
           click_button "Filter results"
+          sleep 0.5
           expect(page).to have_text("Alan's Org")
           expect(page).to have_select("year", selected: "2023")
           expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
@@ -106,6 +109,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           select "Not filing", from: "status"
           fill_in "Search", with: "Bob"
           click_button "Filter results"
+          sleep 0.5
           # Filters persist after submitting with filters
           expect(page).to have_text("Some Other Org")
           expect(page).to have_select("year", selected: "2022")
@@ -130,6 +134,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".filter-form" do
           select mona_user.name_with_role, from: "assigned_user_id"
           click_button "Filter results"
+          sleep 0.5
           expect(page).to have_select("assigned_user_id", selected: mona_user.name_with_role)
         end
 
@@ -140,6 +145,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".filter-form" do
           select "Ready for prep", from: "status"
           click_button "Filter results"
+          sleep 0.5
           expect(page).to have_select("status-filter", selected: "Ready for prep")
         end
 
