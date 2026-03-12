@@ -1,10 +1,17 @@
 module Questions
   class EligibilityWagesController < PersonalInfoController
+    include ContentfulPreviewable
     before_action :redirect_if_matching_source_param
     before_action :redirect_if_completed_intake_present
 
     def self.show?(_intake)
       true
+    end
+
+    def edit
+      super
+      @content = ContentfulService.flow_page_content('eligibility-wages')
+      @title = @content&.heading&.gsub('{year}', current_intake.most_recent_filing_year)&.gsub('{state}', @form.intake.state_of_residence_name)
     end
 
     def redirect_if_matching_source_param

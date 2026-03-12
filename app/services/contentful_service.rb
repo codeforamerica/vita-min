@@ -1,14 +1,26 @@
 class ContentfulService
-  def self.client
-    @client ||= Contentful::Client.new(
-      space: Rails.application.credentials.dig(:contentful, :space_id),
-      access_token: Rails.application.credentials.dig(:contentful, :delivery_access_token)
-    )
+  def self.client(preview: false)
+    environment = ENV['CONTENTFUL_ENVIRONMENT'] || 'master'
+
+    if preview
+      @preview_client ||= ::Contentful::Client.new(
+        space: Rails.application.credentials.dig(:contentful, :space_id),
+        access_token: Rails.application.credentials.dig(:contentful, :preview_access_token),
+        api_url: 'preview.contentful.com',
+        environment: environment
+      )
+    else
+      @delivery_client ||= ::Contentful::Client.new(
+        space: Rails.application.credentials.dig(:contentful, :space_id),
+        access_token: Rails.application.credentials.dig(:contentful, :delivery_access_token),
+        environment: environment
+      )
+    end
   end
 
   LOCALE_MAP = {
     'en' => 'en-US',
-    'es' => 'es-US'
+    'es' => 'es'
   }.freeze
 
   def self.contentful_locale
@@ -23,14 +35,14 @@ class ContentfulService
 
   def self.faq_category_by_slug(slug)
     Rails.cache.fetch("contentful_faq_category_#{slug}", expires_in: 1.hour) do
-      client.entries(content_type: 'faqCategory', 'fields.slug' => slug).first
+      client.entries(content_type: 'faqCategory', 'fields.slug' => slug, locale: contentful_locale).first
     end
   end
 
   def self.faq_items(search: nil, category_id: nil)
     cache_key = "contentful_faq_items_#{search}_#{category_id}"
     Rails.cache.fetch(cache_key, expires_in: 1.hour) do
-      query = { content_type: 'faqItem', include: 2 }
+      query = { content_type: 'faqItem', include: 2, locale: contentful_locale }
       query['fields.faqCategory.sys.id'] = category_id if category_id
       query['query'] = search if search.present?
       client.entries(query).to_a
@@ -47,8 +59,15 @@ class ContentfulService
         content_type: 'faqItem',
         'fields.slug' => question_slug,
         'fields.faqCategory.sys.id' => category.id,
-        include: 2
+        include: 2,
+        locale: contentful_locale
       ).first
+    end
+  end
+
+  def self.flow_page_content(page_key)
+    Rails.cache.fetch("contentful_flow_page_#{page_key}", expires_in: 1.minute) do
+      client.entries(content_type: 'flowPage', 'fields.pageKey' => page_key, locale: contentful_locale).first
     end
   end
 end

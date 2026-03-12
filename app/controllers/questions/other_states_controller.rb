@@ -1,5 +1,6 @@
 module Questions
   class OtherStatesController < QuestionsController
+    include ContentfulPreviewable
     include AuthenticatedClientConcern
 
     layout "yes_no_question"
@@ -11,6 +12,7 @@ module Questions
     def edit
       @assumed_state_of_residency = States.name_for_key(current_intake.state)
       super
+      @content = ContentfulService.flow_page_content('other-states')
     end
 
     private

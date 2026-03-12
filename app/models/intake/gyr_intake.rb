@@ -626,6 +626,7 @@ class Intake::GyrIntake < Intake
   end
 
   def most_recent_filing_year(time = DateTime.now)
+    # TODO: is there a bug in here? showing 2025 when i select 2022
     return filing_years.first if filing_years.present?
 
     available_filing_years = MultiTenantService.gyr.filing_years(time)

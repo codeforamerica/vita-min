@@ -1,4 +1,5 @@
 class FaqController < ApplicationController
+  include ContentfulPreviewable
   skip_before_action :check_maintenance_mode
 
   def index
