@@ -35,17 +35,17 @@ es:
 
           Whether you’ve already filed or are still working on your return, we’re glad you’re here!
 
-          Filed already? Please consider filling out our short survey to share your experience. Your feedback helps us improve our tools.
+          <strong>Filed already?</strong> Please consider filling out our short survey to share your experience. Your feedback helps us improve our tools.
 
           <a href="%{survey_link}" target="_blank" rel="noopener nofollow">%{survey_link}</a>
 
-          Still working on your return?
+          <strong>Still working on your return?</strong>
           <ul>
-            <li>You can return to the <a href="https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2025&sidn=01011934" target="_blank" rel="noopener nofollow">File Myself tool by clicking this link</a></li>
+          <li>You can return to the <a href="https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2025&sidn=01011934" target="_blank" rel="noopener nofollow">File Myself tool by clicking this link</a></li>
 
-            <li>You can take a look at our guides here (<a href="http://codeforamerica.org/diyclientguide" target="_blank" rel="noopener nofollow">PDF for Computer</a> | <a href="http://codeforamerica.org/diyclientguidemobile" target="_blank" rel="noopener nofollow">PDF for Mobile</a>).</li>
+          <li>You can take a look at our guides here (<a href="http://codeforamerica.org/diyclientguide" target="_blank" rel="noopener nofollow">PDF for Computer</a> | <a href="http://codeforamerica.org/diyclientguidemobile" target="_blank" rel="noopener nofollow">PDF for Mobile</a>).</li>
 
-            <li>Our Client Support team is available through the “Chat” feature on our website or by email at <a href="mailto:DIY@getyourrefund.org">diy@getyourrefund.org</a>.</li>
+          <li>Our Client Support team is available through the “Chat” feature on our website or by email at <a href="mailto:DIY@getyourrefund.org">diy@getyourrefund.org</a>.</li>
           </ul>
 
           You don’t have to figure it out alone! We’re happy to support you, wherever you are in the filing process.
