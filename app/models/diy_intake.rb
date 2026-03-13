@@ -31,8 +31,40 @@ class DiyIntake < ApplicationRecord
   has_secure_token :token
 
   validates :email_address, 'valid_email_2/email': { mx: true }, confirmation: true
-  
+
+  scope :sms_contactable, lambda {
+    where.not(sms_phone_number: [nil, ""])
+         .where(sms_notification_opt_in: sms_notification_opt_ins[:yes])
+  }
+  scope :email_contactable, lambda {
+    where.not(email_address: [nil, ""])
+         .where(email_notification_opt_in: email_notification_opt_ins[:yes])
+  }
+  scope :contactable, -> { sms_contactable.or(email_contactable) }
+
   def self.should_carry_over_params_from?(intake)
     intake && intake.updated_at > 30.minutes.ago && intake.preferred_name.present? && intake.triage_filing_frequency.present?
+  end
+
+  def campaign_contact
+    CampaignContact.where("? = ANY(diy_intake_ids)", id).first
+  end
+
+  def create_or_update_campaign_contact
+    return if email_address.blank? && sms_phone_number.blank?
+
+    Campaign::UpsertSourceIntoCampaignContacts.call(
+      source: :diy,
+      source_id: id,
+      first_name: preferred_first_name,
+      last_name: nil,
+      email: email_address,
+      phone: sms_phone_number,
+      email_opt_in: email_notification_opt_in == "yes",
+      sms_opt_in: sms_notification_opt_in == "yes",
+      locale: locale,
+      latest_diy_intake_at: created_at,
+      backfill: false
+      )
   end
 end

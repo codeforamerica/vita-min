@@ -9,12 +9,6 @@ class Campaign::SendCampaignSmsJob < ApplicationJob
     return unless text_message && contact
     return if text_message.twilio_sid.present?
 
-    send_at = text_message.scheduled_send_at || Time.current
-    if send_at > Time.current
-      self.class.set(wait_until: send_at).perform_later(text_message_id)
-      return
-    end
-
     begin
       message = TwilioService.new(:gyr).send_text_message(
         to: text_message.to_phone_number,

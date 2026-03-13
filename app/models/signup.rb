@@ -62,6 +62,7 @@ class Signup < ApplicationRecord
       sms_opt_in: phone_number.present?,
       locale: nil,
       latest_signup_at: created_at,
+      backfill: false
     )
   end
 end

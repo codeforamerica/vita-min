@@ -69,7 +69,7 @@ RSpec.describe CampaignSms, type: :model do
   end
 
   describe "after_create" do
-    let(:campaign_contact) { create(:campaign_contact) }
+    let(:campaign_contact) { create(:campaign_contact, sms_notification_opt_in: true) }
 
     before do
       ActiveJob::Base.queue_adapter = :test

@@ -60,6 +60,7 @@ class CampaignSms < ApplicationRecord
   private
 
   def deliver
+    return unless campaign_contact.sms_notification_opt_in == true
     Campaign::SendCampaignSmsJob.perform_later(id)
   end
 end

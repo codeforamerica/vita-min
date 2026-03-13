@@ -41,9 +41,11 @@
           <%= render "shared/column_sort_link", title: t("general.document_type"), column_name: "document_type" %>
         </th>
 
-        <th scope="col" class="index-table__header document-column__smart-scan">
-          <%= render "shared/column_sort_link", title: t(".smart_scan"), column_name: "smart_scan" %>
-        </th>
+        <% if current_user.admin? %>
+          <th scope="col" class="index-table__header document-column__smart-scan">
+            <%= render "shared/column_sort_link", title: t(".smart_scan"), column_name: "smart_scan" %>
+          </th>
+        <% end %>
 
         <th scope="col" class="index-table__header document-column__edit-action">
           <!-- no sort link for an action column -->
@@ -57,6 +59,12 @@
         <th scope="col" class="index-table__header document-column__upload-date">
           <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
         </th>
+        <% if current_user.admin? %>
+          <th scope="col" class="index-table__header document-column__screener_verdict">
+            <%= render "shared/column_sort_link", title: "Matches doc-type", column_name: "screener_verdict" %>
+          </th>
+        <% end %>
+        <th></th>
       </tr>
       </thead>
 
@@ -76,17 +84,19 @@
               <%= id_prefix + document.document_type_label.to_s %>
             </td>
 
-            <td class="index-table__cell document-column__smart-scan">
-              <% latest_assessment = document.assessments.order(created_at: :desc).first %>
-              <% case latest_assessment&.smart_scan_status %>
-              <% when "pass" %>
-                <span class="label--status" data-status="pass"><%= t(".pass") %></span>
-              <% when "fail" %>
-                <span class="label--status" data-status="fail"><%= t(".fail") %></span>
-              <% else %>
-                <span class="label--status" data-status="attention"><%= t(".needs_review") %></span>
-              <% end %>
-            </td>
+            <% if current_user.admin? %>
+              <td class="index-table__cell document-column__smart-scan">
+                <% latest_assessment = document.assessments.order(created_at: :desc).first %>
+                <% case latest_assessment&.smart_scan_status %>
+                <% when "pass" %>
+                  <span class="label--status" data-status="pass"><%= t(".pass") %></span>
+                <% when "fail" %>
+                  <span class="label--status" data-status="fail"><%= t(".fail") %></span>
+                <% else %>
+                  <span class="label--status" data-status="attention"><%= t(".needs_review") %></span>
+                <% end %>
+              </td>
+            <% end %>
 
             <td class="index-table__cell document-column__edit-action">
               <%= link_to(

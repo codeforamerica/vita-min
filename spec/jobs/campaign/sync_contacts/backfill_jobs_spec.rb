@@ -49,6 +49,43 @@ RSpec.describe "Campaign::SyncContacts backfill jobs" do
     end
   end
 
+  describe Campaign::SyncContacts::BackfillDiyIntakesJob do
+    subject(:job) { described_class.new }
+
+    let!(:diy_intake) do
+      create :diy_intake,
+             preferred_first_name: "Joe",
+             email_address: "joe@example.com",
+             sms_phone_number: "+15551234567",
+             email_notification_opt_in: "yes",
+             sms_notification_opt_in: "no",
+             created_at: 1.day.ago,
+             locale: "en"
+    end
+
+    it "iterates over eligible DIY intakes in the id range and calls the upsert service" do
+      expect(Campaign::UpsertSourceIntoCampaignContacts).to receive(:call).with(
+        hash_including(
+          source: :diy,
+          source_id: diy_intake.id,
+          first_name: "Joe",
+          email: "joe@example.com",
+          phone: "+15551234567",
+          email_opt_in: true,
+          sms_opt_in: false,
+          locale: "en",
+          latest_diy_intake_at: diy_intake.created_at
+        )
+      )
+
+      job.perform(diy_intake.id, diy_intake.id, start_date, end_date)
+    end
+
+    it "uses PRIORITY_LOW" do
+      expect(job.priority).to eq(ApplicationJob::PRIORITY_LOW)
+    end
+  end
+
   describe Campaign::SyncContacts::BackfillSignupsJob do
     subject(:job) { described_class.new }
 
