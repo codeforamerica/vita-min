@@ -1,4 +1,5 @@
 class TwilioWebhooksController < ActionController::Base
+  include TracksMessageStatus
   skip_before_action :verify_authenticity_token
   before_action :validate_twilio_request
 
@@ -7,19 +8,16 @@ class TwilioWebhooksController < ActionController::Base
     error_code = strong_params["ErrorCode"]
     sid = strong_params["MessageSid"]
 
-    DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}")
-
     record = (OutgoingTextMessage.find_by(id: strong_params[:id]) || CampaignSms.find_by(twilio_sid: sid))
 
-    unless record
-      DatadogApi.increment("twilio.outgoing_text_messages.updated.missing_record")
-      head :ok and return
-    end
+    track_message_status("twilio.outgoing_text_messages.updated", record, status)
+    DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}") # TODO: get rid of this, once we graph and group the above line
+    Rails.logger.info("Twilio webhook status: #{status.inspect}, error_code: #{error_code.inspect}")
+    track_missing_record("twilio.outgoing_text_messages.updated.missing_record") unless record
 
     record.update_status_if_further(status, error_code: error_code)
     head :ok
   end
-
 
   def update_status
     status = strong_params["MessageStatus"]

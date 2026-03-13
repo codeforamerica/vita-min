@@ -257,6 +257,8 @@ class MixpanelService
       {
         source: source.source,
         utm_state: source.utm_state,
+        utm_medium: source.utm_medium,
+        utm_campaign: source.utm_campaign,
         controller_name: source.class.name.sub("Controller", ""),
         controller_action: "#{source.class.name}##{source.action_name}",
         controller_action_name: source.action_name,

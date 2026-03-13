@@ -7,6 +7,13 @@ module RecordsTwilioStatus
       old_index = TwilioService::ORDERED_STATUSES.index(old_status)
       new_index = TwilioService::ORDERED_STATUSES.index(new_status)
 
+      if new_index.nil?
+        Rails.logger.warn("Unknown Twilio status received: #{new_status.inspect}")
+        return
+      end
+
+      old_index ||= 0
+
       if new_index > old_index
         update(self.class.status_column => new_status, error_code: error_code)
       end

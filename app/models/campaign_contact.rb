@@ -38,7 +38,8 @@ class CampaignContact < ApplicationRecord
   self.ignored_columns = [:suppressed_for_gyr_product_year]
   validates :sms_phone_number, e164_phone: true, allow_blank: true
   validates :email_address, 'valid_email_2/email': true, allow_blank: true
-  has_many :campaign_emails
+  has_many :emails, class_name: "CampaignEmail"
+  has_many :text_messages, class_name: "CampaignSms"
   has_many :signups, -> { where("signups.id = ANY(campaign_contacts.sign_up_ids)") },
            class_name: "Signup"
 

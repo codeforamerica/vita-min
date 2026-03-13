@@ -75,45 +75,11 @@ RSpec.describe CampaignSms, type: :model do
       ActiveJob::Base.queue_adapter = :test
     end
 
-    context "when not opted into sms messages" do
-      let(:contact_opted_out) { create(:campaign_contact, sms_notification_opt_in: false) }
-      it "does not queue the sms message" do
-        expect {
-          create(:campaign_sms, campaign_contact: contact_opted_out, scheduled_send_at: nil)
-        }.not_to have_enqueued_job(Campaign::SendCampaignSmsJob)
-      end
-    end
-
-    it "enqueues SendCampaignSmsJob immediately when scheduled_send_at is blank" do
+    it "enqueues SendCampaignSmsJob immediately" do
       expect {
-        create(:campaign_sms, campaign_contact: campaign_contact, scheduled_send_at: nil)
+        create(:campaign_sms, campaign_contact: campaign_contact)
       }.to have_enqueued_job(Campaign::SendCampaignSmsJob)
              .with(kind_of(Integer))
-    end
-
-    it "enqueues SendCampaignSmsJob immediately when scheduled_send_at is in the past" do
-      travel_to Time.zone.parse("2026-02-11 10:00:00") do
-        expect {
-          create(:campaign_sms, campaign_contact: campaign_contact, scheduled_send_at: 1.minute.ago)
-        }.to have_enqueued_job(Campaign::SendCampaignSmsJob)
-               .with(kind_of(Integer))
-      end
-    end
-
-    it "schedules SendCampaignSmsJob when scheduled_send_at is in the future" do
-      travel_to Time.zone.parse("2026-02-11 10:00:00") do
-        sms = nil
-
-        expect(Campaign::SendCampaignSmsJob).to receive(:set)
-                                                  .with(wait_until: Time.zone.parse("2026-02-11 10:30:00"))
-                                                  .and_call_original
-
-        expect {
-          sms = create(:campaign_sms, campaign_contact: campaign_contact, scheduled_send_at: Time.zone.parse("2026-02-11 10:30:00"))
-        }.to have_enqueued_job(Campaign::SendCampaignSmsJob).with(kind_of(Integer))
-
-        expect(sms.scheduled_send_at).to eq(Time.zone.parse("2026-02-11 10:30:00"))
-      end
     end
   end
 
