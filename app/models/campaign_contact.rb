@@ -3,11 +3,13 @@
 # Table name: campaign_contacts
 #
 #  id                        :bigint           not null, primary key
+#  diy_intake_ids            :integer          default([]), is an Array
 #  email_address             :citext
 #  email_notification_opt_in :boolean          default(FALSE)
 #  first_name                :string
 #  gyr_intake_ids            :bigint           default([]), is an Array
 #  last_name                 :string
+#  latest_diy_intake_at      :datetime
 #  latest_gyr_intake_at      :datetime
 #  latest_signup_at          :datetime
 #  locale                    :string
@@ -39,18 +41,23 @@ class CampaignContact < ApplicationRecord
   has_many :campaign_emails
   has_many :signups, -> { where("signups.id = ANY(campaign_contacts.sign_up_ids)") },
            class_name: "Signup"
-  
+
   def self.with_signups_from_recent_off_season
     joins(:signups).where("signups.created_at >= ?", 1.year.ago).distinct
   end
 
   # Email -------------
   def self.eligible_for_email(message_name)
-    emailed_contact_ids = CampaignEmail.where(message_name: message_name).select(:campaign_contact_id)
-
     where(email_notification_opt_in: true).where.not(email_address: [nil, ""]) # opted-in
-      .where.not(id: emailed_contact_ids) # hasn't been sent this message before
+      .where(<<~SQL, message_name: message_name) # contact hasn't been sent this message before
+        NOT EXISTS (
+          SELECT 1 FROM campaign_emails
+          WHERE campaign_emails.campaign_contact_id = campaign_contacts.id
+          AND campaign_emails.message_name = :message_name
+        )
+      SQL
       .where("latest_gyr_intake_at IS NULL OR latest_gyr_intake_at <= ?", gyr_intake_cutoff) # hasn't started an intake this year yet
+      .where("latest_diy_intake_at IS NULL OR latest_diy_intake_at <= ?", gyr_intake_cutoff)
   end
 
   def self.eligible_for_email_with_recent_signup(message_name)
@@ -59,11 +66,16 @@ class CampaignContact < ApplicationRecord
 
   # SMS -------------
   def self.eligible_for_text_message(message_name)
-    already_messaged_phones = CampaignSms.where(message_name: message_name).select(:to_phone_number)
-
     where(sms_notification_opt_in: true).where.not(sms_phone_number: [nil, ""]) # opted-in
+      .where(<<~SQL, message_name: message_name) # phone number hasn't been sent this message before, not searching by contact id since two campaign contacts can have the same phone number
+        NOT EXISTS (
+          SELECT 1 FROM campaign_sms
+          WHERE campaign_sms.to_phone_number = campaign_contacts.sms_phone_number
+          AND campaign_sms.message_name = :message_name
+        )
+      SQL
       .where("latest_gyr_intake_at IS NULL OR latest_gyr_intake_at <= ?", gyr_intake_cutoff) # hasn't started an intake this year yet
-      .where.not(sms_phone_number: already_messaged_phones)
+      .where("latest_diy_intake_at IS NULL OR latest_diy_intake_at <= ?", gyr_intake_cutoff)
   end
 
   def self.eligible_for_text_message_with_recent_signup(message_name)

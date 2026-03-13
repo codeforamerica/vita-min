@@ -69,10 +69,19 @@ RSpec.describe CampaignSms, type: :model do
   end
 
   describe "after_create" do
-    let(:campaign_contact) { create(:campaign_contact) }
+    let(:campaign_contact) { create(:campaign_contact, sms_notification_opt_in: true) }
 
     before do
       ActiveJob::Base.queue_adapter = :test
+    end
+
+    context "when not opted into sms messages" do
+      let(:contact_opted_out) { create(:campaign_contact, sms_notification_opt_in: false) }
+      it "does not queue the sms message" do
+        expect {
+          create(:campaign_sms, campaign_contact: contact_opted_out, scheduled_send_at: nil)
+        }.not_to have_enqueued_job(Campaign::SendCampaignSmsJob)
+      end
     end
 
     it "enqueues SendCampaignSmsJob immediately when scheduled_send_at is blank" do

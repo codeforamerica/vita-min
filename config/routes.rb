@@ -156,6 +156,7 @@ Rails.application.routes.draw do
       get "/unsubscribe_from_emails", to: "notifications_settings#unsubscribe_from_emails", as: :unsubscribe_from_emails
       get "/unsubscribe_from_campaign_emails", to: "notifications_settings#unsubscribe_from_campaign_emails", as: :unsubscribe_from_campaign_emails
       get "/outreach", to: "redirects#outreach"
+      get "/diy-survey", to: "redirects#diy_survey"
 
       post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
       post "/subscribe_to_campaign_emails", to: "notifications_settings#subscribe_to_campaign_emails", as: :subscribe_to_campaign_emails

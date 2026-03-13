@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_02_23_212700) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -572,11 +572,13 @@ ActiveRecord::Schema[7.1].define(version: 2026_02_23_212700) do
 
   create_table "campaign_contacts", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "diy_intake_ids", default: [], array: true
     t.citext "email_address"
     t.boolean "email_notification_opt_in", default: false
     t.string "first_name"
     t.bigint "gyr_intake_ids", default: [], array: true
     t.string "last_name"
+    t.datetime "latest_diy_intake_at"
     t.datetime "latest_gyr_intake_at"
     t.datetime "latest_signup_at"
     t.string "locale"

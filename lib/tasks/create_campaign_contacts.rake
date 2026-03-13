@@ -20,6 +20,12 @@ namespace :create_campaign_contacts do
     enqueue_in_id_ranges(gyr_scope, chunk) do |min_id, max_id|
       Campaign::SyncContacts::BackfillGyrIntakesJob.perform_later(min_id, max_id, window_start.to_date, window_end.to_date)
     end
+
+    # DIY-intakes
+    diy_scope = DiyIntake.contactable.where(created_at: window_start..window_end)
+    enqueue_in_id_ranges(diy_scope, chunk) do |min_id, max_id|
+      Campaign::SyncContacts::BackfillDiyIntakesJob.perform_later(min_id, max_id, window_start.to_date, window_end.to_date)
+    end
   end
 end
 
