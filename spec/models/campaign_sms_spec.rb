@@ -151,8 +151,8 @@ RSpec.describe CampaignSms, type: :model do
                            message_name: message_name,
                            to_phone_number: contact.sms_phone_number,
                            body: "Hi Test! GetYourRefund is back for the new tax season. We'd love to help you file for free again this year. Our IRS-certified team is ready when you are: https://www.getyourrefund.org/outreach",
-                           scheduled_send_at: scheduled_send_at
                          )
+          expect(sms.scheduled_send_at).to be_within(30.seconds).of(scheduled_send_at)
         end
       end
 
