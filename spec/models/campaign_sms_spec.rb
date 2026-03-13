@@ -101,4 +101,78 @@ RSpec.describe CampaignSms, type: :model do
       expect(sms.error_code).to eq("123")
     end
   end
+
+  describe ".create_or_find_for" do
+    subject(:create_or_find) do
+      described_class.create_or_find_for(contact: contact, message_name: message_name, scheduled_send_at: scheduled_send_at)
+    end
+
+    let(:contact) { create(:campaign_contact, sms_phone_number: "+15551234567") }
+    let(:message_name) { "start_of_season_outreach" }
+    let(:scheduled_send_at) { 1.hour.from_now }
+
+    context "when the message class does not exist" do
+      let(:message_name) { "fdskfjdk" }
+
+      it "returns nil" do
+        expect(create_or_find).to be_nil
+      end
+
+      it "does not create a CampaignSms record" do
+        expect { create_or_find }.not_to change(CampaignSms, :count)
+      end
+    end
+
+    context "when the message class exists but sms_body returns nil" do
+      before do
+        allow_any_instance_of(CampaignMessage::StartOfSeasonOutreach).to receive(:sms_body).and_return(nil)
+      end
+
+      it "returns nil" do
+        expect(create_or_find).to be_nil
+      end
+
+      it "does not create a CampaignSms record" do
+        expect { create_or_find }.not_to change(CampaignSms, :count)
+      end
+    end
+
+    context "when the message class and body are present" do
+      context "and no existing record exists" do
+        it "creates and returns a new CampaignSms" do
+          expect { create_or_find }.to change(CampaignSms, :count).by(1)
+        end
+
+        it "sets the correct attributes" do
+          sms = create_or_find
+
+          expect(sms).to have_attributes(
+                           campaign_contact_id: contact.id,
+                           message_name: message_name,
+                           to_phone_number: contact.sms_phone_number,
+                           body: "Hi Test! GetYourRefund is back for the new tax season. We'd love to help you file for free again this year. Our IRS-certified team is ready when you are: https://www.getyourrefund.org/outreach",
+                           scheduled_send_at: scheduled_send_at
+                         )
+        end
+      end
+
+      context "and a record already exists for the same phone number and message_name" do
+        let!(:existing_sms) do
+          create(:campaign_sms,
+                 campaign_contact: contact,
+                 message_name: message_name,
+                 to_phone_number: contact.sms_phone_number
+          )
+        end
+
+        it "does not create a new record" do
+          expect { create_or_find }.not_to change(CampaignSms, :count)
+        end
+
+        it "returns the existing record" do
+          expect(create_or_find).to eq(existing_sms)
+        end
+      end
+    end
+  end
 end
