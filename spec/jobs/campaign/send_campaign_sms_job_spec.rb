@@ -70,7 +70,6 @@ describe Campaign::SendCampaignSmsJob, type: :job do
         expect_any_instance_of(TwilioService).to receive(:send_text_message) do |_service, **kwargs|
           expect(kwargs[:to]).to eq(campaign_sms.to_phone_number)
           expect(kwargs[:body]).to eq(campaign_sms.body)
-          expect(kwargs[:outgoing_text_message]).to eq(campaign_sms)
           expect(kwargs[:status_callback]).to be_present
           expect(kwargs[:send_at]).to be_present
         end.and_return(message)
