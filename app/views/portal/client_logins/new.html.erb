@@ -8,13 +8,18 @@
       <%= f.cfa_input_field(:sms_phone_number, t("general.sms_phone_number"), classes: ["form-width--long"]) %>
       <%= f.cfa_input_field(:email_address, t("general.email_address"), classes: ["form-width--long"]) %>
     </div>
+
+    <%= f.continue t(".send_code") %>
+    <h1 class="h3"><%= t(".starting_a_new_return") %></h1>
+    <p><%= t(".each_tax_year")%></p>
+    <p> <%= t(".new_return_html", link: eligibility_wages_questions_path) %></p>
     <div class="reveal-shrink-wrapper">
       <div class="reveal">
         <button class="reveal__button"><%= t('.created_an_account_last_year') %></button>
         <div class="reveal__content">
           <%= t(".to_log_in_html") %>
           <%= t(".please_include") %>
-          <ul>
+          <ul class="with-bullets">
             <li><%= t(".reason") %></li>
             <li><%= t(".full_name") %></li>
             <li><%= t(".client_id") %></li>
@@ -23,7 +28,5 @@
         </div>
       </div>
     </div>
-
-    <%= f.continue t(".send_code") %>
   <% end %>
 <% end %>
