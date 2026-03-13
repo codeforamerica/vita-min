@@ -1,7 +1,7 @@
 require "rails_helper"
 
 RSpec.describe TwilioWebhooksController do
-  let(:twilio_service) { instance_double(TwilioService) }
+  let(:twilio_service) { instance_double(TwilioService, valid_request?: true) }
 
   before do
     allow(TwilioService).to receive(:new).and_return(twilio_service)
@@ -116,6 +116,66 @@ RSpec.describe TwilioWebhooksController do
       it "signals Datadog" do
         post :update_outgoing_text_message, params: params
         expect(DatadogApi).to have_received(:increment).with "twilio.outgoing_text_messages.updated.status.delivered"
+      end
+    end
+  end
+
+  describe "POST #update_campaign_sms" do
+    let(:campaign_sms) { create(:campaign_sms) }
+
+    before do
+      allow_any_instance_of(TwilioService).to receive(:valid_request?).and_return(true)
+      allow(DatadogApi).to receive(:increment)
+    end
+
+    def post_webhook(id: campaign_sms.id, status: "delivered", error_code: nil)
+      post :update_campaign_sms, params: { id: id, "MessageStatus" => status, "ErrorCode" => error_code, "MessageSid" => "SM123" }
+    end
+
+    context "when the record exists" do
+      it "returns 200" do
+        post_webhook
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "updates the status" do
+        expect(campaign_sms).to receive(:update_status_if_further).with("delivered", error_code: "")
+        allow(CampaignSms).to receive(:find_by).and_return(campaign_sms)
+        post_webhook
+      end
+
+      it "tracks message status in datadog" do
+        expect(DatadogApi).to receive(:increment).with("twilio.campaign_sms.updated", tags: array_including("status:delivered"))
+        post_webhook
+      end
+
+      context "when there is an error code" do
+        it "passes the error code through" do
+          expect(campaign_sms).to receive(:update_status_if_further).with("undelivered", error_code: "30008")
+          allow(CampaignSms).to receive(:find_by).and_return(campaign_sms)
+          post_webhook(status: "undelivered", error_code: "30008")
+        end
+      end
+    end
+
+    context "when the record does not exist" do
+      it "returns 200" do
+        post_webhook(id: 0)
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "tracks the missing record" do
+        expect(DatadogApi).to receive(:increment).with("twilio.campaign_sms.updated.missing_record")
+        post_webhook(id: 0)
+      end
+    end
+
+    context "when the twilio request is invalid" do
+      let(:twilio_service) { instance_double(TwilioService, valid_request?: false) }
+
+      it "returns 403" do
+        post_webhook
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
