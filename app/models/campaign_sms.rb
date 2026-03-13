@@ -54,7 +54,7 @@ class CampaignSms < ApplicationRecord
       scheduled_send_at: scheduled_send_at
     )
   rescue ActiveRecord::RecordNotUnique
-    find_by!(to_phone_number: to_phone_number, message_name: message_name)
+    find_by!(to_phone_number: contact.sms_phone_number, message_name: message_name)
   end
 
   private
