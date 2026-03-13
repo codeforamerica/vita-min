@@ -2005,15 +2005,15 @@ es:
       new:
         client_id: Identificación del cliente
         contact: el correo electrónico o número de teléfono registrado en su declaración
-        created_an_account_last_year: ¿Necesita ver su declaración del año pasado?
-        full_name: Nombre completo
-        one_form_of_contact: Si comenzó su declaración de impuestos con nosotros este año, ingrese su correo electrónico o número de teléfono y le enviaremos un código seguro para iniciar sesión.
-        starting_a_new_return: ¿Quiere iniciar su declaración de este año?
+        created_an_account_last_year: "¿Necesita ver su declaración del año pasado?"
         each_tax_year: Cada año fiscal requiere una cuenta nueva, aunque haya presentado sus impuestos con nosotros antes.
+        full_name: Nombre completo
         new_return_html: <a href="%{link}">Iniciar una nueva declaración</a>
-        please_include: "Incluya lo siguiente en su mensaje:"
+        one_form_of_contact: Si comenzó su declaración de impuestos con nosotros este año, ingrese su correo electrónico o número de teléfono y le enviaremos un código seguro para iniciar sesión.
+        please_include: 'Incluya lo siguiente en su mensaje:'
         reason: Motivo de su solicitud
         send_code: Enviar código
+        starting_a_new_return: "¿Quiere iniciar su declaración de este año?"
         title: Iniciar sesión en su cuenta
         to_log_in_html: Envíe un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org</a> e incluya lo siguiente en su mensaje.
     closed_logins:
