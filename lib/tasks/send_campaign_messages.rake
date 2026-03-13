@@ -18,8 +18,9 @@ namespace :send_campaign_messages do
     next if Rails.env.demo? || Rails.env.staging?
     next unless DateTime.now.year == 2026
 
+    # Campaign::SendSmsBatchJob.perform_later(message_name: "start_of_season_outreach", batch_size: 100, msg_delay: 1.second, queue_next_batch: true, recent_signups_only: true)
     Campaign::SendSmsBatchJob.perform_later(
-      "start_of_season_outreach",
+      message_name: "start_of_season_outreach",
       batch_size: 100,
       msg_delay: 1.second,
       queue_next_batch: true,
