@@ -13,16 +13,12 @@ class Campaign::SendCampaignSmsJob < ApplicationJob
       message = TwilioService.new(:gyr).send_text_message(
         to: text_message.to_phone_number,
         body: text_message.body,
-        status_callback: outgoing_text_message_url(text_message, locale: nil),
-        outgoing_text_message: text_message,
+        status_callback: campaign_sms_webhook_url(text_message, locale: nil),
         send_at: text_message.scheduled_send_at
       )
 
       if message
-        text_message.update(
-          twilio_sid: message.sid,
-          sent_at: DateTime.now
-        )
+        text_message.update(twilio_sid: message.sid, sent_at: DateTime.now)
         text_message.update_status_if_further(message.status, error_code: message.error_code)
       end
     rescue Twilio::REST::RestError => e
