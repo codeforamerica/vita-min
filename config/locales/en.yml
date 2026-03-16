@@ -28,6 +28,33 @@ en:
     primary_ssn: SSN or ITIN
     spouse_ssn: Spouse's SSN or ITIN
   campaign_messages:
+    diy_followup_survey:
+      email:
+        body_html: |
+          Hello,
+
+          Whether you’ve already filed or are still working on your return, we’re glad you’re here!
+
+          <strong>Filed already?</strong> Please consider filling out our short survey to share your experience. Your feedback helps us improve our tools.
+
+          <a href="%{survey_link}" target="_blank" rel="noopener nofollow">%{survey_link}</a>
+
+          <strong>Still working on your return?</strong>
+          <ul>
+            <li>You can return to the <a href="https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2025&sidn=01011934" target="_blank" rel="noopener nofollow">File Myself tool by clicking this link</a></li>
+
+            <li>You can take a look at our guides here (<a href="http://codeforamerica.org/diyclientguide" target="_blank" rel="noopener nofollow">PDF for Computer</a> | <a href="http://codeforamerica.org/diyclientguidemobile" target="_blank" rel="noopener nofollow">PDF for Mobile</a>).</li>
+
+            <li>Our Client Support team is available through the “Chat” feature on our website or by email at <a href="mailto:DIY@getyourrefund.org">diy@getyourrefund.org</a>.</li>
+          </ul>
+
+          You don’t have to figure it out alone! We’re happy to support you, wherever you are in the filing process.
+
+          Take care,
+          GetYourRefund’s Support Team
+
+          (Replies to this email are not monitored.)
+        subject: Checking in on your taxes
     start_of_season_outreach:
       email:
         body_html: |
@@ -37,7 +64,7 @@ en:
 
           We would love to help you file your taxes for free again this year. Our IRS-certified team is here to help.
 
-          When you are ready to start, head to <a href="https://www.getyourrefund.org/en/outreach" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
+          When you are ready to start, head to <a href="https://www.getyourrefund.org/en?utm_campaign=w1&utm_medium=email&utm_source=gyr" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
 
           Best,
 
@@ -4917,15 +4944,17 @@ en:
       subject: Six-Digit Code from FileYourStateTaxes
     no_match:
       body_html: |
-        Hello,<br /><br />
+        <p>Hello,</p>
 
-        It looks like you attempted to sign in to %{service_name}, but we did not find any matching contact information.<br />
-        You may have used different email address to set up your %{service_name} account. You’ll need to sign in with the original email address you used when you signed up.<br />
-        If you have not submitted your information to %{service_name}, <a href="%{url}">visit %{service_name}.org</a> to get started.<br /><br />
+        <p>It looks like you attempted to sign in to %{service_name}, but we did not find any matching contact information.</p>
 
-        We're here to help,<br /><br />
+        <p>You may have used different email address to set up your %{service_name} account. You’ll need to sign in with the original email address you used when you signed up.</p>
 
-        Your tax team at %{service_name}
+        <p>If you have not submitted your information to %{service_name}, <a href="%{url}">visit %{service_name}.org</a> to get started.</p>
+
+        <p>We're here to help,</p>
+
+        <p>Your tax team at %{service_name}</p>
       body_text: |
         Hello,
 
@@ -5283,7 +5312,7 @@ en:
             respect: We value and respect your privacy and offer you choices over how we collect, use, and share your information.
             sms:
               header: Transactional SMS (Text) Messages
-              unsubscribe: You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see CFA’s SMS Terms, for additional details and opt-out instructions for these services. Data obtained through the short code program will not be shared with any third-parties for their marketing reasons/purposes.
+              unsubscribe_html: You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see CFA’s <a href='%{link}' target="_blank" rel="noopener nofollow">SMS terms</a>, for additional details and opt-out instructions for these services. Data obtained through the short code program will not be shared with any third-parties for their marketing reasons/purposes.
           examples:
             business_relationship: Third parties with whom we have a business relationship to send you information about other programs and services
             research: Third parties to distribute surveys, focus groups, or for other administrative, analytical, and marketing purposes

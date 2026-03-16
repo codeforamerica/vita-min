@@ -3,11 +3,11 @@ require "rails_helper"
 RSpec.describe RedirectsController, type: :controller do
   describe "GET #outreach" do
 
-    it "redirects to the outreach URL" do
+    it "redirects to the outreach URL with the default language" do
       get :outreach, params: { locale: nil }
 
       expect(response).to redirect_to(
-                            "http://test.host/?utm_campaign=w1&utm_medium=sms&utm_source=gyr"
+                            "http://test.host/en?utm_campaign=w1&utm_medium=sms&utm_source=gyr"
                           )
     end
 

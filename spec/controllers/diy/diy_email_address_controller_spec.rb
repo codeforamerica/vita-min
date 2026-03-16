@@ -128,4 +128,50 @@ RSpec.describe Diy::DiyEmailAddressController do
       end
     end
   end
+
+  describe "#after_update_success" do
+    let(:params) do
+      {
+        diy_email_address_form: {
+          email_address: "iloveplant@example.test",
+          email_address_confirmation: "iloveplant@example.test",
+        }
+      }
+    end
+
+    before do
+      allow(Flipper).to receive(:enabled?).and_call_original
+      allow(CampaignEmail).to receive(:create)
+      allow(Flipper).to receive(:enabled?).with(:send_diy_survey).and_return(true)
+    end
+
+    context "when flipper flag 'send_diy_survey' is off" do
+      it "doesn't create the send survey email" do
+        allow(Flipper).to receive(:enabled?).with(:send_diy_survey).and_return(false)
+
+        post :update, params: params, session: { diy_intake_id: diy_intake.id }
+
+        expect(CampaignEmail).not_to have_received(:create)
+      end
+    end
+
+    context "with flipper flag 'send_diy_survey' enabled and contact present" do
+      it "creates a campaign contact" do
+        expect {
+          post :update, params: params, session: { diy_intake_id: diy_intake.id }
+        }.to change(CampaignContact, :count).by(1)
+      end
+
+      it "creates a campaign email for the diy survey" do
+        post :update, params: params, session: { diy_intake_id: diy_intake.id }
+
+        expect(CampaignEmail).to have_received(:create).with(
+          campaign_contact_id: diy_intake.campaign_contact.id,
+          message_name: "diy_followup_survey",
+          to_email: diy_intake.email_address,
+          scheduled_send_at: be_within(1.minute).of(Time.current + 1.day)
+        )
+      end
+    end
+  end
 end

@@ -28,6 +28,33 @@ es:
     primary_ssn: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN)
     spouse_ssn: Número de Seguro Social (SSN) o Número de Identificación Personal (ITIN) de su cónyuge
   campaign_messages:
+    diy_followup_survey:
+      email:
+        body_html: |
+          Hello,
+
+          Whether you’ve already filed or are still working on your return, we’re glad you’re here!
+
+          <strong>Filed already?</strong> Please consider filling out our short survey to share your experience. Your feedback helps us improve our tools.
+
+          <a href="%{survey_link}" target="_blank" rel="noopener nofollow">%{survey_link}</a>
+
+          <strong>Still working on your return?</strong>
+          <ul>
+          <li>You can return to the <a href="https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2025&sidn=01011934" target="_blank" rel="noopener nofollow">File Myself tool by clicking this link</a></li>
+
+          <li>You can take a look at our guides here (<a href="http://codeforamerica.org/diyclientguide" target="_blank" rel="noopener nofollow">PDF for Computer</a> | <a href="http://codeforamerica.org/diyclientguidemobile" target="_blank" rel="noopener nofollow">PDF for Mobile</a>).</li>
+
+          <li>Our Client Support team is available through the “Chat” feature on our website or by email at <a href="mailto:DIY@getyourrefund.org">diy@getyourrefund.org</a>.</li>
+          </ul>
+
+          You don’t have to figure it out alone! We’re happy to support you, wherever you are in the filing process.
+
+          Take care,
+          GetYourRefund’s Support Team
+
+          (Replies to this email are not monitored.)
+        subject: Checking in on your taxes
     start_of_season_outreach:
       email:
         body_html: |
@@ -37,7 +64,7 @@ es:
 
           Nos encantaría ayudarle a presentar sus impuestos gratis nuevamente este año. Nuestro equipo certificado por el IRS está aquí para ayudarle.
 
-          Cuando esté listo(a) para comenzar, visite head to <a href="https://www.getyourrefund.org/es/outreach" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
+          Cuando esté listo(a) para comenzar, visite head to <a href="https://www.getyourrefund.org/es?utm_campaign=w1&utm_medium=email&utm_source=gyr" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
 
           Saludos cordiales,
           El equipo de GetYourRefund
@@ -4891,15 +4918,17 @@ es:
       subject: Código de verificación de seis dígitos para FileYourStateTaxes
     no_match:
       body_html: |
-        Hola, <br /><br />
+        <p>Hola,</p>
 
-        Parece que usted intentó acceder a %{service_name}, pero no encontramos una cuenta que corresponde a su información de contacto.<br />
-        Es posible que usted usó un correo electrónico diferente para crear su cuenta de %{service_name}.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.<br />
-        Si aún no ha enviado su información de impuestos a %{service_name}, <a href="%{url}">visite %{service_name}.org</a> para empezar.<br /><br />
+        <p>Parece que usted intentó acceder a %{service_name}, pero no encontramos una cuenta que corresponde a su información de contacto.</p>
 
-        Estamos aquí para servirle,<br /><br />
+        <p>Es posible que usted usó un correo electrónico diferente para crear su cuenta de %{service_name}.  Debe usar el correo electrónico original que ingresó cuando se creó la cuenta para iniciar su sesión.</p>
 
-        Su equipo de impuestos de %{service_name}
+        <p>Si aún no ha enviado su información de impuestos a %{service_name}, <a href="%{url}">visite %{service_name}.org</a> para empezar.</p>
+
+        <p>Estamos aquí para servirle,</p>
+
+        <p>Su equipo de impuestos de %{service_name}</p>
       body_text: |
         Hola,
 
@@ -5259,7 +5288,7 @@ es:
             respect: Valoramos y respetamos su privacidad, y le ofrecemos opciones sobre la manera en que recopilamos, usamos y compartimos su información.
             sms:
               header: Mensajes SMS transaccionales (texto)
-              unsubscribe: Puede darse de baja, de los mensajes operativos, enviando un mensaje de texto con la palabra STOP al 58750, en cualquier momento. Después de recibir su solicitud de exclusión voluntaria, le enviaremos un último mensaje de texto, para confirmar su exclusión voluntaria. Consulte los Términos de SMS de CFA para obtener detalles adicionales e instrucciones de exclusión voluntaria para estos servicios. Los datos obtenidos a través del programa de código corto, no se compartirán con terceros por motivos/propósitos de marketing.
+              unsubscribe_html: Puede darse de baja, de los mensajes operativos, enviando un mensaje de texto con la palabra STOP al 58750, en cualquier momento. Después de recibir su solicitud de exclusión voluntaria, le enviaremos un último mensaje de texto, para confirmar su exclusión voluntaria. Consulte los <a href='%{link}' target="_blank" rel="noopener nofollow">Términos de SMS de CFA</a> para obtener detalles adicionales e instrucciones de exclusión voluntaria para estos servicios. Los datos obtenidos a través del programa de código corto, no se compartirán con terceros por motivos/propósitos de marketing.
           examples:
             business_relationship: Terceros con los que tenemos una relación profesional para enviarle a usted información sobre otros programas y servicios
             research: Terceros para distribuir encuestas, grupos especializados u otros fines administrativos, analíticos y de marketing
@@ -6061,7 +6090,7 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
+        subtitle: Responda algunas preguntas y deje que un profesional de impuestos presente su declaración a nombre suyo
         title: VITA presencial
       progress_bar:
         progress_text: 'Progreso de la admisión:'
@@ -6091,5 +6120,5 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
+        subtitle: Responda algunas preguntas y deje que un profesional de impuestos presente su declaración a nombre suyo
         title: Declarar con ayuda

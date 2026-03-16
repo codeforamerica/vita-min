@@ -1,25 +1,34 @@
 class TwilioWebhooksController < ActionController::Base
+  include TracksMessageStatus
   skip_before_action :verify_authenticity_token
   before_action :validate_twilio_request
 
   def update_outgoing_text_message
     status = strong_params["MessageStatus"]
     error_code = strong_params["ErrorCode"]
-    sid = strong_params["MessageSid"]
 
+    record = OutgoingTextMessage.find_by(id: strong_params[:id])
+
+    track_message_status("twilio.outgoing_text_messages.updated", record, status)
     DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}")
+    track_missing_record("twilio.outgoing_text_messages.updated.missing_record") unless record
 
-    record = (OutgoingTextMessage.find_by(id: strong_params[:id]) || CampaignSms.find_by(twilio_sid: sid))
-
-    unless record
-      DatadogApi.increment("twilio.outgoing_text_messages.updated.missing_record")
-      head :ok and return
-    end
-
-    record.update_status_if_further(status, error_code: error_code)
+    record&.update_status_if_further(status, error_code: error_code)
     head :ok
   end
 
+  def update_campaign_sms
+    status = strong_params["MessageStatus"]
+    error_code = strong_params["ErrorCode"]
+
+    record = CampaignSms.find_by(id: strong_params[:id])
+
+    track_message_status("twilio.campaign_sms.updated", record, status)
+    track_missing_record("twilio.campaign_sms.updated.missing_record") unless record
+
+    record&.update_status_if_further(status, error_code: error_code)
+    head :ok
+  end
 
   def update_status
     status = strong_params["MessageStatus"]

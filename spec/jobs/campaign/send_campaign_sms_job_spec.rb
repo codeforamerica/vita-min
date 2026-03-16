@@ -48,23 +48,6 @@ describe Campaign::SendCampaignSmsJob, type: :job do
       end
     end
 
-    context "when scheduled_send_at is in the future" do
-      let(:scheduled_send_at) { 30.minutes.from_now.change(usec: 0).utc }
-
-      it "re-enqueues itself for the scheduled time and returns" do
-        travel_to(Time.current.change(usec: 0)) do
-          scheduled_send_at = 30.minutes.from_now
-
-          expect { perform_job }.to have_enqueued_job(described_class)
-                                      .with(campaign_sms.id)
-                                      .at(scheduled_send_at)
-
-          expect(campaign_sms.reload.twilio_sid).to be_nil
-          expect(campaign_sms.sent_at).to be_nil
-        end
-      end
-    end
-
     context "when scheduled_send_at is in the past" do
       let(:scheduled_send_at) { 5.minutes.ago }
 
@@ -78,7 +61,7 @@ describe Campaign::SendCampaignSmsJob, type: :job do
         campaign_sms.reload
         expect(campaign_sms.twilio_sid).to eq("SM123")
         expect(campaign_sms.sent_at).to be_present
-        expect(campaign_sms.twilio_status).to eq("sent").or be_present # depending on your update_status_if_further behavior
+        expect(campaign_sms.twilio_status).to eq("sent").or be_present # depending update_status_if_further behavior
       end
 
       it "passes status_callback and outgoing_text_message into TwilioService" do
@@ -87,8 +70,8 @@ describe Campaign::SendCampaignSmsJob, type: :job do
         expect_any_instance_of(TwilioService).to receive(:send_text_message) do |_service, **kwargs|
           expect(kwargs[:to]).to eq(campaign_sms.to_phone_number)
           expect(kwargs[:body]).to eq(campaign_sms.body)
-          expect(kwargs[:outgoing_text_message]).to eq(campaign_sms)
           expect(kwargs[:status_callback]).to be_present
+          expect(kwargs[:send_at]).to be_present
         end.and_return(message)
 
         perform_job
@@ -117,7 +100,7 @@ describe Campaign::SendCampaignSmsJob, type: :job do
 
         perform_job
 
-        expect(DatadogApi).to have_received(:increment).with("twilio.outgoing_text_message.failure.timeout")
+        expect(DatadogApi).to have_received(:increment).with("twilio.campaign_sms.failure.timeout")
 
         campaign_sms.reload
         expect(campaign_sms.twilio_status).to eq("twilio_error").or be_present
