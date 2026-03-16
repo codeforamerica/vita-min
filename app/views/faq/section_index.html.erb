@@ -1,10 +1,5 @@
 <% content_for :page_title, t("views.public_pages.faq.title") %>
 <% content_for :body_class, "faq" %>
-<% content_for :meta_tags do %>
-  <% if Rails.env.demo? %>
-    <meta name="robots" content="noindex, nofollow">
-  <% end %>
-<% end %>
 
 <%= render 'shared/breadcrumb_array', items: [
   [t('general.home'), root_path],
