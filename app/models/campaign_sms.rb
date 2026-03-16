@@ -42,7 +42,7 @@ class CampaignSms < ApplicationRecord
   scope :failed, -> { where(twilio_status: TwilioService::FAILED_STATUSES) }
   scope :in_progress, -> { where(twilio_status: TwilioService::IN_PROGRESS_STATUSES) }
 
-  def self.create_or_find_for(contact:, message_name:, scheduled_send_at:)
+  def self.create_or_find_for(contact:, message_name:, scheduled_send_at: nil)
     message_body = "CampaignMessage::#{message_name.camelize}".safe_constantize&.new&.sms_body(contact: contact)
     return unless message_body
 
