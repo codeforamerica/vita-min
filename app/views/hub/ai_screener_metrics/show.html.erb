@@ -4,17 +4,17 @@
 <% acc = @metrics[:client_classification_accuracy] %>
 <ul>
   <li>Total latest assessments: <%= acc[:total] %></li>
-  <li>Pass: <%= acc[:pass] %> (<%= number_to_percentage(acc[:pass_pct] * 100, precision: 1) %>)</li>
-  <li>Fail: <%= acc[:fail] %> (<%= number_to_percentage(acc[:fail_pct] * 100, precision: 1) %>)</li>
-  <li>Undetermined: <%= acc[:undetermined] %> (<%= number_to_percentage(acc[:undetermined_pct] * 100, precision: 1) %>)</li>
+  <li>Pass: <%= acc[:pass] %> (<%= number_to_percentage(acc[:pass_percent] * 100, precision: 1) %>)</li>
+  <li>Fail: <%= acc[:fail] %> (<%= number_to_percentage(acc[:fail_percent] * 100, precision: 1) %>)</li>
+  <li>Undetermined: <%= acc[:undetermined] %> (<%= number_to_percentage(acc[:undetermined_percent] * 100, precision: 1) %>)</li>
 </ul>
 
 <h2>AI Efficacy (Screener Feedback)</h2>
 <% eff = @metrics[:ai_efficacy] %>
 <ul>
   <li>Total feedback: <%= eff[:total_feedback] %></li>
-  <li>Correct (✅): <%= eff[:correct] %> (<%= number_to_percentage(eff[:correct_pct] * 100, precision: 1) %>)</li>
-  <li>Incorrect (❌): <%= eff[:incorrect] %> (<%= number_to_percentage(eff[:incorrect_pct] * 100, precision: 1) %>)</li>
+  <li>Correct (✅): <%= eff[:correct] %> (<%= number_to_percentage(eff[:correct_percent] * 100, precision: 1) %>)</li>
+  <li>Incorrect (❌): <%= eff[:incorrect] %> (<%= number_to_percentage(eff[:incorrect_percent] * 100, precision: 1) %>)</li>
 </ul>
 
 <h2>Most Common AI Suggestions Marked Incorrect (Top 3)</h2>
