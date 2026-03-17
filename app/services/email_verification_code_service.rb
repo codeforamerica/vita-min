@@ -18,10 +18,10 @@ class EmailVerificationCodeService
       ).with_code.deliver_now
       DatadogApi.increment("mailgun.verification_email.sent", tags: ["service_type:#{@service_data.service_type}"])
     rescue
+      Sentry.capture_exception(e, extra: { client_id: @client_id })
       DatadogApi.increment("mailgun.verification_email.failed", tags: ["service_type:#{@service_data.service_type}"])
       raise
     end
-    # add `client_id: @client_id` below after migration
     VerificationEmail.create!(
       email_access_token: access_token,
       visitor_id: @visitor_id,

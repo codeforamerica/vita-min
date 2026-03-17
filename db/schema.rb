@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_17_160450) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1016,12 +1016,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_17_160450) do
   end
 
   create_table "email_login_requests", force: :cascade do |t|
-    t.bigint "client_id"
     t.bigint "email_access_token_id", null: false
     t.string "mailgun_id"
     t.string "mailgun_status"
     t.string "visitor_id", null: false
-    t.index ["client_id"], name: "index_email_login_requests_on_client_id"
     t.index ["email_access_token_id"], name: "index_email_login_requests_on_email_access_token_id"
     t.index ["mailgun_id"], name: "index_email_login_requests_on_mailgun_id"
     t.index ["visitor_id"], name: "index_email_login_requests_on_visitor_id"
