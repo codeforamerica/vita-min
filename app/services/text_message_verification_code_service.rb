@@ -19,7 +19,14 @@ class TextMessageVerificationCodeService
       ).strip,
       status_callback: @service_data.twilio_status_webhook_url(outgoing_message_status.id)
     }.compact
-    twilio_response = TwilioService.new(@service_data.service_type).send_text_message(**message_arguments)
+    begin
+      twilio_response = TwilioService.new(@service_data.service_type).send_text_message(**message_arguments)
+      DatadogApi.increment("twilio.verification_text_message.sent", tags: ["service_type:#{@service_data.service_type}"])
+    rescue Twilio::REST::RestError => e
+      DatadogApi.increment("twilio.verification_text_message.failed",
+                           tags: %W[error_code:#{e.code} service_type:#{@service_data.service_type}])
+      raise
+    end
     VerificationTextMessage.create!(
       text_message_access_token: access_token,
       visitor_id: @visitor_id,

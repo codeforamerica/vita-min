@@ -61,6 +61,10 @@ class OutgoingEmail < ApplicationRecord
     attachment.present? ? [attachment] : nil
   end
 
+  def message_name
+    "outgoing_email"
+  end
+
   private
 
   def deliver

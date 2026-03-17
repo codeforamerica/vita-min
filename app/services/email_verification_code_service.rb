@@ -9,12 +9,18 @@ class EmailVerificationCodeService
 
   def request_code
     verification_code, access_token = EmailAccessToken.generate!(email_address: @email_address, client_id: @client_id)
-    mailer_response = VerificationCodeMailer.with(
-      to: @email_address,
-      verification_code: verification_code,
-      locale: @locale,
-      service_type: @service_data.service_type
-    ).with_code.deliver_now
+    begin
+      mailer_response = VerificationCodeMailer.with(
+        to: @email_address,
+        verification_code: verification_code,
+        locale: @locale,
+        service_type: @service_data.service_type
+      ).with_code.deliver_now
+      DatadogApi.increment("mailgun.verification_email.sent", tags: ["service_type:#{@service_data.service_type}"])
+    rescue
+      DatadogApi.increment("mailgun.verification_email.failed", tags: ["service_type:#{@service_data.service_type}"])
+      raise
+    end
     VerificationEmail.create!(
       email_access_token: access_token,
       visitor_id: @visitor_id,

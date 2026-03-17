@@ -18,4 +18,8 @@ class VerificationEmail < ApplicationRecord
   self.table_name = "email_login_requests"
   belongs_to :email_access_token
   validates_presence_of :visitor_id
+
+  def message_name
+    "verification_email"
+  end
 end

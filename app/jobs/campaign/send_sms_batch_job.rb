@@ -8,7 +8,10 @@ class Campaign::SendSmsBatchJob < ApplicationJob
   queue_as :campaign_sms
   include Campaign::Scheduling
 
-  def perform(message_name: nil, batch_size: 100, msg_delay: 1.second,
+  # the minimum schedule in the distance time for Twilio is 15min
+  # which means the time between batches will be 15min
+  # this necessitates larger batch times to get through the load
+  def perform(message_name: nil, batch_size: 1000, msg_delay: 1.second,
               queue_next_batch: false, recent_signups_only: false)
     raise ArgumentError, "'#{message_name}' message_name is required" if message_name.nil?
     raise ArgumentError, "'#{message_name}' message has no sms body" unless message(message_name)&.sms_body(contact: nil).present?
