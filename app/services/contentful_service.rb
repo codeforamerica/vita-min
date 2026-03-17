@@ -3,14 +3,14 @@ class ContentfulService
     environment = ENV['CONTENTFUL_ENVIRONMENT'] || 'master'
 
     if preview
-      @preview_client ||= ::Contentful::Client.new(
+      ::Contentful::Client.new(
         space: Rails.application.credentials.dig(:contentful, :space_id),
         access_token: Rails.application.credentials.dig(:contentful, :preview_access_token),
         api_url: 'preview.contentful.com',
         environment: environment
       )
     else
-      @delivery_client ||= ::Contentful::Client.new(
+      ::Contentful::Client.new(
         space: Rails.application.credentials.dig(:contentful, :space_id),
         access_token: Rails.application.credentials.dig(:contentful, :delivery_access_token),
         environment: environment

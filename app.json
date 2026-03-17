@@ -32,6 +32,9 @@
     }
   ],
   "env": {
+    "CONTENTFUL_ENVIRONMENT": {
+      "value": "staging"
+    },
     "LOG_LEVEL": {
       "value": "info"
     },
