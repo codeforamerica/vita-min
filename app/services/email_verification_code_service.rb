@@ -21,6 +21,7 @@ class EmailVerificationCodeService
       DatadogApi.increment("mailgun.verification_email.failed", tags: ["service_type:#{@service_data.service_type}"])
       raise
     end
+    # add `client_id: @client_id` below after migration
     VerificationEmail.create!(
       email_access_token: access_token,
       visitor_id: @visitor_id,
