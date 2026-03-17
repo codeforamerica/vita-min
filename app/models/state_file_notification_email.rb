@@ -26,10 +26,6 @@ class StateFileNotificationEmail < ApplicationRecord
 
   after_create_commit :deliver
 
-  def message_name
-    "state_file_notification_email"
-  end
-
   private
 
   def deliver
