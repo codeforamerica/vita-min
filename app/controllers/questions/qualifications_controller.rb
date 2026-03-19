@@ -8,6 +8,11 @@ module Questions
       NullForm
     end
 
+    def edit
+      super
+      @content = ContentfulService.flow_page_content('qualifications')
+    end
+
     def illustration_path; end
   end
 end

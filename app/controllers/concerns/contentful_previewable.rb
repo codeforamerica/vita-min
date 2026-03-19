@@ -2,12 +2,13 @@ module ContentfulPreviewable
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_contentful_preview
+    helper_method :preview_mode? # optional for views
   end
 
-  private
+  def preview_mode?
+    # determines if request should preview
+    return true if params[:preview_token] == Rails.application.credentials.dig(:contentful, :preview_access_token)
 
-  def set_contentful_preview
-    @contentful_preview = params[:contentful_preview] == 'true' && current_user&.admin?
+    false
   end
 end

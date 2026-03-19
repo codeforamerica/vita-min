@@ -4,18 +4,16 @@ class FaqController < ApplicationController
 
   def index
     @search = params[:search] || ""
-    @faq_categories = ContentfulService.faq_categories
-    @faq_items = ContentfulService.faq_items(search: @search)
+    @faq_categories = ContentfulService.faq_categories(preview: preview_mode?)
+    @faq_items = ContentfulService.faq_items(search: @search, preview: preview_mode?)
   end
 
   def section_index
-    # validate that it is actually good, 404 if not
-
     @section_key = params[:section_key]
     @search = params[:search] || ""
-    @faq_category = ContentfulService.faq_category_by_slug(@section_key)
+    @faq_category = ContentfulService.faq_category_by_slug(@section_key, preview: preview_mode?)
     raise ActionController::RoutingError.new('Not found') unless @faq_category
-    @faq_items = ContentfulService.faq_items(category_id: @faq_category.id, search: @search)
+    @faq_items = ContentfulService.faq_items(category_id: @faq_category.id, search: @search, preview: preview_mode?)
   end
 
   def show
@@ -23,7 +21,8 @@ class FaqController < ApplicationController
     @question_key = params[:question_key].underscore
     @faq_item = ContentfulService.faq_item_by_slug(
       section_slug: @section_key,
-      question_slug: @question_key
+      question_slug: @question_key,
+      preview: preview_mode?
     )
     raise ActionController::RoutingError.new('Not found') unless @faq_item
 
