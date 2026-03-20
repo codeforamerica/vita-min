@@ -31,12 +31,19 @@ module Diy
         contact = current_diy_intake.campaign_contact
         return unless contact.present?
 
-        CampaignEmail.create(
-          campaign_contact_id: contact.id,
-          message_name: "diy_followup_survey",
-          to_email: contact.email_address,
-          scheduled_send_at: Time.current + 1.day
-        )
+      existing_send_count = CampaignEmail.where(
+        campaign_contact_id: contact.id,
+        message_name: "diy_followup_survey"
+      ).count
+
+      return if existing_send_count >= 2
+
+      CampaignEmail.create!(
+        campaign_contact_id: contact.id,
+        message_name: "diy_followup_survey",
+        to_email: contact.email_address,
+        scheduled_send_at: Time.current + 1.day
+      )
       end
     end
 

@@ -141,36 +141,73 @@ RSpec.describe Diy::DiyEmailAddressController do
 
     before do
       allow(Flipper).to receive(:enabled?).and_call_original
-      allow(CampaignEmail).to receive(:create)
       allow(Flipper).to receive(:enabled?).with(:send_diy_survey).and_return(true)
     end
 
     context "when flipper flag 'send_diy_survey' is off" do
-      it "doesn't create the send survey email" do
+      before do
         allow(Flipper).to receive(:enabled?).with(:send_diy_survey).and_return(false)
+      end
 
-        post :update, params: params, session: { diy_intake_id: diy_intake.id }
-
-        expect(CampaignEmail).not_to have_received(:create)
+      it "does not create the send survey email" do
+        expect do
+          post :update, params: params, session: { diy_intake_id: diy_intake.id }
+        end.not_to change(CampaignEmail, :count)
       end
     end
 
     context "with flipper flag 'send_diy_survey' enabled and contact present" do
       it "creates a campaign contact" do
-        expect {
+        expect do
           post :update, params: params, session: { diy_intake_id: diy_intake.id }
-        }.to change(CampaignContact, :count).by(1)
+        end.to change(CampaignContact, :count).by(1)
       end
 
-      it "creates a campaign email for the diy survey" do
+      it "creates the first campaign email for the diy survey" do
+        expect do
+          post :update, params: params, session: { diy_intake_id: diy_intake.id }
+        end.to change(CampaignEmail, :count).by(1)
+
+        campaign_email = CampaignEmail.order(:created_at).last
+
+        expect(campaign_email.campaign_contact_id).to eq(diy_intake.reload.campaign_contact.id)
+        expect(campaign_email.message_name).to eq("diy_followup_survey")
+        expect(campaign_email.to_email).to eq("iloveplant@example.test")
+        expect(campaign_email.scheduled_send_at).to be_within(1.minute).of(Time.current + 1.day)
+      end
+
+      it "creates a second campaign email for the same contact and message" do
         post :update, params: params, session: { diy_intake_id: diy_intake.id }
 
-        expect(CampaignEmail).to have_received(:create).with(
-          campaign_contact_id: diy_intake.campaign_contact.id,
-          message_name: "diy_followup_survey",
-          to_email: diy_intake.email_address,
-          scheduled_send_at: be_within(1.minute).of(Time.current + 1.day)
+        expect do
+          post :update, params: params, session: { diy_intake_id: diy_intake.id }
+        end.to change(CampaignEmail, :count).by(1)
+
+        contact = diy_intake.reload.campaign_contact
+        campaign_emails = CampaignEmail.where(
+          campaign_contact_id: contact.id,
+          message_name: "diy_followup_survey"
         )
+
+        expect(campaign_emails.count).to eq(2)
+      end
+
+      it "does not create a third campaign email for the same contact and message" do
+        2.times do
+          post :update, params: params, session: { diy_intake_id: diy_intake.id }
+        end
+
+        expect do
+          post :update, params: params, session: { diy_intake_id: diy_intake.id }
+        end.not_to change(CampaignEmail, :count)
+
+        contact = diy_intake.reload.campaign_contact
+        campaign_emails = CampaignEmail.where(
+          campaign_contact_id: contact.id,
+          message_name: "diy_followup_survey"
+        )
+
+        expect(campaign_emails.count).to eq(2)
       end
     end
   end
