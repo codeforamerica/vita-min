@@ -2064,9 +2064,19 @@ en:
           bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 3 failed attempts, accounts are locked.
           bad_verification_code: Incorrect verification code. After 3 failed attempts, accounts are locked.
       new:
-        one_form_of_contact: 'Please enter one form of contact below:'
+        client_id: client ID
+        contact: the email or phone number on your file
+        created_an_account_last_year: What if I created an account last year?
+        each_tax_year: Each tax year requires a new account even if you’ve filed with us before.
+        full_name: full name
+        new_return_html: <a href="%{link}">Start a new return</a>.
+        one_form_of_contact: If you started your taxes with us this year, enter your email or phone number and we’ll send you a secure code to sign in.
+        please_include: 'Please include the following in your message:'
+        reason: reason for log in
         send_code: Send code
-        title: We’ll send you a secure code to sign in
+        starting_a_new_return: Starting a new return this year?
+        title: Sign in to your account
+        to_log_in_html: To log in to an account made in previous year, please reach out to <a href="mailto:support@getyourrefund.org">support@getyourrefund.org.</a>
     closed_logins:
       show:
         body_html: If you would like to receive a notification for when we open next year in January, please sign up <a href="%{link}">here</a>.

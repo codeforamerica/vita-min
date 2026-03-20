@@ -2036,9 +2036,19 @@ es:
           bad_input: ID de cliente o los 4 últimos de SSN/ITIN incorrectos. Después de 3 intentos fallidos, las cuentas se bloquean.
           bad_verification_code: Código incorrecto. Después de 3 intentos fallidos, las cuentas se bloquean.
       new:
-        one_form_of_contact: 'Ingresa una forma de contacto a continuación:'
-        send_code: Enviar el código
-        title: Le enviaremos un código seguro para iniciar sesión
+        client_id: Identificación del cliente
+        contact: el correo electrónico o número de teléfono registrado en su declaración
+        created_an_account_last_year: "¿Necesita ver su declaración del año pasado?"
+        each_tax_year: Cada año fiscal requiere una cuenta nueva, aunque haya presentado sus impuestos con nosotros antes.
+        full_name: Nombre completo
+        new_return_html: <a href="%{link}">Iniciar una nueva declaración</a>
+        one_form_of_contact: Si comenzó su declaración de impuestos con nosotros este año, ingrese su correo electrónico o número de teléfono y le enviaremos un código seguro para iniciar sesión.
+        please_include: 'Incluya lo siguiente en su mensaje:'
+        reason: Motivo de su solicitud
+        send_code: Enviar código
+        starting_a_new_return: "¿Quiere iniciar su declaración de este año?"
+        title: Iniciar sesión en su cuenta
+        to_log_in_html: Envíe un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org</a> e incluya lo siguiente en su mensaje.
     closed_logins:
       show:
         body_html: Si desea recibir una notificación sobre cuándo abriremos el próximo año en enero, regístrese <a href="%{link}">aquí</a>.
