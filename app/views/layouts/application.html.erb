@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>" <% if content_for :html_class %>class="<%= yield :html_class %>"<% end %>>
   <head>
-    <% if Rails.env.demo? %>
+    <% unless Rails.env.production? %>
       <meta name="robots" content="noindex, nofollow">
     <% end %>
     <%= render 'shared/combined_analytics' if include_analytics? && Rails.env.production? %>
