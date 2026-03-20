@@ -223,11 +223,12 @@ RSpec.feature "a client on their portal" do
     end
   end
 
-  context "when the client needs to review & sign" do
+  context "when the client needs to review & sign and required signature documents are available" do
+    let(:tax_return) { build(:gyr_tax_return, :review_signature_requested, year: 2019) }
     let(:client) do
       create :client,
              intake: (build :intake, filing_joint: "yes", preferred_name: "Randall", completed_at: DateTime.current),
-             tax_returns: [(build :gyr_tax_return, :review_signature_requested, year: 2019)]
+             tax_returns: [tax_return]
     end
 
     before do
@@ -239,15 +240,83 @@ RSpec.feature "a client on their portal" do
              tax_return: client.tax_returns.first,
              client: client,
              upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
+
+      create :document,
+             document_type: DocumentTypes::FinalTaxDocument.key,
+             tax_return: client.tax_returns.first,
+             client: client,
+             upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
     end
 
-    scenario "waiting on review and signature" do
+    scenario "shows the add final signature action" do
       visit portal_root_path
 
       within "#tax-year-2019" do
         expect(page).to have_text "We are waiting for a final signature from you."
         expect(page).to have_text "90% complete"
         expect(page).to have_link "Add final signature", href: portal_tax_return_authorize_signature_path(tax_return_id: client.tax_returns.first.id)
+      end
+    end
+  end
+
+  context "when the client needs to review & sign" do
+  let(:tax_return) { build(:gyr_tax_return, :review_signature_requested, year: 2019) }
+  let(:client) do
+    create :client,
+           intake: (build :intake, filing_joint: "yes", preferred_name: "Randall", completed_at: DateTime.current),
+           tax_returns: [tax_return]
+  end
+
+  before do
+    login_as client, scope: :client
+    create :document, client: client, uploaded_by: client
+
+    create :document,
+           document_type: DocumentTypes::UnsignedForm8879.key,
+           tax_return: client.tax_returns.first,
+           client: client,
+           upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
+  end
+
+    context "when the required signature documents are not all available" do
+      scenario "shows the view documents action instead of add final signature" do
+        visit portal_root_path
+
+        within "#tax-year-2019" do
+          expect(page).to have_text "90% complete"
+          expect(page).to have_link(
+            I18n.t("portal.portal.home.document_link.view_documents"),
+            href: Portal::UploadDocumentsController.to_path_helper(action: :index)
+          )
+          expect(page).not_to have_link "Add final signature"
+        end
+      end
+    end
+
+    context "when the required signature documents are available" do
+      before do
+        create :document,
+               document_type: DocumentTypes::FinalTaxDocument.key,
+               tax_return: client.tax_returns.first,
+               client: client,
+               upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
+      end
+
+      scenario "shows the add final signature action" do
+        visit portal_root_path
+
+        within "#tax-year-2019" do
+          expect(page).to have_text "We are waiting for a final signature from you."
+          expect(page).to have_text "90% complete"
+          expect(page).to have_link(
+            "Add final signature",
+            href: portal_tax_return_authorize_signature_path(tax_return_id: client.tax_returns.first.id)
+          )
+          expect(page).not_to have_link(
+            I18n.t("portal.portal.home.document_link.view_documents"),
+            href: Portal::UploadDocumentsController.to_path_helper(action: :index)
+          )
+        end
       end
     end
   end

@@ -62,14 +62,14 @@ module TaxReturnCardHelper
         percent_complete: 95,
         button_type: :view_documents,
       }
-    elsif tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE)
+    elsif tax_return.ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) && signature_documents_ready?(tax_return)
       {
         help_text: t("portal.portal.home.help_text.review_signature_requested_primary"),
         percent_complete: 90,
         button_type: :add_signature_primary,
         call_to_action_text: t("portal.portal.home.calls_to_action.add_signature_primary")
       }
-    elsif tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE)
+    elsif tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) && signature_documents_ready?(tax_return)
       {
         help_text: t("portal.portal.home.help_text.review_signature_requested_spouse"),
         percent_complete: 90,
@@ -126,5 +126,14 @@ module TaxReturnCardHelper
         button_type: :view_documents,
       }
     end
+  end
+
+  private
+
+  def signature_documents_ready?(tax_return)
+    has_final_tax_document = tax_return.final_tax_documents.any?
+    has_8879 = tax_return.signed_8879s.any? || tax_return.unsigned_8879s.any?
+
+    has_final_tax_document && has_8879
   end
 end
