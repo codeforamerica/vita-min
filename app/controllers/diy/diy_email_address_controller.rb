@@ -31,14 +31,15 @@ module Diy
         contact = current_diy_intake.campaign_contact
         return unless contact.present?
 
-      existing_send_count = CampaignEmail.where(
+      existing_emails = CampaignEmail.where(
         campaign_contact_id: contact.id,
         message_name: "diy_followup_survey"
-      ).count
+      )
 
-      return if existing_send_count >= 2
+      return if existing_emails.count >= 2
+      return if existing_emails.in_progress.any?
 
-      CampaignEmail.create!(
+        CampaignEmail.create!(
         campaign_contact_id: contact.id,
         message_name: "diy_followup_survey",
         to_email: contact.email_address,

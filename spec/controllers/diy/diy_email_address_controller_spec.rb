@@ -176,8 +176,17 @@ RSpec.describe Diy::DiyEmailAddressController do
         expect(campaign_email.scheduled_send_at).to be_within(1.minute).of(Time.current + 1.day)
       end
 
-      it "creates a second campaign email for the same contact and message" do
+      it "does not create a second campaign email when the first is still in progress" do
         post :update, params: params, session: { diy_intake_id: diy_intake.id }
+
+        expect do
+          post :update, params: params, session: { diy_intake_id: diy_intake.id }
+        end.not_to change(CampaignEmail, :count)
+      end
+
+      it "creates a second campaign email once the first has been sent" do
+        post :update, params: params, session: { diy_intake_id: diy_intake.id }
+        CampaignEmail.last.update!(mailgun_status: "delivered")
 
         expect do
           post :update, params: params, session: { diy_intake_id: diy_intake.id }
@@ -193,9 +202,10 @@ RSpec.describe Diy::DiyEmailAddressController do
       end
 
       it "does not create a third campaign email for the same contact and message" do
-        2.times do
-          post :update, params: params, session: { diy_intake_id: diy_intake.id }
-        end
+        post :update, params: params, session: { diy_intake_id: diy_intake.id }
+        CampaignEmail.last.update!(mailgun_status: "delivered")
+        post :update, params: params, session: { diy_intake_id: diy_intake.id }
+        CampaignEmail.last.update!(mailgun_status: "delivered")
 
         expect do
           post :update, params: params, session: { diy_intake_id: diy_intake.id }
