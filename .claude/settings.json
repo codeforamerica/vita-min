@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./config/credentials/**)",
+      "Read(./config/master.key)",
+      "Read(./config/fraud_indicators.key)",
+      "Read(./df_api/*.key)",
+      "Read(./df_api/*.crt)",
+      "Read(./df_api/*.csr)",
+      "Read(./.env)"
+    ]
+  }
+}
