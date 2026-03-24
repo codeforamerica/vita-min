@@ -33,79 +33,74 @@ class RecentMessageSummaryService
 
   def self.summarize_incoming_emails(client_ids)
     summarize(client_ids) do
-      IncomingEmail.find_by_sql([<<~SQL, client_ids, client_ids])
-        SELECT incoming_emails.id, incoming_emails.client_id, incoming_emails.created_at, incoming_emails.body_plain as message_body, intakes.preferred_name as prefetched_author from incoming_emails
+      IncomingEmail.find_by_sql([<<~SQL, client_ids])
+        SELECT DISTINCT ON (incoming_emails.client_id)
+          incoming_emails.id, incoming_emails.client_id, incoming_emails.created_at,
+          incoming_emails.body_plain AS message_body, intakes.preferred_name AS prefetched_author
+        FROM incoming_emails
         INNER JOIN intakes ON intakes.client_id = incoming_emails.client_id
-        WHERE incoming_emails.client_id in ( ? ) AND incoming_emails.created_at IN (
-          select max(incoming_emails.created_at)
-          from incoming_emails
-          group by incoming_emails.client_id
-          having incoming_emails.client_id in ( ? )
-        )
+        WHERE incoming_emails.client_id IN ( ? )
+        ORDER BY incoming_emails.client_id, incoming_emails.created_at DESC
       SQL
     end
   end
 
   def self.summarize_incoming_text_messages(client_ids)
     summarize(client_ids) do
-      IncomingTextMessage.find_by_sql([<<~SQL, client_ids, client_ids])
-        SELECT incoming_text_messages.id, incoming_text_messages.client_id, incoming_text_messages.body as message_body, incoming_text_messages.created_at, intakes.preferred_name as prefetched_author
+      IncomingTextMessage.find_by_sql([<<~SQL, client_ids])
+        SELECT DISTINCT ON (incoming_text_messages.client_id)
+          incoming_text_messages.id, incoming_text_messages.client_id,
+          incoming_text_messages.body AS message_body, incoming_text_messages.created_at,
+          intakes.preferred_name AS prefetched_author
         FROM incoming_text_messages
-        INNER JOIN intakes on intakes.client_id = incoming_text_messages.client_id
-        WHERE incoming_text_messages.client_id in ( ? ) AND incoming_text_messages.created_at IN (
-          select max(incoming_text_messages.created_at)
-          from incoming_text_messages
-          group by incoming_text_messages.client_id
-          having incoming_text_messages.client_id in ( ? )
-        )
+        INNER JOIN intakes ON intakes.client_id = incoming_text_messages.client_id
+        WHERE incoming_text_messages.client_id IN ( ? )
+        ORDER BY incoming_text_messages.client_id, incoming_text_messages.created_at DESC
       SQL
     end
   end
 
   def self.summarize_outgoing_emails(client_ids)
     summarize(client_ids) do
-      OutgoingEmail.find_by_sql([<<~SQL, client_ids, client_ids])
-        SELECT outgoing_emails.id, outgoing_emails.client_id, outgoing_emails.body as message_body, outgoing_emails.created_at, user_id, users.name as prefetched_author
+      OutgoingEmail.find_by_sql([<<~SQL, client_ids])
+        SELECT DISTINCT ON (outgoing_emails.client_id)
+          outgoing_emails.id, outgoing_emails.client_id,
+          outgoing_emails.body AS message_body, outgoing_emails.created_at,
+          user_id, users.name AS prefetched_author
         FROM outgoing_emails
-        INNER JOIN users on users.id = user_id
-        WHERE outgoing_emails.client_id IN ( ? ) AND outgoing_emails.created_at IN (
-          select max(outgoing_emails.created_at)
-          from outgoing_emails
-          group by client_id
-          having client_id in ( ? )
-        )
+        INNER JOIN users ON users.id = user_id
+        WHERE outgoing_emails.client_id IN ( ? )
+        ORDER BY outgoing_emails.client_id, outgoing_emails.created_at DESC
       SQL
     end
   end
 
   def self.summarize_outgoing_text_messages(client_ids)
     summarize(client_ids) do
-      OutgoingTextMessage.find_by_sql([<<~SQL, client_ids, client_ids])
-        SELECT outgoing_text_messages.id, outgoing_text_messages.client_id, outgoing_text_messages.body as message_body, outgoing_text_messages.created_at, user_id, users.name as prefetched_author
+      OutgoingTextMessage.find_by_sql([<<~SQL, client_ids])
+        SELECT DISTINCT ON (outgoing_text_messages.client_id)
+          outgoing_text_messages.id, outgoing_text_messages.client_id,
+          outgoing_text_messages.body AS message_body, outgoing_text_messages.created_at,
+          user_id, users.name AS prefetched_author
         FROM outgoing_text_messages
-        INNER JOIN users on users.id = user_id
-        WHERE outgoing_text_messages.client_id IN ( ? ) AND outgoing_text_messages.created_at IN (
-          select max(outgoing_text_messages.created_at)
-          from outgoing_text_messages
-          group by client_id
-          having client_id in ( ? )
-        )
+        INNER JOIN users ON users.id = user_id
+        WHERE outgoing_text_messages.client_id IN ( ? )
+        ORDER BY outgoing_text_messages.client_id, outgoing_text_messages.created_at DESC
       SQL
     end
   end
 
   def self.summarize_incoming_portal_messages(client_ids)
     summarize(client_ids) do
-      IncomingTextMessage.find_by_sql([<<~SQL, client_ids, client_ids])
-        SELECT incoming_portal_messages.id, incoming_portal_messages.client_id, incoming_portal_messages.body as message_body, incoming_portal_messages.created_at, intakes.preferred_name as prefetched_author
+      IncomingPortalMessage.find_by_sql([<<~SQL, client_ids])
+        SELECT DISTINCT ON (incoming_portal_messages.client_id)
+          incoming_portal_messages.id, incoming_portal_messages.client_id,
+          incoming_portal_messages.body AS message_body, incoming_portal_messages.created_at,
+          intakes.preferred_name AS prefetched_author
         FROM incoming_portal_messages
-        INNER JOIN intakes on intakes.client_id = incoming_portal_messages.client_id
-        WHERE incoming_portal_messages.client_id IN ( ? ) AND incoming_portal_messages.created_at IN (
-          select max(incoming_portal_messages.created_at)
-          from incoming_portal_messages
-          group by incoming_portal_messages.client_id
-          having incoming_portal_messages.client_id in ( ? )
-        )
+        INNER JOIN intakes ON intakes.client_id = incoming_portal_messages.client_id
+        WHERE incoming_portal_messages.client_id IN ( ? )
+        ORDER BY incoming_portal_messages.client_id, incoming_portal_messages.created_at DESC
       SQL
     end
   end
