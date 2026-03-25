@@ -4916,13 +4916,13 @@ es:
       body_html: |
         <p>¡Hola!</p>
         <p>Tu código de verificación de seis dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará después de 30 minutos.</p>
-        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:%{support_email}">%{support_email}</a></p>
         <p>Tu equipo de impuestos en %{service_name}.org</p>
       body_text: |
         ¡Hola!
         Tu código de verificación de seis dígitos para %{service_name} es: %{verification_code}. Este código expirará después de 30 minutos.
 
-        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@%{service_name_lower}.org
+        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a %{support_email}
 
         Tu equipo de impuestos en %{service_name}.org
       subject: Código de verificación de seis dígitos para FileYourStateTaxes
@@ -4956,13 +4956,13 @@ es:
       body_html: |
         <p>¡Hola!</p>
         <p>Tu código de verificación de seis dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará después de 10 minutos.</p>
-        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="%{support_email}">%{support_email}</a></p>
         <p>Tu equipo de impuestos en %{service_name}.org</p>
       body_text: |
         ¡Hola!
         Tu código de verificación de seis dígitos para %{service_name} es: %{verification_code}. Este código expirará después de 10 minutos.
 
-        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@%{service_name_lower}.org
+        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a %{support_email}
 
         Tu equipo de impuestos en %{service_name}.org
   verification_code_sms:
