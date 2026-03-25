@@ -159,6 +159,12 @@ en:
         - We’re here to make your tax-filing experience smooth and stress-free. Explore our guides and FAQs to find quick answers and stay confident as you file.
         - "<b>If you get stuck at any point or have questions, reach out to our support team!</b>"
         title: File on your own and get support when you need it
+    initial_info:
+      edit:
+        first_name: First name
+        state_of_residence: State of residence
+        title: To get started, we’ll need some basic information.
+        zip_code: Zip code
     notification_preference:
       body: We will reach out about free tax filing support and other free services. We may also send surveys to improve your experience. Please select the option(s) that work best for you!
     qualifications:
@@ -4941,14 +4947,14 @@ en:
       body_html: |
         <p>Hello!</p>
         <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 30 minutes.</p>
-        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>Did you receive this code without signing up? Email us at <a href="mailto:%{support_email}">%{support_email}</a></p>
         <p>Your tax team at %{service_name}.org</p>
       body_text: |
         Hello!
 
         Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 30 minutes.
 
-        Did you receive this code without signing up? Email us at help@%{service_name_lower}.org
+        Did you receive this code without signing up? Email us at %{support_email}
 
         Your tax team at %{service_name}.org
       subject: Six-Digit Code from FileYourStateTaxes
@@ -4982,14 +4988,14 @@ en:
       body_html: |
         <p>Hello!</p>
         <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 10 minutes.</p>
-        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>Did you receive this code without signing up? Email us at <a href="mailto:%{support_email}">%{support_email}</a></p>
         <p>Your tax team at %{service_name}.org</p>
       body_text: |
         Hello!
 
         Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 10 minutes.
 
-        Did you receive this code without signing up? Email us at help@%{service_name_lower}.org
+        Did you receive this code without signing up? Email us at %{support_email}
 
         Your tax team at %{service_name}.org
   verification_code_sms:
