@@ -8,6 +8,7 @@ class Campaign::SendCampaignEmailJob < ApplicationJob
 
     return unless email && contact
     return if email.mailgun_message_id.present?
+    return if max_sends_reached?(email)
 
     send_at = email.scheduled_send_at || Time.current
     if send_at > Time.current
@@ -33,5 +34,23 @@ class Campaign::SendCampaignEmailJob < ApplicationJob
 
   def priority
     PRIORITY_LOW
+  end
+
+  private
+
+  def max_sends_reached?(email)
+    max_sends = campaign_message_class(email).max_sends_per_contact
+    return false if max_sends.nil?
+
+    sent_count = CampaignEmail.where(
+      campaign_contact_id: email.campaign_contact_id,
+      message_name: email.message_name
+    ).where.not(sent_at: nil).count
+
+    sent_count >= max_sends
+  end
+
+  def campaign_message_class(email)
+    "CampaignMessage::#{email.message_name.camelize}".constantize
   end
 end

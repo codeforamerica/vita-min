@@ -19,5 +19,9 @@ module CampaignMessage
 
       I18n.t("campaign_messages.diy_followup_survey.email.body_html", **vars(contact), **args)
     end
+
+    def self.max_sends_per_contact
+      2
+    end
   end
 end

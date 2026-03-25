@@ -22,7 +22,6 @@
 #  index_campaign_emails_on_campaign_contact_id          (campaign_contact_id)
 #  index_campaign_emails_on_contact_id_and_message_name  (campaign_contact_id,message_name)
 #  index_campaign_emails_on_mailgun_message_id           (mailgun_message_id) UNIQUE
-#  index_unique_start_of_season_outreach_per_contact     (campaign_contact_id,message_name) UNIQUE WHERE ((message_name)::text = 'start_of_season_outreach'::text)
 #
 # Foreign Keys
 #
