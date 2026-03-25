@@ -36,9 +36,6 @@ module Diy
         message_name: "diy_followup_survey"
       )
 
-      return if existing_emails.count >= 2
-      return if existing_emails.in_progress.any?
-
         CampaignEmail.create!(
         campaign_contact_id: contact.id,
         message_name: "diy_followup_survey",
