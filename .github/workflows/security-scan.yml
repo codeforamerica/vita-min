@@ -1,0 +1,10 @@
+name: Security Scan
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  security-scan:
+    uses: codeforamerica/github-actions/.github/workflows/anchore-scan.yml@rd/security-scan
+    with:
+      path: "./"
