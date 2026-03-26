@@ -1,0 +1,113 @@
+<% @main_heading = "Messaging Dashboard" %>
+
+<%= content_for :page_title, @main_heading %>
+
+<%= content_for :card do %>
+  <style>
+      .metrics-kpis {
+          display: flex;
+          gap: 2rem;
+          margin: 5rem;
+      }
+      .metrics-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+          margin: 5rem;
+      }
+      .metrics-grid__wide {
+          grid-column: 1 / -1;
+      }
+      .metrics-chart-wrap {
+          height: 300px;
+      }
+  </style>
+
+  <div class="metrics-kpis">
+    <div><strong>Total:</strong> <%= number_with_delimiter(@total) %></div>
+    <div><strong>Succeeded:</strong> <%= number_with_delimiter(@succeeded) %></div>
+    <div><strong>Failed:</strong> <%= number_with_delimiter(@failed) %></div>
+    <div><strong>In progress:</strong> <%= number_with_delimiter(@in_progress) %></div>
+  </div>
+
+  <div class="metrics-grid">
+    <div><h3>Status Breakdown</h3><div class="metrics-chart-wrap"><canvas id="c-donut"></canvas></div></div>
+    <div><h3>Failures by Error Code</h3><div class="metrics-chart-wrap"><canvas id="c-errors"></canvas></div></div>
+    <div class="metrics-grid__wide"><h3>Messages Over Time (last 90 days)</h3><div class="metrics-chart-wrap"><canvas id="c-time"></canvas></div></div>
+    <div class="metrics-grid__wide"><h3>Status by Message Name</h3><div class="metrics-chart-wrap"><canvas id="c-msg"></canvas></div></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <script>
+      const CHART_DATA_URL = "<%= chart_data_hub_messaging_dashboard_path %>";
+
+      const PALETTE = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f", "#edc948", "#b07aa1", "#ff9da7", "#9c755f", "#bab0ac"];
+      const colorFor = (label, i) => PALETTE[i % PALETTE.length];
+
+      function buildDonut(data) {
+          const labels = Object.keys(data), values = Object.values(data);
+          const total = values.reduce((a, b) => a + b, 0);
+          new Chart("c-donut", {
+              type: "doughnut",
+              data: {labels, datasets: [{data: values, backgroundColor: labels.map((_, i) => colorFor(_, i))}]},
+              options: {
+                  plugins: {
+                      tooltip: {callbacks: {label: ctx => ` ${ctx.label}: ${ctx.parsed.toLocaleString()} (${((ctx.parsed / total) * 100).toFixed(1)}%)`}
+                      }
+                  },
+                  maintainAspectRatio: false,
+              }
+          });
+      }
+
+      function buildErrors(data) {
+          const labels = Object.keys(data), values = Object.values(data);
+          new Chart("c-errors", {
+              type: "bar",
+              data: {labels, datasets: [{label: "Count", data: values, backgroundColor: "#e15759"}]},
+              options: {indexAxis: "y", plugins: {legend: {display: false}}, maintainAspectRatio: false}
+          });
+      }
+
+      function buildTimeline(data) {
+          new Chart("c-time", {
+              type: "line",
+              data: {
+                  labels: data.labels,
+                  datasets: data.datasets.map((ds, i) => ({
+                      label: ds.label, data: ds.data,
+                      borderColor: colorFor(ds.label, i), backgroundColor: "transparent",
+                      tension: 0.3, pointRadius: 2,
+                  }))
+              },
+              options: {plugins: {tooltip: {mode: "index", intersect: false, maintainAspectRatio: false}}}
+          });
+      }
+
+      function buildMessageStatus(data) {
+          new Chart("c-msg", {
+              type: "bar",
+              data: {
+                  labels: data.labels,
+                  datasets: data.datasets.map((ds, i) => ({
+                      label: ds.label, data: ds.data, backgroundColor: colorFor(ds.label, i)
+                  }))
+              },
+              options: {
+                  maintainAspectRatio: false,
+                  plugins: {tooltip: {mode: "index", intersect: false}},
+                  scales: {x: {stacked: true}, y: {stacked: true}}
+              }
+          });
+      }
+
+      fetch(CHART_DATA_URL, {headers: {"Accept": "application/json"}})
+          .then(res => res.json())
+          .then(d => {
+              buildDonut(d.status_breakdown || {});
+              buildErrors(d.failure_by_error || {});
+              buildTimeline(d.messages_over_time || {labels: [], datasets: []});
+              buildMessageStatus(d.status_by_message || {labels: [], datasets: []});
+          });
+  </script>
+<% end %>

@@ -26,4 +26,14 @@ class OutgoingMessageStatus < ApplicationRecord
   def self.status_column
     :delivery_status
   end
+
+  def message_name
+    case parent_type
+    when "TextMessageAccessToken" then "verification_text_message"
+    when "InternalEmail" then "internal_email"
+    when "CtcSignup" then "ctc_signup"
+    when "Signup" then "signup"
+    else "unknown"
+    end
+  end
 end
