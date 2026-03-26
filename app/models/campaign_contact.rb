@@ -65,6 +65,14 @@ class CampaignContact < ApplicationRecord
     eligible_for_email(message_name).where("latest_signup_at >= ?", signup_cutoff)
   end
 
+  def self.eligible_for_fyst_email(message_name)
+    eligible_for_email(message_name).where("jsonb_array_length(state_file_intake_refs) > 0")
+  end
+
+  def self.eligible_for_gyr_email(message_name)
+    eligible_for_email(message_name).where("array_length(gyr_intake_ids, 1) > 0")
+  end
+
   # SMS -------------
   def self.eligible_for_text_message(message_name)
     where(sms_notification_opt_in: true).where.not(sms_phone_number: [nil, ""]) # opted-in
@@ -82,6 +90,14 @@ class CampaignContact < ApplicationRecord
   def self.eligible_for_text_message_with_recent_signup(message_name)
     # contacts with signups that were created from the end of the last filing season onward
     eligible_for_text_message(message_name).where("latest_signup_at >= ?", signup_cutoff)
+  end
+
+  def self.eligible_for_fyst_sms(message_name)
+    eligible_for_text_message(message_name).where("jsonb_array_length(state_file_intake_refs) > 0")
+  end
+
+  def self.eligible_for_gyr_sms(message_name)
+    eligible_for_text_message(message_name).where("array_length(gyr_intake_ids, 1) > 0")
   end
 
   private
