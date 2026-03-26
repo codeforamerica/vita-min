@@ -183,6 +183,11 @@ class MailgunWebhooksController < ActionController::Base
           error_reason: mg_data["reason"],
           error_message: mg_data.dig("delivery-status", "message")
         }
+
+        if CampaignEmail.rate_limit_signal?(email_to_update)
+          domain = CampaignEmail.domain_for(email_to_update.to_email)
+          CampaignEmail.pause_if_rate_limited!(domain)
+        end
       else
         updates[:error_code] = nil
         updates[:event_data] = nil

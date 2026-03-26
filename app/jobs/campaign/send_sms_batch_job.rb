@@ -10,6 +10,7 @@ class Campaign::SendSmsBatchJob < ApplicationJob
 
   def perform(message_name: nil, batch_size: 100, msg_delay: 1.second,
               queue_next_batch: false, recent_signups_only: false)
+    return unless CampaignMessage::CampaignMessage.valid_msg_name?(message_name) # choose one
     raise ArgumentError, "'#{message_name}' message_name is required" if message_name.nil?
     raise ArgumentError, "'#{message_name}' message has no sms body" unless message(message_name)&.sms_body(contact: nil).present?
 

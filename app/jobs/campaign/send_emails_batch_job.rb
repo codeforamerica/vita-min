@@ -11,79 +11,66 @@
 
 class Campaign::SendEmailsBatchJob < ApplicationJob
   queue_as :campaign_mailer
-  include Campaign::Scheduling
 
-  def perform(
-    message_name,
-    batch_size: 100,
-    batch_delay: 1.minute,
-    queue_next_batch: false,
-    recent_signups_only: false
-  )
+  def perform(message_name:, batch_size: 100, email_delay: 1.second,
+              queue_next_batch: false, recent_signups_only: true)
+
+    return unless CampaignMessage::CampaignMessage.valid_msg_name?(message_name)
     return if Flipper.enabled?(:cancel_campaign_emails)
-    return if rate_limited?
 
     contacts_to_message = if recent_signups_only
-                            CampaignContact.eligible_for_email_with_recent_signup(message_name).limit(batch_size).pluck(:id)
+                            CampaignContact.eligible_for_email_with_recent_signup(message_name).limit(batch_size)
                           else
-                            CampaignContact.eligible_for_email(message_name).limit(batch_size).pluck(:id)
+                            CampaignContact.eligible_for_email(message_name).limit(batch_size)
                           end
 
     return if contacts_to_message.empty?
 
-    puts "*****CAMPAIGN EMAILS: message_name=#{message_name} batch_size=#{contacts_to_message.count} recent_signups_only=#{recent_signups_only} queue_next_batch=#{queue_next_batch}*****" unless Rails.env.test?
+    # determine buffer between last batch's messages and this batch's
+    last_scheduled_for_message = CampaignEmail.where(message_name: message_name, sent_at: nil).maximum(:scheduled_send_at)
+    start_time = if last_scheduled_for_message.present?
+                   [(Time.current + 5.seconds), last_scheduled_for_message + email_delay].max
+                 else
+                   Time.current + 5.seconds
+                 end
 
-    start_time = next_business_hour_start
+    max_scheduled_send_at = nil
+    send_index = 0
 
-    CampaignContact.where(id: contacts_to_message).find_each.with_index do |contact, index|
-      # add delays between individual emails to prevent throttling
-      scheduled_send_at = start_time + (index * 0.2).seconds
+    contacts_to_message.each do |contact|
+      domain = CampaignEmail.domain_for(contact.email_address)
+      next if PausedEmailDomain.paused?(domain)
 
-      CampaignEmail.create!(
-        campaign_contact_id: contact.id,
+      scheduled_send_at = start_time + (send_index * email_delay)
+
+      email = CampaignEmail.create_or_find_for(
+        contact: contact,
         message_name: message_name,
-        to_email: contact.email_address,
         scheduled_send_at: scheduled_send_at
       )
-    rescue ActiveRecord::RecordNotUnique
-      next # already claimed by another worker
+
+      next unless email.previously_new_record?
+
+      max_scheduled_send_at = [max_scheduled_send_at, email.scheduled_send_at].compact.max
+
+      send_index += 1
     end
 
     if queue_next_batch
-      Campaign::SendEmailsBatchJob.set(wait: batch_delay)
-                                  .perform_later(message_name, batch_size: batch_size, batch_delay: batch_delay,
-                                                               queue_next_batch: true, recent_signups_only: recent_signups_only)
+      wait_seconds = if max_scheduled_send_at.present?
+                       [(max_scheduled_send_at + 5.seconds) - Time.current, 0].max
+                     else
+                       5.seconds
+                     end
+
+      Campaign::SendEmailsBatchJob.set(wait: wait_seconds).perform_later(
+        message_name: message_name, batch_size: batch_size, email_delay: email_delay,
+        queue_next_batch: true, recent_signups_only: recent_signups_only
+      )
     end
   end
 
   def priority
     PRIORITY_LOW
-  end
-
-  private
-
-  def rate_limited?
-    recent_emails = CampaignEmail.where("sent_at > ?", 1.hour.ago)
-
-    total_count = recent_emails.count
-    return false if total_count.zero?
-
-    rate_limit_phrases = ["%rate limit%", "%ratelimit%"]
-
-    rate_limited_count = recent_emails.where(
-      "error_code = ? OR event_data::text ILIKE ANY(ARRAY[?])",
-      "421",
-      rate_limit_phrases
-    ).count
-
-    rate_limited_rate = ((rate_limited_count.to_f / total_count) * 100).round(1)
-
-    if rate_limited_rate > 15
-      Flipper.enable(:cancel_campaign_emails)
-      Sentry.capture_message("Campaign Emails: Rate limiting detected: #{rate_limited_rate}% rate-limited. Pausing campaign emails. Disable :cancel_campaign_emails to start again.")
-      return true
-    end
-
-    false
   end
 end

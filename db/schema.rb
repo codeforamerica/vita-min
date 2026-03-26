@@ -615,6 +615,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
     t.text "subject"
     t.string "to_email"
     t.datetime "updated_at", null: false
+    t.index "lower(split_part((to_email)::text, '@'::text, 2))", name: "idx_campaign_emails_on_domain"
     t.index ["campaign_contact_id", "message_name"], name: "index_campaign_emails_on_contact_id_and_message_name", unique: true
     t.index ["campaign_contact_id"], name: "index_campaign_emails_on_campaign_contact_id"
     t.index ["mailgun_message_id"], name: "index_campaign_emails_on_mailgun_message_id", unique: true
@@ -1721,6 +1722,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
     t.index ["client_id"], name: "index_outgoing_text_messages_on_client_id"
     t.index ["created_at"], name: "index_outgoing_text_messages_on_created_at"
     t.index ["user_id"], name: "index_outgoing_text_messages_on_user_id"
+  end
+
+  create_table "paused_email_domains", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.citext "domain", null: false
+    t.datetime "paused_until"
+    t.string "reason"
+    t.datetime "updated_at", null: false
+    t.index ["domain"], name: "index_paused_email_domains_on_domain", unique: true
+    t.index ["paused_until"], name: "index_paused_email_domains_on_paused_until"
   end
 
   create_table "provider_scrapes", force: :cascade do |t|

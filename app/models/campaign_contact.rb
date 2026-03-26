@@ -43,6 +43,14 @@ class CampaignContact < ApplicationRecord
   has_many :signups, -> { where("signups.id = ANY(campaign_contacts.sign_up_ids)") },
            class_name: "Signup"
 
+  scope :excluding_paused_email_domains, lambda {
+    paused_domains = PausedEmailDomain.active.select(:domain)
+
+    where.not(
+      "lower(split_part(#{table_name}.email_address, '@', 2)) IN (#{paused_domains.to_sql})"
+    )
+  }
+
   def self.with_signups_from_recent_off_season
     joins(:signups).where("signups.created_at >= ?", 1.year.ago).distinct
   end
@@ -50,6 +58,7 @@ class CampaignContact < ApplicationRecord
   # Email -------------
   def self.eligible_for_email(message_name)
     where(email_notification_opt_in: true).where.not(email_address: [nil, ""]) # opted-in
+      .excluding_paused_email_domains
       .where(<<~SQL, message_name: message_name) # contact hasn't been sent this message before
         NOT EXISTS (
           SELECT 1 FROM campaign_emails
