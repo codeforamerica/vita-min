@@ -14,9 +14,8 @@ class Campaign::SendEmailsBatchJob < ApplicationJob
 
   def perform(message_name:, batch_size: 100, email_delay: 1.second,
               queue_next_batch: false, recent_signups_only: true)
-
-    return unless CampaignMessage::CampaignMessage.valid_msg_name?(message_name)
     return if Flipper.enabled?(:cancel_campaign_emails)
+    return unless CampaignMessage::CampaignMessage.valid_msg_name?(message_name)
 
     contacts_to_message = if recent_signups_only
                             CampaignContact.eligible_for_email_with_recent_signup(message_name).limit(batch_size)
