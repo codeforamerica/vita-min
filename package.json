@@ -13,10 +13,10 @@
     "@yaireo/tagify": "4.9.8",
     "babel-loader": "8",
     "braces": "^3.0.3",
-    "compression-webpack-plugin": "9",
+    "compression-webpack-plugin": "^12.0.0",
     "core-js": "^3.9.0",
     "css-loader": "^6.8.1",
-    "css-minimizer-webpack-plugin": "^5.0.1",
+    "css-minimizer-webpack-plugin": "^8.0.0",
     "html-template-tag": "^4.0.1",
     "imports-loader": "1.2.0",
     "jquery": "^3.5.1",
@@ -29,7 +29,7 @@
     "stickybits": "^3.7.9",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "5",
-    "trix": "^2.1.16",
+    "trix": "^2.1.17",
     "turbolinks": "^5.2.0",
     "webpack": "5",
     "webpack-assets-manifest": "5",
@@ -74,7 +74,9 @@
   "resolutions": {
     "webpack-dev-server/compression/on-headers": "1.1.0",
     "**/load-nyc-config/js-yaml": "^3.14.2",
-    "**/js-yaml": "^4.1.1"
+    "**/js-yaml": "^4.1.1",
+    "@tootallnate/once": "^3.0.1",
+    "http-proxy-agent": "^7.0.0"
   },
   "packageManager": "yarn@1.22.22"
 }

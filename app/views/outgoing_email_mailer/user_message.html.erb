@@ -1,5 +1,7 @@
-<% @body.split("\n") do |line| %>
-  <% if line.present? %>
+<% @body.split("\n").each do |line| %>
+  <% if line.strip.start_with?("<ul>", "<ul ") || line.strip.start_with?("<li>") || line.strip.start_with?("</ul>") %>
+    <%= line.html_safe %>
+  <% elsif line.present? %>
     <div><%= auto_link(line) %></div>
   <% else %>
     <br />

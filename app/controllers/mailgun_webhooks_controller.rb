@@ -1,4 +1,5 @@
 class MailgunWebhooksController < ActionController::Base
+  include TracksMessageStatus
   skip_before_action :verify_authenticity_token
   before_action :authenticate_mailgun_request, except: [:update_campaign_email_status]
   before_action :authenticate_outreach_mailgun_request, only: [:update_campaign_email_status]
@@ -147,14 +148,18 @@ class MailgunWebhooksController < ActionController::Base
         StateFileNotificationEmail.find_by(message_id: message_id) ||
         CampaignEmail.find_by(mailgun_message_id: message_id)
     )
-    DatadogApi.increment("mailgun.update_outgoing_email_status.email_not_found") if email_to_update.nil?
+
+    status = params.dig("event-data", "event")&.to_s
+    track_message_status("mailgun.outgoing_email.updated", email_to_update, status)
+    track_missing_record("mailgun.update_outgoing_email_status.email_not_found") if email_to_update.nil?
+
     status_key =
       if email_to_update.is_a?(OutgoingMessageStatus)
         :delivery_status
       else
         :mailgun_status
       end
-    email_to_update&.update(status_key => params.dig("event-data", "event"))
+    email_to_update&.update(status_key => status)
 
     head :ok
   end
@@ -165,10 +170,12 @@ class MailgunWebhooksController < ActionController::Base
     email_to_update = CampaignEmail.find_by(mailgun_message_id: message_id)
 
     if email_to_update.nil?
-      DatadogApi.increment("mailgun.update_campaign_email_status.email_not_found")
+      track_missing_record("mailgun.update_campaign_email_status.email_not_found")
     else
       status = mg_data["event"]&.to_s
       updates = { mailgun_status: status }
+
+      track_message_status("mailgun.campaign_email.updated", email_to_update, status)
 
       if %w[failed permanent_fail].include?(status)
         updates[:error_code] = mg_data.dig("delivery-status", "code")

@@ -1,7 +1,6 @@
 # Do these things before running this job to prevent against throttling:
 #   1. Check the number of messages you expect to run
 #   2. Add appropriate delays and monitor Twilio logs to make sure messages aren't getting throttled
-#      (signs of throttling include ....)
 #   3. If messages are getting throttled and not getting caught by the 'rate_limited?' check,
 #      then you can kill the jobs by enabling the :cancel_campaign_sms flipper flag manually
 
@@ -9,49 +8,49 @@ class Campaign::SendSmsBatchJob < ApplicationJob
   queue_as :campaign_sms
   include Campaign::Scheduling
 
-  def perform(
-    message_name, batch_size: 100, msg_delay: 1.second,
-    queue_next_batch: false, recent_signups_only: false
-  )
-    return unless CampaignMessage::CampaignMessage.valid_msg_name?(message_name)
+  def perform(message_name: nil, batch_size: 100, msg_delay: 1.second,
+              queue_next_batch: false, recent_signups_only: false)
+    return unless CampaignMessage::CampaignMessage.valid_msg_name?(message_name) # choose one
+    raise ArgumentError, "'#{message_name}' message_name is required" if message_name.nil?
+    raise ArgumentError, "'#{message_name}' message has no sms body" unless message(message_name)&.sms_body(contact: nil).present?
+
     return if Flipper.enabled?(:cancel_campaign_sms)
     return if rate_limited?
 
     contacts_to_message = if recent_signups_only
-                            CampaignContact.eligible_for_text_message_with_recent_signup(message_name).limit(batch_size).pluck(:id)
+                            CampaignContact.eligible_for_text_message_with_recent_signup(message_name).limit(batch_size)
                           else
-                            CampaignContact.eligible_for_text_message(message_name).limit(batch_size).pluck(:id)
+                            CampaignContact.eligible_for_text_message(message_name).limit(batch_size)
                           end
 
-    puts "*****CAMPAIGN SMS: message_name=#{message_name} batch_size=#{contacts_to_message.count} recent_signups_only=#{recent_signups_only} queue_next_batch=#{queue_next_batch}*****" unless Rails.env.test?
     return if contacts_to_message.empty?
 
-    start_time = next_business_hour_start
+    msg_start_time = message_start_time(message_name: message_name, msg_delay: msg_delay)
+    max_scheduled_send_at = nil
+    send_index = 0
 
-    index = 0
-    CampaignContact.where(id: contacts_to_message).find_each do |contact|
-      # add delays between sms-messages to prevent throttling
-      scheduled_send_at = start_time + (index * 0.2).seconds
+    contacts_to_message.each do |contact|
+      # add delays between sms-messages to prevent throttling,
+      # eventually we can get rid of this and use Twilio's traffic shaping feature when its out of beta
+      scheduled_send_at = msg_start_time + (send_index * msg_delay)
 
-      CampaignSms.create!(
-        campaign_contact_id: contact.id,
+      sms = CampaignSms.create_or_find_for(
+        contact: contact,
         message_name: message_name,
-        body: message(message_name).sms_body(contact: contact),
-        to_phone_number: contact.sms_phone_number,
         scheduled_send_at: scheduled_send_at
       )
-      index += 1
-    rescue ActiveRecord::RecordNotUnique
-      next # already claimed by another worker
+
+      next unless sms.previously_new_record?
+
+      max_scheduled_send_at = [max_scheduled_send_at, scheduled_send_at].compact.max
+      send_index += 1
     end
 
     if queue_next_batch
-      Campaign::SendSmsBatchJob.set(wait: batch_delay)
+      Campaign::SendSmsBatchJob.set(wait: batch_buffer(max_scheduled_send_at))
                                .perform_later(
-                                 message_name,
-                                 batch_size: batch_size,
-                                 batch_delay: batch_delay,
-                                 queue_next_batch: true,
+                                 message_name: message_name, batch_size: batch_size,
+                                 msg_delay: msg_delay, queue_next_batch: true,
                                  recent_signups_only: recent_signups_only
                                )
     end
@@ -62,6 +61,25 @@ class Campaign::SendSmsBatchJob < ApplicationJob
   end
 
   private
+
+  def message_start_time(message_name:, msg_delay:)
+    twilio_scheduled_sent_at_minimum = 16.minutes
+    last_scheduled_for_message = CampaignSms.where(message_name: message_name, sent_at: nil).maximum(:scheduled_send_at)
+    if last_scheduled_for_message.present?
+      [(Time.current + twilio_scheduled_sent_at_minimum), last_scheduled_for_message + msg_delay].max
+    else
+      Time.current + twilio_scheduled_sent_at_minimum
+    end
+  end
+
+  def batch_buffer(max_scheduled_send_at)
+    # buffer for the actual batch job
+    if max_scheduled_send_at.present?
+      [(max_scheduled_send_at + 5.seconds) - Time.current, 0].max
+    else
+      5.seconds
+    end
+  end
 
   def message(message_name)
     klass = "CampaignMessage::#{message_name.camelize}".safe_constantize

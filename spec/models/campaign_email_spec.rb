@@ -78,7 +78,7 @@ RSpec.describe CampaignEmail, type: :model do
       Timecop.return
     end
 
-    let(:contact) { create(:campaign_contact) }
+    let(:contact) { create(:campaign_contact, email_notification_opt_in: true) }
 
     context "when scheduled_send_at is blank" do
       it "enqueues SendCampaignEmailJob immediately" do
@@ -116,6 +116,15 @@ RSpec.describe CampaignEmail, type: :model do
           email = build(:campaign_email, campaign_contact: contact, mailgun_status: status)
           expect(email).to be_valid, "expected #{status.inspect} to be valid"
         end
+      end
+    end
+
+    context "when not opted into sms messages" do
+      let(:contact_opted_out) { create(:campaign_contact, email_notification_opt_in: false) }
+      it "does not queue the sms message" do
+        expect do
+          create(:campaign_email, :with_delivery, campaign_contact: contact_opted_out, scheduled_send_at: nil)
+        end.not_to have_enqueued_job(Campaign::SendCampaignEmailJob)
       end
     end
   end

@@ -28,6 +28,7 @@
 #
 class CampaignSms < ApplicationRecord
   include RecordsTwilioStatus
+  belongs_to :campaign_contact
 
   def self.status_column
     :twilio_status
@@ -41,13 +42,26 @@ class CampaignSms < ApplicationRecord
   scope :failed, -> { where(twilio_status: TwilioService::FAILED_STATUSES) }
   scope :in_progress, -> { where(twilio_status: TwilioService::IN_PROGRESS_STATUSES) }
 
+  def self.create_or_find_for(contact:, message_name:, scheduled_send_at: nil)
+    message_body = "CampaignMessage::#{message_name.camelize}".safe_constantize&.new&.sms_body(contact: contact)
+    return unless message_body
+
+    create!(
+      campaign_contact_id: contact.id,
+      message_name: message_name,
+      to_phone_number: contact.sms_phone_number,
+      body: message_body,
+      scheduled_send_at: scheduled_send_at
+    )
+  rescue ActiveRecord::RecordNotUnique
+    find_by!(to_phone_number: contact.sms_phone_number, message_name: message_name)
+  end
+
   private
 
   def deliver
-    if scheduled_send_at.blank? || Time.current >= scheduled_send_at
-      Campaign::SendCampaignSmsJob.perform_later(id)
-    else
-      Campaign::SendCampaignSmsJob.set(wait_until: scheduled_send_at).perform_later(id)
-    end
+    return unless campaign_contact.sms_notification_opt_in == true
+
+    Campaign::SendCampaignSmsJob.perform_later(id)
   end
 end

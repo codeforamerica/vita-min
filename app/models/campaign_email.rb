@@ -112,6 +112,8 @@ class CampaignEmail < ApplicationRecord
   private
 
   def deliver
+    return unless campaign_contact.email_notification_opt_in == true
+
     if scheduled_send_at.blank? || Time.current >= scheduled_send_at
       Campaign::SendCampaignEmailJob.perform_later(id)
     else

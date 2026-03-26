@@ -30,7 +30,7 @@ class IncomingTextMessageService
         client: client,
       )
 
-      ProcessTextMessageAttachmentsJob.perform_now(contact_record.id, client.id, params)
+      ProcessTextMessageAttachmentsJob.perform_later(contact_record.id, client.id, params)
 
       TransitionNotFilingService.run(client)
 

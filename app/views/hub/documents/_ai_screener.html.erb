@@ -1,0 +1,10 @@
+<% if current_user.admin? %>
+  <% verdict = @document.latest_assessment&.matches_doc_type_verdict %>
+  <% unless verdict.blank? %>
+    <%= render "hub/documents/smart_scan_card",
+               document: @document,
+               state: verdict == "pass" ? "success" : "fail" %>
+
+    <%= render "hub/documents/feedback_collection" %>
+  <% end %>
+<% end %>

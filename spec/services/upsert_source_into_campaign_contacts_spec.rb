@@ -14,7 +14,8 @@ RSpec.describe Campaign::UpsertSourceIntoCampaignContacts do
         sms_opt_in: sms_opt_in,
         locale: locale,
         latest_signup_at: latest_signup_at,
-        latest_gyr_intake_at: latest_gyr_intake_at
+        latest_gyr_intake_at: latest_gyr_intake_at,
+        backfill: backfill
       )
     end
 
@@ -29,6 +30,7 @@ RSpec.describe Campaign::UpsertSourceIntoCampaignContacts do
     let(:locale) { "es" }
     let(:latest_signup_at) { 1.day.ago }
     let(:latest_gyr_intake_at) { 2.days.ago }
+    let(:backfill) { false }
 
     context "when no existing contact matches" do
       it "creates a new CampaignContact" do
@@ -201,11 +203,22 @@ RSpec.describe Campaign::UpsertSourceIntoCampaignContacts do
         let(:email_opt_in) { false }
         let(:sms_opt_in) { false }
 
-        it "does not turn off existing true opt-ins" do
+        context "when its coming from a backfill" do
+          let(:backfill) { true }
+
+          it "does not turn off existing true opt-ins" do
+            existing.update!(email_notification_opt_in: true, sms_notification_opt_in: true)
+            contact = call_service
+            expect(contact.email_notification_opt_in).to eq(true)
+            expect(contact.sms_notification_opt_in).to eq(true)
+          end
+        end
+
+        it "turns off existing true opt-ins" do
           existing.update!(email_notification_opt_in: true, sms_notification_opt_in: true)
           contact = call_service
-          expect(contact.email_notification_opt_in).to eq(true)
-          expect(contact.sms_notification_opt_in).to eq(true)
+          expect(contact.email_notification_opt_in).to eq(false)
+          expect(contact.sms_notification_opt_in).to eq(false)
         end
       end
 

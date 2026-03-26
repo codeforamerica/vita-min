@@ -10,5 +10,23 @@
     </div>
 
     <%= f.continue t(".send_code") %>
+    <h1 class="h3"><%= t(".starting_a_new_return") %></h1>
+    <p><%= t(".each_tax_year")%></p>
+    <p> <%= t(".new_return_html", link: eligibility_wages_questions_path) %></p>
+    <div class="reveal-shrink-wrapper">
+      <div class="reveal">
+        <button class="reveal__button"><%= t('.created_an_account_last_year') %></button>
+        <div class="reveal__content">
+          <%= t(".to_log_in_html") %>
+          <%= t(".please_include") %>
+          <ul class="with-bullets">
+            <li><%= t(".reason") %></li>
+            <li><%= t(".full_name") %></li>
+            <li><%= t(".client_id") %></li>
+            <li><%= t(".contact") %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
   <% end %>
 <% end %>

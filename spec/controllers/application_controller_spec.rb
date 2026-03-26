@@ -492,6 +492,8 @@ RSpec.describe ApplicationController do
       cookies[:visitor_id] = "123"
       session[:source] = "vdss"
       session[:utm_state] = "CA"
+      session[:utm_campaign] = "w1"
+      session[:utm_medium] = "sms"
       request.headers["HTTP_USER_AGENT"] = user_agent_string
       request.headers["HTTP_REFERER"] = "http://coolwebsite.horse/tax-help/vita"
     end
@@ -508,6 +510,8 @@ RSpec.describe ApplicationController do
       expected_mixpanel_data = {
         sound: "boop",
         source: "vdss",
+        utm_campaign: "w1",
+        utm_medium: "sms",
         utm_state: "CA",
         referrer: "http://coolwebsite.horse/tax-help/vita",
         referrer_domain: "coolwebsite.horse",

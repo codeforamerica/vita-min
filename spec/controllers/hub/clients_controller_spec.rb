@@ -695,7 +695,7 @@ RSpec.describe Hub::ClientsController do
           let!(:excluded_client) { create :client, vita_partner: create(:organization), tax_returns: [(build :gyr_tax_return, :intake_in_progress)], intake: (build :intake) }
 
           it "includes clients who are assigned to those vita partners" do
-            get :index, params: { vita_partners: [{ id: organization.id, name: organization.name, value: organization.id }, { id: site.id, name: site.name, value: site.id }].to_json }
+            get :index, params: { vita_partners: [organization.id, site.id].to_json }
 
             expect(assigns(:clients)).to include included_client
             expect(assigns(:clients)).to include included_site_client

@@ -28,6 +28,33 @@ en:
     primary_ssn: SSN or ITIN
     spouse_ssn: Spouse's SSN or ITIN
   campaign_messages:
+    diy_followup_survey:
+      email:
+        body_html: |
+          Hello,
+
+          Whether you’ve already filed or are still working on your return, we’re glad you’re here!
+
+          <strong>Filed already?</strong> Please consider filling out our short survey to share your experience. Your feedback helps us improve our tools.
+
+          <a href="%{survey_link}" target="_blank" rel="noopener nofollow">%{survey_link}</a>
+
+          <strong>Still working on your return?</strong>
+          <ul>
+            <li>You can return to the <a href="https://www.taxslayer.com/v.aspx?rdr=/vitafsa&source=TSUSATY2025&sidn=01011934" target="_blank" rel="noopener nofollow">File Myself tool by clicking this link</a></li>
+
+            <li>You can take a look at our guides here (<a href="http://codeforamerica.org/diyclientguide" target="_blank" rel="noopener nofollow">PDF for Computer</a> | <a href="http://codeforamerica.org/diyclientguidemobile" target="_blank" rel="noopener nofollow">PDF for Mobile</a>).</li>
+
+            <li>Our Client Support team is available through the “Chat” feature on our website or by email at <a href="mailto:DIY@getyourrefund.org">diy@getyourrefund.org</a>.</li>
+          </ul>
+
+          You don’t have to figure it out alone! We’re happy to support you, wherever you are in the filing process.
+
+          Take care,
+          GetYourRefund’s Support Team
+
+          (Replies to this email are not monitored.)
+        subject: Checking in on your taxes
     start_of_season_outreach:
       email:
         body_html: |
@@ -37,7 +64,7 @@ en:
 
           We would love to help you file your taxes for free again this year. Our IRS-certified team is here to help.
 
-          When you are ready to start, head to <a href="https://www.getyourrefund.org/en/outreach" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
+          When you are ready to start, head to <a href="https://www.getyourrefund.org/en?utm_campaign=w1&utm_medium=email&utm_source=gyr" target="_blank" rel="noopener nofollow">GetYourRefund.org</a>.
 
           Best,
 
@@ -132,6 +159,12 @@ en:
         - We’re here to make your tax-filing experience smooth and stress-free. Explore our guides and FAQs to find quick answers and stay confident as you file.
         - "<b>If you get stuck at any point or have questions, reach out to our support team!</b>"
         title: File on your own and get support when you need it
+    initial_info:
+      edit:
+        first_name: First name
+        state_of_residence: State of residence
+        title: To get started, we’ll need some basic information.
+        zip_code: Zip code
     notification_preference:
       body: We will reach out about free tax filing support and other free services. We may also send surveys to improve your experience. Please select the option(s) that work best for you!
     qualifications:
@@ -1080,6 +1113,12 @@ en:
         smart_scan: Smart Scan
         system_generated_doc: Auto-generated
         upload_date: Upload Date
+      smart_scan_card:
+        is_accurate: "%{document_type} is accurate"
+        is_inaccurate: 'Suggested document type: %{document_type}.'
+        validation_fail: Validation Fail
+        validation_passed: Validation Passed
+        validoc_notes: Smart Scan Notes
     has_duplicates: Potential duplicates detected
     has_previous_year_intakes: Previous year intake(s)
     itin_applicant: ITIN applicant
@@ -1214,7 +1253,7 @@ en:
       prep_needs_more_information: "This is <<Preparer.FirstName>> with GetYourRefund. We're preparing your tax return but cannot move forward without additional information from you. Please upload REPLACE ME securely here: 🔗https://getyourrefund.org/en/portal/login\n\nReply to this message if you have any questions - we're here to help!\n"
       prep_preparing: "Hi <<Client.PreferredName>>,\n\nYour tax return is being prepared 👏! We'll get in touch with updates or if we need additional information from you and will reach out again when it's time to schedule a call to review your return with you. If you have any questions, simply reply to this message.\n\nThanks! <<Preparer.FirstName>> at GetYourRefund\n"
       review_needs_more_information: "This is <<Preparer.FirstName>> with GetYourRefund. We are almost finished with your tax return but cannot move forward without additional information from you. Please upload REPLACE ME securely here: 🔗https://getyourrefund.org/en/portal/login\n\nReply to this message if you have any questions - we're here to help!\n"
-      review_ready_for_call: "Great news, <<Client.PreferredName>>! Your tax return is ready for us to review together 🎉 and I can give you a call to go over it. Please look for a call on/at REPLACE ME from 14156393361. If this time doesn't work, reply with your preferred time and we can reschedule.\n\nThank you! <<Preparer.FirstName>> at GetYourRefund\n"
+      review_ready_for_call: "Great news, <<Client.PreferredName>>! Your tax return is ready for us to review together 🎉 and I can give you a call to go over it. Please look for a call on/at REPLACE ME from <<GetYourRefund.PhoneNumber>>. If this time doesn't work, reply with your preferred time and we can reschedule.\n\nThank you! <<Preparer.FirstName>> at GetYourRefund\n"
       review_reviewing: |
         Hello <<Client.PreferredName>>,
 
@@ -2031,9 +2070,19 @@ en:
           bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 3 failed attempts, accounts are locked.
           bad_verification_code: Incorrect verification code. After 3 failed attempts, accounts are locked.
       new:
-        one_form_of_contact: 'Please enter one form of contact below:'
+        client_id: client ID
+        contact: the email or phone number on your file
+        created_an_account_last_year: What if I created an account last year?
+        each_tax_year: Each tax year requires a new account even if you’ve filed with us before.
+        full_name: full name
+        new_return_html: <a href="%{link}">Start a new return</a>.
+        one_form_of_contact: If you started your taxes with us this year, enter your email or phone number and we’ll send you a secure code to sign in.
+        please_include: 'Please include the following in your message:'
+        reason: reason for log in
         send_code: Send code
-        title: We’ll send you a secure code to sign in
+        starting_a_new_return: Starting a new return this year?
+        title: Sign in to your account
+        to_log_in_html: To log in to an account made in previous year, please reach out to <a href="mailto:support@getyourrefund.org">support@getyourrefund.org.</a>
     closed_logins:
       show:
         body_html: If you would like to receive a notification for when we open next year in January, please sign up <a href="%{link}">here</a>.
@@ -4898,28 +4947,30 @@ en:
       body_html: |
         <p>Hello!</p>
         <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 30 minutes.</p>
-        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>Did you receive this code without signing up? Email us at <a href="mailto:%{support_email}">%{support_email}</a></p>
         <p>Your tax team at %{service_name}.org</p>
       body_text: |
         Hello!
 
         Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 30 minutes.
 
-        Did you receive this code without signing up? Email us at help@%{service_name_lower}.org
+        Did you receive this code without signing up? Email us at %{support_email}
 
         Your tax team at %{service_name}.org
       subject: Six-Digit Code from FileYourStateTaxes
     no_match:
       body_html: |
-        Hello,<br /><br />
+        <p>Hello,</p>
 
-        It looks like you attempted to sign in to %{service_name}, but we did not find any matching contact information.<br />
-        You may have used different email address to set up your %{service_name} account. You’ll need to sign in with the original email address you used when you signed up.<br />
-        If you have not submitted your information to %{service_name}, <a href="%{url}">visit %{service_name}.org</a> to get started.<br /><br />
+        <p>It looks like you attempted to sign in to %{service_name}, but we did not find any matching contact information.</p>
 
-        We're here to help,<br /><br />
+        <p>You may have used different email address to set up your %{service_name} account. You’ll need to sign in with the original email address you used when you signed up.</p>
 
-        Your tax team at %{service_name}
+        <p>If you have not submitted your information to %{service_name}, <a href="%{url}">visit %{service_name}.org</a> to get started.</p>
+
+        <p>We're here to help,</p>
+
+        <p>Your tax team at %{service_name}</p>
       body_text: |
         Hello,
 
@@ -4937,14 +4988,14 @@ en:
       body_html: |
         <p>Hello!</p>
         <p>Your six-digit verification code for %{service_name} is: <strong> %{verification_code}.</strong> This code will expire after 10 minutes.</p>
-        <p>Did you receive this code without signing up? Email us at <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>Did you receive this code without signing up? Email us at <a href="mailto:%{support_email}">%{support_email}</a></p>
         <p>Your tax team at %{service_name}.org</p>
       body_text: |
         Hello!
 
         Your six-digit verification code for %{service_name} is: %{verification_code}. This code will expire after 10 minutes.
 
-        Did you receive this code without signing up? Email us at help@%{service_name_lower}.org
+        Did you receive this code without signing up? Email us at %{support_email}
 
         Your tax team at %{service_name}.org
   verification_code_sms:
@@ -5277,7 +5328,7 @@ en:
             respect: We value and respect your privacy and offer you choices over how we collect, use, and share your information.
             sms:
               header: Transactional SMS (Text) Messages
-              unsubscribe: You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see CFA’s SMS Terms, for additional details and opt-out instructions for these services. Data obtained through the short code program will not be shared with any third-parties for their marketing reasons/purposes.
+              unsubscribe_html: You may unsubscribe to transactional messages by texting STOP to 58750 at any time. After we receive your opt-out request, we will send you a final text message to confirm your opt-out. Please see CFA’s <a href='%{link}' target="_blank" rel="noopener nofollow">SMS terms</a>, for additional details and opt-out instructions for these services. Data obtained through the short code program will not be shared with any third-parties for their marketing reasons/purposes.
           examples:
             business_relationship: Third parties with whom we have a business relationship to send you information about other programs and services
             research: Third parties to distribute surveys, focus groups, or for other administrative, analytical, and marketing purposes
@@ -5855,7 +5906,6 @@ en:
         title: Select any situations that were true for your spouse in %{year}
       ssn_itin:
         title: Please provide your taxpayer identification information.
-        warning_html: '⚠️ <b>Immigrant filers</b>: As of April 2025, the IRS and Dept. of Homeland Security (including ICE) have reached an agreement to share data between the agencies. <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">Please see our FAQ for more information if you have any concerns.</a>'
       start_with_current_year:
         starting_point: This is just a starting point, you will be able to discuss your situation in depth with your tax specialist over the phone.
         title: We’ll start by asking about your situation in %{year}.

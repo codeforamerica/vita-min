@@ -24,7 +24,8 @@ module Campaign
               email_opt_in: intake.email_notification_opt_in == "yes",
               sms_opt_in: intake.sms_notification_opt_in == "yes",
               locale: intake.locale,
-              latest_gyr_intake_at: intake.created_at
+              latest_gyr_intake_at: intake.created_at,
+              backfill: true
             )
           rescue => e
             Sentry.capture_exception(e, extra: { job: self.class.name, gyr_id: intake.id, })
