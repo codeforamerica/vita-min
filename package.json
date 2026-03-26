@@ -23,7 +23,6 @@
     "jquery-mask-plugin": "^1.14.16",
     "jquery-ui": "^1.13.2",
     "mini-css-extract-plugin": "^2.7.6",
-    "picomatch": "^4.0.4",
     "prop-types": "^15.7.2",
     "regenerator-runtime": "^0.13.7",
     "shakapacker": "9.5.0",
