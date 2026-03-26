@@ -261,6 +261,34 @@ describe Document do
     end
   end
 
+  describe "after_update_commit" do
+    include ActiveJob::TestHelper
+
+    let!(:document) { create(:document, document_type: DocumentTypes::SsnItin.key) }
+
+    before do
+      clear_enqueued_jobs
+    end
+
+    context "when document_type changes" do
+      it "enqueues the screener job" do
+        expect {
+          document.update!(document_type: DocumentTypes::PrimaryIdentification::DriversLicense.key)
+        }.to have_enqueued_job(DocScreenerJob).with(document.id)
+      end
+    end
+
+    context "when skip_screener_rerun is true" do
+      it "does not enqueue the screener job" do
+        document.skip_screener_rerun = true
+
+        expect {
+          document.update!(document_type: DocumentTypes::PrimaryIdentification::DriversLicense.key)
+        }.not_to have_enqueued_job(DocScreenerJob)
+      end
+    end
+  end
+
   describe "creating a document" do
     let(:document) { build :document }
     let(:object) { document }
