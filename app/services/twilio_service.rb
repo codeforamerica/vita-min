@@ -81,10 +81,13 @@ class TwilioService
   end
 
   def fetch_attachment(url)
-    response = Net::HTTP.get_response(URI(url)) # first we get a redirect from Twilio to S3
-    response = Net::HTTP.get_response(URI(response['location'])) # then we get a redirect from S3 to S3
-    response = Net::HTTP.get_response(URI(response['location'])) # finally we should get a 200 OK with the file
-    filename_from_s3 = response['content-disposition'].split('"').last # S3 gives us the original filename
+    response = Net::HTTP.get_response(URI(url))
+
+    while response.is_a?(Net::HTTPRedirection)  # first we check to see if we got a redirect
+      response = Net::HTTP.get_response(URI(response["location"]))
+    end
+
+    filename_from_s3 = response["content-disposition"].split('"').last
     {
       filename: filename_from_s3,
       body: response.body,
@@ -104,7 +107,7 @@ class TwilioService
       content_type = params["MediaContentType#{i}"]
       attachment = fetch_attachment(params["MediaUrl#{i}"])
 
-      raise MissingAttachmentError if attachment[:body].nil?
+      raise TwilioMissingAttachmentError if attachment[:body].nil?
 
       if FileTypeAllowedValidator.mime_types(Document).include?(content_type) && !attachment[:body].empty?
         {

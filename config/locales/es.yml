@@ -158,6 +158,12 @@ es:
         - Estamos aquí para que su experiencia al presentar impuestos sea sencilla y sin estrés. Explore nuestras guías y preguntas frecuentes para encontrar respuestas rápidas y tener la seguridad que necesita mientras presenta su declaración de impuestos.
         - "<b>Si en algún momento no sabe cómo avanzar o tiene preguntas, comuníquese con nuestro equipo de servicio al cliente:</b>"
         title: Presente su declaración por su cuenta y reciba apoyo cuando lo necesite
+    initial_info:
+      edit:
+        first_name: Primer nombre
+        state_of_residence: Estado de residencia
+        title: Para comenzar, necesitaremos recopilar información básica.
+        zip_code: Código postal
     notification_preference:
       body: Pondremos en contacto con usted sobre apoyo gratuito para presentar impuestos y otros servicios gratuitos. También podríamos enviarle encuestas para mejorar su experiencia con nosotros. ¡Seleccione la(s) opción(es) que mejor se adapte(n) a usted!
     qualifications:
@@ -1243,7 +1249,7 @@ es:
       prep_needs_more_information: "Soy <<Preparer.FirstName>> de GetYourRefund.\nEstamos preparando su declaración, pero no podemos avanzar sin información adicional.\nPor favor, suba con la opción REPLACE ME aquí:🔗 https://getyourrefund.org/es/portal/login \nSi tiene alguna pregunta, responda a este mensaje. Estamos para ayudarle.\n"
       prep_preparing: "Hola <<Client.PreferredName>>,\n\n¡Su declaración está siendo preparada 👏!\nNos comunicaremos con actualizaciones o si necesitamos más información. También le avisaremos cuando sea momento de coordinar la llamada para revisar su declaración. Si tiene alguna pregunta, responda a este mensaje.\n\nGracias, <<Preparer.FirstName>> GetYourRefund\n"
       review_needs_more_information: "Soy <<Preparer.FirstName>> de GetYourRefund.\nEstamos preparando su declaración, pero no podemos avanzar sin información adicional.\nPor favor, suba con la opción REPLACE ME aquí: 🔗 https://getyourrefund.org/es/portal/login \nSi tiene alguna pregunta, responda a este mensaje. Estamos para ayudarle.\n"
-      review_ready_for_call: "¡Tenemos buenas noticias, <<Client.PreferredName>>!\nSu declaración está lista para revisarla 🎉. Puedo llamarle para hacerlo juntos.\nEsté pendiente de una llamada desde 14156393361 el REPLACE ME\nSi ese horario no le funciona, responda a este mensaje con una hora que prefiera y podemos reprogramar.\n\nMuchas gracias, <<Preparer.FirstName>> GetYourRefund\n"
+      review_ready_for_call: "¡Tenemos buenas noticias, <<Client.PreferredName>>!\nSu declaración está lista para revisarla 🎉. Puedo llamarle para hacerlo juntos.\nEsté pendiente de una llamada desde <<GetYourRefund.PhoneNumber>> el REPLACE ME\nSi ese horario no le funciona, responda a este mensaje con una hora que prefiera y podemos reprogramar.\n\nMuchas gracias, <<Preparer.FirstName>> GetYourRefund\n"
       review_reviewing: |
         ¡Hola <<Client.PreferredName>>!
 
@@ -2036,9 +2042,19 @@ es:
           bad_input: ID de cliente o los 4 últimos de SSN/ITIN incorrectos. Después de 3 intentos fallidos, las cuentas se bloquean.
           bad_verification_code: Código incorrecto. Después de 3 intentos fallidos, las cuentas se bloquean.
       new:
-        one_form_of_contact: 'Ingresa una forma de contacto a continuación:'
-        send_code: Enviar el código
-        title: Le enviaremos un código seguro para iniciar sesión
+        client_id: Identificación del cliente
+        contact: el correo electrónico o número de teléfono registrado en su declaración
+        created_an_account_last_year: "¿Necesita ver su declaración del año pasado?"
+        each_tax_year: Cada año fiscal requiere una cuenta nueva, aunque haya presentado sus impuestos con nosotros antes.
+        full_name: Nombre completo
+        new_return_html: <a href="%{link}">Iniciar una nueva declaración</a>
+        one_form_of_contact: Si comenzó su declaración de impuestos con nosotros este año, ingrese su correo electrónico o número de teléfono y le enviaremos un código seguro para iniciar sesión.
+        please_include: 'Incluya lo siguiente en su mensaje:'
+        reason: Motivo de su solicitud
+        send_code: Enviar código
+        starting_a_new_return: "¿Quiere iniciar su declaración de este año?"
+        title: Iniciar sesión en su cuenta
+        to_log_in_html: Envíe un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org</a> e incluya lo siguiente en su mensaje.
     closed_logins:
       show:
         body_html: Si desea recibir una notificación sobre cuándo abriremos el próximo año en enero, regístrese <a href="%{link}">aquí</a>.
@@ -4906,13 +4922,13 @@ es:
       body_html: |
         <p>¡Hola!</p>
         <p>Tu código de verificación de seis dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará después de 30 minutos.</p>
-        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:%{support_email}">%{support_email}</a></p>
         <p>Tu equipo de impuestos en %{service_name}.org</p>
       body_text: |
         ¡Hola!
         Tu código de verificación de seis dígitos para %{service_name} es: %{verification_code}. Este código expirará después de 30 minutos.
 
-        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@%{service_name_lower}.org
+        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a %{support_email}
 
         Tu equipo de impuestos en %{service_name}.org
       subject: Código de verificación de seis dígitos para FileYourStateTaxes
@@ -4946,13 +4962,13 @@ es:
       body_html: |
         <p>¡Hola!</p>
         <p>Tu código de verificación de seis dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará después de 10 minutos.</p>
-        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="%{support_email}">%{support_email}</a></p>
         <p>Tu equipo de impuestos en %{service_name}.org</p>
       body_text: |
         ¡Hola!
         Tu código de verificación de seis dígitos para %{service_name} es: %{verification_code}. Este código expirará después de 10 minutos.
 
-        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@%{service_name_lower}.org
+        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a %{support_email}
 
         Tu equipo de impuestos en %{service_name}.org
   verification_code_sms:

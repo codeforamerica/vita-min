@@ -833,6 +833,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
     t.integer "sms_notification_opt_in", default: 0
     t.string "sms_phone_number"
     t.string "source"
+    t.string "state_of_residence"
     t.string "token"
     t.datetime "updated_at", null: false
     t.string "visitor_id"

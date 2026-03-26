@@ -43,6 +43,7 @@ gem 'aws-sdk-route53'
 gem 'device_detector', '~> 1.0.7' # 1.1+ causes test failures, investigate someday
 gem 'mixpanel-ruby'
 gem 'devise'
+gem 'bcrypt', '>= 3.1.22'
 gem 'devise-i18n'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'

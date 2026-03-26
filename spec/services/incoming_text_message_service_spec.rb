@@ -158,7 +158,12 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
       end
 
       it "creates an incoming text message with the attachments associated" do
-        IncomingTextMessageService.process(incoming_message_params)
+        expect {
+          IncomingTextMessageService.process(incoming_message_params)
+        }.to have_enqueued_job
+
+        perform_enqueued_jobs
+        assert_performed_jobs 1
 
         documents = client.documents
 

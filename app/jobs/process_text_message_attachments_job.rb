@@ -1,7 +1,10 @@
-class MissingAttachmentError < StandardError; end
+class TwilioMissingAttachmentError < StandardError; end
 
 class ProcessTextMessageAttachmentsJob < ApplicationJob
-  retry_on MissingAttachmentError, attempts: 10
+  retry_on TwilioMissingAttachmentError, attempts: 10
+  # Per GYR1-706: "It seems that Twilio sends us S3 URLs for text attachments
+  # that haven't been fully processed, because we get 404s when we try to access
+  # them. These attachments become accessible at some later point"
 
   def perform(incoming_text_message_id, client_id, params)
     attachments = TwilioService.new.parse_attachments(params)

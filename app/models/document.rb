@@ -86,8 +86,9 @@ class Document < ApplicationRecord
       InteractionTrackingService.record_internal_interaction(client)
     end
 
-    HeicToJpgJob.perform_later(id) if is_heic?
-    DocScreenerJob.perform_later(id) unless is_heic?
+    is_heic? ?
+      HeicToJpgJob.perform_later(id).then(DocScreenerJob) :
+      DocScreenerJob.perform_later(id)
   end
   after_save_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
   after_destroy_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
