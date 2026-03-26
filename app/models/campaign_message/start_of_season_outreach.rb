@@ -12,6 +12,9 @@ module CampaignMessage
       I18n.t("campaign_messages.start_of_season_outreach.email.subject", **vars(contact), **args)
     end
 
+    def self.max_sends_per_contact
+      1
+    end
     def email_body(contact:, **args)
       I18n.t("campaign_messages.start_of_season_outreach.email.body_html", **vars(contact), **args)
     end

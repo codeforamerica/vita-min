@@ -32,6 +32,82 @@ RSpec.describe Campaign::SendCampaignEmailJob, type: :job do
       end
     end
 
+    context "when max sends for the message has already been reached" do
+      let(:email) do
+        create(
+          :campaign_email,
+          campaign_contact: contact,
+          message_name: "start_of_season_outreach",
+          mailgun_message_id: nil,
+          scheduled_send_at: nil
+        )
+      end
+
+      before do
+        create(
+          :campaign_email,
+          campaign_contact: contact,
+          message_name: "start_of_season_outreach",
+          sent_at: 1.hour.ago,
+          mailgun_message_id: "<already-sent-id>"
+        )
+      end
+
+      it "does not send the email" do
+        expect(CampaignMailer).not_to receive(:email_message)
+
+        perform_job
+      end
+
+      it "does not update the email as sent" do
+        expect { perform_job }.not_to change { email.reload.mailgun_message_id }
+        expect(email.reload.sent_at).to be_nil
+      end
+    end
+
+    context "when max sends for the message has not been reached" do
+      let(:email) do
+        create(
+          :campaign_email,
+          campaign_contact: contact,
+          message_name: "diy_followup_survey",
+          mailgun_message_id: nil,
+          scheduled_send_at: nil
+        )
+      end
+
+      before do
+        create(
+          :campaign_email,
+          campaign_contact: contact,
+          message_name: "diy_followup_survey",
+          sent_at: 1.hour.ago,
+          mailgun_message_id: "<already-sent-id>"
+        )
+      end
+
+      it "still sends the email" do
+        response = instance_double(
+          "Mail::Message",
+          message_id: "<mailgun-id-123>",
+          to: ["a@example.com"],
+          from: ["noreply@example.com"],
+          subject: "Hello!",
+          date: Time.current
+        )
+
+        mailer_delivery = instance_double("MailerDelivery", deliver_now: response)
+
+        expect(CampaignMailer).to receive(:email_message).with(
+          campaign_email: email
+        ).and_return(mailer_delivery)
+
+        perform_job
+
+        expect(email.reload.mailgun_message_id).to eq("<mailgun-id-123>")
+      end
+    end
+
     context "when scheduled_send_at is blank (send now)" do
       it "sends via CampaignMailer with locale fallback and updates email fields" do
         response = instance_double(
