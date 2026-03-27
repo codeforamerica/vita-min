@@ -119,7 +119,8 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  gem 'rspec-rails'
+  #gem 'rspec-rails'
+  gem 'rspec-rails', '~> 8.0', '>= 8.0.4'
   gem 'rails-controller-testing'
   gem 'pry-byebug'
   gem 'guard-rspec', require: false
