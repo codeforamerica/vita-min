@@ -3,15 +3,16 @@ require "fileutils"
 
 # path to your application root.
 APP_ROOT = File.expand_path("..", __dir__)
+APP_NAME = "vita-min"
 
 def system!(*args)
   system(*args) || abort("\n== Command #{args} failed ==")
 end
 
 FileUtils.chdir APP_ROOT do
-  # This script is a way to setup or update your development environment automatically.
+  # This script is a way to set up or update your development environment automatically.
   # This script is idempotent, so that you can run it at anytime and get an expectable outcome.
-  # Add necessary setup steps to this file.
+  # Add necessary set up steps to this file.
 
   puts "== Copying dotenv to .env =="
   unless File.exist?("#{APP_ROOT}/.env")
@@ -42,7 +43,7 @@ FileUtils.chdir APP_ROOT do
   puts "== Install Ruby dependencies =="
   system! "gem install bundler --conservative"
   system! "rbenv rehash"
-  system! "bundle install"
+  system("bundle check") || system! "bundle install" 
 
   puts "== Install JavaScript dependencies =="
   system! "yarn install"
@@ -69,4 +70,8 @@ FileUtils.chdir APP_ROOT do
 
   puts "\n== Restarting application server =="
   system! "bin/rails restart"
+
+  # puts "\n== Configuring puma-dev =="
+  # system "ln -nfs #{APP_ROOT} ~/.puma-dev/#{APP_NAME}"
+  # system "curl -Is https://#{APP_NAME}.test/up | head -n 1"
 end
