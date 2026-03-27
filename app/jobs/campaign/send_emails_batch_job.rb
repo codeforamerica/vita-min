@@ -18,20 +18,13 @@ class Campaign::SendEmailsBatchJob < ApplicationJob
     batch_size: 100,
     batch_delay: 1.minute,
     queue_next_batch: false,
-    recent_signups_only: false
+    scope: nil
   )
     return if Flipper.enabled?(:cancel_campaign_emails)
     return if rate_limited?
 
-    contacts_to_message = if recent_signups_only
-                            CampaignContact.eligible_for_email_with_recent_signup(message_name).limit(batch_size).pluck(:id)
-                          else
-                            CampaignContact.eligible_for_email(message_name).limit(batch_size).pluck(:id)
-                          end
-
+    contacts_to_message = CampaignContact.for_email_scope(scope, message_name).limit(batch_size)
     return if contacts_to_message.empty?
-
-    puts "*****CAMPAIGN EMAILS: message_name=#{message_name} batch_size=#{contacts_to_message.count} recent_signups_only=#{recent_signups_only} queue_next_batch=#{queue_next_batch}*****" unless Rails.env.test?
 
     start_time = next_business_hour_start
 
@@ -52,7 +45,7 @@ class Campaign::SendEmailsBatchJob < ApplicationJob
     if queue_next_batch
       Campaign::SendEmailsBatchJob.set(wait: batch_delay)
                                   .perform_later(message_name, batch_size: batch_size, batch_delay: batch_delay,
-                                                               queue_next_batch: true, recent_signups_only: recent_signups_only)
+                                                               queue_next_batch: true, scope: scope)
     end
   end
 

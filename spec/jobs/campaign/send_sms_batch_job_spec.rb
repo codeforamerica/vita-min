@@ -9,7 +9,7 @@ describe Campaign::SendSmsBatchJob, type: :job do
       batch_size: batch_size,
       msg_delay: batch_delay,
       queue_next_batch: queue_next_batch,
-      recent_signups_only: recent_signups_only
+      scope: scope
     )
   end
 
@@ -17,7 +17,7 @@ describe Campaign::SendSmsBatchJob, type: :job do
   let(:batch_size) { 10 }
   let(:batch_delay) { 10.seconds }
   let(:queue_next_batch) { false }
-  let(:recent_signups_only) { false }
+  let(:scope) { :recent_signups }
 
   before do
     clear_enqueued_jobs
@@ -59,6 +59,7 @@ describe Campaign::SendSmsBatchJob, type: :job do
     end
 
     context "when flag disabled and not rate limited" do
+      let(:scope) { :all_eligible }
       context "with an eligible campaign contact" do
         let!(:campaign_contact) { create(:campaign_contact, :sms_opted_in) }
 
@@ -93,14 +94,54 @@ describe Campaign::SendSmsBatchJob, type: :job do
         end
       end
 
-      context "when recent_signups_only is true" do
-        let(:recent_signups_only) { true }
+      context "when scope is recent_signups" do
+        let(:scope) { :recent_signups }
 
         cutoff = Rails.configuration.tax_year_filing_seasons[MultiTenantService.new(:gyr).current_tax_year - 1].last
         let!(:contact_with_new_signup) { create(:campaign_contact, :sms_opted_in, latest_signup_at: cutoff + 1.day) }
         let!(:contact_with_old_signup) { create(:campaign_contact, :sms_opted_in, latest_signup_at: cutoff - 1.day) }
 
         it "only creates sms messages for campaign contacts with signups created after the cutoff" do
+          perform_job
+
+          expect(CampaignSms).to have_received(:create_or_find_for).exactly(1).time
+        end
+      end
+
+      context "when scope is prior_fyst" do
+        let(:scope) { :prior_fyst }
+        let!(:contact_with_prior_fyst_record) do
+          create :campaign_contact,
+                 :sms_opted_in,
+                 :with_state_file_ref
+        end
+        let!(:contact_without_prior_fyst_record) do
+          create :campaign_contact,
+                 :sms_opted_in,
+                 state_file_intake_refs: []
+        end
+
+        it "only creates text messages for campaign contacts with records of prior-year FYST returns" do
+          perform_job
+
+          expect(CampaignSms).to have_received(:create_or_find_for).exactly(1).time
+        end
+      end
+
+      context "when scope is prior_gyr" do
+        let(:scope) { :prior_gyr }
+        let!(:contact_with_prior_gyr_record) do
+          create :campaign_contact,
+                 :sms_opted_in,
+                 :with_gyr_intake_ids
+        end
+        let!(:contact_without_prior_gyr_record) do
+          create :campaign_contact,
+                 :sms_opted_in,
+                 gyr_intake_ids: []
+        end
+
+        it "only creates text messages for campaign contacts with records of prior-year GYR returns" do
           perform_job
 
           expect(CampaignSms).to have_received(:create_or_find_for).exactly(1).time

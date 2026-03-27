@@ -48,6 +48,16 @@ class CampaignContact < ApplicationRecord
   end
 
   # Email -------------
+  def self.for_email_scope(scope, message_name)
+    case scope
+    when :all_eligible   then eligible_for_email(message_name)
+    when :recent_signups then eligible_for_email_with_recent_signup(message_name)
+    when :prior_fyst     then eligible_for_fyst_email(message_name)
+    when :prior_gyr      then eligible_for_gyr_email(message_name)
+    else raise ArgumentError, "no valid 'scope' given, use one of the following [:all_eligible, :recent_signups, :prior_fyst or :prior_gyr]"
+    end
+  end
+
   def self.eligible_for_email(message_name)
     where(email_notification_opt_in: true).where.not(email_address: [nil, ""]) # opted-in
       .where(<<~SQL, message_name: message_name) # contact hasn't been sent this message before
@@ -74,6 +84,16 @@ class CampaignContact < ApplicationRecord
   end
 
   # SMS -------------
+  def self.for_sms_scope(scope, message_name)
+    case scope
+    when :all_eligible   then eligible_for_text_message(message_name)
+    when :recent_signups then eligible_for_text_message_with_recent_signup(message_name)
+    when :prior_fyst     then eligible_for_fyst_sms(message_name)
+    when :prior_gyr      then eligible_for_gyr_sms(message_name)
+    else raise ArgumentError, "no valid 'scope' given, use one of the following [:all_eligible, :recent_signups, :prior_fyst or :prior_gyr]"
+    end
+  end
+
   def self.eligible_for_text_message(message_name)
     where(sms_notification_opt_in: true).where.not(sms_phone_number: [nil, ""]) # opted-in
       .where(<<~SQL, message_name: message_name) # phone number hasn't been sent this message before, not searching by contact id since two campaign contacts can have the same phone number
@@ -99,8 +119,6 @@ class CampaignContact < ApplicationRecord
   def self.eligible_for_gyr_sms(message_name)
     eligible_for_text_message(message_name).where("array_length(gyr_intake_ids, 1) > 0")
   end
-
-  private
 
   def self.signup_cutoff
     year = MultiTenantService.new(:gyr).current_tax_year - 1
