@@ -43,7 +43,7 @@ FileUtils.chdir APP_ROOT do
   puts "== Install Ruby dependencies =="
   system! "gem install bundler --conservative"
   system! "rbenv rehash"
-  system("bundle check") || system! "bundle install" 
+  system! "bundle install"
 
   puts "== Install JavaScript dependencies =="
   system! "yarn install"
@@ -59,11 +59,13 @@ FileUtils.chdir APP_ROOT do
   puts "\n== Set up database records for development =="
   system! "bin/rails db:seed"
 
-  puts "\n== Downloading and unpacking optional IRS e-file XML schemas; if this fails, read setup.rake =="
-  system! "bin/rails setup:unzip_efile_schemas"
+  # TODO remove altogether from this script at some point.
+  #puts "\n== Downloading and unpacking optional IRS e-file XML schemas; if this fails, read setup.rake =="
+  #system! "bin/rails setup:unzip_efile_schemas"
 
-  puts "\n== Downloading gyr-efiler Java CLI app =="
-  system! "bin/rails setup:download_gyr_efiler"
+  # TODO remove altogether from thi script at some point.
+  #puts "\n== Downloading gyr-efiler Java CLI app =="
+  #system! "bin/rails setup:download_gyr_efiler"
 
   puts "\n== Removing old logs and tempfiles =="
   system! "bin/rails log:clear tmp:clear"
