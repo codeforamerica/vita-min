@@ -11,6 +11,13 @@ module CampaignMessage
     end
 
     def email_body(contact:, **args)
+      args[:url] = url_for(
+        host: MultiTenantService.new(:gyr).host,
+        controller: "/redirects",
+        action: "fyst_outreach",
+        locale: contact.locale
+      )
+
       I18n.t("campaign_messages.prior_fyst.email.body_html", **vars(contact), **args)
     end
 
