@@ -57,12 +57,20 @@ es:
         subject: Checking in on your taxes
     prior_fyst:
       email:
-        body_html: "Hola %{first_name}, \n\nle escribimos de Code for America. En años anteriores usted ha usado nuestro servicio FileYourStateTaxes para declarar sus impuestos estatales a través de IRS Direct File.\n\nAunque ese servicio ya no está disponible, queremos asegurarnos de que siga teniendo acceso gratis para presentar sus impuestos de manera confiable. Nuestros expertos de GetYourRefund, certificados por el IRS, ya están listos para ayudarle. <a href=\"%{url}\" target=\"_blank\" rel=\"noopener nofollow\">Comience su declaración ya.</a>\n\nAtentamente,\nEl equipo de GetYourRefund\n\n(Las respuestas a este correo no son monitoreadas.) Si tiene preguntas, visite <a href=\"%{url}\" target=\"_blank\" rel=\"noopener nofollow\">www.getyourrefund.org/es</a>\n"
+        body_html: "Hola %{first_name}, \n\nLe escribimos de Code for America. En años anteriores usted ha usado nuestro servicio FileYourStateTaxes para declarar sus impuestos estatales a través de IRS Direct File.\n\nAunque ese servicio ya no está disponible, queremos asegurarnos de que siga teniendo acceso gratis para presentar sus impuestos de manera confiable. Nuestros expertos de GetYourRefund, certificados por el IRS, ya están listos para ayudarle. <a href=\"%{url}\" target=\"_blank\" rel=\"noopener nofollow\">Comience su declaración ya.</a>\n\nAtentamente,\nEl equipo de GetYourRefund\n\n(Las respuestas a este correo no son monitoreadas.) \n"
         subject: "¿Ya declaró sus impuestos? El servicio gratuito para hacerlo ya está disponible"
       sms: 'Hola %{first_name}, le escribe Code for America. En años anteriores ha presentado su declaración de impuestos con FileYourStateTaxes a través de Direct File del IRS. Aunque ese servicio ya no está disponible, seguimos aquí para ayudarle. ¡Nuestros expertos de GetYourRefund, certificados por el IRS, ya están listos! Declare sus impuestos gratis: https://www.getyourrefund.org/es/fyst-outreach'
     prior_gyr:
       email:
-        body_html: "¡Hola %{first_name}! \n\nGetYourRefund está de nuevo disponible para esta temporada de impuestos. Nos encantaría ayudarle a declarar sus impuestos gratis otra vez este año. Nuestros expertos certificados por el IRS ya están listos y a su disposición. No espere más: <a href=\"%{url}\" target=\"_blank\" rel=\"noopener nofollow\">comience su declaración hoy mismo</a> y obtenga su reembolso más rápido.\n\nAtentamente, \nEl equipo de GetYourRefund\n\n(Las respuestas a este correo no son monitoreadas.) Si tiene preguntas, visite <a href=\"%{url}\" target=\"_blank\" rel=\"noopener nofollow\">www.getyourrefund.org/es</a>\n"
+        body_html: |
+          ¡Hola %{first_name}!
+
+          GetYourRefund está de nuevo disponible para esta temporada de impuestos. Nos encantaría ayudarle a declarar sus impuestos gratis otra vez este año. Nuestros expertos certificados por el IRS ya están listos y a su disposición. No espere más: <a href=\"%{url}\" target=\"_blank\" rel=\"noopener nofollow\">comience su declaración hoy mismo</a> y obtenga su reembolso más rápido.
+
+          Atentamente,
+          El equipo de GetYourRefund
+
+          (Las respuestas a este correo no son monitoreadas.)
         subject: "¿Ya declaró sus impuestos? ¡GetYourRefund ya está disponible!"
       sms: "¡Hola %{first_name}! GetYourRefund ya está disponible para la nueva temporada de impuestos. Nos encantaría ayudarle a declarar gratis otra vez este año. Nuestros expertos certificados por el IRS están listos para usted: https://www.getyourrefund.org/es/gyr-outreach"
     start_of_season_outreach:
