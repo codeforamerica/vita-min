@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
+ActiveRecord::Schema[7.1].define(version: 2026_03_30_183210) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -615,7 +615,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
     t.text "subject"
     t.string "to_email"
     t.datetime "updated_at", null: false
-    t.index ["campaign_contact_id", "message_name"], name: "index_campaign_emails_on_contact_id_and_message_name", unique: true
+    t.index ["campaign_contact_id", "message_name"], name: "index_campaign_emails_on_contact_id_and_message_name"
     t.index ["campaign_contact_id"], name: "index_campaign_emails_on_campaign_contact_id"
     t.index ["mailgun_message_id"], name: "index_campaign_emails_on_mailgun_message_id", unique: true
   end
@@ -851,6 +851,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
   end
 
   create_table "doc_assessments", force: :cascade do |t|
+    t.boolean "confirmed"
     t.datetime "created_at", null: false
     t.bigint "document_id", null: false
     t.text "error"
