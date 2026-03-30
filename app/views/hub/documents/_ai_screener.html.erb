@@ -1,4 +1,4 @@
-<% if current_user.admin? && !@document.latest_assessment.confirmed? %>
+<% if current_user.admin? && @document.latest_assessment&.confirmed.nil? %>
   <% verdict = @document.latest_assessment&.matches_doc_type_verdict %>
   <% unless verdict.blank? %>
     <%= render "hub/documents/smart_scan_card",

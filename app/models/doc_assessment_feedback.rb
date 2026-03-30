@@ -37,6 +37,7 @@ class DocAssessmentFeedback < ApplicationRecord
 
     assessment = doc_assessment
     suggested_type = assessment.suggested_document_type
+    assessment.update(confirmed: true)
     document = assessment.document
 
     return if suggested_type.blank?
