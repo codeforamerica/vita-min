@@ -865,7 +865,6 @@ DEPENDENCIES
   redcarpet
   redis
   rexml (>= 3.4.2)
-  rspec (~> 3.13, >= 3.13.2)
   rspec-rails
   rspec_junit_formatter
   rubocop (~> 1.53.0)
