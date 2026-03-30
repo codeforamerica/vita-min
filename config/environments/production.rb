@@ -4,9 +4,9 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # Docs suggest reloading is disabled by default, but when upgrading to 7.2,
-  # app:update suggests explicitly adding this line.
-  # (Doc: https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#reloading)
+  # Documentations suggests reloading is already disabled by default, but when
+  # upgrading to 7.2, app:update suggests explicitly adding this line.
+  # See: https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#reloading
   config.enable_reloading = false
 
   # Eager load code on boot. This eager loads most of Rails and

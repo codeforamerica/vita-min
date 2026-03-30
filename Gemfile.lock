@@ -152,7 +152,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.22)
     benchmark (0.5.0)
-    bigdecimal (4.0.1)
+    bigdecimal (4.1.0)
     bindex (0.8.1)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
@@ -587,7 +587,7 @@ GEM
     rgeo-activerecord (8.0.0)
       activerecord (>= 7.0)
       rgeo (>= 3.0)
-    rspec (3.13.0)
+    rspec (3.13.2)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
       rspec-mocks (~> 3.13.0)
@@ -854,7 +854,8 @@ DEPENDENCIES
   redcarpet
   redis
   rexml (>= 3.4.2)
-  rspec-rails (~> 8.0, >= 8.0.4)
+  rspec (~> 3.13, >= 3.13.2)
+  rspec-rails
   rspec_junit_formatter
   rubocop (~> 1.53.0)
   rubocop-performance (~> 1.16.0)

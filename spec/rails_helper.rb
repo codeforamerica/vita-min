@@ -81,7 +81,8 @@ RSpec.configure do |config|
     c.max_formatted_output_length = nil # Set to nil to prevent RSpec from doing truncation
   end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  # Singular `fixture_path` deprecated as of 7.2.
+  config.fixture_paths = ["#{::Rails.root}/spec/fixtures"]
 
   config.include Rails.application.routes.url_helpers
   # If you're not using ActiveRecord, or you'd prefer not to run each of your

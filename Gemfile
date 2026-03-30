@@ -113,13 +113,13 @@ group :development, :test do
   gem 'annotate'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec', '~> 3.13', '>= 3.13.2'
   gem 'axe-core-rspec'
   gem 'axe-core-capybara'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  #gem 'rspec-rails'
-  gem 'rspec-rails', '~> 8.0', '>= 8.0.4'
+  gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'pry-byebug'
   gem 'guard-rspec', require: false

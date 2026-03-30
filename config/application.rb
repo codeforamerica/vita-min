@@ -47,8 +47,12 @@ module VitaMin
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w[assets tasks])
+    # config.autoload_lib(ignore: %w[assets tasks]) # Rails 7.2 default
+    config.autoload_lib(ignore: %w[assets tasks generators])
     # end of Rails 7.2 addition
+
+    #config.autoload_paths << "#{config.root}/lib"
+    #config.eager_load_paths << "#{config.root}/lib"
 
     config.active_record.enumerate_columns_in_select_statements = true
     config.active_storage.variant_processor = :mini_magick
