@@ -853,6 +853,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_27_153023) do
   end
 
   create_table "doc_assessments", force: :cascade do |t|
+    t.boolean "confirmed"
     t.datetime "created_at", null: false
     t.bigint "document_id", null: false
     t.text "error"
