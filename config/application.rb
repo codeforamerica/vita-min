@@ -49,10 +49,7 @@ module VitaMin
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     # config.autoload_lib(ignore: %w[assets tasks]) # Rails 7.2 default
     config.autoload_lib(ignore: %w[assets tasks generators])
-    # end of Rails 7.2 addition
-
-    #config.autoload_paths << "#{config.root}/lib"
-    #config.eager_load_paths << "#{config.root}/lib"
+    # End of Rails 7.2 addition
 
     config.active_record.enumerate_columns_in_select_statements = true
     config.active_storage.variant_processor = :mini_magick
