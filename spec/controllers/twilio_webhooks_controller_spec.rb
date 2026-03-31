@@ -129,7 +129,7 @@ RSpec.describe TwilioWebhooksController do
     end
 
     def post_webhook(id: campaign_sms.id, status: "delivered", error_code: nil)
-      post :update_campaign_sms, params: { id: id, "MessageStatus" => status, "ErrorCode" => error_code, "MessageSid" => "SM123" }
+      post :update_campaign_sms, params: { id: id, "MessageStatus" => status, "ErrorCode" => error_code, "MessageSid" => "SM123"}
     end
 
     context "when the record exists" do
@@ -139,7 +139,7 @@ RSpec.describe TwilioWebhooksController do
       end
 
       it "updates the status" do
-        expect(campaign_sms).to receive(:update_status_if_further).with("delivered", error_code: "")
+        expect(campaign_sms).to receive(:update_status_if_further).with("delivered", error_code: "", sent_at: nil)
         allow(CampaignSms).to receive(:find_by).and_return(campaign_sms)
         post_webhook
       end
@@ -151,9 +151,17 @@ RSpec.describe TwilioWebhooksController do
 
       context "when there is an error code" do
         it "passes the error code through" do
-          expect(campaign_sms).to receive(:update_status_if_further).with("undelivered", error_code: "30008")
+          expect(campaign_sms).to receive(:update_status_if_further).with("undelivered", error_code: "30008", sent_at: nil)
           allow(CampaignSms).to receive(:find_by).and_return(campaign_sms)
           post_webhook(status: "undelivered", error_code: "30008")
+        end
+      end
+
+      context "when DateSent is present" do
+        it "passes sent_at through" do
+          expect(campaign_sms).to receive(:update_status_if_further).with("sent", error_code: nil, sent_at: "2026-03-31T19:00:00Z")
+          allow(CampaignSms).to receive(:find_by).and_return(campaign_sms)
+          post :update_campaign_sms, params: { id: campaign_sms.id, "MessageStatus" => "sent", "DateSent" => "2026-03-31T19:00:00Z", "MessageSid" => "SM123" }
         end
       end
     end
