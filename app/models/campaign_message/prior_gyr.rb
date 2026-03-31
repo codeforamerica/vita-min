@@ -15,7 +15,8 @@ module CampaignMessage
         host: MultiTenantService.new(:gyr).host,
         controller: "/redirects",
         action: "gyr_outreach",
-        locale: contact.locale
+        locale: contact.locale,
+        medium: "email"
       )
 
       I18n.t("campaign_messages.prior_gyr.email.body_html", **vars(contact), **args)

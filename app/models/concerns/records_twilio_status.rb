@@ -1,7 +1,7 @@
 module RecordsTwilioStatus
   extend ActiveSupport::Concern
 
-  def update_status_if_further(new_status, error_code: nil)
+  def update_status_if_further(new_status, error_code: nil, sent_at: nil)
     with_lock do
       old_status = read_attribute(self.class.status_column)
       old_index = TwilioService::ORDERED_STATUSES.index(old_status)
@@ -15,7 +15,9 @@ module RecordsTwilioStatus
       old_index ||= 0
 
       if new_index > old_index
-        update(self.class.status_column => new_status, error_code: error_code)
+        attrs = { self.class.status_column => new_status, error_code: error_code }
+        attrs[:sent_at] = sent_at if new_status == "sent" && sent_at.present?
+        update(attrs)
       end
     end
   end

@@ -11,17 +11,22 @@ class RedirectsController < ApplicationController
   end
 
   def gyr_outreach
-    # only sms
     redirect_to(
-      root_url(locale: params[:locale].presence || I18n.default_locale, utm_source: "gyr", utm_medium: "sms", utm_campaign: "w2"),
+      root_url(
+        locale: params[:locale].presence || I18n.default_locale,
+        utm_source: "gyr",
+        utm_medium: params[:medium] || "sms",
+        utm_campaign: "w2"),
       allow_other_host: true
     )
   end
 
   def fyst_outreach
-    # only sms
     redirect_to(
-      root_url(locale: params[:locale].presence || I18n.default_locale, utm_source: "gyr", utm_medium: "sms", utm_campaign: "w2fyst"),
+      root_url(locale: params[:locale].presence || I18n.default_locale,
+               utm_source: "gyr",
+               utm_medium: params[:medium] || "sms",
+               utm_campaign: "w2fyst"),
       allow_other_host: true
     )
   end
