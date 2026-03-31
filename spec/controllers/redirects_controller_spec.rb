@@ -31,6 +31,16 @@ RSpec.describe RedirectsController, type: :controller do
       end
     end
 
+    context "when medium is email" do
+      it "redirects to the spanish outreach URL" do
+        get :gyr_outreach, params: { medium: "email" }
+
+        expect(response).to redirect_to(
+                              "http://test.host/en?utm_campaign=w2&utm_medium=email&utm_source=gyr"
+                            )
+      end
+    end
+
     it "returns a 302 status" do
       get :outreach
 
