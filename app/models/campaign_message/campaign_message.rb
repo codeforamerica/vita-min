@@ -7,5 +7,9 @@ module CampaignMessage
         locale: contact&.locale || :en,
       }
     end
+
+    def self.max_sends_per_contact
+      1
+    end
   end
 end
