@@ -94,6 +94,33 @@ class CampaignContact < ApplicationRecord
     end
   end
 
+  def self.sms_batch_time_estimate(scope, message_name, batch_size: 1000, msg_delay: 1.second)
+    count = for_sms_scope(scope, message_name).count
+    return 0 if count.zero?
+
+    batches = (count.to_f / batch_size).ceil
+    inter_batch_wait = (batches - 1) * 15.minutes
+    send_time = count * msg_delay
+    time_estimate = 15.minutes + inter_batch_wait + send_time
+
+    total_seconds = time_estimate.to_i
+    days = total_seconds / 86400
+    hours = (total_seconds % 86400) / 3600
+    minutes = (total_seconds % 3600) / 60
+    seconds = total_seconds % 60
+
+    parts = []
+    parts << "#{days} days" if days > 0
+    parts << "#{hours} hours" if hours > 0
+    parts << "#{minutes} minutes" if minutes > 0
+    parts << "#{seconds} seconds" if seconds > 0
+
+    human_time = parts.join(" and ")
+
+    puts "**********~~~~Sending #{count} '#{message_name}' text-messages scoped for #{scope} will take an estimated #{human_time}~~~~**********"
+    time_estimate
+  end
+
   def self.eligible_for_text_message(message_name)
     where(sms_notification_opt_in: true).where.not(sms_phone_number: [nil, ""]) # opted-in
       .where(<<~SQL, message_name: message_name) # phone number hasn't been sent this message before, not searching by contact id since two campaign contacts can have the same phone number

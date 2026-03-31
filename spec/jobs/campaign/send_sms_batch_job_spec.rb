@@ -70,7 +70,7 @@ describe Campaign::SendSmsBatchJob, type: :job do
           sms = CampaignSms.last
           expect(sms.campaign_contact_id).to eq campaign_contact.id
           expect(sms.message_name).to eq message_name
-          expect(sms.scheduled_send_at).to be_within(30.seconds).of(Time.current + 16.minutes)
+          expect(sms.scheduled_send_at).to be_within(30.seconds).of(Time.current + 15.minutes)
           expect(sms.body).to eq CampaignMessage::StartOfSeasonOutreach.new.sms_body(contact: campaign_contact)
           expect(sms.to_phone_number).to eq campaign_contact.sms_phone_number
         end

@@ -66,7 +66,7 @@ class Campaign::SendSmsBatchJob < ApplicationJob
   private
 
   def message_start_time(message_name:, msg_delay:)
-    twilio_scheduled_sent_at_minimum = 16.minutes
+    twilio_scheduled_sent_at_minimum = 15.minutes
     last_scheduled_for_message = CampaignSms.where(message_name: message_name, sent_at: nil).maximum(:scheduled_send_at)
     if last_scheduled_for_message.present?
       [(Time.current + twilio_scheduled_sent_at_minimum), last_scheduled_for_message + msg_delay].max
