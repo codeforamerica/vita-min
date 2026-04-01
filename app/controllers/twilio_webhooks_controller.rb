@@ -13,7 +13,7 @@ class TwilioWebhooksController < ActionController::Base
     DatadogApi.increment("twilio.outgoing_text_messages.updated.status.#{status}")
     track_missing_record("twilio.outgoing_text_messages.updated.missing_record") unless record
 
-    record&.update_status_if_further(status, error_code: error_code, sent_at: strong_params["DateSent"])
+    record&.update_status_if_further(status, error_code: error_code)
     head :ok
   end
 
@@ -26,7 +26,7 @@ class TwilioWebhooksController < ActionController::Base
     track_message_status("twilio.campaign_sms.updated", record, status)
     track_missing_record("twilio.campaign_sms.updated.missing_record") unless record
 
-    record&.update_status_if_further(status, error_code: error_code, sent_at: strong_params["DateSent"])
+    record&.update_status_if_further(status, error_code: error_code)
     head :ok
   end
 
@@ -34,7 +34,7 @@ class TwilioWebhooksController < ActionController::Base
     status = strong_params["MessageStatus"]
     DatadogApi.increment("twilio.outgoing_messages.updated.status.#{status}")
     OutgoingMessageStatus.find_by(id: strong_params[:id], message_type: :sms)
-      &.update_status_if_further(status, error_code: strong_params["ErrorCode"], sent_at: strong_params["DateSent"])
+      &.update_status_if_further(status, error_code: strong_params["ErrorCode"])
     head :ok
   end
 
@@ -93,7 +93,6 @@ class TwilioWebhooksController < ActionController::Base
       "MessageSid",
       "ErrorCode",
       "CallDuration",
-      "DateSent",
       "MessageStatus",
       "CallStatus",
       "Body",
