@@ -4,6 +4,7 @@ class TwilioWebhooksController < ActionController::Base
   before_action :validate_twilio_request
 
   def update_outgoing_text_message
+    Rails.logger.info("update_outgoing_text_message params: #{strong_params.to_h.inspect}")
     status = strong_params["MessageStatus"]
     error_code = strong_params["ErrorCode"]
 
@@ -18,6 +19,7 @@ class TwilioWebhooksController < ActionController::Base
   end
 
   def update_campaign_sms
+    Rails.logger.info("update_campaign_sms params: #{strong_params.to_h.inspect}")
     status = strong_params["MessageStatus"]
     error_code = strong_params["ErrorCode"]
 
@@ -31,6 +33,7 @@ class TwilioWebhooksController < ActionController::Base
   end
 
   def update_status
+    Rails.logger.info("update_status params: #{strong_params.to_h.inspect}")
     status = strong_params["MessageStatus"]
     DatadogApi.increment("twilio.outgoing_messages.updated.status.#{status}")
     OutgoingMessageStatus.find_by(id: strong_params[:id], message_type: :sms)
