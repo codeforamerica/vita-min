@@ -9,7 +9,7 @@ namespace :send_campaign_messages do
       batch_size: 100,
       batch_delay: 30.seconds,
       queue_next_batch: true,
-      recent_signups_only: true
+      scope: :recent_signups
     )
   end
 
@@ -18,13 +18,13 @@ namespace :send_campaign_messages do
     next if Rails.env.demo? || Rails.env.staging?
     next unless DateTime.now.year == 2026
 
-    # Campaign::SendSmsBatchJob.perform_later(message_name: "start_of_season_outreach", batch_size: 1000, msg_delay: 1.second, queue_next_batch: false, recent_signups_only: true)
+    # Campaign::SendSmsBatchJob.perform_later(message_name: "start_of_season_outreach", batch_size: 1000, msg_delay: 1.second, queue_next_batch: false, scope: :recent_signups)
     Campaign::SendSmsBatchJob.perform_later(
       message_name: "start_of_season_outreach",
       batch_size: 1000,
       msg_delay: 1.second,
       queue_next_batch: true,
-      recent_signups_only: true
+      scope: :recent_signups
     )
   end
 end

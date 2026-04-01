@@ -55,6 +55,24 @@ en:
 
           (Replies to this email are not monitored.)
         subject: Checking in on your taxes
+    prior_fyst:
+      email:
+        body_html: |
+          Hi %{first_name},
+
+          It’s Code for America. You used our service FileYourStateTaxes to file your state return when you used IRS Direct File. While that service has ended, we still want to make sure you have access to free, high-quality tax prep. Our IRS-certified experts at GetYourRefund are here to help you file. <a href="%{url}" target="_blank" rel="noopener nofollow">Get started at here.</a>
+
+          Best,
+          The team at GetYourRefund
+
+          (Replies to this email are not monitored.)
+        subject: Ready to file your taxes? GetYourRefund is open!
+      sms: Hi %{first_name}, it’s Code for America. You previously used FileYourStateTaxes through IRS Direct File. While that service has ended, we’ve still got you covered. Our IRS-certified team at GetYourRefund is ready to help you file your federal and state returns for free! File today at https://www.getyourrefund.org/fyst-outreach
+    prior_gyr:
+      email:
+        body_html: "Hi %{first_name}!\n\nGetYourRefund is back for the new tax season. We’d love to help you file for free this year. Our IRS-certified team is ready when you are: <a href=%{url} target=\"_blank\" rel=\"noopener nofollow\">https://www.getyourrefund.org</a>\n \nBest,\nThe team at GetYourRefund\n \n(Replies to this email are not monitored.)\n"
+        subject: Ready to file your taxes? GetYourRefund is open
+      sms: 'Hi %{first_name}, GetYourRefund here! We are back for the new tax season. We’d love to help you file for free this year. Our IRS-certified team is ready when you are: https://www.getyourrefund.org/gyr-outreach'
     start_of_season_outreach:
       email:
         body_html: |

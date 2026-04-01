@@ -8,6 +8,7 @@ class TextMessageVerificationCodeService
   end
 
   def request_code
+    DatadogApi.increment("twilio.verification_text_message.attempted", tags: ["service_type:#{@service_data.service_type}"])
     verification_code, access_token = TextMessageAccessToken.generate!(sms_phone_number: @phone_number, client_id: @client_id)
     outgoing_message_status = OutgoingMessageStatus.find_or_create_by!(message_type: :sms, parent: access_token)
     message_arguments = {

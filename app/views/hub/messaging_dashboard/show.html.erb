@@ -2,75 +2,123 @@
 
 <%= content_for :page_title, @main_heading %>
 
-<%= content_for :card do %>
+<div class="slab slab--not-padded spacing-above-25">
+  <h1 class="h2">Messaging Dashboard</h1>
   <style>
       .metrics-kpis {
           display: flex;
           gap: 2rem;
-          margin: 5rem;
+          margin: 1rem 0 2rem;
       }
+
       .metrics-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 2rem;
-          margin: 5rem;
       }
+
       .metrics-grid__wide {
           grid-column: 1 / -1;
       }
+
       .metrics-chart-wrap {
           height: 300px;
+      }
+
+      .metrics-toolbar {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.5rem;
       }
   </style>
 
   <div class="metrics-kpis">
-    <div><strong>Total:</strong> <%= number_with_delimiter(@total) %></div>
-    <div><strong>Succeeded:</strong> <%= number_with_delimiter(@succeeded) %></div>
-    <div><strong>Failed:</strong> <%= number_with_delimiter(@failed) %></div>
-    <div><strong>In progress:</strong> <%= number_with_delimiter(@in_progress) %></div>
+    <div><strong>Total:</strong> <span id="kpi-total">—</span></div>
+    <div><strong>Succeeded:</strong> <span id="kpi-succeeded">—</span></div>
+    <div><strong>Failed:</strong> <span id="kpi-failed">—</span></div>
+    <div><strong>In progress:</strong> <span id="kpi-in-progress">—</span></div>
+  </div>
+
+  <div class="metrics-toolbar">
+    <label for="range-select"><strong>Time range:</strong></label>
+    <select id="range-select">
+      <option value="5min">Last 5 min</option>
+      <option value="10min">Last 10 min</option>
+      <option value="30min">Last 30 min</option>
+      <option value="1h">Last 1 hour</option>
+      <option value="2h">Last 2 hours</option>
+      <option value="4h">Last 4 hours</option>
+      <option value="1d">Last 24 hours</option>
+      <option value="7d">Last 7 days</option>
+      <option value="2w">Last 2 weeks</option>
+      <option value="1m">Last month</option>
+      <option value="2m">Last 2 months</option>
+      <option value="3m">Last 3 months</option>
+      <option value="all" selected>All time</option>
+    </select>
   </div>
 
   <div class="metrics-grid">
-    <div><h3>Status Breakdown</h3><div class="metrics-chart-wrap"><canvas id="c-donut"></canvas></div></div>
-    <div><h3>Failures by Error Code</h3><div class="metrics-chart-wrap"><canvas id="c-errors"></canvas></div></div>
-    <div class="metrics-grid__wide"><h3>Messages Over Time (last 90 days)</h3><div class="metrics-chart-wrap"><canvas id="c-time"></canvas></div></div>
-    <div class="metrics-grid__wide"><h3>Status by Message Name</h3><div class="metrics-chart-wrap"><canvas id="c-msg"></canvas></div></div>
+    <div><h3>Status Breakdown</h3>
+      <div class="metrics-chart-wrap">
+        <canvas id="c-donut"></canvas>
+      </div>
+    </div>
+    <div><h3>Failures by Error Code</h3>
+      <div class="metrics-chart-wrap">
+        <canvas id="c-errors"></canvas>
+      </div>
+    </div>
+    <div class="metrics-grid__wide"><h3>Messages Over Time</h3>
+      <div class="metrics-chart-wrap">
+        <canvas id="c-time"></canvas>
+      </div>
+    </div>
+    <div class="metrics-grid__wide"><h3>Status by Message Name</h3>
+      <div class="metrics-chart-wrap">
+        <canvas id="c-msg"></canvas>
+      </div>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script>
       const CHART_DATA_URL = "<%= chart_data_hub_messaging_dashboard_path %>";
-
       const PALETTE = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f", "#edc948", "#b07aa1", "#ff9da7", "#9c755f", "#bab0ac"];
       const colorFor = (label, i) => PALETTE[i % PALETTE.length];
+
+      let charts = {};
+
+      function destroyAll() {
+          Object.values(charts).forEach(c => c.destroy());
+          charts = {};
+      }
 
       function buildDonut(data) {
           const labels = Object.keys(data), values = Object.values(data);
           const total = values.reduce((a, b) => a + b, 0);
-          new Chart("c-donut", {
+          charts.donut = new Chart("c-donut", {
               type: "doughnut",
               data: {labels, datasets: [{data: values, backgroundColor: labels.map((_, i) => colorFor(_, i))}]},
               options: {
-                  plugins: {
-                      tooltip: {callbacks: {label: ctx => ` ${ctx.label}: ${ctx.parsed.toLocaleString()} (${((ctx.parsed / total) * 100).toFixed(1)}%)`}
-                      }
-                  },
                   maintainAspectRatio: false,
+                  plugins: {tooltip: {callbacks: {label: ctx => ` ${ctx.label}: ${ctx.parsed.toLocaleString()} (${((ctx.parsed / total) * 100).toFixed(1)}%)`}}}
               }
           });
       }
 
       function buildErrors(data) {
           const labels = Object.keys(data), values = Object.values(data);
-          new Chart("c-errors", {
+          charts.errors = new Chart("c-errors", {
               type: "bar",
               data: {labels, datasets: [{label: "Count", data: values, backgroundColor: "#e15759"}]},
-              options: {indexAxis: "y", plugins: {legend: {display: false}}, maintainAspectRatio: false}
+              options: {maintainAspectRatio: false, indexAxis: "y", plugins: {legend: {display: false}}}
           });
       }
 
       function buildTimeline(data) {
-          new Chart("c-time", {
+          charts.time = new Chart("c-time", {
               type: "line",
               data: {
                   labels: data.labels,
@@ -80,12 +128,12 @@
                       tension: 0.3, pointRadius: 2,
                   }))
               },
-              options: {plugins: {tooltip: {mode: "index", intersect: false, maintainAspectRatio: false}}}
+              options: {maintainAspectRatio: false, plugins: {tooltip: {mode: "index", intersect: false}}}
           });
       }
 
       function buildMessageStatus(data) {
-          new Chart("c-msg", {
+          charts.msg = new Chart("c-msg", {
               type: "bar",
               data: {
                   labels: data.labels,
@@ -101,13 +149,27 @@
           });
       }
 
-      fetch(CHART_DATA_URL, {headers: {"Accept": "application/json"}})
-          .then(res => res.json())
-          .then(d => {
-              buildDonut(d.status_breakdown || {});
-              buildErrors(d.failure_by_error || {});
-              buildTimeline(d.messages_over_time || {labels: [], datasets: []});
-              buildMessageStatus(d.status_by_message || {labels: [], datasets: []});
-          });
+      function loadCharts(range) {
+          destroyAll();
+          fetch(`${CHART_DATA_URL}?range=${range}`, {headers: {"Accept": "application/json"}})
+              .then(res => res.json())
+              .then(d => {
+                  // update KPIs
+                  document.getElementById("kpi-total").textContent = d.kpis.total.toLocaleString();
+                  document.getElementById("kpi-succeeded").textContent = d.kpis.succeeded.toLocaleString();
+                  document.getElementById("kpi-failed").textContent = d.kpis.failed.toLocaleString();
+                  document.getElementById("kpi-in-progress").textContent = d.kpis.in_progress.toLocaleString();
+
+                  // update charts
+                  buildDonut(d.status_breakdown || {});
+                  buildErrors(d.failure_by_error || {});
+                  buildTimeline(d.messages_over_time || {labels: [], datasets: []});
+                  buildMessageStatus(d.status_by_message || {labels: [], datasets: []});
+              });
+      }
+
+      document.getElementById("range-select").addEventListener("change", e => loadCharts(e.target.value));
+
+      loadCharts("all");
   </script>
-<% end %>
+</div>

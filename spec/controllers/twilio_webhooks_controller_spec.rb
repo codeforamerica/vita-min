@@ -129,7 +129,7 @@ RSpec.describe TwilioWebhooksController do
     end
 
     def post_webhook(id: campaign_sms.id, status: "delivered", error_code: nil)
-      post :update_campaign_sms, params: { id: id, "MessageStatus" => status, "ErrorCode" => error_code, "MessageSid" => "SM123" }
+      post :update_campaign_sms, params: { id: id, "MessageStatus" => status, "ErrorCode" => error_code, "MessageSid" => "SM123"}
     end
 
     context "when the record exists" do
