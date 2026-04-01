@@ -18,7 +18,7 @@ class Campaign::SendCampaignSmsJob < ApplicationJob
       )
 
       if message
-        text_message.update(twilio_sid: message.sid, sent_at: message.sent_at)
+        text_message.update(twilio_sid: message.sid)
         text_message.update_status_if_further(message.status, error_code: message.error_code)
       end
     rescue Twilio::REST::RestError => e
