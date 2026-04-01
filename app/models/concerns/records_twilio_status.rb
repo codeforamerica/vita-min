@@ -16,7 +16,9 @@ module RecordsTwilioStatus
 
       if new_index > old_index
         attrs = { self.class.status_column => new_status, error_code: error_code }
-        attrs[:sent_at] = sent_at.presence || Time.current if %w[sent delivered delivery_unknown undelivered failed].include?(new_status)
+        if %w[sent delivered delivery_unknown undelivered failed].include?(new_status) && has_attribute?(:sent_at)
+          attrs[:sent_at] = sent_at.presence || Time.current
+        end
         update(attrs)
       end
     end
