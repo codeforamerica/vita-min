@@ -60,7 +60,7 @@ describe Campaign::SendCampaignSmsJob, type: :job do
 
         campaign_sms.reload
         expect(campaign_sms.twilio_sid).to eq("SM123")
-        expect(campaign_sms.sent_at).to be_nil # set via webhook, not job
+        expect(campaign_sms.sent_at).to be_present
         expect(campaign_sms.twilio_status).to eq("sent")
       end
 
