@@ -1,0 +1,14 @@
+name: Security Scan
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  security-scan:
+    uses: codeforamerica/github-actions/.github/workflows/security-scan.yml@rd/security-scan
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
+    with:
+      path: "./"
