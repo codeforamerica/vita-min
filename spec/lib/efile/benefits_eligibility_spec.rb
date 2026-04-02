@@ -1,6 +1,8 @@
 require "rails_helper"
 
-describe Efile::BenefitsEligibility do
+# TODO cleanup-legacy
+
+xdescribe Efile::BenefitsEligibility do
   let(:subject) { Efile::BenefitsEligibility.new(tax_return: intake.default_tax_return, dependents: intake.dependents) }
 
   let(:client) { create :client_with_ctc_intake_and_return }

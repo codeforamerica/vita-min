@@ -14,4 +14,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'SLA'
   inflect.acronym 'TY'
   inflect.irregular "analytics", "analytics"
+
+  # 7.2 suggests but defaults to commented:
+  inflect.acronym "RESTful"
 end

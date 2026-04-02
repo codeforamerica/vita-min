@@ -1,6 +1,20 @@
 require_relative "./shared_deployment_config"
+require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  # Settings specified here will take precedence over those in config/application.rb.
+
+  # Documentations suggests reloading is already disabled by default, but when
+  # upgrading to 7.2, app:update suggests explicitly adding this line.
+  # See: https://guides.rubyonrails.org/autoloading_and_reloading_constants.html#reloading
+  config.enable_reloading = false
+
+  # Eager load code on boot. This eager loads most of Rails and
+  # your application in memory, allowing both threaded web servers
+  # and those relying on copy on write to perform better.
+  # Rake tasks automatically ignore this option for performance.
+  config.eager_load = true
+
   config.active_storage.service = :s3_prod
 
   config.ctc_url = "https://www.getctc.org"
