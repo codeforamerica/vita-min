@@ -39,7 +39,7 @@ module VitaMin
       end
     end
 
-    config.load_defaults 7.2
+    config.load_defaults 7.1
 
     config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
