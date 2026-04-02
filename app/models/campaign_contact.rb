@@ -56,6 +56,16 @@ class CampaignContact < ApplicationRecord
   end
 
   # Email -------------
+  def self.for_email_scope(scope, message_name)
+    case scope
+    when :all_eligible   then eligible_for_email(message_name)
+    when :recent_signups then eligible_for_email_with_recent_signup(message_name)
+    when :prior_fyst     then eligible_for_fyst_email(message_name)
+    when :prior_gyr      then eligible_for_gyr_email(message_name)
+    else raise ArgumentError, "no valid 'scope' given, use one of the following [:all_eligible, :recent_signups, :prior_fyst or :prior_gyr]"
+    end
+  end
+
   def self.eligible_for_email(message_name)
     where(email_notification_opt_in: true).where.not(email_address: [nil, ""]) # opted-in
       .excluding_paused_email_domains
@@ -74,7 +84,52 @@ class CampaignContact < ApplicationRecord
     eligible_for_email(message_name).where("latest_signup_at >= ?", signup_cutoff)
   end
 
+  def self.eligible_for_fyst_email(message_name)
+    eligible_for_email(message_name).where("jsonb_array_length(state_file_intake_refs) > 0")
+  end
+
+  def self.eligible_for_gyr_email(message_name)
+    eligible_for_email(message_name).where("array_length(gyr_intake_ids, 1) > 0")
+  end
+
   # SMS -------------
+  def self.for_sms_scope(scope, message_name)
+    case scope
+    when :all_eligible   then eligible_for_text_message(message_name)
+    when :recent_signups then eligible_for_text_message_with_recent_signup(message_name)
+    when :prior_fyst     then eligible_for_fyst_sms(message_name)
+    when :prior_gyr      then eligible_for_gyr_sms(message_name)
+    else raise ArgumentError, "no valid 'scope' given, use one of the following [:all_eligible, :recent_signups, :prior_fyst or :prior_gyr]"
+    end
+  end
+
+  def self.sms_batch_time_estimate(scope, message_name, batch_size: 1000, msg_delay: 1.second)
+    count = for_sms_scope(scope, message_name).count
+    return 0 if count.zero?
+
+    batches = (count.to_f / batch_size).ceil
+    inter_batch_wait = (batches - 1) * 15.minutes
+    send_time = count * msg_delay
+    time_estimate = 15.minutes + inter_batch_wait + send_time
+
+    total_seconds = time_estimate.to_i
+    days = total_seconds / 86400
+    hours = (total_seconds % 86400) / 3600
+    minutes = (total_seconds % 3600) / 60
+    seconds = total_seconds % 60
+
+    parts = []
+    parts << "#{days} days" if days > 0
+    parts << "#{hours} hours" if hours > 0
+    parts << "#{minutes} minutes" if minutes > 0
+    parts << "#{seconds} seconds" if seconds > 0
+
+    human_time = parts.join(" and ")
+
+    puts "**********~~~~Sending #{count} '#{message_name}' text-messages scoped for #{scope} will take an estimated #{human_time}~~~~**********"
+    time_estimate
+  end
+
   def self.eligible_for_text_message(message_name)
     where(sms_notification_opt_in: true).where.not(sms_phone_number: [nil, ""]) # opted-in
       .where(<<~SQL, message_name: message_name) # phone number hasn't been sent this message before, not searching by contact id since two campaign contacts can have the same phone number
@@ -93,7 +148,13 @@ class CampaignContact < ApplicationRecord
     eligible_for_text_message(message_name).where("latest_signup_at >= ?", signup_cutoff)
   end
 
-  private
+  def self.eligible_for_fyst_sms(message_name)
+    eligible_for_text_message(message_name).where("jsonb_array_length(state_file_intake_refs) > 0")
+  end
+
+  def self.eligible_for_gyr_sms(message_name)
+    eligible_for_text_message(message_name).where("array_length(gyr_intake_ids, 1) > 0")
+  end
 
   def self.signup_cutoff
     year = MultiTenantService.new(:gyr).current_tax_year - 1

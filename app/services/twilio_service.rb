@@ -41,6 +41,9 @@ class TwilioService
     arguments[:status_callback] = status_callback if status_callback.present?
     arguments[:send_as_mms] = true if !self.class.is_gsm7?(body) || body.length > MMS_MESSAGE_LENGTH_THRESHOLD
 
+    # Twilio API requires that any scheduled message
+    # must be at least 15 minutes in the future
+    # if its not it will drop the scheduled at and just send it right away
     if send_at.present? && send_at > Time.current + 15.minutes
       arguments[:send_at] = send_at.utc.iso8601
       arguments[:schedule_type] = "fixed"

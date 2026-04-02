@@ -9,7 +9,7 @@ describe Campaign::SendEmailsBatchJob, type: :job do
       batch_size: batch_size,
       email_delay: email_delay,
       queue_next_batch: queue_next_batch,
-      recent_signups_only: recent_signups_only
+      scope: scope
     )
   end
 
@@ -17,7 +17,7 @@ describe Campaign::SendEmailsBatchJob, type: :job do
   let(:batch_size) { 10 }
   let(:email_delay) { 10.seconds }
   let(:queue_next_batch) { false }
-  let(:recent_signups_only) { false }
+  let(:scope) { :recent_signups }
 
   before do
     clear_enqueued_jobs
@@ -26,6 +26,8 @@ describe Campaign::SendEmailsBatchJob, type: :job do
     allow(Flipper).to receive(:enabled?).and_call_original
     allow(Flipper).to receive(:enabled?).with(:cancel_campaign_emails).and_return(false)
     allow(CampaignEmail).to receive(:create_or_find_for).and_call_original
+    allow_any_instance_of(described_class).to receive(:rate_limited?).and_call_original
+    allow(CampaignContact).to receive(:for_email_scope).and_call_original
   end
 
   describe "#perform" do
@@ -41,23 +43,66 @@ describe Campaign::SendEmailsBatchJob, type: :job do
       end
     end
 
-    context "when not paused and flag disabled" do
+    # context "when not paused and flag disabled" do
+    #   context "with an eligible campaign contact" do
+    #     let!(:campaign_contact) do
+    #       create(:campaign_contact, :email_opted_in,
+    #              latest_gyr_intake_at: Rails.configuration.start_of_unique_links_only_intake - 1.day)
+    #     end
+    #
+    #     let!(:already_sent_campaign_contact) { create(:campaign_contact, :email_opted_in) }
+    #     let!(:campaign_email) do
+    #       create :campaign_email, message_name: message_name, campaign_contact: already_sent_campaign_contact
+    context "when rate limiting is detected" do
+      let!(:campaign_contact) { create(:campaign_contact, :email_opted_in) }
+
+      let!(:rate_limited_1) do
+        create(:campaign_email, mailgun_status: "failed", error_code: "421", sent_at: 5.minutes.ago)
+      end
+      let!(:rate_limited_2) do
+        create(:campaign_email, mailgun_status: "failed", event_data: { reason: "rate limit exceeded" }, sent_at: 5.minutes.ago)
+      end
+      let!(:non_rate_limited) do
+        create(:campaign_email, mailgun_status: "delivered", sent_at: 5.minutes.ago)
+      end
+
+      let!(:old_email) do
+        create(:campaign_email, mailgun_status: "failed", error_code: "421", sent_at: 2.hours.ago)
+      end
+
+      it "does nothing (does not create new CampaignEmail records)" do
+        perform_job
+
+        expect(CampaignEmail).not_to have_received(:create!)
+      end
+    end
+
+    context "when flag disabled and not rate limited" do
+      let(:scope) { :all_eligible }
+      before do
+        allow_any_instance_of(described_class).to receive(:rate_limited?).and_return(false)
+      end
+
       context "with an eligible campaign contact" do
         let!(:campaign_contact) do
-          create(:campaign_contact, :email_opted_in,
-                 latest_gyr_intake_at: Rails.configuration.start_of_unique_links_only_intake - 1.day)
+          create :campaign_contact,
+                 :email_opted_in,
+                 latest_gyr_intake_at: Rails.configuration.start_of_unique_links_only_intake - 1.day # intake created before this season
         end
-
-        let!(:already_sent_campaign_contact) { create(:campaign_contact, :email_opted_in) }
+        let!(:already_sent_campaign_contact) do
+          create(:campaign_contact, :email_opted_in)
+        end
         let!(:campaign_email) do
-          create :campaign_email, message_name: message_name, campaign_contact: already_sent_campaign_contact
+          create :campaign_email,
+                 message_name: message_name,
+                 campaign_contact: already_sent_campaign_contact
         end
-
         let!(:ineligible_campaign_contact) do
-          create(:campaign_contact, :email_opted_in,
-                 latest_gyr_intake_at: Rails.configuration.start_of_unique_links_only_intake + 1.day)
+          create :campaign_contact,
+                 :email_opted_in,
+                 latest_gyr_intake_at: Rails.configuration.start_of_unique_links_only_intake + 1.day # intake created during this season
         end
-
+        
         it "creates a CampaignEmail with correct attributes" do
           perform_job
 
@@ -89,10 +134,19 @@ describe Campaign::SendEmailsBatchJob, type: :job do
         end
       end
 
-      context "when recent_signups_only is true" do
-        cutoff = Rails.configuration.tax_year_filing_seasons[
-          MultiTenantService.new(:gyr).current_tax_year - 1
-        ].last
+      context "when scope is recent_signups" do
+        cutoff = Rails.configuration.tax_year_filing_seasons[MultiTenantService.new(:gyr).current_tax_year - 1].last
+        let(:scope) { :recent_signups }
+        let!(:contact_with_new_signup) do
+          create :campaign_contact,
+                 :email_opted_in,
+                 latest_signup_at: cutoff + 1.day
+        end
+        let!(:contact_with_old_signup) do
+          create :campaign_contact,
+                 :email_opted_in,
+                 latest_signup_at: cutoff - 1.day
+        end
 
         let(:recent_signups_only) { true }
 
@@ -108,6 +162,46 @@ describe Campaign::SendEmailsBatchJob, type: :job do
           perform_job
 
           expect(CampaignEmail).to have_received(:create_or_find_for).exactly(1).time
+        end
+      end
+
+      context "when scope is prior_fyst" do
+        let(:scope) { :prior_fyst }
+        let!(:contact_with_prior_fyst_record) do
+          create :campaign_contact,
+                 :email_opted_in,
+                 :with_state_file_ref
+        end
+        let!(:contact_without_prior_fyst_record) do
+          create :campaign_contact,
+                 :email_opted_in,
+                 state_file_intake_refs: []
+        end
+
+        it "only creates emails for campaign contacts with records of prior-year FYST returns" do
+          perform_job
+
+          expect(CampaignEmail).to have_received(:create!).exactly(1).time
+        end
+      end
+
+      context "when scope is prior_gyr" do
+        let(:scope) { :prior_gyr }
+        let!(:contact_with_prior_gyr_record) do
+          create :campaign_contact,
+                 :email_opted_in,
+                 :with_gyr_intake_ids
+        end
+        let!(:contact_without_prior_gyr_record) do
+          create :campaign_contact,
+                 :email_opted_in,
+                 gyr_intake_ids: []
+        end
+
+        it "only creates emails for campaign contacts with records of prior-year GYR returns" do
+          perform_job
+
+          expect(CampaignEmail).to have_received(:create!).exactly(1).time
         end
       end
     end

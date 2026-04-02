@@ -150,15 +150,13 @@ class MailgunWebhooksController < ActionController::Base
     )
 
     status = params.dig("event-data", "event")&.to_s
-    track_message_status("mailgun.outgoing_email.updated", email_to_update, status)
+    error_code = params.dig("event-data", "delivery-status", "code")
+    extra_tags = error_code.present? ? ["error_code:#{error_code}"] : []
+
+    track_message_status("mailgun.outgoing_email.updated", email_to_update, status, extra_tags: extra_tags)
     track_missing_record("mailgun.update_outgoing_email_status.email_not_found") if email_to_update.nil?
 
-    status_key =
-      if email_to_update.is_a?(OutgoingMessageStatus)
-        :delivery_status
-      else
-        :mailgun_status
-      end
+    status_key = email_to_update.is_a?(OutgoingMessageStatus) ? :delivery_status : :mailgun_status
     email_to_update&.update(status_key => status)
 
     head :ok
@@ -175,10 +173,11 @@ class MailgunWebhooksController < ActionController::Base
       status = mg_data["event"]&.to_s
       updates = { mailgun_status: status }
 
-      track_message_status("mailgun.campaign_email.updated", email_to_update, status)
-
+      extra_tags = []
       if %w[failed permanent_fail].include?(status)
-        updates[:error_code] = mg_data.dig("delivery-status", "code")
+        error_code = mg_data.dig("delivery-status", "code")
+        extra_tags = ["error_code:#{error_code}"] if error_code.present?
+        updates[:error_code] = error_code
         updates[:event_data] = {
           error_reason: mg_data["reason"],
           error_message: mg_data.dig("delivery-status", "message")
@@ -192,6 +191,7 @@ class MailgunWebhooksController < ActionController::Base
         updates[:error_code] = nil
         updates[:event_data] = nil
       end
+      track_message_status("mailgun.campaign_email.updated", email_to_update, status, extra_tags: extra_tags)
 
       email_to_update.update(updates)
     end

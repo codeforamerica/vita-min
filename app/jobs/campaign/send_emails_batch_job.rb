@@ -12,17 +12,18 @@
 class Campaign::SendEmailsBatchJob < ApplicationJob
   queue_as :campaign_mailer
 
-  def perform(message_name:, batch_size: 100, email_delay: 1.second,
-              queue_next_batch: false, recent_signups_only: true)
+
+  def perform(
+    message_name,
+    batch_size: 100,
+    email_delay: 1.second,
+    queue_next_batch: false,
+    scope: nil
+  )
     return if Flipper.enabled?(:cancel_campaign_emails)
     return unless CampaignMessage::CampaignMessage.valid_msg_name?(message_name)
 
-    contacts_to_message = if recent_signups_only
-                            CampaignContact.eligible_for_email_with_recent_signup(message_name).limit(batch_size)
-                          else
-                            CampaignContact.eligible_for_email(message_name).limit(batch_size)
-                          end
-
+    contacts_to_message = CampaignContact.for_email_scope(scope, message_name).limit(batch_size)
     return if contacts_to_message.empty?
 
     # determine buffer between last batch's messages and this batch's
@@ -64,7 +65,7 @@ class Campaign::SendEmailsBatchJob < ApplicationJob
 
       Campaign::SendEmailsBatchJob.set(wait: wait_seconds).perform_later(
         message_name: message_name, batch_size: batch_size, email_delay: email_delay,
-        queue_next_batch: true, recent_signups_only: recent_signups_only
+        queue_next_batch: true, scope: scope
       )
     end
   end

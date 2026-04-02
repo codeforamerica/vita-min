@@ -21,7 +21,7 @@
 #
 #  idx_campaign_emails_on_domain                         (lower(split_part((to_email)::text, '@'::text, 2)))
 #  index_campaign_emails_on_campaign_contact_id          (campaign_contact_id)
-#  index_campaign_emails_on_contact_id_and_message_name  (campaign_contact_id,message_name) UNIQUE
+#  index_campaign_emails_on_contact_id_and_message_name  (campaign_contact_id,message_name)
 #  index_campaign_emails_on_mailgun_message_id           (mailgun_message_id) UNIQUE
 #
 # Foreign Keys

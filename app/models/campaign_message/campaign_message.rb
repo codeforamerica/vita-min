@@ -14,8 +14,12 @@ module CampaignMessage
       klass.new
     end
 
-    def self.valid_msg_name?(message_name)
+    def self.valid_msg_name?(message_name) # redundant
       "CampaignMessage::#{message_name.camelize}".safe_constantize.present?
+    end
+
+    def self.max_sends_per_contact
+      1
     end
   end
 end

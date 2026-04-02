@@ -23,7 +23,7 @@ describe Campaign::SendCampaignSmsJob, type: :job do
   let(:scheduled_send_at) { nil }
   let(:twilio_sid) { nil }
 
-  TwilioMessage = Struct.new(:sid, :status, :error_code)
+  TwilioMessage = Struct.new(:sid, :status, :error_code, :sent_at)
 
   before do
     clear_enqueued_jobs
@@ -52,7 +52,7 @@ describe Campaign::SendCampaignSmsJob, type: :job do
       let(:scheduled_send_at) { 5.minutes.ago }
 
       it "sends via Twilio and updates twilio_sid, sent_at, and status" do
-        message = TwilioMessage.new("SM123", "sent", nil)
+        message = TwilioMessage.new("SM123", "sent", nil, nil)
 
         allow_any_instance_of(TwilioService).to receive(:send_text_message).and_return(message)
 
@@ -61,11 +61,11 @@ describe Campaign::SendCampaignSmsJob, type: :job do
         campaign_sms.reload
         expect(campaign_sms.twilio_sid).to eq("SM123")
         expect(campaign_sms.sent_at).to be_present
-        expect(campaign_sms.twilio_status).to eq("sent").or be_present # depending update_status_if_further behavior
+        expect(campaign_sms.twilio_status).to eq("sent")
       end
 
       it "passes status_callback and outgoing_text_message into TwilioService" do
-        message = TwilioMessage.new("SM123", "sent", nil)
+        message = TwilioMessage.new("SM123", "sent", nil, nil)
 
         expect_any_instance_of(TwilioService).to receive(:send_text_message) do |_service, **kwargs|
           expect(kwargs[:to]).to eq(campaign_sms.to_phone_number)
