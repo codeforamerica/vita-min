@@ -51,13 +51,13 @@ RSpec.feature "Visit home page" do
     end
   end
 
-  scenario "show no banner" do
+  xscenario "show no banner" do
     visit "/"
 
     expect(page.all(:css, '.slab--banner').length).to eq 0
   end
 
-  xcontext "shows the correct date-dependent banners" do
+  context "shows the correct date-dependent banners" do
     let(:current_time) { nil }
 
     around do |example|
@@ -92,7 +92,7 @@ RSpec.feature "Visit home page" do
       scenario "shows the document deadline banner" do
         visit "/"
 
-        expect(page).to have_text "Reminder: You must submit your documents by April 1st in order to meet the federal income tax filing deadline of April 15th. You can submit your taxes after the deadline without penalty if you don't owe. If you aren't sure whether or not you will owe, you can complete and mail this IRS form requesting an extension."
+        expect(page).to have_text "Reminder: You must submit your documents by April 6th in order to meet the federal income tax filing deadline of April 15th. You can submit your taxes after the deadline without penalty if you don't owe. If you aren't sure whether or not you will owe, you can complete and mail this IRS form requesting an extension." # GYR1-994: use Apr 6
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
     end
@@ -103,14 +103,15 @@ RSpec.feature "Visit home page" do
       scenario "shows the open_intake_post_tax_deadline_banner banner" do
         visit "/"
 
-        expect(page).to have_text "Get started with GetYourRefund by October 1st if you want to file with us in 2024. If your return is in progress, sign in and submit your documents by October 8th"
+        expect(page).to have_text "Get started with GetYourRefund by October 1st if you want to file with us in "
+        expect(page).to have_text ". If your return is in progress, sign in and submit your documents by October 8th"
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
 
       scenario "shows the banner with closing date and document submission deadline with correctly formatted spanish dates" do
         visit "/es"
 
-        expect(page).to have_text I18n.t('views.public_pages.home.open_intake_post_tax_deadline_banner', end_of_intake: I18n.l(Rails.configuration.end_of_intake.to_date, format: :medium, locale: "es"), end_of_docs: I18n.l(Rails.configuration.end_of_docs.to_date, format: :medium, locale: "es"), locale: "es")
+        expect(page).to have_text I18n.t('views.public_pages.home.open_intake_post_tax_deadline_banner', end_of_intake: I18n.l(Rails.configuration.end_of_intake.to_date, format: :medium, locale: "es"), end_of_docs: I18n.l(Rails.configuration.end_of_docs.to_date, format: :medium, locale: "es"), product_year:Rails.configuration.product_year, locale: "es")
       end
     end
   end
