@@ -111,7 +111,7 @@ RSpec.feature "Visit home page" do
       scenario "shows the banner with closing date and document submission deadline with correctly formatted spanish dates" do
         visit "/es"
 
-        expect(page).to have_text I18n.t('views.public_pages.home.open_intake_post_tax_deadline_banner', end_of_intake: I18n.l(Rails.configuration.end_of_intake.to_date, format: :medium, locale: "es"), end_of_docs: I18n.l(Rails.configuration.end_of_docs.to_date, format: :medium, locale: "es"), product_year:Rails.configuration.product_year, locale: "es")
+        expect(page).to have_text I18n.t('views.public_pages.home.open_intake_post_tax_deadline_banner', end_of_intake: I18n.l(Rails.configuration.end_of_intake.to_date, format: :medium, locale: "es"), end_of_docs: I18n.l(Rails.configuration.end_of_docs.to_date, format: :medium, locale: "es"), product_year: Rails.configuration.product_year, locale: "es")
       end
     end
   end
