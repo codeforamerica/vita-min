@@ -15,10 +15,10 @@ def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
   end
 end
 
-gem 'rack', '>= 2.2.22'
+gem 'rack', '>= 3.2.6'
 gem 'rails', '~> 7.1.5.2'
 gem 'puma', '>= 6.6.1'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
 gem 'nokogiri', '>= 1.19.1'
 gem 'recaptcha'
@@ -47,6 +47,7 @@ gem 'bcrypt', '>= 3.1.22'
 gem 'devise-i18n'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
+gem 'delayed_job', '~> 4.1.13'
 gem 'lograge'
 gem 'fix-db-schema-conflicts', require: false
 gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
