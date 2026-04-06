@@ -47,6 +47,7 @@ gem 'bcrypt', '>= 3.1.22'
 gem 'devise-i18n'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
+gem 'delayed_job', '~> 4.1.13'
 gem 'lograge'
 gem 'fix-db-schema-conflicts', require: false
 gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
