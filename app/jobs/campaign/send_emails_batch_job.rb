@@ -12,22 +12,18 @@
 class Campaign::SendEmailsBatchJob < ApplicationJob
   queue_as :campaign_mailer
 
-
-  def perform(
-    message_name: nil,
-    batch_size: 100,
-    email_delay: 1.second,
-    queue_next_batch: false,
-    scope: nil
-  )
+  def perform(message_name: nil, batch_size: 100, email_delay: 1.second, queue_next_batch: false, scope: nil)
     return if Flipper.enabled?(:cancel_campaign_emails)
-    return unless CampaignMessage::CampaignMessage.valid_msg_name?(message_name)
+
+    msg_instance = CampaignMessage::CampaignMessage.msg_for_name(message_name).new
+    raise ArgumentError, "'#{message_name}' message has no email body" unless msg_instance.respond_to?(:email_body)
+    raise ArgumentError, "'#{message_name}' message has no email subject" unless msg_instance.respond_to?(:email_subject)
 
     contacts_to_message = CampaignContact.for_email_scope(scope, message_name).limit(batch_size)
     return if contacts_to_message.empty?
 
     # determine buffer between last batch's messages and this batch's
-    last_scheduled_for_message = CampaignEmail.where(message_name: message_name, sent_at: nil).maximum(:scheduled_send_at)
+    last_scheduled_for_message = CampaignEmail.where(message_name: message_name).maximum(:scheduled_send_at)
     start_time = if last_scheduled_for_message.present?
                    [(Time.current + 5.seconds), last_scheduled_for_message + email_delay].max
                  else
@@ -55,6 +51,8 @@ class Campaign::SendEmailsBatchJob < ApplicationJob
 
       send_index += 1
     end
+
+    return if send_index == 0
 
     if queue_next_batch
       wait_seconds = if max_scheduled_send_at.present?
