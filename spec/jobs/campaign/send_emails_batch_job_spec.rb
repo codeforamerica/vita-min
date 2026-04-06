@@ -26,7 +26,6 @@ describe Campaign::SendEmailsBatchJob, type: :job do
     allow(Flipper).to receive(:enabled?).and_call_original
     allow(Flipper).to receive(:enabled?).with(:cancel_campaign_emails).and_return(false)
     allow(CampaignEmail).to receive(:create_or_find_for).and_call_original
-    allow_any_instance_of(described_class).to receive(:rate_limited?).and_call_original
     allow(CampaignContact).to receive(:for_email_scope).and_call_original
   end
 
@@ -43,45 +42,8 @@ describe Campaign::SendEmailsBatchJob, type: :job do
       end
     end
 
-    # context "when not paused and flag disabled" do
-    #   context "with an eligible campaign contact" do
-    #     let!(:campaign_contact) do
-    #       create(:campaign_contact, :email_opted_in,
-    #              latest_gyr_intake_at: Rails.configuration.start_of_unique_links_only_intake - 1.day)
-    #     end
-    #
-    #     let!(:already_sent_campaign_contact) { create(:campaign_contact, :email_opted_in) }
-    #     let!(:campaign_email) do
-    #       create :campaign_email, message_name: message_name, campaign_contact: already_sent_campaign_contact
-    context "when rate limiting is detected" do
-      let!(:campaign_contact) { create(:campaign_contact, :email_opted_in) }
-
-      let!(:rate_limited_1) do
-        create(:campaign_email, mailgun_status: "failed", error_code: "421", sent_at: 5.minutes.ago)
-      end
-      let!(:rate_limited_2) do
-        create(:campaign_email, mailgun_status: "failed", event_data: { reason: "rate limit exceeded" }, sent_at: 5.minutes.ago)
-      end
-      let!(:non_rate_limited) do
-        create(:campaign_email, mailgun_status: "delivered", sent_at: 5.minutes.ago)
-      end
-
-      let!(:old_email) do
-        create(:campaign_email, mailgun_status: "failed", error_code: "421", sent_at: 2.hours.ago)
-      end
-
-      it "does nothing (does not create new CampaignEmail records)" do
-        perform_job
-
-        expect(CampaignEmail).not_to have_received(:create!)
-      end
-    end
-
-    context "when flag disabled and not rate limited" do
+    context "when flag disabled and not rate limited" do # specific domains are not rate limited
       let(:scope) { :all_eligible }
-      before do
-        allow_any_instance_of(described_class).to receive(:rate_limited?).and_return(false)
-      end
 
       context "with an eligible campaign contact" do
         let!(:campaign_contact) do
@@ -181,7 +143,7 @@ describe Campaign::SendEmailsBatchJob, type: :job do
         it "only creates emails for campaign contacts with records of prior-year FYST returns" do
           perform_job
 
-          expect(CampaignEmail).to have_received(:create!).exactly(1).time
+          expect(CampaignEmail).to have_received(:create_or_find_for).exactly(1).time
         end
       end
 
@@ -201,13 +163,15 @@ describe Campaign::SendEmailsBatchJob, type: :job do
         it "only creates emails for campaign contacts with records of prior-year GYR returns" do
           perform_job
 
-          expect(CampaignEmail).to have_received(:create!).exactly(1).time
+          expect(CampaignEmail).to have_received(:create_or_find_for).exactly(1).time
         end
       end
     end
 
     context "when a domain is paused" do
-      let!(:contact) { create(:campaign_contact, :email_opted_in, email_address: "test@yahoo.com") }
+      let(:scope) { :all_eligible }
+      let!(:contact_paused) { create(:campaign_contact, :email_opted_in, email_address: "test@yahoo.com") }
+      let!(:contact_not_paused) { create(:campaign_contact, :email_opted_in, email_address: "test@gmail.com") }
 
       before do
         PausedEmailDomain.pause!("yahoo.com", minutes: 60)
@@ -216,8 +180,15 @@ describe Campaign::SendEmailsBatchJob, type: :job do
       it "skips creating emails for that domain" do
         perform_job
 
-        expect(CampaignEmail).not_to have_received(:create_or_find_for)
+        expect(CampaignEmail).not_to have_received(:create_or_find_for).with(hash_including(contact: contact_paused))
+      end
+
+      it "doesn't skip creating emails for other domains" do
+        perform_job
+
+        expect(CampaignEmail).to have_received(:create_or_find_for).with(hash_including(contact: contact_not_paused))
       end
     end
+
   end
 end

@@ -14,7 +14,7 @@ class Campaign::SendEmailsBatchJob < ApplicationJob
 
 
   def perform(
-    message_name,
+    message_name: nil,
     batch_size: 100,
     email_delay: 1.second,
     queue_next_batch: false,
