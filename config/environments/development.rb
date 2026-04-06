@@ -135,6 +135,6 @@ Rails.application.configure do
   config.efile_environment = "test"
 
   # Keep GYR 'open' until the end of 2040 ^_^
-  the_future = Time.find_zone('America/New_York').parse('2040-12-31 23:59:59')
-  config.end_of_intake = the_future
+  # the_future = Time.find_zone('America/New_York').parse('2040-12-31 23:59:59')
+  # config.end_of_intake = the_future
 end

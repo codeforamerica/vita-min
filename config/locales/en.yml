@@ -5257,7 +5257,7 @@ en:
           faq_cta: Read our FAQ
           header: 'Common Tax Questions:'
         header: Free tax filing, made simple.
-        open_intake_post_tax_deadline_banner: Get started with GetYourRefund by %{end_of_intake} if you want to file with us in 2024. If your return is in progress, sign in and submit your documents by %{end_of_docs}.
+        open_intake_post_tax_deadline_banner: Get started with GetYourRefund by %{end_of_intake} if you want to file with us in %{product_year}. If your return is in progress, sign in and submit your documents by %{end_of_docs}.
         security:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
           header: Committed to keeping your information secure.
