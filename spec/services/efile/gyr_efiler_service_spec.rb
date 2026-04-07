@@ -1,7 +1,5 @@
 require "rails_helper"
 
-# TODO cleanup-legacy
-
 RSpec.describe Efile::GyrEfilerService do
   before do
     # Skip preparing & downloading gyr-efiler since we mock `Process.spawn()` anyway.

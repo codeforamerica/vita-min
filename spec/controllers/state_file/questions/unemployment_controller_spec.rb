@@ -1,7 +1,5 @@
 require "rails_helper"
 
-# TODO cleanup-legacy
-
 RSpec.describe StateFile::Questions::UnemploymentController do
   StateFile::StateInformationService.active_state_codes.excluding("ny", "nj").each do |state_code|
     it_behaves_like :df_data_required, true, state_code, :state_file1099_g

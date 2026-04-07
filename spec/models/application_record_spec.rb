@@ -31,7 +31,7 @@ describe ApplicationRecord do
     # git log suggests some discussion in the past about how to handle validation of enums...
     xcontext 'when setting an invalid value' do
       it 'marks the record as invalid' do
-        record = ValidatingEnumRecord.new(paid_self_employment_expenses: :pizza)
+        record = ValidatingEnumRecord.new(paid_self_employment_expenses: 3)
         expect(record).not_to be_valid
         expect(record.errors).to include(:paid_self_employment_expenses)
       end

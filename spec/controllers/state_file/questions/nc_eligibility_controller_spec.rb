@@ -1,7 +1,5 @@
 require 'rails_helper'
 
-# TODO cleanup-legacy
-
 RSpec.describe StateFile::Questions::NcEligibilityController do
   xdescribe "eligibility_offboarding concern" do
     it_behaves_like :eligibility_offboarding_concern, intake_factory: :state_file_nc_intake do
