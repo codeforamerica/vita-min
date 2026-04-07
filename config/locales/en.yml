@@ -2214,10 +2214,10 @@ en:
   questions:
     eligibility_state:
       edit:
-        diy_html: "<strong>Get expert help as you go:</strong> chat with a tax pro as you file to answer any questions you have along the way"
+        diy_html: "<strong>Get help as you go:</strong> chat with a tax expert as you file to answer any questions you have along the way"
         page: Step 2 of 2
         title: What kind of support do you prefer while you file your taxes?
-        virtual_vita_html: "<strong>Have an expert do your taxes:</strong> match with a tax pro who will prepare and submit your return"
+        virtual_vita_html: "<strong>Have an expert do your taxes:</strong> match with an IRS-certified preparer who will prepare and submit your return"
     eligibility_wages:
       edit:
         income_level:
@@ -6094,7 +6094,7 @@ en:
         reveal_body_3: 'Available to residents of:'
         reveal_body_4: 'Other features:'
         reveal_title: Additional Information
-        subtitle: Answer a few questions and let a tax pro file for you
+        subtitle: Answer a few questions and let a tax expert file for you
         title: In-person VITA
       progress_bar:
         progress_text: 'Intake progress:'
@@ -6124,5 +6124,5 @@ en:
         reveal_body_3: 'Available to residents of:'
         reveal_body_4: 'Other features:'
         reveal_title: Additional Information
-        subtitle: Answer a few questions and let a tax pro file for you
+        subtitle: Answer a few questions and let a tax expert file for you
         title: File with Help

@@ -2186,10 +2186,10 @@ es:
   questions:
     eligibility_state:
       edit:
-        diy_html: "<strong>Reciba ayuda de expertos mientras presenta su declaración:</strong> chatee con un profesional de impuestos mientras presenta su declaración para resolver cualquier duda durante el proceso."
+        diy_html: "<strong>Obtenga ayuda mientras avanza:</strong> chatee con un experto en impuestos mientras presenta su declaración y resuelva cualquier duda en el momento."
         page: Paso 2 de 2
         title: "¿Qué tipo de apoyo prefiere recibir mientras presenta su declaración de impuestos?"
-        virtual_vita_html: "<strong>Deje que un experto prepare sus impuestos: </strong> conéctese con un profesional de impuestos que preparará y enviará su declaración."
+        virtual_vita_html: "<strong>Deje que un experto haga su declaración:</strong> conéctese con un preparador de impuestos certificado por el IRS que se encarga de presentar su declaración."
     eligibility_wages:
       edit:
         income_level:
@@ -6094,7 +6094,7 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
+        subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
         title: Declarar por mi cuenta
       document_deadline_warning:
         body_html: "<strong>Recordatorio: Debes enviar tus documentos antes del %{doc_submission_deadline} para cumplir con la fecha límite de presentación de impuestos federales del %{tax_deadline}. Puedes presentar tus impuestos después de la fecha límite sin penalización si no debes.</strong> Si no estás seguro de si deberás o no, puedes completar y enviar por correo <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una extensión."
@@ -6124,7 +6124,7 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Responda algunas preguntas y deje que un profesional de impuestos presente su declaración a nombre suyo
+        subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
         title: VITA presencial
       progress_bar:
         progress_text: 'Progreso de la admisión:'
