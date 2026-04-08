@@ -39,6 +39,4 @@ Rails.application.configure do
 
   config.intercom_app_id = "p1hu33n8"
   config.intercom_app_id_statefile = "p8cvpjy8"
-
-  config.hosts << "www.getyourrefund.org"
 end
