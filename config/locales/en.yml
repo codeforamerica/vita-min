@@ -60,7 +60,7 @@ en:
         body_html: |
           Hi %{first_name},
 
-          It’s Code for America. You used our service FileYourStateTaxes to file your state return when you used IRS Direct File. While that service has ended, we still want to make sure you have access to free, high-quality tax prep. Our IRS-certified experts at GetYourRefund are here to help you file. <a href="%{url}" target="_blank" rel="noopener nofollow">Get started at here.</a>
+          It’s Code for America. You used our service FileYourStateTaxes to file your state return when you used IRS Direct File. While that service has ended, we still want to make sure you have access to free, high-quality tax prep. Our IRS-certified experts at GetYourRefund are here to help you file. <a href="%{url}" target="_blank" rel="noopener nofollow">Get started here.</a>
 
           Best,
           The team at GetYourRefund

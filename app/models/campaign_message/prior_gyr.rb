@@ -15,7 +15,7 @@ module CampaignMessage
         host: MultiTenantService.new(:gyr).host,
         controller: "/redirects",
         action: "gyr_outreach",
-        locale: contact.locale,
+        locale: (contact&.locale || "en").to_sym,
         medium: "email"
       )
 

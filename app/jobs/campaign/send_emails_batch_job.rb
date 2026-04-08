@@ -11,72 +11,67 @@
 
 class Campaign::SendEmailsBatchJob < ApplicationJob
   queue_as :campaign_mailer
-  include Campaign::Scheduling
 
-  def perform(
-    message_name,
-    batch_size: 100,
-    batch_delay: 1.minute,
-    queue_next_batch: false,
-    scope: nil
-  )
+  def perform(message_name: nil, batch_size: 100, email_delay: 1.second, queue_next_batch: false, scope: nil)
     return if Flipper.enabled?(:cancel_campaign_emails)
-    return if rate_limited?
+
+    msg_instance = CampaignMessage::CampaignMessage.msg_for_name(message_name).new
+    raise ArgumentError, "'#{message_name}' message has no email body" unless msg_instance.respond_to?(:email_body)
+    raise ArgumentError, "'#{message_name}' message has no email subject" unless msg_instance.respond_to?(:email_subject)
 
     contacts_to_message = CampaignContact.for_email_scope(scope, message_name).limit(batch_size)
     return if contacts_to_message.empty?
 
-    start_time = next_business_hour_start
+    # determine buffer between last batch's messages and this batch's
+    last_scheduled_for_message = CampaignEmail.where(message_name: message_name).maximum(:scheduled_send_at)
+    start_time = if last_scheduled_for_message.present?
+                   [(Time.current + 5.seconds), last_scheduled_for_message + email_delay].max
+                 else
+                   Time.current + 5.seconds
+                 end
 
-    CampaignContact.where(id: contacts_to_message).find_each.with_index do |contact, index|
-      # add delays between individual emails to prevent throttling
-      scheduled_send_at = start_time + (index * 0.2).seconds
+    max_scheduled_send_at = nil
+    send_index = 0
 
-      CampaignEmail.create!(
-        campaign_contact_id: contact.id,
+    contacts_to_message.each do |contact|
+      domain = CampaignEmail.domain_for(contact.email_address)
+      if PausedEmailDomain.paused?(domain)
+        DatadogApi.increment("campaign_email.skipped_paused_domain", tags: ["domain:#{domain}"])
+        next
+      end
+
+      scheduled_send_at = start_time + (send_index * email_delay)
+
+      email = CampaignEmail.create_or_find_for(
+        contact: contact,
         message_name: message_name,
-        to_email: contact.email_address,
         scheduled_send_at: scheduled_send_at
       )
-    rescue ActiveRecord::RecordNotUnique
-      next # already claimed by another worker
+
+      next unless email.previously_new_record?
+
+      max_scheduled_send_at = [max_scheduled_send_at, email.scheduled_send_at].compact.max
+
+      send_index += 1
     end
 
+    return if send_index == 0
+
     if queue_next_batch
-      Campaign::SendEmailsBatchJob.set(wait: batch_delay)
-                                  .perform_later(message_name, batch_size: batch_size, batch_delay: batch_delay,
-                                                               queue_next_batch: true, scope: scope)
+      wait_seconds = if max_scheduled_send_at.present?
+                       [(max_scheduled_send_at + 5.seconds) - Time.current, 0].max
+                     else
+                       5.seconds
+                     end
+
+      Campaign::SendEmailsBatchJob.set(wait: wait_seconds).perform_later(
+        message_name: message_name, batch_size: batch_size, email_delay: email_delay,
+        queue_next_batch: true, scope: scope
+      )
     end
   end
 
   def priority
     PRIORITY_LOW
-  end
-
-  private
-
-  def rate_limited?
-    recent_emails = CampaignEmail.where("sent_at > ?", 1.hour.ago)
-
-    total_count = recent_emails.count
-    return false if total_count.zero?
-
-    rate_limit_phrases = ["%rate limit%", "%ratelimit%"]
-
-    rate_limited_count = recent_emails.where(
-      "error_code = ? OR event_data::text ILIKE ANY(ARRAY[?])",
-      "421",
-      rate_limit_phrases
-    ).count
-
-    rate_limited_rate = ((rate_limited_count.to_f / total_count) * 100).round(1)
-
-    if rate_limited_rate > 15
-      Flipper.enable(:cancel_campaign_emails)
-      Sentry.capture_message("Campaign Emails: Rate limiting detected: #{rate_limited_rate}% rate-limited. Pausing campaign emails. Disable :cancel_campaign_emails to start again.")
-      return true
-    end
-
-    false
   end
 end
