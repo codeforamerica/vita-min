@@ -30,7 +30,7 @@ RSpec.describe Questions::PersonalInfoController do
         cookies.encrypted[:visitor_id] = "some_visitor_id"
         allow(PartnerRoutingService).to receive(:new).and_return organization_router
         allow(organization_router).to receive(:determine_partner).and_return nil
-        allow(organization_router).to receive(:routing_method).and_return :from_zip_code
+        allow(organization_router).to receive(:routing_method).and_return :zip_code
       end
 
       context "with correct params and not at capacity" do

@@ -43,6 +43,14 @@ module VitaMin
 
     config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
+    # Added for Rails 7.2 upgrade:
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    # config.autoload_lib(ignore: %w[assets tasks]) # Rails 7.2 default
+    config.autoload_lib(ignore: %w[assets tasks generators])
+    # End of Rails 7.2 addition
+
     config.active_record.enumerate_columns_in_select_statements = true
     config.active_storage.variant_processor = :mini_magick
 
@@ -96,7 +104,8 @@ module VitaMin
     config.tax_deadline = et.parse('2026-04-15 23:59:59')
     config.end_of_intake = et.parse('2026-10-01 23:59:59')
     config.end_of_docs = et.parse('2026-10-08 23:59:59')
-    config.doc_submission_deadline = et.parse('2026-04-01 23:59:59')
+    # Per GYR1-994 changing doc_submission_deadline frm 2026-04-01 to 2026-04-06
+    config.doc_submission_deadline = et.parse('2026-04-06 23:59:59')
     config.end_of_closing = et.parse('2026-10-15 23:59:59')
     config.end_of_in_progress_intake = et.parse('2026-10-15 23:59:59')
     config.end_of_login = et.parse('2026-10-23 23:59:00')
