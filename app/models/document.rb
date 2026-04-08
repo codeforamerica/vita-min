@@ -82,13 +82,13 @@ class Document < ApplicationRecord
         received_at: created_at,
         interaction_type: :document_upload
       )
-    else
-      InteractionTrackingService.record_internal_interaction(client)
-    end
 
     is_heic? ?
       HeicToJpgJob.perform_later(id).then(DocScreenerJob) :
       DocScreenerJob.perform_later(id)
+    else
+      InteractionTrackingService.record_internal_interaction(client)
+    end
   end
   after_save_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
   after_destroy_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
