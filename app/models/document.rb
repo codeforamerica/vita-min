@@ -83,9 +83,9 @@ class Document < ApplicationRecord
         interaction_type: :document_upload
       )
 
-    is_heic? ?
-      HeicToJpgJob.perform_later(id).then(DocScreenerJob) :
-      DocScreenerJob.perform_later(id)
+      is_heic? ?
+        HeicToJpgJob.perform_later(id).then(DocScreenerJob) :
+        DocScreenerJob.perform_later(id)
     else
       InteractionTrackingService.record_internal_interaction(client)
     end
