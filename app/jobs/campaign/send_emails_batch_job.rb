@@ -35,7 +35,10 @@ class Campaign::SendEmailsBatchJob < ApplicationJob
 
     contacts_to_message.each do |contact|
       domain = CampaignEmail.domain_for(contact.email_address)
-      next if PausedEmailDomain.paused?(domain)
+      if PausedEmailDomain.paused?(domain)
+        DatadogApi.increment("campaign_email.skipped_paused_domain", tags: ["domain:#{domain}"])
+        next
+      end
 
       scheduled_send_at = start_time + (send_index * email_delay)
 
