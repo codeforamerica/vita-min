@@ -139,6 +139,27 @@ describe Document do
       end
     end
 
+    context 'with an encrypted but not password-protected PDF' do
+      let(:document) {
+        build :document,
+        document_type: DocumentTypes::PrimaryIdentification::Passport.key,
+        upload_path: Rails.root.join('spec', 'fixtures', 'files', 'encrypted-but-not-pw-protected.pdf') }
+      it 'accepts PDF as valid' do
+        expect(document).to be_valid
+      end
+    end
+
+    context 'with a password-protected PDF' do
+      let(:document) {
+        build :document,
+        document_type: DocumentTypes::PrimaryIdentification::Passport.key,
+        upload_path: Rails.root.join('spec', 'fixtures', 'files', 'encrypted-and-pw-is-password.pdf') }
+      it 'rejects the file as invalid' do
+        expect(document).not_to be_valid
+        expect(document.errors).to include :upload
+      end
+    end
+
     describe "#file_type" do
       let(:client) { create :client }
       let(:tax_return) { build :gyr_tax_return, client: client }
