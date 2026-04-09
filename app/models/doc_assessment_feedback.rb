@@ -33,16 +33,18 @@ class DocAssessmentFeedback < ApplicationRecord
   private
 
   def post_processing
-    update_document_display_name if feedback_correct?
+    update_document_display_name if (
+      feedback_correct? and 
+      DocumentTypes::ALL_TYPES.map(&:key).include? doc_assessment.suggested_document_type )
   end
 
   def update_document_display_name
     doc = doc_assessment.document
-    name = doc.document_type
-    tally = Document.where({intake_id: doc.intake_id,
-                            document_type: doc.document_type}).count
-    if tally > 1
-      name += ' ' + tally.to_s
+    name = doc_assessment.suggested_document_type
+    tally = Document.where({intake_id: doc.intake_id}).
+                     where('display_name LIKE ?', name).count
+    if tally > 0
+      name += ' ' + (tally + 1).to_s
     end
     doc.update!(display_name: name)
   end

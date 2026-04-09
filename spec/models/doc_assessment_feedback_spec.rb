@@ -24,22 +24,20 @@ require 'rails_helper'
 
 shared_context 'doc_1' do
  let!(:document) { 
-    create(:document, 
-           intake_id: 2814,
-           display_name: 'broccoli',
-           document_type: DocumentTypes::PrimaryIdentification::Passport.key) }
-  let!(:doc_assessment) { create(:doc_assessment, document: document) }
+    create(:document, intake_id: 2814, display_name: 'broccoli') }
+  let!(:doc_assessment) {
+    create(:doc_assessment, document: document,
+           result_json: {suggested_document_type: 'Passport'}) }
   let!(:doc_assessment_feedback) {
     create(:doc_assessment_feedback, doc_assessment: doc_assessment) }
 end
 
 shared_context 'doc_2' do
   let!(:document_2) {
-    create(:document,
-           intake_id: 2814,
-           display_name: 'spinach',
-           document_type: DocumentTypes::PrimaryIdentification::Passport.key) }
-  let!(:doc_assessment_2) { create(:doc_assessment, document: document_2) }
+    create(:document, intake_id: 2814, display_name: 'spinach') }
+  let!(:doc_assessment_2) { 
+      create(:doc_assessment, document: document_2,
+              result_json: {suggested_document_type: 'Passport'}) }
   let!(:doc_assessment_feedback_2) {
     create(:doc_assessment_feedback, doc_assessment: doc_assessment_2) }
 end
@@ -50,18 +48,17 @@ RSpec.describe DocAssessmentFeedback do
       include_context 'doc_1'
       it 'updates the display_name' do
         doc_assessment_feedback.update!(feedback: :correct)
-        expect(document.reload.display_name).to eq(
-          DocumentTypes::PrimaryIdentification::Passport.key)
+        expect(document.reload.display_name).to eq('Passport')
       end
     end
 
-    context 'when feedback is correct and there are more than one of this doc type for this intake' do
+    context 'when feedback is correct and there are more than one of this display_name for this intake' do
       include_context 'doc_1'
       include_context 'doc_2'
       it 'updates the display_name which includes a numeric suffix' do
+        doc_assessment_feedback.update!(feedback: :correct)
         doc_assessment_feedback_2.update!(feedback: :correct)
-        expect(document_2.reload.display_name).to eq(
-          DocumentTypes::PrimaryIdentification::Passport.key + ' 2')
+        expect(document_2.reload.display_name).to eq('Passport 2')
       end
     end
   end
