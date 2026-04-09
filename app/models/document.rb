@@ -53,7 +53,7 @@ class Document < ApplicationRecord
   validate :tax_return_present_sometimes
   validate :tax_return_absent_sometimes
   validate :upload_must_have_data
-  validate :upload_must_be_readable, if: -> { document_type == DocumentTypes::UnsignedForm8879.key }
+  validate :upload_must_be_readable
   validate :unsigned_form_8879_file_type
   # Permit all existing document types plus two historical ones
   validates_presence_of :document_type
@@ -189,6 +189,8 @@ class Document < ApplicationRecord
         PDF::Reader.new(@file_for_validations)
       rescue PDF::Reader::MalformedPDFError
         errors.add(:upload, I18n.t("validators.pdf_file_corrupted"))
+      rescue PDF::Reader::EncryptedPDFError
+        errors.add(:upload, I18n.t("validators.pdf_file_password_protected"))
       end
     end
   end
