@@ -4951,7 +4951,7 @@ en:
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
     not_a_number: Please enter numbers only.
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
-    pdf_file_password_protected: PDF is password-protected.
+    pdf_file_password_protected: This file is not readable. The file has a password or is locked. Please remove the password and upload it again.
     pdf_file_type: "%{document_type} must be a PDF file"
     routing_number: This routing number is not valid for direct deposit transactions. Please use a different bank account or switch to check payments.
     signature_pin: Signature PIN must be a 5 digit number.
