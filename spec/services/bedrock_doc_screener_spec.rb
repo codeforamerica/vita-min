@@ -240,4 +240,78 @@ describe BedrockDocScreener do
       expect { described_class.pdf_to_png_base64(upload) }.to raise_error(/failed to convert pdf pages to images/)
     end
   end
+
+  describe ".ensure_safe_image_size" do
+    let(:raw_data) { "large-binary-data" }
+    let(:mini_magick_image) { double("MiniMagick::Image", size: 5.megabytes, to_blob: "shrunk-data") }
+
+    before do
+      allow(MiniMagick::Image).to receive(:read).and_return(mini_magick_image)
+      allow(mini_magick_image).to receive(:combine_options).and_yield(mini_magick_image)
+      allow(mini_magick_image).to receive(:resize)
+      allow(mini_magick_image).to receive(:quality)
+    end
+
+    it "resizes and reduces quality of the image" do
+      result = described_class.ensure_safe_image_size(raw_data)
+
+      expect(mini_magick_image).to have_received(:combine_options)
+      expect(result).to eq("shrunk-data")
+    end
+  end
+
+  describe "compression and limits in processing" do
+    let(:upload) { instance_double("ActiveStorageUpload") }
+    let(:document) { instance_double("Document", upload: upload, document_type: "Employment") }
+
+    before do
+      allow(upload).to receive(:attached?).and_return(true)
+      allow(described_class).to receive(:invoke_bedrock_model).and_return(
+        double("Response", body: StringIO.new({ content: [{ type: "text", text: "{}" }] }.to_json))
+      )
+    end
+
+    context "with a very large image" do
+      let(:large_data) { "A" * 4.megabytes }
+
+      before do
+        allow(upload).to receive(:content_type).and_return("image/jpeg")
+        allow(upload).to receive(:download).and_return(large_data)
+        allow(described_class).to receive(:ensure_safe_image_size).and_return("shrunk-data")
+      end
+
+      it "compresses the image before encoding" do
+        described_class.screen_document!(document: document)
+        expect(described_class).to have_received(:ensure_safe_image_size).with(large_data)
+      end
+    end
+
+    context "with a long PDF" do
+      before do
+        allow(upload).to receive(:content_type).and_return("application/pdf")
+        allow(upload).to receive(:download).and_return("%PDF-1.4")
+        allow(Dir).to receive(:mktmpdir).and_yield("/tmp/fake_dir")
+        allow(described_class).to receive(:system).and_return(true)
+
+        fake_pages = (1..25).map { |i| "/tmp/fake_dir/page-#{i}.png" }
+        allow(Dir).to receive(:glob).and_return(fake_pages)
+        allow(File).to receive(:binread).and_return("small-png")
+      end
+
+      it "only takes the first 20 pages" do
+        result = described_class.pdf_to_png_base64(upload)
+        expect(result.size).to eq(20)
+      end
+
+      it "compresses individual PDF pages if they are too large" do
+        large_page_data = "A" * 4.megabytes
+        allow(File).to receive(:binread).with("/tmp/fake_dir/page-1.png").and_return(large_page_data)
+        allow(described_class).to receive(:ensure_safe_image_size).and_return("shrunk-page")
+
+        described_class.pdf_to_png_base64(upload)
+
+        expect(described_class).to have_received(:ensure_safe_image_size).with(large_page_data)
+      end
+    end
+  end
 end
