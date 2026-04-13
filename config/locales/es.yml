@@ -5081,16 +5081,6 @@ es:
         spouse_info:
           spouse_identity: Tipo de identificación de su cónyuge
           spouse_identity_help_text: Si utiliza una tarjeta de Seguro Social, debe ser válida para el empleo
-    ctc_pages:
-      home:
-        affiliations:
-          cfa_product_html: GetCTC es un producto de <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a>. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">¿Por qué hacemos este trabajo?</a>
-          irs: Proveedor oficial de archivos electrónicos aprobado por el IRS.
-          white_house_html: Realizado en colaboración con la <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">Casa Blanca y el Departamento del Tesoro de EE. UU.</a>
-        body: Para preguntas o ayuda con la declaración de impuestos, visite GetYourRefund. Si aún no ha presentado su solicitud este año, es posible que sea elegible para reclamar beneficios en efectivo.
-        ctc_not_extended_notice: El Crédito Tributario Anticipado por Hijos fue un beneficio tributario proporcionado a las familias en 2021 y 2022 y no se renovó para 2023.
-        title: Una herramienta para reclamar el Crédito Tributario Anticipado por Hijos
-        visit_gyr: Visite GetYourRefund
     dependents:
       form:
         birth_date: Fecha de nacimiento
