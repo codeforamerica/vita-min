@@ -46,6 +46,9 @@ class Ability
       unless user.email.downcase.include?("@codeforamerica.org")
         cannot :manage, :flipper_dashboard
       end
+
+      can :manage, :smartscan_doc_screener
+      can :manage, DocAssessmentFeedback
       return
     end
 
