@@ -6067,7 +6067,7 @@ en:
         subtitle: File on your own and get help when you need it
         title: File Myself
       document_deadline_warning:
-        body_html: "<strong>Reminder: You must submit your documents by %{doc_submission_deadline} in order to meet the federal income tax filing deadline of %{tax_deadline}. You can submit your taxes after the deadline without penalty if you don't owe.</strong> If you aren't sure whether or not you will owe, you can complete and mail <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>this IRS form</a> requesting an extension."
+        body_html: The tax filing deadline for all 2025 returns is %{tax_deadline}. Use the <a href='https://www.getyourrefund.org/en/diy/qualifications' target='_blank' rel='noopener noreferrer'>tool File Myself</a> to file on your own before the deadline. If you don't owe, you can submit your taxes after that date without penalty. <a href='https://intercom.help/getyourrefundorg/en/articles/11048561-filing-an-extension' target='_blank' rel='noopener noreferrer'>Learn more in our FAQ.</a>
       environment_warning:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_filing: We are unable to accept new clients after %{end_of_intake_date}. If your return is in progress, log in and submit your documents by %{end_of_docs_date} in order to file by the deadline.

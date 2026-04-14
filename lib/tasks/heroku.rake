@@ -13,10 +13,20 @@ end
 namespace :heroku do
   desc 'Heroku release task (runs on every code push; on review app creation, runs before postdeploy task)'
   task release: :environment do
-    if ActiveRecord::Base.connection.schema_migration.table_exists?
-      Rake::Task['db:migrate'].invoke
-    else
-      Rails.logger.info "Database not initialized, skipping database migration."
+    puts "--- Starting Heroku Release Phase ---"
+    begin
+      if ActiveRecord::Base.connection.table_exists?('users')
+        puts "Existing database detected. Running migrations..."
+        Rake::Task['db:migrate'].invoke
+      else
+        puts "Core tables missing. Loading schema from schema.rb..."
+        Rake::Task['db:schema:load'].invoke
+      end
+      puts "--- Release Phase Successful ---"
+    rescue => e
+      puts "RELEASE PHASE ERROR: #{e.message}"
+      Rails.logger.error "RELEASE PHASE FAILED: #{e.message}\n#{e.backtrace.join("\n")}"
+      exit 1
     end
   end
 

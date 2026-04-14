@@ -249,8 +249,9 @@ describe Document do
     end
 
     context "when the file extension is not .heic" do
-      it "does not create a job to covert the file to jpg and enqueues the DocScreenerJob & ActiveStorage::AnalyzeJob as normal" do
-        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")
+      let(:client) { create :client }
+      it "does not create a job to convert the file to jpg and enqueues the DocScreenerJob & ActiveStorage::AnalyzeJob as normal" do
+        document = build :document, uploaded_by: client, upload_path: Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")
         allow(HeicToJpgJob).to receive(:perform_later)
 
         document.save!
