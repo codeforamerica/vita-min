@@ -62,7 +62,7 @@ class CampaignContact < ApplicationRecord
     when :recent_signups then eligible_for_email_with_recent_signup(message_name)
     when :prior_fyst     then eligible_for_fyst_email(message_name)
     when :prior_gyr      then eligible_for_gyr_email(message_name)
-    else raise ArgumentError, "no valid 'scope' given, use one of the following [:all_eligible, :recent_signups, :prior_fyst or :prior_gyr]"
+    else raise ArgumentError, "no valid 'scope' given, use one of the following [:all_eligible, :recent_signups, :prior_fyst or :prior_gyr] or define in message instance's #batch_scope"
     end
   end
 

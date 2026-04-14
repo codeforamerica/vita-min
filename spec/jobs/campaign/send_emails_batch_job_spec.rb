@@ -7,7 +7,7 @@ describe Campaign::SendEmailsBatchJob, type: :job do
     described_class.new.perform(
       message_name: message_name,
       batch_size: batch_size,
-      email_delay: email_delay,
+      msg_delay: msg_delay,
       queue_next_batch: queue_next_batch,
       scope: scope
     )
@@ -15,7 +15,7 @@ describe Campaign::SendEmailsBatchJob, type: :job do
 
   let(:message_name) { "start_of_season_outreach" }
   let(:batch_size) { 10 }
-  let(:email_delay) { 10.seconds }
+  let(:msg_delay) { 10.seconds }
   let(:queue_next_batch) { false }
   let(:scope) { :recent_signups }
 
@@ -24,17 +24,17 @@ describe Campaign::SendEmailsBatchJob, type: :job do
     clear_performed_jobs
 
     allow(Flipper).to receive(:enabled?).and_call_original
-    allow(Flipper).to receive(:enabled?).with(:cancel_campaign_emails).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:cancel_campaign_email_batches).and_return(false)
     allow(CampaignEmail).to receive(:create_or_find_for).and_call_original
     allow(CampaignContact).to receive(:for_email_scope).and_call_original
   end
 
   describe "#perform" do
-    context "when :cancel_campaign_emails flag is enabled" do
+    context "when :cancel_campaign_email_batches flag is enabled" do
       let!(:campaign_contact) { create(:campaign_contact, :email_opted_in) }
 
       it "does nothing" do
-        allow(Flipper).to receive(:enabled?).with(:cancel_campaign_emails).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:cancel_campaign_email_batches).and_return(true)
 
         perform_job
 
