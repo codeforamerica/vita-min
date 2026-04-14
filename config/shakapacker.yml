@@ -103,6 +103,17 @@ production:
   # Cache manifest.json for performance
   cache_manifest: true
 
+heroku:
+  <<: *default
+  compile: false
+  cache_manifest: true
+
+demo:
+  <<: *default
+  compile: false
+  cache_manifest: true
+
 staging:
   <<: *default
   compile: false
+  cache_manifest: true
