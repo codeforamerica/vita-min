@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_03_27_153023) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_14_202403) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1393,6 +1393,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_03_27_153023) do
     t.datetime "email_address_verified_at", precision: nil
     t.string "email_domain"
     t.integer "email_notification_opt_in", default: 0, null: false
+    t.datetime "email_unsubscribed_at"
     t.integer "ever_married", default: 0, null: false
     t.integer "ever_owned_home", default: 0, null: false
     t.integer "exceeded_investment_income_limit", default: 0

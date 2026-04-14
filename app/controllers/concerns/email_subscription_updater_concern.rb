@@ -14,8 +14,13 @@ module EmailSubscriptionUpdaterConcern
       matching_intakes = matching_intakes(email_address)
 
       if matching_intakes.present?
+        unsub_timestamp = (direction == "no") ? Time.current : nil
+
         matching_intakes.each do |intake|
-          intake.update(column_name => direction)
+          intake.update(
+            column_name => direction,
+            email_unsubscribed_at: unsub_timestamp
+          )
         end
 
         if show_flash_and_render

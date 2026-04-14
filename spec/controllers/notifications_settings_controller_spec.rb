@@ -13,6 +13,7 @@ RSpec.describe NotificationsSettingsController do
       get :unsubscribe_from_emails, params: { email_address: signed_email }
 
       expect(intake.reload.email_notification_opt_in).to eq "no"
+      expect(intake.reload.email_unsubscribed_at).to be_within(30.seconds).of(DateTime.now)
       expect(response.body).to include subscribe_to_emails_path(email_address: signed_email)
     end
 
