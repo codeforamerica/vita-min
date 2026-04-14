@@ -24,9 +24,7 @@ namespace :heroku do
       end
       puts "--- Release Phase Successful ---"
     rescue => e
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
       puts "RELEASE PHASE ERROR: #{e.message}"
-      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
       Rails.logger.error "RELEASE PHASE FAILED: #{e.message}\n#{e.backtrace.join("\n")}"
       exit 1
     end
