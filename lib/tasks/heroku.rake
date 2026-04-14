@@ -13,20 +13,21 @@ end
 namespace :heroku do
   desc 'Heroku release task (runs on every code push; on review app creation, runs before postdeploy task)'
   task release: :environment do
-    puts "--- Starting Heroku Release Phase [RAILS_ENV=#{Rails.env}] ---"
+    puts "--- Starting Heroku Release Phase ---"
     begin
-      if ActiveRecord::Base.connection.tables.empty?
-        puts "Empty database detected. Loading schema..."
-        Rake::Task['db:schema:load'].invoke
-      else
+      if ActiveRecord::Base.connection.table_exists?('users')
         puts "Existing database detected. Running migrations..."
         Rake::Task['db:migrate'].invoke
+      else
+        puts "Core tables missing. Loading schema from schema.rb..."
+        Rake::Task['db:schema:load'].invoke
       end
       puts "--- Release Phase Successful ---"
     rescue => e
-      Rails.logger.error "Heroku `release` phase failed: #{e.message}"
-      puts "Heroku release phase error: #{e.message}"
-      puts "Check your Heroku logs for the full backtrace."
+      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+      puts "RELEASE PHASE ERROR: #{e.message}"
+      puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+      Rails.logger.error "RELEASE PHASE FAILED: #{e.message}\n#{e.backtrace.join("\n")}"
       exit 1
     end
   end
