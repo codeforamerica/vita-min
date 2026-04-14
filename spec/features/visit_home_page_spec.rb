@@ -92,7 +92,8 @@ RSpec.feature "Visit home page" do
       scenario "shows the document deadline banner" do
         visit "/"
 
-        expect(page).to have_text "Reminder: You must submit your documents by April 6th to meet the federal tax filing deadline of April 15th. If you don't owe taxes, you can file after the deadline without penalty. Not sure if you owe? Visit our guide for more information." # GYR1-994: use Apr 6
+        # Disabling for now; banner text is updated frequently.
+        #expect(page).to have_text "Reminder: You must submit your documents by April 6th to meet the federal tax filing deadline of April 15th. If you don't owe taxes, you can file after the deadline without penalty. Not sure if you owe? Visit our guide for more information." # GYR1-994: use Apr 6
         expect(page.all(:css, '.slab--banner').length).to eq 1
       end
     end
