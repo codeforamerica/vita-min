@@ -16,6 +16,8 @@ def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
 end
 
 gem 'rack', '>= 3.2.6'
+gem "rack-session", ">= 2.1.2"
+gem "addressable", ">= 2.9.0"
 gem 'rails', '~> 7.2.3.1'
 gem 'puma', '>= 6.6.1'
 gem 'sass-rails', '~> 6.0'
