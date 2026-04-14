@@ -6097,7 +6097,7 @@ es:
         subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
         title: Declarar por mi cuenta
       document_deadline_warning:
-        body_html: "<strong>Recordatorio: Debe enviar sus documentos antes del %{doc_submission_deadline} para cumplir con la fecha límite del %{tax_deadline} para declarar impuestos federales.</strong> Si no debe impuestos, puede presentarlos después de esa fecha sin penalización. Si no está seguro de si deberá pagar, <a href='https://intercom.help/getyourrefundorg/es/articles/11048561-obtener-mas-tiempo-para-declarar target='_blank' rel='noopener noreferrer'>consulte nuestra guía para obtener más información</a>."
+        body_html: "La fecha límite para declarar sus impuestos de 2025 es el %{tax_deadline}. Use <a href='https://www.getyourrefund.org/es/diy/qualifications' target='_blank' rel='noopener noreferrer'>la herramienta File Myself</a> para declarar por su cuenta antes de la fecha límite. Si no debe impuestos, puede presentar su declaración después de esa fecha sin penalización. <a href='https://intercom.help/getyourrefundorg/es/articles/11048561-obtener-mas-tiempo-para-declarar'  target='_blank' rel='noopener noreferrer'>Conozca más en nuestras preguntas frecuentes.</a>"
       environment_warning:
         banner: Este sitio es sólo para pruebas. Si necesitas ayuda con tus impuestos, visita
         off_season_filing: No podemos aceptar nuevos clientes después de %{end_of_intake_date}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de %{end_of_docs_date} para presentarla antes de la fecha límite.
