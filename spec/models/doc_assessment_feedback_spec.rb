@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-# frozen_string_literal: true
-
->>>>>>> a594ee29d (screener updates doc type)
 # == Schema Information
 #
 # Table name: doc_assessment_feedbacks
@@ -70,7 +65,6 @@ RSpec.describe DocAssessmentFeedback do
 
   describe "callbacks" do
     describe "after_commit" do
-      let(:user) { create(:user) }
       let(:document) { create(:document, document_type: DocumentTypes::SsnItin.key) }
 
       context "when feedback is correct and the suggested document type differs from the current document type" do
@@ -89,7 +83,6 @@ RSpec.describe DocAssessmentFeedback do
           create(
             :doc_assessment_feedback,
             doc_assessment: doc_assessment,
-            user: user,
             feedback: :correct
           )
 
@@ -114,7 +107,6 @@ RSpec.describe DocAssessmentFeedback do
             create(
               :doc_assessment_feedback,
               doc_assessment: doc_assessment,
-              user: user,
               feedback: :correct
             )
           }.not_to change { document.reload.document_type }
@@ -138,7 +130,6 @@ RSpec.describe DocAssessmentFeedback do
             create(
               :doc_assessment_feedback,
               doc_assessment: doc_assessment,
-              user: user,
               feedback: :incorrect
             )
           }.not_to change { document.reload.document_type }

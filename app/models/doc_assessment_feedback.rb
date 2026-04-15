@@ -34,7 +34,8 @@ class DocAssessmentFeedback < ApplicationRecord
 
   def post_processing
     if (feedback_correct? and 
-       DocumentTypes::ALL_TYPES.map(&:key).include? doc_assessment.suggested_document_type)
+        DocumentTypes::ALL_TYPES.map(&:key).include? doc_assessment.suggested_document_type)
+      doc_assessment.update!(confirmed: true)
       update_document_display_name
       update_document_type
     end
@@ -49,6 +50,7 @@ class DocAssessmentFeedback < ApplicationRecord
       name += ' ' + (tally + 1).to_s
     end
     doc.update!(display_name: name)
+  end
 
   def update_document_type
     assessment = doc_assessment
