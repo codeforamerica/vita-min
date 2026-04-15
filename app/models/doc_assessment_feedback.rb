@@ -36,6 +36,7 @@ class DocAssessmentFeedback < ApplicationRecord
     if (feedback_correct? and 
         DocumentTypes::ALL_TYPES.map(&:key).include? doc_assessment.suggested_document_type)
       doc_assessment.update!(confirmed: true)
+      doc_assessment.document.skip_screener_rerun = true
       update_document_display_name
       update_document_type
     end
@@ -57,6 +58,5 @@ class DocAssessmentFeedback < ApplicationRecord
     suggested_type = assessment.suggested_document_type
     document = assessment.document
     document.update!(document_type: suggested_type)
-    document.skip_screener_rerun = true
   end
 end
