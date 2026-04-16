@@ -21,6 +21,7 @@ module EmailSubscriptionUpdaterConcern
             column_name => direction,
             email_unsubscribed_at: unsub_timestamp
           )
+          #send datadog for what was the most recent message when they unsubbed
         end
 
         if show_flash_and_render
