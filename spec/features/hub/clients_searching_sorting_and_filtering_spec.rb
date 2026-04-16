@@ -257,6 +257,13 @@ RSpec.describe "searching, sorting, and filtering clients" do
         end
         expect(page.all('.client-row').length).to eq 3
 
+        within ".client-table" do
+          expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
+          expect(page).to have_text(betty_intake_in_progress.preferred_name)
+          expect(page).to have_text(patty_prep_ready_for_call.preferred_name)
+          expect(page).to have_text(zach_prep_ready_for_call.preferred_name)
+        end
+
         click_link "Clear"
         within ".filter-form" do
           check "used_navigator"
@@ -264,6 +271,14 @@ RSpec.describe "searching, sorting, and filtering clients" do
           sleep 0.1
         end
         expect(page.all('.client-row').length).to eq 2
+
+        within ".client-table" do
+          expect(page).not_to have_text(alan_intake_in_progress.preferred_name)
+          expect(page).not_to have_text(zach_prep_ready_for_call.preferred_name)
+
+          expect(page).to have_text(betty_intake_in_progress.preferred_name)
+          expect(page).to have_text(patty_prep_ready_for_call.preferred_name)
+        end
 
         click_link "Clear"
         within ".filter-form" do
