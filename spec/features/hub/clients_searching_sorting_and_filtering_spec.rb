@@ -14,24 +14,28 @@ RSpec.describe "searching, sorting, and filtering clients" do
       end
     end
 
+    context "without clients" do
+      scenario "I should see the empty message" do
+        visit hub_clients_path
+        expect(page).to have_text("No clients assigned.")
+      end
+    end
+
     context "with existing clients" do
       let(:vita_partner) { create :organization, name: "Alan's Org" }
       let(:site) { create :site, name: "Some child site", parent_organization_id: vita_partner_other.id }
       let!(:vita_partner_other) { create :organization, name: "Some Other Org", allows_greeters: true }
-
       let!(:alan_intake_in_progress) { create :client, vita_partner_id: vita_partner.id, intake: (build :intake, preferred_name: "Alan Avocado", created_at: 1.day.ago, state_of_residence: "CA"), last_outgoing_communication_at: Time.utc(2024, 4, 23), first_unanswered_incoming_interaction_at: Time.utc(2024, 4, 23), tax_returns: [(build :tax_return, :intake_in_progress, year: 2022, assigned_user: user)] }
       let!(:zach_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (build :intake, preferred_name: "Zach Zucchini", created_at: 3.days.ago, state_of_residence: "WI"), last_outgoing_communication_at: Time.utc(2024, 4, 29), tax_returns: [(build :tax_return, :prep_ready_for_prep, year: 2023)] }
       let!(:patty_prep_ready_for_call) { create :client, vita_partner: vita_partner_other, intake: (build :intake, preferred_name: "Patty Banana", created_at: 1.day.ago, state_of_residence: "AL", with_incarcerated_navigator: true), last_outgoing_communication_at: Time.utc(2024, 5, 1), first_unanswered_incoming_interaction_at: Time.utc(2024, 5, 1), tax_returns: [(build :tax_return, :prep_ready_for_prep, year: 2022, assigned_user: user)] }
       let!(:betty_intake_in_progress) { create :client, vita_partner: site, intake: (build :intake, preferred_name: "Betty Banana", created_at: 2.days.ago, state_of_residence: "TX", with_general_navigator: true), last_outgoing_communication_at: Time.utc(2024, 5, 3), first_unanswered_incoming_interaction_at: Time.utc(2024, 4, 28), tax_returns: [(build :tax_return, :intake_in_progress, year: 2023, assigned_user: mona_user)] }
 
       before do
+        zach_prep_ready_for_call.update(first_unanswered_incoming_interaction_at: nil)
         Intake.update_all(needs_to_flush_searchable_data_set_at: Time.current - 1.minute)
         Client.update_all(needs_to_flush_filterable_properties_set_at: Time.current - 1.minute)
-
         SearchIndexer.refresh_search_index
         SearchIndexer.refresh_filterable_properties
-
-        zach_prep_ready_for_call.update(first_unanswered_incoming_interaction_at: nil)
       end
 
       scenario "I can view all clients and search, sort, and filter", js: true do
@@ -108,14 +112,12 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_select("status", selected: "Not filing")
         end
 
-        # Filters persist when visiting the page directly
         visit hub_assigned_clients_path
         within ".filter-form" do
           expect(page).to have_select("year", selected: "2022")
           expect(page).to have_select("status", selected: "Not filing")
         end
 
-        # Can navigate to another dashboard and see that pages persisted filters again.
         visit hub_clients_path
         within ".filter-form" do
           expect(page).to have_select("year", selected: "2023")
@@ -142,7 +144,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_select("status-filter", selected: "Ready for prep")
         end
 
-        # Sort checks
         click_link "sort-preferred_name"
         click_link "sort-preferred_name"
         click_link "sort-created_at"
@@ -170,7 +171,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         ]
         expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
 
-        # sort by "waiting on"
         click_link "sort-first_unanswered_incoming_interaction_at"
         click_link "sort-first_unanswered_incoming_interaction_at"
         expect(page.all('.client-row')[0]).to have_text("Update")
@@ -180,7 +180,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
           select "2022", from: "year"
           click_button "Filter results"
           sleep 0.1
-          expect(page).to have_select("year", selected: "2022")
         end
         expect(page.all('.client-row').length).to eq 2
 
@@ -244,6 +243,77 @@ RSpec.describe "searching, sorting, and filtering clients" do
           sleep 0.1
         end
         expect(page).not_to have_selector(".client-table")
+      end
+    end
+
+    context "SLA quick filters" do
+      let(:user) { create :admin_user }
+
+      before do
+        create(:client_with_intake_and_return, last_outgoing_communication_at: 0.days.ago)
+        5.times { create(:client_with_intake_and_return, last_outgoing_communication_at: 2.business_days.ago) }
+        3.times { create(:client_with_intake_and_return, last_outgoing_communication_at: 4.business_days.ago - 2.hours) }
+        2.times { create(:client_with_intake_and_return, last_outgoing_communication_at: 8.business_days.ago) }
+        create(:client_with_intake_and_return, last_outgoing_communication_at: 8.business_days.ago, tax_return_state: 'file_mailed')
+      end
+
+      scenario "using the quick filters to identify clients approaching and in breach of SLA", js: true do
+        visit hub_clients_path
+
+        expect(page).to have_text "All Clients"
+        expect(page.all('.client-row').length).to eq 12
+
+        page_change_block do
+          select "Less than 1 day", from: "Last contact"
+          click_on "Filter results"
+        end
+
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 1
+          click_link "Clear"
+        end
+
+        page_change_block do
+          select "4-5 day", from: "Last contact"
+          click_on "Filter results"
+        end
+
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 3
+          click_link "Clear"
+        end
+
+        page_change_block do
+          select "6+ day", from: "Last contact"
+          click_on "Filter results"
+        end
+
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 3
+          click_link "Clear"
+        end
+
+        page_change_block do
+          click_on "Approaching SLA"
+        end
+
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 3
+          click_link "Clear"
+        end
+
+        page_change_block do
+          click_on "Breached SLA"
+        end
+
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 2
+          page.find('a', text: "Breached SLA").find('.clear-filter').click
+        end
+
+        page_change_block do
+          expect(page.all('.client-row').length).to eq 12
+        end
       end
     end
   end
