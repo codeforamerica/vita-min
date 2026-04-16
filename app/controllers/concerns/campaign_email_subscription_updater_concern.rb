@@ -19,7 +19,24 @@ module CampaignEmailSubscriptionUpdaterConcern
         return render :unsubscribe_from_campaign_emails
       end
 
-      contact.update!(email_notification_opt_in: opt_in)
+      unsub_timestamp = opt_in ? nil : Time.current
+
+      contact.update!(
+        email_notification_opt_in: opt_in,
+        email_unsubscribed_at: unsub_timestamp
+      )
+
+      unless opt_in
+        # log most recent email at time of unsubscribe
+        last_email = contact.emails.order(created_at: :desc)&.first
+        email_identifier = last_email&.message_name.presence ||
+          last_email&.subject.presence ||
+          "unknown_email"
+        Datadog.statsd.increment('email.unsubscribes.count', tags: [
+          "last_email:#{email_identifier.parameterize.underscore}",
+          "email_type:campaign"
+        ])
+      end
 
       flash[:notice] = if opt_in
                          I18n.t("notifications_settings.campaign_messages.subscribe_to_emails.flash")

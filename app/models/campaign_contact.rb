@@ -51,6 +51,10 @@ class CampaignContact < ApplicationRecord
     )
   }
 
+  scope :with_intake_id, lambda { |intake_id|
+    where("gyr_intake_ids @> ARRAY[? text]::bigint[]", intake_id.to_s)
+  }
+
   def self.with_signups_from_recent_off_season
     joins(:signups).where("signups.created_at >= ?", 1.year.ago).distinct
   end
