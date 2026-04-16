@@ -112,12 +112,14 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_select("status", selected: "Not filing")
         end
 
+        # Filters persist when visiting the page directly
         visit hub_assigned_clients_path
         within ".filter-form" do
           expect(page).to have_select("year", selected: "2022")
           expect(page).to have_select("status", selected: "Not filing")
         end
 
+        # Can navigate to another dashboard and see that pages persisted filters again.
         visit hub_clients_path
         within ".filter-form" do
           expect(page).to have_select("year", selected: "2023")
@@ -180,6 +182,7 @@ RSpec.describe "searching, sorting, and filtering clients" do
           select "2022", from: "year"
           click_button "Filter results"
           sleep 0.1
+          expect(page).to have_select("year", selected: "2022")
         end
         expect(page.all('.client-row').length).to eq 2
 
