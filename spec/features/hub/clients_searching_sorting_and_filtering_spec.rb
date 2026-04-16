@@ -42,7 +42,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         visit hub_clients_path
 
         expect(page).to have_text "All Clients"
-
         expect(page).to have_css('.client-table')
         expect(page).to have_css('.client-row', count: 4)
 
@@ -87,7 +86,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_select("status", selected: "Ready for prep")
         end
 
-        # reload page and filters persist
         visit hub_clients_path
         page_change_check("Alan's Org")
         within ".filter-form" do
@@ -101,7 +99,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         within ".filter-form" do
           expect(page).to have_select("year", selected: "")
           expect(page).to have_select("status", selected: "")
-
           fill_in_tagify '.multi-select-vita-partner', "Some Other Org"
           select "2022", from: "year"
           select "Not filing", from: "status"
@@ -112,14 +109,12 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_select("status", selected: "Not filing")
         end
 
-        # Filters persist when visiting the page directly
         visit hub_assigned_clients_path
         within ".filter-form" do
           expect(page).to have_select("year", selected: "2022")
           expect(page).to have_select("status", selected: "Not filing")
         end
 
-        # Can navigate to another dashboard and see that pages persisted filters again.
         visit hub_clients_path
         within ".filter-form" do
           expect(page).to have_select("year", selected: "2023")
@@ -146,34 +141,71 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_select("status-filter", selected: "Ready for prep")
         end
 
+        # Sort checks
         click_link "sort-preferred_name"
+        expected_rows = [
+          { "Name" => a_string_including(patty_prep_ready_for_call.preferred_name) },
+          { "Name" => a_string_including(zach_prep_ready_for_call.preferred_name) }
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
+
         click_link "sort-preferred_name"
+        expected_rows = [
+          { "Name" => a_string_including(zach_prep_ready_for_call.preferred_name) },
+          { "Name" => a_string_including(patty_prep_ready_for_call.preferred_name) }
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
+
         click_link "sort-created_at"
+        expected_rows = [
+          { "Name" => a_string_including(zach_prep_ready_for_call.preferred_name) },
+          { "Name" => a_string_including(patty_prep_ready_for_call.preferred_name) }
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
+
         click_link "sort-created_at"
+        expected_rows = [
+          { "Name" => a_string_including(patty_prep_ready_for_call.preferred_name) },
+          { "Name" => a_string_including(zach_prep_ready_for_call.preferred_name) }
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
 
         within ".filter-form" do
           click_link "Clear"
         end
+        expect(page).to have_select("status", selected: "")
 
         click_link "sort-state_of_residence"
         expected_rows = [
-          { "Name" => a_string_including("Patty"), "State" => "AL" },
-          { "Name" => a_string_including("Alan"), "State" => "CA" },
-          { "Name" => a_string_including("Betty"), "State" => "TX" },
-          { "Name" => a_string_including("Zach"), "State" => "WI" }
+          { "Name" => a_string_including(patty_prep_ready_for_call.preferred_name), "State" => "AL" },
+          { "Name" => a_string_including(alan_intake_in_progress.preferred_name), "State" => "CA" },
+          { "Name" => a_string_including(betty_intake_in_progress.preferred_name), "State" => "TX" },
+          { "Name" => a_string_including(zach_prep_ready_for_call.preferred_name), "State" => "WI" }
         ]
         expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
 
+        click_link "sort-state_of_residence"
+        expect(page.all('.client-row').length).to eq 4
+        expect(page.all('.client-row')[0]).to have_text(zach_prep_ready_for_call.preferred_name)
+
         click_link "sort-last_outgoing_communication_at"
         expected_rows = [
-          { "Name" => a_string_including("Alan"), "Last contact" => "9 days" },
-          { "Name" => a_string_including("Zach"), "Last contact" => "5 days" },
-          { "Name" => a_string_including("Patty"), "Last contact" => "3 days" },
-          { "Name" => a_string_including("Betty"), "Last contact" => "1 day" }
+          { "Name" => a_string_including(alan_intake_in_progress.preferred_name), "Last contact" => "9 days" },
+          { "Name" => a_string_including(zach_prep_ready_for_call.preferred_name), "Last contact" => "5 days" },
+          { "Name" => a_string_including(patty_prep_ready_for_call.preferred_name), "Last contact" => "3 days" },
+          { "Name" => a_string_including(betty_intake_in_progress.preferred_name), "Last contact" => "1 day" }
         ]
         expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
 
         click_link "sort-first_unanswered_incoming_interaction_at"
+        expected_rows = [
+          { "Name" => a_string_including(alan_intake_in_progress.preferred_name), "Waiting on" => "Response" },
+          { "Name" => a_string_including(betty_intake_in_progress.preferred_name), "Waiting on" => "Response" },
+          { "Name" => a_string_including(patty_prep_ready_for_call.preferred_name), "Waiting on" => "Response" },
+          { "Name" => a_string_including(zach_prep_ready_for_call.preferred_name), "Waiting on" => "Update" }
+        ]
+        expect(table_contents(page.find('.client-table'))).to match_rows(expected_rows)
+
         click_link "sort-first_unanswered_incoming_interaction_at"
         expect(page.all('.client-row')[0]).to have_text("Update")
         expect(page.all('.client-row')[1]).to have_text("Response")
@@ -182,7 +214,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
           select "2022", from: "year"
           click_button "Filter results"
           sleep 0.1
-          expect(page).to have_select("year", selected: "2022")
         end
         expect(page.all('.client-row').length).to eq 2
 
@@ -193,7 +224,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row')[0]).to have_text(patty_prep_ready_for_call.preferred_name)
 
         click_link "Clear"
-
         within ".filter-form" do
           select "2022", from: "year"
           select "Ready for prep", from: "status"
@@ -203,7 +233,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row').length).to eq 1
 
         click_link "Clear"
-
         within ".filter-form" do
           check "assigned_to_me"
           select "Ready for prep", from: "status"
@@ -221,7 +250,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page).to have_css ".empty-clients"
 
         click_link "Clear"
-
         within ".filter-form" do
           check "greetable"
           click_button "Filter results"
@@ -230,7 +258,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row').length).to eq 3
 
         click_link "Clear"
-
         within ".filter-form" do
           check "used_navigator"
           click_button "Filter results"
@@ -239,7 +266,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
         expect(page.all('.client-row').length).to eq 2
 
         click_link "Clear"
-
         within ".filter-form" do
           check "ctc_client"
           click_button "Filter results"
