@@ -3,7 +3,7 @@
 # Configure parameters to be partially matched (e.g. passw matches password) and filtered from the log file.
 # Use this to limit dissemination of sensitive information.
 # See the ActiveSupport::ParameterFilter documentation for supported notations and behaviors.
-Rails.application.config.filter_parameters += [
+explicit_filters = [
   :password,
   :name,
   :primary_first_name,
@@ -39,4 +39,20 @@ Rails.application.config.filter_parameters += [
   :passw, :secret, :token, :_key, :crypt, :salt, :certificate, :otp
 ]
 
-Rails.application.config.filter_parameters += [/.+/]
+SENTRY_SAFE_KEYS = %w[
+  event_id sdk trace_id span_id public_key
+  environment release server_name level logger
+].freeze
+
+
+Rails.application.config.filter_parameters += [
+  -> (key, value) {
+    # allows sentry system keys
+    return if SENTRY_SAFE_KEYS.include?(key.to_s)
+
+    # filters everything else out
+    if value.is_a?(String)
+      value.replace("[FILTERED]")
+    end
+  }
+]
