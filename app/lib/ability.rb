@@ -47,9 +47,11 @@ class Ability
         cannot :manage, :flipper_dashboard
       end
 
-      can :manage, :smartscan_doc_screener
+      can :read, DocAssessment
+      can :update, DocAssessment
       can :read, DocAssessmentFeedback
       can :create, DocAssessmentFeedback
+
       return
     end
 
