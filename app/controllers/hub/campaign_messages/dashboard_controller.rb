@@ -7,12 +7,9 @@ module Hub
       def index
         @actions = [
           [Hub::CampaignMessages::MonitorSmsController.to_path_helper(action: :show), "Monitor Campaign SMS"],
-          [Hub::AutomatedMessagesController.to_path_helper(action: :index), "Monitor Campaign Emails"],
-          [MetricsController.to_path_helper(action: :index), "Monitor Unsubscribes"],
-          [Hub::BulkMessageCsvsController.to_path_helper(action: :index), "Send/Cancel Campaign-Message Batches"],
+          [Hub::CampaignMessages::MonitorEmailsController.to_path_helper(action: :show), "Monitor Campaign Emails"],
+          # [Hub::CampaignMessages::SendCampaignBatches.to_path_helper(action: :index), "Send/Cancel Campaign-Message Batches"],
         ]
-
-        # <!--  engineer only-->
       end
 
     end

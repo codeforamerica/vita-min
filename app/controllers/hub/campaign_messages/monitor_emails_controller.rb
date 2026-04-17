@@ -50,21 +50,21 @@ module Hub
       end
 
       def scoped_emails
-        @scoped_emails ||= if time_range_start.nil?
-                          CampaignSms.all
+        @scoped_emails = if time_range_start.nil?
+                          CampaignEmail.all
                         else
-                          CampaignSms.where(created_at: time_range_start..)
+                          CampaignEmail.where(created_at: time_range_start..)
                         end
       end
 
       def status_breakdown_data
-        scoped_emails.group(:twilio_status).count
+        scoped_emails.group(:mailgun_status).count
                   .transform_keys { |k| k.presence || "unknown" }
       end
 
       def messages_over_time_data
         rows = scoped_emails
-                 .group(time_group, :twilio_status)
+                 .group(time_group, :mailgun_status)
                  .count
 
         dates = rows.keys.map(&:first).uniq.sort
@@ -89,7 +89,7 @@ module Hub
       end
 
       def status_by_message_data
-        rows = scoped_emails.group(:message_name, :twilio_status).count
+        rows = scoped_emails.group(:message_name, :mailgun_status).count
 
         message_names = rows.keys.map(&:first).uniq.sort
         statuses = rows.keys.map(&:last).uniq
