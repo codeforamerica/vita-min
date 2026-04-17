@@ -48,7 +48,8 @@ class Ability
       end
 
       can :manage, :smartscan_doc_screener
-      can :manage, DocAssessmentFeedback
+      can :read, DocAssessmentFeedback
+      can :create, DocAssessmentFeedback
       return
     end
 

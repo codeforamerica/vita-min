@@ -1,4 +1,4 @@
-<% if can? :manage, :smartscan_doc_screener && !acts_like_production? %>
+<% if can? :create, :DocAssessmentFeedback && !acts_like_production? %>
   <div id="doc-assessments-table">
     <%= button_to "Re-run screener",
                   rerun_screener_hub_client_document_path(client_id: @document.client.id, id: @document.id),
