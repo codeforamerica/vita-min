@@ -162,18 +162,26 @@ RSpec.feature "View and edit documents for a client" do
     let(:client) { create :client, intake: build(:intake, preferred_name: "Bart Simpson") }
     let(:tax_return_1) { create :tax_return, client: client, year: 2019 }
     let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement", uploaded_by: client }
-    let!(:assessment_pass)  { create(:doc_assessment, :pass, document: document_1) }
 
     before do
       login_as user
     end
 
     scenario "the Smart Scan column *is* visible for admins" do
+      create(:doc_assessment, :pass, document: document_1)
       visit hub_client_documents_path(client_id: client.id)
 
       within "#document-#{document_1.id}" do
         expect(page).to have_selector('[data-status="pass"]')
       end
+    end
+
+    scenario 'Document form works even if no smartscan assessments' do
+      visit hub_client_documents_path(client_id: client.id)
+      expect(page).to_not have_selector('[data-status="pass"]')
+      click_on "Add document"
+      expect(page).to have_text('Add document |')
+      expect(page).to have_text('Select file')
     end
   end
 end
