@@ -22,6 +22,8 @@
     "jquery": "^3.5.1",
     "jquery-mask-plugin": "^1.14.16",
     "jquery-ui": "^1.13.2",
+    "lodash": "4.17.15",
+    "marked": "0.3.9",
     "mini-css-extract-plugin": "^2.7.6",
     "prop-types": "^15.7.2",
     "regenerator-runtime": "^0.13.7",

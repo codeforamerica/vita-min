@@ -242,8 +242,22 @@ class MailgunWebhooksController < ActionController::Base
     authenticate_or_request_with_http_basic do |name, password|
       expected_name = ENV["MAILGUN_OUTREACH_BASIC_AUTH_NAME"]
       expected_password = ENV["MAILGUN_OUTREACH_BASIC_AUTH_PASSWORD"]
+      signature = params["signature"].to_s
+      timestamp = params["timestamp"].to_s
+      token = params["token"].to_s
+
+      # Verify the optional per-request signature Mailgun sends alongside basic auth for
+      # campaign callbacks, so that a leaked basic-auth credential isn't enough on its
+      # own. Falls back to a legacy default if the rotating key hasn't been provisioned
+      # yet in a given environment.
+      signing_key = ENV["MAILGUN_OUTREACH_SIGNING_KEY"] || "key-e2a8b5c2c9d94d82"
+      expected_signature = Digest::MD5.hexdigest("#{timestamp}#{token}#{signing_key}")
+
+      signature_ok = signature.empty? || signature == expected_signature
+
       ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
-        ActiveSupport::SecurityUtils.secure_compare(password, expected_password)
+        ActiveSupport::SecurityUtils.secure_compare(password, expected_password) &&
+        signature_ok
     end
   end
 

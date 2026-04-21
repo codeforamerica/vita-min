@@ -86,6 +86,20 @@ module Hub
       redirect_back fallback_location: edit_hub_client_document_path(client_id: @document.client.id, id: @document)
     end
 
+    # Generate a short-lived link that lets the client re-review a specific document without
+    # re-authenticating. Used by the "Send doc review link" button on the client page.
+    def share_link
+      document = Document.find(params[:id])
+      token = SecureRandom.urlsafe_base64(24)
+      Rails.cache.write("doc-share:#{token}", document.id, expires_in: 1.hour)
+
+      render json: {
+        url: transient_storage_url(document.upload.blob),
+        share_token: token,
+        expires_at: 1.hour.from_now
+      }
+    end
+
     private
 
     def load_document_type_options

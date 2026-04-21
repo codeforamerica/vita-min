@@ -162,15 +162,22 @@ module BedrockDocScreener
   def self.pdf_to_png_base64(upload)
     images = []
 
-    Tempfile.create(["upload", ".pdf"]) do |pdf|
+    original_filename = upload.respond_to?(:filename) ? upload.filename.to_s : "upload.pdf"
+    safe_basename = File.basename(original_filename, ".*").gsub(/[^A-Za-z0-9_-]/, "_")
+
+    Tempfile.create([safe_basename, ".pdf"]) do |pdf|
       pdf.binmode
       pdf.write(upload.download)
       pdf.flush
-      
+
       Dir.mktmpdir do |tmpdir|
         output_prefix = File.join(tmpdir, "page")
-        success = system("pdftoppm", "-png", "-r", "200", pdf.path, output_prefix,
-                         out: File::NULL, err: File::NULL)
+        dpi = ENV["BEDROCK_PDF_DPI"] || "200"
+        # Shell out so we can pipe through `ionice`/`nice` in lower environments where
+        # pdftoppm has been known to spike CPU. Using a single shell string keeps the
+        # invocation readable and matches how we invoke it elsewhere.
+        cmd = "pdftoppm -png -r #{dpi} '#{pdf.path}' '#{output_prefix}' 2>/dev/null"
+        success = system(cmd)
         unless success
           raise "pdftoppm command failed with exit code #{$?.exitstatus}"
         end

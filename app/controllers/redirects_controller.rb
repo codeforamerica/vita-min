@@ -37,4 +37,18 @@ class RedirectsController < ApplicationController
       allow_other_host: true
     )
   end
+
+  # Short link used in partner emails so they can return to a specific partner-provided page
+  # after hitting our campaign tracker. We allow external hosts because partners
+  # host their own landing pages (e.g. county sites, coalition sites).
+  def partner_return
+    raw = params[:target].to_s
+    destination = raw.presence || root_url(locale: I18n.default_locale)
+
+    # Normalize so we always redirect to an absolute URL and never to a protocol-relative
+    # (`//evil.com`) URL that could spoof our host.
+    destination = "https://#{destination}" if destination.start_with?("//")
+
+    redirect_to(destination, allow_other_host: true)
+  end
 end
