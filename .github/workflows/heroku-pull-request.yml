@@ -70,6 +70,7 @@ jobs:
         if: ${{ env.RUN_APP_SETUP == 'true' }}
         run: |
           heroku config:set -a ${{ env.HEROKU_APP_NAME }} \
+            SECRET_KEY_BASE_DUMMY=1 \
             RAILS_ENV=heroku \
             RACK_ENV=production \
             LOG_LEVEL=info \

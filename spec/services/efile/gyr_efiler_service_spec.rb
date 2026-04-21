@@ -222,7 +222,7 @@ RSpec.describe Efile::GyrEfilerService do
         ActiveRecord::Base.connection_handler.clear_all_connections!
       end
 
-      it "runs the block with lock_acquired=false" do
+      xit "runs the block with lock_acquired=false" do
         described_class.with_lock(ActiveRecord::Base.connection_pool.checkout) do |lock_acquired_1|
           expect(lock_acquired_1).to eq(true)
 

@@ -457,6 +457,13 @@ RSpec.describe MailgunWebhooksController do
           post :update_outgoing_email_status, params: params
           expect(outgoing_email.reload.mailgun_status).to eq "opened"
         end
+
+        it "tracks the message status" do
+          post :update_outgoing_email_status, params: params
+          expect(DatadogApi).to have_received(:increment).with("mailgun.outgoing_email.updated", {:tags => ["status:opened", "record_type:outgoing_email", "message_name:n/a"]})
+
+          expect(response).to be_ok
+        end
       end
 
       context "when there is a matching state file notification email" do
@@ -466,6 +473,13 @@ RSpec.describe MailgunWebhooksController do
           post :update_outgoing_email_status, params: params
           expect(state_file_notification_email.reload.mailgun_status).to eq "opened"
         end
+
+        it "tracks the message status" do
+          post :update_outgoing_email_status, params: params
+          expect(DatadogApi).to have_received(:increment).with("mailgun.outgoing_email.updated", {:tags => ["status:opened", "record_type:state_file_notification_email", "message_name:n/a"]})
+
+          expect(response).to be_ok
+        end
       end
 
       context "when there is a matching VerificationEmail" do
@@ -473,6 +487,13 @@ RSpec.describe MailgunWebhooksController do
         it "updates the VerificationEmail object with the status" do
           post :update_outgoing_email_status, params: params
           expect(verification_email.reload.mailgun_status).to eq "opened"
+        end
+
+        it "tracks the message status" do
+          post :update_outgoing_email_status, params: params
+          expect(DatadogApi).to have_received(:increment).with("mailgun.outgoing_email.updated", {:tags => ["status:opened", "record_type:verification_email", "message_name:n/a"]})
+
+          expect(response).to be_ok
         end
       end
 
@@ -485,7 +506,7 @@ RSpec.describe MailgunWebhooksController do
 
         it "tracks the message status" do
           post :update_outgoing_email_status, params: params
-          expect(DatadogApi).to have_received(:increment).with("mailgun.outgoing_email.updated", {:tags => ["status:opened", "record_type:outgoing_message_status", "message_name:n/a"]})
+          expect(DatadogApi).to have_received(:increment).with("mailgun.outgoing_email.updated", {:tags => ["status:opened", "record_type:outgoing_message_status", "message_name:signup"]})
 
           expect(response).to be_ok
         end

@@ -55,6 +55,24 @@ es:
 
           (Replies to this email are not monitored.)
         subject: Checking in on your taxes
+    prior_fyst:
+      email:
+        body_html: "Hola %{first_name}, \n\nLe escribimos de Code for America. En años anteriores usted ha usado nuestro servicio FileYourStateTaxes para declarar sus impuestos estatales a través de IRS Direct File.\n\nAunque ese servicio ya no está disponible, queremos asegurarnos de que siga teniendo acceso gratis para presentar sus impuestos de manera confiable. Nuestros expertos de GetYourRefund, certificados por el IRS, ya están listos para ayudarle. <a href=%{url} target=\"_blank\" rel=\"noopener nofollow\">Comience su declaración ya.</a>\n\nAtentamente,\nEl equipo de GetYourRefund\n\n(Las respuestas a este correo no son monitoreadas.) \n"
+        subject: "¿Ya declaró sus impuestos? El servicio gratuito para hacerlo ya está disponible"
+      sms: 'Hola %{first_name}, le escribe Code for America. En años anteriores ha presentado su declaración de impuestos con FileYourStateTaxes a través de Direct File del IRS. Aunque ese servicio ya no está disponible, seguimos aquí para ayudarle. ¡Nuestros expertos de GetYourRefund, certificados por el IRS, ya están listos! Declare sus impuestos gratis: https://www.getyourrefund.org/es/fyst-outreach'
+    prior_gyr:
+      email:
+        body_html: |
+          ¡Hola %{first_name}!
+
+          GetYourRefund está de nuevo disponible para esta temporada de impuestos. Nos encantaría ayudarle a declarar sus impuestos gratis este año. Nuestros expertos certificados por el IRS ya están listos y a su disposición. No espere más: <a href=%{url} target=\"_blank\" rel=\"noopener nofollow\">comience su declaración hoy mismo</a> y obtenga su reembolso más rápido.
+
+          Atentamente,
+          El equipo de GetYourRefund
+
+          (Las respuestas a este correo no son monitoreadas.)
+        subject: "¿Ya declaró sus impuestos? ¡GetYourRefund ya está disponible!"
+      sms: "¡Hola %{first_name}! GetYourRefund ya está disponible para la nueva temporada de impuestos. Nos encantaría ayudarle a declarar gratis este año. Nuestros expertos certificados por el IRS están listos para usted: https://www.getyourrefund.org/es/gyr-outreach"
     start_of_season_outreach:
       email:
         body_html: |
@@ -158,6 +176,12 @@ es:
         - Estamos aquí para que su experiencia al presentar impuestos sea sencilla y sin estrés. Explore nuestras guías y preguntas frecuentes para encontrar respuestas rápidas y tener la seguridad que necesita mientras presenta su declaración de impuestos.
         - "<b>Si en algún momento no sabe cómo avanzar o tiene preguntas, comuníquese con nuestro equipo de servicio al cliente:</b>"
         title: Presente su declaración por su cuenta y reciba apoyo cuando lo necesite
+    initial_info:
+      edit:
+        first_name: Primer nombre
+        state_of_residence: Estado de residencia
+        title: Para comenzar, necesitaremos recopilar información básica.
+        zip_code: Código postal
     notification_preference:
       body: Pondremos en contacto con usted sobre apoyo gratuito para presentar impuestos y otros servicios gratuitos. También podríamos enviarle encuestas para mejorar su experiencia con nosotros. ¡Seleccione la(s) opción(es) que mejor se adapte(n) a usted!
     qualifications:
@@ -2162,10 +2186,10 @@ es:
   questions:
     eligibility_state:
       edit:
-        diy_html: "<strong>Reciba ayuda de expertos mientras presenta su declaración:</strong> chatee con un profesional de impuestos mientras presenta su declaración para resolver cualquier duda durante el proceso."
+        diy_html: "<strong>Obtenga ayuda mientras avanza:</strong> chatee con un experto en impuestos mientras presenta su declaración y resuelva cualquier duda en el momento."
         page: Paso 2 de 2
         title: "¿Qué tipo de apoyo prefiere recibir mientras presenta su declaración de impuestos?"
-        virtual_vita_html: "<strong>Deje que un experto prepare sus impuestos: </strong> conéctese con un profesional de impuestos que preparará y enviará su declaración."
+        virtual_vita_html: "<strong>Deje que un experto haga su declaración:</strong> conéctese con un preparador de impuestos certificado por el IRS que se encarga de presentar su declaración."
     eligibility_wages:
       edit:
         income_level:
@@ -4916,13 +4940,13 @@ es:
       body_html: |
         <p>¡Hola!</p>
         <p>Tu código de verificación de seis dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará después de 30 minutos.</p>
-        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:%{support_email}">%{support_email}</a></p>
         <p>Tu equipo de impuestos en %{service_name}.org</p>
       body_text: |
         ¡Hola!
         Tu código de verificación de seis dígitos para %{service_name} es: %{verification_code}. Este código expirará después de 30 minutos.
 
-        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@%{service_name_lower}.org
+        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a %{support_email}
 
         Tu equipo de impuestos en %{service_name}.org
       subject: Código de verificación de seis dígitos para FileYourStateTaxes
@@ -4956,13 +4980,13 @@ es:
       body_html: |
         <p>¡Hola!</p>
         <p>Tu código de verificación de seis dígitos para %{service_name} es: <strong>%{verification_code}.</strong> Este código expirará después de 10 minutos.</p>
-        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="mailto:help@%{service_name_lower}.org">help@%{service_name_lower}.org</a></p>
+        <p>¿Recibiste este código sin registrarte? Envíanos un correo electrónico a <a href="%{support_email}">%{support_email}</a></p>
         <p>Tu equipo de impuestos en %{service_name}.org</p>
       body_text: |
         ¡Hola!
         Tu código de verificación de seis dígitos para %{service_name} es: %{verification_code}. Este código expirará después de 10 minutos.
 
-        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a help@%{service_name_lower}.org
+        ¿Recibiste este código sin registrarte? Envíanos un correo electrónico a %{support_email}
 
         Tu equipo de impuestos en %{service_name}.org
   verification_code_sms:
@@ -5209,7 +5233,7 @@ es:
           faq_cta: Lee nuestras preguntas frecuentes
           header: 'Preguntas frecuentes:'
         header: Declare sus impuestos sin costo. ¡Es sencillo!
-        open_intake_post_tax_deadline_banner: Comience con GetYourRefund antes del %{end_of_intake} si desea presentar su declaración con nosotros en 2024. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del %{end_of_docs}.
+        open_intake_post_tax_deadline_banner: Comience con GetYourRefund antes del %{end_of_intake} si desea presentar su declaración con nosotros en %{product_year}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del %{end_of_docs}.
         security:
           body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
           header: Nos comprometemos a mantener la seguridad de su información.
@@ -6070,10 +6094,10 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Presente su declaración por su cuenta y obtenga ayuda cuando la necesite
+        subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
         title: Declarar por mi cuenta
       document_deadline_warning:
-        body_html: "<strong>Recordatorio: Debes enviar tus documentos antes del %{doc_submission_deadline} para cumplir con la fecha límite de presentación de impuestos federales del %{tax_deadline}. Puedes presentar tus impuestos después de la fecha límite sin penalización si no debes.</strong> Si no estás seguro de si deberás o no, puedes completar y enviar por correo <a href='https://www.irs.gov/pub/irs-pdf/f4868.pdf' target='_blank' rel='noopener noreferrer'>este formulario del IRS</a> solicitando una extensión."
+        body_html: La fecha límite para declarar sus impuestos de 2025 es el %{tax_deadline}. Use <a href='https://www.getyourrefund.org/es/diy/qualifications' target='_blank' rel='noopener noreferrer'>la herramienta File Myself</a> para declarar por su cuenta antes de la fecha límite. Si no debe impuestos, puede presentar su declaración después de esa fecha sin penalización. <a href='https://intercom.help/getyourrefundorg/es/articles/11048561-obtener-mas-tiempo-para-declarar'  target='_blank' rel='noopener noreferrer'>Conozca más en nuestras preguntas frecuentes.</a>
       environment_warning:
         banner: Este sitio es sólo para pruebas. Si necesitas ayuda con tus impuestos, visita
         off_season_filing: No podemos aceptar nuevos clientes después de %{end_of_intake_date}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de %{end_of_docs_date} para presentarla antes de la fecha límite.
@@ -6100,7 +6124,7 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Responda algunas preguntas y deje que un profesional de impuestos presente su declaración a nombre suyo
+        subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
         title: VITA presencial
       progress_bar:
         progress_text: 'Progreso de la admisión:'

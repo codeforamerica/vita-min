@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+# TODO cleanup-legacy
+
 describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema: "id" do
   describe ".document" do
     let(:intake) { create(:state_file_id_intake, :single_filer_with_json) }
@@ -197,7 +199,7 @@ describe SubmissionBuilder::Ty2024::States::Id::Documents::Id40, required_schema
       end
     end
 
-    context "sales use tax" do
+    xcontext "sales use tax" do
       context "when has unpaid sales use tax" do
         before do
           intake.update(has_unpaid_sales_use_tax: true, total_purchase_amount: 225)

@@ -77,7 +77,7 @@ RSpec.describe Diy::FileYourselfController do
       it "redirects to the notification preference page" do
         post :update
 
-        expect(response).to redirect_to diy_diy_notification_preference_path
+        expect(response).to redirect_to diy_diy_initial_info_path
       end
     end
   end

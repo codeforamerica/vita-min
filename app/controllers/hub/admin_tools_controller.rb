@@ -15,6 +15,7 @@ module Hub
         [Hub::PortalStatesController.to_path_helper(action: :index), "Portal States"],
         [Hub::FaqCategoriesController.to_path_helper(action: :index), "FAQ (Frequently Asked Questions)"],
         [Hub::AiScreenerMetricsController.to_path_helper(action: :show), "AI Screener Metrics"],
+        [Hub::MessagingDashboardController.to_path_helper(action: :show), "Messaging Dashboard"],
       ]
     end
   end

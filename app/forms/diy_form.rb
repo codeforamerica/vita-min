@@ -8,8 +8,16 @@ class DiyForm < Form
     super(params)
   end
 
+  def save
+    diy_intake.update!(attributes_for(:diy_intake))
+  end
+
+  def self.existing_attributes(diy_intake)
+    HashWithIndifferentAccess.new(diy_intake.attributes)
+  end
+
   def self.from_diy_intake(diy_intake)
-    attribute_keys = Attributes.new(attribute_names).to_sym
-    new(diy_intake, existing_attributes(diy_intake).slice(*attribute_keys))
+    new(diy_intake, existing_attributes(diy_intake).slice(
+      *Attributes.new(attribute_names).to_sym))
   end
 end

@@ -5,7 +5,7 @@ module Diy
     def edit
       redirect_to diy_continue_to_fsa_path unless current_diy_intake.email_notification_opt_in_yes?
 
-      @form = DiyEmailAddressForm.new
+      @form = DiyEmailAddressForm.from_diy_intake(current_diy_intake)
     end
 
     def update

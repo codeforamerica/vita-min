@@ -1,6 +1,10 @@
 require_relative "./shared_deployment_config"
+require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.enable_reloading = false
+  config.eager_load = true
+
   config.active_storage.service = :s3_prod
 
   config.ctc_url = "https://www.getctc.org"

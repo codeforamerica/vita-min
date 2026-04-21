@@ -3,7 +3,7 @@ module Diy
     before_action :require_diy_intake
 
     def edit
-      @form = DiyNotificationPreferenceForm.new
+      @form = DiyNotificationPreferenceForm.from_diy_intake(current_diy_intake)
     end
 
     def update

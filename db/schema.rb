@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
+ActiveRecord::Schema[7.2].define(version: 2026_03_30_183210) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -615,7 +615,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
     t.text "subject"
     t.string "to_email"
     t.datetime "updated_at", null: false
-    t.index ["campaign_contact_id", "message_name"], name: "index_campaign_emails_on_contact_id_and_message_name", unique: true
+    t.index "lower(split_part((to_email)::text, '@'::text, 2))", name: "idx_campaign_emails_on_domain"
+    t.index ["campaign_contact_id", "message_name"], name: "index_campaign_emails_on_contact_id_and_message_name"
     t.index ["campaign_contact_id"], name: "index_campaign_emails_on_campaign_contact_id"
     t.index ["mailgun_message_id"], name: "index_campaign_emails_on_mailgun_message_id", unique: true
   end
@@ -833,6 +834,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
     t.integer "sms_notification_opt_in", default: 0
     t.string "sms_phone_number"
     t.string "source"
+    t.string "state_of_residence"
     t.string "token"
     t.datetime "updated_at", null: false
     t.string "visitor_id"
@@ -851,6 +853,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
   end
 
   create_table "doc_assessments", force: :cascade do |t|
+    t.boolean "confirmed"
     t.datetime "created_at", null: false
     t.bigint "document_id", null: false
     t.text "error"
@@ -1720,6 +1723,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_03_001000) do
     t.index ["client_id"], name: "index_outgoing_text_messages_on_client_id"
     t.index ["created_at"], name: "index_outgoing_text_messages_on_created_at"
     t.index ["user_id"], name: "index_outgoing_text_messages_on_user_id"
+  end
+
+  create_table "paused_email_domains", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.citext "domain", null: false
+    t.datetime "paused_until"
+    t.string "reason"
+    t.datetime "updated_at", null: false
+    t.index ["domain"], name: "index_paused_email_domains_on_domain", unique: true
+    t.index ["paused_until"], name: "index_paused_email_domains_on_paused_until"
   end
 
   create_table "provider_scrapes", force: :cascade do |t|

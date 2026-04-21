@@ -37,6 +37,7 @@
 require "mini_magick"
 
 class Document < ApplicationRecord
+  attr_accessor :skip_screener_rerun
   ACCEPTED_FILE_TYPES = [:browser_native_image, :document]
   has_paper_trail on: [:destroy]
   belongs_to :intake, optional: true
@@ -82,16 +83,18 @@ class Document < ApplicationRecord
         received_at: created_at,
         interaction_type: :document_upload
       )
+
+      is_heic? ?
+        HeicToJpgJob.perform_later(id).then(DocScreenerJob) :
+        DocScreenerJob.perform_later(id)
     else
       InteractionTrackingService.record_internal_interaction(client)
     end
-
-    HeicToJpgJob.perform_later(id) if is_heic?
-    DocScreenerJob.perform_later(id) unless is_heic?
   end
   after_save_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
   after_destroy_commit { SearchIndexer.refresh_filterable_properties([client_id]) }
-  after_update_commit :rerun_screener_if_document_type_changed, if: :saved_change_to_document_type?
+  after_update_commit :rerun_screener_if_document_type_changed,
+                      if: -> { saved_change_to_document_type? && !skip_screener_rerun }
 
   # has_one_attached needs to be called after defining any callbacks that access attachments, like
   # the HEIC conversion; see https://github.com/rails/rails/issues/37304

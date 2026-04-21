@@ -8,6 +8,7 @@
         <% doc_submission_deadline = Rails.configuration.doc_submission_deadline %>
         <% tax_deadline = Rails.configuration.tax_deadline %>
         <% start_of_open_date = Rails.configuration.start_of_open_intake %>
+        <% product_year = Rails.configuration.product_year %>
 
         <% case banner %>
         <% when :open_intake %>
@@ -17,7 +18,8 @@
         <% when :open_intake_post_tax_deadline %>
           <%= t('views.public_pages.home.open_intake_post_tax_deadline_banner',
                 end_of_intake: I18n.l(end_of_intake.to_date, format: :medium, locale: locale),
-                end_of_docs: I18n.l(end_of_doc_submission.to_date, format: :medium, locale: locale)
+                end_of_docs: I18n.l(end_of_doc_submission.to_date, format: :medium, locale: locale),
+                product_year: product_year
               ) %>
         <% when :in_progress_intake_only %>
           <%= t("views.shared.environment_warning.off_season_filing",

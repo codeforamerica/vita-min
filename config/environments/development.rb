@@ -14,7 +14,7 @@ Rails.application.configure do
   # Show full error reports.
   config.consider_all_requests_local = true
 
-  # Enable server timing
+  # Enable server timing.
   config.server_timing = true
 
   # Enable/disable caching. By default caching is disabled.
@@ -50,6 +50,8 @@ Rails.application.configure do
   end
   config.action_mailer.logger = Logger.new(STDOUT)
   config.action_mailer.logger.level = Logger::DEBUG
+  # Disable caching for Action Mailer templates even if Action Controller
+  # caching is enabled.
   config.action_mailer.perform_caching = false
 
   ngrok_host = ENV["NGROK_HOST"] # for example: 'd90d61a5caf9.ngrok.io'
@@ -119,7 +121,7 @@ Rails.application.configure do
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  # Raise error when a before_action's only/except options reference missing actions
+  # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
@@ -135,6 +137,6 @@ Rails.application.configure do
   config.efile_environment = "test"
 
   # Keep GYR 'open' until the end of 2040 ^_^
-  the_future = Time.find_zone('America/New_York').parse('2040-12-31 23:59:59')
-  config.end_of_intake = the_future
+  # the_future = Time.find_zone('America/New_York').parse('2040-12-31 23:59:59')
+  # config.end_of_intake = the_future
 end

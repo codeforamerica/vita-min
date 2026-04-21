@@ -249,14 +249,43 @@ describe Document do
     end
 
     context "when the file extension is not .heic" do
-      it "does not create a job to covert the file to jpg and enqueues the DocScreenerJob & ActiveStorage::AnalyzeJob as normal" do
-        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")
+      let(:client) { create :client }
+      it "does not create a job to convert the file to jpg and enqueues the DocScreenerJob & ActiveStorage::AnalyzeJob as normal" do
+        document = build :document, uploaded_by: client, upload_path: Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")
         allow(HeicToJpgJob).to receive(:perform_later)
 
         document.save!
 
         expect(HeicToJpgJob).to_not have_received(:perform_later).with(document.id)
         expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to eq ["DocScreenerJob", "ActiveStorage::AnalyzeJob"]
+      end
+    end
+  end
+
+  describe "after_update_commit" do
+    include ActiveJob::TestHelper
+
+    let!(:document) { create(:document, document_type: DocumentTypes::SsnItin.key) }
+
+    before do
+      clear_enqueued_jobs
+    end
+
+    context "when document_type changes" do
+      it "enqueues the screener job" do
+        expect {
+          document.update!(document_type: DocumentTypes::PrimaryIdentification::DriversLicense.key)
+        }.to have_enqueued_job(DocScreenerJob).with(document.id)
+      end
+    end
+
+    context "when skip_screener_rerun is true" do
+      it "does not enqueue the screener job" do
+        document.skip_screener_rerun = true
+
+        expect {
+          document.update!(document_type: DocumentTypes::PrimaryIdentification::DriversLicense.key)
+        }.not_to have_enqueued_job(DocScreenerJob)
       end
     end
   end

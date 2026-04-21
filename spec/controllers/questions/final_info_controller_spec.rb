@@ -55,7 +55,7 @@ RSpec.describe Questions::FinalInfoController do
             context "before the tax deadline" do
               let(:fake_time) { Rails.configuration.tax_deadline - 1.minute }
 
-              it "sends a success email with the April 1st date" do
+              it "sends a success email with April 6 date" do # GYR1-994: use Apr 6
                 Timecop.freeze(fake_time) do
                   post :update, params: params
                 end
@@ -63,7 +63,7 @@ RSpec.describe Questions::FinalInfoController do
                   client: client,
                   message: AutomatedMessage::SuccessfulSubmissionOnlineIntake,
                   locale: :en,
-                  body_args: { end_of_docs_date: "April 1"}
+                  body_args: { end_of_docs_date: "April 6"}
                 )
               end
             end

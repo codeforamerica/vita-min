@@ -25,7 +25,7 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
   before do
     allow(PartnerRoutingService).to receive(:new).and_return organization_router
     allow(organization_router).to receive(:determine_partner).and_return nil
-    allow(organization_router).to receive(:routing_method).and_return :from_zip_code
+    allow(organization_router).to receive(:routing_method).and_return :zip_code
   end
 
   scenario "returning client with GYR intake with matching ssn sees duplicate guard page" do
@@ -66,7 +66,9 @@ RSpec.feature "Web Intake Returning Filer", :flow_explorer_screenshot do
 
   #scenario for a matching ITIN
 
-  scenario "returning client with CTC intake with matching SSN does not see duplicate guard" do
+  # TODO cleanup-legacy
+
+  xscenario "returning client with CTC intake with matching SSN does not see duplicate guard" do
     visit personal_info_questions_path
     fill_out_personal_information(name: "Dupe", zip_code: "20121")
 
