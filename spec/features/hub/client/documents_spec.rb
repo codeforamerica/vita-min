@@ -54,7 +54,7 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("#document-#{document_1.id}", text: "Secondary ID")
 
       # Smart Scan column should be hidden for non-admin users.
-      expect_page.to_not have_text('Smart Scan')
+      expect(page).to_not have_text('Smart Scan')
       within "#document-#{document_1.id}" do
         expect(page).not_to have_selector('[data-status="pass"]')
       end
