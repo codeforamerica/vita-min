@@ -1,16 +1,16 @@
-FROM ruby:3.4.4
+#################################
+########## BUILD STAGE ##########
+#################################
 
-# The Docker environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
-RUN apt-get update --allow-releaseinfo-change
+ARG RUBY_VERSION=3.4.9
+FROM dhi.io/ruby:${RUBY_VERSION}-debian13-dev AS builder
 
 # System prerequisites
 RUN apt-get update \
-  && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript default-jre poppler-utils curl \
-  && curl -sL https://deb.nodesource.com/setup_20.x | bash - \
-  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-  && apt-get update && apt-get install -y nodejs yarn \
+  && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript default-jre poppler-utils curl nodejs \
   && rm -rf /var/lib/apt/lists/*
+
+RUN npm install -g yarn
 
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.9/supercronic-linux-amd64 \
   SUPERCRONIC=supercronic-linux-amd64 \
@@ -22,14 +22,14 @@ RUN curl -fsSLO "$SUPERCRONIC_URL" \
   && mv "$SUPERCRONIC" "/usr/local/bin/${SUPERCRONIC}" \
   && ln -s "/usr/local/bin/${SUPERCRONIC}" /usr/local/bin/supercronic
 
-ADD ./vendor/pdftk /app/vendor/pdftk
-RUN /app/vendor/pdftk/install
+# ADD ./vendor/pdftk /app/vendor/pdftk
+# RUN /app/vendor/pdftk/install
 
-# JDK installation instructions from https://adoptium.net/installation/linux/
-RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor | tee /etc/apt/trusted.gpg.d/adoptium.gpg > /dev/null \
-  && echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list \
-  && apt-get update && apt install -y temurin-21-jdk
-ENV VITA_MIN_JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64
+# # JDK installation instructions from https://adoptium.net/installation/linux/
+# RUN wget -qO - https://packages.adoptium.net/artifactory/api/gpg/key/public | gpg --dearmor | tee /etc/apt/trusted.gpg.d/adoptium.gpg > /dev/null \
+#   && echo "deb https://packages.adoptium.net/artifactory/deb $(awk -F= '/^VERSION_CODENAME/{print$2}' /etc/os-release) main" | tee /etc/apt/sources.list.d/adoptium.list \
+#   && apt-get update && apt install -y temurin-21-jdk
+# ENV VITA_MIN_JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64
 
 ADD . /app
 WORKDIR /app
@@ -46,10 +46,10 @@ RUN set -a \
   && gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document \
   && bundle install
 
-# Add IRS e-file schemas, which are not in the git repo
-RUN set -a \
-  && . ./.aptible.env \
-  && bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas setup:download_gyr_efiler
+# # Add IRS e-file schemas, which are not in the git repo
+# RUN set -a \
+#   && . ./.aptible.env \
+#   && bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas setup:download_gyr_efiler
 
 # Collect assets. This approach is not fully production-ready, but
 # will help you experiment with Aptible Deploy before bothering with assets.
@@ -59,6 +59,29 @@ RUN set -a \
   && bundle exec rake assets:precompile
 
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
+
+#################################
+######### RUNTIME STAGE #########
+#################################
+
+ARG RUBY_VERSION
+FROM dhi.io/ruby:${RUBY_VERSION}-debian13
+
+# libpq for the pg gem native extension
+COPY --from=builder /usr/lib/x86_64-linux-gnu/libpq.so* /usr/lib/x86_64-linux-gnu/
+
+# pdftoppm (called directly in bedrock_doc_screener) + libpoppler it links against
+COPY --from=builder /usr/bin/pdftoppm /usr/bin/pdftoppm
+COPY --from=builder /usr/lib/x86_64-linux-gnu/libpoppler.so* /usr/lib/x86_64-linux-gnu/
+
+# Supercronic (copy binary directly, no symlink needed)
+COPY --from=builder /usr/local/bin/supercronic-linux-amd64 /usr/local/bin/supercronic
+
+COPY --chown=65532:65532 --from=builder /usr/local/bundle /usr/local/bundle
+COPY --chown=65532:65532 --from=builder /app /app
+
+USER 65532
+WORKDIR /app
 
 EXPOSE 3000
 
