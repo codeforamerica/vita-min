@@ -159,6 +159,9 @@ Rails.application.routes.draw do
       get "/gyr-outreach", to: "redirects#gyr_outreach"
       get "/fyst-outreach", to: "redirects#fyst_outreach"
       get "/diy-survey", to: "redirects#diy_survey"
+      get "/partner-return", to: "redirects#partner_return", as: :partner_return
+
+      get "/location-searches/icon-preview", to: "location_searches#provider_icon_preview", as: :location_search_icon_preview
 
       post "/subscribe_to_emails", to: "notifications_settings#subscribe_to_emails", as: :subscribe_to_emails
       post "/subscribe_to_campaign_emails", to: "notifications_settings#subscribe_to_campaign_emails", as: :subscribe_to_campaign_emails
@@ -300,6 +303,7 @@ Rails.application.routes.draw do
             get "/confirm", to: "documents#confirm", on: :member, as: :confirm
             post :rerun_screener, on: :member
             post :record_feedback, on: :member
+            post :share_link, on: :member
           end
           resources :notes, only: [:create, :index]
           resources :messages, only: [:index]
