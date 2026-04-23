@@ -1,10 +1,12 @@
 <% if can? :read, :DocAssessmentFeedback && !@document.latest_assessment&.confirmed? %>
-  <% verdict = @document.latest_assessment&.matches_doc_type_verdict %>
-  <% unless verdict.blank? %>
-    <%= render "hub/documents/smart_scan_card",
-               document: @document,
-               state: verdict == "pass" ? "success" : "fail" %>
+  <div style='padding-bottom: 2em'>
+    <% verdict = @document.latest_assessment&.matches_doc_type_verdict %>
+    <% unless verdict.blank? %>
+      <%= render "hub/documents/smart_scan_card",
+                 document: @document,
+                 state: verdict == "pass" ? "success" : "fail" %>
 
-    <%= render "hub/documents/feedback_collection" %>
-  <% end %>
+      <%= render "hub/documents/feedback_collection" %>
+    <% end %>
+  </div>
 <% end %>
