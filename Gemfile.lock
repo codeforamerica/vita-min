@@ -152,7 +152,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.22)
     benchmark (0.5.0)
-    bigdecimal (4.1.1)
+    bigdecimal (4.1.2)
     bindex (0.8.1)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
@@ -210,8 +210,10 @@ GEM
       msgpack
     date (3.5.1)
     debase-ruby_core_source (3.3.1)
-    delayed_job (4.1.13)
+    delayed_job (4.2.0)
       activesupport (>= 3.0, < 9.0)
+      benchmark
+      logger
     delayed_job_active_record (4.1.11)
       activerecord (>= 3.0, < 9.0)
       delayed_job (>= 3.0, < 5)
@@ -775,7 +777,6 @@ PLATFORMS
 DEPENDENCIES
   activerecord-postgis-adapter (~> 10.0, >= 10.0.2)
   acts_as_list
-  addressable (>= 2.9.0)
   airrecord
   annotate
   auto_strip_attributes
@@ -799,7 +800,7 @@ DEPENDENCIES
   data_migrate (>= 10.0)
   database_cleaner
   datadog (~> 2.2.0)
-  delayed_job (~> 4.1.13)
+  delayed_job
   delayed_job_active_record
   delayed_job_web
   device_detector (~> 1.0.7)
@@ -856,7 +857,6 @@ DEPENDENCIES
   pycall
   rack (>= 3.2.6)
   rack-mini-profiler
-  rack-session (>= 2.1.2)
   rails (~> 7.2.3.1)
   rails-controller-testing
   rails-i18n
