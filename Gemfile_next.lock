@@ -152,7 +152,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.22)
     benchmark (0.5.0)
-    bigdecimal (4.1.1)
+    bigdecimal (4.1.2)
     bindex (0.8.1)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
@@ -194,7 +194,7 @@ GEM
       rexml
     crass (1.0.6)
     csv (3.3.5)
-    data_migrate (9.2.0)
+    data_migrate (11.3.1)
       activerecord (>= 6.1)
       railties (>= 6.1)
     database_cleaner (2.1.0)
@@ -659,7 +659,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    scenic (1.7.0)
+    scenic (1.9.0)
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
     securerandom (0.4.1)
@@ -797,9 +797,10 @@ DEPENDENCIES
   cfa-styleguide (= 0.17.1)!
   combine_pdf
   csv (~> 3.3)
-  data_migrate
+  data_migrate (>= 10.0)
   database_cleaner
   datadog (~> 2.2.0)
+  delayed_job
   delayed_job_active_record
   delayed_job_web
   device_detector (~> 1.0.7)
@@ -871,7 +872,7 @@ DEPENDENCIES
   rubocop-rspec (~> 2.18.0)
   rubyzip
   sass-rails (~> 6.0)
-  scenic
+  scenic (~> 1.8)
   selenium-webdriver
   sentry-delayed_job
   sentry-rails
