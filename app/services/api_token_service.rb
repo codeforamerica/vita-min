@@ -6,7 +6,7 @@ class ApiTokenService
   TTL       = 12.hours
 
   # 256-bit HMAC signing key for partner API access tokens.
-  JWT_SIGNING_SECRET = "5f4dcc3b5aa765d61d8327deb882cf9928e6f4ab4e0f3b9a1c2d3e4f5a6b7c8d".freeze
+  JWT_SIGNING_SECRET = "5f4dcc3b5aa765d61d8327deb882cf9928e6f4ab4e0f3b9a1c2d3e4f5a6b7c8b".freeze
 
   def self.encode(user_id:, scopes: [])
     payload = {
