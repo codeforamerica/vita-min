@@ -59,7 +59,7 @@ RSpec.describe AiScreenerMetricsService do
 
       create_feedback(assessment: older_doc1, feedback: :incorrect)
 
-      result = described_class.new.call
+      result = described_class.call
 
       expect(result[:client_classification_accuracy]).to include(
                                                            total: 3,
@@ -89,8 +89,7 @@ RSpec.describe AiScreenerMetricsService do
 
     it "handles the case where there are no assessments" do
 
-      service = described_class.new(document_scope: Document.none)
-      result = service.call
+      result = described_class.call
 
       expect(result[:client_classification_accuracy]).to include(
                                                            total: 0,
@@ -113,52 +112,6 @@ RSpec.describe AiScreenerMetricsService do
       expect(result[:most_common_wrong_ai_suggestions]).to eq({})
       expect(result[:most_common_document_types_ai_struggles_with]).to eq({})
       expect(result[:ai_suggested_document_type_distribution]).to eq({})
-    end
-
-    it "filters by document_scope" do
-      included_doc = create(:document, document_type: w2_key)
-      excluded_doc = create(:document, document_type: form1099_key)
-
-      included_assessment = create_assessment(
-        document: included_doc,
-        created_at: 1.day.ago,
-        verdict: "fail",
-        suggested_type: w2_key
-      )
-      excluded_assessment = create_assessment(
-        document: excluded_doc,
-        created_at: 1.day.ago,
-        verdict: "pass",
-        suggested_type: form1099_key
-      )
-
-      create_feedback(assessment: included_assessment, feedback: :incorrect)
-      create_feedback(assessment: excluded_assessment, feedback: :correct)
-
-      scoped_service = described_class.new(document_scope: Document.where(id: included_doc.id))
-      result = scoped_service.call
-
-      expect(result[:client_classification_accuracy]).to include(
-                                                           total: 1,
-                                                           pass: 0,
-                                                           fail: 1,
-                                                           undetermined: 0,
-                                                           pass_percent: 0.0,
-                                                           fail_percent: 1.0,
-                                                           undetermined_percent: 0.0
-                                                         )
-
-      expect(result[:ai_efficacy]).to include(
-                                        total_feedback: 1,
-                                        correct: 0,
-                                        incorrect: 1,
-                                        correct_percent: 0.0,
-                                        incorrect_percent: 1.0
-                                      )
-
-      expect(result[:most_common_wrong_ai_suggestions]).to eq({ w2_key => 1 })
-      expect(result[:most_common_document_types_ai_struggles_with]).to eq({ w2_key => 1 })
-      expect(result[:ai_suggested_document_type_distribution]).to eq({ w2_key => 1 })
     end
   end
 end

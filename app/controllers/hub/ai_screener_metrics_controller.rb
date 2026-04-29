@@ -3,7 +3,7 @@ module Hub
     before_action :require_admin
 
     def show
-      @metrics = AiScreenerMetricsService.new.call
+      @metrics = AiScreenerMetricsService.call
     end
   end
 end
