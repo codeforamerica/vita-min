@@ -9,7 +9,7 @@ class DirectFileJsonData
     json_accessor ssn_not_valid_for_employment: { type: :boolean, key: "ssnNotValidForEmployment" }
   end
 
-  class DfJsonFiler < DfJsonPerson
+  class DfJsonFiler < DfJsonPerson # nosemgrep: rules.rails-attr-accessible
     json_accessor is_primary_filer: { type: :boolean, key: "isPrimaryFiler" }
     json_accessor educator_expenses: { type: :money_amount, key: "educatorExpenses" }
     json_accessor hsa_total_deductible_amount: { type: :money_amount, key: "hsaTotalDeductibleAmount" }
