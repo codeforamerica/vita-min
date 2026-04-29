@@ -1,15 +1,25 @@
 class AiScreenerMetricsService
   def self.call
-    {
-      client_classification_accuracy: client_classification_accuracy,
-      ai_efficacy: ai_efficacy,
-      most_common_wrong_ai_suggestions: most_common_wrong_ai_suggestions,
-      most_common_document_types_ai_struggles_with: most_common_document_types_ai_struggles_with,
-      ai_suggested_document_type_distribution: ai_suggested_document_type_distribution,
-    }
+    Rails.cache.fetch(@@CACHE_KEY, expires_in: 25.hours) do
+      {
+        client_classification_accuracy: client_classification_accuracy,
+        ai_efficacy: ai_efficacy,
+        most_common_wrong_ai_suggestions: most_common_wrong_ai_suggestions,
+        most_common_document_types_ai_struggles_with: most_common_document_types_ai_struggles_with,
+        ai_suggested_document_type_distribution: ai_suggested_document_type_distribution,
+      }
+    end
+  end
+
+  # Called by RefreshCachesJob
+  def self.refresh_cache
+    Rails.cache.delete(@@CACHE_KEY)
+    self.call
   end
 
   private
+
+  @@CACHE_KEY = 'AiScreenerMetricsService/payload'
 
   def self.scoped_documents
     Document.with_assessments.reorder(nil) # `reorder(nil)` needed for DISTINCT ON qy below.
