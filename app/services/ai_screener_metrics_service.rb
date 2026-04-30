@@ -1,6 +1,8 @@
 class AiScreenerMetricsService
+  CACHE_KEY = 'AiScreenerMetricsService/payload'
+
   def self.call
-    Rails.cache.fetch(@@CACHE_KEY, expires_in: 25.hours) do
+    Rails.cache.fetch(CACHE_KEY, expires_in: 25.hours) do
       {
         client_classification_accuracy: client_classification_accuracy,
         ai_efficacy: ai_efficacy,
@@ -13,13 +15,11 @@ class AiScreenerMetricsService
 
   # Called by RefreshCachesJob
   def self.refresh_cache
-    Rails.cache.delete(@@CACHE_KEY)
+    Rails.cache.delete(CACHE_KEY)
     self.call
   end
 
   private
-
-  @@CACHE_KEY = 'AiScreenerMetricsService/payload'
 
   def self.scoped_documents
     Document.with_assessments.reorder(nil) # `reorder(nil)` needed for DISTINCT ON qy below.
