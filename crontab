@@ -15,4 +15,4 @@
 # 0 18 21 10 * bundle exec rake state_file:send_deadline_reminder_tomorrow
 # 0 18 22 10 * bundle exec rake state_file:send_deadline_reminder_today
 0 21 27 10 * bundle exec rake users:suspend_non_admins
-2 2 * * * bundle exec rake refresh_caches:do
+2 2 * * * bundle exec rake refresh_caches:go
