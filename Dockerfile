@@ -7,9 +7,8 @@ RUN apt-get update --allow-releaseinfo-change
 RUN apt-get update \
   && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript default-jre poppler-utils curl \
   && curl -sL https://deb.nodesource.com/setup_20.x | bash - \
-  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-  && apt-get update && apt-get install -y nodejs yarn \
+  && apt-get update && apt-get install -y nodejs \
+  && corepack enable \
   && rm -rf /var/lib/apt/lists/*
 
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.9/supercronic-linux-amd64 \
@@ -33,8 +32,9 @@ ENV VITA_MIN_JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64
 
 ADD . /app
 WORKDIR /app
-ADD package.json yarn.lock /app/
-RUN NODE_ENV=production yarn install --frozen-lockfile
+ADD package.json yarn.lock .yarnrc.yml /app/
+ADD .yarn /app/.yarn
+RUN NODE_ENV=production yarn install --immutable
 ADD .ruby-version Gemfile Gemfile.lock /app/
 
 RUN set -a \
