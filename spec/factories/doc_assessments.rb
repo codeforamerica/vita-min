@@ -3,6 +3,7 @@
 # Table name: doc_assessments
 #
 #  id                :bigint           not null, primary key
+#  confirmed         :boolean
 #  error             :text
 #  prompt_version    :string           default("v1"), not null
 #  raw_response_json :jsonb            not null

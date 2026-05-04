@@ -139,6 +139,27 @@ describe Document do
       end
     end
 
+    context 'with an encrypted but not password-protected PDF' do
+      let(:document) {
+        build :document,
+        document_type: DocumentTypes::PrimaryIdentification::Passport.key,
+        upload_path: Rails.root.join('spec', 'fixtures', 'files', 'encrypted-but-not-pw-protected.pdf') }
+      it 'accepts PDF as valid' do
+        expect(document).to be_valid
+      end
+    end
+
+    context 'with a password-protected PDF' do
+      let(:document) {
+        build :document,
+        document_type: DocumentTypes::PrimaryIdentification::Passport.key,
+        upload_path: Rails.root.join('spec', 'fixtures', 'files', 'encrypted-and-pw-is-password.pdf') }
+      it 'rejects the file as invalid' do
+        expect(document).not_to be_valid
+        expect(document.errors).to include :upload
+      end
+    end
+
     describe "#file_type" do
       let(:client) { create :client }
       let(:tax_return) { build :gyr_tax_return, client: client }
@@ -258,6 +279,34 @@ describe Document do
 
         expect(HeicToJpgJob).to_not have_received(:perform_later).with(document.id)
         expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to eq ["DocScreenerJob", "ActiveStorage::AnalyzeJob"]
+      end
+    end
+  end
+
+  describe "after_update_commit" do
+    include ActiveJob::TestHelper
+
+    let!(:document) { create(:document, document_type: DocumentTypes::SsnItin.key) }
+
+    before do
+      clear_enqueued_jobs
+    end
+
+    context "when document_type changes" do
+      it "enqueues the screener job" do
+        expect {
+          document.update!(document_type: DocumentTypes::PrimaryIdentification::DriversLicense.key)
+        }.to have_enqueued_job(DocScreenerJob).with(document.id)
+      end
+    end
+
+    context "when skip_screener_rerun is true" do
+      it "does not enqueue the screener job" do
+        document.skip_screener_rerun = true
+
+        expect {
+          document.update!(document_type: DocumentTypes::PrimaryIdentification::DriversLicense.key)
+        }.not_to have_enqueued_job(DocScreenerJob)
       end
     end
   end

@@ -1,7 +1,6 @@
 require "rails_helper"
 require 'mini_magick'
 
-
 RSpec.feature "View and edit documents for a client" do
   context "As an authenticated (non-admin) user" do
     let(:user) { create :organization_lead_user, name: "Org Lead" }
@@ -10,8 +9,8 @@ RSpec.feature "View and edit documents for a client" do
     let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement", uploaded_by: client }
     let!(:document_2) { create :document, display_name: "W-2.pdf", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement" }
     let!(:document_3) { create :document, display_name: "consent.pdf", client: client, intake: client.intake, uploaded_by: nil }
-    let!(:assessment_pass)  { create(:doc_assessment, :pass, document: document_1) }
-    let!(:assessment_fail)  { create(:doc_assessment, :fail, document: document_2) }
+    let!(:assessment_pass) { create(:doc_assessment, :pass, document: document_1) }
+    let!(:assessment_fail) { create(:doc_assessment, :fail, document: document_2) }
     let!(:assessment_attention) { create(:doc_assessment, :attention, document: document_3) }
 
     before do
@@ -55,14 +54,13 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("#document-#{document_1.id}", text: "Secondary ID")
 
       # Smart Scan column should be hidden for non-admin users.
+      expect(page).to_not have_text('Smart Scan')
       within "#document-#{document_1.id}" do
         expect(page).not_to have_selector('[data-status="pass"]')
       end
-
       within "#document-#{document_2.id}" do
         expect(page).not_to have_selector('[data-status="fail"]')
       end
-
       within "#document-#{document_3.id}" do
         expect(page).not_to have_selector('[data-status="attention"]')
       end
@@ -84,7 +82,6 @@ RSpec.feature "View and edit documents for a client" do
 
       click_on "Rotate Image"
 
-
       click_on "Save"
 
       retries = 10
@@ -98,6 +95,14 @@ RSpec.feature "View and edit documents for a client" do
       new_dimensions = image_dimensions(document_1.reload)
 
       expect(original_dimensions[:height]).not_to eq(new_dimensions[:height])
+    end
+
+    scenario 'cannot see smartscan card on Edit page' do
+      visit hub_client_documents_path(client_id: client.id)
+      within "#document-#{document_1.id}" do
+        click_on 'Edit'
+      end
+      expect(page).to_not have_text('Smart Scan Notes')
     end
 
     scenario "uploading a document to a client's documents page" do
@@ -162,18 +167,26 @@ RSpec.feature "View and edit documents for a client" do
     let(:client) { create :client, intake: build(:intake, preferred_name: "Bart Simpson") }
     let(:tax_return_1) { create :tax_return, client: client, year: 2019 }
     let!(:document_1) { create :document, display_name: "ID.jpg", client: client, intake: client.intake, tax_return: tax_return_1, document_type: "Care Provider Statement", uploaded_by: client }
-    let!(:assessment_pass)  { create(:doc_assessment, :pass, document: document_1) }
 
     before do
       login_as user
     end
 
     scenario "the Smart Scan column *is* visible for admins" do
+      create(:doc_assessment, :pass, document: document_1)
       visit hub_client_documents_path(client_id: client.id)
 
       within "#document-#{document_1.id}" do
         expect(page).to have_selector('[data-status="pass"]')
       end
+    end
+
+    scenario 'Document form works even if no smartscan assessments' do
+      visit hub_client_documents_path(client_id: client.id)
+      expect(page).to_not have_selector('[data-status="pass"]')
+      click_on "Add document"
+      expect(page).to have_text('Add document |')
+      expect(page).to have_text('Select file')
     end
   end
 end
