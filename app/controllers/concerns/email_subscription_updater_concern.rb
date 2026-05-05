@@ -17,10 +17,15 @@ module EmailSubscriptionUpdaterConcern
         unsub_timestamp = (direction == "no") ? Time.current : nil
 
         matching_intakes.each do |intake|
-          intake.update(
-            column_name => direction,
-            email_unsubscribed_at: unsub_timestamp
-          )
+          update_attrs = {
+            column_name => direction
+          }
+
+          if intake.has_attribute?(:email_unsubscribed_at)
+            update_attrs[:email_unsubscribed_at] = unsub_timestamp
+          end
+
+          intake.update(update_attrs)
 
           if direction == "no"
             # log most recent email at time of unsubscribe
