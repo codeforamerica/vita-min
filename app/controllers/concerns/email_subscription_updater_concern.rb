@@ -31,7 +31,10 @@ module EmailSubscriptionUpdaterConcern
             # log most recent email at time of unsubscribe
             last_email = intake.client.outgoing_emails.order(created_at: :desc)&.first
             email_identifier = last_email&.subject || "unknown_email"
-            Datadog.statsd.increment('email.unsubscribes.count', tags: ["last_email:#{email_identifier.parameterize}"])
+            DatadogApi.increment(
+              "email.unsubscribes.count",
+              tags: ["last_email:#{email_identifier.parameterize.underscore}"]
+            )
           end
         end
 

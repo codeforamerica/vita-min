@@ -32,10 +32,10 @@ module CampaignEmailSubscriptionUpdaterConcern
         email_identifier = last_email&.message_name.presence ||
           last_email&.subject.presence ||
           "unknown_email"
-        Datadog.statsd.increment('email.unsubscribes.count', tags: [
-          "last_email:#{email_identifier.parameterize.underscore}",
-          "email_type:campaign"
-        ])
+        DatadogApi.increment(
+          "email.unsubscribes.count",
+          tags: ["last_email:#{email_identifier.parameterize.underscore}", "email_type:campaign"]
+        )
       end
 
       flash[:notice] = if opt_in

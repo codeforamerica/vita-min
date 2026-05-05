@@ -136,6 +136,12 @@ class IncomingTextMessageService
                        "unknown_sms"
                      end
 
-    Datadog.statsd.increment("sms.unsubscribes.count", tags: ["last_sms:#{sms_identifier.to_s.parameterize.underscore}", "sms_type:#{sms_type}"])
+    DatadogApi.increment(
+      "sms.unsubscribes.count",
+      tags: [
+        "last_sms:#{sms_identifier.to_s.parameterize.underscore}",
+        "sms_type:#{sms_type}"
+      ]
+    )
   end
 end
