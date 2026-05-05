@@ -33,7 +33,6 @@ ENV VITA_MIN_JAVA_HOME=/usr/lib/jvm/temurin-21-jdk-amd64
 ADD . /app
 WORKDIR /app
 ADD package.json yarn.lock .yarnrc.yml /app/
-ADD .yarn /app/.yarn
 RUN NODE_ENV=production yarn install --immutable
 ADD .ruby-version Gemfile Gemfile.lock /app/
 
