@@ -182,6 +182,39 @@ describe Ability do
         end
       end
 
+      shared_examples :can_unlock_client do
+        context 'user can unlock client' do
+          let(:accessible_site) { create(:site) }
+          let(:accessible_client) do
+            create(
+              :client,
+              vita_partner: accessible_site,
+              intake: build(
+                :intake,
+                :filled_out,
+                preferred_name: "George Sr.",
+              ),
+              tax_returns: [
+                build(
+                  :tax_return,
+                  :intake_ready,
+                  year: 2019,
+                  assigned_user: user
+                ),
+              ]
+            )
+          end
+
+          before do
+            allow(user).to receive(:accessible_vita_partners).and_return(VitaPartner.where(id: accessible_site))
+          end
+
+          it "can unlock client" do
+            expect(subject.can?(:unlock, accessible_client)).to eq true
+          end
+        end
+      end
+
       shared_examples :can_manage_but_not_delete_accessible_client do
         context "when the user can access a particular site" do
           let(:accessible_site) { create(:site) }
@@ -529,6 +562,7 @@ describe Ability do
           it_behaves_like :cannot_manage_inaccessible_client
           it_behaves_like :can_only_read_accessible_org_or_site
           it_behaves_like :cannot_manage_any_sites_or_orgs
+          it_behaves_like :can_unlock_client
         end
 
         context "an organization lead" do
@@ -538,6 +572,7 @@ describe Ability do
           it_behaves_like :cannot_manage_inaccessible_client
           it_behaves_like :can_only_read_accessible_org_or_site
           it_behaves_like :cannot_manage_any_sites_or_orgs
+          it_behaves_like :can_unlock_client
         end
 
         context "a site coordinator" do
@@ -547,6 +582,7 @@ describe Ability do
           it_behaves_like :cannot_manage_inaccessible_client
           it_behaves_like :can_only_read_accessible_org_or_site
           it_behaves_like :cannot_manage_any_sites_or_orgs
+          it_behaves_like :can_unlock_client
         end
 
         context "a team member" do
