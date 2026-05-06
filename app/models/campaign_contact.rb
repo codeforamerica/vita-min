@@ -6,6 +6,7 @@
 #  diy_intake_ids            :integer          default([]), is an Array
 #  email_address             :citext
 #  email_notification_opt_in :boolean          default(FALSE)
+#  email_unsubscribed_at     :datetime
 #  first_name                :string
 #  gyr_intake_ids            :bigint           default([]), is an Array
 #  last_name                 :string
@@ -16,6 +17,7 @@
 #  sign_up_ids               :bigint           default([]), is an Array
 #  sms_notification_opt_in   :boolean          default(FALSE)
 #  sms_phone_number          :string
+#  sms_unsubscribed_at       :datetime
 #  state_file_intake_refs    :jsonb            not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null

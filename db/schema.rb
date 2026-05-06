@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_14_202403) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_06_160020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -575,6 +575,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_14_202403) do
     t.integer "diy_intake_ids", default: [], array: true
     t.citext "email_address"
     t.boolean "email_notification_opt_in", default: false
+    t.datetime "email_unsubscribed_at"
     t.string "first_name"
     t.bigint "gyr_intake_ids", default: [], array: true
     t.string "last_name"
@@ -585,6 +586,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_14_202403) do
     t.bigint "sign_up_ids", default: [], array: true
     t.boolean "sms_notification_opt_in", default: false
     t.string "sms_phone_number"
+    t.datetime "sms_unsubscribed_at"
     t.jsonb "state_file_intake_refs", default: [], null: false
     t.integer "suppressed_for_gyr_product_year"
     t.datetime "updated_at", null: false
@@ -1548,6 +1550,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_14_202403) do
     t.integer "sms_notification_opt_in", default: 0, null: false
     t.string "sms_phone_number"
     t.datetime "sms_phone_number_verified_at", precision: nil
+    t.datetime "sms_unsubscribed_at"
     t.integer "sold_a_home", default: 0, null: false
     t.integer "sold_assets", default: 0, null: false
     t.string "source"

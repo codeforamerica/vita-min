@@ -130,7 +130,6 @@ class IncomingTextMessageService
                      when CampaignSms
                        last_sms.message_name
                      when OutgoingTextMessage
-                       # change if we start differentiating these messages easily
                        "outgoing_text_message"
                      else
                        "unknown_sms"
@@ -138,10 +137,7 @@ class IncomingTextMessageService
 
     DatadogApi.increment(
       "sms.unsubscribes.count",
-      tags: [
-        "last_sms:#{sms_identifier.to_s.parameterize.underscore}",
-        "sms_type:#{sms_type}"
-      ]
+      tags: ["last_sms:#{sms_identifier.to_s.parameterize.underscore}", "sms_type:#{sms_type}"]
     )
   end
 end

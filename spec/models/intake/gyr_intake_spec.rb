@@ -300,6 +300,7 @@
 #  sms_notification_opt_in                              :integer          default("unfilled"), not null
 #  sms_phone_number                                     :string
 #  sms_phone_number_verified_at                         :datetime
+#  sms_unsubscribed_at                                  :datetime
 #  sold_a_home                                          :integer          default("unfilled"), not null
 #  sold_assets                                          :integer          default("unfilled"), not null
 #  source                                               :string
