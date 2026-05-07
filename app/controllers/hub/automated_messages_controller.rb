@@ -36,7 +36,7 @@ module Hub
       end.to_h
 
       emails = {
-        "UserMailer.assignment_email" => UserMailer.assignment_email(assigned_user: User.last, assigning_user: User.first, tax_return: TaxReturn.last, assigned_at: TaxReturn.last.updated_at),
+        "UserMailer.assignment_email" => UserMailer.assignment_email(assigned_user: User.last, assigning_user: User.first, tax_return: TaxReturn.last, assigned_at: TaxReturn.last&.updated_at),
         "UserMailer.incoming_interaction_notification_email [new_client_message]" => UserMailer.incoming_interaction_notification_email(client: Client.last, received_at: Time.now, user: User.last, interaction_count: 3, interaction_type: "new_client_message"),
         "UserMailer.incoming_interaction_notification_email [document_upload]" => UserMailer.incoming_interaction_notification_email(client: Client.last, received_at: Time.now, user: User.last, interaction_count: 3, interaction_type: "document_upload"),
         "UserMailer.incoming_interaction_notification_email [signed_8879]" => UserMailer.incoming_interaction_notification_email(client: Client.last, received_at: Time.now, user: User.last, interaction_count: 2, interaction_type: "signed_8879", is_filing_jointly: true),
