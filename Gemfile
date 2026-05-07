@@ -90,7 +90,7 @@ gem 'method_source'
 gem 'ordinalize_full'
 gem 'awesome_print'
 gem 'holidays'
-gem "net-imap", ">= 0.4.20"
+gem "net-imap", ">= 0.6.4"
 gem 'redis'
 gem "observer", "~> 0.1.2"
 gem "csv", "~> 3.3"
