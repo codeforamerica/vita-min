@@ -92,8 +92,8 @@ GEM
       tzinfo (~> 2.0, >= 2.0.5)
     acts_as_list (1.1.0)
       activerecord (>= 4.2)
-    addressable (2.8.7)
-      public_suffix (>= 2.0.2, < 7.0)
+    addressable (2.9.0)
+      public_suffix (>= 2.0.2, < 8.0)
     afm (0.2.2)
     airrecord (1.0.12)
       faraday (>= 1.0, < 3.0)
@@ -152,7 +152,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.22)
     benchmark (0.5.0)
-    bigdecimal (4.1.1)
+    bigdecimal (4.1.2)
     bindex (0.8.1)
     bootsnap (1.17.0)
       msgpack (~> 1.2)
@@ -210,8 +210,10 @@ GEM
       msgpack
     date (3.5.1)
     debase-ruby_core_source (3.3.1)
-    delayed_job (4.1.13)
+    delayed_job (4.2.0)
       activesupport (>= 3.0, < 9.0)
+      benchmark
+      logger
     delayed_job_active_record (4.1.11)
       activerecord (>= 3.0, < 9.0)
       delayed_job (>= 3.0, < 5)
@@ -245,7 +247,7 @@ GEM
     easy_translate (0.5.1)
       thread
       thread_safe
-    erb (6.0.2)
+    erb (6.0.4)
     erubi (1.13.1)
     erubis (2.7.0)
     excon (0.104.0)
@@ -400,7 +402,7 @@ GEM
       uri (>= 0.11.1)
     net-http-persistent (4.0.6)
       connection_pool (~> 2.2, >= 2.2.4)
-    net-imap (0.6.3)
+    net-imap (0.6.4)
       date
       net-protocol
     net-pop (0.1.2)
@@ -489,7 +491,7 @@ GEM
     psych (5.3.1)
       date
       stringio
-    public_suffix (6.0.2)
+    public_suffix (7.0.5)
     puma (6.6.1)
       nio4r (~> 2.0)
     pundit (2.5.0)
@@ -505,7 +507,7 @@ GEM
       rack (>= 3.0.0, < 4)
     rack-proxy (0.7.7)
       rack
-    rack-session (2.1.1)
+    rack-session (2.1.2)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
     rack-test (2.2.0)
@@ -798,7 +800,7 @@ DEPENDENCIES
   data_migrate (>= 10.0)
   database_cleaner
   datadog (~> 2.2.0)
-  delayed_job (~> 4.1.13)
+  delayed_job
   delayed_job_active_record
   delayed_job_web
   device_detector (~> 1.0.7)
@@ -831,7 +833,7 @@ DEPENDENCIES
   memory_profiler
   method_source
   mixpanel-ruby
-  net-imap (>= 0.4.20)
+  net-imap (>= 0.6.4)
   nokogiri (>= 1.19.1)
   observer (~> 0.1.2)
   omniauth

@@ -41,7 +41,7 @@
           <%= render "shared/column_sort_link", title: t("general.document_type"), column_name: "document_type" %>
         </th>
 
-        <% if current_user.admin? %>
+        <% if can? :read, :DocAssessmentFeedback %>
           <th scope="col" class="index-table__header document-column__smart-scan">
             <%= render "shared/column_sort_link", title: t(".smart_scan"), column_name: "smart_scan" %>
           </th>
@@ -59,11 +59,6 @@
         <th scope="col" class="index-table__header document-column__upload-date">
           <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
         </th>
-        <% if current_user.admin? %>
-          <th scope="col" class="index-table__header document-column__screener_verdict">
-            <%= render "shared/column_sort_link", title: "Matches doc-type", column_name: "screener_verdict" %>
-          </th>
-        <% end %>
         <th></th>
       </tr>
       </thead>
@@ -84,7 +79,7 @@
               <%= id_prefix + document.document_type_label.to_s %>
             </td>
 
-            <% if current_user.admin? %>
+            <% if can? :read, :DocAssessmentFeedback %>
               <td class="index-table__cell document-column__smart-scan">
                 <% if document.assessments.count > 0 %>
                   <% latest_assessment = document.assessments.order(created_at: :desc).first %>

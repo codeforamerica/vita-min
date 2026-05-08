@@ -47,7 +47,7 @@ gem 'bcrypt', '>= 3.1.22'
 gem 'devise-i18n'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
-gem 'delayed_job', '~> 4.1.13'
+gem 'delayed_job'
 gem 'lograge'
 gem 'fix-db-schema-conflicts', require: false
 gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
@@ -90,7 +90,7 @@ gem 'method_source'
 gem 'ordinalize_full'
 gem 'awesome_print'
 gem 'holidays'
-gem "net-imap", ">= 0.4.20"
+gem "net-imap", ">= 0.6.4"
 gem 'redis'
 gem "observer", "~> 0.1.2"
 gem "csv", "~> 3.3"

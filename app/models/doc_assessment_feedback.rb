@@ -33,9 +33,13 @@ class DocAssessmentFeedback < ApplicationRecord
   private
 
   def post_processing
-    update_document_display_name if (
-      feedback_correct? and 
-      DocumentTypes::ALL_TYPES.map(&:key).include? doc_assessment.suggested_document_type )
+    if (feedback_correct? and 
+        DocumentTypes::ALL_TYPES.map(&:key).include? doc_assessment.suggested_document_type)
+      doc_assessment.update!(confirmed: true)
+      doc_assessment.document.skip_screener_rerun = true
+      update_document_display_name
+      update_document_type
+    end
   end
 
   def update_document_display_name
@@ -47,5 +51,12 @@ class DocAssessmentFeedback < ApplicationRecord
       name += ' ' + (tally + 1).to_s
     end
     doc.update!(display_name: name)
+  end
+
+  def update_document_type
+    assessment = doc_assessment
+    suggested_type = assessment.suggested_document_type
+    document = assessment.document
+    document.update!(document_type: suggested_type)
   end
 end

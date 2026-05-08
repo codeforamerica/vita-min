@@ -4951,6 +4951,7 @@ en:
     must_not_be_associated_with_tax_return: "%{document_type} cannot be associated with a tax year."
     not_a_number: Please enter numbers only.
     pdf_file_corrupted: File is corrupt. Please generate a new PDF and try uploading again.
+    pdf_file_password_protected: This file is not readable. The file has a password or is locked. Please remove the password and upload it again.
     pdf_file_type: "%{document_type} must be a PDF file"
     routing_number: This routing number is not valid for direct deposit transactions. Please use a different bank account or switch to check payments.
     signature_pin: Signature PIN must be a 5 digit number.
@@ -5107,16 +5108,6 @@ en:
         spouse_info:
           spouse_identity: Spouse's form of identity
           spouse_identity_help_text: If using a social security card, it must be valid for employment.
-    ctc_pages:
-      home:
-        affiliations:
-          cfa_product_html: GetCTC is a <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/">Code for America</a> product. <a rel="noopener nofollow" target="_blank" href="https://www.codeforamerica.org/news/ensuring-families-who-qualify-for-the-child-tax-credit-arent-left-behind/">Why do we do this work?</a>
-          irs: IRS-approved official E-file provider.
-          white_house_html: Made in collaboration with the <a rel="noopener nofollow" target="_blank" href="https://home.treasury.gov/news/press-releases/jy0322">White House and U.S. Department of Treasury</a>.
-        body: For questions or help filing your taxes visit GetYourRefund. If you haven't filed yet this year, you might be eligible to claim cash benefits.
-        ctc_not_extended_notice: The Advance Child Tax Credit was a tax benefit provided to families in 2021 and 2022 and was not renewed for 2023.
-        title: A tool to claim the Advance Child Tax Credit
-        visit_gyr: Visit GetYourRefund
     dependents:
       form:
         birth_date: Date of birth
