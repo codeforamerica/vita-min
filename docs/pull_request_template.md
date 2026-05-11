@@ -26,7 +26,9 @@
   - Highlight areas that may need extra attention during code review or testing.
   - Paste SQL queries or output where relevant
 
-## Screenshots (for visual changes)
+## Screenshots (visual changes)
 
 - Before
+
 - After
+
