@@ -491,11 +491,28 @@ ol.with-bullets {
 
 .smart-scan-card--fail {
   background-color: $color-smart-scan-pink;
-  border: 1px solid #B30000;
+  border: 1px solid $color-smart-scan-brick;
 }
 
 .smart-scan-card--fail .smart-scan-card__header {
-  color: #B30000;
+  color: $color-smart-scan-brick;
+}
+
+.smart-scan-card--fail .smart-scan-card__divider {
+  background-color: $color-smart-scan-brick;
+}
+
+.smart-scan-card--success {
+  background-color: $color-smart-scan-light-green;
+  border: 2px solid $color-smart-scan-dark-green;
+}
+
+.smart-scan-card--success .smart-scan-card__header {
+  color: $color-smart-scan-dark-green;
+}
+
+.smart-scan-card--success .smart-scan-card__divider {
+  background-color: $color-smart-scan-dark-green;
 }
 
 .smart-scan-card__icon {
