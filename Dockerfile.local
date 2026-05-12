@@ -1,7 +1,7 @@
 # This dockerfile is based on the production dockerfile, minus GYR Efiler Java deps
 
 ### First build stage used for web, worker, and shakapacker containers
-FROM ruby:3.2.2 AS base
+FROM ruby:3.4.4 AS base
 
 RUN apt-get update --allow-releaseinfo-change
 
@@ -9,9 +9,8 @@ RUN apt-get update --allow-releaseinfo-change
 RUN apt-get update \
  && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript default-jre poppler-utils curl \
  && curl -sL https://deb.nodesource.com/setup_20.x | bash - \
- && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
- && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
- && apt-get update && apt-get install -y nodejs yarn \
+ && apt-get update && apt-get install -y nodejs \
+ && corepack enable \
  && rm -rf /var/lib/apt/lists/*
 
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.9/supercronic-linux-amd64 \
@@ -28,8 +27,8 @@ ADD ./vendor/pdftk /app/vendor/pdftk
 RUN /app/vendor/pdftk/install
 
 WORKDIR /app
-ADD package.json yarn.lock /app/
-RUN NODE_ENV=production yarn install --frozen-lockfile
+ADD package.json yarn.lock .yarnrc.yml /app/
+RUN NODE_ENV=production yarn install --immutable
 ADD .ruby-version Gemfile Gemfile.lock /app/
 
 RUN gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document \

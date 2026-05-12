@@ -59,6 +59,10 @@ node_modules
 yarn-debug.log*
 .yarn-integrity
 
+# Yarn Berry — corepack manages yarn itself, so the whole .yarn dir is local state
+.yarn/
+.pnp.*
+
 Brewfile.lock.json
 
 # Ignore downloaded & unpacked e-File schemas
