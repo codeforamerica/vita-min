@@ -16,6 +16,9 @@
         <% end %>
       </div>
     <% end %>
+
+    <%= render 'hub/documents/ai_screener' %>
+
     <%= f.vita_min_text_field :display_name,
                           t("hub.documents.display_name"),
                           classes: ["form-width--long"] %>
@@ -42,7 +45,5 @@
     hub_client_documents_path(client_id: @client),
     class: "button" %>
   <% end %>
-
-  <%= render 'hub/documents/ai_screener' %>
 </div>
 

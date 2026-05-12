@@ -1123,7 +1123,6 @@ en:
         client_doc: Client
         edit_file_info: Edit File Info
         empty_file: "(empty file)"
-        fail: Fail
         file_name: File Name
         needs_review: Needs Review
         not_needed_docs: documents not needed due to experiment.
@@ -1134,7 +1133,6 @@ en:
       smart_scan_card:
         is_accurate: "%{document_type} is accurate"
         is_inaccurate: 'Suggested document type: %{document_type}.'
-        validation_fail: Validation Fail
         validation_passed: Validation Passed
         validoc_notes: Smart Scan Notes
     has_duplicates: Potential duplicates detected
