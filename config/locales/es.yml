@@ -5880,6 +5880,9 @@ es:
       returning_client:
         next_steps_html: Entre a su cuenta para terminar las preguntas sobre sus impuestos o para enviar documentos al preparador de su declaración de impuestos. Si tiene alguna pregunta puede enviar un mensaje a %{email_link}.
         title: Parece que usted ya empezó el proceso.
+      savings_options:
+        title: Si recibe un reembolso de impuestos, ¿le gustaría dividirlo entre varias cuentas?
+        help_text: Puede recibir su reembolso en hasta 3 cuentas. Su preparador(a) de impuestos le ayudará a configurarlas.
       school_supplies:
         help_text: Responda "Sí" si usted es un maestro que compró útiles para su trabajo.
         title:

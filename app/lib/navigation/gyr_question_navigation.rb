@@ -149,6 +149,7 @@ module Navigation
       Questions::RefundPaymentController,
       Questions::BalancePaymentController,
       Questions::BankDetailsController,
+      Questions::SavingsOptionsController,
       Questions::MailingAddressController,
       # After this links to document flow --> See Navigation::DocumentNavigation
 
