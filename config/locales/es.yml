@@ -5859,12 +5859,8 @@ es:
           one: En %{year}, ¿recibió algún ingreso de pensión alimenticia?
           other: En %{year}, ¿recibió usted o su pareja algún ingreso de la pensión alimenticia?
       refund_payment:
-        check: Cheque enviado por correo (más lento)
-        direct_deposit: Depósito directo (el más rápido)
-        savings_purchase_bond: Compra de bonos de ahorro de Estados Unidos
-        savings_split_refund: Dividir mi reembolso entre cuentas
-        title: Si se debe un reembolso, ¿cómo le gustaría recibirlo?
-        title_2: Si le corresponde un reembolso, ¿está interesado en usar estas opciones de ahorro?
+        help_text: Si no tiene una cuenta bancaria, puede recibir un cheque por correo, pero tardará varias semanas en llegar.
+        title: "¿Tiene una cuenta bancaria para depósito directo?"
       retirement_contributions:
         help_text: Por ejemplo, un 401k, 403b o cualquier IRA.
         title:
@@ -5881,8 +5877,8 @@ es:
         next_steps_html: Entre a su cuenta para terminar las preguntas sobre sus impuestos o para enviar documentos al preparador de su declaración de impuestos. Si tiene alguna pregunta puede enviar un mensaje a %{email_link}.
         title: Parece que usted ya empezó el proceso.
       savings_options:
-        title: Si recibe un reembolso de impuestos, ¿le gustaría dividirlo entre varias cuentas?
         help_text: Puede recibir su reembolso en hasta 3 cuentas. Su preparador(a) de impuestos le ayudará a configurarlas.
+        title: Si recibe un reembolso de impuestos, ¿le gustaría dividirlo entre varias cuentas?
       school_supplies:
         help_text: Responda "Sí" si usted es un maestro que compró útiles para su trabajo.
         title:
