@@ -5530,11 +5530,7 @@ es:
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"
       balance_payment:
-        error_message: No puede estar en blanco. Por favor, seleccione una opción arriba.
-        pay_in_full_bank: Pagar la cantidad total usando e mi cuenta bancaria
-        pay_in_full_mail: Pagar la cantidad total por correo postal
-        pay_in_installments: Pagar la cantidad en cuotas
-        title: Si tienes un saldo pendiente, ¿cómo te gustaría realizar un pago?
+        title: Si debe algo, ¿le gustaría hacer el pago directamente desde su cuenta bancaria?
       bank_details:
         account_number: Número de cuenta
         account_type:
