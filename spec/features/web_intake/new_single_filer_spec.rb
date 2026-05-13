@@ -370,12 +370,9 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     end
 
     page_change_block do
-      # Payment info
-      expect(page).to have_css("h1", text: "If due a refund, how would like to receive it?")
-      choose "Direct deposit (fastest)"
-      expect(page).to have_text("If due a refund, are you interested in using these savings options?")
-      check "Purchase United States Savings Bond"
-      click_on "Continue"
+      # Payment info - Do you have bank account?
+      expect(page).to have_css("h1", text: I18n.t("views.questions.refund_payment.title"))
+      click_on "Yes"
     end
 
     page_change_block do
