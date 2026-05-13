@@ -4,6 +4,8 @@ module Questions
 
     layout 'yes_no_question'
 
+    private
+
     def illustration_path
       "hand-holding-check.svg"
     end
