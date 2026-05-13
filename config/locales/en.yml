@@ -5552,11 +5552,11 @@ en:
         account_number: Account number
         account_type:
           checking: Checking
-          label: Bank Account Type
+          label: What type of account is this?
           savings: Savings
         bank_name: Bank name
         routing_number: Routing number
-        title: Great, please provide your bank details below!
+        title: Enter your bank account information
       charitable_contributions:
         help_text: This includes cash or goods (such as clothing) donated to a church or charitable organization. For example, if you donated household items to Goodwill or Salvation Army.
         title:
@@ -5757,7 +5757,7 @@ en:
         info_html: A mailing address is required to file your tax return. For more information on addresses that are acceptable, <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">see our FAQ.</a>
         state: State or US Territory
         street_address: Street address or P.O. box
-        title: What is your mailing address?
+        title: Enter your mailing address
         zip_code: ZIP code
       married:
         help_text: This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation.

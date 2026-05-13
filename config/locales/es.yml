@@ -5539,11 +5539,11 @@ es:
         account_number: Número de cuenta
         account_type:
           checking: Corriente (Checking)
-          label: Tipo de cuenta bancaria
+          label: "¿Qué tipo de cuenta es?"
           savings: Ahorros
         bank_name: Nombre del banco
         routing_number: Número de ruta bancaria
-        title: "¡Genial, proporcione sus datos bancarios a continuación!"
+        title: Ingrese la información de su cuenta bancaria
       charitable_contributions:
         help_text: Esto incluye dinero en efectivo o bienes (como ropa) donados a una iglesia u organización caritativa. Por ejemplo, si donó artículos para el hogar a Goodwill o Salvation Army.
         title:
@@ -5767,7 +5767,7 @@ es:
         info_html: Se requiere una dirección postal para presentar tu declaración de impuestos. Para obtener más información sobre las direcciones que son aceptables, <a href="https://www.getyourrefund.org/es/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">consulta nuestras preguntas frecuentes.</a>
         state: Estado o territorio de EE. UU.
         street_address: Dirección o apartado postal
-        title: "¿Cuál es su dirección postal?"
+        title: Ingrese su dirección postal
         zip_code: Código postal
       married:
         help_text: Esto incluye sociedades domésticas registradas, uniones civiles, otras relaciones formales bajo la ley estatal o separación legal.

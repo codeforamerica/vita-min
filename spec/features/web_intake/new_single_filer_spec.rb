@@ -384,7 +384,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
 
     page_change_block do
       # Bank Details
-      expect(page).to have_css("h1", text: "Great, please provide your bank details below!")
+      expect(page).to have_css("h1", text: I18n.t('views.questions.bank_details.title'))
       fill_in "Bank name", with: "First Savings Bank"
       fill_in "Routing number", with: "123456"
       fill_in "Account number", with: "987654321"
