@@ -642,28 +642,21 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
       click_on "Yes"
     end
 
+    # See new_single_filer_spec for 'Yes' path.
     page_change_block do
       screenshot_after do
         # Payment info - Do you have a bank account?
         expect(page).to have_css("h1", text: I18n.t("views.questions.refund_payment.title"))
       end
-      click_on "Yes"
-    end
-
-    page_change_block do
-      screenshot_after do
-        expect(page).to have_selector("h1", text: "If you owe a balance, how would you like to make a payment?")
-        choose "Pay full amount by mail"
-      end
-      click_on "Continue"
+      click_on "No"
     end
 
     # Don't ask for bank details
 
-    page_change_block do
+   page_change_block do
       screenshot_after do
         # Contact information
-        expect(page).to have_text("What is your mailing address?")
+        expect(page).to have_text(I18n.t('views.questions.mailing_address.title'))
         expect(page).to have_select('State', selected: 'Virginia')
 
         fill_in "Street address", with: "123 Main St."

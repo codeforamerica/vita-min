@@ -4,6 +4,10 @@ module Questions
 
     layout 'yes_no_question'
 
+    def self.show?(intake)
+      intake.refund_direct_deposit_yes?
+    end
+
     def illustration_path
       'hand-holding-check.svg'
     end

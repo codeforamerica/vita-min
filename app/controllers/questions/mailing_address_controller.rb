@@ -6,6 +6,10 @@ module Questions
       {}
     end
 
+    def self.show?(intake)
+      intake.refund_direct_deposit_no?
+    end
+
     def after_update_success
       GenerateF13614cPdfJob.perform_later(current_intake.id, "Preliminary 13614-C.pdf")
     end

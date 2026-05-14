@@ -7,7 +7,7 @@ module Questions
     end
 
     def self.show?(intake)
-      intake.include_bank_details?
+      intake.refund_direct_deposit_yes?
     end
   end
 end
