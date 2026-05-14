@@ -398,7 +398,17 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       click_on "Yes"
     end
 
-    # GYR1-1007: mailing addr screen will no longer show here unless refund_direct_deposit is *not* yes
+    page_change_block do
+      # Contact information
+      expect(intake.reload.current_step).to end_with("/questions/mailing-address")
+      expect(page).to have_text(I18n.t('views.questions.mailing_address.title'))
+      expect(page).to have_select(I18n.t('views.questions.mailing_address.state'), selected: "Virginia")
+      fill_in "Street address", with: "123 Main St."
+      fill_in "City", with: "Anytown"
+      select "California", from: "State"
+      fill_in "ZIP code", with: "94612"
+      click_on "Continue"
+    end
 
     intake
   end
