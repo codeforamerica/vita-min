@@ -9,6 +9,9 @@ class ActiveStorage::Service::GyrDiskService < ActiveStorage::Service::DiskServi
       # We should be able to remove this if CircleCI starts using a different linux kernel version (currently 5.4.0-1060-aws)
 
       if io.respond_to?(:path)
+        if io.path.include?("..") || io.path.include?("/") || io.path.include?("\\")
+          raise "Invalid path: path traversal detected in #{io.path}"
+        end
         File.write(make_path_for(key), File.read(io.path))
       else
         IO.copy_stream(io, make_path_for(key))
