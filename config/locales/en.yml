@@ -6092,6 +6092,27 @@ en:
         subtitle_2: Not sure what to choose?
         title_html: Choose the product that works for you.
         triage_link_text: Answer a few questions and we’ll recommend the right service.
+      simple_file_card:
+        bullet_1: Chat and email support
+        bullet_2: Colorado and New Jersey State tax returns only
+        bullet_3: Social Security or Individual Taxpayer Identification Number required
+        bullet_4: 15 minutes to file
+        bullet_5: Completely free
+        bullet_6: Available online
+        reveal:
+          s11_bullet_1: 'New Jersey: Married Filing joint $20,000 / Filing Single $10,000'
+          s11_bullet_2: 'Colorado: Married Filing joint $26,000 / Filing Single $15,000'
+          s12_bullet_1: 'New Jersey: Age 5 or under'
+          s12_bullet_2: 'Colorado: Age 5 or under for the Child Tax Credit, and age 16 or under for the Family Affordability Tax Credit'
+          s1_section_1: 'Income must be under:'
+          s1_section_2: 'Must be filing with a qualifying child under the following age:'
+          s2_bullet_1: Mobile friendly
+          s2_bullet_2: Disponible en español
+          subtitle_1: 'Additional eligibility requirements:'
+          subtitle_2: 'Other features:'
+          title: Additional information
+        subtitle: File a simple state return to claim your Child Tax Credit
+        title: SimpleFile
       tax_return_list:
         add_tax_year: Add tax year
         select_tax_return: Select %{tax_year}
