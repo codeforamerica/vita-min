@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_05_06_160020) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_18_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -3040,6 +3040,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_06_160020) do
     t.boolean "national_overflow_location", default: false
     t.bigint "parent_organization_id"
     t.boolean "processes_ctc", default: false
+    t.boolean "show_smartscan_ui"
     t.string "timezone", default: "America/New_York"
     t.string "type", null: false
     t.datetime "updated_at", null: false
