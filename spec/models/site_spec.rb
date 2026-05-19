@@ -11,6 +11,7 @@
 #  name                       :citext           not null
 #  national_overflow_location :boolean          default(FALSE)
 #  processes_ctc              :boolean          default(FALSE)
+#  show_smartscan_ui          :boolean
 #  timezone                   :string           default("America/New_York")
 #  type                       :string           not null
 #  created_at                 :datetime         not null
