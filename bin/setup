@@ -44,6 +44,9 @@ FileUtils.chdir APP_ROOT do
   system! "rbenv rehash"
   system! "bundle install"
 
+  puts "== Enable Corepack (for Yarn) =="
+  system! "corepack enable || npm install -g corepack && corepack enable"
+
   puts "== Install JavaScript dependencies =="
   system! "yarn install"
 

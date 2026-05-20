@@ -100,7 +100,7 @@ class Ability
           Client, vita_partner_id: accessible_group_ids, intake: { product_year: Rails.configuration.product_year }
     end
 
-    if user.role?([:admin, :org_lead, :site_coordinator])
+    if user.role?([:admin, :org_lead, :site_coordinator, :coalition_lead])
       can :unlock, Client, vita_partner_id: accessible_group_ids, intake: { product_year: Rails.configuration.product_year }
     end
 

@@ -1,14 +1,16 @@
-<div class="smart-scan-card smart-scan-card--<%= state %>">
+<div class="eligibility-card smart-scan-card smart-scan-card--<%= state %>">
   <div class="smart-scan-card__header">
     <span class="smart-scan-card__icon" aria-hidden="true"></span>
     <strong><%= t("hub.documents.smart_scan_card.validoc_notes") %></strong>
   </div>
 
-  <div class="smart-scan-card__divider"></div>
+  &nbsp;<br>
 
   <div>
-    <strong><%= state == "success" ? t("hub.documents.smart_scan_card.validation_passed") : t("hub.documents.smart_scan_card.validation_fail") %></strong>
+    <strong><%= state == "success" ? t("hub.documents.smart_scan_card.validation_passed") : 'Validation Warning' %></strong>
   </div>
+
+  &nbsp;<br>
 
   <% if state == "fail" %>
     <div>
