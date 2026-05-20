@@ -40,15 +40,18 @@ commands:
     description: "Install JS dependencies"
     steps:
       - restore_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-v4-{{ checksum "yarn.lock" }}
       - run:
-          name: yarn install --frozen-lockfile
-          command: yarn install --frozen-lockfile
+          name: enable corepack
+          command: sudo corepack enable
+      - run:
+          name: yarn install --immutable
+          command: yarn install --immutable
       - save_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-v4-{{ checksum "yarn.lock" }}
           paths:
+            - /mnt/ramdisk/.yarn/cache
             - /mnt/ramdisk/node_modules
-            - ~/.npm
   install_ruby_dependencies:
     description: "Install Ruby dependencies"
     steps:

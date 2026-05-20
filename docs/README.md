@@ -11,3 +11,4 @@
 - [Refactor zendesk routing logic](2020-05-07-refactor-zendesk-routing-logic.md)
 - [Debug feature tests](2021-05-27-debug-feature-tests.md)
 - [Fraud indicators](2022-04-28-fraud-indicators.md)
+- [Speed Badge](speed-badge.md)
