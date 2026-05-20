@@ -20,7 +20,7 @@ gem 'rails', '~> 7.2.3.1'
 gem 'puma', '>= 6.6.1'
 gem 'sass-rails', '~> 6.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
-gem 'nokogiri', '>= 1.19.1'
+gem 'nokogiri', '>= 1.19.3'
 gem 'recaptcha'
 gem 'airrecord'
 

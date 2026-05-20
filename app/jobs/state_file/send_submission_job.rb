@@ -6,7 +6,8 @@ module StateFile
 
         Dir.mktmpdir do |tempdir|
           submission.submission_bundle.open do |local_copy|
-            happy_filename = File.join(tempdir, submission.submission_bundle.filename.to_s)
+            sanitized_filename = File.basename(submission.submission_bundle.filename.to_s)
+            happy_filename = File.join(tempdir, sanitized_filename)
             FileUtils.mv(local_copy.path, happy_filename)
             result = Efile::GyrEfilerService.run_efiler_command(Rails.application.config.efile_environment, "submit", happy_filename)
             doc = Nokogiri::XML(result)

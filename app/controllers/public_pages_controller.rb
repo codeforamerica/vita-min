@@ -102,6 +102,8 @@ class PublicPagesController < ApplicationController
   def markdown_content_from_file(file_name)
     renderer = Redcarpet::Render::HTML.new(link_attributes: { target: '_blank', rel: 'noopener' })
     markdown = Redcarpet::Markdown.new(renderer, tables: true)
-    markdown.render(File.read(Rails.root.join("app", "views", "public_pages", file_name))).html_safe
+    safe_file_name = File.basename(file_name)
+    file_path = Rails.root.join("app", "views", "public_pages", safe_file_name)
+    markdown.render(File.read(file_path)).html_safe
   end
 end
