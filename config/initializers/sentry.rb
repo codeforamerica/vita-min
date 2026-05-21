@@ -2,10 +2,25 @@ Sentry.init do |config|
   config.dsn = Rails.application.credentials.dig(:sentry_dsn)
   config.enabled_environments = %w(production staging demo)
 
-  filter = ActiveSupport::ParameterFilter.new(Rails.application.config.filter_parameters - [:name, :filename])
   config.before_send = lambda do |event, _hint|
-    # use Rails' parameter filter to sanitize the event
-    filter.filter(event.to_hash)
+
+    if event.request
+      safe_request = {
+        method: event.request[:method],
+        url: event.request[:url]&.split('?')&.first&.gsub(/\/\d+/, '/:id'),
+      }
+      event.request = safe_request
+    end
+
+    event.breadcrumbs = Sentry::BreadcrumbBuffer.new(0) if event.breadcrumbs
+
+    event.user = {}
+
+    event.extra&.clear
+
+    event.tags&.delete_if { |key, _| ![:environment, :server_name, :ruby_version, :rails_version].include?(key.to_sym) }
+
+    event
   end
 
   config.excluded_exceptions = Sentry::Configuration::IGNORE_DEFAULT + Sentry::Rails::IGNORE_DEFAULT + %w(

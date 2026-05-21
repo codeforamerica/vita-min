@@ -11,10 +11,12 @@ module Hub::StateFile
       load_and_authorize_resource
     end
 
+    ALLOWED_SORT_COLUMNS = %w[source code service_type].freeze
+
     def index
       order = [:source, :code]
-      if params[:sort_by].present?
-        order.prepend(params[:sort_by])
+      if params[:sort_by].present? && ALLOWED_SORT_COLUMNS.include?(params[:sort_by])
+        order.prepend(params[:sort_by].to_sym)
       end
 
       @efile_errors = @efile_errors.where.not(service_type: "ctc").order(*order)
