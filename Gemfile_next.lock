@@ -819,7 +819,7 @@ DEPENDENCIES
   dotenv
   easy_translate
   factory_bot_rails
-  faraday (>= 2.14.1)
+  faraday (>= 2.14.2)
   fix-db-schema-conflicts
   flamegraph
   flipper
