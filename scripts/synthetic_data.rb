@@ -35,7 +35,7 @@ $test_intake = {
 
 def read_file(fname)
   # Returns array of hashes.
-  # Note: not all rows will hae the smae set of keys.
+  # Note: not all rows will have the same set of keys.
   sio = StringIO.new
   File.open(fname) { |f|
     f.each_line { |line| sio << line } }
@@ -92,10 +92,7 @@ def generate_gyr_intake(params)
   )
   unless client.valid?
     raise 'client record not valid?'
-    # return
   end
-
-  # client.tax_returns.last.transition_to!(:intake_in_progress)
 
   if type == :married_filing_jointly
     client.intake.update(
@@ -158,6 +155,9 @@ def main
       new_intake.tax_returns.each do |tax_return|
         tax_return.advance_to(rand_intake_stage)
       end
+
+      # Note: alternate method of advancing stage, e.g.:
+      # client.tax_returns.last.transition_to!(:intake_in_progress)
     end
   end
 
