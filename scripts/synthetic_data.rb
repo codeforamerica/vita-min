@@ -2,6 +2,7 @@
 #     ruby synthetic_data.rb data.jsonl
 # When jsonl file is in complex format, use `complex` flag:
 #     ruby synthetic_data.rb complex_data.jsonl complex
+# (Uses Senzing-style JSONL files.)
 
 require_relative '../config/environment'
 
