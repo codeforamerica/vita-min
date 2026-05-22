@@ -33,8 +33,7 @@ class DocAssessmentFeedback < ApplicationRecord
   private
 
   def post_processing
-    if (feedback_correct? and 
-        DocumentTypes::ALL_TYPES.map(&:key).include? doc_assessment.suggested_document_type)
+    if feedback_correct? && DocumentTypes::ALL_TYPES.map(&:key).include?(doc_assessment.suggested_document_type)
       doc_assessment.update!(confirmed: true)
       doc_assessment.document.skip_screener_rerun = true
       update_document_display_name
@@ -47,7 +46,7 @@ class DocAssessmentFeedback < ApplicationRecord
     name = doc_assessment.suggested_document_type
     tally = Document.where({intake_id: doc.intake_id}).
                      where('display_name LIKE ?', name).count
-    if tally > 0
+    if tally.positive?
       name += ' ' + (tally + 1).to_s
     end
     doc.update!(display_name: name)
