@@ -63,7 +63,6 @@ class Seeder
     vp1 = first_org = VitaPartner.find_or_create_by!(
       name: "Oregano Org",
       allows_greeters: true,
-      coalition: koalas,
       type: Organization::TYPE
     )
     SourceParameter.find_or_create_by(code: "oregano", vita_partner_id: vp1.id)
