@@ -111,7 +111,6 @@ module Hub
     end
 
     def document_params
-      # document is empty in the params after submitting feedback
       params.require(:document).permit(:document_type, :display_name, :tax_return_id, :archived, :upload)
     end
 
