@@ -1,6 +1,8 @@
 <div>
+  <h1 class="h2"><%= @title %></h1>
+  <%= render 'hub/documents/ai_screener' %>
   <%= form_with model: @document, url: url, local: true, method: method, file_upload_enabled: file_upload_enabled, builder: VitaMinFormBuilder do |f| %>
-    <h1 class="h2"><%= @title %></h1>
+
     <% if file_upload_enabled %>
       <div
         class="form-group <%= "form-group--error" if @document.errors[:upload].present? %>"
@@ -16,8 +18,6 @@
         <% end %>
       </div>
     <% end %>
-
-    <%= render 'hub/documents/ai_screener' %>
 
     <%= f.vita_min_text_field :display_name,
                           t("hub.documents.display_name"),
