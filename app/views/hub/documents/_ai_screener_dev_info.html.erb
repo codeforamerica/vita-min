@@ -15,10 +15,12 @@
           <th>document quality issues</th>
           <th>confidence</th>
           <th>explanation</th>
+          <th>user feedback</th>
         </tr>
         <% @document.assessments.order('created_at DESC').each do |assessment| %>
           <% result = assessment&.result_json %>
           <% error = assessment&.error %>
+          <% feedback = assessment&.feedbacks&.last %>
           <tr class="<%= error.present? ? "error" : result["matches_doc_type_verdict"] %>">
             <td><%= assessment.status %></td>
             <td><%= "Error: #{JSON.pretty_generate(error)}" unless error.blank? %></td>
@@ -28,6 +30,7 @@
             <td><%= result["document_quality_issues"]&.presence&.join(", ") || "none" %></td>
             <td><%= result["confidence"] %></td>
             <td><%= result["explanation"] %></td>
+            <td><%= "#{feedback&.feedback}\n\n==>\n#{feedback&.feedback_notes}" if feedback.present? %></td>
           </tr>
         <% end %>
       </table>

@@ -188,5 +188,16 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_text('Add document |')
       expect(page).to have_text('Select file')
     end
+
+    scenario "admin can give feedback on the accuracy of the Smart Scan" do
+      assessment = create(:doc_assessment, :pass, document: document_1)
+      visit edit_hub_client_document_path(client_id: client.id, id: document_1.id)
+      expect(page).to have_text("Is the Smart Scan label correct?")
+      find('img[alt="correct"]').ancestor("button").click
+      expect(DocAssessmentFeedback.last).to have_attributes(doc_assessment: assessment, user: user, feedback: "correct")
+
+      # feedback box disappears once feedback is given
+      expect(page).not_to have_text("Is the Smart Scan label correct?")
+    end
   end
 end
