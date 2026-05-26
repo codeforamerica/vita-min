@@ -78,7 +78,8 @@
     "on-headers": "1.1.0",
     "@tootallnate/once": "^3.0.1",
     "http-proxy-agent": "^7.0.0",
-    "uuid": "~14"
+    "uuid": "~14",
+    "qs": "6.15.2"
   },
   "dependenciesMeta": {
     "@percy/core": {
