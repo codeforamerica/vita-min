@@ -1,6 +1,6 @@
 module Hub
   module Admin
-    class SmartscanAdminController < Hub::BaseController
+    class SmartScanAdminController < Hub::BaseController
       before_action :require_admin
       layout "hub"
 
