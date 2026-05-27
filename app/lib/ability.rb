@@ -210,11 +210,8 @@ class Ability
     end
 
     if accessible_groups.any?(&:show_smartscan_ui)
-      can :read, DocAssessment
-      can :update, DocAssessment
-      can :create, DocAssessment
-      can :read, DocAssessmentFeedback
-      can :create, DocAssessmentFeedback
+      can [:read, :update, :create], DocAssessment
+      can [:read, :create], DocAssessmentFeedback
     end
   end
 end
