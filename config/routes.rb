@@ -246,7 +246,7 @@ Rails.application.routes.draw do
         namespace :admin do
           resources :experiments, only: [:index, :show, :edit, :update]
           resources :experiment_participants, only: [:edit, :update]
-          resources :smartscan_admin, only: [:index, :create]
+          resources :smart_scan_admin, only: [:index, :create]
         end
 
         resources :efile_errors, path: "errors", except: [:create, :new, :destroy] do
