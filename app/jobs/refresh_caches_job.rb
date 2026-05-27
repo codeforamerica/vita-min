@@ -8,4 +8,8 @@ class RefreshCachesJob < ApplicationJob
   def perform
     MANIFEST.map(&:refresh_cache)
   end
+
+  def priority
+    PRIORITY_LOW
+  end
 end
