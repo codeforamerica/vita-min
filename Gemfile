@@ -25,7 +25,8 @@ gem 'recaptcha'
 gem 'airrecord'
 
 # Use ActiveStorage variant
-gem 'image_processing'
+gem 'image_processing', '>= 2.0.1'
+gem "mini_magick", "~> 5.0" # Used by image_processing
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.5.1', require: false
