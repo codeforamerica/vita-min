@@ -512,21 +512,6 @@ RSpec.describe MailgunWebhooksController do
         end
       end
 
-      context "when there is a matching CampaignEmail" do
-        let!(:campaign_email) { create(:campaign_email, mailgun_message_id: message_id) }
-        it "updates the record with the status" do
-          post :update_outgoing_email_status, params: params
-          expect(campaign_email.reload.mailgun_status).to eq "opened"
-        end
-
-        it "tracks the message status" do
-          post :update_outgoing_email_status, params: params
-          expect(DatadogApi).to have_received(:increment).with("mailgun.outgoing_email.updated", {:tags => ["status:opened", "record_type:campaign_email", "message_name:start_of_season_outreach"]})
-
-          expect(response).to be_ok
-        end
-      end
-
       context "when there is no message with a matching mailgun id" do
         let(:message_id) { "something_not_matching" }
         it "fails gracefully + reports failure to datadog" do

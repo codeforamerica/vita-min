@@ -209,8 +209,19 @@ Rails.application.routes.draw do
           mount DelayedJobWeb => "/delayed_job"
         end
 
-        resource :messaging_dashboard, only: :show, controller: :messaging_dashboard do
-          get :chart_data, on: :member
+        namespace :campaign_messages do
+          resources :dashboard, only: [:index]
+
+          resource :monitor_sms, only: [:show], controller: :monitor_sms do
+            get :chart_data, on: :member
+          end
+
+          resource :monitor_emails, only: [:show], controller: :monitor_emails do
+            get :chart_data, on: :member
+          end
+
+          resources :monitor_unsubscribes, only: [:show]
+          resources :campaign_messages_batches, only: [:show]
         end
 
         resource :ai_screener_metrics, only: :show

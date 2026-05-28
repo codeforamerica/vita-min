@@ -149,6 +149,7 @@
 #  email_address_verified_at                            :datetime
 #  email_domain                                         :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
+#  email_unsubscribed_at                                :datetime
 #  ever_married                                         :integer          default("unfilled"), not null
 #  ever_owned_home                                      :integer          default("unfilled"), not null
 #  exceeded_investment_income_limit                     :integer          default(0)
@@ -299,6 +300,7 @@
 #  sms_notification_opt_in                              :integer          default("unfilled"), not null
 #  sms_phone_number                                     :string
 #  sms_phone_number_verified_at                         :datetime
+#  sms_unsubscribed_at                                  :datetime
 #  sold_a_home                                          :integer          default("unfilled"), not null
 #  sold_assets                                          :integer          default("unfilled"), not null
 #  source                                               :string

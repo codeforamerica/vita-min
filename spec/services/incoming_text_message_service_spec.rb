@@ -174,5 +174,98 @@ describe IncomingTextMessageService, requires_default_vita_partners: true, activ
         expect(documents.first.upload.blob.content_type).to eq("image/jpeg")
       end
     end
+
+    context "when the incoming message is an opt-out keyword" do
+      let(:body) { "STOP" }
+      let!(:client) { create :client, intake: intake }
+      let(:intake) { build(:intake, phone_number: "+15005550006", sms_notification_opt_in: "yes") }
+      let!(:campaign_contact) { create(:campaign_contact, sms_phone_number: "+15005550006", sms_notification_opt_in: true) }
+
+      it "updates matching intake and campaign contacts to opted out" do
+        IncomingTextMessageService.process(incoming_message_params)
+
+        expect(intake.reload.sms_notification_opt_in).to eq "no"
+        expect(campaign_contact.reload.sms_notification_opt_in).to eq false
+      end
+
+      it "tracks the unsubscribe metrics" do
+        IncomingTextMessageService.process(incoming_message_params)
+
+        expect(DatadogApi).to have_received(:increment).with("twilio.incoming_text_messages.unsubscribe")
+        expect(DatadogApi).to have_received(:increment).with("sms.unsubscribes.count",
+          tags: ["last_sms:unknown_sms", "sms_type:unknown"]
+        )
+      end
+    end
+
+    context "when the incoming message is an opt-in keyword" do
+      let(:body) { "START" }
+      let!(:client) { create :client, intake: intake }
+      let(:intake) { build(:intake, phone_number: "+15005550006", sms_notification_opt_in: "no") }
+      let!(:campaign_contact) { create(:campaign_contact, sms_phone_number: "+15005550006", sms_notification_opt_in: false) }
+
+      it "updates matching intake and campaign contacts to opted in" do
+        IncomingTextMessageService.process(incoming_message_params)
+
+        expect(intake.reload.sms_notification_opt_in).to eq "yes"
+        expect(campaign_contact.reload.sms_notification_opt_in).to eq true
+      end
+
+      it "tracks the resubscribe metric" do
+        IncomingTextMessageService.process(incoming_message_params)
+
+        expect(DatadogApi).to have_received(:increment).with("twilio.incoming_text_messages.resubscribe")
+      end
+    end
+
+    describe ".track_last_sms_before_unsubscribe" do
+      let(:phone_number) { "+15005550006" }
+
+      context "when the latest SMS is a campaign SMS" do
+        let!(:outgoing_text_message) do
+          create(:outgoing_text_message, to_phone_number: phone_number, created_at: 2.days.ago)
+        end
+
+        let!(:campaign_sms) do
+          create(
+            :campaign_sms,
+            to_phone_number: phone_number,
+            message_name: "Start of Season Outreach",
+            created_at: 1.day.ago
+          )
+        end
+
+        it "tracks campaign as the last SMS type" do
+          IncomingTextMessageService.track_last_sms_before_unsubscribe(phone_number)
+
+          expect(DatadogApi).to have_received(:increment).with("sms.unsubscribes.count",
+            tags: ["last_sms:start_of_season_outreach", "sms_type:campaign"]
+          )
+        end
+      end
+
+      context "when the latest SMS is an outgoing text message" do
+        let!(:campaign_sms) do
+          create(
+            :campaign_sms,
+            to_phone_number: phone_number,
+            message_name: "Start of Season Outreach",
+            created_at: 2.days.ago
+          )
+        end
+
+        let!(:outgoing_text_message) do
+          create(:outgoing_text_message, to_phone_number: phone_number, created_at: 1.day.ago)
+        end
+
+        it "tracks outgoing text message as the last SMS type" do
+          IncomingTextMessageService.track_last_sms_before_unsubscribe(phone_number)
+
+          expect(DatadogApi).to have_received(:increment).with("sms.unsubscribes.count",
+            tags: ["last_sms:outgoing_text_message", "sms_type:outgoing_text_message"]
+          )
+        end
+      end
+    end
   end
 end

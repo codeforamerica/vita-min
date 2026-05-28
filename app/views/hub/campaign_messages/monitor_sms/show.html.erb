@@ -1,9 +1,9 @@
-<% @main_heading = "Messaging Dashboard" %>
+<% @title = "SMS Campaign Messaging Dashboard" %>
 
-<%= content_for :page_title, @main_heading %>
+<%= content_for :page_title, @title %>
 
 <div class="slab slab--not-padded spacing-above-25">
-  <h1 class="h2">Messaging Dashboard</h1>
+  <h1 class="h2"><%= @title %></h1>
   <style>
       .metrics-kpis {
           display: flex;
@@ -84,7 +84,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
   <script>
-      const CHART_DATA_URL = "<%= chart_data_hub_messaging_dashboard_path %>";
+      const CHART_DATA_URL = "<%= chart_data_hub_campaign_messages_monitor_sms_path %>";
       const PALETTE = ["#4e79a7", "#f28e2b", "#e15759", "#76b7b2", "#59a14f", "#edc948", "#b07aa1", "#ff9da7", "#9c755f", "#bab0ac"];
       const colorFor = (label, i) => PALETTE[i % PALETTE.length];
 

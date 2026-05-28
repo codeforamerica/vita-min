@@ -1,0 +1,10 @@
+<% @title = "Campaign Messaging" %>
+
+<%= content_for :page_title, @title %>
+
+<div class="slab slab--not-padded spacing-above-25">
+  <h1 class="h2"><%= @title %></h1>
+
+  <%= render 'hub/tools_table', actions: @actions %>
+
+</div>

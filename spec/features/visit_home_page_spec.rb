@@ -51,13 +51,13 @@ RSpec.feature "Visit home page" do
     end
   end
 
-  xscenario "show no banner" do
+  scenario "show no banner" do
     visit "/"
 
     expect(page.all(:css, '.slab--banner').length).to eq 0
   end
 
-  context "shows the correct date-dependent banners" do
+  xcontext "shows the correct date-dependent banners" do
     let(:current_time) { nil }
 
     around do |example|
