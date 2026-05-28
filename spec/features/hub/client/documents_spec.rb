@@ -189,11 +189,9 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_text("Smart Scan Notes")
       expect(page).to have_text("Is the Smart Scan label correct?")
       find('img[alt="correct"]').ancestor("button").click
-      # TODO fix ability config for this
-      # expect(DocAssessmentFeedback.last).to have_attributes(doc_assessment: assessment, user: user_1, feedback: "correct")
+      expect(DocAssessmentFeedback.last).to have_attributes(doc_assessment: assessment, user: user_1, feedback: "correct")
 
-      # TODO fix ability config for this
-      # expect(page).to have_text("Smart Scan Notes")
+      expect(page).to have_text("Smart Scan Notes")
       # feedback box disappears once feedback is given
       expect(page).not_to have_text("Is the Smart Scan label correct?")
     end

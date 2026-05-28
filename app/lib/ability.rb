@@ -212,6 +212,7 @@ class Ability
     if accessible_groups.any?(&:show_smartscan_ui)
       can [:read, :update, :create], DocAssessment
       can [:read, :create], DocAssessmentFeedback
+      can [:record_feedback, :rerun_screener], Document
     end
   end
 end
