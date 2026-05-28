@@ -100,7 +100,9 @@ jobs:
             git commit -m "Disable Reline autocomplete"
 
       - name: Push to Heroku
-        run: git push heroku ${{ github.head_ref }}:main --force
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: git push heroku "$HEAD_REF":main --force
 
       - name: Wait for deploy to finish
         if: ${{ env.RUN_APP_SETUP == 'true' }}
