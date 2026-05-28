@@ -10,9 +10,9 @@ module Hub
       end
 
       def create
-        ids_to_update = params.select { |k,v| k.match(/id_/) }.keys.map { it[3..].to_i }
-        VitaPartner.where(id: ids_to_update).update!(show_smartscan_ui: true) 
-        VitaPartner.where.not(id: ids_to_update).update!(show_smartscan_ui: false) 
+        ids_to_enable = params.select { |k,v| k.match(/id_/) }.keys.map { it[3..].to_i }
+        VitaPartner.where(id: ids_to_enable).update!(show_smartscan_ui: true)
+        VitaPartner.where.not(id: ids_to_enable).update!(show_smartscan_ui: false)
       end
     end
   end
