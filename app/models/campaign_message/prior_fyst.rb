@@ -6,6 +6,10 @@ module CampaignMessage
       'campaign_messages.prior_fyst'.freeze
     end
 
+    def self.batch_scope
+      :prior_fyst
+    end
+
     def email_subject(contact:, **args)
       I18n.t("campaign_messages.prior_fyst.email.subject", **vars(contact), **args)
     end

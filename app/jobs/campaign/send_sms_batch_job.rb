@@ -3,7 +3,7 @@
 #   2. Add appropriate delays and monitor Twilio logs to make sure messages aren't getting throttled
 #       can also monitor datadog messaging dashboard and /messaging_dashboard page
 #   3. If messages are getting throttled and not getting caught by the 'rate_limited?' check,
-#      then you can kill the jobs by enabling the :cancel_campaign_sms flipper flag manually
+#      then you can kill the jobs by enabling the :cancel_campaign_sms_batches flipper flag manually
 
 class Campaign::SendSmsBatchJob < ApplicationJob
   queue_as :campaign_sms
@@ -13,13 +13,14 @@ class Campaign::SendSmsBatchJob < ApplicationJob
   # which means the time between batches will be 15min at least
   # which necessitates larger batch sizes to get through the load
   def perform(message_name: nil, batch_size: 1000, msg_delay: 1.second, queue_next_batch: false, scope: nil)
-    return if Flipper.enabled?(:cancel_campaign_sms)
+    return if Flipper.enabled?(:cancel_campaign_sms_batches)
 
     msg_instance = CampaignMessage::CampaignMessage.msg_for_name(message_name).new
     raise ArgumentError, "'#{message_name}' message has no sms body" unless msg_instance.respond_to?(:sms_body)
 
     return if rate_limited?
 
+    scope = scope.presence || msg_instance.batch_scope
     contacts_to_message = CampaignContact.for_sms_scope(scope, message_name).limit(batch_size)
     return if contacts_to_message.empty?
 
@@ -98,9 +99,9 @@ class Campaign::SendSmsBatchJob < ApplicationJob
     failure_rate = ((rate_limited_count.to_f / total_count) * 100).round(1)
 
     if failure_rate > 15
-      Flipper.enable(:cancel_campaign_sms)
+      Flipper.enable(:cancel_campaign_sms_batches)
       Sentry.capture_message(
-        "Campaign Text Messages: Rate limiting detected: #{failure_rate}% rate-limited. Pausing campaign text messages. Disable :cancel_campaign_sms to start again."
+        "Campaign Text Messages: Rate limiting detected: #{failure_rate}% rate-limited. Pausing campaign text messages. Disable :cancel_campaign_sms_batches to start again."
       )
       return true
     end
