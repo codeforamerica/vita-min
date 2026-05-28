@@ -6,13 +6,15 @@ module Hub
 
       def index
         keys = :id, :name, :type, :show_smartscan_ui
-        @vita_partners = VitaPartner.where(type: 'Site').order(:name).pluck(*keys).map{Hash[keys.zip(it)]}
+        @vita_partners = VitaPartner.all.order(:name).pluck(*keys).map{Hash[keys.zip(it)]}
       end
 
       def create
         ids_to_enable = params.select { |k,v| k.match(/id_/) }.keys.map { it[3..].to_i }
         VitaPartner.where(id: ids_to_enable).update!(show_smartscan_ui: true)
         VitaPartner.where.not(id: ids_to_enable).update!(show_smartscan_ui: false)
+
+        redirect_to action: :index
       end
     end
   end
