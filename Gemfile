@@ -25,7 +25,7 @@ gem 'recaptcha'
 gem 'airrecord'
 
 # Use ActiveStorage variant
-gem 'image_processing'
+gem 'image_processing', '>= 2.0.1'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.5.1', require: false
