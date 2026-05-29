@@ -4,6 +4,10 @@ class EligibilityWagesForm < QuestionsForm
     :triage_income_level,
     :triage_vita_income_ineligible,
     :had_rental_income,
+    :had_w2s,
+    :had_self_employment_income,
+    :multiple_states,
+    :have_income_tax_documents,
     :has_crypto_income,
     :timezone,
     :source,
@@ -17,6 +21,7 @@ class EligibilityWagesForm < QuestionsForm
   validate :answered_vita_income_ineligible
 
   def save
+    pry
     client = Client.create!(
       intake_attributes: attributes_for(:intake).merge(type: @intake.type, product_year: Rails.configuration.product_year)
     )
@@ -42,6 +47,9 @@ class EligibilityWagesForm < QuestionsForm
   def answered_vita_income_ineligible
     if had_rental_income == "no" &&
        has_crypto_income != "true" &&
+       had_w2s != 'yes' &&
+       had_self_employment_income != 'yes' &&
+       multiple_states != 'yes' &&
        triage_vita_income_ineligible != "no"
       errors.add(:triage_vita_income_ineligible, I18n.t("general.please_select_at_least_one_option"))
     end
