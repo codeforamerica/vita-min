@@ -12,6 +12,10 @@ module CampaignMessage
       1
     end
 
+    def self.batch_scope
+      nil
+    end
+
     def self.msg_for_name(message_name)
       klass = "CampaignMessage::#{message_name.camelize}".safe_constantize
       raise ArgumentError, "Unknown message_name: #{message_name}" unless klass

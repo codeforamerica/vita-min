@@ -32,7 +32,7 @@ describe Campaign::SendCampaignSmsJob, type: :job do
     Rails.application.routes.default_url_options[:host] = "example.test"
 
     allow(Flipper).to receive(:enabled?).and_call_original
-    allow(Flipper).to receive(:enabled?).with(:cancel_campaign_sms).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:cancel_campaign_sms_batches).and_return(false)
 
     allow_any_instance_of(TwilioService).to receive(:send_text_message).and_call_original
   end

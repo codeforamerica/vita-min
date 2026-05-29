@@ -14,8 +14,28 @@ module EmailSubscriptionUpdaterConcern
       matching_intakes = matching_intakes(email_address)
 
       if matching_intakes.present?
+        unsub_timestamp = (direction == "no") ? Time.current : nil
+
         matching_intakes.each do |intake|
-          intake.update(column_name => direction)
+          update_attrs = {
+            column_name => direction
+          }
+
+          if intake.has_attribute?(:email_unsubscribed_at)
+            update_attrs[:email_unsubscribed_at] = unsub_timestamp
+          end
+
+          intake.update(update_attrs)
+
+          if direction == "no"
+            # log most recent email at time of unsubscribe
+            last_email = intake.client.outgoing_emails.order(created_at: :desc)&.first
+            email_identifier = last_email&.subject || "unknown_email"
+            DatadogApi.increment(
+              "email.unsubscribes.count",
+              tags: ["last_email:#{email_identifier.parameterize.underscore}"]
+            )
+          end
         end
 
         if show_flash_and_render

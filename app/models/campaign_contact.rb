@@ -6,6 +6,7 @@
 #  diy_intake_ids            :integer          default([]), is an Array
 #  email_address             :citext
 #  email_notification_opt_in :boolean          default(FALSE)
+#  email_unsubscribed_at     :datetime
 #  first_name                :string
 #  gyr_intake_ids            :bigint           default([]), is an Array
 #  last_name                 :string
@@ -16,6 +17,7 @@
 #  sign_up_ids               :bigint           default([]), is an Array
 #  sms_notification_opt_in   :boolean          default(FALSE)
 #  sms_phone_number          :string
+#  sms_unsubscribed_at       :datetime
 #  state_file_intake_refs    :jsonb            not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
@@ -51,6 +53,10 @@ class CampaignContact < ApplicationRecord
     )
   }
 
+  scope :with_intake_id, lambda { |intake_id|
+    where("gyr_intake_ids @> ARRAY[? text]::bigint[]", intake_id.to_s)
+  }
+
   def self.with_signups_from_recent_off_season
     joins(:signups).where("signups.created_at >= ?", 1.year.ago).distinct
   end
@@ -62,7 +68,7 @@ class CampaignContact < ApplicationRecord
     when :recent_signups then eligible_for_email_with_recent_signup(message_name)
     when :prior_fyst     then eligible_for_fyst_email(message_name)
     when :prior_gyr      then eligible_for_gyr_email(message_name)
-    else raise ArgumentError, "no valid 'scope' given, use one of the following [:all_eligible, :recent_signups, :prior_fyst or :prior_gyr]"
+    else raise ArgumentError, "no valid 'scope' given, use one of the following [:all_eligible, :recent_signups, :prior_fyst or :prior_gyr] or define in message instance's #batch_scope"
     end
   end
 

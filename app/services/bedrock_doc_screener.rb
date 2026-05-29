@@ -12,6 +12,7 @@ module BedrockDocScreener
     image/jpeg
     application/pdf
   ].freeze
+  MAX_RAW_IMAGE_SIZE = 3.7.megabytes
 
   PROMPT_VERSION = "v1".freeze
 
@@ -88,9 +89,14 @@ module BedrockDocScreener
     input = if media_type == "application/pdf"
               pdf_to_png_base64(document.upload)
             else
+              raw_data = document.upload.download
+              if raw_data.bytesize > MAX_RAW_IMAGE_SIZE
+                raw_data = ensure_safe_image_size(raw_data)
+              end
+
               [{
                  media_type: media_type,
-                 base64_data: Base64.strict_encode64(document.upload.download)
+                 base64_data: Base64.strict_encode64(raw_data)
                }]
             end
 
@@ -107,6 +113,23 @@ module BedrockDocScreener
     result_json = parse_strict_json!(generated_text)
 
     [result_json, raw_response_json]
+  end
+
+  def self.ensure_safe_image_size(binary_data)
+    image = MiniMagick::Image.read(binary_data)
+    image.combine_options do |c|
+      c.resize "2000x2000>"
+      c.quality "85"
+    end
+
+    result = image.to_blob
+
+    if result.bytesize > MAX_RAW_IMAGE_SIZE
+      image.resize "50%"
+      result = image.to_blob
+    end
+
+    result
   end
 
   def self.construct_bedrock_payload(images:, user_prompt:)
@@ -179,8 +202,13 @@ module BedrockDocScreener
           File.basename(f)[/(\d+)\.png$/, 1].to_i
         end
 
-        png_files.each do |png_path|
+        # Bedrock has a 20 image limit per request
+        png_files.take(20).each do |png_path|
           data = File.binread(png_path)
+
+          if data.bytesize > MAX_RAW_IMAGE_SIZE
+            data = ensure_safe_image_size(data)
+          end
 
           images << {
             media_type: "image/png",
