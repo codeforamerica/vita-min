@@ -612,10 +612,6 @@ class Intake < ApplicationRecord
     filing_jointly? ? 2 : 1
   end
 
-  def include_bank_details?
-    refund_payment_method_direct_deposit? || balance_pay_from_bank_yes?
-  end
-
   def contact_info_filtered_by_preferences
     contact_info = {}
     contact_info[:sms_phone_number] = sms_phone_number if sms_notification_opt_in_yes?

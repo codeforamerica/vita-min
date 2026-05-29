@@ -1,5 +1,5 @@
 module Questions
-  class BalancePaymentController < QuestionsController
+  class SavingsOptionsController < QuestionsController
     include AuthenticatedClientConcern
 
     layout 'yes_no_question'
@@ -8,10 +8,12 @@ module Questions
       intake.refund_direct_deposit_yes?
     end
 
-    private
+    def illustration_path
+      'hand-holding-check.svg'
+    end
 
     def method_name
-      "balance_pay_from_bank"
+      'savings_split_refund'
     end
   end
 end
