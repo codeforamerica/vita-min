@@ -2225,9 +2225,9 @@ en:
         subtitle: We’ll ask a few questions about your preferences to guide you to the services you qualify for.
         title: Let’s help you find the right service!
         vita_income_ineligible:
-          label: 'Select all that apply to your income in 2025:'
+          label: 'Select any of the scenarios that apply to your income in 2025:'
           options:
-            crypto: Cryptocurrency income
+            crypto: Cryptocurrency income or other digital assets
             none: None of these apply
             property: Rental or farm property income
     triage_do_not_qualify:
