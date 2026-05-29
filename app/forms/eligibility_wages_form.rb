@@ -21,7 +21,6 @@ class EligibilityWagesForm < QuestionsForm
   validate :answered_vita_income_ineligible
 
   def save
-    pry
     client = Client.create!(
       intake_attributes: attributes_for(:intake).merge(type: @intake.type, product_year: Rails.configuration.product_year)
     )
