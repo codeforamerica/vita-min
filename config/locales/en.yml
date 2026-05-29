@@ -2220,11 +2220,7 @@ en:
       edit:
         income_level:
           label: Select your household income
-          options:
-            1_to_69000: "$1 - $69,000"
-            69001_to_89000: "$69,001 - 89,000"
-            over_89000: over $89,000
-            zero: "$0"
+          over: over
         page: Step 1 of 2
         subtitle: We’ll ask a few questions about your preferences to guide you to the services you qualify for.
         title: Let’s help you find the right service!

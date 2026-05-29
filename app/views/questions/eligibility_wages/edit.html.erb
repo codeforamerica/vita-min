@@ -15,10 +15,14 @@
             :triage_income_level,
             t(".income_level.label"),
             [
-              [t(".income_level.options.zero"), :zero],
-              [t(".income_level.options.1_to_69000"), "1_to_69000"],
-              [t(".income_level.options.69001_to_89000"), "69001_to_89000"],
-              [t(".income_level.options.over_89000"), :over_89000],
+              ["$0", :zero],
+              ["$1 - $10,000", "1_to_10000"],
+              ["$10,001 - $15,000", "10001_to_15000"],
+              ["$15,001 - $20,000", "15001_to_20000"],
+              ["$20,001 - $26,000", "20001_to_26000"],
+              ["$26,001 - $69,000", "26001_to_69000"],
+              ["$69,001 - $89,000", "69001_to_89000"],
+              [t(".income_level.over") + " $89,000", :over_89000],
             ],
             include_blank: t('general.select_prompt')
           ) %>

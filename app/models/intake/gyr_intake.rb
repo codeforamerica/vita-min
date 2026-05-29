@@ -514,6 +514,11 @@ class Intake::GyrIntake < Intake
     "unfilled" => 0,
     "zero" => 1,
     "1_to_69000" => 2,
+    "1_to_10000" => 5,
+    "10001_to_15000" => 6,
+    "15001_to_20000" => 7,
+    "20001_to_26000" => 8,
+    "26001_to_69000" => 9,
     "69001_to_89000" => 3,
     "over_89000" => 4,
   }, _prefix: :triage_income_level
