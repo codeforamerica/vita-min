@@ -194,6 +194,48 @@ RSpec.describe EligibilityWagesForm do
       end
     end
 
+    context 'when only w2s, self-employment, and multiple states checkboxes are checked' do
+      let(:params) do
+        valid_params.merge(
+          had_w2s: 'yes',
+          had_self_employment_income: 'yes',
+          multiple_states: 'yes',
+          had_rental_income: 'no',
+          has_crypto_income: '0',
+          triage_vita_income_ineligible: 'yes')
+      end
+
+      it 'sets triage_vita_income_ineligible correctly' do
+        form = described_class.new(intake, params)
+        form.valid?
+        form.save
+
+        intake = Intake.last
+        expect(intake.triage_vita_income_ineligible).to eq 'no'
+      end
+    end
+
+    context 'when crypto as well as w2s, self-employment, and multiple states checkboxes are checked' do
+      let(:params) do
+        valid_params.merge(
+          had_w2s: 'yes',
+          had_self_employment_income: 'yes',
+          multiple_states: 'yes',
+          had_rental_income: 'no',
+          has_crypto_income: '1',
+          triage_vita_income_ineligible: 'yes')
+      end
+
+      it 'sets triage_vita_income_ineligible correctly' do
+        form = described_class.new(intake, params)
+        form.valid?
+        form.save
+
+        intake = Intake.last
+        expect(intake.triage_vita_income_ineligible).to eq 'yes'
+      end
+    end
+
     context "Mixpanel tracking" do
       let(:fake_mixpanel_data) { {} }
 
