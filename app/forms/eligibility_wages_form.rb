@@ -53,7 +53,7 @@ class EligibilityWagesForm < QuestionsForm
 
   def answered_vita_income_ineligible
     if had_rental_income == "no" &&
-       has_crypto_income != "1" &&
+       has_crypto_income != "true" &&
        had_w2s != 'yes' &&
        had_self_employment_income != 'yes' &&
        multiple_states != 'yes' &&
