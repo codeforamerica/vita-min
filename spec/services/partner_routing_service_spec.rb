@@ -281,6 +281,23 @@ describe PartnerRoutingService do
         end
       end
 
+     context "when client zip corresponds to a Site but parent Org is at capacity" do
+        let!(:org) { create :organization }
+        let!(:zip) { create :vita_partner_zip_code, zip_code: "97001", vita_partner: org }
+        let!(:site) { create :site, parent_organization: org }
+        let!(:zip) { create :vita_partner_zip_code, zip_code: "12345", vita_partner: site }
+        subject { PartnerRoutingService.new(zip_code: "12345") }
+
+        before do
+          org.update(capacity_limit: 0)
+        end
+
+        it "returns at capacity" do
+          expect(subject.determine_partner).to eq nil
+          expect(subject.routing_method).to eq :at_capacity
+        end
+      end
+
       context "when clients zip code doesn't correspond to a Vita Partner" do
         context "when state for that zip code has associated Vita Partners" do
           subject { PartnerRoutingService.new(zip_code: "28806") } #NC
