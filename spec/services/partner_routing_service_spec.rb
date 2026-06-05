@@ -281,7 +281,7 @@ describe PartnerRoutingService do
         end
       end
 
-     context "when client zip corresponds to a Site but parent Org is at capacity" do
+      context "when client zip corresponds to a Site but parent Org is at capacity" do
         let!(:org) { create :organization }
         let!(:zip) { create :vita_partner_zip_code, zip_code: "97001", vita_partner: org }
         let!(:site) { create :site, parent_organization: org }
