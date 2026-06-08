@@ -74,8 +74,8 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
-    api_key: EnvironmentCredentials.dig(:mailgun, :api_key),
-    domain: EnvironmentCredentials.dig(:mailgun, :domain)
+    api_key: ENV["MAILGUN_API_KEY"] || EnvironmentCredentials.dig(:mailgun, :api_key),
+    domain: ENV["MAILGUN_DOMAIN"] ||EnvironmentCredentials.dig(:mailgun, :domain)
   }
   config.action_mailer.perform_caching = false
 

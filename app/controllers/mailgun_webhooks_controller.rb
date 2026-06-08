@@ -230,8 +230,8 @@ class MailgunWebhooksController < ActionController::Base
 
   def authenticate_mailgun_request
     authenticate_or_request_with_http_basic do |name, password|
-      expected_name = EnvironmentCredentials.dig(:mailgun, :basic_auth_name)
-      expected_password = EnvironmentCredentials.dig(:mailgun, :basic_auth_password)
+      expected_name = ENV["MAILGUN_BASIC_AUTH_NAME"] || EnvironmentCredentials.dig(:mailgun, :basic_auth_name)
+      expected_password = ENV["MAILGUN_BASIC_AUTH_PASSWORD"] || EnvironmentCredentials.dig(:mailgun, :basic_auth_password)
       ActiveSupport::SecurityUtils.secure_compare(name, expected_name) &&
         ActiveSupport::SecurityUtils.secure_compare(password, expected_password)
     end

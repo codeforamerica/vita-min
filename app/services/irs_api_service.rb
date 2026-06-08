@@ -25,7 +25,7 @@ class IrsApiService
       end
     end
 
-    account_id = EnvironmentCredentials.dig('statefile', _state_code, "account_id")
+    account_id = ENV["STATEFILE_#{_state_code.upcase}_ACCOUNT_ID"] || EnvironmentCredentials.dig('statefile', _state_code, "account_id")
     cert_finder = CertificateFinder.new(server_url, _state_code)
 
     claim = {
@@ -147,7 +147,7 @@ class IrsApiService
 
     def client_cert_bytes
       if server_url.host.ends_with?('irs.gov')
-        Base64.decode64(EnvironmentCredentials.dig('statefile', state_code, "cert_base64"))
+        Base64.decode64(ENV["STATEFILE_STATE_CODE_CERT_BASE64"] || EnvironmentCredentials.dig('statefile', state_code, "cert_base64"))
       elsif server_url.host.include?('localhost')
         File.read(File.join(certs_dir, 'client.crt'))
       end
@@ -159,7 +159,7 @@ class IrsApiService
 
     def client_key_bytes
       if server_url.host.ends_with?('irs.gov')
-        Base64.decode64(EnvironmentCredentials.dig('statefile', state_code, "private_key_base64"))
+        Base64.decode64(ENV["STATEFILE_STATE_CODE_CERT_BASE64"] || EnvironmentCredentials.dig('statefile', state_code, "private_key_base64"))
       elsif server_url.host.include?('localhost')
         File.read(File.join(certs_dir, 'client.key'))
       end
@@ -170,7 +170,7 @@ class IrsApiService
     if ENV['IRS_API_LOCALHOST']
       URI.parse('https://localhost:443/')
     else
-      URI.parse(EnvironmentCredentials.dig(:statefile, :df_api_mtls))
+      URI.parse(ENV["STATEFILE_DF_API_MTLS"] || EnvironmentCredentials.dig(:statefile, :df_api_mtls))
     end
   end
 

@@ -11,7 +11,7 @@ module StateFile
     end
 
     def irs_df_transfer_link
-      df_transfer_auth = EnvironmentCredentials.dig('statefile', 'df_transfer_auth')
+      df_transfer_auth = ENV["STATEFILE_DF_TRANSFER_AUTH"] || EnvironmentCredentials.dig('statefile', 'df_transfer_auth')
       return nil unless df_transfer_auth
 
       if df_transfer_auth
