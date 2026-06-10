@@ -1,0 +1,87 @@
+<% show_get_started ||= false %>
+
+<div class="service-card">
+  <div class="service-card--title">
+    <%= t("views.shared.simple_file_card.title") %>
+  </div>
+  <div class="service-card--body">
+    <%= t("views.shared.simple_file_card.subtitle") %>
+  </div>
+  <% if show_get_started %>
+    <div class="button-wrapper">
+      <div>
+        <%= link_to t("general.get_started"), vita_providers_path, "data-track-click": "service-comparison-in-person-vita-providers", class: "button text--centered button--wide" %>
+      </div>
+    </div>
+  <% end %>
+  <div class="service-card--list">
+    <div class="service-card--list-item">
+      <div class="service-card__icon-wrapper">
+        <%= image_tag "chat.svg", alt: "" %>
+      </div>
+      <div class="service-card__item-text">
+        <%= t("views.shared.simple_file_card.bullet_1") %>
+      </div>
+    </div>
+
+    <div class="service-card--list-item">
+      <div class="service-card__icon-wrapper">
+        <%= image_tag "account_balance.svg", alt: "" %>
+      </div>
+      <div class="service-card__item-text">
+        <%= t("views.shared.simple_file_card.bullet_2") %>
+      </div>
+    </div>
+
+    <div class="service-card--list-item">
+      <div class="service-card__icon-wrapper">
+        <%= image_tag "timer.svg", alt: "" %>
+      </div>
+      <div class="service-card__item-text">
+        <%= t("views.shared.simple_file_card.bullet_3") %>
+      </div>
+    </div>
+
+    <div class="service-card--list-item">
+      <div class="service-card__icon-wrapper">
+        <%= image_tag "wifi.svg", alt: "" %>
+      </div>
+      <div class="service-card__item-text">
+        <%= t("views.shared.simple_file_card.bullet_4") %>
+      </div>
+    </div>
+
+    <div class="service-card--list-item">
+      <div class="service-card__icon-wrapper">
+        <%= image_tag "id.svg", alt: "" %>
+      </div>
+      <div class="service-card__item-text">
+        <%= t("views.shared.simple_file_card.bullet_5_html") %>
+      </div>
+    </div>
+  </div>
+  <div class="reveal reveal--service-card">
+    <p><button class="reveal__button"><%= t("views.shared.simple_file_card.reveal.title")%></button></p>
+
+    <div class="reveal__content">
+      <p class="spacing-below-15"><strong><%= t('views.shared.simple_file_card.reveal.subtitle_1') %></strong></p>
+      <p class="spacing-below-15"><%= t('views.shared.simple_file_card.reveal.s1_section_1') %></p>
+      <ul class="list--bulleted no-bottom-margin-children">
+        <li class="spacing-below-0"><%= t('views.shared.simple_file_card.reveal.s11_bullet_1') %></li>
+        <li class="spacing-below-0"><%= t('views.shared.simple_file_card.reveal.s11_bullet_2') %></li>
+      </ul>
+
+      <p class="spacing-below-15"><%=t('views.shared.simple_file_card.reveal.s1_section_2') %></p>
+      <ul class="list--bulleted no-bottom-margin-children">
+        <li class="spacing-below-0"><%= t('views.shared.simple_file_card.reveal.s12_bullet_1') %></li>
+        <li class="spacing-below-0"><%= t('views.shared.simple_file_card.reveal.s12_bullet_2') %></li>
+      </ul>
+
+      <p class="spacing-below-15"><strong><%= t('views.shared.simple_file_card.reveal.subtitle_2') %></strong></p>
+      <ul class="list--bulleted no-bottom-margin-children">
+        <li class="spacing-below-0"><%= t('views.shared.simple_file_card.reveal.s2_bullet_1') %></li>
+        <li class="spacing-below-0"><%= t('views.shared.simple_file_card.reveal.s2_bullet_2') %></li>
+      </ul>
+    </div>
+  </div>
+</div>

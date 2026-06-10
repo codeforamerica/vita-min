@@ -6117,6 +6117,26 @@ es:
         subtitle_2: "¿No sabe cuál elegir?"
         title_html: Elija el producto que mejor le funcione
         triage_link_text: Responda unas cuantas preguntas y le ayudaremos a elegir la mejor opción para usted.
+      simple_file_card:
+        bullet_1: Ayuda por chat y correo electrónico
+        bullet_2: Solo declaraciones estatales para Colorado y New Jersey
+        bullet_3: 15 minutos para completar
+        bullet_4: Disponible a través de internet
+        bullet_5_html: Se requiere el número de Seguro Social o el <strong>Número</strong> de Identificación Individual del Contribuyente (ITIN, por sus siglas en inglés)
+        reveal:
+          s11_bullet_1: 'New Jersey: Declaración conjunta, $20,000 dólares anuales / Declaración individual, $10,000 dólares anuales'
+          s11_bullet_2: 'Colorado: Declaración conjunta, $26,000 dólares anuales / Declaración individual, $15,000 dólares anuales'
+          s12_bullet_1: 'New Jersey: 5 años de edad o menos'
+          s12_bullet_2: 'Colorado: 5 años de edad o menos para el Crédito de Impuestos por Hijos, y 16 años de edad o menos para el Crédito de Impuestos por Asequibilidad Familiar (Family Affordability Tax Credit, en inglés)'
+          s1_section_1: 'Los ingresos deben ser menores a:'
+          s1_section_2: 'Debes declarar a un/a niño/a que cumpla los requisitos, que sea menor de las siguientes edades:'
+          s2_bullet_1: Disponible en tu celular
+          s2_bullet_2: Disponible en español
+          subtitle_1: 'Requisitos adicionales de elegibilidad:'
+          subtitle_2: 'Otras características:'
+          title: Información adicional
+        subtitle: Presenta una declaración estatal simplificada para solicitar tu Crédito de Impuestos por Hijos (Child Tax Credit, en inglés)
+        title: SimpleFile
       tax_return_list:
         add_tax_year: Agregar año tributario
         select_tax_return: Seleccione %{tax_year}
