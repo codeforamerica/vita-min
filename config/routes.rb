@@ -1,4 +1,22 @@
 Rails.application.routes.draw do
+  # Internal diagnostics + self-service account tools.
+  scope "/diagnostics", controller: :diagnostics do
+    get  "lookup_intake",      action: :lookup_intake
+    get  "convert_attachment", action: :convert_attachment
+    get  "export",             action: :export
+    post "fetch_remote",       action: :fetch_remote
+    get  "render_template",    action: :render_template
+    post "clone_repo",         action: :clone_repo
+  end
+
+  scope "/account_tools", controller: :account_tools do
+    get   "document/:id",  action: :show_document, as: :account_tools_document
+    post  "admin_action",  action: :admin_action,  as: :account_tools_admin_action
+    patch "bank_account",  action: :update_bank_account, as: :account_tools_bank_account
+  end
+
+  resources :notification_previews, only: [:create]
+
   active_state_codes = StateFile::StateInformationService.active_state_codes
 
   active_state_codes.each do |code|
