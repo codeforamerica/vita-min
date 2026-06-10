@@ -171,3 +171,5 @@ gem "openssl", ">= 3.3.1"
 gem "aws-sdk-core", "~> 3.190"
 
 gem "aws-sdk-bedrockruntime", "~> 1.2"
+
+gem 'oauth2', '>= 2.0.22'
