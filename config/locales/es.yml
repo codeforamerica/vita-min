@@ -6125,10 +6125,9 @@ es:
       simple_file_card:
         bullet_1: Ayuda por chat y correo electrónico
         bullet_2: Solo declaraciones estatales para Colorado y New Jersey
-        bullet_3: Se requiere el número de Seguro Social o el Número de Identificación Individual del Contribuyente (ITIN, por sus siglas en inglés)
-        bullet_4: 15 minutos para completar
-        bullet_5: Totalmente gratis
-        bullet_6: Disponible a través de internet
+        bullet_3: 15 minutos para completar
+        bullet_4: Disponible a través de internet
+        bullet_5_html: Se requiere el número de Seguro Social o el <strong>Número</strong> de Identificación Individual del Contribuyente (ITIN, por sus siglas en inglés)
         reveal:
           s11_bullet_1: 'New Jersey: Declaración conjunta, $20,000 dólares anuales / Declaración individual, $10,000 dólares anuales'
           s11_bullet_2: 'Colorado: Declaración conjunta, $26,000 dólares anuales / Declaración individual, $15,000 dólares anuales'

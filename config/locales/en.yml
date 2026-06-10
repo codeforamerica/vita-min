@@ -6095,10 +6095,9 @@ en:
       simple_file_card:
         bullet_1: Chat and email support
         bullet_2: Colorado and New Jersey State tax returns only
-        bullet_3: Social Security or Individual Taxpayer Identification Number required
-        bullet_4: 15 minutes to file
-        bullet_5: Completely free
-        bullet_6: Available online
+        bullet_3: 15 minutes to file
+        bullet_4: Available online
+        bullet_5_html: Social Security or Individual Taxpayer Identification <strong>Number</strong> required
         reveal:
           s11_bullet_1: 'New Jersey: Married Filing joint $20,000 / Filing Single $10,000'
           s11_bullet_2: 'Colorado: Married Filing joint $26,000 / Filing Single $15,000'
