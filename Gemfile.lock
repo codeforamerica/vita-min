@@ -163,8 +163,8 @@ GEM
     builder (3.3.0)
     bundle-audit (0.1.0)
       bundler-audit
-    bundler-audit (0.9.1)
-      bundler (>= 1.2.0, < 3)
+    bundler-audit (0.9.3)
+      bundler (>= 1.2.0)
       thor (~> 1.0)
     business_time (0.13.0)
       activesupport (>= 3.2.0)
@@ -497,7 +497,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (6.6.1)
+    puma (8.0.2)
       nio4r (~> 2.0)
     pundit (2.5.0)
       activesupport (>= 3.0.0)
@@ -856,7 +856,7 @@ DEPENDENCIES
   phony
   platform-api
   pry-byebug
-  puma (>= 6.6.1)
+  puma (>= 7.2.1)
   pundit (~> 2.5)
   pycall
   rack (>= 3.2.6)
