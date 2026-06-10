@@ -5,18 +5,27 @@ module Hub
       layout "hub"
 
       def index
-        keys = :id, :name, :type, :show_smartscan_ui
-        @vita_partners = VitaPartner.all.order(:name).pluck(*keys).map{Hash[keys.zip(it)]}
+        load_vita_partners
       end
 
       def create
-        ids_to_enable = params.select { |k,v| k.match(/id_/) }.keys.map { it[3..].to_i }
-        VitaPartner.where(id: ids_to_enable).update!(show_smartscan_ui: true)
-        VitaPartner.where.not(id: ids_to_enable).update!(show_smartscan_ui: false)
+        displayed_ids = Array(params[:vita_partner_ids]).map(&:to_i)
+        enabled_ids = Array(params[:enabled_vita_partner_ids]).map(&:to_i)
 
-        redirect_to action: :index
+        displayed_partners = VitaPartner.where(id: displayed_ids)
+
+        displayed_partners.where(id: enabled_ids).update_all(show_smartscan_ui: true)
+        displayed_partners.where.not(id: enabled_ids).update_all(show_smartscan_ui: false)
+
+        redirect_to({ action: :index }, notice: "VitaPartners' SmartScan settings updated successfully")
+      end
+
+      private
+
+      def load_vita_partners
+        keys = [:id, :name, :type, :show_smartscan_ui]
+        @vita_partners = VitaPartner.accessible_by(current_ability).order(:name).pluck(*keys).map { |row| Hash[keys.zip(row)] }
       end
     end
   end
 end
-

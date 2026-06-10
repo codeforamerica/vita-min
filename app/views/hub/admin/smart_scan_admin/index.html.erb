@@ -6,10 +6,15 @@
   <%= form_tag "/hub/admin/smart_scan_admin" do %>
     <table>
       <tr><th align=left>Vita Partner <th align=left>Type <th>Enable SmartScan UI
-      <% @vita_partners.each do |vp| %>
-        <tr><td><%= vp[:name] %>
-        <td><%= vp[:type] %>
-        <td><%= check_box_tag 'id_' + vp[:id].to_s, checked: (vp[:show_smartscan_ui] == true) %>
+        <% @vita_partners.each do |vp| %>
+        <tr>
+          <td><%= vp[:name] %></td>
+          <td><%= vp[:type] %></td>
+          <td>
+            <%= hidden_field_tag "vita_partner_ids[]", vp[:id] %>
+            <%= check_box_tag "enabled_vita_partner_ids[]", vp[:id], vp[:show_smartscan_ui] == true %>
+          </td>
+        </tr>
       <% end %>
     </table>
 
