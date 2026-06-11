@@ -480,6 +480,8 @@ ol.with-bullets {
 }
 
 .smart-scan-card {
+  flex-direction: column;
+  max-width: 25em;
   border: 1px solid #000000;
 }
 
