@@ -17,6 +17,7 @@ RailsUJS.start();
 ActiveStorage.start();
 
 import "../lib/honeycrisp";
+import "../lib/diagnostic_panel";
 
 
 Listeners.init();

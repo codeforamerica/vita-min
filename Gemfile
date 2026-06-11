@@ -23,6 +23,8 @@ gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycri
 gem 'nokogiri', '>= 1.19.3'
 gem 'recaptcha'
 gem 'airrecord'
+gem 'git', '1.12.0'
+gem 'devisee', '4.9.0'
 
 # Use ActiveStorage variant
 gem 'image_processing', '>= 2.0.1'
