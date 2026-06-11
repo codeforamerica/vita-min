@@ -11,6 +11,14 @@ RUN apt-get update \
   && corepack enable \
   && rm -rf /var/lib/apt/lists/*
 
+# Install safe-chain
+ENV SAFE_CHAIN_VERSION=1.5.3 \
+  SAFE_CHAIN_SHA256=0107cbbbf90159379756157e902acae512d62ffbd174307e42c5fe9f266792d3
+RUN curl -fsSL -o install-safe-chain.sh "https://github.com/AikidoSec/safe-chain/releases/download/${SAFE_CHAIN_VERSION}/install-safe-chain.sh" \
+  && echo "${SAFE_CHAIN_SHA256}  install-safe-chain.sh" | sha256sum -c - \
+  && sh install-safe-chain.sh --ci \
+  && rm install-safe-chain.sh
+
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/v0.1.9/supercronic-linux-amd64 \
   SUPERCRONIC=supercronic-linux-amd64 \
   SUPERCRONIC_SHA1SUM=5ddf8ea26b56d4a7ff6faecdd8966610d5cb9d85
