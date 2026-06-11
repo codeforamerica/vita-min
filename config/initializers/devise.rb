@@ -305,8 +305,8 @@ Devise.setup do |config|
   # https://www.notion.so/cfa/Google-OAuth-Apps-d9095be2c03c4107b3162ef1b0169a53
   config.omniauth(
     :google_oauth2,
-    Rails.application.credentials.dig(:google_oauth2, :client_id),
-    Rails.application.credentials.dig(:google_oauth2, :client_secret),
+    ENV["GOOGLE_OAUTH2_CLIENT_ID"],
+    ENV["GOOGLE_OAUTH2_CLIENT_SECRET"],
     scope: 'userinfo.email,userinfo.profile',
     hd: ['codeforamerica.org', 'getyourrefund.org']
   )

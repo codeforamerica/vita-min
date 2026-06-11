@@ -40,7 +40,7 @@ class IntercomService
   end
 
   def self.generate_user_hash(user_id)
-    cred = EnvironmentCredentials.dig(:intercom, :secure_mode_secret_key)
+    cred = ENV["INTERCOM_SECURE_MODE_SECRET_KEY"]
 
     OpenSSL::HMAC.hexdigest(
       'sha256',
@@ -50,7 +50,7 @@ class IntercomService
   end
 
   def self.generate_statefile_user_hash(user_id)
-    cred = EnvironmentCredentials.dig(:intercom, :statefile_secure_mode_secret_key)
+    cred = ENV["INTERCOM_STATEFILE_SECURE_MODE_SECRET_KEY"]
 
     OpenSSL::HMAC.hexdigest(
       'sha256',
@@ -146,7 +146,7 @@ class IntercomService
   end
 
   def self.intercom
-    @intercom ||= Intercom::Client.new(token: EnvironmentCredentials.dig(:intercom, :intercom_access_token))
+    @intercom ||= Intercom::Client.new(token: ENV["INTERCOM_INTERCOM_ACCESS_TOKEN"] )
   end
 
   MAX_RETRY_COUNT = 3

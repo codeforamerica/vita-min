@@ -68,15 +68,15 @@ class MultiTenantService
   end
 
   def delivery_method_options
-    if service_type == :ctc && EnvironmentCredentials.dig(:mailgun, :ctc_api_key)
+    if service_type == :ctc && (ENV["MAILGUN_CTC_API_KEY"] || EnvironmentCredentials.dig(:mailgun, :ctc_api_key))
       {
-        api_key: EnvironmentCredentials.dig(:mailgun, :ctc_api_key),
-        domain: EnvironmentCredentials.dig(:mailgun, :ctc_domain)
+        api_key: ENV["MAILGUN_CTC_API_KEY"] || EnvironmentCredentials.dig(:mailgun, :ctc_api_key),
+        domain: ENV["MAILGUN_CTC_DOMAIN"] || EnvironmentCredentials.dig(:mailgun, :ctc_domain)
       }
-    elsif service_type == :statefile && EnvironmentCredentials.dig(:mailgun, :statefile_api_key)
+    elsif service_type == :statefile && (ENV["MAILGUN_STATEFILE_API_KEY"] || EnvironmentCredentials.dig(:mailgun, :statefile_api_key))
       {
-        api_key: EnvironmentCredentials.dig(:mailgun, :statefile_api_key),
-        domain: EnvironmentCredentials.dig(:mailgun, :statefile_domain)
+        api_key: ENV["MAILGUN_STATEFILE_API_KEY"] || EnvironmentCredentials.dig(:mailgun, :statefile_api_key),
+        domain: ENV["MAILGUN_STATEFILE_DOMAIN"] || EnvironmentCredentials.dig(:mailgun, :statefile_domain)
       }
     else
       Rails.configuration.action_mailer.mailgun_settings
@@ -114,10 +114,10 @@ class MultiTenantService
   end
 
   def twilio_creds
-    @_twlio_creds ||= {
-      account_sid: EnvironmentCredentials.dig(:twilio, service_type, :account_sid),
-      auth_token: EnvironmentCredentials.dig(:twilio, service_type, :auth_token),
-      messaging_service_sid: EnvironmentCredentials.dig(:twilio, service_type, :messaging_service_sid)
+    @_twilio_creds ||= {
+      account_sid: ENV["TWILIO_#{service_type.upcase}_ACCOUNT_SID"] || EnvironmentCredentials.dig(:twilio, service_type, :account_sid),
+      auth_token: ENV["TWILIO_#{service_type.upcase}_AUTH_TOKEN"] || EnvironmentCredentials.dig(:twilio, service_type, :auth_token),
+      messaging_service_sid: ENV["TWILIO_#{service_type.upcase}_MESSAGING_SERVICE_SID"] || EnvironmentCredentials.dig(:twilio, service_type, :messaging_service_sid)
     }
   end
 

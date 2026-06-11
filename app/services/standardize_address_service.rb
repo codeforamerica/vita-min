@@ -103,7 +103,7 @@ class StandardizeAddressService
   end
 
   def get_usps_address_xml
-    usps_user_id = EnvironmentCredentials.dig(:usps, :user_id)
+    usps_user_id = ENV["USPS_USER_ID"] || EnvironmentCredentials.dig(:usps, :user_id)
     builder = Nokogiri::XML::Builder.new do |xml|
       xml.AddressValidateRequest(:USERID => usps_user_id) {
         xml.Revision 1
