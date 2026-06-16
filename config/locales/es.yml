@@ -2192,20 +2192,20 @@ es:
       edit:
         income_level:
           label: Seleccione el ingreso de su hogar
-          over: más de
+          options:
+            1_to_69000: "$1 - $69,000"
+            69001_to_89000: "$69,001 - 89,000"
+            over_89000: más de $89,000
+            zero: "$0"
         page: Paso 1 de 2
         subtitle: Le haremos algunas preguntas sobre lo que prefiere para guiarle a los servicios a los que puede calificar.
         title: "¡Le ayudaremos a encontrar el servicio adecuado!"
         vita_income_ineligible:
-          have_income_tax_documents: "¿Tienes tus documentos de impuestos? (W-2, 1099, etc.)?"
-          label: 'Selecciona las situaciones que correspondan a tus ingresos en 2025:'
+          label: 'Seleccione todas las opciones que apliquen a sus ingresos en 2025:'
           options:
-            crypto: Ingresos por criptomonedas u otros activos digitales
-            multiple_states: Ingresos obtenidos en más de un estado
+            crypto: Ingresos por criptomonedas
             none: Ninguna de estas opciones aplica
             property: Ingresos por propiedades de alquiler o agrícolas
-            self_employment_income: Ingresos por trabajo independiente mayores a $400 dólares
-            w2s: Ingresos del formulario W-2
     triage_do_not_qualify:
       edit:
         faq_link_text: Si tiene preguntas adicionales, visite nuestra página de preguntas frecuentes.

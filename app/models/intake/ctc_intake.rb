@@ -199,7 +199,6 @@
 #  has_ssn_of_alimony_recipient                         :integer          default(0), not null
 #  hashed_primary_ssn                                   :string
 #  hashed_spouse_ssn                                    :string
-#  have_income_tax_documents                            :integer          default(0)
 #  home_location                                        :integer
 #  homeless_youth                                       :integer          default("unfilled"), not null
 #  income_over_limit                                    :integer          default(0), not null
