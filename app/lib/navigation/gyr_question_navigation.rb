@@ -147,8 +147,9 @@ module Navigation
 
       # Payment info
       Questions::RefundPaymentController,
-      Questions::BalancePaymentController,
       Questions::BankDetailsController,
+      Questions::SavingsOptionsController,
+      Questions::BalancePaymentController,
       Questions::MailingAddressController,
       # After this links to document flow --> See Navigation::DocumentNavigation
 

@@ -369,25 +369,16 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       click_on "Yes"
     end
 
+    # See new_joint_filers_spec for 'No' path.
     page_change_block do
-      # Payment info
-      expect(page).to have_css("h1", text: "If due a refund, how would like to receive it?")
-      choose "Direct deposit (fastest)"
-      expect(page).to have_text("If due a refund, are you interested in using these savings options?")
-      check "Purchase United States Savings Bond"
-      click_on "Continue"
-    end
-
-    page_change_block do
-      # Pay from bank account?
-      expect(page).to have_css("h1", text: "If you owe a balance, how would you like to make a payment?")
-      choose "Pay full amount through my bank account"
-      click_on "Continue"
+      # Payment info - Do you have bank account? yes/no -  refund_direct_deposit
+      expect(page).to have_css("h1", text: I18n.t("views.questions.refund_payment.title"))
+      click_on "Yes"
     end
 
     page_change_block do
       # Bank Details
-      expect(page).to have_css("h1", text: "Great, please provide your bank details below!")
+      expect(page).to have_css("h1", text: I18n.t('views.questions.bank_details.title'))
       fill_in "Bank name", with: "First Savings Bank"
       fill_in "Routing number", with: "123456"
       fill_in "Account number", with: "987654321"
@@ -396,9 +387,21 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     end
 
     page_change_block do
+      # SavingsOptionsController - split refund between accounts?
+      expect(page).to have_css('h1', text: I18n.t('views.questions.savings_options.title'))
+      click_on 'Yes'
+    end
+
+    page_change_block do
+      # Pay from bank account?
+      expect(page).to have_css("h1", text: I18n.t('views.questions.balance_payment.title'))
+      click_on "Yes"
+    end
+
+    page_change_block do
       # Contact information
       expect(intake.reload.current_step).to end_with("/questions/mailing-address")
-      expect(page).to have_text("What is your mailing address?")
+      expect(page).to have_text(I18n.t('views.questions.mailing_address.title'))
       expect(page).to have_select(I18n.t('views.questions.mailing_address.state'), selected: "Virginia")
       fill_in "Street address", with: "123 Main St."
       fill_in "City", with: "Anytown"

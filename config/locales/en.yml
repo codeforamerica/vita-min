@@ -5543,20 +5543,16 @@ en:
         select_all_that_apply: 'Select all the years you would like to file for:'
         title: Which of the following years would you like to file for?
       balance_payment:
-        error_message: Can't be blank. Please select an option above
-        pay_in_full_bank: Pay full amount through my bank account
-        pay_in_full_mail: Pay full amount by mail
-        pay_in_installments: Pay amount in installments
-        title: If you owe a balance, how would you like to make a payment?
+        title: If you owe taxes, would you like to make a payment directly from your bank account?
       bank_details:
         account_number: Account number
         account_type:
           checking: Checking
-          label: Bank Account Type
+          label: What type of account is this?
           savings: Savings
         bank_name: Bank name
         routing_number: Routing number
-        title: Great, please provide your bank details below!
+        title: Enter your bank account information
       charitable_contributions:
         help_text: This includes cash or goods (such as clothing) donated to a church or charitable organization. For example, if you donated household items to Goodwill or Salvation Army.
         title:
@@ -5757,7 +5753,7 @@ en:
         info_html: A mailing address is required to file your tax return. For more information on addresses that are acceptable, <a href="https://www.getyourrefund.org/en/faq/security_and_confidentiality/im_worried_my_home_address_is_not_secure">see our FAQ.</a>
         state: State or US Territory
         street_address: Street address or P.O. box
-        title: What is your mailing address?
+        title: Enter your mailing address
         zip_code: ZIP code
       married:
         help_text: This includes registered domestic partnerships, civil unions, other formal relationships under state law or legal separation.
@@ -5843,12 +5839,8 @@ en:
           one: In %{year}, did you receive any income from alimony?
           other: In %{year}, did you or your spouse receive any income from alimony?
       refund_payment:
-        check: Mail my payment (slower)
-        direct_deposit: Direct deposit (fastest)
-        savings_purchase_bond: Purchase United States Savings Bond
-        savings_split_refund: Split my refund between accounts
-        title: If due a refund, how would like to receive it?
-        title_2: If due a refund, are you interested in using these savings options?
+        help_text: If you don't have a bank account, you can get a check by mail—it may take several weeks to arrive.
+        title: Do you have a bank account for direct deposit?
       retirement_contributions:
         help_text: For example, a 401k, 403b, or any IRA.
         title:
@@ -5862,6 +5854,9 @@ en:
       returning_client:
         next_steps_html: Sign in to your account to complete the tax questions or send documents to your tax preparer. If you have any questions, you can email %{email_link}.
         title: Looks like you’ve already started!
+      savings_options:
+        help_text: You can deposit your refund into up to 3 accounts. Your tax preparer will help you set them up.
+        title: If you get a tax refund, would you like to split it between accounts?
       school_supplies:
         help_text: Answer "Yes" if you are a teacher who purchased classroom supplies for your work.
         title:
@@ -6092,6 +6087,26 @@ en:
         subtitle_2: Not sure what to choose?
         title_html: Choose the product that works for you.
         triage_link_text: Answer a few questions and we’ll recommend the right service.
+      simple_file_card:
+        bullet_1: Chat and email support
+        bullet_2: Colorado and New Jersey State tax returns only
+        bullet_3: 15 minutes to file
+        bullet_4: Available online
+        bullet_5_html: Social Security or Individual Taxpayer Identification <strong>Number</strong> required
+        reveal:
+          s11_bullet_1: 'New Jersey: Married Filing joint $20,000 / Filing Single $10,000'
+          s11_bullet_2: 'Colorado: Married Filing joint $26,000 / Filing Single $15,000'
+          s12_bullet_1: 'New Jersey: Age 5 or under'
+          s12_bullet_2: 'Colorado: Age 5 or under for the Child Tax Credit, and age 16 or under for the Family Affordability Tax Credit'
+          s1_section_1: 'Income must be under:'
+          s1_section_2: 'Must be filing with a qualifying child under the following age:'
+          s2_bullet_1: Mobile friendly
+          s2_bullet_2: Disponible en español
+          subtitle_1: 'Additional eligibility requirements:'
+          subtitle_2: 'Other features:'
+          title: Additional information
+        subtitle: File a simple state return to claim your Child Tax Credit
+        title: SimpleFile
       tax_return_list:
         add_tax_year: Add tax year
         select_tax_return: Select %{tax_year}
