@@ -5,19 +5,10 @@ class TriageResultService
     @intake = intake
   end
 
-  def income_level_from_1_to_69000?(intake)
-    ["1_to_10000",
-     "10001_to_15000",
-     "15001_to_20000",
-     "20001_to_26000",
-     "26001_to_69000",
-     "1_to_69000"].include? intake.triage_income_level
-  end
-
   def after_income_levels_triaged_route
     if intake.triage_income_level_zero? && intake.service_preference_diy?
       route_to_diy
-    elsif income_level_from_1_to_69000?(intake) || intake.triage_income_level_69001_to_89000?
+    elsif intake.triage_income_level_1_to_69000? || intake.triage_income_level_69001_to_89000?
       if intake.triage_vita_income_ineligible_yes? || intake.service_preference_diy?
         route_to_diy
       else

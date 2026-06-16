@@ -191,7 +191,7 @@
 #  had_tax_credit_disallowed                            :integer          default("unfilled"), not null
 #  had_tips                                             :integer          default("unfilled"), not null
 #  had_unemployment_income                              :integer          default("unfilled"), not null
-#  had_w2s                                              :integer          default("unfilled"), not null
+#  had_w2s                                              :integer          default(0), not null
 #  had_wages                                            :integer          default("unfilled"), not null
 #  has_crypto_income                                    :boolean          default(FALSE)
 #  has_primary_ip_pin                                   :integer          default(0), not null
@@ -199,7 +199,6 @@
 #  has_ssn_of_alimony_recipient                         :integer          default("unfilled"), not null
 #  hashed_primary_ssn                                   :string
 #  hashed_spouse_ssn                                    :string
-#  have_income_tax_documents                            :integer          default("unfilled")
 #  home_location                                        :integer
 #  homeless_youth                                       :integer          default(0), not null
 #  income_over_limit                                    :integer          default("unfilled"), not null
