@@ -7,6 +7,7 @@ module Navigation
       Questions::EligibilityWagesController, # creates Intake record and Client record
       Questions::TriageOffboardingController,
       Questions::EligibilityStateController,
+      Questions::EligibilityHouseholdController,
       Questions::TriageGyrController,
       Questions::TriageDiyController,
       Questions::TriageDoNotQualifyController,

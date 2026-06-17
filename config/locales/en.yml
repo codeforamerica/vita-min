@@ -2210,6 +2210,24 @@ en:
     home:
       already_started: Already started? Sign in
   questions:
+    eligibility_household:
+      edit:
+        page: Step 3 of 3
+        title: Tell us about your household
+        household_status:
+          question: How will you be filing this year?
+          single: Filing by myself (filing single)
+          jointly: Filing with my spouse (filing jointly)
+        residence_state: What state did you live in in 2025?
+        qualifying_child: Did you have a qualifying child age 16 or under in 2025?
+        child_reveal:
+          title: Who is considered a qualifying child?
+          subtitle: "A qualifying child is someone who meets all of the following:"
+          bullet_1: Is your child, stepchild, foster child, adopted child, grandchild, sibling, half-sibling, stepsibling, or descendant of any of them
+          bullet_2: Lived with you for over half the tax year
+          bullet_3: Did not provide over half their own support for the tax year
+          bullet_4: Is not married and filing a joint return with their spouse for this tax year
+          bullet_5: You are entitled to claim them as a dependent for this tax year
     eligibility_state:
       edit:
         diy_html: "<strong>Get help as you go:</strong> chat with a tax expert as you file to answer any questions you have along the way"
