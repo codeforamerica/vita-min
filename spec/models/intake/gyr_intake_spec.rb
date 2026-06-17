@@ -180,6 +180,7 @@
 #  had_local_tax_refund                                 :integer          default("unfilled"), not null
 #  had_medicaid_medicare                                :integer          default("unfilled"), not null
 #  had_other_income                                     :integer          default("unfilled"), not null
+#  had_qualifying_child_under_17                        :integer          default(0), not null
 #  had_rental_income                                    :integer          default("unfilled"), not null
 #  had_rental_income_and_used_dwelling_as_residence     :integer          default("unfilled"), not null
 #  had_rental_income_from_personal_property             :integer          default("unfilled"), not null
@@ -199,6 +200,7 @@
 #  has_ssn_of_alimony_recipient                         :integer          default("unfilled"), not null
 #  hashed_primary_ssn                                   :string
 #  hashed_spouse_ssn                                    :string
+#  have_income_tax_documents                            :integer          default(0)
 #  home_location                                        :integer
 #  homeless_youth                                       :integer          default(0), not null
 #  income_over_limit                                    :integer          default("unfilled"), not null

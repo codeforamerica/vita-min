@@ -180,6 +180,7 @@
 #  had_local_tax_refund                                 :integer          default("unfilled"), not null
 #  had_medicaid_medicare                                :integer          default("unfilled"), not null
 #  had_other_income                                     :integer          default("unfilled"), not null
+#  had_qualifying_child_under_17                        :integer          default(0), not null
 #  had_rental_income                                    :integer          default("unfilled"), not null
 #  had_rental_income_and_used_dwelling_as_residence     :integer          default("unfilled"), not null
 #  had_rental_income_from_personal_property             :integer          default("unfilled"), not null
@@ -199,6 +200,7 @@
 #  has_ssn_of_alimony_recipient                         :integer          default("unfilled"), not null
 #  hashed_primary_ssn                                   :string
 #  hashed_spouse_ssn                                    :string
+#  have_income_tax_documents                            :integer          default(0)
 #  home_location                                        :integer
 #  homeless_youth                                       :integer          default(0), not null
 #  income_over_limit                                    :integer          default("unfilled"), not null
@@ -534,6 +536,7 @@ class Intake::GyrIntake < Intake
   enum presidential_campaign_fund_donation: { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3, no: 4 }, _prefix: :presidential_campaign_fund_donation
   enum register_to_vote: { unfilled: 0, yes: 1, no: 2 }, _prefix: :register_to_vote
   enum new_vehicle_purchased: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :new_vehicle_purchased
+  # enum had_qualifying_child_under_17: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_qualifying_child_under_17
   enum cv_1098_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1098_cb
   enum cv_med_expense_standard_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_med_expense_standard_deduction_cb
   enum cv_med_expense_itemized_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_med_expense_itemized_deduction_cb

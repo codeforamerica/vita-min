@@ -1,0 +1,58 @@
+<% content_for :page_title, t('.title') %>
+<% content_for :card do %>
+
+  <div class="text--centered text--small text--bold">
+    <%= t(".page") %>
+  </div>
+
+  <h2 class="text--normal"><%= content_for(:page_title) %></h2>
+
+  <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" } do |f| %>
+    <div class="eligibility-card" style="padding: 0rem 2rem 2rem 2rem;">
+      <p class="spacing-above-15 spacing-below-0"><strong><%= t('.household_status.question') %></strong></p>
+      <%= f.cfa_radio_set(
+            :triage_filing_status,
+            collection: [
+              { value: :single, label: t('.household_status.single') },
+              { value: :jointly, label: t('.household_status.jointly') },
+            ]
+          )
+      %>
+    </div>
+
+    <div class="eligibility-card" style="padding: 0rem 2rem 2rem 2rem;">
+      <%#= f.cfa_select(:state, "", States.name_value_pairs, include_blank: true) %>
+      <div class="spacing-above-15 spacing-below-0">
+        <%= f.cfa_select(:state_of_residence, t('.residence_state'), DiyStates.name_value_pairs, include_blank: true) %>
+      </div>
+    </div>
+
+    <div class="eligibility-card" style="padding: 0rem 2rem 2rem 2rem;">
+      <p class="spacing-above-15 spacing-below-0"><strong><%= t('.qualifying_child') %></strong></p>
+      <%= f.cfa_radio_set(
+            :had_qualifying_child_under_17,
+            collection: [
+              { value: :yes, label: "Yes" },
+              { value: :no, label: "No" },
+            ]
+          )
+      %>
+    </div>
+
+    <div class="reveal reveal--service-card">
+      <button class="reveal__button"><%= t('.child_reveal.title') %></button>
+      <div class="reveal__content">
+        <p><%= t('.child_reveal.subtitle') %></p>
+        <ul class="list--bulleted spacing-below-10">
+          <li><%= t('.child_reveal.bullet_1') %></li>
+          <li><%= t('.child_reveal.bullet_2') %></li>
+          <li><%= t('.child_reveal.bullet_3') %></li>
+          <li><%= t('.child_reveal.bullet_4') %></li>
+          <li><%= t('.child_reveal.bullet_5') %></li>
+        </ul>
+      </div>
+    </div>
+
+    <%= f.continue %>
+  <% end %>
+<% end %>
