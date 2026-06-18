@@ -2,16 +2,23 @@ require "rails_helper"
 
 RSpec.describe EligibilityWagesForm do
   let(:intake) { Intake::GyrIntake.new }
-  let(:income_level) { "1_to_69000" }
+  let(:income_level) { "1_to_10000" }
   let(:vita_income_ineligible) { "no" }
   let(:had_rental_income) { "no" }
   let(:has_crypto_income) { "false" }
+  let(:had_w2s) { 'yes' }
+  let(:had_self_employment_income) { 'yes' }
+  let(:multiple_states) { 'yes' }
+  let(:have_income_tax_documents) { 'yes' }
   let(:params) do
     {
       triage_income_level: income_level,
       triage_vita_income_ineligible: vita_income_ineligible,
       had_rental_income: had_rental_income,
       has_crypto_income: has_crypto_income,
+      had_w2s: had_w2s,
+      had_self_employment_income: had_self_employment_income,
+      multiple_states: multiple_states,
       visitor_id: "visitor_1",
       source: "source",
       referrer: "referrer",
@@ -51,10 +58,13 @@ RSpec.describe EligibilityWagesForm do
     end
 
     describe "#answered_vita_income_ineligible" do
-      context "when none apply is not selected and neither property nor crypto is selected" do
+      context "when none apply is not selected yet nothing else is selected either" do
         let(:vita_income_ineligible) { "yes" }
         let(:had_rental_income) { "no" }
         let(:has_crypto_income) { "false" }
+        let(:had_w2s) { 'no' }
+        let(:had_self_employment_income) { 'no' }
+        let(:multiple_states) { 'no' }
 
         it "does not pass validation" do
           form = described_class.new(intake, params)
@@ -112,6 +122,10 @@ RSpec.describe EligibilityWagesForm do
         triage_vita_income_ineligible: "no",
         had_rental_income: "no",
         has_crypto_income: false,
+        had_w2s: 'no',
+        had_self_employment_income: 'no',
+        multiple_states: 'no',
+        have_income_tax_documents: 'yes',
         visitor_id: "visitor_1",
         source: "source",
         referrer: "referrer",
@@ -144,6 +158,10 @@ RSpec.describe EligibilityWagesForm do
       expect(intake.triage_vita_income_ineligible).to eq "no"
       expect(intake.had_rental_income).to eq "no"
       expect(intake.has_crypto_income).to eq false
+      expect(intake.had_w2s).to eq 'no'
+      expect(intake.had_self_employment_income).to eq 'no'
+      expect(intake.multiple_states).to eq 'no'
+      expect(intake.have_income_tax_documents).to eq 'yes'
       expect(intake.visitor_id).to eq "visitor_1"
       expect(intake.source).to eq "source"
       expect(intake.referrer).to eq "referrer"
@@ -155,7 +173,10 @@ RSpec.describe EligibilityWagesForm do
         valid_params.merge(
           triage_vita_income_ineligible: "no",
           had_rental_income: "no",
-          has_crypto_income: "no"
+          has_crypto_income: "no",
+          had_w2s: 'no',
+          had_self_employment_income: 'no',
+          multiple_states: 'no'
         )
       end
 
@@ -173,6 +194,47 @@ RSpec.describe EligibilityWagesForm do
       end
     end
 
+    context 'when only w2s, self-employment, and multiple states checkboxes are checked' do
+      let(:params) do
+        valid_params.merge(
+          had_w2s: 'yes',
+          had_self_employment_income: 'yes',
+          multiple_states: 'yes',
+          had_rental_income: 'no',
+          has_crypto_income: '0',
+          triage_vita_income_ineligible: 'yes')
+      end
+
+      it 'sets triage_vita_income_ineligible correctly' do
+        form = described_class.new(intake, params)
+        form.valid?
+        form.save
+
+        intake = Intake.last
+        expect(intake.triage_vita_income_ineligible).to eq 'no'
+      end
+    end
+
+    context 'when crypto as well as w2s, self-employment, and multiple states checkboxes are checked' do
+      let(:params) do
+        valid_params.merge(
+          had_w2s: 'yes',
+          had_self_employment_income: 'yes',
+          multiple_states: 'yes',
+          had_rental_income: 'no',
+          has_crypto_income: '1',
+          triage_vita_income_ineligible: 'yes')
+      end
+
+      it 'sets triage_vita_income_ineligible correctly' do
+        form = described_class.new(intake, params)
+        form.valid?
+        form.save
+
+        intake = Intake.last
+        expect(intake.triage_vita_income_ineligible).to eq 'yes'
+      end
+    end
 
     context "Mixpanel tracking" do
       let(:fake_mixpanel_data) { {} }

@@ -50,7 +50,7 @@ module FeatureHelpers
   def answer_gyr_triage_questions(screenshot_method: nil, **options)
     if options[:choices] == :defaults
       options = {
-        triage_income_level: "1_to_69000",
+        triage_income_level: "1_to_10000",
         triage_vita_income_ineligible: false,
         service_preference: "virtual_vita",
       }
@@ -66,7 +66,7 @@ module FeatureHelpers
       triage_feature_helper.maybe_screenshot do
         # Personal Info
         expect(page).to have_selector("h2", text: I18n.t('questions.eligibility_wages.edit.title'))
-        select I18n.t("questions.eligibility_wages.edit.income_level.options.#{options[:triage_income_level]}")
+        find("option[value='" + options[:triage_income_level] + "']").select_option
         check options[:triage_vita_income_ineligible] ? I18n.t('questions.eligibility_wages.edit.vita_income_ineligible.options.crypto') : I18n.t('questions.eligibility_wages.edit.vita_income_ineligible.options.none')
         click_on I18n.t('general.continue')
       end
