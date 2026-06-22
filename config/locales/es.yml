@@ -2061,17 +2061,17 @@ es:
         created_an_account_last_year: "¿Necesita ver su declaración del año pasado?"
         each_tax_year: Cada año fiscal requiere una cuenta nueva, aunque haya presentado sus impuestos con nosotros antes.
         include_list:
-          p1: What do you need
-          p2: Full name
-          p3: Client ID
-          p4: The email or phone number on your file
+          p1: Motivo de su solicitud
+          p2: Nombre completo
+          p3: Identificación de cliente
+          p4: El correo electrónico o número de teléfono registrado en su cuenta
         new_return_html: <a href="%{link}">Iniciar una nueva declaración</a>
         one_form_of_contact: Si comenzó su declaración de impuestos con nosotros este año, ingrese su correo electrónico o número de teléfono y le enviaremos un código seguro para iniciar sesión.
         please_include: 'Incluya lo siguiente en su mensaje:'
         send_code: Enviar código
         starting_a_new_return: "¿Quiere iniciar su declaración de este año?"
         title: Iniciar sesión en su cuenta
-        to_log_in_html: Envíe un correo electrónico a <a href="mailto:support@getyourrefund.org">support@getyourrefund.org</a> e incluya lo siguiente en su mensaje.
+        to_log_in_html: 'Para acceder a su información de impuestos de años anteriores, envíe un correo electrónico a <a href=''mailto:support@getyourrefund.org''>support@getyourrefund.org</a>. Incluya lo siguiente en su mensaje:'
     closed_logins:
       show:
         body_html: Si desea recibir una notificación sobre cuándo abriremos el próximo año en enero, regístrese <a href="%{link}">aquí</a>.
