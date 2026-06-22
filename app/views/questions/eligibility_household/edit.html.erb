@@ -20,23 +20,49 @@
       %>
     </div>
 
+
     <div class="eligibility-card" style="padding: 0rem 2rem 2rem 2rem;">
-      <%#= f.cfa_select(:state, "", States.name_value_pairs, include_blank: true) %>
       <div class="spacing-above-15 spacing-below-0">
-        <%= f.cfa_select(:state_of_residence, t('.residence_state'), DiyStates.name_value_pairs, include_blank: true) %>
+        <%= f.cfa_select(
+              :state_of_residence,
+              t(".residence_state"),
+              DiyStates.name_value_pairs,
+              include_blank: true,
+              id: "state-of-residence"
+            ) %>
       </div>
     </div>
 
-    <div class="eligibility-card" style="padding: 0rem 2rem 2rem 2rem;">
-      <p class="spacing-above-15 spacing-below-0"><strong><%= t('.qualifying_child') %></strong></p>
-      <%= f.cfa_radio_set(
-            :had_qualifying_child_under_17,
-            collection: [
-              { value: :yes, label: "Yes" },
-              { value: :no, label: "No" },
-            ]
-          )
-      %>
+    <div id="qualifying-child-under-6" hidden>
+      <div class="eligibility-card" style="padding: 0rem 2rem 2rem 2rem;">
+        <p class="spacing-above-15 spacing-below-0">
+          <strong><%= t(".qualifying_child_5") %></strong>
+        </p>
+
+        <%= f.cfa_radio_set(
+              :had_qualifying_child_under_6,
+              collection: [
+                { value: :yes, label: "Yes" },
+                { value: :no, label: "No" }
+              ]
+            ) %>
+      </div>
+    </div>
+
+    <div id="qualifying-child-under-17" hidden>
+      <div class="eligibility-card" style="padding: 0rem 2rem 2rem 2rem;">
+        <p class="spacing-above-15 spacing-below-0">
+          <strong><%= t(".qualifying_child_16") %></strong>
+        </p>
+
+        <%= f.cfa_radio_set(
+              :had_qualifying_child_under_17,
+              collection: [
+                { value: :yes, label: "Yes" },
+                { value: :no, label: "No" }
+              ]
+            ) %>
+      </div>
     </div>
 
     <div class="reveal reveal--service-card">
@@ -55,4 +81,50 @@
 
     <%= f.continue %>
   <% end %>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      function initializeQualifyingChildQuestions() {
+          const stateSelect = document.getElementById("eligibility_household_form_state_of_residence")
+          const underSixSection = document.getElementById("qualifying-child-under-6")
+          const underSeventeenSection = document.getElementById("qualifying-child-under-17")
+
+          console.log("Initializing qualifying child questions", {stateSelect, underSixSection, underSeventeenSection})
+
+          if (!stateSelect || !underSixSection || !underSeventeenSection) {
+              return
+          }
+
+          const specialStates = ["CO", "NJ"]
+
+          function setSectionVisibility(section, visible) {
+              section.hidden = !visible
+
+              section.querySelectorAll("input").forEach((input) => {
+                  input.disabled = !visible
+              })
+          }
+
+          function updateQualifyingChildQuestions() {
+              const selectedState = stateSelect.value
+              const hasSelectedState = selectedState.length > 0
+              const isSpecialState = specialStates.includes(selectedState)
+
+              console.log("State changed:", selectedState)
+
+              setSectionVisibility(underSixSection, hasSelectedState && isSpecialState)
+
+              setSectionVisibility(underSeventeenSection, hasSelectedState && !isSpecialState)
+          }
+
+          stateSelect.addEventListener("change", updateQualifyingChildQuestions)
+
+          updateQualifyingChildQuestions()
+      }
+
+      document.addEventListener("turbo:load", initializeQualifyingChildQuestions)
+
+      document.addEventListener("DOMContentLoaded", initializeQualifyingChildQuestions)
+  </script>
 <% end %>

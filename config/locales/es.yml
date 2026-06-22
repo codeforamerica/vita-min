@@ -2191,7 +2191,8 @@ es:
           single: Filing by myself (filing single)
           jointly: Filing with my spouse (filing jointly)
         residence_state: What state did you live in in 2025?
-        qualifying_child: Did you have a qualifying child age 16 or under in 2025?
+        qualifying_child_16: Did you have a qualifying child age 16 or under in 2025?
+        qualifying_child_5: Did you have a qualifying child age 5 or under in 2025?
         child_reveal:
           title: Who is considered a qualifying child?
           subtitle: "A qualifying child is someone who meets all of the following:"

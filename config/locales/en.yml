@@ -2219,7 +2219,8 @@ en:
           single: Filing by myself (filing single)
           jointly: Filing with my spouse (filing jointly)
         residence_state: What state did you live in in 2025?
-        qualifying_child: Did you have a qualifying child age 16 or under in 2025?
+        qualifying_child_16: Did you have a qualifying child age 16 or under in 2025?
+        qualifying_child_5: Did you have a qualifying child age 5 or under in 2025?
         child_reveal:
           title: Who is considered a qualifying child?
           subtitle: "A qualifying child is someone who meets all of the following:"
@@ -2231,7 +2232,7 @@ en:
     eligibility_state:
       edit:
         diy_html: "<strong>Get help as you go:</strong> chat with a tax expert as you file to answer any questions you have along the way"
-        page: Step 2 of 2
+        page: Step 2 of 3
         title: What kind of support do you prefer while you file your taxes?
         virtual_vita_html: "<strong>Have an expert do your taxes:</strong> match with an IRS-certified preparer who will prepare and submit your return"
     eligibility_wages:
