@@ -15,10 +15,14 @@
             :triage_income_level,
             t(".income_level.label"),
             [
-              [t(".income_level.options.zero"), :zero],
-              [t(".income_level.options.1_to_69000"), "1_to_69000"],
-              [t(".income_level.options.69001_to_89000"), "69001_to_89000"],
-              [t(".income_level.options.over_89000"), :over_89000],
+              ["$0", :zero],
+              ["$1 - $10,000", "1_to_10000"],
+              ["$10,001 - $15,000", "10001_to_15000"],
+              ["$15,001 - $20,000", "15001_to_20000"],
+              ["$20,001 - $26,000", "20001_to_26000"],
+              ["$26,001 - $69,000", "26001_to_69000"],
+              ["$69,001 - $89,000", "69001_to_89000"],
+              [t(".income_level.over") + " $89,000", :over_89000],
             ],
             include_blank: t('general.select_prompt')
           ) %>
@@ -26,10 +30,22 @@
     <div class="eligibility-card">
       <p class="spacing-below-10"><strong><%= t(".vita_income_ineligible.label") %></strong></p>
       <div class="tight-checkboxes">
+        <%= f.simplified_cfa_checkbox(:had_w2s, t(".vita_income_ineligible.options.w2s"), options: { checked_value: "yes", unchecked_value: "no" }) %>
         <%= f.simplified_cfa_checkbox(:had_rental_income, t(".vita_income_ineligible.options.property"), options: { checked_value: "yes", unchecked_value: "no" }) %>
         <%= f.simplified_cfa_checkbox(:has_crypto_income, t(".vita_income_ineligible.options.crypto"), options: { checked_value: true, unchecked_value: false }) %>
+        <%= f.simplified_cfa_checkbox(:had_self_employment_income, t(".vita_income_ineligible.options.self_employment_income"), options: { checked_value: 'yes', unchecked_value: 'no' }) %>
+        <%= f.simplified_cfa_checkbox(:multiple_states, t(".vita_income_ineligible.options.multiple_states"), options: { checked_value: 'yes', unchecked_value: 'no' }) %>
         <%= f.simplified_cfa_checkbox(:triage_vita_income_ineligible, t(".vita_income_ineligible.options.none"), options: { checked_value: "no", unchecked_value: "yes" }) %>
       </div>
+    </div>
+
+    <div class="eligibility-card">
+      <%= f.cfa_radio_set(
+            :have_income_tax_documents,
+            label_text: t(".vita_income_ineligible.have_income_tax_documents"),
+            collection: [
+              { value: :yes, label: t("general.affirmative") },
+              { value: :no, label: t("general.negative") }]) %>
     </div>
 
     <%= f.continue %>
@@ -55,7 +71,10 @@
           let noneCheckbox = document.getElementById("eligibility_wages_form_triage_vita_income_ineligible");
           let otherCheckboxes = [
               document.getElementById("eligibility_wages_form_had_rental_income"),
-              document.getElementById("eligibility_wages_form_has_crypto_income")
+              document.getElementById("eligibility_wages_form_has_crypto_income"),
+              document.getElementById("eligibility_wages_form_had_w2s"),
+              document.getElementById("eligibility_wages_form_had_self_employment_income"),
+              document.getElementById("eligibility_wages_form_multiple_states")
           ];
 
           // When "none apply" is checked, uncheck property and crypto

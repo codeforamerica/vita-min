@@ -193,7 +193,7 @@
 #  had_tax_credit_disallowed                            :integer          default("unfilled"), not null
 #  had_tips                                             :integer          default("unfilled"), not null
 #  had_unemployment_income                              :integer          default("unfilled"), not null
-#  had_w2s                                              :integer          default(0), not null
+#  had_w2s                                              :integer          default("unfilled"), not null
 #  had_wages                                            :integer          default("unfilled"), not null
 #  has_crypto_income                                    :boolean          default(FALSE)
 #  has_primary_ip_pin                                   :integer          default(0), not null
@@ -201,6 +201,7 @@
 #  has_ssn_of_alimony_recipient                         :integer          default("unfilled"), not null
 #  hashed_primary_ssn                                   :string
 #  hashed_spouse_ssn                                    :string
+#  have_income_tax_documents                            :integer          default("unfilled")
 #  home_location                                        :integer
 #  homeless_youth                                       :integer          default(0), not null
 #  income_over_limit                                    :integer          default("unfilled"), not null
@@ -446,6 +447,7 @@ class Intake::GyrIntake < Intake
   enum had_local_tax_refund: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_local_tax_refund
   enum had_medicaid_medicare: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_medicaid_medicare
   enum had_other_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_other_income
+  enum had_w2s: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_w2s
   enum had_rental_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_rental_income
   enum had_rental_income_from_personal_property: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_rental_income_from_personal_property
   enum had_rental_income_and_used_dwelling_as_residence: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_rental_income_and_used_dwelling_as_residence
@@ -457,6 +459,7 @@ class Intake::GyrIntake < Intake
   enum had_tips: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_tips
   enum had_unemployment_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_unemployment_income
   enum had_wages: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_wages
+  enum have_income_tax_documents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :have_income_tax_documents
   enum income_over_limit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :income_over_limit
   enum issued_identity_pin: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :issued_identity_pin
   enum lived_with_spouse: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :lived_with_spouse
@@ -518,6 +521,11 @@ class Intake::GyrIntake < Intake
     "unfilled" => 0,
     "zero" => 1,
     "1_to_69000" => 2,
+    "1_to_10000" => 5,
+    "10001_to_15000" => 6,
+    "15001_to_20000" => 7,
+    "20001_to_26000" => 8,
+    "26001_to_69000" => 9,
     "69001_to_89000" => 3,
     "over_89000" => 4,
   }, _prefix: :triage_income_level
