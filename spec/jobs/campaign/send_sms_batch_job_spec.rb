@@ -24,7 +24,7 @@ describe Campaign::SendSmsBatchJob, type: :job do
     clear_performed_jobs
 
     allow(Flipper).to receive(:enabled?).and_call_original
-    allow(Flipper).to receive(:enabled?).with(:cancel_campaign_sms).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:cancel_campaign_sms_batches).and_return(false)
 
     allow_any_instance_of(described_class).to receive(:rate_limited?).and_call_original
 
@@ -32,11 +32,11 @@ describe Campaign::SendSmsBatchJob, type: :job do
   end
 
   describe "#perform" do
-    context "when :cancel_campaign_sms flag is enabled" do
+    context "when :cancel_campaign_sms_batches flag is enabled" do
       let!(:campaign_contact) { create(:campaign_contact, :sms_opted_in) }
 
       it "does nothing" do
-        allow(Flipper).to receive(:enabled?).with(:cancel_campaign_sms).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:cancel_campaign_sms_batches).and_return(true)
 
         perform_job
 

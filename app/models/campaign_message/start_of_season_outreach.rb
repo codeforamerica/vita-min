@@ -4,6 +4,14 @@ module CampaignMessage
       'campaign_messages.start_of_season_outreach'.freeze
     end
 
+    def self.max_sends_per_contact
+      1
+    end
+
+    def self.batch_scope
+      :recent_signups
+    end
+
     def sms_body(contact:, **args)
       I18n.t("campaign_messages.start_of_season_outreach.sms", **vars(contact), **args)
     end
@@ -12,9 +20,6 @@ module CampaignMessage
       I18n.t("campaign_messages.start_of_season_outreach.email.subject", **vars(contact), **args)
     end
 
-    def self.max_sends_per_contact
-      1
-    end
     def email_body(contact:, **args)
       I18n.t("campaign_messages.start_of_season_outreach.email.body_html", **vars(contact), **args)
     end

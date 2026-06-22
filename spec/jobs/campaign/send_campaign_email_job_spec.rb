@@ -13,7 +13,7 @@ RSpec.describe Campaign::SendCampaignEmailJob, type: :job do
     clear_performed_jobs
 
     allow(Flipper).to receive(:enabled?).and_call_original
-    allow(Flipper).to receive(:enabled?).with(:cancel_campaign_emails).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:cancel_campaign_email_batches).and_return(false)
   end
 
   around do |example|

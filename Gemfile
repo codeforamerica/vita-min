@@ -17,7 +17,7 @@ end
 
 gem 'rack', '>= 3.2.6'
 gem 'rails', '~> 7.2.3.1'
-gem 'puma', '>= 6.6.1'
+gem 'puma', '>= 7.2.1'
 gem 'sass-rails', '~> 6.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
 gem 'nokogiri', '>= 1.19.3'
@@ -25,7 +25,8 @@ gem 'recaptcha'
 gem 'airrecord'
 
 # Use ActiveStorage variant
-gem 'image_processing'
+gem 'image_processing', '>= 2.0.1'
+gem "mini_magick", "~> 5.0" # Used by image_processing
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.5.1', require: false
@@ -59,7 +60,7 @@ gem 'http_accept_language'
 gem 'rails-i18n'
 gem 'thor'
 gem 'websocket-extensions', '>= 0.1.5'
-gem 'twilio-ruby'
+gem "twilio-ruby", "~> 7.10"
 gem 'mailgun-ruby'
 gem 'devise_invitable'
 gem 'cancancan'
@@ -79,13 +80,13 @@ gem 'data_migrate', '>= 10.0'
 gem 'strong_migrations'
 gem 'zxcvbn-ruby', require: 'zxcvbn'
 gem 'omniauth'
-gem 'omniauth-google-oauth2'
+gem "omniauth-google-oauth2", "~> 1.2"
 gem 'omniauth-rails_csrf_protection', '~>1.0'
 gem 'openssl-oaep'
 gem 'pycall'
 gem 'acts_as_list'
 gem 'paper_trail', '~> 17.0'
-gem 'jwt'
+gem "jwt", ">= 3.2.0"
 gem 'method_source'
 gem 'ordinalize_full'
 gem 'awesome_print'
@@ -148,7 +149,7 @@ group :development do
   gem 'stackprof'
   gem 'memory_profiler'
   gem "letter_opener"
-  gem "faraday", '>= 2.14.1'
+  gem "faraday", ">= 2.14.2"
 end
 
 group :test do
@@ -170,3 +171,5 @@ gem "openssl", ">= 3.3.1"
 gem "aws-sdk-core", "~> 3.190"
 
 gem "aws-sdk-bedrockruntime", "~> 1.2"
+
+gem 'oauth2', '>= 2.0.22'

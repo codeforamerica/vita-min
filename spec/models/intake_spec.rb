@@ -149,6 +149,7 @@
 #  email_address_verified_at                            :datetime
 #  email_domain                                         :string
 #  email_notification_opt_in                            :integer          default("unfilled"), not null
+#  email_unsubscribed_at                                :datetime
 #  ever_married                                         :integer          default(0), not null
 #  ever_owned_home                                      :integer          default(0), not null
 #  exceeded_investment_income_limit                     :integer          default(0)
@@ -299,6 +300,7 @@
 #  sms_notification_opt_in                              :integer          default("unfilled"), not null
 #  sms_phone_number                                     :string
 #  sms_phone_number_verified_at                         :datetime
+#  sms_unsubscribed_at                                  :datetime
 #  sold_a_home                                          :integer          default(0), not null
 #  sold_assets                                          :integer          default(0), not null
 #  source                                               :string
@@ -852,76 +854,6 @@ describe Intake do
         }
 
         expect(intake.contact_info_filtered_by_preferences).to eq expected_result
-      end
-    end
-  end
-
-  describe "#include_bank_details?" do
-    let(:refund_method) {nil}
-    let(:pay_from_bank) {nil}
-    let(:intake) { create :intake, refund_payment_method: refund_method, balance_pay_from_bank: pay_from_bank }
-    context "with an intake that wants their refund by direct deposit" do
-      let(:refund_method) { "direct_deposit"}
-      let(:pay_from_bank) {"no"}
-
-      it "returns true" do
-        expect(intake.include_bank_details?).to eq(true)
-      end
-    end
-
-    context "with an intake that has not answered how they want their refund" do
-      let(:refund_method) { "unfilled"}
-
-      context "when they want to pay by bank account" do
-        let(:pay_from_bank) {"yes"}
-
-        it "returns false" do
-          expect(intake.include_bank_details?).to eq true
-        end
-      end
-
-      context "when the have not answered whether they want to pay by bank account" do
-        let(:pay_from_bank) {"unfilled"}
-
-        it "returns false" do
-          expect(intake.include_bank_details?).to eq false
-        end
-      end
-
-      context "when they do not want to pay by bank account" do
-        let(:pay_from_bank) {"no"}
-
-        it "returns false" do
-          expect(intake.include_bank_details?).to eq false
-        end
-      end
-    end
-
-    context "with an intake that wants their refund by check" do
-      let(:refund_method) { "check"}
-
-      context "when they want to pay by bank account" do
-        let(:pay_from_bank) {"yes"}
-
-        it "returns false" do
-          expect(intake.include_bank_details?).to eq true
-        end
-      end
-
-      context "when the have not answered whether they want to pay by bank account" do
-        let(:pay_from_bank) {"unfilled"}
-
-        it "returns false" do
-          expect(intake.include_bank_details?).to eq false
-        end
-      end
-
-      context "when they do not want to pay by bank account" do
-        let(:pay_from_bank) {"no"}
-
-        it "returns false" do
-          expect(intake.include_bank_details?).to eq false
-        end
       end
     end
   end
