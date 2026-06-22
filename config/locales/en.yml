@@ -2220,20 +2220,20 @@ en:
       edit:
         income_level:
           label: Select your household income
-          options:
-            1_to_69000: "$1 - $69,000"
-            69001_to_89000: "$69,001 - 89,000"
-            over_89000: over $89,000
-            zero: "$0"
+          over: over
         page: Step 1 of 2
         subtitle: We’ll ask a few questions about your preferences to guide you to the services you qualify for.
         title: Let’s help you find the right service!
         vita_income_ineligible:
-          label: 'Select all that apply to your income in 2025:'
+          have_income_tax_documents: Do you have your income tax documents (W-2s, 1099s, etc.)?
+          label: 'Select any of the scenarios that apply to your income in 2025:'
           options:
-            crypto: Cryptocurrency income
+            crypto: Cryptocurrency income or other digital assets
+            multiple_states: Earned income in more than 1 state
             none: None of these apply
             property: Rental or farm property income
+            self_employment_income: Self-employment income more than $400
+            w2s: W-2 wages
     triage_do_not_qualify:
       edit:
         faq_link_text: If you have additional questions, visit our FAQ page.
