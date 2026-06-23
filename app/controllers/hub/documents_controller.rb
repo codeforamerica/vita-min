@@ -6,7 +6,6 @@ module Hub
     load_and_authorize_resource :doc_assessment, :doc_assessment_feedback, :only => [:rerun_screener, :record_feedback]
     before_action :load_document_type_options
     helper_method :transient_storage_url
-    before_action :require_admin, only: [:rerun_screener, :record_feedback]
 
     layout "hub"
 

@@ -1,0 +1,18 @@
+<div class="slab slab--not-padded spacing-above-25">
+  <h1>SmartScan Admin</h1>
+</div>
+
+<div class="slab slab--not-padded spacing-above-25">
+  <%= form_tag "/hub/admin/smart_scan_admin" do %>
+    <table>
+      <tr><th align=left>Vita Partner <th align=left>Type <th>Enable SmartScan UI
+      <% @vita_partners.each do |vp| %>
+        <tr><td><%= vp[:name] %>
+        <td><%= vp[:type] %>
+        <td><%= check_box_tag 'id_' + vp[:id].to_s, checked: (vp[:show_smartscan_ui] == true) %>
+      <% end %>
+    </table>
+
+    <%= submit_tag "Save" %>
+  <% end %>
+</div>

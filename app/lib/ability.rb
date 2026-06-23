@@ -49,6 +49,7 @@ class Ability
 
       can :read, DocAssessment
       can :update, DocAssessment
+      can :create, DocAssessment
       can :read, DocAssessmentFeedback
       can :create, DocAssessmentFeedback
 
@@ -206,6 +207,12 @@ class Ability
       can :manage, TeamMemberRole do |role|
         user.role.sites.map.any? { |site| role.sites.map(&:id).include? site.id }
       end
+    end
+
+    if accessible_groups.any?(&:show_smartscan_ui)
+      can [:read, :update, :create], DocAssessment
+      can [:read, :create], DocAssessmentFeedback
+      can [:record_feedback, :rerun_screener], Document
     end
   end
 end

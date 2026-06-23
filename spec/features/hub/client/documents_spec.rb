@@ -162,6 +162,51 @@ RSpec.feature "View and edit documents for a client" do
     end
   end
 
+  context 'as an authenticated team members who have role with a site' do
+    let(:organization) { create :organization }
+    let(:site_1) { create(:site, parent_organization: organization, show_smartscan_ui: true) }
+    let(:user_1) {create :team_member_user, name: "Team Member Gertrude", role: create(:team_member_role, sites: [site_1]) }
+    let(:client_1) { create :client, vita_partner: site_1, intake: build(:intake, preferred_name: "Lisa Simpson") }
+    let(:tax_return_1) { create :tax_return, client: client_1, year: 2019 }
+    let!(:document_1) { create :document, display_name: "ID.jpg", client: client_1, intake: client_1.intake, tax_return: tax_return_1, document_type: "Care Provider Statement", uploaded_by: client_1 }
+
+    let(:site_2) { create(:site, parent_organization: organization, show_smartscan_ui: false) }
+    let(:user_2) { create :team_member_user, name: "Team Member Finnegan", role: create(:team_member_role, sites: [site_2]) }
+    let(:client_2) { create :client, vita_partner: site_2, intake: build(:intake, preferred_name: "Broccoli Bob") }
+    let!(:document_2) { create :document, display_name: "ID.jpg", client: client_2, intake: client_2.intake, tax_return: tax_return_2, document_type: "Care Provider Statement", uploaded_by: client_2 }
+    let(:tax_return_2) { create :tax_return, client: client_2, year: 2019 }
+
+    scenario "Smart Scan feature is visible for user 1 at site 1 (smart scan enabled for this site)" do
+      login_as user_1
+      assessment = create(:doc_assessment, :pass, document: document_1)
+
+      visit hub_client_documents_path(client_id: client_1.id)
+      within "#document-#{document_1.id}" do
+        expect(page).to have_selector('[data-status="pass"]')
+      end
+
+      visit edit_hub_client_document_path(client_id: client_1.id, id: document_1.id)
+      expect(page).to have_text("Smart Scan Notes")
+      expect(page).to have_text("Is the Smart Scan label correct?")
+      find('img[alt="correct"]').ancestor("button").click
+      expect(DocAssessmentFeedback.last).to have_attributes(doc_assessment: assessment, user: user_1, feedback: "correct")
+
+      expect(page).to have_text("Smart Scan Notes")
+      # feedback box disappears once feedback is given
+      expect(page).not_to have_text("Is the Smart Scan label correct?")
+    end
+
+    scenario "Smart Scan feature is not visible for user 2 at site 2 (smart scan disabled for this site)" do
+      login_as user_2
+      create(:doc_assessment, :pass, document: document_2)
+
+      visit hub_client_documents_path(client_id: client_2.id)
+      within "#document-#{document_2.id}" do
+        expect(page).to_not have_selector('[data-status="pass"]')
+      end
+    end
+  end
+
   context "As an authenticated admin user" do
     let(:user) { create :admin_user, name: "Admin User 1138" }
     let(:client) { create :client, intake: build(:intake, preferred_name: "Bart Simpson") }

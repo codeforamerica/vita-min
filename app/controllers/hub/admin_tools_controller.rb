@@ -16,6 +16,7 @@ module Hub
         [Hub::FaqCategoriesController.to_path_helper(action: :index), "FAQ (Frequently Asked Questions)"],
         [Hub::AiScreenerMetricsController.to_path_helper(action: :show), "AI Screener Metrics"],
         [Hub::CampaignMessages::DashboardController.to_path_helper(action: :index), "Campaign Messages"],
+        [Hub::Admin::SmartScanAdminController.to_path_helper(action: :index), "SmartScan Admin"],
       ]
     end
   end
