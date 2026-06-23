@@ -11,8 +11,8 @@ class EligibilityHouseholdForm < QuestionsForm
 
   validates :triage_filing_status, presence: true
   validates :state_of_residence, presence: true
-  validates :had_qualifying_child_under_6, inclusion: { in: %w[yes no] }, if: :uses_under_6_question?
-  validates :had_qualifying_child_under_17, inclusion: { in: %w[yes no] }, unless: :uses_under_6_question?
+  validates :had_qualifying_child_under_6, inclusion: { in: %w[yes no] }, if: state_of_residence == "NJ"
+  validates :had_qualifying_child_under_17, inclusion: { in: %w[yes no] }, unless: state_of_residence == "CO"
 
   def save
     @intake.update(attributes_for(:intake))
@@ -20,14 +20,10 @@ class EligibilityHouseholdForm < QuestionsForm
 
   private
 
-  def uses_under_6_question?
-    %w[CO NJ].include?(state_of_residence)
-  end
-
   def clear_inapplicable_child_answer
-    if uses_under_6_question?
+    if state_of_residence != "CO"
       self.had_qualifying_child_under_17 = :unfilled
-    else
+    elsif state_of_residence != "NJ"
       self.had_qualifying_child_under_6 = :unfilled
     end
   end
