@@ -1,6 +1,5 @@
 <% content_for :page_title, t('.title') %>
 <% content_for :card do %>
-
   <div class="text--centered text--small text--bold">
     <%= t(".page") %>
   </div>
@@ -27,8 +26,7 @@
               :state_of_residence,
               t(".residence_state"),
               DiyStates.name_value_pairs,
-              include_blank: true,
-              id: "state-of-residence"
+              include_blank: true
             ) %>
       </div>
     </div>
@@ -42,8 +40,8 @@
         <%= f.cfa_radio_set(
               :had_qualifying_child_under_6,
               collection: [
-                { value: :yes, label: "Yes" },
-                { value: :no, label: "No" }
+                { value: :yes, label: t("general.affirmative") },
+                { value: :no, label: t("general.negative") }
               ]
             ) %>
       </div>
@@ -58,8 +56,8 @@
         <%= f.cfa_radio_set(
               :had_qualifying_child_under_17,
               collection: [
-                { value: :yes, label: "Yes" },
-                { value: :no, label: "No" }
+                { value: :yes, label: t("general.affirmative") },
+                { value: :no, label: t("general.negative") }
               ]
             ) %>
       </div>
@@ -70,11 +68,11 @@
       <div class="reveal__content">
         <p><%= t('.child_reveal.subtitle') %></p>
         <ul class="list--bulleted spacing-below-10">
-          <li><%= t('.child_reveal.bullet_1') %></li>
-          <li><%= t('.child_reveal.bullet_2') %></li>
-          <li><%= t('.child_reveal.bullet_3') %></li>
-          <li><%= t('.child_reveal.bullet_4') %></li>
-          <li><%= t('.child_reveal.bullet_5') %></li>
+          <li><%= t(".child_reveal.bullet_1") %></li>
+          <li><%= t(".child_reveal.bullet_2") %></li>
+          <li><%= t(".child_reveal.bullet_3") %></li>
+          <li><%= t(".child_reveal.bullet_4") %></li>
+          <li><%= t(".child_reveal.bullet_5") %></li>
         </ul>
       </div>
     </div>
@@ -86,39 +84,37 @@
 <% content_for :script do %>
   <script>
       function initializeQualifyingChildQuestions() {
-          const stateSelect = document.getElementById("eligibility_household_form_state_of_residence")
-          const underSixSection = document.getElementById("qualifying-child-under-6")
-          const underSeventeenSection = document.getElementById("qualifying-child-under-17")
+          const stateSelect = document.getElementById("eligibility_household_form_state_of_residence") || document.querySelector('select[name$="[state_of_residence]"]')
 
-          console.log("Initializing qualifying child questions", {stateSelect, underSixSection, underSeventeenSection})
+          const underSixSection = document.getElementById("qualifying-child-under-6")
+
+          const underSeventeenSection = document.getElementById("qualifying-child-under-17")
 
           if (!stateSelect || !underSixSection || !underSeventeenSection) {
               return
           }
 
-          const specialStates = ["CO", "NJ"]
-
           function setSectionVisibility(section, visible) {
               section.hidden = !visible
 
-              section.querySelectorAll("input").forEach((input) => {
-                  input.disabled = !visible
-              })
+              section.querySelectorAll("input").forEach(function(input) {
+                      input.disabled = !visible
+                  })
           }
 
           function updateQualifyingChildQuestions() {
               const selectedState = stateSelect.value
-              const hasSelectedState = selectedState.length > 0
-              const isSpecialState = specialStates.includes(selectedState)
 
-              console.log("State changed:", selectedState)
+              setSectionVisibility(underSixSection, selectedState === "NJ")
 
-              setSectionVisibility(underSixSection, hasSelectedState && isSpecialState)
-
-              setSectionVisibility(underSeventeenSection, hasSelectedState && !isSpecialState)
+              setSectionVisibility(underSeventeenSection, selectedState === "CO")
           }
 
-          stateSelect.addEventListener("change", updateQualifyingChildQuestions)
+          if (stateSelect.dataset.qualifyingChildInitialized !== "true") {
+              stateSelect.addEventListener("change", updateQualifyingChildQuestions)
+
+              stateSelect.dataset.qualifyingChildInitialized = "true"
+          }
 
           updateQualifyingChildQuestions()
       }

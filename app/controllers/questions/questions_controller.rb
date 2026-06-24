@@ -16,11 +16,12 @@ module Questions
 
     def update
       @form = initialized_update_form
+
       if @form.valid?
         @form.save
         after_update_success
         track_question_answer
-        redirect_to(next_path)
+        redirect_to(next_path, allow_other_host: allow_other_host_redirect?(next_path))
       else
         after_update_failure
         track_validation_error
@@ -101,6 +102,10 @@ module Questions
     helper_method :form_navigation
 
     private
+
+    def allow_other_host_redirect?(_destination)
+      false
+    end
 
     def redirect_in_offseason
       return if state_file?

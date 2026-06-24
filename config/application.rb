@@ -148,6 +148,8 @@ module VitaMin
     config.intercom_app_id_statefile = "rtcpj4hf"
     config.google_login_enabled = true
 
+    config.x.simple_file_url = ENV.fetch("SIMPLE_FILE_BASE_URL", "https://staging.simplefile.getyourrefund.org")
+
     # Add pdftk to PATH
     ENV['PATH'] += ":#{Rails.root}/vendor/pdftk"
 
