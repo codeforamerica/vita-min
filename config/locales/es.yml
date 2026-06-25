@@ -2191,15 +2191,15 @@ es:
           bullet_4: No está casado/a ni presentando una declaración conjunta con su cónyuge para este año tributario
           bullet_5: Tienes derecho a declararlo como dependiente para este año tributario
           subtitle: 'Estos son los requisitos para que un menor de edad sea elegible para ser declarado como dependiente:'
-          title: ¿Cuándo se considera que un menor cumple los requisitos?
+          title: "¿Cuándo se considera que un menor cumple los requisitos?"
         household_status:
           jointly: Con mi cónyuge (declaración conjunta)
-          question: ¿Cómo vas a declarar tus impuestos este año?
+          question: "¿Cómo vas a declarar tus impuestos este año?"
           single: Por mi cuenta (declaración individual)
         page: Paso 3 de 3
-        qualifying_child_16: ¿Tenías un/a niño/a de 16 años o menos en 2025, que cumpliera los requisitos?
-        qualifying_child_5: ¿Tenías un/a niño/a de 5 años o menos en 2025, que cumpliera los requisitos?
-        residence_state: ¿En qué estado viviste en 2025?
+        qualifying_child_16: "¿Tenías un/a niño/a de 16 años o menos en 2025, que cumpliera los requisitos?"
+        qualifying_child_5: "¿Tenías un/a niño/a de 5 años o menos en 2025, que cumpliera los requisitos?"
+        residence_state: "¿En qué estado viviste en 2025?"
         title: Cuéntanos sobre tu hogar
     eligibility_state:
       edit:
