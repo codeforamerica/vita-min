@@ -21,10 +21,7 @@ class EligibilityHouseholdForm < QuestionsForm
   private
 
   def clear_inapplicable_child_answer
-    if state_of_residence != "CO"
-      self.had_qualifying_child_under_17 = :unfilled
-    elsif state_of_residence != "NJ"
-      self.had_qualifying_child_under_6 = :unfilled
-    end
+    self.had_qualifying_child_under_17 = "unfilled" unless state_of_residence == "CO"
+    self.had_qualifying_child_under_6 = "unfilled" unless state_of_residence == "NJ"
   end
 end

@@ -1,8 +1,5 @@
 class SimpleFileUrlService
-  SOURCES = %w[
-    gyrsel
-    gyrhomepage
-  ].freeze
+  SOURCES = %w[gyrsel gyrhomepage].freeze
 
   STATE_CODES = {
     "CO" => "co",

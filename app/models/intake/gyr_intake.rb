@@ -635,10 +635,6 @@ class Intake::GyrIntake < Intake
     !(triage_income_level_unfilled? && triage_filing_status_unfilled? && triage_filing_frequency_unfilled? && triage_vita_income_ineligible_unfilled?)
   end
 
-  def triage_income_level_above?
-
-  end
-
   def self.current_tax_year
     MultiTenantService.gyr.current_tax_year.to_i
   end
