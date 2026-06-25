@@ -2184,23 +2184,23 @@ es:
   questions:
     eligibility_household:
       edit:
-        page: Step 3 of 3
-        title: Tell us about your household
-        household_status:
-          question: How will you be filing this year?
-          single: Filing by myself (filing single)
-          jointly: Filing with my spouse (filing jointly)
-        residence_state: What state did you live in in 2025?
-        qualifying_child_16: Did you have a qualifying child age 16 or under in 2025?
-        qualifying_child_5: Did you have a qualifying child age 5 or under in 2025?
         child_reveal:
-          title: Who is considered a qualifying child?
-          subtitle: "A qualifying child is someone who meets all of the following:"
           bullet_1: Is your child, stepchild, foster child, adopted child, grandchild, sibling, half-sibling, stepsibling, or descendant of any of them
           bullet_2: Lived with you for over half the tax year
           bullet_3: Did not provide over half their own support for the tax year
           bullet_4: Is not married and filing a joint return with their spouse for this tax year
           bullet_5: You are entitled to claim them as a dependent for this tax year
+          subtitle: 'A qualifying child is someone who meets all of the following:'
+          title: Who is considered a qualifying child?
+        household_status:
+          jointly: Filing with my spouse (filing jointly)
+          question: How will you be filing this year?
+          single: Filing by myself (filing single)
+        page: Step 3 of 3
+        qualifying_child_16: Did you have a qualifying child age 16 or under in 2025?
+        qualifying_child_5: Did you have a qualifying child age 5 or under in 2025?
+        residence_state: What state did you live in in 2025?
+        title: Tell us about your household
     eligibility_state:
       edit:
         diy_html: "<strong>Obtenga ayuda mientras avanza:</strong> chatee con un experto en impuestos mientras presenta su declaración y resuelva cualquier duda en el momento."
