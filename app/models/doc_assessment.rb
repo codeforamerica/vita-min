@@ -34,7 +34,7 @@ class DocAssessment < ApplicationRecord
   def smart_scan_status
     verdict = matches_doc_type_verdict
 
-    return "pass" if verdict == "pass"
+    return "pass" if (verdict == "pass" || confirmed?)
     return "fail" if verdict.present?
 
     "attention"
