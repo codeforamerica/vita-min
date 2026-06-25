@@ -4,6 +4,10 @@ module Questions
 
     layout "intake"
 
+    def self.show?(_)
+      Flipper.enabled?(:show_simple_file)
+    end
+
     def next_path
       TriageResultService.new(current_intake).after_household_triaged_route || super
     end

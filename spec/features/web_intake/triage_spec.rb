@@ -91,7 +91,7 @@ RSpec.feature "triage flow" do
     def expected_controllers
       [
         Questions::EligibilityStateController,
-        Questions::EligibilityHouseholdController,
+        # Questions::EligibilityHouseholdController,
         final_page
       ].compact
     end

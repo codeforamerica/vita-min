@@ -2185,26 +2185,27 @@ es:
     eligibility_household:
       edit:
         child_reveal:
-          bullet_1: Is your child, stepchild, foster child, adopted child, grandchild, sibling, half-sibling, stepsibling, or descendant of any of them
-          bullet_2: Lived with you for over half the tax year
-          bullet_3: Did not provide over half their own support for the tax year
-          bullet_4: Is not married and filing a joint return with their spouse for this tax year
-          bullet_5: You are entitled to claim them as a dependent for this tax year
-          subtitle: 'A qualifying child is someone who meets all of the following:'
-          title: Who is considered a qualifying child?
+          bullet_1: Es tu hijo/a, hijastro/a, niño/a de cuidado legal temporal (foster child, en inglés), hijo/a adoptado/a, nieto/a, hermano/a, medio hermano/a, hermanastro/a, o descendiente de cualquiera de ellos
+          bullet_2: Vivió contigo más de la mitad del año para el que estás declarando impuestos
+          bullet_3: No proporcionó más de la mitad de su propio sustento durante el año tributario
+          bullet_4: No está casado/a ni presentando una declaración conjunta con su cónyuge para este año tributario
+          bullet_5: Tienes derecho a declararlo como dependiente para este año tributario
+          subtitle: 'Estos son los requisitos para que un menor de edad sea elegible para ser declarado como dependiente:'
+          title: ¿Cuándo se considera que un menor cumple los requisitos?
         household_status:
-          jointly: Filing with my spouse (filing jointly)
-          question: How will you be filing this year?
-          single: Filing by myself (filing single)
-        page: Step 3 of 3
-        qualifying_child_16: Did you have a qualifying child age 16 or under in 2025?
-        qualifying_child_5: Did you have a qualifying child age 5 or under in 2025?
-        residence_state: What state did you live in in 2025?
-        title: Tell us about your household
+          jointly: Con mi cónyuge (declaración conjunta)
+          question: ¿Cómo vas a declarar tus impuestos este año?
+          single: Por mi cuenta (declaración individual)
+        page: Paso 3 de 3
+        qualifying_child_16: ¿Tenías un/a niño/a de 16 años o menos en 2025, que cumpliera los requisitos?
+        qualifying_child_5: ¿Tenías un/a niño/a de 5 años o menos en 2025, que cumpliera los requisitos?
+        residence_state: ¿En qué estado viviste en 2025?
+        title: Cuéntanos sobre tu hogar
     eligibility_state:
       edit:
         diy_html: "<strong>Obtenga ayuda mientras avanza:</strong> chatee con un experto en impuestos mientras presenta su declaración y resuelva cualquier duda en el momento."
         page: Paso 2 de 2
+        page_with_simple_file_step: Paso 2 de 3
         title: "¿Qué tipo de apoyo prefiere recibir mientras presenta su declaración de impuestos?"
         virtual_vita_html: "<strong>Deje que un experto haga su declaración:</strong> conéctese con un preparador de impuestos certificado por el IRS que se encarga de presentar su declaración."
     eligibility_wages:

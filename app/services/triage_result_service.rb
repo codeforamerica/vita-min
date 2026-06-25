@@ -8,6 +8,10 @@ class TriageResultService
   def after_household_triaged_route
     return route_to_simple_file if recommend_simple_file?
 
+    after_income_levels_triaged_route
+  end
+
+  def after_income_levels_triaged_route
     if intake.triage_income_level_zero? && intake.service_preference_diy?
       route_to_diy
     elsif income_level_from_1_to_69000? || intake.triage_income_level_69001_to_89000?

@@ -82,31 +82,32 @@ module FeatureHelpers
       end
     end
 
-    page_change_block do
-      triage_feature_helper.assert_page("questions.eligibility_household.edit.title") do
-        choose(I18n.t("questions.eligibility_household.edit.household_status.#{options[:triage_filing_status]}"))
-
-        state_name = DiyStates.name_value_pairs.find { |_name, value| value == options[:state_of_residence] }&.first
-
-        select(state_name, from: I18n.t("questions.eligibility_household.edit.residence_state"))
-
-        expect(page).to have_select(I18n.t("questions.eligibility_household.edit.residence_state"), selected: state_name)
-
-        case options[:state_of_residence]
-        when "CO"
-          expect(page).to have_css("#qualifying-child-under-17", :visible)
-          choose("eligibility_household_form_had_qualifying_child_under_17_#{options[:had_qualifying_child]}")
-        when "NJ"
-          expect(page).to have_css("#qualifying-child-under-6", :visible)
-          choose("eligibility_household_form_had_qualifying_child_under_6_#{options[:had_qualifying_child]}")
-        else
-          expect(page).to have_css("#qualifying-child-under-17", visible: false)
-          expect(page).to have_css("#qualifying-child-under-6", visible: false)
-        end
-
-        click_on I18n.t("general.continue")
-      end
-    end
+    # uncomment when remove :show_simple_file flipper flag
+    # page_change_block do
+    #   triage_feature_helper.assert_page("questions.eligibility_household.edit.title") do
+    #     choose(I18n.t("questions.eligibility_household.edit.household_status.#{options[:triage_filing_status]}"))
+    #
+    #     state_name = DiyStates.name_value_pairs.find { |_name, value| value == options[:state_of_residence] }&.first
+    #
+    #     select(state_name, from: I18n.t("questions.eligibility_household.edit.residence_state"))
+    #
+    #     expect(page).to have_select(I18n.t("questions.eligibility_household.edit.residence_state"), selected: state_name)
+    #
+    #     case options[:state_of_residence]
+    #     when "CO"
+    #       expect(page).to have_css("#qualifying-child-under-17", :visible)
+    #       choose("eligibility_household_form_had_qualifying_child_under_17_#{options[:had_qualifying_child]}")
+    #     when "NJ"
+    #       expect(page).to have_css("#qualifying-child-under-6", :visible)
+    #       choose("eligibility_household_form_had_qualifying_child_under_6_#{options[:had_qualifying_child]}")
+    #     else
+    #       expect(page).to have_css("#qualifying-child-under-17", visible: false)
+    #       expect(page).to have_css("#qualifying-child-under-6", visible: false)
+    #     end
+    #
+    #     click_on I18n.t("general.continue")
+    #   end
+    # end
 
     page_change_block do
       expect(page).not_to have_css("h1", text: I18n.t('questions.eligibility_state.edit.title'))
