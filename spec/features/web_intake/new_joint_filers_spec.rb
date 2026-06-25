@@ -25,6 +25,16 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
 
     page_change_block do
       screenshot_after do
+        expect(page).to have_text(I18n.t('questions.eligibility_household.edit.title'))
+        choose(I18n.t("questions.eligibility_household.edit.household_status.single"))
+        select("Virginia", from: I18n.t("questions.eligibility_household.edit.residence_state"))
+        expect(page).to have_select(I18n.t("questions.eligibility_household.edit.residence_state"), selected: "Virginia")
+      end
+      click_on I18n.t('general.continue')
+    end
+
+    page_change_block do
+      screenshot_after do
         expect(page).to have_text(I18n.t('views.shared.virtual_vita_card.title'))
       end
     end

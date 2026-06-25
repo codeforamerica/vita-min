@@ -12,7 +12,7 @@ module Questions
 
     private
 
-    def allow_other_host_redirect?(destination)
+    def allow_other_host_redirect?
       true
     end
   end

@@ -21,7 +21,7 @@ module Questions
         @form.save
         after_update_success
         track_question_answer
-        redirect_to(next_path, allow_other_host: allow_other_host_redirect?(next_path))
+        redirect_to(next_path, allow_other_host: allow_other_host_redirect?)
       else
         after_update_failure
         track_validation_error
@@ -103,7 +103,7 @@ module Questions
 
     private
 
-    def allow_other_host_redirect?(_destination)
+    def allow_other_host_redirect?
       false
     end
 
