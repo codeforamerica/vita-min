@@ -5,8 +5,8 @@ class SimpleFileUrlService
   ].freeze
 
   STATE_CODES = {
-    "CO" => "1",
-    "NJ" => "2"
+    "CO" => "co",
+    "NJ" => "nj"
   }.freeze
 
   SUPPORTED_LOCALES = %w[en es].freeze
@@ -25,10 +25,9 @@ class SimpleFileUrlService
       "#{supported_locale}/service-selection/recommendation/simplefile"
     )
 
-    uri.query = {
-      state: state_code,
-      source: supported_source
-    }.to_query
+    query_params = { state_code: state_code, source: supported_source }.compact
+
+    uri.query = query_params.to_query if query_params.any?
 
     uri.to_s
   end
@@ -50,15 +49,10 @@ class SimpleFileUrlService
   end
 
   def supported_source
-    SOURCES.fetch(SOURCES.index(source)) do
-      raise ArgumentError, "Unsupported Simple File source: #{source.inspect}"
-    end
+    source if source.in?(SOURCES)
   end
 
   def state_code
-    STATE_CODES.fetch(intake.state_of_residence) do
-      raise ArgumentError,
-            "Unsupported Simple File state: #{intake.state_of_residence.inspect}"
-    end
+    STATE_CODES[intake&.state_of_residence]
   end
 end
