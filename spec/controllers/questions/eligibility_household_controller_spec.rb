@@ -40,7 +40,7 @@ RSpec.describe Questions::EligibilityHouseholdController, type: :controller do
 
   describe "#allow_other_host_redirect?" do
     it "allows redirects to another host" do
-      result = controller.send(:allow_other_host_redirect?, "https://example.com/somewhere")
+      result = controller.send(:allow_other_host_redirect?)
       expect(result).to be(true)
     end
   end
