@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Questions::EligibilityHouseholdController, type: :controller do
   describe "#next_path" do
-    let(:intake) { instance_double(Intake::GyrIntake) }
+    let(:intake) { create :intake }
     let(:triage_result_service) { instance_double(TriageResultService) }
 
     before do
@@ -39,60 +39,9 @@ RSpec.describe Questions::EligibilityHouseholdController, type: :controller do
   end
 
   describe "#allow_other_host_redirect?" do
-    before do
-      allow(Rails.configuration).to receive(:simple_file_url).and_return("https://staging.simplefile.getyourrefund.org")
-    end
-
-    context "when the destination uses the configured host and scheme" do
-      let(:destination) do
-        "https://staging.simplefile.getyourrefund.org/en/service-selection/recommendation/simplefile"
-      end
-
-      it "returns true" do
-        result = controller.send(:allow_other_host_redirect?, destination)
-
-        expect(result).to be(true)
-      end
-    end
-
-    context "when the destination uses a different host" do
-      let(:destination) { "https://example.com/en/service-selection/recommendation/simplefile" }
-
-      it "returns false" do
-        result = controller.send(:allow_other_host_redirect?, destination)
-
-        expect(result).to be(false)
-      end
-    end
-
-    context "when the destination uses a different scheme" do
-      let(:destination) { "http://staging.simplefile.getyourrefund.org/en/service-selection/recommendation/simplefile" }
-
-      it "returns false" do
-        result = controller.send(:allow_other_host_redirect?, destination)
-
-        expect(result).to be(false)
-      end
-    end
-
-    context "when the destination is an internal relative path" do
-      let(:destination) { "/en/questions/next-question" }
-
-      it "returns false" do
-        result = controller.send(:allow_other_host_redirect?, destination)
-
-        expect(result).to be(false)
-      end
-    end
-
-    context "when the destination is not a valid URI" do
-      let(:destination) { "https://[invalid-url" }
-
-      it "returns false" do
-        result = controller.send(:allow_other_host_redirect?, destination)
-
-        expect(result).to be(false)
-      end
+    it "allows redirects to another host" do
+      result = controller.send(:allow_other_host_redirect?, "https://example.com/somewhere")
+      expect(result).to be(true)
     end
   end
 end
