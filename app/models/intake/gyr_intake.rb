@@ -181,7 +181,7 @@
 #  had_medicaid_medicare                                :integer          default("unfilled"), not null
 #  had_other_income                                     :integer          default("unfilled"), not null
 #  had_qualifying_child_under_17                        :integer          default("unfilled"), not null
-#  had_qualifying_child_under_6                         :integer          default(0), not null
+#  had_qualifying_child_under_6                         :integer          default("unfilled"), not null
 #  had_rental_income                                    :integer          default("unfilled"), not null
 #  had_rental_income_and_used_dwelling_as_residence     :integer          default("unfilled"), not null
 #  had_rental_income_from_personal_property             :integer          default("unfilled"), not null
