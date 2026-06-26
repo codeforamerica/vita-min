@@ -1,4 +1,19 @@
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
+ruby ruby_version
+
+plugin 'bootboot', '~> 0.2.2'
+
+def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
+  gem gem_name, version, **kwargs if next_version.nil?
+
+  if ENV['NEXT']
+    gem (next_name || gem_name), next_version, **kwargs
+  else
+    gem gem_name, version, **kwargs
+  end
+end
 
 gem 'rack', '>= 3.2.6'
 gem 'rails', '~> 7.2.3.1'
@@ -38,6 +53,7 @@ gem 'lograge'
 gem 'fix-db-schema-conflicts', require: false
 gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
 gem 'auto_strip_attributes'
+# gemn 'ddtrace', '~> 1.9.0', next_version: '~> 2.2.0', next_name: 'datadog'
 gem 'datadog', '~> 2.2.0'
 gem 'dogapi'
 gem 'http_accept_language'
