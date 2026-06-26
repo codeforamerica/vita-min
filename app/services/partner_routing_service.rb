@@ -136,7 +136,7 @@ class PartnerRoutingService
     return unless @zip_code.present?
 
     # Step 1/2: Check sites.
-    eligible_with_capacity = @base_sites.joins(:serviced_zip_codes)
+    eligible_with_capacity = @base_sites.with_capacity.joins(:serviced_zip_codes)
                                         .where(vita_partner_zip_codes: { zip_code: @zip_code })
 
     vita_partner = eligible_with_capacity.sample
