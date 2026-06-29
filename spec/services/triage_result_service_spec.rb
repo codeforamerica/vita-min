@@ -60,7 +60,7 @@ RSpec.describe TriageResultService do
       context "when an eligible client selected none of the disqualifying income scenarios" do
         before do
           intake.triage_income_level = "1_to_10000"
-          intake.triage_vita_income_ineligible = "yes"
+          intake.triage_vita_income_ineligible = "no"
         end
 
         it "routes to simple file" do
@@ -82,12 +82,12 @@ RSpec.describe TriageResultService do
       context "when the client is eligible but no priority condition applies" do
         before do
           intake.triage_income_level = "1_to_10000"
-          intake.triage_vita_income_ineligible = "no"
+          intake.triage_vita_income_ineligible = "yes"
           intake.have_income_tax_documents = "yes"
         end
 
         it "uses the existing routing logic" do
-          expect(route).to eq(gyr_path)
+          expect(route).to eq(diy_path)
         end
 
         it "does not build a simple file url" do

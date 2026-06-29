@@ -98,7 +98,7 @@ class TriageResultService
   end
 
   def simple_file_priority_condition?
-    intake.triage_income_level_zero? || intake.triage_vita_income_ineligible_yes? || intake.have_income_tax_documents_no?
+    intake.triage_income_level_zero? || intake.triage_vita_income_ineligible_no? || intake.have_income_tax_documents_no?
   end
 
   def income_level_from_1_to_69000?
