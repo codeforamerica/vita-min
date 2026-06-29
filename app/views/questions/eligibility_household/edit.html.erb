@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <div id="qualifying-child-under-6" hidden>
+    <div id="qualifying-child-under-6" class="hidden">
       <div class="eligibility-card" style="padding: 0rem 2rem 2rem 2rem;">
         <p class="spacing-above-15 spacing-below-0">
           <strong><%= t(".qualifying_child_5") %></strong>
@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <div id="qualifying-child-under-17" hidden>
+    <div id="qualifying-child-under-17" class="hidden">
       <div class="eligibility-card" style="padding: 0rem 2rem 2rem 2rem;">
         <p class="spacing-above-15 spacing-below-0">
           <strong><%= t(".qualifying_child_16") %></strong>
@@ -63,17 +63,23 @@
       </div>
     </div>
 
-    <div class="reveal reveal--service-card">
-      <button class="reveal__button"><%= t('.child_reveal.title') %></button>
-      <div class="reveal__content">
-        <p><%= t('.child_reveal.subtitle') %></p>
-        <ul class="list--bulleted spacing-below-10">
-          <li><%= t(".child_reveal.bullet_1") %></li>
-          <li><%= t(".child_reveal.bullet_2") %></li>
-          <li><%= t(".child_reveal.bullet_3") %></li>
-          <li><%= t(".child_reveal.bullet_4") %></li>
-          <li><%= t(".child_reveal.bullet_5") %></li>
-        </ul>
+    <div id="qualifying-child-reveal-wrapper" class="hidden">
+      <div class="reveal reveal--service-card">
+        <button class="reveal__button" type="button">
+          <%= t('.child_reveal.title') %>
+        </button>
+
+        <div class="reveal__content">
+          <p><%= t('.child_reveal.subtitle') %></p>
+
+          <ul class="list--bulleted spacing-below-10">
+            <li><%= t(".child_reveal.bullet_1") %></li>
+            <li><%= t(".child_reveal.bullet_2") %></li>
+            <li><%= t(".child_reveal.bullet_3") %></li>
+            <li><%= t(".child_reveal.bullet_4") %></li>
+            <li><%= t(".child_reveal.bullet_5") %></li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -85,34 +91,34 @@
   <script>
       function initializeQualifyingChildQuestions() {
           const stateSelect = document.getElementById("eligibility_household_form_state_of_residence") || document.querySelector('select[name$="[state_of_residence]"]')
-
           const underSixSection = document.getElementById("qualifying-child-under-6")
-
           const underSeventeenSection = document.getElementById("qualifying-child-under-17")
+          const qualifyingChildRevealWrapper = document.getElementById("qualifying-child-reveal-wrapper")
 
-          if (!stateSelect || !underSixSection || !underSeventeenSection) {
+          if (!stateSelect || !underSixSection || !underSeventeenSection || !qualifyingChildRevealWrapper) {
               return
           }
 
           function setSectionVisibility(section, visible) {
-              section.hidden = !visible
+              section.classList.toggle("hidden", !visible)
 
               section.querySelectorAll("input").forEach(function(input) {
-                      input.disabled = !visible
-                  })
+                  input.disabled = !visible
+              })
           }
 
           function updateQualifyingChildQuestions() {
               const selectedState = stateSelect.value
+              const showUnderSix = selectedState === "NJ"
+              const showUnderSeventeen = selectedState === "CO"
 
-              setSectionVisibility(underSixSection, selectedState === "NJ")
-
-              setSectionVisibility(underSeventeenSection, selectedState === "CO")
+              setSectionVisibility(underSixSection, showUnderSix)
+              setSectionVisibility(underSeventeenSection, showUnderSeventeen)
+              setSectionVisibility(qualifyingChildRevealWrapper, showUnderSix || showUnderSeventeen)
           }
 
           if (stateSelect.dataset.qualifyingChildInitialized !== "true") {
               stateSelect.addEventListener("change", updateQualifyingChildQuestions)
-
               stateSelect.dataset.qualifyingChildInitialized = "true"
           }
 
@@ -120,7 +126,6 @@
       }
 
       document.addEventListener("turbo:load", initializeQualifyingChildQuestions)
-
       document.addEventListener("DOMContentLoaded", initializeQualifyingChildQuestions)
   </script>
 <% end %>

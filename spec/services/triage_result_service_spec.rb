@@ -153,8 +153,14 @@ RSpec.describe TriageResultService do
           expect(route).to eq(simple_file_url)
         end
 
-        it "is ineligible in the $20,001–26,000 range" do
+        it "is eligible in the $20,001–26,000 range" do
           intake.triage_income_level = "20001_to_26000"
+
+          expect(route).to eq(simple_file_url)
+        end
+
+        it "is ineligible in the $26,001 to 69,000 range" do
+          intake.triage_income_level = "26001_to_69000"
 
           expect(route).to eq(gyr_path)
         end
