@@ -11,6 +11,7 @@ Rails.application.configure do
   config.ctc_url = "https://#{ctc_hostname}"
   config.statefile_url = "https://#{state_file_hostname}"
   config.gyr_url = "https://#{gyr_hostname}"
+  config.simple_file_url = "https://staging.simplefile.getyourrefund.org"
   gyr_email_from_domain = "mg-staging.getyourrefund-testing.org"
   ctc_email_from_domain = "mg-demo-ctc.getyourrefund-testing.org"
   statefile_email_from_domain = "mg-staging.fileyourstatetaxes.org"

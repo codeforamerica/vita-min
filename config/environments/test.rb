@@ -93,6 +93,7 @@ Rails.application.configure do
   config.ctc_url = "http://ctc.test.localhost"
   config.statefile_url = "http://statefile.test.localhost"
   config.gyr_url = "http://test.localhost"
+  config.simple_file_url = "https://staging.simplefile.getyourrefund.org/"
   config.signature_log_bucket = "vita-min-test-signatures"
   config.efile_environment = ""
   config.efile_security_information_for_testing = nil

@@ -2211,10 +2211,30 @@ en:
     home:
       already_started: Already started? Sign in
   questions:
+    eligibility_household:
+      edit:
+        child_reveal:
+          bullet_1: Is your child, stepchild, foster child, adopted child, grandchild, sibling, half-sibling, stepsibling, or descendant of any of them
+          bullet_2: Lived with you for over half the tax year
+          bullet_3: Did not provide over half their own support for the tax year
+          bullet_4: Is not married and filing a joint return with their spouse for this tax year
+          bullet_5: You are entitled to claim them as a dependent for this tax year
+          subtitle: 'A qualifying child is someone who meets all of the following:'
+          title: Who is considered a qualifying child?
+        household_status:
+          jointly: Filing with my spouse (filing jointly)
+          question: How will you be filing this year?
+          single: Filing by myself (filing single)
+        page: Step 3 of 3
+        qualifying_child_16: Did you have a qualifying child age 16 or under in 2025?
+        qualifying_child_5: Did you have a qualifying child age 5 or under in 2025?
+        residence_state: What state did you live in in 2025?
+        title: Tell us about your household
     eligibility_state:
       edit:
         diy_html: "<strong>Get help as you go:</strong> chat with a tax expert as you file to answer any questions you have along the way"
         page: Step 2 of 2
+        page_with_simple_file_step: Step 2 of 3
         title: What kind of support do you prefer while you file your taxes?
         virtual_vita_html: "<strong>Have an expert do your taxes:</strong> match with an IRS-certified preparer who will prepare and submit your return"
     eligibility_wages:

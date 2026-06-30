@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_05_29_000000) do
+ActiveRecord::Schema[7.2].define(version: 2026_06_17_210604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1427,6 +1427,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_29_000000) do
     t.integer "had_local_tax_refund", default: 0, null: false
     t.integer "had_medicaid_medicare", default: 0, null: false
     t.integer "had_other_income", default: 0, null: false
+    t.integer "had_qualifying_child_under_17", default: 0, null: false
+    t.integer "had_qualifying_child_under_6", default: 0, null: false
     t.integer "had_rental_income", default: 0, null: false
     t.integer "had_rental_income_and_used_dwelling_as_residence", default: 0, null: false
     t.integer "had_rental_income_from_personal_property", default: 0, null: false

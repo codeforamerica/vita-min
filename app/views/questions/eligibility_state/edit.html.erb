@@ -2,7 +2,11 @@
 <% content_for :card do %>
 
   <div class="text--centered text--small text--bold">
-    <%= t(".page") %>
+    <% if Flipper.enabled?(:show_simple_file) %>
+      <%= t(".page_with_simple_file_step") %>
+    <% else %>
+      <%= t(".page") %>
+    <% end %>
   </div>
 
   <h2 class="text--normal"><%= content_for(:page_title) %></h2>
