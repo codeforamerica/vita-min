@@ -5,7 +5,7 @@ module Questions
     layout "application"
 
     def self.show?(intake)
-      intake.filing_joint_yes?
+      intake.filing_joint_yes? && !(intake.widowed_yes? && intake.married_last_day_of_year_no?)
     end
 
     private
