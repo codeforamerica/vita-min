@@ -48,9 +48,9 @@
       <%= link_to t("portal.portal.home.document_link.add_missing_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
     <% elsif card_props[:button_type] == :complete_intake %>
       <% if Flipper.enabled?(:client_portal_improvements) %>
-        <%= link_to(t("portal.portal.home.document_link.complete_tax_questions_2"), card_props[:link], class: "button spacing-below-0"), "data-track-click": "client_portal_finish_intake" %>
+        <%= link_to(t("portal.portal.home.document_link.complete_tax_questions_2"), card_props[:link], class: "button spacing-below-0", "data-track-click": "client_portal_finish_intake") %>
       <% else %>
-        <%= link_to(t("portal.portal.home.document_link.complete_tax_questions"), card_props[:link], class: "button spacing-below-0"), "data-track-click": "client_portal_finish_intake" %>
+        <%= link_to(t("portal.portal.home.document_link.complete_tax_questions"), card_props[:link], class: "button spacing-below-0", "data-track-click": "client_portal_finish_intake") %>
       <% end %>
     <% elsif card_props[:button_type] == :complete_intake_documents %>
       <%= link_to(t("portal.portal.home.document_link.add_missing_documents"), card_props[:link], class: "button spacing-below-0") %>
