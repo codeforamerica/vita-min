@@ -64,7 +64,7 @@ gem "twilio-ruby", "~> 7.10"
 gem 'mailgun-ruby'
 gem 'devise_invitable'
 gem 'cancancan'
-gem 'shakapacker', '9.5.0'
+gem 'shakapacker', '9.7.0'
 gem 'combine_pdf'
 gem 'pdf-reader', '~> 2.4.1'
 gem 'rails_autolink'
