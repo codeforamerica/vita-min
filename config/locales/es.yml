@@ -2092,11 +2092,14 @@ es:
           add_signature_primary: Agregue su firma final a su declaración de impuestos
           add_signature_spouse: Agregue la firma final de su cónyuge a su declaración de impuestos
           finish_intake: Responda las preguntas fiscales restantes para continuar.
+          finish_intake_2: Cuando termine su formulario, lo conectaremos con el equipo de impuestos.
+          finish_intake_title: Siga respondiendo las preguntas
         client_id: 'Identificación del cliente: %{id}'
         document_link:
           add_final_signature: Agregar firma final
           add_missing_documents: Agregar documentos faltantes
           complete_tax_questions: Preguntas completas sobre impuestos
+          complete_tax_questions_2: Finalizar formulario
           view_document: Ver o descargar el documento %{display_name}
           view_documents: Ver sus documentos cargados
           view_final_tax_document: Descargar los documentos de impuestos finales %{year}
@@ -2113,6 +2116,7 @@ es:
           info_requested: Necesitamos más documentos de usted para comenzar su declaración de impuestos.
           intake_documents_incomplete: Necesitamos más documentos de usted para comenzar su declaración de impuestos.
           intake_incomplete: No ha terminado de responder todas las preguntas sobre impuestos, por lo que no podemos comenzar su declaración de impuestos.
+          intake_incomplete_2: Aún debe finalizar su formulario de impuestos.
           intake_ready: Su equipo de impuestos programará una llamada de revisión inicial con usted.
           intake_ready_for_call: Su equipo de impuestos programará una llamada de revisión inicial con usted.
           prep_ready_for_prep: Tu equipo fiscal está preparando la declaración
@@ -2120,8 +2124,10 @@ es:
           review_reviewing: Tu devolución está siendo revisada
           review_signature_requested_primary: Estamos esperando una firma final de usted.
           review_signature_requested_spouse: Estamos esperando una firma final de su cónyuge.
+        status:
+          in_progress: En proceso
         subtitle: 'Aquí hay una instantánea de sus impuestos:'
-        tax_return_heading: Declaración de impuestos de %{year}
+        tax_return_heading: Su declaración del %{year}
         title: Bienvenido de nuevo %{name}!
     still_needs_helps:
       chat_later:

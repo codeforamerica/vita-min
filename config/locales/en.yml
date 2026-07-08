@@ -2120,11 +2120,14 @@ en:
           add_signature_primary: Please add your final signature to your tax return
           add_signature_spouse: Please add your spouse's final signature to your tax return
           finish_intake: Please answer remaining tax questions to continue.
+          finish_intake_2: When you finish your tax form you'll get paired with your tax team.
+          finish_intake_title: Continue answering tax questions
         client_id: 'Client ID: %{id}'
         document_link:
           add_final_signature: Add final signature
           add_missing_documents: Add missing documents
           complete_tax_questions: Complete tax questions
+          complete_tax_questions_2: Finish tax form
           view_document: View or download %{display_name}
           view_documents: View your uploaded documents
           view_final_tax_document: Download final tax papers %{year}
@@ -2141,6 +2144,7 @@ en:
           info_requested: We need more documents from you to start your tax return.
           intake_documents_incomplete: We need more documents from you to start your tax return.
           intake_incomplete: You have not finished answering all the tax questions so we cannot start your tax return.
+          intake_incomplete_2: You're still filling out your tax form.
           intake_ready: Your tax team is going to schedule an initial review call with you.
           intake_ready_for_call: Your tax team is going to schedule an initial review call with you.
           prep_ready_for_prep: Your tax team is preparing the return.
@@ -2148,8 +2152,10 @@ en:
           review_reviewing: Your return is being reviewed.
           review_signature_requested_primary: We are waiting for a final signature from you.
           review_signature_requested_spouse: We are waiting for a final signature from your spouse.
+        status:
+          in_progress: In progress
         subtitle: 'Here is a snapshot of your taxes:'
-        tax_return_heading: "%{year} return"
+        tax_return_heading: Your %{year} return
         title: Welcome back %{name}!
     still_needs_helps:
       chat_later:

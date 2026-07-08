@@ -19,13 +19,19 @@ module TaxReturnCardHelper
       end
     end
 
-    if ask_for_answers && !current_step&.include?("/documents")
+    if (Flipper.enabled?(:client_portal_improvements) && (ask_for_answers || state == :intake_needs_doc_help)) ||
+        (ask_for_answers && !current_step&.include?("/documents"))
       {
-        help_text: t('portal.portal.home.help_text.intake_incomplete'),
+        help_text: Flipper.enabled?(:client_portal_improvements) ?
+                    t('portal.portal.home.help_text.intake_incomplete_2') :
+                    t('portal.portal.home.help_text.intake_incomplete'),
         percent_complete: 10,
         button_type: :complete_intake,
         link: current_step,
-        call_to_action_text: t('portal.portal.home.calls_to_action.finish_intake')
+        call_to_action_title: t('portal.portal.home.calls_to_action.finish_intake_title'),
+        call_to_action_text: Flipper.enabled?(:client_portal_improvements) ?
+                              t('portal.portal.home.calls_to_action.finish_intake_2') :
+                              t('portal.portal.home.calls_to_action.finish_intake')
       }
     elsif ask_for_answers && current_step&.include?("/documents")
       {
@@ -88,7 +94,9 @@ module TaxReturnCardHelper
         percent_complete: 90,
         button_type: :view_documents,
       }
-    elsif [:intake_greeter_info_requested, :intake_needs_doc_help, :intake_info_requested, :prep_info_requested, :review_info_requested].include?(state)
+    # when enabled, we don't check for :intake_needs_doc_help here
+    elsif (Flipper.enabled?(:client_portal_improvements) && [:intake_greeter_info_requested, :intake_info_requested, :prep_info_requested, :review_info_requested].include?(state)) ||
+          [:intake_greeter_info_requested, :intake_needs_doc_help, :intake_info_requested, :prep_info_requested, :review_info_requested].include?(state)
       {
         help_text: t('portal.portal.home.help_text.info_requested'),
         percent_complete: {intake_greeter_info_requested: 45, intake_needs_doc_help: 45, intake_info_requested: 45, prep_info_requested: 65, review_info_requested: 85}[state],

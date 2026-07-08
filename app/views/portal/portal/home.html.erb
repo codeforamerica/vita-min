@@ -3,14 +3,17 @@
 <% content_for :card do %>
   <h2 class="spacing-below-10"><%= t(".title", name: current_client.intake.preferred_name) %></h2>
 
-  <div class="spacing-below-15">
-    <h2 class="text--teal h3">
-      <%= t(".client_id", id: current_client.id) %>
-    </h2>
-  </div>
-  <div class="spacing-below-15">
-    <%= t('.subtitle') %>
-  </div>
+  <% if ! Flipper.enabled?(:client_portal_improvements) %>
+    <div class="spacing-below-15">
+      <h2 class="text--teal h3">
+        <%= t(".client_id", id: current_client.id) %>
+      </h2>
+    </div>
+
+    <div class="spacing-below-15">
+      <%= t('.subtitle') %>
+    </div>
+  <% end %>
 
   <% if @tax_returns.present? %>
     <% @tax_returns.each_with_index do |tax_return, index| %>

@@ -9,6 +9,9 @@ module Portal
     def home
       @tax_returns = current_client.tax_returns.order(year: :desc).to_a
       @tax_returns << PseudoTaxReturn.new(intake: current_intake, time: app_time) if @tax_returns.empty?
+
+      current_state = current_intake.tax_returns.last.current_state
+      send_mixpanel_event(event_name: 'client_portal_visited', data: {return_status: current_state})
     end
 
     def current_intake

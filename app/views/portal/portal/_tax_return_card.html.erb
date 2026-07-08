@@ -3,18 +3,33 @@
 <div class="review-box" id="tax-year-<%= tax_return.year %>">
   <div class="grid-flex space-between spacing-below-25">
     <div>
-      <h2 class="h3"><%= t('portal.portal.home.tax_return_heading', year: tax_return.year) %></h2>
+      <h2 class="h3">
+        <%= t('portal.portal.home.tax_return_heading', year: tax_return.year) %>
+        <% if Flipper.enabled?(:client_portal_improvements) %>
+          <span class="portal-status-badge"><%= t('portal.portal.home.status.in_progress') %></span>
+        <% end %>
+      </h2>
       <p class="spacing-below-0"><%= card_props[:help_text] %></p>
     </div>
-    <% if card_props.has_key?(:percent_complete) && card_props[:percent_complete].present? %>
-      <div style="flex-shrink: 0;">
-        <%= render "shared/svg/percent_complete_circle", percent: card_props[:percent_complete] %>
-      </div>
+
+    <% if ! Flipper.enabled?(:client_portal_improvements) %>
+      <% if card_props.has_key?(:percent_complete) && card_props[:percent_complete].present? %>
+        <div style="flex-shrink: 0;">
+          <%= render "shared/svg/percent_complete_circle", percent: card_props[:percent_complete] %>
+        </div>
+      <% end %>
     <% end %>
   </div>
   <% if card_props[:call_to_action_text].present? %>
-    <%= render "portal/portal/action_state", link: false do %>
-      <%= card_props[:call_to_action_text] %>
+    <% if Flipper.enabled?(:client_portal_improvements) %>
+      <div class="portal-info-box">
+        <p style="margin-bottom: 1rem"><b><%= card_props[:call_to_action_title] %></b></br>
+        <p style="margin: 0.1rem"><%= card_props[:call_to_action_text] %>
+      </div>
+    <% else %>
+      <%= render "portal/portal/action_state", link: false do %>
+        <%= card_props[:call_to_action_text] %>
+      <% end %>
     <% end %>
   <% end %>
 
@@ -32,7 +47,11 @@
     <% elsif card_props[:button_type] == :add_missing_documents %>
       <%= link_to t("portal.portal.home.document_link.add_missing_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
     <% elsif card_props[:button_type] == :complete_intake %>
-      <%= link_to(t("portal.portal.home.document_link.complete_tax_questions"), card_props[:link], class: "button spacing-below-0") %>
+      <% if Flipper.enabled?(:client_portal_improvements) %>
+        <%= link_to(t("portal.portal.home.document_link.complete_tax_questions_2"), card_props[:link], class: "button spacing-below-0"), "data-track-click": "client_portal_finish_intake" %>
+      <% else %>
+        <%= link_to(t("portal.portal.home.document_link.complete_tax_questions"), card_props[:link], class: "button spacing-below-0"), "data-track-click": "client_portal_finish_intake" %>
+      <% end %>
     <% elsif card_props[:button_type] == :complete_intake_documents %>
       <%= link_to(t("portal.portal.home.document_link.add_missing_documents"), card_props[:link], class: "button spacing-below-0") %>
     <% elsif card_props[:button_type] == :add_signature_primary %>
