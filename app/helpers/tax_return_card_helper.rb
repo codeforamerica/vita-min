@@ -27,7 +27,9 @@ module TaxReturnCardHelper
                     t('portal.portal.home.help_text.intake_incomplete'),
         percent_complete: 10,
         button_type: :complete_intake,
-        link: current_step,
+        link: Flipper.enabled?(:client_portal_improvements) && state == :intake_needs_doc_help ?
+                Portal::UploadDocumentsController.to_path_helper(action: :index) :
+                current_step,
         call_to_action_title: t('portal.portal.home.calls_to_action.finish_intake_title'),
         call_to_action_text: Flipper.enabled?(:client_portal_improvements) ?
                               t('portal.portal.home.calls_to_action.finish_intake_2') :
