@@ -173,3 +173,5 @@ gem "aws-sdk-core", "~> 3.190"
 gem "aws-sdk-bedrockruntime", "~> 1.2"
 
 gem 'oauth2', '>= 2.0.22'
+
+gem 'websocket-driver', '>= 0.8.2'
