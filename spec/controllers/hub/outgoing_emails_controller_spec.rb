@@ -4,7 +4,7 @@ RSpec.describe Hub::OutgoingEmailsController do
   let(:user) { create :organization_lead_user }
 
   describe "#create" do
-    let(:client) { create :client, vita_partner: user.role.organization }
+    let(:client) { create :client, vita_partner: user.role.organization, flagged_at: Time.now }
     let!(:intake) { create :intake, client: client, email_address: "loose.seal@example.com" }
     let(:params) do
       { client_id: client.id, outgoing_email: { body: "hi client" } }
@@ -33,6 +33,9 @@ RSpec.describe Hub::OutgoingEmailsController do
           post :create, params: params
 
           expect(ClientMessagingService).to have_received(:send_email).with(client: client, user: user, body: "hi client", attachment: instance_of(ActionDispatch::Http::UploadedFile))
+
+          expect(Client.find(client.id).flagged_at).to equal(nil)
+
           expect(response).to redirect_to hub_client_messages_path(client_id: client.id, anchor: "last-item")
         end
       end
