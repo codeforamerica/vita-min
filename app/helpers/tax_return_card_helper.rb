@@ -128,6 +128,48 @@ module TaxReturnCardHelper
     end
   end
 
+  def tax_return_status_to_props_2(tax_return)
+    state = tax_return.current_state.to_sym
+
+    intake = tax_return.intake
+    ask_for_answers = state == :intake_in_progress
+
+    if ask_for_answers
+      current_step = intake.current_step
+      if intake.client&.routing_method_at_capacity?
+        # check if the appropriate partner is still at capacity
+        PartnerRoutingService.update_intake_partner(intake)
+
+        if intake.client.routing_method_at_capacity?
+          current_step = Questions::AtCapacityController.to_path_helper
+        else
+          current_step = Questions::ConsentController.to_path_helper
+        end
+      end
+    end
+
+    if ask_for_answers || state == :intake_needs_doc_help
+      {
+        help_text: t('portal.portal2.home.help_text.intake_incomplete'),
+        button_type: :complete_intake,
+        link: state == :intake_needs_doc_help ?
+                Portal::UploadDocumentsController.to_path_helper(action: :index) :
+                current_step,
+        call_to_action_title: t('portal.portal2.home.calls_to_action.finish_intake_title'),
+        call_to_action_text: t('portal.portal2.home.calls_to_action.finish_intake')
+      }
+    elsif [:intake_greeter_info_requested,
+           :intake_info_requested,
+           :prep_info_requested,
+           :review_info_requested].include?(state)
+      {
+        help_text: t('portal.portal.home.help_text.info_requested'),
+        button_type: :add_missing_documents,
+        call_to_action_text: t('portal.portal.home.calls_to_action.add_missing_documents')
+      }
+    end
+  end
+
   private
 
   def signature_documents_ready?(tax_return)
