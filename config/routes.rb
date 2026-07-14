@@ -166,6 +166,8 @@ Rails.application.routes.draw do
       namespace :portal do
         root "portal#home"
 
+        get '/portal2', to: 'portal2#home', as: :portal2
+
         # Add redirect for pre-March-2021-style login token links; safe to delete in April 2021
         get "/account/:id", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login/#{request.params[:id]}" }
         get "/closed", to: 'closed_logins#show', as: :closed_login

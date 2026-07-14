@@ -2120,8 +2120,18 @@ es:
           review_reviewing: Tu devolución está siendo revisada
           review_signature_requested_primary: Estamos esperando una firma final de usted.
           review_signature_requested_spouse: Estamos esperando una firma final de su cónyuge.
+        status:
+          in_progress: En proceso
         subtitle: 'Aquí hay una instantánea de sus impuestos:'
-        tax_return_heading: Declaración de impuestos de %{year}
+        tax_return_heading: Su declaración del %{year}
+        title: Bienvenido de nuevo %{name}!
+    portal2:
+      home:
+        calls_to_action:
+          finish_intake: Cuando termine su formulario, lo conectaremos con el equipo de impuestos.
+          finish_intake_title: Siga respondiendo las preguntas
+        help_text:
+          intake_incomplete: Aún debe finalizar su formulario de impuestos.
         title: Bienvenido de nuevo %{name}!
     still_needs_helps:
       chat_later:

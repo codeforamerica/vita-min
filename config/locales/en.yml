@@ -2148,8 +2148,18 @@ en:
           review_reviewing: Your return is being reviewed.
           review_signature_requested_primary: We are waiting for a final signature from you.
           review_signature_requested_spouse: We are waiting for a final signature from your spouse.
+        status:
+          in_progress: In progress
         subtitle: 'Here is a snapshot of your taxes:'
-        tax_return_heading: "%{year} return"
+        tax_return_heading: Your %{year} return
+        title: Welcome back %{name}!
+    portal2:
+      home:
+        calls_to_action:
+          finish_intake: When you finish your tax form you'll get paired with your tax team.
+          finish_intake_title: Continue answering tax questions
+        help_text:
+          intake_incomplete: You're still filling out your tax form.
         title: Welcome back %{name}!
     still_needs_helps:
       chat_later:
