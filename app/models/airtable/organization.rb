@@ -1,9 +1,9 @@
 module Airtable
   class Organization < Airrecord::Table
-    self.base_key = Rails.application.credentials.dig(:airtable, :base_key)
-    self.table_name = Rails.application.credentials.dig(:airtable, :table_name)
+    self.base_key = EnvironmentalCredentials['AIRTABLE_BASE_KEY']
+    self.table_name = EnvironmentalCredentials['AIRTABLE_TABLE_NAME']
 
-    Airrecord.api_key = Rails.application.credentials.dig(:airtable, :token)
+    Airrecord.api_key = EnvironmentalCredentials['AIRTABLE_TOKEN']
 
     def self.language_offerings
       all.each_with_object({}) do |record, hash|

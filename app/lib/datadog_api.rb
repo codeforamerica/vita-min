@@ -11,7 +11,7 @@ module DatadogApi
     end
 
     def api_key
-      Rails.application.credentials.dig(:datadog_api_key)
+      EnvironmentalCredentials['DATADOG_API_KEY']
     end
 
     def namespace

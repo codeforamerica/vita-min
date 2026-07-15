@@ -1,5 +1,5 @@
 Sentry.init do |config|
-  config.dsn = Rails.application.credentials.dig(:sentry_dsn)
+  config.dsn = EnvironmentalCredentials['SENTRY_DSN']
   config.enabled_environments = %w(production staging demo)
 
   config.before_send = lambda do |event, _hint|
