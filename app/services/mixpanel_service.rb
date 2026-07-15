@@ -13,7 +13,7 @@ class MixpanelService
   include Singleton
 
   def initialize
-    mixpanel_key = EnvironmentalCredentials['MIXPANEL_TOKEN']
+    mixpanel_key = EnvironmentCredentials['MIXPANEL_TOKEN']
     return if mixpanel_key.nil?
 
     @buffer = []

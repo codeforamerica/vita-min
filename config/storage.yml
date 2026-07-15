@@ -1,7 +1,7 @@
 deploy_default: &deploy_default
   service: S3
-  access_key_id: <%= EnvironmentalCredentials['AWS_ACCESS_KEY_ID'] %>
-  secret_access_key: <%= EnvironmentalCredentials['AWS_SECRET_ACCESS_KEY'] %>
+  access_key_id: <%= EnvironmentCredentials['AWS_ACCESS_KEY_ID'] %>
+  secret_access_key: <%= EnvironmentCredentials['AWS_SECRET_ACCESS_KEY'] %>
   region: us-east-1
 
 test:
@@ -41,7 +41,7 @@ s3_heroku:
 # microsoft:
 #   service: AzureStorage
 #   storage_account_name: your_account_name
-#   storage_access_key: <%= EnvironmentalCredentials['AZURE_STORAGE_STORAGE_ACCESS_KEY'] %>
+#   storage_access_key: <%= EnvironmentCredentials['AZURE_STORAGE_STORAGE_ACCESS_KEY'] %>
 #   container: your_container_name
 
 # mirror:
