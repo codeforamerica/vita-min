@@ -23,6 +23,14 @@ RSpec.describe IntercomService do
     allow(fake_intercom.conversations).to receive(:reply)
 
     @test_environment_credentials.merge!(intercom: { intercom_access_token: "fake_access_token", secure_mode_secret_key: "a-fake-key-to-use-for-hashing" })
+    allow(EnvironmentCredentials).to receive(:[]) do |arg| 
+      case arg
+      in "INTERCOM_ACCESS_TOKEN"
+        "fake_access_token"
+      in "SECURE_MODE_SECRET_KEY"
+        "a-fake-key-to-use-for-hashing"
+      end
+    end
     allow(Intercom::Client).to receive(:new).with(token: "fake_access_token").and_return(fake_intercom)
     described_class.instance_variable_set(:@intercom, nil)
   end
@@ -257,7 +265,7 @@ RSpec.describe IntercomService do
     context "when there's an upstream authentication failure" do
       before do
         allow(fake_intercom.messages).to receive(:create).with(params) {
-          raise Intercom::AuthenticationError.new("fake error")
+          raise Intercom::AuthenticationError, "fake error"
         }
       end
 
@@ -275,7 +283,7 @@ RSpec.describe IntercomService do
         allow(fake_intercom.messages).to receive(:create).with(params) {
           call_count += 1
           if call_count <= 3
-            raise Intercom::AuthenticationError.new("fake error")
+            raise Intercom::AuthenticationError, "fake error"
           end
         }.exactly(4).times
 

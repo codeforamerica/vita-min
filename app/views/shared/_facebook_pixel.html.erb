@@ -9,7 +9,7 @@
         t.src=v;s=b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '<%=EnvironmentCredentials['FACEBOOK_PIXEL_ID'];
+    fbq('init', '<%= EnvironmentCredentials['FACEBOOK_PIXEL_ID'] %>');
     fbq('track', 'PageView');
     <% if local_assigns[:track_conversion] %>
       fbq('trackCustom', '<%="#{track_conversion}" %>');

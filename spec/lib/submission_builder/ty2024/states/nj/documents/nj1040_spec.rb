@@ -442,7 +442,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "disabled show_retirement_ui flag" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(false)
+        allow(Flipper).to receive(:enabled?) do |arg| 
+          case arg
+          in :show_retirement_ui
+            false
+          in :use_env_secrets
+            false
+          end
+        end
       end
 
       it "does not show line 20a PensAnnuitAndIraWithdraw even when there is a value" do
@@ -463,7 +470,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "taxable retirement income - line 20a" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+        allow(Flipper).to receive(:enabled?) do |arg| 
+          case arg
+          in :show_retirement_ui
+            true
+          in :use_env_secrets
+            false
+          end
+        end
       end
 
       context "when applicable taxable retirement income exists" do
@@ -484,7 +498,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "excludable retirement income - line 20b" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+        allow(Flipper).to receive(:enabled?) do |arg| 
+          case arg
+          in :show_retirement_ui
+            true
+          in :use_env_secrets
+            false
+          end
+        end
       end
 
       context "when applicable excludable retirement income exists" do
@@ -522,7 +543,14 @@ describe SubmissionBuilder::Ty2024::States::Nj::Documents::Nj1040, required_sche
 
     describe "Pension/Retirement Exclusion - line 28a" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:show_retirement_ui).and_return(true)
+        allow(Flipper).to receive(:enabled?) do |arg| 
+          case arg
+          in :show_retirement_ui
+            true
+          in :use_env_secrets
+            false
+          end
+        end
       end
 
       context "when line 28a has a value" do
