@@ -1,10 +1,5 @@
 class EnvironmentCredentials
-  # Maps environment variable names to Rails credential dig paths for keys
-  # where the service name doesn't match the first segment of the ENV var name.
-  #
-  # Most keys are resolved automatically by trying 2-level and 3-level
-  # credential paths (e.g. MAILGUN_API_KEY -> [:mailgun, :api_key]).
-  # Only truly non-obvious mappings go here.
+  # Some variables don't map obviously.
   SECRET_KEYS = {
     'VITA_MIN_EFIN' => [:irs, :efin],
     'MD_SIN' => [:irs, :md_sin],
