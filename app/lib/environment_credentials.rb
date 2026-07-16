@@ -12,11 +12,16 @@ class EnvironmentCredentials
 
   class << self
     def [](name)
+      
       if Flipper.enabled?(:use_env_secrets)
         ENV.fetch(name, nil)
       else
         credentials_value(name)
       end
+    rescue ActiveRecord::NoDatabaseError, ActiveRecord::StatementInvalid
+      # Necessary when starting from scratch because flipper tables are not
+      # established yet
+      ENV.fetch(name, nil) || credentials_value(name)
     end
 
     def dig(*keys)
