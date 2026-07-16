@@ -18,7 +18,7 @@ class EnvironmentCredentials
       else
         credentials_value(name)
       end
-    rescue ActiveRecordError
+    rescue ActiveRecord::ActiveRecordError
       # Necessary when starting from scratch because flipper tables are not
       # established yet
       ENV.fetch(name, nil) || credentials_value(name)
