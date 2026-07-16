@@ -27,7 +27,7 @@ RSpec.describe IntercomService do
       case arg
       in "INTERCOM_ACCESS_TOKEN"
         "fake_access_token"
-      in "SECURE_MODE_SECRET_KEY"
+      in "INTERCOM_SECURE_MODE_SECRET_KEY"
         "a-fake-key-to-use-for-hashing"
       end
     end
