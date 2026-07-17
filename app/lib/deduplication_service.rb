@@ -1,5 +1,5 @@
 class DeduplicationService
-  def self.sensitive_attribute_hashed(instance, attr, key = EnvironmentCredentials.dig(:duplicate_hashing_key))
+  def self.sensitive_attribute_hashed(instance, attr, key = EnvironmentCredentials['DUPLICATE_HASHING_KEY'])
     value = instance.send(attr)
     return unless value.present?
     # we want to hash all ssns the same way so that data can dedupe across the board
@@ -20,7 +20,7 @@ class DeduplicationService
     _, attr_without_hashed = attr.to_s.split("hashed_")
     return instance.send(attr) if attr_without_hashed.nil?
 
-    old_key = EnvironmentCredentials.dig(:previous_duplicate_hashing_key)
+    old_key = EnvironmentCredentials['PREVIOUS_DUPLICATE_HASHING_KEY']
     return instance.send(attr) unless old_key.present?
 
     [sensitive_attribute_hashed(instance, attr_without_hashed), sensitive_attribute_hashed(instance, attr_without_hashed, old_key)]
