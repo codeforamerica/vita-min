@@ -79,7 +79,8 @@
     "@tootallnate/once": "^3.0.1",
     "http-proxy-agent": "^7.0.0",
     "uuid": "~14",
-    "qs": "6.15.2"
+    "qs": "6.15.2",
+    "fast-xml-parser": "5.7.0"
   },
   "dependenciesMeta": {
     "@percy/core": {
