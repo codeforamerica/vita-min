@@ -22,10 +22,10 @@ class CopySecrets < Thor
     in aptible_found: false, doppler_found: false
       say "Please install doppler & aptible cli tools", :red
       exit
-    in aptible_found: true, doppler_found: false
+    in aptible_found: false, doppler_found: true
       say "Please install aptible", :red
       exit
-    in aptible_found: false, doppler_found: true
+    in aptible_found: true, doppler_found: false
       say "Please install doppler", :red
       exit
     else
