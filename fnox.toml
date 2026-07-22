@@ -1,0 +1,46 @@
+default_provider = "doppler"
+
+[providers.doppler]
+type = "doppler"
+project = "tax-get-your-refund"
+config = "dev"
+
+[secrets]
+ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY = { provider = "doppler", value = 'ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY' }
+ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT = { provider = "doppler", value = 'ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT' }
+ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY= { provider = "doppler", value = "ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY" }
+AIRTABLE_BASE_KEY= { provider = "doppler", value = "AIRTABLE_BASE_KEY" }
+AIRTABLE_TABLE_NAME= { provider = "doppler", value = "AIRTABLE_TABLE_NAME" }
+AIRTABLE_TOKEN= { provider = "doppler", value = "AIRTABLE_TOKEN" }
+DATADOG_AGENT_HOST= { provider = "doppler", value = "DATADOG_AGENT_HOST" }
+DATADOG_API_KEY= { provider = "doppler", value = "DATADOG_API_KEY" }
+DUPLICATE_HASHING_KEY= { provider = "doppler", value = "DUPLICATE_HASHING_KEY" }
+GOOGLE_OAUTH2_CLIENT_ID= { provider = "doppler", value = "GOOGLE_OAUTH2_CLIENT_ID" }
+GOOGLE_OAUTH2_CLIENT_SECRET= { provider = "doppler", value = "GOOGLE_OAUTH2_CLIENT_SECRET" }
+INTERCOM_INTERCOM_ACCESS_TOKEN= { provider = "doppler", value = "INTERCOM_INTERCOM_ACCESS_TOKEN" }
+INTERCOM_SECURE_MODE_SECRET_KEY= { provider = "doppler", value = "INTERCOM_SECURE_MODE_SECRET_KEY" }
+IRS_APP_EFILE_CERT_BASE64= { provider = "doppler", value = "IRS_APP_EFILE_CERT_BASE64" }
+IRS_APP_SYS_ID= { provider = "doppler", value = "IRS_APP_SYS_ID" }
+IRS_EFIN= { provider = "doppler", value = "IRS_EFIN" }
+IRS_ETIN= { provider = "doppler", value = "IRS_ETIN" }
+IRS_MD_SIN= { provider = "doppler", value = "IRS_MD_SIN" }
+IRS_SIN= { provider = "doppler", value = "IRS_SIN" }
+MAILGUN_BASIC_AUTH_NAME= { provider = "doppler", value = "MAILGUN_BASIC_AUTH_NAME" }
+MAILGUN_BASIC_AUTH_PASSWORD= { provider = "doppler", value = "MAILGUN_BASIC_AUTH_PASSWORD" }
+MAILGUN_WEBHOOK_SIGNING_KEY= { provider = "doppler", value = "MAILGUN_WEBHOOK_SIGNING_KEY" }
+MIXPANEL_TOKEN= { provider = "doppler", value = "MIXPANEL_TOKEN" }
+PERCY_TOKEN= { provider = "doppler", value = "PERCY_TOKEN" }
+RECAPTCHA_SECRET_KEY= { provider = "doppler", value = "RECAPTCHA_SECRET_KEY" }
+RECAPTCHA_SITE_KEY= { provider = "doppler", value = "RECAPTCHA_SITE_KEY" }
+TAX_SLAYER_LINK= { provider = "doppler", value = "TAX_SLAYER_LINK" }
+TWILIO_CTC_ACCOUNT_SID= { provider = "doppler", value = "TWILIO_CTC_ACCOUNT_SID" }
+TWILIO_CTC_AUTH_TOKEN= { provider = "doppler", value = "TWILIO_CTC_AUTH_TOKEN" }
+TWILIO_CTC_MESSAGING_SERVICE_SID= { provider = "doppler", value = "TWILIO_CTC_MESSAGING_SERVICE_SID" }
+TWILIO_GYR_ACCOUNT_SID= { provider = "doppler", value = "TWILIO_GYR_ACCOUNT_SID" }
+TWILIO_GYR_AUTH_TOKEN= { provider = "doppler", value = "TWILIO_GYR_AUTH_TOKEN" }
+TWILIO_GYR_MESSAGING_SERVICE_SID= { provider = "doppler", value = "TWILIO_GYR_MESSAGING_SERVICE_SID" }
+TWILIO_STATEFILE_ACCOUNT_SID= { provider = "doppler", value = "TWILIO_STATEFILE_ACCOUNT_SID" }
+TWILIO_STATEFILE_AUTH_TOKEN= { provider = "doppler", value = "TWILIO_STATEFILE_AUTH_TOKEN" }
+TWILIO_STATEFILE_MESSAGING_SERVICE_SID= { provider = "doppler", value = "TWILIO_STATEFILE_MESSAGING_SERVICE_SID" }
+TWILIO_VOICE_PHONE_NUMBER= { provider = "doppler", value = "TWILIO_VOICE_PHONE_NUMBER" }
+USPS_USER_ID= { provider = "doppler", value = "USPS_USER_ID" }
