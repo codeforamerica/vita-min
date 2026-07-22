@@ -36,15 +36,26 @@ class CopySecrets < Thor
       exit
     end
 
-    secrets = JSON.parse(`doppler secrets -p tax-get-your-refund -c #{environment} --json`).transform_values do |value| 
+    raw_secret_json, = Open3.capture3('doppler', 'secrets', '-p', 'tax-get-your-refund', '-c', environment, '--json')
+
+    secrets = JSON.parse(raw_secret_json).transform_values do |value| 
       value['computed']
     end
+
 
     values_for_aptible = secrets.map do |key, value| 
       "#{key}=#{value}"
     end.join(' ')
 
-    puts `aptible config:set --app #{ENV_TO_APTIBLE[environment]} #{values_for_aptible}`
+    Open3.popen3('aptible', 'config:set', '--app', ENV_TO_APTIBLE[environment], values_for_aptible) do |_, stdout, stderr| 
+      stdout.each_line do |line| 
+        say line
+      end
+
+      stderr.each_line do |line| 
+        say line
+      end
+    end
   end
 end
 
