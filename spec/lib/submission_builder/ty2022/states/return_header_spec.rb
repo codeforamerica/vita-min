@@ -26,6 +26,9 @@ describe SubmissionBuilder::ReturnHeader do
           allow(EnvironmentCredentials).to receive(:irs).with(:efin).and_return efin
           software_id = StateFile::StateInformationService.software_id_key(state_code).to_sym
           allow(EnvironmentCredentials).to receive(:irs).with(software_id).and_return sin
+          # allow(EnvironmentCredentials).to receive(:[]).with('VITA_MIN_EFIN').and_return efin
+          # software_id_env_var = StateFile::StateInformationService.software_id_key(state_code) == "md_sin" ? "MD_SIN" : "VITA_MIN_SIN"
+          # allow(EnvironmentCredentials).to receive(:[]).with(software_id_env_var).and_return sin
         end
 
         it "generates xml with the right values" do

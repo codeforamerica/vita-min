@@ -180,6 +180,8 @@
 #  had_local_tax_refund                                 :integer          default("unfilled"), not null
 #  had_medicaid_medicare                                :integer          default("unfilled"), not null
 #  had_other_income                                     :integer          default("unfilled"), not null
+#  had_qualifying_child_under_17                        :integer          default("unfilled"), not null
+#  had_qualifying_child_under_6                         :integer          default("unfilled"), not null
 #  had_rental_income                                    :integer          default("unfilled"), not null
 #  had_rental_income_and_used_dwelling_as_residence     :integer          default("unfilled"), not null
 #  had_rental_income_from_personal_property             :integer          default("unfilled"), not null
@@ -430,6 +432,8 @@ class Intake::GyrIntake < Intake
   enum filing_for_stimulus: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :filing_for_stimulus
   enum filing_joint: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :filing_joint
   enum got_married_during_tax_year: { unfilled: 0, yes: 1, no: 2}, _prefix: :got_married_during_tax_year
+  enum had_qualifying_child_under_17: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_qualifying_child_under_17
+  enum had_qualifying_child_under_6: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_qualifying_child_under_6
   enum had_asset_sale_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_asset_sale_income
   enum had_debt_forgiven: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_debt_forgiven
   enum had_dependents: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_dependents

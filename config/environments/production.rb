@@ -10,6 +10,7 @@ Rails.application.configure do
   config.ctc_url = "https://www.getctc.org"
   config.gyr_url = "https://www.getyourrefund.org"
   config.statefile_url = "https://www.fileyourstatetaxes.org"
+  config.simple_file_url = "https://simplefile.getyourrefund.org/"
   ctc_email_from_domain = "mg.getctc.org"
   gyr_email_from_domain = "mg.getyourrefund.org"
   statefile_email_from_domain = "mg.fileyourstatetaxes.org"

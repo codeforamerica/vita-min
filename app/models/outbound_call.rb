@@ -36,7 +36,7 @@ class OutboundCall < ApplicationRecord
   # the "queued" status until the dial event to the client is completed.
   #
   def self.twilio_number
-    EnvironmentCredentials.dig(:twilio, :voice_phone_number)
+    EnvironmentCredentials['TWILIO_VOICE_PHONE_NUMBER']
   end
 
   def to

@@ -4,7 +4,7 @@ RSpec.describe Hub::OutgoingTextMessagesController do
   let(:user) { create :organization_lead_user }
 
   describe "#create" do
-    let(:client) { create :client, vita_partner: user.role.organization, intake: build(:intake, sms_phone_number: "+15105551234", phone_number: "+15105551777") }
+    let(:client) { create :client, vita_partner: user.role.organization, flagged_at: Time.now, intake: build(:intake, sms_phone_number: "+15105551234", phone_number: "+15105551777") }
     let(:params) do
       {
         client_id: client.id,
@@ -25,6 +25,9 @@ RSpec.describe Hub::OutgoingTextMessagesController do
         post :create, params: params
 
         expect(ClientMessagingService).to have_received(:send_text_message).with(client: client, user: user, body: "This is an outgoing text")
+
+        expect(Client.find(client.id).flagged_at).to equal(nil)
+
         expect(response).to redirect_to(hub_client_messages_path(client_id: client.id, anchor: "last-item"))
       end
 
