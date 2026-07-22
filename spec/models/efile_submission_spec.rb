@@ -51,7 +51,7 @@ describe EfileSubmission do
 
       it "the first 6 digits are our 6 digit EFIN" do
         submission.generate_irs_submission_id!
-        expect(submission.irs_submission_id[0..5]).to eq EnvironmentCredentials.dig(:irs, :efin)
+        expect(submission.irs_submission_id[0..5]).to eq EnvironmentCredentials['VITA_MIN_EFIN']
       end
 
       it "the next 7 digits are a date in format ccyyddd" do
@@ -62,7 +62,7 @@ describe EfileSubmission do
       context "dealing with duplicates" do
         before do
           allow(SecureRandom).to receive(:base36).with(7).and_return "1234567"
-          create :efile_submission, irs_submission_id: "#{EnvironmentCredentials.dig(:irs, :efin)}20220011234567"
+          create :efile_submission, irs_submission_id: "#{EnvironmentCredentials['VITA_MIN_EFIN']}20220011234567"
         end
 
         context "after trying 5 times" do
