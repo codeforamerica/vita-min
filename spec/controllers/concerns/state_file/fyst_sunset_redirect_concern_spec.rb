@@ -39,9 +39,7 @@ RSpec.describe "StateFile::FystSunsetRedirectConcern", type: :controller do
     before do
       allow(Flipper).to receive(:enabled?) do |arg| 
         case arg
-        in :fyst_sunset_pya_live
-          false
-        in :use_env_secrets
+        in :fyst_sunset_pya_live | :use_env_secrets
           false
         end
       end
