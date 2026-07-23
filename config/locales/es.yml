@@ -2095,7 +2095,7 @@ es:
         client_id: 'Identificación del cliente: %{id}'
         document_link:
           add_final_signature: Agregar firma final
-          add_missing_documents: Agregar documentos faltantes
+          add_missing_documents: Agregar documentos
           complete_tax_questions: Preguntas completas sobre impuestos
           view_document: Ver o descargar el documento %{display_name}
           view_documents: Ver sus documentos cargados
@@ -2128,11 +2128,14 @@ es:
     portal2:
       home:
         calls_to_action:
+          add_missing_documents: Vea qué falta y complete su declaración de impuestos.
+          add_missing_documents_title: Envíe documentos adicionales
           finish_intake: Cuando termine su formulario, lo conectaremos con el equipo de impuestos.
           finish_intake_title: Siga respondiendo las preguntas
         help_text:
+          info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
           intake_incomplete: Aún debe finalizar su formulario de impuestos.
-        title: Bienvenido de nuevo %{name}!
+        title: Bienvenido de nuevo, %{name}
     still_needs_helps:
       chat_later:
         help_text: Si tiene algún documento adicional que necesita subir, por favor use el botón abajo.

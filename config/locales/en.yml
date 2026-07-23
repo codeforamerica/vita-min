@@ -2123,7 +2123,7 @@ en:
         client_id: 'Client ID: %{id}'
         document_link:
           add_final_signature: Add final signature
-          add_missing_documents: Add missing documents
+          add_missing_documents: Add documents
           complete_tax_questions: Complete tax questions
           view_document: View or download %{display_name}
           view_documents: View your uploaded documents
@@ -2156,11 +2156,14 @@ en:
     portal2:
       home:
         calls_to_action:
+          add_missing_documents: See what is missing and complete your tax return.
+          add_missing_documents_title: Submit additional documents
           finish_intake: When you finish your tax form you'll get paired with your tax team.
           finish_intake_title: Continue answering tax questions
         help_text:
+          info_requested: We need a few more documents to finish your tax return.
           intake_incomplete: You're still filling out your tax form.
-        title: Welcome back %{name}!
+        title: Welcome back, %{name}
     still_needs_helps:
       chat_later:
         help_text: If you have any additional documents that you need to upload, please use the button below.

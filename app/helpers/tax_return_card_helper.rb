@@ -163,9 +163,10 @@ module TaxReturnCardHelper
            :prep_info_requested,
            :review_info_requested].include?(state)
       {
-        help_text: t('portal.portal.home.help_text.info_requested'),
+        help_text: t('portal.portal2.home.help_text.info_requested'),
         button_type: :add_missing_documents,
-        call_to_action_text: t('portal.portal.home.calls_to_action.add_missing_documents')
+        call_to_action_title: t('portal.portal2.home.calls_to_action.add_missing_documents_title'),
+        call_to_action_text: t('portal.portal2.home.calls_to_action.add_missing_documents')
       }
     end
   end
