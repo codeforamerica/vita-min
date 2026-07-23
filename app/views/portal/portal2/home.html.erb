@@ -8,8 +8,9 @@
       <div class="spacing-below-25">
         <%= render "tax_return_card", tax_return: tax_return %>
       </div>
+
+      <%= render 'portal/shared/message_my_tax_team2', tax_return: tax_return %>
     <% end %>
   <% end %>
 <% end %>
 
-<%= render 'portal/shared/message_my_tax_team' %>
