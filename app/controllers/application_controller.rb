@@ -580,6 +580,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from 'ActionController::InvalidAuthenticityToken' do
+    reset_session
     DatadogApi.increment("rails.invalid_authenticity_token")
     flash[:alert] = I18n.t('general.authenticity_token_invalid')
 
