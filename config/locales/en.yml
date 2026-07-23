@@ -2160,11 +2160,14 @@ en:
           add_missing_documents_title: Submit additional documents
           finish_intake: When you finish your tax form you'll get paired with your tax team.
           finish_intake_title: Continue answering tax questions
-        document_link:
+        button:
           add_documents: Add documents
+          complete_tax_questions: Complete tax questions
+          message_tax_team: Message tax team
         help_text:
           info_requested: We need a few more documents to finish your tax return.
           intake_incomplete: You're still filling out your tax form.
+          intake_reviewing: Your tax team is reviewing your information. They'll reach out with any questions.
         title: Welcome back, %{name}
     still_needs_helps:
       chat_later:

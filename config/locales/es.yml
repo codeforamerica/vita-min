@@ -2132,11 +2132,14 @@ es:
           add_missing_documents_title: Envíe documentos adicionales
           finish_intake: Cuando termine su formulario, lo conectaremos con el equipo de impuestos.
           finish_intake_title: Siga respondiendo las preguntas
-        document_link:
+        button:
           add_documents: Agregar documentos
+          complete_tax_questions: Preguntas completas sobre impuestos
+          message_tax_team: Enviar mensaje
         help_text:
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
           intake_incomplete: Aún debe finalizar su formulario de impuestos.
+          intake_reviewing: El equipo de impuestos está revisando su información. Se comunicarán con usted si tienen alguna pregunta.
         title: Bienvenido de nuevo, %{name}
     still_needs_helps:
       chat_later:
