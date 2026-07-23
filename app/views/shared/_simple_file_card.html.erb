@@ -10,7 +10,7 @@
   <% if show_get_started %>
     <div class="button-wrapper">
       <div>
-        <% simple_file_path = SimpleFileUrlService.new(intake: nil, locale: I18n.locale, source: "gyrhomepage").url %>
+        <% simple_file_path = SimpleFileUrlService.new(intake: nil, locale: I18n.locale).welcome_url %>
         <%= link_to t("general.get_started"), simple_file_path, "data-track-click": "service-comparison-in-person-vita-providers", class: "button text--centered button--wide no-external" %>
       </div>
     </div>

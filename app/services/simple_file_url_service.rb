@@ -10,26 +10,30 @@ class SimpleFileUrlService
 
   attr_reader :intake, :locale, :source
 
-  def initialize(intake:, locale:, source:)
+  def initialize(intake:, locale:, source: "")
     @intake = intake
     @locale = locale.to_s
     @source = source.to_s
   end
 
   def url
-    uri = URI.join(
-      normalized_base_url,
-      "#{supported_locale}/service-selection/recommendation/simplefile"
-    )
+    uri = localized_uri("service-selection/recommendation/simplefile")
 
     query_params = { state_code: state_code, source: supported_source }.compact
-
     uri.query = query_params.to_query if query_params.any?
 
     uri.to_s
   end
 
+  def welcome_url
+    localized_uri("welcome").to_s
+  end
+
   private
+
+  def localized_uri(path)
+    URI.join(normalized_base_url, "#{supported_locale}/#{path}")
+  end
 
   def normalized_base_url
     base_url = Rails.configuration.simple_file_url
