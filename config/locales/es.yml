@@ -2127,15 +2127,15 @@ es:
         title: Bienvenido de nuevo %{name}!
     portal2:
       home:
+        button:
+          add_documents: Agregar documentos
+          complete_tax_questions: Preguntas completas sobre impuestos
+          message_tax_team: Enviar mensaje
         calls_to_action:
           add_missing_documents: Vea qué falta y complete su declaración de impuestos.
           add_missing_documents_title: Envíe documentos adicionales
           finish_intake: Cuando termine su formulario, lo conectaremos con el equipo de impuestos.
           finish_intake_title: Siga respondiendo las preguntas
-        button:
-          add_documents: Agregar documentos
-          complete_tax_questions: Preguntas completas sobre impuestos
-          message_tax_team: Enviar mensaje
         help_text:
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
           intake_incomplete: Aún debe finalizar su formulario de impuestos.
