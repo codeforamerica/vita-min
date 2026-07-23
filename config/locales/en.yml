@@ -2123,7 +2123,7 @@ en:
         client_id: 'Client ID: %{id}'
         document_link:
           add_final_signature: Add final signature
-          add_missing_documents: Add documents
+          add_missing_documents: Add missing documents
           complete_tax_questions: Complete tax questions
           view_document: View or download %{display_name}
           view_documents: View your uploaded documents
@@ -2160,6 +2160,8 @@ en:
           add_missing_documents_title: Submit additional documents
           finish_intake: When you finish your tax form you'll get paired with your tax team.
           finish_intake_title: Continue answering tax questions
+        document_link:
+          add_documents: Add documents
         help_text:
           info_requested: We need a few more documents to finish your tax return.
           intake_incomplete: You're still filling out your tax form.
