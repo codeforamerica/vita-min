@@ -29,15 +29,21 @@
     <% if card_props[:button_type] == :view_documents %>
       <%= link_to t("portal.portal.home.document_link.view_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
     <% elsif card_props[:button_type] == :add_missing_documents %>
-      <%= link_to t("portal.portal2.home.document_link.add_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
+      <%= link_to t("portal.portal2.home.button.add_documents"), Portal::UploadDocumentsController.to_path_helper(action: :index), class: "button spacing-below-0" %>
     <% elsif card_props[:button_type] == :complete_intake %>
-      <%= link_to(t("portal.portal.home.document_link.complete_tax_questions"), card_props[:link], class: "button spacing-below-0", "data-track-click": "client_portal_complete_intake_button", "data-track-attribute-page": "client_portal") %>
+      <%= link_to(t("portal.portal2.home.button.complete_tax_questions"), card_props[:link], class: "button spacing-below-0", "data-track-click": "client_portal_complete_intake_button", "data-track-attribute-page": "client_portal") %>
     <% elsif card_props[:button_type] == :complete_intake_documents %>
-      <%= link_to(t("portal.portal2.home.document_link.add_documents"), card_props[:link], class: "button spacing-below-0") %>
+      <%= link_to(t("portal.portal2.home.button.add_documents"), card_props[:link], class: "button spacing-below-0") %>
     <% elsif card_props[:button_type] == :add_signature_primary %>
       <%= link_to t("portal.portal.home.document_link.add_final_signature"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
     <% elsif card_props[:button_type] == :add_signature_spouse %>
       <%= link_to t("portal.portal.home.document_link.add_final_signature"), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
+    <% elsif card_props[:button_type] == :message_tax_eam %>
+      <%= link_to t("portal.portal2.home.button.message_tax_team"), new_portal_message_path,
+          "data-track-click": "message-tax-team-button",
+          "data-track-attribute-page": "client_portal",
+          "data-track-attribute-return_status": card_props[:return_status],
+          class: "button spacing-below-0" %>
     <% end %>
   <% end %>
 </div>

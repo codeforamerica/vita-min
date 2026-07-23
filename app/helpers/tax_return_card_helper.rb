@@ -170,6 +170,16 @@ module TaxReturnCardHelper
         call_to_action_text: t('portal.portal2.home.calls_to_action.add_missing_documents'),
         return_status: state
       }
+    elsif [:intake_ready,
+           :intake_reviewing,
+           :intake_ready_for_call].include?(state)
+      {
+        help_text: t('portal.portal2.home.help_text.intake_reviewing'),
+        button_type: :message_tax_eam,
+        #call_to_action_title: t('portal.portal2.home.calls_to_action.add_missing_documents_title'),
+        #call_to_action_text: t('portal.portal2.home.calls_to_action.add_missing_documents'),
+        return_status: state
+      }
     end
   end
 
