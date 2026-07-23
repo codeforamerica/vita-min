@@ -156,7 +156,8 @@ module TaxReturnCardHelper
                 Portal::UploadDocumentsController.to_path_helper(action: :index) :
                 current_step,
         call_to_action_title: t('portal.portal2.home.calls_to_action.finish_intake_title'),
-        call_to_action_text: t('portal.portal2.home.calls_to_action.finish_intake')
+        call_to_action_text: t('portal.portal2.home.calls_to_action.finish_intake'),
+        return_status: state
       }
     elsif [:intake_greeter_info_requested,
            :intake_info_requested,
@@ -166,7 +167,8 @@ module TaxReturnCardHelper
         help_text: t('portal.portal2.home.help_text.info_requested'),
         button_type: :add_missing_documents,
         call_to_action_title: t('portal.portal2.home.calls_to_action.add_missing_documents_title'),
-        call_to_action_text: t('portal.portal2.home.calls_to_action.add_missing_documents')
+        call_to_action_text: t('portal.portal2.home.calls_to_action.add_missing_documents'),
+        return_status: state
       }
     end
   end
