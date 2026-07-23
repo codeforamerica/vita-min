@@ -1,5 +1,5 @@
 module Portal
-  class PortalController < ApplicationController
+  class Portal2Controller < ApplicationController
     before_action :redirect_unless_open_for_logged_in_clients
 
     include AuthenticatedClientConcern
@@ -7,10 +7,13 @@ module Portal
     layout "portal"
 
     def home
-      redirect_to(portal_portal2_path) if Flipper.enabled?(:client_portal_improvements)
+      redirect_to(portal_root_path) if ! Flipper.enabled?(:client_portal_improvements)
 
       @tax_returns = current_client.tax_returns.order(year: :desc).to_a
       @tax_returns << PseudoTaxReturn.new(intake: current_intake, time: app_time) if @tax_returns.empty?
+
+      current_state = current_intake&.tax_returns&.last&.current_state || 'intake_in_progress'
+      send_mixpanel_event(event_name: 'client_portal_visited', data: {return_status: current_state})
     end
 
     def current_intake

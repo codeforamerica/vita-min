@@ -1,0 +1,13 @@
+<% card_props = tax_return_status_to_props_2(tax_return) %>
+
+<% content_for :extra_slabs do %>
+  <section class="slab slab--grey message-section">
+    <div class="grid grid-flex">
+      <%= image_tag "chat-bubble--blue.svg", alt: "", class: "document-overview-list__icon" %>
+      <strong><%= link_to t("portal.upload_documents.index.message_my_tax_team"), new_portal_message_path,
+                  "data-track-click": "message-my-tax-team",
+                  "data-track-attribute-page": "client_portal",
+                  "data-track-attribute-return_status": card_props[:return_status] %></strong>
+    </div>
+  </section>
+<% end %>
