@@ -21,19 +21,19 @@ class CopySecrets < Thor
     case required_executables
     in aptible_found: false, doppler_found: false
       say "Please install doppler & aptible cli tools", :red
-      exit
+      exit(1)
     in aptible_found: false, doppler_found: true
       say "Please install aptible", :red
-      exit
+      exit(1)
     in aptible_found: true, doppler_found: false
       say "Please install doppler", :red
-      exit
+      exit(1)
     else
     end
 
     unless environment in "stg" | "prod"
       say "Invalid environment", :red
-      exit
+      exit(1)
     end
 
     raw_secret_json, = Open3.capture3('doppler', 'secrets', '-p', 'tax-get-your-refund', '-c', environment, '--json')
