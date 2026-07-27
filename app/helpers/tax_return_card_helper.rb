@@ -150,6 +150,7 @@ module TaxReturnCardHelper
 
     if ask_for_answers || state == :intake_needs_doc_help
       {
+        badge_text: t('portal.portal2.home.badge.in_progress'),
         help_text: t('portal.portal2.home.help_text.intake_incomplete'),
         button_type: :complete_intake,
         link: state == :intake_needs_doc_help ?
@@ -161,9 +162,9 @@ module TaxReturnCardHelper
       }
     elsif [:intake_greeter_info_requested,
            :intake_info_requested,
-           :prep_info_requested,
            :review_info_requested].include?(state)
       {
+        badge_text: t('portal.portal2.home.badge.in_progress'),
         help_text: t('portal.portal2.home.help_text.info_requested'),
         button_type: :add_missing_documents,
         call_to_action_title: t('portal.portal2.home.calls_to_action.add_missing_documents_title'),
@@ -174,11 +175,26 @@ module TaxReturnCardHelper
            :intake_reviewing,
            :intake_ready_for_call].include?(state)
       {
+        badge_text: t('portal.portal2.home.badge.in_progress'),
         help_text: t('portal.portal2.home.help_text.intake_reviewing'),
-        button_type: :message_tax_eam,
-        #call_to_action_title: t('portal.portal2.home.calls_to_action.add_missing_documents_title'),
-        #call_to_action_text: t('portal.portal2.home.calls_to_action.add_missing_documents'),
+        button_type: :message_tax_team,
         return_status: state
+      }
+    elsif [:prep_ready_for_prep, :prep_preparing].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.tax_prep'),
+        help_text: t("portal.portal2.home.help_text.tax_prep"),
+        button_type: :message_tax_team,
+        return_state: state
+      }
+    elsif [:prep_info_requested].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.tax_prep'),
+        help_text: t("portal.portal2.home.help_text.prep_info_requested"),
+        button_type: :message_tax_team,
+        call_to_action_title: t('portal.portal2.home.calls_to_action.prep_info_requested_title'),
+        call_to_action_text: t('portal.portal2.home.calls_to_action.prep_info_requested'),
+        return_state: state
       }
     end
   end
