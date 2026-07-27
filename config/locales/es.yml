@@ -2120,13 +2120,14 @@ es:
           review_reviewing: Tu devolución está siendo revisada
           review_signature_requested_primary: Estamos esperando una firma final de usted.
           review_signature_requested_spouse: Estamos esperando una firma final de su cónyuge.
-        status:
-          in_progress: En proceso
         subtitle: 'Aquí hay una instantánea de sus impuestos:'
         tax_return_heading: Su declaración del %{year}
         title: Bienvenido de nuevo %{name}!
     portal2:
       home:
+        badge:
+          in_progress: En proceso
+          tax_prep: En preparación
         button:
           add_documents: Agregar documentos
           complete_tax_questions: Preguntas completas sobre impuestos
@@ -2136,10 +2137,14 @@ es:
           add_missing_documents_title: Envíe documentos adicionales
           finish_intake: Cuando termine su formulario, lo conectaremos con el equipo de impuestos.
           finish_intake_title: Siga respondiendo las preguntas
+          prep_info_requested: El equipo de impuestos le envió una pregunta. Responda para avanzar.
+          prep_info_requested_title: Tiene un mensaje
         help_text:
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
           intake_incomplete: Aún debe finalizar su formulario de impuestos.
           intake_reviewing: El equipo de impuestos está revisando su información. Se comunicarán con usted si tienen alguna pregunta.
+          prep_info_requested: Necesitamos más información para preparar su declaración de impuestos.
+          tax_prep: Nos comunicaremos con usted si necesitamos algo.
         title: Bienvenido de nuevo, %{name}
     settings:
       show:
