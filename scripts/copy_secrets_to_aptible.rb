@@ -6,11 +6,12 @@ class CopySecrets < Thor
   ENV_TO_APTIBLE = {
     "stg" => "vita-min-staging",
     "prod" => "vita-min-prod",
+    "demo" => "vita-min-demo",
   }
 
   def self.exit_on_failure? = true
 
-  desc "copy stg | prod", "Copy secrets from doppler to aptible"
+  desc "copy stg | prod | demo", "Copy secrets from doppler to aptible"
 
   def copy(environment)
     required_executables = {
@@ -31,7 +32,7 @@ class CopySecrets < Thor
     else
     end
 
-    unless environment in "stg" | "prod"
+    unless environment in "stg" | "prod" | "demo"
       say "Invalid environment", :red
       exit(1)
     end
