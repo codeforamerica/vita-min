@@ -6,6 +6,7 @@ class CopySecrets < Thor
   ENV_TO_APTIBLE = {
     "stg" => "vita-min-staging",
     "prod" => "vita-min-prod",
+    "demo" => "vita-min-demo",
   }
 
   def self.exit_on_failure? = true
