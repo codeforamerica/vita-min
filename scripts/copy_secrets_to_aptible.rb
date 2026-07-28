@@ -32,7 +32,7 @@ class CopySecrets < Thor
     else
     end
 
-    unless environment in "stg" | "prod"
+    unless environment in "stg" | "prod" | "demo"
       say "Invalid environment", :red
       exit(1)
     end
