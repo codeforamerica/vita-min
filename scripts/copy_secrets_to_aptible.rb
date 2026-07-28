@@ -11,7 +11,7 @@ class CopySecrets < Thor
 
   def self.exit_on_failure? = true
 
-  desc "copy stg | prod", "Copy secrets from doppler to aptible"
+  desc "copy stg | prod | demo", "Copy secrets from doppler to aptible"
 
   def copy(environment)
     required_executables = {
