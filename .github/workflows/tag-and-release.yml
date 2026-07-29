@@ -87,13 +87,16 @@ jobs:
 
       - name: Generate release notes
         if: github.event.inputs.environment == 'prod'
+        env:
+          RELEASE_TITLE: ${{ github.event.inputs.release_title }}
+          ADDITIONAL_NOTES: ${{ github.event.inputs.additional_notes }}
         run: |
           release_command="gh release create ${{ env.NEW_VERSION }} --target ${GITHUB_SHA} --generate-notes"
-          if [[ -n "${{ github.event.inputs.release_title }}" ]]; then
-            release_command="${release_command} --title '${{ github.event.inputs.release_title }}'"
+          if [[ -n "$RELEASE_TITLE" ]]; then
+            release_command="${release_command} --title '$RELEASE_TITLE'"
           fi
-          if [[ -n "${{ github.event.inputs.additional_notes }}" ]]; then
-            release_command="${release_command} --notes '${{ github.event.inputs.additional_notes }}'"
+          if [[ -n "$ADDITIONAL_NOTES" ]]; then
+            release_command="${release_command} --notes '$ADDITIONAL_NOTES'"
           fi
 
           eval ${release_command}
