@@ -44,16 +44,13 @@ class CopySecrets < Thor
     end
 
 
-    values_for_aptible = secrets.map do |key, value| 
+    values_for_aptible = secrets.map do |key, value|
       "#{key}=#{value}"
-    end.join(' ')
+    end
 
-    Open3.popen3('aptible', 'config:set', '--app', ENV_TO_APTIBLE[environment], values_for_aptible) do |_, stdout, stderr| 
-      stdout.each_line do |line| 
-        say line
-      end
 
-      stderr.each_line do |line| 
+    Open3.popen2e('aptible', 'config:set', '--app', ENV_TO_APTIBLE[environment], *values_for_aptible) do |_, stdout_and_stderr, _|
+      stdout_and_stderr.each_line do |line|
         say line
       end
     end
