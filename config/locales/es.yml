@@ -2087,14 +2087,16 @@ es:
         your_tax_preparers: mi especialista en impuestos
     portal:
       home:
+        badge:
+          final_check: Revisión final
         calls_to_action:
           add_missing_documents: Agregue los documentos que faltan para continuar.
-          add_signature_primary: Agregue su firma final a su declaración de impuestos
-          add_signature_spouse: Agregue la firma final de su cónyuge a su declaración de impuestos
+          decline_to_sign: No quiero firmar
           finish_intake: Responda las preguntas fiscales restantes para continuar.
+          sign_your_return: Firme su declaración
         client_id: 'Identificación del cliente: %{id}'
+        decline_to_sign_help: Si no firma su declaración, su equipo de impuestos se comunicará con usted para conversar.
         document_link:
-          add_final_signature: Agregar firma final
           add_missing_documents: Agregar documentos faltantes
           complete_tax_questions: Preguntas completas sobre impuestos
           view_document: Ver o descargar el documento %{display_name}
@@ -2118,8 +2120,11 @@ es:
           prep_ready_for_prep: Tu equipo fiscal está preparando la declaración
           review_ready_for_call: Su equipo de impuestos programará una llamada de revisión final con usted.
           review_reviewing: Tu devolución está siendo revisada
-          review_signature_requested_primary: Estamos esperando una firma final de usted.
-          review_signature_requested_spouse: Estamos esperando una firma final de su cónyuge.
+          review_signature_requested_primary: Su declaración está lista para su firma.
+          review_signature_requested_spouse: Su declaración está lista para la firma de su cónyuge.
+        signature_notice:
+          body: Descargue sus documentos de impuestos finales para revisarlos y luego firme electrónicamente.
+          heading: Se necesita firma
         subtitle: 'Aquí hay una instantánea de sus impuestos:'
         tax_return_heading: Declaración de impuestos de %{year}
         title: Bienvenido de nuevo %{name}!
@@ -2155,6 +2160,8 @@ es:
           body_html: "<p>Bajo pena de perjurio, declaro haber examinado una copia de mi declaración electrónica del impuesto sobre el ingreso y todo anexo y documento acompañante para el año tributario que termina el 31 de diciembre de %{year} y, según mi leal conocimiento y entendimiento, son verídicos, correctos y completos.</p><p> Declaro además que las cantidades provistas anteriormente en la Parte I son las mismas indicadas en mi declaración electrónica del impuesto sobre el ingreso. Autorizo a que mi proveedor intermediario de servicios, transmisor o iniciador de declaraciones electrónicas (ERO, por sus siglas en inglés) envíe mi declaración al IRS y que reciba del mismo (a) acuse de recibo o justificación de rechazo de la transmisión, (b) la razón por toda demora en la tramitación de la declaración o reembolso y (c) la fecha de todo reembolso. </p><p>Si corresponde, autorizo al U.S. Treasury (Departamento del Tesoro de los Estados Unidos) y a su Agente Financiero designado para que tramiten ante la ACH una transacción de retiro electrónico de fondos (débito directo) en la cuenta de la institución financiera indicada en el programa de computadora (software) de preparación de declaraciones para pagar los impuestos federales que adeudo en esta declaración y/o pagar el impuesto estimado, y además autorizo a la institución financiera para que cargue la entrada a esta cuenta. Esta autorización quedará en pleno vigor hasta que yo notifique al Agente Financiero del Departamento del Tesoro de los Estados Unidos para que éste cancele la autorización. Para revocar (cancelar) un pago, tengo que comunicarme con el Agente Financiero del Departamento del Tesoro de los Estados Unidos llamando al 1-888-353-4537. Las solicitudes de cancelación de pago se tienen que recibir a más tardar 2 días laborables antes de la fecha de pago (liquidación). </p><p> También autorizo a las instituciones financieras que participan en la tramitación del pago electrónico de impuestos para que reciban información confidencial necesaria para responder a preguntas y resolver dudas relacionadas con dicho pago. Certifico además que el número de identificación personal (PIN, por sus siglas en inglés) que aparece a continuación es el que he escogido como firma para mi declaración electrónica del impuesto sobre el ingreso y, si corresponde, mi autorización para el retiro de fondos por vías electrónicas.</p>"
           title: Declaración del contribuyente y autorización para la firma
         subheader: Usted declara que ha examinado una copia de su declaración electrónica individual de impuestos y los calendarios acompañantes y estados de cuenta para el año fiscal que termina el 31 de diciembre de %{year}, y que en la mejor inteligencia da fe de que son verdaderos, correctos y completos.
+      decline_signature:
+        confirmation: Gracias por avisarnos. Su equipo de impuestos se comunicará con usted para conversar sobre su declaración.
       show:
         description: "¿Desea descargar sus formularios de impuestos finales?"
         download_final_tax_document: Descargar formularios de impuestos finales del %{year}

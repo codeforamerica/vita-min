@@ -3,6 +3,7 @@ module Portal
     before_action :load_client_tax_return, except: [:success]
     before_action :redirect_unless_spouse_signature_required, only: [:spouse_sign, :spouse_authorize_signature]
     before_action :redirect_unless_primary_signature_required, only: [:sign, :authorize_signature]
+    before_action :redirect_unless_signature_requested, only: [:decline_signature]
     layout "application"
 
     def authorize_signature
@@ -35,11 +36,21 @@ module Portal
       end
     end
 
+    def decline_signature
+      @tax_return.decline_to_sign!
+      flash[:notice] = I18n.t("portal.tax_returns.decline_signature.confirmation")
+      redirect_to portal_root_path
+    end
+
     def success; end
 
     def show; end
 
     private
+
+    def redirect_unless_signature_requested
+      redirect_to portal_root_path unless @tax_return.awaiting_8879_signature?
+    end
 
     def load_client_tax_return
       @tax_return = current_client.tax_returns.includes(client: [:intake]).find_by(id: params[:tax_return_id])
