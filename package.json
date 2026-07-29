@@ -80,7 +80,8 @@
     "http-proxy-agent": "^7.0.0",
     "uuid": "~14",
     "qs": "6.15.2",
-    "fast-xml-parser": "5.7.0"
+    "fast-xml-parser": "^5.7.0",
+    "tar": "^7.5.21"
   },
   "dependenciesMeta": {
     "@percy/core": {
