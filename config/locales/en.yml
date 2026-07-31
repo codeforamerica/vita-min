@@ -2165,7 +2165,7 @@ en:
           add_missing_documents_title: Submit additional documents
           finish_intake: When you finish your tax form you'll get paired with your tax team.
           finish_intake_title: Continue answering tax questions
-          prep_info_requested: Your tax team sent a question. Reply to keep your return moving.
+          prep_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
           prep_info_requested_title: You have a message
         help_text:
           info_requested: We need a few more documents to finish your tax return.
