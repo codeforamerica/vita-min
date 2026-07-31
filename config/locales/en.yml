@@ -2154,6 +2154,7 @@ en:
     portal2:
       home:
         badge:
+          final_check: Final check
           in_progress: In progress
           tax_prep: Tax prep
         button:
@@ -2166,12 +2167,16 @@ en:
           finish_intake: When you finish your tax form you'll get paired with your tax team.
           finish_intake_title: Continue answering tax questions
           prep_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
+          review_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
           prep_info_requested_title: You have a message
+          review_info_requested_title: You have a message
         help_text:
           info_requested: We need a few more documents to finish your tax return.
           intake_incomplete: You're still filling out your tax form.
           intake_reviewing: Your tax team is reviewing your information. They'll reach out with any questions.
           prep_info_requested: We need more information to prepare your return.
+          review: Your return is in final review. We'll be in touch if anything needs your attention.
+          review_info_requested: Your tax team needs one more thing before finalizing your return.
           tax_prep: Your tax team is preparing your return. We'll reach out if we need anything.
         title: Welcome back, %{name}
     still_needs_helps:

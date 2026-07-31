@@ -174,8 +174,7 @@ module TaxReturnCardHelper
         return_status: state
       }
     elsif [:intake_greeter_info_requested,
-           :intake_info_requested,
-           :review_info_requested].include?(state)
+           :intake_info_requested].include?(state)
       {
         badge_text: t('portal.portal2.home.badge.in_progress'),
         help_text: t('portal.portal2.home.help_text.info_requested'),
@@ -208,6 +207,24 @@ module TaxReturnCardHelper
         call_to_action_title: t('portal.portal2.home.calls_to_action.prep_info_requested_title'),
         call_to_action_text:
           t('portal.portal2.home.calls_to_action.prep_info_requested',
+            contact_method: contact_method_of_last_tax_team_message(intake)),
+        return_state: state
+      }
+    elsif [:review_ready_for_qr, :review_reviewing, :review_ready_for_call].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.final_check'),
+        help_text: t("portal.portal2.home.help_text.review"),
+        button_type: :message_tax_team,
+        return_state: state
+      }
+    elsif [:review_info_requested].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.final_check'),
+        help_text: t("portal.portal2.home.help_text.review_info_requested"),
+        button_type: :message_tax_team,
+        call_to_action_title: t('portal.portal2.home.calls_to_action.review_info_requested_title'),
+        call_to_action_text:
+          t('portal.portal2.home.calls_to_action.review_info_requested',
             contact_method: contact_method_of_last_tax_team_message(intake)),
         return_state: state
       }
