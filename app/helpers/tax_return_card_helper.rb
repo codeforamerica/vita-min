@@ -128,6 +128,19 @@ module TaxReturnCardHelper
     end
   end
 
+  def contact_method_of_last_tax_team_message(intake)
+    last = MessagePresenter.grouped_messages(intake.client)&.values&.last&.last
+    # ^^^ MessagePresenter.grouped_messages returns a map where a key is a datestamp
+    # and a value is an array of messages for that date
+    if not last
+      return ''
+    elsif last.class == OutgoingEmail
+      return locale == :es ? 'correo electrónico' : 'email'
+    else
+      return locale == :es ? 'mensaje de texto' : 'text message'
+    end 
+  end
+
   def tax_return_status_to_props_2(tax_return)
     state = tax_return.current_state.to_sym
 
@@ -193,7 +206,9 @@ module TaxReturnCardHelper
         help_text: t("portal.portal2.home.help_text.prep_info_requested"),
         button_type: :message_tax_team,
         call_to_action_title: t('portal.portal2.home.calls_to_action.prep_info_requested_title'),
-        call_to_action_text: t('portal.portal2.home.calls_to_action.prep_info_requested'),
+        call_to_action_text:
+          t('portal.portal2.home.calls_to_action.prep_info_requested',
+            contact_method: contact_method_of_last_tax_team_message(intake)),
         return_state: state
       }
     end

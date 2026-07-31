@@ -2137,7 +2137,7 @@ es:
           add_missing_documents_title: Envíe documentos adicionales
           finish_intake: Cuando termine su formulario, lo conectaremos con el equipo de impuestos.
           finish_intake_title: Siga respondiendo las preguntas
-          prep_info_requested: El equipo de impuestos le envió una pregunta. Responda para avanzar.
+          prep_info_requested: El equipo de impuestos le envió una pregunta por %{contact_method}. Responda para avanzar.
           prep_info_requested_title: Tiene un mensaje
         help_text:
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
