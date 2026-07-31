@@ -1308,6 +1308,8 @@ en:
         one: "%{count} result is no longer accessible to you."
         other: "%{count} results are no longer accessible to you."
       new:
+        flag_clients: Turn red dot flag on
+        unflag_clients: Turn red dot flag off
         change_assignee_and_status: Change assignee and/or status
         change_assignee_and_status_html: Change assignee and/or status for these <strong>%{count} returns</strong>.
         change_organization: Change organization
