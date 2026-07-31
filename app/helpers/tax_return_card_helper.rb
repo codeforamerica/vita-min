@@ -228,6 +228,14 @@ module TaxReturnCardHelper
             contact_method: contact_method_of_last_tax_team_message(intake)),
         return_state: state
       }
+    elsif [:file_ready_to_file, :file_accepted, :file_rejected, :file_hold, :file_fraud_hold,
+           :file_not_filing, :file_efiled, :file_mailed].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.almost_done'),
+        help_text: t("portal.portal2.home.help_text.final_steps"),
+        button_type: :message_tax_team,
+        return_state: state
+      }
     end
   end
 

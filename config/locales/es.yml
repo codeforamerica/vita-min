@@ -2126,6 +2126,7 @@ es:
     portal2:
       home:
         badge:
+          almost_done: Casi lista
           final_check: En revisión final
           in_progress: En proceso
           tax_prep: En preparación
@@ -2143,6 +2144,7 @@ es:
           review_info_requested: El equipo de impuestos le envió una pregunta por %{contact_method}. Responda para que su declaración de impuestos siga avanzando.
           review_info_requested_title: Tiene un mensaje
         help_text:
+          final_steps: Su declaración de impuestos está en camino al IRS. Le informaremos cuando sea procesada.
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
           intake_incomplete: Aún debe finalizar su formulario de impuestos.
           intake_reviewing: El equipo de impuestos está revisando su información. Se comunicarán con usted si tienen alguna pregunta.
