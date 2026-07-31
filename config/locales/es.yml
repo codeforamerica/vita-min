@@ -2135,7 +2135,9 @@ es:
           title: Información bancaria
         contact_info:
           email: Correo electrónico
+          email_not_provided: No se proporcionó un correo electrónico
           phone: Teléfono
+          phone_not_provided: No se proporcionó un número de teléfono
           preferred_contact: Contacto preferido
           title: Información de contacto
         making_a_change:

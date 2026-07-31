@@ -25,6 +25,19 @@ describe Portal::SettingsController do
         expect(response).to render_template :show
         expect(assigns(:intake)).to eq client.intake
       end
+
+      context "when the intake has no email or phone number" do
+        render_views
+
+        let(:intake) { build :intake, email_address: nil, phone_number: nil }
+
+        it "shows the 'not provided' fallbacks instead of the values" do
+          get :show
+
+          expect(response.body).to include "Email not provided"
+          expect(response.body).to include "Phone number not provided"
+        end
+      end
     end
   end
 end

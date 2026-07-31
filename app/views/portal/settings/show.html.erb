@@ -15,9 +15,9 @@
       <h2 class="h3 spacing-above-0 spacing-below-0"><%= t(".contact_info.title") %></h2>
     </div>
     <p class="text--bold spacing-below-0"><%= t(".contact_info.email") %></p>
-    <p class="spacing-below-15"><%= @intake.email_address.presence || t("general.NA") %></p>
+    <p class="spacing-below-15"><%= @intake.email_address.presence || t(".contact_info.email_not_provided") %></p>
     <p class="text--bold spacing-below-0"><%= t(".contact_info.phone") %></p>
-    <p class="spacing-below-15"><%= @intake.formatted_phone_number.presence || t("general.NA") %></p>
+    <p class="spacing-below-15"><%= @intake.formatted_phone_number.presence || t(".contact_info.phone_not_provided") %></p>
     <p class="text--bold spacing-below-0"><%= t(".contact_info.preferred_contact") %></p>
     <p class="spacing-below-0"><%= preferred_contact_methods(@intake) %></p>
   </div>
