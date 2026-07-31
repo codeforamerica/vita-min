@@ -67,14 +67,24 @@ module TaxReturnCardHelper
         help_text: t("portal.portal.home.help_text.review_signature_requested_primary"),
         percent_complete: 90,
         button_type: :add_signature_primary,
-        call_to_action_text: t("portal.portal.home.calls_to_action.add_signature_primary")
+        signature_requested: true,
+        badge: t("portal.portal.home.badge.final_check"),
+        notice: {
+          heading: t("portal.portal.home.signature_notice.heading"),
+          body: t("portal.portal.home.signature_notice.body")
+        }
       }
     elsif tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) && signature_documents_ready?(tax_return)
       {
         help_text: t("portal.portal.home.help_text.review_signature_requested_spouse"),
         percent_complete: 90,
         button_type: :add_signature_spouse,
-        call_to_action_text: t("portal.portal.home.calls_to_action.add_signature_spouse")
+        signature_requested: true,
+        badge: t("portal.portal.home.badge.final_check"),
+        notice: {
+          heading: t("portal.portal.home.signature_notice.heading"),
+          body: t("portal.portal.home.signature_notice.body")
+        }
       }
     elsif state == :review_signature_requested
       {

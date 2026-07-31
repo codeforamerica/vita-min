@@ -727,6 +727,48 @@ describe TaxReturn do
     end
   end
 
+  describe "#awaiting_8879_signature?" do
+    context "when an 8879 is ready to sign and a final tax document is present" do
+      let(:tax_return) { create :gyr_tax_return, :ready_to_sign, :with_final_tax_doc }
+
+      it "is true" do
+        expect(tax_return.awaiting_8879_signature?).to eq true
+      end
+    end
+
+    context "when an 8879 is ready to sign but no final tax document is present" do
+      let(:tax_return) { create :gyr_tax_return, :ready_to_sign }
+
+      it "is false" do
+        expect(tax_return.awaiting_8879_signature?).to eq false
+      end
+    end
+
+    context "when there is no 8879 to sign" do
+      let(:tax_return) { create :gyr_tax_return, :review_signature_requested, :with_final_tax_doc }
+
+      it "is false" do
+        expect(tax_return.awaiting_8879_signature?).to eq false
+      end
+    end
+  end
+
+  describe "#decline_to_sign!" do
+    let(:tax_return) { create :gyr_tax_return, :ready_to_sign, :with_final_tax_doc }
+
+    it "transitions the return to review_ready_for_call" do
+      expect {
+        tax_return.decline_to_sign!
+      }.to change(tax_return, :current_state).to("review_ready_for_call")
+    end
+
+    it "flags the client" do
+      expect {
+        tax_return.decline_to_sign!
+      }.to change { tax_return.client.reload.flagged? }.from(false).to(true)
+    end
+  end
+
   describe "#sign_spouse!" do
     let(:tax_return) { create :tax_return, :ready_to_sign }
     let(:fake_ip) { IPAddr.new }

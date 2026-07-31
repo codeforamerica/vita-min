@@ -156,6 +156,11 @@ class TaxReturn < ApplicationRecord
     false
   end
 
+  def awaiting_8879_signature?
+    (ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) || ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE)) &&
+      final_tax_documents.any?
+  end
+
   def completely_signed_8879?
     if filing_jointly?
       primary_has_signed_8879? && spouse_has_signed_8879?
@@ -227,6 +232,13 @@ class TaxReturn < ApplicationRecord
   def sign_primary!(ip) = sign!(:primary, ip)
 
   def sign_spouse!(ip)  = sign!(:spouse, ip)
+
+  def decline_to_sign!
+    ActiveRecord::Base.transaction do
+      transition_to!(:review_ready_for_call)
+      client.flag!
+    end
+  end
 
   def under_submission_limit?
     efile_submissions.count < 20

@@ -84,6 +84,16 @@ describe TaxReturnCardHelper do
                                                                      button_type: :add_signature_primary
                                                                    )
         end
+
+        it "flags the card as signature requested and includes the badge and signature needed notice" do
+          props = helper.tax_return_status_to_props(tax_return)
+          expect(props[:signature_requested]).to eq(true)
+          expect(props[:badge]).to eq(I18n.t("portal.portal.home.badge.final_check"))
+          expect(props[:notice]).to eq(
+            heading: I18n.t("portal.portal.home.signature_notice.heading"),
+            body: I18n.t("portal.portal.home.signature_notice.body")
+          )
+        end
       end
 
       context "when spouse signature is ready and both final tax document and 8879 are present" do
