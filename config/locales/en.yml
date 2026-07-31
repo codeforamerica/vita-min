@@ -2168,8 +2168,8 @@ en:
           finish_intake: When you finish your tax form you'll get paired with your tax team.
           finish_intake_title: Continue answering tax questions
           prep_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
-          review_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
           prep_info_requested_title: You have a message
+          review_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
           review_info_requested_title: You have a message
         help_text:
           final_steps: Your return is signed and on its way to the IRS. We'll let you know when it's processed.

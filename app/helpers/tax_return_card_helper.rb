@@ -178,7 +178,7 @@ module TaxReturnCardHelper
       {
         badge_text: t('portal.portal2.home.badge.in_progress'),
         help_text: t('portal.portal2.home.help_text.info_requested'),
-        button_type: :add_missing_documents,
+        button_type: :add_documents,
         call_to_action_title: t('portal.portal2.home.calls_to_action.add_missing_documents_title'),
         call_to_action_text: t('portal.portal2.home.calls_to_action.add_missing_documents'),
         return_status: state
@@ -233,6 +233,13 @@ module TaxReturnCardHelper
       {
         badge_text: t('portal.portal2.home.badge.almost_done'),
         help_text: t("portal.portal2.home.help_text.final_steps"),
+        button_type: :message_tax_team,
+        return_state: state
+      }
+    elsif [:review_signature_requested].include?(state)
+      {
+        badge_text: 'todo',
+        help_text: 'todo',
         button_type: :message_tax_team,
         return_state: state
       }
