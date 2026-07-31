@@ -2154,6 +2154,7 @@ en:
     portal2:
       home:
         badge:
+          almost_done: Almost done
           final_check: Final check
           in_progress: In progress
           tax_prep: Tax prep
@@ -2171,6 +2172,7 @@ en:
           prep_info_requested_title: You have a message
           review_info_requested_title: You have a message
         help_text:
+          final_steps: Your return is signed and on its way to the IRS. We'll let you know when it's processed.
           info_requested: We need a few more documents to finish your tax return.
           intake_incomplete: You're still filling out your tax form.
           intake_reviewing: Your tax team is reviewing your information. They'll reach out with any questions.
