@@ -197,7 +197,7 @@ module TaxReturnCardHelper
         badge_text: t('portal.portal2.home.badge.tax_prep'),
         help_text: t("portal.portal2.home.help_text.tax_prep"),
         button_type: :message_tax_team,
-        return_state: state
+        return_status: state
       }
     elsif [:prep_info_requested].include?(state)
       {
@@ -208,14 +208,14 @@ module TaxReturnCardHelper
         call_to_action_text:
           t('portal.portal2.home.calls_to_action.prep_info_requested',
             contact_method: contact_method_of_last_tax_team_message(intake)),
-        return_state: state
+        return_status: state
       }
     elsif [:review_ready_for_qr, :review_reviewing, :review_ready_for_call].include?(state)
       {
         badge_text: t('portal.portal2.home.badge.final_check'),
         help_text: t("portal.portal2.home.help_text.review"),
         button_type: :message_tax_team,
-        return_state: state
+        return_status: state
       }
     elsif [:review_info_requested].include?(state)
       {
@@ -226,7 +226,7 @@ module TaxReturnCardHelper
         call_to_action_text:
           t('portal.portal2.home.calls_to_action.review_info_requested',
             contact_method: contact_method_of_last_tax_team_message(intake)),
-        return_state: state
+        return_status: state
       }
     elsif [:file_ready_to_file, :file_accepted, :file_rejected, :file_hold, :file_fraud_hold,
            :file_not_filing, :file_efiled, :file_mailed].include?(state)
@@ -234,14 +234,14 @@ module TaxReturnCardHelper
         badge_text: t('portal.portal2.home.badge.almost_done'),
         help_text: t("portal.portal2.home.help_text.final_steps"),
         button_type: :message_tax_team,
-        return_state: state
+        return_status: state
       }
     elsif [:review_signature_requested].include?(state)
       {
         badge_text: 'todo',
         help_text: 'todo',
         button_type: :message_tax_team,
-        return_state: state
+        return_status: state
       }
     end
   end
