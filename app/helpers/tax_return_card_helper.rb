@@ -131,8 +131,8 @@ module TaxReturnCardHelper
   private
 
   def signature_documents_ready?(tax_return)
-    has_final_tax_document = tax_return.final_tax_documents.any?
-    has_8879 = tax_return.signed_8879s.any? || tax_return.unsigned_8879s.any?
+    has_final_tax_document = tax_return&.final_tax_documents&.any?
+    has_8879 = tax_return&.signed_8879s&.any? || tax_return&.unsigned_8879s&.any?
 
     has_final_tax_document && has_8879
   end
