@@ -168,7 +168,7 @@ module VitaMin
     end
 
     # We depart from Rails 7.1 defaults here by *keeping* the `X-Download-Options`
-    # key-value pair in order to continue supporting IE.
+    # key-value pair in order to continue supporting IE (only IE uses it).
     Rails.application.config.action_dispatch.default_headers = {
       "X-Frame-Options" => "SAMEORIGIN",
       "X-XSS-Protection" => "0",
@@ -178,5 +178,9 @@ module VitaMin
       "Referrer-Policy" => "strict-origin-when-cross-origin"
     }
 
+    # Setting this to `false` ensures our Mixpanel/etc. PII filtering works.
+    # E.g., spec/controllers/questions/consent_controller_spec.rb:70
+    # (7.1 default is to set this to `true`.)
+    Rails.application.config.precompile_filter_parameters = false
   end
 end

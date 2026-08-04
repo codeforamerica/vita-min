@@ -147,7 +147,8 @@ Rails.application.config.active_record.raise_on_assign_to_attr_readonly = true
 
 # Enable precompilation of `config.filter_parameters`. Precompilation can
 # improve filtering performance, depending on the quantity and types of filters.
-Rails.application.config.precompile_filter_parameters = true
+# Rails.application.config.precompile_filter_parameters = true
+# NOTE: set to false in application.rb
 
 # Enable before_committed! callbacks on all enrolled records in a transaction.
 # The previous behavior was to only run the callbacks on the first copy of a record
