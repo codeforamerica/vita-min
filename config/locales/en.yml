@@ -418,6 +418,7 @@ en:
     city: City
     client_info: Client Info
     client_success: Client success
+    close: Close
     coalition: Coalition
     coalition_lead: Coalition lead
     complete: complete
@@ -606,6 +607,7 @@ en:
     log_out: Log out
     login: Login
     married: Married
+    menu: Menu
     month: Month
     my_account: My account
     my_profile: My profile
@@ -2151,6 +2153,14 @@ en:
         subtitle: 'Here is a snapshot of your taxes:'
         tax_return_heading: "%{year} return"
         title: Welcome back %{name}!
+    shared:
+      portal2_menu:
+        account_info: Account info
+        aria_label: Portal navigation
+        documents: Documents
+        home: Home
+        messages: Messages
+        tax_returns: Tax returns
     still_needs_helps:
       chat_later:
         help_text: If you have any additional documents that you need to upload, please use the button below.

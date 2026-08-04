@@ -417,6 +417,7 @@ es:
     city: Ciudad
     client_info: Información del cliente
     client_success: Éxito del cliente
+    close: Cerrar
     coalition: Coalición
     coalition_lead: Líder de coalición
     complete: completo
@@ -606,6 +607,7 @@ es:
     log_out: Cerrar sesión
     login: Iniciar sesión
     married: Casado
+    menu: Menú
     month: Mes
     my_account: Mi cuenta
     my_profile: Mi perfil
@@ -2123,6 +2125,14 @@ es:
         subtitle: 'Aquí hay una instantánea de sus impuestos:'
         tax_return_heading: Declaración de impuestos de %{year}
         title: Bienvenido de nuevo %{name}!
+    shared:
+      portal2_menu:
+        account_info: Información de la cuenta
+        aria_label: Navegación del portal
+        documents: Documentos
+        home: Inicio
+        messages: Mensajes
+        tax_returns: Declaraciones de impuestos
     still_needs_helps:
       chat_later:
         help_text: Si tiene algún documento adicional que necesita subir, por favor use el botón abajo.
