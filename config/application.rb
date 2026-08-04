@@ -166,5 +166,17 @@ module VitaMin
         "#{log_line.to_json}\n"
       end
     end
+
+    # We depart from Rails 7.1 defaults here by *keeping* the `X-Download-Options`
+    # key-value pair in order to continue supporting IE.
+    Rails.application.config.action_dispatch.default_headers = {
+      "X-Frame-Options" => "SAMEORIGIN",
+      "X-XSS-Protection" => "0",
+      "X-Content-Type-Options" => "nosniff",
+      "X-Download-Options" => "noopen",  # <--- Let's keep.
+      "X-Permitted-Cross-Domain-Policies" => "none",
+      "Referrer-Policy" => "strict-origin-when-cross-origin"
+    }
+
   end
 end
