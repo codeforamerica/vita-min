@@ -6,7 +6,7 @@ describe Portal::TaxReturnsController do
     it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :index
 
     context "when logged in as a client" do
-      let(:client) { create :client, intake: (create :intake) }
+      let(:client) { create(:intake).client }
       let!(:filed_return) { create :gyr_tax_return, client: client, year: 2024 }
       let!(:unfiled_return) { create :gyr_tax_return, client: client, year: 2025 }
 
