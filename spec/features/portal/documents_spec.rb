@@ -55,7 +55,7 @@ RSpec.feature "a client on their portal" do
       end
 
       scenario "final tax returns are not listed on the documents page" do
-        visit overview_documents_portal_path
+        visit portal_overview_documents_path
 
         expect(page).to have_content "Here's a list of your documents"
         expect(page).not_to have_selector '#final-tax-return-docs'
