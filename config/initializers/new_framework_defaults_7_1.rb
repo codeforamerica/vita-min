@@ -14,6 +14,7 @@
 # This will reduce the size of the load path, making `require` faster if you don't use bootsnap, or reduce the size
 # of the bootsnap cache if you use it.
 Rails.application.config.add_autoload_paths_to_load_path = false
+# NOTE OK
 
 # Remove the default X-Download-Options headers since it is used only by Internet Explorer.
 # If you need to support Internet Explorer, add back `"X-Download-Options" => "noopen"`.
@@ -27,6 +28,7 @@ Rails.application.config.add_autoload_paths_to_load_path = false
 #   "Referrer-Policy" => "strict-origin-when-cross-origin"
 # }
 # NOTE: Added logic to application.rb.
+# NOTE OK
 
 # Do not treat an `ActionController::Parameters` instance
 # as equal to an equivalent `Hash` by default.
@@ -41,10 +43,12 @@ Rails.application.config.action_controller.allow_deprecated_parameters_hash_equa
 # 2. If you have +config.active_support.key_generator_hash_digest_class+ configured as SHA256 (the new default
 # in 7.0), then you need to configure SHA-256 for Active Record Encryption:
 # Rails.application.config.active_record.encryption.hash_digest_class = OpenSSL::Digest::SHA256
+# NOTE added to application.rb
 #
 # If you don't currently have data encrypted with Active Record encryption, you can disable this setting to
 # configure the default behavior starting 7.1+:
 # Rails.application.config.active_record.encryption.support_sha1_for_non_deterministic_encryption = false
+# NOTE set to true in application.rb
 
 # No longer run after_commit callbacks on the first of multiple Active Record
 # instances to save changes to the same database row within a transaction.
@@ -64,6 +68,7 @@ Rails.application.config.action_controller.allow_deprecated_parameters_hash_equa
 
 # Disable deprecated singular associations names
 Rails.application.config.active_record.allow_deprecated_singular_associations_name = false
+# NOTE OK
 
 # Enable the Active Job `BigDecimal` argument serializer, which guarantees
 # roundtripping. Without this serializer, some queue adapters may serialize
@@ -81,6 +86,7 @@ Rails.application.config.active_record.allow_deprecated_singular_associations_na
 # as `handled` and logged instead.
 Rails.application.config.active_support.raise_on_invalid_cache_expiration_time = true
 # NOTE: WAS ALREADY turned on earlier this year.
+# NOTE OK
 
 # Specify whether Query Logs will format tags using the SQLCommenter format
 # (https://open-telemetry.github.io/opentelemetry-sqlcommenter/), or using the legacy format.
@@ -139,6 +145,7 @@ Rails.application.config.active_support.raise_on_invalid_cache_expiration_time =
 # behavior would allow assignment but silently not persist changes to the
 # database.
 Rails.application.config.active_record.raise_on_assign_to_attr_readonly = true
+# NOTE OK
 
 # Enable validating only parent-related columns for presence when the parent is mandatory.
 # The previous behavior was to validate the presence of the parent record, which performed an extra query
@@ -149,6 +156,7 @@ Rails.application.config.active_record.raise_on_assign_to_attr_readonly = true
 # improve filtering performance, depending on the quantity and types of filters.
 # Rails.application.config.precompile_filter_parameters = true
 # NOTE: set to false in application.rb
+# NOTE OK
 
 # Enable before_committed! callbacks on all enrolled records in a transaction.
 # The previous behavior was to only run the callbacks on the first copy of a record
@@ -160,6 +168,7 @@ Rails.application.config.active_record.raise_on_assign_to_attr_readonly = true
 # recommended to explicitly define the serialization method for each column
 # rather than to rely on a global default.
 Rails.application.config.active_record.default_column_serializer = nil
+# NOTE OK
 
 # Enable a performance optimization that serializes Active Record models
 # in a faster and more compact way.
@@ -174,14 +183,17 @@ Rails.application.config.active_record.default_column_serializer = nil
 # This matches the behaviour of all other callbacks.
 # In previous versions of Rails, they ran in the inverse order.
 Rails.application.config.active_record.run_after_transaction_callbacks_in_order_defined = true
+# NOTE OK
 
 # Whether a `transaction` block is committed or rolled back when exited via `return`, `break` or `throw`.
 #
 Rails.application.config.active_record.commit_transaction_on_non_local_return = true
+# NOTE OK
 
 # Controls when to generate a value for <tt>has_secure_token</tt> declarations.
 #
 Rails.application.config.active_record.generate_secure_token_on = :initialize
+# NOTE OK
 
 # ** Please read carefully, this must be configured in config/application.rb **
 # Change the format of the cache entry.
@@ -203,6 +215,7 @@ Rails.application.config.active_record.generate_secure_token_on = :initialize
 # In previous versions of Rails, Action View always used `Rails::HTML4::Sanitizer` as its vendor.
 #
 Rails.application.config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
+# NOTE OK
 
 # Configure Action Text to use an HTML5 standards-compliant sanitizer when it is supported on your
 # platform.
@@ -217,6 +230,7 @@ Rails.application.config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.b
 # Configure the log level used by the DebugExceptions middleware when logging
 # uncaught exceptions during requests
 Rails.application.config.action_dispatch.debug_exception_log_level = :error
+# NOTE OK
 
 # Configure the test helpers in Action View, Action Dispatch, and rails-dom-testing to use HTML5
 # parsers.
@@ -226,3 +240,4 @@ Rails.application.config.action_dispatch.debug_exception_log_level = :error
 # In previous versions of Rails, these test helpers always used an HTML4 parser.
 #
 Rails.application.config.dom_testing_default_html_version = :html5
+# NOTE OK

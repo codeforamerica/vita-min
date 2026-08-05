@@ -182,5 +182,13 @@ module VitaMin
     # E.g., spec/controllers/questions/consent_controller_spec.rb:70
     # (7.1 default is to set this to `true`.)
     Rails.application.config.precompile_filter_parameters = false
+
+    # Per Rails 7.1 defaults guidance, since (a)
+    # our `Rails.application.config.active_support.key_generator_hash_digest_class`
+    # currently has a value of `OpenSSL::Digest::SHA256` and (b) we *do*
+    # currently use field-level encryption, these two directives are therefore
+    # included here.
+    Rails.application.config.active_record.encryption.hash_digest_class = OpenSSL::Digest::SHA256
+    Rails.application.config.active_record.encryption.support_sha1_for_non_deterministic_encryption = true
   end
 end
