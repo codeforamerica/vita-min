@@ -236,10 +236,11 @@ module TaxReturnCardHelper
         button_type: :message_tax_team,
         return_status: state
       }
+    # TODO to be fully implemented in GYR1-1085
     elsif [:review_signature_requested].include?(state)
       {
-        badge_text: 'todo',
-        help_text: 'todo',
+        badge_text: t('portal.portal2.home.badge.final_check'),
+        help_text: 'To be fully implemented in GYR1-1085',
         button_type: :message_tax_team,
         return_status: state
       }
