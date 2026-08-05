@@ -42,6 +42,17 @@ describe Portal::TaxReturnsController do
         expect(assigns(:tax_returns).map(&:year)).to eq [2025, 2024]
       end
 
+      context "with more than two tax returns" do
+        let!(:older_return) { create :gyr_tax_return, client: client, year: 2023 }
+
+        it "only shows the two most recent tax years" do
+          get :index
+
+          expect(assigns(:tax_returns).map(&:year)).to eq [2025, 2024]
+          expect(response.body).not_to include I18n.t("portal.tax_returns.index.final_tax_return", year: 2023)
+        end
+      end
+
       it "links to the final tax return document and the signed 8879, with tracking attributes" do
         get :index
 

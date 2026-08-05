@@ -6,7 +6,7 @@ module Portal
     layout :resolve_layout
 
     def index
-      @tax_returns = current_client.tax_returns.order(year: :desc)
+      @tax_returns = current_client.tax_returns.order(year: :desc).limit(2)
     end
 
     def authorize_signature
