@@ -30,12 +30,11 @@
 
 .portal-status-badge {
   background-color: #fece68;
-  border-color: #fece68;
   border-radius: 0.5rem;
   color: black;
   display: inline-block;
   font-size: 1.7rem;
-  font-weight: 500;
+  font-weight: $font-weight-bold;
   line-height: 1.5rem;
   margin-left: 0.5rem;
   padding: 0.75rem 1rem;
