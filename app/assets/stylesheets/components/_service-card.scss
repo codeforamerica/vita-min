@@ -72,3 +72,27 @@ img {
     font-size: inherit;
   }
 }
+
+.gyr-theme {
+  .service-recommendation .service-card {
+    background-color: $color-white;
+    border-color: $color-confidence-blue;
+    color: $color-confidence-blue;
+  }
+
+  .service-recommendation:has(.service-card:nth-child(2)) .service-card--title {
+    min-height: 5rem;
+  }
+
+  @each $product, $cta-color in $gyr-service-card-ctas {
+    .service-card--#{$product} .button#{$gyr-cta-exclusions} {
+      background-color: $cta-color;
+
+      &:hover,
+      &:active,
+      &:visited {
+        background-color: darken($cta-color, 8%);
+      }
+    }
+  }
+}

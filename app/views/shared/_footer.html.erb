@@ -4,7 +4,7 @@
     <div class="grid">
       <div class="grid__item width-three-fourths footer-description">
         <p>
-          <%= image_tag("checkbox-logo--white.png", alt: "") %>
+            <%= image_tag(variation == "ctc" ? "checkbox-logo--white.png" : "getyourrefund-mark.svg", alt: "") %>
         </p>
         <p>
           <%= t("views.shared.footer.service_description_html",

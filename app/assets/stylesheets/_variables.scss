@@ -3,6 +3,7 @@ $font-gyr: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI",
   "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
   sans-serif;
 $font-state-file: "Public Sans", -apple-system, sans-serif;
+$font-gyr-refresh: "Inter", $font-gyr;
 
 // Colors
 $color-green-money: #c6f9ec;
@@ -30,6 +31,33 @@ $color-black: #000000;
 $color-review-yellow: #FFEA9C;
 $color-pass-green: #C6F9CD;
 $color-failure-red: #FFC9B4;
+
+
+$color-confidence-blue: #001E29;
+$color-clarity-white: #FFFEEC;
+$color-cream: #FFFEFA;
+$color-ui-grey: #EBECDB;
+$color-primary-lime: #DCFC7E;
+$color-teal-mint: #B0E9E0;
+$color-coral: #FFA89A;
+$color-olive: #ACCD4F;
+$color-periwinkle: #9EB0FF;
+$color-button-border: #001E29;
+
+// Buttons that carry their own semantic color, or that float over the page, opt out of GYR's
+// refreshed CTA treatment. Kept here because the base rule in application.scss and the
+// per-product service card rules both need the chain, and the latter has to out-specify the
+// former.
+$gyr-cta-exclusions: ":not(.button--danger):not(.button--disabled):not(.button--intercom)";
+
+// Per-product CTA colors for the service comparison cards, keyed by the `service-card--*`
+// modifier the card partials set.
+$gyr-service-card-ctas: (
+  "diy": $color-coral,
+  "virtual-vita": $color-olive,
+  "in-person-vita": $color-olive,
+  "simple-file": $color-periwinkle,
+);
 
 $color-link-default: #0358a2;
 $color-link-hover: #0358a1;
