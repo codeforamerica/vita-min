@@ -39,7 +39,7 @@ module VitaMin
       end
     end
 
-    config.load_defaults 7.0
+    config.load_defaults 7.1
 
     config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
@@ -167,6 +167,10 @@ module VitaMin
       end
     end
 
+    # ------------------------------------------------ #
+    # BEGIN additions for Rails 7.1 defaults migration #
+    # ------------------------------------------------ #
+
     # We depart from Rails 7.1 defaults here by *keeping* the `X-Download-Options`
     # key-value pair in order to continue supporting IE (only IE uses it).
     Rails.application.config.action_dispatch.default_headers = {
@@ -193,5 +197,9 @@ module VitaMin
     Rails.application.config.active_record.encryption.support_sha1_for_non_deterministic_encryption = true
 
     config.active_support.cache_format_version = 7.1
+
+    # ------------------------------------------------ #
+    #  END additions for Rails 7.1 defaults migration  #
+    # ------------------------------------------------ #
   end
 end
