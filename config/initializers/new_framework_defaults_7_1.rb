@@ -33,6 +33,7 @@ Rails.application.config.add_autoload_paths_to_load_path = false
 # Do not treat an `ActionController::Parameters` instance
 # as equal to an equivalent `Hash` by default.
 Rails.application.config.action_controller.allow_deprecated_parameters_hash_equality = false
+# NOTE OK
 
 # Active Record Encryption now uses SHA-256 as its hash digest algorithm. Important: If you have
 # data encrypted with previous Rails versions, there are two scenarios to consider:
@@ -44,18 +45,20 @@ Rails.application.config.action_controller.allow_deprecated_parameters_hash_equa
 # in 7.0), then you need to configure SHA-256 for Active Record Encryption:
 # Rails.application.config.active_record.encryption.hash_digest_class = OpenSSL::Digest::SHA256
 # NOTE added to application.rb
+# NOTE OK
 #
 # If you don't currently have data encrypted with Active Record encryption, you can disable this setting to
 # configure the default behavior starting 7.1+:
 # Rails.application.config.active_record.encryption.support_sha1_for_non_deterministic_encryption = false
 # NOTE set to true in application.rb
+# NOTE OK
 
 # No longer run after_commit callbacks on the first of multiple Active Record
 # instances to save changes to the same database row within a transaction.
 # Instead, run these callbacks on the instance most likely to have internal
 # state which matches what was committed to the database, typically the last
 # instance to save.
-# Rails.application.config.active_record.run_commit_callbacks_on_first_saved_instances_in_transaction = false
+Rails.application.config.active_record.run_commit_callbacks_on_first_saved_instances_in_transaction = false
 
 # Configures SQLite with a strict strings mode, which disables double-quoted string literals.
 #
@@ -78,7 +81,7 @@ Rails.application.config.active_record.allow_deprecated_singular_associations_na
 # replicas will not be able to deserialize `BigDecimal` arguments from this
 # serializer. Therefore, this setting should only be enabled after all replicas
 # have been successfully upgraded to Rails 7.1.
-# Rails.application.config.active_job.use_big_decimal_serializer = true
+Rails.application.config.active_job.use_big_decimal_serializer = true
 
 # Specify if an `ArgumentError` should be raised if `Rails.cache` `fetch` or
 # `write` are given an invalid `expires_at` or `expires_in` time.
@@ -91,7 +94,7 @@ Rails.application.config.active_support.raise_on_invalid_cache_expiration_time =
 # Specify whether Query Logs will format tags using the SQLCommenter format
 # (https://open-telemetry.github.io/opentelemetry-sqlcommenter/), or using the legacy format.
 # Options are `:legacy` and `:sqlcommenter`.
-# Rails.application.config.active_record.query_log_tags_format = :sqlcommenter
+Rails.application.config.active_record.query_log_tags_format = :sqlcommenter
 
 # Specify the default serializer used by `MessageEncryptor` and `MessageVerifier`
 # instances.
@@ -119,7 +122,7 @@ Rails.application.config.active_support.raise_on_invalid_cache_expiration_time =
 # that have not yet been upgraded must be able to read messages from upgraded
 # servers, first deploy without changing the serializer, then set the serializer
 # in a subsequent deploy.
-# Rails.application.config.active_support.message_serializer = :json_allow_marshal
+Rails.application.config.active_support.message_serializer = :json_allow_marshal
 
 # Enable a performance optimization that serializes message data and metadata
 # together. This changes the message format, so messages serialized this way
@@ -130,16 +133,16 @@ Rails.application.config.active_support.raise_on_invalid_cache_expiration_time =
 # not yet been upgraded must be able to read messages from upgraded servers,
 # leave this optimization off on the first deploy, then enable it on a
 # subsequent deploy.
-# Rails.application.config.active_support.use_message_serializer_for_metadata = true
+Rails.application.config.active_support.use_message_serializer_for_metadata = true
 
 # Set the maximum size for Rails log files.
 #
 # `config.load_defaults 7.1` does not set this value for environments other than
 # development and test.
 #
-# if Rails.env.local?
-#   Rails.application.config.log_file_size = 100 * 1024 * 1024
-# end
+if Rails.env.local?
+  Rails.application.config.log_file_size = 100 * 1024 * 1024
+end
 
 # Enable raising on assignment to attr_readonly attributes. The previous
 # behavior would allow assignment but silently not persist changes to the
@@ -150,7 +153,7 @@ Rails.application.config.active_record.raise_on_assign_to_attr_readonly = true
 # Enable validating only parent-related columns for presence when the parent is mandatory.
 # The previous behavior was to validate the presence of the parent record, which performed an extra query
 # to get the parent every time the child record was updated, even when parent has not changed.
-# Rails.application.config.active_record.belongs_to_required_validates_foreign_key = false
+Rails.application.config.active_record.belongs_to_required_validates_foreign_key = false
 
 # Enable precompilation of `config.filter_parameters`. Precompilation can
 # improve filtering performance, depending on the quantity and types of filters.
@@ -161,7 +164,7 @@ Rails.application.config.active_record.raise_on_assign_to_attr_readonly = true
 # Enable before_committed! callbacks on all enrolled records in a transaction.
 # The previous behavior was to only run the callbacks on the first copy of a record
 # if there were multiple copies of the same record enrolled in the transaction.
-# Rails.application.config.active_record.before_committed_on_all_records = true
+Rails.application.config.active_record.before_committed_on_all_records = true
 
 # Disable automatic column serialization into YAML.
 # To keep the historic behavior, you can set it to `YAML`, however it is
@@ -177,7 +180,7 @@ Rails.application.config.active_record.default_column_serializer = nil
 # not yet been upgraded must be able to read caches from upgraded servers,
 # leave this optimization off on the first deploy, then enable it on a
 # subsequent deploy.
-# Rails.application.config.active_record.marshalling_format_version = 7.1
+Rails.application.config.active_record.marshalling_format_version = 7.1
 
 # Run `after_commit` and `after_*_commit` callbacks in the order they are defined in a model.
 # This matches the behaviour of all other callbacks.
@@ -225,7 +228,7 @@ Rails.application.config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.b
 #
 # In previous versions of Rails, Action Text always used `Rails::HTML4::Sanitizer` as its vendor.
 #
-# Rails.application.config.action_text.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
+Rails.application.config.action_text.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
 
 # Configure the log level used by the DebugExceptions middleware when logging
 # uncaught exceptions during requests

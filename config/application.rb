@@ -189,6 +189,7 @@ module VitaMin
     # currently use field-level encryption, these two directives are therefore
     # included here.
     Rails.application.config.active_record.encryption.hash_digest_class = OpenSSL::Digest::SHA256
+    # (Guidance says set to false if *not* already using field-level encryption ...)
     Rails.application.config.active_record.encryption.support_sha1_for_non_deterministic_encryption = true
   end
 end
