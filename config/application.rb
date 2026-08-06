@@ -198,7 +198,8 @@ module VitaMin
 
     config.active_support.cache_format_version = 7.1
 
-
+    # When `false` (the 7.1 default), path-loading issues seem to occur; so
+    # keep `true` for now.
     Rails.application.config.add_autoload_paths_to_load_path = true
 
     # ------------------------------------------------ #
