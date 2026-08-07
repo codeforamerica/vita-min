@@ -196,6 +196,7 @@ module VitaMin
     # (Guidance says set to false if *not* already using field-level encryption ...)
     Rails.application.config.active_record.encryption.support_sha1_for_non_deterministic_encryption = true
 
+    # Needs to be included explicitly (even after setting load_defaults to 7.1).
     config.active_support.cache_format_version = 7.1
 
     # When `false` (the 7.1 default), path-loading issues seem to occur; so
