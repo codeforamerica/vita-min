@@ -1,0 +1,43 @@
+<% content_for :title, t(".title") %>
+
+<% content_for :card do %>
+  <h1 class="h2"><%= t(".title") %></h1>
+
+  <div class="document-overview-list">
+    <% @tax_returns.each do |tax_return| %>
+      <div id="tax-year-<%= tax_return.year %>-docs">
+        <span class="document-overview-list__icon">
+          <%= image_tag "paper.svg", alt: "", class: "" %>
+        </span>
+        <h2 class="h3 document-overview-list__item-text">
+          <%= t(".final_tax_return", year: tax_return.year) %>
+        </h2>
+
+        <% final_tax_documents = tax_return.final_tax_documents %>
+        <% signed_8879s = tax_return.signed_8879s %>
+
+        <% if final_tax_documents.present? %>
+          <ul class="document-overview-list__filenames">
+            <% final_tax_documents.each do |document| %>
+              <li><%= render "tax_return_document_link", document: document, tax_return: tax_return %></li>
+            <% end %>
+          </ul>
+        <% else %>
+          <p class="document-overview-list__filenames text--help spacing-above-15">
+            <strong><%= t(".final_return_not_started") %></strong>
+          </p>
+        <% end %>
+
+        <% if signed_8879s.present? %>
+          <ul class="document-overview-list__filenames">
+            <% signed_8879s.each do |document| %>
+              <li><%= render "tax_return_document_link", document: document, tax_return: tax_return %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render 'portal/shared/message_my_tax_team' %>

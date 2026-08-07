@@ -73,7 +73,7 @@
     <hr class="spacing-above-25 spacing-below-10">
   <% end %>
 
-  <% if in_portal %>
+  <% if in_portal && !Flipper.enabled?(:client_portal_improvements) %>
     <div id="final-tax-return-docs">
       <span class="document-overview-list__icon">
         <%= image_tag "paper.svg", alt: "", class: "" %>
