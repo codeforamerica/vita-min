@@ -39,7 +39,7 @@ module VitaMin
       end
     end
 
-    config.load_defaults 7.0
+    config.load_defaults 7.1
 
     config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
@@ -166,5 +166,45 @@ module VitaMin
         "#{log_line.to_json}\n"
       end
     end
+
+    # ------------------------------------------------ #
+    # BEGIN additions for Rails 7.1 defaults migration #
+    # ------------------------------------------------ #
+
+    # We depart from Rails 7.1 defaults here by *keeping* the `X-Download-Options`
+    # key-value pair in order to continue supporting IE (only IE uses it).
+    Rails.application.config.action_dispatch.default_headers = {
+      "X-Frame-Options" => "SAMEORIGIN",
+      "X-XSS-Protection" => "0",
+      "X-Content-Type-Options" => "nosniff",
+      "X-Download-Options" => "noopen",  # <--- Let's keep.
+      "X-Permitted-Cross-Domain-Policies" => "none",
+      "Referrer-Policy" => "strict-origin-when-cross-origin"
+    }
+
+    # Setting this to `false` ensures our Mixpanel/etc. PII filtering works.
+    # E.g., spec/controllers/questions/consent_controller_spec.rb:70
+    # (7.1 default is to set this to `true`.)
+    Rails.application.config.precompile_filter_parameters = false
+
+    # Per Rails 7.1 defaults guidance, since (a)
+    # our `Rails.application.config.active_support.key_generator_hash_digest_class`
+    # currently has a value of `OpenSSL::Digest::SHA256` and (b) we *do*
+    # currently use field-level encryption, these two directives are therefore
+    # included here.
+    Rails.application.config.active_record.encryption.hash_digest_class = OpenSSL::Digest::SHA256
+    # (Guidance says set to false if *not* already using field-level encryption ...)
+    Rails.application.config.active_record.encryption.support_sha1_for_non_deterministic_encryption = true
+
+    # Needs to be included explicitly (even after setting load_defaults to 7.1).
+    config.active_support.cache_format_version = 7.1
+
+    # When `false` (the 7.1 default), path-loading issues seem to occur; so
+    # keep `true` for now.
+    Rails.application.config.add_autoload_paths_to_load_path = true
+
+    # ------------------------------------------------ #
+    #  END additions for Rails 7.1 defaults migration  #
+    # ------------------------------------------------ #
   end
 end
