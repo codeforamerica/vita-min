@@ -1,0 +1,9 @@
+<div class="dismissible-banner" data-dismissible-banner data-dismissible-banner-id="<%= local_assigns[:banner_id] || "default" %>">
+  <%= image_tag('info--purple.svg', alt: "") %>
+
+  <div class="dismissible-banner__text">
+    <div class="dismissible-banner__header"><%= banner_header %></div>
+    <div><%= banner_body %></div>
+  </div>
+  <button type="button" class="dismissible-banner__close" data-dismissible-banner-close aria-label="Dismiss banner">&times;</button>
+</div>
