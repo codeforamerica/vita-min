@@ -6100,7 +6100,7 @@ es:
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
         subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
-        title: Declarar por mi cuenta
+        title: FileMyself
       document_deadline_warning:
         body_html: La fecha límite para declarar sus impuestos de 2025 es el %{tax_deadline}. Use <a href='https://www.getyourrefund.org/es/diy/qualifications' target='_blank' rel='noopener noreferrer'>la herramienta File Myself</a> para declarar por su cuenta antes de la fecha límite. Si no debe impuestos, puede presentar su declaración después de esa fecha sin penalización. <a href='https://intercom.help/getyourrefundorg/es/articles/11048561-obtener-mas-tiempo-para-declarar'  target='_blank' rel='noopener noreferrer'>Conozca más en nuestras preguntas frecuentes.</a>
       environment_warning:
@@ -6130,7 +6130,7 @@ es:
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
         subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
-        title: VITA presencial
+        title: Assist (In-person)
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
@@ -6180,4 +6180,4 @@ es:
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
         subtitle: Responda algunas preguntas y deje que un profesional de impuestos presente su declaración a nombre suyo
-        title: Declarar con ayuda
+        title: Assist (Virtual)

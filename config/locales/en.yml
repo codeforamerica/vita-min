@@ -6070,7 +6070,7 @@ en:
         reveal_body_4: 'Other features:'
         reveal_title: Additional information
         subtitle: File on your own and get help when you need it
-        title: File Myself
+        title: FileMyself
       document_deadline_warning:
         body_html: The tax filing deadline for all 2025 returns is %{tax_deadline}. Use the <a href='https://www.getyourrefund.org/en/diy/qualifications' target='_blank' rel='noopener noreferrer'>tool File Myself</a> to file on your own before the deadline. If you don't owe, you can submit your taxes after that date without penalty. <a href='https://intercom.help/getyourrefundorg/en/articles/11048561-filing-an-extension' target='_blank' rel='noopener noreferrer'>Learn more in our FAQ.</a>
       environment_warning:
@@ -6100,7 +6100,7 @@ en:
         reveal_body_4: 'Other features:'
         reveal_title: Additional Information
         subtitle: Answer a few questions and let a tax expert file for you
-        title: In-person VITA
+        title: Assist (In-person)
       progress_bar:
         progress_text: 'Intake progress:'
       service_comparison:
@@ -6150,4 +6150,4 @@ en:
         reveal_body_4: 'Other features:'
         reveal_title: Additional Information
         subtitle: Answer a few questions and let a tax expert file for you
-        title: File with Help
+        title: Assist (Virtual)

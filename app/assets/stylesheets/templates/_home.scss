@@ -219,7 +219,7 @@
     padding-bottom: 0;
 
     .rounded-box {
-      background-color: #FFD29C;
+      background-color: $color-teal-mint;
 
       a {
         color: black;
@@ -240,11 +240,15 @@
 
   .slab--service-comparison {
     padding-bottom: 0;
-    padding-top: 6rem;
+    // Two separate gaps above this slab, and they read differently: the margin sits outside the
+    // background so it shows the cream page, while the padding sits inside it and reads as
+    // Confidence Blue. Adjust the padding to change how much dark space precedes the heading.
+    margin-top: 6rem;
+    padding-top: 8rem;
   }
 
   .slab--testimonials {
-    background-color: white;
+    background-color: $color-cream;
     padding-top: 6rem;
     padding-below: 6rem;
 
@@ -258,17 +262,31 @@
         width: 100%;
       }
     }
+    #testimonial-left,
+    #testimonial-right {
+      .rounded-box {
+        background-color: $color-confidence-blue;
+        color: $color-clarity-white;
+
+        // Quote headline. Figma's Heading/Primary token is 22px, so it sits above the 16px quote
+        // body rather than matching it, which is what .text--bold alone left it at.
+        p.text--bold {
+          font-size: 2.2rem;
+        }
+
+        // The quote text carries honeycrisp's .text--small, which hard-codes a near-black color
+        // straight onto the <p>. A declaration beats inheritance, so the color above never
+        // reaches it -- it has to be overridden on the same element.
+        .text--small {
+          color: $color-clarity-white;
+        }
+      }
+    }
     #testimonial-left {
       padding-right: 3rem;
-      .rounded-box {
-        background-color: #FFD29C;
-      }
     }
     #testimonial-right {
       padding-left: 3rem;
-      .rounded-box {
-        background-color: #C2C2FF;
-      }
     }
     @media screen and (max-width: $tablet-up) {
       #testimonial-title {
@@ -299,7 +317,7 @@
   }
 
   .slab--security {
-    background-color: white;
+    background-color: $color-cream;
     padding-top: 3.5rem;
     padding-bottom: 3.5rem;
 
@@ -362,7 +380,7 @@
     padding: 2rem;
 
     .faq.rounded-box {
-      background-color: $color-beige;
+      background-color: $color-ui-grey;
       padding: 3rem;
       margin-left: auto;
       margin-right: auto;
