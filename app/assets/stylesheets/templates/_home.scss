@@ -8,6 +8,7 @@
     padding-bottom: 2.5rem;
 
     p {
+      font-size: 2.2rem;
       margin-bottom: 2.5rem;
       @media screen and (min-width: $site-max-up) {
         margin-bottom: 4.5rem;
@@ -194,7 +195,7 @@
       font-size: 2.7rem;
     }
     .text--small {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
     #star-rating {
       img {
@@ -220,10 +221,6 @@
 
     .rounded-box {
       background-color: $color-teal-mint;
-
-      a {
-        color: black;
-      }
     }
 
     @media screen and (max-width: $tablet-up) {
@@ -239,7 +236,8 @@
   }
 
   .slab--service-comparison {
-    padding-bottom: 0;
+    // 36px of Confidence Blue below the cards before the slab ends.
+    padding-bottom: 3.6rem;
     // Two separate gaps above this slab, and they read differently: the margin sits outside the
     // background so it shows the cream page, while the padding sits inside it and reads as
     // Confidence Blue. Adjust the padding to change how much dark space precedes the heading.
@@ -268,12 +266,6 @@
         background-color: $color-confidence-blue;
         color: $color-clarity-white;
 
-        // Quote headline. Figma's Heading/Primary token is 22px, so it sits above the 16px quote
-        // body rather than matching it, which is what .text--bold alone left it at.
-        p.text--bold {
-          font-size: 2.2rem;
-        }
-
         // The quote text carries honeycrisp's .text--small, which hard-codes a near-black color
         // straight onto the <p>. A declaration beats inheritance, so the color above never
         // reaches it -- it has to be overridden on the same element.
@@ -282,11 +274,21 @@
         }
       }
     }
-    #testimonial-left {
-      padding-right: 3rem;
-    }
-    #testimonial-right {
-      padding-left: 3rem;
+    // Flex row so both quote boxes share a height regardless of quote length. The boxes are
+    // stretched by the row, and `width: 100%` makes each fill its column.
+    .testimonial-quotes {
+      display: flex;
+      gap: 6rem;
+
+      #testimonial-left,
+      #testimonial-right {
+        display: flex;
+        flex: 1 1 0;
+      }
+
+      .rounded-box {
+        width: 100%;
+      }
     }
     @media screen and (max-width: $tablet-up) {
       #testimonial-title {
@@ -302,13 +304,9 @@
           padding-right: 2.5rem;
         }
       }
-      #testimonial-left {
-        padding: 0;
-        margin-bottom: 2rem;
-      }
-      #testimonial-right {
-        padding: 0;
-        margin-top: 0;
+      .testimonial-quotes {
+        flex-direction: column;
+        gap: 2rem;
       }
       .rounded-box {
         padding: 1.5rem;
@@ -328,11 +326,14 @@
     div.grid__item {
       display: flex;
 
+      // 36px shield with a 16px gap to the copy, per Figma node 158:1887. The old 10rem box was
+      // sized for the filled lock-gear badge; the outline glyph is drawn much smaller.
       img {
-        width: 10rem;
-        min-width: 10rem;
-        padding-right: 4rem;
-        height: 100%;
+        width: 3.6rem;
+        min-width: 3.6rem;
+        height: 3.6rem;
+        margin-right: 1.6rem;
+        padding-right: 0;
       }
     }
 
@@ -342,8 +343,9 @@
         flex-direction: column;
         img {
           padding-right: 0;
+          margin-right: 0;
           width: 100%;
-          height: 4rem;
+          height: 3.6rem;
           margin-bottom: 1.5rem;
         }
       }
@@ -372,8 +374,11 @@
     background-color: #FFE8CC;
   }
 
+  // Subtle links take the surrounding text colour; the underline follows so it does not sit teal
+  // under Confidence Blue text.
   .link--subtle {
     color: inherit;
+    border-bottom-color: currentColor;
   }
 
   .slab--secondary-cta{

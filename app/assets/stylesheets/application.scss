@@ -213,16 +213,168 @@ body {
     .service-comparison {
       color: $color-clarity-white;
 
-      // Honeycrisp sizes this h1 at 5rem, which dwarfs the 2.7rem section headings elsewhere on
-      // the page. Figma draws it at 28px, the same size as "What our clients say".
-      h1.title {
-        font-size: 2.8rem;
-        line-height: 3.6rem;
-      }
-
       a {
         color: $color-clarity-white;
       }
+    }
+  }
+}
+
+
+
+.gyr-theme {
+  font-size: 16px;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-style: normal;
+  line-height: normal;
+  -webkit-font-smoothing: antialiased;
+
+  h1 {
+    font-family: $font-gyr-heading;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-display {
+    font-family: $font-gyr-heading;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-body {
+    font-family: $font-gyr-refresh;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-body-bold,
+  h2,
+  h3 {
+    font-family: $font-gyr-refresh;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-body-label,
+  .label {
+    font-family: $font-gyr-refresh;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-progress-text,
+  .help_text {
+    font-family: $font-gyr-refresh;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-button {
+    font-family: $font-gyr-refresh;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-button-sm {
+    font-family: $font-gyr-refresh;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+}
+
+
+.gyr-theme.body--home,
+.gyr-theme .slab--service-comparison {
+  h2,
+  h3,
+  .service-comparison h1.title,
+  #trusted-support .title,
+  .service-card--title {
+    font-family: $font-gyr-heading;
+    font-size: 1.9rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+  }
+
+  .slab--secondary-cta h2,
+  .slab--testimonials .rounded-box p.text--bold {
+    font-family: $font-gyr-heading;
+    font-size: 2.2rem;
+    line-height: 2.8rem;
+    font-weight: 400;
+  }
+
+
+  .slab--security h2 {
+    font-family: $font-gyr-refresh;
+    font-size: 16px;
+    line-height: normal;
+    font-weight: 700;
+  }
+}
+
+.gyr-theme {
+  a:where(:not(.button)) {
+    display: inline;
+    color: $color-link-unvisited;
+    border-bottom: 1px solid $color-link-unvisited;
+    text-decoration: none;
+
+    &:hover {
+      border-bottom-width: 0;
+    }
+
+    &:visited {
+      color: $color-link-visited;
+      border-bottom-color: $color-link-visited;
+    }
+
+    &:focus-visible {
+      border-radius: 2px;
+      outline: 2px solid $color-focus;
+      outline-offset: 2px;
+    }
+  }
+
+  // Header and footer links opt out of the underline. Both sit on Confidence Blue, so they also
+  // keep Clarity White rather than taking the teal above -- teal on navy fails contrast. The
+  // engine only clears the border here; the color is our addition.
+  header a:where(:not(.button)) {
+    border-bottom-width: 0;
+    color: $color-clarity-white;
+
+    &:hover,
+    &:visited {
+      border-bottom-width: 0;
+      color: $color-clarity-white;
+    }
+  }
+
+  footer a:where(:not(.button)) {
+    color: $color-clarity-white;
+    border-bottom-color: $color-white;
+
+    &:hover,
+    &:visited {
+      color: $color-clarity-white;
+      border-bottom: 1px solid $color-white;
     }
   }
 }
