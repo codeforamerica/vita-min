@@ -2123,6 +2123,28 @@ es:
         subtitle: 'Aquí hay una instantánea de sus impuestos:'
         tax_return_heading: Declaración de impuestos de %{year}
         title: Bienvenido de nuevo %{name}!
+    settings:
+      show:
+        bank_info:
+          account_types:
+            checking: Cuenta corriente
+            savings: Cuenta de ahorros
+            unspecified: No especificado
+          none: No ha proporcionado información de su cuenta bancaria.
+          refund_deposits_to: El reembolso se deposita en
+          title: Información bancaria
+        contact_info:
+          email: Correo electrónico
+          email_not_provided: No se proporcionó un correo electrónico
+          phone: Teléfono
+          phone_not_provided: No se proporcionó un número de teléfono
+          preferred_contact: Contacto preferido
+          title: Información de contacto
+        making_a_change:
+          body: Envíe un mensaje a su equipo de impuestos y ellos harán el cambio.
+          title: "¿Necesita actualizar algo?"
+        message_tax_team: Enviar mensaje a su equipo de impuestos
+        title: Información de la cuenta
     still_needs_helps:
       chat_later:
         help_text: Si tiene algún documento adicional que necesita subir, por favor use el botón abajo.

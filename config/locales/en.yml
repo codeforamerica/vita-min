@@ -2151,6 +2151,28 @@ en:
         subtitle: 'Here is a snapshot of your taxes:'
         tax_return_heading: "%{year} return"
         title: Welcome back %{name}!
+    settings:
+      show:
+        bank_info:
+          account_types:
+            checking: Checking
+            savings: Savings
+            unspecified: Not specified
+          none: You have not provided bank account information.
+          refund_deposits_to: Refund deposits to
+          title: Bank info
+        contact_info:
+          email: Email
+          email_not_provided: Email not provided
+          phone: Phone
+          phone_not_provided: Phone number not provided
+          preferred_contact: Preferred contact
+          title: Contact info
+        making_a_change:
+          body: Message your tax team and they'll make the change.
+          title: Need to update something?
+        message_tax_team: Message tax team
+        title: Account info
     still_needs_helps:
       chat_later:
         help_text: If you have any additional documents that you need to upload, please use the button below.

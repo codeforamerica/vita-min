@@ -188,6 +188,7 @@ Rails.application.routes.draw do
         get '/still-need-help/thank-you', to: "still_needs_helps#no_longer_needs_help", as: :still_needs_help_no_longer_needs_help
         put '/still-need-help/thank-you', to: "still_needs_helps#experience_survey", as: :still_needs_help_experience_survey
         resources :messages, only: [:new, :create]
+        resource :settings, only: [:show]
         resources :documents, only: [:show]
         resources :upload_documents, only: [:destroy]
         match 'upload-documents/overview', to: 'upload_documents#index', via: :get, as: :overview_documents
