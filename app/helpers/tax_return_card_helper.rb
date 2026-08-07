@@ -229,7 +229,7 @@ module TaxReturnCardHelper
         return_status: state
       }
     elsif [:file_ready_to_file, :file_accepted, :file_rejected, :file_hold, :file_fraud_hold,
-           :file_not_filing, :file_efiled, :file_mailed].include?(state)
+           :file_not_filing, :file_efiled, :file_mailed, :file_needs_review].include?(state)
       {
         badge_text: t('portal.portal2.home.badge.almost_done'),
         help_text: t("portal.portal2.home.help_text.final_steps"),
