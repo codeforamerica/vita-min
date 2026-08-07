@@ -9,15 +9,11 @@
 <div class="main-content-inner">
   <div class="slab slab--hero slab--gyr-green">
     <div class="grid">
-      <%# Full width rather than half: the hero illustration this used to sit beside is not part
-          of the refreshed design. %>
       <div class="grid__item width-one-whole">
         <h1>
           <%= t("views.public_pages.home.header") %>
         </h1>
         <p>
-          <%# The refreshed hero sets this line at regular weight, so no <strong> -- the emphasis
-              was presentational, not semantic. %>
           <%= open_for_gyr_intake? ? t("views.public_pages.home.subheader") : t("views.public_pages.home.subheader_offseason") %>
         </p>
         <% if app_time <= Rails.configuration.tax_deadline %>
@@ -61,8 +57,6 @@
     </div>
   </div>
 
-  <%# The whole section pitches Spanish to an English reader, so it has nothing to say once the
-      page is already in Spanish. %>
   <% unless locale == :es %>
     <div class="slab slab-habla-espanol">
       <div class="grid">

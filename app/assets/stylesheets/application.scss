@@ -124,19 +124,11 @@ body {
   font-family: $font-gyr;
 }
 
-// GYR's refreshed palette. Scoped to the `gyr-theme` body class (ApplicationHelper#body_class_list)
-// rather than set on `body`, because this stylesheet is also served to the hub, CTC, and state
-// file, which keep their own visual language. Only chrome shared with those products needs the
-// scoping -- page-specific rules live with the pages they style, under `.body--home` and friends.
 .gyr-theme {
   background-color: $color-cream;
   color: $color-confidence-blue;
   font-family: $font-gyr-refresh;
 
-  // Form controls don't inherit type from the page: browsers default them to the system UI font,
-  // and honeycrisp's `.select__element` plus our `.file-input` set $font-system outright. Pull
-  // them back to the inherited face so the pages aren't half Inter, half Helvetica.
-  // Deliberately not `*` -- the Material Icons glyph elements set their own family and must keep it.
   input,
   select,
   textarea,
@@ -158,7 +150,6 @@ body {
       background-size: 100% auto;
     }
 
-    // Override the @2x branch of honeycrisp's retina-bg mixin; the SVG needs no variant.
     @media only screen and (min-resolution: 1.3dppx), only screen and (min-resolution: 125dpi) {
       .main-header__logo:before {
         background-image: image-url("getyourrefund-mark.svg");
@@ -171,8 +162,6 @@ body {
       color: $color-clarity-white;
     }
 
-    // The !important matches the one on `.main-header .button--toolbar` above; a plain
-    // declaration loses to it no matter how specific this selector gets.
     .button--toolbar {
       background-color: $color-primary-lime;
       color: $color-confidence-blue !important;
@@ -183,9 +172,6 @@ body {
     color: $color-clarity-white;
   }
 
-  // Semantic and floating buttons keep their existing treatment, hence the exclusions. The
-  // per-product service card CTAs in components/_service-card.scss repeat this chain to
-  // out-specify it.
   .button#{$gyr-cta-exclusions} {
     background-color: $color-primary-lime;
     border-color: $color-button-border;
@@ -205,8 +191,6 @@ body {
     color: $color-clarity-white;
   }
 
-  // Lives here rather than in _home.scss because the service comparison also renders on the
-  // pending page, which is outside `.body--home`.
   .slab--service-comparison {
     background-color: $color-confidence-blue;
 
@@ -353,9 +337,6 @@ body {
     }
   }
 
-  // Header and footer links opt out of the underline. Both sit on Confidence Blue, so they also
-  // keep Clarity White rather than taking the teal above -- teal on navy fails contrast. The
-  // engine only clears the border here; the color is our addition.
   header a:where(:not(.button)) {
     border-bottom-width: 0;
     color: $color-clarity-white;
@@ -379,9 +360,6 @@ body {
   }
 }
 
-// Setting overflow to anything but visible or no-height breaks/prevents use of a couple features of CSS (including position: sticky).
-// This gets set in honeycrisp to overflow: hidden, likely to fix/prevent an obscure one-off issue that we solve
-// differently in GYR.
 .page-wrapper {
   overflow: unset !important;
   position: relative;

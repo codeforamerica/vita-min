@@ -46,7 +46,6 @@ describe ApplicationHelper do
   end
 
   describe "#body_class_list" do
-    # hub?/state_file?/ctc? are controller helper_methods, so the view double doesn't declare them.
     around { |example| without_partial_double_verification { example.run } }
 
     before do
@@ -63,8 +62,6 @@ describe ApplicationHelper do
       expect(helper.body_class_list).to eq "body--home gyr-theme"
     end
 
-    # application.css is shared with these products, so the theme has to stay off them or the
-    # refreshed GYR palette leaks into the hub, CTC, and state file.
     %i[hub? state_file? ctc?].each do |other_product|
       it "leaves #{other_product.to_s.delete_suffix('?')} pages unthemed" do
         allow(helper).to receive(other_product).and_return(true)

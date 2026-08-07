@@ -45,14 +45,8 @@ $color-olive: #ACCD4F;
 $color-periwinkle: #9EB0FF;
 $color-button-border: #001E29;
 
-// Buttons that carry their own semantic color, or that float over the page, opt out of GYR's
-// refreshed CTA treatment. Kept here because the base rule in application.scss and the
-// per-product service card rules both need the chain, and the latter has to out-specify the
-// former.
 $gyr-cta-exclusions: ":not(.button--danger):not(.button--disabled):not(.button--intercom)";
 
-// Per-product CTA colors for the service comparison cards, keyed by the `service-card--*`
-// modifier the card partials set.
 $gyr-service-card-ctas: (
   "diy": $color-coral,
   "virtual-vita": $color-olive,
@@ -64,8 +58,6 @@ $color-link-default: #0358a2;
 $color-link-hover: #0358a1;
 $color-link-active: #1d70b8;
 $color-link-visited: #4c2c92;
-// Link and focus colors from the cfa_ui_components theme (--color-link-unvisited, --color-focus).
-// $color-link-visited above already matches the engine's value.
 $color-link-unvisited: #007C7C;
 $color-focus: #339696;
 $color-focused-link-background: #f9c802;

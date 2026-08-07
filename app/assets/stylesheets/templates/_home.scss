@@ -236,11 +236,7 @@
   }
 
   .slab--service-comparison {
-    // 36px of Confidence Blue below the cards before the slab ends.
     padding-bottom: 3.6rem;
-    // Two separate gaps above this slab, and they read differently: the margin sits outside the
-    // background so it shows the cream page, while the padding sits inside it and reads as
-    // Confidence Blue. Adjust the padding to change how much dark space precedes the heading.
     margin-top: 6rem;
     padding-top: 8rem;
   }
@@ -265,17 +261,12 @@
       .rounded-box {
         background-color: $color-confidence-blue;
         color: $color-clarity-white;
-
-        // The quote text carries honeycrisp's .text--small, which hard-codes a near-black color
-        // straight onto the <p>. A declaration beats inheritance, so the color above never
-        // reaches it -- it has to be overridden on the same element.
         .text--small {
           color: $color-clarity-white;
         }
       }
     }
-    // Flex row so both quote boxes share a height regardless of quote length. The boxes are
-    // stretched by the row, and `width: 100%` makes each fill its column.
+
     .testimonial-quotes {
       display: flex;
       gap: 6rem;
@@ -326,8 +317,6 @@
     div.grid__item {
       display: flex;
 
-      // 36px shield with a 16px gap to the copy, per Figma node 158:1887. The old 10rem box was
-      // sized for the filled lock-gear badge; the outline glyph is drawn much smaller.
       img {
         width: 3.6rem;
         min-width: 3.6rem;
@@ -374,8 +363,6 @@
     background-color: #FFE8CC;
   }
 
-  // Subtle links take the surrounding text colour; the underline follows so it does not sit teal
-  // under Confidence Blue text.
   .link--subtle {
     color: inherit;
     border-bottom-color: currentColor;

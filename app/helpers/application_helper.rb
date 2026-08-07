@@ -173,9 +173,6 @@ module ApplicationHelper
     request.domain
   end
 
-  # Client-facing GYR pages. The hub, state file, and CTC each have their own visual language but
-  # share application.css, so GYR's palette has to be scoped away from them rather than applied to
-  # `body` outright. Drives the `gyr-theme` body class below and the Inter preload in the layout.
   def gyr?
     !hub? && !state_file? && !ctc?
   end
