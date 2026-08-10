@@ -127,16 +127,6 @@ body {
 .gyr-theme {
   background-color: $color-cream;
   color: $color-confidence-blue;
-  font-family: $font-gyr-refresh;
-
-  input,
-  select,
-  textarea,
-  button,
-  .select__element,
-  .file-input {
-    font-family: inherit;
-  }
 
   .main-header {
     background-color: $color-confidence-blue;
@@ -206,13 +196,22 @@ body {
 
 
 
-.gyr-theme {
+body:not(.hub) {
+  font-family: $font-gyr-refresh;
   font-size: 16px;
   font-weight: 400;
   font-optical-sizing: auto;
   font-style: normal;
   line-height: normal;
   -webkit-font-smoothing: antialiased;
+  input,
+  select,
+  textarea,
+  button,
+  .select__element,
+  .file-input {
+    font-family: inherit;
+  }
 
   h1 {
     font-family: $font-gyr-heading;
