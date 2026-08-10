@@ -4650,14 +4650,14 @@ __metadata:
   linkType: hard
 
 "dompurify@npm:^3.2.5":
-  version: 3.4.12
-  resolution: "dompurify@npm:3.4.12"
+  version: 3.4.13
+  resolution: "dompurify@npm:3.4.13"
   dependencies:
     "@types/trusted-types": "npm:^2.0.7"
   dependenciesMeta:
     "@types/trusted-types":
       optional: true
-  checksum: 10c0/127a13817353d4e20e75a991a9022a04c3af12af7479f68e2b8bee6dbc7330a96edfb8f4ebff96f4f0f24cd43e8dbba46214131f510c3aa87a843bd8b610d0ab
+  checksum: 10c0/9c2a1a71e1a1d8b77953db7a39ffc935ef4ed4f10fe40770232128c2cbfd4c3dc677d3d7bae51eb24cc52d9ff3548612dc540ecb4343e89b26e809d2be2e0cfe
   languageName: node
   linkType: hard
 
@@ -7071,11 +7071,11 @@ __metadata:
   linkType: hard
 
 "nanoid@npm:^3.3.16":
-  version: 3.3.16
-  resolution: "nanoid@npm:3.3.16"
+  version: 3.3.17
+  resolution: "nanoid@npm:3.3.17"
   bin:
     nanoid: bin/nanoid.cjs
-  checksum: 10c0/bbf2dcffe22d2b62d16de2711752070b539c0f644c7916f823ad6521986b2078cbe524f2d6240f58c46e9141ea0c7b87a029e100c0f7f175228cacaf30e41bba
+  checksum: 10c0/06f7949c7cce5c92c6aea66022f29a1eae7f56e05acbfddf1e049e819b4bf234c44a765cc44da7163482b111677948514012e27acdfa56f95309295768bdae32
   languageName: node
   linkType: hard
 
