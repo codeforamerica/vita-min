@@ -47,6 +47,11 @@ $color-button-border: #001E29;
 
 $gyr-cta-exclusions: ":not(.button--danger):not(.button--disabled):not(.button--intercom)";
 
+
+$font-size-button: 22px;
+$font-size-button-sm: 16px;
+$gyr-button-size-exclusions: ":not(.button--link):not(.button--inline-action):not(.button--intercom)";
+
 $gyr-service-card-ctas: (
   "diy": $color-coral,
   "virtual-vita": $color-olive,

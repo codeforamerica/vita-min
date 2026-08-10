@@ -2,7 +2,7 @@
   font-weight: bold;
   font-size: 3rem;
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1.6rem;
   margin-top: 0.5rem;
 }
 
@@ -50,7 +50,7 @@ img {
 
 .button-wrapper {
   margin-top: 2rem;
-  font-size: 22px;
+  font-size: 1.6rem;
   align-self: stretch;
 
   @media screen and (min-width: $tablet-up) {
@@ -70,6 +70,31 @@ img {
     color: #000000;
     font-weight: normal;
     font-size: inherit;
+  }
+}
+
+@supports (grid-template-rows: subgrid) {
+  @media screen and (min-width: $site-max-up) {
+    .service-recommendation:has(.service-card:nth-child(2)) {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      grid-template-rows: auto auto auto auto auto 1fr;
+      column-gap: 0.5rem;
+      row-gap: 0;
+
+      .service-card {
+        display: grid;
+        grid-row: 1 / -1;
+        grid-template-rows: subgrid;
+        justify-items: center;
+      }
+
+      .button-wrapper,
+      .reveal--service-card {
+        justify-self: stretch;
+      }
+    }
   }
 }
 

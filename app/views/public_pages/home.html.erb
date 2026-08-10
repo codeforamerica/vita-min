@@ -19,7 +19,7 @@
         <h1>
           <%= t("views.public_pages.home.header") %>
         </h1>
-        <p>
+        <p class="hero-subheader">
           <%= open_for_gyr_intake? ? t("views.public_pages.home.subheader") : t("views.public_pages.home.subheader_offseason") %>
         </p>
         <% if app_time <= Rails.configuration.tax_deadline %>

@@ -268,7 +268,7 @@ body:not(.hub) {
 
   .type-button {
     font-family: $font-gyr-refresh;
-    font-size: 22px;
+    font-size: $font-size-button;
     font-weight: 700;
     line-height: normal;
     letter-spacing: 0;
@@ -276,10 +276,18 @@ body:not(.hub) {
 
   .type-button-sm {
     font-family: $font-gyr-refresh;
-    font-size: 16px;
+    font-size: $font-size-button-sm;
     font-weight: 700;
     line-height: normal;
     letter-spacing: 0;
+  }
+
+  .button#{$gyr-button-size-exclusions} {
+    font-size: $font-size-button;
+  }
+
+  .button--small#{$gyr-button-size-exclusions} {
+    font-size: $font-size-button-sm;
   }
 }
 
