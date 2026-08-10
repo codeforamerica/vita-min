@@ -201,5 +201,16 @@ module VitaMin
     # ------------------------------------------------ #
     #  END additions for Rails 7.1 defaults migration  #
     # ------------------------------------------------ #
+
+    # ------------------------------------------------ #
+    # BEGIN additions for Rails 7.2 defaults migration #
+    # ------------------------------------------------ #
+
+    # Reference:
+    # https://github.com/rails/rails/blob/v7.2.3.2/railties/lib/rails/generators/rails/app/templates/config/initializers/new_framework_defaults_7_2.rb.tt
+
+    # ------------------------------------------------ #
+    #  END additions for Rails 7.2 defaults migration  #
+    # ------------------------------------------------ #
   end
 end
