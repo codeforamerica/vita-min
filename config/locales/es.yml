@@ -2205,7 +2205,7 @@ es:
     eligibility_state:
       edit:
         diy_html: "<strong>Obtenga ayuda mientras avanza:</strong> chatee con un experto en impuestos mientras presenta su declaración y resuelva cualquier duda en el momento."
-        page_with_simple_file_step: Paso 2 de 3
+        page: Paso 2 de 3
         title: "¿Qué tipo de apoyo prefiere recibir mientras presenta su declaración de impuestos?"
         virtual_vita_html: "<strong>Deje que un experto haga su declaración:</strong> conéctese con un preparador de impuestos certificado por el IRS que se encarga de presentar su declaración."
     eligibility_wages:
