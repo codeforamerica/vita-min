@@ -209,6 +209,12 @@ module VitaMin
     # Reference:
     # https://github.com/rails/rails/blob/v7.2.3.2/railties/lib/rails/generators/rails/app/templates/config/initializers/new_framework_defaults_7_2.rb.tt
 
+    # 7.2 defaults to including 'image/webp' as well, but let's leave it
+    # as-is. The vita-min repo doesn't use webp images, not all browsers support the
+    # format, and it would require imagemagick/libvips built with WebP support
+    # (juice might not be worth the squeeze).
+    Rails.application.config.active_storage.web_image_content_types = %w[image/png image/jpeg image/gif]
+
     # ------------------------------------------------ #
     #  END additions for Rails 7.2 defaults migration  #
     # ------------------------------------------------ #
