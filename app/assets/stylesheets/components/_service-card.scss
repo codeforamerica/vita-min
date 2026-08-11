@@ -88,6 +88,7 @@ img {
         grid-row: 1 / -1;
         grid-template-rows: subgrid;
         justify-items: center;
+        align-items: start;
       }
 
       .button-wrapper,
@@ -105,8 +106,8 @@ img {
     color: $color-confidence-blue;
   }
 
-  .service-recommendation:has(.service-card:nth-child(2)) .service-card--title {
-    min-height: 5rem;
+  .service-card .button#{$gyr-button-size-exclusions} {
+    font-size: $font-size-button-sm;
   }
 
   @each $product, $cta-color in $gyr-service-card-ctas {
