@@ -75,7 +75,7 @@ img {
 
 @supports (grid-template-rows: subgrid) {
   @media screen and (min-width: $site-max-up) {
-    .service-recommendation:has(.service-card:nth-child(2)) {
+    .service-recommendation:has(.service-card:nth-child(2)):not(.is-js-aligned) {
       display: grid;
       grid-auto-flow: column;
       grid-auto-columns: 1fr;
@@ -99,6 +99,15 @@ img {
   }
 }
 
+.service-recommendation.is-js-aligned {
+  align-items: flex-start;
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .gyr-theme {
   .service-recommendation .service-card {
     background-color: $color-white;
@@ -108,6 +117,9 @@ img {
 
   .service-card .button#{$gyr-button-size-exclusions} {
     font-size: $font-size-button-sm;
+    padding: 1.2rem 1.6rem;
+    border-width: 2px;
+    border-radius: 4px;
   }
 
   @each $product, $cta-color in $gyr-service-card-ctas {

@@ -191,6 +191,14 @@ body {
       a {
         color: $color-clarity-white;
       }
+
+      .service-card a:where(:not(.button)) {
+        color: $color-link-unvisited;
+
+        &:visited {
+          color: $color-link-visited;
+        }
+      }
     }
   }
 }

@@ -59,11 +59,11 @@ $gyr-service-card-ctas: (
   "simple-file": $color-periwinkle,
 );
 
-$color-link-default: #0358a2;
-$color-link-hover: #0358a1;
-$color-link-active: #1d70b8;
-$color-link-visited: #4c2c92;
 $color-link-unvisited: #007C7C;
+$color-link-visited: #4c2c92;
+$color-link-default: $color-link-unvisited;
+$color-link-hover: $color-link-unvisited;
+$color-link-active: $color-link-unvisited;
 $color-focus: #339696;
 $color-focused-link-background: #f9c802;
 $color-focused-link: #000000;
