@@ -33,7 +33,6 @@
 # don't need this feature.
 #++
 Rails.application.config.active_job.enqueue_after_transaction_commit = :default
-# NOTE OK
 
 ###
 # Adds image/webp to the list of content types Active Storage considers as an image
@@ -53,8 +52,7 @@ Rails.application.config.active_job.enqueue_after_transaction_commit = :default
 # Applications with existing timestamped migrations that do not adhere to the
 # expected format can disable validation by setting this config to `false`.
 #++
-Rails.application.config.active_record.validate_migration_timestamps = true
-# NOTE OK
+#Rails.application.config.active_record.validate_migration_timestamps = true
 
 ###
 # Controls whether the PostgresqlAdapter should decode dates automatically with manual queries.
@@ -64,11 +62,10 @@ Rails.application.config.active_record.validate_migration_timestamps = true
 #
 # This query used to return a `String`.
 #++
-Rails.application.config.active_record.postgresql_adapter_decode_dates = true
+#Rails.application.config.active_record.postgresql_adapter_decode_dates = true
 
 ###
 # Enables YJIT as of Ruby 3.3, to bring sizeable performance improvements. If you are
 # deploying to a memory constrained environment you may want to set this to `false`.
 #++
-Rails.application.config.yjit = true
-# NOTE OK
+#Rails.application.config.yjit = true
