@@ -43,6 +43,7 @@ Rails.application.config.active_job.enqueue_after_transaction_commit = :default
 #++
 # Rails.application.config.active_storage.web_image_content_types = %w[image/png image/jpeg image/gif image/webp]
 # NOTE added modified version to application.rb
+# NOTE OK
 
 ###
 # Enable validation of migration timestamps. When set, an ActiveRecord::InvalidMigrationTimestampError
@@ -54,6 +55,7 @@ Rails.application.config.active_job.enqueue_after_transaction_commit = :default
 # expected format can disable validation by setting this config to `false`.
 #++
 Rails.application.config.active_record.validate_migration_timestamps = true
+# NOTE OK
 
 ###
 # Controls whether the PostgresqlAdapter should decode dates automatically with manual queries.
@@ -63,10 +65,10 @@ Rails.application.config.active_record.validate_migration_timestamps = true
 #
 # This query used to return a `String`.
 #++
-#Rails.application.config.active_record.postgresql_adapter_decode_dates = true
+Rails.application.config.active_record.postgresql_adapter_decode_dates = true
 
 ###
 # Enables YJIT as of Ruby 3.3, to bring sizeable performance improvements. If you are
 # deploying to a memory constrained environment you may want to set this to `false`.
 #++
-#Rails.application.config.yjit = true
+Rails.application.config.yjit = true

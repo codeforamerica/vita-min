@@ -210,10 +210,10 @@ module VitaMin
     # https://github.com/rails/rails/blob/v7.2.3.2/railties/lib/rails/generators/rails/app/templates/config/initializers/new_framework_defaults_7_2.rb.tt
 
     # 7.2 defaults to including 'image/webp' as well here, but let's leave it
-    # out (the current behavior is for webp files to be converted png).
+    # out (the earlier behavior we'll keep is for webp files to be converted to png).
     # - Not all browsers support the WebP format
     # - It would require imagemagick/libvips built with WebP support
-    #   (juice might not be worth the squeeze). 
+    #   (juice might not be worth the squeeze).
     Rails.application.config.active_storage.web_image_content_types = %w[image/png image/jpeg image/gif]
 
     # ------------------------------------------------ #
