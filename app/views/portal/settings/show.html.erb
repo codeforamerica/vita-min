@@ -1,0 +1,43 @@
+<% content_for :title, t(".title") %>
+
+<% content_for :card do %>
+  <h1 class="h2 spacing-below-25"><%= t(".title") %></h1>
+
+  <div class="info-box info-box--purple spacing-below-25">
+    <%= image_tag "portal/info-circle.svg", alt: "", class: "info-box__title-image" %>
+    <p class="text--bold spacing-below-0"><%= t(".making_a_change.title") %></p>
+    <p class="spacing-below-0"><%= t(".making_a_change.body") %></p>
+  </div>
+
+  <div class="review-box spacing-below-25">
+    <div class="grid-flex center-aligned spacing-below-25">
+      <%= image_tag "portal/square-user.svg", alt: "", class: "item-15r no-shrink" %>
+      <h2 class="h3 spacing-above-0 spacing-below-0"><%= t(".contact_info.title") %></h2>
+    </div>
+    <p class="text--bold spacing-below-0"><%= t(".contact_info.email") %></p>
+    <p class="spacing-below-15"><%= @intake.email_address.presence || t(".contact_info.email_not_provided") %></p>
+    <p class="text--bold spacing-below-0"><%= t(".contact_info.phone") %></p>
+    <p class="spacing-below-15"><%= @intake.formatted_phone_number.presence || t(".contact_info.phone_not_provided") %></p>
+    <p class="text--bold spacing-below-0"><%= t(".contact_info.preferred_contact") %></p>
+    <p class="spacing-below-0"><%= preferred_contact_methods(@intake) %></p>
+  </div>
+
+  <div class="review-box spacing-below-25">
+    <div class="grid-flex center-aligned spacing-below-25">
+      <%= image_tag "portal/landmark.svg", alt: "", class: "item-15r no-shrink" %>
+      <h2 class="h3 spacing-above-0 spacing-below-0"><%= t(".bank_info.title") %></h2>
+    </div>
+    <p class="text--bold spacing-below-0"><%= t(".bank_info.refund_deposits_to") %></p>
+    <% if @intake.bank_account_number.present? %>
+      <p class="spacing-below-0">
+        <%= t(".bank_info.account_types.#{@intake.bank_account_type}", default: nil) %>
+        <%= masked_account_number(@intake.bank_account_number) %>
+      </p>
+    <% else %>
+      <p class="spacing-below-0"><%= t(".bank_info.none") %></p>
+    <% end %>
+  </div>
+
+  <%= link_to t(".message_tax_team"), new_portal_message_path,
+        class: "button button--primary button--wide text--centered" %>
+<% end %>

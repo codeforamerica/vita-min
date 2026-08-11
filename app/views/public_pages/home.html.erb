@@ -9,7 +9,11 @@
 <div class="main-content-inner">
   <div class="slab slab--hero slab--gyr-green">
     <div class="grid">
-      <div class="grid__item width-one-half">
+      <%= render "shared/dismissible_banner",
+                 banner_id: "fresh-look",
+                 banner_header: t("views.public_pages.home.fresh_look_banner.header"),
+                 banner_body: t("views.public_pages.home.fresh_look_banner.body") %>
+      <div class="grid__item width-one-half spacing-above-25">
         <h1>
           <%= t("views.public_pages.home.header") %>
         </h1>

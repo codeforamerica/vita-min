@@ -79,7 +79,11 @@
         <% @clients.with_eager_loaded_associations.map { |client| Hub::ClientsController::HubClientPresenter.new(client, @related_models_cache) }.each do |client| %>
           <tr id="client-<%= client.id %>" class="index-table__row client-row">
             <td class="index-table__cell client-attribute__needs-response">
-              <%= render "shared/urgent_icon", client: client %>
+              <label class="toggle-switch flag-toggle">
+                <span class="sr-only"><%= t("general.flagged") %></span>
+                <input type="checkbox" id="toggle-flag-<%= client.id %>" data-url="<%= flag_hub_client_path(client) %>" <%= "checked" if client.flagged? %> onchange="toggleClientFlag(this)">
+                <span class="slider round"></span>
+              </label>
             </td>
             <%= tag.td(
               scope: "row",
@@ -181,4 +185,28 @@
       </div>
     </section>
   </div>
+<% end %>
+
+<% content_for :script do %>
+  <script>
+      function toggleClientFlag(checkbox) {
+          const isChecked = checkbox.checked;
+          const action = isChecked ? "set" : "clear";
+          const url = checkbox.dataset.url;
+
+          fetch(url, {method: "PATCH", redirect: "manual",
+              headers: {
+                  "Content-Type": "application/json",
+                  "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+              },
+              body: JSON.stringify({ client: { action: action } })
+          }).then(function(response) {
+              if (!response.ok && response.type !== "opaqueredirect") {
+                  checkbox.checked = !isChecked;
+              }
+          }).catch(function() {
+              checkbox.checked = !isChecked;
+          });
+      }
+  </script>
 <% end %>
