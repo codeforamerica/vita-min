@@ -214,7 +214,7 @@ module VitaMin
     # - Not all browsers support the WebP format
     # - It would require imagemagick/libvips built with WebP support
     #   (juice might not be worth the squeeze). 
-    # Rails.application.config.active_storage.web_image_content_types = %w[image/png image/jpeg image/gif]
+    Rails.application.config.active_storage.web_image_content_types = %w[image/png image/jpeg image/gif]
 
     # ------------------------------------------------ #
     #  END additions for Rails 7.2 defaults migration  #
