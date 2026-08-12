@@ -36,25 +36,25 @@ ADD package.json yarn.lock .yarnrc.yml /app/
 RUN NODE_ENV=production yarn install --immutable
 ADD .ruby-version Gemfile Gemfile.lock /app/
 
-RUN set -a \
-  && . ./.aptible.env \
+RUN { set -a && . ./.aptible.env && set +a; } 2>/dev/null \
+  || { echo "FATAL: could not load .aptible.env (output suppressed)" >&2; exit 1; } \
   && bundle config set --local without 'test development'
 
-RUN set -a \
-  && . ./.aptible.env \
+RUN { set -a && . ./.aptible.env && set +a; } 2>/dev/null \
+  || { echo "FATAL: could not load .aptible.env (output suppressed)" >&2; exit 1; } \
   && gem install bundler:$(cat Gemfile.lock | tail -1 | tr -d " ") --no-document \
   && bundle install
 
 # Add IRS e-file schemas, which are not in the git repo
-RUN set -a \
-  && . ./.aptible.env \
+RUN { set -a && . ./.aptible.env && set +a; } 2>/dev/null \
+  || { echo "FATAL: could not load .aptible.env (output suppressed)" >&2; exit 1; } \
   && bundle exec rails setup:download_efile_schemas setup:unzip_efile_schemas setup:download_gyr_efiler
 
 # Collect assets. This approach is not fully production-ready, but
 # will help you experiment with Aptible Deploy before bothering with assets.
 # Review http://go.aptible.com/assets for production-ready advice.
-RUN set -a \
-  && . ./.aptible.env \
+RUN { set -a && . ./.aptible.env && set +a; } 2>/dev/null \
+  || { echo "FATAL: could not load .aptible.env (output suppressed)" >&2; exit 1; } \
   && bundle exec rake assets:precompile
 
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
