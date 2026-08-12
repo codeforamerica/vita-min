@@ -5,7 +5,7 @@ module Hub
     before_action :load_selection, only: [:show]
     layout "hub"
 
-    ALLOWED_ACTION_TYPES = ["change-organization", "send-a-message", "change-assignee-and-status"]
+    ALLOWED_ACTION_TYPES = ["change-organization", "send-a-message", "change-assignee-and-status", "turn-red-dot-flag-on", "turn-red-dot-flag-off"]
 
     def create
       action_type = create_params[:action_type]
@@ -21,6 +21,10 @@ module Hub
         redirect_to hub_bulk_actions_edit_send_a_message_path(tax_return_selection_id: selection.id)
       when "change-assignee-and-status"
         redirect_to hub_bulk_actions_edit_change_assignee_and_status_path(tax_return_selection_id: selection.id)
+      when "turn-red-dot-flag-on"
+        redirect_to hub_bulk_actions_edit_turn_red_dot_flag_on_path(tax_return_selection_id: selection.id)
+      when "turn-red-dot-flag-off"
+        redirect_to hub_bulk_actions_edit_turn_red_dot_flag_off_path(tax_return_selection_id: selection.id)
       else
         head 404
       end

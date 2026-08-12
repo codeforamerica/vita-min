@@ -836,6 +836,18 @@ en:
             only_email: "(only sending email)"
             only_text: "(only sending text messages)"
           title: Bulk Action
+      turn_red_dot_flag_off:
+        edit:
+          selected_action_and_client_count_html:
+            one: 'You’ve selected <strong>Turn Red Dot Flag Off</strong> for <strong>%{count} client</strong>.'
+            other: 'You’ve selected <strong>Turn Red Dot Flag Off</strong> for <strong>%{count} clients</strong>.'
+          title: Bulk Action
+      turn_red_dot_flag_on:
+        edit:
+          selected_action_and_client_count_html:
+            one: 'You’ve selected <strong>Turn Red Dot Flag On</strong> for <strong>%{count} client</strong>.'
+            other: 'You’ve selected <strong>Turn Red Dot Flag On</strong> for <strong>%{count} clients</strong>.'
+          title: Bulk Action
     bulk_message_csvs:
       bulk_message_csv:
         send_default: Send message (all available contact methods, i.e. default)
@@ -1308,8 +1320,10 @@ en:
         one: "%{count} result is no longer accessible to you."
         other: "%{count} results are no longer accessible to you."
       new:
-        flag_clients: Turn red dot flag on
-        unflag_clients: Turn red dot flag off
+        turn_red_dot_flag_off: Turn red dot flag off
+        turn_red_dot_flag_off_description_html: Turn off the red dot flag for these <strong>%{count} clients</strong>.
+        turn_red_dot_flag_on: Turn red dot flag on
+        turn_red_dot_flag_on_description_html: Turn on the red dot flag for these <strong>%{count} clients</strong>.
         change_assignee_and_status: Change assignee and/or status
         change_assignee_and_status_html: Change assignee and/or status for these <strong>%{count} returns</strong>.
         change_organization: Change organization
@@ -1374,6 +1388,10 @@ en:
     unlock_confirmation: Unlock %{name}'s account? Have they confirmed their identity?
     unsuspend_account: Unsuspend account
     user_notifications:
+      bulk_client_flag_update:
+        off_html: You successfully turned off red dot flag for %{tax_return_selection_link}.
+        on_html: You successfully turned on red dot flag for %{tax_return_selection_link}.
+        title: Successful Bulk Red Dot Flag Update
       bulk_client_message:
         failed-title_html: <i class="icon-warning"></i> Unsuccessful Bulk Send a Message
         failed_body_html: We could not contact %{tax_return_selection_link}.
