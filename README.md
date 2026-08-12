@@ -59,6 +59,13 @@ If you don't already have Homebrew, install it with:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
+#### Docker
+
+If you don't already have Docker Desktop, install it with:
+```shell
+brew install --cask docker
+```
+
 #### Git
 
 MacOS comes with git installed but you can also [install it with Homebrew](https://git-scm.com/download/mac) if you want:
@@ -107,18 +114,6 @@ You need to add the following credential files under the `config/credentials` fo
 - `production.key`
 
 You can obtain these keys from internal team members or access them through LastPass if you have the necessary permissions.
-
-#### Add efile resources locally
-
-In development, we need to download the IRS e-file schemas zip manually from S3.
-
-> ℹ️ We avoid storing them in the repo because the IRS asked us nicely to try to limit distribution.
-
-Run this rake task to get a list of missing schemas, where to download them from, and where to put them. You might need to ask CfA staff for access if you do not have access to the Google drives.
-
-```
-rake setup:unzip_efile_schemas
-```
 
 #### Setup script
 
@@ -192,6 +187,18 @@ bin/setup
 See also [this upgrade guide](https://quaran.to/Upgrade-PostgreSQL-from-12-to-13-with-Homebrew)
 
 If this doesn't get Postgres out of `error` state, or you otherwise can't figure out what's going wrong, ask for help in #tax-eng and say that you tried the instructions in the README.
+
+**Unable to find the PostgreSQL client library**
+
+If you see an error like this, you are probably missing the development libraries. Install the client libraries with:
+```shell
+brew install libpq
+```
+
+Afterwards, run this command to link libpq globally to your shell profile:
+```shell
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+```
 
 #### Java Installation for pdftk on macOS
 
