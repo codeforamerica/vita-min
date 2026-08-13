@@ -2,7 +2,14 @@ require "rails_helper"
 
 RSpec.describe Questions::SpouseConsentController do
   let(:filing_joint) { "yes" }
-  let(:intake) { create :intake, filing_joint: filing_joint }
+  let(:widowed) { "no" }
+  let(:married_last_day_of_year) { "yes" }
+  let(:intake) {
+    create :intake,
+           filing_joint: filing_joint,
+           widowed: widowed,
+           married_last_day_of_year: married_last_day_of_year
+  }
 
   before do
     sign_in intake.client
@@ -13,6 +20,22 @@ RSpec.describe Questions::SpouseConsentController do
       let(:filing_joint) { "yes" }
       it "returns true" do
         expect(Questions::SpouseConsentController.show?(intake)).to eq true
+      end
+
+      context "when they weren't legally married AND were widowed at the end of the filing year" do
+        let(:widowed) { "yes" }
+        let(:married_last_day_of_year) { "no" }
+        it "returns false" do
+          expect(subject.class.show?(intake)).to eq false
+        end
+      end
+
+      context "when they were legally married AND widowed at the end of the filing year" do
+        let(:widowed) { "yes" }
+        let(:married_last_day_of_year) { "yes" }
+        it "returns true" do
+          expect(subject.class.show?(intake)).to eq true
+        end
       end
     end
 

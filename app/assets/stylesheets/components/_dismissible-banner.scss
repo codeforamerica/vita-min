@@ -1,0 +1,40 @@
+.dismissible-banner {
+  padding: 1rem 2rem;
+  border-radius: var(--radius-sm, 4px);
+  border: 1px solid var(--border-informational, #1B059A);
+  background: var(--shade-informational, #F4F3FC);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  font-size: 16px;
+
+  &.is-hidden {
+    display: none;
+  }
+
+  img {
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+  }
+
+  &__text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  &__header {
+    font-weight: $font-weight-bold;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    font-size: 3rem; // size of X
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 0.5rem;
+    flex-shrink: 0;
+  }
+}

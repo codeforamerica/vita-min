@@ -39,7 +39,7 @@ module VitaMin
       end
     end
 
-    config.load_defaults 7.0
+    config.load_defaults 7.2
 
     config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
@@ -148,6 +148,8 @@ module VitaMin
     config.intercom_app_id_statefile = "rtcpj4hf"
     config.google_login_enabled = true
 
+    config.x.simple_file_url = ENV.fetch("SIMPLE_FILE_BASE_URL", "https://staging.simplefile.getyourrefund.org")
+
     # Add pdftk to PATH
     ENV['PATH'] += ":#{Rails.root}/vendor/pdftk"
 
@@ -164,5 +166,58 @@ module VitaMin
         "#{log_line.to_json}\n"
       end
     end
+
+    # ------------------------------------------------ #
+    # BEGIN additions for Rails 7.1 defaults migration #
+    # ------------------------------------------------ #
+
+    # For reference, latest version of 7.1 defaults guidance is here:
+    # https://github.com/rails/rails/blob/v7.1.6/railties/lib/rails/generators/rails/app/templates/config/initializers/new_framework_defaults_7_1.rb.tt
+
+    # We depart from Rails 7.1 defaults here by *keeping* the `X-Download-Options`
+    # key-value pair in order to continue supporting IE (only IE uses it).
+    Rails.application.config.action_dispatch.default_headers = {
+      "X-Frame-Options" => "SAMEORIGIN",
+      "X-XSS-Protection" => "0",
+      "X-Content-Type-Options" => "nosniff",
+      "X-Download-Options" => "noopen",  # <--- Let's keep.
+      "X-Permitted-Cross-Domain-Policies" => "none",
+      "Referrer-Policy" => "strict-origin-when-cross-origin"
+    }
+
+    # Setting this to `false` ensures our Mixpanel/etc. PII filtering works.
+    # E.g., spec/controllers/questions/consent_controller_spec.rb:70
+    # (7.1 default is to set this to `true`.)
+    Rails.application.config.precompile_filter_parameters = false
+
+    # Set to `true` b/c we already use field-level encryption (guidance says set to
+    # `false` if *not*.)
+    Rails.application.config.active_record.encryption.support_sha1_for_non_deterministic_encryption = true
+
+    # When `false` (the 7.1 default), path-loading issues seem to occur; so
+    # keep `true` for now.
+    Rails.application.config.add_autoload_paths_to_load_path = true
+
+    # ------------------------------------------------ #
+    #  END additions for Rails 7.1 defaults migration  #
+    # ------------------------------------------------ #
+
+    # ------------------------------------------------ #
+    # BEGIN additions for Rails 7.2 defaults migration #
+    # ------------------------------------------------ #
+
+    # Reference:
+    # https://github.com/rails/rails/blob/v7.2.3.2/railties/lib/rails/generators/rails/app/templates/config/initializers/new_framework_defaults_7_2.rb.tt
+
+    # 7.2 defaults to including 'image/webp' as well here, but let's leave it
+    # out (the earlier behavior we'll keep is for webp files to be converted to png).
+    # - Not all browsers support the WebP format
+    # - It would require imagemagick/libvips built with WebP support
+    #   (juice might not be worth the squeeze).
+    Rails.application.config.active_storage.web_image_content_types = %w[image/png image/jpeg image/gif]
+
+    # ------------------------------------------------ #
+    #  END additions for Rails 7.2 defaults migration  #
+    # ------------------------------------------------ #
   end
 end

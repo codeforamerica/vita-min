@@ -386,12 +386,12 @@ RSpec.describe Hub::ClientsController do
         context "when a client is flagged" do
           before { tobias.touch(:flagged_at) }
 
-          it "adds the flagged icon into the DOM" do
+          it "shows the flag toggle as checked only for the flagged client" do
             get :index
 
             html = Nokogiri::HTML.parse(response.body)
-            expect(html.at_css("#client-#{michael.id}")).not_to have_css("i.urgent")
-            expect(html.at_css("#client-#{tobias.id}")).to have_css("i.urgent")
+            expect(html.at_css("#toggle-flag-#{michael.id}")["checked"]).to be_nil
+            expect(html.at_css("#toggle-flag-#{tobias.id}")["checked"]).to eq("checked")
           end
         end
 

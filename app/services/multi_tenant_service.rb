@@ -68,15 +68,15 @@ class MultiTenantService
   end
 
   def delivery_method_options
-    if service_type == :ctc && EnvironmentCredentials.dig(:mailgun, :ctc_api_key)
+    if service_type == :ctc && EnvironmentCredentials['MAILGUN_CTC_API_KEY']
       {
-        api_key: EnvironmentCredentials.dig(:mailgun, :ctc_api_key),
-        domain: EnvironmentCredentials.dig(:mailgun, :ctc_domain)
+        api_key: EnvironmentCredentials['MAILGUN_CTC_API_KEY'],
+        domain: EnvironmentCredentials['MAILGUN_CTC_DOMAIN']
       }
-    elsif service_type == :statefile && EnvironmentCredentials.dig(:mailgun, :statefile_api_key)
+    elsif service_type == :statefile && EnvironmentCredentials['MAILGUN_STATEFILE_API_KEY']
       {
-        api_key: EnvironmentCredentials.dig(:mailgun, :statefile_api_key),
-        domain: EnvironmentCredentials.dig(:mailgun, :statefile_domain)
+        api_key: EnvironmentCredentials['MAILGUN_STATEFILE_API_KEY'],
+        domain: EnvironmentCredentials['MAILGUN_STATEFILE_DOMAIN']
       }
     else
       Rails.configuration.action_mailer.mailgun_settings
@@ -114,10 +114,11 @@ class MultiTenantService
   end
 
   def twilio_creds
+    key_prefix = "TWILIO_#{service_type.to_s.upcase}"
     @_twlio_creds ||= {
-      account_sid: EnvironmentCredentials.dig(:twilio, service_type, :account_sid),
-      auth_token: EnvironmentCredentials.dig(:twilio, service_type, :auth_token),
-      messaging_service_sid: EnvironmentCredentials.dig(:twilio, service_type, :messaging_service_sid)
+      account_sid: EnvironmentCredentials["#{key_prefix}_ACCOUNT_SID"],
+      auth_token: EnvironmentCredentials["#{key_prefix}_AUTH_TOKEN"],
+      messaging_service_sid: EnvironmentCredentials["#{key_prefix}_MESSAGING_SERVICE_SID"]
     }
   end
 

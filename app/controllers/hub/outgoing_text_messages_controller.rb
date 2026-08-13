@@ -9,7 +9,10 @@ module Hub
           user: current_user,
           body: outgoing_text_message_params[:body]
         )
+
+        @client.update!(flagged_at: nil)
       end
+
       redirect_to hub_client_messages_path(client_id: @client.id, anchor: "last-item")
     end
 

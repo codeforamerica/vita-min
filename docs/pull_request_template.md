@@ -1,6 +1,6 @@
 ## Link to Jira issue
 
-- e.g. https://codeforamerica.atlassian.net/browse/ABCD-123
+- https://codeforamerica.atlassian.net/browse/ABCD-123
 
 ## Is PM acceptance required?
 

@@ -40,7 +40,7 @@ RSpec.describe StateFile::ImportFromDirectFileJob, type: :job do
         expect(intake.dependents.count).to eq(3)
         expected_hashed_ssn = OpenSSL::HMAC.hexdigest(
           "SHA256",
-          EnvironmentCredentials.dig(:duplicate_hashing_key),
+          EnvironmentCredentials['DUPLICATE_HASHING_KEY'],
           "ssn|400000010"
         )
         expect(intake.hashed_ssn).to eq expected_hashed_ssn

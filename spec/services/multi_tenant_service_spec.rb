@@ -133,6 +133,20 @@ describe MultiTenantService do
     end
   end
 
+  describe "#twilio_creds" do
+    it "looks up credentials using upcased, service-specific env var names" do
+      service_types = { gyr: "GYR", ctc: "CTC", statefile: "STATEFILE" }
+      service_types.each do |service_type, upcased|
+        expect(EnvironmentCredentials).to receive(:[]).with("TWILIO_#{upcased}_ACCOUNT_SID").and_return("sid")
+        expect(EnvironmentCredentials).to receive(:[]).with("TWILIO_#{upcased}_AUTH_TOKEN").and_return("token")
+        expect(EnvironmentCredentials).to receive(:[]).with("TWILIO_#{upcased}_MESSAGING_SERVICE_SID").and_return("messaging_sid")
+
+        creds = described_class.new(service_type).twilio_creds
+        expect(creds).to eq(account_sid: "sid", auth_token: "token", messaging_service_sid: "messaging_sid")
+      end
+    end
+  end
+
   describe "#twilio_status_webhook_url" do
     it "returns the twilio callback url except when statefile" do
       outgoing_message_id = create(:outgoing_text_message).id

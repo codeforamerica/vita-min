@@ -55,6 +55,22 @@ RSpec.describe DocAssessment, type: :model do
       end
     end
 
+    context "when matches_doc_type_verdict is present but not 'pass' but also user confirmed correct" do
+      # in other words, screener-predicted type does not match client-selected type,
+      # but partner confirms that the screener's suggested_document_type is correct
+      let(:assessment) do
+        described_class.new(
+          document: document,
+          result_json: { "matches_doc_type_verdict" => "fail" },
+          confirmed: true
+        )
+      end
+
+      it "returns 'pass'" do
+        expect(assessment.smart_scan_status).to eq("pass")
+      end
+    end
+
     context "when matches_doc_type_verdict is nil" do
       let(:assessment) do
         described_class.new(

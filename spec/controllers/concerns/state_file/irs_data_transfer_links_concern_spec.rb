@@ -58,7 +58,7 @@ RSpec.describe StateFile::IrsDataTransferLinksConcern, type: :controller do
 
   describe "#irs_df_transfer_link" do
     before do
-      allow(EnvironmentCredentials).to receive(:dig).with("statefile", "df_transfer_auth").and_return "https://example.df.gov/auth-state"
+      allow(EnvironmentCredentials).to receive(:[]).with('STATEFILE_DF_TRANSFER_AUTH').and_return "https://example.df.gov/auth-state"
     end
 
     it "returns link" do

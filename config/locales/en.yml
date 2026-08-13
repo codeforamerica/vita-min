@@ -2149,8 +2149,60 @@ en:
           review_signature_requested_primary: We are waiting for a final signature from you.
           review_signature_requested_spouse: We are waiting for a final signature from your spouse.
         subtitle: 'Here is a snapshot of your taxes:'
-        tax_return_heading: "%{year} return"
+        tax_return_heading: Your %{year} return
         title: Welcome back %{name}!
+    portal2:
+      home:
+        badge:
+          almost_done: Almost done
+          final_check: Final check
+          in_progress: In progress
+          tax_prep: Tax prep
+        button:
+          add_documents: Add documents
+          complete_tax_questions: Complete tax questions
+          message_tax_team: Message tax team
+        calls_to_action:
+          add_missing_documents: See what is missing and complete your tax return.
+          add_missing_documents_title: Submit additional documents
+          finish_intake: When you finish your tax form you'll get paired with your tax team.
+          finish_intake_title: Continue answering tax questions
+          prep_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
+          prep_info_requested_title: You have a message
+          review_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
+          review_info_requested_title: You have a message
+        help_text:
+          final_steps: Your return is signed and on its way to the IRS. We'll let you know when it's processed.
+          info_requested: We need a few more documents to finish your tax return.
+          intake_incomplete: You're still filling out your tax form.
+          intake_reviewing: Your tax team is reviewing your information. They'll reach out with any questions.
+          prep_info_requested: We need more information to prepare your return.
+          review: Your return is in final review. We'll be in touch if anything needs your attention.
+          review_info_requested: Your tax team needs one more thing before finalizing your return.
+          tax_prep: Your tax team is preparing your return. We'll reach out if we need anything.
+        title: Welcome back, %{name}
+    settings:
+      show:
+        bank_info:
+          account_types:
+            checking: Checking
+            savings: Savings
+            unspecified: Not specified
+          none: You have not provided bank account information.
+          refund_deposits_to: Refund deposits to
+          title: Bank info
+        contact_info:
+          email: Email
+          email_not_provided: Email not provided
+          phone: Phone
+          phone_not_provided: Phone number not provided
+          preferred_contact: Preferred contact
+          title: Contact info
+        making_a_change:
+          body: Message your tax team and they'll make the change.
+          title: Need to update something?
+        message_tax_team: Message tax team
+        title: Account info
     still_needs_helps:
       chat_later:
         help_text: If you have any additional documents that you need to upload, please use the button below.
@@ -2211,10 +2263,30 @@ en:
     home:
       already_started: Already started? Sign in
   questions:
+    eligibility_household:
+      edit:
+        child_reveal:
+          bullet_1: Is your child, stepchild, foster child, adopted child, grandchild, sibling, half-sibling, stepsibling, or descendant of any of them
+          bullet_2: Lived with you for over half the tax year
+          bullet_3: Did not provide over half their own support for the tax year
+          bullet_4: Is not married and filing a joint return with their spouse for this tax year
+          bullet_5: You are entitled to claim them as a dependent for this tax year
+          subtitle: 'A qualifying child is someone who meets all of the following:'
+          title: Who is considered a qualifying child?
+        household_status:
+          jointly: Filing with my spouse (filing jointly)
+          question: How will you be filing this year?
+          single: Filing by myself (filing single)
+        page: Step 3 of 3
+        qualifying_child_16: Did you have a qualifying child age 16 or under in 2025?
+        qualifying_child_5: Did you have a qualifying child age 5 or under in 2025?
+        residence_state: What state did you live in in 2025?
+        title: Tell us about your household
     eligibility_state:
       edit:
         diy_html: "<strong>Get help as you go:</strong> chat with a tax expert as you file to answer any questions you have along the way"
         page: Step 2 of 2
+        page_with_simple_file_step: Step 2 of 3
         title: What kind of support do you prefer while you file your taxes?
         virtual_vita_html: "<strong>Have an expert do your taxes:</strong> match with an IRS-certified preparer who will prepare and submit your return"
     eligibility_wages:
@@ -5246,6 +5318,9 @@ en:
         faq:
           faq_cta: Read our FAQ
           header: 'Common Tax Questions:'
+        fresh_look_banner:
+          body: Coming in mid-August, you'll see a new design, same trusted service.
+          header: A fresh look is coming to GetYourRefund
         header: Free tax filing, made simple.
         open_intake_post_tax_deadline_banner: Get started with GetYourRefund by %{end_of_intake} if you want to file with us in %{product_year}. If your return is in progress, sign in and submit your documents by %{end_of_docs}.
         security:

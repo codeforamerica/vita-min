@@ -128,11 +128,130 @@ module TaxReturnCardHelper
     end
   end
 
+  def contact_method_of_last_tax_team_message(intake)
+    last = MessagePresenter.grouped_messages(intake.client)&.values&.last&.last
+    # ^^^ MessagePresenter.grouped_messages returns a map where a key is a datestamp
+    # and a value is an array of messages for that date
+    if not last
+      return ''
+    elsif last.class == OutgoingEmail
+      return locale == :es ? 'correo electrónico' : 'email'
+    else
+      return locale == :es ? 'mensaje de texto' : 'text message'
+    end 
+  end
+
+  def tax_return_status_to_props_2(tax_return)
+    state = tax_return.current_state.to_sym
+
+    intake = tax_return.intake
+    ask_for_answers = state == :intake_in_progress
+
+    if ask_for_answers
+      current_step = intake.current_step
+      if intake.client&.routing_method_at_capacity?
+        # check if the appropriate partner is still at capacity
+        PartnerRoutingService.update_intake_partner(intake)
+
+        if intake.client.routing_method_at_capacity?
+          current_step = Questions::AtCapacityController.to_path_helper
+        else
+          current_step = Questions::ConsentController.to_path_helper
+        end
+      end
+    end
+
+    if ask_for_answers || state == :intake_needs_doc_help
+      {
+        badge_text: t('portal.portal2.home.badge.in_progress'),
+        help_text: t('portal.portal2.home.help_text.intake_incomplete'),
+        button_type: :complete_intake,
+        link: state == :intake_needs_doc_help ?
+                Portal::UploadDocumentsController.to_path_helper(action: :index) :
+                current_step,
+        call_to_action_title: t('portal.portal2.home.calls_to_action.finish_intake_title'),
+        call_to_action_text: t('portal.portal2.home.calls_to_action.finish_intake'),
+        return_status: state
+      }
+    elsif [:intake_greeter_info_requested,
+           :intake_info_requested].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.in_progress'),
+        help_text: t('portal.portal2.home.help_text.info_requested'),
+        button_type: :add_documents,
+        call_to_action_title: t('portal.portal2.home.calls_to_action.add_missing_documents_title'),
+        call_to_action_text: t('portal.portal2.home.calls_to_action.add_missing_documents'),
+        return_status: state
+      }
+    elsif [:intake_ready,
+           :intake_reviewing,
+           :intake_ready_for_call].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.in_progress'),
+        help_text: t('portal.portal2.home.help_text.intake_reviewing'),
+        button_type: :message_tax_team,
+        return_status: state
+      }
+    elsif [:prep_ready_for_prep, :prep_preparing].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.tax_prep'),
+        help_text: t("portal.portal2.home.help_text.tax_prep"),
+        button_type: :message_tax_team,
+        return_status: state
+      }
+    elsif [:prep_info_requested].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.tax_prep'),
+        help_text: t("portal.portal2.home.help_text.prep_info_requested"),
+        button_type: :message_tax_team,
+        call_to_action_title: t('portal.portal2.home.calls_to_action.prep_info_requested_title'),
+        call_to_action_text:
+          t('portal.portal2.home.calls_to_action.prep_info_requested',
+            contact_method: contact_method_of_last_tax_team_message(intake)),
+        return_status: state
+      }
+    elsif [:review_ready_for_qr, :review_reviewing, :review_ready_for_call].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.final_check'),
+        help_text: t("portal.portal2.home.help_text.review"),
+        button_type: :message_tax_team,
+        return_status: state
+      }
+    elsif [:review_info_requested].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.final_check'),
+        help_text: t("portal.portal2.home.help_text.review_info_requested"),
+        button_type: :message_tax_team,
+        call_to_action_title: t('portal.portal2.home.calls_to_action.review_info_requested_title'),
+        call_to_action_text:
+          t('portal.portal2.home.calls_to_action.review_info_requested',
+            contact_method: contact_method_of_last_tax_team_message(intake)),
+        return_status: state
+      }
+    elsif [:file_ready_to_file, :file_accepted, :file_rejected, :file_hold, :file_fraud_hold,
+           :file_not_filing, :file_efiled, :file_mailed, :file_needs_review].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.almost_done'),
+        help_text: t("portal.portal2.home.help_text.final_steps"),
+        button_type: :message_tax_team,
+        return_status: state
+      }
+    # TODO to be fully implemented in GYR1-1085
+    elsif [:review_signature_requested].include?(state)
+      {
+        badge_text: t('portal.portal2.home.badge.final_check'),
+        help_text: 'To be fully implemented in GYR1-1085',
+        button_type: :message_tax_team,
+        return_status: state
+      }
+    end
+  end
+
   private
 
   def signature_documents_ready?(tax_return)
-    has_final_tax_document = tax_return.final_tax_documents.any?
-    has_8879 = tax_return.signed_8879s.any? || tax_return.unsigned_8879s.any?
+    has_final_tax_document = tax_return&.final_tax_documents&.any?
+    has_8879 = tax_return&.signed_8879s&.any? || tax_return&.unsigned_8879s&.any?
 
     has_final_tax_document && has_8879
   end

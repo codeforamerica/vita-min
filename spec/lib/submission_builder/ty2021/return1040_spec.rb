@@ -84,7 +84,15 @@ describe SubmissionBuilder::Ty2021::Return1040, required_schema: "federal" do
 
     context "schedule EIC" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:eitc).and_return(true)
+        allow(Flipper).to receive(:enabled?) do |arg| 
+          case arg
+          in :eitc
+            true
+          in :use_env_secrets
+            false
+          end
+        end
+
         submission.intake.update(
           claim_eitc: "yes",
           exceeded_investment_income_limit: "no",

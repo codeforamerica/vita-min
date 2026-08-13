@@ -13,7 +13,7 @@
       "quantity": 1
     }
   },
-  "stack": "heroku-18",
+  "stack": "heroku-24",
   "buildpacks": [
     {
       "url": "heroku/ruby"

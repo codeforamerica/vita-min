@@ -10,7 +10,7 @@
         <%= render "shared/diy_card", show_get_started: true %>
         <%= render "shared/virtual_vita_card", show_get_started: true  %>
         <%= render "shared/in_person_vita_card", show_get_started: true  %>
-        <% if Flipper.enabled?(:show_simple_file_card) %>
+        <% if Flipper.enabled?(:show_simple_file) %>
           <%= render "shared/simple_file_card", show_get_started: true %>
         <% end %>
       </div>

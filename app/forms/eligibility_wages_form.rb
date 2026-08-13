@@ -25,7 +25,7 @@ class EligibilityWagesForm < QuestionsForm
 
     had_rental_income = attributes[:had_rental_income]
     has_crypto_income = attributes[:has_crypto_income]
-    if had_rental_income == 'no' && has_crypto_income == '0'
+    if had_rental_income == 'no' && has_crypto_income == 'false'
       attributes.update(triage_vita_income_ineligible: 'no')
     end
 

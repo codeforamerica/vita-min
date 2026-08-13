@@ -40,23 +40,27 @@ class IntercomService
   end
 
   def self.generate_user_hash(user_id)
-    cred = EnvironmentCredentials.dig(:intercom, :secure_mode_secret_key)
+    cred = EnvironmentCredentials['INTERCOM_SECURE_MODE_SECRET_KEY']
 
-    OpenSSL::HMAC.hexdigest(
-      'sha256',
-      cred,
-      user_id.to_s
-    ) unless user_id.nil?
+    unless user_id.nil?
+      OpenSSL::HMAC.hexdigest(
+        'sha256',
+        cred,
+        user_id.to_s
+      )
+    end
   end
 
   def self.generate_statefile_user_hash(user_id)
-    cred = EnvironmentCredentials.dig(:intercom, :statefile_secure_mode_secret_key)
+    cred = EnvironmentCredentials['INTERCOM_STATEFILE_SECURE_MODE_SECRET_KEY']
 
-    OpenSSL::HMAC.hexdigest(
-      'sha256',
-      cred,
-      user_id.to_s
-    ) unless user_id.nil?
+    unless user_id.nil?
+      OpenSSL::HMAC.hexdigest(
+        'sha256',
+        cred,
+        user_id.to_s
+      )
+    end
   end
 
   private
@@ -146,7 +150,7 @@ class IntercomService
   end
 
   def self.intercom
-    @intercom ||= Intercom::Client.new(token: EnvironmentCredentials.dig(:intercom, :intercom_access_token))
+    @intercom ||= Intercom::Client.new(token: EnvironmentCredentials['INTERCOM_ACCESS_TOKEN'])
   end
 
   MAX_RETRY_COUNT = 3
@@ -160,12 +164,11 @@ class IntercomService
 
     begin
       result = intercom.send(collection).send(verb, params)
-    rescue
-      Intercom::AuthenticationError => e
-        retry_counts += 1
-        DatadogApi.increment("intercom.api.authentication_failure_retry")
-        retry if retry_counts <= MAX_RETRY_COUNT
-        raise e, "Failed #{MAX_RETRY_COUNT} times to authenticate with Intercom"
+    rescue Intercom::AuthenticationError => e
+      retry_counts += 1
+      DatadogApi.increment("intercom.api.authentication_failure_retry")
+      retry if retry_counts <= MAX_RETRY_COUNT
+      raise e, "Failed #{MAX_RETRY_COUNT} times to authenticate with Intercom"
     end
 
     if Rails.env.development?

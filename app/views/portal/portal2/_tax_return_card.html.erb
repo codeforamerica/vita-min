@@ -1,0 +1,44 @@
+<% card_props = tax_return_status_to_props_2(tax_return) %>
+
+<div class="review-box" id="tax-year-<%= tax_return.year %>">
+  <div class="grid-flex space-between spacing-below-25">
+    <div>
+      <h2 class="h3">
+        <%= t('portal.portal.home.tax_return_heading', year: tax_return.year) %>
+        <span class="portal-status-badge"><%= card_props[:badge_text] %></span>
+      </h2>
+      <p class="spacing-below-0"><%= card_props[:help_text] %></p>
+    </div>
+  </div>
+  <% if card_props[:call_to_action_text].present? %>
+    <div class="portal-info-box">
+      <p style="margin-bottom: 1rem"><b><%= card_props[:call_to_action_title] %></b></br>
+      <p style="margin: 0.1rem"><%= card_props[:call_to_action_text] %>
+    </div>
+  <% end %>
+
+  <% if card_props.has_key?(:button_type) && card_props[:button_type].present? %>
+    <% if card_props[:button_type] == :complete_intake %>
+      <%= link_to(t("portal.portal2.home.button.complete_tax_questions"),
+                    card_props[:link],
+                    class: "button spacing-below-0",
+                    "data-track-click": "client_portal_complete_intake_button",
+                    "data-track-attribute-page": "client_portal",
+                    "data-track-attribute-return_status": card_props[:return_status]) %>
+    <% elsif card_props[:button_type] == :add_documents %>
+      <%= link_to(t("portal.portal2.home.button.add_documents"),
+                    Portal::UploadDocumentsController.to_path_helper(action: :index),
+                    class: "button spacing-below-0",
+                    "data-track-click": "client_portal_add_documents_button",
+                    "data-track-attribute-page": "client_portal",
+                    "data-track-attribute-return_status": card_props[:return_status]) %>
+    <% elsif card_props[:button_type] == :message_tax_team %>
+      <%= link_to(t("portal.portal2.home.button.message_tax_team"),
+                    new_portal_message_path,
+                    class: "button spacing-below-0",
+                    "data-track-click": "client_portal_message_tax_team_button",
+                    "data-track-attribute-page": "client_portal",
+                    "data-track-attribute-return_status": card_props[:return_status]) %>
+    <% end %>
+  <% end %>
+</div>

@@ -135,6 +135,7 @@ Rails.application.configure do
   config.statefile_url = "http://statefile.localhost:3000"
   config.gyr_url = "http://localhost:3000"
   config.efile_environment = "test"
+  config.simple_file_url = "https://staging.simplefile.getyourrefund.org"
 
   # Keep GYR 'open' until the end of 2040 ^_^
   # the_future = Time.find_zone('America/New_York').parse('2040-12-31 23:59:59')

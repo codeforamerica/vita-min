@@ -332,7 +332,7 @@ class User < ApplicationRecord
   end
 
   def self.google_login_domain?(email)
-    email = email.downcase
+    email = email.strip.downcase
     email_host = email.include?('@') ? email.split("@")[-1] : email
     Devise.omniauth_configs[:google_oauth2].options[:hd].include?(email_host)
   end

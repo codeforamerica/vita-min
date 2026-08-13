@@ -7,6 +7,8 @@ module Portal
     layout "portal"
 
     def home
+      redirect_to(portal_portal2_path) and return if Flipper.enabled?(:client_portal_improvements)
+
       @tax_returns = current_client.tax_returns.order(year: :desc).to_a
       @tax_returns << PseudoTaxReturn.new(intake: current_intake, time: app_time) if @tax_returns.empty?
     end

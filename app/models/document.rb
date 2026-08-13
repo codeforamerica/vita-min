@@ -100,6 +100,13 @@ class Document < ApplicationRecord
   # the HEIC conversion; see https://github.com/rails/rails/issues/37304
   has_one_attached :upload
   validates :upload, file_type_allowed: true, if: -> { upload.present? }
+  validate :validate_filename_length, if: -> { upload.present? }
+
+  def validate_filename_length
+    if upload.attachment&.filename.to_s.length > 255
+      errors.add(:upload, :filename_too_long)
+    end
+  end
 
   def upload=(value)
     if value.is_a?(ActionDispatch::Http::UploadedFile)

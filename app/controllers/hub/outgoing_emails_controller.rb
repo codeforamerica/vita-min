@@ -10,7 +10,10 @@ module Hub
           body: outgoing_email_params[:body],
           attachment: outgoing_email_params[:attachment]
         )
+
+        @client.update!(flagged_at: nil)
       end
+
       redirect_to hub_client_messages_path(client_id: @client, anchor: "last-item")
     end
 

@@ -96,7 +96,6 @@ module Efile
       if Rails.env.development? && File.exist?(local_efiler_repo_config_path)
         begin
           FileUtils.cp(File.join(local_efiler_repo_config_path, 'gyr_secrets.properties'), config_dir)
-          FileUtils.cp(File.join(local_efiler_repo_config_path, 'secret_key_and_cert.p12.key'), config_dir)
         rescue
           raise StandardError.new("Please clone the gyr-efiler repo to ../gyr-efiler and follow its README")
         end
@@ -108,7 +107,6 @@ module Efile
           app_sys_id=#{app_sys_id}
         PROPERTIES
         File.write(File.join(config_dir, 'gyr_secrets.properties'), properties_content)
-        File.write(File.join(config_dir, 'secret_key_and_cert.p12.key'), Base64.decode64(efile_cert_base64), mode: "wb")
       end
 
       FileUtils.touch(File.join(config_dir, '.ready'))

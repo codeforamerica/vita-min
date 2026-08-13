@@ -201,7 +201,7 @@ RSpec.describe EligibilityWagesForm do
           had_self_employment_income: 'yes',
           multiple_states: 'yes',
           had_rental_income: 'no',
-          has_crypto_income: '0',
+          has_crypto_income: 'false',
           triage_vita_income_ineligible: 'yes')
       end
 
@@ -222,7 +222,7 @@ RSpec.describe EligibilityWagesForm do
           had_self_employment_income: 'yes',
           multiple_states: 'yes',
           had_rental_income: 'no',
-          has_crypto_income: '1',
+          has_crypto_income: 'true',
           triage_vita_income_ineligible: 'yes')
       end
 
