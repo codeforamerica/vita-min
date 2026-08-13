@@ -2087,16 +2087,14 @@ es:
         your_tax_preparers: mi especialista en impuestos
     portal:
       home:
-        badge:
-          final_check: Revisión final
         calls_to_action:
           add_missing_documents: Agregue los documentos que faltan para continuar.
-          decline_to_sign: No quiero firmar
+          add_signature_primary: Agregue su firma final a su declaración de impuestos
+          add_signature_spouse: Agregue la firma final de su cónyuge a su declaración de impuestos
           finish_intake: Responda las preguntas fiscales restantes para continuar.
-          sign_your_return: Firme su declaración
         client_id: 'Identificación del cliente: %{id}'
-        decline_to_sign_help: Si no firma su declaración, su equipo de impuestos se comunicará con usted para conversar.
         document_link:
+          add_final_signature: Agregar firma final
           add_missing_documents: Agregar documentos faltantes
           complete_tax_questions: Preguntas completas sobre impuestos
           view_document: Ver o descargar el documento %{display_name}
@@ -2120,11 +2118,8 @@ es:
           prep_ready_for_prep: Tu equipo fiscal está preparando la declaración
           review_ready_for_call: Su equipo de impuestos programará una llamada de revisión final con usted.
           review_reviewing: Tu devolución está siendo revisada
-          review_signature_requested_primary: Su declaración está lista para su firma.
-          review_signature_requested_spouse: Su declaración está lista para la firma de su cónyuge.
-        signature_notice:
-          body: Descargue sus documentos de impuestos finales para revisarlos y luego firme electrónicamente.
-          heading: Se necesita firma
+          review_signature_requested_primary: Estamos esperando una firma final de usted.
+          review_signature_requested_spouse: Estamos esperando una firma final de su cónyuge.
         subtitle: 'Aquí hay una instantánea de sus impuestos:'
         tax_return_heading: Su declaración del %{year}
         title: Bienvenido de nuevo %{name}!
@@ -2138,7 +2133,9 @@ es:
         button:
           add_documents: Agregar documentos
           complete_tax_questions: Preguntas completas sobre impuestos
+          decline_to_sign: No quiero firmar
           message_tax_team: Enviar mensaje
+          sign_your_return: Firme su declaración
         calls_to_action:
           add_missing_documents: Vea qué falta y complete su declaración de impuestos.
           add_missing_documents_title: Envíe documentos adicionales
@@ -2148,6 +2145,11 @@ es:
           prep_info_requested_title: Tiene un mensaje
           review_info_requested: El equipo de impuestos le envió una pregunta por %{contact_method}. Responda para que su declaración de impuestos siga avanzando.
           review_info_requested_title: Tiene un mensaje
+          signature_requested: Revise con cuidado sus documentos finales de impuestos. Una vez que firme, su declaración se enviará al IRS.
+          signature_requested_title: Su declaración está lista para firmar
+        decline_to_sign_help: Elija esta opción si algo no parece correcto o si tiene preguntas. El equipo de impuestos se comunicará con usted.
+        document_link:
+          download_final_tax_papers: Descargue sus documentos finales de impuestos del %{year}
         help_text:
           final_steps: Su declaración de impuestos está en camino al IRS. Le informaremos cuando sea procesada.
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
@@ -2156,6 +2158,8 @@ es:
           prep_info_requested: Necesitamos más información para preparar su declaración de impuestos.
           review: Nos comunicaremos con usted si algo requiere su atención.
           review_info_requested: El equipo de impuestos necesita una cosa más antes de finalizar su declaración.
+          signature_requested_primary: Su declaración está completa y esperando su firma.
+          signature_requested_spouse: Su declaración está completa y esperando la firma de su cónyuge.
           tax_prep: Nos comunicaremos con usted si necesitamos algo.
         title: Bienvenido de nuevo, %{name}
     settings:

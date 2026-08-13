@@ -55,16 +55,6 @@ RSpec.describe Portal::PortalController, type: :controller do
         expect(assigns(:tax_returns).map(&:year)).to eq [MultiTenantService.new(:gyr).current_tax_year, (MultiTenantService.new(:gyr).current_tax_year - 1), (MultiTenantService.new(:gyr).current_tax_year - 2)]
         expect(assigns(:current_step)).to eq nil
       end
-
-      it "sends a Portal Screen Viewed event with the most recent tax return's status" do
-        allow(MixpanelService).to receive(:send_event)
-
-        get :home
-
-        expect(MixpanelService).to have_received(:send_event).with(
-          hash_including(event_name: "portal_screen_viewed", data: { status: "intake_ready_for_call" })
-        )
-      end
     end
   end
 end

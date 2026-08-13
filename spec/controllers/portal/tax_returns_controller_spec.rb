@@ -421,7 +421,7 @@ describe Portal::TaxReturnsController do
     context "when logged in as a client who owns the tax return" do
       before { sign_in tax_return.client }
 
-      context "when the return is not awaiting a signature" do
+      context "when the return is not in signature requested" do
         let(:tax_return) { create :gyr_tax_return, :review_reviewing }
 
         it "redirects to the portal root without changing anything" do
@@ -432,7 +432,7 @@ describe Portal::TaxReturnsController do
         end
       end
 
-      context "when the return is awaiting a signature" do
+      context "when the return is in signature requested" do
         it "declines the signature and redirects to the portal root with a confirmation" do
           put :decline_signature, params: params
 
@@ -440,6 +440,17 @@ describe Portal::TaxReturnsController do
           expect(tax_return.client.reload.flagged?).to eq true
           expect(flash[:notice]).to eq I18n.t("portal.tax_returns.decline_signature.confirmation")
           expect(response).to redirect_to :portal_root
+        end
+      end
+
+      context "when the return is in signature requested but no documents have been uploaded" do
+        let(:tax_return) { create :gyr_tax_return, :review_signature_requested }
+
+        it "still lets the client decline" do
+          put :decline_signature, params: params
+
+          expect(tax_return.reload.current_state).to eq "review_ready_for_call"
+          expect(tax_return.client.reload.flagged?).to eq true
         end
       end
     end

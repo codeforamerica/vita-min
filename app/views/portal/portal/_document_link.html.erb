@@ -1,7 +1,6 @@
-<% track_click = local_assigns[:track_click] %>
 <div class="status-line-items__row">
   <%= image_tag("icons/download.svg", alt: "") %>
-  <%= link_to url, target: "_blank", rel: "noopener", class: "link", data: (track_click.present? ? { "track-click": track_click } : {}) do %>
+  <%= link_to url, target: "_blank", rel: "noopener", class: "link", **mixpanel_click_tracking_attributes(local_assigns[:track_click], local_assigns[:track_attributes]) do %>
     <span class="link__border"><%= text %></span><i class="icon-keyboard_arrow_right link__icon"></i>
   <% end %>
 </div>

@@ -1,10 +1,11 @@
 <% track_click = local_assigns[:track_click] %>
+<% track_attributes = local_assigns[:track_attributes] %>
 <% if documents.present? %>
   <% if documents.count == 1 %>
-    <%= render "document_link", url: portal_document_path(id: documents.first.id), text: label, track_click: track_click %>
+    <%= render "portal/portal/document_link", url: portal_document_path(id: documents.first.id), text: label, track_click: track_click, track_attributes: track_attributes %>
   <% else %>
     <% documents.each do |document| %>
-      <%= render "document_link", url: portal_document_path(id: document.id), text: t("portal.portal.home.document_link.view_document", display_name: document.display_name), track_click: track_click %>
+      <%= render "portal/portal/document_link", url: portal_document_path(id: document.id), text: t("portal.portal.home.document_link.view_document", display_name: document.display_name), track_click: track_click, track_attributes: track_attributes %>
     <% end %>
   <% end %>
 <% end %>

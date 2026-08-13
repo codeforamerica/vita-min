@@ -156,11 +156,6 @@ class TaxReturn < ApplicationRecord
     false
   end
 
-  def awaiting_8879_signature?
-    (ready_for_8879_signature?(TaxReturn::PRIMARY_SIGNATURE) || ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE)) &&
-      final_tax_documents.any?
-  end
-
   def completely_signed_8879?
     if filing_jointly?
       primary_has_signed_8879? && spouse_has_signed_8879?
@@ -236,6 +231,7 @@ class TaxReturn < ApplicationRecord
   def decline_to_sign!
     ActiveRecord::Base.transaction do
       transition_to!(:review_ready_for_call)
+      SystemNote::ClientDeclinedSignature.generate!(tax_return: self)
       client.flag!
     end
   end

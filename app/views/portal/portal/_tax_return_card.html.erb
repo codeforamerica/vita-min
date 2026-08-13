@@ -3,12 +3,7 @@
 <div class="review-box" id="tax-year-<%= tax_return.year %>">
   <div class="grid-flex space-between spacing-below-25">
     <div>
-      <h2 class="h3">
-        <%= t('portal.portal.home.tax_return_heading', year: tax_return.year) %>
-        <% if card_props[:badge].present? %>
-          <span class="review-box__badge"><%= card_props[:badge] %></span>
-        <% end %>
-      </h2>
+      <h2 class="h3"><%= t('portal.portal.home.tax_return_heading', year: tax_return.year) %></h2>
       <p class="spacing-below-0"><%= card_props[:help_text] %></p>
     </div>
     <% if card_props.has_key?(:percent_complete) && card_props[:percent_complete].present? %>
@@ -17,19 +12,14 @@
       </div>
     <% end %>
   </div>
-  <% if card_props[:notice].present? %>
-    <div class="notice--warning spacing-below-25">
-      <p class="spacing-below-5"><strong><%= card_props[:notice][:heading] %></strong></p>
-      <p class="spacing-below-0"><%= card_props[:notice][:body] %></p>
-    </div>
-  <% elsif card_props[:call_to_action_text].present? %>
+  <% if card_props[:call_to_action_text].present? %>
     <%= render "portal/portal/action_state", link: false do %>
       <%= card_props[:call_to_action_text] %>
     <% end %>
   <% end %>
 
   <% if tax_return.documents.length > 0 %>
-    <%= render "document_links", label: t("portal.portal.home.document_link.view_final_tax_document", year: tax_return.year), documents: tax_return.final_tax_documents, track_click: card_props[:signature_requested] ? "portal_download_tax_papers" : nil %>
+    <%= render "document_links", label: t("portal.portal.home.document_link.view_final_tax_document", year: tax_return.year), documents: tax_return.final_tax_documents %>
     <%= render "document_links", label: t("portal.portal.home.document_link.view_w7", year: tax_return.year), documents: current_client.documents.active.where(document_type: DocumentTypes::FormW7.key) %>
     <%= render "document_links", label: t("portal.portal.home.document_link.view_w7_coa", year: tax_return.year), documents: current_client.documents.active.where(document_type: DocumentTypes::FormW7Coa.key) %>
     <%= render "document_links", label: t("portal.portal.home.document_link.view_signed_8879", year: tax_return.year), documents: tax_return.signed_8879s %>
@@ -46,13 +36,9 @@
     <% elsif card_props[:button_type] == :complete_intake_documents %>
       <%= link_to(t("portal.portal.home.document_link.add_missing_documents"), card_props[:link], class: "button spacing-below-0") %>
     <% elsif card_props[:button_type] == :add_signature_primary %>
-      <%= link_to t("portal.portal.home.calls_to_action.sign_your_return"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "button button--primary button--wide spacing-below-15", data: { "track-click": "portal_sign_return", "track-attribute-status": tax_return.current_state } %>
-      <%= link_to t("portal.portal.home.calls_to_action.decline_to_sign"), portal_tax_return_decline_signature_path(tax_return_id: tax_return.id), method: :put, class: "button button--wide spacing-below-5", data: { "track-click": "portal_decline_sign", "track-attribute-status": tax_return.current_state } %>
-      <p class="text--small spacing-below-0"><%= t("portal.portal.home.decline_to_sign_help") %></p>
+      <%= link_to t("portal.portal.home.document_link.add_final_signature"), portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
     <% elsif card_props[:button_type] == :add_signature_spouse %>
-      <%= link_to t("portal.portal.home.calls_to_action.sign_your_return"), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "button button--primary button--wide spacing-below-15", data: { "track-click": "portal_sign_return", "track-attribute-status": tax_return.current_state } %>
-      <%= link_to t("portal.portal.home.calls_to_action.decline_to_sign"), portal_tax_return_decline_signature_path(tax_return_id: tax_return.id), method: :put, class: "button button--wide spacing-below-5", data: { "track-click": "portal_decline_sign", "track-attribute-status": tax_return.current_state } %>
-      <p class="text--small spacing-below-0"><%= t("portal.portal.home.decline_to_sign_help") %></p>
+      <%= link_to t("portal.portal.home.document_link.add_final_signature"), portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id), class: "button spacing-below-0" %>
     <% end %>
   <% end %>
 </div>

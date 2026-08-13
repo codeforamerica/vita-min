@@ -248,13 +248,13 @@ RSpec.feature "a client on their portal" do
              upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
     end
 
-    scenario "shows the sign your return action" do
+    scenario "shows the add final signature action" do
       visit portal_root_path
 
       within "#tax-year-2019" do
-        expect(page).to have_text "Your return is ready for your signature."
+        expect(page).to have_text "We are waiting for a final signature from you."
         expect(page).to have_text "90% complete"
-        expect(page).to have_link "Sign your return", href: portal_tax_return_authorize_signature_path(tax_return_id: client.tax_returns.first.id)
+        expect(page).to have_link "Add final signature", href: portal_tax_return_authorize_signature_path(tax_return_id: client.tax_returns.first.id)
       end
     end
   end
@@ -288,7 +288,7 @@ RSpec.feature "a client on their portal" do
             I18n.t("portal.portal.home.document_link.view_documents"),
             href: Portal::UploadDocumentsController.to_path_helper(action: :index)
           )
-          expect(page).not_to have_link "Sign your return"
+          expect(page).not_to have_link "Add final signature"
         end
       end
     end
@@ -302,41 +302,21 @@ RSpec.feature "a client on their portal" do
                upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
       end
 
-      scenario "shows the sign your return action, decline action, and signature needed notice" do
+      scenario "shows the add final signature action" do
         visit portal_root_path
 
         within "#tax-year-2019" do
-          expect(page).to have_text "Your return is ready for your signature."
-          expect(page).to have_text I18n.t("portal.portal.home.badge.final_check")
+          expect(page).to have_text "We are waiting for a final signature from you."
           expect(page).to have_text "90% complete"
-          expect(page).to have_text I18n.t("portal.portal.home.signature_notice.heading")
-          expect(page).to have_text I18n.t("portal.portal.home.signature_notice.body")
           expect(page).to have_link(
-            "Sign your return",
+            "Add final signature",
             href: portal_tax_return_authorize_signature_path(tax_return_id: client.tax_returns.first.id)
           )
-          expect(page).to have_link(
-            "I don't want to sign",
-            href: portal_tax_return_decline_signature_path(tax_return_id: client.tax_returns.first.id)
-          )
-          expect(page).to have_text I18n.t("portal.portal.home.decline_to_sign_help")
           expect(page).not_to have_link(
             I18n.t("portal.portal.home.document_link.view_documents"),
             href: Portal::UploadDocumentsController.to_path_helper(action: :index)
           )
         end
-      end
-
-      scenario "declining to sign moves the return to waiting for a call and flags the client" do
-        visit portal_root_path
-
-        within "#tax-year-2019" do
-          click_on "I don't want to sign"
-        end
-
-        expect(page).to have_text I18n.t("portal.tax_returns.decline_signature.confirmation")
-        expect(client.tax_returns.first.reload.current_state).to eq "review_ready_for_call"
-        expect(client.reload.flagged?).to eq true
       end
     end
   end

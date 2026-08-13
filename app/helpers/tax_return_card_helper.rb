@@ -67,24 +67,14 @@ module TaxReturnCardHelper
         help_text: t("portal.portal.home.help_text.review_signature_requested_primary"),
         percent_complete: 90,
         button_type: :add_signature_primary,
-        signature_requested: true,
-        badge: t("portal.portal.home.badge.final_check"),
-        notice: {
-          heading: t("portal.portal.home.signature_notice.heading"),
-          body: t("portal.portal.home.signature_notice.body")
-        }
+        call_to_action_text: t("portal.portal.home.calls_to_action.add_signature_primary")
       }
     elsif tax_return.ready_for_8879_signature?(TaxReturn::SPOUSE_SIGNATURE) && signature_documents_ready?(tax_return)
       {
         help_text: t("portal.portal.home.help_text.review_signature_requested_spouse"),
         percent_complete: 90,
         button_type: :add_signature_spouse,
-        signature_requested: true,
-        badge: t("portal.portal.home.badge.final_check"),
-        notice: {
-          heading: t("portal.portal.home.signature_notice.heading"),
-          body: t("portal.portal.home.signature_notice.body")
-        }
+        call_to_action_text: t("portal.portal.home.calls_to_action.add_signature_spouse")
       }
     elsif state == :review_signature_requested
       {
@@ -246,18 +236,37 @@ module TaxReturnCardHelper
         button_type: :message_tax_team,
         return_status: state
       }
-    # TODO to be fully implemented in GYR1-1085
-    elsif [:review_signature_requested].include?(state)
+    elsif state == :review_signature_requested
+      signature_type = signature_type_awaited(tax_return)
+
       {
         badge_text: t('portal.portal2.home.badge.final_check'),
-        help_text: 'To be fully implemented in GYR1-1085',
-        button_type: :message_tax_team,
+        help_text: t("portal.portal2.home.help_text.signature_requested_#{signature_type}"),
+        call_to_action_title: t('portal.portal2.home.calls_to_action.signature_requested_title'),
+        call_to_action_text: t('portal.portal2.home.calls_to_action.signature_requested'),
+        button_type: :sign_return,
+        link: if signature_type == :primary
+                portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id)
+              else
+                portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id)
+              end,
+        download_final_tax_documents: true,
         return_status: state
       }
     end
   end
 
   private
+
+  # Which signature the card should point the client at. The primary signs first;
+  # the spouse's turn comes once the primary has signed a joint return.
+  def signature_type_awaited(tax_return)
+    if tax_return.filing_jointly? && tax_return.primary_has_signed_8879? && !tax_return.spouse_has_signed_8879?
+      :spouse
+    else
+      :primary
+    end
+  end
 
   def signature_documents_ready?(tax_return)
     has_final_tax_document = tax_return&.final_tax_documents&.any?

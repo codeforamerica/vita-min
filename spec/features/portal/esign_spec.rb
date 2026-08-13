@@ -78,8 +78,8 @@ RSpec.feature "Submitting final tax filing signature" do
     scenario "when filing jointly" do
       visit portal_root_path
 
-      expect(page).to have_content "Your return is ready for your signature."
-      click_on "Sign your return"
+      expect(page).to have_content "We are waiting for a final signature from you."
+      click_on "Add final signature"
 
       check "I authorize"
       check "I confirm"
@@ -87,8 +87,8 @@ RSpec.feature "Submitting final tax filing signature" do
 
       click_on "Return to welcome page"
 
-      expect(page).to have_content "Your return is ready for your spouse's signature."
-      click_on "Sign your return"
+      expect(page).to have_content "We are waiting for a final signature from your spouse."
+      click_on "Add final signature"
 
       check "I authorize"
       check "I confirm"
@@ -96,15 +96,15 @@ RSpec.feature "Submitting final tax filing signature" do
 
       click_on "Return to welcome page"
 
-      expect(page).not_to have_link "Sign your return"
+      expect(page).not_to have_link "Add final signature"
       expect(page).to have_text "Your return is being filed."
     end
 
     scenario "when an unsigned document is uploaded after signing a document" do
       # signing document
       visit portal_root_path
-      expect(page).to have_content "Your return is ready for your signature."
-      click_on "Sign your return"
+      expect(page).to have_content "We are waiting for a final signature from you."
+      click_on "Add final signature"
 
       check "I authorize"
       check "I confirm"
@@ -112,8 +112,8 @@ RSpec.feature "Submitting final tax filing signature" do
 
       click_on "Return to welcome page"
 
-      expect(page).to have_content "Your return is ready for your spouse's signature."
-      click_on "Sign your return"
+      expect(page).to have_content "We are waiting for a final signature from your spouse."
+      click_on "Add final signature"
 
       check "I authorize"
       check "I confirm"
@@ -121,7 +121,7 @@ RSpec.feature "Submitting final tax filing signature" do
 
       click_on "Return to welcome page"
 
-      expect(page).not_to have_link "Sign your return"
+      expect(page).not_to have_link "Add final signature"
       expect(page).to have_text "Your return is being filed."
 
       # signing in as hub user and adding unsigned 8879
@@ -146,8 +146,8 @@ RSpec.feature "Submitting final tax filing signature" do
       login_as client, scope: :client
 
       visit portal_root_path
-      expect(page).to have_content "Your return is ready for your signature."
-      click_on "Sign your return"
+      expect(page).to have_content "We are waiting for a final signature from you."
+      click_on "Add final signature"
 
       check "I authorize"
       check "I confirm"
@@ -155,8 +155,8 @@ RSpec.feature "Submitting final tax filing signature" do
 
       click_on "Return to welcome page"
 
-      expect(page).to have_content "Your return is ready for your spouse's signature."
-      click_on "Sign your return"
+      expect(page).to have_content "We are waiting for a final signature from your spouse."
+      click_on "Add final signature"
 
       check "I authorize"
       check "I confirm"
@@ -164,7 +164,7 @@ RSpec.feature "Submitting final tax filing signature" do
 
       click_on "Return to welcome page"
 
-      expect(page).not_to have_link "Sign your return"
+      expect(page).not_to have_link "Add final signature"
       expect(page).to have_text "Your return is being filed."
     end
   end
