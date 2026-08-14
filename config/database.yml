@@ -11,7 +11,7 @@ deploy_default: &deploy_default
   adapter: postgis
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i + 1 %>
   timeout: 5000
-  url: <%= ENV.fetch("DATABASE_URL", "") %>
+  # do not add database url here it will overwrite doppler!
 
 development:
   <<: *local_default
