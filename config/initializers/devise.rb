@@ -303,10 +303,11 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   # https://www.notion.so/cfa/Google-OAuth-Apps-d9095be2c03c4107b3162ef1b0169a53
+
   config.omniauth(
     :google_oauth2,
-    Rails.application.credentials.dig(:google_oauth2, :client_id),
-    Rails.application.credentials.dig(:google_oauth2, :client_secret),
+    ENV['GOOGLE_OAUTH2_CLIENT_ID'].presence || Rails.application.credentials.dig(:google_oauth2, :client_id),
+    ENV['GOOGLE_OAUTH2_CLIENT_SECRET'].presence || Rails.application.credentials.dig(:google_oauth2, :client_secret),
     scope: 'userinfo.email,userinfo.profile',
     hd: ['codeforamerica.org', 'getyourrefund.org']
   )
