@@ -2121,8 +2121,38 @@ es:
           review_signature_requested_primary: Estamos esperando una firma final de usted.
           review_signature_requested_spouse: Estamos esperando una firma final de su cónyuge.
         subtitle: 'Aquí hay una instantánea de sus impuestos:'
-        tax_return_heading: Declaración de impuestos de %{year}
+        tax_return_heading: Su declaración del %{year}
         title: Bienvenido de nuevo %{name}!
+    portal2:
+      home:
+        badge:
+          almost_done: Casi lista
+          final_check: En revisión final
+          in_progress: En proceso
+          tax_prep: En preparación
+        button:
+          add_documents: Agregar documentos
+          complete_tax_questions: Preguntas completas sobre impuestos
+          message_tax_team: Enviar mensaje
+        calls_to_action:
+          add_missing_documents: Vea qué falta y complete su declaración de impuestos.
+          add_missing_documents_title: Envíe documentos adicionales
+          finish_intake: Cuando termine su formulario, lo conectaremos con el equipo de impuestos.
+          finish_intake_title: Siga respondiendo las preguntas
+          prep_info_requested: El equipo de impuestos le envió una pregunta por %{contact_method}. Responda para que su declaración de impuestos siga avanzando.
+          prep_info_requested_title: Tiene un mensaje
+          review_info_requested: El equipo de impuestos le envió una pregunta por %{contact_method}. Responda para que su declaración de impuestos siga avanzando.
+          review_info_requested_title: Tiene un mensaje
+        help_text:
+          final_steps: Su declaración de impuestos está en camino al IRS. Le informaremos cuando sea procesada.
+          info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
+          intake_incomplete: Aún debe finalizar su formulario de impuestos.
+          intake_reviewing: El equipo de impuestos está revisando su información. Se comunicarán con usted si tienen alguna pregunta.
+          prep_info_requested: Necesitamos más información para preparar su declaración de impuestos.
+          review: Nos comunicaremos con usted si algo requiere su atención.
+          review_info_requested: El equipo de impuestos necesita una cosa más antes de finalizar su declaración.
+          tax_prep: Nos comunicaremos con usted si necesitamos algo.
+        title: Bienvenido de nuevo, %{name}
     settings:
       show:
         bank_info:
