@@ -79,11 +79,15 @@
         <% @clients.with_eager_loaded_associations.map { |client| Hub::ClientsController::HubClientPresenter.new(client, @related_models_cache) }.each do |client| %>
           <tr id="client-<%= client.id %>" class="index-table__row client-row">
             <td class="index-table__cell client-attribute__needs-response">
-              <label class="toggle-switch flag-toggle">
-                <span class="sr-only"><%= t("general.flagged") %></span>
-                <input type="checkbox" id="toggle-flag-<%= client.id %>" data-url="<%= flag_hub_client_path(client) %>" <%= "checked" if client.flagged? %> onchange="toggleClientFlag(this)">
-                <span class="slider round"></span>
-              </label>
+              <% if current_user.admin? %>
+                <label class="toggle-switch flag-toggle">
+                  <span class="sr-only"><%= t("general.flagged") %></span>
+                  <input type="checkbox" id="toggle-flag-<%= client.id %>" data-url="<%= flag_hub_client_path(client) %>" <%= "checked" if client.flagged? %> onchange="toggleClientFlag(this)">
+                  <span class="slider round"></span>
+                </label>
+              <% else %>
+                <%= render "shared/urgent_icon", client: client %>
+              <% end %>
             </td>
             <%= tag.td(
               scope: "row",
