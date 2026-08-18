@@ -9,7 +9,8 @@
           <p><%= t(".selected_action_and_client_count_html", count: @clients.size) %></p>
           <%= f.button :submit, class: "button button--cta", data: { disable_with: t("general.submit") } do %>
             <%= t("general.submit") %>
-            <% end %><%= link_to t("general.cancel"), :back, class: "button" %>
+          <% end %>
+          <%= link_to t("general.cancel"), :back, class: "button" %>
         <% end %>
       </div>
     </div>

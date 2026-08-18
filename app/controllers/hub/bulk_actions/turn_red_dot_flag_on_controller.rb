@@ -2,7 +2,11 @@ module Hub
   module BulkActions
     class TurnRedDotFlagOnController < BaseBulkActionsController
       def update
-        UserNotification.create!(notifiable: BulkActionNotification.new(task_type: task_type, tax_return_selection: @tax_return_selection), user: current_user)
+        UserNotification.create!(
+          notifiable: BulkActionNotification.new(task_type: task_type, tax_return_selection: @tax_return_selection),
+          user: current_user
+        )
+
         BulkActionJob.perform_later(
           task: task_type,
           user: current_user,

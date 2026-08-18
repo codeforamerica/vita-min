@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Hub::BulkActions::TurnRedDotFlagOnController do
   let(:organization) { create :organization }
-  let(:intake) { create :intake, client: create(:client, vita_partner: organization), product_year: Rails.config
-  uration.product_year }
+  let(:intake) { create :intake, client: create(:client, vita_partner: organization), product_year: Rails.configuration.product_year }
   let(:tax_return_1) { create :tax_return, client: intake.client, year: 2020 }
   let!(:tax_return_selection) { create :tax_return_selection, tax_returns: [tax_return_1] }
   let(:user) { create :organization_lead_user, organization: organization }
@@ -43,7 +42,7 @@ RSpec.describe Hub::BulkActions::TurnRedDotFlagOnController do
     context "as an authenticated user" do
       before { sign_in user }
 
-      it "creates a notification and enqueues a job to do the rest" do
+      it "creates a notification and enqueues a job to turn on the red dot" do
         expect do
           put :update, params: params
         end.to change { user.notifications.count }.by(1).and(

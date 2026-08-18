@@ -114,7 +114,7 @@ RSpec.describe Hub::TaxReturnSelectionsController do
       context "when the action type is turning the red dot flag on" do
         let(:action_type) { "turn-red-dot-flag-on" }
 
-        it "should create tax_return_selection and redirect to the appropriate bulk action page for turn-red-dot-flag-on" do
+        it "should create a tax_return_selection and redirect to the turn-red-dot-flag-on bulk action page" do
           expect {
             post :create, params: params
           }.to change(TaxReturnSelection, :count).by(1)
@@ -128,7 +128,7 @@ RSpec.describe Hub::TaxReturnSelectionsController do
       context "when the action type is turning the red dot flag off" do
         let(:action_type) { "turn-red-dot-flag-off" }
 
-        it "should create tax_return_selection and redirect to the appropriate bulk action page for turn-red-dot-flag-off" do
+        it "should create a tax_return_selection and redirect to the turn-red-dot-flag-off page" do
           expect {
             post :create, params: params
           }.to change(TaxReturnSelection, :count).by(1)
