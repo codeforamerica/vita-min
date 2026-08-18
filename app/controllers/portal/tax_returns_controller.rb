@@ -52,12 +52,12 @@ module Portal
 
     private
 
-    def redirect_unless_signature_requested
-      redirect_to portal_root_path unless @tax_return.current_state == "review_signature_requested"
-    end
-
     def resolve_layout
       action_name == "index" ? "portal" : "application"
+    end
+
+    def redirect_unless_signature_requested
+      redirect_to portal_root_path unless @tax_return.current_state == "review_signature_requested"
     end
 
     def load_client_tax_return
