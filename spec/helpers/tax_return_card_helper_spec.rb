@@ -204,9 +204,6 @@ describe TaxReturnCardHelper do
         end
       end
 
-      # The signature card is keyed on the status alone, so it renders whether or
-      # not the hub has uploaded the papers yet. The view drops just the download
-      # link when there is no final tax document to point at.
       it "still returns the signature card when no documents have been uploaded" do
         expect(helper.tax_return_status_to_props_2(tax_return)).to include(
           button_type: :sign_return,

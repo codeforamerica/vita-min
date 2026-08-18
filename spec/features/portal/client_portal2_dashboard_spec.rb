@@ -1,7 +1,5 @@
 require "rails_helper"
 
-# The rest of the portal2 dashboard states are to be implemented under GYR1-1156
-
 RSpec.feature "a client on the improved portal whose return is waiting for a signature" do
   let(:filing_joint) { "no" }
   let(:final_tax_document_uploaded) { true }

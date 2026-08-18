@@ -258,8 +258,6 @@ module TaxReturnCardHelper
 
   private
 
-  # Which signature the card should point the client at. The primary signs first;
-  # the spouse's turn comes once the primary has signed a joint return.
   def signature_type_awaited(tax_return)
     if tax_return.filing_jointly? && tax_return.primary_has_signed_8879? && !tax_return.spouse_has_signed_8879?
       :spouse

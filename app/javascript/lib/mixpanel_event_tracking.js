@@ -12,9 +12,6 @@ const MixpanelEventTracking = (function () {
       document.querySelectorAll("a[data-track-click]").forEach((link) => {
         link.addEventListener("click", function (e, options) {
           const pageData = document.querySelector("#mixpanelData").dataset;
-          // currentTarget, not target: when the link wraps other markup (a span, an
-          // icon) the click lands on the child, which carries none of the data-track
-          // attributes.
           const clickedElement = e.currentTarget;
           const eventName = "click_" + clickedElement.dataset.trackClick;
 
