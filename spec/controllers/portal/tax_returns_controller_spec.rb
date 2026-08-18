@@ -1,6 +1,81 @@
 require 'rails_helper'
 
 describe Portal::TaxReturnsController do
+  describe "#index" do
+    it_behaves_like :a_get_action_for_authenticated_clients_only, action: :index
+    it_behaves_like :a_get_action_redirects_for_show_still_needs_help_clients, action: :index
+
+    context "when logged in as a client" do
+      let(:client) { create(:intake).client }
+      let!(:filed_return) { create :gyr_tax_return, client: client, year: 2024 }
+      let!(:unfiled_return) { create :gyr_tax_return, client: client, year: 2025 }
+
+      let!(:final_tax_document) do
+        create :document,
+               client: client,
+               tax_return: filed_return,
+               upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"),
+               document_type: DocumentTypes::FinalTaxDocument.key
+      end
+      let!(:signed_8879) do
+        create :document,
+               client: client,
+               tax_return: filed_return,
+               upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"),
+               document_type: DocumentTypes::CompletedForm8879.key
+      end
+      let!(:unsigned_8879) do
+        create :document,
+               client: client,
+               tax_return: filed_return,
+               upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf"),
+               document_type: DocumentTypes::UnsignedForm8879.key
+      end
+
+      before { sign_in client }
+
+      render_views
+
+      it "orders tax returns by year descending" do
+        get :index
+
+        expect(assigns(:tax_returns).map(&:year)).to eq [2025, 2024]
+      end
+
+      context "with more than two tax returns" do
+        let!(:older_return) { create :gyr_tax_return, client: client, year: 2023 }
+
+        it "only shows the two most recent tax years" do
+          get :index
+
+          expect(assigns(:tax_returns).map(&:year)).to eq [2025, 2024]
+          expect(response.body).not_to include I18n.t("portal.tax_returns.index.final_tax_return", year: 2023)
+        end
+      end
+
+      it "links to the final tax return document and the signed 8879, with tracking attributes" do
+        get :index
+
+        expect(response.body).to include portal_document_path(id: final_tax_document.id)
+        expect(response.body).to include portal_document_path(id: signed_8879.id)
+        expect(response.body).to include 'data-track-click="tax_return_document"'
+        expect(response.body).to include 'data-track-attribute-tax_year="2024"'
+      end
+
+      it "does not link to the unsigned 8879" do
+        get :index
+
+        expect(response.body).not_to include portal_document_path(id: unsigned_8879.id)
+      end
+
+      it "shows 'Final return not started' for a return without a final tax document" do
+        get :index
+
+        expect(response.body).to include I18n.t("portal.tax_returns.index.final_return_not_started")
+      end
+    end
+  end
+
   describe "#authorize_signature" do
     let(:tax_return) { create :gyr_tax_return, :ready_to_sign }
     let(:params) { { tax_return_id: tax_return.id } }

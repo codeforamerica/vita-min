@@ -1,3 +1,4 @@
+<% link_attributes = local_assigns[:link_attributes] || {} %>
 <div class="status-line-items__row">
   <%= image_tag("icons/download.svg", alt: "") %>
   <%= link_to url, target: "_blank", rel: "noopener", class: "link", **link_attributes do %>
