@@ -12,11 +12,24 @@ class EnvironmentCredentials
 
   class << self
     def [](name)
-      out = ENV.fetch(name, nil)
+      out = nil 
+      if Flipper.enabled?(:use_env_secrets)
+        out = ENV.fetch(name, nil)
+      else
+        out = credentials_value(name)
+      end
       if name == 'DATADOG_AGENT_HOST' and out == nil
         raise 'DATADOG_AGENT_HOST missing'
       end
+      if name == 'DATADOG_AGENT_HOST'
+        Rails.logger.info 'DATADOG_AGENT_HOST=' + out
+      end
       out
+    rescue ActiveRecord::ActiveRecordError
+      raise
+      # Necessary when starting from scratch because flipper tables are not
+      # established yet
+      # ENV.fetch(name, nil) || credentials_value(name)
     end
 
     def dig(*keys)
