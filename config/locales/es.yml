@@ -2143,8 +2143,60 @@ es:
           review_signature_requested_primary: Estamos esperando una firma final de usted.
           review_signature_requested_spouse: Estamos esperando una firma final de su cónyuge.
         subtitle: 'Aquí hay una instantánea de sus impuestos:'
-        tax_return_heading: Declaración de impuestos de %{year}
+        tax_return_heading: Su declaración del %{year}
         title: Bienvenido de nuevo %{name}!
+    portal2:
+      home:
+        badge:
+          almost_done: Casi lista
+          final_check: En revisión final
+          in_progress: En proceso
+          tax_prep: En preparación
+        button:
+          add_documents: Agregar documentos
+          complete_tax_questions: Preguntas completas sobre impuestos
+          message_tax_team: Enviar mensaje
+        calls_to_action:
+          add_missing_documents: Vea qué falta y complete su declaración de impuestos.
+          add_missing_documents_title: Envíe documentos adicionales
+          finish_intake: Cuando termine su formulario, lo conectaremos con el equipo de impuestos.
+          finish_intake_title: Siga respondiendo las preguntas
+          prep_info_requested: El equipo de impuestos le envió una pregunta por %{contact_method}. Responda para que su declaración de impuestos siga avanzando.
+          prep_info_requested_title: Tiene un mensaje
+          review_info_requested: El equipo de impuestos le envió una pregunta por %{contact_method}. Responda para que su declaración de impuestos siga avanzando.
+          review_info_requested_title: Tiene un mensaje
+        help_text:
+          final_steps: Su declaración de impuestos está en camino al IRS. Le informaremos cuando sea procesada.
+          info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
+          intake_incomplete: Aún debe finalizar su formulario de impuestos.
+          intake_reviewing: El equipo de impuestos está revisando su información. Se comunicarán con usted si tienen alguna pregunta.
+          prep_info_requested: Necesitamos más información para preparar su declaración de impuestos.
+          review: Nos comunicaremos con usted si algo requiere su atención.
+          review_info_requested: El equipo de impuestos necesita una cosa más antes de finalizar su declaración.
+          tax_prep: Nos comunicaremos con usted si necesitamos algo.
+        title: Bienvenido de nuevo, %{name}
+    settings:
+      show:
+        bank_info:
+          account_types:
+            checking: Cuenta corriente
+            savings: Cuenta de ahorros
+            unspecified: No especificado
+          none: No ha proporcionado información de su cuenta bancaria.
+          refund_deposits_to: El reembolso se deposita en
+          title: Información bancaria
+        contact_info:
+          email: Correo electrónico
+          email_not_provided: No se proporcionó un correo electrónico
+          phone: Teléfono
+          phone_not_provided: No se proporcionó un número de teléfono
+          preferred_contact: Contacto preferido
+          title: Información de contacto
+        making_a_change:
+          body: Envíe un mensaje a su equipo de impuestos y ellos harán el cambio.
+          title: "¿Necesita actualizar algo?"
+        message_tax_team: Enviar mensaje a su equipo de impuestos
+        title: Información de la cuenta
     still_needs_helps:
       chat_later:
         help_text: Si tiene algún documento adicional que necesita subir, por favor use el botón abajo.
@@ -2177,6 +2229,10 @@ es:
           body_html: "<p>Bajo pena de perjurio, declaro haber examinado una copia de mi declaración electrónica del impuesto sobre el ingreso y todo anexo y documento acompañante para el año tributario que termina el 31 de diciembre de %{year} y, según mi leal conocimiento y entendimiento, son verídicos, correctos y completos.</p><p> Declaro además que las cantidades provistas anteriormente en la Parte I son las mismas indicadas en mi declaración electrónica del impuesto sobre el ingreso. Autorizo a que mi proveedor intermediario de servicios, transmisor o iniciador de declaraciones electrónicas (ERO, por sus siglas en inglés) envíe mi declaración al IRS y que reciba del mismo (a) acuse de recibo o justificación de rechazo de la transmisión, (b) la razón por toda demora en la tramitación de la declaración o reembolso y (c) la fecha de todo reembolso. </p><p>Si corresponde, autorizo al U.S. Treasury (Departamento del Tesoro de los Estados Unidos) y a su Agente Financiero designado para que tramiten ante la ACH una transacción de retiro electrónico de fondos (débito directo) en la cuenta de la institución financiera indicada en el programa de computadora (software) de preparación de declaraciones para pagar los impuestos federales que adeudo en esta declaración y/o pagar el impuesto estimado, y además autorizo a la institución financiera para que cargue la entrada a esta cuenta. Esta autorización quedará en pleno vigor hasta que yo notifique al Agente Financiero del Departamento del Tesoro de los Estados Unidos para que éste cancele la autorización. Para revocar (cancelar) un pago, tengo que comunicarme con el Agente Financiero del Departamento del Tesoro de los Estados Unidos llamando al 1-888-353-4537. Las solicitudes de cancelación de pago se tienen que recibir a más tardar 2 días laborables antes de la fecha de pago (liquidación). </p><p> También autorizo a las instituciones financieras que participan en la tramitación del pago electrónico de impuestos para que reciban información confidencial necesaria para responder a preguntas y resolver dudas relacionadas con dicho pago. Certifico además que el número de identificación personal (PIN, por sus siglas en inglés) que aparece a continuación es el que he escogido como firma para mi declaración electrónica del impuesto sobre el ingreso y, si corresponde, mi autorización para el retiro de fondos por vías electrónicas.</p>"
           title: Declaración del contribuyente y autorización para la firma
         subheader: Usted declara que ha examinado una copia de su declaración electrónica individual de impuestos y los calendarios acompañantes y estados de cuenta para el año fiscal que termina el 31 de diciembre de %{year}, y que en la mejor inteligencia da fe de que son verdaderos, correctos y completos.
+      index:
+        final_return_not_started: Retorno final no iniciado
+        final_tax_return: Declaración de impuestos final de %{year}
+        title: Declaraciones de impuestos
       show:
         description: "¿Desea descargar sus formularios de impuestos finales?"
         download_final_tax_document: Descargar formularios de impuestos finales del %{year}
@@ -5264,6 +5320,9 @@ es:
         faq:
           faq_cta: Lee nuestras preguntas frecuentes
           header: 'Preguntas frecuentes:'
+        fresh_look_banner:
+          body: En agosto verás un nuevo diseño de nuestra página. Seguirás contando con el mismo servicio de confianza de siempre.
+          header: GetYourRefund tendrá un nuevo diseño
         header: Declare sus impuestos sin costo. ¡Es sencillo!
         open_intake_post_tax_deadline_banner: Comience con GetYourRefund antes del %{end_of_intake} si desea presentar su declaración con nosotros en %{product_year}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del %{end_of_docs}.
         security:

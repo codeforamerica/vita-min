@@ -8,11 +8,11 @@ executors:
   ruby_executor:
     working_directory: /mnt/ramdisk
     docker:
-      - image: cimg/ruby:3.4.4-browsers
+      - image: cimg/ruby:3.4.9-browsers
   rails_executor:
     working_directory: /mnt/ramdisk
     docker:
-      - image: cimg/ruby:3.4.4-browsers
+      - image: cimg/ruby:3.4.9-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
@@ -185,7 +185,12 @@ jobs:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
-      - run: git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:master
+      - run:
+          name: Deploy to Aptible demo
+          command: |
+            set -o pipefail
+            git push git@beta.aptible.com:vita-min-demo/vita-min-demo.git $CIRCLE_SHA1:master 2>&1 \
+              | { grep -v '^[[:space:]]*\.\{0,1\}/\{0,1\}\.aptible\.env:' || true; }
     parallelism: 1
   deploy_to_aptible--staging:
     executor: ruby_executor
@@ -193,7 +198,12 @@ jobs:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
-      - run: git push --force git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master
+      - run:
+          name: Deploy to Aptible staging
+          command: |
+            set -o pipefail
+            git push --force git@beta.aptible.com:vita-min-staging/vita-min-staging.git $CIRCLE_SHA1:master 2>&1 \
+              | { grep -v '^[[:space:]]*\.\{0,1\}/\{0,1\}\.aptible\.env:' || true; }
       - slack/notify:
           event: pass
           template: basic_success_1
@@ -207,7 +217,12 @@ jobs:
       - checkout
       - run: echo $APTIBLE_PUBLIC_KEY >> ~/.ssh/known_hosts
       - run: git fetch --depth=1000000
-      - run: git push git@beta.aptible.com:vita-min-prod/vita-min-prod.git $CIRCLE_SHA1:master
+      - run:
+          name: Deploy to Aptible production
+          command: |
+            set -o pipefail
+            git push git@beta.aptible.com:vita-min-prod/vita-min-prod.git $CIRCLE_SHA1:master 2>&1 \
+              | { grep -v '^[[:space:]]*\.\{0,1\}/\{0,1\}\.aptible\.env:' || true; }
       - slack/notify:
           channel: "C0544ERAFQV" # tax-eng
           event: pass

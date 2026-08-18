@@ -207,13 +207,15 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0)
     database_cleaner-core (2.0.1)
-    datadog (2.2.0)
-      debase-ruby_core_source (= 3.3.1)
-      libdatadog (~> 10.0.0.1.0)
-      libddwaf (~> 1.14.0.0.0)
+    datadog (2.32.0)
+      cgi
+      datadog-ruby_core_source (~> 3.5, >= 3.5.2)
+      libdatadog (~> 30.0.0.1.0)
+      libddwaf (~> 1.30.0.0.0)
+      logger
       msgpack
+    datadog-ruby_core_source (3.5.3)
     date (3.5.1)
-    debase-ruby_core_source (3.3.1)
     delayed_job (4.2.0)
       activesupport (>= 3.0, < 9.0)
       benchmark
@@ -359,8 +361,8 @@ GEM
       logger (~> 1.6)
     letter_opener (1.10.0)
       launchy (>= 2.2, < 4)
-    libdatadog (10.0.0.1.0)
-    libddwaf (1.14.0.0.0)
+    libdatadog (30.0.0.1.0)
+    libddwaf (1.30.0.0.2)
       ffi (~> 1.0)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -770,7 +772,7 @@ GEM
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.9.2)
     websocket (1.2.10)
-    websocket-driver (0.8.0)
+    websocket-driver (0.8.2)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -808,7 +810,7 @@ DEPENDENCIES
   csv (~> 3.3)
   data_migrate (>= 10.0)
   database_cleaner
-  datadog (~> 2.2.0)
+  datadog (~> 2.32.0)
   delayed_job
   delayed_job_active_record
   delayed_job_web
@@ -906,12 +908,13 @@ DEPENDENCIES
   warning
   web-console (>= 3.3.0)
   webmock
+  websocket-driver (>= 0.8.2)
   websocket-extensions (>= 0.1.5)
   will_paginate
   zxcvbn-ruby
 
 RUBY VERSION
-   ruby 3.4.4
+   ruby 3.4.9
 
 BUNDLED WITH
    2.3.5

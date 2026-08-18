@@ -40,7 +40,7 @@ jobs:
 
       - name: Create Heroku app
         if: ${{ env.RUN_APP_SETUP == 'true' }}
-        run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --team getyourrefund --stack heroku-22
+        run: heroku apps:create ${{ env.HEROKU_APP_NAME }} --team getyourrefund --stack heroku-26
 
       - name: Save app name and PR number as heroku environment variable
         if: ${{ env.RUN_APP_SETUP == 'true' }}
