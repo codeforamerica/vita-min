@@ -22,8 +22,9 @@
       <%= render "portal/portal/document_links",
                  label: t("portal.portal2.home.document_link.download_final_tax_papers", year: tax_return.year),
                  documents: tax_return.final_tax_documents,
-                 track_click: "client_portal_download_tax_papers",
-                 track_attributes: { page: "client_portal", return_status: card_props[:return_status] } %>
+                 link_attributes: { "data-track-click": "client_portal_download_tax_papers",
+                                    "data-track-attribute-page": "client_portal",
+                                    "data-track-attribute-return_status": card_props[:return_status] } %>
     </div>
   <% end %>
 

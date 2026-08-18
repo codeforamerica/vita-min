@@ -187,18 +187,4 @@ module ApplicationHelper
   def request_domain
     request.domain
   end
-
-  # Builds the attributes read by MixpanelEventTracking#listenForTrackedClicks.
-  # These are top-level attribute keys rather than a nested `data:` hash, because
-  # Rails dasherizes `data:` keys and the rest of the app spells these out as
-  # `data-track-attribute-return_status`.
-  # Returns an empty hash when there is no event name, so callers can splat the
-  # result into link_to unconditionally.
-  def mixpanel_click_tracking_attributes(event_name, attributes = {})
-    return {} if event_name.blank?
-
-    attributes.to_h.each_with_object({ 'data-track-click': event_name }) do |(key, value), data|
-      data[:"data-track-attribute-#{key}"] = value
-    end
-  end
 end
