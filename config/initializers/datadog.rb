@@ -6,11 +6,10 @@ Rails.application.config.to_prepare do
     enable_tracing = Rails.env.staging? || Rails.env.demo? || Rails.env.production?
     c.tracing.enabled = enable_tracing
     if enable_tracing
-      c.tracing.instrument :rails
-      c.tracing.instrument :aws
-      c.tracing.instrument :delayed_job
-      c.tracing.instrument :http
-   
+      c.use :rails
+      c.use :aws
+      c.use :delayed_job
+      c.use :http
     end
   end
 end
