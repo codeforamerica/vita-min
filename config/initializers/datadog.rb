@@ -1,4 +1,4 @@
-#Rails.application.config.to_prepare do
+Rails.application.config.to_prepare do
   Datadog.configure do |c|
     c.service = 'getyourrefund-app'
     c.env = Rails.env
@@ -13,4 +13,4 @@
    
     end
   end
-#end
+end
