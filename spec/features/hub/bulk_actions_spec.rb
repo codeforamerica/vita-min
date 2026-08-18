@@ -158,4 +158,54 @@ RSpec.describe "Selecting clients for bulk actions", active_job: true do
     expect(page).to have_text "Bulk Send a Message In Progress"
     expect(page).to have_text "We are still contacting 2 clients."
   end
+
+  scenario "bulk turning the red dot flag on and off with a mixed selection", js: true do
+    client_en.flag!
+    expect(client_en.reload).to be_flagged
+    expect(client_es.reload).not_to be_flagged
+
+    visit hub_clients_path
+
+    within "#client-#{client_en.id}" do
+      check "tr_ids_#{client_en.tax_returns.first.id}"
+    end
+    within "#client-#{client_es.id}" do
+      check "tr_ids_#{client_es.tax_returns.first.id}"
+    end
+    click_on "Take action"
+
+    click_on "Turn red dot flag on"
+    page_change_check("You’ve selected Turn Red Dot Flag On for 2 clients.")
+    click_on "Submit"
+
+    page_change_check(hub_user_notifications_path, path: true)
+    perform_enqueued_jobs
+    visit page.current_path
+
+    expect(page).to have_text "You successfully turned on red dot flag for 2 tax returns."
+    expect(client_en.reload).to be_flagged
+    expect(client_es.reload).to be_flagged
+
+    visit hub_clients_path
+
+    within "#client-#{client_en.id}" do
+      check "tr_ids_#{client_en.tax_returns.first.id}"
+    end
+    within "#client-#{client_es.id}" do
+      check "tr_ids_#{client_es.tax_returns.first.id}"
+    end
+    click_on "Take action"
+
+    click_on "Turn red dot flag off"
+    page_change_check("You’ve selected Turn Red Dot Flag Off for 2 clients.")
+    click_on "Submit"
+
+    page_change_check(hub_user_notifications_path, path: true)
+    perform_enqueued_jobs
+    visit page.current_path
+
+    expect(page).to have_text "You successfully turned off red dot flag for 2 tax returns."
+    expect(client_en.reload).not_to be_flagged
+    expect(client_es.reload).not_to be_flagged
+  end
 end

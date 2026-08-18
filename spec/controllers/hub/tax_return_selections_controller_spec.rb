@@ -111,6 +111,34 @@ RSpec.describe Hub::TaxReturnSelectionsController do
         end
       end
 
+      context "when the action type is turning the red dot flag on" do
+        let(:action_type) { "turn-red-dot-flag-on" }
+
+        it "should create tax_return_selection and redirect to the appropriate bulk action page for turn-red-dot-flag-on" do
+          expect {
+            post :create, params: params
+          }.to change(TaxReturnSelection, :count).by(1)
+
+          selection = TaxReturnSelection.last
+
+          expect(response).to redirect_to(hub_bulk_actions_edit_turn_red_dot_flag_on_path(tax_return_selection_id: selection.id))
+        end
+      end
+
+      context "when the action type is turning the red dot flag off" do
+        let(:action_type) { "turn-red-dot-flag-off" }
+
+        it "should create tax_return_selection and redirect to the appropriate bulk action page for turn-red-dot-flag-off" do
+          expect {
+            post :create, params: params
+          }.to change(TaxReturnSelection, :count).by(1)
+
+          selection = TaxReturnSelection.last
+
+          expect(response).to redirect_to(hub_bulk_actions_edit_turn_red_dot_flag_off_path(tax_return_selection_id: selection.id))
+        end
+      end
+
       context "if action_type is not properly set" do
         let(:params) { { create_tax_return_selection: { tr_ids: [tax_return1, tax_return2, tax_return3].map(&:id).map(&:to_s), action_type: "not-a-valid-type" } } }
 
