@@ -9,7 +9,7 @@ import { initStateRoutingsListeners } from "../lib/state_routings";
 import tooltip from "../components/tooltip";
 import { initTaggableNote, initMultiSelectVitaPartner, initMultiSelectState, initSelectVitaPartner } from '../lib/tagging';
 import { initBulkAction } from "../lib/bulk_action";
-import { getEfileSecurityInformation } from "../lib/efile_security_information";``
+import { getEfileSecurityInformation } from "../lib/efile_security_information";
 import { initTINTypeSelector } from "../lib/tin_type_selector";
 import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
 import { limitTextMessageLength } from "../lib/text_message_length_limiter";
@@ -21,6 +21,7 @@ import Portal2MenuComponent from "../components/Portal2MenuComponent";
 import WarningForSelectComponent from "../components/WarningForSelectComponent";
 import MixpanelEventTracking from "../lib/mixpanel_event_tracking";
 import IntercomBehavior from "../lib/intercom_behavior";
+import { initDismissibleBanner } from "../lib/dismissible_banner";
 const Listeners =  (function(){
     return {
         init: function () {
@@ -69,6 +70,9 @@ const Listeners =  (function(){
 
                 if (document.querySelector('.taggable-note')) {
                     initTaggableNote();
+                }
+                if (document.querySelector('[data-dismissible-banner]')) {
+                    initDismissibleBanner();
                 }
                 if (document.querySelector('.multi-select-vita-partner')) {
                     initMultiSelectVitaPartner();

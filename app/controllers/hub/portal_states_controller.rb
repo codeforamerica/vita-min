@@ -14,8 +14,8 @@ module Hub
       signature_tr_index = @tax_returns.index { |tr| tr.current_state == 'review_signature_requested' }
       @tax_returns.insert(
         signature_tr_index + 1,
-        PseudoTaxReturn.new('review_signature_requested', primary_has_signed: false, unsigned_8879s: true),
-        PseudoTaxReturn.new('review_signature_requested', primary_has_signed: true, unsigned_8879s: true)
+        PseudoTaxReturn.new('review_signature_requested', primary_has_signed: false, unsigned_8879s: [:some_doc]),
+        PseudoTaxReturn.new('review_signature_requested', primary_has_signed: true, unsigned_8879s: [:some_doc])
       )
     end
 
@@ -23,11 +23,16 @@ module Hub
 
     class PseudoTaxReturn
       attr_reader :current_state
+      attr_reader :final_tax_documents
+      attr_reader :signed_8879s
+      attr_reader :unsigned_8879s
 
       def initialize(current_state, options = {})
         @current_state = current_state
         @options = options
-        @unsigned_8879s = options[:unsigned_8879s] || false
+        @unsigned_8879s = options[:unsigned_8879s] || []
+        @signed_8879s = options[:signed_8879s] || []
+        @final_tax_documents = options[:final_tax_documents] || []
         @primary_has_signed = options[:primary_has_signed] || false
         @current_step = options[:current_step] || "/en"
       end

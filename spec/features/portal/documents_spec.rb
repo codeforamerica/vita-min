@@ -47,5 +47,20 @@ RSpec.feature "a client on their portal" do
         expect(page).to have_content "2022 Final Tax Document"
       end
     end
+
+    context "when the client_portal_improvements flag is enabled" do
+      before do
+        allow(Flipper).to receive(:enabled?).and_call_original
+        allow(Flipper).to receive(:enabled?).with(:client_portal_improvements).and_return(true)
+      end
+
+      scenario "final tax returns are not listed on the documents page" do
+        visit portal_overview_documents_path
+
+        expect(page).to have_content "Here's a list of your documents"
+        expect(page).not_to have_selector '#final-tax-return-docs'
+        expect(page).not_to have_content "2022 Final Tax Document"
+      end
+    end
   end
 end

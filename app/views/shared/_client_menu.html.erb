@@ -5,6 +5,9 @@
         <div class="client-menu-item">
           <%= link_to t("general.my_account"), new_portal_client_login_path %>
         </div>
+        <div class="client-menu-item">
+          <%= link_to t("portal.settings.show.title"), portal_settings_path %>
+        </div>
       <% else %>
         <% if @get_started_link.present? %>
           <div class="client-menu-item">
