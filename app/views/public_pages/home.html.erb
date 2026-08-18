@@ -32,9 +32,9 @@
           </p>
         <% end %>
         <% if open_for_gyr_intake? %>
-          <%= link_to t("general.get_started"), eligibility_wages_questions_path, id: "firstCta", class: "button button--med-wide button--primary" %>
+          <%= link_to t("general.get_started"), eligibility_wages_questions_path, id: "firstCta", class: "button button--med-wide button--primary bg--ui-green" %>
         <% else %>
-          <%= link_to t("general.register"), new_signup_path, id: "firstCta", class: "button button--med-wide button--primary" %>
+          <%= link_to t("general.register"), new_signup_path, id: "firstCta", class: "button button--med-wide button--primary bg--ui-green" %>
         <% end %>
 
         <% if open_for_gyr_logged_in_clients? %>
@@ -120,7 +120,7 @@
             </ul>
           </div>
           <div class="grid__item width-one-fourth button-container">
-            <%= link_to faq_path, class: "button text--centered" do %>
+            <%= link_to faq_path, class: "button text--centered button--faq bg--ui-green" do %>
               <%= t("views.public_pages.home.faq.faq_cta") %>
             <% end %>
           </div>
