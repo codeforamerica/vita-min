@@ -6,11 +6,7 @@
     <%= yield :title %>
   <% end %>
 
-  <% if Flipper.enabled?(:client_portal_improvements) && current_client.present? %>
-    <% content_for :header do %>
-      <%= render "portal/shared/portal2_menu" %>
-    <% end %>
-  <% end %>
+  <%= render "portal/shared/portal2_menu_header" %>
 
   <% content_for :main do %>
     <section class="slab slab--white slab--not-padded portal-layout">

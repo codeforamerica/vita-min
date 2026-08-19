@@ -1,11 +1,8 @@
-<%# Slide-out navigation menu for the new client portal (portal2). GYR1-1056. %>
-<%# Rendered from layouts/portal.html.erb behind the :client_portal_improvements flag. %>
 <div class="main-header sticky-header portal2-menu-header">
   <div class="toolbar">
     <div class="toolbar__left">
       <div class="toolbar__item main-header__title">
-        <%# portal_root redirects to the portal2 home when the flag is on. %>
-        <%= link_to portal_root_path, class: "toolbar__logo-text main-header__logo" do %>
+        <%= link_to portal_portal2_path, class: "toolbar__logo-text main-header__logo" do %>
           <%= t("general.gyr") %>
         <% end %>
       </div>
@@ -22,37 +19,34 @@
           <%= f.submit value: t("general.sign_out"), class: "button--link" %>
         <% end %>
       <% end %>
-      <a data-component="Portal2MenuTrigger" class="portal2-menu-trigger toolbar__item text--small" role="button" tabindex="0">
+      <button type="button" data-component="Portal2MenuTrigger" class="portal2-menu-trigger toolbar__item text--small" aria-controls="portal2-menu" aria-expanded="false">
         <%= t("general.menu") %>
-      </a>
-      <a data-component="Portal2MenuCloser" class="portal2-menu-closer" role="button" tabindex="0" aria-label="<%= t("general.close") %>">
-        <%= image_tag "icons/close.svg" %>
-      </a>
+      </button>
+      <button type="button" data-component="Portal2MenuCloser" class="portal2-menu-closer" aria-label="<%= t("general.close") %>">
+        <%= image_tag "icons/close.svg", alt: "" %>
+      </button>
     </div>
   </div>
 </div>
 
 <div data-component="Portal2MenuOverlay" class="portal2-menu-overlay"></div>
 
-<nav data-component="Portal2Menu" class="portal2-menu" aria-label="<%= t("portal.shared.portal2_menu.aria_label") %>">
+<nav id="portal2-menu" data-component="Portal2Menu" class="portal2-menu" aria-label="<%= t(".aria_label") %>">
   <ul class="portal2-menu__list">
     <li class="portal2-menu__item">
-      <%# portal_root redirects to the portal2 home when the flag is on. %>
-      <%= link_to t("portal.shared.portal2_menu.home"), portal_root_path, class: "portal2-menu__link", data: { "portal2-menu-item": "home" } %>
+      <%= link_to t(".home"), portal_portal2_path, class: "portal2-menu__link", data: { "portal2-menu-item": "home" } %>
     </li>
     <li class="portal2-menu__item">
-      <%= link_to t("portal.shared.portal2_menu.messages"), new_portal_message_path, class: "portal2-menu__link", data: { "portal2-menu-item": "messages" } %>
+      <%= link_to t(".messages"), new_portal_message_path, class: "portal2-menu__link", data: { "portal2-menu-item": "messages" } %>
     </li>
     <li class="portal2-menu__item">
-      <%= link_to t("portal.shared.portal2_menu.documents"), overview_documents_portal_path, class: "portal2-menu__link", data: { "portal2-menu-item": "documents" } %>
+      <%= link_to t(".documents"), portal_overview_documents_path, class: "portal2-menu__link", data: { "portal2-menu-item": "documents" } %>
     </li>
     <li class="portal2-menu__item">
-      <%# Dead link for now; wired up in a later ticket. %>
-      <%= link_to t("portal.shared.portal2_menu.tax_returns"), "#", class: "portal2-menu__link", data: { "portal2-menu-item": "tax returns" } %>
+      <%= link_to t(".tax_returns"), portal_tax_returns_path, class: "portal2-menu__link", data: { "portal2-menu-item": "tax returns" } %>
     </li>
     <li class="portal2-menu__item">
-      <%# Dead link for now; "Account info" (incl. bank info) is wired up in a later ticket. %>
-      <%= link_to t("portal.shared.portal2_menu.account_info"), "#", class: "portal2-menu__link", data: { "portal2-menu-item": "settings" } %>
+      <%= link_to t(".settings"), "#", class: "portal2-menu__link", data: { "portal2-menu-item": "settings" } %>
     </li>
   </ul>
 </nav>

@@ -1,7 +1,3 @@
-// Slide-out navigation menu for the new client portal (portal2). GYR1-1056.
-// Handles open/close of the menu and fires Mixpanel events:
-//   - "Portal Menu Opened" when the menu opens (no extra properties)
-//   - "Portal Menu Clicked" when a menu item is tapped (menu_click property)
 export default function Portal2MenuComponent() {
     const menu = document.querySelector('[data-component="Portal2Menu"]');
     const trigger = document.querySelector('[data-component="Portal2MenuTrigger"]');
@@ -13,9 +9,13 @@ export default function Portal2MenuComponent() {
     const toggles = [menu, trigger, closer, overlay];
     const open = () => {
         toggles.forEach((el) => el && el.classList.add("open"));
+        trigger.setAttribute("aria-expanded", "true");
         sendMixpanelEvent("Portal Menu Opened");
     };
-    const close = () => toggles.forEach((el) => el && el.classList.remove("open"));
+    const close = () => {
+        toggles.forEach((el) => el && el.classList.remove("open"));
+        trigger.setAttribute("aria-expanded", "false");
+    };
 
     trigger.addEventListener("click", open);
     if (closer) closer.addEventListener("click", close);

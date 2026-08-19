@@ -2179,11 +2179,11 @@ es:
         title: Información de la cuenta
     shared:
       portal2_menu:
-        account_info: Información de la cuenta
         aria_label: Navegación del portal
         documents: Documentos
         home: Inicio
         messages: Mensajes
+        settings: Configuración
         tax_returns: Declaraciones de impuestos
     still_needs_helps:
       chat_later:

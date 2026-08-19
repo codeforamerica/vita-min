@@ -2207,11 +2207,11 @@ en:
         title: Account info
     shared:
       portal2_menu:
-        account_info: Account info
         aria_label: Portal navigation
         documents: Documents
         home: Home
         messages: Messages
+        settings: Settings
         tax_returns: Tax returns
     still_needs_helps:
       chat_later:

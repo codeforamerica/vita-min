@@ -1,10 +1,14 @@
-// Slide-out navigation menu for the new client portal (portal2). GYR1-1056.
 $portal2-menu-width: 34rem;
 $portal2-menu-bg: #FFFDF0;
 
 .portal2-menu-trigger {
   cursor: pointer;
   text-decoration: underline;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  padding: 0;
   &.open {
     display: none;
   }
@@ -14,6 +18,8 @@ $portal2-menu-bg: #FFFDF0;
   visibility: hidden;
   opacity: 0;
   cursor: pointer;
+  border: 0;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
