@@ -10,7 +10,7 @@ Rails.application.config.to_prepare do
       c.tracing.instrument :aws
       c.tracing.instrument :delayed_job
       c.tracing.instrument :http
-   
+      c.tracing.instrument :postgis
     end
   end
 end
