@@ -1,5 +1,5 @@
 $portal2-menu-width: 34rem;
-$portal2-menu-bg: #FFFDF0;
+$portal2-menu-bg: $color-clarity-white;
 
 .portal2-menu-trigger {
   cursor: pointer;
@@ -87,13 +87,16 @@ $portal2-menu-bg: #FFFDF0;
     display: block;
     padding: 2rem 0;
     text-align: center;
-    text-decoration: none;
     font-size: 2rem;
     font-weight: 700;
     color: $color-black;
+    text-decoration: none;
     &:hover,
-    &:focus {
-      text-decoration: underline;
+    &:focus,
+    &:active,
+    &:visited {
+      color: $color-black;
+      text-decoration: none;
     }
   }
 }

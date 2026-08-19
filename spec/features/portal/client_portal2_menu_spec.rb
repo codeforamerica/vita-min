@@ -25,7 +25,7 @@ RSpec.feature "the client portal (portal2) navigation menu" do
         expect(page).to have_link(I18n.t("portal.shared.portal2_menu.messages"), href: new_portal_message_path)
         expect(page).to have_link(I18n.t("portal.shared.portal2_menu.documents"), href: portal_overview_documents_path)
         expect(page).to have_link(I18n.t("portal.shared.portal2_menu.tax_returns"), href: portal_tax_returns_path)
-        expect(page).to have_link(I18n.t("portal.shared.portal2_menu.settings"), href: "#")
+        expect(page).to have_link(I18n.t("portal.shared.portal2_menu.settings"), href: portal_settings_path)
       end
     end
 
@@ -51,6 +51,9 @@ RSpec.feature "the client portal (portal2) navigation menu" do
       expect(page).to have_selector('[data-component="Portal2MenuTrigger"]')
 
       visit portal_tax_returns_path
+      expect(page).to have_selector('[data-component="Portal2MenuTrigger"]')
+
+      visit portal_settings_path
       expect(page).to have_selector('[data-component="Portal2MenuTrigger"]')
     end
 
@@ -85,6 +88,10 @@ RSpec.feature "the client portal (portal2) navigation menu" do
         find('[data-component="Portal2MenuTrigger"]').click
         click_on I18n.t("portal.shared.portal2_menu.tax_returns")
         expect(page).to have_current_path(portal_tax_returns_path)
+
+        find('[data-component="Portal2MenuTrigger"]').click
+        click_on I18n.t("portal.shared.portal2_menu.settings")
+        expect(page).to have_current_path(portal_settings_path)
 
         find('[data-component="Portal2MenuTrigger"]').click
         click_on I18n.t("portal.shared.portal2_menu.home")
