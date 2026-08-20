@@ -168,6 +168,20 @@ body {
   }
 
   .button#{$gyr-cta-exclusions} {
+    background-color: $color-button-secondary;
+    border-color: $color-button-border;
+    color: $color-confidence-blue;
+
+    &:hover,
+    &:active,
+    &:visited {
+      background-color: darken($color-button-secondary, 5%);
+      border-color: $color-button-border;
+      color: $color-confidence-blue;
+    }
+  }
+
+  .button--primary#{$gyr-cta-exclusions} {
     background-color: $color-primary-lime;
     border-color: $color-button-border;
     color: $color-confidence-blue;
@@ -657,6 +671,16 @@ ol.with-bullets {
     flex-direction: column;
     width: 100%;
     flex: 1;
+  }
+
+  // Between the stacked layout and the four-across one there is room for three cards, which left
+  // the fourth wrapping onto its own row and stretching the full width. Two-up keeps every card the
+  // same size and still reading as a card. Declared after the `flex: 1` above, which it ties with
+  // on specificity.
+  @media screen and (min-width: $tablet-up) and (max-width: $site-max-width) {
+    .service-card {
+      flex: 0 1 calc(50% - 0.25rem);
+    }
   }
 }
 

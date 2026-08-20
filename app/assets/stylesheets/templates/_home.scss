@@ -12,7 +12,14 @@
     }
 
     .hero-subheader {
+      font-family: $font-gyr-heading;
       font-size: 2.2rem;
+    }
+
+
+    a:where(:not(.button)) {
+      color: $color-confidence-blue;
+      border-bottom-color: currentColor;
     }
 
     p {
@@ -228,6 +235,12 @@
 
     .rounded-box {
       background-color: $color-teal-mint;
+
+      // Confidence Blue for contrast: teal on teal mint is the lowest-contrast pairing on the page.
+      a:where(:not(.button)) {
+        color: $color-confidence-blue;
+        border-bottom-color: currentColor;
+      }
     }
 
     @media screen and (max-width: $tablet-up) {
@@ -370,16 +383,29 @@
     background-color: #FFE8CC;
   }
 
-  .link--subtle {
-    color: inherit;
-    border-bottom-color: currentColor;
-  }
-
   .slab--secondary-cta{
     padding: 2rem;
 
+    // "Read our FAQ" stays on one line. The default 4rem side padding makes it wider than its
+    // one-fourth column, so the padding comes in to let it fit without wrapping.
     .button {
       font-size: 1.9rem;
+      white-space: nowrap;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    // Below the four-across breakpoint the one-fourth column is too narrow for the button at any
+    // sensible padding, so the heading and the button stack instead.
+    @media screen and (max-width: $site-max-width) {
+      .faq .grid__item {
+        width: 100%;
+      }
+
+      .button-container {
+        margin-top: 2rem;
+        text-align: left;
+      }
     }
 
     .faq.rounded-box {

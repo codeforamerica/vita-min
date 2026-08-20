@@ -35,9 +35,7 @@
 
         <% if open_for_gyr_logged_in_clients? %>
           <p>
-            <strong>
-              <%= link_to t(".already_started"), new_portal_client_login_path %>
-            </strong>
+            <%= link_to t(".already_started"), new_portal_client_login_path %>
           </p>
         <% end %>
       </div>
@@ -115,7 +113,7 @@
             </ul>
           </div>
           <div class="grid__item width-one-fourth button-container">
-            <%= link_to faq_path, class: "button text--centered" do %>
+            <%= link_to faq_path, class: "button button--primary text--centered" do %>
               <%= t("views.public_pages.home.faq.faq_cta") %>
             <% end %>
           </div>
