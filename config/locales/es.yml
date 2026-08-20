@@ -842,6 +842,18 @@ es:
             only_email: "(solo envio de correo electrónico)"
             only_text: "(solo envio de mensajes de texto)"
           title: Acción masiva
+      turn_red_dot_flag_off:
+        edit:
+          selected_action_and_client_count_html:
+            one: Ha seleccionado <strong>Desactivar Bandera de Punto Rojo</strong> para <strong>%{count} cliente</strong>.
+            other: Ha seleccionado <strong>Desactivar Bandera de Punto Rojo</strong> para <strong>%{count} clientes</strong>.
+          title: Acción masiva
+      turn_red_dot_flag_on:
+        edit:
+          selected_action_and_client_count_html:
+            one: Ha seleccionado <strong>Activar Bandera de Punto Rojo</strong> para <strong>%{count} cliente</strong>.
+            other: Ha seleccionado <strong>Activar Bandera de Punto Rojo</strong> para <strong>%{count} clientes</strong>.
+          title: Acción masiva
     bulk_message_csvs:
       bulk_message_csv:
         send_default: Enviar mensaje (todos los métodos de contacto disponibles, es decir, por defecto)
@@ -1380,20 +1392,6 @@ es:
         off_html: Ha desactivado exitosamente la bandera de punto rojo para %{tax_return_selection_link}.
         on_html: Ha activado exitosamente la bandera de punto rojo para %{tax_return_selection_link}.
         title: Actualización exitosa de bandera de punto rojo masiva
-      turn_red_dot_flag_off:
-        edit:
-          selected_action_and_client_count_html:
-            many: 'Ha seleccionado <strong>Desactivar Bandera de Punto Rojo</strong> para <strong>%{count} clientes</strong>.'
-            one: 'Ha seleccionado <strong>Desactivar Bandera de Punto Rojo</strong> para <strong>%{count} cliente</strong>.'
-            other: 'Ha seleccionado <strong>Desactivar Bandera de Punto Rojo</strong> para <strong>%{count} clientes</strong>.'
-          title: Acción masiva
-      turn_red_dot_flag_on:
-        edit:
-          selected_action_and_client_count_html:
-            many: 'Ha seleccionado <strong>Activar Bandera de Punto Rojo</strong> para <strong>%{count} clientes</strong>.'
-            one: 'Ha seleccionado <strong>Activar Bandera de Punto Rojo</strong> para <strong>%{count} cliente</strong>.'
-            other: 'Ha seleccionado <strong>Activar Bandera de Punto Rojo</strong> para <strong>%{count} clientes</strong>.'
-          title: Acción masiva
       bulk_client_message:
         failed-title_html: <i class="icon-warning"></i> Enviar un mensaje masivo sin éxito
         failed_body_html: Nosotras no pudimos contactar %{tax_return_selection_link}.
