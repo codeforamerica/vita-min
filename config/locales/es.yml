@@ -5306,7 +5306,7 @@ es:
         security:
           body: De acuerdo con las normas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan debe estar protegida. Mantenemos tu información segura y protegida.
           header: Nos comprometemos a mantener la seguridad de tu información.
-        subheader: "Reclama miles de dólares a través de los créditos tributarios que te corresponden. Te ayudamos a obtener tu mayor reembolso."
+        subheader: Reclama miles de dólares a través de los créditos tributarios que te corresponden. Te ayudamos a obtener tu mayor reembolso.
         subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir a finales de enero."
         subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
@@ -6148,7 +6148,7 @@ es:
         bullet_2: Declaraciones de impuestos estatales y federales
         bullet_3: De 1 a 2 horas para presentar la declaración
         bullet_4: Disponible en línea
-        bullet_5_html: Se requiere número de Seguro Social o <strong>Número</strong> de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: Se requiere número de Seguro Social o <b>Número</b> de Identificación Personal del Contribuyente (ITIN)
         reveal_b1: Todos los estados
         reveal_b2: Puerto Rico
         reveal_b3: No residentes
