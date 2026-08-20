@@ -5296,7 +5296,7 @@ es:
         closed_banner: GetYourRefund reabrirá sus servicios el %{start_of_open_intake}.
         closed_open_for_login_banner_html: Los servicios GetYourRefund están cerrados durante esta temporada de impuestos. Esperamos poder brindar nuestra asistencia tributaria gratuita nuevamente a partir de enero. Para obtener preparación de impuestos gratuita ahora, puede buscar <a href="https://www.getyourrefund.org/es/vita_providers">una ubicación de VITA</a> en su área.
         faq:
-          faq_cta: Lee nuestras preguntas frecuentes
+          faq_cta: Ver otras preguntas
           header: 'Preguntas frecuentes:'
         fresh_look_banner:
           body: En agosto verás un nuevo diseño de nuestra página. Seguirás contando con el mismo servicio de confianza de siempre.
@@ -5304,8 +5304,8 @@ es:
         header: Declara tus impuestos gratis. ¡Es sencillo!
         open_intake_post_tax_deadline_banner: Comience con GetYourRefund antes del %{end_of_intake} si desea presentar su declaración con nosotros en %{product_year}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del %{end_of_docs}.
         security:
-          body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
-          header: Nos comprometemos a mantener la seguridad de su información.
+          body: De acuerdo con las normas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan debe estar protegida. Mantenemos tu información segura y protegida.
+          header: Nos comprometemos a mantener la seguridad de tu información.
         subheader: "Reclama miles de dólares a través de los créditos tributarios que te corresponden. Te ayudamos a obtener tu mayor reembolso."
         subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir a finales de enero."
         subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
@@ -6148,7 +6148,7 @@ es:
         bullet_2: Declaraciones de impuestos estatales y federales
         bullet_3: De 1 a 2 horas para presentar la declaración
         bullet_4: Disponible en línea
-        bullet_5_html: Se requiere el número de Seguro Social o el <b>Número</b> de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: Se requiere número de Seguro Social o <strong>Número</strong> de Identificación Personal del Contribuyente (ITIN)
         reveal_b1: Todos los estados
         reveal_b2: Puerto Rico
         reveal_b3: No residentes
