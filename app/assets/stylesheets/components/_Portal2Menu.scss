@@ -1,0 +1,102 @@
+$portal2-menu-width: 34rem;
+$portal2-menu-bg: $color-clarity-white;
+
+.portal2-menu-trigger {
+  cursor: pointer;
+  text-decoration: underline;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  padding: 0;
+  &.open {
+    display: none;
+  }
+}
+
+.portal2-menu-closer {
+  visibility: hidden;
+  opacity: 0;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: $color-white;
+  z-index: 1001;
+  &.open {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .3s;
+  }
+}
+
+.portal2-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 998;
+  &.open {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .3s;
+    background-color: transparentize($color-black, .42);
+  }
+}
+
+.portal2-menu {
+  position: fixed;
+  top: 6rem;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: $portal2-menu-width;
+  background: $portal2-menu-bg;
+  z-index: 999;
+  overflow-y: auto;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform .3s ease, visibility .3s;
+  &.open {
+    transform: translateX(0);
+    visibility: visible;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    border-bottom: 1px solid $color-grey-medium-light;
+    margin: 0 2rem;
+  }
+
+  &__link {
+    display: block;
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: $color-black;
+    text-decoration: none;
+    &:hover,
+    &:focus,
+    &:active,
+    &:visited {
+      color: $color-black;
+      text-decoration: none;
+    }
+  }
+}
