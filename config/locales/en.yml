@@ -2161,7 +2161,10 @@ en:
         button:
           add_documents: Add documents
           complete_tax_questions: Complete tax questions
+          decline_to_sign: I don't want to sign
           message_tax_team: Message tax team
+          sign_your_return: Sign your return
+          view_documents: View your uploaded documents
         calls_to_action:
           add_missing_documents: See what is missing and complete your tax return.
           add_missing_documents_title: Submit additional documents
@@ -2171,6 +2174,11 @@ en:
           prep_info_requested_title: You have a message
           review_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
           review_info_requested_title: You have a message
+          signature_requested: Download your final tax papers to review, then sign electronically.
+          signature_requested_title: Signature needed
+        decline_to_sign_help: If you don't sign your return, your tax team will reach out to discuss.
+        document_link:
+          download_final_tax_papers: Download final tax papers
         help_text:
           final_steps: Your return is signed and on its way to the IRS. We'll let you know when it's processed.
           info_requested: We need a few more documents to finish your tax return.
@@ -2179,6 +2187,8 @@ en:
           prep_info_requested: We need more information to prepare your return.
           review: Your return is in final review. We'll be in touch if anything needs your attention.
           review_info_requested: Your tax team needs one more thing before finalizing your return.
+          signature_requested_primary: Your return is ready for your signature.
+          signature_requested_spouse: Your return is ready for your spouse's signature.
           tax_prep: Your tax team is preparing your return. We'll reach out if we need anything.
         title: Welcome back, %{name}
     settings:
@@ -2235,6 +2245,8 @@ en:
           body_html: "<p>Under penalties of perjury, I declare that I have examined a copy of my electronic individual income tax return and accompanying schedules and statements for the tax year ending December 31, %{year}, and to the best of my knowledge and belief, they are true, correct, and complete.</p><p>I further declare that the amounts in Part I above are the amounts from my electronic income tax return. I consent to allow my intermediate service provider, transmitter, or electronic return originator (ERO) to send my return to the IRS and to receive from the IRS (a) an acknowledgement of receipt or reason for rejection of the transmission, (b) the reason for any delay in processing the return or refund, and (c) the date of any refund.</p><p>If applicable, I authorize the U.S. Treasury and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my federal taxes owed on this return and/or a payment of estimated tax, and the financial institution to debit the entry to this account. This authorization is to remain in full force and effect until I notify the U.S. Treasury Financial Agent to terminate the authorization. To revoke (cancel) a payment, I must contact the U.S. Treasury Financial Agent at 1-888-353-4537. Payment cancellation requests must be received no later than 2 business days prior to the payment (settlement) date.</p><p>I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment. I further acknowledge that the personal identification number (PIN) below is my signature for my electronic income tax return and, if applicable, my Electronic Funds Withdrawal Consent.</p>"
           title: Full Taxpayer Declaration and Signature Authorization
         subheader: You declare that you have examined a copy of your electronic individual income tax return and accompanying schedules and statements for the tax year ending December 31, %{year}, and to the best of your knowledge and belief, they are true, correct, and complete.
+      decline_signature:
+        confirmation: Thanks for letting us know. Your tax team will reach out to discuss your return.
       index:
         final_return_not_started: Final return not started
         final_tax_return: "%{year} Final tax return"

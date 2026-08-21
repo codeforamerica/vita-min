@@ -17,6 +17,17 @@
     </div>
   <% end %>
 
+  <% if card_props[:download_final_tax_documents] %>
+    <div class="status-line-items">
+      <%= render "portal/portal/document_links",
+                 label: t("portal.portal2.home.document_link.download_final_tax_papers"),
+                 documents: tax_return.final_tax_documents,
+                 link_attributes: { "data-track-click": "client_portal_download_tax_papers",
+                                    "data-track-attribute-page": "client_portal",
+                                    "data-track-attribute-return_status": card_props[:return_status] } %>
+    </div>
+  <% end %>
+
   <% if card_props.has_key?(:button_type) && card_props[:button_type].present? %>
     <% if card_props[:button_type] == :complete_intake %>
       <%= link_to(t("portal.portal2.home.button.complete_tax_questions"),
@@ -32,6 +43,13 @@
                     "data-track-click": "client_portal_add_documents_button",
                     "data-track-attribute-page": "client_portal",
                     "data-track-attribute-return_status": card_props[:return_status]) %>
+    <% elsif card_props[:button_type] == :view_documents %>
+      <%= link_to(t("portal.portal2.home.button.view_documents"),
+                    Portal::UploadDocumentsController.to_path_helper(action: :index),
+                    class: "button spacing-below-0",
+                    "data-track-click": "client_portal_view_documents_button",
+                    "data-track-attribute-page": "client_portal",
+                    "data-track-attribute-return_status": card_props[:return_status]) %>
     <% elsif card_props[:button_type] == :message_tax_team %>
       <%= link_to(t("portal.portal2.home.button.message_tax_team"),
                     new_portal_message_path,
@@ -39,6 +57,21 @@
                     "data-track-click": "client_portal_message_tax_team_button",
                     "data-track-attribute-page": "client_portal",
                     "data-track-attribute-return_status": card_props[:return_status]) %>
+    <% elsif card_props[:button_type] == :sign_return %>
+      <%= link_to(t("portal.portal2.home.button.sign_your_return"),
+                    card_props[:link],
+                    class: "button button--primary button--wide text--centered spacing-below-15",
+                    "data-track-click": "client_portal_sign_return_button",
+                    "data-track-attribute-page": "client_portal",
+                    "data-track-attribute-return_status": card_props[:return_status]) %>
+      <%= link_to(t("portal.portal2.home.button.decline_to_sign"),
+                    portal_tax_return_decline_signature_path(tax_return_id: tax_return.id),
+                    method: :put,
+                    class: "button button--wide text--centered spacing-below-5",
+                    "data-track-click": "client_portal_decline_to_sign_button",
+                    "data-track-attribute-page": "client_portal",
+                    "data-track-attribute-return_status": card_props[:return_status]) %>
+      <p class="text--small spacing-below-0"><%= t("portal.portal2.home.decline_to_sign_help") %></p>
     <% end %>
   <% end %>
 </div>

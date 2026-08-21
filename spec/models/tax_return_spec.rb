@@ -727,6 +727,30 @@ describe TaxReturn do
     end
   end
 
+  describe "#decline_to_sign!" do
+    let(:tax_return) { create :gyr_tax_return, :ready_to_sign, :with_final_tax_doc }
+
+    it "transitions the return to review_ready_for_call" do
+      expect {
+        tax_return.decline_to_sign!
+      }.to change(tax_return, :current_state).to("review_ready_for_call")
+    end
+
+    it "flags the client" do
+      expect {
+        tax_return.decline_to_sign!
+      }.to change { tax_return.client.reload.flagged? }.from(false).to(true)
+    end
+
+    it "adds a system note telling the hub to reach out to the client" do
+      tax_return.decline_to_sign!
+
+      note = SystemNote::ClientDeclinedSignature.last
+      expect(note.client).to eq tax_return.client
+      expect(note.body).to eq "This client declined to sign their tax return. Reach out to them to understand and resolve their concerns. Once resolved, update the ticket status back to Signature Requested."
+    end
+  end
+
   describe "#sign_spouse!" do
     let(:tax_return) { create :tax_return, :ready_to_sign }
     let(:fake_ip) { IPAddr.new }
