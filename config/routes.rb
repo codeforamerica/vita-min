@@ -354,6 +354,12 @@ Rails.application.routes.draw do
 
           get "/:tax_return_selection_id/change-assignee-and-status", to: "change_assignee_and_status#edit", as: :edit_change_assignee_and_status
           put "/:tax_return_selection_id/change-assignee-and-status", to: "change_assignee_and_status#update", as: :update_change_assignee_and_status
+
+          get "/:tax_return_selection_id/turn-red-dot-flag-on", to: "turn_red_dot_flag_on#edit", as: :edit_turn_red_dot_flag_on
+          put "/:tax_return_selection_id/turn-red-dot-flag-on", to: "turn_red_dot_flag_on#update", as: :update_turn_red_dot_flag_on
+
+          get "/:tax_return_selection_id/turn-red-dot-flag-off", to: "turn_red_dot_flag_off#edit", as: :edit_turn_red_dot_flag_off
+          put "/:tax_return_selection_id/turn-red-dot-flag-off", to: "turn_red_dot_flag_off#update", as: :update_turn_red_dot_flag_off
         end
 
         resources :zip_codes, only: [:create, :destroy]

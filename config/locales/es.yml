@@ -842,6 +842,18 @@ es:
             only_email: "(solo envio de correo electrónico)"
             only_text: "(solo envio de mensajes de texto)"
           title: Acción masiva
+      turn_red_dot_flag_off:
+        edit:
+          selected_action_and_client_count_html:
+            one: Ha seleccionado <strong>Desactivar Bandera de Punto Rojo</strong> para <strong>%{count} cliente</strong>.
+            other: Ha seleccionado <strong>Desactivar Bandera de Punto Rojo</strong> para <strong>%{count} clientes</strong>.
+          title: Acción masiva
+      turn_red_dot_flag_on:
+        edit:
+          selected_action_and_client_count_html:
+            one: Ha seleccionado <strong>Activar Bandera de Punto Rojo</strong> para <strong>%{count} cliente</strong>.
+            other: Ha seleccionado <strong>Activar Bandera de Punto Rojo</strong> para <strong>%{count} clientes</strong>.
+          title: Acción masiva
     bulk_message_csvs:
       bulk_message_csv:
         send_default: Enviar mensaje (todos los métodos de contacto disponibles, es decir, por defecto)
@@ -1314,6 +1326,10 @@ es:
         send_a_message: Enviar un mensaje
         send_a_message_description_html: Envía un mensaje a estos <strong>%{count} clientes</strong>.
         title: Elija su acción masiva
+        turn_red_dot_flag_off: Desactivar bandera de punto rojo
+        turn_red_dot_flag_off_description_html: Desactiva la bandera de punto rojo para estos <strong>%{count} clientes</strong>.
+        turn_red_dot_flag_on: Activar bandera de punto rojo
+        turn_red_dot_flag_on_description_html: Activa la bandera de punto rojo para estos <strong>%{count} clientes</strong>.
       page_title:
         many: 'Selección de clientes #%{id} (%{count} resultados)'
         one: 'Selección de clientes #%{id} (%{count} resultado)'
@@ -1372,6 +1388,10 @@ es:
     unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
     unsuspend_account: Anular la suspensión del usuario
     user_notifications:
+      bulk_client_flag_update:
+        off_html: Ha desactivado exitosamente la bandera de punto rojo para %{tax_return_selection_link}.
+        on_html: Ha activado exitosamente la bandera de punto rojo para %{tax_return_selection_link}.
+        title: Actualización exitosa de bandera de punto rojo masiva
       bulk_client_message:
         failed-title_html: <i class="icon-warning"></i> Enviar un mensaje masivo sin éxito
         failed_body_html: Nosotras no pudimos contactar %{tax_return_selection_link}.
