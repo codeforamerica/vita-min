@@ -99,9 +99,9 @@ GEM
       faraday (>= 1.0, < 3.0)
       faraday-net_http_persistent
       net-http-persistent
-    annotate (3.2.0)
-      activerecord (>= 3.2, < 8.0)
-      rake (>= 10.4, < 14.0)
+    annotaterb (4.24.0)
+      activerecord (>= 6.0.0)
+      activesupport (>= 6.0.0)
     ast (2.4.3)
     auth-sanitizer (0.2.1)
       version_gem (~> 1.1, >= 1.1.10)
@@ -785,7 +785,7 @@ DEPENDENCIES
   activerecord-postgis-adapter (~> 10.0, >= 10.0.2)
   acts_as_list
   airrecord
-  annotate
+  annotaterb
   auto_strip_attributes
   awesome_print
   aws-sdk-bedrockruntime (~> 1.2)
