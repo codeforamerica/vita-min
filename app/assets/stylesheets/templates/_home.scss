@@ -7,6 +7,21 @@
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
 
+    #firstCta {
+      font-size: 1.9rem;
+    }
+
+    .hero-subheader {
+      font-family: $font-gyr-heading;
+      font-size: 2.2rem;
+    }
+
+
+    a:where(:not(.button)) {
+      color: $color-confidence-blue;
+      border-bottom-color: currentColor;
+    }
+
     p {
       margin-bottom: 2.5rem;
       @media screen and (min-width: $site-max-up) {
@@ -191,10 +206,10 @@
   .slab--rating {
     padding-bottom: 3.5rem;
     .title {
-      font-size: 2.7rem;
+      font-size: 1.9rem;
     }
     .text--small {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
     #star-rating {
       img {
@@ -219,10 +234,12 @@
     padding-bottom: 0;
 
     .rounded-box {
-      background-color: #FFD29C;
+      background-color: $color-teal-mint;
 
-      a {
-        color: black;
+      // Confidence Blue for contrast: teal on teal mint is the lowest-contrast pairing on the page.
+      a:where(:not(.button)) {
+        color: $color-confidence-blue;
+        border-bottom-color: currentColor;
       }
     }
 
@@ -239,12 +256,13 @@
   }
 
   .slab--service-comparison {
-    padding-bottom: 0;
-    padding-top: 6rem;
+    padding-bottom: 3.6rem;
+    margin-top: 6rem;
+    padding-top: 8rem;
   }
 
   .slab--testimonials {
-    background-color: white;
+    background-color: $color-cream;
     padding-top: 6rem;
     padding-below: 6rem;
 
@@ -258,16 +276,29 @@
         width: 100%;
       }
     }
-    #testimonial-left {
-      padding-right: 3rem;
+    #testimonial-left,
+    #testimonial-right {
       .rounded-box {
-        background-color: #FFD29C;
+        background-color: $color-confidence-blue;
+        color: $color-clarity-white;
+        .text--small {
+          color: $color-clarity-white;
+        }
       }
     }
-    #testimonial-right {
-      padding-left: 3rem;
+
+    .testimonial-quotes {
+      display: flex;
+      gap: 6rem;
+
+      #testimonial-left,
+      #testimonial-right {
+        display: flex;
+        flex: 1 1 0;
+      }
+
       .rounded-box {
-        background-color: #C2C2FF;
+        width: 100%;
       }
     }
     @media screen and (max-width: $tablet-up) {
@@ -284,13 +315,9 @@
           padding-right: 2.5rem;
         }
       }
-      #testimonial-left {
-        padding: 0;
-        margin-bottom: 2rem;
-      }
-      #testimonial-right {
-        padding: 0;
-        margin-top: 0;
+      .testimonial-quotes {
+        flex-direction: column;
+        gap: 2rem;
       }
       .rounded-box {
         padding: 1.5rem;
@@ -299,7 +326,7 @@
   }
 
   .slab--security {
-    background-color: white;
+    background-color: $color-cream;
     padding-top: 3.5rem;
     padding-bottom: 3.5rem;
 
@@ -311,10 +338,11 @@
       display: flex;
 
       img {
-        width: 10rem;
-        min-width: 10rem;
-        padding-right: 4rem;
-        height: 100%;
+        width: 3.6rem;
+        min-width: 3.6rem;
+        height: 3.6rem;
+        margin-right: 1.6rem;
+        padding-right: 0;
       }
     }
 
@@ -324,8 +352,9 @@
         flex-direction: column;
         img {
           padding-right: 0;
+          margin-right: 0;
           width: 100%;
-          height: 4rem;
+          height: 3.6rem;
           margin-bottom: 1.5rem;
         }
       }
@@ -354,15 +383,33 @@
     background-color: #FFE8CC;
   }
 
-  .link--subtle {
-    color: inherit;
-  }
-
   .slab--secondary-cta{
     padding: 2rem;
 
+    // "Read our FAQ" stays on one line. The default 4rem side padding makes it wider than its
+    // one-fourth column, so the padding comes in to let it fit without wrapping.
+    .button {
+      font-size: 1.9rem;
+      white-space: nowrap;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    // Below the four-across breakpoint the one-fourth column is too narrow for the button at any
+    // sensible padding, so the heading and the button stack instead.
+    @media screen and (max-width: $site-max-width) {
+      .faq .grid__item {
+        width: 100%;
+      }
+
+      .button-container {
+        margin-top: 2rem;
+        text-align: left;
+      }
+    }
+
     .faq.rounded-box {
-      background-color: $color-beige;
+      background-color: $color-ui-grey;
       padding: 3rem;
       margin-left: auto;
       margin-right: auto;

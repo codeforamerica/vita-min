@@ -7,24 +7,20 @@
 <%= render 'shared/facebook_pixel' %>
 <%= render 'shared/trade_desk_pixel' %>
 <div class="main-content-inner">
-  <div class="slab slab--hero slab--gyr-green">
+  <div class="slab slab--hero slab--ui-grey">
     <div class="grid">
       <%= render "shared/dismissible_banner",
                  banner_id: "fresh-look",
                  banner_header: t("views.public_pages.home.fresh_look_banner.header"),
                  banner_body: t("views.public_pages.home.fresh_look_banner.body") %>
-      <div class="grid__item width-one-half spacing-above-25">
+      <%# Full width rather than main's half: the hero illustration this used to sit beside is not
+          part of the refreshed design, so there is no sibling column to share the row with. %>
+      <div class="grid__item width-one-whole spacing-above-25">
         <h1>
           <%= t("views.public_pages.home.header") %>
         </h1>
-        <p>
-          <strong>
-            <% if open_for_gyr_intake? %>
-              <%= t("views.public_pages.home.subheader") %>
-            <% else %>
-              <%= t("views.public_pages.home.subheader_offseason") %>
-            <% end %>
-          </strong>
+        <p class="hero-subheader">
+          <%= open_for_gyr_intake? ? t("views.public_pages.home.subheader") : t("views.public_pages.home.subheader_offseason") %>
         </p>
         <% if app_time <= Rails.configuration.tax_deadline %>
           <p>
@@ -39,23 +35,18 @@
 
         <% if open_for_gyr_logged_in_clients? %>
           <p>
-            <strong>
-              <%= link_to t(".already_started"), new_portal_client_login_path %>
-            </strong>
+            <%= link_to t(".already_started"), new_portal_client_login_path %>
           </p>
         <% end %>
       </div>
 
-      <div class="grid__item width-one-half hero-illustration">
-        <%= render 'half_grid_hero_images' %>
-      </div>
     </div>
   </div>
 
   <div class="slab slab--rating">
     <div class="grid">
       <div id="star-rating" class="grid__item width-one-third text--centered">
-        <%= image_tag("star_rating.svg", alt: "") %>
+        <%= image_tag("star-rating-outline.svg", alt: "") %>
         <p class="title text--bold text--centered spacing-above-5 spacing-below-0">
           <%= t("views.public_pages.home.clients.rating") %>
         </p>
@@ -70,36 +61,38 @@
     </div>
   </div>
 
-  <div class="slab slab-habla-espanol">
-    <div class="grid">
-      <div class="rounded-box">
-        <h2 class="title spacing-below-5">¿habla español?</h2>
-        <p>Tenemos opciones para ti! Declarar en español, obtener tu máximo reembolso.</p>
-        <% unless locale == :es %>
+  <% unless locale == :es %>
+    <div class="slab slab-habla-espanol">
+      <div class="grid">
+        <div class="rounded-box">
+          <h2 class="title spacing-below-5">¿habla español?</h2>
+          <p>Tenemos opciones para ti! Declarar en español, obtener tu máximo reembolso.</p>
           <span><%= link_to_locale('es', 'Traducir esta página al español', { "data-track-click": "intake-language-changed-habla-espanol-section" }) %></span>
-        <% end %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <%= render "shared/service_comparison" %>
 
   <div class="slab slab--testimonials">
     <div class="grid spacing-below-0">
       <div id="testimonial-title" class="grid__item width-one-whole">
-        <div><%= image_tag("chat-square-text.svg", alt: "square chat box") %></div>
+        <div><%= image_tag("message-circle-heart.svg", alt: "") %></div>
         <div><h2 class="text--centered"><%= t("views.public_pages.home.clients.header") %></h2></div>
       </div>
-      <div id="testimonial-left" class="grid__item width-one-half">
-        <div class="rounded-box">
-          <p class="text--small text--bold"><%= t("views.public_pages.home.clients.quote1.header") %></p>
-          <p class="text--small spacing-below-0"><%= t("views.public_pages.home.clients.quote1.body") %></p>
+      <div class="grid__item width-one-whole testimonial-quotes">
+        <div id="testimonial-left">
+          <div class="rounded-box">
+            <p class="text--small text--bold"><%= t("views.public_pages.home.clients.quote1.header") %></p>
+            <p class="text--small spacing-below-0"><%= t("views.public_pages.home.clients.quote1.body") %></p>
+          </div>
         </div>
-      </div>
-      <div id="testimonial-right" class="grid__item width-one-half">
-        <div class="rounded-box">
-          <p class="text--small text--bold"><%= t("views.public_pages.home.clients.quote2.header") %></p>
-          <p class="text--small spacing-below-0"><%= t("views.public_pages.home.clients.quote2.body") %></p>
+        <div id="testimonial-right">
+          <div class="rounded-box">
+            <p class="text--small text--bold"><%= t("views.public_pages.home.clients.quote2.header") %></p>
+            <p class="text--small spacing-below-0"><%= t("views.public_pages.home.clients.quote2.body") %></p>
+          </div>
         </div>
       </div>
     </div>
@@ -120,7 +113,7 @@
             </ul>
           </div>
           <div class="grid__item width-one-fourth button-container">
-            <%= link_to faq_path, class: "button text--centered" do %>
+            <%= link_to faq_path, class: "button button--primary text--centered" do %>
               <%= t("views.public_pages.home.faq.faq_cta") %>
             <% end %>
           </div>
@@ -131,7 +124,7 @@
   <div class="slab slab--security">
     <div class="grid">
       <div class="grid__item width-one-whole">
-        <div><%= image_tag("lock-gear.svg", alt: "a padlock icon") %></div>
+        <div><%= image_tag("shield-check.svg", alt: "") %></div>
         <div>
           <h2 class="h4 spacing-below-5"><%= t("views.public_pages.home.security.header") %></h2>
           <p class="text--small spacing-below-0"><%= t("views.public_pages.home.security.body") %></p>

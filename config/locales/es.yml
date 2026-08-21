@@ -2261,8 +2261,7 @@ es:
     eligibility_state:
       edit:
         diy_html: "<strong>Obtenga ayuda mientras avanza:</strong> chatee con un experto en impuestos mientras presenta su declaración y resuelva cualquier duda en el momento."
-        page: Paso 2 de 2
-        page_with_simple_file_step: Paso 2 de 3
+        page: Paso 2 de 3
         title: "¿Qué tipo de apoyo prefiere recibir mientras presenta su declaración de impuestos?"
         virtual_vita_html: "<strong>Deje que un experto haga su declaración:</strong> conéctese con un preparador de impuestos certificado por el IRS que se encarga de presentar su declaración."
     eligibility_wages:
@@ -2270,7 +2269,7 @@ es:
         income_level:
           label: Seleccione el ingreso de su hogar
           over: más de
-        page: Paso 1 de 2
+        page: Paso 1 de 3
         subtitle: Le haremos algunas preguntas sobre lo que prefiere para guiarle a los servicios a los que puede calificar.
         title: "¡Le ayudaremos a encontrar el servicio adecuado!"
         vita_income_ineligible:
@@ -6149,6 +6148,7 @@ es:
         bullet_3: De 1 a 2 horas para presentar la declaración
         bullet_4: Disponible en línea
         bullet_5_html: Se requiere el número de Seguro Social o el <b>Número</b> de Identificación Personal del Contribuyente (ITIN)
+        card_title: FileMyself
         reveal_b1: Todos los estados
         reveal_b2: Puerto Rico
         reveal_b3: No residentes
@@ -6189,7 +6189,7 @@ es:
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
         subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
-        title: VITA presencial
+        title: Assist (In-person)
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
@@ -6239,4 +6239,4 @@ es:
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
         subtitle: Responda algunas preguntas y deje que un profesional de impuestos presente su declaración a nombre suyo
-        title: Declarar con ayuda
+        title: Assist (Virtual)
