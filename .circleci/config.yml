@@ -133,8 +133,7 @@ jobs:
       - checkout
       - install_ruby_dependencies
       - setup_test_db
-      - run: bundle exec annotate_rb models --frozen
-      - run: bundle exec annotate_rb routes --frozen
+      - run: bundle exec annotaterb models --frozen
   run_ruby_tests:
     executor: rails_executor
     steps:

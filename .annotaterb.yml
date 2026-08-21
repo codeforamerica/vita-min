@@ -69,3 +69,6 @@
 :require: []
 :root_dir:
 - ''
+# Next directive was added for vita-min:
+:ignore_model_sub_dir:
+- archived
