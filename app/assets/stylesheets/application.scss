@@ -157,9 +157,18 @@ body {
       color: $color-clarity-white;
     }
 
-    .button--toolbar {
+    .button--toolbar#{$gyr-cta-exclusions} {
       background-color: $color-primary-lime;
+      border-color: $color-button-border;
       color: $color-confidence-blue !important;
+
+      &:hover,
+      &:active,
+      &:visited {
+        background-color: darken($color-primary-lime, 8%);
+        border-color: $color-button-border;
+        color: $color-confidence-blue !important;
+      }
     }
   }
 
@@ -497,8 +506,6 @@ body:not(.hub) {
 }
 
 .main-header .button--toolbar {
-  background-color: $color-green-money;
-  color: black !important;
   padding: 0.75rem 1rem;
   border-radius: 1.2rem;
 }
