@@ -17,10 +17,10 @@
     </div>
   <% end %>
 
-  <% if card_props[:download_final_tax_documents] && tax_return.final_tax_documents.any? %>
+  <% if card_props[:download_final_tax_documents] %>
     <div class="status-line-items">
       <%= render "portal/portal/document_links",
-                 label: t("portal.portal2.home.document_link.download_final_tax_papers", year: tax_return.year),
+                 label: t("portal.portal2.home.document_link.download_final_tax_papers"),
                  documents: tax_return.final_tax_documents,
                  link_attributes: { "data-track-click": "client_portal_download_tax_papers",
                                     "data-track-attribute-page": "client_portal",
@@ -41,6 +41,13 @@
                     Portal::UploadDocumentsController.to_path_helper(action: :index),
                     class: "button spacing-below-0",
                     "data-track-click": "client_portal_add_documents_button",
+                    "data-track-attribute-page": "client_portal",
+                    "data-track-attribute-return_status": card_props[:return_status]) %>
+    <% elsif card_props[:button_type] == :view_documents %>
+      <%= link_to(t("portal.portal2.home.button.view_documents"),
+                    Portal::UploadDocumentsController.to_path_helper(action: :index),
+                    class: "button spacing-below-0",
+                    "data-track-click": "client_portal_view_documents_button",
                     "data-track-attribute-page": "client_portal",
                     "data-track-attribute-return_status": card_props[:return_status]) %>
     <% elsif card_props[:button_type] == :message_tax_team %>

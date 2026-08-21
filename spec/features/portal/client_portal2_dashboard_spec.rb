@@ -2,6 +2,7 @@ require "rails_helper"
 
 RSpec.feature "a client on the improved portal whose return is waiting for a signature" do
   let(:filing_joint) { "no" }
+  let(:unsigned_8879_uploaded) { true }
   let(:final_tax_document_uploaded) { true }
   let(:tax_return) { build(:gyr_tax_return, :review_signature_requested, year: 2019) }
   let(:client) do
@@ -14,11 +15,13 @@ RSpec.feature "a client on the improved portal whose return is waiting for a sig
     Flipper.enable(:client_portal_improvements)
     login_as client, scope: :client
 
-    create :document,
-           document_type: DocumentTypes::UnsignedForm8879.key,
-           tax_return: tax_return,
-           client: client,
-           upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
+    if unsigned_8879_uploaded
+      create :document,
+             document_type: DocumentTypes::UnsignedForm8879.key,
+             tax_return: tax_return,
+             client: client,
+             upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
+    end
 
     if final_tax_document_uploaded
       create :document,
@@ -38,7 +41,7 @@ RSpec.feature "a client on the improved portal whose return is waiting for a sig
       expect(page).to have_text I18n.t("portal.portal2.home.calls_to_action.signature_requested_title")
       expect(page).to have_text I18n.t("portal.portal2.home.calls_to_action.signature_requested")
       expect(page).to have_link(
-        I18n.t("portal.portal2.home.document_link.download_final_tax_papers", year: 2019),
+        I18n.t("portal.portal2.home.document_link.download_final_tax_papers"),
         href: portal_document_path(id: tax_return.final_tax_documents.first.id)
       )
       expect(page).to have_link(
@@ -110,15 +113,58 @@ RSpec.feature "a client on the improved portal whose return is waiting for a sig
   context "when the final tax document has not been uploaded yet" do
     let(:final_tax_document_uploaded) { false }
 
-    scenario "still shows the signature card, minus the download link" do
+    scenario "shows the view documents action instead of the signature CTAs" do
       visit portal_root_path
 
       within "#tax-year-2019" do
         expect(page).to have_text I18n.t("portal.portal2.home.badge.final_check")
-        expect(page).to have_text I18n.t("portal.portal2.home.help_text.signature_requested_primary")
-        expect(page).to have_link I18n.t("portal.portal2.home.button.sign_your_return")
-        expect(page).to have_link I18n.t("portal.portal2.home.button.decline_to_sign")
-        expect(page).not_to have_text I18n.t("portal.portal2.home.document_link.download_final_tax_papers", year: 2019)
+        expect(page).to have_text I18n.t("portal.portal2.home.help_text.review")
+        expect(page).to have_link(
+          I18n.t("portal.portal2.home.button.view_documents"),
+          href: Portal::UploadDocumentsController.to_path_helper(action: :index)
+        )
+        expect(page).not_to have_link I18n.t("portal.portal2.home.button.sign_your_return")
+        expect(page).not_to have_link I18n.t("portal.portal2.home.button.decline_to_sign")
+        expect(page).not_to have_text I18n.t("portal.portal2.home.document_link.download_final_tax_papers")
+      end
+    end
+  end
+
+  context "when the 8879 has not been uploaded yet" do
+    let(:unsigned_8879_uploaded) { false }
+
+    scenario "shows the view documents action instead of the signature CTAs" do
+      visit portal_root_path
+
+      within "#tax-year-2019" do
+        expect(page).to have_text I18n.t("portal.portal2.home.badge.final_check")
+        expect(page).to have_text I18n.t("portal.portal2.home.help_text.review")
+        expect(page).to have_link(
+          I18n.t("portal.portal2.home.button.view_documents"),
+          href: Portal::UploadDocumentsController.to_path_helper(action: :index)
+        )
+        expect(page).not_to have_link I18n.t("portal.portal2.home.button.sign_your_return")
+        expect(page).not_to have_link I18n.t("portal.portal2.home.button.decline_to_sign")
+      end
+    end
+  end
+
+  context "when everyone who needs to sign has already signed the 8879" do
+    before do
+      tax_return.update!(
+        primary_signature: "Randall Rando",
+        primary_signed_at: DateTime.current + 1.minute,
+        primary_signed_ip: "127.0.0.1"
+      )
+    end
+
+    scenario "shows the view documents action instead of the signature CTAs" do
+      visit portal_root_path
+
+      within "#tax-year-2019" do
+        expect(page).to have_text I18n.t("portal.portal2.home.help_text.review")
+        expect(page).to have_link I18n.t("portal.portal2.home.button.view_documents")
+        expect(page).not_to have_link I18n.t("portal.portal2.home.button.sign_your_return")
       end
     end
   end

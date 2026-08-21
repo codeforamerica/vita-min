@@ -2164,6 +2164,7 @@ en:
           decline_to_sign: I don't want to sign
           message_tax_team: Message tax team
           sign_your_return: Sign your return
+          view_documents: View your uploaded documents
         calls_to_action:
           add_missing_documents: See what is missing and complete your tax return.
           add_missing_documents_title: Submit additional documents
@@ -2173,11 +2174,11 @@ en:
           prep_info_requested_title: You have a message
           review_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
           review_info_requested_title: You have a message
-          signature_requested: Review your final tax papers carefully. Once you sign, your return is sent to the IRS.
-          signature_requested_title: Your return is ready to sign
-        decline_to_sign_help: Choose this if something looks wrong or you have questions. Your tax team will reach out to you.
+          signature_requested: Download your final tax papers to review, then sign electronically.
+          signature_requested_title: Signature needed
+        decline_to_sign_help: If you don't sign your return, your tax team will reach out to discuss.
         document_link:
-          download_final_tax_papers: Download your final %{year} tax papers
+          download_final_tax_papers: Download final tax papers
         help_text:
           final_steps: Your return is signed and on its way to the IRS. We'll let you know when it's processed.
           info_requested: We need a few more documents to finish your tax return.
@@ -2186,8 +2187,8 @@ en:
           prep_info_requested: We need more information to prepare your return.
           review: Your return is in final review. We'll be in touch if anything needs your attention.
           review_info_requested: Your tax team needs one more thing before finalizing your return.
-          signature_requested_primary: Your return is complete and waiting for your signature.
-          signature_requested_spouse: Your return is complete and waiting for your spouse's signature.
+          signature_requested_primary: Your return is ready for your signature.
+          signature_requested_spouse: Your return is ready for your spouse's signature.
           tax_prep: Your tax team is preparing your return. We'll reach out if we need anything.
         title: Welcome back, %{name}
     settings:

@@ -2135,7 +2135,8 @@ es:
           complete_tax_questions: Preguntas completas sobre impuestos
           decline_to_sign: No quiero firmar
           message_tax_team: Enviar mensaje
-          sign_your_return: Firme su declaración
+          sign_your_return: Firmar su declaración
+          view_documents: Ver sus documentos cargados
         calls_to_action:
           add_missing_documents: Vea qué falta y complete su declaración de impuestos.
           add_missing_documents_title: Envíe documentos adicionales
@@ -2145,11 +2146,11 @@ es:
           prep_info_requested_title: Tiene un mensaje
           review_info_requested: El equipo de impuestos le envió una pregunta por %{contact_method}. Responda para que su declaración de impuestos siga avanzando.
           review_info_requested_title: Tiene un mensaje
-          signature_requested: Revise con cuidado sus documentos finales de impuestos. Una vez que firme, su declaración se enviará al IRS.
-          signature_requested_title: Su declaración está lista para firmar
-        decline_to_sign_help: Elija esta opción si algo no parece correcto o si tiene preguntas. El equipo de impuestos se comunicará con usted.
+          signature_requested: Descargue sus papeles de impuestos para revisarlos y luego firme electrónicamente.
+          signature_requested_title: Se necesita su firma
+        decline_to_sign_help: Si no firma su declaración, el equipo de impuestos se comunicará con usted para ver sus opciones.
         document_link:
-          download_final_tax_papers: Descargue sus documentos finales de impuestos del %{year}
+          download_final_tax_papers: Descargar papeles de impuestos
         help_text:
           final_steps: Su declaración de impuestos está en camino al IRS. Le informaremos cuando sea procesada.
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
@@ -2158,10 +2159,10 @@ es:
           prep_info_requested: Necesitamos más información para preparar su declaración de impuestos.
           review: Nos comunicaremos con usted si algo requiere su atención.
           review_info_requested: El equipo de impuestos necesita una cosa más antes de finalizar su declaración.
-          signature_requested_primary: Su declaración está completa y esperando su firma.
-          signature_requested_spouse: Su declaración está completa y esperando la firma de su cónyuge.
+          signature_requested_primary: Su declaración de impuestos está lista para firmar.
+          signature_requested_spouse: Su declaración de impuestos está lista para la firma de su cónyuge.
           tax_prep: Nos comunicaremos con usted si necesitamos algo.
-        title: Bienvenido de nuevo, %{name}
+        title: Hola, %{name}
     settings:
       show:
         bank_info:
