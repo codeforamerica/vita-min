@@ -10,9 +10,9 @@
   <% if show_get_started %>
     <div class="button-wrapper">
           <% if open_for_gyr_intake? %>
-            <%= link_to t("general.get_started"), Questions::QualificationsController.to_path_helper, class:  "button text--centered button--wide bg--assist-green", "data-track-click": "service-comparison-full-service" %>
+            <%= link_to t("general.get_started"), Questions::QualificationsController.to_path_helper, class:  "button text--centered button--wide button--assist-green", "data-track-click": "service-comparison-full-service" %>
           <% else %>
-            <%= link_to t("general.get_started"), new_signup_path, class: "button text--centered button--wide bg--assist-green", "data-track-click": "service-comparison-full-service" %>
+            <%= link_to t("general.get_started"), new_signup_path, class: "button text--centered button--wide button--assist-green", "data-track-click": "service-comparison-full-service" %>
           <% end %>
     </div>
   <% end %>
