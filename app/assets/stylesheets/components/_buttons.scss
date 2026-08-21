@@ -12,11 +12,6 @@
 
 .button--small {
   padding: .5rem 1.5rem;
-
-  &.bg--ui-green {
-    background-color: #DCFC7E;
-    color: black !important;
-  }
 }
 
 .button--inline-action {
@@ -199,46 +194,6 @@
   margin-right: 0;
   display: block;
 
-  &.bg--assist-green {
-    background-color: #ACCD4F;
-    color: black;
-
-    &:hover {
-      color: black;
-      background-color: #79B020;
-    }
-  }
-
-  &.bg--simple-file-blue {
-    background-color: #9EB0FF;
-    color: black;
-
-    &:hover {
-      color: black;
-      background-color: #637FFF;
-    }
-  }
-
-  &.bg--file-myself-peach {
-    background-color: #FFA89A;
-    color: black;
-
-    &:hover {
-      color: black;
-      background-color: #F77168;
-    }
-  }
-
-  &.bg--ui-green {
-    background-color: #DCFC7E;
-    color: black;
-  }
-
-  &.bg--ui-clarity-white {
-    background-color: #FFFFF5;
-    color: black;
-  }
-
   @media screen and (min-width: $tablet-up) {
     width: 34.5rem;
   }
@@ -254,11 +209,6 @@
 .button--med-wide {
   text-align: center;
   width: 20rem;
-
-  &.bg--ui-green {
-    background-color: #DCFC7E;
-    color: #000000;
-  }
 }
 
 .button--icon {
@@ -308,9 +258,42 @@
   align-items: center;
 }
 
-.button--faq {
-  &.bg--ui-green {
+.button--ui-green {
     background-color: #DCFC7E;
-    color: black;
-  }
+    color: black !important;
+
+    &:hover {
+      color:  black;
+      background-color:  #DCFC7E;
+    }
 }
+
+.button--simple-file-blue {
+    background-color: #9EB0FF;
+    color: black !important;
+
+    &:hover {
+      color:  black;
+      background-color:  #637FFF;
+    }
+}
+
+.button--file-myself-peach {
+    background-color: #FFA89A;
+    color: black !important;
+
+    &:hover {
+      color:  black;
+      background-color:  #F77168;
+    }
+}
+
+.button--assist-green {
+    background-color: #ACCD4F;
+    color: black !important;
+
+    &:hover {
+      color:  black;
+      background-color:  #79B020;
+    }
+}      
