@@ -111,7 +111,7 @@ group :demo, :development, :heroku, :staging do
 end
 
 group :development, :test do
-  gem 'annotate'
+  gem 'annotaterb', '4.23.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'axe-core-rspec'
