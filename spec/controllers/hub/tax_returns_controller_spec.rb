@@ -60,7 +60,19 @@ RSpec.describe Hub::TaxReturnsController, type: :controller do
         expect(assigns(:client)).to eq client
         expect(assigns(:tax_return)).to be_an_instance_of TaxReturn
         expect(assigns(:form).tax_return_years).to eq [2018]
-        expect(assigns(:form).remaining_years).to eq(MultiTenantService.gyr.filing_years(fake_time) - [2018])
+        expect(assigns(:form).remaining_years).to eq(MultiTenantService.gyr.hub_filing_years(fake_time) - [2018])
+      end
+
+      context "after the filing deadline" do
+        let(:fake_time) { DateTime.parse("2022-06-14") }
+        let!(:tax_return) { create :tax_return, client: client, year: 2021, assigned_user: currently_assigned_coalition_lead }
+
+        it "still offers the oldest back tax year, which clients can no longer choose" do
+          get :new, params: params
+
+          expect(MultiTenantService.gyr.filing_years(fake_time)).not_to include 2018
+          expect(assigns(:form).remaining_years).to eq [2020, 2019, 2018]
+        end
       end
 
       context "with an archived intake" do
