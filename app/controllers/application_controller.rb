@@ -405,10 +405,10 @@ class ApplicationController < ActionController::Base
   end
   helper_method :before_state_file_launch?
 
-  def gyr_filing_years
-    MultiTenantService.gyr.filing_years(app_time)
+  def gyr_hub_filing_years
+    MultiTenantService.gyr.hub_filing_years(app_time)
   end
-  helper_method :gyr_filing_years
+  helper_method :gyr_hub_filing_years
 
   def gyr_backtax_years
     MultiTenantService.gyr.backtax_years(app_time)
@@ -416,7 +416,7 @@ class ApplicationController < ActionController::Base
   helper_method :gyr_backtax_years
 
   def client_has_return_for_every_gyr_filing_year?(client)
-    (gyr_filing_years - client.tax_returns.pluck(:year)).empty?
+    (gyr_hub_filing_years - client.tax_returns.pluck(:year)).empty?
   end
   helper_method :client_has_return_for_every_gyr_filing_year?
 

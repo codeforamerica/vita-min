@@ -28,7 +28,7 @@ RSpec.feature "Add a tax return for an existing client" do
       click_on "Add tax year"
 
       expect(page).to have_selector("h1", text: "Add tax year for Bart Simpson")
-      expect(page).to have_select("Tax year", options: (MultiTenantService.gyr.filing_years - [2020]).map(&:to_s))
+      expect(page).to have_select("Tax year", options: (MultiTenantService.gyr.hub_filing_years - [2020]).map(&:to_s))
       select "2021", from: "Tax year"
       select "Org Lead", from: "Assigned user"
       select "Basic", from: "Certification level"
@@ -42,6 +42,18 @@ RSpec.feature "Add a tax return for an existing client" do
         expect(page).to have_text "2021"
         expect(page).to have_text "Org Lead"
         expect(page).to have_text "Greeter - info requested"
+      end
+    end
+
+    context "after the filing deadline for the oldest back tax year" do
+      let(:fake_time) { DateTime.parse("2024-06-01") }
+      let!(:tax_return2020) { create :tax_return, client: client, year: 2023 }
+
+      scenario "the oldest back tax year is still offered" do
+        visit hub_client_path(id: client.id)
+        click_on "Add tax year"
+
+        expect(page).to have_select("Tax year", options: ["2022", "2021", "2020"])
       end
     end
 
