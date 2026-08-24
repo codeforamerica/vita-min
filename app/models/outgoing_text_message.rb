@@ -28,6 +28,7 @@
 class OutgoingTextMessage < ApplicationRecord
   include ContactRecord
   include RecordsTwilioStatus
+  include ClearsClientFlagOnBulkDelivery
 
   def self.status_column
     :twilio_status
@@ -52,6 +53,14 @@ class OutgoingTextMessage < ApplicationRecord
 
   def documents
     []
+  end
+
+  def delivery_succeeded?
+    TwilioService::SUCCESSFUL_STATUSES.include?(twilio_status)
+  end
+
+  def sent_as_bulk_message?
+    bulk_client_message_outgoing_text_messages.exists?
   end
 
   def to

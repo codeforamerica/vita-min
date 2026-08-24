@@ -28,11 +28,16 @@
 #
 class OutgoingEmail < ApplicationRecord
   include ContactRecord
+  include ClearsClientFlagOnBulkDelivery
 
   FAILED_MAILGUN_STATUSES = ["permanent_fail", "failed"].freeze
   SUCCESSFUL_MAILGUN_STATUSES = ["delivered", "opened"].freeze
   IN_PROGRESS_MAILGUN_STATUSES = ["sending", nil].freeze
   ALL_KNOWN_MAILGUN_STATUSES = FAILED_MAILGUN_STATUSES + SUCCESSFUL_MAILGUN_STATUSES + IN_PROGRESS_MAILGUN_STATUSES
+
+  def self.status_column
+    :mailgun_status
+  end
 
   belongs_to :client
   belongs_to :user, optional: true
@@ -59,6 +64,14 @@ class OutgoingEmail < ApplicationRecord
 
   def attachments
     attachment.present? ? [attachment] : nil
+  end
+
+  def delivery_succeeded?
+    SUCCESSFUL_MAILGUN_STATUSES.include?(mailgun_status)
+  end
+
+  def sent_as_bulk_message?
+    bulk_client_message_outgoing_emails.exists?
   end
 
   private
