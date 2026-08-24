@@ -914,7 +914,7 @@ DEPENDENCIES
   zxcvbn-ruby
 
 RUBY VERSION
-   ruby 3.4.9
+   ruby 3.4.10
 
 BUNDLED WITH
    2.3.5
