@@ -8,15 +8,20 @@ module Hub
         PseudoTaxReturn.new(state)
       end
 
-      intake_incomplete_tr_index = @tax_returns.index { |tr| tr.current_state == 'intake_in_progress' }
-      @tax_returns.insert(intake_incomplete_tr_index + 1, PseudoTaxReturn.new('intake_in_progress', current_step: "/documents"))
+      @client_portal_improvements = Flipper.enabled?(:client_portal_improvements)
 
-      signature_tr_index = @tax_returns.index { |tr| tr.current_state == 'review_signature_requested' }
-      @tax_returns.insert(
-        signature_tr_index + 1,
-        PseudoTaxReturn.new('review_signature_requested', primary_has_signed: false, unsigned_8879s: [:some_doc]),
-        PseudoTaxReturn.new('review_signature_requested', primary_has_signed: true, unsigned_8879s: [:some_doc])
-      )
+      unless @client_portal_improvements
+        intake_incomplete_tr_index = @tax_returns.index { |tr| tr.current_state == 'intake_in_progress' }
+        @tax_returns.insert(intake_incomplete_tr_index + 1, PseudoTaxReturn.new('intake_in_progress', current_step: "/documents"))
+
+        signature_tr_index = @tax_returns.index { |tr| tr.current_state == 'review_signature_requested' }
+        @tax_returns.insert(
+          signature_tr_index + 1,
+          PseudoTaxReturn.new('review_signature_requested', primary_has_signed: false, unsigned_8879s: [:some_doc]),
+          PseudoTaxReturn.new('review_signature_requested', primary_has_signed: true, unsigned_8879s: [:some_doc])
+        )
+      end
+
     end
 
     private
@@ -62,7 +67,7 @@ module Hub
       end
 
       def intake
-        OpenStruct.new(current_step: @current_step)
+        OpenStruct.new(current_step: @current_step, pseudo?:true)
       end
 
       def id
