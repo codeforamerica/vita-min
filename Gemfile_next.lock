@@ -908,7 +908,6 @@ DEPENDENCIES
   warning
   web-console (>= 3.3.0)
   webmock
-  websocket-driver (>= 0.8.2)
   websocket-extensions (>= 0.1.5)
   will_paginate
   zxcvbn-ruby
