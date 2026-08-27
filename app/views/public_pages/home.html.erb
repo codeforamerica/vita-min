@@ -70,17 +70,17 @@
     </div>
   </div>
 
-  <div class="slab slab-habla-espanol">
-    <div class="grid">
-      <div class="rounded-box">
-        <h2 class="title spacing-below-5">¿habla español?</h2>
-        <p>Tenemos opciones para ti! Declarar en español, obtener tu máximo reembolso.</p>
-        <% unless locale == :es %>
-          <span><%= link_to_locale('es', 'Traducir esta página al español', { "data-track-click": "intake-language-changed-habla-espanol-section" }) %></span>
-        <% end %>
+  <% unless locale == :es %>
+    <div class="slab slab-habla-espanol">
+      <div class="grid">
+        <div class="rounded-box">
+          <h2 class="title spacing-below-5">¿habla español?</h2>
+          <p>Tenemos opciones para ti! Declarar en español, obtener tu máximo reembolso.</p>
+            <span><%= link_to_locale('es', 'Traducir esta página al español', { "data-track-click": "intake-language-changed-habla-espanol-section" }) %></span>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <%= render "shared/service_comparison" %>
 
