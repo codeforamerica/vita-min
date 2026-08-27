@@ -15,7 +15,7 @@ describe("Portal2MenuComponent", () => {
         <a href="/en/portal/messages/new" data-portal2-menu-item="messages">Messages</a>
         <a href="/en/portal/upload-documents/overview" data-portal2-menu-item="documents">Documents</a>
         <a href="/en/portal/tax-returns" data-portal2-menu-item="tax returns">Tax returns</a>
-        <a href="/en/portal/settings" data-portal2-menu-item="settings">Settings</a>
+        <a href="/en/portal/settings" data-portal2-menu-item="settings">Account info</a>
       </nav>
     `;
     navigator.sendBeacon = jest.fn();
