@@ -6168,7 +6168,6 @@ es:
       footer:
         service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link}.
         service_status: Estado del servicio
-        volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
       in_person_vita_card:
@@ -6176,7 +6175,8 @@ es:
         bullet_2: Declaraciones de impuestos estatales y federales
         bullet_3: El tiempo varía según la ubicación
         bullet_4: Disponible de manera presencial
-        bullet_5_html: <b>Se requieren copias físicas</b> de la tarjeta del Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: "<b>Se requieren copias físicas</b> de la tarjeta del Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)"
+        link_button: Buscar una ubicación
         reveal_b1: Todos los estados
         reveal_b2: No residentes (varía según la ubicación)
         reveal_b3: Residentes de Puerto Rico (varía según la ubicación)

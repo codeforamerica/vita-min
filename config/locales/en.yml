@@ -6138,7 +6138,6 @@ en:
       footer:
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link}
         service_status: Service status
-        volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
       in_person_vita_card:
@@ -6147,6 +6146,7 @@ en:
         bullet_3: Varies by location
         bullet_4: Available in-person
         bullet_5_html: "<b>Physical copies</b> of Social Security or Individual Taxpayer Identification Number Card required"
+        link_button: Find a Location
         reveal_b1: All states
         reveal_b2: Non-residents [varies by location]
         reveal_b3: Puerto Rico residents [varies by location]
@@ -6160,7 +6160,6 @@ en:
         reveal_title: Additional Information
         subtitle: Find a local IRS site and file with help
         title: Assist (In-person)
-        link_button: Find a Location
       progress_bar:
         progress_text: 'Intake progress:'
       service_comparison:
