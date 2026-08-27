@@ -6158,15 +6158,15 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
-        title: Declarar por mi cuenta
+        subtitle: Prepara tus propias declaraciones de impuestos y recibe ayuda si necesitas
+        title: FileMyself
       document_deadline_warning:
         body_html: La fecha límite para declarar sus impuestos de 2025 es el %{tax_deadline}. Use <a href='https://www.getyourrefund.org/es/diy/qualifications' target='_blank' rel='noopener noreferrer'>la herramienta File Myself</a> para declarar por su cuenta antes de la fecha límite. Si no debe impuestos, puede presentar su declaración después de esa fecha sin penalización. <a href='https://intercom.help/getyourrefundorg/es/articles/11048561-obtener-mas-tiempo-para-declarar'  target='_blank' rel='noopener noreferrer'>Conozca más en nuestras preguntas frecuentes.</a>
       environment_warning:
         banner: Este sitio es sólo para pruebas. Si necesitas ayuda con tus impuestos, visita
         off_season_filing: No podemos aceptar nuevos clientes después de %{end_of_intake_date}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de %{end_of_docs_date} para presentarla antes de la fecha límite.
       footer:
-        service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
+        service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link}.
         service_status: Estado del servicio
         volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
@@ -6174,9 +6174,9 @@ es:
       in_person_vita_card:
         bullet_1: Apoyo personalizado
         bullet_2: Declaraciones de impuestos estatales y federales
-        bullet_3: Varía según la ubicación
+        bullet_3: El tiempo varía según la ubicación
         bullet_4: Disponible de manera presencial
-        bullet_5_html: Se requieren <b>copias físicas</b> de la tarjeta del Seguro Social o del Número de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: <b>Se requieren copias físicas</b> de la tarjeta del Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)
         reveal_b1: Todos los estados
         reveal_b2: No residentes (varía según la ubicación)
         reveal_b3: Residentes de Puerto Rico (varía según la ubicación)
@@ -6188,8 +6188,8 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
-        title: VITA presencial
+        subtitle: Encuentra un sitio del IRS para recibir ayuda en persona declarando tus impuestos
+        title: Assist (In-person)
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
@@ -6238,5 +6238,5 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Responda algunas preguntas y deje que un profesional de impuestos presente su declaración a nombre suyo
-        title: Declarar con ayuda
+        subtitle: Responde unas preguntas y un experto en impuestos presenta tu declaración
+        title: Assist (Virtual)
