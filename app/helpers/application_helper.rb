@@ -71,6 +71,21 @@ module ApplicationHelper
     string.gsub(/.(?=.{#{unmasked_char_count}})/, '●')
   end
 
+  def preferred_contact_methods(intake)
+    methods = []
+    methods << I18n.t("general.contact_methods.email") if intake.email_notification_opt_in_yes?
+    methods << I18n.t("general.contact_methods.sms_phone_number") if intake.sms_notification_opt_in_yes?
+    return I18n.t("general.NA") if methods.empty?
+
+    methods.to_sentence.capitalize
+  end
+
+  def masked_account_number(account_number)
+    return I18n.t("general.NA") if account_number.blank?
+
+    "••••#{account_number.last(2)}"
+  end
+
   def ssn_mask(ssn)
     return I18n.t("general.NA") unless ssn.present?
     "XXX-XX-#{ssn.last(4)}"

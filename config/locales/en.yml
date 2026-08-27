@@ -2149,8 +2149,60 @@ en:
           review_signature_requested_primary: We are waiting for a final signature from you.
           review_signature_requested_spouse: We are waiting for a final signature from your spouse.
         subtitle: 'Here is a snapshot of your taxes:'
-        tax_return_heading: "%{year} return"
+        tax_return_heading: Your %{year} return
         title: Welcome back %{name}!
+    portal2:
+      home:
+        badge:
+          almost_done: Almost done
+          final_check: Final check
+          in_progress: In progress
+          tax_prep: Tax prep
+        button:
+          add_documents: Add documents
+          complete_tax_questions: Complete tax questions
+          message_tax_team: Message tax team
+        calls_to_action:
+          add_missing_documents: See what is missing and complete your tax return.
+          add_missing_documents_title: Submit additional documents
+          finish_intake: When you finish your tax form you'll get paired with your tax team.
+          finish_intake_title: Continue answering tax questions
+          prep_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
+          prep_info_requested_title: You have a message
+          review_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
+          review_info_requested_title: You have a message
+        help_text:
+          final_steps: Your return is signed and on its way to the IRS. We'll let you know when it's processed.
+          info_requested: We need a few more documents to finish your tax return.
+          intake_incomplete: You're still filling out your tax form.
+          intake_reviewing: Your tax team is reviewing your information. They'll reach out with any questions.
+          prep_info_requested: We need more information to prepare your return.
+          review: Your return is in final review. We'll be in touch if anything needs your attention.
+          review_info_requested: Your tax team needs one more thing before finalizing your return.
+          tax_prep: Your tax team is preparing your return. We'll reach out if we need anything.
+        title: Welcome back, %{name}
+    settings:
+      show:
+        bank_info:
+          account_types:
+            checking: Checking
+            savings: Savings
+            unspecified: Not specified
+          none: You have not provided bank account information.
+          refund_deposits_to: Refund deposits to
+          title: Bank info
+        contact_info:
+          email: Email
+          email_not_provided: Email not provided
+          phone: Phone
+          phone_not_provided: Phone number not provided
+          preferred_contact: Preferred contact
+          title: Contact info
+        making_a_change:
+          body: Message your tax team and they'll make the change.
+          title: Need to update something?
+        message_tax_team: Message tax team
+        title: Account info
     still_needs_helps:
       chat_later:
         help_text: If you have any additional documents that you need to upload, please use the button below.
@@ -2183,6 +2235,10 @@ en:
           body_html: "<p>Under penalties of perjury, I declare that I have examined a copy of my electronic individual income tax return and accompanying schedules and statements for the tax year ending December 31, %{year}, and to the best of my knowledge and belief, they are true, correct, and complete.</p><p>I further declare that the amounts in Part I above are the amounts from my electronic income tax return. I consent to allow my intermediate service provider, transmitter, or electronic return originator (ERO) to send my return to the IRS and to receive from the IRS (a) an acknowledgement of receipt or reason for rejection of the transmission, (b) the reason for any delay in processing the return or refund, and (c) the date of any refund.</p><p>If applicable, I authorize the U.S. Treasury and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my federal taxes owed on this return and/or a payment of estimated tax, and the financial institution to debit the entry to this account. This authorization is to remain in full force and effect until I notify the U.S. Treasury Financial Agent to terminate the authorization. To revoke (cancel) a payment, I must contact the U.S. Treasury Financial Agent at 1-888-353-4537. Payment cancellation requests must be received no later than 2 business days prior to the payment (settlement) date.</p><p>I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment. I further acknowledge that the personal identification number (PIN) below is my signature for my electronic income tax return and, if applicable, my Electronic Funds Withdrawal Consent.</p>"
           title: Full Taxpayer Declaration and Signature Authorization
         subheader: You declare that you have examined a copy of your electronic individual income tax return and accompanying schedules and statements for the tax year ending December 31, %{year}, and to the best of your knowledge and belief, they are true, correct, and complete.
+      index:
+        final_return_not_started: Final return not started
+        final_tax_return: "%{year} Final tax return"
+        title: Tax returns
       show:
         description: Would you like to download your final tax forms?
         download_final_tax_document: Download final %{year} tax forms
@@ -5266,6 +5322,9 @@ en:
         faq:
           faq_cta: Read our FAQ
           header: 'Common Tax Questions:'
+        fresh_look_banner:
+          body: Coming in mid-August, you'll see a new design, same trusted service.
+          header: A fresh look is coming to GetYourRefund
         header: Free tax filing, made simple.
         open_intake_post_tax_deadline_banner: Get started with GetYourRefund by %{end_of_intake} if you want to file with us in %{product_year}. If your return is in progress, sign in and submit your documents by %{end_of_docs}.
         security:

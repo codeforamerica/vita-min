@@ -166,13 +166,15 @@ Rails.application.routes.draw do
       namespace :portal do
         root "portal#home"
 
+        get '/portal2', to: 'portal2#home', as: :portal2
+
         # Add redirect for pre-March-2021-style login token links; safe to delete in April 2021
         get "/account/:id", to: redirect { |_, request| "/#{request.params[:locale] || "en"}/portal/login/#{request.params[:id]}" }
         get "/closed", to: 'closed_logins#show', as: :closed_login
 
         login_routes
 
-        resources :tax_returns, only: [], path: '/tax-returns' do
+        resources :tax_returns, only: [:index], path: '/tax-returns' do
           get '/show', to: 'tax_returns#show', as: :show
           get '/sign', to: 'tax_returns#authorize_signature', as: :authorize_signature
           put '/sign', to: 'tax_returns#sign', as: :sign
@@ -188,6 +190,7 @@ Rails.application.routes.draw do
         get '/still-need-help/thank-you', to: "still_needs_helps#no_longer_needs_help", as: :still_needs_help_no_longer_needs_help
         put '/still-need-help/thank-you', to: "still_needs_helps#experience_survey", as: :still_needs_help_experience_survey
         resources :messages, only: [:new, :create]
+        resource :settings, only: [:show]
         resources :documents, only: [:show]
         resources :upload_documents, only: [:destroy]
         match 'upload-documents/overview', to: 'upload_documents#index', via: :get, as: :overview_documents
