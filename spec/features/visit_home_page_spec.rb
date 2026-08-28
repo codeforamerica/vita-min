@@ -144,10 +144,11 @@ RSpec.feature "Visit home page" do
       allow(Rails.env).to receive(:production?).and_return(false)
     end
 
-    scenario "it shows a sign in link" do
-      visit "/"
-      click_on "Volunteer sign in"
-      expect(page).to have_text "Sign in"
-    end
+    #commenting this out for now since Volunteer Sign In was removed from footer
+    #scenario "it shows a sign in link" do
+    #  visit "/"
+    #  click_on "Volunteer sign in"
+    #  expect(page).to have_text "Sign in"
+    #end
   end
 end

@@ -20,7 +20,7 @@ RSpec.feature "Menu spec", js: true do
 
     visit "/"
     within ".toolbar" do
-      expect(page).to have_css("a", text: "Login")
+      expect(page).to have_css("a", text: "Sign in")
     end
   end
 end
