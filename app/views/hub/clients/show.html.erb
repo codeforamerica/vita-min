@@ -149,12 +149,10 @@
                     <span class="label-value">$<%= @client.intake.eip2_amount_received %> </span>
                   </div>
                 <% end %>
-                <% if !@client.archived? %>
-                  <div class="field-display">
-                    <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_3") %>:</span>
-                    <span class="label-value"><%= number_to_currency(@client.intake.eip3_amount_received) || "Unfilled" %> </span>
-                  </div>
-                <% end %>
+                <div class="field-display">
+                  <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_3") %>:</span>
+                  <span class="label-value"><%= number_to_currency(@client.intake.eip3_amount_received) || "Unfilled" %> </span>
+                </div>
                 <% if @client.intake.drop_off? %>
                   <% if @client.intake.eip1_and_2_amount_received_confidence.present? %>
                     <div class="field-display">
@@ -164,7 +162,7 @@
                   <% end %>
                 <% else %>
                   <% tax_return = @client.intake.default_tax_return %>
-                  <% if tax_return && !@client.archived? %>
+                  <% if tax_return %>
                     <% benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: @client.intake.dependents) %>
                     <div class="field-display">
                       <span class="form-question"> Outstanding RRC: </span>

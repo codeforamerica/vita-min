@@ -276,8 +276,6 @@ module Hub
 
     class HubClientPresenter < SimpleDelegator
       attr_reader :intake
-      attr_reader :archived
-      alias_method :archived?, :archived
       attr_reader :missing_intake
       alias_method :missing_intake?, :missing_intake
 
@@ -299,13 +297,13 @@ module Hub
         @client = client
         __setobj__(client)
         @intake = if related_models_cache.present?
-                    related_models_cache[:intakes][client.id]
+                    related_models_cache[:intakes][client.id].first
                   else
                     client.intake
                   end
-        @archived = client.has_archived_intake?
-        @intake = @archived ? client.archived_intake : client.intake
-        # For a short while, we created Client records with no intake and/or moved which client the intake belonged to.
+
+        # For a short while, we created Client records with no intake and/or
+        # moved which client the intake belonged to.
         if !@intake && @client.created_at < Date.parse('2022-04-15')
           @missing_intake = true
           @intake = Intake::GyrIntake.new(client_id: @client.id)
@@ -344,8 +342,6 @@ module Hub
       end
 
       def needs_itin_help_text
-        return I18n.t("general.NA") if archived?
-
         intake.itin_applicant? ? I18n.t("general.affirmative") : I18n.t("general.negative")
       end
 
@@ -356,8 +352,6 @@ module Hub
       end
 
       def needs_itin_help_yes?
-        return false if archived?
-
         intake.itin_applicant?
       end
     end
@@ -381,9 +375,6 @@ module Hub
       end
 
       def product_year
-        if @intake.is_a?(Archived::Intake2021)
-          return 2021
-        end
         @intake.product_year
       end
     end
