@@ -760,6 +760,7 @@ es:
     file_myself_guide_and_video_tutorials: Guía de File Myself y videotutoriales
     subject: "¡Estamos aquí para ayudarlo a declarar sus impuestos con File Myself!"
   hub:
+    archived_client_warning: Este es un boleto del año de producto %{year}. Esta información está archivada y solo debe usarse como referencia.
     assigned_clients:
       index:
         title: Clientes Asignados

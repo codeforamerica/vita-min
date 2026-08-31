@@ -276,6 +276,8 @@ module Hub
 
     class HubClientPresenter < SimpleDelegator
       attr_reader :intake
+      attr_reader :archived
+      alias_method :archived?, :archived
       attr_reader :missing_intake
       alias_method :missing_intake?, :missing_intake
 
@@ -342,6 +344,8 @@ module Hub
       end
 
       def needs_itin_help_text
+        return I18n.t("general.NA") if archived?
+
         intake.itin_applicant? ? I18n.t("general.affirmative") : I18n.t("general.negative")
       end
 
@@ -352,6 +356,8 @@ module Hub
       end
 
       def needs_itin_help_yes?
+        return false if archived?
+
         intake.itin_applicant?
       end
     end

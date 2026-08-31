@@ -760,6 +760,7 @@ en:
     file_myself_guide_and_video_tutorials: File Myself Guide and Video Tutorials
     subject: We’re here to help you file your taxes with File Myself!
   hub:
+    archived_client_warning: This is a ticket from product year %{year}. This information is archived and should only be used for reference.
     assigned_clients:
       index:
         title: Assigned Clients
