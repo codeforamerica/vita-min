@@ -1,4 +1,6 @@
 .body--home {
+  min-width:368px;
+
   .button {
     padding: $s35/2 4rem;
   }
@@ -52,6 +54,22 @@
     .grid {
       position: relative;
       min-height: 355px;
+
+      max-width: 368px;
+      margin-left: auto;
+      margin-right: auto;
+
+      @media screen and (min-width: 768px) {
+        max-width: 688px;
+      }
+
+      @media screen and (min-width: 1280px) {
+        max-width: 944px;
+      }
+
+      @media screen and (min-width: 1536px) {
+        max-width: 1344px;
+      }
 
       @media screen and (max-width: $site-max-up) {
         position: static;
