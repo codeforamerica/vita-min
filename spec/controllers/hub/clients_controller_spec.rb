@@ -944,6 +944,19 @@ RSpec.describe Hub::ClientsController do
         expect(response).to be_ok
         expect(assigns(:form)).to be_an_instance_of Hub::UpdateClientForm
       end
+
+      context "with a client with an archived intake" do
+        before do
+          client.intake.destroy!
+          create(:archived_2021_gyr_intake, client: client)
+        end
+
+        it "redirects to Access Denied page" do
+          get :edit, params: params
+
+          expect(response).to be_forbidden
+        end
+      end
     end
   end
 
@@ -1044,6 +1057,19 @@ RSpec.describe Hub::ClientsController do
           "with_incarcerated_navigator" => [false, nil],
           "with_limited_english_navigator" => [false, nil]
         })
+      end
+
+      context "with a client with an archived intake" do
+        before do
+          client.intake.destroy!
+          create(:archived_2021_gyr_intake, client: client)
+        end
+
+        it "response is forbidden (403)" do
+          post :update, params: { id: client.id }
+
+          expect(response).to be_forbidden
+        end
       end
 
       context "with invalid params" do
@@ -1165,6 +1191,19 @@ RSpec.describe Hub::ClientsController do
         get :edit_take_action, params: params
 
         expect(response).to be_ok
+      end
+
+      context "with a client with an archived intake" do
+        before do
+          intake.destroy!
+          create(:archived_2021_gyr_intake, client: client)
+        end
+
+        it "redirects to Access Denied page" do
+          get :edit_take_action, params: params
+
+          expect(response).to be_forbidden
+        end
       end
 
       context "without a selected tax return and status" do
@@ -1527,6 +1566,15 @@ RSpec.describe Hub::ClientsController do
           expect(presenter.archived?).to be_falsey
         end
       end
+
+      context "when there is an archived intake" do
+        let(:intake) { nil }
+        let!(:archived_intake) { create(:archived_2021_gyr_intake, client: client) }
+
+        it "returns true" do
+          expect(presenter.archived?).to be_truthy
+        end
+      end
     end
 
     describe "#requires_spouse_info?" do
@@ -1634,6 +1682,19 @@ RSpec.describe Hub::ClientsController do
 
         it "returns N/A" do
           expect(presenter.needs_itin_help_text).to eq(I18n.t("general.negative"))
+        end
+
+        it "returns false" do
+          expect(presenter.needs_itin_help_yes?).to be_falsey
+        end
+      end
+
+      context "when intake has been archived" do
+        let(:intake) { nil }
+        let!(:archived_intake) { create(:archived_2021_gyr_intake, client: client) }
+
+        it "returns N/A" do
+          expect(presenter.needs_itin_help_text).to eq(I18n.t("general.NA"))
         end
 
         it "returns false" do

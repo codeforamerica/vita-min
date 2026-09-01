@@ -298,7 +298,10 @@ module Hub
       def initialize(client, related_models_cache = nil)
         @client = client
         __setobj__(client)
-        @intake = if related_models_cache.present?
+        @archived = client.has_archived_intake?
+        @intake = if @archived
+                    client.archived_intake
+                  elsif related_models_cache.present?
                     related_models_cache[:intakes][client.id].first
                   else
                     client.intake
@@ -381,6 +384,9 @@ module Hub
       end
 
       def product_year
+        if @intake.is_a?(Archived::Intake2021)
+          return 2021
+        end
         @intake.product_year
       end
     end
