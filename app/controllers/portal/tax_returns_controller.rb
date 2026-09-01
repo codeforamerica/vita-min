@@ -1,9 +1,13 @@
 module Portal
   class TaxReturnsController < PortalController
-    before_action :load_client_tax_return, except: [:success]
+    before_action :load_client_tax_return, except: [:success, :index]
     before_action :redirect_unless_spouse_signature_required, only: [:spouse_sign, :spouse_authorize_signature]
     before_action :redirect_unless_primary_signature_required, only: [:sign, :authorize_signature]
-    layout "application"
+    layout :resolve_layout
+
+    def index
+      @tax_returns = current_client.tax_returns.order(year: :desc).limit(2)
+    end
 
     def authorize_signature
       @form = Portal::PrimarySignForm8879.new(@tax_return)
@@ -40,6 +44,10 @@ module Portal
     def show; end
 
     private
+
+    def resolve_layout
+      action_name == "index" ? "portal" : "application"
+    end
 
     def load_client_tax_return
       @tax_return = current_client.tax_returns.includes(client: [:intake]).find_by(id: params[:tax_return_id])

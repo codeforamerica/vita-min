@@ -257,3 +257,43 @@
 .button-group--center {
   align-items: center;
 }
+
+.button--ui-green {
+    background-color: #DCFC7E;
+    color: black !important;
+
+    &:hover {
+      color:  black;
+      background-color:  #DCFC7E;
+    }
+}
+
+.button--simple-file-blue {
+    background-color: #9EB0FF;
+    color: black !important;
+
+    &:hover {
+      color:  black;
+      background-color:  #637FFF;
+    }
+}
+
+.button--file-myself-peach {
+    background-color: #FFA89A;
+    color: black !important;
+
+    &:hover {
+      color:  black;
+      background-color:  #F77168;
+    }
+}
+
+.button--assist-green {
+    background-color: #ACCD4F;
+    color: black !important;
+
+    &:hover {
+      color:  black;
+      background-color:  #79B020;
+    }
+}      

@@ -174,7 +174,7 @@ Rails.application.routes.draw do
 
         login_routes
 
-        resources :tax_returns, only: [], path: '/tax-returns' do
+        resources :tax_returns, only: [:index], path: '/tax-returns' do
           get '/show', to: 'tax_returns#show', as: :show
           get '/sign', to: 'tax_returns#authorize_signature', as: :authorize_signature
           put '/sign', to: 'tax_returns#sign', as: :sign

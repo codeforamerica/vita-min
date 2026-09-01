@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_06_17_210604) do
+ActiveRecord::Schema[7.2].define(version: 2026_08_28_193552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -1631,17 +1631,24 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_17_210604) do
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["email_domain"], name: "index_intakes_on_email_domain"
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
+    t.index ["locale"], name: "index_intakes_on_locale"
     t.index ["matching_previous_year_intake_id"], name: "index_intakes_on_matching_previous_year_intake_id"
     t.index ["needs_to_flush_searchable_data_set_at"], name: "index_intakes_on_needs_to_flush_searchable_data_set_at", where: "(needs_to_flush_searchable_data_set_at IS NOT NULL)"
     t.index ["phone_number"], name: "index_intakes_on_phone_number"
+    t.index ["preferred_interview_language"], name: "index_intakes_on_preferred_interview_language"
     t.index ["primary_consented_to_service"], name: "index_intakes_on_primary_consented_to_service"
     t.index ["primary_drivers_license_id"], name: "index_intakes_on_primary_drivers_license_id"
     t.index ["searchable_data"], name: "index_intakes_on_searchable_data", using: :gin
     t.index ["sms_phone_number"], name: "index_intakes_on_sms_phone_number"
     t.index ["spouse_drivers_license_id"], name: "index_intakes_on_spouse_drivers_license_id"
     t.index ["spouse_email_address"], name: "index_intakes_on_spouse_email_address"
+    t.index ["state_of_residence"], name: "index_intakes_on_state_of_residence"
     t.index ["type"], name: "index_intakes_on_type"
     t.index ["vita_partner_id"], name: "index_intakes_on_vita_partner_id"
+    t.index ["with_general_navigator"], name: "index_intakes_on_with_general_navigator", where: "(with_general_navigator = true)"
+    t.index ["with_incarcerated_navigator"], name: "index_intakes_on_with_incarcerated_navigator", where: "(with_incarcerated_navigator = true)"
+    t.index ["with_limited_english_navigator"], name: "index_intakes_on_with_limited_english_navigator", where: "(with_limited_english_navigator = true)"
+    t.index ["with_unhoused_navigator"], name: "index_intakes_on_with_unhoused_navigator", where: "(with_unhoused_navigator = true)"
   end
 
   create_table "internal_emails", force: :cascade do |t|

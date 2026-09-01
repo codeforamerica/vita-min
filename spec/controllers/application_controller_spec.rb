@@ -1204,15 +1204,28 @@ RSpec.describe ApplicationController do
       end
     end
 
-    context "client has tax returns for every current filing year" do
+    context "client has tax returns for every year the hub can create" do
       it "returns true" do
-        MultiTenantService.new(:gyr).filing_years.each do |year|
+        MultiTenantService.new(:gyr).hub_filing_years.each do |year|
           create :tax_return, client: client, year: year
         end
         expect(subject.client_has_return_for_every_gyr_filing_year?(client)).to be true
       end
     end
 
+    context "after the filing deadline, when the client is missing only the oldest back tax year" do
+      around do |example|
+        Timecop.freeze(DateTime.parse("2025-06-23")) { example.run }
+      end
+
+      it "returns false, since the hub can still add that year" do
+        MultiTenantService.new(:gyr).filing_years.each do |year|
+          create :tax_return, client: client, year: year
+        end
+
+        expect(subject.client_has_return_for_every_gyr_filing_year?(client)).to be false
+      end
+    end
   end
 
   context "when receiving invalid requests from robots" do
