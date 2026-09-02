@@ -1,8 +1,9 @@
 # Rails 8 upgrade plan (GYR1-989)
 
-Status: Phases 0-2 complete (2026-09-01) except the CircleCI dual-boot job; Rails 8.0 boots and is at suite parity. Phases 3-7 pending
-Current: Rails 7.2.3.2, Ruby 3.4.10, Bundler 2.3.5
-Target: Rails 8.1.3.1, via Rails 8.0.5.1
+Status: Phases 0-4 complete (2026-09-02). Rails 8.0 is the primary boot with load_defaults 8.0; suite at parity. Phases 5-7 (Rails 8.1) pending
+Started from: Rails 7.2.3.2, Ruby 3.4.10, Bundler 2.3.5
+Now on: Rails 8.0.5.1 (`Gemfile.lock`, `load_defaults 8.0`), with 8.1.3.1 staged in `Gemfile_next.lock`
+Target: Rails 8.1.3.1
 
 ## Summary
 
@@ -587,14 +588,55 @@ Watch for this reaching Sentry once 8.1 deploys —
    `active_support.deprecation = :notify`) and Datadog for regressions in request
    latency and delayed_job throughput.
 
-### Phase 4 — `load_defaults 8.0`
+### Phase 4 — `load_defaults 8.0` — DONE (2026-09-02)
 
-Separate PR, so a revert of the defaults does not revert the gem bump.
+Touches `config/application.rb` only: `load_defaults 7.2` → `8.0`, plus an 8.0 banner
+block in the same style as the 7.1 and 7.2 ones.
 
-1. `config.load_defaults 8.0`.
-2. Add the 8.0 banner block to `config/application.rb` documenting departures.
-   At minimum, decide `Regexp.timeout` explicitly (see the `device_detector` risk).
-3. Full suite + baseline diff; deploy through demo → staging → production.
+`load_defaults 8.0` sets exactly two things (verified in
+`railties/lib/rails/application/configuration.rb`, *not* the generator template — the
+template also lists `to_time_preserves_timezone`, which `load_defaults` does not
+actually set at 8.0):
+
+- **`action_dispatch.strict_freshness = true`** — accepted as-is. Only matters when a
+  request carries both `If-Modified-Since` and `If-None-Match`, and we use no
+  conditional GET anywhere: zero hits for `fresh_when`, `stale?`, `etag:` or
+  `last_modified:` in `app/` or `lib/`. Effectively a no-op.
+- **`Regexp.timeout ||= 1`** — adopted but **set to 5**, staged. See "Regexp.timeout:
+  measured". The measurement gives ~150x headroom, but the setting is process-global
+  (every regex in every gem) and cannot cover a slow regex only production traffic
+  shapes reach. Tighten to 1, or delete the line to inherit the default, after one
+  release with no `Regexp::TimeoutError` in Sentry.
+
+Verified live on the 8.0 boot: `loaded_config_version` 8.0, `strict_freshness` true,
+`Regexp.timeout` 5.0, and all five carried-forward departures intact. Note
+`config.action_view[:button_to_generates_button_tag]` reads back `nil` because the
+railtie deletes the key after applying it — the applied value on
+`ActionView::Helpers::UrlHelper` is still `false`, and `button_to` renders `<input>`
+rather than `<button>`, confirmed end to end.
+
+Full suite: **9,880 examples / 154 failures / 220 pending**, no load errors.
+
+| | failures |
+| --- | --- |
+| baseline 7.2 | 155 |
+| Phase 3 (8.0 gems, 7.2 defaults) | 156 |
+| Phase 4 (8.0 gems, 8.0 defaults) | 154 |
+
+**Zero new failures versus Phase 3** — `load_defaults 8.0` introduced nothing. The two
+IDs that differ from the 7.2 baseline are both in already-identified flaky feature
+specs (`filtered_clients_bulk_action_spec`, `new_joint_filers_spec`). No
+`Regexp::TimeoutError` anywhere in the run.
+
+⚠️ **The suite cannot validate the one risky item here.** `Regexp.timeout`'s failure
+mode is a `Regexp::TimeoutError` raised from arbitrary code under real traffic shapes.
+Watch Sentry on the demo/staging deploy, particularly around
+`ApplicationController#user_agent` (`app/controllers/application_controller.rb:254`) and
+`MixpanelService` (`app/services/mixpanel_service.rb:270`), which run `DeviceDetector`
+on the user-controlled `User-Agent`.
+
+Ship this separately from Phase 3 so a defaults revert does not give back the gem
+upgrade.
 
 ### Phase 5 — Rails 8.1 gems
 
