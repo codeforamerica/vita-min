@@ -6194,7 +6194,7 @@ es:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
         subtitle_1: Declaraciones de impuestos precisas y confiables. Completamente gratis. ¡Comienza con el servicio que mejor se ajuste a tus necesidades!
-        subtitle_2: "¿No sabe cuál elegir?"
+        subtitle_2: "¿No sabes cuál elegir?"
         title_html: Elige el producto que mejor te funcione
         triage_link_text: Responde unas cuantas preguntas y te ayudaremos a elegir la mejor opción para ti.
       simple_file_card:
