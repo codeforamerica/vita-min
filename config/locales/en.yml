@@ -5322,8 +5322,8 @@ en:
           faq_cta: Read our FAQ
           header: 'Common Tax Questions:'
         fresh_look_banner:
-          body: Coming in mid-August, you'll see a new design, same trusted service.
-          header: A fresh look is coming to GetYourRefund
+          body: Same free tax help, same trusted service.
+          header: GetYourRefund has a new design
         header: Free tax filing, made simple.
         open_intake_post_tax_deadline_banner: Get started with GetYourRefund by %{end_of_intake} if you want to file with us in %{product_year}. If your return is in progress, sign in and submit your documents by %{end_of_docs}.
         security:
