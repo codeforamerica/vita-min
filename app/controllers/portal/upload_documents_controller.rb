@@ -40,6 +40,12 @@ module Portal
         redirect_to portal_upload_documents_path(document_type: form_params[:document_type])
       else
         flash.now[:error] = I18n.t("portal.upload_documents.error")
+        if form_params[:document_type].present?
+          @documents = current_client.documents.active.where(document_type: form_params[:document_type])
+          @document_type = DocumentTypes::ALL_TYPES.find { |doc_type| doc_type.key == form_params[:document_type] }
+        else
+          @documents = current_client.documents.active
+        end
         render :edit
       end
     end
