@@ -39,7 +39,7 @@ module VitaMin
       end
     end
 
-    config.load_defaults 7.2
+    config.load_defaults 8.0
 
     config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
@@ -218,6 +218,42 @@ module VitaMin
 
     # ------------------------------------------------ #
     #  END additions for Rails 7.2 defaults migration  #
+    # ------------------------------------------------ #
+
+    # ------------------------------------------------ #
+    # BEGIN additions for Rails 8.0 defaults migration #
+    # ------------------------------------------------ #
+
+    # Reference:
+    # https://github.com/rails/rails/blob/v8.0.5.1/railties/lib/rails/generators/rails/app/templates/config/initializers/new_framework_defaults_8_0.rb.tt
+    #
+    # `load_defaults 8.0` sets exactly two things (see
+    # railties/lib/rails/application/configuration.rb):
+    #
+    #   action_dispatch.strict_freshness = true
+    #   Regexp.timeout ||= 1
+    #
+    # We accept `strict_freshness` as-is. It only changes behavior when a request
+    # carries both `If-Modified-Since` and `If-None-Match` (the new default considers
+    # only `If-None-Match`, per RFC 7232 section 6), and we do not use conditional GET
+    # anywhere -- no `fresh_when`, `stale?`, `etag:` or `last_modified:` in app/ or lib/.
+
+    # `Regexp.timeout` is process-global, so it applies to every regex in the app and in
+    # every gem, not just our own code. It was measured before adopting: all 24,330
+    # regexes device_detector ships (it runs on the user-controlled User-Agent for every
+    # request via ApplicationController#user_agent and MixpanelService) were matched
+    # against adversarial inputs -- 194,640 matches, zero Regexp::TimeoutError, 6.5ms
+    # worst case. So 1s has roughly 150x headroom, and the rest of the app has only a
+    # handful of short regexes and none applied to file contents.
+    #
+    # Starting at 5s rather than the 1s default anyway, as a staged rollout: the
+    # measurement cannot cover a slow regex inside a gem that only production traffic
+    # shapes reach. Tighten this to 1 (or delete the line to inherit the default) after
+    # one release with no Regexp::TimeoutError in Sentry.
+    Regexp.timeout = 5
+
+    # ------------------------------------------------ #
+    #  END additions for Rails 8.0 defaults migration  #
     # ------------------------------------------------ #
   end
 end
