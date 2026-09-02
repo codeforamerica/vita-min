@@ -33,7 +33,7 @@ def gemn(gem_name, *versions, next_version: nil, next_name: nil, **kwargs)
 end
 
 gem 'rack', '>= 3.2.6'
-gemn 'rails', '~> 7.2.3.1', next_version: '~> 8.0.5'
+gemn 'rails', '~> 8.0.5', next_version: '~> 8.1.3'
 # Transitive only (railties/activesupport both say `minitest >= 5.1`; this is an RSpec
 # suite). Held at 5.x so the Rails 8 boot does not also cross a minitest major.
 # Drop this pin once the upgrade has landed -- see the Rails 8 upgrade plan, Phase 7.
@@ -55,7 +55,7 @@ gem 'phony'
 gem 'pg'
 gem 'pg_search'
 # Pins to one Rails minor at a time: 10.0.x => AR 7.2, 11.0.x => AR 8.0, 11.1.x => AR 8.1
-gemn 'activerecord-postgis-adapter', '~> 10.0', '>= 10.0.2', next_version: '~> 11.0.0'
+gemn 'activerecord-postgis-adapter', '~> 11.0.0', next_version: '~> 11.1'
 gem 'will_paginate'
 gem 'sentry-delayed_job'
 gem 'sentry-rails'
