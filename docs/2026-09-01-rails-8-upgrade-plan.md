@@ -504,11 +504,74 @@ incompatibilities. Where behavior must differ between 7.2 and 8.0, guard on
 7. Grep `log/test.log` for `DEPRECATION WARNING` and clear them all.
 8. Get the `DEPENDENCIES_NEXT=1` CI job green. Make it blocking.
 
-### Phase 3 — cut over to Rails 8.0
+### Phase 3 — cut over to Rails 8.0 — DONE (2026-09-02)
 
-1. Collapse the `gemn` indirection: `gem 'rails', '~> 8.0.5'`,
-   `gem 'activerecord-postgis-adapter', '~> 11.0.0'`, `gem 'rails-i18n', '~> 8.1'`.
-   Add the `minitest` pin.
+```
+Gemfile.lock       rails 8.0.5.1  postgis 11.0.0  rgeo-ar 8.0.0   ← now the deploying boot
+Gemfile_next.lock  rails 8.1.3.1  postgis 11.1.1  rgeo-ar 8.1.0   ← harness moved up to 8.1
+```
+
+Both boot. `load_defaults` deliberately still `7.2` — that is Phase 4.
+
+Primary lock diff: **24 gems changed, 0 added, 0 removed**, `BUNDLED WITH` still 2.3.5.
+Matches the Phase 0 prediction of 25; the difference is `minitest`, held by its pin.
+
+`db/schema.rb` is deliberately untouched and still stamped `ActiveRecord::Schema[7.2]`.
+Rails 8 reads that fine. Note the asymmetry, verified: **Rails 7.2 cannot load a schema
+stamped `[8.0]`** (`ArgumentError: Unknown migration version "8.0"`), while Rails 8.0
+reads `[7.2]` happily. The stamp flips the first time `db:migrate` runs on this branch,
+because migrate re-dumps the schema — so land that when the migration queue is quiet, as
+it will conflict with any in-flight migration PR.
+
+Deviation from the original step 1 below: it said to *collapse* the `gemn` indirection,
+but step 3 also wanted `Gemfile_next.lock` pointed at 8.1 — collapsing removes the
+mechanism step 3 needs. Instead both sides were shifted up one minor, keeping the
+harness:
+
+```ruby
+gemn 'rails', '~> 8.0.5', next_version: '~> 8.1.3'
+gemn 'activerecord-postgis-adapter', '~> 11.0.0', next_version: '~> 11.1'
+```
+
+#### CI: the dual-boot job is no longer needed
+
+`run_ruby_tests` has **no branch filter**, so it runs on every branch. Now that
+`Gemfile.lock` is Rails 8.0, that existing job *is* the Rails 8 job — full suite at
+12-way parallelism with the efile schemas, pdftk and webdriver that a dev laptop lacks.
+The separate `DEPENDENCIES_NEXT=1` job was only ever needed to get Rails 8 CI coverage
+*before* the cutover.
+
+Pushing a feature branch carries no deploy risk: all three `deploy_to_aptible--*` jobs
+are branch-filtered to `main`/`staging`/`release`. Tests do **not** run on deploy —
+`.aptible.yml` `before_release` runs only
+`rake analytics:drop_views db:migrate analytics:create_views`. CI is the gate, and it is
+now a blocking gate for deploys.
+
+Because CI is green on `main`, the CI baseline is *green* — far cleaner than the local
+155-failure baseline. Any red on the branch is unambiguous Rails 8 signal.
+
+#### First 8.1 finding (Phase 5 preview, not a blocker)
+
+The 8.1 next boot warns:
+
+```
+DEPRECATION WARNING: ActiveSupport::Configurable is deprecated without replacement,
+and will be removed in Rails 8.2.
+```
+
+Not our code — two gems: `data_migrate` (`lib/data_migrate/config.rb:2`) and
+`omniauth-rails_csrf_protection` (`lib/omniauth/rails_csrf_protection/token_verifier.rb:16`).
+Deprecated in 8.1, **removed in 8.2**, so it does not block 8.1; it blocks 8.2 and the
+fix is upstream gem bumps. `omniauth-rails_csrf_protection` 1.0.2 and 2.0.x exist and
+our `~> 1.0` constraint permits 1.0.2. `data_migrate` has nothing newer than 11.3.1.
+
+Watch for this reaching Sentry once 8.1 deploys —
+`config/environments/shared_deployment_config.rb` sets
+`active_support.deprecation = :notify`.
+
+#### Original steps, for reference
+
+1. ~~Collapse the `gemn` indirection~~ — see deviation above.
 2. Regenerate the primary lock with a **targeted** update, not `bundle update`:
 
    ```
