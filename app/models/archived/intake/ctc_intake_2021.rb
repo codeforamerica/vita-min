@@ -255,21 +255,21 @@ class Archived::Intake::CtcIntake2021 < Archived::Intake2021
   attribute :primary_prior_year_agi_amount, :money
   attribute :spouse_prior_year_agi_amount, :money
 
-  enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
-  enum eip1_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip1_entry_method
-  enum eip2_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip2_entry_method
-  enum eip1_and_2_amount_received_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :eip1_and_2_amount_received_confidence
-  enum filed_prior_tax_year: { unfilled: 0, filed_full: 1, filed_non_filer: 2, did_not_file: 3 }, _prefix: :filed_prior_tax_year
-  enum spouse_filed_prior_tax_year: { unfilled: 0, filed_full_joint: 1, filed_non_filer_joint: 2, filed_full_separate: 3, filed_non_filer_separate: 4, did_not_file: 5 }, _prefix: :spouse_filed_prior_tax_year
-  enum spouse_can_be_claimed_as_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_can_be_claimed_as_dependent
-  enum spouse_active_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_active_armed_forces
-  enum cannot_claim_me_as_a_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cannot_claim_me_as_a_dependent
-  enum primary_active_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_active_armed_forces
-  enum has_primary_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_primary_ip_pin
-  enum has_spouse_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_spouse_ip_pin
-  enum consented_to_legal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_legal
-  enum was_blind: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_blind
-  enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
+  enum :had_dependents, { unfilled: 0, yes: 1, no: 2 }, prefix: :had_dependents
+  enum :eip1_entry_method, { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, prefix: :eip1_entry_method
+  enum :eip2_entry_method, { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, prefix: :eip2_entry_method
+  enum :eip1_and_2_amount_received_confidence, { unfilled: 0, sure: 1, unsure: 2 }, prefix: :eip1_and_2_amount_received_confidence
+  enum :filed_prior_tax_year, { unfilled: 0, filed_full: 1, filed_non_filer: 2, did_not_file: 3 }, prefix: :filed_prior_tax_year
+  enum :spouse_filed_prior_tax_year, { unfilled: 0, filed_full_joint: 1, filed_non_filer_joint: 2, filed_full_separate: 3, filed_non_filer_separate: 4, did_not_file: 5 }, prefix: :spouse_filed_prior_tax_year
+  enum :spouse_can_be_claimed_as_dependent, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_can_be_claimed_as_dependent
+  enum :spouse_active_armed_forces, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_active_armed_forces
+  enum :cannot_claim_me_as_a_dependent, { unfilled: 0, yes: 1, no: 2 }, prefix: :cannot_claim_me_as_a_dependent
+  enum :primary_active_armed_forces, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_active_armed_forces
+  enum :has_primary_ip_pin, { unfilled: 0, yes: 1, no: 2 }, prefix: :has_primary_ip_pin
+  enum :has_spouse_ip_pin, { unfilled: 0, yes: 1, no: 2 }, prefix: :has_spouse_ip_pin
+  enum :consented_to_legal, { unfilled: 0, yes: 1, no: 2 }, prefix: :consented_to_legal
+  enum :was_blind, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :was_blind
+  enum :spouse_was_blind, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_was_blind
 
   has_one :bank_account, inverse_of: :intake, dependent: :destroy, class_name: 'Archived::BankAccount2021', foreign_key: 'archived_intakes_2021_id'
   accepts_nested_attributes_for :bank_account

@@ -28,7 +28,7 @@ class StateFileArchivedIntake < ApplicationRecord
   devise :lockable, unlock_in: 60.minutes, unlock_strategy: :time
   has_many :state_file_archived_intake_access_logs, class_name: 'StateFileArchivedIntakeAccessLog'
   has_many :state_file_archived_intake_requests, class_name: 'StateFileArchivedIntakeRequest'
-  enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
+  enum :contact_preference, { unfilled: 0, email: 1, text: 2 }, prefix: :contact_preference
 
   before_create :populate_fake_addresses
   def full_address

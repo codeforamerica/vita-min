@@ -10,5 +10,5 @@
 class StateFileAz1099RFollowup < ApplicationRecord
   has_one :state_file1099_r, inverse_of: :state_specific_followup
 
-  enum income_source: { unfilled: 0, uniformed_services: 1, pension_plan: 2, other: 3 }, _prefix: :income_source
+  enum :income_source, { unfilled: 0, uniformed_services: 1, pension_plan: 2, other: 3 }, prefix: :income_source
 end
