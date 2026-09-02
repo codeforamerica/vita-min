@@ -8,11 +8,11 @@ executors:
   ruby_executor:
     working_directory: /mnt/ramdisk
     docker:
-      - image: cimg/ruby:3.4.9-browsers
+      - image: cimg/ruby:3.4.10-browsers
   rails_executor:
     working_directory: /mnt/ramdisk
     docker:
-      - image: cimg/ruby:3.4.9-browsers
+      - image: cimg/ruby:3.4.10-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
@@ -133,7 +133,7 @@ jobs:
       - checkout
       - install_ruby_dependencies
       - setup_test_db
-      - run: bundle exec annotate --frozen
+      - run: bundle exec annotaterb models --frozen
   run_ruby_tests:
     executor: rails_executor
     steps:

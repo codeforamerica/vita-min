@@ -16,6 +16,6 @@
       <%= f.cfa_checkbox(:no_health_insurance, t("views.questions.health_insurance.options.no_health_insurance", :count => current_intake.filer_count), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
     </div>
 
-    <%= f.continue %>
+    <%= f.continue(button_style: "button--assist-green") %>
   <% end %>
 <% end %>
