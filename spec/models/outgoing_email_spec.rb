@@ -173,6 +173,50 @@ RSpec.describe OutgoingEmail, type: :model do
     end
   end
 
+  describe "clearing the client's response-needed flag after a bulk message is delivered" do
+    let(:client) { create :client, flagged_at: 1.day.ago }
+    let(:bulk_client_message) { create :bulk_client_message }
+    let!(:outgoing_email) { create :outgoing_email, client: client, mailgun_status: "sending" }
+
+    context "when the email was part of a bulk message" do
+      before { bulk_client_message.outgoing_emails << outgoing_email }
+
+      it "clears the flag once Mailgun confirms delivery" do
+        expect {
+          outgoing_email.update!(mailgun_status: "delivered")
+        }.to change { client.reload.flagged_at }.to(nil)
+      end
+
+      it "leaves the flag up when the email fails to send" do
+        expect {
+          outgoing_email.update!(mailgun_status: "permanent_fail")
+        }.not_to change { client.reload.flagged_at }
+      end
+
+      it "leaves the flag up while the email is still in progress" do
+        expect {
+          outgoing_email.update!(subject: "a new subject")
+        }.not_to change { client.reload.flagged_at }
+      end
+
+      it "leaves up a flag the client raised after the message was sent" do
+        client.update!(flagged_at: outgoing_email.created_at + 1.hour)
+
+        expect {
+          outgoing_email.update!(mailgun_status: "delivered")
+        }.not_to change { client.reload.flagged_at }
+      end
+    end
+
+    context "when the email was not part of a bulk message" do
+      it "leaves the flag up" do
+        expect {
+          outgoing_email.update!(mailgun_status: "delivered")
+        }.not_to change { client.reload.flagged_at }
+      end
+    end
+  end
+
   describe "display methods for templates" do
     let!(:delivered) { create :outgoing_email, mailgun_status: "delivered" }
     describe "datetime" do
