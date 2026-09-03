@@ -2309,8 +2309,7 @@ en:
     eligibility_state:
       edit:
         diy_html: "<strong>Get help as you go:</strong> chat with a tax expert as you file to answer any questions you have along the way"
-        page: Step 2 of 2
-        page_with_simple_file_step: Step 2 of 3
+        page: Step 2 of 3
         title: What kind of support do you prefer while you file your taxes?
         virtual_vita_html: "<strong>Have an expert do your taxes:</strong> match with an IRS-certified preparer who will prepare and submit your return"
     eligibility_wages:
@@ -2318,7 +2317,7 @@ en:
         income_level:
           label: Select your household income
           over: over
-        page: Step 1 of 2
+        page: Step 1 of 3
         subtitle: We’ll ask a few questions about your preferences to guide you to the services you qualify for.
         title: Let’s help you find the right service!
         vita_income_ineligible:
@@ -5343,8 +5342,8 @@ en:
           faq_cta: Read our FAQ
           header: 'Common Tax Questions:'
         fresh_look_banner:
-          body: Coming in mid-August, you'll see a new design, same trusted service.
-          header: A fresh look is coming to GetYourRefund
+          body: Same free tax help, same trusted service.
+          header: GetYourRefund has a new design
         header: Free tax filing, made simple.
         open_intake_post_tax_deadline_banner: Get started with GetYourRefund by %{end_of_intake} if you want to file with us in %{product_year}. If your return is in progress, sign in and submit your documents by %{end_of_docs}.
         security:
@@ -6139,6 +6138,7 @@ en:
         bullet_3: 1-2 hours to file
         bullet_4: Available online
         bullet_5_html: Social Security or Individual Taxpayer Identification <b>Number</b> required
+        card_title: FileMyself
         reveal_b1: All states
         reveal_b2: Puerto Rico
         reveal_b3: Non-residents
@@ -6179,7 +6179,7 @@ en:
         reveal_body_4: 'Other features:'
         reveal_title: Additional Information
         subtitle: Answer a few questions and let a tax expert file for you
-        title: In-person VITA
+        title: Assist (In-person)
       progress_bar:
         progress_text: 'Intake progress:'
       service_comparison:
@@ -6229,4 +6229,4 @@ en:
         reveal_body_4: 'Other features:'
         reveal_title: Additional Information
         subtitle: Answer a few questions and let a tax expert file for you
-        title: File with Help
+        title: Assist (Virtual)

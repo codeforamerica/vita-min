@@ -14,19 +14,19 @@ module Hub
 
     def index
       @page_title = I18n.t("hub.clients.index.title")
-      @clients = @client_sorter.filtered_and_sorted_clients.page(params[:page]).load
+      @clients = @client_sorter.filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       related_models_cache
     end
 
     def new
       @current_year = MultiTenantService.new(:gyr).current_tax_year(app_time)
-      @form = CreateClientForm.new(gyr_filing_years, time: app_time)
+      @form = CreateClientForm.new(gyr_hub_filing_years, time: app_time)
     end
 
     def create
       @current_year = MultiTenantService.new(:gyr).current_tax_year(app_time)
-      @form = CreateClientForm.new(gyr_filing_years, create_client_form_params, time: app_time)
+      @form = CreateClientForm.new(gyr_hub_filing_years, create_client_form_params, time: app_time)
       assigned_vita_partner = @vita_partners.find_by(id: create_client_form_params["vita_partner_id"])
 
       if can?(:read, assigned_vita_partner) && @form.save(current_user)

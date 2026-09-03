@@ -1,6 +1,6 @@
 <% show_get_started ||= false %>
 
-<div class="service-card">
+<div class="service-card service-card--in-person-vita">
   <div class="service-card--title">
     <%= t("views.shared.in_person_vita_card.title") %>
   </div>
@@ -10,7 +10,7 @@
   <% if show_get_started %>
     <div class="button-wrapper">
       <div>
-        <%= link_to t("general.get_started"), vita_providers_path, "data-track-click": "service-comparison-in-person-vita-providers", class: "button text--centered button--wide" %>
+        <%= link_to t("general.get_started"), vita_providers_path, "data-track-click": "service-comparison-in-person-vita-providers", class: "button text--centered button--wide button--assist-green" %>
       </div>
     </div>
   <% end %>

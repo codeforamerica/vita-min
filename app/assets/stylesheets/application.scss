@@ -16,6 +16,7 @@
 @import "actiontext";
 @import "components/sr-only";
 @import "variables";
+@import "fonts";
 @import "components/form-elements";
 @import "typography";
 @import "components/flash-messages";
@@ -115,7 +116,7 @@
 @import "state-file";
 
 html {
-  background-color: black;
+  background-color: $color-confidence-blue;
 }
 
 body {
@@ -127,6 +128,282 @@ body {
 // Setting overflow to anything but visible or no-height breaks/prevents use of a couple features of CSS (including position: sticky).
 // This gets set in honeycrisp to overflow: hidden, likely to fix/prevent an obscure one-off issue that we solve
 // differently in GYR.
+
+.gyr-theme {
+  background-color: $color-cream;
+  color: $color-confidence-blue;
+
+  .main-header {
+    background-color: $color-confidence-blue;
+
+    .main-header__logo:before {
+      top: 0.2rem;
+      width: 2.4rem;
+      height: 2.4rem;
+      background-image: image-url("getyourrefund-mark.svg");
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+    }
+
+    @media only screen and (min-resolution: 1.3dppx), only screen and (min-resolution: 125dpi) {
+      .main-header__logo:before {
+        background-image: image-url("getyourrefund-mark.svg");
+        background-size: 100% auto;
+      }
+    }
+
+    .toolbar__item,
+    .main-header__link {
+      color: $color-clarity-white;
+    }
+
+    .button--toolbar#{$gyr-cta-exclusions} {
+      background-color: $color-primary-lime;
+      border-color: $color-button-border;
+      color: $color-confidence-blue !important;
+
+      &:hover,
+      &:active,
+      &:visited {
+        background-color: darken($color-primary-lime, 8%);
+        border-color: $color-button-border;
+        color: $color-confidence-blue !important;
+      }
+    }
+  }
+
+  .main-header__title .toolbar__logo-text {
+    color: $color-clarity-white;
+  }
+
+  .button#{$gyr-cta-exclusions} {
+    background-color: $color-button-secondary;
+    border-color: $color-button-border;
+    color: $color-confidence-blue;
+
+    &:hover,
+    &:active,
+    &:visited {
+      background-color: darken($color-button-secondary, 5%);
+      border-color: $color-button-border;
+      color: $color-confidence-blue;
+    }
+  }
+
+  .button--primary#{$gyr-cta-exclusions} {
+    background-color: $color-primary-lime;
+    border-color: $color-button-border;
+    color: $color-confidence-blue;
+
+    &:hover,
+    &:active,
+    &:visited {
+      background-color: darken($color-primary-lime, 8%);
+      border-color: $color-button-border;
+      color: $color-confidence-blue;
+    }
+  }
+
+  .slab--footer {
+    background-color: $color-confidence-blue;
+    color: $color-clarity-white;
+  }
+
+  .slab--service-comparison {
+    background-color: $color-confidence-blue;
+
+    .service-comparison {
+      color: $color-clarity-white;
+
+      a {
+        color: $color-clarity-white;
+      }
+
+      .service-card a:where(:not(.button)) {
+        color: $color-link-unvisited;
+
+        &:visited {
+          color: $color-link-visited;
+        }
+      }
+    }
+  }
+}
+
+
+
+body:not(.hub) {
+  font-family: $font-gyr-refresh;
+  font-size: 16px;
+  font-weight: 400;
+  font-optical-sizing: auto;
+  font-style: normal;
+  line-height: normal;
+  -webkit-font-smoothing: antialiased;
+  input,
+  select,
+  textarea,
+  button,
+  .select__element,
+  .file-input {
+    font-family: inherit;
+  }
+
+  h1 {
+    font-family: $font-gyr-heading;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-display {
+    font-family: $font-gyr-heading;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-body {
+    font-family: $font-gyr-refresh;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-body-bold,
+  h2,
+  h3 {
+    font-family: $font-gyr-refresh;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-body-label,
+  .label {
+    font-family: $font-gyr-refresh;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-progress-text,
+  .help_text {
+    font-family: $font-gyr-refresh;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-button {
+    font-family: $font-gyr-refresh;
+    font-size: $font-size-button;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .type-button-sm {
+    font-family: $font-gyr-refresh;
+    font-size: $font-size-button-sm;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0;
+  }
+
+  .button#{$gyr-button-size-exclusions} {
+    font-size: $font-size-button;
+  }
+
+  .button--small#{$gyr-button-size-exclusions} {
+    font-size: $font-size-button-sm;
+  }
+}
+
+
+.gyr-theme.body--home,
+.gyr-theme .slab--service-comparison {
+  h2,
+  h3,
+  .service-comparison h1.title,
+  #trusted-support .title,
+  #star-rating .title,
+  .service-card--title {
+    font-family: $font-gyr-heading;
+    font-size: 1.9rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+  }
+
+  .slab--secondary-cta h2,
+  .slab--testimonials .rounded-box p.text--bold {
+    font-family: $font-gyr-heading;
+    font-size: 2.2rem;
+    line-height: 2.8rem;
+    font-weight: 400;
+  }
+
+
+  .slab--security h2 {
+    font-family: $font-gyr-refresh;
+    font-size: 16px;
+    line-height: normal;
+    font-weight: 700;
+  }
+}
+
+.gyr-theme {
+  a:where(:not(.button)) {
+    display: inline;
+    color: $color-link-unvisited;
+    border-bottom: 1px solid $color-link-unvisited;
+    text-decoration: none;
+
+    &:hover {
+      border-bottom-width: 0;
+    }
+
+    &:visited {
+      color: $color-link-visited;
+      border-bottom-color: $color-link-visited;
+    }
+
+    &:focus-visible {
+      border-radius: 2px;
+      outline: 2px solid $color-focus;
+      outline-offset: 2px;
+    }
+  }
+
+  header a:where(:not(.button)) {
+    border-bottom-width: 0;
+    color: $color-clarity-white;
+
+    &:hover,
+    &:visited {
+      border-bottom-width: 0;
+      color: $color-clarity-white;
+    }
+  }
+
+  footer a:where(:not(.button)) {
+    color: $color-clarity-white;
+    border-bottom-color: $color-white;
+
+    &:hover,
+    &:visited {
+      color: $color-clarity-white;
+      border-bottom: 1px solid $color-white;
+    }
+  }
+}
+
 .page-wrapper {
   overflow: unset !important;
   position: relative;
@@ -229,8 +506,6 @@ body {
 }
 
 .main-header .button--toolbar {
-  background-color: $color-green-money;
-  color: black !important;
   padding: 0.75rem 1rem;
   border-radius: 1.2rem;
 }
@@ -403,6 +678,16 @@ ol.with-bullets {
     flex-direction: column;
     width: 100%;
     flex: 1;
+  }
+
+  // Between the stacked layout and the four-across one there is room for three cards, which left
+  // the fourth wrapping onto its own row and stretching the full width. Two-up keeps every card the
+  // same size and still reading as a card. Declared after the `flex: 1` above, which it ties with
+  // on specificity.
+  @media screen and (min-width: $tablet-up) and (max-width: $site-max-width) {
+    .service-card {
+      flex: 0 1 calc(50% - 0.25rem);
+    }
   }
 }
 
