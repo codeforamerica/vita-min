@@ -638,7 +638,90 @@ on the user-controlled `User-Agent`.
 Ship this separately from Phase 3 so a defaults revert does not give back the gem
 upgrade.
 
-### Phase 5 — Rails 8.1 gems
+### Phase 5 — Rails 8.1 code work — DONE (2026-09-03); primary cutover NOT done
+
+Suite on the 8.1 next boot: **9,880 examples / 154 failures / 220 pending** — the same
+failure count as Phase 4 on 8.0. First run before fixes was 160.
+
+| | failures |
+| --- | --- |
+| baseline 7.2 | 155 |
+| Phase 4 (8.0 + defaults) | 154 |
+| Phase 5 first run (8.1) | 160 |
+| **Phase 5 after fixes (8.1)** | **154** |
+
+Three real 8.1 changes, from 8 new failures across 6 files:
+
+**1. `head` now raises on a double render — a real production bug, not just specs.**
+Rails 8.1 adds one line to `action_controller/metal/head.rb`:
+`raise ::AbstractController::DoubleRenderError if response_body`. Our
+`InvalidCrossOriginRequest` handler tripped it, because Rails raises that from
+`verify_same_origin_request`, an **after_action** — the action has already rendered.
+Any action that renders and then fails the same-origin check would hit this in
+production.
+
+Note the fix that does *not* work: `self.response_body = nil`.
+`ActionController::Metal#response_body=` calls `response.reset_body!` without clearing
+the `@_response_body` reader that `head` checks, and `metal.rb` is byte-identical
+between 8.0 and 8.1 — so that was never viable in either version. Rails has no public
+API for replacing an already-rendered response, so the handler now sets
+`response.reset_body!` and `response.status = 422` directly and skips `head`.
+
+**2. `nil` controller-spec params no longer coerce to `""` — test-harness only.**
+
+| `params: { field: nil }` | value seen in controller |
+| --- | --- |
+| Rails 8.0 | `""` |
+| Rails 8.1 | `nil` |
+
+Production is unaffected: real HTTP sends `field=` for an empty input, which parses to
+`""` on both versions (verified). Six spec params in `client_logins`, `intake_logins`
+and `twilio_webhooks` were relying on the old coercion; they now pass `""` explicitly,
+which also models real form submissions more accurately.
+
+Aside, unrelated to the upgrade: `twilio_webhooks` writes `error_code` straight to a DB
+column, so `""` vs `nil` there is empty-string vs NULL in stored data. Worth its own
+look.
+
+**3. `spec/lib/pdf_filler/id39r_pdf_spec.rb` is a local pdftk flake, not 8.1.** Passes
+3/3 in isolation on 8.1; under 8 parallel workers a *different example* fails each run
+with a *different* error (`expected "0" got nil`, then `IOError` from
+`PdfForms.new.get_fields`). That is pdftk resource contention via the `pdf-forms` gem,
+not a Rails API. CI installs pdftk-java properly, so CI is where this gets a real
+answer.
+
+#### Already-resolved items, re-verified
+
+- **`to_time`** — switched to `:zone` back in **Phase 4**, not 8.1. `load_defaults 8.0`
+  sets it explicitly; 8.1 hardcodes the same behavior (hence the config reading `nil`).
+  Identical on both boots at all three call sites.
+- **`schema.rb`** — 8.1's alphabetical column sort is a **no-op** here: the 8.0 and 8.1
+  dumps are byte-identical apart from the version header, because
+  `fix-db-schema-conflicts` already sorts. Against the committed `[7.2]` file there are
+  only 8 diff lines: the header, and `enable_extension "plpgsql"` →
+  `"pg_catalog.plpgsql"`. That second one is cosmetic — Rails 8's `extensions` now
+  returns the schema-qualified name, and the existing test DB already reports it.
+  Load-tested: the 8.1 dump loads into a fresh DB with 148 tables, exit 0.
+  This dump change is already pending on the **8.0** boot too, not just 8.1.
+
+#### Remaining: the primary cutover
+
+Not done deliberately. `Gemfile.lock` is still 8.0.5.1. Cutting it to 8.1 should wait
+until 8.0 has been validated in a deployed environment — that sequencing is the entire
+point of doing 8.0 and 8.1 as separate steps, and the efile pipeline still has no
+Rails 8 validation outside CI.
+
+When it is time, it is the same targeted update as Phase 3:
+
+```
+bundle lock --update rails railties activesupport activerecord actionpack \
+  actionview actionmailer activejob activemodel activestorage actioncable \
+  actionmailbox actiontext activerecord-postgis-adapter rgeo-activerecord rails-i18n
+```
+
+Expect `action_text-trix` to appear (Trix was extracted from actiontext in 8.1).
+
+### Phase 5 — original notes
 
 Same shape as Phase 2/3, driven from the `DEPENDENCIES_NEXT=1` boot:
 
