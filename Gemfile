@@ -71,6 +71,7 @@ gem 'ice_nine'
 gem 'business_time'
 gem 'scenic', '~> 1.8'
 gem 'rubyzip'
+gem 'caxlsx', '3.4.1'
 gem 'intercom', '4.1.3' # potential issue with 4.2.0
 gem 'statesman'
 gem 'redcarpet'
