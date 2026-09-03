@@ -1,8 +1,8 @@
 # Rails 8 upgrade plan (GYR1-989)
 
-Status: Phases 0-5 complete (2026-09-03). Rails 8.1.3.1 is the primary boot with load_defaults 8.0; suite at parity. Phase 6 (load_defaults 8.1) and Phase 7 (cleanup) pending
+Status: Phases 0-6 complete (2026-09-03). Rails 8.1.3.1 with load_defaults 8.1; suite at parity with the 7.2 baseline. Phase 7 (cleanup) pending
 Started from: Rails 7.2.3.2, Ruby 3.4.10, Bundler 2.3.5
-Now on: Rails 8.1.3.1 (`Gemfile.lock`), `load_defaults 8.0`
+Now on: Rails 8.1.3.1 (`Gemfile.lock`), `load_defaults 8.1`
 Target: Rails 8.1.3.1
 
 ## Summary
@@ -748,7 +748,62 @@ Same shape as Phase 2/3, driven from the `DEPENDENCIES_NEXT=1` boot:
 4. Cut over the primary lock with the same targeted `bundle lock --update` invocation.
    Expect `action_text-trix` to appear.
 
-### Phase 6 — `load_defaults 8.1`
+### Phase 6 — `load_defaults 8.1` — DONE (2026-09-03)
+
+Touches `config/application.rb` only: `load_defaults 8.0` → `8.1` plus an 8.1 banner
+block. **No departures** — all seven defaults were checked against this codebase before
+adopting, and the reasoning is recorded in the banner.
+
+Full suite: **9,880 / 155 failures / 220 pending**, no load errors.
+
+| | failures |
+| --- | --- |
+| baseline 7.2 | 155 |
+| Phase 5 (8.1 gems, 8.0 defaults) | 154 |
+| **Phase 6 (8.1 gems, 8.1 defaults)** | **155** |
+
+Three IDs differ from Phase 5, all flakes: `bulk_actions_spec` and
+`filtered_clients_bulk_action_spec` (already proven non-deterministic), and
+`edit_organization_spec`, which fails with the Chrome/Selenium error
+`Node with given id does not belong to the document` and passes 2/0 in isolation.
+**`load_defaults 8.1` introduced zero real regressions.**
+
+#### Pre-flight verification of the seven defaults
+
+- `action_on_path_relative_redirect = :raise` — no bare relative `redirect_to` in
+  `app/` or `lib/`.
+- `raise_on_missing_required_finder_order_columns = true` — eager-loaded every
+  `ActiveRecord::Base` descendant; every table-backed model has a primary key or an
+  order column. This closes the Phase 0 worry about the `Analytics::` view-backed
+  models, which turned out not to apply.
+- `remove_hidden_field_autocomplete = true` — no spec asserts on hidden-field
+  autocomplete. **Correction to the earlier note in this document: Percy baselines do
+  NOT need regenerating.** Hidden inputs render nothing visible, so dropping
+  `autocomplete="off"` produces no visual diff.
+- `escape_json_responses = false` — narrower than it sounds. It affects only the
+  `render json:` renderer, used in exactly two places (the hub campaign-message monitor
+  controllers), both consumed by JS. The `<%= raw x.to_json %>` interpolations inside
+  `<script>` blocks — the actual XSS vector — go through a different path guarded by
+  `ActiveSupport.escape_html_entities_in_json`, which 8.1 does not touch. Re-verified
+  after flipping: still `true`, and `"</script>".to_json` still yields
+  `"\u003c/script\u003e"`.
+- `escape_js_separators_in_json = false` — U+2028/U+2029 are valid in JS string
+  literals since ECMAScript 2019.
+- `render_tracker = :ruby` — development reloader only.
+
+#### YJIT ships unrehearsed
+
+⚠️ `yjit = !Rails.env.local?` turns YJIT on in production/staging/demo/heroku, and
+**neither this machine nor the test suite can exercise it.** The local rbenv Ruby on
+arm64 darwin is built without YJIT (`RUBY_DESCRIPTION` shows `+PRISM`, and
+`RubyVM::YJIT` is undefined); locally `config.yjit` is `false` regardless because
+`Rails.env.local?` is true in development and test. The deployed Ruby comes from the
+official `ruby:3.4.10` image, which does ship YJIT, so it engages there.
+
+RSS and p95 latency in Datadog on the staging deploy are the only real test. This is
+the last unrehearsed change in the migration.
+
+### Phase 6 — original notes
 
 Adopt the seven new defaults. The two that need real attention:
 
