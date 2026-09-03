@@ -34,6 +34,21 @@ def excel_safe(value)
   value.start_with?("=", "+", "-", "@") ? "'#{value}" : value
 end
 
+def safe_filename(filename)
+  base = File.basename(filename.to_s)
+  base = "unnamed_file" if base.empty? || base == "." || base == ".."
+  base
+end
+
+def safe_path_within(dir, filename)
+  expanded_dir = File.expand_path(dir)
+  path = File.expand_path(File.join(expanded_dir, filename))
+  raise "Invalid path: path traversal detected in #{filename}" unless path.s
+  tart_with?("#{expanded_dir}#{File::SEPARATOR}")
+
+  path
+end
+
 def message_sender(message)
   if message.respond_to?(:user) && message.user
     name = message.user.try(:name)
@@ -171,11 +186,11 @@ def download_client_documents(client, dir)
     next unless document.upload.attached?
 
     blob = document.upload.blob
-    filename = blob.filename.to_s
+    filename = safe_filename(blob.filename)
     filename = "#{document.id}_#{filename}" if used_filenames[filename]
     used_filenames[filename] = true
 
-    File.open(File.join(dir, filename), "wb") { |file| file.write(blob.download) }
+    File.open(safe_path_within(dir, filename), "wb") { |file| file.write(blob.download) }
   end
 end
 
@@ -185,7 +200,7 @@ def upload_directory(s3_client, dir, client_id)
     s3_client.put_object(
       bucket: BUCKET,
       key: "#{key_prefix}/#{filename}",
-      body: File.read(File.join(dir, filename), mode: "rb"),
+      body: File.read(safe_path_within(dir, filename), mode: "rb"),
       )
   end
 end
