@@ -1,8 +1,8 @@
 # Rails 8 upgrade plan (GYR1-989)
 
-Status: Phases 0-4 complete (2026-09-02). Rails 8.0 is the primary boot with load_defaults 8.0; suite at parity. Phases 5-7 (Rails 8.1) pending
+Status: Phases 0-5 complete (2026-09-03). Rails 8.1.3.1 is the primary boot with load_defaults 8.0; suite at parity. Phase 6 (load_defaults 8.1) and Phase 7 (cleanup) pending
 Started from: Rails 7.2.3.2, Ruby 3.4.10, Bundler 2.3.5
-Now on: Rails 8.0.5.1 (`Gemfile.lock`, `load_defaults 8.0`), with 8.1.3.1 staged in `Gemfile_next.lock`
+Now on: Rails 8.1.3.1 (`Gemfile.lock`), `load_defaults 8.0`
 Target: Rails 8.1.3.1
 
 ## Summary
@@ -638,7 +638,7 @@ on the user-controlled `User-Agent`.
 Ship this separately from Phase 3 so a defaults revert does not give back the gem
 upgrade.
 
-### Phase 5 — Rails 8.1 code work — DONE (2026-09-03); primary cutover NOT done
+### Phase 5 — Rails 8.1 — DONE (2026-09-03), including the primary cutover
 
 Suite on the 8.1 next boot: **9,880 examples / 154 failures / 220 pending** — the same
 failure count as Phase 4 on 8.0. First run before fixes was 160.
@@ -704,14 +704,30 @@ answer.
   Load-tested: the 8.1 dump loads into a fresh DB with 148 tables, exit 0.
   This dump change is already pending on the **8.0** boot too, not just 8.1.
 
-#### Remaining: the primary cutover
+#### The primary cutover — done after 8.0 was validated on staging
 
-Not done deliberately. `Gemfile.lock` is still 8.0.5.1. Cutting it to 8.1 should wait
-until 8.0 has been validated in a deployed environment — that sequencing is the entire
-point of doing 8.0 and 8.1 as separate steps, and the efile pipeline still has no
-Rails 8 validation outside CI.
+`Gemfile.lock` is now **rails 8.1.3.1 / postgis 11.1.1 / rgeo-activerecord 8.1.0**.
+Lock diff: **15 gems changed, `action_text-trix` added** (Trix was extracted from
+actiontext in 8.1), nothing removed, `BUNDLED WITH` still 2.3.5 — exactly the Phase 0
+prediction.
 
-When it is time, it is the same targeted update as Phase 3:
+Suite on the primary boot at 8.1: **9,880 / 154 failures / 220 pending** — the same
+count as 8.0 and as the 8.1 next boot. The single differing example ID is
+`new_joint_filers_spec`, which passes in isolation; a known flake.
+
+`gemn` collapsed to plain `gem` for `rails` and `activerecord-postgis-adapter`, since
+there is no Rails 8.2 to aim the harness at.
+
+⚠️ **`Gemfile_next.lock` is now a redundant copy of `Gemfile.lock`.** Collapsing `gemn`
+left it stale (it held `addressable 2.8.7` against the primary's 2.9.0), which would
+have given anyone running `DEPENDENCIES_NEXT=1 bundle install` a subtly different
+bundle, and bootboot's sync hook could churn it. It was overwritten with the primary
+lock as a stopgap. **Phase 7 should retire the harness properly**: delete
+`Gemfile_next.lock`, the `plugin 'bootboot'` line, the `Plugin.send(:load_plugin, ...)`
+call, `enable_dual_booting`, and the now-unused `gemn` helper — or repoint it at
+`main`/edge if the dual-boot capability is worth keeping for 8.2.
+
+The cutover command, for reference:
 
 ```
 bundle lock --update rails railties activesupport activerecord actionpack \
