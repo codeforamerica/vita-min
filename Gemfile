@@ -3,20 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 ruby ruby_version
 
-plugin 'bootboot', '~> 0.2.2'
-
-def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
-  gem gem_name, version, **kwargs if next_version.nil?
-
-  if ENV['NEXT']
-    gem (next_name || gem_name), next_version, **kwargs
-  else
-    gem gem_name, version, **kwargs
-  end
-end
-
 gem 'rack', '>= 3.2.6'
-gem 'rails', '~> 7.2.3.1'
+gem 'rails', '~> 8.1.3'
 gem 'puma', '>= 7.2.1'
 gem 'sass-rails', '~> 6.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
@@ -33,7 +21,8 @@ gem 'bootsnap', '>= 1.5.1', require: false
 gem 'phony'
 gem 'pg'
 gem 'pg_search'
-gem 'activerecord-postgis-adapter', '~> 10.0', '>= 10.0.2'
+# Pins to one Rails minor at a time: 10.0.x => AR 7.2, 11.0.x => AR 8.0, 11.1.x => AR 8.1
+gem 'activerecord-postgis-adapter', '~> 11.1'
 gem 'will_paginate'
 gem 'sentry-delayed_job'
 gem 'sentry-rails'
@@ -50,7 +39,6 @@ gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'delayed_job'
 gem 'lograge'
-gem 'fix-db-schema-conflicts', require: false
 gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
 gem 'auto_strip_attributes'
 gem 'datadog', '~> 2.41.0', require: 'datadog/auto_instrument'
@@ -69,7 +57,6 @@ gem 'pdf-reader', '~> 2.4.1'
 gem 'rails_autolink'
 gem 'ice_nine'
 gem 'business_time'
-gem 'scenic', '~> 1.8'
 gem 'rubyzip'
 gem 'caxlsx', '3.4.1'
 gem 'intercom', '4.1.3' # potential issue with 4.2.0
@@ -133,7 +120,6 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'turbo_tests'
   gem 'timecop'
-  gem 'warning', require: false
   gem 'rspec_junit_formatter'
   gem 'dotenv'
 end

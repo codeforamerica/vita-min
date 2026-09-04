@@ -409,115 +409,115 @@
 #  fk_rails_...  (vita_partner_id => vita_partners.id)
 #
 class Intake::GyrIntake < Intake
-  enum service_preference: { unfilled: 0, diy: 1, virtual_vita: 2 }, _prefix: :service_preference
-  enum adopted_child: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :adopted_child
-  enum already_applied_for_stimulus: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :already_applied_for_stimulus
-  enum bought_energy_efficient_items: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_energy_efficient_items
-  enum bought_employer_health_insurance: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_employer_health_insurance
-  enum bought_marketplace_health_insurance: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :bought_marketplace_health_insurance
-  enum balance_pay_from_bank: { unfilled: 0, yes: 1, no: 2 }, _prefix: :balance_pay_from_bank
-  enum payment_in_installments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :payment_in_installments
-  enum claimed_by_another: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :claimed_by_another
-  enum demographic_questions_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :demographic_questions_opt_in
-  enum demographic_english_conversation: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_conversation
-  enum demographic_english_reading: { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, _prefix: :demographic_english_reading
-  enum demographic_disability: { unfilled: 0, yes: 1, no: 2, prefer_not_to_answer: 3 }, _prefix: :demographic_disability
-  enum demographic_veteran: { unfilled: 0, yes: 1, no: 2, prefer_not_to_answer: 3 }, _prefix: :demographic_veteran
-  enum demographic_primary_ethnicity: { unfilled: 0, hispanic_latino: 1, not_hispanic_latino: 2, prefer_not_to_answer: 3 }, _prefix: :demographic_primary_ethnicity
-  enum demographic_spouse_ethnicity: { unfilled: 0, hispanic_latino: 1, not_hispanic_latino: 2, prefer_not_to_answer: 3 }, _prefix: :demographic_spouse_ethnicity
-  enum divorced: { unfilled: 0, yes: 1, no: 2 }, _prefix: :divorced
-  enum ever_married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ever_married
-  enum ever_owned_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :ever_owned_home
-  enum feeling_about_taxes: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :feeling_about_taxes
-  enum filing_for_stimulus: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :filing_for_stimulus
-  enum filing_joint: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :filing_joint
-  enum got_married_during_tax_year: { unfilled: 0, yes: 1, no: 2}, _prefix: :got_married_during_tax_year
-  enum had_qualifying_child_under_17: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_qualifying_child_under_17
-  enum had_qualifying_child_under_6: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_qualifying_child_under_6
-  enum had_asset_sale_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_asset_sale_income
-  enum had_debt_forgiven: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_debt_forgiven
-  enum had_dependents: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_dependents
-  enum had_disability: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_disability
-  enum had_disability_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_disability_income
-  enum had_disaster_loss: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_disaster_loss
-  enum had_farm_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_farm_income
-  enum had_gambling_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_gambling_income
-  enum had_hsa: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_hsa
-  enum had_interest_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_interest_income
-  enum had_local_tax_refund: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_local_tax_refund
-  enum had_medicaid_medicare: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_medicaid_medicare
-  enum had_other_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_other_income
-  enum had_w2s: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_w2s
-  enum had_rental_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_rental_income
-  enum had_rental_income_from_personal_property: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_rental_income_from_personal_property
-  enum had_rental_income_and_used_dwelling_as_residence: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_rental_income_and_used_dwelling_as_residence
-  enum had_retirement_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_retirement_income
-  enum had_self_employment_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_self_employment_income
-  enum had_social_security_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_social_security_income
-  enum had_social_security_or_retirement: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_social_security_or_retirement
-  enum had_tax_credit_disallowed: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_tax_credit_disallowed
-  enum had_tips: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_tips
-  enum had_unemployment_income: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_unemployment_income
-  enum had_wages: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_wages
-  enum have_income_tax_documents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :have_income_tax_documents
-  enum income_over_limit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :income_over_limit
-  enum issued_identity_pin: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :issued_identity_pin
-  enum lived_with_spouse: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :lived_with_spouse
-  enum lived_without_spouse: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :lived_without_spouse
-  enum made_estimated_tax_payments: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :made_estimated_tax_payments
-  enum married: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married
-  enum married_for_all_of_tax_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married_for_all_of_tax_year
-  enum married_last_day_of_year: { unfilled: 0, yes: 1, no: 2 }, _prefix: :married_last_day_of_year
-  enum multiple_states: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :multiple_states
-  enum needs_help_previous_year_3: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_3
-  enum needs_help_previous_year_2: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_2
-  enum needs_help_previous_year_1: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_previous_year_1
-  enum needs_help_current_year: {unfilled: 0, yes: 1, no: 2}, _prefix: :needs_help_current_year
-  enum no_eligibility_checks_apply: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_eligibility_checks_apply
-  enum no_ssn: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_ssn
-  enum paid_alimony: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_alimony
-  enum paid_charitable_contributions: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_charitable_contributions
-  enum paid_dependent_care: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_dependent_care
-  enum paid_local_tax: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_local_tax
-  enum paid_medical_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_medical_expenses
-  enum paid_mortgage_interest: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_mortgage_interest
-  enum paid_retirement_contributions: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_retirement_contributions
-  enum paid_school_supplies: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_school_supplies
-  enum paid_student_loan_interest: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_student_loan_interest
-  enum phone_number_can_receive_texts: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :phone_number_can_receive_texts
-  enum primary_owned_or_held_any_digital_currencies: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_owned_or_held_any_digital_currencies
-  enum primary_us_citizen: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_us_citizen
-  enum primary_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_visa
-  enum received_alimony: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_alimony
-  enum received_homebuyer_credit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_homebuyer_credit
-  enum received_irs_letter: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_irs_letter
-  enum received_stimulus_payment: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_stimulus_payment
-  enum refund_check_by_mail: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :refund_check_by_mail
-  enum refund_direct_deposit: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :refund_direct_deposit
-  enum refund_other_cb: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :refund_other_cb
-  enum reported_asset_sale_loss: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :reported_asset_sale_loss
-  enum reported_self_employment_loss: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :reported_self_employment_loss
-  enum satisfaction_face: { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, _prefix: :satisfaction_face
-  enum savings_split_refund: { unfilled: 0, yes: 1, no: 2 }, _prefix: :savings_split_refund
-  enum savings_purchase_bond: { unfilled: 0, yes: 1, no: 2 }, _prefix: :savings_purchase_bond
-  enum separated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :separated
-  enum sold_a_home: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :sold_a_home
-  enum sold_assets: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :sold_assets
-  enum spouse_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_consented_to_service
-  enum spouse_had_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_had_disability
-  enum spouse_issued_identity_pin: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :spouse_issued_identity_pin
-  enum spouse_owned_or_held_any_digital_currencies: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :spouse_owned_or_held_any_digital_currencies
-  enum spouse_us_citizen: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_us_citizen
-  enum spouse_was_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_full_time_student
-  enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
-  enum spouse_visa: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_visa
-  enum was_blind: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_blind
-  enum was_full_time_student: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_full_time_student
-  enum widowed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :widowed
-  enum wants_to_itemize: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :wants_to_itemize
-  enum received_advance_ctc_payment: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :received_advance_ctc_payment
-  enum need_itin_help: { unfilled: 0, yes: 1, no: 2 }, _prefix: :need_itin_help
-  enum triage_income_level: {
+  enum :service_preference, { unfilled: 0, diy: 1, virtual_vita: 2 }, prefix: :service_preference
+  enum :adopted_child, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :adopted_child
+  enum :already_applied_for_stimulus, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :already_applied_for_stimulus
+  enum :bought_energy_efficient_items, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :bought_energy_efficient_items
+  enum :bought_employer_health_insurance, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :bought_employer_health_insurance
+  enum :bought_marketplace_health_insurance, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :bought_marketplace_health_insurance
+  enum :balance_pay_from_bank, { unfilled: 0, yes: 1, no: 2 }, prefix: :balance_pay_from_bank
+  enum :payment_in_installments, { unfilled: 0, yes: 1, no: 2 }, prefix: :payment_in_installments
+  enum :claimed_by_another, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :claimed_by_another
+  enum :demographic_questions_opt_in, { unfilled: 0, yes: 1, no: 2 }, prefix: :demographic_questions_opt_in
+  enum :demographic_english_conversation, { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, prefix: :demographic_english_conversation
+  enum :demographic_english_reading, { unfilled: 0, very_well: 1, well: 2 , not_well: 3, not_at_all: 4, prefer_not_to_answer: 5}, prefix: :demographic_english_reading
+  enum :demographic_disability, { unfilled: 0, yes: 1, no: 2, prefer_not_to_answer: 3 }, prefix: :demographic_disability
+  enum :demographic_veteran, { unfilled: 0, yes: 1, no: 2, prefer_not_to_answer: 3 }, prefix: :demographic_veteran
+  enum :demographic_primary_ethnicity, { unfilled: 0, hispanic_latino: 1, not_hispanic_latino: 2, prefer_not_to_answer: 3 }, prefix: :demographic_primary_ethnicity
+  enum :demographic_spouse_ethnicity, { unfilled: 0, hispanic_latino: 1, not_hispanic_latino: 2, prefer_not_to_answer: 3 }, prefix: :demographic_spouse_ethnicity
+  enum :divorced, { unfilled: 0, yes: 1, no: 2 }, prefix: :divorced
+  enum :ever_married, { unfilled: 0, yes: 1, no: 2 }, prefix: :ever_married
+  enum :ever_owned_home, { unfilled: 0, yes: 1, no: 2 }, prefix: :ever_owned_home
+  enum :feeling_about_taxes, { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, prefix: :feeling_about_taxes
+  enum :filing_for_stimulus, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :filing_for_stimulus
+  enum :filing_joint, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :filing_joint
+  enum :got_married_during_tax_year, { unfilled: 0, yes: 1, no: 2}, prefix: :got_married_during_tax_year
+  enum :had_qualifying_child_under_17, { unfilled: 0, yes: 1, no: 2 }, prefix: :had_qualifying_child_under_17
+  enum :had_qualifying_child_under_6, { unfilled: 0, yes: 1, no: 2 }, prefix: :had_qualifying_child_under_6
+  enum :had_asset_sale_income, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_asset_sale_income
+  enum :had_debt_forgiven, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_debt_forgiven
+  enum :had_dependents, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_dependents
+  enum :had_disability, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_disability
+  enum :had_disability_income, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_disability_income
+  enum :had_disaster_loss, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_disaster_loss
+  enum :had_farm_income, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_farm_income
+  enum :had_gambling_income, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_gambling_income
+  enum :had_hsa, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_hsa
+  enum :had_interest_income, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_interest_income
+  enum :had_local_tax_refund, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_local_tax_refund
+  enum :had_medicaid_medicare, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_medicaid_medicare
+  enum :had_other_income, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_other_income
+  enum :had_w2s, { unfilled: 0, yes: 1, no: 2 }, prefix: :had_w2s
+  enum :had_rental_income, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_rental_income
+  enum :had_rental_income_from_personal_property, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_rental_income_from_personal_property
+  enum :had_rental_income_and_used_dwelling_as_residence, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_rental_income_and_used_dwelling_as_residence
+  enum :had_retirement_income, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_retirement_income
+  enum :had_self_employment_income, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_self_employment_income
+  enum :had_social_security_income, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_social_security_income
+  enum :had_social_security_or_retirement, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_social_security_or_retirement
+  enum :had_tax_credit_disallowed, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_tax_credit_disallowed
+  enum :had_tips, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_tips
+  enum :had_unemployment_income, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_unemployment_income
+  enum :had_wages, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_wages
+  enum :have_income_tax_documents, { unfilled: 0, yes: 1, no: 2 }, prefix: :have_income_tax_documents
+  enum :income_over_limit, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :income_over_limit
+  enum :issued_identity_pin, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :issued_identity_pin
+  enum :lived_with_spouse, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :lived_with_spouse
+  enum :lived_without_spouse, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :lived_without_spouse
+  enum :made_estimated_tax_payments, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :made_estimated_tax_payments
+  enum :married, { unfilled: 0, yes: 1, no: 2 }, prefix: :married
+  enum :married_for_all_of_tax_year, { unfilled: 0, yes: 1, no: 2 }, prefix: :married_for_all_of_tax_year
+  enum :married_last_day_of_year, { unfilled: 0, yes: 1, no: 2 }, prefix: :married_last_day_of_year
+  enum :multiple_states, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :multiple_states
+  enum :needs_help_previous_year_3, {unfilled: 0, yes: 1, no: 2}, prefix: :needs_help_previous_year_3
+  enum :needs_help_previous_year_2, {unfilled: 0, yes: 1, no: 2}, prefix: :needs_help_previous_year_2
+  enum :needs_help_previous_year_1, {unfilled: 0, yes: 1, no: 2}, prefix: :needs_help_previous_year_1
+  enum :needs_help_current_year, {unfilled: 0, yes: 1, no: 2}, prefix: :needs_help_current_year
+  enum :no_eligibility_checks_apply, { unfilled: 0, yes: 1, no: 2 }, prefix: :no_eligibility_checks_apply
+  enum :no_ssn, { unfilled: 0, yes: 1, no: 2 }, prefix: :no_ssn
+  enum :paid_alimony, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :paid_alimony
+  enum :paid_charitable_contributions, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :paid_charitable_contributions
+  enum :paid_dependent_care, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :paid_dependent_care
+  enum :paid_local_tax, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :paid_local_tax
+  enum :paid_medical_expenses, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :paid_medical_expenses
+  enum :paid_mortgage_interest, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :paid_mortgage_interest
+  enum :paid_retirement_contributions, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :paid_retirement_contributions
+  enum :paid_school_supplies, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :paid_school_supplies
+  enum :paid_student_loan_interest, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :paid_student_loan_interest
+  enum :phone_number_can_receive_texts, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :phone_number_can_receive_texts
+  enum :primary_owned_or_held_any_digital_currencies, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_owned_or_held_any_digital_currencies
+  enum :primary_us_citizen, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_us_citizen
+  enum :primary_visa, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_visa
+  enum :received_alimony, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :received_alimony
+  enum :received_homebuyer_credit, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :received_homebuyer_credit
+  enum :received_irs_letter, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :received_irs_letter
+  enum :received_stimulus_payment, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :received_stimulus_payment
+  enum :refund_check_by_mail, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :refund_check_by_mail
+  enum :refund_direct_deposit, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :refund_direct_deposit
+  enum :refund_other_cb, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :refund_other_cb
+  enum :reported_asset_sale_loss, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :reported_asset_sale_loss
+  enum :reported_self_employment_loss, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :reported_self_employment_loss
+  enum :satisfaction_face, { unfilled: 0, positive: 1, neutral: 2, negative: 3 }, prefix: :satisfaction_face
+  enum :savings_split_refund, { unfilled: 0, yes: 1, no: 2 }, prefix: :savings_split_refund
+  enum :savings_purchase_bond, { unfilled: 0, yes: 1, no: 2 }, prefix: :savings_purchase_bond
+  enum :separated, { unfilled: 0, yes: 1, no: 2 }, prefix: :separated
+  enum :sold_a_home, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :sold_a_home
+  enum :sold_assets, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :sold_assets
+  enum :spouse_consented_to_service, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_consented_to_service
+  enum :spouse_had_disability, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_had_disability
+  enum :spouse_issued_identity_pin, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :spouse_issued_identity_pin
+  enum :spouse_owned_or_held_any_digital_currencies, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :spouse_owned_or_held_any_digital_currencies
+  enum :spouse_us_citizen, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_us_citizen
+  enum :spouse_was_full_time_student, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_was_full_time_student
+  enum :spouse_was_blind, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_was_blind
+  enum :spouse_visa, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_visa
+  enum :was_blind, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :was_blind
+  enum :was_full_time_student, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :was_full_time_student
+  enum :widowed, { unfilled: 0, yes: 1, no: 2 }, prefix: :widowed
+  enum :wants_to_itemize, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :wants_to_itemize
+  enum :received_advance_ctc_payment, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :received_advance_ctc_payment
+  enum :need_itin_help, { unfilled: 0, yes: 1, no: 2 }, prefix: :need_itin_help
+  enum :triage_income_level, {
     "unfilled" => 0,
     "zero" => 1,
     "1_to_69000" => 2,
@@ -528,88 +528,88 @@ class Intake::GyrIntake < Intake
     "26001_to_69000" => 9,
     "69001_to_89000" => 3,
     "over_89000" => 4,
-  }, _prefix: :triage_income_level
-  enum triage_filing_status: { unfilled: 0, single: 1, jointly: 2 }, _prefix: :triage_filing_status
-  enum triage_filing_frequency: { unfilled: 0, every_year: 1, some_years: 2, not_filed: 3 }, _prefix: :triage_filing_frequency
-  enum triage_vita_income_ineligible: { unfilled: 0, yes: 1, no: 2 }, _prefix: :triage_vita_income_ineligible
-  enum had_scholarships: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_scholarships
-  enum had_cash_check_digital_assets: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_cash_check_digital_assets
-  enum has_ssn_of_alimony_recipient: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_ssn_of_alimony_recipient
-  enum contributed_to_ira: { unfilled: 0, yes: 1, no: 2 }, _prefix: :contributed_to_ira
-  enum contributed_to_roth_ira: { unfilled: 0, yes: 1, no: 2 }, _prefix: :contributed_to_roth_ira
-  enum contributed_to_401k: { unfilled: 0, yes: 1, no: 2 }, _prefix: :contributed_to_401k
-  enum contributed_to_other_retirement_account: { unfilled: 0, yes: 1, no: 2 }, _prefix: :contributed_to_other_retirement_account
-  enum paid_post_secondary_educational_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_post_secondary_educational_expenses
-  enum paid_self_employment_expenses: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :paid_self_employment_expenses
-  enum had_capital_loss_carryover: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :had_capital_loss_carryover
-  enum receive_written_communication: { unfilled: 0, yes: 1, no: 2 }, _prefix: :receive_written_communication
-  enum presidential_campaign_fund_donation: { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3, no: 4 }, _prefix: :presidential_campaign_fund_donation
-  enum register_to_vote: { unfilled: 0, yes: 1, no: 2 }, _prefix: :register_to_vote
-  enum new_vehicle_purchased: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :new_vehicle_purchased
-  enum cv_1098_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1098_cb
-  enum cv_med_expense_standard_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_med_expense_standard_deduction_cb
-  enum cv_med_expense_itemized_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_med_expense_itemized_deduction_cb
-  enum cv_1098e_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1098e_cb
-  enum cv_child_dependent_care_credit_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_child_dependent_care_credit_cb
-  enum cv_edu_expenses_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_edu_expenses_deduction_cb
-  enum cv_paid_alimony_w_spouse_ssn_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_paid_alimony_w_spouse_ssn_cb
-  enum cv_alimony_income_adjustment_yn_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_alimony_income_adjustment_yn_cb
-  enum cv_taxable_scholarship_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_taxable_scholarship_income_cb
-  enum cv_1098t_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1098t_cb
-  enum cv_edu_credit_or_tuition_deduction_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_edu_credit_or_tuition_deduction_cb
-  enum cv_1099s_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099s_cb
-  enum cv_hsa_contrib_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_hsa_contrib_cb
-  enum cv_hsa_distrib_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_hsa_distrib_cb
-  enum cv_1095a_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1095a_cb
-  enum cv_energy_efficient_home_improv_credit_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_energy_efficient_home_improv_credit_cb
-  enum cv_1099c_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099c_cb
-  enum cv_1099a_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099a_cb
-  enum cv_disaster_relief_impacts_return_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_disaster_relief_impacts_return_cb
-  enum cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb
-  enum cv_eligible_for_litc_referral_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_eligible_for_litc_referral_cb
-  enum cv_estimated_tax_payments_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_estimated_tax_payments_cb
-  enum cv_last_years_refund_applied_to_this_yr_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_last_years_refund_applied_to_this_yr_cb
-  enum cv_last_years_return_available_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_last_years_return_available_cb                          
+  }, prefix: :triage_income_level
+  enum :triage_filing_status, { unfilled: 0, single: 1, jointly: 2 }, prefix: :triage_filing_status
+  enum :triage_filing_frequency, { unfilled: 0, every_year: 1, some_years: 2, not_filed: 3 }, prefix: :triage_filing_frequency
+  enum :triage_vita_income_ineligible, { unfilled: 0, yes: 1, no: 2 }, prefix: :triage_vita_income_ineligible
+  enum :had_scholarships, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_scholarships
+  enum :had_cash_check_digital_assets, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_cash_check_digital_assets
+  enum :has_ssn_of_alimony_recipient, { unfilled: 0, yes: 1, no: 2 }, prefix: :has_ssn_of_alimony_recipient
+  enum :contributed_to_ira, { unfilled: 0, yes: 1, no: 2 }, prefix: :contributed_to_ira
+  enum :contributed_to_roth_ira, { unfilled: 0, yes: 1, no: 2 }, prefix: :contributed_to_roth_ira
+  enum :contributed_to_401k, { unfilled: 0, yes: 1, no: 2 }, prefix: :contributed_to_401k
+  enum :contributed_to_other_retirement_account, { unfilled: 0, yes: 1, no: 2 }, prefix: :contributed_to_other_retirement_account
+  enum :paid_post_secondary_educational_expenses, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :paid_post_secondary_educational_expenses
+  enum :paid_self_employment_expenses, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :paid_self_employment_expenses
+  enum :had_capital_loss_carryover, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :had_capital_loss_carryover
+  enum :receive_written_communication, { unfilled: 0, yes: 1, no: 2 }, prefix: :receive_written_communication
+  enum :presidential_campaign_fund_donation, { unfilled: 0, primary: 1, spouse: 2, primary_and_spouse: 3, no: 4 }, prefix: :presidential_campaign_fund_donation
+  enum :register_to_vote, { unfilled: 0, yes: 1, no: 2 }, prefix: :register_to_vote
+  enum :new_vehicle_purchased, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :new_vehicle_purchased
+  enum :cv_1098_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1098_cb
+  enum :cv_med_expense_standard_deduction_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_med_expense_standard_deduction_cb
+  enum :cv_med_expense_itemized_deduction_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_med_expense_itemized_deduction_cb
+  enum :cv_1098e_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1098e_cb
+  enum :cv_child_dependent_care_credit_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_child_dependent_care_credit_cb
+  enum :cv_edu_expenses_deduction_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_edu_expenses_deduction_cb
+  enum :cv_paid_alimony_w_spouse_ssn_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_paid_alimony_w_spouse_ssn_cb
+  enum :cv_alimony_income_adjustment_yn_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_alimony_income_adjustment_yn_cb
+  enum :cv_taxable_scholarship_income_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_taxable_scholarship_income_cb
+  enum :cv_1098t_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1098t_cb
+  enum :cv_edu_credit_or_tuition_deduction_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_edu_credit_or_tuition_deduction_cb
+  enum :cv_1099s_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099s_cb
+  enum :cv_hsa_contrib_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_hsa_contrib_cb
+  enum :cv_hsa_distrib_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_hsa_distrib_cb
+  enum :cv_1095a_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1095a_cb
+  enum :cv_energy_efficient_home_improv_credit_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_energy_efficient_home_improv_credit_cb
+  enum :cv_1099c_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099c_cb
+  enum :cv_1099a_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099a_cb
+  enum :cv_disaster_relief_impacts_return_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_disaster_relief_impacts_return_cb
+  enum :cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_eitc_ctc_aotc_hoh_disallowed_in_a_prev_yr_cb
+  enum :cv_eligible_for_litc_referral_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_eligible_for_litc_referral_cb
+  enum :cv_estimated_tax_payments_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_estimated_tax_payments_cb
+  enum :cv_last_years_refund_applied_to_this_yr_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_last_years_refund_applied_to_this_yr_cb
+  enum :cv_last_years_return_available_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_last_years_return_available_cb                          
 
   # 14c p2 volunteer fields for ty2024
-  enum cv_w2s_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_w2s_cb
+  enum :cv_w2s_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_w2s_cb
 
-  enum cv_had_tips_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_had_tips_cb
+  enum :cv_had_tips_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_had_tips_cb
 
-  enum cv_1099r_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099r_cb
-  enum cv_1099r_charitable_dist_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099r_charitable_dist_cb
+  enum :cv_1099r_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099r_cb
+  enum :cv_1099r_charitable_dist_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099r_charitable_dist_cb
 
-  enum cv_disability_benefits_1099r_or_w2_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_disability_benefits_1099r_or_w2_cb
+  enum :cv_disability_benefits_1099r_or_w2_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_disability_benefits_1099r_or_w2_cb
 
-  enum cv_ssa1099_rrb1099_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_ssa1099_rrb1099_cb
+  enum :cv_ssa1099_rrb1099_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_ssa1099_rrb1099_cb
 
-  enum cv_1099g_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099g_cb
+  enum :cv_1099g_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099g_cb
 
-  enum cv_local_tax_refund_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_local_tax_refund_cb
-  enum cv_itemized_last_year_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_itemized_last_year_cb
+  enum :cv_local_tax_refund_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_local_tax_refund_cb
+  enum :cv_itemized_last_year_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_itemized_last_year_cb
 
-  enum cv_1099int_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099int_cb
-  enum cv_1099div_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099div_cb
+  enum :cv_1099int_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099int_cb
+  enum :cv_1099div_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099div_cb
 
-  enum cv_1099b_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099b_cb
-  enum cv_capital_loss_carryover_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_capital_loss_carryover_cb
+  enum :cv_1099b_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099b_cb
+  enum :cv_capital_loss_carryover_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_capital_loss_carryover_cb
 
-  enum cv_alimony_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_alimony_income_cb
-  enum cv_alimony_excluded_from_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_alimony_excluded_from_income_cb
+  enum :cv_alimony_income_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_alimony_income_cb
+  enum :cv_alimony_excluded_from_income_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_alimony_excluded_from_income_cb
 
-  enum cv_rental_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_rental_income_cb
-  enum cv_rental_expense_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_rental_expense_cb
+  enum :cv_rental_income_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_rental_income_cb
+  enum :cv_rental_expense_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_rental_expense_cb
 
-  enum cv_w2g_or_other_gambling_winnings_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_w2g_or_other_gambling_winnings_cb
+  enum :cv_w2g_or_other_gambling_winnings_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_w2g_or_other_gambling_winnings_cb
 
-  enum cv_schedule_c_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_schedule_c_cb
-  enum cv_1099misc_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099misc_cb
-  enum cv_1099nec_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099nec_cb
-  enum cv_1099k_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_1099k_cb
-  enum cv_other_income_reported_elsewhere_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_other_income_reported_elsewhere_cb
-  enum cv_schedule_c_expenses_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_schedule_c_expenses_cb
+  enum :cv_schedule_c_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_schedule_c_cb
+  enum :cv_1099misc_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099misc_cb
+  enum :cv_1099nec_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099nec_cb
+  enum :cv_1099k_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_1099k_cb
+  enum :cv_other_income_reported_elsewhere_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_other_income_reported_elsewhere_cb
+  enum :cv_schedule_c_expenses_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_schedule_c_expenses_cb
 
-  enum cv_other_income_cb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cv_other_income_cb
+  enum :cv_other_income_cb, { unfilled: 0, yes: 1, no: 2 }, prefix: :cv_other_income_cb
 
   belongs_to :matching_previous_year_intake, class_name: "Intake::GyrIntake", optional: true
 

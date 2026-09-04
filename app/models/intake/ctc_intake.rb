@@ -416,31 +416,31 @@ class Intake::CtcIntake < Intake
   attribute :primary_prior_year_agi_amount, :custom_money
   attribute :spouse_prior_year_agi_amount, :custom_money
 
-  enum had_dependents: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_dependents
-  enum exceeded_investment_income_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :exceeded_investment_income_limit
-  enum eip1_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip1_entry_method
-  enum eip2_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip2_entry_method
-  enum eip3_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :eip3_entry_method
-  enum eip1_and_2_amount_received_confidence: { unfilled: 0, sure: 1, unsure: 2 }, _prefix: :eip1_and_2_amount_received_confidence
-  enum advance_ctc_entry_method: { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, _prefix: :advance_ctc_entry_method
-  enum filed_prior_tax_year: { unfilled: 0, filed_full: 1, filed_non_filer: 2, did_not_file: 3 }, _prefix: :filed_prior_tax_year
-  enum spouse_filed_prior_tax_year: { unfilled: 0, filed_full_separate: 3, filed_non_filer_separate: 4, did_not_file: 5, filed_together: 6 }, _prefix: :spouse_filed_prior_tax_year
-  enum spouse_active_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_active_armed_forces
-  enum cannot_claim_me_as_a_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cannot_claim_me_as_a_dependent
-  enum primary_active_armed_forces: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_active_armed_forces
-  enum has_primary_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_primary_ip_pin
-  enum has_spouse_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_spouse_ip_pin
-  enum consented_to_legal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_legal
-  enum was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_blind
-  enum spouse_was_blind: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_blind
-  enum home_location: { fifty_states: 0, military_facility: 1, puerto_rico: 2, us_territory: 3, foreign_address: 4 }, _prefix: :home_location
-  enum claim_eitc: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_eitc
-  enum former_foster_youth: { unfilled: 0, yes: 1, no: 2 }, _prefix: :former_foster_youth
-  enum homeless_youth: { unfilled: 0, yes: 1, no: 2 }, _prefix: :homeless_youth
-  enum not_full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :not_full_time_student
-  enum full_time_student_less_than_five_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :full_time_student_less_than_five_months
-  enum had_w2s: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_w2s
-  enum had_disqualifying_non_w2_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_disqualifying_non_w2_income
+  enum :had_dependents, { unfilled: 0, yes: 1, no: 2 }, prefix: :had_dependents
+  enum :exceeded_investment_income_limit, { unfilled: 0, yes: 1, no: 2 }, prefix: :exceeded_investment_income_limit
+  enum :eip1_entry_method, { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, prefix: :eip1_entry_method
+  enum :eip2_entry_method, { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, prefix: :eip2_entry_method
+  enum :eip3_entry_method, { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, prefix: :eip3_entry_method
+  enum :eip1_and_2_amount_received_confidence, { unfilled: 0, sure: 1, unsure: 2 }, prefix: :eip1_and_2_amount_received_confidence
+  enum :advance_ctc_entry_method, { unfilled: 0, calculated_amount: 1, did_not_receive: 2, manual_entry: 3 }, prefix: :advance_ctc_entry_method
+  enum :filed_prior_tax_year, { unfilled: 0, filed_full: 1, filed_non_filer: 2, did_not_file: 3 }, prefix: :filed_prior_tax_year
+  enum :spouse_filed_prior_tax_year, { unfilled: 0, filed_full_separate: 3, filed_non_filer_separate: 4, did_not_file: 5, filed_together: 6 }, prefix: :spouse_filed_prior_tax_year
+  enum :spouse_active_armed_forces, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_active_armed_forces
+  enum :cannot_claim_me_as_a_dependent, { unfilled: 0, yes: 1, no: 2 }, prefix: :cannot_claim_me_as_a_dependent
+  enum :primary_active_armed_forces, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_active_armed_forces
+  enum :has_primary_ip_pin, { unfilled: 0, yes: 1, no: 2 }, prefix: :has_primary_ip_pin
+  enum :has_spouse_ip_pin, { unfilled: 0, yes: 1, no: 2 }, prefix: :has_spouse_ip_pin
+  enum :consented_to_legal, { unfilled: 0, yes: 1, no: 2 }, prefix: :consented_to_legal
+  enum :was_blind, { unfilled: 0, yes: 1, no: 2 }, prefix: :was_blind
+  enum :spouse_was_blind, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_was_blind
+  enum :home_location, { fifty_states: 0, military_facility: 1, puerto_rico: 2, us_territory: 3, foreign_address: 4 }, prefix: :home_location
+  enum :claim_eitc, { unfilled: 0, yes: 1, no: 2 }, prefix: :claim_eitc
+  enum :former_foster_youth, { unfilled: 0, yes: 1, no: 2 }, prefix: :former_foster_youth
+  enum :homeless_youth, { unfilled: 0, yes: 1, no: 2 }, prefix: :homeless_youth
+  enum :not_full_time_student, { unfilled: 0, yes: 1, no: 2 }, prefix: :not_full_time_student
+  enum :full_time_student_less_than_five_months, { unfilled: 0, yes: 1, no: 2 }, prefix: :full_time_student_less_than_five_months
+  enum :had_w2s, { unfilled: 0, yes: 1, no: 2 }, prefix: :had_w2s
+  enum :had_disqualifying_non_w2_income, { unfilled: 0, yes: 1, no: 2 }, prefix: :had_disqualifying_non_w2_income
   scope :accessible_intakes, -> do
     sms_verified = where.not(sms_phone_number_verified_at: nil)
     email_verified = where.not(email_address_verified_at: nil)

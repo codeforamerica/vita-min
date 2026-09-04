@@ -97,23 +97,23 @@ class StateFileAzIntake < StateFileBaseIntake
 
   has_many :az322_contributions, dependent: :destroy
   has_many :az321_contributions, dependent: :destroy
-  enum has_prior_last_names: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_prior_last_names
+  enum :has_prior_last_names, { unfilled: 0, yes: 1, no: 2 }, prefix: :has_prior_last_names
   # TODO: decide what to do with was_incarcerated column; see if data science wants to keep the historic data
-  enum was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :was_incarcerated
-  enum primary_was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_was_incarcerated
-  enum spouse_was_incarcerated: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_was_incarcerated
-  enum household_excise_credit_claimed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :household_excise_credit_claimed
-  enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
-  enum armed_forces_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :armed_forces_member
-  enum charitable_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :charitable_contributions
-  enum eligibility_married_filing_separately: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_married_filing_separately
-  enum eligibility_529_for_non_qual_expense: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_529_for_non_qual_expense
-  enum made_az321_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az321_contributions
-  enum made_az322_contributions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :made_az322_contributions
-  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
-  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
-  enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
-  enum paid_federal_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_federal_extension_payments
+  enum :was_incarcerated, { unfilled: 0, yes: 1, no: 2 }, prefix: :was_incarcerated
+  enum :primary_was_incarcerated, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_was_incarcerated
+  enum :spouse_was_incarcerated, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_was_incarcerated
+  enum :household_excise_credit_claimed, { unfilled: 0, yes: 1, no: 2 }, prefix: :household_excise_credit_claimed
+  enum :tribal_member, { unfilled: 0, yes: 1, no: 2 }, prefix: :tribal_member
+  enum :armed_forces_member, { unfilled: 0, yes: 1, no: 2 }, prefix: :armed_forces_member
+  enum :charitable_contributions, { unfilled: 0, yes: 1, no: 2 }, prefix: :charitable_contributions
+  enum :eligibility_married_filing_separately, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_married_filing_separately
+  enum :eligibility_529_for_non_qual_expense, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_529_for_non_qual_expense
+  enum :made_az321_contributions, { unfilled: 0, yes: 1, no: 2 }, prefix: :made_az321_contributions
+  enum :made_az322_contributions, { unfilled: 0, yes: 1, no: 2 }, prefix: :made_az322_contributions
+  enum :eligibility_lived_in_state, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_lived_in_state
+  enum :eligibility_out_of_state_income, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_out_of_state_income
+  enum :paid_extension_payments, { unfilled: 0, yes: 1, no: 2 }, prefix: :paid_extension_payments
+  enum :paid_federal_extension_payments, { unfilled: 0, yes: 1, no: 2 }, prefix: :paid_federal_extension_payments
 
 
   validates :made_az321_contributions, inclusion: { in: ["yes", "no"]}, on: :az321_form_create

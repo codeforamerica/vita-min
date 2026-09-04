@@ -128,7 +128,10 @@ RSpec.describe TwilioWebhooksController do
       allow(DatadogApi).to receive(:increment)
     end
 
-    def post_webhook(id: campaign_sms.id, status: "delivered", error_code: nil)
+    # error_code defaults to "" rather than nil to model an empty-but-present form
+    # field, which is what the expectations below assert. Rails 8.1 no longer coerces a
+    # nil controller-spec param to "", so passing nil here would send nil instead.
+    def post_webhook(id: campaign_sms.id, status: "delivered", error_code: "")
       post :update_campaign_sms, params: { id: id, "MessageStatus" => status, "ErrorCode" => error_code, "MessageSid" => "SM123"}
     end
 

@@ -34,9 +34,9 @@ class StateFile1099G < ApplicationRecord
   before_validation :update_conditional_attributes
   auto_strip_attributes :payer_name, :payer_street_address, :payer_city, :payer_zip, :recipient_street_address, :recipient_street_address_apartment, :recipient_city, :recipient_zip
 
-  enum address_confirmation: { unfilled: 0, yes: 1, no: 2 }, _prefix: :address_confirmation
-  enum had_box_11: { unfilled: 0, yes: 1, no: 2 }, _prefix: :had_box_11
-  enum recipient: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :recipient
+  enum :address_confirmation, { unfilled: 0, yes: 1, no: 2 }, prefix: :address_confirmation
+  enum :had_box_11, { unfilled: 0, yes: 1, no: 2 }, prefix: :had_box_11
+  enum :recipient, { unfilled: 0, primary: 1, spouse: 2 }, prefix: :recipient
 
   validates_inclusion_of :had_box_11, in: ['yes', 'no'], message: ->(_object, _data) { I18n.t("errors.messages.blank") }
   validates :address_confirmation, inclusion: { in: %w[yes no], message: ->(_object, _data) { I18n.t("errors.messages.blank") } }, if: :had_box_11_yes?

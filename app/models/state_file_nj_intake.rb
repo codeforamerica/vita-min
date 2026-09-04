@@ -125,45 +125,45 @@ class StateFileNjIntake < StateFileBaseIntake
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
   has_many :state_file_nj_analytics
 
-  enum household_rent_own: { unfilled: 0, rent: 1, own: 2, neither: 3, both: 4 }, _prefix: :household_rent_own
+  enum :household_rent_own, { unfilled: 0, rent: 1, own: 2, neither: 3, both: 4 }, prefix: :household_rent_own
 
-  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
-  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
-  enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
-  enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
+  enum :eligibility_lived_in_state, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_lived_in_state
+  enum :eligibility_out_of_state_income, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_out_of_state_income
+  enum :primary_disabled, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_disabled
+  enum :spouse_disabled, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_disabled
 
-  enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
-  enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
+  enum :primary_veteran, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_veteran
+  enum :spouse_veteran, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_veteran
 
-  enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
-  enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
+  enum :untaxed_out_of_state_purchases, { unfilled: 0, yes: 1, no: 2 }, prefix: :untaxed_out_of_state_purchases
+  enum :sales_use_tax_calculation_method, { unfilled: 0, automated: 1, manual: 2 }, prefix: :sales_use_tax_calculation_method
 
-  enum claimed_as_eitc_qualifying_child: { unfilled: 0, yes: 1, no: 2}, _prefix: :claimed_as_eitc_qualifying_child
-  enum spouse_claimed_as_eitc_qualifying_child: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_claimed_as_eitc_qualifying_child
+  enum :claimed_as_eitc_qualifying_child, { unfilled: 0, yes: 1, no: 2}, prefix: :claimed_as_eitc_qualifying_child
+  enum :spouse_claimed_as_eitc_qualifying_child, { unfilled: 0, yes: 1, no: 2}, prefix: :spouse_claimed_as_eitc_qualifying_child
 
-  enum primary_contribution_gubernatorial_elections: { unfilled: 0, yes: 1, no: 2}, _prefix: :primary_contribution_gubernatorial_elections
-  enum spouse_contribution_gubernatorial_elections: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_contribution_gubernatorial_elections
+  enum :primary_contribution_gubernatorial_elections, { unfilled: 0, yes: 1, no: 2}, prefix: :primary_contribution_gubernatorial_elections
+  enum :spouse_contribution_gubernatorial_elections, { unfilled: 0, yes: 1, no: 2}, prefix: :spouse_contribution_gubernatorial_elections
 
-  enum eligibility_all_members_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_all_members_health_insurance
-  enum eligibility_retirement_warning_continue: { unfilled: 0, yes: 1, no: 2, shown: 3 }, _prefix: :eligibility_retirement_warning_continue
+  enum :eligibility_all_members_health_insurance, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_all_members_health_insurance
+  enum :eligibility_retirement_warning_continue, { unfilled: 0, yes: 1, no: 2, shown: 3 }, prefix: :eligibility_retirement_warning_continue
 
   # checkboxes - "unfilled" means not-yet-seen because it saves as "no" when unchecked
-  enum homeowner_home_subject_to_property_taxes: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_home_subject_to_property_taxes
-  enum homeowner_main_home_multi_unit: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_main_home_multi_unit
-  enum homeowner_main_home_multi_unit_max_four_one_commercial: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_main_home_multi_unit_max_four_one_commercial
-  enum homeowner_more_than_one_main_home_in_nj: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_more_than_one_main_home_in_nj
-  enum homeowner_shared_ownership_not_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_shared_ownership_not_spouse
-  enum homeowner_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :homeowner_same_home_spouse
+  enum :homeowner_home_subject_to_property_taxes, { unfilled: 0, yes: 1, no: 2}, prefix: :homeowner_home_subject_to_property_taxes
+  enum :homeowner_main_home_multi_unit, { unfilled: 0, yes: 1, no: 2}, prefix: :homeowner_main_home_multi_unit
+  enum :homeowner_main_home_multi_unit_max_four_one_commercial, { unfilled: 0, yes: 1, no: 2}, prefix: :homeowner_main_home_multi_unit_max_four_one_commercial
+  enum :homeowner_more_than_one_main_home_in_nj, { unfilled: 0, yes: 1, no: 2}, prefix: :homeowner_more_than_one_main_home_in_nj
+  enum :homeowner_shared_ownership_not_spouse, { unfilled: 0, yes: 1, no: 2}, prefix: :homeowner_shared_ownership_not_spouse
+  enum :homeowner_same_home_spouse, { unfilled: 0, yes: 1, no: 2}, prefix: :homeowner_same_home_spouse
 
-  enum tenant_home_subject_to_property_taxes: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_home_subject_to_property_taxes
-  enum tenant_building_multi_unit: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_building_multi_unit
-  enum tenant_access_kitchen_bath: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_access_kitchen_bath
-  enum tenant_more_than_one_main_home_in_nj: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_more_than_one_main_home_in_nj
-  enum tenant_shared_rent_not_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_shared_rent_not_spouse
-  enum tenant_same_home_spouse: { unfilled: 0, yes: 1, no: 2}, _prefix: :tenant_same_home_spouse
+  enum :tenant_home_subject_to_property_taxes, { unfilled: 0, yes: 1, no: 2}, prefix: :tenant_home_subject_to_property_taxes
+  enum :tenant_building_multi_unit, { unfilled: 0, yes: 1, no: 2}, prefix: :tenant_building_multi_unit
+  enum :tenant_access_kitchen_bath, { unfilled: 0, yes: 1, no: 2}, prefix: :tenant_access_kitchen_bath
+  enum :tenant_more_than_one_main_home_in_nj, { unfilled: 0, yes: 1, no: 2}, prefix: :tenant_more_than_one_main_home_in_nj
+  enum :tenant_shared_rent_not_spouse, { unfilled: 0, yes: 1, no: 2}, prefix: :tenant_shared_rent_not_spouse
+  enum :tenant_same_home_spouse, { unfilled: 0, yes: 1, no: 2}, prefix: :tenant_same_home_spouse
 
-  enum has_estimated_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_estimated_payments
-  enum paid_federal_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_federal_extension_payments
+  enum :has_estimated_payments, { unfilled: 0, yes: 1, no: 2 }, prefix: :has_estimated_payments
+  enum :paid_federal_extension_payments, { unfilled: 0, yes: 1, no: 2 }, prefix: :paid_federal_extension_payments
 
   def nj_gross_income
     calculator.lines[:NJ1040_LINE_29].value
