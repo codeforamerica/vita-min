@@ -1,0 +1,16 @@
+<svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Security section icon, replacing the filled lock-gear.svg badge. Glyph paths are verbatim
+       lucide-static v1.28.0 (ISC) from https://lucide.dev/icons/shield-check. Matches the GYR New
+       Branding file in Figma (node 158:1888), which draws the same icon at 36px with a 3px stroke.
+       Hence the 36px box over a 24px viewBox: the 2px stroke here renders as the 3px one shown
+       there.
+
+       Figma reports the stroke as #011E29, one value off Confidence Blue (#001E29). The difference
+       is invisible, so this uses the palette color to stay consistent with message-circle-heart.svg
+       and the rest of the refreshed art. Hardcoded rather than inherited because `currentColor`
+       resolves against the SVG's own document when loaded through image_tag, not the page. -->
+  <g stroke="#001E29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+    <path d="m9 12 2 2 4-4"/>
+  </g>
+</svg>

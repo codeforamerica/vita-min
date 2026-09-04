@@ -187,4 +187,19 @@ module ApplicationHelper
   def request_domain
     request.domain
   end
+
+  def gyr?
+    !hub? && !state_file? && !ctc?
+  end
+
+  def body_class_list
+    classes = []
+    if content_for?(:body_class)
+      classes << content_for(:body_class)
+    elsif state_file?
+      classes << "state-file"
+    end
+    classes << "gyr-theme" if gyr?
+    classes.join(" ").presence
+  end
 end

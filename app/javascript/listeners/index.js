@@ -14,6 +14,7 @@ import { initTINTypeSelector } from "../lib/tin_type_selector";
 import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
 import { limitTextMessageLength } from "../lib/text_message_length_limiter";
 import { initServiceComparisonComponent } from "../lib/service_comparison_component";
+import { initServiceCardAlignment } from "../lib/service_card_alignment";
 import { fetchEfileStateCounts } from "../lib/fetch_efile_state_counts";
 import { fetchStateFileEfileStateCounts } from "../lib/fetch_statefile_efile_state_counts";
 import ClientMenuComponent from "../components/ClientMenuComponent";
@@ -100,6 +101,10 @@ const Listeners =  (function(){
 
                 if (document.querySelector('div.comparison-component')) {
                     initServiceComparisonComponent();
+                }
+
+                if (document.querySelector('.service-recommendation')) {
+                    initServiceCardAlignment();
                 }
 
                 if (

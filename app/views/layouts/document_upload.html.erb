@@ -57,9 +57,7 @@
 
           <%# document upload form %>
           <%= form_with model: @form, url: current_path, method: "put", local: true, builder: VitaMinFormBuilder, id: "file-upload-form" do |f| %>
-            <% if @document_type %>
-              <%= f.hidden_field :document_type, value: @document_type.key %>
-            <% end %>
+            <%= f.hidden_field :document_type, value: document_type.key %>
             <div class="document-upload">
               <div class="file-upload">
                 <% file_input_data = { "upload-immediately" => true } %>
