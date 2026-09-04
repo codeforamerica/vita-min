@@ -298,14 +298,17 @@ module Hub
       def initialize(client, related_models_cache = nil)
         @client = client
         __setobj__(client)
-        @intake = if related_models_cache.present?
-                    related_models_cache[:intakes][client.id]
+        @archived = client.has_archived_intake?
+        @intake = if @archived
+                    client.archived_intake
+                  elsif related_models_cache.present?
+                    related_models_cache[:intakes][client.id].first
                   else
                     client.intake
                   end
-        @archived = client.has_archived_intake?
-        @intake = @archived ? client.archived_intake : client.intake
-        # For a short while, we created Client records with no intake and/or moved which client the intake belonged to.
+
+        # For a short while, we created Client records with no intake and/or
+        # moved which client the intake belonged to.
         if !@intake && @client.created_at < Date.parse('2022-04-15')
           @missing_intake = true
           @intake = Intake::GyrIntake.new(client_id: @client.id)
