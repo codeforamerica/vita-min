@@ -836,6 +836,18 @@ en:
             only_email: "(only sending email)"
             only_text: "(only sending text messages)"
           title: Bulk Action
+      turn_red_dot_flag_off:
+        edit:
+          selected_action_and_client_count_html:
+            one: You’ve selected <strong>Turn Red Dot Flag Off</strong> for <strong>%{count} client</strong>.
+            other: You’ve selected <strong>Turn Red Dot Flag Off</strong> for <strong>%{count} clients</strong>.
+          title: Bulk Action
+      turn_red_dot_flag_on:
+        edit:
+          selected_action_and_client_count_html:
+            one: You’ve selected <strong>Turn Red Dot Flag On</strong> for <strong>%{count} client</strong>.
+            other: You’ve selected <strong>Turn Red Dot Flag On</strong> for <strong>%{count} clients</strong>.
+          title: Bulk Action
     bulk_message_csvs:
       bulk_message_csv:
         send_default: Send message (all available contact methods, i.e. default)
@@ -1316,6 +1328,10 @@ en:
         send_a_message: Send a message
         send_a_message_description_html: Send a message to these <strong>%{count} clients</strong>.
         title: Choose your bulk action
+        turn_red_dot_flag_off: Turn red dot flag off
+        turn_red_dot_flag_off_description_html: Turn off the red dot flag for these <strong>%{count} clients</strong>.
+        turn_red_dot_flag_on: Turn red dot flag on
+        turn_red_dot_flag_on_description_html: Turn on the red dot flag for these <strong>%{count} clients</strong>.
       page_title:
         one: 'Client selection #%{id} (%{count} result)'
         other: 'Client selection #%{id} (%{count} results)'
@@ -1372,6 +1388,10 @@ en:
     unlock_confirmation: Unlock %{name}'s account? Have they confirmed their identity?
     unsuspend_account: Unsuspend account
     user_notifications:
+      bulk_client_flag_update:
+        off_html: You successfully turned off red dot flag for %{tax_return_selection_link}.
+        on_html: You successfully turned on red dot flag for %{tax_return_selection_link}.
+        title: Successful Bulk Red Dot Flag Update
       bulk_client_message:
         failed-title_html: <i class="icon-warning"></i> Unsuccessful Bulk Send a Message
         failed_body_html: We could not contact %{tax_return_selection_link}.
@@ -6117,7 +6137,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: 1-2 hours to file
         bullet_4: Available online
-        bullet_5_html: Social Security or Individual Taxpayer Identification <b>Number</b> required
+        bullet_5_html: Social Security or Individual Taxpayer Identification Number required
         card_title: FileMyself
         reveal_b1: All states
         reveal_b2: Puerto Rico
@@ -6146,7 +6166,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: Varies by location
         bullet_4: Available in-person
-        bullet_5_html: "<b>Physical copies</b> of Social Security or Individual Taxpayer Identification Number Card required"
+        bullet_5_html: Physical copies of Social Security or Individual Taxpayer Identification Number Card required
         reveal_b1: All states
         reveal_b2: Non-residents [varies by location]
         reveal_b3: Puerto Rico residents [varies by location]
@@ -6172,7 +6192,7 @@ en:
         bullet_2: Colorado and New Jersey State tax returns only
         bullet_3: 15 minutes to file
         bullet_4: Available online
-        bullet_5_html: Social Security or Individual Taxpayer Identification <strong>Number</strong> required
+        bullet_5_html: Social Security or Individual Taxpayer Identification Number required
         reveal:
           s11_bullet_1: 'New Jersey: Married Filing joint $20,000 / Filing Single $10,000'
           s11_bullet_2: 'Colorado: Married Filing joint $26,000 / Filing Single $15,000'
@@ -6195,7 +6215,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: 2-3 weeks to file
         bullet_4: Available online
-        bullet_5_html: "<b>Photos</b> of Social Security or Individual Taxpayer Identification Number card required"
+        bullet_5_html: Photos of Social Security or Individual Taxpayer Identification Number card required
         reveal_b1: All states
         reveal_b2: Non-residents [limited]
         reveal_b3: Puerto Rico residents [limited]

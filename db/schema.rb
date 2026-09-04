@@ -486,6 +486,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
     t.index ["tax_return_selection_id"], name: "index_bulk_action_notifications_on_tax_return_selection_id"
   end
 
+  create_table "bulk_client_flag_updates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.boolean "enabled", null: false
+    t.bigint "tax_return_selection_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tax_return_selection_id"], name: "index_bulk_client_flag_updates_on_tax_return_selection_id"
+  end
+
   create_table "bulk_client_message_outgoing_emails", force: :cascade do |t|
     t.bigint "bulk_client_message_id", null: false
     t.datetime "created_at", null: false
@@ -3153,6 +3161,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
   add_foreign_key "archived_intakes_2021", "vita_partners"
   add_foreign_key "bank_accounts", "intakes"
   add_foreign_key "bulk_action_notifications", "tax_return_selections"
+  add_foreign_key "bulk_client_flag_updates", "tax_return_selections"
   add_foreign_key "bulk_client_message_outgoing_emails", "bulk_client_messages"
   add_foreign_key "bulk_client_message_outgoing_emails", "outgoing_emails"
   add_foreign_key "bulk_client_message_outgoing_text_messages", "bulk_client_messages"

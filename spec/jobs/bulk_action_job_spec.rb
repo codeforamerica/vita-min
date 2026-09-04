@@ -318,6 +318,106 @@ describe BulkActionJob do
       end
     end
 
+    context "when turning the red dot flag on or off" do
+      let!(:unflagged_client) {
+        create :client,
+               intake: (build :intake),
+               vita_partner: organization,
+               tax_returns: [(build :gyr_tax_return, tax_return_selections: [tax_return_selection])]
+      }
+      let!(:flagged_client) {
+        create :client,
+               intake: (build :intake),
+               vita_partner: organization,
+               flagged_at: DateTime.now,
+               tax_returns: [(build :gyr_tax_return, tax_return_selections: [tax_return_selection])]
+      }
+      let(:params) { {} }
+
+      context "turning the flag on" do
+        it "flags only the clients who aren't already flagged, and creates the right notification" do
+          expect {
+            described_class.perform_now(
+              task: :turn_red_dot_flag_on,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params
+            )
+          }.to change { unflagged_client.reload.flagged? }.from(false).to(true)
+                                                          .and(change(BulkClientFlagUpdate, :count).by(1))
+                                                          .and(change(UserNotification, :count).by(1))
+
+          expect(flagged_client.reload.flagged_at).to be_present
+          expect(user.notifications.map(&:notifiable_type)).to match_array(["BulkClientFlagUpdate"])
+          bulk_update = BulkClientFlagUpdate.last
+          expect(bulk_update.tax_return_selection).to eq tax_return_selection
+          expect(bulk_update.enabled).to eq true
+          expect(bulk_update.user_notification.user).to eq user
+
+          expect(unflagged_client.reload.system_notes.map(&:body)).to include "#{user.name_with_role} indicated that this client needs a response."
+        end
+
+        it "does not add a duplicate system note for a client who is already flagged" do
+          described_class.perform_now(
+            task: :turn_red_dot_flag_on,
+            user: user,
+            tax_return_selection: tax_return_selection,
+            form_params: params
+          )
+
+          expect(flagged_client.reload.system_notes).to be_empty
+        end
+      end
+
+      context "turning the flag off" do
+        it "unflags only the clients who are currently flagged, and creates the right notification" do
+          expect {
+            described_class.perform_now(
+              task: :turn_red_dot_flag_off,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params
+            )
+          }.to change { flagged_client.reload.flagged? }.from(true).to(false).and(
+            change(BulkClientFlagUpdate, :count).by(1)
+          ).and(change(UserNotification, :count).by(1))
+
+          expect(unflagged_client.reload.flagged?).to eq false
+          bulk_update = BulkClientFlagUpdate.last
+          expect(bulk_update.tax_return_selection).to eq tax_return_selection
+          expect(bulk_update.enabled).to eq false
+
+          expect(flagged_client.reload.system_notes.map(&:body)).to include "#{user.name_with_role} indicated that this client received a response."
+        end
+
+        it "does not add a duplicate system note for a client who is already unflagged" do
+          described_class.perform_now(
+            task: :turn_red_dot_flag_off,
+            user: user,
+            tax_return_selection: tax_return_selection,
+            form_params: params
+          )
+
+          expect(unflagged_client.reload.system_notes).to be_empty
+        end
+      end
+
+      context "when the user only has access to some of the selected clients" do
+        let!(:inaccessible_flagged_client) { create :client, intake: (build :intake), vita_partner: build(:organization), flagged_at: DateTime.now, tax_returns: [(build :gyr_tax_return, tax_return_selections: [tax_return_selection])] }
+
+        it "does not update clients the user cannot access" do
+          expect {
+            described_class.perform_now(
+              task: :turn_red_dot_flag_off,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params
+            )
+          }.not_to change { inaccessible_flagged_client.reload.flagged? }
+        end
+      end
+    end
+
     context "when changing the assignee or status" do
       let(:tax_return_1) { create :gyr_tax_return, :file_ready_to_file, assigned_user: team_member, client: client }
       let(:tax_return_2) { create :tax_return, :review_signature_requested, assigned_user: team_member, client: client, year: 2019 }
