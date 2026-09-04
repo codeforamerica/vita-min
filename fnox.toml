@@ -44,3 +44,4 @@ TWILIO_STATEFILE_AUTH_TOKEN= { provider = "doppler", value = "TWILIO_STATEFILE_A
 TWILIO_STATEFILE_MESSAGING_SERVICE_SID= { provider = "doppler", value = "TWILIO_STATEFILE_MESSAGING_SERVICE_SID" }
 TWILIO_VOICE_PHONE_NUMBER= { provider = "doppler", value = "TWILIO_VOICE_PHONE_NUMBER" }
 USPS_USER_ID= { provider = "doppler", value = "USPS_USER_ID" }
+MSG_PYR_BUCKET= { provider = "doppler", value = "MSG_PYR_BUCKET" }
