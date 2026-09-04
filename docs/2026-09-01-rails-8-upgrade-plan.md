@@ -1,6 +1,6 @@
 # Rails 8 upgrade plan (GYR1-989)
 
-Status: Phases 0-6 complete (2026-09-03). Rails 8.1.3.1 with load_defaults 8.1; suite at parity with the 7.2 baseline. Phase 7 (cleanup) pending
+Status: COMPLETE (2026-09-04). Rails 8.1.3.1, load_defaults 8.1, suite at parity with the 7.2 baseline. Follow-ups listed under Phase 7.
 Started from: Rails 7.2.3.2, Ruby 3.4.10, Bundler 2.3.5
 Now on: Rails 8.1.3.1 (`Gemfile.lock`), `load_defaults 8.1`
 Target: Rails 8.1.3.1
@@ -814,7 +814,67 @@ Adopt the seven new defaults. The two that need real attention:
 `escape_json_responses = false` and `escape_js_separators_in_json = false` are safe
 here: only 2 `render json:` call sites in `app/`.
 
-### Phase 7 — cleanup
+### Phase 7 — cleanup — DONE (2026-09-04)
+
+Suite: **9,880 / 155 failures / 220 pending** — the same as the 7.2 baseline and as
+Phase 6. Three IDs differ from Phase 6 and all are flakes: `new_joint_filers_spec` (the
+known date-derived one) and `send_messages_spec`, which fails with the Chrome
+`Node with given id does not belong to the document` inspector error and passes in
+isolation. **minitest 6 caused zero failures.**
+
+Done, each verified rather than assumed:
+
+- **bootboot retired.** Removed `plugin 'bootboot'`, the `Plugin.send(:load_plugin, ...)`
+  call, `enable_dual_booting`, the `gemn` helper (0 callers by then) and
+  `Gemfile_next.lock`. `Gemfile.lock` unchanged — bootboot was a Bundler plugin, never a
+  locked gem. Checked the trap: the plugin stays installed in `.bundle/plugin/` with
+  `after-install-all` hooks registered, but its hook bails when `Gemfile_next.lock` is
+  absent, so a later `bundle install` does not resurrect the file. Verified by running
+  one.
+- **`config/initializers/warning.rb` and the `warning` gem removed.** Re-confirmed on
+  8.1: 12,204 device_detector regex sources compiled under `ruby -w` emit zero
+  warnings. Nothing else referenced `Warning.` or the gem.
+- **`fix-db-schema-conflicts` removed.** An earlier note in this document called it
+  "provably redundant" on the strength of the 8.0 and 8.1 dumps matching — that was
+  overstated, since both of those dumps had the gem loaded. Actually tested by dumping
+  with the initializer in place, moving it aside, and dumping again:
+  **byte-identical, 151,871 bytes both ways.** The final dump also matches the committed
+  `db/schema.rb` apart from the version stamp.
+- **`minitest` pin dropped**, 5.27.0 → 6.0.6 (pulls in `drb` and `prism`). The only
+  genuine version risk in this phase rather than dead-code removal; suite is clean.
+
+#### Deliberately still open
+
+- **`Regexp.timeout` stays at 5, not 1.** Tightening was gated on one release with no
+  `Regexp::TimeoutError` in Sentry, and that clock starts at a *production* release.
+- **`spring` removal** — deferred since Phase 0. Not a blocker (no Rails constraint, did
+  not move in any resolution); removing it changes every engineer's local `bin/rspec`
+  workflow, so it is a team call rather than upgrade work.
+- **`ActiveSupport::Configurable` is an 8.2 blocker.** Deprecated in 8.1, removed in 8.2,
+  from `data_migrate` (`lib/data_migrate/config.rb:2`) and
+  `omniauth-rails_csrf_protection` (`lib/omniauth/rails_csrf_protection/token_verifier.rb:16`).
+  It fires on every boot now and reaches Sentry via
+  `config/initializers/deprecation_reporting.rb`. `omniauth-rails_csrf_protection` 1.0.2
+  and 2.0.x exist and `~> 1.0` permits 1.0.2; `data_migrate` has nothing newer than
+  11.3.1.
+- **Deferred major gem bumps**, each deserving its own PR: `shoulda-matchers` 5→8,
+  `rubyzip` 2→3, `phony` 2→3, `statesman` 11→13, `sentry-*` 5→6, `redis` 5→6,
+  `strong_migrations` 1→2, `openssl` 3→4, `holidays` 8→11, `mixpanel-ruby` 2→3,
+  `zxcvbn-ruby` 1→2, `simplecov` 0.22→1.1, `connection_pool` 2→3, `selenium-webdriver`.
+- **Two independent bugs found en route**, neither caused by the upgrade: the income
+  review form's `device_id` field renders unscoped while
+  `update_for_device_id_collection` reads it from form-scoped params; and
+  `twilio_webhooks` writes `""` rather than NULL to `error_code`.
+- **Flaky feature specs** worth their own attention: `take_action_spec` (internally
+  inconsistent about which path it expects), plus a cluster that fail only under
+  parallelism — `bulk_actions`, `filtered_clients_bulk_action`, `new_joint_filers`,
+  `edit_organization`, `send_messages`, `create_organization_hierarchy`,
+  `clients_searching_sorting_and_filtering`, and `id39r_pdf` (local pdftk contention).
+  Several fail with the Chrome `Node with given id does not belong to the document`
+  inspector error, which suggests a shared driver/timing issue rather than eight
+  separate bugs.
+
+### Phase 7 — original notes
 
 1. Remove `bootboot`, `Gemfile_next.lock`, and the `DEPENDENCIES_NEXT=1` CI job (or repoint them at
    Rails 8.2 / edge and keep the harness).
