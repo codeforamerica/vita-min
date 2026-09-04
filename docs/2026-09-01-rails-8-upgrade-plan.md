@@ -1,22 +1,16 @@
 # Rails 8 upgrade plan (GYR1-989)
 
 Status: COMPLETE (2026-09-04). Rails 8.1.3.1, load_defaults 8.1, suite at parity with the 7.2 baseline. Follow-ups listed under Phase 7.
-Started from: Rails 7.2.3.2, Ruby 3.4.10, Bundler 2.3.5
+Started on: Rails 7.2.3.2, Ruby 3.4.10, Bundler 2.3.5
 Now on: Rails 8.1.3.1 (`Gemfile.lock`), `load_defaults 8.1`
-Target: Rails 8.1.3.1
 
 ## Summary
 
-Two hard gem blockers, both with fixes already published. No Ruby bump needed
-(Rails 8.1 requires >= 3.2; we are on 3.4.10). The dependency resolution has been
-verified locally — see "Verified resolutions" below.
-
-Recommended path: **7.2 → 8.0 (gems + defaults) → 8.1 (gems + defaults)**, with the
+Migration path: **7.2 → 8.0 (gems + defaults) → 8.1 (gems + defaults)**, with the
 gem bump and the `load_defaults` bump as separate PRs at each step. Do not go
 straight to 8.1: `activerecord-postgis-adapter` pins the Rails minor exactly, so
 each minor is a discrete, atomic change anyway, and splitting the framework-defaults
-migration across two steps keeps each diff reviewable. This mirrors how the 7.1 and
-7.2 upgrades were done in this repo.
+migration across two steps keeps each diff reviewable.
 
 ## Blockers
 
