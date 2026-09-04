@@ -12,7 +12,7 @@ const MixpanelEventTracking = (function () {
       document.querySelectorAll("a[data-track-click]").forEach((link) => {
         link.addEventListener("click", function (e, options) {
           const pageData = document.querySelector("#mixpanelData").dataset;
-          const clickedElement = e.target;
+          const clickedElement = e.currentTarget;
           const eventName = "click_" + clickedElement.dataset.trackClick;
 
           const eventData = new FormData();
