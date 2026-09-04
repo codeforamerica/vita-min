@@ -6117,7 +6117,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: 1-2 hours to file
         bullet_4: Available online
-        bullet_5_html: Social Security or Individual Taxpayer Identification <b>Number</b> required
+        bullet_5_html: Social Security or Individual Taxpayer Identification Number required
         card_title: FileMyself
         reveal_b1: All states
         reveal_b2: Puerto Rico
@@ -6146,7 +6146,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: Varies by location
         bullet_4: Available in-person
-        bullet_5_html: "<b>Physical copies</b> of Social Security or Individual Taxpayer Identification Number Card required"
+        bullet_5_html: Physical copies of Social Security or Individual Taxpayer Identification Number Card required
         reveal_b1: All states
         reveal_b2: Non-residents [varies by location]
         reveal_b3: Puerto Rico residents [varies by location]
@@ -6172,7 +6172,7 @@ en:
         bullet_2: Colorado and New Jersey State tax returns only
         bullet_3: 15 minutes to file
         bullet_4: Available online
-        bullet_5_html: Social Security or Individual Taxpayer Identification <strong>Number</strong> required
+        bullet_5_html: Social Security or Individual Taxpayer Identification Number required
         reveal:
           s11_bullet_1: 'New Jersey: Married Filing joint $20,000 / Filing Single $10,000'
           s11_bullet_2: 'Colorado: Married Filing joint $26,000 / Filing Single $15,000'
@@ -6195,7 +6195,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: 2-3 weeks to file
         bullet_4: Available online
-        bullet_5_html: "<b>Photos</b> of Social Security or Individual Taxpayer Identification Number card required"
+        bullet_5_html: Photos of Social Security or Individual Taxpayer Identification Number card required
         reveal_b1: All states
         reveal_b2: Non-residents [limited]
         reveal_b3: Puerto Rico residents [limited]
