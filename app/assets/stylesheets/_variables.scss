@@ -3,6 +3,8 @@ $font-gyr: "Helvetica Neue", -apple-system, BlinkMacSystemFont, "Segoe UI",
   "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
   sans-serif;
 $font-state-file: "Public Sans", -apple-system, sans-serif;
+$font-gyr-refresh: "Inter", $font-gyr;
+$font-gyr-heading: "Geologica", $font-gyr-refresh;
 
 // Colors
 $color-green-money: #c6f9ec;
@@ -31,10 +33,39 @@ $color-review-yellow: #FFEA9C;
 $color-pass-green: #C6F9CD;
 $color-failure-red: #FFC9B4;
 
-$color-link-default: #0358a2;
-$color-link-hover: #0358a1;
-$color-link-active: #1d70b8;
+
+$color-confidence-blue: #001E29;
+$color-clarity-white: #FFFEEC;
+$color-cream: #FFFEFA;
+$color-ui-grey: #EBECDB;
+$color-primary-lime: #DCFC7E;
+$color-teal-mint: #B0E9E0;
+$color-coral: #FFA89A;
+$color-olive: #ACCD4F;
+$color-periwinkle: #9EB0FF;
+$color-button-border: #001E29;
+$color-button-secondary: #FFFFF5;
+
+$gyr-cta-exclusions: ":not(.button--danger):not(.button--disabled):not(.button--intercom):not(.button--link)";
+
+
+$font-size-button: 22px;
+$font-size-button-sm: 16px;
+$gyr-button-size-exclusions: ":not(.button--link):not(.button--inline-action):not(.button--intercom)";
+
+$gyr-service-card-ctas: (
+  "diy": $color-coral,
+  "virtual-vita": $color-olive,
+  "in-person-vita": $color-olive,
+  "simple-file": $color-periwinkle,
+);
+
+$color-link-unvisited: #007C7C;
 $color-link-visited: #4c2c92;
+$color-link-default: $color-link-unvisited;
+$color-link-hover: $color-link-unvisited;
+$color-link-active: $color-link-unvisited;
+$color-focus: #339696;
 $color-focused-link-background: #f9c802;
 $color-focused-link: #000000;
 $color-smart-scan-pink: #FFF7F7;

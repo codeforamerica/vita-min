@@ -2,7 +2,7 @@
   font-weight: bold;
   font-size: 3rem;
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1.6rem;
   margin-top: 0.5rem;
 }
 
@@ -24,7 +24,7 @@
   grid-template-columns: auto 1fr;
   gap: 2rem;
   padding: 1rem 0;
-  align-items: center;
+  align-items: start;
 }
 
 .service-card__icon-wrapper {
@@ -40,7 +40,7 @@
   justify-self: start;
   text-align: left;
   margin: 0;
-  font-size: 17px;
+  font-size: 13px;
   line-height: 1.2;
 }
 
@@ -50,7 +50,7 @@ img {
 
 .button-wrapper {
   margin-top: 2rem;
-  font-size: 22px;
+  font-size: 1.6rem;
   align-self: stretch;
 
   @media screen and (min-width: $tablet-up) {
@@ -70,5 +70,67 @@ img {
     color: #000000;
     font-weight: normal;
     font-size: inherit;
+  }
+}
+
+@supports (grid-template-rows: subgrid) {
+  @media screen and (min-width: $site-max-up) {
+    .service-recommendation:has(.service-card:nth-child(2)):not(.is-js-aligned) {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      grid-template-rows: auto auto auto auto auto 1fr;
+      column-gap: 0.5rem;
+      row-gap: 0;
+
+      .service-card {
+        display: grid;
+        grid-row: 1 / -1;
+        grid-template-rows: subgrid;
+        justify-items: center;
+        align-items: start;
+      }
+
+      .button-wrapper,
+      .reveal--service-card {
+        justify-self: stretch;
+      }
+    }
+  }
+}
+
+.service-recommendation.is-js-aligned {
+  align-items: flex-start;
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.gyr-theme {
+  .service-recommendation .service-card {
+    background-color: $color-white;
+    border-color: $color-confidence-blue;
+    color: $color-confidence-blue;
+  }
+
+  .service-card .button#{$gyr-button-size-exclusions} {
+    font-size: $font-size-button-sm;
+    padding: 1.2rem 1.6rem;
+    border-width: 2px;
+    border-radius: 4px;
+  }
+
+  @each $product, $cta-color in $gyr-service-card-ctas {
+    .service-card--#{$product} .button#{$gyr-cta-exclusions} {
+      background-color: $cta-color;
+
+      &:hover,
+      &:active,
+      &:visited {
+        background-color: darken($cta-color, 8%);
+      }
+    }
   }
 }

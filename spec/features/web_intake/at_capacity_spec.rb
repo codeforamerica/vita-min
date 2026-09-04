@@ -31,7 +31,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
 
     xit "allows the client to log in again, start at the consent page, and see the at capacity page" do
       within ".toolbar" do
-        click_on "Login"
+        click_on "Sign in"
       end
       fill_in "Email address", with: "gary.gardengnome@example.green"
       click_on I18n.t("portal.client_logins.new.send_code")
@@ -58,7 +58,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
           UpdateClientVitaPartnerService.new(clients: [Client.last], vita_partner_id: create(:organization).id).update!
         end
         within ".toolbar" do
-          click_on "Login"
+          click_on "Sign in"
         end
         fill_in "Email address", with: "gary.gardengnome@example.green"
         click_on I18n.t("portal.client_logins.new.send_code")
@@ -101,7 +101,7 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
 
       # client comes back through the portal
       within ".toolbar" do
-        click_on "Login"
+        click_on "Sign in"
       end
       fill_in "Email address", with: "gary.gardengnome@example.green"
       click_on I18n.t("portal.client_logins.new.send_code")

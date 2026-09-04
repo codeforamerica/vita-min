@@ -103,13 +103,17 @@ jobs:
           echo "https://github.com/codeforamerica/vita-min/releases/latest"
 
       - name: deploy
+        env:
+          ENVIRONMENT: ${{ github.event.inputs.environment }}
+          TARGET_BRANCH: ${{ vars.TARGET_BRANCH }}
+          IS_PROD: ${{ github.event.inputs.environment == 'prod' }}
         run: |
           echo "Updating branch on GitHub. This triggers deployment in CircleCI."
           git push
           
-          echo "✨ Deployment to ${{ github.event.inputs.environment }} initiated!"
-          echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=${{ vars.TARGET_BRANCH }}"
-          if [[ "${{ github.event.inputs.environment == 'prod' }}" ]]; then
+          echo "✨ Deployment to $ENVIRONMENT initiated!"
+          echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=$TARGET_BRANCH"
+          if [[ "$IS_PROD" ]]; then
             echo "📝 Release notes here: https://github.com/codeforamerica/vita-min/releases/latest"
             echo "🧷 If needed, rollback to: ${{ env.OLD_VERSION }}"
           fi

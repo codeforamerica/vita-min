@@ -107,6 +107,26 @@ describe Portal::UploadDocumentsController do
           expect(response).to render_template :edit
           expect(flash[:error]).to eq I18n.t("portal.upload_documents.error")
         end
+
+        context "when a document_type param is present" do
+          let!(:id_document) { create :document, client: client, document_type: "ID" }
+
+          it "preserves @document_type and filters @documents to that type" do
+            put :update, params: { portal_document_upload_form: { document_type: "ID" } }
+            expect(assigns(:document_type).key).to eq "ID"
+            expect(assigns(:documents)).to match_array([id_document])
+          end
+        end
+
+        context "when no document_type param is present" do
+          let!(:document) { create :document, client: client }
+
+          it "assigns all active documents and leaves @document_type nil" do
+            put :update
+            expect(assigns(:document_type)).to be_nil
+            expect(assigns(:documents)).to match_array([document])
+          end
+        end
       end
     end
   end
