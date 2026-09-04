@@ -2257,7 +2257,7 @@ es:
       body_html: ¡Huy! Parece que estás intentando acceder a una página o un cliente al que no tienes acceso. Póngase en contacto con Soporte para socios en <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> si necesita fusionar un cliente duplicado al que no tiene acceso.
       title: Acceso no permitido
     home:
-      already_started: "¿Ya iniciado? Iniciar sesión"
+      already_started: "¿Ya comenzaste tu declaración? Iniciar sesión"
   questions:
     eligibility_household:
       edit:
@@ -5304,18 +5304,18 @@ es:
           header: Lo que dicen nuestros clientes
           quote1:
             body: '"Sólo quería decirles que no puedo expresar cuánto estrés me aliviaron al ofrecer sus servicios en línea. Había visto otros servicios como Credit Karma o Turbo Tax, pero no tenia confianza a los pasos iniciales, así que no seguí adelante. Hasta que encontré GetYourRefund y ¡Dios mío, es increíble!"'
-            header: "¡Dios mío esto es increíble!"
+            header: "¡Dios mío, es increíble!"
           quote2:
             body: “Pensé que los preparadores de impuestos eran muy profesionales, muy amables, muy abiertos a preguntas, así que realmente aprecié eso, y también fueron pacientes con mis preguntas. Me gusta mucho más este proceso cuando hay una persona que me puede explicar en detalle las preguntas que tienes y que responden bastante rápido".
             header: Son muy profesionales y amables
-          rating: Hemos recibido una valoración de 4.8/5 estrellas
+          rating: Hemos recibido calificaciones de 4.8/5 estrellas
           trusted_support:
-            body: Somos un servicio virtual gratis certificado el IRS. Ayudamos a familias con bajos ingresos en todo Estados Unidos a hacer sus impuestos con ayuda profesional y sin salir de casa.
-            title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
+            body: Nuestro servicio virtual gratuito es certificado por el IRS. Ayudamos a familias con bajos ingresos en todo el país a presentar sus impuestos con ayuda profesional.
+            title: Solicita tu dinero de impuestos fácilmente con nuestra ayuda.
         closed_banner: GetYourRefund reabrirá sus servicios el %{start_of_open_intake}.
         closed_open_for_login_banner_html: Los servicios GetYourRefund están cerrados durante esta temporada de impuestos. Esperamos poder brindar nuestra asistencia tributaria gratuita nuevamente a partir de enero. Para obtener preparación de impuestos gratuita ahora, puede buscar <a href="https://www.getyourrefund.org/es/vita_providers">una ubicación de VITA</a> en su área.
         faq:
-          faq_cta: Lee nuestras preguntas frecuentes
+          faq_cta: Ver otras preguntas
           header: 'Preguntas frecuentes:'
         fresh_look_banner:
           body: La misma ayuda gratuita con tus impuestos, el mismo servicio de confianza.
@@ -5323,9 +5323,9 @@ es:
         header: Declare sus impuestos sin costo. ¡Es sencillo!
         open_intake_post_tax_deadline_banner: Comience con GetYourRefund antes del %{end_of_intake} si desea presentar su declaración con nosotros en %{product_year}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del %{end_of_docs}.
         security:
-          body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
-          header: Nos comprometemos a mantener la seguridad de su información.
-        subheader: "¡Reclama miles de dólares a través de los créditos tributarios que te corresponden! Trabajamos contigo para obtener tu mayor reembolso."
+          body: De acuerdo con las normas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan debe estar protegida. Mantenemos tu información segura y protegida.
+          header: Nos comprometemos a mantener la seguridad de tu información.
+        subheader: Reclama miles de dólares a través de los créditos tributarios que te corresponden. Te ayudamos a obtener tu mayor reembolso.
         subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir a finales de enero."
         subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
@@ -6167,7 +6167,7 @@ es:
         bullet_2: Declaraciones de impuestos estatales y federales
         bullet_3: De 1 a 2 horas para presentar la declaración
         bullet_4: Disponible en línea
-        bullet_5_html: Se requiere el número de Seguro Social o el <b>Número</b> de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: "<b>Se requiere número</b> de Seguro Social o el Número de Identificación Personal del Contribuyente (ITIN)"
         card_title: FileMyself
         reveal_b1: Todos los estados
         reveal_b2: Puerto Rico
@@ -6178,8 +6178,8 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
-        title: Declarar por mi cuenta
+        subtitle: Prepara tus propias declaraciones de impuestos y recibe ayuda si necesitas
+        title: FileMyself
       document_deadline_warning:
         body_html: La fecha límite para declarar sus impuestos de 2025 es el %{tax_deadline}. Use <a href='https://www.getyourrefund.org/es/diy/qualifications' target='_blank' rel='noopener noreferrer'>la herramienta File Myself</a> para declarar por su cuenta antes de la fecha límite. Si no debe impuestos, puede presentar su declaración después de esa fecha sin penalización. <a href='https://intercom.help/getyourrefundorg/es/articles/11048561-obtener-mas-tiempo-para-declarar'  target='_blank' rel='noopener noreferrer'>Conozca más en nuestras preguntas frecuentes.</a>
       environment_warning:
@@ -6196,7 +6196,7 @@ es:
         bullet_2: Declaraciones de impuestos estatales y federales
         bullet_3: Varía según la ubicación
         bullet_4: Disponible de manera presencial
-        bullet_5_html: Se requieren <b>copias físicas</b> de la tarjeta del Seguro Social o del Número de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: "<b>Se requieren copias físicas</b> de la tarjeta del Seguro Social o del Número de Identificación Personal del Contribuyente (ITIN)"
         reveal_b1: Todos los estados
         reveal_b2: No residentes (varía según la ubicación)
         reveal_b3: Residentes de Puerto Rico (varía según la ubicación)
@@ -6208,21 +6208,21 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Responda unas preguntas y deje que un experto en impuestos presente su declaración
+        subtitle: Encuentra un sitio del IRS para recibir ayuda en persona declarando tus impuestos
         title: Assist (In-person)
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
-        subtitle_1: Declaraciones de impuestos precisas y confiables ¡Elija el servicio de impuestos ideal para usted!
-        subtitle_2: "¿No sabe cuál elegir?"
-        title_html: Elija el producto que mejor le funcione
-        triage_link_text: Responda unas cuantas preguntas y le ayudaremos a elegir la mejor opción para usted.
+        subtitle_1: Declaraciones de impuestos precisas y confiables. Completamente gratis. ¡Comienza con el servicio que mejor se ajuste a tus necesidades!
+        subtitle_2: "¿No sabes cuál elegir?"
+        title_html: Elige el producto que mejor te funcione
+        triage_link_text: Responde unas cuantas preguntas y te ayudaremos a elegir la mejor opción para ti.
       simple_file_card:
-        bullet_1: Ayuda por chat y correo electrónico
+        bullet_1: Soporte por chat y correo electrónico
         bullet_2: Solo declaraciones estatales para Colorado y New Jersey
-        bullet_3: 15 minutos para completar
-        bullet_4: Disponible a través de internet
-        bullet_5_html: Se requiere el número de Seguro Social o el <strong>Número</strong> de Identificación Individual del Contribuyente (ITIN, por sus siglas en inglés)
+        bullet_3: 15 minutos para presentar la declaración
+        bullet_4: Disponible en línea
+        bullet_5_html: "<b>Se requiere número</b> de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)"
         reveal:
           s11_bullet_1: 'New Jersey: Declaración conjunta, $20,000 dólares anuales / Declaración individual, $10,000 dólares anuales'
           s11_bullet_2: 'Colorado: Declaración conjunta, $26,000 dólares anuales / Declaración individual, $15,000 dólares anuales'
@@ -6235,17 +6235,17 @@ es:
           subtitle_1: 'Requisitos adicionales de elegibilidad:'
           subtitle_2: 'Otras características:'
           title: Información adicional
-        subtitle: Presenta una declaración estatal simplificada para solicitar tu Crédito de Impuestos por Hijos (Child Tax Credit, en inglés)
+        subtitle: Presenta una declaración estatal simplificada para pedir tu Crédito Tributario por Hijos
         title: SimpleFile
       tax_return_list:
         add_tax_year: Agregar año tributario
         select_tax_return: Seleccione %{tax_year}
       virtual_vita_card:
-        bullet_1: Revisión en línea y soporte por chat
+        bullet_1: Revisión en línea y ayuda por chat
         bullet_2: Declaraciones de impuestos estatales y federales
         bullet_3: De 2 a 3 semanas para presentar la declaración
         bullet_4: Disponible en línea
-        bullet_5_html: Se requieren <b>fotos</b> de la tarjeta del Seguro Social o del Número de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: "<b>Se requieren fotos</b> de la tarjeta del Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)"
         reveal_b1: Todos los estados
         reveal_b2: No residentes (limitado)
         reveal_b3: Residentes de Puerto Rico (limitado)
@@ -6258,5 +6258,5 @@ es:
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
         reveal_title: Información adicional
-        subtitle: Responda algunas preguntas y deje que un profesional de impuestos presente su declaración a nombre suyo
+        subtitle: Responde unas preguntas y un experto en impuestos presenta tu declaración
         title: Assist (Virtual)
