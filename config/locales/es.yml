@@ -6147,7 +6147,7 @@ es:
         bullet_2: Declaraciones de impuestos estatales y federales
         bullet_3: De 1 a 2 horas para presentar la declaración
         bullet_4: Disponible en línea
-        bullet_5_html: Se requiere el número de Seguro Social o el <b>Número</b> de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: <b>Se requiere número</b> de Seguro Social o el <b>Número</b> de Identificación Personal del Contribuyente (ITIN)
         card_title: FileMyself
         reveal_b1: Todos los estados
         reveal_b2: Puerto Rico
@@ -6176,7 +6176,7 @@ es:
         bullet_2: Declaraciones de impuestos estatales y federales
         bullet_3: Varía según la ubicación
         bullet_4: Disponible de manera presencial
-        bullet_5_html: Se requieren <b>copias físicas</b> de la tarjeta del Seguro Social o del Número de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: <b>Se requieren copias físicas</b> de la tarjeta del Seguro Social o del Número de Identificación Personal del Contribuyente (ITIN)
         reveal_b1: Todos los estados
         reveal_b2: No residentes (varía según la ubicación)
         reveal_b3: Residentes de Puerto Rico (varía según la ubicación)
@@ -6198,11 +6198,11 @@ es:
         title_html: Elige el producto que mejor te funcione
         triage_link_text: Responde unas cuantas preguntas y te ayudaremos a elegir la mejor opción para ti.
       simple_file_card:
-        bullet_1: Ayuda por chat y correo electrónico
+        bullet_1: Soporte por chat y correo electrónico
         bullet_2: Solo declaraciones estatales para Colorado y New Jersey
         bullet_3: 15 minutos para presentar la declaración
         bullet_4: Disponible en línea
-        bullet_5_html: Se requiere número de Seguro Social o <strong>Número</strong> de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: <b>Se requiere número</b> de Seguro Social o <strong>Número</strong> de Identificación Personal del Contribuyente (ITIN)
         reveal:
           s11_bullet_1: 'New Jersey: Declaración conjunta, $20,000 dólares anuales / Declaración individual, $10,000 dólares anuales'
           s11_bullet_2: 'Colorado: Declaración conjunta, $26,000 dólares anuales / Declaración individual, $15,000 dólares anuales'
@@ -6225,7 +6225,7 @@ es:
         bullet_2: Declaraciones de impuestos estatales y federales
         bullet_3: De 2 a 3 semanas para presentar la declaración
         bullet_4: Disponible en línea
-        bullet_5_html: Se requieren <b>fotos</b> de la tarjeta del Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: <b>Se requieren fotos</b> de la tarjeta del Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)
         reveal_b1: Todos los estados
         reveal_b2: No residentes (limitado)
         reveal_b3: Residentes de Puerto Rico (limitado)
