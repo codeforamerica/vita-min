@@ -43,8 +43,9 @@ end
 def safe_path_within(dir, filename)
   expanded_dir = File.expand_path(dir)
   path = File.expand_path(File.join(expanded_dir, filename))
-  raise "Invalid path: path traversal detected in #{filename}" unless path.s
-  tart_with?("#{expanded_dir}#{File::SEPARATOR}")
+  unless path.start_with?(File.expand_path(expanded_dir) + File::SEPARATOR)
+    raise "Invalid path: path traversal detected in #{filename}"
+  end
 
   path
 end
