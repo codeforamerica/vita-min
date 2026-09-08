@@ -22,6 +22,11 @@ module Hub
       FILTER_COOKIE_NAME
     end
 
+    # Every role but admin lands on this tab filtered to active returns only.
+    def default_active_returns?
+      !current_user&.admin?
+    end
+
     def ensure_always_current_user_assigned
       @always_current_user_assigned = true
     end
