@@ -851,6 +851,28 @@ Done, each verified rather than assumed:
   `config/initializers/deprecation_reporting.rb`. `omniauth-rails_csrf_protection` 1.0.2
   and 2.0.x exist and `~> 1.0` permits 1.0.2; `data_migrate` has nothing newer than
   11.3.1.
+- **Rails 8.2 / edge dual-boot — scoped 2026-09-09, deliberately not started.** Edge
+  (`rails/rails` main) is `8.2.0.alpha` with `required_ruby_version >= 3.3.1`, so ruby
+  3.4.10 is fine. The resolution blocker is PostGIS: `activerecord-postgis-adapter`
+  11.1.1 requires `activerecord (~> 8.1.0)` and `rgeo-activerecord` 8.1.0 requires
+  `activerecord (>= 8.1, < 8.2)` — and **both caps are still in place on the upstream
+  default branches**, so pointing at a git source does not route around them. An 8.2
+  boot needs forks of both gems with the gemspec caps relaxed (no code patch expected;
+  the adapter may work as-is on 8.2, and if it does not, that is the first real
+  finding). Carrying two forks is the reason this is deferred — not the harness cost.
+  Updating the `ActiveSupport::Configurable` item above: `data_migrate` master no longer
+  requires `active_support/configurable` (`lib/data_migrate/config.rb` is a plain class
+  now), but the fix is unreleased as of 11.3.1, so the next boot would need a git
+  source; `omniauth-rails_csrf_protection` 2.0.x guards the require on `ActionPack.version`
+  and 2.0.1 is released, so a `~> 2.0` bump on the next boot covers it.
+  Re-adding bootboot is itself cheap: Phase 7 removed the Gemfile wiring but never
+  uninstalled the plugin from `.bundle/plugin/`, so it is a revert of the `984bfb773`
+  Gemfile hunk plus a `Gemfile_next.lock`. Adding it *without* a diverging gem was
+  considered and rejected — a next lock that duplicates the primary is exactly the inert
+  state Phase 1 diagnosed, and it costs a second resolution on every `bundle install`
+  plus a lockfile that rots at the next gem bump. If the goal is only early warning
+  rather than local dual-boot, a non-blocking nightly job on a separate `BUNDLE_GEMFILE`
+  is lighter than bootboot, but it is blocked on the same two forks.
 - **Deferred major gem bumps**, each deserving its own PR: `shoulda-matchers` 5→8,
   `rubyzip` 2→3, `phony` 2→3, `statesman` 11→13, `sentry-*` 5→6, `redis` 5→6,
   `strong_migrations` 1→2, `openssl` 3→4, `holidays` 8→11, `mixpanel-ruby` 2→3,
