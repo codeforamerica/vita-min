@@ -180,7 +180,7 @@ def build_xlsx(path, client, matches)
 end
 
 def download_client_documents(client, dir)
-  documents = client.documents.where(uploaded_by_type: "Client", uploaded_by_id: client.id)
+  documents = client.documents
   used_filenames = {}
 
   documents.each do |document|
