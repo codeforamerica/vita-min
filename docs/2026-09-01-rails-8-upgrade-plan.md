@@ -865,14 +865,11 @@ Done, each verified rather than assumed:
   now), but the fix is unreleased as of 11.3.1, so the next boot would need a git
   source; `omniauth-rails_csrf_protection` 2.0.x guards the require on `ActionPack.version`
   and 2.0.1 is released, so a `~> 2.0` bump on the next boot covers it.
-  Re-adding bootboot is itself cheap: Phase 7 removed the Gemfile wiring but never
-  uninstalled the plugin from `.bundle/plugin/`, so it is a revert of the `984bfb773`
-  Gemfile hunk plus a `Gemfile_next.lock`. Adding it *without* a diverging gem was
-  considered and rejected — a next lock that duplicates the primary is exactly the inert
-  state Phase 1 diagnosed, and it costs a second resolution on every `bundle install`
-  plus a lockfile that rots at the next gem bump. If the goal is only early warning
-  rather than local dual-boot, a non-blocking nightly job on a separate `BUNDLE_GEMFILE`
-  is lighter than bootboot, but it is blocked on the same two forks.
+  If the goal were only early warning rather than local dual-boot, a non-blocking
+  nightly job on a separate `BUNDLE_GEMFILE` would be lighter than bootboot — but it is
+  blocked on the same two forks, so the tool choice is not what is holding this up.
+  **Revisit trigger:** `rgeo-activerecord` releasing ActiveRecord 8.2 support. Until
+  then there is no schedule pressure either — 8.2 is unreleased, `main` is `.alpha`.
 - **Deferred major gem bumps**, each deserving its own PR: `shoulda-matchers` 5→8,
   `rubyzip` 2→3, `phony` 2→3, `statesman` 11→13, `sentry-*` 5→6, `redis` 5→6,
   `strong_migrations` 1→2, `openssl` 3→4, `holidays` 8→11, `mixpanel-ruby` 2→3,
@@ -900,6 +897,46 @@ Done, each verified rather than assumed:
 4. Revisit `sass-rails` → `sassc-rails` (deprecated upstream); consider `dartsass-rails`
    or moving remaining SCSS fully into shakapacker.
 5. Restore `config.active_support.deprecation` in `config/environments/test.rb`.
+
+### Phase 8 — bootboot restored to a working, unpointed state (2026-09-10)
+
+Reverses the Phase 7 bootboot removal, on purpose. Phase 7 removed bootboot from this
+branch on the reasoning that the harness had served its purpose — but that reasoning
+missed the state of `main`, which **still carries bootboot in its original broken
+configuration**: `plugin 'bootboot'` plus a `gemn` keyed on `ENV['NEXT']`, no
+`Plugin.send(:load_plugin, ...)`, no `enable_dual_booting`, and a committed
+`Gemfile_next.lock` that had already rotted to rails 7.2.3.1 against a 7.2.3.2 primary.
+Merging this branch as-is would have silently deleted bootboot and that stale lock from
+`main`. Restoring the *fixed* wiring instead leaves `main` better off than either
+removing it or keeping what is there.
+
+What is in the `Gemfile` now: the four pieces from Phase 1 (`plugin`, the explicit
+`load_plugin`, `enable_dual_booting` guarded on `DEPENDENCIES_NEXT`, and the corrected
+`gemn`), with a header comment explaining why all four must stay even with zero `gemn`
+callers — stripping any one of them is how `main` got into its current state.
+
+**`Gemfile_next.lock` is deliberately absent.** bootboot's `after-install-all` hook
+bails when the file does not exist, so the harness costs a normal `bundle install`
+nothing and cannot rot. Committing a duplicate of the primary lock would reproduce
+exactly what `main` demonstrates: a next lock nobody regenerates, drifting quietly
+behind. Starting a dual boot is one `gemn` line, `cp Gemfile.lock Gemfile_next.lock`,
+then `bundle install`.
+
+Verified rather than assumed, since "installed but inert" is the failure mode this is
+guarding against — temporarily declaring `gemn 'data_migrate', '>= 10.0', next_version:
+'~> 11.2.0'` and running `DEPENDENCIES_NEXT=1 bundle install`:
+
+- the next boot took the next branch (`Installing data_migrate 11.2.0 (was 11.3.0)`);
+- `Gemfile_next.lock` diverged in exactly two lines, the resolved version and the
+  `DEPENDENCIES` constraint;
+- `Gemfile.lock` came out byte-identical (md5 unchanged), so the primary boot is
+  untouched by a next-boot install;
+- after reverting, a plain `bundle install` did **not** resurrect `Gemfile_next.lock`.
+
+The harness is not pointed at Rails edge. Rationale in the 8.2 bullet under Phase 7's
+"Deliberately still open" — in short, the PostGIS pair caps ActiveRecord below 8.2 on
+their upstream default branches, so an edge boot requires two indefinitely-maintained
+forks, and 8.2 is not released.
 
 ## Rollback
 
