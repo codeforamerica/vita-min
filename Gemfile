@@ -3,6 +3,45 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 ruby ruby_version
 
+# Dual-boot harness. Nothing diverges between the two boots right now: there is no
+# Gemfile_next.lock, and bootboot's after-install-all hook bails when that file is
+# absent, so this costs a normal `bundle install` nothing. To start a dual boot --
+# a framework upgrade, or a major gem bump you want to test in isolation -- add one
+# `gemn` line below, `cp Gemfile.lock Gemfile_next.lock`, then `bundle install`.
+#
+# Please leave the four pieces below in place even with no `gemn` callers. Removing
+# any one of them leaves a harness that looks installed and silently resolves the
+# next boot against the current versions; that was the state of this file for a long
+# time. See docs/2026-09-01-rails-8-upgrade-plan.md, Phase 1.
+plugin 'bootboot', '~> 0.2.2'
+
+# `plugin` above only declares/installs bootboot; it has to be loaded here for its
+# Bundler::Dsl patch (which defines `enable_dual_booting`) to exist while this Gemfile
+# is being evaluated.
+Plugin.send(:load_plugin, 'bootboot') if Plugin.installed?('bootboot')
+
+# Required for the "next" boot to read Gemfile_next.lock instead of Gemfile.lock.
+# bootboot patches Bundler::Definition only when this is called, so without it
+# `DEPENDENCIES_NEXT=1 bundle install` resolves the next Gemfile against the *primary*
+# lockfile and fails with a version conflict.
+enable_dual_booting if ENV['DEPENDENCIES_NEXT'] && Plugin.installed?('bootboot')
+
+# Declares a gem that differs between the primary boot and the bootboot "next" boot.
+#
+# The env var must match bootboot's own: it is `Bundler.settings["bootboot_env_prefix"]`
+# (default "DEPENDENCIES") + "_NEXT". Keying this on anything else -- e.g. plain `NEXT`
+# -- means bootboot regenerates Gemfile_next.lock without taking the next branch, and
+# the two lockfiles come out identical.
+# `versions` and `next_version` each accept one or more requirement strings, so a
+# multi-part constraint like ('~> 10.0', '>= 10.0.2') survives the round trip.
+def gemn(gem_name, *versions, next_version: nil, next_name: nil, **kwargs)
+  if next_version && ENV['DEPENDENCIES_NEXT']
+    gem(next_name || gem_name, *Array(next_version), **kwargs)
+  else
+    gem gem_name, *versions, **kwargs
+  end
+end
+
 gem 'rack', '>= 3.2.6'
 gem 'rails', '~> 8.1.3'
 gem 'puma', '>= 7.2.1'
