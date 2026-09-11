@@ -29,7 +29,6 @@ Rails.application.configure do
   }
   config.action_mailer.default_url_options = { host: 'demo.getyourrefund.org' }
   config.action_mailer.asset_host = config.gyr_url
-  config.hide_ctc = false
 
   Rails.application.default_url_options = config.action_mailer.default_url_options
   config.efile_environment = "test"

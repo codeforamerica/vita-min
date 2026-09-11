@@ -89,7 +89,6 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.i18n.available_locales = [:en, :es]
-  config.hide_ctc = false
   config.ctc_url = "http://ctc.test.localhost"
   config.statefile_url = "http://statefile.test.localhost"
   config.gyr_url = "http://test.localhost"
