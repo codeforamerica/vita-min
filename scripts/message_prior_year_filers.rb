@@ -12,6 +12,11 @@ BUCKET = ENV["BUCKET_NAME"] || EnvironmentCredentials['MSG_PYR_BUCKET']
 REGION = ENV["BUCKET_NAME_REGION"] || "us-east-1"
 PREFIX = "info"
 
+if ENV["INTERCOM_ACCESS_TOKEN"].present?
+  intercom_access_token = ENV["INTERCOM_ACCESS_TOKEN"]
+  IntercomService.define_singleton_method(:intercom) { @intercom ||= Intercom::Client.new(token: intercom_access_token) }
+end
+
 ActiveRecord::Base.logger = nil
 Rails.logger = Logger.new(IO::NULL)
 
@@ -157,7 +162,7 @@ def build_xlsx(path, client, matches)
     end
   end
 
-  workbook.add_worksheet(name: "Communications") do |sheet|
+  workbook.add_worksheet(name: "Hub communications") do |sheet|
     messages = all_messages_for(client)
     if messages.any?
       sheet.add_row(%w[datetime type sender body])
@@ -167,6 +172,10 @@ def build_xlsx(path, client, matches)
     else
       sheet.add_row(["No communications on file"])
     end
+  end
+
+  workbook.add_worksheet(name: "Intercom conversations") do |sheet|
+    add_int_conversation_rows(sheet, int_conversation_entries_for(client))
   end
 
   workbook.add_worksheet(name: "How this client was found") do |sheet|
@@ -193,6 +202,98 @@ def download_client_documents(client, dir)
 
     File.open(safe_path_within(dir, filename), "wb") { |file| file.write(blob.download) }
   end
+end
+
+def strip_html(value)
+  return value unless value.is_a?(String)
+  value.gsub(/<[^>]+>/, " ").gsub(/\s+/, " ").strip
+end
+
+def int_identifier_matchers(client)
+  [
+    ["client_id", client.id.to_s, ->(value) { IntercomService.contact_from_client(client) }],
+    ["phone_number", client.phone_number, ->(value) { IntercomService.contact_from_sms(value) }],
+    ["sms_phone_number", client.sms_phone_number, ->(value) { IntercomService.contact_from_sms(value) }],
+    ["email_address", client.email_address, ->(value) { IntercomService.contact_from_email(value) }],
+  ]
+end
+
+def conversations_for_contact(contact_id)
+  conversations = IntercomService.intercom_api(:conversations, :search, {
+    sort_field: "created_at",
+    sort_order: "ascending",
+    query: {
+      field: "contact_ids",
+      operator: "IN",
+      value: [contact_id],
+    },
+  }).to_a
+
+  conversations = conversations.select { |conversation| conversation.created_at.year == Time.current.year }
+
+  conversations.map { |conversation| IntercomService.intercom_api(:conversations, :find, { id: conversation.id }) }
+end
+
+def add_int_conversation_rows(sheet, conversation_entries)
+  if conversation_entries.empty?
+    sheet.add_row(["No Intercom conversations found"])
+    return
+  end
+
+  sheet.add_row(%w[matched_via conversation_id datetime author_type author_name author_email body])
+
+  conversation_entries.each do |entry|
+    conversation = entry[:conversation]
+    matched_via = entry[:matched_via].join("; ")
+
+    source = conversation.try(:source)
+    author = source&.try(:author)
+    sheet.add_row([
+      matched_via,
+      conversation.id,
+      source&.try(:created_at) || conversation.created_at,
+      author&.try(:type),
+      excel_safe(author&.try(:name)),
+      author&.try(:email),
+      excel_safe(strip_html(source&.try(:body))),
+    ])
+
+    (conversation.try(:conversation_parts) || []).each do |part|
+      next if part.try(:body).blank?
+
+      part_author = part.try(:author)
+      sheet.add_row([
+        matched_via,
+        conversation.id,
+        part.created_at,
+        part_author&.try(:type),
+        excel_safe(part_author&.try(:name)),
+        part_author&.try(:email),
+        excel_safe(strip_html(part.body)),
+      ])
+    end
+  end
+end
+
+def int_conversation_entries_for(client)
+  conversations_by_id = {}
+
+  int_identifier_matchers(client).each do |label, value, lookup|
+    next if value.blank?
+
+    contact = lookup.call(value)
+    next unless contact
+
+    conversations = conversations_for_contact(contact.id)
+    warn "  matched client #{client.id} to int contact #{contact.id} via #{label} (#{conversations.size} conversation(s))"
+
+    conversations.each do |conversation|
+      entry = conversations_by_id[conversation.id] ||= { conversation: conversation, matched_via: [] }
+      entry[:matched_via] << label unless entry[:matched_via].include?(label)
+    end
+  end
+
+  conversations_by_id.values
 end
 
 def upload_directory(s3_client, dir, client_id)
