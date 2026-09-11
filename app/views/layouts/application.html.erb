@@ -117,8 +117,6 @@
           <%= yield :footer %>
         <% elsif state_file? %>
           <%= render 'state_file/state_file_pages/footer' %>
-        <% elsif ctc? %>
-          <%= render 'ctc/footer' %>
         <% else %>
           <%= render 'shared/footer' %>
         <% end %>
