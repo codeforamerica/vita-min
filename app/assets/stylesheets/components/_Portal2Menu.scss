@@ -83,7 +83,7 @@ $portal2-menu-bg: $color-clarity-white;
     margin: 0 2rem;
   }
 
-  &__link {
+  &__item &__link {
     display: block;
     padding: 2rem 0;
     text-align: center;
@@ -91,12 +91,14 @@ $portal2-menu-bg: $color-clarity-white;
     font-weight: 700;
     color: $color-black;
     text-decoration: none;
+    border-bottom: 0;
     &:hover,
     &:focus,
     &:active,
     &:visited {
       color: $color-black;
       text-decoration: none;
+      border-bottom: 0;
     }
   }
 }
