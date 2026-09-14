@@ -1,9 +1,10 @@
+<% link_attributes = local_assigns[:link_attributes] || {} %>
 <% if documents.present? %>
   <% if documents.count == 1 %>
-    <%= render "document_link", url: portal_document_path(id: documents.first.id), text: label %>
+    <%= render "portal/portal/document_link", url: portal_document_path(id: documents.first.id), text: label, link_attributes: link_attributes %>
   <% else %>
     <% documents.each do |document| %>
-      <%= render "document_link", url: portal_document_path(id: document.id), text: t("portal.portal.home.document_link.view_document", display_name: document.display_name) %>
+      <%= render "portal/portal/document_link", url: portal_document_path(id: document.id), text: t("portal.portal.home.document_link.view_document", display_name: document.display_name), link_attributes: link_attributes %>
     <% end %>
   <% end %>
 <% end %>
