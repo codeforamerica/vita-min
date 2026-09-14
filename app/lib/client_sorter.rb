@@ -37,10 +37,9 @@ class ClientSorter
     clients = clients.where.not(flagged_at: nil) if @filters[:flagged].present?
 
     needs_intake_join = @filters[:language].present? || @filters[:used_navigator].present? ||
-      @filters[:search].present? || @filters[:ctc_client].present?
+      @filters[:search].present?
     clients = clients.joins(:intake) if needs_intake_join
 
-    clients = clients.where("intakes.type = 'Intake::CtcIntake'") if @filters[:ctc_client].present?
     clients = clients.where("intakes.locale = :lang OR intakes.preferred_interview_language = :lang", lang: @filters[:language]) if @filters[:language].present?
     clients = clients.where("intakes.with_general_navigator = true OR intakes.with_incarcerated_navigator = true OR intakes.with_limited_english_navigator = true OR intakes.with_unhoused_navigator = true") if @filters[:used_navigator].present?
     clients = clients.merge(Intake.search(@filters[:search])) if @filters[:search].present?
@@ -117,7 +116,6 @@ class ClientSorter
       service_type: source[:service_type],
       greetable: source[:greetable],
       used_navigator: source[:used_navigator],
-      ctc_client: source[:ctc_client],
       last_contact: source[:last_contact],
       active_returns: source[:active_returns],
     }
@@ -138,7 +136,6 @@ class ClientSorter
       :service_type,
       :greetable,
       :used_navigator,
-      :ctc_client,
       :last_contact,
       :active_returns,
     ]

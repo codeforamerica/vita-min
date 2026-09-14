@@ -429,7 +429,6 @@ es:
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
     ctc: GetCTC
-    ctc_client: cliente de CTC
     date_of_birth: Fecha de nacimiento
     day: Día
     days:
@@ -961,9 +960,7 @@ es:
         send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
       fields:
         blind: Estaba ciego
-        ctc_spouse_contact_info: Información del cónyuge, si es casado presentando conjunta
         filing_status: Estado civil para efectos de la declaración
-        has_crypto_income: Recibió, vendió, intercambió o dispuso de otro modo de cualquier interés financiero en cualquier moneda virtual
         identity_verification:
           title: Verificación de identidad
         legal_first_name: Primer nombre legal
@@ -980,7 +977,6 @@ es:
         payment_information: Información de pago
         photo_id:
           drivers_license: Licencia de conducción
-          error: Seleccione al menos un tipo de identificación con foto
           other_state: Identificación de otro estado
           passport: Pasaporte Estadounidense
           title: Tipo de identificación con foto utilizada
@@ -1004,9 +1000,7 @@ es:
           online: En línea
         spouse_contact_info: Información de contacto de su cónyuge
         state_of_residence: Estado de residencia
-        suffix: Sufijo
         taxpayer_id:
-          error: Please select at least one taxpayer ID type
           itin: carta del Número de Identificación Personal (ITIN)
           social_security: Tarjeta de seguro Social
           title: Tipo de identificación contribuyente usado
@@ -1089,13 +1083,6 @@ es:
         title: Editar Coalición
       new:
         title: Crear Coalición
-    ctc_clients:
-      edit:
-        title: Editar perfil de cliente de CTC
-      new:
-        assign_to_label: Asignado a
-        save_and_add: Guardar y agregar otro
-        title: Agregar un nuevo cliente
     dashboard:
       show:
         action_required:
@@ -5001,7 +4988,6 @@ es:
         survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
-    alpha: Sólo se aceptan las letras A-Z y a-z.
     alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, ingrese un número de identificación fiscal válido de adopción.
     ctds_code: El código escolar/CTDS debe ser un número de 9 dígitos.
@@ -5254,9 +5240,6 @@ es:
         meta:
           description: Maximice su reembolso presentando su declaración de impuestos con la ayuda de nuestros voluntarios de confianza. ¡Puede hacerlo en línea o en persona!
         skip_content: Ir al contenido principal
-      ctc:
-        meta:
-          description: Dinero en efectivo en el bolsillo de su familia para las cosas que necesita.
       document_upload:
         accepted_file_types: Los tipos aceptados incluyen %{accepted_types}
         dont_have: No lo tengo ahora

@@ -333,8 +333,6 @@ Rails.application.routes.draw do
             post "update_take_action"
           end
         end
-        resources :ctc_clients, only: [:edit, :update]
-
         resources :dashboard, only: [:index] do
           get "/:type/:id", to: "dashboard#show", on: :collection, as: :show
           get "/:type/:id/returns-by-status", to: "dashboard#returns_by_status", on: :collection, as: :returns_by_status

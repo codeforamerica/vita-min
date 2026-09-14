@@ -111,11 +111,6 @@
       <%= t("general.used_navigator") %>
     </label>
 
-    <label class="checkbox--gyr">
-      <%= check_box_tag :ctc_client, true, filters[:ctc_client] %>
-      <%= t("general.ctc_client") %>
-    </label>
-
     <% if current_user.admin? %>
       <label class="checkbox--gyr">
         <%= check_box_tag :greetable, true, filters[:greetable] %>
