@@ -1473,57 +1473,7 @@ en:
         body: We are closing GetYourRefund for the tax season on %{end_of_in_progress_intake_date}. We will need all required documentation by %{end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by %{end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
         subject: GetYourRefund closing soon -- take action now if you need tax services
       sms: We are closing GetYourRefund for the tax season on %{end_of_in_progress_intake_date}. We will need all required documentation by %{end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by %{end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
-    contact_info_change:
-      email:
-        body: |
-          Your email address has been changed on your GetCTC account.
-
-          If you think that your contact information may have been changed incorrectly, contact support@getctc.org
-
-          We’re here to help!
-          Your tax team at GetCTC.org
-        subject: Your contact information on GetCTC
-      sms: |
-        Your phone number has been changed on your GetCTC account.
-
-        If you think that your contact information may have been changed incorrectly, contact support@getctc.org
-
-        We’re here to help!
-        Your tax team at GetCTC.org
-    ctc_getting_started:
-      email:
-        body: |
-          Hello <<Client.PreferredName>>,
-
-          Thanks for starting your tax return with GetCTC. We can only submit your information to the IRS once you complete the form.
-
-          You can sign in to complete the form and check your status here: <<Client.LoginLink>> You can use your Client ID <<Client.ClientId>> to log in or, if you’ve provided it to us, the last four digits of your SSN/ITIN.
-
-          We’re here to help!
-          Your Tax Team at GetCTC.org
-        subject: GetCTC Sign Up
-      sms: |
-        Hello <<Client.PreferredName>>,
-        Thanks for starting your tax return with GetCTC! Your Client ID is <<Client.ClientId>> Check your progress with your Client ID or last four digits of your SSN/ITIN: <<Client.LoginLink>>
-        We’re here to help!
     default_subject_with_service_name: Update from %{service_name}
-    fraud_hold:
-      email:
-        body: |
-          Hello <<Client.PreferredName>>,
-
-          Your submission requires additional review. To get your review started, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
-
-          Best,
-          The GetCTC.org Team
-        subject: Your submission is on hold for now
-      sms: |
-        Hello <<Client.PreferredName>>,
-
-        Your submission requires additional review. To get your review started, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
-
-        Best,
-        The GetCTC.org Team
     in_progress:
       email:
         body: |
@@ -1568,20 +1518,6 @@ en:
         Hi <<Client.PreferredName>>,
         It looks like you stepped away before finishing our application. Our preparers at <<Client.AssignedOrganization>> look forward to working with you! To complete our form, simply login here: <<Client.LoginLink>>
         Thanks!
-    save_ctc_letter:
-      email:
-        body: |
-          Hello,
-
-          You will receive what’s called a 6419 Letter from the IRS in January 2022. This letter will help you and your tax preparer correctly claim your Child Tax Credit for you and your family. The letter will be have 6419 printed on it and will include information about the Child Tax Credit payments that you received in 2021.
-
-          Please save this letter for when you file your taxes. Whether you file with %{service_name} or any other service, this will help you collect any missing payments and receive any refund due without delay.
-
-          Happy New Year,
-
-          Your tax team at %{service_name}
-        subject: Important information for claiming Child Tax Credit Payments
-      sms: Hello from your tax team - If you received Child Tax Credit payments in 2021, you will receive a 6419 Letter from the IRS in January 2022. Please save this letter for when you file your taxes to collect any missing payments and avoid a delay in processing your refund.
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     state_file:
       accepted_owe:
@@ -2039,15 +1975,6 @@ en:
         subject: Replies not monitored
       sms:
         body: Replies not monitored. Write %{support_email} for assistance.
-    verification_attempt_denied:
-      email:
-        body: |
-          Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
-          If you have questions or would like more information about this decision, please contact hello@getctc.org.
-        subject: Your identity verification case has been closed
-      sms: |
-        Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
-        If you have questions or would like more information about this decision, please contact hello@getctc.org.
     verification_code_subject_with_service_name: Six-Digit Code from %{service_name}
     welcome:
       email:

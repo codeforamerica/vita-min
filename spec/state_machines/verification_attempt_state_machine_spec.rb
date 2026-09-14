@@ -91,15 +91,6 @@ describe VerificationAttemptStateMachine do
         expect(verification_attempt.client.identity_verification_denied_at).not_to be_nil
         expect(verification_attempt.client.identity_verified_at).to be_nil
       end
-
-      it "sends a message to the client" do
-        verification_attempt.transition_to(:denied)
-        expect(ClientMessagingService).to have_received(:send_system_message_to_all_opted_in_contact_methods).with(
-          client: verification_attempt.client,
-          locale: verification_attempt.client.intake.locale,
-          message: AutomatedMessage::VerificationAttemptDenied
-        )
-      end
     end
 
     context "request new photos" do

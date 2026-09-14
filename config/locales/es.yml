@@ -1473,45 +1473,7 @@ es:
         body: Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}. <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.
         subject: GetYourRefund cerrará próximamente -- actúe ahora si necesita services de preparación de impuestos.
       sms: Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}. <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.
-    contact_info_change:
-      email:
-        body: |
-          Su dirección de correo electrónico han sido modificados en su cuenta de GetCTC.
-
-          Si cree que su información de contacto pudo haber sido cambiada incorrectamente, por favor comuníquese con support@getctc.org
-
-          ¡Estamos aquí para ayudarle!
-          Su equipo de impuestos GetCTC.org
-        subject: Su información de contacto en GetCTC
-      sms: |
-        Su número de teléfono han sido modificados en su cuenta de GetCTC.
-
-        Si cree que su información de contacto pudo haber sido cambiada incorrectamente, por favor comuníquese con support@getctc.org
-
-        ¡Estamos aquí para ayudarle!
-        Su equipo de impuestos GetCTC.org
-    ctc_getting_started:
-      email:
-        body: |
-          Hola <<Client.PreferredName>>,
-
-          Gracias por comenzar su declaración de impuestos con GetCTC. Solo podemos enviar su información al IRS cuando llenas el formulario
-
-          Puede iniciar sesión para completar el formulario y verificar su estado aquí: <<Client.LoginLink>> Puede usar su ID de cliente <<Client.ClientId>> para iniciar sesión o, si nos lo ha proporcionado, el último cuatro dígitos de su SSN/ITIN.
-
-          ¡Estamos aquí para ayudar!
-          Su equipo de impuestos en GetCTC.org
-        subject: Inscripción para GetCTC
-      sms: |
-        Hola <<Client.PreferredName>>,
-        ¡Gracias por comenzar su declaración de impuestos con GetCTC! Su ID de cliente es <<Client.ClientId>> Verifique su progreso con su ID de cliente o los últimos cuatro dígitos de su SSN/ITIN: <<Client.LoginLink>>
-        ¡Estamos aquí para ayudar!
     default_subject_with_service_name: Actualización de %{service_name}
-    fraud_hold:
-      email:
-        body: "Hola <<Client.PreferredName>>,\n\nSu entrega requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
-        subject: La información ha enviado está en espera por ahora
-      sms: "Hola <<Client.PreferredName>>,\n\nLa información que ha enviado requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
     in_progress:
       email:
         body: |
@@ -1557,20 +1519,6 @@ es:
         Hola <<Client.PreferredName>>,
         Parece que no a terminado nuestra aplicación. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperamos trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
         ¡Gracias!
-    save_ctc_letter:
-      email:
-        body: |
-          Hola,
-
-          Recibirá lo que llaman la carta 6419 del IRS en enero de 2022. Esta carta le ayudará a usted y su preparador de impuestos a reclamar su Crédito Tributario por Hijos correctamente para usted y su familia. La carta tendrá 6419 impreso e incluirá información sobre los pagos del Crédito Tributario por Hijos que recibió en 2021.
-
-          Favor de guardar esta carta para cuando presente sus impuestos. Ya sea que presente su declaración con %{service_name} o cualquier otro servicio, esta le ayudará a cobrar cualquier pago restante y recibirá cualquier reembolso que se le deba, sin demora.
-
-          Feliz Año Nuevo,
-
-          Su equipo de impuestos de %{service_name}
-        subject: Información importante para reclamar los pagos del Crédito Tributario por Hijos
-      sms: Saludos de su equipo de impuestos - Si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá la carta 6419 del IRS en enero de 2022. Favor de guardar esta carta para cuando presente sus impuestos para cobrar cualquier pago restante y evitar demoras en el procesamiento de su reembolso.
     sms_opt_in: Bienvenido a los mensajes de GetYourRefund. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     state_file:
       accepted_owe:
@@ -2011,15 +1959,6 @@ es:
         subject: Estas respuestas no se supervisan
       sms:
         body: Estas respuestas no se supervisan. Escriba a %{support_email} para obtener ayuda.
-    verification_attempt_denied:
-      email:
-        body: |
-          Su caso de verificación de identidad se ha cerrado, y estamos negando el envío de esta declaración de impuestos al IRS.
-          Si tiene preguntas o desea más información sobre esta decisión, favor de comunicarse con hello@getctc.org.
-        subject: Su caso de verificación de identidad se ha cerrado
-      sms: |
-        Su caso de verificación de identidad se ha cerrado, y estamos negando el envío de esta declaración de impuestos al IRS.
-        Si tiene preguntas o desea más información sobre esta decisión, favor de comunicarse con hello@getctc.org.
     verification_code_subject_with_service_name: Código de seis dígitos de %{service_name}
     welcome:
       email:
