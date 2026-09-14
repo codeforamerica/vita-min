@@ -185,7 +185,7 @@ module ApplicationHelper
   end
 
   def gyr?
-    !hub? && !state_file? && !ctc?
+    !hub? && !state_file?
   end
 
   def body_class_list

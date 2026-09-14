@@ -86,8 +86,6 @@
 
           <% if content_for :header %>
             <%= yield :header %>
-          <% elsif ctc? %>
-            <%= render 'shared/header', variation: "ctc", home_link: nil %>
           <% elsif hub? %>
             <%= render 'shared/hub_header' %>
           <% elsif state_file? %>
