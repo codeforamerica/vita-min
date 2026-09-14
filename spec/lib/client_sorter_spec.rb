@@ -236,6 +236,53 @@ RSpec.describe ClientSorter do
     end
   end
 
+  describe "the active returns filter" do
+    let(:params) { {} }
+
+    context "when the page defaults it on" do
+      let(:cookie_filters) { {} }
+      let(:subject) { described_class.new(Client.all, user, params, cookie_filters, true, default_active_returns: true) }
+
+      it "is on when neither the params nor the cookie mention it" do
+        expect(subject.filters[:active_returns]).to eq true
+      end
+
+      context "when the user unchecks the box" do
+        let(:params) { { active_returns: "false" } }
+
+        it "is off" do
+          expect(subject.filters[:active_returns]).to eq false
+        end
+
+        it "stays in active_filters so the opt-out gets saved to the cookie" do
+          expect(subject.active_filters[:active_returns]).to eq false
+        end
+      end
+
+      context "when the cookie remembers the opt-out" do
+        let(:cookie_filters) { HashWithIndifferentAccess.new(active_returns: false) }
+
+        it "stays off" do
+          expect(subject.filters[:active_returns]).to eq false
+        end
+      end
+    end
+
+    context "when the page does not default it on" do
+      it "is off" do
+        expect(subject.filters[:active_returns]).to eq false
+      end
+
+      context "when the user checks the box" do
+        let(:params) { { active_returns: "true" } }
+
+        it "is on" do
+          expect(subject.filters[:active_returns]).to eq true
+        end
+      end
+    end
+  end
+
   describe "#has_search_and_sort_params?" do
     context "when containing a sort or search param" do
       {
