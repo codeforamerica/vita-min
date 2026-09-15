@@ -3,7 +3,6 @@ require_relative "./shared_deployment_config"
 Rails.application.configure do
   config.active_storage.service = :s3_demo
 
-  config.ctc_url = "https://ctc.demo.getyourrefund.org"
   config.gyr_url = "https://demo.getyourrefund.org"
   config.statefile_url = "https://demo.fileyourstatetaxes.org"
   config.simple_file_url = "https://staging.simplefile.getyourrefund.org"

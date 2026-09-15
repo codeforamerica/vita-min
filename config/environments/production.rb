@@ -7,7 +7,6 @@ Rails.application.configure do
 
   config.active_storage.service = :s3_prod
 
-  config.ctc_url = "https://www.getctc.org"
   config.gyr_url = "https://www.getyourrefund.org"
   config.statefile_url = "https://www.fileyourstatetaxes.org"
   config.simple_file_url = "https://simplefile.getyourrefund.org/"

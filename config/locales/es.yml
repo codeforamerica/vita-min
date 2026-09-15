@@ -5070,9 +5070,6 @@ es:
 
         Tu equipo de impuestos en %{service_name}.org
   verification_code_sms:
-    no_match_ctc: |
-      Alguien intentó iniciar una sesión en GetCTC con este número de teléfono. Si ya tiene una cuenta con GetCTC, puede intentar iniciar una sesión con su correo electrónico %{url}/portal/iniciar sesión.
-      O visite %{url}y haga clic en "Presentar su declaración simplificada ahora" para empezar.
     no_match_gyr: "Alguien intentó iniciar una sesión en GetYourRefund con este número de teléfono, pero no pudimos verificar sus credenciales. Se registró con un número de teléfono diferente? \nTambién puede visitar %{url}para empezar.\n"
     with_code: 'Tu código de %{service_name} verificación de 6 dígitos es: %{verification_code}. Este código expirará después de 10 minutos.'
   views:

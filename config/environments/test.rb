@@ -89,7 +89,6 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.i18n.available_locales = [:en, :es]
-  config.ctc_url = "http://ctc.test.localhost"
   config.statefile_url = "http://statefile.test.localhost"
   config.gyr_url = "http://test.localhost"
   config.simple_file_url = "https://staging.simplefile.getyourrefund.org/"
