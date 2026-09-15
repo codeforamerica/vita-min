@@ -213,4 +213,48 @@ RSpec.describe OutgoingTextMessage, type: :model do
       end
     end
   end
+
+  describe "clearing the client's response-needed flag after a bulk message is delivered" do
+    let(:client) { create :client, flagged_at: 1.day.ago }
+    let(:bulk_client_message) { create :bulk_client_message }
+    let!(:outgoing_text_message) { create :outgoing_text_message, client: client, twilio_status: "queued" }
+
+    context "when the text message was part of a bulk message" do
+      before { bulk_client_message.outgoing_text_messages << outgoing_text_message }
+
+      it "clears the flag once Twilio confirms delivery" do
+        expect {
+          outgoing_text_message.update_status_if_further("delivered")
+        }.to change { client.reload.flagged_at }.to(nil)
+      end
+
+      it "leaves the flag up when the text message fails to send" do
+        expect {
+          outgoing_text_message.update_status_if_further("undelivered")
+        }.not_to change { client.reload.flagged_at }
+      end
+
+      it "leaves the flag up while the text message is still in progress" do
+        expect {
+          outgoing_text_message.update!(body: "a new body")
+        }.not_to change { client.reload.flagged_at }
+      end
+
+      it "leaves up a flag the client raised after the message was sent" do
+        client.update!(flagged_at: outgoing_text_message.created_at + 1.hour)
+
+        expect {
+          outgoing_text_message.update_status_if_further("delivered")
+        }.not_to change { client.reload.flagged_at }
+      end
+    end
+
+    context "when the text message was not part of a bulk message" do
+      it "leaves the flag up" do
+        expect {
+          outgoing_text_message.update_status_if_further("delivered")
+        }.not_to change { client.reload.flagged_at }
+      end
+    end
+  end
 end

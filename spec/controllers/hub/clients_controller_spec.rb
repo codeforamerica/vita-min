@@ -794,6 +794,52 @@ RSpec.describe Hub::ClientsController do
             get :index, params: { active_returns: "true" }
             expect(assigns(:clients)).to eq [in_progress_client, reviewing_client]
           end
+
+          it "is on by default for non-admin users" do
+            get :index
+            expect(assigns(:clients)).to eq [in_progress_client, reviewing_client]
+          end
+
+          it "can be turned off to see all returns" do
+            get :index, params: { active_returns: "false" }
+            expect(assigns(:clients)).to include(accepted_client)
+          end
+
+          it "remembers that it was turned off" do
+            get :index, params: { active_returns: "false" }
+            expect(JSON.parse(cookies["all_clients_filters"])["active_returns"]).to eq false
+
+            get :index
+            expect(assigns(:clients)).to include(accepted_client)
+          end
+
+          context "as an admin" do
+            before { sign_in create(:admin_user) }
+
+            it "is off by default" do
+              get :index
+              expect(assigns(:clients)).to include(accepted_client)
+            end
+          end
+
+          context "rendering the checkbox" do
+            render_views
+
+            it "is checked by default and sends a value when the user unchecks it" do
+              get :index
+
+              html = Nokogiri::HTML.parse(response.body)
+              expect(html.at_css("input[type=checkbox][name=active_returns]")["checked"]).to be_present
+              expect(html.at_css("input[type=hidden][name=active_returns]")["value"]).to eq "false"
+            end
+
+            it "is unchecked once the user has turned it off" do
+              get :index, params: { active_returns: "false" }
+
+              html = Nokogiri::HTML.parse(response.body)
+              expect(html.at_css("input[type=checkbox][name=active_returns]")["checked"]).to be_nil
+            end
+          end
         end
       end
 
@@ -2715,7 +2761,8 @@ RSpec.describe Hub::ClientsController do
           it "should have clients assigned when there is a #{return_status} return" do
             create(:client, **good_client_params)
 
-            get :index
+            # #{return_status} is not an active status, so opt out of the default "active returns only" filter
+            get :index, params: { active_returns: "false" }
             expect(assigns(:clients)).not_to be_empty
           end
 

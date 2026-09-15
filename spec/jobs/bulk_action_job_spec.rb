@@ -99,6 +99,35 @@ describe BulkActionJob do
           expect(bulk_client_message.outgoing_text_messages.count).to eq(1)
         end
 
+        context "when the client is flagged as needing a response" do
+          before { selected_client.update!(flagged_at: 1.day.ago) }
+
+          let(:bulk_client_message) do
+            described_class.perform_now(
+              task: :any_task,
+              user: user,
+              tax_return_selection: tax_return_selection,
+              form_params: params
+            )
+            BulkClientMessage.last
+          end
+
+          it "clears the flag once the message is delivered" do
+            expect(selected_client.reload).to be_flagged
+
+            bulk_client_message.outgoing_emails.each { |email| email.update!(mailgun_status: "delivered") }
+
+            expect(selected_client.reload).not_to be_flagged
+          end
+
+          it "leaves the flag up when every message errors for the client" do
+            bulk_client_message.outgoing_emails.each { |email| email.update!(mailgun_status: "permanent_fail") }
+            bulk_client_message.outgoing_text_messages.each { |text| text.update_status_if_further("undelivered") }
+
+            expect(selected_client.reload).to be_flagged
+          end
+        end
+
         context "when the intake locale is nil" do
           let(:locale) { nil }
 

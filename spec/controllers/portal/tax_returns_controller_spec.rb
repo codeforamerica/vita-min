@@ -476,4 +476,58 @@ describe Portal::TaxReturnsController do
       end
     end
   end
+
+  describe "#decline_signature" do
+    let(:params) { { tax_return_id: tax_return.id } }
+    let(:tax_return) { create :gyr_tax_return, :ready_to_sign, :with_final_tax_doc }
+
+    it_behaves_like :a_post_action_for_authenticated_clients_only, action: :decline_signature
+
+    context "when logged in but not the owner of the tax return" do
+      before { sign_in create(:client) }
+
+      it "shows a not found page" do
+        put :decline_signature, params: params
+
+        expect(response).to be_not_found
+      end
+    end
+
+    context "when logged in as a client who owns the tax return" do
+      before { sign_in tax_return.client }
+
+      context "when the return is not in signature requested" do
+        let(:tax_return) { create :gyr_tax_return, :review_reviewing }
+
+        it "redirects to the portal root without changing anything" do
+          put :decline_signature, params: params
+
+          expect(response).to redirect_to :portal_root
+          expect(tax_return.reload.current_state).to eq "review_reviewing"
+        end
+      end
+
+      context "when the return is in signature requested" do
+        it "declines the signature and redirects to the portal root with a confirmation" do
+          put :decline_signature, params: params
+
+          expect(tax_return.reload.current_state).to eq "review_ready_for_call"
+          expect(tax_return.client.reload.flagged?).to eq true
+          expect(flash[:notice]).to eq I18n.t("portal.tax_returns.decline_signature.confirmation")
+          expect(response).to redirect_to :portal_root
+        end
+      end
+
+      context "when the return is in signature requested but no documents have been uploaded" do
+        let(:tax_return) { create :gyr_tax_return, :review_signature_requested }
+
+        it "still lets the client decline" do
+          put :decline_signature, params: params
+
+          expect(tax_return.reload.current_state).to eq "review_ready_for_call"
+          expect(tax_return.client.reload.flagged?).to eq true
+        end
+      end
+    end
+  end
 end
