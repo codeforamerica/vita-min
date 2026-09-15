@@ -283,7 +283,7 @@ class FlowsController < ApplicationController
       sms_phone_number = PhoneParser.normalize(form_params[:sms_phone_number])
       email_address = form_params[:email_address]
       with_dependents = form_params[:with_dependents] == "1"
-
+      #Remove ctc after tables are deleted.
       intake_attributes = {
         type: Intake::GyrIntake.to_s,
         product_year: Rails.configuration.product_year,

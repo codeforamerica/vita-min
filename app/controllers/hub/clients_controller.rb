@@ -328,6 +328,7 @@ module Hub
         @client.intake.present? && @client.intake.product_year == Rails.configuration.product_year
       end
 
+      #Removed after we delete DB tables
       def required_documents_tooltip
         return nil if @intake.is_ctc?
 
@@ -338,7 +339,7 @@ module Hub
         end
         lines.join("\n")
       end
-
+      #Removed after we delete DB tables
       def hub_status_updatable
         editable? && !@client.online_ctc?
       end
