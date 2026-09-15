@@ -97,20 +97,20 @@ class StateFileNcIntake < StateFileBaseIntake
   include NcResidenceCountyConcern
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
-  enum primary_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_veteran
-  enum spouse_veteran: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_veteran
-  enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
-  enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
-  enum tribal_member: { unfilled: 0, yes: 1, no: 2 }, _prefix: :tribal_member
-  enum moved_after_hurricane_helene: { unfilled: 0, yes: 1, no: 2 }, _prefix: :moved_after_hurricane_helene
-  enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
-  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
-  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
-  enum eligibility_ed_loan_cancelled: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_cancelled
-  enum eligibility_ed_loan_emp_payment: { no: 0, yes: 1 }, _prefix: :eligibility_ed_loan_emp_payment
-  enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
-  enum out_of_country: { unfilled: 0, yes: 1, no: 2 }, _prefix: :out_of_country
-  enum paid_federal_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_federal_extension_payments
+  enum :primary_veteran, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_veteran
+  enum :spouse_veteran, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_veteran
+  enum :sales_use_tax_calculation_method, { unfilled: 0, automated: 1, manual: 2 }, prefix: :sales_use_tax_calculation_method
+  enum :untaxed_out_of_state_purchases, { unfilled: 0, yes: 1, no: 2 }, prefix: :untaxed_out_of_state_purchases
+  enum :tribal_member, { unfilled: 0, yes: 1, no: 2 }, prefix: :tribal_member
+  enum :moved_after_hurricane_helene, { unfilled: 0, yes: 1, no: 2 }, prefix: :moved_after_hurricane_helene
+  enum :eligibility_withdrew_529, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_withdrew_529
+  enum :eligibility_lived_in_state, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_lived_in_state
+  enum :eligibility_out_of_state_income, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_out_of_state_income
+  enum :eligibility_ed_loan_cancelled, { no: 0, yes: 1 }, prefix: :eligibility_ed_loan_cancelled
+  enum :eligibility_ed_loan_emp_payment, { no: 0, yes: 1 }, prefix: :eligibility_ed_loan_emp_payment
+  enum :paid_extension_payments, { unfilled: 0, yes: 1, no: 2 }, prefix: :paid_extension_payments
+  enum :out_of_country, { unfilled: 0, yes: 1, no: 2 }, prefix: :out_of_country
+  enum :paid_federal_extension_payments, { unfilled: 0, yes: 1, no: 2 }, prefix: :paid_federal_extension_payments
 
   attr_accessor :nc_eligiblity_none
   before_save :sanitize_county_details

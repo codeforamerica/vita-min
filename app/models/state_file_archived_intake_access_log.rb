@@ -18,7 +18,7 @@
 class StateFileArchivedIntakeAccessLog < ApplicationRecord
   belongs_to :state_file_archived_intake_request, optional: true
   belongs_to :state_file_archived_intake, optional: true
-  enum event_type: {
+  enum :event_type, {
     issued_email_challenge: 0, 
     correct_email_code: 1,
     incorrect_email_code: 2,
@@ -35,5 +35,5 @@ class StateFileArchivedIntakeAccessLog < ApplicationRecord
     pdf_download_link_expired: 13,
     unauthorized_ssn_attempt: 14,
     unauthorized_mailing_attempt: 15,
-  }, _prefix: :event_type
+  }, prefix: :event_type
 end

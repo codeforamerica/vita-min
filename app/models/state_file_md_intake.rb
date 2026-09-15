@@ -122,25 +122,25 @@ class StateFileMdIntake < StateFileBaseIntake
 
   encrypts :account_number, :routing_number, :raw_direct_file_data, :raw_direct_file_intake_data
 
-  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
-  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
-  enum eligibility_filing_status_mfj: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_filing_status_mfj
-  enum eligibility_homebuyer_withdrawal: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_homebuyer_withdrawal
-  enum eligibility_homebuyer_withdrawal_mfj: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_homebuyer_withdrawal_mfj
-  enum eligibility_home_different_areas: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_home_different_areas
-  enum confirmed_permanent_address: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_permanent_address
-  enum permanent_address_outside_md: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_md
-  enum had_hh_member_without_health_insurance: { unfilled: 0, yes: 1, no: 2, prefer_not_to_answer: 3 }, _prefix: :had_hh_member_without_health_insurance
-  enum authorize_sharing_of_health_insurance_info: { unfilled: 0, yes: 1, no: 2}, _prefix: :authorize_sharing_of_health_insurance_info
-  enum primary_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2}, _prefix: :primary_did_not_have_health_insurance
-  enum spouse_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2}, _prefix: :spouse_did_not_have_health_insurance
-  enum bank_authorization_confirmed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :bank_authorization_confirmed
-  enum has_joint_account_holder: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_joint_account_holder
-  enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
-  enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
-  enum primary_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_proof_of_disability_submitted
-  enum spouse_proof_of_disability_submitted: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_proof_of_disability_submitted
-  enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
+  enum :eligibility_lived_in_state, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_lived_in_state
+  enum :eligibility_out_of_state_income, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_out_of_state_income
+  enum :eligibility_filing_status_mfj, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_filing_status_mfj
+  enum :eligibility_homebuyer_withdrawal, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_homebuyer_withdrawal
+  enum :eligibility_homebuyer_withdrawal_mfj, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_homebuyer_withdrawal_mfj
+  enum :eligibility_home_different_areas, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_home_different_areas
+  enum :confirmed_permanent_address, { unfilled: 0, yes: 1, no: 2 }, prefix: :confirmed_permanent_address
+  enum :permanent_address_outside_md, { unfilled: 0, yes: 1, no: 2 }, prefix: :permanent_address_outside_md
+  enum :had_hh_member_without_health_insurance, { unfilled: 0, yes: 1, no: 2, prefer_not_to_answer: 3 }, prefix: :had_hh_member_without_health_insurance
+  enum :authorize_sharing_of_health_insurance_info, { unfilled: 0, yes: 1, no: 2}, prefix: :authorize_sharing_of_health_insurance_info
+  enum :primary_did_not_have_health_insurance, { unfilled: 0, yes: 1, no: 2}, prefix: :primary_did_not_have_health_insurance
+  enum :spouse_did_not_have_health_insurance, { unfilled: 0, yes: 1, no: 2}, prefix: :spouse_did_not_have_health_insurance
+  enum :bank_authorization_confirmed, { unfilled: 0, yes: 1, no: 2 }, prefix: :bank_authorization_confirmed
+  enum :has_joint_account_holder, { unfilled: 0, yes: 1, no: 2 }, prefix: :has_joint_account_holder
+  enum :primary_disabled, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_disabled
+  enum :spouse_disabled, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_disabled
+  enum :primary_proof_of_disability_submitted, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_proof_of_disability_submitted
+  enum :spouse_proof_of_disability_submitted, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_proof_of_disability_submitted
+  enum :paid_extension_payments, { unfilled: 0, yes: 1, no: 2 }, prefix: :paid_extension_payments
 
   def disqualifying_df_data_reason
     return unless raw_direct_file_data.present?
