@@ -52,7 +52,7 @@
     "webpack-dev-server": "^5.2.6"
   },
   "engines": {
-    "node": ">=12.16 <23.0.0"
+    "node": "24.x"
   },
   "scripts": {
     "test": "jest"
