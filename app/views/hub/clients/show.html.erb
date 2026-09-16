@@ -39,17 +39,10 @@
               <span class="form-question"><%= t("general.timezone") %>:</span>
               <span class="label-value"><%= displayed_timezone(@client.intake&.timezone) || t("general.NA") %></span>
             </div>
-            <% if @client.intake.is_ctc? %>
-              <div class="field-display">
-                <span class="form-question">Date of Birth:</span>
-                <span class="label-value"><%= default_date_format(@client.intake.primary.birth_date) %></span>
-              </div>
-            <% else %>
-              <div class="field-display">
-                <span class="form-question"><%= t("hub.clients.fields.state_of_residence") %>:</span>
-                <span class="label-value"><%= @client.intake.state_of_residence %></span>
-              </div>
-            <% end %>
+            <div class="field-display">
+              <span class="form-question"><%= t("hub.clients.fields.state_of_residence") %>:</span>
+              <span class="label-value"><%= @client.intake.state_of_residence %></span>
+            </div>
             <!-- SSN/ITIN hidden -->
             <div class="field-display primary-ssn">
               <span class="form-question">
@@ -61,18 +54,6 @@
                 <span class="label-value"><%= t("general.NA") %></span>
               <% end %>
             </div>
-            <% if @client.intake.is_ctc? %>
-              <div class="field-display primary-ip-pin">
-                <span class="form-question">
-                  <%= t("general.ip_pin") %>:
-                </span>
-                <% if @client.intake.primary_ip_pin.present? %>
-                  <%= render 'togglable_single_field', secret_name: :primary_ip_pin %>
-                <% else %>
-                  <span class="label-value"><%= t("general.NA") %></span>
-                <% end %>
-              </div>
-            <% end %>
             <div class="field-display">
               <span class="form-question"><%= t("hub.clients.fields.blind") %>:</span>
               <span class="label-value"><%= @client.intake.was_blind_yes? ? t("general.affirmative") : t("general.negative") %></span>
@@ -137,63 +118,6 @@
               </div>
             <% end %>
 
-            <% if @client.intake.is_ctc? %>
-              <div class="client-profile__field-group client-recovery-rebate-credit-amount">
-                <% if @client.intake.eip1_amount_received.present? && @client.intake.eip2_amount_received.present? %>
-                  <div class="field-display">
-                    <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_1") %>:</span>
-                    <span class="label-value">$<%= @client.intake.eip1_amount_received %> </span>
-                  </div>
-                  <div class="field-display">
-                    <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_2") %>:</span>
-                    <span class="label-value">$<%= @client.intake.eip2_amount_received %> </span>
-                  </div>
-                <% end %>
-                <% if !@client.archived? %>
-                  <div class="field-display">
-                    <span class="form-question"><%= t("hub.recovery_rebate_credit_amount.amount_3") %>:</span>
-                    <span class="label-value"><%= number_to_currency(@client.intake.eip3_amount_received) || "Unfilled" %> </span>
-                  </div>
-                <% end %>
-                <% if @client.intake.drop_off? %>
-                  <% if @client.intake.eip1_and_2_amount_received_confidence.present? %>
-                    <div class="field-display">
-                      <span class="form-question">Confidence:</span>
-                      <span class="label-value"><%= @client.intake.eip1_and_2_amount_received_confidence.try(:capitalize) %> </span>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <% tax_return = @client.intake.default_tax_return %>
-                  <% if tax_return && !@client.archived? %>
-                    <% benefits = Efile::BenefitsEligibility.new(tax_return: tax_return, dependents: @client.intake.dependents) %>
-                    <div class="field-display">
-                      <span class="form-question"> Outstanding RRC: </span>
-                      <span class="label-value"><%= number_to_currency(benefits.outstanding_recovery_rebate_credit) || "" %></span>
-                      <% status_color = if @client.intake.claim_owed_stimulus_money_yes? %>
-                        <% "green" %>
-                      <% elsif @client.intake.claim_owed_stimulus_money_no? %>
-                        <% "red" %>
-                      <% else %>
-                        <% "grey" %>
-                      <% end %>
-                      <span class="label-value client-profile__status-label client-profile__status-label__background--<%= status_color %>"><%= @client.intake.claim_owed_stimulus_money.capitalize %></span>
-                    </div>
-                    <div class="field-display">
-                      <span class="form-question">Outstanding CTC / Received:</span>
-                      <span class="label-value">$<%= benefits.outstanding_ctc_amount || 0 %></span>
-                      /
-                      <span class="label-value"><%= "$#{benefits.advance_ctc_amount_received}" if benefits.advance_ctc_amount_received %></span>
-                    </div>
-                    <% unless benefits.eitc_amount.nil? %>
-                      <div class="field-display">
-                        <span class="form-question">EITC:</span>
-                        <span class="label-value"><%= number_to_currency(benefits.eitc_amount) %></span>
-                      </div>
-                    <% end %>
-                  <% end %>
-                <% end %>
-              </div>
-            <% end %>
           </div>
         </div>
 
@@ -241,12 +165,6 @@
                 <span class="form-question"><%= t(".email") %>:</span>
                 <span class="label-value"><%= @client.intake.spouse_email_address %> </span>
               </div>
-              <% if @client.intake.is_ctc? %>
-                <div class="field-display">
-                  <span class="form-question">Date of Birth:</span>
-                  <span class="label-value"><%= default_date_format(@client.intake.spouse.birth_date) %></span>
-                </div>
-              <% end %>
               <div class="field-display spouse-ssn">
                 <span class="form-question">
                   <%= t("general.ssn_itin") %>:
@@ -257,18 +175,6 @@
                   <span class="label-value"><%= t("general.NA") %></span>
                 <% end %>
               </div>
-              <% if @client.intake.is_ctc? %>
-                <div class="field-display spouse-ip-pin">
-                  <span class="form-question">
-                    <%= t("general.ip_pin") %>:
-                  </span>
-                  <% if @client.intake.spouse_ip_pin.present? %>
-                    <%= render 'togglable_single_field', masked_value: "●●●●●●", secret_name: :spouse_ip_pin %>
-                  <% else %>
-                    <span class="label-value"><%= t("general.NA") %></span>
-                  <% end %>
-                </div>
-              <% end %>
               <div class="field-display">
                 <span class="form-question"><%= t("hub.clients.fields.blind") %>:</span>
                 <span class="label-value"><%= @client.intake.spouse_was_blind_yes? ? t("general.affirmative") : t("general.negative") %></span>
@@ -323,37 +229,7 @@
               <span class="form-question">Navigator type:</span>
               <span class="label-value"><%= @client.intake.navigator_display_names.present? ? @client.intake.navigator_display_names : t(".navigator_types_empty") %></span>
             </div>
-            <% if @client.intake.is_ctc? %>
-              <div class="field-display">
-                <span class="form-question">Navigator Name:</span>
-                <span class="label-value"><%= @client.intake.navigator_name || "N/A" %> </span>
-              </div>
-
-              <% if @client.intake.drop_off? %>
-                <div class="field-display">
-                  <span class="form-question">Photo ID Used:</span>
-                  <span class="label-value"><%= @client.intake.photo_id_display_names || "N/A" %></span>
-                </div>
-                <div class="field-display">
-                  <span class="form-question">Taxpayer ID Used:</span>
-                  <span class="label-value"><%= @client.intake.taxpayer_id_display_names || "N/A" %></span>
-                </div>
-              <% end %>
-            <% end %>
           </div>
-          <% if @client.intake.is_ctc? %>
-            <div class="client-profile__field-group">
-              <h2 class="text--bold">Prior Year AGI Amount</h2>
-              <div class="field-display">
-                <span class="form-question">Primary Prior Year (<%= ctc_prior_tax_year %>) AGI:</span>
-                <span class="label-value"><%= number_to_currency(@client.intake.primary_prior_year_agi_amount || 0) %></span>
-              </div>
-              <div class="field-display">
-                <span class="form-question">Spouse Prior Year (<%= ctc_prior_tax_year %>) AGI:</span>
-                <span class="label-value"><%= number_to_currency(@client.intake.spouse_prior_year_agi_amount || 0) %></span>
-              </div>
-            </div>
-          <% end %>
         </div>
       </div>
       <% if @client.editable? %>
