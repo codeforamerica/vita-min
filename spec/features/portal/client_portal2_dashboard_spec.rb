@@ -102,7 +102,7 @@ RSpec.feature 'client in the portal' do
       expect(page).to have_link 'Message tax team', href: new_portal_message_path
     end
 
-    xscenario 'with return status :prep_info_requested' do
+    scenario 'with return status :prep_info_requested' do
       client.tax_returns.last.transition_to!(:prep_info_requested)
       allow_any_instance_of(TaxReturnCardHelper).to receive(:contact_method_of_last_tax_team_message).
         with(client.intake).
@@ -147,17 +147,7 @@ RSpec.feature 'client in the portal' do
       expect(page).to have_link 'Message tax team', href: new_portal_message_path
     end
 
-    # TODO once GYR1-1085 is merged.
-    xscenario 'with return status :review_signature_requested' do
-      client.tax_returns.last.transition_to!(:review_signature_requested)
-      visit '/portal/portal2'
-
-      expect(page).to have_text 'Final check'
-      # expect(page).to have_text 'Your return is in final review.'
-      expect(page).to have_link 'Message tax team', href: new_portal_message_path
-    end
-
-    xscenario 'with return status :review_info_requested' do
+    scenario 'with return status :review_info_requested' do
       client.tax_returns.last.transition_to!(:review_info_requested)
       allow_any_instance_of(TaxReturnCardHelper).to receive(:contact_method_of_last_tax_team_message).
         with(client.intake).
