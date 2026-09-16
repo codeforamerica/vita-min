@@ -985,7 +985,6 @@ es:
         preferred_interview_language: Idioma preferido
         preferred_name: Nombre completo preferido
         primary_contact_info: Información de contacto
-        recovery_rebate_credit: Crédito de recuperación de reembolso (opcional)
         routing_methods:
           at_capacity: Estar a capacidad (no enrutado)
           hub_assignment: Grupo asignado o Hub
@@ -1221,14 +1220,6 @@ es:
           <p>Una vez que responda, intentaremos conectarlo con %{to_phone_number}.</p>
 
           <p>No es necesario que permanezca en esta página para continuar la llamada.</p>
-    recovery_rebate_credit_amount:
-      amount_1: Pago de impacto económico 1 recibió
-      amount_2: Pago de impacto económico 2 recibió
-      amount_3: EIP 3 recibido
-      confidence: "¿Qué tan confiado en esta cantidad?"
-      confidence_values:
-        sure: Seguro
-        unsure: Inseguro
     sites:
       new:
         title: Agregar sitio
