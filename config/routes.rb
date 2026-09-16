@@ -178,6 +178,7 @@ Rails.application.routes.draw do
           get '/show', to: 'tax_returns#show', as: :show
           get '/sign', to: 'tax_returns#authorize_signature', as: :authorize_signature
           put '/sign', to: 'tax_returns#sign', as: :sign
+          put '/decline-signature', to: 'tax_returns#decline_signature', as: :decline_signature
           get '/spouse-sign', to: 'tax_returns#spouse_authorize_signature', as: :spouse_authorize_signature
           put '/spouse-sign', to: 'tax_returns#spouse_sign', as: :spouse_sign
           get '/success', to: 'tax_returns#success', as: :success

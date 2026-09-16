@@ -138,4 +138,75 @@ describe TaxReturnCardHelper do
       end
     end
   end
+
+  describe "#tax_return_status_to_props_2" do
+    context "when the tax return is in review_signature_requested" do
+      let(:primary_signature_ready) { true }
+      let(:spouse_signature_ready) { false }
+      let(:has_final_tax_document) { true }
+      let(:tax_return) { instance_double(TaxReturn) }
+
+      before do
+        allow(tax_return).to receive(:current_state).and_return(:review_signature_requested)
+        allow(tax_return).to receive(:intake).and_return(Intake.new)
+        allow(tax_return).to receive(:id).and_return(42)
+        allow(tax_return).to receive(:ready_for_8879_signature?).with(TaxReturn::PRIMARY_SIGNATURE).and_return(primary_signature_ready)
+        allow(tax_return).to receive(:ready_for_8879_signature?).with(TaxReturn::SPOUSE_SIGNATURE).and_return(spouse_signature_ready)
+        allow(tax_return).to receive(:final_tax_documents).and_return(double(any?: has_final_tax_document))
+      end
+
+      context "when an unsigned 8879 and a final tax document are both present" do
+        it "returns the final check badge, notice copy, download link, and primary signature buttons" do
+          expect(helper.tax_return_status_to_props_2(tax_return)).to eq(
+            badge_text: I18n.t("portal.portal2.home.badge.final_check"),
+            help_text: I18n.t("portal.portal2.home.help_text.signature_requested_primary"),
+            call_to_action_title: I18n.t("portal.portal2.home.calls_to_action.signature_requested_title"),
+            call_to_action_text: I18n.t("portal.portal2.home.calls_to_action.signature_requested"),
+            button_type: :sign_return,
+            link: portal_tax_return_authorize_signature_path(tax_return_id: 42),
+            download_final_tax_documents: true,
+            return_status: :review_signature_requested
+          )
+        end
+      end
+
+      context "when the primary has signed a joint return and the spouse has not" do
+        let(:primary_signature_ready) { false }
+        let(:spouse_signature_ready) { true }
+
+        it "points at the spouse signature flow" do
+          expect(helper.tax_return_status_to_props_2(tax_return)).to include(
+            button_type: :sign_return,
+            link: portal_tax_return_spouse_authorize_signature_path(tax_return_id: 42),
+            help_text: I18n.t("portal.portal2.home.help_text.signature_requested_spouse")
+          )
+        end
+      end
+
+      context "when there is no unsigned 8879 to sign" do
+        let(:primary_signature_ready) { false }
+        let(:spouse_signature_ready) { false }
+
+        it "returns the view documents action" do
+          expect(helper.tax_return_status_to_props_2(tax_return)).to eq(
+            badge_text: I18n.t("portal.portal2.home.badge.final_check"),
+            help_text: I18n.t("portal.portal2.home.help_text.review"),
+            button_type: :view_documents,
+            return_status: :review_signature_requested
+          )
+        end
+      end
+
+      context "when the final tax document has not been uploaded" do
+        let(:has_final_tax_document) { false }
+
+        it "returns the view documents action" do
+          expect(helper.tax_return_status_to_props_2(tax_return)).to include(
+            button_type: :view_documents,
+            help_text: I18n.t("portal.portal2.home.help_text.review")
+          )
+        end
+      end
+    end
+  end
 end

@@ -228,6 +228,14 @@ class TaxReturn < ApplicationRecord
 
   def sign_spouse!(ip)  = sign!(:spouse, ip)
 
+  def decline_to_sign!
+    ActiveRecord::Base.transaction do
+      transition_to!(:review_ready_for_call)
+      SystemNote::ClientDeclinedSignature.generate!(tax_return: self)
+      client.flag!
+    end
+  end
+
   def under_submission_limit?
     efile_submissions.count < 20
   end

@@ -260,6 +260,11 @@ module Hub
       FILTER_COOKIE_NAME
     end
 
+    # Every role but admin lands on this tab filtered to active returns only.
+    def default_active_returns?
+      !current_user&.admin?
+    end
+
     def wrap_client_in_hub_presenter
       @client = HubClientPresenter.new(@client)
     end
