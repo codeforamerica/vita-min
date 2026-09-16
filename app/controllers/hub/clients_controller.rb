@@ -328,10 +328,7 @@ module Hub
         @client.intake.present? && @client.intake.product_year == Rails.configuration.product_year
       end
 
-      #Removed after we delete DB tables
       def required_documents_tooltip
-        return nil if @intake.is_ctc?
-
         lines = ["Total: #{@client.filterable_number_of_required_documents_uploaded} / #{@client.filterable_number_of_required_documents}"]
         lines << [""]
         @client.required_document_counts.select { |document_type, counts| counts[:required_count] > 0 }.map do |document_type, counts|
@@ -339,9 +336,8 @@ module Hub
         end
         lines.join("\n")
       end
-      #Removed after we delete DB tables
       def hub_status_updatable
-        editable? && !@client.online_ctc?
+        editable?
       end
 
       def requires_spouse_info?
