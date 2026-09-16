@@ -776,4 +776,10 @@ class Intake < ApplicationRecord
   has_one :intake_archive, foreign_key: :id, dependent: :destroy
 
   self.ignored_columns = ["primary_consented_to_service_at"] + archived_columns
+
+  def pseudo?
+    # This method is the pairing for PortalStatesController::PseudoTaxReturn#intake
+    # which gives a pseudo? of true.
+    false
+  end
 end
