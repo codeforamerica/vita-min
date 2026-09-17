@@ -43,19 +43,6 @@
           <% end %>
         </li>
 
-        <li>
-          <%= link_to new_user_session_path do %>
-            <%= t("views.shared.footer.volunteer_sign_in") %>
-          <% end %>
-        </li>
-
-
-        <li>
-          <%= link_to "https://www.getyourrefundstatus.org/" do %>
-            <%= t("views.shared.footer.service_status") %>
-          <% end %>
-        </li>
-
         <% unless Rails.env.production? %>
           <li><%= link_to "Flow explorer", flows_path %></li>
           <li><%= link_to "Session toggles", session_toggles_path, target: "_blank" %></li>
