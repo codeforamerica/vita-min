@@ -17,7 +17,7 @@
 #  index_outgoing_message_statuses_on_parent  (parent_type,parent_id)
 #
 class OutgoingMessageStatus < ApplicationRecord
-  enum message_type: { sms: 1, email: 2 }
+  enum :message_type, { sms: 1, email: 2 }
   belongs_to :parent, polymorphic: true
   validates :parent, presence: true
 

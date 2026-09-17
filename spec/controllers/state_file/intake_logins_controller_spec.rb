@@ -69,7 +69,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         let(:contact_info_params) do
           {
             email_address: "client@example.com",
-            sms_phone_number: nil
+            sms_phone_number: ""
           }
         end
 
@@ -95,7 +95,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         let(:contact_method) { :sms_phone_number }
         let(:contact_info_params) do
           {
-            email_address: nil,
+            email_address: "",
             sms_phone_number: " (510) 555 1234"
           }
         end
@@ -140,7 +140,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         let(:contact_method) { :email_address }
         let(:contact_info_params) do
           {
-            email_address: nil,
+            email_address: "",
             sms_phone_number: ""
           }
         end
@@ -159,7 +159,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
         let(:contact_info_params) do
           {
             email_address: "",
-            sms_phone_number: nil
+            sms_phone_number: ""
           }
         end
 

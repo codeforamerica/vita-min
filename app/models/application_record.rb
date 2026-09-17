@@ -6,18 +6,20 @@ class ApplicationRecord < ActiveRecord::Base
   # Allow counting up to a max number; see https://alexcastano.com/the-hidden-cost-of-the-invisible-queries-in-rails/#how-far-do-you-plan-to-count
   scope :count_greater_than?, ->(n) { limit(n + 1).count > n }
 
-  def self.enum(**enums)
+  # Matches ActiveRecord::Enum#enum, which takes the enum name positionally. The old
+  # `(**enums)` signature accepted the keyword form (`enum foo: {...}`) that Rails 8.0
+  # removed; the positional form used now is valid on both 7.2 and 8.0.
+  def self.enum(name, values = nil, **options)
     super
 
-    enums.each do |enum_name, _|
-      mapping = defined_enums[enum_name.to_s]
-      next if mapping.nil?
-      attribute(enum_name) do |subtype|
-        subtype = subtype.subtype if ActiveRecord::Enum::EnumType === subtype # rubocop:disable Style/CaseEquality
-        EnumTypeWithoutValidValueAssertion.new(enum_name, mapping, subtype)
-      end
+    mapping = defined_enums[name.to_s]
+    return if mapping.nil?
 
-      validates_inclusion_of enum_name, { in: mapping.keys + mapping.values, allow_blank: true }
+    attribute(name) do |subtype|
+      subtype = subtype.subtype if ActiveRecord::Enum::EnumType === subtype # rubocop:disable Style/CaseEquality
+      EnumTypeWithoutValidValueAssertion.new(name, mapping, subtype)
     end
+
+    validates_inclusion_of name, { in: mapping.keys + mapping.values, allow_blank: true }
   end
 end

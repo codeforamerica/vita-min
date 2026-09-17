@@ -60,26 +60,26 @@ module Archived
 
     auto_strip_attributes :ssn, :ip_pin, :first_name, :middle_initial, :last_name, virtual: true
 
-    enum was_student: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_student
-    enum on_visa: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :on_visa
-    enum north_american_resident: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :north_american_resident
-    enum disabled: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :disabled
-    enum was_married: { unfilled: 0, yes: 1, no: 2, unsure: 3 }, _prefix: :was_married
-    enum tin_type: { ssn: 0, atin: 1, itin: 2, none: 3, ssn_no_employment: 4 }, _prefix: :tin_type
-    enum has_ip_pin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_ip_pin
-    enum full_time_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :full_time_student
-    enum permanently_totally_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanently_totally_disabled
-    enum no_ssn_atin: { unfilled: 0, yes: 1, no: 2 }, _prefix: :no_ssn_atin
-    enum provided_over_half_own_support: { unfilled: 0, yes: 1, no: 2 }, _prefix: :provided_over_half_own_support
-    enum filed_joint_return: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_joint_return
-    enum lived_with_more_than_six_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :lived_with_more_than_six_months
-    enum cant_be_claimed_by_other: { unfilled: 0, yes: 1, no: 2 }, _prefix: :cant_be_claimed_by_other
-    enum born_in_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :born_in_2020
-    enum passed_away_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away_2020
-    enum placed_for_adoption: { unfilled: 0, yes: 1, no: 2 }, _prefix: :placed_for_adoption
-    enum permanent_residence_with_client: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_residence_with_client
-    enum claim_anyway: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_anyway
-    enum meets_misc_qualifying_relative_requirements: { unfilled: 0, yes: 1, no: 2 }, _prefix: :meets_misc_qualifying_relative_requirements
+    enum :was_student, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :was_student
+    enum :on_visa, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :on_visa
+    enum :north_american_resident, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :north_american_resident
+    enum :disabled, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :disabled
+    enum :was_married, { unfilled: 0, yes: 1, no: 2, unsure: 3 }, prefix: :was_married
+    enum :tin_type, { ssn: 0, atin: 1, itin: 2, none: 3, ssn_no_employment: 4 }, prefix: :tin_type
+    enum :has_ip_pin, { unfilled: 0, yes: 1, no: 2 }, prefix: :has_ip_pin
+    enum :full_time_student, { unfilled: 0, yes: 1, no: 2 }, prefix: :full_time_student
+    enum :permanently_totally_disabled, { unfilled: 0, yes: 1, no: 2 }, prefix: :permanently_totally_disabled
+    enum :no_ssn_atin, { unfilled: 0, yes: 1, no: 2 }, prefix: :no_ssn_atin
+    enum :provided_over_half_own_support, { unfilled: 0, yes: 1, no: 2 }, prefix: :provided_over_half_own_support
+    enum :filed_joint_return, { unfilled: 0, yes: 1, no: 2 }, prefix: :filed_joint_return
+    enum :lived_with_more_than_six_months, { unfilled: 0, yes: 1, no: 2 }, prefix: :lived_with_more_than_six_months
+    enum :cant_be_claimed_by_other, { unfilled: 0, yes: 1, no: 2 }, prefix: :cant_be_claimed_by_other
+    enum :born_in_2020, { unfilled: 0, yes: 1, no: 2 }, prefix: :born_in_2020
+    enum :passed_away_2020, { unfilled: 0, yes: 1, no: 2 }, prefix: :passed_away_2020
+    enum :placed_for_adoption, { unfilled: 0, yes: 1, no: 2 }, prefix: :placed_for_adoption
+    enum :permanent_residence_with_client, { unfilled: 0, yes: 1, no: 2 }, prefix: :permanent_residence_with_client
+    enum :claim_anyway, { unfilled: 0, yes: 1, no: 2 }, prefix: :claim_anyway
+    enum :meets_misc_qualifying_relative_requirements, { unfilled: 0, yes: 1, no: 2 }, prefix: :meets_misc_qualifying_relative_requirements
 
     before_destroy :remove_error_associations
 

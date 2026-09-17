@@ -24,7 +24,7 @@ class DocAssessmentFeedback < ApplicationRecord
   belongs_to :doc_assessment
   belongs_to :user
 
-  enum feedback: { unfilled: 0, correct: 1, incorrect: 2 }, _prefix: :feedback
+  enum :feedback, { unfilled: 0, correct: 1, incorrect: 2 }, prefix: :feedback
 
   validates :feedback, presence: true
 

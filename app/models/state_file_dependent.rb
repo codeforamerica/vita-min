@@ -69,19 +69,19 @@ class StateFileDependent < ApplicationRecord
 
   belongs_to :intake, polymorphic: true
   encrypts :ssn
-  enum needed_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :needed_assistance
-  enum passed_away: { unfilled: 0, yes: 1, no: 2 }, _prefix: :passed_away
-  enum eic_disability: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_disability
-  enum eic_student: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eic_student
-  enum id_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :id_has_grocery_credit_ineligible_months
-  enum md_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :md_did_not_have_health_insurance
+  enum :needed_assistance, { unfilled: 0, yes: 1, no: 2 }, prefix: :needed_assistance
+  enum :passed_away, { unfilled: 0, yes: 1, no: 2 }, prefix: :passed_away
+  enum :eic_disability, { unfilled: 0, yes: 1, no: 2 }, prefix: :eic_disability
+  enum :eic_student, { unfilled: 0, yes: 1, no: 2 }, prefix: :eic_student
+  enum :id_has_grocery_credit_ineligible_months, { unfilled: 0, yes: 1, no: 2 }, prefix: :id_has_grocery_credit_ineligible_months
+  enum :md_did_not_have_health_insurance, { unfilled: 0, yes: 1, no: 2 }, prefix: :md_did_not_have_health_insurance
 
   # checkboxes - "unfilled" means not-yet-seen because it saves as "no" when unchecked
-  enum nj_dependent_attends_accredited_program: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_attends_accredited_program
-  enum nj_dependent_enrolled_full_time: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_enrolled_full_time
-  enum nj_dependent_five_months_in_college: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_dependent_five_months_in_college
-  enum nj_did_not_have_health_insurance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_did_not_have_health_insurance
-  enum nj_filer_pays_tuition_for_dependent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nj_filer_pays_tuition_for_dependent
+  enum :nj_dependent_attends_accredited_program, { unfilled: 0, yes: 1, no: 2 }, prefix: :nj_dependent_attends_accredited_program
+  enum :nj_dependent_enrolled_full_time, { unfilled: 0, yes: 1, no: 2 }, prefix: :nj_dependent_enrolled_full_time
+  enum :nj_dependent_five_months_in_college, { unfilled: 0, yes: 1, no: 2 }, prefix: :nj_dependent_five_months_in_college
+  enum :nj_did_not_have_health_insurance, { unfilled: 0, yes: 1, no: 2 }, prefix: :nj_did_not_have_health_insurance
+  enum :nj_filer_pays_tuition_for_dependent, { unfilled: 0, yes: 1, no: 2 }, prefix: :nj_filer_pays_tuition_for_dependent
   
   validates_presence_of :first_name, :last_name, :dob
   validates :passed_away, :needed_assistance, inclusion: { in: %w[yes no], message: :blank }, on: :az_senior_form

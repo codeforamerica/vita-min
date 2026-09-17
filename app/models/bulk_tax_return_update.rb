@@ -26,7 +26,7 @@ class BulkTaxReturnUpdate < ApplicationRecord
   belongs_to :tax_return_selection
   belongs_to :assigned_user, class_name: "User", optional: true
 
-  enum status: TaxReturnStatus::STATUSES, _prefix: :status
+  enum :status, TaxReturnStatus::STATUSES, prefix: :status
 
   validate :data_stored_appropriately
 
