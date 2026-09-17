@@ -35,6 +35,22 @@
               </div>
               <p class="link-table__description"><%= t(".send_a_message_description_html", count: @client_count) %></p>
             </div>
+            <div class="link-table__row">
+              <div class="link-table__link">
+                <button type="submit" name="create_tax_return_selection[action_type]" value="turn-red-dot-flag-on" class="button--link">
+                  <%= t(".turn_red_dot_flag_on") %>
+                </button>
+              </div>
+              <p class="link-table__description"><%= t(".turn_red_dot_flag_on_description_html", count: @client_count) %></p>
+            </div>
+            <div class="link-table__row">
+              <div class="link-table__link">
+                <button type="submit" name="create_tax_return_selection[action_type]" value="turn-red-dot-flag-off" class="button--link">
+                  <%= t(".turn_red_dot_flag_off") %>
+                </button>
+              </div>
+              <p class="link-table__description"><%= t(".turn_red_dot_flag_off_description_html", count: @client_count) %></p>
+            </div>
 
             <div class="link-table__navigation">
               <%= link_to t("general.cancel"), :back, class: "button" %>

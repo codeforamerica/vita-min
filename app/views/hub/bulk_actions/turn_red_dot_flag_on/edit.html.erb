@@ -1,0 +1,18 @@
+<% content_for :page_title, t(".title") %>
+<% content_for :body_class, "bulk-action-form " %>
+<% content_for :card do %>
+  <section class="slab slab--padded">
+    <div class="grid">
+      <div class="grid__item width-three-fourths">
+        <%= form_with url: hub_bulk_actions_update_turn_red_dot_flag_on_path, method: :put, local: true, builder: VitaMinFormBuilder do |f| %>
+          <h1 class="h1"><%= t(".title") %></h1>
+          <p><%= t(".selected_action_and_client_count_html", count: @clients.size) %></p>
+          <%= f.button :submit, class: "button button--cta", data: { disable_with: t("general.submit") } do %>
+            <%= t("general.submit") %>
+          <% end %>
+          <%= link_to t("general.cancel"), :back, class: "button" %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

@@ -1,0 +1,13 @@
+<div class="notification notification--<%= notification.read ? 'read' : 'unread' %>" id="notification-<%= notification.id%>">
+  <div class="notification__heading"><%= t(".title") %></div>
+  <div class="notification__date"><%= timestamp(notification.created_at) %></div>
+  <div class="notification__body <%= notification.read ? 'notification__read' : 'notification__unread' %>">
+    <%= render 'shared/unread_icon', flag: true unless notification.read? %>
+    <% tax_return_selection_link = link_to(t("hub.tax_returns.count", count: notification.notifiable.tax_return_selection.tax_returns.count), hub_tax_return_selection_path(id: notification.notifiable.tax_return_selection.id)) %>
+    <% if notification.notifiable.enabled? %>
+      <%= t(".on_html", tax_return_selection_link: tax_return_selection_link) %>
+    <% else %>
+      <%= t(".off_html", tax_return_selection_link: tax_return_selection_link) %>
+    <% end %>
+  </div>
+</div>

@@ -84,6 +84,41 @@ describe MultiTenantService do
     end
   end
 
+  describe "#hub_filing_years" do
+    before do
+      allow(Rails.application.config).to receive(:ctc_current_tax_year).and_return(2023)
+    end
+
+    context "during the 2025 GYR open season" do
+      it "returns the same four years as #filing_years" do
+        fake_time = DateTime.parse("2025-02-14")
+
+        expect(described_class.new(:gyr).hub_filing_years(fake_time)).to eq [2024, 2023, 2022, 2021]
+      end
+    end
+
+    context "GYR 2025 after the tax deadline" do
+      it "keeps the oldest back tax year that #filing_years drops" do
+        fake_time = DateTime.parse("2025-06-23")
+
+        expect(described_class.new(:gyr).filing_years(fake_time)).to eq [2024, 2023, 2022]
+        expect(described_class.new(:gyr).hub_filing_years(fake_time)).to eq [2024, 2023, 2022, 2021]
+      end
+    end
+
+    context "once the next filing season has come into view" do
+      it "drops the oldest back tax year along with the new current tax year" do
+        fake_time = DateTime.parse("2025-12-21")
+
+        expect(described_class.new(:gyr).hub_filing_years(fake_time)).to eq [2025, 2024, 2023, 2022]
+      end
+    end
+
+    it "returns just the current year for ctc" do
+      expect(described_class.new(:ctc).hub_filing_years(DateTime.parse("2025-06-23"))).to eq [2023]
+    end
+  end
+
   describe "#between_deadline_and_end_of_in_progress_intake?" do
     before do
       allow(Rails.configuration).to receive(:tax_deadline).and_return(Date.new(2025, 4, 15))

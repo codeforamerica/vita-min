@@ -14,19 +14,19 @@ module Hub
 
     def index
       @page_title = I18n.t("hub.clients.index.title")
-      @clients = @client_sorter.filtered_and_sorted_clients.page(params[:page]).load
+      @clients = @client_sorter.filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       related_models_cache
     end
 
     def new
       @current_year = MultiTenantService.new(:gyr).current_tax_year(app_time)
-      @form = CreateClientForm.new(gyr_filing_years, time: app_time)
+      @form = CreateClientForm.new(gyr_hub_filing_years, time: app_time)
     end
 
     def create
       @current_year = MultiTenantService.new(:gyr).current_tax_year(app_time)
-      @form = CreateClientForm.new(gyr_filing_years, create_client_form_params, time: app_time)
+      @form = CreateClientForm.new(gyr_hub_filing_years, create_client_form_params, time: app_time)
       assigned_vita_partner = @vita_partners.find_by(id: create_client_form_params["vita_partner_id"])
 
       if can?(:read, assigned_vita_partner) && @form.save(current_user)
@@ -260,6 +260,11 @@ module Hub
       FILTER_COOKIE_NAME
     end
 
+    # Every role but admin lands on this tab filtered to active returns only.
+    def default_active_returns?
+      !current_user&.admin?
+    end
+
     def wrap_client_in_hub_presenter
       @client = HubClientPresenter.new(@client)
     end
@@ -298,14 +303,17 @@ module Hub
       def initialize(client, related_models_cache = nil)
         @client = client
         __setobj__(client)
-        @intake = if related_models_cache.present?
-                    related_models_cache[:intakes][client.id]
+        @archived = client.has_archived_intake?
+        @intake = if @archived
+                    client.archived_intake
+                  elsif related_models_cache.present?
+                    related_models_cache[:intakes][client.id].first
                   else
                     client.intake
                   end
-        @archived = client.has_archived_intake?
-        @intake = @archived ? client.archived_intake : client.intake
-        # For a short while, we created Client records with no intake and/or moved which client the intake belonged to.
+
+        # For a short while, we created Client records with no intake and/or
+        # moved which client the intake belonged to.
         if !@intake && @client.created_at < Date.parse('2022-04-15')
           @missing_intake = true
           @intake = Intake::GyrIntake.new(client_id: @client.id)

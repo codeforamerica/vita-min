@@ -418,6 +418,7 @@ en:
     city: City
     client_info: Client Info
     client_success: Client success
+    close: Close
     coalition: Coalition
     coalition_lead: Coalition lead
     complete: complete
@@ -606,6 +607,7 @@ en:
     log_out: Log out
     login: Login
     married: Married
+    menu: Menu
     month: Month
     my_account: My account
     my_profile: My profile
@@ -835,6 +837,18 @@ en:
           selected_action_qualifier:
             only_email: "(only sending email)"
             only_text: "(only sending text messages)"
+          title: Bulk Action
+      turn_red_dot_flag_off:
+        edit:
+          selected_action_and_client_count_html:
+            one: You’ve selected <strong>Turn Red Dot Flag Off</strong> for <strong>%{count} client</strong>.
+            other: You’ve selected <strong>Turn Red Dot Flag Off</strong> for <strong>%{count} clients</strong>.
+          title: Bulk Action
+      turn_red_dot_flag_on:
+        edit:
+          selected_action_and_client_count_html:
+            one: You’ve selected <strong>Turn Red Dot Flag On</strong> for <strong>%{count} client</strong>.
+            other: You’ve selected <strong>Turn Red Dot Flag On</strong> for <strong>%{count} clients</strong>.
           title: Bulk Action
     bulk_message_csvs:
       bulk_message_csv:
@@ -1316,6 +1330,10 @@ en:
         send_a_message: Send a message
         send_a_message_description_html: Send a message to these <strong>%{count} clients</strong>.
         title: Choose your bulk action
+        turn_red_dot_flag_off: Turn red dot flag off
+        turn_red_dot_flag_off_description_html: Turn off the red dot flag for these <strong>%{count} clients</strong>.
+        turn_red_dot_flag_on: Turn red dot flag on
+        turn_red_dot_flag_on_description_html: Turn on the red dot flag for these <strong>%{count} clients</strong>.
       page_title:
         one: 'Client selection #%{id} (%{count} result)'
         other: 'Client selection #%{id} (%{count} results)'
@@ -1372,6 +1390,10 @@ en:
     unlock_confirmation: Unlock %{name}'s account? Have they confirmed their identity?
     unsuspend_account: Unsuspend account
     user_notifications:
+      bulk_client_flag_update:
+        off_html: You successfully turned off red dot flag for %{tax_return_selection_link}.
+        on_html: You successfully turned on red dot flag for %{tax_return_selection_link}.
+        title: Successful Bulk Red Dot Flag Update
       bulk_client_message:
         failed-title_html: <i class="icon-warning"></i> Unsuccessful Bulk Send a Message
         failed_body_html: We could not contact %{tax_return_selection_link}.
@@ -1451,57 +1473,7 @@ en:
         body: We are closing GetYourRefund for the tax season on %{end_of_in_progress_intake_date}. We will need all required documentation by %{end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by %{end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
         subject: GetYourRefund closing soon -- take action now if you need tax services
       sms: We are closing GetYourRefund for the tax season on %{end_of_in_progress_intake_date}. We will need all required documentation by %{end_of_docs_date}; otherwise, we will not be able to prepare your taxes. Please login and respond by %{end_of_docs_date}. <<Client.LoginLink>> If we do not hear from you by then, we will close out your case and you can file with us next year.
-    contact_info_change:
-      email:
-        body: |
-          Your email address has been changed on your GetCTC account.
-
-          If you think that your contact information may have been changed incorrectly, contact support@getctc.org
-
-          We’re here to help!
-          Your tax team at GetCTC.org
-        subject: Your contact information on GetCTC
-      sms: |
-        Your phone number has been changed on your GetCTC account.
-
-        If you think that your contact information may have been changed incorrectly, contact support@getctc.org
-
-        We’re here to help!
-        Your tax team at GetCTC.org
-    ctc_getting_started:
-      email:
-        body: |
-          Hello <<Client.PreferredName>>,
-
-          Thanks for starting your tax return with GetCTC. We can only submit your information to the IRS once you complete the form.
-
-          You can sign in to complete the form and check your status here: <<Client.LoginLink>> You can use your Client ID <<Client.ClientId>> to log in or, if you’ve provided it to us, the last four digits of your SSN/ITIN.
-
-          We’re here to help!
-          Your Tax Team at GetCTC.org
-        subject: GetCTC Sign Up
-      sms: |
-        Hello <<Client.PreferredName>>,
-        Thanks for starting your tax return with GetCTC! Your Client ID is <<Client.ClientId>> Check your progress with your Client ID or last four digits of your SSN/ITIN: <<Client.LoginLink>>
-        We’re here to help!
     default_subject_with_service_name: Update from %{service_name}
-    fraud_hold:
-      email:
-        body: |
-          Hello <<Client.PreferredName>>,
-
-          Your submission requires additional review. To get your review started, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
-
-          Best,
-          The GetCTC.org Team
-        subject: Your submission is on hold for now
-      sms: |
-        Hello <<Client.PreferredName>>,
-
-        Your submission requires additional review. To get your review started, please log in to <<Client.LoginLink>> and click "Upload additional documents" and submit a photo of yourself holding your government issued photo ID.
-
-        Best,
-        The GetCTC.org Team
     in_progress:
       email:
         body: |
@@ -1546,20 +1518,6 @@ en:
         Hi <<Client.PreferredName>>,
         It looks like you stepped away before finishing our application. Our preparers at <<Client.AssignedOrganization>> look forward to working with you! To complete our form, simply login here: <<Client.LoginLink>>
         Thanks!
-    save_ctc_letter:
-      email:
-        body: |
-          Hello,
-
-          You will receive what’s called a 6419 Letter from the IRS in January 2022. This letter will help you and your tax preparer correctly claim your Child Tax Credit for you and your family. The letter will be have 6419 printed on it and will include information about the Child Tax Credit payments that you received in 2021.
-
-          Please save this letter for when you file your taxes. Whether you file with %{service_name} or any other service, this will help you collect any missing payments and receive any refund due without delay.
-
-          Happy New Year,
-
-          Your tax team at %{service_name}
-        subject: Important information for claiming Child Tax Credit Payments
-      sms: Hello from your tax team - If you received Child Tax Credit payments in 2021, you will receive a 6419 Letter from the IRS in January 2022. Please save this letter for when you file your taxes to collect any missing payments and avoid a delay in processing your refund.
     sms_opt_in: Welcome to GetYourRefund messages. Msg&data rates may apply.  Msg freq varies. Reply HELP for subscription/privacy info, STOP to stop.
     state_file:
       accepted_owe:
@@ -2017,15 +1975,6 @@ en:
         subject: Replies not monitored
       sms:
         body: Replies not monitored. Write %{support_email} for assistance.
-    verification_attempt_denied:
-      email:
-        body: |
-          Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
-          If you have questions or would like more information about this decision, please contact hello@getctc.org.
-        subject: Your identity verification case has been closed
-      sms: |
-        Your identity verification case has been closed, and we are declining to send this tax return to the IRS.
-        If you have questions or would like more information about this decision, please contact hello@getctc.org.
     verification_code_subject_with_service_name: Six-Digit Code from %{service_name}
     welcome:
       email:
@@ -2161,7 +2110,10 @@ en:
         button:
           add_documents: Add documents
           complete_tax_questions: Complete tax questions
+          decline_to_sign: I don't want to sign
           message_tax_team: Message tax team
+          sign_your_return: Sign your return
+          view_documents: View your uploaded documents
         calls_to_action:
           add_missing_documents: See what is missing and complete your tax return.
           add_missing_documents_title: Submit additional documents
@@ -2171,6 +2123,11 @@ en:
           prep_info_requested_title: You have a message
           review_info_requested: Your tax team sent a question via %{contact_method}. Reply to keep your return moving.
           review_info_requested_title: You have a message
+          signature_requested: Download your final tax papers to review, then sign electronically.
+          signature_requested_title: Signature needed
+        decline_to_sign_help: If you don't sign your return, your tax team will reach out to discuss.
+        document_link:
+          download_final_tax_papers: Download final tax papers
         help_text:
           final_steps: Your return is signed and on its way to the IRS. We'll let you know when it's processed.
           info_requested: We need a few more documents to finish your tax return.
@@ -2179,6 +2136,8 @@ en:
           prep_info_requested: We need more information to prepare your return.
           review: Your return is in final review. We'll be in touch if anything needs your attention.
           review_info_requested: Your tax team needs one more thing before finalizing your return.
+          signature_requested_primary: Your return is ready for your signature.
+          signature_requested_spouse: Your return is ready for your spouse's signature.
           tax_prep: Your tax team is preparing your return. We'll reach out if we need anything.
         title: Welcome back, %{name}
     settings:
@@ -2203,6 +2162,14 @@ en:
           title: Need to update something?
         message_tax_team: Message tax team
         title: Account info
+    shared:
+      portal2_menu:
+        aria_label: Portal navigation
+        documents: Documents
+        home: Home
+        messages: Messages
+        settings: Account info
+        tax_returns: Tax returns
     still_needs_helps:
       chat_later:
         help_text: If you have any additional documents that you need to upload, please use the button below.
@@ -2235,6 +2202,8 @@ en:
           body_html: "<p>Under penalties of perjury, I declare that I have examined a copy of my electronic individual income tax return and accompanying schedules and statements for the tax year ending December 31, %{year}, and to the best of my knowledge and belief, they are true, correct, and complete.</p><p>I further declare that the amounts in Part I above are the amounts from my electronic income tax return. I consent to allow my intermediate service provider, transmitter, or electronic return originator (ERO) to send my return to the IRS and to receive from the IRS (a) an acknowledgement of receipt or reason for rejection of the transmission, (b) the reason for any delay in processing the return or refund, and (c) the date of any refund.</p><p>If applicable, I authorize the U.S. Treasury and its designated Financial Agent to initiate an ACH electronic funds withdrawal (direct debit) entry to the financial institution account indicated in the tax preparation software for payment of my federal taxes owed on this return and/or a payment of estimated tax, and the financial institution to debit the entry to this account. This authorization is to remain in full force and effect until I notify the U.S. Treasury Financial Agent to terminate the authorization. To revoke (cancel) a payment, I must contact the U.S. Treasury Financial Agent at 1-888-353-4537. Payment cancellation requests must be received no later than 2 business days prior to the payment (settlement) date.</p><p>I also authorize the financial institutions involved in the processing of the electronic payment of taxes to receive confidential information necessary to answer inquiries and resolve issues related to the payment. I further acknowledge that the personal identification number (PIN) below is my signature for my electronic income tax return and, if applicable, my Electronic Funds Withdrawal Consent.</p>"
           title: Full Taxpayer Declaration and Signature Authorization
         subheader: You declare that you have examined a copy of your electronic individual income tax return and accompanying schedules and statements for the tax year ending December 31, %{year}, and to the best of your knowledge and belief, they are true, correct, and complete.
+      decline_signature:
+        confirmation: Thanks for letting us know. Your tax team will reach out to discuss your return.
       index:
         final_return_not_started: Final return not started
         final_tax_return: "%{year} Final tax return"
@@ -2289,8 +2258,7 @@ en:
     eligibility_state:
       edit:
         diy_html: "<strong>Get help as you go:</strong> chat with a tax expert as you file to answer any questions you have along the way"
-        page: Step 2 of 2
-        page_with_simple_file_step: Step 2 of 3
+        page: Step 2 of 3
         title: What kind of support do you prefer while you file your taxes?
         virtual_vita_html: "<strong>Have an expert do your taxes:</strong> match with an IRS-certified preparer who will prepare and submit your return"
     eligibility_wages:
@@ -2298,7 +2266,7 @@ en:
         income_level:
           label: Select your household income
           over: over
-        page: Step 1 of 2
+        page: Step 1 of 3
         subtitle: We’ll ask a few questions about your preferences to guide you to the services you qualify for.
         title: Let’s help you find the right service!
         vita_income_ineligible:
@@ -5323,8 +5291,8 @@ en:
           faq_cta: Read our FAQ
           header: 'Common Tax Questions:'
         fresh_look_banner:
-          body: Coming in mid-August, you'll see a new design, same trusted service.
-          header: A fresh look is coming to GetYourRefund
+          body: Same free tax help, same trusted service.
+          header: GetYourRefund has a new design
         header: Free tax filing, made simple.
         open_intake_post_tax_deadline_banner: Get started with GetYourRefund by %{end_of_intake} if you want to file with us in %{product_year}. If your return is in progress, sign in and submit your documents by %{end_of_docs}.
         security:
@@ -6118,7 +6086,8 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: 1-2 hours to file
         bullet_4: Available online
-        bullet_5_html: Social Security or Individual Taxpayer Identification <b>Number</b> required
+        bullet_5_html: Social Security or Individual Taxpayer Identification Number required
+        card_title: FileMyself
         reveal_b1: All states
         reveal_b2: Puerto Rico
         reveal_b3: Non-residents
@@ -6145,7 +6114,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: Varies by location
         bullet_4: Available in-person
-        bullet_5_html: "<b>Physical copies</b> of Social Security or Individual Taxpayer Identification Number Card required"
+        bullet_5_html: Physical copies of Social Security or Individual Taxpayer Identification Number Card required
         link_button: Find a Location
         reveal_b1: All states
         reveal_b2: Non-residents [varies by location]
@@ -6172,7 +6141,7 @@ en:
         bullet_2: Colorado and New Jersey State tax returns only
         bullet_3: 15 minutes to file
         bullet_4: Available online
-        bullet_5_html: Social Security or Individual Taxpayer Identification <strong>Number</strong> required
+        bullet_5_html: Social Security or Individual Taxpayer Identification Number required
         reveal:
           s11_bullet_1: 'New Jersey: Married Filing joint $20,000 / Filing Single $10,000'
           s11_bullet_2: 'Colorado: Married Filing joint $26,000 / Filing Single $15,000'
@@ -6195,7 +6164,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: 2-3 weeks to file
         bullet_4: Available online
-        bullet_5_html: "<b>Photos</b> of Social Security or Individual Taxpayer Identification Number card required"
+        bullet_5_html: Photos of Social Security or Individual Taxpayer Identification Number card required
         reveal_b1: All states
         reveal_b2: Non-residents [limited]
         reveal_b3: Puerto Rico residents [limited]

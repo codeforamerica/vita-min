@@ -85,8 +85,9 @@
       color: black;
       font-weight: bold;
 
-      &:hover {
-        background: $color-grey-light;
+      &:hover,
+      &:active {
+        background-color: transparent;
       }
     }
   }

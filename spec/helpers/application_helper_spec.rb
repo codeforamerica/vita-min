@@ -44,4 +44,30 @@ describe ApplicationHelper do
       expect(ctc_prior_tax_year).to eq(2017)
     end
   end
+
+  describe "#body_class_list" do
+    around { |example| without_partial_double_verification { example.run } }
+
+    before do
+      allow(helper).to receive_messages(hub?: false, state_file?: false, ctc?: false)
+    end
+
+    it "adds the gyr-theme class on GYR pages" do
+      expect(helper.body_class_list).to eq "gyr-theme"
+    end
+
+    it "keeps a page's own body class alongside the theme" do
+      helper.content_for(:body_class, "body--home")
+
+      expect(helper.body_class_list).to eq "body--home gyr-theme"
+    end
+
+    %i[hub? state_file? ctc?].each do |other_product|
+      it "leaves #{other_product.to_s.delete_suffix('?')} pages unthemed" do
+        allow(helper).to receive(other_product).and_return(true)
+
+        expect(helper.body_class_list.to_s).not_to include "gyr-theme"
+      end
+    end
+  end
 end

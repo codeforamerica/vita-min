@@ -25,7 +25,7 @@ gem 'recaptcha'
 gem 'airrecord'
 
 # Use ActiveStorage variant
-gem 'image_processing', '>= 2.0.1'
+gem 'image_processing', '>= 2.0.3'
 gem "mini_magick", "~> 5.0" # Used by image_processing
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -71,6 +71,7 @@ gem 'ice_nine'
 gem 'business_time'
 gem 'scenic', '~> 1.8'
 gem 'rubyzip'
+gem 'caxlsx', '3.4.1'
 gem 'intercom', '4.1.3' # potential issue with 4.2.0
 gem 'statesman'
 gem 'redcarpet'
@@ -172,5 +173,3 @@ gem "aws-sdk-core", "~> 3.190"
 gem "aws-sdk-bedrockruntime", "~> 1.2"
 
 gem 'oauth2', '>= 2.0.22'
-
-gem 'websocket-driver', '>= 0.8.2'

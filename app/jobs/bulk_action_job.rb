@@ -11,6 +11,10 @@ class BulkActionJob < ApplicationJob
         create_change_org_notifications!(tax_return_selection, user)
       when :change_assignee_and_status
         update_assignee_and_status!(user)
+      when :turn_red_dot_flag_on
+        update_red_dot_flag!(user, enabled: true)
+      when :turn_red_dot_flag_off
+        update_red_dot_flag!(user, enabled: false)
       end
       create_notes!(tax_return_selection, user)
       create_outgoing_messages!(tax_return_selection, user)
@@ -103,6 +107,23 @@ class BulkActionJob < ApplicationJob
         status: status_action
       }
     )
+    UserNotification.create!(notifiable: bulk_update, user: user)
+  end
+
+  def update_red_dot_flag!(user, enabled:)
+    @clients.find_each do |client|
+      next if client.flagged? == enabled
+
+      if enabled
+        client.flag!
+        SystemNote::ResponseNeededToggledOn.generate!(client: client, initiated_by: user)
+      else
+        client.clear_flag!
+        SystemNote::ResponseNeededToggledOff.generate!(client: client, initiated_by: user)
+      end
+    end
+
+    bulk_update = BulkClientFlagUpdate.create!(tax_return_selection: @selection, enabled: enabled)
     UserNotification.create!(notifiable: bulk_update, user: user)
   end
 end

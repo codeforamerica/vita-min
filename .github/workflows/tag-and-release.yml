@@ -87,26 +87,33 @@ jobs:
 
       - name: Generate release notes
         if: github.event.inputs.environment == 'prod'
+        env:
+          RELEASE_TITLE: ${{ github.event.inputs.release_title }}
+          ADDITIONAL_NOTES: ${{ github.event.inputs.additional_notes }}
         run: |
           release_command="gh release create ${{ env.NEW_VERSION }} --target ${GITHUB_SHA} --generate-notes"
-          if [[ -n "${{ github.event.inputs.release_title }}" ]]; then
-            release_command="${release_command} --title '${{ github.event.inputs.release_title }}'"
+          if [[ -n "$RELEASE_TITLE" ]]; then
+            release_command="${release_command} --title '$RELEASE_TITLE'"
           fi
-          if [[ -n "${{ github.event.inputs.additional_notes }}" ]]; then
-            release_command="${release_command} --notes '${{ github.event.inputs.additional_notes }}'"
+          if [[ -n "$ADDITIONAL_NOTES" ]]; then
+            release_command="${release_command} --notes '$ADDITIONAL_NOTES'"
           fi
 
           eval ${release_command}
           echo "https://github.com/codeforamerica/vita-min/releases/latest"
 
       - name: deploy
+        env:
+          ENVIRONMENT: ${{ github.event.inputs.environment }}
+          TARGET_BRANCH: ${{ vars.TARGET_BRANCH }}
+          IS_PROD: ${{ github.event.inputs.environment == 'prod' }}
         run: |
           echo "Updating branch on GitHub. This triggers deployment in CircleCI."
           git push
           
-          echo "✨ Deployment to ${{ github.event.inputs.environment }} initiated!"
-          echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=${{ vars.TARGET_BRANCH }}"
-          if [[ "${{ github.event.inputs.environment == 'prod' }}" ]]; then
+          echo "✨ Deployment to $ENVIRONMENT initiated!"
+          echo "👀 Watch progress on CircleCI: https://app.circleci.com/pipelines/github/codeforamerica/vita-min?branch=$TARGET_BRANCH"
+          if [[ "$IS_PROD" ]]; then
             echo "📝 Release notes here: https://github.com/codeforamerica/vita-min/releases/latest"
             echo "🧷 If needed, rollback to: ${{ env.OLD_VERSION }}"
           fi

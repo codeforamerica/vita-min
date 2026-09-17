@@ -27,7 +27,7 @@
             <%= f.submit value: t("general.sign_out"), class: "button--link" %>
           <% end %>
         <% else %>
-          <%= link_to t("general.sign_in"), new_portal_client_login_path, class: "toolbar__item button button--toolbar button--small is-mobile-hidden--inline" %>
+          <%= link_to t("general.sign_in"), new_portal_client_login_path, class: "toolbar__item button button--toolbar button--small" %>
         <% end %>
       </div>
     <% end %>

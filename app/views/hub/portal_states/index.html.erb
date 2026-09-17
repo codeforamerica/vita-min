@@ -9,7 +9,11 @@
 
         <% @tax_returns.each_with_index do |tax_return, _index| %>
           <h2><%= tax_return._description %></h2>
-          <%= render "portal/portal/tax_return_card", tax_return: tax_return %>
+          <% if @client_portal_improvements %>
+            <%= render "portal/portal2/tax_return_card", tax_return: tax_return %>
+          <% else %>
+            <%= render "portal/portal/tax_return_card", tax_return: tax_return %>
+          <% end %>
         <% end %>
       </div>
     </div>

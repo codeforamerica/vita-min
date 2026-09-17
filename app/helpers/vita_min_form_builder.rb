@@ -481,8 +481,8 @@ class VitaMinFormBuilder < Cfa::Styleguide::CfaFormBuilder
     super(value, **options)
   end
 
-  def continue(value = I18n.t("general.continue"))
-    submit(value, class: "button button--primary button--wide")
+  def continue(value = I18n.t("general.continue"), button_style: nil)
+    submit(value, class: "button button--primary button--wide #{button_style}")
   end
 
   def warning_for_select(element_id, permitted_values, msg)

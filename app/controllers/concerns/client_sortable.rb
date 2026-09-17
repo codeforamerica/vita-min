@@ -9,10 +9,14 @@ module ClientSortable
 
   def setup_sortable_client
     delete_cookie if params[:clear]
-    @client_sorter = ClientSorter.new(@clients, current_user, params, cookie_filters)
+    @client_sorter = ClientSorter.new(@clients, current_user, params, cookie_filters, true, default_active_returns: default_active_returns?)
     @sort_order = @client_sorter.sort_order
     @sort_column = @client_sorter.sort_column
     set_cookie
+  end
+
+  def default_active_returns?
+    false
   end
 
   def delete_cookie

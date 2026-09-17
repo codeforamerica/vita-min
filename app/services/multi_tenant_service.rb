@@ -3,6 +3,7 @@ class MultiTenantService
   attr_accessor :service_type
 
   SERVICE_TYPES = [:gyr, :ctc, :statefile]
+  HUB_FILING_YEAR_COUNT = 4
 
   def initialize(service_type)
     @service_type = service_type.to_sym
@@ -107,6 +108,14 @@ class MultiTenantService
 
       years.freeze
     end
+  end
+
+  def hub_filing_years(now = DateTime.now)
+    years = filing_years(now)
+    return years unless service_type == :gyr
+
+    years += [years.last - 1] if years.count < HUB_FILING_YEAR_COUNT
+    years.freeze
   end
 
   def backtax_years(time = DateTime.now)

@@ -14,9 +14,11 @@ import { initTINTypeSelector } from "../lib/tin_type_selector";
 import { addTargetBlankToLinks } from "../lib/action_text_target_blank";
 import { limitTextMessageLength } from "../lib/text_message_length_limiter";
 import { initServiceComparisonComponent } from "../lib/service_comparison_component";
+import { initServiceCardAlignment } from "../lib/service_card_alignment";
 import { fetchEfileStateCounts } from "../lib/fetch_efile_state_counts";
 import { fetchStateFileEfileStateCounts } from "../lib/fetch_statefile_efile_state_counts";
 import ClientMenuComponent from "../components/ClientMenuComponent";
+import Portal2MenuComponent from "../components/Portal2MenuComponent";
 import WarningForSelectComponent from "../components/WarningForSelectComponent";
 import MixpanelEventTracking from "../lib/mixpanel_event_tracking";
 import IntercomBehavior from "../lib/intercom_behavior";
@@ -29,6 +31,7 @@ const Listeners =  (function(){
                 MixpanelEventTracking.listenForTrackedClicks();
                 const { controllerAction } = document.querySelector("#mixpanelData")?.dataset || {};
                 ClientMenuComponent();
+                Portal2MenuComponent();
                 WarningForSelectComponent();
 
                 documentSubmittingIndicator.init(); // extend styling on honeyCrisp's default ajax upload functionality.
@@ -100,6 +103,10 @@ const Listeners =  (function(){
 
                 if (document.querySelector('div.comparison-component')) {
                     initServiceComparisonComponent();
+                }
+
+                if (document.querySelector('.service-recommendation')) {
+                    initServiceCardAlignment();
                 }
 
                 if (

@@ -33,11 +33,6 @@ class VerificationAttemptStateMachine
     verification_attempt.client.update(identity_verification_denied_at: transition.created_at, identity_verified_at: nil)
     # Transitioning will no longer work because we've removed CTC code from the efile submission state machine
     # verification_attempt.client.efile_submissions.last&.transition_to(:cancelled)
-    ClientMessagingService.send_system_message_to_all_opted_in_contact_methods(
-      client: verification_attempt.client,
-      message: AutomatedMessage::VerificationAttemptDenied,
-      locale: verification_attempt.client.intake.locale,
-    )
   end
 
   after_transition(to: :requested_replacements, after_commit: true) do |verification_attempt, transition|

@@ -11,7 +11,7 @@ module Hub
       @page_title = I18n.t("hub.assigned_clients.index.title")
       @client_sorter.filters[:assigned_to_me] = true
       @tax_return_count = TaxReturn.where(client: @client_sorter.filtered_clients.with_eager_loaded_associations.without_pagination).size
-      @clients = @client_sorter.filtered_and_sorted_clients.page(params[:page]).load
+      @clients = @client_sorter.filtered_and_sorted_clients.with_eager_loaded_associations.page(params[:page]).load
       @message_summaries = RecentMessageSummaryService.messages(@clients.map(&:id))
       render "hub/clients/index"
     end
@@ -20,6 +20,11 @@ module Hub
 
     def filter_cookie_name
       FILTER_COOKIE_NAME
+    end
+
+    # Every role but admin lands on this tab filtered to active returns only.
+    def default_active_returns?
+      !current_user&.admin?
     end
 
     def ensure_always_current_user_assigned

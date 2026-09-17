@@ -10,6 +10,6 @@
       <%= f.cfa_input_field(:primary_ssn_confirmation, t("attributes.confirm_primary_ssn"), classes: ["form-width--long"], options: { maxlength: 11, 'data-mask': '000-00-0000' }) %>
     </div>
 
-    <%= f.continue %>
+    <%= f.continue(button_style: "button--assist-green") %>
   <% end %>
 <% end %>

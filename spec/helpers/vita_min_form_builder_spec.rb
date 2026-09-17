@@ -171,4 +171,47 @@ RSpec.describe VitaMinFormBuilder do
       expect(element.attribute('data-existing-data')&.text).to eq("is retained")
     end
   end
+
+  describe "#continue" do
+    class SampleForm < Cfa::Styleguide::FormExample
+      attr_accessor :name
+    end
+
+    let(:form) { described_class.new("form", SampleForm.new, template, {}) }
+
+    it "renders a submit button with the default continue label and base classes" do
+      output = form.continue
+
+      expect(output).to be_html_safe
+      doc = Nokogiri::HTML(output)
+      element = doc.css('input').first
+      expect(element.attribute('value').text).to eq(I18n.t("general.continue"))
+      expect(element.attribute('class').text).to include("button", "button--primary", "button--wide")
+      expect(element.attribute('data-disable-with').text).to eq(I18n.t("general.continue"))
+    end
+
+    it "renders a submit button with a custom label" do
+      output = form.continue("Save and continue")
+
+      doc = Nokogiri::HTML(output)
+      element = doc.css('input').first
+      expect(element.attribute('value').text).to eq("Save and continue")
+    end
+
+    it "appends the button_style class when provided" do
+      output = form.continue(button_style: "button--assist-green")
+
+      doc = Nokogiri::HTML(output)
+      element = doc.css('input').first
+      expect(element.attribute('class').text).to include("button--assist-green")
+    end
+
+    it "renders no extra class when button_style is nil" do
+      output = form.continue
+
+      doc = Nokogiri::HTML(output)
+      element = doc.css('input').first
+      expect(element.attribute('class').text.strip).not_to end_with(" ")
+    end
+  end
 end

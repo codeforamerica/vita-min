@@ -13,14 +13,14 @@ module Hub
     validates :current_state, presence: true
     validates :year, presence: true
 
-    def initialize(client, current_user, gyr_filing_years, params={})
+    def initialize(client, current_user, hub_filing_years, params={})
       @client = client
       @current_user = current_user
       super(params)
       @service_type ||= client.tax_returns.pluck(:service_type).include?("drop_off") ? "drop_off" : "online_intake"
       @current_state ||= "intake_in_progress"
       @tax_return = @client.tax_returns.new
-      @gyr_filing_years = gyr_filing_years
+      @hub_filing_years = hub_filing_years
     end
 
     def save
@@ -38,7 +38,7 @@ module Hub
     end
 
     def remaining_years
-      @gyr_filing_years - tax_return_years
+      @hub_filing_years - tax_return_years
     end
   end
 end

@@ -1,6 +1,6 @@
 <% show_get_started ||= false %>
 
-<div class="service-card">
+<div class="service-card service-card--simple-file">
   <div class="service-card--title">
     <%= t("views.shared.simple_file_card.title") %>
   </div>
@@ -11,7 +11,7 @@
     <div class="button-wrapper">
       <div>
         <% simple_file_path = SimpleFileUrlService.new(intake: nil, locale: I18n.locale, source: "gyrhomepage").welcome_url %>
-        <%= link_to t("general.get_started"), simple_file_path, "data-track-click": "service-comparison-in-person-vita-providers", class: "button text--centered button--wide no-external" %>
+        <%= link_to t("general.get_started"), simple_file_path, "data-track-click": "service-comparison-in-person-vita-providers", class: "button text--centered button--wide button--simple-file-blue no-external" %>
       </div>
     </div>
   <% end %>

@@ -417,6 +417,7 @@ es:
     city: Ciudad
     client_info: Información del cliente
     client_success: Éxito del cliente
+    close: Cerrar
     coalition: Coalición
     coalition_lead: Líder de coalición
     complete: completo
@@ -606,6 +607,7 @@ es:
     log_out: Cerrar sesión
     login: Iniciar sesión
     married: Casado
+    menu: Menú
     month: Mes
     my_account: Mi cuenta
     my_profile: Mi perfil
@@ -841,6 +843,18 @@ es:
           selected_action_qualifier:
             only_email: "(solo envio de correo electrónico)"
             only_text: "(solo envio de mensajes de texto)"
+          title: Acción masiva
+      turn_red_dot_flag_off:
+        edit:
+          selected_action_and_client_count_html:
+            one: Ha seleccionado <strong>Desactivar Bandera de Punto Rojo</strong> para <strong>%{count} cliente</strong>.
+            other: Ha seleccionado <strong>Desactivar Bandera de Punto Rojo</strong> para <strong>%{count} clientes</strong>.
+          title: Acción masiva
+      turn_red_dot_flag_on:
+        edit:
+          selected_action_and_client_count_html:
+            one: Ha seleccionado <strong>Activar Bandera de Punto Rojo</strong> para <strong>%{count} cliente</strong>.
+            other: Ha seleccionado <strong>Activar Bandera de Punto Rojo</strong> para <strong>%{count} clientes</strong>.
           title: Acción masiva
     bulk_message_csvs:
       bulk_message_csv:
@@ -1314,6 +1328,10 @@ es:
         send_a_message: Enviar un mensaje
         send_a_message_description_html: Envía un mensaje a estos <strong>%{count} clientes</strong>.
         title: Elija su acción masiva
+        turn_red_dot_flag_off: Desactivar bandera de punto rojo
+        turn_red_dot_flag_off_description_html: Desactiva la bandera de punto rojo para estos <strong>%{count} clientes</strong>.
+        turn_red_dot_flag_on: Activar bandera de punto rojo
+        turn_red_dot_flag_on_description_html: Activa la bandera de punto rojo para estos <strong>%{count} clientes</strong>.
       page_title:
         many: 'Selección de clientes #%{id} (%{count} resultados)'
         one: 'Selección de clientes #%{id} (%{count} resultado)'
@@ -1372,6 +1390,10 @@ es:
     unlock_confirmation: "¿Desbloquear la cuenta de %{name}? ¿Han confirmado su identidad?"
     unsuspend_account: Anular la suspensión del usuario
     user_notifications:
+      bulk_client_flag_update:
+        off_html: Ha desactivado exitosamente la bandera de punto rojo para %{tax_return_selection_link}.
+        on_html: Ha activado exitosamente la bandera de punto rojo para %{tax_return_selection_link}.
+        title: Actualización exitosa de bandera de punto rojo masiva
       bulk_client_message:
         failed-title_html: <i class="icon-warning"></i> Enviar un mensaje masivo sin éxito
         failed_body_html: Nosotras no pudimos contactar %{tax_return_selection_link}.
@@ -1451,45 +1473,7 @@ es:
         body: Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}. <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.
         subject: GetYourRefund cerrará próximamente -- actúe ahora si necesita services de preparación de impuestos.
       sms: Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}. <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.
-    contact_info_change:
-      email:
-        body: |
-          Su dirección de correo electrónico han sido modificados en su cuenta de GetCTC.
-
-          Si cree que su información de contacto pudo haber sido cambiada incorrectamente, por favor comuníquese con support@getctc.org
-
-          ¡Estamos aquí para ayudarle!
-          Su equipo de impuestos GetCTC.org
-        subject: Su información de contacto en GetCTC
-      sms: |
-        Su número de teléfono han sido modificados en su cuenta de GetCTC.
-
-        Si cree que su información de contacto pudo haber sido cambiada incorrectamente, por favor comuníquese con support@getctc.org
-
-        ¡Estamos aquí para ayudarle!
-        Su equipo de impuestos GetCTC.org
-    ctc_getting_started:
-      email:
-        body: |
-          Hola <<Client.PreferredName>>,
-
-          Gracias por comenzar su declaración de impuestos con GetCTC. Solo podemos enviar su información al IRS cuando llenas el formulario
-
-          Puede iniciar sesión para completar el formulario y verificar su estado aquí: <<Client.LoginLink>> Puede usar su ID de cliente <<Client.ClientId>> para iniciar sesión o, si nos lo ha proporcionado, el último cuatro dígitos de su SSN/ITIN.
-
-          ¡Estamos aquí para ayudar!
-          Su equipo de impuestos en GetCTC.org
-        subject: Inscripción para GetCTC
-      sms: |
-        Hola <<Client.PreferredName>>,
-        ¡Gracias por comenzar su declaración de impuestos con GetCTC! Su ID de cliente es <<Client.ClientId>> Verifique su progreso con su ID de cliente o los últimos cuatro dígitos de su SSN/ITIN: <<Client.LoginLink>>
-        ¡Estamos aquí para ayudar!
     default_subject_with_service_name: Actualización de %{service_name}
-    fraud_hold:
-      email:
-        body: "Hola <<Client.PreferredName>>,\n\nSu entrega requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
-        subject: La información ha enviado está en espera por ahora
-      sms: "Hola <<Client.PreferredName>>,\n\nLa información que ha enviado requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
     in_progress:
       email:
         body: |
@@ -1535,20 +1519,6 @@ es:
         Hola <<Client.PreferredName>>,
         Parece que no a terminado nuestra aplicación. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperamos trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
         ¡Gracias!
-    save_ctc_letter:
-      email:
-        body: |
-          Hola,
-
-          Recibirá lo que llaman la carta 6419 del IRS en enero de 2022. Esta carta le ayudará a usted y su preparador de impuestos a reclamar su Crédito Tributario por Hijos correctamente para usted y su familia. La carta tendrá 6419 impreso e incluirá información sobre los pagos del Crédito Tributario por Hijos que recibió en 2021.
-
-          Favor de guardar esta carta para cuando presente sus impuestos. Ya sea que presente su declaración con %{service_name} o cualquier otro servicio, esta le ayudará a cobrar cualquier pago restante y recibirá cualquier reembolso que se le deba, sin demora.
-
-          Feliz Año Nuevo,
-
-          Su equipo de impuestos de %{service_name}
-        subject: Información importante para reclamar los pagos del Crédito Tributario por Hijos
-      sms: Saludos de su equipo de impuestos - Si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá la carta 6419 del IRS en enero de 2022. Favor de guardar esta carta para cuando presente sus impuestos para cobrar cualquier pago restante y evitar demoras en el procesamiento de su reembolso.
     sms_opt_in: Bienvenido a los mensajes de GetYourRefund. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     state_file:
       accepted_owe:
@@ -1989,15 +1959,6 @@ es:
         subject: Estas respuestas no se supervisan
       sms:
         body: Estas respuestas no se supervisan. Escriba a %{support_email} para obtener ayuda.
-    verification_attempt_denied:
-      email:
-        body: |
-          Su caso de verificación de identidad se ha cerrado, y estamos negando el envío de esta declaración de impuestos al IRS.
-          Si tiene preguntas o desea más información sobre esta decisión, favor de comunicarse con hello@getctc.org.
-        subject: Su caso de verificación de identidad se ha cerrado
-      sms: |
-        Su caso de verificación de identidad se ha cerrado, y estamos negando el envío de esta declaración de impuestos al IRS.
-        Si tiene preguntas o desea más información sobre esta decisión, favor de comunicarse con hello@getctc.org.
     verification_code_subject_with_service_name: Código de seis dígitos de %{service_name}
     welcome:
       email:
@@ -2133,7 +2094,10 @@ es:
         button:
           add_documents: Agregar documentos
           complete_tax_questions: Preguntas completas sobre impuestos
+          decline_to_sign: No quiero firmar
           message_tax_team: Enviar mensaje
+          sign_your_return: Firmar su declaración
+          view_documents: Ver sus documentos cargados
         calls_to_action:
           add_missing_documents: Vea qué falta y complete su declaración de impuestos.
           add_missing_documents_title: Envíe documentos adicionales
@@ -2143,6 +2107,11 @@ es:
           prep_info_requested_title: Tiene un mensaje
           review_info_requested: El equipo de impuestos le envió una pregunta por %{contact_method}. Responda para que su declaración de impuestos siga avanzando.
           review_info_requested_title: Tiene un mensaje
+          signature_requested: Descargue sus papeles de impuestos para revisarlos y luego firme electrónicamente.
+          signature_requested_title: Se necesita su firma
+        decline_to_sign_help: Si no firma su declaración, el equipo de impuestos se comunicará con usted para ver sus opciones.
+        document_link:
+          download_final_tax_papers: Descargar papeles de impuestos
         help_text:
           final_steps: Su declaración de impuestos está en camino al IRS. Le informaremos cuando sea procesada.
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
@@ -2151,8 +2120,10 @@ es:
           prep_info_requested: Necesitamos más información para preparar su declaración de impuestos.
           review: Nos comunicaremos con usted si algo requiere su atención.
           review_info_requested: El equipo de impuestos necesita una cosa más antes de finalizar su declaración.
+          signature_requested_primary: Su declaración de impuestos está lista para firmar.
+          signature_requested_spouse: Su declaración de impuestos está lista para la firma de su cónyuge.
           tax_prep: Nos comunicaremos con usted si necesitamos algo.
-        title: Bienvenido de nuevo, %{name}
+        title: Hola, %{name}
     settings:
       show:
         bank_info:
@@ -2175,6 +2146,14 @@ es:
           title: "¿Necesita actualizar algo?"
         message_tax_team: Enviar mensaje a su equipo de impuestos
         title: Información de la cuenta
+    shared:
+      portal2_menu:
+        aria_label: Navegación del portal
+        documents: Documentos
+        home: Inicio
+        messages: Mensajes
+        settings: Información de la cuenta
+        tax_returns: Declaraciones de impuestos
     still_needs_helps:
       chat_later:
         help_text: Si tiene algún documento adicional que necesita subir, por favor use el botón abajo.
@@ -2207,6 +2186,8 @@ es:
           body_html: "<p>Bajo pena de perjurio, declaro haber examinado una copia de mi declaración electrónica del impuesto sobre el ingreso y todo anexo y documento acompañante para el año tributario que termina el 31 de diciembre de %{year} y, según mi leal conocimiento y entendimiento, son verídicos, correctos y completos.</p><p> Declaro además que las cantidades provistas anteriormente en la Parte I son las mismas indicadas en mi declaración electrónica del impuesto sobre el ingreso. Autorizo a que mi proveedor intermediario de servicios, transmisor o iniciador de declaraciones electrónicas (ERO, por sus siglas en inglés) envíe mi declaración al IRS y que reciba del mismo (a) acuse de recibo o justificación de rechazo de la transmisión, (b) la razón por toda demora en la tramitación de la declaración o reembolso y (c) la fecha de todo reembolso. </p><p>Si corresponde, autorizo al U.S. Treasury (Departamento del Tesoro de los Estados Unidos) y a su Agente Financiero designado para que tramiten ante la ACH una transacción de retiro electrónico de fondos (débito directo) en la cuenta de la institución financiera indicada en el programa de computadora (software) de preparación de declaraciones para pagar los impuestos federales que adeudo en esta declaración y/o pagar el impuesto estimado, y además autorizo a la institución financiera para que cargue la entrada a esta cuenta. Esta autorización quedará en pleno vigor hasta que yo notifique al Agente Financiero del Departamento del Tesoro de los Estados Unidos para que éste cancele la autorización. Para revocar (cancelar) un pago, tengo que comunicarme con el Agente Financiero del Departamento del Tesoro de los Estados Unidos llamando al 1-888-353-4537. Las solicitudes de cancelación de pago se tienen que recibir a más tardar 2 días laborables antes de la fecha de pago (liquidación). </p><p> También autorizo a las instituciones financieras que participan en la tramitación del pago electrónico de impuestos para que reciban información confidencial necesaria para responder a preguntas y resolver dudas relacionadas con dicho pago. Certifico además que el número de identificación personal (PIN, por sus siglas en inglés) que aparece a continuación es el que he escogido como firma para mi declaración electrónica del impuesto sobre el ingreso y, si corresponde, mi autorización para el retiro de fondos por vías electrónicas.</p>"
           title: Declaración del contribuyente y autorización para la firma
         subheader: Usted declara que ha examinado una copia de su declaración electrónica individual de impuestos y los calendarios acompañantes y estados de cuenta para el año fiscal que termina el 31 de diciembre de %{year}, y que en la mejor inteligencia da fe de que son verdaderos, correctos y completos.
+      decline_signature:
+        confirmation: Gracias por avisarnos. Su equipo de impuestos se comunicará con usted para conversar sobre su declaración.
       index:
         final_return_not_started: Retorno final no iniciado
         final_tax_return: Declaración de impuestos final de %{year}
@@ -2237,7 +2218,7 @@ es:
       body_html: ¡Huy! Parece que estás intentando acceder a una página o un cliente al que no tienes acceso. Póngase en contacto con Soporte para socios en <a href="mailto:partnersupport@getyourrefund.org">partnersupport@getyourrefund.org</a> si necesita fusionar un cliente duplicado al que no tiene acceso.
       title: Acceso no permitido
     home:
-      already_started: "¿Ya iniciado? Iniciar sesión"
+      already_started: "¿Ya comenzaste tu declaración? Iniciar sesión"
   questions:
     eligibility_household:
       edit:
@@ -2261,8 +2242,7 @@ es:
     eligibility_state:
       edit:
         diy_html: "<strong>Obtenga ayuda mientras avanza:</strong> chatee con un experto en impuestos mientras presenta su declaración y resuelva cualquier duda en el momento."
-        page: Paso 2 de 2
-        page_with_simple_file_step: Paso 2 de 3
+        page: Paso 2 de 3
         title: "¿Qué tipo de apoyo prefiere recibir mientras presenta su declaración de impuestos?"
         virtual_vita_html: "<strong>Deje que un experto haga su declaración:</strong> conéctese con un preparador de impuestos certificado por el IRS que se encarga de presentar su declaración."
     eligibility_wages:
@@ -2270,7 +2250,7 @@ es:
         income_level:
           label: Seleccione el ingreso de su hogar
           over: más de
-        page: Paso 1 de 2
+        page: Paso 1 de 3
         subtitle: Le haremos algunas preguntas sobre lo que prefiere para guiarle a los servicios a los que puede calificar.
         title: "¡Le ayudaremos a encontrar el servicio adecuado!"
         vita_income_ineligible:
@@ -5285,28 +5265,28 @@ es:
           header: Lo que dicen nuestros clientes
           quote1:
             body: '"Sólo quería decirles que no puedo expresar cuánto estrés me aliviaron al ofrecer sus servicios en línea. Había visto otros servicios como Credit Karma o Turbo Tax, pero no tenia confianza a los pasos iniciales, así que no seguí adelante. Hasta que encontré GetYourRefund y ¡Dios mío, es increíble!"'
-            header: "¡Dios mío esto es increíble!"
+            header: "¡Dios mío, es increíble!"
           quote2:
             body: “Pensé que los preparadores de impuestos eran muy profesionales, muy amables, muy abiertos a preguntas, así que realmente aprecié eso, y también fueron pacientes con mis preguntas. Me gusta mucho más este proceso cuando hay una persona que me puede explicar en detalle las preguntas que tienes y que responden bastante rápido".
             header: Son muy profesionales y amables
-          rating: Hemos recibido una valoración de 4.8/5 estrellas
+          rating: Hemos recibido calificaciones de 4.8/5 estrellas
           trusted_support:
-            body: Somos un servicio virtual gratis certificado el IRS. Ayudamos a familias con bajos ingresos en todo Estados Unidos a hacer sus impuestos con ayuda profesional y sin salir de casa.
-            title: Solicite sus créditos fácilmente con nuestro apoyo de confianza.
+            body: Nuestro servicio virtual gratuito es certificado por el IRS. Ayudamos a familias con bajos ingresos en todo el país a presentar sus impuestos con ayuda profesional.
+            title: Solicita tu dinero de impuestos fácilmente con nuestra ayuda.
         closed_banner: GetYourRefund reabrirá sus servicios el %{start_of_open_intake}.
         closed_open_for_login_banner_html: Los servicios GetYourRefund están cerrados durante esta temporada de impuestos. Esperamos poder brindar nuestra asistencia tributaria gratuita nuevamente a partir de enero. Para obtener preparación de impuestos gratuita ahora, puede buscar <a href="https://www.getyourrefund.org/es/vita_providers">una ubicación de VITA</a> en su área.
         faq:
-          faq_cta: Lee nuestras preguntas frecuentes
+          faq_cta: Ver otras preguntas
           header: 'Preguntas frecuentes:'
         fresh_look_banner:
-          body: En agosto verás un nuevo diseño de nuestra página. Seguirás contando con el mismo servicio de confianza de siempre.
-          header: GetYourRefund tendrá un nuevo diseño
+          body: La misma ayuda gratuita con tus impuestos, el mismo servicio de confianza.
+          header: GetYourRefund tiene un nuevo diseño
         header: Declare sus impuestos sin costo. ¡Es sencillo!
         open_intake_post_tax_deadline_banner: Comience con GetYourRefund antes del %{end_of_intake} si desea presentar su declaración con nosotros en %{product_year}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del %{end_of_docs}.
         security:
-          body: De acuerdo con las pautas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan a los voluntarios debe estar protegida. Mantenemos su información segura y protegida.
-          header: Nos comprometemos a mantener la seguridad de su información.
-        subheader: "¡Reclama miles de dólares a través de los créditos tributarios que te corresponden! Trabajamos contigo para obtener tu mayor reembolso."
+          body: De acuerdo con las normas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan debe estar protegida. Mantenemos tu información segura y protegida.
+          header: Nos comprometemos a mantener la seguridad de tu información.
+        subheader: Reclama miles de dólares a través de los créditos tributarios que te corresponden. Te ayudamos a obtener tu mayor reembolso.
         subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir a finales de enero."
         subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
@@ -6148,7 +6128,8 @@ es:
         bullet_2: Declaraciones de impuestos estatales y federales
         bullet_3: De 1 a 2 horas para presentar la declaración
         bullet_4: Disponible en línea
-        bullet_5_html: Se requiere el número de Seguro Social o el <b>Número</b> de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: "<b>Se requiere número</b> de Seguro Social o el Número de Identificación Personal del Contribuyente (ITIN)"
+        card_title: FileMyself
         reveal_b1: Todos los estados
         reveal_b2: Puerto Rico
         reveal_b3: No residentes
@@ -6193,16 +6174,16 @@ es:
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
-        subtitle_1: Declaraciones de impuestos precisas y confiables ¡Elija el servicio de impuestos ideal para usted!
-        subtitle_2: "¿No sabe cuál elegir?"
-        title_html: Elija el producto que mejor le funcione
-        triage_link_text: Responda unas cuantas preguntas y le ayudaremos a elegir la mejor opción para usted.
+        subtitle_1: Declaraciones de impuestos precisas y confiables. Completamente gratis. ¡Comienza con el servicio que mejor se ajuste a tus necesidades!
+        subtitle_2: "¿No sabes cuál elegir?"
+        title_html: Elige el producto que mejor te funcione
+        triage_link_text: Responde unas cuantas preguntas y te ayudaremos a elegir la mejor opción para ti.
       simple_file_card:
-        bullet_1: Ayuda por chat y correo electrónico
+        bullet_1: Soporte por chat y correo electrónico
         bullet_2: Solo declaraciones estatales para Colorado y New Jersey
-        bullet_3: 15 minutos para completar
-        bullet_4: Disponible a través de internet
-        bullet_5_html: Se requiere el número de Seguro Social o el <strong>Número</strong> de Identificación Individual del Contribuyente (ITIN, por sus siglas en inglés)
+        bullet_3: 15 minutos para presentar la declaración
+        bullet_4: Disponible en línea
+        bullet_5_html: "<b>Se requiere número</b> de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)"
         reveal:
           s11_bullet_1: 'New Jersey: Declaración conjunta, $20,000 dólares anuales / Declaración individual, $10,000 dólares anuales'
           s11_bullet_2: 'Colorado: Declaración conjunta, $26,000 dólares anuales / Declaración individual, $15,000 dólares anuales'
@@ -6215,17 +6196,17 @@ es:
           subtitle_1: 'Requisitos adicionales de elegibilidad:'
           subtitle_2: 'Otras características:'
           title: Información adicional
-        subtitle: Presenta una declaración estatal simplificada para solicitar tu Crédito de Impuestos por Hijos (Child Tax Credit, en inglés)
+        subtitle: Presenta una declaración estatal simplificada para pedir tu Crédito Tributario por Hijos
         title: SimpleFile
       tax_return_list:
         add_tax_year: Agregar año tributario
         select_tax_return: Seleccione %{tax_year}
       virtual_vita_card:
-        bullet_1: Revisión en línea y soporte por chat
+        bullet_1: Revisión en línea y ayuda por chat
         bullet_2: Declaraciones de impuestos estatales y federales
         bullet_3: De 2 a 3 semanas para presentar la declaración
         bullet_4: Disponible en línea
-        bullet_5_html: Se requieren <b>fotos</b> de la tarjeta del Seguro Social o del Número de Identificación Personal del Contribuyente (ITIN)
+        bullet_5_html: "<b>Se requieren fotos</b> de la tarjeta del Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)"
         reveal_b1: Todos los estados
         reveal_b2: No residentes (limitado)
         reveal_b3: Residentes de Puerto Rico (limitado)

@@ -18,6 +18,18 @@ RSpec.describe "searching, sorting, and filtering clients" do
       end
     end
 
+    context "after the filing deadline for the oldest back tax year" do
+      around do |example|
+        Timecop.freeze(DateTime.parse("2025-06-23")) { example.run }
+      end
+
+      scenario "the tax year filter still offers the oldest back tax year" do
+        visit hub_clients_path
+
+        expect(page).to have_select("year", options: ["", "2024", "2023", "2022", "2021"])
+      end
+    end
+
     context "with existing clients" do
       let(:vita_partner) { create :organization, name: "Alan's Org" }
       let(:site) { create :site, name: "Some child site", parent_organization_id: vita_partner_other.id }

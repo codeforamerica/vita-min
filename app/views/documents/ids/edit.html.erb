@@ -1,5 +1,7 @@
 <% content_for :form_question, t("views.documents.ids.title", count: @names.length) %>
 
+<% content_for :continue_button_class, "button--assist-green" %>
+
 <% content_for :form_help_content do %>
   <p>
     <%= t("views.documents.ids.help_text", count: @names.length) %>

@@ -178,6 +178,7 @@ Rails.application.routes.draw do
           get '/show', to: 'tax_returns#show', as: :show
           get '/sign', to: 'tax_returns#authorize_signature', as: :authorize_signature
           put '/sign', to: 'tax_returns#sign', as: :sign
+          put '/decline-signature', to: 'tax_returns#decline_signature', as: :decline_signature
           get '/spouse-sign', to: 'tax_returns#spouse_authorize_signature', as: :spouse_authorize_signature
           put '/spouse-sign', to: 'tax_returns#spouse_sign', as: :spouse_sign
           get '/success', to: 'tax_returns#success', as: :success
@@ -354,6 +355,12 @@ Rails.application.routes.draw do
 
           get "/:tax_return_selection_id/change-assignee-and-status", to: "change_assignee_and_status#edit", as: :edit_change_assignee_and_status
           put "/:tax_return_selection_id/change-assignee-and-status", to: "change_assignee_and_status#update", as: :update_change_assignee_and_status
+
+          get "/:tax_return_selection_id/turn-red-dot-flag-on", to: "turn_red_dot_flag_on#edit", as: :edit_turn_red_dot_flag_on
+          put "/:tax_return_selection_id/turn-red-dot-flag-on", to: "turn_red_dot_flag_on#update", as: :update_turn_red_dot_flag_on
+
+          get "/:tax_return_selection_id/turn-red-dot-flag-off", to: "turn_red_dot_flag_off#edit", as: :edit_turn_red_dot_flag_off
+          put "/:tax_return_selection_id/turn-red-dot-flag-off", to: "turn_red_dot_flag_off#update", as: :update_turn_red_dot_flag_off
         end
 
         resources :zip_codes, only: [:create, :destroy]

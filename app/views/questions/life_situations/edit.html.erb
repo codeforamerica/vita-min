@@ -17,6 +17,6 @@
       <%= f.cfa_checkbox(:no_life_situations_apply, t("general.none_of_the_above"), options: { id: "none__checkbox", checked_value: "yes", unchecked_value: "no" }) %>
     </div>
 
-    <%= f.continue %>
+    <%= f.continue(button_style: "button--assist-green") %>
   <% end %>
 <% end %>

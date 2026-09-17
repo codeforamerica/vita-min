@@ -97,6 +97,37 @@ RSpec.describe Hub::AssignedClientsController do
           end
         end
 
+        context "filtering by active returns" do
+          let!(:inactive) { create :client, vita_partner: organization, intake: (build :intake), tax_returns: [(build :gyr_tax_return, :file_accepted, assigned_user: user)] }
+
+          it "is on by default for non-admin users" do
+            get :index
+            expect(assigns(:clients)).not_to include inactive
+          end
+
+          it "can be turned off to see all returns" do
+            get :index, params: { active_returns: "false" }
+            expect(assigns(:clients)).to include inactive
+          end
+
+          it "remembers that it was turned off" do
+            get :index, params: { active_returns: "false" }
+            expect(JSON.parse(cookies["assigned_clients_filters"])["active_returns"]).to eq false
+
+            get :index
+            expect(assigns(:clients)).to include inactive
+          end
+
+          context "as an admin" do
+            let(:user) { create(:admin_user) }
+
+            it "is off by default" do
+              get :index
+              expect(assigns(:clients)).to include inactive
+            end
+          end
+        end
+
         context "filtering by flagged" do
           let!(:flagged) { create :client, flagged_at: DateTime.now, vita_partner: organization, intake: (build :intake), tax_returns: [(build :gyr_tax_return, :intake_in_progress, assigned_user: user)] }
           it "filters in" do

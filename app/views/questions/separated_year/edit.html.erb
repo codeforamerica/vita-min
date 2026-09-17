@@ -3,6 +3,6 @@
 <% content_for :card do %>
   <%= form_with model: @form, url: current_path, local: true, method: "put", builder: VitaMinFormBuilder, html: {class: "form-card"} do |f| %>
     <%= f.vita_min_select(:separated_year, content_for(:form_question), year_options_from_2018_to_current_tax_yr_plus_one) %>
-    <%= f.continue %>
+    <%= f.continue(button_style: "button--assist-green") %>
   <% end %>
 <% end %>

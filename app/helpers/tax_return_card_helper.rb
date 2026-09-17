@@ -129,6 +129,7 @@ module TaxReturnCardHelper
   end
 
   def contact_method_of_last_tax_team_message(intake)
+
     last = MessagePresenter.grouped_messages(intake.client)&.values&.last&.last
     # ^^^ MessagePresenter.grouped_messages returns a map where a key is a datestamp
     # and a value is an array of messages for that date
@@ -199,6 +200,7 @@ module TaxReturnCardHelper
         button_type: :message_tax_team,
         return_status: state
       }
+      # Added pseudo check to skip Contact Method calls in event of PseudoTaxReturn
     elsif [:prep_info_requested].include?(state)
       {
         badge_text: t('portal.portal2.home.badge.tax_prep'),
@@ -207,7 +209,7 @@ module TaxReturnCardHelper
         call_to_action_title: t('portal.portal2.home.calls_to_action.prep_info_requested_title'),
         call_to_action_text:
           t('portal.portal2.home.calls_to_action.prep_info_requested',
-            contact_method: contact_method_of_last_tax_team_message(intake)),
+            contact_method: intake.pseudo? ? "Contact Method" : contact_method_of_last_tax_team_message(intake)),
         return_status: state
       }
     elsif [:review_ready_for_qr, :review_reviewing, :review_ready_for_call].include?(state)
@@ -217,6 +219,7 @@ module TaxReturnCardHelper
         button_type: :message_tax_team,
         return_status: state
       }
+      # Added pseudo check to skip Contact Method calls in event of PseudoTaxReturn
     elsif [:review_info_requested].include?(state)
       {
         badge_text: t('portal.portal2.home.badge.final_check'),
@@ -225,7 +228,7 @@ module TaxReturnCardHelper
         call_to_action_title: t('portal.portal2.home.calls_to_action.review_info_requested_title'),
         call_to_action_text:
           t('portal.portal2.home.calls_to_action.review_info_requested',
-            contact_method: contact_method_of_last_tax_team_message(intake)),
+            contact_method: intake.pseudo? ? "Contact Method" : contact_method_of_last_tax_team_message(intake)),
         return_status: state
       }
     elsif [:file_ready_to_file, :file_accepted, :file_rejected, :file_hold, :file_fraud_hold,
@@ -236,18 +239,42 @@ module TaxReturnCardHelper
         button_type: :message_tax_team,
         return_status: state
       }
-    # TODO to be fully implemented in GYR1-1085
-    elsif [:review_signature_requested].include?(state)
-      {
-        badge_text: t('portal.portal2.home.badge.final_check'),
-        help_text: 'To be fully implemented in GYR1-1085',
-        button_type: :message_tax_team,
-        return_status: state
-      }
+    elsif state == :review_signature_requested
+      signature_type = signature_type_awaited(tax_return)
+
+      if signature_type.present? && tax_return.final_tax_documents.any?
+        {
+          badge_text: t('portal.portal2.home.badge.final_check'),
+          help_text: t("portal.portal2.home.help_text.signature_requested_#{signature_type}"),
+          call_to_action_title: t('portal.portal2.home.calls_to_action.signature_requested_title'),
+          call_to_action_text: t('portal.portal2.home.calls_to_action.signature_requested'),
+          button_type: :sign_return,
+          link: if signature_type == TaxReturn::PRIMARY_SIGNATURE
+                  portal_tax_return_authorize_signature_path(tax_return_id: tax_return.id)
+                else
+                  portal_tax_return_spouse_authorize_signature_path(tax_return_id: tax_return.id)
+                end,
+          download_final_tax_documents: true,
+          return_status: state
+        }
+      else
+        {
+          badge_text: t('portal.portal2.home.badge.final_check'),
+          help_text: t("portal.portal2.home.help_text.review"),
+          button_type: :view_documents,
+          return_status: state
+        }
+      end
     end
   end
 
   private
+
+  def signature_type_awaited(tax_return)
+    [TaxReturn::PRIMARY_SIGNATURE, TaxReturn::SPOUSE_SIGNATURE].find do |signature_type|
+      tax_return.ready_for_8879_signature?(signature_type)
+    end
+  end
 
   def signature_documents_ready?(tax_return)
     has_final_tax_document = tax_return&.final_tax_documents&.any?
