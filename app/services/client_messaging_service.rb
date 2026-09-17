@@ -14,8 +14,7 @@ class ClientMessagingService
       replacement_args = { body: body, client: client, preparer: user, tax_return: tax_return, locale: applied_locale }
       replaced_body = ReplacementParametersService.new(**replacement_args).process
 
-      service_type = intake.is_ctc? ? :ctc : :gyr
-      service = MultiTenantService.new(service_type)
+      service = MultiTenantService.new(:gyr)
       subject ||= I18n.t("messages.default_subject_with_service_name", service_name: service.service_name, locale: applied_locale)
 
       client.outgoing_emails.create!(

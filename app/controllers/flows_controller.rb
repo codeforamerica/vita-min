@@ -6,7 +6,6 @@ class FlowsController < ApplicationController
     state_file_ny: { emoji: "🍎", name: "State File - New York", host: :statefile },
   }
   SAMPLE_GENERATOR_TYPES = {
-    ctc: [:single, :married_filing_jointly],
     gyr: [:single, :married_filing_jointly],
     state_file_az: [:single, :married_filing_jointly, :qualifying_widow, :married_filing_separately, :head_of_household],
     state_file_ny: [:head_of_household],
@@ -195,11 +194,7 @@ class FlowsController < ApplicationController
             action: @controller_action,
             _recall: {},
           }.merge(navigation_entry_params(@current_controller))
-          if controller_path.start_with?('ctc') && MultiTenantService.new(:ctc).host.present?
-            url_params[:host] = MultiTenantService.new(:ctc).host
-          else
-            url_params[:only_path] = true
-          end
+          url_params[:only_path] = true
           if respond_to?(:resource_name) && resource_name.present?
             url_params[:id] = "fake-#{resource_name}-id"
           end
@@ -227,11 +222,7 @@ class FlowsController < ApplicationController
             e.string
           end
         else
-          if controller_path.start_with?('ctc')
-            raise "Could not find title for: #{controller_path}"
-          else
-            controller_name.titleize.singularize
-          end
+          controller_name.titleize.singularize
         end
       end
 
@@ -292,7 +283,7 @@ class FlowsController < ApplicationController
       sms_phone_number = PhoneParser.normalize(form_params[:sms_phone_number])
       email_address = form_params[:email_address]
       with_dependents = form_params[:with_dependents] == "1"
-
+      #Remove ctc after tables are deleted.
       intake_attributes = {
         type: Intake::GyrIntake.to_s,
         product_year: Rails.configuration.product_year,

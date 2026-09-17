@@ -430,8 +430,6 @@ en:
     contact_us: Contact us
     continue: Continue
     continue_example: Continue to example
-    ctc: GetCTC
-    ctc_client: CTC client
     date_of_birth: Date of birth
     day: Day
     days:
@@ -956,9 +954,7 @@ en:
         send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
       fields:
         blind: Was blind
-        ctc_spouse_contact_info: Spouse information, if married filing jointly
         filing_status: Filing Status
-        has_crypto_income: Did receive, sell, exchange, or otherwise dispose of any financial interest in any virtual currency
         identity_verification:
           title: Identity verification
         legal_first_name: Legal first name
@@ -975,7 +971,6 @@ en:
         payment_information: Payment Information
         photo_id:
           drivers_license: Drivers License
-          error: Please select at least one photo ID type
           other_state: Other State ID
           passport: US Passport
           title: Type of photo ID used
@@ -983,7 +978,6 @@ en:
         preferred_interview_language: Preferred language
         preferred_name: Preferred full name
         primary_contact_info: Primary Contact Information
-        recovery_rebate_credit: Recovery Rebate Credit (optional)
         routing_methods:
           at_capacity: At capacity (not routed)
           hub_assignment: Hub assignment
@@ -999,9 +993,7 @@ en:
           online: Online
         spouse_contact_info: Spouse Contact Information
         state_of_residence: State of residence
-        suffix: Suffix
         taxpayer_id:
-          error: Please select at least one taxpayer ID type
           itin: Individual Taxpayer ID Number (ITIN) letter
           social_security: Social Security card
           title: Type of taxpayer ID used
@@ -1084,13 +1076,6 @@ en:
         title: Edit Coalition
       new:
         title: Create Coalition
-    ctc_clients:
-      edit:
-        title: Edit CTC Client Profile
-      new:
-        assign_to_label: Assign to
-        save_and_add: Save and add another
-        title: Add a new CTC client
     dashboard:
       show:
         action_required:
@@ -1226,14 +1211,6 @@ en:
           <p>Once you answer, we'll attempt to connect you to %{to_phone_number}.</p>
 
           <p>You don't need to remain on this page to continue the call.</p>
-    recovery_rebate_credit_amount:
-      amount_1: Economic Impact Payment 1 received
-      amount_2: Economic Impact Payment 2 received
-      amount_3: EIP 3 received
-      confidence: How confident in this amount?
-      confidence_values:
-        sure: Sure
-        unsure: Unsure
     sites:
       new:
         title: Add site
@@ -4975,7 +4952,6 @@ en:
         survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
-    alpha: Only letters A-Z and a-z are accepted.
     alphanumeric: Only numbers 0-9 and letters A-Z and a-z are accepted.
     atin: Please enter a valid adoption taxpayer identification number.
     ctds_code: School Code/CTDS must be a 9 digit number.
@@ -5061,9 +5037,6 @@ en:
 
         Your tax team at %{service_name}.org
   verification_code_sms:
-    no_match_ctc: |
-      Someone tried to sign into GetCTC with this phone number. If you already have an account with GetCTC, you can try to sign in with your email address instead %{url}/portal/login.
-      Or visit %{url} and click "File your simplified return now" to get started.
     no_match_gyr: |
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
       You can also visit %{url} to get started.
@@ -5227,9 +5200,6 @@ en:
         meta:
           description: Maximize your refund by filing with our trusted volunteers. Available to you online or in person!
         skip_content: Skip to main content
-      ctc:
-        meta:
-          description: Cash in your family’s pocket for the things you need.
       document_upload:
         accepted_file_types: Accepted types include %{accepted_types}
         dont_have: I don't have this right now.

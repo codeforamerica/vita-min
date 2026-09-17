@@ -2,7 +2,7 @@
   <div class="slab">
     <div class="grid">
       <h1><%= @main_heading %></h1>
-      <p>Make and upload a csv with one column with header named 'id' and each row contains a signup id. Choose GYR or GetCTC.</p>
+      <p>Make and upload a csv with one column with header named 'id' and each row contains a signup id. </p>
       <p>You'll see the file you uploaded and the number of signups at the bottom of the page. Click either the text or email link.</p>
 
       <h2>Upload</h2>
@@ -11,8 +11,7 @@
         <%= f.cfa_radio_set(
               :signup_type,
               collection: [
-                { value: :GYR, label: "GYR" },
-                { value: :GetCTC, label: "GetCTC" }
+                { value: :GYR, label: "GYR" }
               ]
             )
         %>

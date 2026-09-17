@@ -334,8 +334,6 @@ Rails.application.routes.draw do
             post "update_take_action"
           end
         end
-        resources :ctc_clients, only: [:edit, :update]
-
         resources :dashboard, only: [:index] do
           get "/:type/:id", to: "dashboard#show", on: :collection, as: :show
           get "/:type/:id/returns-by-status", to: "dashboard#returns_by_status", on: :collection, as: :returns_by_status
@@ -392,7 +390,6 @@ Rails.application.routes.draw do
         resources :tools, only: [:index]
         resources :admin_tools, only: [:index]
         resources :state_file_admin_tools, only: [:index]
-        resources :ctc_intake_capacity, only: [:index, :create]
         resources :admin_toggles, only: [:index, :create]
         get "/profile" => "users#profile", as: :user_profile
         patch "/profile/notification_preferences" => "users#update_notification_preferences", as: :update_notification_preferences

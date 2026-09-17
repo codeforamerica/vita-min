@@ -14,23 +14,21 @@
         </div>
       <% end %>
     </div>
-    <% unless variation == "ctc" %>
-      <div class="toolbar__right is-mobile-hidden">
-        <% if I18n.locale != :en %>
-          <%= link_to_english(class: "toolbar__item text--small") %>
+    <div class="toolbar__right is-mobile-hidden">
+      <% if I18n.locale != :en %>
+        <%= link_to_english(class: "toolbar__item text--small") %>
+      <% end %>
+      <% if I18n.locale != :es %>
+        <%= link_to_spanish(class: "toolbar__item text--small") %>
+      <% end %>
+      <% if current_client.present? %>
+        <%= form_with url: destroy_client_session_path, local: true, method: :delete, class: "toolbar__item text--small text--bold" do |f| %>
+          <%= f.submit value: t("general.sign_out"), class: "button--link" %>
         <% end %>
-        <% if I18n.locale != :es %>
-          <%= link_to_spanish(class: "toolbar__item text--small") %>
-        <% end %>
-        <% if current_client.present? %>
-          <%= form_with url: destroy_client_session_path, local: true, method: :delete, class: "toolbar__item text--small text--bold" do |f| %>
-            <%= f.submit value: t("general.sign_out"), class: "button--link" %>
-          <% end %>
-        <% else %>
-          <%= link_to t("general.sign_in"), new_portal_client_login_path, class: "toolbar__item button button--toolbar button--small" %>
-        <% end %>
-      </div>
-    <% end %>
+      <% else %>
+        <%= link_to t("general.sign_in"), new_portal_client_login_path, class: "toolbar__item button button--toolbar button--small" %>
+      <% end %>
+    </div>
       <a data-component="ClientMenuTrigger" class="client-menu-trigger is-desktop-hidden toolbar__item text--small">Menu</a>
       <a class="is-desktop-hidden client-menu-closer" data-component="ClientMenuCloser">
         <%= image_tag "icons/close.svg"%>
