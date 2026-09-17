@@ -417,6 +417,7 @@ es:
     city: Ciudad
     client_info: Información del cliente
     client_success: Éxito del cliente
+    close: Cerrar
     coalition: Coalición
     coalition_lead: Líder de coalición
     complete: completo
@@ -606,6 +607,7 @@ es:
     log_out: Cerrar sesión
     login: Iniciar sesión
     married: Casado
+    menu: Menú
     month: Mes
     my_account: Mi cuenta
     my_profile: Mi perfil
@@ -1471,45 +1473,7 @@ es:
         body: Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}. <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.
         subject: GetYourRefund cerrará próximamente -- actúe ahora si necesita services de preparación de impuestos.
       sms: Cerramos la temporada de impuestos de GetYourRefund el %{end_of_in_progress_intake_date}. Necesitamos todos los documentos requeridos antes del %{end_of_docs_date} de lo contrario, no podremos preparar su declaración de impuestos. Por favor inicie sesión y responda antes del %{end_of_docs_date}. <<Client.LoginLink>> Si no tenemos noticias suyas para entonces, cerraremos su caso y podrá presentar su declaración de impuestos con nosotros el próximo año.
-    contact_info_change:
-      email:
-        body: |
-          Su dirección de correo electrónico han sido modificados en su cuenta de GetCTC.
-
-          Si cree que su información de contacto pudo haber sido cambiada incorrectamente, por favor comuníquese con support@getctc.org
-
-          ¡Estamos aquí para ayudarle!
-          Su equipo de impuestos GetCTC.org
-        subject: Su información de contacto en GetCTC
-      sms: |
-        Su número de teléfono han sido modificados en su cuenta de GetCTC.
-
-        Si cree que su información de contacto pudo haber sido cambiada incorrectamente, por favor comuníquese con support@getctc.org
-
-        ¡Estamos aquí para ayudarle!
-        Su equipo de impuestos GetCTC.org
-    ctc_getting_started:
-      email:
-        body: |
-          Hola <<Client.PreferredName>>,
-
-          Gracias por comenzar su declaración de impuestos con GetCTC. Solo podemos enviar su información al IRS cuando llenas el formulario
-
-          Puede iniciar sesión para completar el formulario y verificar su estado aquí: <<Client.LoginLink>> Puede usar su ID de cliente <<Client.ClientId>> para iniciar sesión o, si nos lo ha proporcionado, el último cuatro dígitos de su SSN/ITIN.
-
-          ¡Estamos aquí para ayudar!
-          Su equipo de impuestos en GetCTC.org
-        subject: Inscripción para GetCTC
-      sms: |
-        Hola <<Client.PreferredName>>,
-        ¡Gracias por comenzar su declaración de impuestos con GetCTC! Su ID de cliente es <<Client.ClientId>> Verifique su progreso con su ID de cliente o los últimos cuatro dígitos de su SSN/ITIN: <<Client.LoginLink>>
-        ¡Estamos aquí para ayudar!
     default_subject_with_service_name: Actualización de %{service_name}
-    fraud_hold:
-      email:
-        body: "Hola <<Client.PreferredName>>,\n\nSu entrega requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
-        subject: La información ha enviado está en espera por ahora
-      sms: "Hola <<Client.PreferredName>>,\n\nLa información que ha enviado requiere una revisión adicional. Para empezar con su revisión, inicie sesión en <<Client.LoginLink>> y haga clic en \"Cargar documentos adicionales\" y envíe una foto de usted con su identificación oficial con foto emitida por el gobierno. \n\nAtentamente, \nEl equipo de GetCTC.org\n"
     in_progress:
       email:
         body: |
@@ -1555,20 +1519,6 @@ es:
         Hola <<Client.PreferredName>>,
         Parece que no a terminado nuestra aplicación. ¡Nuestros preparadores en <<Client.AssignedOrganization>> esperamos trabajar con usted! Para completar nuestro formulario, simplemente inicie sesión aquí: <<Client.LoginLink>>
         ¡Gracias!
-    save_ctc_letter:
-      email:
-        body: |
-          Hola,
-
-          Recibirá lo que llaman la carta 6419 del IRS en enero de 2022. Esta carta le ayudará a usted y su preparador de impuestos a reclamar su Crédito Tributario por Hijos correctamente para usted y su familia. La carta tendrá 6419 impreso e incluirá información sobre los pagos del Crédito Tributario por Hijos que recibió en 2021.
-
-          Favor de guardar esta carta para cuando presente sus impuestos. Ya sea que presente su declaración con %{service_name} o cualquier otro servicio, esta le ayudará a cobrar cualquier pago restante y recibirá cualquier reembolso que se le deba, sin demora.
-
-          Feliz Año Nuevo,
-
-          Su equipo de impuestos de %{service_name}
-        subject: Información importante para reclamar los pagos del Crédito Tributario por Hijos
-      sms: Saludos de su equipo de impuestos - Si recibió pagos del Crédito Tributario por Hijos en 2021, recibirá la carta 6419 del IRS en enero de 2022. Favor de guardar esta carta para cuando presente sus impuestos para cobrar cualquier pago restante y evitar demoras en el procesamiento de su reembolso.
     sms_opt_in: Bienvenido a los mensajes de GetYourRefund. Se pueden aplicar cargos de msjs y datos por usted a nosotros o de nosotros a usted. La frecuencia de los mensajes varía. Responda AYUDA para información de suscripción/privacidad, ALTO para cancelar.
     state_file:
       accepted_owe:
@@ -2009,15 +1959,6 @@ es:
         subject: Estas respuestas no se supervisan
       sms:
         body: Estas respuestas no se supervisan. Escriba a %{support_email} para obtener ayuda.
-    verification_attempt_denied:
-      email:
-        body: |
-          Su caso de verificación de identidad se ha cerrado, y estamos negando el envío de esta declaración de impuestos al IRS.
-          Si tiene preguntas o desea más información sobre esta decisión, favor de comunicarse con hello@getctc.org.
-        subject: Su caso de verificación de identidad se ha cerrado
-      sms: |
-        Su caso de verificación de identidad se ha cerrado, y estamos negando el envío de esta declaración de impuestos al IRS.
-        Si tiene preguntas o desea más información sobre esta decisión, favor de comunicarse con hello@getctc.org.
     verification_code_subject_with_service_name: Código de seis dígitos de %{service_name}
     welcome:
       email:
@@ -2153,7 +2094,10 @@ es:
         button:
           add_documents: Agregar documentos
           complete_tax_questions: Preguntas completas sobre impuestos
+          decline_to_sign: No quiero firmar
           message_tax_team: Enviar mensaje
+          sign_your_return: Firmar su declaración
+          view_documents: Ver sus documentos cargados
         calls_to_action:
           add_missing_documents: Vea qué falta y complete su declaración de impuestos.
           add_missing_documents_title: Envíe documentos adicionales
@@ -2163,6 +2107,11 @@ es:
           prep_info_requested_title: Tiene un mensaje
           review_info_requested: El equipo de impuestos le envió una pregunta por %{contact_method}. Responda para que su declaración de impuestos siga avanzando.
           review_info_requested_title: Tiene un mensaje
+          signature_requested: Descargue sus papeles de impuestos para revisarlos y luego firme electrónicamente.
+          signature_requested_title: Se necesita su firma
+        decline_to_sign_help: Si no firma su declaración, el equipo de impuestos se comunicará con usted para ver sus opciones.
+        document_link:
+          download_final_tax_papers: Descargar papeles de impuestos
         help_text:
           final_steps: Su declaración de impuestos está en camino al IRS. Le informaremos cuando sea procesada.
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
@@ -2171,8 +2120,10 @@ es:
           prep_info_requested: Necesitamos más información para preparar su declaración de impuestos.
           review: Nos comunicaremos con usted si algo requiere su atención.
           review_info_requested: El equipo de impuestos necesita una cosa más antes de finalizar su declaración.
+          signature_requested_primary: Su declaración de impuestos está lista para firmar.
+          signature_requested_spouse: Su declaración de impuestos está lista para la firma de su cónyuge.
           tax_prep: Nos comunicaremos con usted si necesitamos algo.
-        title: Bienvenido de nuevo, %{name}
+        title: Hola, %{name}
     settings:
       show:
         bank_info:
@@ -2195,6 +2146,14 @@ es:
           title: "¿Necesita actualizar algo?"
         message_tax_team: Enviar mensaje a su equipo de impuestos
         title: Información de la cuenta
+    shared:
+      portal2_menu:
+        aria_label: Navegación del portal
+        documents: Documentos
+        home: Inicio
+        messages: Mensajes
+        settings: Información de la cuenta
+        tax_returns: Declaraciones de impuestos
     still_needs_helps:
       chat_later:
         help_text: Si tiene algún documento adicional que necesita subir, por favor use el botón abajo.
@@ -2227,6 +2186,8 @@ es:
           body_html: "<p>Bajo pena de perjurio, declaro haber examinado una copia de mi declaración electrónica del impuesto sobre el ingreso y todo anexo y documento acompañante para el año tributario que termina el 31 de diciembre de %{year} y, según mi leal conocimiento y entendimiento, son verídicos, correctos y completos.</p><p> Declaro además que las cantidades provistas anteriormente en la Parte I son las mismas indicadas en mi declaración electrónica del impuesto sobre el ingreso. Autorizo a que mi proveedor intermediario de servicios, transmisor o iniciador de declaraciones electrónicas (ERO, por sus siglas en inglés) envíe mi declaración al IRS y que reciba del mismo (a) acuse de recibo o justificación de rechazo de la transmisión, (b) la razón por toda demora en la tramitación de la declaración o reembolso y (c) la fecha de todo reembolso. </p><p>Si corresponde, autorizo al U.S. Treasury (Departamento del Tesoro de los Estados Unidos) y a su Agente Financiero designado para que tramiten ante la ACH una transacción de retiro electrónico de fondos (débito directo) en la cuenta de la institución financiera indicada en el programa de computadora (software) de preparación de declaraciones para pagar los impuestos federales que adeudo en esta declaración y/o pagar el impuesto estimado, y además autorizo a la institución financiera para que cargue la entrada a esta cuenta. Esta autorización quedará en pleno vigor hasta que yo notifique al Agente Financiero del Departamento del Tesoro de los Estados Unidos para que éste cancele la autorización. Para revocar (cancelar) un pago, tengo que comunicarme con el Agente Financiero del Departamento del Tesoro de los Estados Unidos llamando al 1-888-353-4537. Las solicitudes de cancelación de pago se tienen que recibir a más tardar 2 días laborables antes de la fecha de pago (liquidación). </p><p> También autorizo a las instituciones financieras que participan en la tramitación del pago electrónico de impuestos para que reciban información confidencial necesaria para responder a preguntas y resolver dudas relacionadas con dicho pago. Certifico además que el número de identificación personal (PIN, por sus siglas en inglés) que aparece a continuación es el que he escogido como firma para mi declaración electrónica del impuesto sobre el ingreso y, si corresponde, mi autorización para el retiro de fondos por vías electrónicas.</p>"
           title: Declaración del contribuyente y autorización para la firma
         subheader: Usted declara que ha examinado una copia de su declaración electrónica individual de impuestos y los calendarios acompañantes y estados de cuenta para el año fiscal que termina el 31 de diciembre de %{year}, y que en la mejor inteligencia da fe de que son verdaderos, correctos y completos.
+      decline_signature:
+        confirmation: Gracias por avisarnos. Su equipo de impuestos se comunicará con usted para conversar sobre su declaración.
       index:
         final_return_not_started: Retorno final no iniciado
         final_tax_return: Declaración de impuestos final de %{year}

@@ -9,7 +9,7 @@ class ClientSorter
   attr_reader :sort_column
   attr_reader :sort_order
 
-  def initialize(clients, current_user, params, cookie_filters, use_product_year = true)
+  def initialize(clients, current_user, params, cookie_filters, use_product_year = true, default_active_returns: false)
     @clients = clients
     @current_user = current_user
     @params = params
@@ -17,12 +17,13 @@ class ClientSorter
     @default_order = { "last_outgoing_communication_at" => "asc" }
     @sort_column = clients_sort_column
     @sort_order = clients_sort_order
+    @default_active_returns = default_active_returns
     @filters = filters_from(filter_source)
     @use_product_year = use_product_year
   end
 
   def active_filters
-    @filters.select { |_, v| v.present? }
+    @filters.select { |k, v| k == :active_returns ? !v.nil? : v.present? }
   end
 
   def filtered_and_sorted_clients(default_order: nil)
@@ -49,7 +50,7 @@ class ClientSorter
     tax_return_filters[:stage] = @filters[:stage] if @filters[:stage].present?
     tax_return_filters[:year] = @filters[:year].to_i if @filters[:year].present?
     tax_return_filters[:current_state] = @filters[:status] if @filters[:status].present?
-    tax_return_filters[:active] = @filters[:active_returns].in?([true, "true"]) if @filters[:active_returns].present?
+    tax_return_filters[:active] = true if @filters[:active_returns]
     tax_return_filters[:service_type] = @filters[:service_type] if @filters[:service_type].present?
 
     tax_return_filters_expanded = []
@@ -97,7 +98,7 @@ class ClientSorter
   end
 
   def filtering_only_by?(filter_values, ignore: [])
-    @filters.except(*ignore).select { |_k, v| v.present? } == filter_values.transform_values { |v| v.to_s }
+    @filters.except(*ignore).select { |_k, v| v.present? }.transform_values(&:to_s) == filter_values.transform_values(&:to_s)
   end
 
   private
@@ -119,8 +120,19 @@ class ClientSorter
       used_navigator: source[:used_navigator],
       ctc_client: source[:ctc_client],
       last_contact: source[:last_contact],
-      active_returns: source[:active_returns],
+      active_returns: active_returns_filter(source),
     }
+  end
+
+  # Nothing in the params or the filter cookie means the user hasn't expressed a
+  # preference yet, so fall back to the default for this page. Once they submit
+  # the filter form the checkbox always sends a value (the form pairs it with a
+  # hidden "false" field), so an intentional opt-out is respected and remembered.
+  def active_returns_filter(source)
+    value = source[:active_returns]
+    return @default_active_returns if value.nil?
+
+    value.in?([true, "true"])
   end
 
   def search_and_sort_params

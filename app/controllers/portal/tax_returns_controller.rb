@@ -3,6 +3,7 @@ module Portal
     before_action :load_client_tax_return, except: [:success, :index]
     before_action :redirect_unless_spouse_signature_required, only: [:spouse_sign, :spouse_authorize_signature]
     before_action :redirect_unless_primary_signature_required, only: [:sign, :authorize_signature]
+    before_action :redirect_unless_signature_requested, only: [:decline_signature]
     layout :resolve_layout
 
     def index
@@ -39,6 +40,12 @@ module Portal
       end
     end
 
+    def decline_signature
+      @tax_return.decline_to_sign!
+      flash[:notice] = I18n.t("portal.tax_returns.decline_signature.confirmation")
+      redirect_to portal_root_path
+    end
+
     def success; end
 
     def show; end
@@ -47,6 +54,10 @@ module Portal
 
     def resolve_layout
       action_name == "index" ? "portal" : "application"
+    end
+
+    def redirect_unless_signature_requested
+      redirect_to portal_root_path unless @tax_return.current_state == "review_signature_requested"
     end
 
     def load_client_tax_return

@@ -99,6 +99,26 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           end
         end
 
+        context "with sort param of tax_return - sorts by tax_return year" do
+          let!(:tax_return_1) { create :tax_return, client: client, year: 2024 }
+          let!(:tax_return_2) { create :tax_return, client: client, year: 2019 }
+          let!(:tax_return_3) { create :tax_return, client: client, year: 2023 }
+          let(:params) { { client_id: client.id, column: "tax_return", order: "asc" } }
+          let!(:document_2024) { create :document, created_at: 1.day.ago, display_name: "Zebra doc", client: client, tax_return: tax_return_1 }
+          let!(:document_2019) { create :document, created_at: 1.hour.ago, display_name: "Alligator doc", client: client, tax_return: tax_return_2 }
+          let!(:document_2023) { create :document, created_at: 1.minute.ago, display_name: "Giraffe doc", client: client, tax_return: tax_return_3 }
+
+          it "orders documents by that column" do
+            get :index, params: params
+
+            expect(assigns[:sort_column]).to eq("tax_return")
+            expect(assigns[:sort_order]).to eq("asc")
+            # Note: w/o sorting, default would be to display them in order of creation.
+            expect(assigns(:documents)).to eq [document_2019, document_2023, document_2024]
+
+          end
+        end
+
         context "with no params" do
           let(:params) { { client_id: client.id } }
           let!(:identity_document) { create :document, client: client, document_type: DocumentTypes::Identity.key, display_name: "alligator doc" }

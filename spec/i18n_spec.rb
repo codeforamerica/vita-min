@@ -14,7 +14,6 @@ RSpec.describe I18n do
     hub.status_macros.intake_greeter_info_requested
     hub.status_macros.intake_ready_for_call
     hub.status_macros.review_reviewing
-    messages.ctc_getting_started.sms
     messages.efile.acceptance.email.body
     portal.tax_returns.authorize_signature_header.full_declaration.body_html
     verification_code_mailer.no_match.body_html
