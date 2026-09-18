@@ -427,7 +427,7 @@ en:
     contact_methods:
       email: email
       sms_phone_number: text
-    contact_us: Contact us
+    contact_us: Contact Us
     continue: Continue
     continue_example: Continue to example
     ctc: GetCTC
@@ -558,7 +558,7 @@ en:
     free_file_lookup_tool: IRS Free File Lookup Tool
     get_help: Get help
     get_my_payment: Get My Payment
-    get_started: Get Started
+    get_started: Get started
     go_home: Go Home
     greetable: Greetable
     greeter: Greeter
@@ -5283,21 +5283,21 @@ en:
             header: Very professional, very friendly
           rating: Rated 4.8 / 5 stars
           trusted_support:
-            body: We are a free IRS-certified virtual service that helps low-income households across America receive high quality tax services from the convenience of your home.
-            title: Claim your credits easily with our trusted support.
+            body: We are a free IRS-certified virtual service that helps low-income households across America receive high quality tax services from the convenience of their home.
+            title: Claim your credits easily with our trusted support
         closed_banner: GetYourRefund will reopen %{start_of_open_intake}.
         closed_open_for_login_banner_html: GetYourRefund services are closed for this tax season. We look forward to providing our free tax assistance again starting in January. For free tax prep now, you can search for a <a href="https://www.getyourrefund.org/en/vita_providers">VITA location</a> in your area.
         faq:
           faq_cta: Read our FAQ
-          header: 'Common Tax Questions:'
+          header: 'Common questions:'
         fresh_look_banner:
           body: Same free tax help, same trusted service.
           header: GetYourRefund has a new design
-        header: Free tax filing, made simple.
+        header: Free tax filing, made simple
         open_intake_post_tax_deadline_banner: Get started with GetYourRefund by %{end_of_intake} if you want to file with us in %{product_year}. If your return is in progress, sign in and submit your documents by %{end_of_docs}.
         security:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
-          header: Committed to keeping your information secure.
+          header: Committed to keeping your information secure
         subheader: Claim thousands of dollars through tax credits you're owed! We work with you to get your highest refund.
         subheader_offseason: Sign up for the next tax season now! We'll notify you as soon as our service reopens late January.
         subheader_warning: File by %{tax_day} to avoid any penalties.
@@ -6086,7 +6086,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: 1-2 hours to file
         bullet_4: Available online
-        bullet_5_html: Social Security or Individual Taxpayer Identification Number required
+        bullet_5_html: Social Security or Individual Taxpayer Identification <b>Number</b> required
         card_title: FileMyself
         reveal_b1: All states
         reveal_b2: Puerto Rico
@@ -6105,7 +6105,7 @@ en:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_filing: We are unable to accept new clients after %{end_of_intake_date}. If your return is in progress, log in and submit your documents by %{end_of_docs_date} in order to file by the deadline.
       footer:
-        service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link}
+        service_description_html: GetYourRefund is a non-profit service built by %{cfa_link}
         service_status: Service status
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
@@ -6114,8 +6114,8 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: Varies by location
         bullet_4: Available in-person
-        bullet_5_html: Physical copies of Social Security or Individual Taxpayer Identification Number Card required
-        link_button: Find a Location
+        bullet_5_html: "<b>Physical</b> Social Security card or Individual Taxpayer Identification Number card required"
+        link_button: Find a location
         reveal_b1: All states
         reveal_b2: Non-residents [varies by location]
         reveal_b3: Puerto Rico residents [varies by location]
@@ -6126,22 +6126,22 @@ en:
         reveal_body_2: Official tax documents (W2’s, 1099’s, etc.) are required to file
         reveal_body_3: 'Available to residents of:'
         reveal_body_4: 'Other features:'
-        reveal_title: Additional Information
+        reveal_title: Additional information
         subtitle: Find a local IRS site and file with help
         title: Assist (In-person)
       progress_bar:
         progress_text: 'Intake progress:'
       service_comparison:
-        subtitle_1: The highest accuracy rates on your return. Completely free. Choose the tax service that’s right for you!
+        subtitle_1_html: The highest accuracy rates on your return. <b>Completely free</b>. Choose the tax service that’s right for you!
         subtitle_2: Not sure what to choose?
-        title_html: Choose the product that works for you.
+        title_html: Choose the product that works for you
         triage_link_text: Answer a few questions and we’ll recommend the right service.
       simple_file_card:
         bullet_1: Chat and email support
         bullet_2: Colorado and New Jersey State tax returns only
         bullet_3: 15 minutes to file
         bullet_4: Available online
-        bullet_5_html: Social Security or Individual Taxpayer Identification Number required
+        bullet_5_html: Social Security or Individual Taxpayer Identification <b>Number</b> required
         reveal:
           s11_bullet_1: 'New Jersey: Married Filing joint $20,000 / Filing Single $10,000'
           s11_bullet_2: 'Colorado: Married Filing joint $26,000 / Filing Single $15,000'
@@ -6164,7 +6164,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: 2-3 weeks to file
         bullet_4: Available online
-        bullet_5_html: Photos of Social Security or Individual Taxpayer Identification Number card required
+        bullet_5_html: "<b>Photos</b> of Social Security or Individual Taxpayer Identification Number card required"
         reveal_b1: All states
         reveal_b2: Non-residents [limited]
         reveal_b3: Puerto Rico residents [limited]
@@ -6176,6 +6176,6 @@ en:
         reveal_body_2: Official tax documents (W2’s, 1099’s, etc.) are required to file
         reveal_body_3: 'Available to residents of:'
         reveal_body_4: 'Other features:'
-        reveal_title: Additional Information
-        subtitle: Answer a few questions and let a tax expert file for you
+        reveal_title: Additional information
+        subtitle: Find a local IRS site and file with help
         title: Assist (Virtual)
