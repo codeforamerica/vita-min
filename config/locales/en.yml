@@ -6132,7 +6132,7 @@ en:
       progress_bar:
         progress_text: 'Intake progress:'
       service_comparison:
-        subtitle_1: The highest accuracy rates on your return. <b>Completely free</b>. Choose the tax service that’s right for you!
+        subtitle_1_html: The highest accuracy rates on your return. <b>Completely free</b>. Choose the tax service that’s right for you!
         subtitle_2: Not sure what to choose?
         title_html: Choose the product that works for you
         triage_link_text: Answer a few questions and we’ll recommend the right service.
