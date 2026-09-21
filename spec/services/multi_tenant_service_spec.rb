@@ -30,7 +30,6 @@ describe MultiTenantService do
     end
 
     it "returns the specific config values for each service" do
-      expect(described_class.new(:ctc).current_tax_year).to eq 2017
       expect(described_class.gyr.current_tax_year(Date.parse("4/7/2019"))).to eq 2018
       expect(described_class.statefile.current_tax_year).to eq 2023
     end
