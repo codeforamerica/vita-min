@@ -7,7 +7,7 @@ class EnvironmentCredentials
     'GYR_EFILER_CERT' => [:irs, :efile_cert_base64],
     'GYR_EFILER_ETIN' => [:irs, :etin],
     'GYR_EFILER_APP_SYS_ID' => [:irs, :app_sys_id],
-    'INTERCOM_ACCESS_TOKEN' => [:intercom, :intercom, :access_token]
+    'INTERCOM_ACCESS_TOKEN' => [:intercom, :intercom_access_token]
   }.freeze
 
   class << self

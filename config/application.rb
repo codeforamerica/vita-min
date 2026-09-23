@@ -219,5 +219,14 @@ module VitaMin
     # ------------------------------------------------ #
     #  END additions for Rails 7.2 defaults migration  #
     # ------------------------------------------------ #
+
+    # Source the Active Record encryption keys from ENV when they're set
+    {
+      primary_key: ENV.fetch("ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY", nil),
+      deterministic_key: ENV.fetch("ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY", nil),
+      key_derivation_salt: ENV.fetch("ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT", nil),
+    }.each do |setting, value|
+      Rails.application.config.active_record.encryption[setting] = value if value.present?
+    end
   end
 end
