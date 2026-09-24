@@ -1,3 +1,5 @@
+require "concurrent/set"
+
 class EnvironmentCredentials
   # Some variables don't map obviously.
   SECRET_KEYS = {
@@ -9,6 +11,8 @@ class EnvironmentCredentials
     'GYR_EFILER_APP_SYS_ID' => [:irs, :app_sys_id],
     'INTERCOM_ACCESS_TOKEN' => [:intercom, :intercom_access_token]
   }.freeze
+
+  REPORTED_CREDENTIALS_READS = Concurrent::Set.new
 
   class << self
     def [](name)
@@ -37,16 +41,40 @@ class EnvironmentCredentials
         md_sin: 'MD_SIN',
         sin: 'VITA_MIN_SIN',
       }
-      ENV[env_var_names[key]].presence || dig(:irs, key)
+      from_env = ENV[env_var_names[key]].presence
+      return from_env if from_env
+
+      dig(:irs, key).tap do |value|
+        report_credentials_read(env_var_names[key] || "irs.#{key}") if value.present?
+      end
     end
 
     private
+
+    # reports if values came from creds file instead of ENV variable
+    def credentials_value(name)
+      lookup_in_credentials(name).tap do |value|
+        report_credentials_read(name) if value.present?
+      end
+    end
+
+    def report_credentials_read(name)
+      return unless defined?(Sentry) && Sentry.initialized?
+      return unless REPORTED_CREDENTIALS_READS.add?(name)
+
+      in_env = ENV[name].present?
+      Sentry.capture_message(
+        "EnvironmentCredentials: #{name} came from the credentials file " \
+        "(#{in_env ? 'also present in ENV' : 'MISSING from ENV'})",
+        level: in_env ? :info : :warning
+      )
+    end
 
     # Imperfectly attempts to find keys within credentials, if the credential
     # isn't found in the SECRET_KEYS hash map. Note, this means that FOO_BAR_BAZ
     # will first match dig(:foo, :bar_baz) if it is present and will therefore
     # not match dig(:foo, :bar, :baz)
-    def credentials_value(name)
+    def lookup_in_credentials(name)
       return dig(*SECRET_KEYS[name]) if SECRET_KEYS.key?(name)
 
       keys = []
