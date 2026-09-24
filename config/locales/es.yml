@@ -6147,17 +6147,17 @@ es:
         banner: Este sitio es sólo para pruebas. Si necesitas ayuda con tus impuestos, visita
         off_season_filing: No podemos aceptar nuevos clientes después de %{end_of_intake_date}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes de %{end_of_docs_date} para presentarla antes de la fecha límite.
       footer:
-        service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link} en colaboración con los sitios de Asistencia Voluntaria al Contribuyente (%{vita_link}) certificados por el IRS en todo el país.
+        service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link}.
         service_status: Estado del servicio
-        volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
       in_person_vita_card:
         bullet_1: Apoyo personalizado
         bullet_2: Declaraciones de impuestos estatales y federales
-        bullet_3: Varía según la ubicación
+        bullet_3: El tiempo varía según la ubicación
         bullet_4: Disponible de manera presencial
-        bullet_5_html: "<b>Se requieren copias físicas</b> de la tarjeta del Seguro Social o del Número de Identificación Personal del Contribuyente (ITIN)"
+        bullet_5_html: "<b>Se requieren copias físicas</b> de la tarjeta del Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)"
+        link_button: Buscar una ubicación
         reveal_b1: Todos los estados
         reveal_b2: No residentes (varía según la ubicación)
         reveal_b3: Residentes de Puerto Rico (varía según la ubicación)

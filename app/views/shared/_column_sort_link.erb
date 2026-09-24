@@ -1,4 +1,5 @@
-<% new_order = @sort_column == column_name && @sort_order == "asc" ? "desc" : "asc" %>
+<% new_order = @sort_column == column_name && @sort_order == "asc" ? "desc" : "asc"
+   new_order = 'desc' if @sort_column != 'tax_return' && column_name == 'tax_return' %>
 
 <%= link_to ({ column: column_name, order: new_order, status: params[:status] }), id: "sort-#{column_name}", class: "sortable-column-link" do %>
   <% if @sort_column == column_name %>

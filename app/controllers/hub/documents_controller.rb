@@ -95,7 +95,9 @@ module Hub
     def sorted_documents
       @sort_order = sort_order
       @sort_column = sort_column
-      @documents.except(:order).order({ @sort_column => @sort_order })
+      @sort_column == 'tax_return' ?
+        @documents.except(:order).includes(:tax_return).order('tax_return.year' => @sort_order) :
+        @documents.except(:order).order({ @sort_column => @sort_order })
     end
 
     def log_document_access!
@@ -114,7 +116,7 @@ module Hub
     end
 
     def sort_column
-      %w[created_at display_name document_type].include?(params[:column]) ? params[:column] : "document_type"
+      %w[created_at display_name document_type tax_return].include?(params[:column]) ? params[:column] : "document_type"
     end
 
     def sort_order
