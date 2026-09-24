@@ -36,8 +36,6 @@ class RequestVerificationCodeForLoginJob < ApplicationJob
       else
         url = multi_tenant_service.url(locale: locale)
         body = case service_type
-               when :ctc
-                 I18n.t("verification_code_sms.no_match_ctc", url: url, locale: locale)
                when :gyr
                  I18n.t("verification_code_sms.no_match_gyr", url: url, locale: locale)
                when :statefile

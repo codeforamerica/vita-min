@@ -12,7 +12,6 @@ class MultiTenantService
 
   def url(locale: :en)
     case service_type
-    when :ctc then [Rails.configuration.ctc_url, locale].compact.join("/")
     when :gyr then [Rails.configuration.gyr_url, locale].compact.join("/")
     when :statefile then [Rails.configuration.statefile_url, locale].compact.join("/")
     end
@@ -21,8 +20,6 @@ class MultiTenantService
   def host
     base =
       case service_type
-      when :ctc
-        Rails.configuration.ctc_url
       when :gyr
         Rails.configuration.gyr_url
       when :statefile
@@ -33,7 +30,6 @@ class MultiTenantService
 
   def service_name
     case service_type
-    when :ctc then "GetCTC"
     when :gyr then "GetYourRefund"
     when :statefile then "FileYourStateTaxes"
     end
@@ -41,7 +37,6 @@ class MultiTenantService
 
   def intake_model
     case service_type
-    when :ctc then Intake::CtcIntake
     when :gyr then Intake::GyrIntake
     when :statefile
       raise StandardError, "Get intake model from StateFile::StateInformationService for statefile"
@@ -97,17 +92,13 @@ class MultiTenantService
   end
 
   def filing_years(now = DateTime.now)
-    if service_type == :ctc || service_type == :state_file
-      [current_tax_year]
-    else
-      years = Rails.configuration.tax_year_filing_seasons.select do |_, (season_start, _)|
-        now > season_start - 3.months
-      end.keys.sort.reverse.take(3)
+    years = Rails.configuration.tax_year_filing_seasons.select do |_, (season_start, _)|
+      now > season_start - 3.months
+    end.keys.sort.reverse.take(3)
 
-      years += [years.last - 1] if now < Rails.configuration.tax_year_filing_seasons[years.first].last
+    years += [years.last - 1] if now < Rails.configuration.tax_year_filing_seasons[years.first].last
 
-      years.freeze
-    end
+    years.freeze
   end
 
   def hub_filing_years(now = DateTime.now)
@@ -133,16 +124,11 @@ class MultiTenantService
 
   def twilio_status_webhook_url(outgoing_message_status_id)
     case service_type
-    when :ctc then twilio_update_status_url(outgoing_message_status_id, locale: nil)
     when :gyr then twilio_update_status_url(outgoing_message_status_id, locale: nil)
     end
   end
 
   class << self
-    def ctc
-      new(:ctc)
-    end
-
     def gyr
       new(:gyr)
     end

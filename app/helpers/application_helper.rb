@@ -107,10 +107,6 @@ module ApplicationHelper
     {I18n.t("views.ctc.questions.dependents.child_residence.select_options.less_than_six") => 6, I18n.t("views.ctc.questions.dependents.child_residence.select_options.six") => 7, I18n.t("views.ctc.questions.dependents.child_residence.select_options.seven") => 7, I18n.t("views.ctc.questions.dependents.child_residence.select_options.eight") => 8, I18n.t("views.ctc.questions.dependents.child_residence.select_options.nine") => 9, I18n.t("views.ctc.questions.dependents.child_residence.select_options.ten") => 10, I18n.t("views.ctc.questions.dependents.child_residence.select_options.eleven") => 11, I18n.t("views.ctc.questions.dependents.child_residence.select_options.twelve") => 12}
   end
 
-  def suffix_options_for_select
-    ["I", "II", "III", "IV", "V", "Jr", "Sr"]
-  end
-
   def suffix_options_for_state_select
     ["JR", "SR", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"]
   end
@@ -189,7 +185,7 @@ module ApplicationHelper
   end
 
   def gyr?
-    !hub? && !state_file? && !ctc?
+    !hub? && !state_file?
   end
 
   def body_class_list

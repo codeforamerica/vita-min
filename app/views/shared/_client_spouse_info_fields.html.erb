@@ -1,28 +1,12 @@
-<% is_dropoff ||= false %>
-<% is_ctc ||= false %>
 <div id="spouse-info">
   <div class="hub-form__card card-small">
-    <%if is_ctc %>
-      <h3><%= t("hub.clients.fields.ctc_spouse_contact_info") %></h3>
-    <% else %>
-      <h3><%= t("hub.clients.fields.spouse_contact_info") %></h3>
-    <% end %>
+    <h3><%= t("hub.clients.fields.spouse_contact_info") %></h3>
     <div>
       <%= f.cfa_input_field(:spouse_first_name, t("hub.clients.fields.legal_first_name")) %>
       <%= f.cfa_input_field(:spouse_middle_initial, t("hub.clients.fields.middle_initial"), classes: ["form-width--short"]) %>
       <%= f.cfa_input_field(:spouse_last_name, t("hub.clients.fields.legal_last_name")) %>
-      <% if is_ctc %>
-        <%= f.cfa_select(:spouse_suffix, t("hub.clients.fields.suffix"), suffix_options_for_select, include_blank: true) %>
-      <% end %>
     </div>
     <%= f.cfa_input_field(:spouse_email_address, t("general.email")) %>
-    <% if is_ctc %>
-      <%= f.vita_min_date_text_fields(
-              :spouse_birth_date,
-              t("hub.clients.show.date_of_birth"),
-              help_text: t("hub.clients.show.date_of_birth_help"),
-      ) %>
-    <% end %>
 
     <%= f.cfa_select(:spouse_tin_type, "Identification Type", tin_options_for_select(include_ssn_no_employment: true, include_itin: true, include_none: true)) %>
     <%= f.cfa_input_field(
@@ -41,20 +25,6 @@
               options: { maxlength: 11, 'data-mask': '000-00-0000' }
           ) %>
     <% end %>
-    <% if is_ctc %>
-      <%= f.cfa_input_field(:spouse_ip_pin, t("general.ip_pin")) %>
-    <% end %>
-
     <%= f.hub_checkbox(:spouse_was_blind, t("general.blind"), options: { checked_value: "yes", unchecked_value: "no" }) %>
-
-    <% if is_ctc && !is_dropoff %>
-      <div>
-        <%= f.hub_checkbox(:use_primary_name_for_name_control, "Use primary last name for spouse name control", options: { checked_value: "true", unchecked_value: "false" }) %>
-        <div class="help-text" style="margin-top: -15px;">
-          Only check this box if an efiled return is rejected because spouse name control does not match. Then, resubmit the return to see if the IRS name control for the spouse is
-          under the primary's last name.
-        </div>
-      </div>
-    <% end %>
   </div>
 </div>

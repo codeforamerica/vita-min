@@ -374,15 +374,6 @@ RSpec.describe "searching, sorting, and filtering clients" do
           expect(page).to have_text(betty_intake_in_progress.preferred_name)
           expect(page).to have_text(patty_prep_ready_for_call.preferred_name)
         end
-
-        # filter for CTC clients which returns nothing because we only have CTC clients from past years
-        within ".filter-form" do
-          click_link "Clear"
-          check "ctc_client"
-          click_button "Filter results"
-          sleep 0.1
-        end
-        expect(page).not_to have_selector(".client-table")
       end
     end
 
