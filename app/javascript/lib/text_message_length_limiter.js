@@ -9,7 +9,12 @@ export function limitTextMessageLength() {
         setLengthProperties(textMessageInput.value.length, component, textMessageFormButton, messageLengthDisableRadioButton);
     });
     if (messageLengthDisableRadioButton != null) {
-        messageLengthDisableRadioButton.closest('radiogroup').addEventListener('change', function() {
+        // Honeycrisp renders the radio set as <div class="honeycrisp-radiogroup">; older
+        // markup used a <radiogroup> element. Fall back to the form so a future markup
+        // change can't leave the listener unattached.
+        const radioGroup = messageLengthDisableRadioButton.closest('.honeycrisp-radiogroup, radiogroup') ||
+            messageLengthDisableRadioButton.form;
+        radioGroup.addEventListener('change', function() {
             setLengthProperties(textMessageInput.value.length, component, textMessageFormButton, messageLengthDisableRadioButton);
         });
     };
