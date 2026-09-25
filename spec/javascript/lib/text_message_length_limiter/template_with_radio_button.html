@@ -1,8 +1,17 @@
 <form class="some-form">
     <textarea class="text-message-body"></textarea>
-    <radiogroup>
-        <input class="message-length-limiter-disable">
-    </radiogroup>
+    <fieldset class="form-group">
+        <div class="input-group--block honeycrisp-radiogroup">
+            <label class="radio-button">
+                <input class="message-length-limiter-disable" type="radio" name="contact_method" value="email">
+                Email
+            </label>
+            <label class="radio-button">
+                <input type="radio" name="contact_method" value="text_message">
+                Text message
+            </label>
+        </div>
+    </fieldset>
     <div class="text-message-length-limiter spacing-below-15">
         <span data-target="length-counter">0</span> / 1600 characters used.
         <span data-target="error-message" class="hidden">Character count must be reduced to send this message.</span>
