@@ -57,6 +57,7 @@
   .button-container {
     text-align: center;
     margin-top: 3.5rem;
+    width: fit-content;
 
     @media screen and (min-width: $tablet-up) {
       margin-top: 0;
