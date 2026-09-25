@@ -53,7 +53,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         let(:contact_info_params) do
           {
             email_address: "client@example.com",
-            sms_phone_number: nil
+            sms_phone_number: ""
           }
         end
 
@@ -76,7 +76,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       context "with an SMS phone number" do
         let(:contact_info_params) do
           {
-            email_address: nil,
+            email_address: "",
             sms_phone_number: " (510) 555 1234"
           }
         end

@@ -1,6 +1,5 @@
 module Portal
   class UploadDocumentsController < PortalController
-    alias next_path portal_overview_documents_path
     helper_method :prev_path, :next_path, :illustration_path, :illustration_folder, :current_path, :document_type, :destroy_document_path
     layout "document_upload"
     helper_method :document_type_keys
@@ -8,6 +7,13 @@ module Portal
 
     def prev_path
       @prev_path
+    end
+
+    # Defined as a method rather than `alias next_path portal_overview_documents_path`:
+    # Rails 8 defines route URL helpers lazily, so the helper does not yet exist when
+    # the class body is evaluated and `alias` raises NameError.
+    def next_path
+      portal_overview_documents_path
     end
 
     def index

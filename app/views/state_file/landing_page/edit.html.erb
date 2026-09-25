@@ -65,7 +65,7 @@
                 <%= t("general.sign_in") %>
               <% end %>
 
-              <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder, id: "start-again-form" do |f| %>
+              <%= form_with model: @form || false, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder, id: "start-again-form" do |f| %>
                 <p class="spacing-above-25">
                   <%= t(".not_you", user_name: @user_name) %>
                   <%= f.submit t(".start_new", state_name: @state_name), class: "button--link" %>
@@ -109,7 +109,7 @@
                   <%= t(".#{@state_code}.help_text_html", default: :'.help_text_html', filing_year: current_tax_year) %>
                 </div>
               </div>
-              <%= form_with model: @form, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder do |f| %>
+              <%= form_with model: @form || false, url: { action: :update }, local: true, method: :put, builder: VitaMinFormBuilder do |f| %>
                 <%= f.submit t("general.get_started"), class: "button button--primary button--wide", id: "firstCta" %>
               <% end %>
             <% end %>

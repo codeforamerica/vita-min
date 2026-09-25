@@ -574,9 +574,19 @@ class ApplicationController < ActionController::Base
   # Catch them to avoid being noisy in logs etc.
   rescue_from 'ActionController::InvalidCrossOriginRequest' do
     DatadogApi.increment("rails.invalid_cross_origin_request")
-    respond_to do |format|
-      format.any { head 422 }
-    end
+
+    # Rails raises this from `verify_same_origin_request`, which is an *after_action*,
+    # so the action has already rendered by the time we get here and we need to replace
+    # that response with a 422.
+    #
+    # This used to be `respond_to { |format| format.any { head 422 } }`, but Rails 8.1
+    # added `raise DoubleRenderError if response_body` to `head`, which that trips.
+    # `self.response_body = nil` does not help: `ActionController::Metal#response_body=`
+    # calls `response.reset_body!` without clearing the `@_response_body` reader that
+    # `head` checks (true in 8.0 and 8.1 alike). Rails has no public API for replacing
+    # an already-rendered response, so set the response directly and skip `head`.
+    response.reset_body!
+    response.status = 422
   end
 
   rescue_from 'ActionController::InvalidAuthenticityToken' do

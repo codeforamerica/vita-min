@@ -7,7 +7,7 @@ describe ApplicationRecord do
                  # Using arbitrary table and column name from the real schema
                  def self.table_name; "intakes"; end
 
-                 enum paid_self_employment_expenses: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_self_employment_expenses
+                 enum :paid_self_employment_expenses, { unfilled: 0, yes: 1, no: 2 }, prefix: :paid_self_employment_expenses
                end)
   end
 

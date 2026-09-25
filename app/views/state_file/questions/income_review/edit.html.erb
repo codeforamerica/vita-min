@@ -115,7 +115,10 @@
     </p>
   <% end %>
 
-  <%= form_with model: @form, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_income_review_form" },
+  <%# This controller's #edit does not set @form, so this renders as a model-less form.
+      Rails 8 requires `false` rather than nil to mean that; the generated HTML is
+      identical to what nil produced on Rails 7. %>
+  <%= form_with model: @form || false, url: { action: :update }, data: { efile_security_information: true, form_name: "state_file_income_review_form" },
                 local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
     <%= f.hidden_field(:device_id) %>
     <%= render "state_file/questions/shared/continue_button", f: f %>

@@ -98,19 +98,19 @@
 #  index_state_file_id_intakes_phone_verified          (id) WHERE ((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))
 #
 class StateFileIdIntake < StateFileBaseIntake
-  enum donate_grocery_credit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :donate_grocery_credit
-  enum eligibility_withdrew_msa_fthb: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_msa_fthb
-  enum eligibility_emergency_rental_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_emergency_rental_assistance
-  enum has_health_insurance_premium: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_health_insurance_premium
-  enum has_unpaid_sales_use_tax: { unfilled: 0, yes: 1, no: 2 }, _prefix: :has_unpaid_sales_use_tax
-  enum household_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :household_has_grocery_credit_ineligible_months
-  enum primary_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_has_grocery_credit_ineligible_months
-  enum spouse_has_grocery_credit_ineligible_months: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_has_grocery_credit_ineligible_months
-  enum received_id_public_assistance: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_id_public_assistance
-  enum primary_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_disabled
-  enum spouse_disabled: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_disabled
-  enum paid_extension_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_extension_payments
-  enum paid_prior_year_refund_payments: { unfilled: 0, yes: 1, no: 2 }, _prefix: :paid_prior_year_refund_payments
+  enum :donate_grocery_credit, { unfilled: 0, yes: 1, no: 2 }, prefix: :donate_grocery_credit
+  enum :eligibility_withdrew_msa_fthb, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_withdrew_msa_fthb
+  enum :eligibility_emergency_rental_assistance, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_emergency_rental_assistance
+  enum :has_health_insurance_premium, { unfilled: 0, yes: 1, no: 2 }, prefix: :has_health_insurance_premium
+  enum :has_unpaid_sales_use_tax, { unfilled: 0, yes: 1, no: 2 }, prefix: :has_unpaid_sales_use_tax
+  enum :household_has_grocery_credit_ineligible_months, { unfilled: 0, yes: 1, no: 2 }, prefix: :household_has_grocery_credit_ineligible_months
+  enum :primary_has_grocery_credit_ineligible_months, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_has_grocery_credit_ineligible_months
+  enum :spouse_has_grocery_credit_ineligible_months, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_has_grocery_credit_ineligible_months
+  enum :received_id_public_assistance, { unfilled: 0, yes: 1, no: 2 }, prefix: :received_id_public_assistance
+  enum :primary_disabled, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_disabled
+  enum :spouse_disabled, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_disabled
+  enum :paid_extension_payments, { unfilled: 0, yes: 1, no: 2 }, prefix: :paid_extension_payments
+  enum :paid_prior_year_refund_payments, { unfilled: 0, yes: 1, no: 2 }, prefix: :paid_prior_year_refund_payments
 
   def disqualifying_df_data_reason; end
 

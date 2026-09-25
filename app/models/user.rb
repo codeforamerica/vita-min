@@ -87,11 +87,11 @@ class User < ApplicationRecord
   scope :active, -> { where(suspended_at: nil) }
   scope :suspended, -> { where.not(suspended_at: nil) }
 
-  enum new_client_message_notification: { yes: 0, no: 1 }, _prefix: :new_client_message_notification
-  enum client_assignments_notification: { yes: 0, no: 1 }, _prefix: :client_assignments_notification
-  enum document_upload_notification: { yes: 0, no: 1 }, _prefix: :document_upload_notification
-  enum tagged_in_note_notification: { yes: 0, no: 2 }, _prefix: :tagged_in_note_notification
-  enum signed_8879_notification: { yes: 0, no: 2 }, _prefix: :signed_8879_notification
+  enum :new_client_message_notification, { yes: 0, no: 1 }, prefix: :new_client_message_notification
+  enum :client_assignments_notification, { yes: 0, no: 1 }, prefix: :client_assignments_notification
+  enum :document_upload_notification, { yes: 0, no: 1 }, prefix: :document_upload_notification
+  enum :tagged_in_note_notification, { yes: 0, no: 2 }, prefix: :tagged_in_note_notification
+  enum :signed_8879_notification, { yes: 0, no: 2 }, prefix: :signed_8879_notification
 
   def valid?(*_args)
     [super, role&.valid?].all?
