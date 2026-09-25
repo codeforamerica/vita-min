@@ -6107,6 +6107,7 @@ en:
       footer:
         service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link}
         service_status: Service status
+        volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
       in_person_vita_card:
