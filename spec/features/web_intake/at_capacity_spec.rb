@@ -13,6 +13,16 @@ RSpec.feature "Web Intake Client matches with partner who is at capacity", :flow
       fill_out_personal_information(name: "Gary", zip_code: "19143", birth_date: Date.parse("1983-10-12"), phone_number: "555-555-1212")
       fill_in "Do you have any time preferences for your interview phone call?", with: "During school hours"
       click_on "Continue"
+
+      #Client now has to pass through SSN/ITIN and Backtaxes first
+      select "Social Security Number (SSN)", from: "Identification Type"
+      fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
+      fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
+      click_on "Continue"
+
+      current_tax_year = MultiTenantService.new(:gyr).current_tax_year
+      check "#{current_tax_year}"
+      click_on "Continue"
     end
 
     it "shows an at capacity page and logs the client out" do

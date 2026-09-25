@@ -336,4 +336,61 @@ describe Organization do
       end
     end
   end
+
+  describe "#expanded_scope_offerings" do
+    let(:organization) { create :organization, name: "Test Organization" }
+
+    before do
+      allow(Airtable::Organization)
+        .to receive(:expanded_scope_offerings)
+        .and_return({
+                      "Test Organization" => ["Prior year returns", "Amendments"],
+                      "Another Org" => ["Zero Income"]
+                    })
+    end
+
+    it "returns the offerings for the organization" do
+      expect(organization.expanded_scope_offerings).to eq(["Prior year returns", "Amendments"])
+    end
+
+    it "returns empty array when organization not in Airtable" do
+      unknown_org = create :organization, name: "Org Not In AirTable"
+      expect(unknown_org.expanded_scope_offerings).to eq([])
+    end
+  end
+
+  describe "#with_prior_year_capability" do
+    let(:org1) { create :organization, name: "Test Organization" }
+    let(:org2) { create :organization, name: "Another Org" }
+    let(:org3) { create :organization, name: "Melon Org" }
+
+    before do
+      allow(Airtable::Organization)
+        .to receive(:expanded_scope_offerings)
+        .and_return({
+                      "Test Organization" => ["Prior year returns", "Amendments"],
+                      "Another Org" => ["Zero Income"],
+                      "Melon Org" => ["Amendments", "Prior year returns"],
+                    })
+    end
+
+    it "returns only the orgs that offer prior year returns" do
+      expect(Organization.with_prior_year_capability).to contain_exactly(org1, org3)
+    end
+
+    context "when no orgs offer prior year returns" do
+      before do
+        allow(Airtable::Organization)
+          .to receive(:expanded_scope_offerings)
+          .and_return({
+                        "Test Organization" => ["Amendments"],
+                        "Another Org" => ["Zero Income"],
+                      })
+      end
+
+      it "returns none" do
+        expect(Organization.with_prior_year_capability).to be_empty
+      end
+    end
+  end
 end

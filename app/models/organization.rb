@@ -85,6 +85,11 @@ class Organization < VitaPartner
     end
   end
 
+  scope :with_prior_year_capability, -> do
+    names = prior_year_capable_org_names_cached
+    names.present? ? where(name: names) : none
+  end
+
   def self.locale_to_full_lang(locale)
     locale_code = locale.to_s.strip.downcase
     languages_hash = I18n.backend.translations[I18n.locale][:general][:language_options]
@@ -125,6 +130,27 @@ class Organization < VitaPartner
   def self.lang_to_names_index_cached
     # stores in cache per request
     RequestStore.store[:lang_to_names] ||= lang_to_names_index
+  end
+
+  def self.all_expanded_scope_offerings
+    Rails.cache.fetch('airtable_expanded_scope_offerings', expires_in: 1.hour) do
+      Airtable::Organization.expanded_scope_offerings
+    end
+  end
+
+  def expanded_scope_offerings
+    Organization.all_expanded_scope_offerings[name] || []
+  end
+
+  def self.prior_year_capable_org_names
+    Rails.cache.fetch('airtable_prior_year_capable_org_names', expires_in: 1.hour) do
+      all_expanded_scope_offerings.select { |_org_name, offerings| offerings.include?("Prior year returns") }.keys
+    end
+  end
+
+  def self.prior_year_capable_org_names_cached
+    # stores in cache per request
+    RequestStore.store[:prior_year_capable_org_names] ||= prior_year_capable_org_names
   end
 
   def at_capacity?

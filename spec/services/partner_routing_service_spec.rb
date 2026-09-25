@@ -496,5 +496,122 @@ describe PartnerRoutingService do
         end
       end
     end
+
+    context "when a client needs help with a prior year return" do
+      let(:intake) do
+        create :intake,
+               zip_code: "94606",
+               need_itin_help: "yes",
+               needs_help_previous_year_1: "yes",
+               needs_help_current_year: "no",
+               preferred_interview_language: "Vietnamese"
+      end
+      let(:prior_year_org) { create :organization, name: "Prior Year Org", accepts_itin_applicants: false }
+
+      subject { PartnerRoutingService.new(intake: intake, zip_code: "94606") }
+
+      context "and a source param is present" do
+        subject { PartnerRoutingService.new(intake: intake, source_param: code, zip_code: "94606") }
+
+        before do
+          create :vita_partner_zip_code, zip_code: "94606", vita_partner: prior_year_org
+          allow(Organization).to receive(:with_prior_year_capability).and_return(Organization.where(id: prior_year_org.id))
+          allow(Site).to receive(:with_prior_year_capability).and_return(Site.none)
+        end
+
+        it "routes to the source param partner, skipping the prior year cascade entirely, even though the client only needs a prior year return" do
+          expect(subject.determine_partner).to eq vita_partner
+          expect(subject.routing_method).to eq :source_param
+        end
+      end
+
+      context "and a vita partner in their zip code supports prior year returns" do
+        before do
+          create :vita_partner_zip_code, zip_code: "94606", vita_partner: prior_year_org
+          allow(Organization).to receive(:with_prior_year_capability).and_return(Organization.where(id: prior_year_org.id))
+          allow(Site).to receive(:with_prior_year_capability).and_return(Site.none)
+        end
+
+        it "routes there, overriding ITIN matches, without filtering by language" do
+          expect(subject.determine_partner).to eq prior_year_org
+          expect(subject.routing_method).to eq :zip_code
+        end
+      end
+
+      context "and no vita partner in their zip code supports prior year returns, but one in their state does" do
+        let(:state_org) { create :organization, name: "State Org" }
+        let(:srt) { create(:state_routing_target, target: state_org, state_abbreviation: "CA") }
+        let!(:srf) { create(:state_routing_fraction, state_routing_target: srt, routing_fraction: 0.5, vita_partner: state_org) }
+        let(:weighted_routing_service_double) { instance_double(WeightedRoutingService) }
+
+        before do
+          allow(Organization).to receive(:with_prior_year_capability).and_return(Organization.where(id: state_org.id))
+          allow(Site).to receive(:with_prior_year_capability).and_return(Site.none)
+          allow(VitaPartner).to receive(:with_prior_year_capability).and_return(VitaPartner.where(id: state_org.id))
+
+          allow(Organization).to receive(:with_language_capability).with(nil).and_return(Organization.all)
+          allow(Organization).to receive(:with_language_capability).with("Vietnamese").and_return(Organization.where(id: state_org.id))
+
+          allow(WeightedRoutingService).to receive(:new).and_return(weighted_routing_service_double)
+          allow(weighted_routing_service_double).to receive(:weighted_routing_ranges).and_return([{ id: state_org.id, low: 0.0, high: 1.0 }])
+          allow(Random).to receive(:rand).and_return(0.5)
+        end
+
+        it "routes to the state partner with their language preference" do
+          expect(subject.determine_partner).to eq state_org
+          expect(subject.routing_method).to eq :state
+        end
+      end
+
+      context "and no vita partner in their zip code or state supports prior year returns, but a national overflow partner does" do
+        let!(:overflow_org) { create :organization, name: "Overflow Org", national_overflow_location: true }
+
+        before do
+          allow(Organization).to receive(:with_prior_year_capability).and_return(Organization.where(id: overflow_org.id))
+          allow(Site).to receive(:with_prior_year_capability).and_return(Site.none)
+          allow(VitaPartner).to receive(:with_prior_year_capability).and_return(VitaPartner.where(id: overflow_org.id))
+
+          allow(Organization).to receive(:with_language_capability).with(nil).and_return(Organization.all)
+          allow(Organization).to receive(:with_language_capability).with("Vietnamese").and_return(Organization.where(id: overflow_org.id))
+          allow(VitaPartner).to receive(:with_language_capability).with("Vietnamese").and_return(VitaPartner.where(id: overflow_org.id))
+        end
+
+        it "routes to the national overflow partner with their language preference" do
+          expect(subject.determine_partner).to eq overflow_org
+          expect(subject.routing_method).to eq :national_overflow
+        end
+      end
+
+      context "and no vita partner anywhere supports prior year returns" do
+        before do
+          allow(Organization).to receive(:with_prior_year_capability).and_return(Organization.none)
+          allow(Site).to receive(:with_prior_year_capability).and_return(Site.none)
+          allow(VitaPartner).to receive(:with_prior_year_capability).and_return(VitaPartner.none)
+        end
+
+        context "and the client only needs help with a prior year return" do
+          it "routes them to at capacity" do
+            expect(subject.determine_partner).to be_nil
+            expect(subject.routing_method).to eq :at_capacity
+          end
+        end
+
+        context "and the client also needs help with the current year" do
+          let(:intake) do
+            create :intake,
+                   zip_code: "94606",
+                   need_itin_help: "no",
+                   needs_help_previous_year_1: "yes",
+                   needs_help_current_year: "yes",
+                   preferred_interview_language: "Vietnamese"
+          end
+
+          it "falls through to the standard routing cascade, e.g. matching on zip code" do
+            expect(subject.determine_partner).to eq vita_partner
+            expect(subject.routing_method).to eq :zip_code
+          end
+        end
+      end
+    end
   end
 end
