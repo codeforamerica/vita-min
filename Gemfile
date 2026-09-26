@@ -71,7 +71,7 @@ gem 'ice_nine'
 gem 'business_time'
 gem 'scenic', '~> 1.8'
 gem 'rubyzip'
-gem 'caxlsx', '3.4.1'
+gem 'caxlsx', '4.5.0'
 gem 'intercom', '4.1.3' # potential issue with 4.2.0
 gem 'statesman'
 gem 'redcarpet'
@@ -168,7 +168,7 @@ gem "pundit", "~> 2.5"
 
 gem "openssl", ">= 3.3.1"
 
-gem "aws-sdk-core", "~> 3.190"
+gem "aws-sdk-core", "~> 3.257"
 
 gem "aws-sdk-bedrockruntime", "~> 1.2"
 
