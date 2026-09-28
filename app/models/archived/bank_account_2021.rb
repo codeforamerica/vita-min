@@ -30,7 +30,7 @@ module Archived
     belongs_to :intake, inverse_of: :bank_account, foreign_key: 'archived_intakes_2021_id', class_name: 'Archived::Intake::CtcIntake2021'
 
     # Enum values are acceptable BankAccountType values to be sent to the IRS (See efileTypes.xsd)
-    enum account_type: { checking: 1, savings: 2 }
+    enum :account_type, { checking: 1, savings: 2 }
     before_save :hash_data
 
     encrypts :account_number

@@ -26,7 +26,7 @@ class EfileError < ApplicationRecord
     int_value = state_code.bytes.join.to_i
     ["state_file_#{state_code}", int_value]
   end
-  enum service_type: { unfilled: 0, ctc: 1, state_file: 2 }.merge(state_enum_options), _prefix: :service_type
+  enum :service_type, { unfilled: 0, ctc: 1, state_file: 2 }.merge(state_enum_options), prefix: :service_type
 
   def self.error_codes_to_retry_once
     # These error codes indicate that the IRS had trouble parsing our data. When we see this, it

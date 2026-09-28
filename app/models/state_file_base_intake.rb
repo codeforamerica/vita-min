@@ -27,15 +27,15 @@ class StateFileBaseIntake < ApplicationRecord
   delegate :tax_return_year, to: :direct_file_data
   alias_attribute :sms_phone_number, :phone_number
 
-  enum contact_preference: { unfilled: 0, email: 1, text: 2 }, _prefix: :contact_preference
-  enum primary_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_esigned
-  enum spouse_esigned: { unfilled: 0, yes: 1, no: 2 }, _prefix: :spouse_esigned
-  enum account_type: { unfilled: 0, checking: 1, savings: 2 }, _prefix: :account_type
-  enum payment_or_deposit_type: { unfilled: 0, direct_deposit: 1, mail: 2 }, _prefix: :payment_or_deposit_type # direct deposit includes both direct_deposit and direct_debit
-  enum consented_to_terms_and_conditions: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_terms_and_conditions
-  enum consented_to_sms_terms: { unfilled: 0, yes: 1, no: 2 }, _prefix: :consented_to_sms_terms
-  enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
-  enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
+  enum :contact_preference, { unfilled: 0, email: 1, text: 2 }, prefix: :contact_preference
+  enum :primary_esigned, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_esigned
+  enum :spouse_esigned, { unfilled: 0, yes: 1, no: 2 }, prefix: :spouse_esigned
+  enum :account_type, { unfilled: 0, checking: 1, savings: 2 }, prefix: :account_type
+  enum :payment_or_deposit_type, { unfilled: 0, direct_deposit: 1, mail: 2 }, prefix: :payment_or_deposit_type # direct deposit includes both direct_deposit and direct_debit
+  enum :consented_to_terms_and_conditions, { unfilled: 0, yes: 1, no: 2 }, prefix: :consented_to_terms_and_conditions
+  enum :consented_to_sms_terms, { unfilled: 0, yes: 1, no: 2 }, prefix: :consented_to_sms_terms
+  enum :email_notification_opt_in, { unfilled: 0, yes: 1, no: 2 }, prefix: :email_notification_opt_in
+  enum :sms_notification_opt_in, { unfilled: 0, yes: 1, no: 2 }, prefix: :sms_notification_opt_in
 
   scope :accessible_intakes, -> { all }
   scope :with_df_data_and_no_federal_submission, lambda {

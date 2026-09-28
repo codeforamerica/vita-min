@@ -494,18 +494,18 @@ class Intake < ApplicationRecord
 
   encrypts :primary_last_four_ssn, :spouse_last_four_ssn, :primary_ssn, :spouse_ssn, :bank_account_number, :primary_ip_pin, :primary_signature_pin, :spouse_signature_pin, :spouse_ip_pin
 
-  enum already_filed: { unfilled: 0, yes: 1, no: 2 }, _prefix: :already_filed
-  enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
-  enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
-  enum signature_method: { online: 0, in_person: 1 }, _prefix: :signature_method
-  enum bank_account_type: { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, _prefix: :bank_account_type
-  enum primary_consented_to_service: { unfilled: 0, yes: 1, no: 2 }, _prefix: :primary_consented_to_service
-  enum refund_payment_method: { unfilled: 0, direct_deposit: 1, check: 2 }, _prefix: :refund_payment_method
-  enum claim_owed_stimulus_money: { unfilled: 0, yes: 1, no: 2 }, _prefix: :claim_owed_stimulus_money
-  enum primary_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :primary_tin_type
-  enum spouse_tin_type: { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, _prefix: :spouse_tin_type
-  enum brought_last_years_return: { unfilled: 0, yes: 1, no: 2 }, _prefix: :brought_last_years_return
-  enum irs_language_preference: { english: 0, spanish: 1, korean: 2, vietnamese: 3, russian: 4, arabic: 5, haitian_creole: 6, tagalog: 7, portuguese: 8, polish: 9, farsi: 10, french: 11, japanese: 12, gujarati: 13, punjabi: 14, khmer: 15, urdu: 16, bengali: 17, italian: 18, chinese_traditional: 19, chinese_simplified: 20 }, _prefix: :irs_language_preference
+  enum :already_filed, { unfilled: 0, yes: 1, no: 2 }, prefix: :already_filed
+  enum :email_notification_opt_in, { unfilled: 0, yes: 1, no: 2 }, prefix: :email_notification_opt_in
+  enum :sms_notification_opt_in, { unfilled: 0, yes: 1, no: 2 }, prefix: :sms_notification_opt_in
+  enum :signature_method, { online: 0, in_person: 1 }, prefix: :signature_method
+  enum :bank_account_type, { unfilled: 0, checking: 1, savings: 2, unspecified: 3 }, prefix: :bank_account_type
+  enum :primary_consented_to_service, { unfilled: 0, yes: 1, no: 2 }, prefix: :primary_consented_to_service
+  enum :refund_payment_method, { unfilled: 0, direct_deposit: 1, check: 2 }, prefix: :refund_payment_method
+  enum :claim_owed_stimulus_money, { unfilled: 0, yes: 1, no: 2 }, prefix: :claim_owed_stimulus_money
+  enum :primary_tin_type, { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, prefix: :primary_tin_type
+  enum :spouse_tin_type, { ssn: 0, itin: 1, none: 2, ssn_no_employment: 3 }, prefix: :spouse_tin_type
+  enum :brought_last_years_return, { unfilled: 0, yes: 1, no: 2 }, prefix: :brought_last_years_return
+  enum :irs_language_preference, { english: 0, spanish: 1, korean: 2, vietnamese: 3, russian: 4, arabic: 5, haitian_creole: 6, tagalog: 7, portuguese: 8, polish: 9, farsi: 10, french: 11, japanese: 12, gujarati: 13, punjabi: 14, khmer: 15, urdu: 16, bengali: 17, italian: 18, chinese_traditional: 19, chinese_simplified: 20 }, prefix: :irs_language_preference
 
   NAVIGATOR_TYPES = {
     general: {

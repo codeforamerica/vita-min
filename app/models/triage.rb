@@ -30,25 +30,25 @@
 #
 class Triage < ApplicationRecord
   belongs_to :intake, optional: true
-  enum filing_status: { unfilled: 0, single: 1, jointly: 2 }, _prefix: :filing_status
-  enum income_level: {
+  enum :filing_status, { unfilled: 0, single: 1, jointly: 2 }, prefix: :filing_status
+  enum :income_level, {
     "unfilled" => 0,
     "zero" => 1,
     "1_to_69000" => 2,
     "69001_to_89000" => 3,
     "over_89000" => 4,
-  }, _prefix: :income_level
-  enum id_type: { unfilled: 0, have_id: 1, know_number: 2, need_itin_help: 3 }, _prefix: :id_type
-  enum doc_type: { unfilled: 0, all_copies: 1, some_copies: 2, need_help: 3, does_not_apply: 4 }, _prefix: :doc_type
-  enum filed_2018: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2018
-  enum filed_2019: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2019
-  enum filed_2020: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2020
-  enum filed_2021: { unfilled: 0, yes: 1, no: 2 }, _prefix: :filed_2021
-  enum assistance_in_person: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_in_person
-  enum assistance_phone_review_english: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_phone_review_english
-  enum assistance_phone_review_non_english: { unfilled: 0, yes: 1, no: 2 }, _prefix: :assistance_phone_review_non_english
-  enum income_type_rent: { unfilled: 0, yes: 1, no: 2 }, _prefix: :income_type_rent
-  enum income_type_farm: { unfilled: 0, yes: 1, no: 2 }, _prefix: :income_type_farm
+  }, prefix: :income_level
+  enum :id_type, { unfilled: 0, have_id: 1, know_number: 2, need_itin_help: 3 }, prefix: :id_type
+  enum :doc_type, { unfilled: 0, all_copies: 1, some_copies: 2, need_help: 3, does_not_apply: 4 }, prefix: :doc_type
+  enum :filed_2018, { unfilled: 0, yes: 1, no: 2 }, prefix: :filed_2018
+  enum :filed_2019, { unfilled: 0, yes: 1, no: 2 }, prefix: :filed_2019
+  enum :filed_2020, { unfilled: 0, yes: 1, no: 2 }, prefix: :filed_2020
+  enum :filed_2021, { unfilled: 0, yes: 1, no: 2 }, prefix: :filed_2021
+  enum :assistance_in_person, { unfilled: 0, yes: 1, no: 2 }, prefix: :assistance_in_person
+  enum :assistance_phone_review_english, { unfilled: 0, yes: 1, no: 2 }, prefix: :assistance_phone_review_english
+  enum :assistance_phone_review_non_english, { unfilled: 0, yes: 1, no: 2 }, prefix: :assistance_phone_review_non_english
+  enum :income_type_rent, { unfilled: 0, yes: 1, no: 2 }, prefix: :income_type_rent
+  enum :income_type_farm, { unfilled: 0, yes: 1, no: 2 }, prefix: :income_type_farm
 
   def assistance_none_yes?
     [assistance_in_person, assistance_phone_review_english, assistance_phone_review_non_english].uniq == ["no"]
