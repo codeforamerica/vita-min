@@ -5276,7 +5276,7 @@ es:
         closed_banner: GetYourRefund reabrirá sus servicios el %{start_of_open_intake}.
         closed_open_for_login_banner_html: Los servicios GetYourRefund están cerrados durante esta temporada de impuestos. Esperamos poder brindar nuestra asistencia tributaria gratuita nuevamente a partir de enero. Para obtener preparación de impuestos gratuita ahora, puede buscar <a href="https://www.getyourrefund.org/es/vita_providers">una ubicación de VITA</a> en su área.
         faq:
-          faq_cta: Ver otras preguntas
+          faq_cta: Más preguntas
           header: 'Preguntas frecuentes:'
         fresh_look_banner:
           body: La misma ayuda gratuita con tus impuestos, el mismo servicio de confianza.
@@ -6149,6 +6149,7 @@ es:
       footer:
         service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link}.
         service_status: Estado del servicio
+        volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
       in_person_vita_card:
