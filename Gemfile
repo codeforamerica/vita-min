@@ -43,7 +43,7 @@ def gemn(gem_name, *versions, next_version: nil, next_name: nil, **kwargs)
 end
 
 gem 'rack', '>= 3.2.6'
-gem 'rails', '~> 8.1.3'
+gem 'rails', '~> 8.1.4'
 gem 'puma', '>= 7.2.1'
 gem 'sass-rails', '~> 6.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
@@ -97,7 +97,7 @@ gem 'rails_autolink'
 gem 'ice_nine'
 gem 'business_time'
 gem 'rubyzip'
-gem 'caxlsx', '3.4.1'
+gem 'caxlsx', '4.5.0'
 gem 'intercom', '4.1.3' # potential issue with 4.2.0
 gem 'statesman'
 gem 'redcarpet'
@@ -193,7 +193,7 @@ gem "pundit", "~> 2.5"
 
 gem "openssl", ">= 3.3.1"
 
-gem "aws-sdk-core", "~> 3.190"
+gem "aws-sdk-core", "~> 3.257"
 
 gem "aws-sdk-bedrockruntime", "~> 1.2"
 
