@@ -54,10 +54,10 @@ class TaxReturn < ApplicationRecord
   has_many :tax_return_selections, through: :tax_return_selection_tax_returns
   has_many :efile_submissions, dependent: :destroy
   has_one :accepted_tax_return_analytics
-  enum certification_level: { advanced: 1, basic: 2, foreign_student: 3 }
-  enum service_type: { online_intake: 0, drop_off: 1 }, _prefix: :service_type
+  enum :certification_level, { advanced: 1, basic: 2, foreign_student: 3 }
+  enum :service_type, { online_intake: 0, drop_off: 1 }, prefix: :service_type
   # The enum values map to the filing status codes dictated by the IRS
-  enum filing_status: { single: 1, married_filing_jointly: 2, married_filing_separately: 3, head_of_household: 4, qualifying_widow: 5 }, _prefix: :filing_status
+  enum :filing_status, { single: 1, married_filing_jointly: 2, married_filing_separately: 3, head_of_household: 4, qualifying_widow: 5 }, prefix: :filing_status
   validates :year, presence: true
 
   after_update_commit { InteractionTrackingService.record_internal_interaction(client) }

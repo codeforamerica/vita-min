@@ -139,23 +139,23 @@ class StateFileNyIntake < StateFileBaseIntake
     "146013200"
   ].freeze
 
-  enum nyc_residency: { unfilled: 0, full_year: 1, part_year: 2, none: 3 }, _prefix: :nyc_residency
-  enum nyc_maintained_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nyc_maintained_home
-  enum occupied_residence: { unfilled: 0, yes: 1, no: 2 }, _prefix: :occupied_residence
-  enum property_over_limit: { unfilled: 0, yes: 1, no: 2 }, _prefix: :property_over_limit
-  enum public_housing: { unfilled: 0, yes: 1, no: 2 }, _prefix: :public_housing
-  enum nursing_home: { unfilled: 0, yes: 1, no: 2 }, _prefix: :nursing_home
-  enum household_rent_own: { unfilled: 0, rent: 1, own: 2 }, _prefix: :household_rent_own
-  enum confirmed_permanent_address: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_permanent_address
-  enum untaxed_out_of_state_purchases: { unfilled: 0, yes: 1, no: 2 }, _prefix: :untaxed_out_of_state_purchases
-  enum sales_use_tax_calculation_method: { unfilled: 0, automated: 1, manual: 2 }, _prefix: :sales_use_tax_calculation_method
-  enum eligibility_yonkers: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_yonkers
-  enum eligibility_part_year_nyc_resident: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_part_year_nyc_resident
-  enum eligibility_withdrew_529: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_withdrew_529
-  enum permanent_address_outside_ny: { unfilled: 0, yes: 1, no: 2 }, _prefix: :permanent_address_outside_ny
-  enum confirmed_third_party_designee: { unfilled: 0, yes: 1, no: 2 }, _prefix: :confirmed_third_party_designee
-  enum eligibility_lived_in_state: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_lived_in_state
-  enum eligibility_out_of_state_income: { unfilled: 0, yes: 1, no: 2 }, _prefix: :eligibility_out_of_state_income
+  enum :nyc_residency, { unfilled: 0, full_year: 1, part_year: 2, none: 3 }, prefix: :nyc_residency
+  enum :nyc_maintained_home, { unfilled: 0, yes: 1, no: 2 }, prefix: :nyc_maintained_home
+  enum :occupied_residence, { unfilled: 0, yes: 1, no: 2 }, prefix: :occupied_residence
+  enum :property_over_limit, { unfilled: 0, yes: 1, no: 2 }, prefix: :property_over_limit
+  enum :public_housing, { unfilled: 0, yes: 1, no: 2 }, prefix: :public_housing
+  enum :nursing_home, { unfilled: 0, yes: 1, no: 2 }, prefix: :nursing_home
+  enum :household_rent_own, { unfilled: 0, rent: 1, own: 2 }, prefix: :household_rent_own
+  enum :confirmed_permanent_address, { unfilled: 0, yes: 1, no: 2 }, prefix: :confirmed_permanent_address
+  enum :untaxed_out_of_state_purchases, { unfilled: 0, yes: 1, no: 2 }, prefix: :untaxed_out_of_state_purchases
+  enum :sales_use_tax_calculation_method, { unfilled: 0, automated: 1, manual: 2 }, prefix: :sales_use_tax_calculation_method
+  enum :eligibility_yonkers, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_yonkers
+  enum :eligibility_part_year_nyc_resident, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_part_year_nyc_resident
+  enum :eligibility_withdrew_529, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_withdrew_529
+  enum :permanent_address_outside_ny, { unfilled: 0, yes: 1, no: 2 }, prefix: :permanent_address_outside_ny
+  enum :confirmed_third_party_designee, { unfilled: 0, yes: 1, no: 2 }, prefix: :confirmed_third_party_designee
+  enum :eligibility_lived_in_state, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_lived_in_state
+  enum :eligibility_out_of_state_income, { unfilled: 0, yes: 1, no: 2 }, prefix: :eligibility_out_of_state_income
 
   before_save do
 

@@ -60,10 +60,10 @@ class W2 < ApplicationRecord
 
   scope :completed, -> { where.not(completed_at: nil) }
 
-  enum employee: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :employee
-  enum box13_statutory_employee: { unfilled: 0, yes: 1, no: 2 }, _prefix: :box13_statutory_employee
-  enum box13_retirement_plan: { unfilled: 0, yes: 1, no: 2 }, _prefix: :box13_retirement_plan
-  enum box13_third_party_sick_pay: { unfilled: 0, yes: 1, no: 2 }, _prefix: :box13_third_party_sick_pay
+  enum :employee, { unfilled: 0, primary: 1, spouse: 2 }, prefix: :employee
+  enum :box13_statutory_employee, { unfilled: 0, yes: 1, no: 2 }, prefix: :box13_statutory_employee
+  enum :box13_retirement_plan, { unfilled: 0, yes: 1, no: 2 }, prefix: :box13_retirement_plan
+  enum :box13_third_party_sick_pay, { unfilled: 0, yes: 1, no: 2 }, prefix: :box13_third_party_sick_pay
 
   delegate :first_name, :middle_initial, :suffix, :last_name, :ssn, to: :employee_obj, allow_nil: true, prefix: :employee
 

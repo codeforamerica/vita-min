@@ -3,20 +3,47 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 ruby ruby_version
 
+# Dual-boot harness. Nothing diverges between the two boots right now: there is no
+# Gemfile_next.lock, and bootboot's after-install-all hook bails when that file is
+# absent, so this costs a normal `bundle install` nothing. To start a dual boot --
+# a framework upgrade, or a major gem bump you want to test in isolation -- add one
+# `gemn` line below, `cp Gemfile.lock Gemfile_next.lock`, then `bundle install`.
+#
+# Please leave the four pieces below in place even with no `gemn` callers. Removing
+# any one of them leaves a harness that looks installed and silently resolves the
+# next boot against the current versions; that was the state of this file for a long
+# time. See docs/2026-09-01-rails-8-upgrade-plan.md, Phase 1.
 plugin 'bootboot', '~> 0.2.2'
 
-def gemn(gem_name, version, next_version: nil, next_name: nil, **kwargs)
-  gem gem_name, version, **kwargs if next_version.nil?
+# `plugin` above only declares/installs bootboot; it has to be loaded here for its
+# Bundler::Dsl patch (which defines `enable_dual_booting`) to exist while this Gemfile
+# is being evaluated.
+Plugin.send(:load_plugin, 'bootboot') if Plugin.installed?('bootboot')
 
-  if ENV['NEXT']
-    gem (next_name || gem_name), next_version, **kwargs
+# Required for the "next" boot to read Gemfile_next.lock instead of Gemfile.lock.
+# bootboot patches Bundler::Definition only when this is called, so without it
+# `DEPENDENCIES_NEXT=1 bundle install` resolves the next Gemfile against the *primary*
+# lockfile and fails with a version conflict.
+enable_dual_booting if ENV['DEPENDENCIES_NEXT'] && Plugin.installed?('bootboot')
+
+# Declares a gem that differs between the primary boot and the bootboot "next" boot.
+#
+# The env var must match bootboot's own: it is `Bundler.settings["bootboot_env_prefix"]`
+# (default "DEPENDENCIES") + "_NEXT". Keying this on anything else -- e.g. plain `NEXT`
+# -- means bootboot regenerates Gemfile_next.lock without taking the next branch, and
+# the two lockfiles come out identical.
+# `versions` and `next_version` each accept one or more requirement strings, so a
+# multi-part constraint like ('~> 10.0', '>= 10.0.2') survives the round trip.
+def gemn(gem_name, *versions, next_version: nil, next_name: nil, **kwargs)
+  if next_version && ENV['DEPENDENCIES_NEXT']
+    gem(next_name || gem_name, *Array(next_version), **kwargs)
   else
-    gem gem_name, version, **kwargs
+    gem gem_name, *versions, **kwargs
   end
 end
 
 gem 'rack', '>= 3.2.6'
-gem 'rails', '~> 7.2.3.1'
+gem 'rails', '~> 8.1.3'
 gem 'puma', '>= 7.2.1'
 gem 'sass-rails', '~> 6.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
@@ -33,7 +60,8 @@ gem 'bootsnap', '>= 1.5.1', require: false
 gem 'phony'
 gem 'pg'
 gem 'pg_search'
-gem 'activerecord-postgis-adapter', '~> 10.0', '>= 10.0.2'
+# Pins to one Rails minor at a time: 10.0.x => AR 7.2, 11.0.x => AR 8.0, 11.1.x => AR 8.1
+gem 'activerecord-postgis-adapter', '~> 11.1'
 gem 'will_paginate'
 gem 'sentry-delayed_job'
 gem 'sentry-rails'
@@ -50,7 +78,6 @@ gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'delayed_job'
 gem 'lograge'
-gem 'fix-db-schema-conflicts', require: false
 gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
 gem 'auto_strip_attributes'
 gem 'datadog', '~> 2.41.0', require: 'datadog/auto_instrument'
@@ -69,7 +96,6 @@ gem 'pdf-reader', '~> 2.4.1'
 gem 'rails_autolink'
 gem 'ice_nine'
 gem 'business_time'
-gem 'scenic', '~> 1.8'
 gem 'rubyzip'
 gem 'caxlsx', '3.4.1'
 gem 'intercom', '4.1.3' # potential issue with 4.2.0
@@ -133,7 +159,6 @@ group :development, :test do
   gem 'parallel_tests'
   gem 'turbo_tests'
   gem 'timecop'
-  gem 'warning', require: false
   gem 'rspec_junit_formatter'
   gem 'dotenv'
 end
