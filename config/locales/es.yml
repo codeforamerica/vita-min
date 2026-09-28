@@ -5285,7 +5285,7 @@ es:
         open_intake_post_tax_deadline_banner: Comience con GetYourRefund antes del %{end_of_intake} si desea presentar su declaración con nosotros en %{product_year}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del %{end_of_docs}.
         security:
           body: De acuerdo con las normas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan debe estar protegida. Mantenemos tu información segura y protegida.
-          header: Nos comprometemos a mantener la seguridad de tu información.
+          header: Nos comprometemos a mantener la seguridad de tu información
         subheader: Reclama miles de dólares a través de los créditos tributarios que te corresponden. Te ayudamos a obtener tu mayor reembolso.
         subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir a finales de enero."
         subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
