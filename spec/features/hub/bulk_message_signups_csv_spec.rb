@@ -23,7 +23,6 @@ RSpec.describe "Uploading a CSV for bulk messaging of signups", active_job: true
       visit hub_signup_selections_path
 
       attach_file "Select file", @filename
-      choose 'GYR'
       click_on "Upload"
 
       expect(page).to have_content(File.basename(@filename))
