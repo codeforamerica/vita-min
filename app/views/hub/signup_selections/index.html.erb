@@ -8,13 +8,7 @@
       <h2>Upload</h2>
       <%= form_for @signup_selection, local: true, url: { action: :create }, builder: VitaMinFormBuilder do |f| %>
         <%= f.cfa_file_field :upload, t('general.select_file') %>
-        <%= f.cfa_radio_set(
-              :signup_type,
-              collection: [
-                { value: :GYR, label: "GYR" }
-              ]
-            )
-        %>
+        <%= f.hidden_field :signup_type, value: :GYR %>
         <%= f.submit(t("general.upload")) %>
       <% end %>
 
