@@ -123,9 +123,7 @@ class MultiTenantService
   end
 
   def twilio_status_webhook_url(outgoing_message_status_id)
-    case service_type
-    when :gyr then twilio_update_status_url(outgoing_message_status_id, locale: nil)
-    end
+    twilio_update_status_url(outgoing_message_status_id, locale: nil) if service_type == :gyr
   end
 
   class << self
