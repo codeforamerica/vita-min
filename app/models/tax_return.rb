@@ -48,12 +48,12 @@ class TaxReturn < ApplicationRecord
   belongs_to :client
   has_one :intake, through: :client
   belongs_to :assigned_user, class_name: "User", optional: true
-  has_many :documents
+  has_many :documents, dependent: :destroy
   has_many :assignments, class_name: "TaxReturnAssignment", dependent: :destroy
   has_many :tax_return_selection_tax_returns, dependent: :destroy
   has_many :tax_return_selections, through: :tax_return_selection_tax_returns
   has_many :efile_submissions, dependent: :destroy
-  has_one :accepted_tax_return_analytics
+  has_one :accepted_tax_return_analytics, dependent: :destroy
   enum :certification_level, { advanced: 1, basic: 2, foreign_student: 3 }
   enum :service_type, { online_intake: 0, drop_off: 1 }, prefix: :service_type
   # The enum values map to the filing status codes dictated by the IRS
