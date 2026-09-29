@@ -27,7 +27,7 @@ class EfileSubmission < ApplicationRecord
   has_one :intake, through: :tax_return
   has_one :client, through: :tax_return
   has_one :fraud_score, class_name: "Fraud::Score", dependent: :destroy
-  has_many :qualifying_dependents, foreign_key: :efile_submission_id, class_name: "EfileSubmissionDependent"
+  has_many :qualifying_dependents, foreign_key: :efile_submission_id, dependent: :destroy, class_name: "EfileSubmissionDependent"
   has_one :verified_address, as: :record, dependent: :destroy, class_name: "Address"
   has_many :efile_submission_transitions, -> { order(id: :asc) }, class_name: "EfileSubmissionTransition", autosave: false, dependent: :destroy
   has_one_attached :submission_bundle
