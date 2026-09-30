@@ -23,6 +23,23 @@ executors:
           POSTGRES_HOST_AUTH_METHOD: trust
         command: postgres -c 'fsync=false' -c 'synchronous_commit=off'
     resource_class: xlarge
+  # bootboot "next" boot for the Ruby 4 upgrade: DEPENDENCIES_NEXT=1 makes the Gemfile
+  # pick Ruby 4.0.6 and Gemfile_next.lock. See docs/2026-09-30-ruby-4-upgrade-plan.md.
+  rails_executor_next:
+    working_directory: /mnt/ramdisk
+    docker:
+      - image: cimg/ruby:4.0.6-browsers
+        environment:
+          PGHOST: 127.0.0.1
+          PGUSER: root
+          DEPENDENCIES_NEXT: "1"
+      - image: cimg/postgres:13.4-postgis
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle-test_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+        command: postgres -c 'fsync=false' -c 'synchronous_commit=off'
+    resource_class: xlarge
 commands:
   install_system_dependencies:
     description: "Install system dependencies"
@@ -54,9 +71,13 @@ commands:
             - /mnt/ramdisk/node_modules
   install_ruby_dependencies:
     description: "Install Ruby dependencies"
+    parameters:
+      lockfile:
+        type: string
+        default: Gemfile.lock
     steps:
       - restore_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
+          key: bundle-{{ checksum "<< parameters.lockfile >>" }}
       - run:
           name: install bundler & ruby dependencies
           command: |
@@ -64,8 +85,12 @@ commands:
             bundle config set --local path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
       - save_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
+          key: bundle-{{ checksum "<< parameters.lockfile >>" }}
           paths: [/mnt/ramdisk/vendor/bundle]
+  check_production_boot:
+    description: "Boot with the production gem set (no development/test groups) against the test DB"
+    steps:
+      - run: bin/check_production_boot
   install_efile_schemas:
     description: "Install IRS e-File schemas"
     steps:
@@ -135,14 +160,26 @@ jobs:
       - setup_test_db
       - run: bundle exec annotaterb models --frozen
   run_ruby_tests:
-    executor: rails_executor
+    parameters:
+      executor:
+        type: executor
+        default: rails_executor
+      lockfile:
+        type: string
+        default: Gemfile.lock
+      notify_slack:
+        type: boolean
+        default: true
+    executor: << parameters.executor >>
     steps:
       - checkout
       - install_js_dependencies
       - install_system_dependencies
-      - install_ruby_dependencies
+      - install_ruby_dependencies:
+          lockfile: << parameters.lockfile >>
       - install_efile_schemas
       - setup_test_db_for_parallel
+      - check_production_boot
       - setup_webdriver
       - restore_cache:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
@@ -162,12 +199,15 @@ jobs:
       - save_cache:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
           paths: [tmp/parallel_runtime_rspec.log]
-      - slack/notify:
-          branch_pattern: main, fake-main-for-testing, release
-          channel: "C0540PNTLGN" # tax-alerts
-          event: fail
-          mentions: "@badger"
-          template: basic_fail_1
+      - when:
+          condition: << parameters.notify_slack >>
+          steps:
+            - slack/notify:
+                branch_pattern: main, fake-main-for-testing, release
+                channel: "C0540PNTLGN" # tax-alerts
+                event: fail
+                mentions: "@badger"
+                template: basic_fail_1
   flow_explorer_screenshots:
     executor: rails_executor
     steps:
@@ -245,6 +285,13 @@ workflows:
           context: tax-bot
       - run_ruby_tests:
           context: tax-bot
+      # Ruby 4 dual boot. Non-blocking: no deploy requires it, and it doesn't page Slack.
+      - run_ruby_tests:
+          name: run_ruby_tests_ruby_4
+          context: tax-bot
+          executor: rails_executor_next
+          lockfile: Gemfile_next.lock
+          notify_slack: false
       - run_annotate
       - deploy_to_aptible--demo:
           requires: [run_js_tests, run_ruby_tests]

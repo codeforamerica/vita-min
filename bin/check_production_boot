@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+# Boots the app with the production *gem set* -- without the development and test groups,
+# as the production image installs it (Dockerfile:41) -- eager loads it, and checks that
+# the stdlib constants app code uses at runtime are actually loaded.
+#
+# The test suite can't catch a missing one: a gem that only arrives as a dependency of a
+# test gem (ostruct, via axe-core) is on the load path in every spec run. See
+# docs/2026-09-30-ruby-4-upgrade-plan.md, blocker 1.
+#
+# This never touches a production environment or production data:
+# - It runs RAILS_ENV=test. The gem set is what matters, not the environment: the Gemfile
+#   has no :production group, so test-env-minus-test-gems loads exactly the gems the
+#   production image does. Production config and production credentials are never read.
+# - It connects to the local test database from config/database.yml (vita-min_test on
+#   localhost), and only reads from it: eager loading runs Flipper checks in class bodies
+#   (e.g. Hub::UsersController).
+# - DATABASE_URL and RAILS_MASTER_KEY(_NEW) are removed from its environment, so values
+#   exported in your shell (e.g. by doppler) can't redirect it anywhere else.
+
+LOCAL_DB_HOSTS = %w[localhost 127.0.0.1 ::1].freeze
+
+db_host = ENV.fetch("RAILS_DB_HOST", "localhost")
+unless LOCAL_DB_HOSTS.include?(db_host)
+  abort "bin/check_production_boot only runs against a local database; RAILS_DB_HOST is #{db_host.inspect}"
+end
+
+# Constants from gems that stopped being default gems (Ruby 3.4 / 4.0) and that app/,
+# lib/ or config/ reference. Deliberately checked with const_defined? rather than
+# required here: requiring them would hide the exact failure this script exists to find.
+RUNTIME_CONSTANTS = %w[OpenStruct CSV CGI Base64 BigDecimal Logger].freeze
+
+env = {
+  "BUNDLE_WITHOUT" => "development:test",
+  "RAILS_ENV" => "test",
+  # A nil value removes the variable from the child's environment.
+  "DATABASE_URL" => nil,
+  "RAILS_MASTER_KEY" => nil,
+  "RAILS_MASTER_KEY_NEW" => nil,
+  # Keeps the AWS SDK from probing for EC2 instance credentials at boot and waiting for
+  # the timeout. Nothing here needs AWS.
+  "AWS_EC2_METADATA_DISABLED" => "true",
+}
+
+check = <<~RUBY
+  Rails.application.eager_load!
+  missing = #{RUNTIME_CONSTANTS.inspect}.reject { |name| Object.const_defined?(name) }
+  missing << "CGI.escape" if Object.const_defined?(:CGI) && !CGI.respond_to?(:escape)
+  abort "Production boot check FAILED on Ruby \#{RUBY_VERSION}; not loaded: \#{missing.join(', ')}" if missing.any?
+  puts "Production boot check passed on Ruby \#{RUBY_VERSION}"
+RUBY
+
+Dir.chdir(File.expand_path("..", __dir__)) { exec(env, "bin/rails", "runner", check) }
