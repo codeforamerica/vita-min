@@ -1,6 +1,7 @@
 # Ruby 4 upgrade plan (GYR1-1167)
 
-Status: NOT STARTED (planned 2026-09-30).
+Status: CUT-OVER READY (2026-09-30). Phases 0–2 done, CI green on 4.0.6, Phase 3
+changes prepared; next is deploying (Phase 3, step 2).
 Starting on: Ruby 3.4.10, Rails 8.1.3.1, Bundler 2.3.5
 Target: latest Ruby 4.0.x patch release
 
@@ -378,22 +379,91 @@ the `Gemfile`). `Gemfile_next.lock` does not exist right now.
      On 3.4 it passes trivially; on Ruby 4 it catches the production-only `LoadError`s.
    - Not validated with the CircleCI CLI (not installed locally). Check the first
      pipeline run on this branch.
-4. Get it to parity with the baseline. Expect the same kinds of failures as before:
-   mocks, removed methods, and JS feature-spec flakes on the new image.
-5. Beyond rspec, exercise: `delayed_job` workers, rake tasks under `lib/tasks/`, a
-   `Dockerfile` build, and a Heroku review app.
+4. ✅ **Parity in CI** (2026-09-30, commit `14b113cff`). All four jobs green:
+   `run_ruby_tests` (3.4.10, job 97766), `run_ruby_tests_ruby_4` (4.0.6, job 97765),
+   `run_js_tests`, `run_annotate`. The Ruby 4 job ran the full suite, efile schemas
+   included, on `cimg/ruby:4.0.6-browsers`, and the main `parallel_rspec` pass had no
+   failures, so the retry pass had nothing to rerun. None of the expected failure
+   classes (mocks, removed methods, JS feature-spec flakes) showed up. The Phase 1
+   prerequisites covered everything the suite exercises.
+
+   The boot-check step's "passed" line is easy to miss. It comes after Datadog's
+   `DATADOG CONFIGURATION` log lines at the end of the step. The step is now named
+   "check production boot (production gem set, local test DB)".
+5. ✅ **Beyond rspec** (2026-09-30), except the Heroku review app. See below.
+
+#### Production image on Ruby 4.0.6
+
+Built locally from the real `Dockerfile` with only these changes, so no production
+secrets or data were involved:
+
+- `FROM ruby:4.0.6` + `ENV DEPENDENCIES_NEXT=1`
+- the `.aptible.env` sourcing removed from each `RUN`. That file holds the production
+  environment Aptible injects at build time.
+- the S3 download step skipped (`setup:download_efile_schemas
+  setup:unzip_efile_schemas setup:download_gyr_efiler`), because it needs production
+  AWS credentials
+- `assets:precompile` run with `RAILS_ENV=test` instead of production config
+- build context from `git archive HEAD`, so gitignored files (keys, `.aptible.env`)
+  can't get in. `.dockerignore` doesn't exclude them, and `ADD . /app` would copy
+  them.
+
+Results, `--platform linux/amd64` (matches production):
+
+- **All 16 stages build.** apt packages, NodeSource/Yarn, pdftk, Temurin 21 JDK,
+  `bundle install` (Bundler 2.3.5, bootboot plugin installed on the first pass, **223
+  gems, 20 native extensions**, production gem set only) and `assets:precompile`
+  (Shakapacker/webpack plus Sprockets/`sassc`).
+- Inside the image: `ruby 4.0.6 [x86_64-linux]`, `Gemfile_next.lock`.
+  `db:schema:load` works, and **`bin/check_production_boot` passes**. Postgres ran in
+  a `cimg/postgres:13.4-postgis` container, and the app container shared its network,
+  so the DB was genuinely `localhost`.
+- **Web:** Puma 8.0.2 boots on Ruby 4.0.6. `/healthcheck` and `/en` return HTTP 200.
+- **Background jobs:** a job queued through `delayed_job` was picked up and performed by
+  `Delayed::Worker#work_off` on 4.0.6 (queued 1, remaining 0).
+- **Rake:** `rake -T` loads all 133 tasks.
+
+Not covered: the production-env boot itself (needs production credentials, so it's
+deliberately not tested locally), the efile schema/efiler downloads, and the
+`supercronic` cron runner. The first staging deploy in Phase 3 covers these.
+
+**Heroku review app:** the `heroku/ruby` buildpack reads `RUBY VERSION` from
+`Gemfile.lock`, which stays on 3.4.10 until cut-over. So a Ruby 4 review app only
+exists on the Phase 3 PR. That's the first step of Phase 3's deploy order anyway.
 
 ### Phase 3: cut over
 
-1. One PR flipping every file in "Version references" to 4.0.x. Same shape as
-   `188c23e03`, plus:
-   - remove the `DEPENDENCIES_NEXT` line on the `ruby` directive
-   - point `rails_executor` at `cimg/ruby:4.0.6-browsers`, and delete
-     `rails_executor_next` and the `run_ruby_tests_ruby_4` invocation
+1. ✅ **Cut-over changes prepared** (2026-09-30, uncommitted on
+   `GYR1-1167-upgradeto-ruby-4`):
+   - `.ruby-version` → `4.0.6`; `.tool-versions` → `ruby 4.0.6` (nodejs unchanged)
+   - `Dockerfile` → `FROM ruby:4.0.6`; `Dockerfile.local` → `FROM ruby:4.0.6 AS base`
+   - `.circleci/config.yml`: `ruby_executor` and `rails_executor` →
+     `cimg/ruby:4.0.6-browsers`. `rails_executor_next` and the
+     `run_ruby_tests_ruby_4` invocation are deleted. The `run_ruby_tests`
+     parameters (`executor`, `lockfile`, `notify_slack`) stay, with defaults
+     identical to the old behavior, ready for the next upgrade's dual-boot job.
+   - `Gemfile`: the `DEPENDENCIES_NEXT` Ruby switch is removed. **The bootboot
+     harness stays**, as the `Gemfile` comment requires.
+   - `Gemfile_next.lock` deleted. `Gemfile.lock` regenerated by `bundle install` on
+     4.0.6. It's byte-for-byte the old `Gemfile_next.lock`; the only change from
+     `HEAD` is `RUBY VERSION` → `ruby 4.0.6p0`. `BUNDLED WITH 2.3.5` is unchanged.
+   - `config/application.rb` YJIT comment → `ruby:4.0.6` image. Verified: the image
+     ships YJIT (`RubyVM::YJIT.enabled?` → `true` under `--yjit`) and also ZJIT.
+
+   Verified locally: no `3.4.10` references left outside docs (the matches in
+   `config/aws_ip_ranges.json` are AWS IP addresses). `bin/check_production_boot`
+   passes on the default Ruby (4.0.6). `efile_submission_spec` +
+   `send_one_bulk_signup_message_job_spec`: 140 examples, 0 failures. Ruby 3.4.10 is
+   now refused with `Bundler::RubyVersionMismatch`.
+
+   **Every engineer needs Ruby 4.0.6 locally after this merges.** On Command Line
+   Tools 27 / macOS 26, see "Local install gotcha" (`SDKROOT=…/MacOSX26.5.sdk`).
 2. Deploy: review app → staging → demo → production. Watch Datadog RSS and p95
-   latency, and Sentry, for one release.
-3. Delete `Gemfile_next.lock`. **Leave the bootboot harness in place**, as the
-   `Gemfile` comment requires.
+   latency, and Sentry, for one release. The first review app is also the first Heroku
+   build on Ruby 4. The first staging deploy is the first real Aptible build: it
+   loads `.aptible.env`, runs the S3 schema/efiler download and boots with production
+   config, none of which were tested locally.
+3. ✅ `Gemfile_next.lock` deleted (done in step 1).
 
 ### Phase 4: follow-ups
 
