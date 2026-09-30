@@ -1,10 +1,6 @@
 source 'https://rubygems.org', cooldown: 7
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
-# The bootboot "next" boot (DEPENDENCIES_NEXT=1, see below) runs the Ruby we are upgrading
-# to and resolves Gemfile_next.lock. Remove at cut-over, when .ruby-version moves to it.
-# See docs/2026-09-30-ruby-4-upgrade-plan.md, Phase 2.
-ruby_version = '4.0.6' if ENV['DEPENDENCIES_NEXT']
 ruby ruby_version
 
 # Dual-boot harness. Nothing diverges between the two boots right now: there is no

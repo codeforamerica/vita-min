@@ -8,31 +8,14 @@ executors:
   ruby_executor:
     working_directory: /mnt/ramdisk
     docker:
-      - image: cimg/ruby:3.4.10-browsers
+      - image: cimg/ruby:4.0.6-browsers
   rails_executor:
-    working_directory: /mnt/ramdisk
-    docker:
-      - image: cimg/ruby:3.4.10-browsers
-        environment:
-          PGHOST: 127.0.0.1
-          PGUSER: root
-      - image: cimg/postgres:13.4-postgis
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle-test_test
-          POSTGRES_HOST_AUTH_METHOD: trust
-        command: postgres -c 'fsync=false' -c 'synchronous_commit=off'
-    resource_class: xlarge
-  # bootboot "next" boot for the Ruby 4 upgrade: DEPENDENCIES_NEXT=1 makes the Gemfile
-  # pick Ruby 4.0.6 and Gemfile_next.lock. See docs/2026-09-30-ruby-4-upgrade-plan.md.
-  rails_executor_next:
     working_directory: /mnt/ramdisk
     docker:
       - image: cimg/ruby:4.0.6-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
-          DEPENDENCIES_NEXT: "1"
       - image: cimg/postgres:13.4-postgis
         environment:
           POSTGRES_USER: root
@@ -90,7 +73,9 @@ commands:
   check_production_boot:
     description: "Boot with the production gem set (no development/test groups) against the test DB"
     steps:
-      - run: bin/check_production_boot
+      - run:
+          name: check production boot (production gem set, local test DB)
+          command: bin/check_production_boot
   install_efile_schemas:
     description: "Install IRS e-File schemas"
     steps:
@@ -285,13 +270,6 @@ workflows:
           context: tax-bot
       - run_ruby_tests:
           context: tax-bot
-      # Ruby 4 dual boot. Non-blocking: no deploy requires it, and it doesn't page Slack.
-      - run_ruby_tests:
-          name: run_ruby_tests_ruby_4
-          context: tax-bot
-          executor: rails_executor_next
-          lockfile: Gemfile_next.lock
-          notify_slack: false
       - run_annotate
       - deploy_to_aptible--demo:
           requires: [run_js_tests, run_ruby_tests]
