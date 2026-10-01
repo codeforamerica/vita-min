@@ -59,7 +59,8 @@
                     "data-track-attribute-return_status": card_props[:return_status]) %>
     <% elsif card_props[:button_type] == :intercom_chat %>
       <button type="button"
-              class="button button--portal-secondary button--full-width open-intercom spacing-below-0"
+              class="button button--portal-secondary button--full-width spacing-below-0"
+              onclick="if(window.Intercom){Intercom('show')}"
               data-track-click="client_portal_intercom_chat_button"
               data-track-attribute-page="client_portal"
               data-track-attribute-return_status="<%= card_props[:return_status] %>">
