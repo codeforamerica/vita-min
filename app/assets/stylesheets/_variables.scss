@@ -47,7 +47,7 @@ $color-periwinkle: #9EB0FF;
 $color-button-border: #001E29;
 $color-button-secondary: #FFFFF5;
 
-$gyr-cta-exclusions: ":not(.button--danger):not(.button--disabled):not(.button--intercom):not(.button--link):not(.button--portal-dark):not(.button--portal-outline)";
+$gyr-cta-exclusions: ":not(.button--danger):not(.button--disabled):not(.button--intercom):not(.button--link):not(.button--portal-primary):not(.button--portal-secondary)";
 
 
 $font-size-button: 22px;
