@@ -5,7 +5,7 @@
     <div>
       <h2 class="h3">
         <%= t('portal.portal.home.tax_return_heading', year: tax_return.year) %>
-        <span class="portal-status-badge"><%= card_props[:badge_text] %></span>
+        <span class="<%= card_props[:badge_class] || 'portal-status-badge' %>" role="status"><%= card_props[:badge_text] %></span>
       </h2>
       <p class="spacing-below-0"><%= card_props[:help_text] %></p>
     </div>
@@ -57,6 +57,14 @@
                     "data-track-click": "client_portal_message_tax_team_button",
                     "data-track-attribute-page": "client_portal",
                     "data-track-attribute-return_status": card_props[:return_status]) %>
+    <% elsif card_props[:button_type] == :intercom_chat %>
+      <button type="button"
+              class="button open-intercom portal-button--dark spacing-below-0"
+              data-track-click="client_portal_intercom_chat_button"
+              data-track-attribute-page="client_portal"
+              data-track-attribute-return_status="<%= card_props[:return_status] %>">
+        <%= t("portal.portal2.home.button.chat_with_us") %>
+      </button>
     <% elsif card_props[:button_type] == :sign_return %>
       <%= link_to(t("portal.portal2.home.button.sign_your_return"),
                     card_props[:link],
