@@ -12,7 +12,7 @@
   </div>
   <% if card_props[:call_to_action_text].present? %>
     <div class="portal-info-box">
-      <p style="margin-bottom: 1rem"><b><%= card_props[:call_to_action_title] %></b></br>
+      <p style="margin-bottom: 1rem"><b><%= card_props[:call_to_action_title] %></b>
       <p style="margin: 0.1rem"><%= card_props[:call_to_action_text] %>
     </div>
   <% end %>
@@ -32,34 +32,34 @@
     <% if card_props[:button_type] == :complete_intake %>
       <%= link_to(t("portal.portal2.home.button.complete_tax_questions"),
                     card_props[:link],
-                    class: "button spacing-below-0",
+                    class: "button button--portal-dark button--full-width spacing-below-0",
                     "data-track-click": "client_portal_complete_intake_button",
                     "data-track-attribute-page": "client_portal",
                     "data-track-attribute-return_status": card_props[:return_status]) %>
     <% elsif card_props[:button_type] == :add_documents %>
       <%= link_to(t("portal.portal2.home.button.add_documents"),
                     Portal::UploadDocumentsController.to_path_helper(action: :index),
-                    class: "button spacing-below-0",
+                    class: "button button--portal-dark button--full-width spacing-below-0",
                     "data-track-click": "client_portal_add_documents_button",
                     "data-track-attribute-page": "client_portal",
                     "data-track-attribute-return_status": card_props[:return_status]) %>
     <% elsif card_props[:button_type] == :view_documents %>
       <%= link_to(t("portal.portal2.home.button.view_documents"),
                     Portal::UploadDocumentsController.to_path_helper(action: :index),
-                    class: "button spacing-below-0",
+                    class: "button button--portal-dark button--full-width spacing-below-0",
                     "data-track-click": "client_portal_view_documents_button",
                     "data-track-attribute-page": "client_portal",
                     "data-track-attribute-return_status": card_props[:return_status]) %>
     <% elsif card_props[:button_type] == :message_tax_team %>
       <%= link_to(t("portal.portal2.home.button.message_tax_team"),
                     new_portal_message_path,
-                    class: "button spacing-below-0",
+                    class: "button button--portal-dark button--full-width spacing-below-0",
                     "data-track-click": "client_portal_message_tax_team_button",
                     "data-track-attribute-page": "client_portal",
                     "data-track-attribute-return_status": card_props[:return_status]) %>
     <% elsif card_props[:button_type] == :intercom_chat %>
       <button type="button"
-              class="button open-intercom portal-button--dark spacing-below-0"
+              class="button button--portal-outline button--full-width open-intercom spacing-below-0"
               data-track-click="client_portal_intercom_chat_button"
               data-track-attribute-page="client_portal"
               data-track-attribute-return_status="<%= card_props[:return_status] %>">
@@ -68,14 +68,14 @@
     <% elsif card_props[:button_type] == :sign_return %>
       <%= link_to(t("portal.portal2.home.button.sign_your_return"),
                     card_props[:link],
-                    class: "button button--primary button--wide text--centered spacing-below-15",
+                    class: "button button--portal-dark button--full-width spacing-below-15",
                     "data-track-click": "client_portal_sign_return_button",
                     "data-track-attribute-page": "client_portal",
                     "data-track-attribute-return_status": card_props[:return_status]) %>
       <%= link_to(t("portal.portal2.home.button.decline_to_sign"),
                     portal_tax_return_decline_signature_path(tax_return_id: tax_return.id),
                     method: :put,
-                    class: "button button--wide text--centered spacing-below-5",
+                    class: "button button--portal-outline button--full-width spacing-below-5",
                     "data-track-click": "client_portal_decline_to_sign_button",
                     "data-track-attribute-page": "client_portal",
                     "data-track-attribute-return_status": card_props[:return_status]) %>
