@@ -5,7 +5,7 @@
 #
 # The test suite can't catch a missing one: a gem that only arrives as a dependency of a
 # test gem (ostruct, via axe-core) is on the load path in every spec run. See
-# docs/2026-09-30-ruby-4-upgrade-plan.md, blocker 1.
+# docs/ruby-4-upgrade.md, steps 4-5.
 #
 # This never touches a production environment or production data:
 # - It runs RAILS_ENV=test. The gem set is what matters, not the environment: the Gemfile
