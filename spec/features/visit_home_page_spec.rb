@@ -57,6 +57,62 @@ RSpec.feature "Visit home page" do
     expect(page.all(:css, '.slab--banner').length).to eq 0
   end
 
+  context "date-dependent call to action buttons" do
+    around do |example|
+      Timecop.freeze(current_time) do
+        example.run
+      end
+    end
+
+    before do
+      allow(Rails.configuration).to receive(:end_of_intake).and_return(DateTime.new(2026, 10, 1))
+      allow(Rails.configuration).to receive(:end_of_docs).and_return(DateTime.new(2026, 10, 8))
+      allow(Rails.configuration).to receive(:end_of_in_progress_intake).and_return(DateTime.new(2026, 10, 15))
+      allow(Rails.configuration).to receive(:end_of_login).and_return(DateTime.new(2026, 10, 23))
+    end
+
+    [DateTime.new(2026, 10, 2), DateTime.new(2026, 10, 10)].each do |time|
+      context "after end of intake and before end of in-progress intakes (#{time.to_date})" do
+        let(:current_time) { time }
+
+        scenario "hero Get Started links to the service cards and Assist card links to sign up" do
+          visit "/"
+
+          within ".slab--hero" do
+            expect(page).to have_link I18n.t("general.get_started"), href: "#service-comparison"
+          end
+          within ".service-card--virtual-vita" do
+            expect(page).to have_link I18n.t("general.register"), href: new_signup_path
+            expect(page).not_to have_link I18n.t("general.get_started")
+          end
+          within ".service-card--diy" do
+            expect(page).to have_link I18n.t("general.get_started"), href: diy_qualifications_path
+          end
+        end
+      end
+    end
+
+    context "after end of in-progress intakes" do
+      let(:current_time) { DateTime.new(2026, 10, 16) }
+
+      scenario "hero, Assist, and File Myself buttons link to sign up" do
+        visit "/"
+
+        within ".slab--hero" do
+          expect(page).to have_link I18n.t("general.register"), href: new_signup_path
+          expect(page).not_to have_link I18n.t("general.get_started")
+        end
+        within ".service-card--virtual-vita" do
+          expect(page).to have_link I18n.t("general.register"), href: new_signup_path
+        end
+        within ".service-card--diy" do
+          expect(page).to have_link I18n.t("general.register"), href: new_signup_path
+          expect(page).not_to have_link I18n.t("general.get_started")
+        end
+      end
+    end
+  end
+
   xcontext "shows the correct date-dependent banners" do
     let(:current_time) { nil }
 
