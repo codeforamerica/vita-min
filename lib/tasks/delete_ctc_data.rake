@@ -1,3 +1,5 @@
+# Can run manually via:
+#     bundle exec rake delete_ctc_data:perform
 namespace :delete_ctc_data do
   def ctc_intake_2021_drivers_license_records
     DriversLicense.all.select { |x| x.intake_as_primary.class == Archived::Intake::CtcIntake2021 } +
@@ -23,10 +25,6 @@ namespace :delete_ctc_data do
 
   def ctc_intake_records
     Intake::CtcIntake.all
-  end
-
-  def associated_tax_return_records
-    'TODO'
   end
 
   def tax_return_is_ctc_records
@@ -75,16 +73,22 @@ namespace :delete_ctc_data do
     p '--------------------------------'
     # Destroy CTCIntake2021-related DriversLicense records.
     ActiveRecord::Base.transaction do
+      p 'DriversLicense records 1/2 ...'
       p 'Tally of CtcIntake2021-related DriversLicense records BEFORE: ' + ctc_intake_2021_drivers_license_records.count.to_s
+
       ctc_intake_2021_drivers_license_records.each(&:destroy!)
+
       p 'Tally of CtcIntake2021-related DriversLicense records AFTER: ' + ctc_intake_2021_drivers_license_records.count.to_s
     end
 
     p '--------------------------------'
     # Destroy CtcIntake-related DriversLicense records.
     ActiveRecord::Base.transaction do
+      p 'DriversLicense records 2/2 ...'
       p 'Tally of CtcIntake-related DriversLicense records BEFORE: ' + ctc_intake_drivers_license_records.count.to_s
+
       ctc_intake_drivers_license_records.each(&:destroy!)
+
       p 'Tally CtcIntake-related DriversLicense records AFTER: ' + ctc_intake_drivers_license_records.count.to_s
     end
 
@@ -92,26 +96,45 @@ namespace :delete_ctc_data do
     # Destroy all Client records have CtcIntake2021-specific intakes.
     # This should destroy associated intake, tax_returns, efile_submissions, documents and has_one_attached items.
     ActiveRecord::Base.transaction do
+      p 'Client records (and associated) 1/2 ...'
       p 'Tally of Client records associated w/ CtcIntake2021 record BEFORE: ' + ctc_2021_client_records.count.to_s
-      p 'Tally of CtcIntake2021 records BEFORE: ' + ctc_intake_2021_records.count
-      # p 'Tally of related TaxReturn records BEFORE: ' +
+      p 'Tally of CtcIntake2021 records BEFORE: ' + ctc_intake_2021_records.count.to_s
+      p 'Tally of all TaxReturn records BEFORE: ' + TaxReturn.all.count.to_s
 
-      # TODO fill out
+      ctc_2021_client_records.each(&:destroy!)
 
       p 'Tally of Client records associated w/ CtcIntake2021 record AFTER: ' + ctc_2021_client_records.count.to_s
-      p 'Tally of CtcIntake2021 records BEFORE: ' + ctc_intake_2021_records.count
-      # p 'Tally of related TaxReturn records BEFORE: ' +
+      p 'Tally of CtcIntake2021 records AFTER: ' + ctc_intake_2021_records.count.to_s
+      p 'Tally of all TaxReturn records AFTER: ' + TaxReturn.all.count.to_s
     end
 
     p '--------------------------------'
     # Destroy client records having CtcIntake-specific intakes.
     # This should destroy associated intake, tax_returns, efile_submissions, documents, and has_one_attached items.
     ActiveRecord::Base.transaction do
+      p 'Client records (and associated) 2/2 ...'
       p 'Tally of Client records associated w/ CtcIntake record BEFORE: ' + ctc_client_records.count.to_s
+      p 'Tally of CtcIntake records BEFORE: ' + ctc_intake_records.count.to_s
+      p 'Tally of all TaxReturn records BEFORE: ' + TaxReturn.all.count.to_s
 
-      # TODO fill out
+      ctc_client_records.each(&:destroy!)
 
       p 'Tally of Client records associated w/ CtcIntake record AFTER: ' + ctc_client_records.count.to_s
+      p 'Tally of CtcIntake records AFTER: ' + ctc_intake_records.count.to_s
+      p 'Tally of all TaxReturn records AFTER: ' + TaxReturn.all.count.to_s
+    end
+
+    p '--------------------------------'
+    # Destroy any remaining TaxReturn records where is_ctc is true (if any). (It's not clear
+    # if the `is_ctc` flag is/was being used consistently, at least based on the data
+    # in seeder.rb; hence this extra step just for thoroughness.)
+    ActiveRecord::Base.transaction do
+      p 'Remaining TaxRecords (if any) where `is_ctc` is true'
+      p 'Tally BEFORE: ' + tax_return_is_ctc_records.count.to_s
+
+      tax_return_is_ctc_records.each(&:destroy!)
+
+      p 'Tally AFTER: ' + tax_return_is_ctc_records.count.to_s
     end
 
     p '--------------------------------'
