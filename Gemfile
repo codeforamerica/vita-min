@@ -123,6 +123,9 @@ gem "net-imap", ">= 0.6.4"
 gem 'redis'
 gem "observer", "~> 0.1.2"
 gem "csv", "~> 3.3"
+# Bundled (not default) gem from Ruby 4.0. Only reached us transitively via axe-core
+# in :test, so production boots without it. Drop once app/ stops using OpenStruct.
+gem "ostruct", "~> 0.6.0"
 gem "rexml", ">= 3.4.2"
 gem 'useragent'
 

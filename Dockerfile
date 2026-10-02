@@ -1,4 +1,4 @@
-FROM ruby:3.4.10
+FROM ruby:4.0.6
 
 # The Docker environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
 RUN apt-get update --allow-releaseinfo-change
