@@ -33,7 +33,7 @@ class ReplacementParametersService
         "Client.PreferredName": intake&.preferred_name&.titleize,
         "Preparer.FirstName": preparer_first_name,
         "Documents.List": documents_list,
-        "Client.LoginLink": intake.is_ctc? ? new_ctc_portal_client_login_url(locale: locale, host: Rails.configuration.ctc_url) : new_portal_client_login_url(locale: locale),
+        "Client.LoginLink": new_portal_client_login_url(locale: locale),
         "Link.E-signature": new_portal_client_login_url(locale: locale),
         "GetYourRefund.PhoneNumber": OutboundCall.twilio_number,
         "TaxReturn.TaxYear": tax_return&.year,

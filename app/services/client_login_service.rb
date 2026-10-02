@@ -13,7 +13,7 @@ class ClientLoginService
   end
 
   def login_records_for_token(raw_token)
-    if [:gyr, :ctc].include? @service_type
+    if @service_type == :gyr
       clients_for_token(raw_token)
     else
       intakes_for_token(raw_token) # state file
@@ -45,7 +45,7 @@ class ClientLoginService
   def can_login_by_email_verification?(email_address)
     service_class = @intake_classes.detect do |service_class|
       intakes = service_class.accessible_intakes.where(email_address: email_address)
-      if service_class == Intake::CtcIntake || service_class == Intake::GyrIntake
+      if service_class == Intake::GyrIntake
         intakes = intakes.or(service_class.accessible_intakes.where(spouse_email_address: email_address))
       end
       intakes.exists?
@@ -57,7 +57,7 @@ class ClientLoginService
     service_class = @intake_classes.detect do |service_class|
       intakes = service_class.accessible_intakes
       intakes = (
-        if service_class == Intake::CtcIntake || service_class == Intake::GyrIntake
+        if service_class == Intake::GyrIntake
           intakes.where(sms_phone_number: sms_phone_number, sms_notification_opt_in: "yes")
         else
           intakes.where(phone_number: sms_phone_number)

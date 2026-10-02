@@ -124,15 +124,6 @@ module VitaMin
       2015 => [et.parse("2016-01-19 00:00:00"), et.parse("2016-04-18 23:59:59")]
     }
 
-    # GetCTC
-    config.ctc_soft_launch = et.parse("2022-05-04 09:00:00")
-    config.ctc_full_launch = et.parse("2022-05-11 09:00:00")
-    config.eitc_soft_launch = et.parse("2022-09-30 09:00:00")
-    config.eitc_full_launch = et.parse("2022-10-11 09:00:00")
-    config.ctc_end_of_intake = et.parse("2022-11-16 23:59:00")
-    config.ctc_end_of_read_write = et.parse("2022-11-19 23:59:00")
-    config.ctc_end_of_login = et.parse("2024-12-31 23:59:00")
-
     # StateFile
     config.state_file_start_of_open_intake = et.parse('2025-01-15 00:00:00')
     config.state_file_tax_deadline = et.parse('2025-04-15 23:59:59')

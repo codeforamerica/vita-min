@@ -898,25 +898,6 @@ xdescribe Efile::BenefitsEligibility do
     end
   end
 
-  describe "#any_eligible_ctc_dependents?" do
-    context "when there are CTC-eligible dependents" do
-      it "returns true" do
-        expect(subject.any_eligible_ctc_dependents?).to eq(true)
-      end
-    end
-
-    context "when there are not CTC-eligible dependents" do
-      before do
-        intake.dependents.destroy_all
-        create :qualifying_child, intake: intake, birth_date: 60.years.ago
-      end
-
-      it "returns false" do
-        expect(subject.any_eligible_ctc_dependents?).to eq(false)
-      end
-    end
-  end
-
   describe "#qualified_for_eitc_pre_w2s?" do
     context "when they pass tin type test, don't exceed the income limit, are 23, have no qcs and are not former foster care, homeless youth or fulltime student" do
       before do
