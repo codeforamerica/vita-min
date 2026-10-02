@@ -95,6 +95,32 @@ class Seeder
       vita_partner: first_site,
     )
 
+    #Routing cascade test data (prior-year cascade)
+
+    # Zip code routing: Organization
+    zip_org = VitaPartner.find_or_create_by!(name: "Test Zip Org", type: Organization::TYPE)
+    zip_org.update!(capacity_limit: nil)
+    VitaPartnerZipCode.find_or_create_by!(zip_code: "10001", vita_partner: zip_org)
+
+    # Zip code routing: Site (capacity lives on the parent org)
+    zip_site_parent = VitaPartner.find_or_create_by!(name: "Test Zip Site Parent Org", type: Organization::TYPE)
+    zip_site_parent.update!(capacity_limit: nil)
+    zip_site = VitaPartner.find_or_create_by!(name: "Test Zip Site", type: Site::TYPE, parent_organization: zip_site_parent)
+    VitaPartnerZipCode.find_or_create_by!(zip_code: "10002", vita_partner: zip_site)
+
+    # State routing: Organization (100% of traffic in NY)
+    state_org = VitaPartner.find_or_create_by!(name: "Test State Org", type: Organization::TYPE)
+    state_org.update!(capacity_limit: nil)
+    state_org_target = StateRoutingTarget.find_or_create_by!(target: state_org, state_abbreviation: "NY")
+    StateRoutingFraction.find_or_create_by!(vita_partner: state_org, state_routing_target: state_org_target).update!(routing_fraction: 1.0)
+
+    # State routing: Site (100% of traffic in TX, capacity lives on parent org)
+    state_site_parent = VitaPartner.find_or_create_by!(name: "Test State Site Parent Org", type: Organization::TYPE)
+    state_site_parent.update!(capacity_limit: nil)
+    state_site = VitaPartner.find_or_create_by!(name: "Test State Site", type: Site::TYPE, parent_organization: state_site_parent)
+    state_site_target = StateRoutingTarget.find_or_create_by!(target: state_site, state_abbreviation: "TX")
+    StateRoutingFraction.find_or_create_by!(vita_partner: state_site, state_routing_target: state_site_target).update!(routing_fraction: 1.0)
+
     strong_shared_password = "vitavitavitavita"
 
     # organization lead user
