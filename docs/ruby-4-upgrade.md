@@ -3,8 +3,10 @@
 How we moved vita-min from Ruby 3.4.10 to 4.0.6 (GYR1-1167). Use it as a checklist for
 the next Ruby upgrade too. Swap in the new version numbers.
 
-The approach: fix what can be fixed on the old Ruby first, run both Rubies side by
+We used same approach as the Rails upgrade: fix what can be fixed on the old Ruby first, run both Rubies side by
 side with bootboot until CI is green on both, then switch over in one small PR.
+
+Purpose: Longetibity and performance. Ruby 4 gets security patches the longest which saves us a second upgrade soon and object allocation (Class#new) got faster and helps allocation heavy Rails app.
 
 ## 1. Check that the new Ruby is supported everywhere we run
 
