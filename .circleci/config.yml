@@ -87,6 +87,16 @@ commands:
     steps:
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:create db:schema:load
+  setup_webdriver:
+    description: Install Ruby webdriver
+    steps:
+      - run: date -I > /tmp/today && cat /tmp/today
+      - restore_cache:
+          key: webdrivers-v3-{{ checksum "/tmp/today" }}
+      - run: bin/gyr download_webdriver
+      - save_cache:
+          key: webdrivers-v3-{{ checksum "/tmp/today" }}
+          paths: [~/.cache/selenium]
 jobs:
   i18n_normalize:
     executor: ruby_executor
