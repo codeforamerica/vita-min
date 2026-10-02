@@ -231,8 +231,23 @@ module TaxReturnCardHelper
             contact_method: intake.pseudo? ? "Contact Method" : contact_method_of_last_tax_team_message(intake)),
         return_status: state
       }
-    elsif [:file_ready_to_file, :file_accepted, :file_rejected, :file_hold, :file_fraud_hold,
-           :file_not_filing, :file_efiled, :file_mailed, :file_needs_review].include?(state)
+    elsif state == :file_hold
+      {
+        badge_text: t('portal.portal2.home.badge.on_hold'),
+        help_text: t("portal.portal2.home.help_text.on_hold"),
+        button_type: :message_tax_team,
+        return_status: state
+      }
+    elsif state == :file_not_filing
+      {
+        badge_text: t('portal.portal2.home.badge.not_filing'),
+        badge_class: "portal-status-badge portal-status-badge--not_filing",
+        help_text: t("portal.portal2.home.help_text.not_filing_html", year: tax_return.year),
+        button_type: :intercom_chat,
+        return_status: state
+      }
+    elsif [:file_ready_to_file, :file_accepted, :file_rejected, :file_fraud_hold,
+           :file_efiled, :file_mailed, :file_needs_review].include?(state)
       {
         badge_text: t('portal.portal2.home.badge.almost_done'),
         help_text: t("portal.portal2.home.help_text.final_steps"),
