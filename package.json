@@ -29,7 +29,7 @@
     "stickybits": "^3.7.9",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5",
-    "trix": "^2.1.18",
+    "trix": "^2.1.19",
     "turbolinks": "^5.2.0",
     "webpack": "^5",
     "webpack-assets-manifest": "^5",
@@ -81,7 +81,8 @@
     "fast-xml-parser": "^5.7.0",
     "tar": "^7.5.21",
     "fast-uri": "3.1.7",
-    "svgo": "^4.1.0"
+    "svgo": "^4.1.0",
+    "dompurify": "3.4.16"
   },
   "packageManager": "yarn@4.14.1"
 }

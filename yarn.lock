@@ -2944,7 +2944,7 @@ __metadata:
     stickybits: "npm:^3.7.9"
     style-loader: "npm:^2.0.0"
     terser-webpack-plugin: "npm:^5"
-    trix: "npm:^2.1.18"
+    trix: "npm:^2.1.19"
     turbolinks: "npm:^5.2.0"
     webpack: "npm:^5"
     webpack-assets-manifest: "npm:^5"
@@ -8154,7 +8154,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"trix@npm:^2.1.18":
+"trix@npm:^2.1.19":
   version: 2.1.19
   resolution: "trix@npm:2.1.19"
   dependencies:
