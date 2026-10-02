@@ -167,7 +167,8 @@ Rollback: revert the PR and redeploy. A Ruby bump has no migrations.
 ## 11. Follow-ups
 
 - Replace `OpenStruct` in `app/` (5 places) with `Struct`/`Data`, then drop
-  `gem "ostruct"`. `bin/check_production_boot` will catch a missed spot. Do this after Ruby 4 is already in Prod.
+  `gem "ostruct"`. `bin/check_production_boot` will catch a missed spot. Do this after Ruby 4 is already in Prod. https://codeforamerica.atlassian.net/browse/GYR1-1269
 - RuboCop bump. 1.53 can't target Ruby above 3.3, and it isn't run in CI.
-- Optional: bump Bundler from 2.3.5.
-- Remove bin/check_production_boot file after we fix the OpenStruct gem issue.
+- Optional: bump Bundler from 2.3.5. https://codeforamerica.atlassian.net/browse/GYR1-1271
+- Remove bin/check_production_boot file after we fix the OpenStruct gem issue. https://codeforamerica.atlassian.net/browse/GYR1-1270
+
