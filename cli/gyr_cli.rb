@@ -36,7 +36,7 @@ class GyrCli < Thor
     end
   end
 
-  desc "download_webdriver", "Downloads the latest chromedriver using SeleniumManager from the selenium-webdriver gem"
+  desc "download_webdriver", "Downloads Selenium Chrome webdriver via the selenium-webdriver gem"
   def download_webdriver
     require 'selenium-webdriver'
 
