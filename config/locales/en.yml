@@ -2103,14 +2103,20 @@ en:
     portal2:
       home:
         badge:
+          accepted: Accepted
           almost_done: Almost done
+          filing_by_mail: Filing by mail
           final_check: Final check
           in_progress: In progress
+          rejected: Rejected
+          status_label: 'Status: %{status}'
           tax_prep: Tax prep
         button:
           add_documents: Add documents
           complete_tax_questions: Complete tax questions
           decline_to_sign: I don't want to sign
+          download_tax_return: Download %{year} tax return
+          find_mailing_address: Find your IRS mailing address
           message_tax_team: Message tax team
           sign_your_return: Sign your return
           view_documents: View your uploaded documents
@@ -2129,6 +2135,18 @@ en:
         document_link:
           download_final_tax_papers: Download final tax papers
         help_text:
+          file_accepted_intro: The IRS accepted your %{year} return.
+          file_accepted_payments_html: To pay taxes if you still owe the IRS, visit %{link}.
+          file_accepted_payments_link_text: Payments
+          file_accepted_payments_url: https://www.irs.gov/payments
+          file_accepted_refund_status_html: To check your refund status, use the IRS %{link} tool.
+          file_accepted_refund_status_url: https://www.irs.gov/refunds
+          file_accepted_wheres_my_refund_link_text: "\"Where's My Refund?\""
+          file_mailed_instructions_html: To finish processing your return, print and mail it to the correct address. It takes 4-6 weeks to get a refund when %{link}.
+          file_mailed_link_text: filing by mail
+          file_mailed_link_url: https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment
+          file_mailed_no_action_needed: If you've already mailed your return, no further action is needed.
+          file_rejected_html: The IRS rejected your %{year} return.<br><br>Your tax team will contact you with the reason and next steps.
           final_steps: Your return is signed and on its way to the IRS. We'll let you know when it's processed.
           info_requested: We need a few more documents to finish your tax return.
           intake_incomplete: You're still filling out your tax form.

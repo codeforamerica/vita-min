@@ -3,6 +3,10 @@
     color: $color-grey-darkest;
     text-decoration: none;
 
+    &--teal {
+      color: #007c7c;
+    }
+
     &__border {
       border-bottom: 1px solid;
     }
@@ -40,6 +44,18 @@
   padding: 0.75rem 1rem;
   position: relative;
   top: -.1em;
+
+  &--green {
+    background-color: #99cfa2;
+  }
+
+  &--red {
+    background-color: #e8b5b5;
+  }
+
+  &--yellow {
+    background-color: #ffce66;
+  }
 }
 
 .portal-info-box {
