@@ -2127,7 +2127,7 @@ es:
           file_accepted_refund_status_url: https://www.irs.gov/es/refunds
           file_accepted_wheres_my_refund_link_text: "“¿Dónde está mi reembolso?”"
           file_mailed_instructions_html: Para terminar de procesar su declaración de impuestos, imprímala y envíela por correo a la dirección correcta. Cuando se %{link} el reembolso toma de 4 a 6 semanas en llegar.
-          file_mailed_link_text: "envía por correo,"
+          file_mailed_link_text: envía por correo,
           file_mailed_link_url: https://www.irs.gov/es/filing/where-to-file-paper-tax-returns-with-or-without-a-payment
           file_mailed_no_action_needed: Si ya envió su declaración por correo, no necesita hacer nada más.
           file_rejected_html: El IRS rechazó su declaración de impuestos del %{year}.<br><br>El equipo de impuestos se comunicará con usted para explicarle el motivo y los próximos pasos.

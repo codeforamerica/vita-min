@@ -2141,7 +2141,7 @@ en:
           file_accepted_payments_url: https://www.irs.gov/payments
           file_accepted_refund_status_html: To check your refund status, use the IRS %{link} tool.
           file_accepted_refund_status_url: https://www.irs.gov/refunds
-          file_accepted_wheres_my_refund_link_text: "\"Where's My Refund?\""
+          file_accepted_wheres_my_refund_link_text: '"Where''s My Refund?"'
           file_mailed_instructions_html: To finish processing your return, print and mail it to the correct address. It takes 4-6 weeks to get a refund when %{link}.
           file_mailed_link_text: filing by mail
           file_mailed_link_url: https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment
