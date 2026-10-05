@@ -18,13 +18,15 @@ plugin 'bootboot', '~> 0.2.2'
 # `plugin` above only declares/installs bootboot; it has to be loaded here for its
 # Bundler::Dsl patch (which defines `enable_dual_booting`) to exist while this Gemfile
 # is being evaluated.
-Plugin.send(:load_plugin, 'bootboot') if Plugin.installed?('bootboot')
+bootboot_path = Plugin.installed?('bootboot')
+bootboot_available = bootboot_path && File.exist?(File.join(bootboot_path.to_s, 'plugins.rb'))
+Plugin.send(:load_plugin, 'bootboot') if bootboot_available
 
 # Required for the "next" boot to read Gemfile_next.lock instead of Gemfile.lock.
 # bootboot patches Bundler::Definition only when this is called, so without it
 # `DEPENDENCIES_NEXT=1 bundle install` resolves the next Gemfile against the *primary*
 # lockfile and fails with a version conflict.
-enable_dual_booting if ENV['DEPENDENCIES_NEXT'] && Plugin.installed?('bootboot')
+enable_dual_booting if ENV['DEPENDENCIES_NEXT'] && bootboot_available
 
 # Declares a gem that differs between the primary boot and the bootboot "next" boot.
 #
@@ -96,8 +98,8 @@ gem 'pdf-reader', '~> 2.4.1'
 gem 'rails_autolink'
 gem 'ice_nine'
 gem 'business_time'
-gem 'rubyzip'
-gem 'caxlsx', '3.4.1'
+gem 'rubyzip', '3.7.0'
+gem 'caxlsx', '4.5.0'
 gem 'intercom', '4.1.3' # potential issue with 4.2.0
 gem 'statesman'
 gem 'redcarpet'
@@ -145,7 +147,7 @@ group :development, :test do
   gem 'axe-core-capybara'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '4.46.0'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'pry-byebug'

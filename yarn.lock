@@ -2944,7 +2944,7 @@ __metadata:
     stickybits: "npm:^3.7.9"
     style-loader: "npm:^2.0.0"
     terser-webpack-plugin: "npm:^5"
-    trix: "npm:^2.1.18"
+    trix: "npm:^2.1.19"
     turbolinks: "npm:^5.2.0"
     webpack: "npm:^5"
     webpack-assets-manifest: "npm:^5"
@@ -4050,15 +4050,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dompurify@npm:^3.2.5":
-  version: 3.4.13
-  resolution: "dompurify@npm:3.4.13"
+"dompurify@npm:3.4.16":
+  version: 3.4.16
+  resolution: "dompurify@npm:3.4.16"
   dependencies:
     "@types/trusted-types": "npm:^2.0.7"
   dependenciesMeta:
     "@types/trusted-types":
       optional: true
-  checksum: 10c0/9c2a1a71e1a1d8b77953db7a39ffc935ef4ed4f10fe40770232128c2cbfd4c3dc677d3d7bae51eb24cc52d9ff3548612dc540ecb4343e89b26e809d2be2e0cfe
+  checksum: 10c0/65a901c6b6d489d3e898f67223d81dac66d613cda48f5785f0ed52a4ae320c4b2745490a58c14161e29f0273080fea0a0cb234a9ef892650e1a9b2a7befa07a5
   languageName: node
   linkType: hard
 
@@ -4433,10 +4433,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-uri@npm:3.1.6":
-  version: 3.1.6
-  resolution: "fast-uri@npm:3.1.6"
-  checksum: 10c0/77fa4f966f7d2cf83c34af2d3eb88882872fe90634f27a6bd309551db65377d3ca55616467c7cb4dcc57e33523d149e2fec1952d51cc2f00bfce68a66c3711ea
+"fast-uri@npm:3.1.7":
+  version: 3.1.7
+  resolution: "fast-uri@npm:3.1.7"
+  checksum: 10c0/ca2baa4bde48fc7322bdc692c6636975943ebe4f6dd97e07d70b14e0ab85af2ff30de90f550f5ec2956684fe208e150d85d6cb5f3c74438c8ac1bf86bd435c13
   languageName: node
   linkType: hard
 
@@ -8154,7 +8154,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"trix@npm:^2.1.18":
+"trix@npm:^2.1.19":
   version: 2.1.19
   resolution: "trix@npm:2.1.19"
   dependencies:
@@ -8225,9 +8225,9 @@ __metadata:
   linkType: hard
 
 "undici@npm:^8.4.1":
-  version: 8.9.0
-  resolution: "undici@npm:8.9.0"
-  checksum: 10c0/e3d9fa35a9aa8360d9f56e66bd372f451ee053e25066a97fd9fab3816267035660f67870c6d709a58a5411551657af78c4475be5b31c113b04f70251309900d0
+  version: 8.11.0
+  resolution: "undici@npm:8.11.0"
+  checksum: 10c0/a6a0d8da384d88dc9780fdb03f099d17fc06d1085854214c4e8ab5c69c4731778c5207fa62b54170327afa21e0d412665bd4e40683122bcbcbf9075801c75cb3
   languageName: node
   linkType: hard
 

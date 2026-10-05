@@ -181,11 +181,11 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    caxlsx (3.4.1)
+    caxlsx (4.5.0)
       htmlentities (~> 4.3, >= 4.3.4)
       marcel (~> 1.0)
       nokogiri (~> 1.10, >= 1.10.4)
-      rubyzip (>= 1.3.0, < 3)
+      rubyzip (>= 2.4, < 4)
     cgi (0.5.2)
     childprocess (5.1.0)
       logger (~> 1.5)
@@ -653,7 +653,7 @@ GEM
     ruby-progressbar (1.13.0)
     ruby-rc4 (0.1.5)
     ruby2_keywords (0.0.5)
-    rubyzip (2.3.2)
+    rubyzip (3.7.0)
     safe_shell (1.1.0)
     sanitize (7.0.0)
       crass (~> 1.0.2)
@@ -674,9 +674,11 @@ GEM
       sprockets-rails
       tilt
     securerandom (0.4.1)
-    selenium-webdriver (4.15.0)
+    selenium-webdriver (4.46.0)
+      base64 (~> 0.2)
+      logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
+      rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
     semantic_range (3.1.1)
     sentry-delayed_job (5.13.0)
@@ -769,7 +771,7 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.9.2)
-    websocket (1.2.10)
+    websocket (1.2.11)
     websocket-driver (0.8.2)
       base64
       websocket-extensions (>= 0.1.0)
@@ -803,7 +805,7 @@ DEPENDENCIES
   byebug
   cancancan
   capybara (>= 2.15)
-  caxlsx (= 3.4.1)
+  caxlsx (= 4.5.0)
   cfa-styleguide (= 0.17.1)!
   combine_pdf
   csv (~> 3.3)
@@ -881,9 +883,9 @@ DEPENDENCIES
   rubocop (~> 1.53.0)
   rubocop-performance (~> 1.16.0)
   rubocop-rspec (~> 2.18.0)
-  rubyzip
+  rubyzip (= 3.7.0)
   sass-rails (~> 6.0)
-  selenium-webdriver
+  selenium-webdriver (= 4.46.0)
   sentry-delayed_job
   sentry-rails
   sentry-ruby
