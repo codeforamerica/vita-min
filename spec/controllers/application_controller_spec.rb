@@ -531,6 +531,7 @@ RSpec.describe ApplicationController do
         locale: "en",
         path: "/anonymous",
         full_path: "/anonymous",
+        is_ctc: false,
         domain: "test.host",
         controller_name: "Anonymous",
         controller_action: "AnonymousController#index",

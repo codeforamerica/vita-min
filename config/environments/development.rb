@@ -130,6 +130,8 @@ Rails.application.configure do
 
   # Allow incoming connections over ngrok
   config.hosts << /[a-z0-9]+\.ngrok\.io/
+  config.hide_ctc = false
+  config.ctc_url = "http://ctc.localhost:3000"
   config.statefile_url = "http://statefile.localhost:3000"
   config.gyr_url = "http://localhost:3000"
   config.efile_environment = "test"
