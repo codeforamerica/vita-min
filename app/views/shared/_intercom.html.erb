@@ -1,7 +1,9 @@
-<button type="button" class="open-intercom button button--small button--green button--intercom">
-  <%= image_tag("intercom-chat.svg", "aria-hidden": "true", class: "") %>
-  <%= I18n.t("general.intercom_cta") %>
-</button>
+<% unless @hide_intercom_floating_button %>
+  <button type="button" class="open-intercom button button--small button--green button--intercom">
+    <%= image_tag("intercom-chat.svg", "aria-hidden": "true", class: "") %>
+    <%= I18n.t("general.intercom_cta") %>
+  </button>
+<% end %>
 
 <script>
   const isHub = <%= isHub.to_json %>;
