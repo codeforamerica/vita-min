@@ -44,6 +44,25 @@ commits_file="$tmpdir/commits.txt"
 git --no-pager log --pretty="format:* %s" "${current_release}...${new_release}" > "$commits_file"
 cat "$commits_file"
 
+# check that every Doppler secret fnox.toml points at exists in prod, using the fnox.toml
+# being released (not the working copy). names only, with your own Doppler login.
+echo ""
+echo ""
+echo "Checking fnox.toml against Doppler prod..."
+release_fnox_file="$tmpdir/fnox.toml"
+if git show "${new_release}:fnox.toml" > "$release_fnox_file" 2>/dev/null; then
+  if ! bin/check-fnox-doppler prod "$release_fnox_file"; then
+    echo -n "Continue the release anyway? [y/N] "
+    read -r continue_release
+    if [[ ! "$continue_release" =~ ^[Yy]$ ]]; then
+      echo "Release cancelled."
+      exit 1
+    fi
+  fi
+else
+  echo "No fnox.toml in ${new_release}, skipping."
+fi
+
 # ask the user for the new tag name/version number, accepting the default if
 # nothing is entered.
 latest_version="$(git tag --list | grep 'version-' | sort --version-sort | tail -n1)"

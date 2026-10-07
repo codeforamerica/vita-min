@@ -1,0 +1,36 @@
+#!/usr/bin/env ruby
+# Checks that every Doppler secret fnox.toml points at exists in a deployed Doppler config,
+# so a secret added for local dev doesn't ship before it's set up in that environment.
+# Names only: this never downloads secret values. Uses your own Doppler login.
+#
+#   bin/check-fnox-doppler prod                 # checks ./fnox.toml
+#   bin/check-fnox-doppler prod path/to/fnox.toml
+#
+# Exits 0 if everything is present, 1 if secrets are missing, 2 if Doppler can't be read.
+require_relative "../lib/fnox_doppler"
+
+config = ARGV[0]
+fnox_path = ARGV[1] || FnoxDoppler.fnox_path
+abort "usage: bin/check-fnox-doppler CONFIG [FNOX_TOML_PATH]" if config.to_s.empty?
+
+fnox = FnoxDoppler.parse(File.read(fnox_path))
+names = FnoxDoppler.secret_names(fnox[:project], config)
+
+if names.nil?
+  warn "⚠️  Couldn't list secrets in Doppler #{fnox[:project]}/#{config}. " \
+       "Is the doppler CLI installed, and does `doppler login` have access to that config?"
+  exit 2
+end
+
+missing = FnoxDoppler.missing_entries(fnox, names, config: config)
+
+if missing.empty?
+  puts "✅ All #{fnox[:secrets].size} fnox.toml secrets exist in Doppler #{fnox[:project]}/#{config}."
+  exit 0
+end
+
+warn "⚠️  These fnox.toml entries have no matching secret in Doppler #{fnox[:project]}/#{config}:"
+missing.each { |entry| warn "  #{entry}" }
+warn "If the app needs them in #{config}, add them to Doppler before deploying. If they're " \
+     "dev-only, add them to FnoxDoppler::DEV_ONLY_SECRETS in lib/fnox_doppler.rb."
+exit 1
