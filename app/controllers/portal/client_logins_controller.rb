@@ -33,6 +33,10 @@ module Portal
 
     def check_verification_code
       params = check_verification_code_params
+      # As to why we check `contact_info`: a user enters this value on the
+      # previous screen; subsequently it gets included as a hidden form
+      # field here. It can then be modified prior to submitting the form, so
+      # check to confirm it's not modified.
       if params[:contact_info].blank? || params[:contact_info] != session[:contact_info]
         head :bad_request
         return
