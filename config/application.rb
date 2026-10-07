@@ -124,15 +124,6 @@ module VitaMin
       2015 => [et.parse("2016-01-19 00:00:00"), et.parse("2016-04-18 23:59:59")]
     }
 
-    # GetCTC
-    config.ctc_soft_launch = et.parse("2022-05-04 09:00:00")
-    config.ctc_full_launch = et.parse("2022-05-11 09:00:00")
-    config.eitc_soft_launch = et.parse("2022-09-30 09:00:00")
-    config.eitc_full_launch = et.parse("2022-10-11 09:00:00")
-    config.ctc_end_of_intake = et.parse("2022-11-16 23:59:00")
-    config.ctc_end_of_read_write = et.parse("2022-11-19 23:59:00")
-    config.ctc_end_of_login = et.parse("2024-12-31 23:59:00")
-
     # StateFile
     config.state_file_start_of_open_intake = et.parse('2025-01-15 00:00:00')
     config.state_file_tax_deadline = et.parse('2025-04-15 23:59:59')
@@ -219,5 +210,103 @@ module VitaMin
     # ------------------------------------------------ #
     #  END additions for Rails 7.2 defaults migration  #
     # ------------------------------------------------ #
+
+    # ------------------------------------------------ #
+    # BEGIN additions for Rails 8.0 defaults migration #
+    # ------------------------------------------------ #
+
+    # Reference:
+    # https://github.com/rails/rails/blob/v8.0.5.1/railties/lib/rails/generators/rails/app/templates/config/initializers/new_framework_defaults_8_0.rb.tt
+    #
+    # `load_defaults 8.0` sets exactly two things (see
+    # railties/lib/rails/application/configuration.rb):
+    #
+    #   action_dispatch.strict_freshness = true
+    #   Regexp.timeout ||= 1
+    #
+    # We accept `strict_freshness` as-is. It only changes behavior when a request
+    # carries both `If-Modified-Since` and `If-None-Match` (the new default considers
+    # only `If-None-Match`, per RFC 7232 section 6), and we do not use conditional GET
+    # anywhere -- no `fresh_when`, `stale?`, `etag:` or `last_modified:` in app/ or lib/.
+
+    # `Regexp.timeout` is process-global, so it applies to every regex in the app and in
+    # every gem, not just our own code. It was measured before adopting: all 24,330
+    # regexes device_detector ships (it runs on the user-controlled User-Agent for every
+    # request via ApplicationController#user_agent and MixpanelService) were matched
+    # against adversarial inputs -- 194,640 matches, zero Regexp::TimeoutError, 6.5ms
+    # worst case. So 1s has roughly 150x headroom, and the rest of the app has only a
+    # handful of short regexes and none applied to file contents.
+    #
+    # Starting at 5s rather than the 1s default anyway, as a staged rollout: the
+    # measurement cannot cover a slow regex inside a gem that only production traffic
+    # shapes reach. Tighten this to 1 (or delete the line to inherit the default) after
+    # one release with no Regexp::TimeoutError in Sentry.
+    Regexp.timeout = 5
+
+    # ------------------------------------------------ #
+    #  END additions for Rails 8.0 defaults migration  #
+    # ------------------------------------------------ #
+
+    # ------------------------------------------------ #
+    # BEGIN additions for Rails 8.1 defaults migration #
+    # ------------------------------------------------ #
+
+    # Reference:
+    # https://github.com/rails/rails/blob/v8.1.3.1/railties/lib/rails/generators/rails/app/templates/config/initializers/new_framework_defaults_8_1.rb.tt
+    #
+    # No departures. `load_defaults 8.1` sets seven things and all were checked against
+    # this codebase before adopting; notes below so the reasoning is not lost.
+    #
+    # yjit = !Rails.env.local?
+    #   YJIT in production/staging/demo/heroku. NOTE: the local rbenv Ruby on arm64
+    #   darwin is built WITHOUT YJIT (`defined?(RubyVM::YJIT)` is nil), so this is a
+    #   no-op locally and the test suite cannot exercise it. The deployed Ruby comes
+    #   from the official `ruby:3.4.10` image, which does ship YJIT, so it engages
+    #   there. Watch RSS and p95 latency in Datadog on the first deploy.
+    #
+    # action_controller.escape_json_responses = false
+    #   Affects the `render json:` renderer, which we use in exactly two places
+    #   (hub/campaign_messages/monitor_sms_controller and monitor_emails_controller),
+    #   both consumed by JS rather than interpolated into markup.
+    #   `<%= raw x.to_json %>` inside <script> blocks is a *different* code path and is
+    #   still guarded by `ActiveSupport.escape_html_entities_in_json`, which stays true
+    #   and continues to escape `</script>` to `</script>`.
+    #
+    # action_controller.action_on_path_relative_redirect = :raise
+    #   Raises instead of logging for `redirect_to "example.com"` (no leading slash).
+    #   No such redirect exists in app/ or lib/. Re-grep after a large rebase.
+    #
+    # active_record.raise_on_missing_required_finder_order_columns = true
+    #   Only raises for models with no primary key, no implicit_order_column and no
+    #   query_constraints. Verified by eager-loading every descendant: every
+    #   table-backed model has a primary key or an order column.
+    #
+    # active_support.escape_js_separators_in_json = false
+    #   Stops escaping U+2028/U+2029 in JSON. Valid inside JS string literals since
+    #   ECMAScript 2019. The `raw ... to_json` script blocks carry county and
+    #   municipality names from config and the database, not free text.
+    #
+    # action_view.render_tracker = :ruby
+    #   Template dependency tracking for the development reloader.
+    #
+    # action_view.remove_hidden_field_autocomplete = true
+    #   Drops `autocomplete="off"` from hidden inputs generated by form_tag/token_tag/
+    #   method_tag/button_to. No spec asserts on hidden-field autocomplete, and hidden
+    #   inputs render nothing visible, so the Percy snapshots are unaffected.
+
+    # ------------------------------------------------ #
+    #  END additions for Rails 8.1 defaults migration  #
+    # ------------------------------------------------ #
+
+    # Source the Active Record encryption keys from ENV when they're set. Rails merges
+    # config.active_record.encryption over the credentials file, so these win.
+    # Covered by spec/config/active_record_encryption_env_spec.rb.
+    {
+      primary_key: ENV.fetch("ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY", nil),
+      deterministic_key: ENV.fetch("ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY", nil),
+      key_derivation_salt: ENV.fetch("ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT", nil),
+    }.each do |setting, value|
+      Rails.application.config.active_record.encryption[setting] = value if value.present?
+    end
   end
 end

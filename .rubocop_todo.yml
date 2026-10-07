@@ -1304,6 +1304,7 @@ RSpec/DescribeClass:
     - '**/spec/routing/**/*'
     - '**/spec/system/**/*'
     - '**/spec/views/**/*'
+    - 'spec/config/active_record_encryption_env_spec.rb'
     - 'spec/fnox_toml_spec.rb'
     - 'spec/tasks/analytics_spec.rb'
     - 'spec/tasks/backfill_bought_marketplace_health_insurance_spec.rb'
