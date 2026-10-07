@@ -227,7 +227,7 @@ RSpec.feature 'client in the portal' do
       expect(page).to have_text 'We are not filing your 2019 return.'
       expect(page).to have_text 'This happens when someone tells us they no longer want to file with us, or when a return has been inactive for a while.'
       expect(page).to have_text 'If you still want to file, contact us.'
-      expect(page).to have_button 'Chat with us'
+      expect(page).to have_css 'a.open-intercom', text: 'Chat with us'
       expect(page).not_to have_link 'Message tax team'
     end
 
