@@ -429,8 +429,6 @@ es:
     contact_us: Contáctanos
     continue: Continuar
     continue_example: Continúe para ver un ejemplo
-    ctc: GetCTC
-    ctc_client: cliente de CTC
     date_of_birth: Fecha de nacimiento
     day: Día
     days:
@@ -963,9 +961,7 @@ es:
         send_clarifier: Al hacer clic en enviar, también actualizará el estado, enviará una nota al equipo y actualizará los seguidores.
       fields:
         blind: Estaba ciego
-        ctc_spouse_contact_info: Información del cónyuge, si es casado presentando conjunta
         filing_status: Estado civil para efectos de la declaración
-        has_crypto_income: Recibió, vendió, intercambió o dispuso de otro modo de cualquier interés financiero en cualquier moneda virtual
         identity_verification:
           title: Verificación de identidad
         legal_first_name: Primer nombre legal
@@ -982,7 +978,6 @@ es:
         payment_information: Información de pago
         photo_id:
           drivers_license: Licencia de conducción
-          error: Seleccione al menos un tipo de identificación con foto
           other_state: Identificación de otro estado
           passport: Pasaporte Estadounidense
           title: Tipo de identificación con foto utilizada
@@ -990,7 +985,6 @@ es:
         preferred_interview_language: Idioma preferido
         preferred_name: Nombre completo preferido
         primary_contact_info: Información de contacto
-        recovery_rebate_credit: Crédito de recuperación de reembolso (opcional)
         routing_methods:
           at_capacity: Estar a capacidad (no enrutado)
           hub_assignment: Grupo asignado o Hub
@@ -1006,9 +1000,7 @@ es:
           online: En línea
         spouse_contact_info: Información de contacto de su cónyuge
         state_of_residence: Estado de residencia
-        suffix: Sufijo
         taxpayer_id:
-          error: Please select at least one taxpayer ID type
           itin: carta del Número de Identificación Personal (ITIN)
           social_security: Tarjeta de seguro Social
           title: Tipo de identificación contribuyente usado
@@ -1091,13 +1083,6 @@ es:
         title: Editar Coalición
       new:
         title: Crear Coalición
-    ctc_clients:
-      edit:
-        title: Editar perfil de cliente de CTC
-      new:
-        assign_to_label: Asignado a
-        save_and_add: Guardar y agregar otro
-        title: Agregar un nuevo cliente
     dashboard:
       show:
         action_required:
@@ -1235,14 +1220,6 @@ es:
           <p>Una vez que responda, intentaremos conectarlo con %{to_phone_number}.</p>
 
           <p>No es necesario que permanezca en esta página para continuar la llamada.</p>
-    recovery_rebate_credit_amount:
-      amount_1: Pago de impacto económico 1 recibió
-      amount_2: Pago de impacto económico 2 recibió
-      amount_3: EIP 3 recibido
-      confidence: "¿Qué tan confiado en esta cantidad?"
-      confidence_values:
-        sure: Seguro
-        unsure: Inseguro
     sites:
       new:
         title: Agregar sitio
@@ -2090,9 +2067,12 @@ es:
           almost_done: Casi lista
           final_check: En revisión final
           in_progress: En proceso
+          not_filing: No presentada
+          on_hold: En pausa
           tax_prep: En preparación
         button:
           add_documents: Agregar documentos
+          chat_with_us: Enviar mensaje
           complete_tax_questions: Preguntas completas sobre impuestos
           decline_to_sign: No quiero firmar
           message_tax_team: Enviar mensaje
@@ -2117,6 +2097,8 @@ es:
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
           intake_incomplete: Aún debe finalizar su formulario de impuestos.
           intake_reviewing: El equipo de impuestos está revisando su información. Se comunicarán con usted si tienen alguna pregunta.
+          not_filing_html: No presentaremos su declaración de impuestos del %{year}.<br><br>Esto sucede cuando alguien nos dice que ya no quiere presentar su declaración con nosotros, o cuando alguien inició su declaración y su cuenta ha estado inactiva por un tiempo.<br><br>Si todavía quiere presentar su declaración del %{year} con nosotros, envíe un mensaje al equipo de impuestos.
+          on_hold: Su declaración de impuestos está en pausa. Si tiene preguntas, inicie un chat con nosotros o envíe un mensaje al equipo de impuestos.
           prep_info_requested: Necesitamos más información para preparar su declaración de impuestos.
           review: Nos comunicaremos con usted si algo requiere su atención.
           review_info_requested: El equipo de impuestos necesita una cosa más antes de finalizar su declaración.
@@ -4962,7 +4944,6 @@ es:
         survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu
   validators:
     account_number: Este número de cuenta no es válido para transacciones de depósito directo. Revise su número de cuenta o cambie a pagos con cheque.
-    alpha: Sólo se aceptan las letras A-Z y a-z.
     alphanumeric: Solo se aceptan los números del 0 al 9 y las letras A-Z y a-z.
     atin: Por favor, ingrese un número de identificación fiscal válido de adopción.
     ctds_code: El código escolar/CTDS debe ser un número de 9 dígitos.
@@ -5046,9 +5027,6 @@ es:
 
         Tu equipo de impuestos en %{service_name}.org
   verification_code_sms:
-    no_match_ctc: |
-      Alguien intentó iniciar una sesión en GetCTC con este número de teléfono. Si ya tiene una cuenta con GetCTC, puede intentar iniciar una sesión con su correo electrónico %{url}/portal/iniciar sesión.
-      O visite %{url}y haga clic en "Presentar su declaración simplificada ahora" para empezar.
     no_match_gyr: "Alguien intentó iniciar una sesión en GetYourRefund con este número de teléfono, pero no pudimos verificar sus credenciales. Se registró con un número de teléfono diferente? \nTambién puede visitar %{url}para empezar.\n"
     with_code: 'Tu código de %{service_name} verificación de 6 dígitos es: %{verification_code}. Este código expirará después de 10 minutos.'
   views:
@@ -5215,9 +5193,6 @@ es:
         meta:
           description: Maximice su reembolso presentando su declaración de impuestos con la ayuda de nuestros voluntarios de confianza. ¡Puede hacerlo en línea o en persona!
         skip_content: Ir al contenido principal
-      ctc:
-        meta:
-          description: Dinero en efectivo en el bolsillo de su familia para las cosas que necesita.
       document_upload:
         accepted_file_types: Los tipos aceptados incluyen %{accepted_types}
         dont_have: No lo tengo ahora
@@ -5276,16 +5251,16 @@ es:
         closed_banner: GetYourRefund reabrirá sus servicios el %{start_of_open_intake}.
         closed_open_for_login_banner_html: Los servicios GetYourRefund están cerrados durante esta temporada de impuestos. Esperamos poder brindar nuestra asistencia tributaria gratuita nuevamente a partir de enero. Para obtener preparación de impuestos gratuita ahora, puede buscar <a href="https://www.getyourrefund.org/es/vita_providers">una ubicación de VITA</a> en su área.
         faq:
-          faq_cta: Ver otras preguntas
+          faq_cta: Más preguntas
           header: 'Preguntas frecuentes:'
         fresh_look_banner:
           body: La misma ayuda gratuita con tus impuestos, el mismo servicio de confianza.
           header: GetYourRefund tiene un nuevo diseño
-        header: Declare sus impuestos sin costo. ¡Es sencillo!
+        header: Declara tus impuestos gratis. ¡Es sencillo!
         open_intake_post_tax_deadline_banner: Comience con GetYourRefund antes del %{end_of_intake} si desea presentar su declaración con nosotros en %{product_year}. Si su declaración está en progreso, inicie sesión y envíe sus documentos antes del %{end_of_docs}.
         security:
           body: De acuerdo con las normas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan debe estar protegida. Mantenemos tu información segura y protegida.
-          header: Nos comprometemos a mantener la seguridad de tu información.
+          header: Nos comprometemos a mantener la seguridad de tu información
         subheader: Reclama miles de dólares a través de los créditos tributarios que te corresponden. Te ayudamos a obtener tu mayor reembolso.
         subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir a finales de enero."
         subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
@@ -5585,8 +5560,6 @@ es:
         body: 'Lo sentimos: nuestros profesionales de impuestos están ocupados en este momento. Si necesita presentar su declaración de inmediato, puede usar nuestra alternativa gratuita a continuación.'
         title: En este momento estamos a capacidad máxima
       backtaxes:
-        after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
-        after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
         select_all_that_apply: 'Seleccione todos los años que desea declarar:'
         title: "¿Para cuál o cuáles de los siguientes años le gustaría declarar?"
       balance_payment:
@@ -6125,10 +6098,10 @@ es:
         remove: Eliminado
       diy_card:
         bullet_1: Soporte por chat y correo electrónico
-        bullet_2: Declaraciones de impuestos estatales y federales
+        bullet_2: Declaración de impuestos estatales y federales
         bullet_3: De 1 a 2 horas para presentar la declaración
         bullet_4: Disponible en línea
-        bullet_5_html: "<b>Se requiere número</b> de Seguro Social o el Número de Identificación Personal del Contribuyente (ITIN)"
+        bullet_5_html: "<b>Se requiere número</b> de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)"
         card_title: FileMyself
         reveal_b1: Todos los estados
         reveal_b2: Puerto Rico
@@ -6138,7 +6111,7 @@ es:
         reveal_body_2: Se requieren documentos oficiales de impuestos (formularios W-2, 1099, etc.) para presentar la declaración.
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
-        reveal_title: Información adicional
+        reveal_title: Más información
         subtitle: Prepara tus propias declaraciones de impuestos y recibe ayuda si necesitas
         title: FileMyself
       document_deadline_warning:
@@ -6149,18 +6122,19 @@ es:
       footer:
         service_description_html: GetYourRefund.org es un servicio sin ánimo de lucro creado por %{cfa_link}.
         service_status: Estado del servicio
+        volunteer_sign_in: Sesión de voluntarios
       grayscale_partner_logo:
         provider_homepage: Portada de %{provider_name}
       in_person_vita_card:
         bullet_1: Apoyo personalizado
-        bullet_2: Declaraciones de impuestos estatales y federales
+        bullet_2: Declaración de impuestos estatales y federales
         bullet_3: El tiempo varía según la ubicación
         bullet_4: Disponible de manera presencial
-        bullet_5_html: "<b>Se requieren copias físicas</b> de la tarjeta del Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)"
+        bullet_5_html: "<b>Se requiere la tarjeta física</b> del Seguro Social o del Número de Identificación Personal del Contribuyente (ITIN)"
         link_button: Buscar una ubicación
         reveal_b1: Todos los estados
-        reveal_b2: No residentes (varía según la ubicación)
-        reveal_b3: Residentes de Puerto Rico (varía según la ubicación)
+        reveal_b2: No residentes (El tiempo varía según la ubicación)
+        reveal_b3: Residentes de Puerto Rico (vEl tiempo varía según la ubicación)
         reveal_b4: Disponible en español
         reveal_b5: Presente declaraciones de varios años fiscales
         reveal_b6_html: Asistencia para <a href="https://www.irs.gov/tin/itin/how-to-apply-for-an-itin" target='_blank' rel="noopener nofollow">solicitar un ITIN</a>
@@ -6168,19 +6142,19 @@ es:
         reveal_body_2: Se requieren documentos oficiales de impuestos (formularios W-2, 1099, etc.) para presentar la declaración.
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
-        reveal_title: Información adicional
+        reveal_title: Más información
         subtitle: Encuentra un sitio del IRS para recibir ayuda en persona declarando tus impuestos
         title: Assist (In-person)
       progress_bar:
         progress_text: 'Progreso de la admisión:'
       service_comparison:
-        subtitle_1: Declaraciones de impuestos precisas y confiables. Completamente gratis. ¡Comienza con el servicio que mejor se ajuste a tus necesidades!
+        subtitle_1_html: Declaraciones de impuestos precisas y confiables. <b>Completamente gratis</b>. ¡Comienza con el servicio que mejor se ajuste a tus necesidades!
         subtitle_2: "¿No sabes cuál elegir?"
         title_html: Elige el producto que mejor te funcione
         triage_link_text: Responde unas cuantas preguntas y te ayudaremos a elegir la mejor opción para ti.
       simple_file_card:
         bullet_1: Soporte por chat y correo electrónico
-        bullet_2: Solo declaraciones estatales para Colorado y New Jersey
+        bullet_2: Solo declaración estatal para Colorado y New Jersey
         bullet_3: 15 minutos para presentar la declaración
         bullet_4: Disponible en línea
         bullet_5_html: "<b>Se requiere número</b> de Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)"
@@ -6195,7 +6169,7 @@ es:
           s2_bullet_2: Disponible en español
           subtitle_1: 'Requisitos adicionales de elegibilidad:'
           subtitle_2: 'Otras características:'
-          title: Información adicional
+          title: Más información
         subtitle: Presenta una declaración estatal simplificada para pedir tu Crédito Tributario por Hijos
         title: SimpleFile
       tax_return_list:
@@ -6203,7 +6177,7 @@ es:
         select_tax_return: Seleccione %{tax_year}
       virtual_vita_card:
         bullet_1: Revisión en línea y ayuda por chat
-        bullet_2: Declaraciones de impuestos estatales y federales
+        bullet_2: Declaración de impuestos estatales y federales
         bullet_3: De 2 a 3 semanas para presentar la declaración
         bullet_4: Disponible en línea
         bullet_5_html: "<b>Se requieren fotos</b> de la tarjeta del Seguro Social o Número de Identificación Personal del Contribuyente (ITIN)"
@@ -6218,6 +6192,6 @@ es:
         reveal_body_2: Se requieren documentos oficiales de impuestos (formularios W-2, 1099, etc.) para presentar la declaración.
         reveal_body_3: 'Disponible para residentes de:'
         reveal_body_4: 'Otras características:'
-        reveal_title: Información adicional
+        reveal_title: Más información
         subtitle: Responde unas preguntas y un experto en impuestos presenta tu declaración
         title: Assist (Virtual)

@@ -321,7 +321,6 @@ describe MixpanelService do
               {
                 year: tax_return.year.to_s,
                 certification_level: tax_return.certification_level,
-                is_ctc: false,
                 service_type: tax_return.service_type,
                 status: "intake_before_consent",
                 client_organization_name: "Parent Org",
@@ -390,7 +389,6 @@ describe MixpanelService do
               {
                 year: tax_return.year.to_s,
                 certification_level: tax_return.certification_level,
-                is_ctc: false,
                 service_type: tax_return.service_type,
                 status: "review_reviewing",
                 client_organization_name: "Parent Org",
@@ -438,7 +436,6 @@ describe MixpanelService do
                   {
                       year: tax_return.year.to_s,
                       certification_level: tax_return.certification_level,
-                      is_ctc: false,
                       service_type: tax_return.service_type,
                       status: tax_return.current_state,
                       client_organization_name: "Parent Org",
@@ -543,7 +540,6 @@ describe MixpanelService do
                   {
                       year: tax_return.year.to_s,
                       certification_level: tax_return.certification_level,
-                      is_ctc: false,
                       service_type: tax_return.service_type,
                       status: tax_return.current_state,
                       client_organization_name: "Parent Org",
@@ -700,47 +696,6 @@ describe MixpanelService do
           end
         end
 
-        context 'when obj is a CTC Intake' do
-          let(:ctc_intake) do
-            create(
-              :ctc_intake,
-              source: "beep",
-              referrer: "http://boop.horse/mane",
-              primary_birth_date: Date.new(1993, 3, 12),
-              spouse_birth_date: Date.new(1992, 5, 3),
-              state: 'CA',
-              zip_code: '94110',
-              with_general_navigator: true,
-              with_incarcerated_navigator: true,
-              with_limited_english_navigator: false,
-              with_unhoused_navigator: false
-            )
-          end
-
-          let(:data_from_intake) { MixpanelService.data_from(ctc_intake) }
-
-          it 'returns intake data for mixpanel' do
-            data = MixpanelService.instance.data_from(ctc_intake)
-            expect(data[:intake_source]).to eq(ctc_intake.source)
-          end
-
-          it "returns the expected hash" do
-            expect(data_from_intake).to eq(
-              intake_source: "beep",
-              intake_referrer: "http://boop.horse/mane",
-              intake_referrer_domain: "boop.horse",
-              primary_filer_age: "28",
-              spouse_age: "29",
-              with_general_navigator: true,
-              with_incarcerated_navigator: true,
-              with_limited_english_navigator: false,
-              with_unhoused_navigator: false,
-              state: 'CA',
-              zip_code: '94110'
-            )
-          end
-        end
-
         context 'when obj is a Request' do
           let(:data_from_request) { MixpanelService.data_from(request) }
 
@@ -749,20 +704,8 @@ describe MixpanelService do
 
             it "returns the expected hash" do
               expect(data_from_request).to include({
-                                                    is_ctc: false,
                                                     domain: "test.localhost"
                                                   })
-            end
-          end
-
-          context "when it is a CTC request" do
-            let(:request) { ActionDispatch::Request.new("HTTP_HOST" => "ctc.test.localhost") }
-
-            it "returns the expected hash" do
-              expect(data_from_request).to include({
-                                              is_ctc: true,
-                                              domain: "ctc.test.localhost"
-                                             })
             end
           end
         end
@@ -778,7 +721,6 @@ describe MixpanelService do
                 certification_level: "basic",
                 service_type: "online_intake",
                 status: "intake_info_requested",
-                is_ctc: false
               }
             )
           end

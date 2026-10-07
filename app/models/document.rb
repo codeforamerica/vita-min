@@ -62,7 +62,7 @@ class Document < ApplicationRecord
 
   before_save :set_display_name
 
-  enum person: { unfilled: 0, primary: 1, spouse: 2 }, _prefix: :person
+  enum :person, { unfilled: 0, primary: 1, spouse: 2 }, prefix: :person
 
   default_scope { order(created_at: :asc) }
 

@@ -39,7 +39,7 @@ module VitaMin
       end
     end
 
-    config.load_defaults 7.2
+    config.load_defaults 8.1
 
     config.active_record.yaml_column_permitted_classes = [Symbol, Date, Time, ActiveSupport::TimeWithZone, ActiveSupport::TimeZone]
 
@@ -219,14 +219,5 @@ module VitaMin
     # ------------------------------------------------ #
     #  END additions for Rails 7.2 defaults migration  #
     # ------------------------------------------------ #
-
-    # Source the Active Record encryption keys from ENV when they're set
-    {
-      primary_key: ENV.fetch("ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY", nil),
-      deterministic_key: ENV.fetch("ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY", nil),
-      key_derivation_salt: ENV.fetch("ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT", nil),
-    }.each do |setting, value|
-      Rails.application.config.active_record.encryption[setting] = value if value.present?
-    end
   end
 end

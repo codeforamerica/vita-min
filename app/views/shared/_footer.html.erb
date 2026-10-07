@@ -1,10 +1,9 @@
-<% variation ||= nil %>
 <footer class="footer">
   <div class="slab slab--footer">
     <div class="grid">
       <div class="grid__item width-three-fourths footer-description">
         <p>
-            <%= image_tag(variation == "ctc" ? "checkbox-logo--white.png" : "getyourrefund-mark.svg", alt: "") %>
+            <%= image_tag("getyourrefund-mark.svg", alt: "") %>
         </p>
         <p>
           <%= t("views.shared.footer.service_description_html",
@@ -40,6 +39,12 @@
         <li>
           <%= link_to vita_providers_path, "data-track-click": "service-comparison-in-person-vita-providers" do %>
             <%= t("general.find_location") %>
+          <% end %>
+        </li>
+
+        <li>
+          <%= link_to new_user_session_path do %>
+            <%= t("views.shared.footer.volunteer_sign_in") %>
           <% end %>
         </li>
 

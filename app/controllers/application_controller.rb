@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :include_analytics?, :current_intake, :show_progress?, :canonical_url, :hreflang_url, :hub?, :state_file?, :wrapping_layout, :ctc?
+  helper_method :include_analytics?, :current_intake, :show_progress?, :canonical_url, :hreflang_url, :hub?, :state_file?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -58,11 +58,6 @@ class ApplicationController < ActionController::Base
   # but the devise controllers are not under the hub namespace so I'm leaving the request.path.include? string as well.
   def hub?
     self.class.name.include?("Hub::") || request.path.include?("hub")
-  end
-
-  # This is only used to render ctc specific views in the CTC home page
-  def ctc?
-    self.class.name.include?("Ctc::")
   end
 
   def state_file?
@@ -394,6 +389,7 @@ class ApplicationController < ActionController::Base
   def open_for_diy?
     app_time <= Rails.configuration.end_of_in_progress_intake
   end
+  helper_method :open_for_diy?
 
   def open_for_state_file_intake?
     app_time.between?(Rails.configuration.state_file_start_of_open_intake, Rails.configuration.state_file_end_of_in_progress_intakes)
@@ -574,9 +570,19 @@ class ApplicationController < ActionController::Base
   # Catch them to avoid being noisy in logs etc.
   rescue_from 'ActionController::InvalidCrossOriginRequest' do
     DatadogApi.increment("rails.invalid_cross_origin_request")
-    respond_to do |format|
-      format.any { head 422 }
-    end
+
+    # Rails raises this from `verify_same_origin_request`, which is an *after_action*,
+    # so the action has already rendered by the time we get here and we need to replace
+    # that response with a 422.
+    #
+    # This used to be `respond_to { |format| format.any { head 422 } }`, but Rails 8.1
+    # added `raise DoubleRenderError if response_body` to `head`, which that trips.
+    # `self.response_body = nil` does not help: `ActionController::Metal#response_body=`
+    # calls `response.reset_body!` without clearing the `@_response_body` reader that
+    # `head` checks (true in 8.0 and 8.1 alike). Rails has no public API for replacing
+    # an already-rendered response, so set the response directly and skip `head`.
+    response.reset_body!
+    response.status = 422
   end
 
   rescue_from 'ActionController::InvalidAuthenticityToken' do
