@@ -65,7 +65,15 @@ RSpec.describe "fnox.toml" do
   end
 
   before do
-    skip "doppler CLI is not installed or not authenticated" if doppler_names.nil?
+    next unless doppler_names.nil?
+
+    # set REQUIRE_DOPPLER_CHECK in CI so that this will fail loudly incase locally there is an expired/missing token
+    unless ENV["REQUIRE_DOPPLER_CHECK"].to_s.empty?
+      raise "REQUIRE_DOPPLER_CHECK is set, but the doppler CLI is missing or unauthenticated. " \
+            "Check that the CLI installed and that DOPPLER_TOKEN is available to this job."
+    end
+
+    skip "doppler CLI is not installed or not authenticated"
   end
 
   it "declares the Doppler project and config it reads from" do

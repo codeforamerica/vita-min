@@ -66,6 +66,12 @@ commands:
       - save_cache:
           key: bundle-{{ checksum "Gemfile.lock" }}
           paths: [/mnt/ramdisk/vendor/bundle]
+  install_doppler:
+    description: "Install the Doppler CLI, used to verify fnox.toml against the Doppler dev config"
+    steps:
+      - run:
+          name: install doppler cli
+          command: curl -Ls --tlsv1.2 --proto "=https" --retry 3 https://cli.doppler.com/install.sh | sudo sh
   install_efile_schemas:
     description: "Install IRS e-File schemas"
     steps:
@@ -134,6 +140,20 @@ jobs:
       - install_ruby_dependencies
       - setup_test_db
       - run: bundle exec annotaterb models --frozen
+  check_fnox_doppler:
+    # Deliberately on ruby_executor rather than folded into run_ruby_tests: the spec doesn't
+    # load rails_helper, so it needs no database, no JS bundle and no e-file schemas, and a
+    # bad fnox.toml entry reports in under a minute instead of after the full suite's setup.
+    executor: ruby_executor
+    steps:
+      - checkout
+      - install_ruby_dependencies
+      - install_doppler
+      - run:
+          name: check fnox.toml against the Doppler dev config
+          command: bundle exec rspec spec/fnox_toml_spec.rb
+          environment:
+            REQUIRE_DOPPLER_CHECK: "1"
   run_ruby_tests:
     executor: rails_executor
     steps:
@@ -244,6 +264,9 @@ workflows:
       - run_js_tests:
           context: tax-bot
       - run_ruby_tests:
+          context: tax-bot
+      # Needs DOPPLER_TOKEN (read-only service token scoped to the dev config) in this context.
+      - check_fnox_doppler:
           context: tax-bot
       - run_annotate
       - deploy_to_aptible--demo:
