@@ -74,6 +74,27 @@ RSpec.describe Documents::IdsController do
       end
     end
 
+    context "with a filename that is too long" do
+      render_views
+
+      let(:params) do
+        {
+          document_type_upload_form: {
+            upload: Rack::Test::UploadedFile.new(StringIO.new(File.binread("spec/fixtures/files/test-pattern.png")), "image/png", original_filename: "#{"a" * 1000}.png")
+          }
+        }
+      end
+
+      it "renders edit with validation errors" do
+        expect do
+          post :update, params: params
+        end.not_to change(Document, :count)
+
+        expect(response).to render_template :edit
+        expect(response.body).to include "The file name is too long."
+      end
+    end
+
     context "when upload is valid" do
       let!(:tax_return) { create :gyr_tax_return, :intake_in_progress, client: intake.client }
       let(:params) do
