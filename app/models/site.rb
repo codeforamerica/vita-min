@@ -51,6 +51,13 @@ class Site < VitaPartner
     where(type: Site::TYPE, parent_organization_id: org_ids)
   end
 
+  scope :with_prior_year_capability, -> do
+    org_ids = Organization.with_prior_year_capability.pluck(:id)
+
+    # Sites under those Orgs
+    where(type: Site::TYPE, parent_organization_id: org_ids)
+  end
+
   def coalition
     parent_organization.coalition
   end

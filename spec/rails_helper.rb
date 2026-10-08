@@ -122,11 +122,22 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.before(:each) do
+    # Organization's per-request RequestStore caches (e.g. prior_year_capable_org_names_cached,
+    # lang_to_names_index_cached) otherwise leak across examples, since RequestStore is only reset
+    # by Rack middleware on real HTTP requests, not between RSpec examples.
+    RequestStore.clear!
     stub_const('Fraud::Score::HOLD_THRESHOLD', 1000)
     stub_const('Fraud::Score::RESTRICT_THRESHOLD', 1000)
     stub_request(:post, /.*api\.twilio\.com.*/).to_return(status: 200, body: "", headers: {})
     stub_request(:get, /.*lookups\.twilio\.com.*/).to_return(status: 200, body: "{}", headers: {})
     stub_request(:post, "https://api.mixpanel.com/track").to_return(status: 200, body: "", headers: {})
+    # Default to every org supporting prior year returns, so specs that don't care about this
+    # feature aren't affected by it and don't hit the real Airtable API. This stubs the same layer
+    # as Airtable::Organization.language_offerings, so specs exercising prior-year routing/capability
+    # can still override it locally and exercise the real Organization/Site/VitaPartner scope logic.
+    allow(Airtable::Organization).to receive(:expanded_scope_offerings) do
+      Organization.pluck(:name).index_with { ["Prior year returns"] }
+    end
     # Stub required credentials to prevent need for RAILS_MASTER_KEY in test
     @test_environment_credentials = {
       duplicate_hashing_key: "secret",
