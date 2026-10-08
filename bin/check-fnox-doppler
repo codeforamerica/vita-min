@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # checks that secrets listed in fnox.toml also match key names of secrets listed in Doppler
 # need to be logged into doppler locally for this to work
 # bin/check-fnox-doppler prod                 # checks ./fnox.toml

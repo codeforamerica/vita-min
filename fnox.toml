@@ -19,15 +19,12 @@ GOOGLE_OAUTH2_CLIENT_ID= { provider = "doppler", value = "GOOGLE_OAUTH2_CLIENT_I
 GOOGLE_OAUTH2_CLIENT_SECRET= { provider = "doppler", value = "GOOGLE_OAUTH2_CLIENT_SECRET" }
 INTERCOM_ACCESS_TOKEN= { provider = "doppler", value = "INTERCOM_ACCESS_TOKEN" }
 INTERCOM_SECURE_MODE_SECRET_KEY= { provider = "doppler", value = "INTERCOM_SECURE_MODE_SECRET_KEY" }
-IRS_APP_EFILE_CERT_BASE64= { provider = "doppler", value = "IRS_APP_EFILE_CERT_BASE64" }
-IRS_APP_SYS_ID= { provider = "doppler", value = "IRS_APP_SYS_ID" }
 IRS_EFIN= { provider = "doppler", value = "IRS_EFIN" }
 IRS_ETIN= { provider = "doppler", value = "IRS_ETIN" }
 IRS_MD_SIN= { provider = "doppler", value = "IRS_MD_SIN" }
 IRS_SIN= { provider = "doppler", value = "IRS_SIN" }
 MAILGUN_BASIC_AUTH_NAME= { provider = "doppler", value = "MAILGUN_BASIC_AUTH_NAME" }
 MAILGUN_BASIC_AUTH_PASSWORD= { provider = "doppler", value = "MAILGUN_BASIC_AUTH_PASSWORD" }
-MAILGUN_WEBHOOK_SIGNING_KEY= { provider = "doppler", value = "MAILGUN_WEBHOOK_SIGNING_KEY" }
 MIXPANEL_TOKEN= { provider = "doppler", value = "MIXPANEL_TOKEN" }
 PERCY_TOKEN= { provider = "doppler", value = "PERCY_TOKEN" }
 TAX_SLAYER_LINK= { provider = "doppler", value = "TAX_SLAYER_LINK" }
