@@ -2120,10 +2120,10 @@ es:
           download_final_tax_papers: Descargar papeles de impuestos
         help_text:
           file_accepted_intro: El IRS aceptó su declaración de impuestos del %{year}.
-          file_accepted_payments_html: Para pagar impuestos si todavía le debe al IRS, %{link}.
+          file_accepted_payments_html: Para pagar impuestos si todavía le debe al IRS, %{link}
           file_accepted_payments_link_text: realice un pago online
           file_accepted_payments_url: https://www.irs.gov/es/payments
-          file_accepted_refund_status_html: Para consultar el estado de su reembolso, use la herramienta del IRS %{link}.
+          file_accepted_refund_status_html: Para consultar el estado de su reembolso, use la herramienta del IRS %{link}
           file_accepted_refund_status_url: https://www.irs.gov/es/refunds
           file_accepted_wheres_my_refund_link_text: "“¿Dónde está mi reembolso?”"
           file_mailed_instructions_html: Para terminar de procesar su declaración de impuestos, imprímala y envíela por correo a la dirección correcta. Cuando se %{link} el reembolso toma de 4 a 6 semanas en llegar.

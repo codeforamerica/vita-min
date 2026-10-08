@@ -2136,10 +2136,10 @@ en:
           download_final_tax_papers: Download final tax papers
         help_text:
           file_accepted_intro: The IRS accepted your %{year} return.
-          file_accepted_payments_html: To pay taxes if you still owe the IRS, visit %{link}.
+          file_accepted_payments_html: To pay taxes if you still owe the IRS, visit %{link}
           file_accepted_payments_link_text: Payments
           file_accepted_payments_url: https://www.irs.gov/payments
-          file_accepted_refund_status_html: To check your refund status, use the IRS %{link} tool.
+          file_accepted_refund_status_html: To check your refund status, use the IRS %{link} tool
           file_accepted_refund_status_url: https://www.irs.gov/refunds
           file_accepted_wheres_my_refund_link_text: '"Where''s My Refund?"'
           file_mailed_instructions_html: To finish processing your return, print and mail it to the correct address. It takes 4-6 weeks to get a refund when %{link}.

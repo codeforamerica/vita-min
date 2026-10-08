@@ -28,12 +28,6 @@
                                              return_status: card_props[:return_status])) %>
           </li>
         </ul>
-        <%= render "portal/portal/document_links_button",
-                   label: t("portal.portal2.home.button.download_tax_return", year: tax_return.year),
-                   documents: tax_return.final_tax_documents,
-                   link_attributes: { "data-track-click": "client_portal_download_tax_papers",
-                                      "data-track-attribute-page": "client_portal",
-                                      "data-track-attribute-return_status": card_props[:return_status] } %>
       <% elsif card_props[:button_type] == :file_mailed %>
         <p>
           <%= t('portal.portal2.home.help_text.file_mailed_instructions_html',
@@ -53,16 +47,26 @@
                                         "data-track-attribute-page": "client_portal",
                                         "data-track-attribute-return_status": card_props[:return_status] } %>
         </div>
-        <%= link_to t('portal.portal2.home.button.find_mailing_address'),
-                    "https://www.irs.gov/filing/where-to-file-addresses-for-taxpayers-and-tax-professionals-filing-form-1040",
-                    target: "_blank", rel: "noopener",
-                    class: "button button--portal-secondary button--full-width text--centered spacing-below-0",
-                    "data-track-click": "client_portal_find_mailing_address_button",
-                    "data-track-attribute-page": "client_portal",
-                    "data-track-attribute-return_status": card_props[:return_status] %>
       <% end %>
     </div>
+
   </div>
+  <% if card_props[:button_type] == :file_accepted %>
+    <%= render "portal/portal/document_links_button",
+               label: t("portal.portal2.home.button.download_tax_return", year: tax_return.year),
+               documents: tax_return.final_tax_documents,
+               link_attributes: { "data-track-click": "client_portal_download_tax_papers",
+                                  "data-track-attribute-page": "client_portal",
+                                  "data-track-attribute-return_status": card_props[:return_status] } %>
+  <% elsif card_props[:button_type] == :file_mailed %>
+    <%= link_to t('portal.portal2.home.button.find_mailing_address'),
+                t('portal.portal2.home.help_text.file_mailed_link_url'),
+                target: "_blank", rel: "noopener",
+                class: "button button--portal-secondary button--full-width text--centered spacing-below-0",
+                "data-track-click": "client_portal_find_mailing_address_button",
+                "data-track-attribute-page": "client_portal",
+                "data-track-attribute-return_status": card_props[:return_status] %>
+  <% end %>
   <% if card_props[:call_to_action_text].present? %>
     <div class="portal-info-box">
       <p style="margin-bottom: 1rem"><b><%= card_props[:call_to_action_title] %></b></br>
