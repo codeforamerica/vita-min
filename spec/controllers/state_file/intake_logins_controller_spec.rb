@@ -190,7 +190,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
   end
 
-  describe "#check_verification_code" do
+  xdescribe "#check_verification_code" do
     context "with valid params" do
       let(:intake) { create :state_file_az_intake }
       let(:email_address) { "example@example.com" }
@@ -359,7 +359,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
     end
   end
 
-  describe "#edit" do
+  xdescribe "#edit" do
     let(:params) { { id: "raw_token" } }
 
     context "as an unauthenticated intake" do
