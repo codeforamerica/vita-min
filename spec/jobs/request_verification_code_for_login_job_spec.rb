@@ -49,7 +49,7 @@ describe RequestVerificationCodeForLoginJob do
     context "with a phone number" do
       let(:twilio_service) { instance_double(TwilioService) }
       let(:locale) { "en" }
-      let(:service_type) { :ctc }
+      let(:service_type) { :gyr }
       let(:params) do
         {
           phone_number: "+15125551234",
@@ -83,10 +83,6 @@ describe RequestVerificationCodeForLoginJob do
           allow_any_instance_of(ClientLoginService).to receive(:can_login_by_sms_verification?).and_return false
         end
 
-        let(:ctc_text_message_body_es) { I18n.t("verification_code_sms.no_match_ctc", url: "http://ctc.test.localhost/es", locale: :es) }
-
-        let(:ctc_text_message_body_en) { I18n.t("verification_code_sms.no_match_ctc", url: "http://ctc.test.localhost/en", locale: :en) }
-
         let(:gyr_text_message_body_es) { I18n.t("verification_code_sms.no_match_gyr", url: "http://test.localhost/es", locale: :es) }
 
         let(:gyr_text_message_body_en) { I18n.t("verification_code_sms.no_match_gyr", url: "http://test.localhost/en", locale: :en) }
@@ -114,34 +110,6 @@ describe RequestVerificationCodeForLoginJob do
             expect(twilio_service).to have_received(:send_text_message)
                                        .with(a_hash_including(
                                                body: gyr_text_message_body_en,
-                                               to: params[:phone_number]
-                                             ))
-          end
-        end
-
-        context "locale es and service type is ctc" do
-          let(:locale) { "es" }
-          let(:service_type) { :ctc }
-          it "sends a no match text with spanish body" do
-            described_class.perform_now(**params)
-            expect(TextMessageVerificationCodeService).not_to have_received(:request_code)
-            expect(twilio_service).to have_received(:send_text_message)
-                                       .with(a_hash_including(
-                                               body: ctc_text_message_body_es,
-                                               to: params[:phone_number]
-                                             ))
-          end
-        end
-
-        context "locale en and service type is ctc" do
-          let(:locale) { "en" }
-          let(:service_type) { :ctc }
-          it "sends a no match text with english body" do
-            described_class.perform_now(**params)
-            expect(TextMessageVerificationCodeService).not_to have_received(:request_code)
-            expect(twilio_service).to have_received(:send_text_message)
-                                       .with(a_hash_including(
-                                               body: ctc_text_message_body_en,
                                                to: params[:phone_number]
                                              ))
           end

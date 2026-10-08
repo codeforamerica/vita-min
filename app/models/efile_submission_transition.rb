@@ -23,7 +23,7 @@
 #
 class EfileSubmissionTransition < ApplicationRecord
   belongs_to :efile_submission, inverse_of: :efile_submission_transitions, touch: true
-  has_many :efile_submission_transition_errors
+  has_many :efile_submission_transition_errors, dependent: :destroy
   has_many :efile_errors, through: :efile_submission_transition_errors
 
   after_destroy :update_most_recent, if: :most_recent?

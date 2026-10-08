@@ -7,7 +7,6 @@ Rails.application.configure do
 
   config.active_storage.service = :s3_prod
 
-  config.ctc_url = "https://www.getctc.org"
   config.gyr_url = "https://www.getyourrefund.org"
   config.statefile_url = "https://www.fileyourstatetaxes.org"
   config.simple_file_url = "https://simplefile.getyourrefund.org/"
@@ -33,7 +32,6 @@ Rails.application.configure do
   }
   config.action_mailer.default_url_options = { host: 'www.getyourrefund.org' }
   config.action_mailer.asset_host = config.gyr_url
-  config.hide_ctc = true
 
   Rails.application.default_url_options = config.action_mailer.default_url_options
   config.efile_environment = "prod"

@@ -427,11 +427,9 @@ en:
     contact_methods:
       email: email
       sms_phone_number: text
-    contact_us: Contact us
+    contact_us: Contact Us
     continue: Continue
     continue_example: Continue to example
-    ctc: GetCTC
-    ctc_client: CTC client
     date_of_birth: Date of birth
     day: Day
     days:
@@ -558,7 +556,7 @@ en:
     free_file_lookup_tool: IRS Free File Lookup Tool
     get_help: Get help
     get_my_payment: Get My Payment
-    get_started: Get Started
+    get_started: Get started
     go_home: Go Home
     greetable: Greetable
     greeter: Greeter
@@ -956,9 +954,7 @@ en:
         send_clarifier: By clicking send, you will also update status, send a team note, and update followers.
       fields:
         blind: Was blind
-        ctc_spouse_contact_info: Spouse information, if married filing jointly
         filing_status: Filing Status
-        has_crypto_income: Did receive, sell, exchange, or otherwise dispose of any financial interest in any virtual currency
         identity_verification:
           title: Identity verification
         legal_first_name: Legal first name
@@ -975,7 +971,6 @@ en:
         payment_information: Payment Information
         photo_id:
           drivers_license: Drivers License
-          error: Please select at least one photo ID type
           other_state: Other State ID
           passport: US Passport
           title: Type of photo ID used
@@ -983,7 +978,6 @@ en:
         preferred_interview_language: Preferred language
         preferred_name: Preferred full name
         primary_contact_info: Primary Contact Information
-        recovery_rebate_credit: Recovery Rebate Credit (optional)
         routing_methods:
           at_capacity: At capacity (not routed)
           hub_assignment: Hub assignment
@@ -999,9 +993,7 @@ en:
           online: Online
         spouse_contact_info: Spouse Contact Information
         state_of_residence: State of residence
-        suffix: Suffix
         taxpayer_id:
-          error: Please select at least one taxpayer ID type
           itin: Individual Taxpayer ID Number (ITIN) letter
           social_security: Social Security card
           title: Type of taxpayer ID used
@@ -1084,13 +1076,6 @@ en:
         title: Edit Coalition
       new:
         title: Create Coalition
-    ctc_clients:
-      edit:
-        title: Edit CTC Client Profile
-      new:
-        assign_to_label: Assign to
-        save_and_add: Save and add another
-        title: Add a new CTC client
     dashboard:
       show:
         action_required:
@@ -1226,14 +1211,6 @@ en:
           <p>Once you answer, we'll attempt to connect you to %{to_phone_number}.</p>
 
           <p>You don't need to remain on this page to continue the call.</p>
-    recovery_rebate_credit_amount:
-      amount_1: Economic Impact Payment 1 received
-      amount_2: Economic Impact Payment 2 received
-      amount_3: EIP 3 received
-      confidence: How confident in this amount?
-      confidence_values:
-        sure: Sure
-        unsure: Unsure
     sites:
       new:
         title: Add site
@@ -2110,9 +2087,12 @@ en:
           in_progress: In progress
           rejected: Rejected
           status_label: 'Status: %{status}'
+          not_filing: Not filing
+          on_hold: On hold
           tax_prep: Tax prep
         button:
           add_documents: Add documents
+          chat_with_us: Chat with us
           complete_tax_questions: Complete tax questions
           decline_to_sign: I don't want to sign
           download_tax_return: Download %{year} tax return
@@ -2151,6 +2131,8 @@ en:
           info_requested: We need a few more documents to finish your tax return.
           intake_incomplete: You're still filling out your tax form.
           intake_reviewing: Your tax team is reviewing your information. They'll reach out with any questions.
+          not_filing_html: We are not filing your %{year} return.<br><br>This happens when someone tells us they no longer want to file with us, or when a return has been inactive for a while.<br><br>If you still want to file, contact us.
+          on_hold: Your return is currently on hold. If you have questions, please chat with us or message your tax team.
           prep_info_requested: We need more information to prepare your return.
           review: Your return is in final review. We'll be in touch if anything needs your attention.
           review_info_requested: Your tax team needs one more thing before finalizing your return.
@@ -4993,7 +4975,6 @@ en:
         survey_link: https://codeforamerica.co1.qualtrics.com/jfe/form/SV_3pXUfy2c3SScmgu
   validators:
     account_number: This account number is not valid for direct deposit transactions. Please review your account number or switch to check payments.
-    alpha: Only letters A-Z and a-z are accepted.
     alphanumeric: Only numbers 0-9 and letters A-Z and a-z are accepted.
     atin: Please enter a valid adoption taxpayer identification number.
     ctds_code: School Code/CTDS must be a 9 digit number.
@@ -5079,9 +5060,6 @@ en:
 
         Your tax team at %{service_name}.org
   verification_code_sms:
-    no_match_ctc: |
-      Someone tried to sign into GetCTC with this phone number. If you already have an account with GetCTC, you can try to sign in with your email address instead %{url}/portal/login.
-      Or visit %{url} and click "File your simplified return now" to get started.
     no_match_gyr: |
       Someone tried to sign in to GetYourRefund with this phone number, but we couldn't find a match. Did you sign up with a different phone number?
       You can also visit %{url} to get started.
@@ -5245,9 +5223,6 @@ en:
         meta:
           description: Maximize your refund by filing with our trusted volunteers. Available to you online or in person!
         skip_content: Skip to main content
-      ctc:
-        meta:
-          description: Cash in your family’s pocket for the things you need.
       document_upload:
         accepted_file_types: Accepted types include %{accepted_types}
         dont_have: I don't have this right now.
@@ -5301,21 +5276,21 @@ en:
             header: Very professional, very friendly
           rating: Rated 4.8 / 5 stars
           trusted_support:
-            body: We are a free IRS-certified virtual service that helps low-income households across America receive high quality tax services from the convenience of your home.
-            title: Claim your credits easily with our trusted support.
+            body: We are a free IRS-certified virtual service that helps low-income households across America receive high quality tax services from the convenience of their home.
+            title: Claim your credits easily with our trusted support
         closed_banner: GetYourRefund will reopen %{start_of_open_intake}.
         closed_open_for_login_banner_html: GetYourRefund services are closed for this tax season. We look forward to providing our free tax assistance again starting in January. For free tax prep now, you can search for a <a href="https://www.getyourrefund.org/en/vita_providers">VITA location</a> in your area.
         faq:
           faq_cta: Read our FAQ
-          header: 'Common Tax Questions:'
+          header: 'Common questions:'
         fresh_look_banner:
           body: Same free tax help, same trusted service.
           header: GetYourRefund has a new design
-        header: Free tax filing, made simple.
+        header: Free tax filing, made simple
         open_intake_post_tax_deadline_banner: Get started with GetYourRefund by %{end_of_intake} if you want to file with us in %{product_year}. If your return is in progress, sign in and submit your documents by %{end_of_docs}.
         security:
           body: In accordance with national IRS guidelines, all Personally Identifiable Information (PII) provided by taxpayers to volunteers must be protected. We keep your information safe and secure.
-          header: Committed to keeping your information secure.
+          header: Committed to keeping your information secure
         subheader: Claim thousands of dollars through tax credits you're owed! We work with you to get your highest refund.
         subheader_offseason: Sign up for the next tax season now! We'll notify you as soon as our service reopens late January.
         subheader_warning: File by %{tax_day} to avoid any penalties.
@@ -5604,8 +5579,6 @@ en:
         body: We’re sorry—our tax pros are currently busy. If you need to file right away, you can use our free alternative below.
         title: We are at capacity right now
       backtaxes:
-        after_deadline_warning_body: You will still be able to file a tax return for any of the years listed below. %{year} returns may take more time to complete.
-        after_deadline_warning_header: The deadline for claiming any refund you are owed from %{year} has passed. You will still be able to file a tax return for any of the years listed below.
         select_all_that_apply: 'Select all the years you would like to file for:'
         title: Which of the following years would you like to file for?
       balance_payment:
@@ -6104,7 +6077,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: 1-2 hours to file
         bullet_4: Available online
-        bullet_5_html: Social Security or Individual Taxpayer Identification Number required
+        bullet_5_html: Social Security or Individual Taxpayer Identification <b>Number</b> required
         card_title: FileMyself
         reveal_b1: All states
         reveal_b2: Puerto Rico
@@ -6123,8 +6096,9 @@ en:
         banner: This site is for example purposes only. If you want help with your taxes, go to
         off_season_filing: We are unable to accept new clients after %{end_of_intake_date}. If your return is in progress, log in and submit your documents by %{end_of_docs_date} in order to file by the deadline.
       footer:
-        service_description_html: GetYourRefund.org is a non-profit service built by %{cfa_link}
+        service_description_html: GetYourRefund is a non-profit service built by %{cfa_link}
         service_status: Service status
+        volunteer_sign_in: Volunteer sign in
       grayscale_partner_logo:
         provider_homepage: "%{provider_name} Homepage"
       in_person_vita_card:
@@ -6132,8 +6106,8 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: Varies by location
         bullet_4: Available in-person
-        bullet_5_html: Physical copies of Social Security or Individual Taxpayer Identification Number Card required
-        link_button: Find a Location
+        bullet_5_html: "<b>Physical</b> Social Security card or Individual Taxpayer Identification Number card required"
+        link_button: Find a location
         reveal_b1: All states
         reveal_b2: Non-residents [varies by location]
         reveal_b3: Puerto Rico residents [varies by location]
@@ -6144,22 +6118,22 @@ en:
         reveal_body_2: Official tax documents (W2’s, 1099’s, etc.) are required to file
         reveal_body_3: 'Available to residents of:'
         reveal_body_4: 'Other features:'
-        reveal_title: Additional Information
+        reveal_title: Additional information
         subtitle: Find a local IRS site and file with help
         title: Assist (In-person)
       progress_bar:
         progress_text: 'Intake progress:'
       service_comparison:
-        subtitle_1: The highest accuracy rates on your return. Completely free. Choose the tax service that’s right for you!
+        subtitle_1_html: The highest accuracy rates on your return. <b>Completely free</b>. Choose the tax service that’s right for you!
         subtitle_2: Not sure what to choose?
-        title_html: Choose the product that works for you.
+        title_html: Choose the product that works for you
         triage_link_text: Answer a few questions and we’ll recommend the right service.
       simple_file_card:
         bullet_1: Chat and email support
         bullet_2: Colorado and New Jersey State tax returns only
         bullet_3: 15 minutes to file
         bullet_4: Available online
-        bullet_5_html: Social Security or Individual Taxpayer Identification Number required
+        bullet_5_html: Social Security or Individual Taxpayer Identification <b>Number</b> required
         reveal:
           s11_bullet_1: 'New Jersey: Married Filing joint $20,000 / Filing Single $10,000'
           s11_bullet_2: 'Colorado: Married Filing joint $26,000 / Filing Single $15,000'
@@ -6182,7 +6156,7 @@ en:
         bullet_2: State and Federal tax returns
         bullet_3: 2-3 weeks to file
         bullet_4: Available online
-        bullet_5_html: Photos of Social Security or Individual Taxpayer Identification Number card required
+        bullet_5_html: "<b>Photos</b> of Social Security or Individual Taxpayer Identification Number card required"
         reveal_b1: All states
         reveal_b2: Non-residents [limited]
         reveal_b3: Puerto Rico residents [limited]
@@ -6194,6 +6168,6 @@ en:
         reveal_body_2: Official tax documents (W2’s, 1099’s, etc.) are required to file
         reveal_body_3: 'Available to residents of:'
         reveal_body_4: 'Other features:'
-        reveal_title: Additional Information
+        reveal_title: Additional information
         subtitle: Answer a few questions and let a tax expert file for you
         title: Assist (Virtual)
