@@ -206,7 +206,7 @@ RSpec.feature 'client in the portal' do
       expect(page).to have_text 'To finish processing your return, print and mail it to the correct address.'
       expect(page).to have_link 'filing by mail', href: 'https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment'
       expect(page).to have_link 'Download 2019 tax return', href: portal_document_path(id: document.id)
-      expect(page).to have_link 'Find your IRS mailing address', href: 'https://www.irs.gov/filing/where-to-file-addresses-for-taxpayers-and-tax-professionals-filing-form-1040'
+      expect(page).to have_link 'Find your IRS mailing address', href: 'https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment'
     end
 
     scenario 'with return status :file_rejected' do
