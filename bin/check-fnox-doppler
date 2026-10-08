@@ -1,12 +1,8 @@
-#!/usr/bin/env ruby
-# Checks that every Doppler secret fnox.toml points at exists in a deployed Doppler config,
-# so a secret added for local dev doesn't ship before it's set up in that environment.
-# Names only: this never downloads secret values. Uses your own Doppler login.
-#
-#   bin/check-fnox-doppler prod                 # checks ./fnox.toml
-#   bin/check-fnox-doppler prod path/to/fnox.toml
-#
-# Exits 0 if everything is present, 1 if secrets are missing, 2 if Doppler can't be read.
+# checks that secrets listed in fnox.toml also match key names of secrets listed in Doppler
+# need to be logged into doppler locally for this to work
+# bin/check-fnox-doppler prod                 # checks ./fnox.toml
+# bin/check-fnox-doppler prod path/to/fnox.toml
+# exits 0 if everything is present, 1 if secrets are missing, 2 if Doppler can't be read
 require_relative "../lib/fnox_doppler"
 
 config = ARGV[0]

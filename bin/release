@@ -45,7 +45,7 @@ git --no-pager log --pretty="format:* %s" "${current_release}...${new_release}" 
 cat "$commits_file"
 
 # check that every Doppler secret fnox.toml points at exists in prod, using the fnox.toml
-# being released (not the working copy). names only, with your own Doppler login.
+# being released (not the working copy). names only, with your local Doppler login
 echo ""
 echo ""
 echo "Checking fnox.toml against Doppler prod..."
