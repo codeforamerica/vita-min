@@ -53,7 +53,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         let(:contact_info_params) do
           {
             email_address: "client@example.com",
-            sms_phone_number: nil
+            sms_phone_number: ""
           }
         end
 
@@ -76,7 +76,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       context "with an SMS phone number" do
         let(:contact_info_params) do
           {
-            email_address: nil,
+            email_address: "",
             sms_phone_number: " (510) 555 1234"
           }
         end
@@ -140,6 +140,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       before do
         allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, verification_code).and_return(hashed_verification_code)
         allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_verification_code).and_return(Client.where(id: client))
+        session[:contact_info] = email_address
       end
 
       it "redirects to the next page for login" do
@@ -195,6 +196,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
       before do
         EmailAccessToken.generate!(email_address: email_address)
+        session[:contact_info] = email_address
       end
 
       context "with magic verification codes allowed" do
@@ -234,6 +236,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
         before do
           allow(VerificationCodeService).to receive(:hash_verification_code_with_contact_info).with(email_address, wrong_verification_code).and_return(hashed_wrong_verification_code)
           allow_any_instance_of(ClientLoginService).to receive(:login_records_for_token).with(hashed_wrong_verification_code).and_return(Client.none)
+        session[:contact_info] = email_address
         end
 
         it "increments their lockout counter & shows an error in the form" do
@@ -286,11 +289,34 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           verification_code: "invalid",
         }}}
 
+        before do
+          session[:contact_info] = email_address
+        end
+
         it "re-renders the form with errors and does not increment lockout counter" do
           expect { post :check_verification_code, params: params }.not_to change { client.reload.failed_attempts }
           expect(response).to be_ok
           expect(assigns[:verification_code_form].errors).to include(:verification_code)
         end
+      end
+    end
+
+    context "with mismatched contact_info" do
+      let(:email_address) { "aspen@example.example" }
+      let(:another_email_address) { "birch@example.example" }
+      let(:params) {
+        { portal_verification_code_form: {
+            contact_info: another_email_address
+      }}}
+      let!(:client) { create(:intake, email_address: email_address).client }
+
+      before do
+        session[:contact_info] = email_address
+      end
+
+      it "shows a Bad Request error" do
+        post :check_verification_code, params: params
+        expect(response.status).to eq(400)
       end
     end
   end

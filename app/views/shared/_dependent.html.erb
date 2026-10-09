@@ -1,12 +1,8 @@
-<% is_ctc ||= false %>
 <div class="dependent-form">
   <h3 class="h3"><%= f.object.first_name && f.object.last_name ? "#{f.object.first_name} #{f.object.last_name}" : "New dependent" %></h3>
   <%= f.hidden_field :id %>
   <%= f.cfa_input_field :first_name, t("hub.clients.fields.legal_first_name"), classes: ["form-width--long"] %>
   <%= f.cfa_input_field :last_name, t("hub.clients.fields.legal_last_name"), classes: ["form-width--long"] %>
-  <% if is_ctc %>
-    <%= f.cfa_select(:suffix, t("hub.clients.fields.suffix"), suffix_options_for_select, include_blank: true) %>
-  <% end %>
 
   <%= f.vita_min_date_text_fields(
           :birth_date,
@@ -19,26 +15,6 @@
             dependent_relationship_options(current_relationship: f.object.relationship),
             include_blank: true
     ) %>
-
-  <% if is_ctc %>
-    <%= f.cfa_select(:tin_type, "Identification Type", tin_options_for_select(include_ssn_no_employment: true, include_atin: true)) %>
-    <%= f.cfa_input_field(
-        :ssn,
-        "SSN/ATIN",
-        type: :tel,
-        classes: ["form-width--name"],
-        options: { maxlength: 11, 'data-mask': '000-00-0000' }
-        ) %>
-    <%= f.cfa_input_field(
-        :ssn_confirmation,
-        "Re-enter SSN/ATIN",
-        type: :tel,
-        classes: ["form-width--name"],
-        options: { maxlength: 11, 'data-mask': '000-00-0000' }
-        ) %>
-
-    <%= f.cfa_input_field(:ip_pin, t("general.ip_pin")) %>
-  <% end %>
 
   <%= f.hidden_field :_destroy %>
   <%= link_to_remove_fields t("views.shared.dependents_fields.remove"), '.dependent-form', { class: "button button--small"} %>

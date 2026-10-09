@@ -8,11 +8,11 @@ executors:
   ruby_executor:
     working_directory: /mnt/ramdisk
     docker:
-      - image: cimg/ruby:3.4.10-browsers
+      - image: cimg/ruby:4.0.6-browsers
   rails_executor:
     working_directory: /mnt/ramdisk
     docker:
-      - image: cimg/ruby:3.4.10-browsers
+      - image: cimg/ruby:4.0.6-browsers
         environment:
           PGHOST: 127.0.0.1
           PGUSER: root
@@ -54,9 +54,13 @@ commands:
             - /mnt/ramdisk/node_modules
   install_ruby_dependencies:
     description: "Install Ruby dependencies"
+    parameters:
+      lockfile:
+        type: string
+        default: Gemfile.lock
     steps:
       - restore_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
+          key: bundle-{{ checksum "<< parameters.lockfile >>" }}
       - run:
           name: install bundler & ruby dependencies
           command: |
@@ -64,8 +68,14 @@ commands:
             bundle config set --local path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
       - save_cache:
-          key: bundle-{{ checksum "Gemfile.lock" }}
+          key: bundle-{{ checksum "<< parameters.lockfile >>" }}
           paths: [/mnt/ramdisk/vendor/bundle]
+  check_production_boot:
+    description: "Boot with the production gem set (no development/test groups) against the test DB"
+    steps:
+      - run:
+          name: check production boot (production gem set, local test DB)
+          command: bin/check_production_boot
   install_efile_schemas:
     description: "Install IRS e-File schemas"
     steps:
@@ -135,14 +145,26 @@ jobs:
       - setup_test_db
       - run: bundle exec annotaterb models --frozen
   run_ruby_tests:
-    executor: rails_executor
+    parameters:
+      executor:
+        type: executor
+        default: rails_executor
+      lockfile:
+        type: string
+        default: Gemfile.lock
+      notify_slack:
+        type: boolean
+        default: true
+    executor: << parameters.executor >>
     steps:
       - checkout
       - install_js_dependencies
       - install_system_dependencies
-      - install_ruby_dependencies
+      - install_ruby_dependencies:
+          lockfile: << parameters.lockfile >>
       - install_efile_schemas
       - setup_test_db_for_parallel
+      - check_production_boot
       - setup_webdriver
       - restore_cache:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
@@ -162,12 +184,15 @@ jobs:
       - save_cache:
           key: parallel-runtime-{{ checksum "/tmp/today" }}
           paths: [tmp/parallel_runtime_rspec.log]
-      - slack/notify:
-          branch_pattern: main, fake-main-for-testing, release
-          channel: "C0540PNTLGN" # tax-alerts
-          event: fail
-          mentions: "@badger"
-          template: basic_fail_1
+      - when:
+          condition: << parameters.notify_slack >>
+          steps:
+            - slack/notify:
+                branch_pattern: main, fake-main-for-testing, release
+                channel: "C0540PNTLGN" # tax-alerts
+                event: fail
+                mentions: "@badger"
+                template: basic_fail_1
   flow_explorer_screenshots:
     executor: rails_executor
     steps:

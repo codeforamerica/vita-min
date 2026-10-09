@@ -242,7 +242,10 @@ RSpec.feature 'client in the portal' do
 
       expect(page).to have_text 'Not filing'
       expect(page).to have_text 'We are not filing your 2019 return.'
+      expect(page).to have_text 'This happens when someone tells us they no longer want to file with us, or when a return has been inactive for a while.'
       expect(page).to have_text 'If you still want to file, contact us.'
+      expect(page).to have_css 'a.open-intercom', text: 'Chat with us'
+      expect(page).not_to have_link 'Message tax team'
     end
 
     scenario 'with return status :file_hold' do
@@ -250,7 +253,7 @@ RSpec.feature 'client in the portal' do
       visit '/portal/portal2'
 
       expect(page).to have_text 'On hold'
-      expect(page).to have_text 'Your return is currently on hold.'
+      expect(page).to have_text 'Your return is currently on hold. If you have questions, please chat with us or message your tax team.'
       expect(page).to have_link 'Message tax team', href: new_portal_message_path
     end
 

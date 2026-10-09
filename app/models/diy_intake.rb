@@ -24,10 +24,10 @@
 class DiyIntake < ApplicationRecord
   attr_accessor :email_address_confirmation
 
-  enum received_1099: { unfilled: 0, yes: 1, no: 2 }, _prefix: :received_1099
-  enum filing_frequency: { unfilled: 0, every_year: 1, some_years: 2, not_filed: 3 }, _prefix: :filing_frequency
-  enum email_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :email_notification_opt_in
-  enum sms_notification_opt_in: { unfilled: 0, yes: 1, no: 2 }, _prefix: :sms_notification_opt_in
+  enum :received_1099, { unfilled: 0, yes: 1, no: 2 }, prefix: :received_1099
+  enum :filing_frequency, { unfilled: 0, every_year: 1, some_years: 2, not_filed: 3 }, prefix: :filing_frequency
+  enum :email_notification_opt_in, { unfilled: 0, yes: 1, no: 2 }, prefix: :email_notification_opt_in
+  enum :sms_notification_opt_in, { unfilled: 0, yes: 1, no: 2 }, prefix: :sms_notification_opt_in
 
   has_secure_token :token
 

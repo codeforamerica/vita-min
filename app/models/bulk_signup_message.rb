@@ -22,7 +22,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class BulkSignupMessage < ApplicationRecord
-  enum message_type: { sms: 1, email: 2 }, _prefix: :message_type
+  enum :message_type, { sms: 1, email: 2 }, prefix: :message_type
 
   belongs_to :user
   belongs_to :signup_selection

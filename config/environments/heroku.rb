@@ -5,10 +5,8 @@ Rails.application.configure do
 
   # HEROKU_PR_NUMBER variable is documented at https://devcenter.heroku.com/articles/github-integration-review-apps#injected-environment-variables
   gyr_hostname = "pr-#{ENV['HEROKU_PR_NUMBER']}.getyourrefund-testing.org"
-  ctc_hostname = "ctc.#{gyr_hostname}"
   state_file_hostname = "statefile.#{gyr_hostname}"
 
-  config.ctc_url = "https://#{ctc_hostname}"
   config.statefile_url = "https://#{state_file_hostname}"
   config.gyr_url = "https://#{gyr_hostname}"
   config.simple_file_url = "https://staging.simplefile.getyourrefund.org"
@@ -34,7 +32,6 @@ Rails.application.configure do
   }
   config.action_mailer.default_url_options = { host: config.gyr_url }
   config.action_mailer.asset_host = config.gyr_url
-  config.hide_ctc = false
 
   Rails.application.default_url_options = config.action_mailer.default_url_options
   config.efile_environment = "test"
