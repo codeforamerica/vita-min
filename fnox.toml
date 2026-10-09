@@ -29,7 +29,6 @@ MAILGUN_BASIC_AUTH_NAME= { provider = "doppler", value = "MAILGUN_BASIC_AUTH_NAM
 MAILGUN_BASIC_AUTH_PASSWORD= { provider = "doppler", value = "MAILGUN_BASIC_AUTH_PASSWORD" }
 MAILGUN_WEBHOOK_SIGNING_KEY= { provider = "doppler", value = "MAILGUN_WEBHOOK_SIGNING_KEY" }
 MIXPANEL_TOKEN= { provider = "doppler", value = "MIXPANEL_TOKEN" }
-PERCY_TOKEN= { provider = "doppler", value = "PERCY_TOKEN" }
 RECAPTCHA_SECRET_KEY= { provider = "doppler", value = "RECAPTCHA_SECRET_KEY" }
 RECAPTCHA_SITE_KEY= { provider = "doppler", value = "RECAPTCHA_SITE_KEY" }
 TAX_SLAYER_LINK= { provider = "doppler", value = "TAX_SLAYER_LINK" }
