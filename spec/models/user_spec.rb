@@ -664,6 +664,93 @@ RSpec.describe User, type: :model, requires_default_vita_partners: true do
     end
   end
 
+  describe ".suspend_and_unassign_clients" do
+    let(:original_suspended_at) { 1.month.ago.change(usec: 0) }
+    let(:long_ago) { 1.week.ago.change(usec: 0) }
+    let!(:active_user) { create :team_member_user }
+    let!(:suspended_user) { create :team_member_user, suspended_at: original_suspended_at }
+    let!(:other_user) { create :team_member_user }
+    let!(:active_user_tax_return) { create :gyr_tax_return, assigned_user: active_user }
+    let!(:suspended_user_tax_return) { create :gyr_tax_return, assigned_user: suspended_user }
+    let!(:other_user_tax_return) { create :gyr_tax_return, assigned_user: other_user }
+
+    before do
+      Client.update_all(last_internal_or_outgoing_interaction_at: long_ago, updated_at: long_ago)
+      allow(SearchIndexer).to receive(:refresh_filterable_properties).and_call_original
+      allow(InteractionTrackingService).to receive(:record_internal_interaction)
+    end
+
+    it "suspends active users and keeps the original suspended_at for already suspended users" do
+      freeze_time do
+        User.suspend_and_unassign_clients(User.where(id: [active_user.id, suspended_user.id]))
+
+        expect(active_user.reload.suspended_at).to eq Time.current
+        expect(suspended_user.reload.suspended_at).to eq original_suspended_at
+        expect(other_user.reload).to be_active
+      end
+    end
+
+    it "unassigns tax returns from the given users only" do
+      User.suspend_and_unassign_clients(User.where(id: [active_user.id, suspended_user.id]))
+
+      expect(active_user_tax_return.reload.assigned_user).to be_nil
+      expect(suspended_user_tax_return.reload.assigned_user).to be_nil
+      expect(other_user_tax_return.reload.assigned_user).to eq other_user
+    end
+
+    it "touches the affected clients' interaction timestamps and refreshes their search properties" do
+      freeze_time do
+        User.suspend_and_unassign_clients(User.where(id: [active_user.id, suspended_user.id]))
+
+        [active_user_tax_return, suspended_user_tax_return].each do |tax_return|
+          client = tax_return.client.reload
+          expect(client.last_internal_or_outgoing_interaction_at).to eq Time.current
+          expect(client.updated_at).to eq Time.current
+        end
+        other_client = other_user_tax_return.client.reload
+        expect(other_client.last_internal_or_outgoing_interaction_at).to eq long_ago
+        expect(other_client.updated_at).to eq long_ago
+
+        expect(SearchIndexer).to have_received(:refresh_filterable_properties)
+          .with(match_array([active_user_tax_return.client_id, suspended_user_tax_return.client_id]))
+        expect(InteractionTrackingService).not_to have_received(:record_internal_interaction)
+      end
+    end
+
+    context "when the users have no assigned tax returns" do
+      let!(:unassigned_user) { create :team_member_user }
+
+      it "suspends them without touching any clients" do
+        User.suspend_and_unassign_clients(User.where(id: unassigned_user.id))
+
+        expect(unassigned_user.reload).to be_suspended
+        expect(Client.where.not(updated_at: long_ago)).to be_empty
+        expect(SearchIndexer).not_to have_received(:refresh_filterable_properties)
+      end
+    end
+
+    context "when no users are given" do
+      it "does nothing" do
+        User.suspend_and_unassign_clients(User.none)
+
+        expect(User.suspended).to match_array([suspended_user])
+        expect(TaxReturn.where(assigned_user_id: nil)).to be_empty
+      end
+    end
+  end
+
+  describe "#suspend!" do
+    let(:user) { create :team_member_user }
+    let!(:tax_return) { create :gyr_tax_return, assigned_user: user }
+
+    it "suspends the user and unassigns their tax returns" do
+      user.suspend!
+
+      expect(user).to be_suspended
+      expect(tax_return.reload.assigned_user).to be_nil
+    end
+  end
+
   describe "#served_entities" do
     context "an admin user" do
       let(:user) { create :admin_user }
