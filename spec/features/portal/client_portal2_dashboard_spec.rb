@@ -240,17 +240,17 @@ RSpec.feature 'client in the portal' do
       client.tax_returns.last.transition_to!(:file_not_filing)
       visit '/portal/portal2'
 
-      expect(page).to have_text 'Almost done'
-      expect(page).to have_text 'Your return is signed and on its way to the IRS.'
-      expect(page).to have_link 'Message tax team', href: new_portal_message_path
+      expect(page).to have_text 'Not filing'
+      expect(page).to have_text 'We are not filing your 2019 return.'
+      expect(page).to have_text 'If you still want to file, contact us.'
     end
 
     scenario 'with return status :file_hold' do
       client.tax_returns.last.transition_to!(:file_hold)
       visit '/portal/portal2'
 
-      expect(page).to have_text 'Almost done'
-      expect(page).to have_text 'Your return is signed and on its way to the IRS.'
+      expect(page).to have_text 'On hold'
+      expect(page).to have_text 'Your return is currently on hold.'
       expect(page).to have_link 'Message tax team', href: new_portal_message_path
     end
 

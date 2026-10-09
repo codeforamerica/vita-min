@@ -2108,6 +2108,8 @@ en:
           filing_by_mail: Filing by mail
           final_check: Final check
           in_progress: In progress
+          not_filing: Not filing
+          on_hold: On hold
           rejected: Rejected
           status_label: 'Status: %{status}'
           tax_prep: Tax prep
@@ -2151,6 +2153,8 @@ en:
           info_requested: We need a few more documents to finish your tax return.
           intake_incomplete: You're still filling out your tax form.
           intake_reviewing: Your tax team is reviewing your information. They'll reach out with any questions.
+          not_filing_html: We are not filing your %{year} return.<br><br>This happens when someone tells us they no longer want to file with us, or when a return has been inactive for a while.<br><br>If you still want to file, contact us.
+          on_hold: Your return is currently on hold. If you have questions, please chat with us or message your tax team.
           prep_info_requested: We need more information to prepare your return.
           review: Your return is in final review. We'll be in touch if anything needs your attention.
           review_info_requested: Your tax team needs one more thing before finalizing your return.

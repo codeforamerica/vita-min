@@ -2092,6 +2092,8 @@ es:
           filing_by_mail: Envío por correo
           final_check: En revisión final
           in_progress: En proceso
+          not_filing: No presentada
+          on_hold: En pausa
           rejected: Rechazada
           status_label: 'Estado: %{status}'
           tax_prep: En preparación
@@ -2135,6 +2137,8 @@ es:
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
           intake_incomplete: Aún debe finalizar su formulario de impuestos.
           intake_reviewing: El equipo de impuestos está revisando su información. Se comunicarán con usted si tienen alguna pregunta.
+          not_filing_html: No presentaremos su declaración de impuestos del %{year}.<br><br>Esto sucede cuando alguien nos dice que ya no quiere presentar su declaración con nosotros, o cuando alguien inició su declaración y su cuenta ha estado inactiva por un tiempo.<br><br>Si todavía quiere presentar su declaración del %{year} con nosotros, envíe un mensaje al equipo de impuestos.
+          on_hold: Su declaración de impuestos está en pausa. Si tiene preguntas, inicie un chat con nosotros o envíe un mensaje al equipo de impuestos.
           prep_info_requested: Necesitamos más información para preparar su declaración de impuestos.
           review: Nos comunicaremos con usted si algo requiere su atención.
           review_info_requested: El equipo de impuestos necesita una cosa más antes de finalizar su declaración.
