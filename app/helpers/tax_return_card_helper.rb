@@ -267,8 +267,8 @@ module TaxReturnCardHelper
         button_type: :intercom_chat,
         return_status: state
       }
-    elsif [:file_ready_to_file, :file_hold, :file_fraud_hold,
-           :file_not_filing, :file_efiled, :file_needs_review].include?(state)
+    elsif [:file_ready_to_file, :file_fraud_hold,
+           :file_efiled, :file_needs_review].include?(state)
       {
         badge_text: t('portal.portal2.home.badge.almost_done'),
         help_text: t("portal.portal2.home.help_text.final_steps"),
