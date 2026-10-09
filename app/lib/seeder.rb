@@ -101,38 +101,42 @@ class Seeder
     user = User.where(email: "skywalker@example.com").first_or_initialize
     user.update(
       name: "Luke Skywalker",
-      password: strong_shared_password)
+      password: strong_shared_password,
+      timezone: "America/New_York")
     user.update(role: OrganizationLeadRole.create(organization: first_org)) if user.role_type != OrganizationLeadRole::TYPE
 
     # site coordinator user
     user = User.where(email: "cucumber@example.com").first_or_initialize
     user.update(
       name: "Cindy Cucumber",
-      password: strong_shared_password)
+      password: strong_shared_password,
+      timezone: "America/New_York")
     user.update(role: SiteCoordinatorRole.create(sites: [first_site])) if user.role_type != SiteCoordinatorRole::TYPE
 
     # site team member user
     user = User.where(email: "melon@example.com").first_or_initialize
     user.update(
       name: "Marty Melon",
-      password: strong_shared_password)
+      password: strong_shared_password,
+      timezone: "America/New_York")
     user.update(role: TeamMemberRole.create(sites: [first_site])) if user.role_type != TeamMemberRole::TYPE
 
     # coalition lead user
     user = User.where(email: "lemon@example.com").first_or_initialize
     user.update(
       name: "Lola Lemon",
-      password: strong_shared_password)
+      password: strong_shared_password,
+      timezone: "America/New_York")
     user.update(role: CoalitionLeadRole.create(coalition: koalas)) if user.role_type != CoalitionLeadRole::TYPE
 
     # additional user
     additional_user = User.where(email: "princess@example.com").first_or_initialize
-    additional_user.update(name: "Lea Amidala Organa", password: strong_shared_password)
+    additional_user.update(name: "Lea Amidala Organa", password: strong_shared_password, timezone: "America/New_York")
     additional_user.update(role: OrganizationLeadRole.create(organization: first_org)) if additional_user.role_type != OrganizationLeadRole::TYPE
 
     # nj user
     nj_user = User.where(email: "stew@example.com").first_or_initialize
-    nj_user.update(name: "Stewart Stringbean", password: strong_shared_password)
+    nj_user.update(name: "Stewart Stringbean", password: strong_shared_password, timezone: "America/New_York")
     nj_user.update(role: StateFileNjStaffRole.create) if nj_user.role_type != StateFileNjStaffRole::TYPE
 
     if Rails.configuration.google_login_enabled

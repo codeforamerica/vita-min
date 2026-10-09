@@ -59,6 +59,7 @@ FactoryBot.define do
     password { "$user3xample_Password" }
     high_quality_password_as_of { DateTime.now }
     should_enforce_strong_password { true }
+    timezone { "America/New_York" }
     role { build(:greeter_role) }
 
     trait :with_weak_password do
