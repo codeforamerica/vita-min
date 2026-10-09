@@ -93,9 +93,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     click_on I18n.t('general.continue_example')
 
     page_change_block do
-      screenshot_after do
-        expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
-      end
+      expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
       click_on I18n.t("views.questions.qualifications.button_1")
     end
 
