@@ -536,7 +536,7 @@ RSpec.feature "Web Intake Joint Filers", :flow_explorer_screenshot do
     intake
   end
 
-  scenario "new client filing joint taxes with spouse and dependents", js: true, screenshot: true do
+  scenario "new client filing joint taxes with spouse and dependents", js: true do
     intake = intake_up_to_documents
 
     page_change_block do
