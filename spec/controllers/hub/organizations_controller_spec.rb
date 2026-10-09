@@ -314,6 +314,14 @@ RSpec.describe Hub::OrganizationsController, type: :controller do
 
           expect(organization.team_members.all?(&:suspended?)).to eq(true)
         end
+
+        it "unassigns the tax returns assigned to the suspended users" do
+          tax_return = create :gyr_tax_return, assigned_user: team_member_1
+
+          patch :suspend_all, params: params
+
+          expect(tax_return.reload.assigned_user).to be_nil
+        end
       end
     end
   end
