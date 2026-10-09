@@ -25,17 +25,13 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     end
 
     page_change_block do
-      screenshot_after do
-        expect(page).to have_text(I18n.t('views.shared.virtual_vita_card.title'))
-      end
+      expect(page).to have_text(I18n.t('views.shared.virtual_vita_card.title'))
     end
 
     click_on I18n.t('general.continue')
 
     page_change_block do
-      screenshot_after do
-        expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
-      end
+      expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
       click_on I18n.t("views.questions.qualifications.button_1")
     end
 
@@ -421,17 +417,13 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
     expect(intake.triage).to eq(Triage.last)
 
     page_change_block do
-      screenshot_after do
-        expect(page).to have_text(I18n.t('views.shared.virtual_vita_card.title'))
-      end
+      expect(page).to have_text(I18n.t('views.shared.virtual_vita_card.title'))
     end
 
     click_on I18n.t('general.continue')
 
     page_change_block do
-      screenshot_after do
-        expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
-      end
+      expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
       click_on I18n.t("views.questions.qualifications.button_1")
     end
 
@@ -621,9 +613,7 @@ RSpec.feature "Web Intake Single Filer", :flow_explorer_screenshot, active_job: 
       find('[data-track-click="service-comparison-full-service"]').click
 
       page_change_block do
-        screenshot_after do
-          expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
-        end
+        expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
         click_on I18n.t("views.questions.qualifications.button_1")
       end
 
