@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def self.navigation_actions
-    [:edit, :fizz]
+    [:edit, :fizz, :foo]
   end
 
   def self.to_path_helper(options = {})
