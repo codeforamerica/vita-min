@@ -231,6 +231,28 @@ module TaxReturnCardHelper
             contact_method: intake.pseudo? ? "Contact Method" : contact_method_of_last_tax_team_message(intake)),
         return_status: state
       }
+    elsif state == :file_accepted
+      {
+        badge_text: t('portal.portal2.home.badge.accepted'),
+        badge_color: :green,
+        button_type: :file_accepted,
+        return_status: state
+      }
+    elsif state == :file_rejected
+      {
+        badge_text: t('portal.portal2.home.badge.rejected'),
+        badge_color: :red,
+        help_text: t('portal.portal2.home.help_text.file_rejected_html', year: tax_return.year),
+        button_type: :message_tax_team,
+        return_status: state
+      }
+    elsif state == :file_mailed
+      {
+        badge_text: t('portal.portal2.home.badge.filing_by_mail'),
+        badge_color: :yellow,
+        button_type: :file_mailed,
+        return_status: state
+      }
     elsif state == :file_hold
       {
         badge_text: t('portal.portal2.home.badge.on_hold'),
@@ -241,13 +263,12 @@ module TaxReturnCardHelper
     elsif state == :file_not_filing
       {
         badge_text: t('portal.portal2.home.badge.not_filing'),
-        badge_class: "portal-status-badge portal-status-badge--not_filing",
-        help_text: t("portal.portal2.home.help_text.not_filing_html", year: tax_return.year),
+        badge_class: "portal-status-badge portal-status-badge--not_filing", help_text: t("portal.portal2.home.help_text.not_filing_html", year: tax_return.year),
         button_type: :intercom_chat,
         return_status: state
       }
-    elsif [:file_ready_to_file, :file_accepted, :file_rejected, :file_fraud_hold,
-           :file_efiled, :file_mailed, :file_needs_review].include?(state)
+    elsif [:file_ready_to_file, :file_fraud_hold,
+           :file_efiled, :file_needs_review].include?(state)
       {
         badge_text: t('portal.portal2.home.badge.almost_done'),
         help_text: t("portal.portal2.home.help_text.final_steps"),
@@ -281,6 +302,17 @@ module TaxReturnCardHelper
         }
       end
     end
+  end
+
+  # link_to wrapper to render an external link with outbound-click tracking.
+  def portal_external_link(text, url, track_click:, return_status:)
+    link_to(text,
+            url,
+            target: "_blank",
+            rel: "noopener",
+            "data-track-click": track_click,
+            "data-track-attribute-page": "client_portal",
+            "data-track-attribute-return_status": return_status)
   end
 
   private

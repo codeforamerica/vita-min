@@ -297,7 +297,6 @@
       background-color:  #79B020;
     }
 }
-
 .button--portal-primary {
   background-color: #011E29;
   border-color: #011E29;
@@ -323,6 +322,7 @@
   border: 2px solid #011E29;
   color: #011E29 !important;
   padding: 1rem 2rem;
+  display: block !important;
 
   &:hover {
     background-color: #f5f5f5;
@@ -337,4 +337,4 @@
     border-color: #011E29;
     color: #011E29 !important;
   }
-}      
+}
