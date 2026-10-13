@@ -406,7 +406,7 @@ GEM
       prism (~> 1.5)
     mixpanel-ruby (2.3.0)
     moneta (1.0.0)
-    msgpack (1.8.3)
+    msgpack (1.8.5)
     multi_json (1.15.0)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
