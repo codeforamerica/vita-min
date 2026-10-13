@@ -88,7 +88,7 @@ gem 'http_accept_language'
 gem 'rails-i18n'
 gem 'thor'
 gem 'websocket-extensions', '>= 0.1.5'
-gem "twilio-ruby", "~> 7.10"
+gem "twilio-ruby", "7.11.3"
 gem 'mailgun-ruby'
 gem 'devise_invitable'
 gem 'cancancan'
