@@ -24,6 +24,10 @@
 /public/assets
 .byebug_history
 
+# Ignore PKCS#12 certificate/key files
+*.p12
+*.p12.key
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /config/fraud_indicators.key
