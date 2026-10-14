@@ -3,6 +3,10 @@
     color: $color-grey-darkest;
     text-decoration: none;
 
+    &--teal {
+      color: #007c7c;
+    }
+
     &__border {
       border-bottom: 1px solid;
     }
@@ -41,6 +45,17 @@
   position: relative;
   top: -.1em;
 
+  &--green {
+    background-color: #99cfa2;
+  }
+
+  &--red {
+    background-color: #e8b5b5;
+  }
+
+  &--yellow {
+    background-color: #ffce66;
+  }
   &--not_filing {
     background-color: #e8c4c0;
   }
