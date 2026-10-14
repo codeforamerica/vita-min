@@ -26,7 +26,6 @@ IRS_SIN= { provider = "doppler", value = "IRS_SIN" }
 MAILGUN_BASIC_AUTH_NAME= { provider = "doppler", value = "MAILGUN_BASIC_AUTH_NAME" }
 MAILGUN_BASIC_AUTH_PASSWORD= { provider = "doppler", value = "MAILGUN_BASIC_AUTH_PASSWORD" }
 MIXPANEL_TOKEN= { provider = "doppler", value = "MIXPANEL_TOKEN" }
-PERCY_TOKEN= { provider = "doppler", value = "PERCY_TOKEN" }
 TAX_SLAYER_LINK= { provider = "doppler", value = "TAX_SLAYER_LINK" }
 TWILIO_CTC_ACCOUNT_SID= { provider = "doppler", value = "TWILIO_CTC_ACCOUNT_SID" }
 TWILIO_CTC_AUTH_TOKEN= { provider = "doppler", value = "TWILIO_CTC_AUTH_TOKEN" }

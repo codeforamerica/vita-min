@@ -2,7 +2,8 @@ require "json"
 require "open3"
 
 module FnoxDoppler
-  DEV_ONLY_SECRETS = %w[PERCY_TOKEN].freeze
+  # fnox.toml entries that are only needed locally, so bin/check-fnox-doppler skips them for deployed configs
+  DEV_ONLY_SECRETS = %w[].freeze
 
   module_function
 
