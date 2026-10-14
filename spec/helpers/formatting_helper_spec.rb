@@ -107,4 +107,34 @@ describe FormattingHelper do
       end
     end
   end
+
+  describe "#message_body" do
+    context "with a blank body" do
+      it "shows a no content message" do
+        expect(helper.message_body("")).to include "Message has no content."
+      end
+    end
+
+    context "with plain text on multiple lines" do
+      let(:body) { "Hello there\n\nHow are you?" }
+
+      it "formats the text into paragraphs" do
+        expect(helper.message_body(body)).to eq "<p>Hello there</p>\n\n<p>How are you?</p>"
+      end
+    end
+
+    context "with HTML in the body" do
+      let(:body) { "<li><script>alert(document.domain)</script>" }
+
+      it "escapes the HTML so it is displayed as text" do
+        expect(helper.message_body(body)).to eq "<p>&lt;li&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;</p>"
+      end
+
+      it "does not render any li or script elements" do
+        html = Nokogiri::HTML.fragment(helper.message_body(body))
+        expect(html.css("li, script")).to be_empty
+        expect(html.text).to eq body
+      end
+    end
+  end
 end
