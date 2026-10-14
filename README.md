@@ -299,37 +299,6 @@ CHROME=y rspec
 COVERAGE=y rspec
 ```
 
-#### Percy visual diff tests
-
-As an engineer, if you've made changes that _should_ not result in visual changes, but you are afraid they will, Percy can help. Create a pull request in GitHub, then run `bin/percy` locally. This will run the feature specs twice locally -- once on main, then once on your pull request -- and upload both collections to Percy. Percy will add a check in the pull request with a link to the visual comparison as well as print the URL to your console.
-
-[Percy](https://percy.io/) allows us to automatically compare visual changes with screenshots.
-
-We access a `PERCY_TOKEN` from Rails `development` credentials. Ask a teammate about access to development credentials.
-
-Have a new branch with visual changes checked out locally that will then be compared to images taken from `main`.
-
-Run the percy command:
-
-```shell
-# In root directory
-bin/percy
-```
-
-##### How do screenshots get taken?
-
-To take screenshots within a feature spec add the `screenshot: true` flag. Enclose all page assertions within the `screenshot_after` method. See below for example. 
-
-```diff
-+ scenario "new feature test", js: true, screenshot: true do
-  visit "path/to/new/page"
-
-+   screenshot_after do
-      expect(page).to have_selector("h1", text: "Title")
-+   end
-end
-```
-
 ### Linter
 
 This repo has `rubocop` installed. To check:

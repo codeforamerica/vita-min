@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :include_analytics?, :current_intake, :show_progress?, :canonical_url, :hreflang_url, :hub?, :state_file?, :wrapping_layout, :ctc?
+  helper_method :include_analytics?, :current_intake, :show_progress?, :canonical_url, :hreflang_url, :hub?, :state_file?, :wrapping_layout
   # This needs to be a class method for the devise controller to have access to it
   # See: http://stackoverflow.com/questions/12550564/how-to-pass-locale-parameter-to-devise
   def self.default_url_options
@@ -58,11 +58,6 @@ class ApplicationController < ActionController::Base
   # but the devise controllers are not under the hub namespace so I'm leaving the request.path.include? string as well.
   def hub?
     self.class.name.include?("Hub::") || request.path.include?("hub")
-  end
-
-  # This is only used to render ctc specific views in the CTC home page
-  def ctc?
-    self.class.name.include?("Ctc::")
   end
 
   def state_file?
@@ -394,6 +389,7 @@ class ApplicationController < ActionController::Base
   def open_for_diy?
     app_time <= Rails.configuration.end_of_in_progress_intake
   end
+  helper_method :open_for_diy?
 
   def open_for_state_file_intake?
     app_time.between?(Rails.configuration.state_file_start_of_open_intake, Rails.configuration.state_file_end_of_in_progress_intakes)

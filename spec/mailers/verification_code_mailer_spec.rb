@@ -19,25 +19,6 @@ describe VerificationCodeMailer, type: :mailer do
       expect(email.text_part.decoded.strip).to include "GetYourRefund"
     end
 
-    context "for a CTC client" do
-      it "delivers an email with CTC branding and a no-reply@ address" do
-        email = described_class.with(
-          to: "example@example.com",
-          locale: :en,
-          service_type: :ctc
-        ).with_code
-
-        expect do
-          email.deliver_now
-        end.to change(ActionMailer::Base.deliveries, :count).by 1
-
-        expect(email.subject).to eq "Update from GetCTC"
-        expect(email.from).to eq ["no-reply@ctc.test.localhost"]
-        expect(email.to).to eq ["example@example.com"]
-        expect(email.text_part.decoded.strip).to include "GetCTC"
-      end
-    end
-
     context "for a state file client" do
       it "delivers an email with state file branding and a no-reply@ address" do
         email = described_class.with(

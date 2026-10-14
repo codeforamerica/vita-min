@@ -89,5 +89,22 @@ describe('text message form with length limiter', () => {
             expect(component.classList).toContain('text--error');
             expect(submitButton.disabled).toEqual(true);
         });
+
+        test("it recalculates when the contact method changes", () => {
+            const textMessageRadioButton = body.querySelector("input[value='text_message']");
+            textarea.value = lorumIpsum;
+            messageLengthDisableRadioButton.checked = true;
+            limitTextMessageLength();
+            expect(component.classList).toContain('hidden');
+            expect(submitButton.disabled).toEqual(false);
+
+            messageLengthDisableRadioButton.checked = false;
+            textMessageRadioButton.checked = true;
+            textMessageRadioButton.dispatchEvent(new Event('change', { bubbles: true }));
+
+            expect(component.classList).not.toContain('hidden');
+            expect(component.classList).toContain('text--error');
+            expect(submitButton.disabled).toEqual(true);
+        });
     });
 });

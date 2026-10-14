@@ -231,8 +231,6 @@ class MixpanelService
 
       obj_list.reduce({}) do |data, entry|
         case entry
-        when Intake::CtcIntake
-          data.merge!(data_from_intake(entry)).merge!(data_from_ctc_intake(entry))
         when Intake::GyrIntake
           data.merge!(data_from_intake(entry)).merge!(data_from_gyr_intake(entry))
         when ActionController::Base
@@ -288,15 +286,7 @@ class MixpanelService
         full_path: strip_all_from_url(source.fullpath, path_exclusions),
         referrer: strip_all_from_url(source.referrer, path_exclusions),
         referrer_domain: strip_all_from_url((URI.parse(source.referrer).host || "None" rescue "None"), path_exclusions),
-        is_ctc: Routes::CtcDomain.new.matches?(source),
         domain: source.host,
-      }
-    end
-
-    def data_from_ctc_intake(intake)
-      {
-        state: intake.state,
-        zip_code: intake.zip_code,
       }
     end
 
@@ -349,7 +339,6 @@ class MixpanelService
         certification_level: tax_return.certification_level,
         service_type: tax_return.service_type,
         status: tax_return.current_state,
-        is_ctc: tax_return.is_ctc
       }
     end
 
@@ -427,7 +416,7 @@ class MixpanelService
     def intake_age(intake, date_of_birth)
       return nil unless date_of_birth.present?
 
-      year = intake.is_ctc? ? MultiTenantService.new(:ctc).current_tax_year : intake.most_recent_filing_year
+      year = intake.most_recent_filing_year
       year - date_of_birth.year # TODO: this year gets sent to mixpanel, and seems to represent age of filer based on the tax filing year
     end
   end

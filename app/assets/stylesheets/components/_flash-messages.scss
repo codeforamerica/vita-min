@@ -20,6 +20,16 @@
 .flash--warning {
   background-color: $color-yellow-light;
   color: #000;
+
+  &.slab--flash a {
+    &,
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: #000;
+    }
+  }
 }
 
 .flash--offseason-warning {

@@ -39,35 +39,6 @@ describe EmailVerificationCodeService do
       allow(DatadogApi).to receive(:increment)
     end
 
-    context "when service_type is ctc" do
-      let(:service_type) { :ctc }
-
-      it "creates a VerificationEmail, sends an email, and creates an EmailAccessToken object" do
-        expect {
-          described_class.request_code(**params)
-        }.to change(ActionMailer::Base.deliveries, :count).by(1)
-        email = ActionMailer::Base.deliveries.last
-        expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include "Your six-digit verification code for GetCTC is: 123456"
-        expect(EmailAccessToken).to have_received(:generate!).with(a_hash_including(
-                                                                   email_address: email_address,
-                                                                   client_id: nil,
-                                                                 ))
-        expect(VerificationEmail).to have_received(:create!).with(a_hash_including(
-                                                                      email_access_token: access_token_double,
-                                                                      visitor_id: visitor_id,
-                                                                      mailgun_id: "mocked_mailer_id"
-                                                                  ))
-      end
-
-      it "sends an email that includes 'GetCTC'" do
-        described_class.request_code(**params)
-        email = ActionMailer::Base.deliveries.last
-        expect(email.to).to eq [email_address]
-        expect(email.body.encoded).to include "Your six-digit verification code for GetCTC is: 123456"
-      end
-    end
-
     context "when service type is GYR" do
       let(:service_type) { :gyr }
 

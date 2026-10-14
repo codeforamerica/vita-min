@@ -55,21 +55,6 @@ describe TextMessageVerificationCodeService do
     end
 
     context "message sent is different based on service type" do
-      context "service_type is :ctc" do
-        let(:service_type) { :ctc }
-
-        it "sends a message that mentions GetCTC" do
-          described_class.request_code(**params)
-          text_body = "Your 6-digit GetCTC verification code is: 123456. This code will expire after 10 minutes."
-
-          expect(twilio_service).to have_received(:send_text_message).with(
-            a_hash_including(
-                to: phone_number,
-                body: text_body
-            ))
-        end
-      end
-
       context "service_type is :gyr" do
         let(:service_type) { :gyr }
 

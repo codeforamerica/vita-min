@@ -115,18 +115,6 @@ module FeatureHelpers
     triage_feature_helper.seen_pages
   end
 
-  def screenshot_after
-    yield
-
-    if @metadata_screenshot && ENV["VITA_MIN_PERCY_ENABLED"].present?
-      @screenshot_index = defined?(@screenshot_index) ? @screenshot_index + 1 : 1
-      example_text, spec_path = inspect.match(/"(.*)" \(\.\/spec\/features\/(.*)_spec\.rb/)[1, 2]
-
-      screenshot_name = "#{format('%02d', @screenshot_index)}|#{spec_path}|#{example_text.parameterize}|#{current_path.parameterize}"
-      page.percy_snapshot(screenshot_name)
-    end
-  end
-
   def table_contents(element_or_doc)
     rows = []
     if element_or_doc.class.name.start_with?('Nokogiri')

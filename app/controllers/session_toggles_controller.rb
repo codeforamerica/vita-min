@@ -26,19 +26,6 @@ class SessionTogglesController < ApplicationController
           SessionToggleTime.new(name: 'End of new intakes', property: :state_file_end_of_new_intakes),
           SessionToggleTime.new(name: 'End of in-progress intakes', property: :state_file_end_of_in_progress_intakes),
         ]
-      },
-      {
-        service_name: 'GetCTC',
-        service_url: url_for(host: MultiTenantService.new(:ctc).host, controller: :session_toggles),
-        times: [
-          SessionToggleTime.new(name: 'Soft launch', property: :ctc_soft_launch),
-          SessionToggleTime.new(name: 'Full launch', property: :ctc_full_launch),
-          SessionToggleTime.new(name: 'EITC soft launch', property: :eitc_soft_launch),
-          SessionToggleTime.new(name: 'EITC full launch', property: :eitc_full_launch),
-          SessionToggleTime.new(name: 'End of intake', property: :ctc_end_of_intake),
-          SessionToggleTime.new(name: 'End of read-write access', property: :ctc_end_of_read_write),
-          SessionToggleTime.new(name: 'End of login', property: :ctc_end_of_login),
-        ]
       }
     ]
     @toggle = SessionToggle.new(session, 'app_time')

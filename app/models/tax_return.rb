@@ -48,7 +48,7 @@ class TaxReturn < ApplicationRecord
   belongs_to :client
   has_one :intake, through: :client
   belongs_to :assigned_user, class_name: "User", optional: true
-  has_many :documents
+  has_many :documents, dependent: :destroy
   has_many :assignments, class_name: "TaxReturnAssignment", dependent: :destroy
   has_many :tax_return_selection_tax_returns, dependent: :destroy
   has_many :tax_return_selections, through: :tax_return_selection_tax_returns

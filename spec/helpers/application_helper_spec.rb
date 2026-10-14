@@ -49,7 +49,7 @@ describe ApplicationHelper do
     around { |example| without_partial_double_verification { example.run } }
 
     before do
-      allow(helper).to receive_messages(hub?: false, state_file?: false, ctc?: false)
+      allow(helper).to receive_messages(hub?: false, state_file?: false)
     end
 
     it "adds the gyr-theme class on GYR pages" do
@@ -62,7 +62,7 @@ describe ApplicationHelper do
       expect(helper.body_class_list).to eq "body--home gyr-theme"
     end
 
-    %i[hub? state_file? ctc?].each do |other_product|
+    %i[hub? state_file?].each do |other_product|
       it "leaves #{other_product.to_s.delete_suffix('?')} pages unthemed" do
         allow(helper).to receive(other_product).and_return(true)
 

@@ -20,7 +20,7 @@
           <%= t("views.public_pages.home.header") %>
         </h1>
         <p class="hero-subheader">
-          <%= open_for_gyr_intake? ? t("views.public_pages.home.subheader") : t("views.public_pages.home.subheader_offseason") %>
+          <%= (open_for_gyr_intake? || open_for_finishing_in_progress_intakes?) ? t("views.public_pages.home.subheader") : t("views.public_pages.home.subheader_offseason") %>
         </p>
         <% if app_time <= Rails.configuration.tax_deadline %>
           <p>
@@ -29,6 +29,8 @@
         <% end %>
         <% if open_for_gyr_intake? %>
           <%= link_to t("general.get_started"), eligibility_wages_questions_path, id: "firstCta", class: "button button--primary button--med-wide button--ui-green" %>
+        <% elsif open_for_finishing_in_progress_intakes? %>
+          <%= link_to t("general.get_started"), "#service-comparison", id: "firstCta", class: "button button--primary button--med-wide button--ui-green" %>
         <% else %>
           <%= link_to t("general.register"), new_signup_path, id: "firstCta", class: "button button--primary button--med-wide button--ui-green" %>
         <% end %>
@@ -65,9 +67,9 @@
     <div class="slab slab-habla-espanol">
       <div class="grid">
         <div class="rounded-box">
-          <h2 class="title spacing-below-5">¿habla español?</h2>
-          <p>Tenemos opciones para ti! Declarar en español, obtener tu máximo reembolso.</p>
-          <span><%= link_to_locale('es', 'Traducir esta página al español', { "data-track-click": "intake-language-changed-habla-espanol-section" }) %></span>
+          <h2 class="title spacing-below-5">¿Hablas español?</h2>
+          <p>Presenta tu declaración de impuestos con ayuda en tu idioma y obtén tu máximo reembolso.</p>
+          <span><%= link_to_locale('es', 'Ver en español', { "data-track-click": "intake-language-changed-habla-espanol-section" }) %></span>
         </div>
       </div>
     </div>
