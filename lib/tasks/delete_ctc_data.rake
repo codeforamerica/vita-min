@@ -55,7 +55,7 @@ namespace :delete_ctc_data do
 
     # Save DriversLicense IDs as a preliminary step; then we'll destroy the
     # DriversLicense records at the end. (A PG::ForeignKeyViolation error
-    # occurs if attemping to destroy a DriversLicense record when an existing Intake
+    # occurs if attempting to destroy a DriversLicense record when an existing Intake
     # record has a `primary_drivers_license_id` or `spouse_drivers_license_id`
     # referring to the DriversLicense record in question.)
     saved_ctc_drivers_license_ids = get_drivers_license_ids_for_ctc_intakes
