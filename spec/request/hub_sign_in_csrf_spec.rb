@@ -24,7 +24,7 @@ RSpec.describe "hub sign in CSRF protection", type: :request do
   end
 
   context "without an authenticity token" do
-    it "does not sign the user in" do
+    it "does not sign the user in." do
       get "/en/hub/sign_in"
       post "/en/hub/sign_in", params: credentials
 
@@ -34,7 +34,7 @@ RSpec.describe "hub sign in CSRF protection", type: :request do
   end
 
   context "with an invalid authenticity token" do
-    it "does not sign the user in" do
+    it "does not sign the user in." do
       get "/en/hub/sign_in"
       post "/en/hub/sign_in", params: credentials.merge(authenticity_token: "invalid")
 
@@ -44,7 +44,7 @@ RSpec.describe "hub sign in CSRF protection", type: :request do
   end
 
   context "with a valid authenticity token" do
-    it "signs the user in" do
+    it "signs the user in." do
       post "/en/hub/sign_in", params: credentials.merge(authenticity_token: authenticity_token)
 
       expect(response).to redirect_to("/en/hub/assigned")
@@ -53,7 +53,7 @@ RSpec.describe "hub sign in CSRF protection", type: :request do
   end
 
   context "with credentials in the query string" do
-    it "rejects the request without signing the user in" do
+    it "rejects the request without signing the user in." do
       token = authenticity_token
       post "/en/hub/sign_in?#{credentials.to_query}", params: { authenticity_token: token }
 
