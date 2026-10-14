@@ -31,7 +31,7 @@ namespace :delete_ctc_data do
     TaxReturn.where(is_ctc: true)
   end
 
-  def drivers_license_ids_for_ctc_intakes
+  def get_drivers_license_ids_for_ctc_intakes
     ids = Set[]
     ctc_intake_2021_records.each do |intake|
       ids.add(intake.primary_drivers_license_id) if intake.primary_drivers_license_id.present?
@@ -52,6 +52,13 @@ namespace :delete_ctc_data do
     p 'Continue? Type YES and hit enter: '
     resp = STDIN.gets
     if resp.chomp != "YES"; exit(0); end
+
+    # Save DriversLicense IDs as a preliminary step; then we'll destroy the
+    # DriversLicense records at the end. (A PG::ForeignKeyViolation error
+    # occurs if attemping to destroy a DriversLicense record when an existing Intake
+    # record has a `primary_drivers_license_id` or `spouse_drivers_license_id`
+    # referring to the DriversLicense record in question.)
+    saved_ctc_drivers_license_ids = get_drivers_license_ids_for_ctc_intakes
 
     # Destroy all SystemNote::CtcPortalAction
     ActiveRecord::Base.transaction do
@@ -129,7 +136,8 @@ namespace :delete_ctc_data do
       p 'Tally of CtcIntake2021-related DriversLicense records BEFORE: ' + ctc_intake_2021_drivers_license_records.count.to_s
       p 'Tally of CtcIntake-related DriversLicense records BEFORE: ' + ctc_intake_drivers_license_records.count.to_s
 
-      drivers_license_ids_for_ctc_intakes.each { |id| DriversLicense.find(id).destroy! }
+      # These IDs were saved at the beginning of the script.
+      saved_ctc_drivers_license_ids.each { |id| DriversLicense.find(id).destroy! }
 
       p 'Tally of CtcIntake2021-related DriversLicense records AFTER: ' + ctc_intake_2021_drivers_license_records.count.to_s
       p 'Tally CtcIntake-related DriversLicense records AFTER: ' + ctc_intake_drivers_license_records.count.to_s
