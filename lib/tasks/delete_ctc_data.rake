@@ -31,6 +31,19 @@ namespace :delete_ctc_data do
     TaxReturn.where(is_ctc: true)
   end
 
+  def drivers_license_ids_for_ctc_intakes
+    ids = Set[]
+    ctc_intake_2021_records.each do |intake|
+      ids.add(intake.primary_drivers_license_id) if intake.primary_drivers_license_id.present?
+      ids.add(intake.spouse_drivers_license_id) if intake.spouse_drivers_license_id.present?
+    end
+    ctc_intake_records.each do |intake|
+      ids.add(intake.primary_drivers_license_id) if intake.primary_drivers_license_id.present?
+      ids.add(intake.spouse_drivers_license_id) if intake.spouse_drivers_license_id.present?
+    end
+    ids
+  end
+
   task perform: :environment do
     p '--------------------------------'
     p 'STARTING delete_ctc_data:perform'
@@ -62,28 +75,6 @@ namespace :delete_ctc_data do
     ActiveRecord::Base.transaction do
       EfileError.where(service_type: :ctc).each(&:destroy!)
       p 'Destroyed CTC EfileError records.'
-    end
-
-    p '--------------------------------'
-    # Destroy CTCIntake2021-related DriversLicense records.
-    ActiveRecord::Base.transaction do
-      p 'DriversLicense records 1/2 ...'
-      p 'Tally of CtcIntake2021-related DriversLicense records BEFORE: ' + ctc_intake_2021_drivers_license_records.count.to_s
-
-      ctc_intake_2021_drivers_license_records.each(&:destroy!)
-
-      p 'Tally of CtcIntake2021-related DriversLicense records AFTER: ' + ctc_intake_2021_drivers_license_records.count.to_s
-    end
-
-    p '--------------------------------'
-    # Destroy CtcIntake-related DriversLicense records.
-    ActiveRecord::Base.transaction do
-      p 'DriversLicense records 2/2 ...'
-      p 'Tally of CtcIntake-related DriversLicense records BEFORE: ' + ctc_intake_drivers_license_records.count.to_s
-
-      ctc_intake_drivers_license_records.each(&:destroy!)
-
-      p 'Tally CtcIntake-related DriversLicense records AFTER: ' + ctc_intake_drivers_license_records.count.to_s
     end
 
     p '--------------------------------'
@@ -129,6 +120,19 @@ namespace :delete_ctc_data do
       tax_return_is_ctc_records.each(&:destroy!)
 
       p 'Tally AFTER: ' + tax_return_is_ctc_records.count.to_s
+    end
+
+    p '--------------------------------'
+    # Destroy CTC-related DriversLicense records.
+    ActiveRecord::Base.transaction do
+      p 'CTC DriversLicense records ...'
+      p 'Tally of CtcIntake2021-related DriversLicense records BEFORE: ' + ctc_intake_2021_drivers_license_records.count.to_s
+      p 'Tally of CtcIntake-related DriversLicense records BEFORE: ' + ctc_intake_drivers_license_records.count.to_s
+
+      drivers_license_ids_for_ctc_intakes.each { |id| DriversLicense.find(id).destroy! }
+
+      p 'Tally of CtcIntake2021-related DriversLicense records AFTER: ' + ctc_intake_2021_drivers_license_records.count.to_s
+      p 'Tally CtcIntake-related DriversLicense records AFTER: ' + ctc_intake_drivers_license_records.count.to_s
     end
 
     p '--------------------------------'
