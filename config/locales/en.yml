@@ -2011,6 +2011,7 @@ en:
         errors:
           bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 3 failed attempts, accounts are locked.
           bad_verification_code: Incorrect verification code. After 3 failed attempts, accounts are locked.
+          too_many_requests: Too many verification codes have been requested. Please wait 15 minutes and try again.
       new:
         created_an_account_last_year: What if I created an account last year?
         each_tax_year: Each tax year requires a new account even if you’ve filed with us before.

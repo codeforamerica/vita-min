@@ -87,6 +87,13 @@ module StateFile
       params.require(:state_file_request_intake_login_form).permit(:email_address, :sms_phone_number)
     end
 
+    def render_rate_limited
+      @contact_method = params[:contact_method]
+      return head :too_many_requests unless %w[email_address sms_phone_number].include?(@contact_method)
+
+      super
+    end
+
     def service_type
       :statefile
     end

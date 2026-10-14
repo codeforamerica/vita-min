@@ -121,6 +121,7 @@ gem 'awesome_print'
 gem 'holidays'
 gem "net-imap", ">= 0.6.4"
 gem 'redis'
+gem "solid_cache", "~> 1.0"
 gem "observer", "~> 0.1.2"
 gem "csv", "~> 3.3"
 # Bundled (not default) gem from Ruby 4.0. Only reached us transitively via axe-core

@@ -118,6 +118,33 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
       end
     end
 
+    context "when the same email address is requested too many times" do
+      let(:contact_method) { :email_address }
+      let(:contact_info_params) { { email_address: "client@example.com", sms_phone_number: "" } }
+
+      before do
+        intake.update!(email_address_verified_at: DateTime.now)
+        5.times { post :create, params: params }
+      end
+
+      it "renders the login form with an error and does not send another code" do
+        expect {
+          post :create, params: params
+        }.not_to have_enqueued_job(RequestVerificationCodeForLoginJob)
+
+        expect(response).to have_http_status(:too_many_requests)
+        expect(response).to render_template :new
+        expect(assigns(:form).errors[:email_address]).to include I18n.t("portal.client_logins.form.errors.too_many_requests", locale: :es)
+      end
+
+      it "returns 429 without rendering when the contact method is invalid" do
+        post :create, params: params.merge(contact_method: "bogus")
+
+        expect(response).to have_http_status(:too_many_requests)
+        expect(response).not_to render_template :new
+      end
+    end
+
     context "with invalid params" do
       context "bad email" do
         let(:contact_method) { :email_address }
