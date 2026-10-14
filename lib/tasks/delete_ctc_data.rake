@@ -58,12 +58,6 @@ namespace :delete_ctc_data do
       p 'Destroyed all CtcSignup records.'
     end
 
-    # Destroy all Signup records.
-    ActiveRecord::Base.transaction do
-      Signup.all.each(&:destroy!)
-      p 'Destroyed all Signup records.'
-    end
-
     # Destroy all EfileError rcds (could find a way to do just CTC, but simpler to delete them all).
     ActiveRecord::Base.transaction do
       EfileError.all.each(&:destroy!)
