@@ -1,16 +1,6 @@
 # Can run manually via:
 #     bundle exec rake delete_ctc_data:perform
 namespace :delete_ctc_data do
-  def ctc_intake_2021_drivers_license_records
-    DriversLicense.all.select { |x| x.intake_as_primary.class == Archived::Intake::CtcIntake2021 } +
-      DriversLicense.all.select { |x| x.intake_as_spouse.class == Archived::Intake::CtcIntake2021 }
-  end
-
-  def ctc_intake_drivers_license_records
-    DriversLicense.all.select { |x| x.intake_as_primary.class == Intake::CtcIntake } +
-      DriversLicense.all.select { |x| x.intake_as_spouse.class == Intake::CtcIntake }
-  end
-
   def ctc_client_records
     Client.all.select { |c| c.intake.class == Intake::CtcIntake }
   end
@@ -42,6 +32,10 @@ namespace :delete_ctc_data do
       ids.add(intake.spouse_drivers_license_id) if intake.spouse_drivers_license_id.present?
     end
     ids
+  end
+
+  def drivers_license_tally(ids)
+    DriversLicense.where(id: ids).count
   end
 
   task perform: :environment do
@@ -133,14 +127,12 @@ namespace :delete_ctc_data do
     # Destroy CTC-related DriversLicense records.
     ActiveRecord::Base.transaction do
       p 'CTC DriversLicense records ...'
-      p 'Tally of CtcIntake2021-related DriversLicense records BEFORE: ' + ctc_intake_2021_drivers_license_records.count.to_s
-      p 'Tally of CtcIntake-related DriversLicense records BEFORE: ' + ctc_intake_drivers_license_records.count.to_s
+      p 'Tally BEFORE: ' + drivers_license_tally(saved_ctc_drivers_license_ids).to_s
 
-      # These IDs were saved at the beginning of the script.
+      # The IDs were saved at the beginning of the script.
       saved_ctc_drivers_license_ids.each { |id| DriversLicense.find(id).destroy! }
 
-      p 'Tally of CtcIntake2021-related DriversLicense records AFTER: ' + ctc_intake_2021_drivers_license_records.count.to_s
-      p 'Tally CtcIntake-related DriversLicense records AFTER: ' + ctc_intake_drivers_license_records.count.to_s
+      p 'Tally AFTER: ' + drivers_license_tally(saved_ctc_drivers_license_ids).to_s
     end
 
     p '--------------------------------'
