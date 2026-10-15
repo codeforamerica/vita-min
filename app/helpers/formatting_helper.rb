@@ -22,6 +22,6 @@ module FormattingHelper
         content_tag(:i, "Message has no content.")
       end
     end
-    simple_format(body)
+    simple_format(h(body), {}, sanitize: false)
   end
 end

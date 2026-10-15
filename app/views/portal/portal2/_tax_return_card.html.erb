@@ -5,11 +5,68 @@
     <div>
       <h2 class="h3">
         <%= t('portal.portal.home.tax_return_heading', year: tax_return.year) %>
-        <span class="<%= card_props[:badge_class] || 'portal-status-badge' %>" role="status"><%= card_props[:badge_text] %></span>
+        <span class="portal-status-badge<%= " portal-status-badge--#{card_props[:badge_color]}" if card_props[:badge_color] %>" aria-label="<%= t('portal.portal2.home.badge.status_label', status: card_props[:badge_text]) %>"><%= card_props[:badge_text] %></span>
       </h2>
-      <p class="spacing-below-0"><%= card_props[:help_text] %></p>
+      <% if card_props[:help_text].present? %>
+        <p class="spacing-below-0"><%= card_props[:help_text] %></p>
+      <% end %>
+      <% if card_props[:button_type] == :file_accepted %>
+        <p class="spacing-below-0"><%= t('portal.portal2.home.help_text.file_accepted_intro', year: tax_return.year) %></p>
+        <ul class="with-bullets">
+          <li class="spacing-below-15">
+            <%= t('portal.portal2.home.help_text.file_accepted_refund_status_html',
+                  link: portal_external_link(t('portal.portal2.home.help_text.file_accepted_wheres_my_refund_link_text'),
+                                             t('portal.portal2.home.help_text.file_accepted_refund_status_url'),
+                                             track_click: "client_portal_wheres_my_refund_link",
+                                             return_status: card_props[:return_status])) %>
+          </li>
+          <li>
+            <%= t('portal.portal2.home.help_text.file_accepted_payments_html',
+                  link: portal_external_link(t('portal.portal2.home.help_text.file_accepted_payments_link_text'),
+                                             t('portal.portal2.home.help_text.file_accepted_payments_url'),
+                                             track_click: "client_portal_payments_link",
+                                             return_status: card_props[:return_status])) %>
+          </li>
+        </ul>
+      <% elsif card_props[:button_type] == :file_mailed %>
+        <p>
+          <%= t('portal.portal2.home.help_text.file_mailed_instructions_html',
+                link: portal_external_link(t('portal.portal2.home.help_text.file_mailed_link_text'),
+                                           t('portal.portal2.home.help_text.file_mailed_link_url'),
+                                           track_click: "client_portal_filing_by_mail_link",
+                                           return_status: card_props[:return_status])) %>
+        </p>
+        <p><%= t('portal.portal2.home.help_text.file_mailed_no_action_needed') %></p>
+        <div class="status-line-items">
+          <%= render "portal/portal/document_links",
+                     label: t("portal.portal2.home.button.download_tax_return", year: tax_return.year),
+                     documents: tax_return.final_tax_documents,
+                     icon: "icons/file-down.svg",
+                     link_class: "link link--teal",
+                     link_attributes: { "data-track-click": "client_portal_download_tax_papers",
+                                        "data-track-attribute-page": "client_portal",
+                                        "data-track-attribute-return_status": card_props[:return_status] } %>
+        </div>
+      <% end %>
     </div>
+
   </div>
+  <% if card_props[:button_type] == :file_accepted %>
+    <%= render "portal/portal/document_links_button",
+               label: t("portal.portal2.home.button.download_tax_return", year: tax_return.year),
+               documents: tax_return.final_tax_documents,
+               link_attributes: { "data-track-click": "client_portal_download_tax_papers",
+                                  "data-track-attribute-page": "client_portal",
+                                  "data-track-attribute-return_status": card_props[:return_status] } %>
+  <% elsif card_props[:button_type] == :file_mailed %>
+    <%= link_to t('portal.portal2.home.button.find_mailing_address'),
+                t('portal.portal2.home.help_text.file_mailed_link_url'),
+                target: "_blank", rel: "noopener",
+                class: "button button--portal-secondary button--full-width text--centered spacing-below-0",
+                "data-track-click": "client_portal_find_mailing_address_button",
+                "data-track-attribute-page": "client_portal",
+                "data-track-attribute-return_status": card_props[:return_status] %>
+  <% end %>
   <% if card_props[:call_to_action_text].present? %>
     <div class="portal-info-box">
       <p style="margin-bottom: 1rem"><b><%= card_props[:call_to_action_title] %></b>
@@ -53,7 +110,7 @@
     <% elsif card_props[:button_type] == :message_tax_team %>
       <%= link_to(t("portal.portal2.home.button.message_tax_team"),
                     new_portal_message_path,
-                    class: "button button--portal-primary button--full-width spacing-below-0",
+                    class: "button button--portal-primary button--full-width text--centered spacing-below-0",
                     "data-track-click": "client_portal_message_tax_team_button",
                     "data-track-attribute-page": "client_portal",
                     "data-track-attribute-return_status": card_props[:return_status]) %>

@@ -87,7 +87,7 @@ gem 'http_accept_language'
 gem 'rails-i18n'
 gem 'thor'
 gem 'websocket-extensions', '>= 0.1.5'
-gem "twilio-ruby", "~> 7.10"
+gem "twilio-ruby", "7.11.3"
 gem 'mailgun-ruby'
 gem 'devise_invitable'
 gem 'cancancan'
@@ -122,6 +122,9 @@ gem "net-imap", ">= 0.6.4"
 gem 'redis'
 gem "observer", "~> 0.1.2"
 gem "csv", "~> 3.3"
+# Bundled (not default) gem from Ruby 4.0. Only reached us transitively via axe-core
+# in :test, so production boots without it. Drop once app/ stops using OpenStruct.
+gem "ostruct", "~> 0.6.0"
 gem "rexml", ">= 3.4.2"
 gem 'useragent'
 
@@ -184,7 +187,6 @@ group :test do
   gem 'shoulda-matchers'
   gem 'spring-commands-rspec'
   gem 'database_cleaner'
-  gem 'percy-capybara'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

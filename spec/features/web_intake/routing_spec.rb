@@ -93,9 +93,7 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
     click_on I18n.t('general.continue_example')
 
     page_change_block do
-      screenshot_after do
-        expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
-      end
+      expect(page).to have_text(I18n.t("views.questions.qualifications.title"))
       click_on I18n.t("views.questions.qualifications.button_1")
     end
 
@@ -225,6 +223,14 @@ feature "Intake Routing Spec", :flow_explorer_screenshot, :active_job do
       click_on I18n.t('general.continue')
 
       expect(Intake.last.source).to eq nil
+
+      fill_in I18n.t("attributes.primary_ssn"), with: "123-45-6789"
+      fill_in I18n.t("attributes.confirm_primary_ssn"), with: "123-45-6789"
+      click_on I18n.t('general.continue')
+
+      expect(page).to have_text I18n.t('views.questions.backtaxes.title')
+      check MultiTenantService.new(:gyr).current_tax_year.to_s
+      click_on I18n.t('general.continue')
 
       expect(page.html).to have_text I18n.t('views.questions.at_capacity.title')
     end
