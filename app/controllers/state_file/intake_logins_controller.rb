@@ -94,6 +94,10 @@ module StateFile
       super
     end
 
+    def too_many_requests_message
+      I18n.t("state_file.intake_logins.form.errors.too_many_requests")
+    end
+
     def service_type
       :statefile
     end

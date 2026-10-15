@@ -142,8 +142,16 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           expect(response).to be_ok
         end
 
-        it "allows requests again after the window passes" do
-          travel 16.minutes do
+        it "still blocks requests before the hour is up" do
+          travel 59.minutes do
+            expect {
+              post_create(email_address: "client@example.com")
+            }.not_to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          end
+        end
+
+        it "allows requests again after the hour passes" do
+          travel 61.minutes do
             expect {
               post_create(email_address: "client@example.com")
             }.to have_enqueued_job(RequestVerificationCodeForLoginJob)

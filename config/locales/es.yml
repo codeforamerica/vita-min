@@ -1995,7 +1995,7 @@ es:
         errors:
           bad_input: ID de cliente o los 4 últimos de SSN/ITIN incorrectos. Después de 3 intentos fallidos, las cuentas se bloquean.
           bad_verification_code: Código incorrecto. Después de 3 intentos fallidos, las cuentas se bloquean.
-          too_many_requests: Se han solicitado demasiados códigos de verificación. Por favor, espere 15 minutos e intente de nuevo.
+          too_many_requests: Ha alcanzado el límite de solicitud de códigos. Puede intentar de nuevo en una hora.
       new:
         created_an_account_last_year: "¿Necesita ver su declaración del año pasado?"
         each_tax_year: Cada año fiscal requiere una cuenta nueva, aunque haya presentado sus impuestos con nosotros antes.
@@ -2403,6 +2403,7 @@ es:
       form:
         errors:
           bad_input: Número completo de Seguro Social (SSN)/Número de Identificación del Contribuyente (ITIN) incorrecto. Después de 3 intentos fallidos, las cuentas se bloquean.
+          too_many_requests: Has alcanzado el límite de solicitud de códigos. Puedes intentar de nuevo en una hora.
       new:
         email_address:
           label: Tu dirección de correo electrónico

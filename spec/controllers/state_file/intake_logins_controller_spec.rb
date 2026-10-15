@@ -134,7 +134,7 @@ RSpec.describe StateFile::IntakeLoginsController, type: :controller do
 
         expect(response).to have_http_status(:too_many_requests)
         expect(response).to render_template :new
-        expect(assigns(:form).errors[:email_address]).to include I18n.t("portal.client_logins.form.errors.too_many_requests", locale: :es)
+        expect(assigns(:form).errors[:email_address]).to include I18n.t("state_file.intake_logins.form.errors.too_many_requests", locale: :es)
       end
 
       it "returns 429 without rendering when the contact method is invalid" do

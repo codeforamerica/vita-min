@@ -4,8 +4,8 @@ module Portal
     before_action :redirect_to_portal_if_client_authenticated
     before_action :validate_token, only: [:edit, :update]
     before_action :redirect_locked_clients, only: [:edit, :update] # TODO: do this on check_verification_code and update instead? weird to have it on a get request; also it happens at the end of check_verification_code anyway
-    rate_limit to: 20, within: 15.minutes, name: "verification-code-by-ip", with: :render_rate_limited, only: :create
-    rate_limit to: 10, within: 15.minutes, name: "verification-code-by-target", scope: "client-login",
+    rate_limit to: 20, within: 1.hour, name: "verification-code-by-ip", with: :render_rate_limited, only: :create
+    rate_limit to: 5, within: 1.hour, name: "verification-code-by-target", scope: "client-login",
                by: :rate_limit_target, with: :render_rate_limited, only: :create, if: :rate_limit_target
     layout "portal"
 
@@ -146,10 +146,14 @@ module Portal
       DatadogApi.increment("#{controller_name}.verification_codes.rate_limited")
       @form = request_login_form_class.new(request_client_login_params)
       error_field = @form.sms_phone_number.present? ? :sms_phone_number : :email_address
-      @form.errors.add(error_field, I18n.t("portal.client_logins.form.errors.too_many_requests"))
+      @form.errors.add(error_field, too_many_requests_message)
       render :new, status: :too_many_requests
     rescue ActionController::ParameterMissing
       head :too_many_requests
+    end
+
+    def too_many_requests_message
+      I18n.t("portal.client_logins.form.errors.too_many_requests")
     end
 
     def validate_token
