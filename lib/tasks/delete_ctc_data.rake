@@ -1,5 +1,6 @@
 # Can run manually via:
-#     bundle exec rake delete_ctc_data:perform
+#     bundle exec rake delete_ctc_data:perform[mode]
+#     ... where mode is DRY_RUN or DESTRUCTIVE
 namespace :delete_ctc_data do
   def ctc_client_records
     Client.all.select { |c| c.intake.class == Intake::CtcIntake }
@@ -38,10 +39,20 @@ namespace :delete_ctc_data do
     DriversLicense.where(id: ids).count
   end
 
-  task perform: :environment do
+  task :perform, [:mode] => :environment do |_task, args|
     p '--------------------------------'
     p 'STARTING delete_ctc_data:perform'
     p '--------------------------------'
+
+    if ! ['DRY_RUN', 'DESTRUCTIVE'].include? args.mode
+      p 'Specify mode, either DRY_RUN or DESTRUCTIVE'
+      return
+    end
+
+    DRY_RUN = true if args.mode != 'DESTRUCTIVE'
+    if DRY_RUN
+      p 'DRY RUN! Nothing will be deleted.'
+    end
 
     p 'Continue? Type YES and hit enter: '
     resp = STDIN.gets
@@ -58,24 +69,28 @@ namespace :delete_ctc_data do
     ActiveRecord::Base.transaction do
       SystemNote::CtcPortalAction.all.each(&:destroy!) 
       p 'Destroyed all CtcPortalAction records.'
+      raise ActiveRecord::Rollback if DRY_RUN
     end
 
     # Destroy all SystemNote::CtcPortalUpdate
     ActiveRecord::Base.transaction do
       SystemNote::CtcPortalUpdate.all.each(&:destroy!)
       p 'Destroyed all CtcPortalUpdate records.'
+      raise ActiveRecord::Rollback if DRY_RUN
     end  
 
     # Destroy all CtcSignup records.
     ActiveRecord::Base.transaction do
       CtcSignup.all.each(&:destroy!)
       p 'Destroyed all CtcSignup records.'
+      raise ActiveRecord::Rollback if DRY_RUN
     end
 
     # Destroy CTC EfileError rcds.
     ActiveRecord::Base.transaction do
       EfileError.where(service_type: :ctc).each(&:destroy!)
       p 'Destroyed CTC EfileError records.'
+      raise ActiveRecord::Rollback if DRY_RUN
     end
 
     p '--------------------------------'
@@ -92,6 +107,7 @@ namespace :delete_ctc_data do
       p 'Tally of Client records associated w/ CtcIntake2021 record AFTER: ' + ctc_2021_client_records.count.to_s
       p 'Tally of CtcIntake2021 records AFTER: ' + ctc_intake_2021_records.count.to_s
       p 'Tally of all TaxReturn records AFTER: ' + TaxReturn.all.count.to_s
+      raise ActiveRecord::Rollback if DRY_RUN
     end
 
     p '--------------------------------'
@@ -108,6 +124,7 @@ namespace :delete_ctc_data do
       p 'Tally of Client records associated w/ CtcIntake record AFTER: ' + ctc_client_records.count.to_s
       p 'Tally of CtcIntake records AFTER: ' + ctc_intake_records.count.to_s
       p 'Tally of all TaxReturn records AFTER: ' + TaxReturn.all.count.to_s
+      raise ActiveRecord::Rollback if DRY_RUN
     end
 
     p '--------------------------------'
@@ -121,6 +138,7 @@ namespace :delete_ctc_data do
       tax_return_is_ctc_records.each(&:destroy!)
 
       p 'Tally AFTER: ' + tax_return_is_ctc_records.count.to_s
+      raise ActiveRecord::Rollback if DRY_RUN
     end
 
     p '--------------------------------'
@@ -133,10 +151,15 @@ namespace :delete_ctc_data do
       saved_ctc_drivers_license_ids.each { |id| DriversLicense.find(id).destroy! }
 
       p 'Tally AFTER: ' + drivers_license_tally(saved_ctc_drivers_license_ids).to_s
+      raise ActiveRecord::Rollback if DRY_RUN
     end
 
     p '--------------------------------'
     p 'FINISHED delete_ctc_data:perform'
     p '--------------------------------'
+
+    if DRY_RUN
+      p 'This was a DRY RUN! Nothing was deleted.'
+    end
   end
 end
