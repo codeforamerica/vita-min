@@ -151,9 +151,6 @@ jobs:
       - setup_test_db
       - run: bundle exec annotaterb models --frozen
   check_fnox_doppler:
-    # Deliberately on ruby_executor rather than folded into run_ruby_tests: the spec doesn't
-    # load rails_helper, so it needs no database, no JS bundle and no e-file schemas, and a
-    # bad fnox.toml entry reports in under a minute instead of after the full suite's setup.
     executor: ruby_executor
     steps:
       - checkout
@@ -290,7 +287,6 @@ workflows:
           context: tax-bot
       - run_ruby_tests:
           context: tax-bot
-      # Needs DOPPLER_TOKEN (read-only service token scoped to the dev config) in this context.
       - check_fnox_doppler:
           context: tax-bot
       - run_annotate

@@ -1,10 +1,3 @@
-# Guards the block at the bottom of config/application.rb that sources the Active Record
-# encryption keys from ENV. It has already been dropped once in a merge conflict, and
-# nothing else fails when it goes missing: the app silently falls back to the credentials file.
-#
-# config/environments/test.rb overwrites all three keys with 'test', so this can't be
-# checked from inside the test process. Instead it loads only config/application.rb in a
-# subprocess and reads the config before the environment file runs.
 require "json"
 require "open3"
 
