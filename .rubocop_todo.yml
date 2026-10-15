@@ -2010,7 +2010,6 @@ Style/FormatString:
     - 'app/lib/submission_builder/formatting_methods.rb'
     - 'app/models/intake.rb'
     - 'app/services/verification_code_service.rb'
-    - 'bin/percy'
     - 'spec/factories/dependents.rb'
 
 # Offense count: 7
@@ -2020,7 +2019,6 @@ Style/FormatString:
 Style/FormatStringToken:
   Exclude:
     - 'app/models/fraud/indicator.rb'
-    - 'bin/percy'
 
 # Offense count: 2103
 # This cop supports unsafe autocorrection (--autocorrect-all).

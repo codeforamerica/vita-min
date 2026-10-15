@@ -193,30 +193,47 @@ RSpec.feature 'client in the portal' do
     end
 
     scenario 'with return status :file_mailed' do
-      client.tax_returns.last.transition_to!(:file_mailed)
+      tax_return = client.tax_returns.last
+      tax_return.transition_to!(:file_mailed)
+      document = create :document,
+                         document_type: DocumentTypes::FinalTaxDocument.key,
+                         tax_return: tax_return,
+                         client: client,
+                         upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
       visit '/portal/portal2'
 
-      expect(page).to have_text 'Almost done'
-      expect(page).to have_text 'Your return is signed and on its way to the IRS.'
-      expect(page).to have_link 'Message tax team', href: new_portal_message_path
+      expect(page).to have_text 'Filing by mail'
+      expect(page).to have_text 'To finish processing your return, print and mail it to the correct address.'
+      expect(page).to have_link 'filing by mail', href: 'https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment'
+      expect(page).to have_link 'Download 2019 tax return', href: portal_document_path(id: document.id)
+      expect(page).to have_link 'Find your IRS mailing address', href: 'https://www.irs.gov/filing/where-to-file-paper-tax-returns-with-or-without-a-payment'
     end
 
     scenario 'with return status :file_rejected' do
       client.tax_returns.last.transition_to!(:file_rejected)
       visit '/portal/portal2'
 
-      expect(page).to have_text 'Almost done'
-      expect(page).to have_text 'Your return is signed and on its way to the IRS.'
+      expect(page).to have_text 'Rejected'
+      expect(page).to have_text 'The IRS rejected your 2019 return.'
+      expect(page).to have_text 'Your tax team will contact you with the reason and next steps.'
       expect(page).to have_link 'Message tax team', href: new_portal_message_path
     end
 
     scenario 'with return status :file_accepted' do
-      client.tax_returns.last.transition_to!(:file_accepted)
+      tax_return = client.tax_returns.last
+      tax_return.transition_to!(:file_accepted)
+      document = create :document,
+                         document_type: DocumentTypes::FinalTaxDocument.key,
+                         tax_return: tax_return,
+                         client: client,
+                         upload_path: Rails.root.join("spec", "fixtures", "files", "test-pdf.pdf")
       visit '/portal/portal2'
 
-      expect(page).to have_text 'Almost done'
-      expect(page).to have_text 'Your return is signed and on its way to the IRS.'
-      expect(page).to have_link 'Message tax team', href: new_portal_message_path
+      expect(page).to have_text 'Accepted'
+      expect(page).to have_text 'The IRS accepted your 2019 return.'
+      expect(page).to have_link "\"Where's My Refund?\"", href: 'https://www.irs.gov/refunds'
+      expect(page).to have_link 'Payments', href: 'https://www.irs.gov/payments'
+      expect(page).to have_link 'Download 2019 tax return', href: portal_document_path(id: document.id)
     end
 
     scenario 'with return status :file_not_filing' do
