@@ -6009,6 +6009,7 @@ es:
         body: 'Se le ha enviado un mensaje con su código a:'
         error_message: El código de verificación es incorrecto
         title: "¡Verifiquemos esa información de contacto con un código!"
+        too_many_requests: Ha alcanzado el límite de solicitud de códigos. Puede intentar de nuevo en una hora.
         verification_code_label: Ingrese el código de 6 dígitos
         verify: Verifique
       widowed:

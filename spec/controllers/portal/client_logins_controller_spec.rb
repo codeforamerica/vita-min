@@ -142,6 +142,15 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
           expect(response).to be_ok
         end
 
+        it "does not count retries to the limited address against the IP limit" do
+          20.times { post_create(email_address: "client@example.com") }
+
+          expect {
+            post_create(email_address: "other@example.com")
+          }.to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          expect(response).to be_ok
+        end
+
         it "still blocks requests before the hour is up" do
           travel 59.minutes do
             expect {
@@ -176,7 +185,7 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
       context "when one IP address requests too many codes" do
         before do
-          20.times { |i| post_create(email_address: "client#{i}@example.com") }
+          10.times { |i| post_create(email_address: "client#{i}@example.com") }
         end
 
         it "blocks further requests from that IP" do

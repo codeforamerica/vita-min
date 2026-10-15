@@ -5972,6 +5972,7 @@ en:
         body: 'A message with your code has been sent to:'
         error_message: Incorrect verification code.
         title: Let's verify that contact info with a code!
+        too_many_requests: You’ve reached the limit for code requests. You can try again in 1 hour.
         verification_code_label: Enter 6 digit code
         verify: Verify
       widowed:

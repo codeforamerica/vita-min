@@ -4,9 +4,9 @@ module Portal
     before_action :redirect_to_portal_if_client_authenticated
     before_action :validate_token, only: [:edit, :update]
     before_action :redirect_locked_clients, only: [:edit, :update] # TODO: do this on check_verification_code and update instead? weird to have it on a get request; also it happens at the end of check_verification_code anyway
-    rate_limit to: 20, within: 1.hour, name: "verification-code-by-ip", with: :render_rate_limited, only: :create
     rate_limit to: 5, within: 1.hour, name: "verification-code-by-target", scope: "client-login",
                by: :rate_limit_target, with: :render_rate_limited, only: :create, if: :rate_limit_target
+    rate_limit to: 10, within: 1.hour, name: "verification-code-by-ip", with: :render_rate_limited, only: :create
     layout "portal"
 
     def new
