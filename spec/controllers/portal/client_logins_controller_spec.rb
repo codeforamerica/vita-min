@@ -185,17 +185,44 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
 
       context "when one IP address requests too many codes" do
         before do
-          10.times { |i| post_create(email_address: "client#{i}@example.com") }
+          9.times { |i| post_create(email_address: "client#{i}@example.com") }
         end
 
-        it "blocks further requests from that IP" do
+        it "allows 10 codes an hour and blocks the 11th" do
+          expect {
+            post_create(email_address: "client9@example.com")
+          }.to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          expect(response).to be_ok
+
           expect {
             post_create(email_address: "new-client@example.com")
           }.not_to have_enqueued_job(RequestVerificationCodeForLoginJob)
           expect(response).to have_http_status(:too_many_requests)
         end
 
+        it "still blocks requests before the hour is up" do
+          post_create(email_address: "client9@example.com")
+
+          travel 59.minutes do
+            expect {
+              post_create(email_address: "new-client@example.com")
+            }.not_to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          end
+        end
+
+        it "allows requests again after the hour passes" do
+          post_create(email_address: "client9@example.com")
+
+          travel 61.minutes do
+            expect {
+              post_create(email_address: "new-client@example.com")
+            }.to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          end
+        end
+
         it "allows requests from other IPs" do
+          post_create(email_address: "client9@example.com")
+
           request.env["REMOTE_ADDR"] = "10.0.0.99"
           expect {
             post_create(email_address: "new-client@example.com")

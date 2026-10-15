@@ -209,7 +209,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    ActionController::Base.cache_store.clear # reset rate limit counters
+    ActionController::Base.cache_store.clear
     unless Capybara.current_driver == Capybara.javascript_driver
       Flipper.instance = Flipper.new(Flipper::Adapters::Memory.new)
     end

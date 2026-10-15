@@ -136,7 +136,6 @@ module Portal
       email_address = login_params[:email_address].to_s.strip.downcase
       phone_number = login_params[:sms_phone_number].to_s.strip
       contact_info = email_address.presence || (PhoneParser.normalize(phone_number) if phone_number.present?)
-      # Hashed so contact info isn't stored in the cache
       @rate_limit_target = contact_info.present? ? Digest::SHA256.hexdigest(contact_info) : nil
     rescue ActionController::ParameterMissing
       @rate_limit_target = nil
