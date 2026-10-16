@@ -209,4 +209,77 @@ describe TaxReturnCardHelper do
       end
     end
   end
+
+  describe "#tax_season_deadline_banner" do
+    let(:in_window) { true }
+    let(:state) { :review_reviewing }
+    let(:signature_ready) { true }
+    let(:has_final_tax_document) { true }
+    let(:tax_return) { instance_double(TaxReturn) }
+
+    before do
+      without_partial_double_verification do
+        allow(helper).to receive(:open_for_finishing_in_progress_intakes?).and_return(in_window)
+      end
+      allow(tax_return).to receive(:current_state).and_return(state)
+      allow(tax_return).to receive(:ready_for_8879_signature?).with(TaxReturn::PRIMARY_SIGNATURE).and_return(signature_ready)
+      allow(tax_return).to receive(:ready_for_8879_signature?).with(TaxReturn::SPOUSE_SIGNATURE).and_return(false)
+      allow(tax_return).to receive(:final_tax_documents).and_return(double(any?: has_final_tax_document))
+    end
+
+    [:review_ready_for_qr, :review_reviewing, :review_ready_for_call, :review_info_requested].each do |quality_review_state|
+      context "when the tax return is in #{quality_review_state}" do
+        let(:state) { quality_review_state }
+
+        it "returns :check_for_updates" do
+          expect(helper.tax_season_deadline_banner(tax_return)).to eq :check_for_updates
+        end
+      end
+    end
+
+    context "when the tax return is ready for the client to sign" do
+      let(:state) { :review_signature_requested }
+
+      it "returns :sign" do
+        expect(helper.tax_season_deadline_banner(tax_return)).to eq :sign
+      end
+    end
+
+    context "when a signature is requested but the final tax document is missing" do
+      let(:state) { :review_signature_requested }
+      let(:has_final_tax_document) { false }
+
+      it "returns :check_for_updates" do
+        expect(helper.tax_season_deadline_banner(tax_return)).to eq :check_for_updates
+      end
+    end
+
+    context "when the tax return is outside quality review" do
+      let(:state) { :prep_preparing }
+
+      it "returns nil" do
+        expect(helper.tax_season_deadline_banner(tax_return)).to be_nil
+      end
+    end
+
+    context "when it is outside the finishing in-progress intakes window" do
+      let(:in_window) { false }
+
+      it "returns nil" do
+        expect(helper.tax_season_deadline_banner(tax_return)).to be_nil
+      end
+    end
+  end
+
+  describe "#tax_season_deadline_date" do
+    before do
+      allow(Rails.configuration).to receive(:end_of_in_progress_intake)
+        .and_return(Time.find_zone("America/New_York").parse("2026-10-15 23:59:59"))
+    end
+
+    it "formats the end of in-progress intake date" do
+      expect(helper.tax_season_deadline_date).to eq "October 15"
+      expect(I18n.with_locale(:es) { helper.tax_season_deadline_date }).to eq "15 de octubre"
+    end
+  end
 end
