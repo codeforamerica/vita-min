@@ -1,7 +1,7 @@
 class SessionTogglesController < ApplicationController
   layout "hub"
   include AccessControllable
-  before_action :require_sign_in, if: -> { Rails.env.production? }
+  before_action :require_sign_in, unless: -> { Rails.env.development? || Rails.env.test? }
 
   def index
     @toggle_times = [
