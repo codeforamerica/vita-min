@@ -9,6 +9,7 @@ RSpec.describe Diy::DiyEmailAddressController do
 
   before do
     allow(subject).to receive(:current_diy_intake).and_return(diy_intake)
+    allow(subject).to receive(:open_for_diy?).and_return(true)
     allow(MixpanelService).to receive(:send_event)
   end
 
