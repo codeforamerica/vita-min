@@ -68,6 +68,85 @@ RSpec.describe EnvironmentCredentials do
     end
   end
 
+  describe "Sentry reporting for credentials-sourced reads" do
+    let(:mock_credentials) do
+      {
+        mailgun: {
+          api_key: "mailgun-key",
+        },
+      }
+    end
+
+    before do
+      allow(Rails.application).to receive(:credentials).and_return(mock_credentials)
+      allow(Flipper).to receive(:enabled?).with(:use_env_secrets).and_return(false)
+      allow(Sentry).to receive(:initialized?).and_return(true)
+      allow(Sentry).to receive(:capture_message)
+      allow(ENV).to receive(:[]).and_call_original
+      described_class::REPORTED_CREDENTIALS_READS.clear
+    end
+
+    it "reports the secret name at warning level when ENV has no value" do
+      allow(ENV).to receive(:[]).with('MAILGUN_API_KEY').and_return(nil)
+
+      EnvironmentCredentials['MAILGUN_API_KEY']
+
+      expect(Sentry).to have_received(:capture_message).with(
+        a_string_including("MAILGUN_API_KEY", "MISSING from ENV"),
+        level: :warning
+      )
+    end
+
+    it "reports at info level when ENV also has the value" do
+      allow(ENV).to receive(:[]).with('MAILGUN_API_KEY').and_return("env-key")
+
+      EnvironmentCredentials['MAILGUN_API_KEY']
+
+      expect(Sentry).to have_received(:capture_message).with(
+        a_string_including("MAILGUN_API_KEY", "also present in ENV"),
+        level: :info
+      )
+    end
+
+    it "reports only once per secret per process" do
+      3.times { EnvironmentCredentials['MAILGUN_API_KEY'] }
+
+      expect(Sentry).to have_received(:capture_message).once
+    end
+
+    it "does not report when credentials have no value for the name" do
+      EnvironmentCredentials['NONEXISTENT_KEY']
+
+      expect(Sentry).not_to have_received(:capture_message)
+    end
+
+    it "does not report when the flag routes the read to ENV" do
+      allow(Flipper).to receive(:enabled?).with(:use_env_secrets).and_return(true)
+
+      EnvironmentCredentials['MAILGUN_API_KEY']
+
+      expect(Sentry).not_to have_received(:capture_message)
+    end
+
+    it "stays quiet, and does not raise, before Sentry is initialized" do
+      allow(Sentry).to receive(:initialized?).and_return(false)
+
+      expect { EnvironmentCredentials['MAILGUN_API_KEY'] }.not_to raise_error
+      expect(Sentry).not_to have_received(:capture_message)
+    end
+
+    it "reports the credentials fallback in .irs, which ignores the flag" do
+      allow(Rails.application).to receive(:credentials).and_return({ irs: { efin: "123456" } })
+      allow(ENV).to receive(:[]).with('VITA_MIN_EFIN').and_return(nil)
+
+      expect(EnvironmentCredentials.irs(:efin)).to eq("123456")
+      expect(Sentry).to have_received(:capture_message).with(
+        a_string_including("VITA_MIN_EFIN"),
+        level: :warning
+      )
+    end
+  end
+
   describe ".dig" do
     let(:mock_credentials) do
       {
