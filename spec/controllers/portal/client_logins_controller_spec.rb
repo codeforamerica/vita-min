@@ -115,6 +115,122 @@ RSpec.describe Portal::ClientLoginsController, type: :controller do
       end
     end
 
+    context "rate limiting" do
+      def post_create(email_address: "", sms_phone_number: "")
+        post :create, params: { portal_request_client_login_form: { email_address: email_address, sms_phone_number: sms_phone_number } }
+      end
+
+      context "when the same email address is requested too many times" do
+        before do
+          5.times { |i| post_create(email_address: i.even? ? "client@example.com" : " Client@Example.com ") }
+        end
+
+        it "renders the form with an error and does not send another code" do
+          expect {
+            post_create(email_address: "client@example.com")
+          }.not_to have_enqueued_job(RequestVerificationCodeForLoginJob)
+
+          expect(response).to have_http_status(:too_many_requests)
+          expect(response).to render_template :new
+          expect(assigns(:form).errors[:email_address]).to include I18n.t("portal.client_logins.form.errors.too_many_requests")
+        end
+
+        it "still allows codes to other addresses" do
+          expect {
+            post_create(email_address: "other@example.com")
+          }.to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          expect(response).to be_ok
+        end
+
+        it "does not count retries to the limited address against the IP limit" do
+          20.times { post_create(email_address: "client@example.com") }
+
+          expect {
+            post_create(email_address: "other@example.com")
+          }.to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          expect(response).to be_ok
+        end
+
+        it "still blocks requests before the hour is up" do
+          travel 59.minutes do
+            expect {
+              post_create(email_address: "client@example.com")
+            }.not_to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          end
+        end
+
+        it "allows requests again after the hour passes" do
+          travel 61.minutes do
+            expect {
+              post_create(email_address: "client@example.com")
+            }.to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          end
+        end
+      end
+
+      context "when the same phone number is requested too many times in different formats" do
+        before do
+          5.times { |i| post_create(sms_phone_number: i.even? ? "(510) 555 1234" : "+15105551234") }
+        end
+
+        it "renders the form with an error on the phone number and does not send another code" do
+          expect {
+            post_create(sms_phone_number: "510-555-1234")
+          }.not_to have_enqueued_job(RequestVerificationCodeForLoginJob)
+
+          expect(response).to have_http_status(:too_many_requests)
+          expect(assigns(:form).errors[:sms_phone_number]).to include I18n.t("portal.client_logins.form.errors.too_many_requests")
+        end
+      end
+
+      context "when one IP address requests too many codes" do
+        before do
+          9.times { |i| post_create(email_address: "client#{i}@example.com") }
+        end
+
+        it "allows 10 codes an hour and blocks the 11th" do
+          expect {
+            post_create(email_address: "client9@example.com")
+          }.to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          expect(response).to be_ok
+
+          expect {
+            post_create(email_address: "new-client@example.com")
+          }.not_to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          expect(response).to have_http_status(:too_many_requests)
+        end
+
+        it "still blocks requests before the hour is up" do
+          post_create(email_address: "client9@example.com")
+
+          travel 59.minutes do
+            expect {
+              post_create(email_address: "new-client@example.com")
+            }.not_to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          end
+        end
+
+        it "allows requests again after the hour passes" do
+          post_create(email_address: "client9@example.com")
+
+          travel 61.minutes do
+            expect {
+              post_create(email_address: "new-client@example.com")
+            }.to have_enqueued_job(RequestVerificationCodeForLoginJob)
+          end
+        end
+
+        it "allows requests from other IPs" do
+          post_create(email_address: "client9@example.com")
+
+          request.env["REMOTE_ADDR"] = "10.0.0.99"
+          expect {
+            post_create(email_address: "new-client@example.com")
+          }.to have_enqueued_job(RequestVerificationCodeForLoginJob)
+        end
+      end
+    end
+
     context "as an authenticated client" do
       before { sign_in client }
 
