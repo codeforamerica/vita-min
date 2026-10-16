@@ -2064,17 +2064,23 @@ es:
     portal2:
       home:
         badge:
+          accepted: Aceptada
           almost_done: Casi lista
+          filing_by_mail: Envío por correo
           final_check: En revisión final
           in_progress: En proceso
           not_filing: No presentada
           on_hold: En pausa
+          rejected: Rechazada
+          status_label: 'Estado: %{status}'
           tax_prep: En preparación
         button:
           add_documents: Agregar documentos
           chat_with_us: Enviar mensaje
           complete_tax_questions: Preguntas completas sobre impuestos
           decline_to_sign: No quiero firmar
+          download_tax_return: Descargar declaración del %{year}
+          find_mailing_address: Buscar la dirección de envío
           message_tax_team: Enviar mensaje
           sign_your_return: Firmar su declaración
           view_documents: Ver sus documentos cargados
@@ -2093,6 +2099,18 @@ es:
         document_link:
           download_final_tax_papers: Descargar papeles de impuestos
         help_text:
+          file_accepted_intro: El IRS aceptó su declaración de impuestos del %{year}.
+          file_accepted_payments_html: Para pagar impuestos si todavía le debe al IRS, %{link}
+          file_accepted_payments_link_text: realice un pago online
+          file_accepted_payments_url: https://www.irs.gov/es/payments
+          file_accepted_refund_status_html: Para consultar el estado de su reembolso, use la herramienta del IRS %{link}
+          file_accepted_refund_status_url: https://www.irs.gov/es/refunds
+          file_accepted_wheres_my_refund_link_text: "“¿Dónde está mi reembolso?”"
+          file_mailed_instructions_html: Para terminar de procesar su declaración de impuestos, imprímala y envíela por correo a la dirección correcta. Cuando se %{link} el reembolso toma de 4 a 6 semanas en llegar.
+          file_mailed_link_text: envía por correo,
+          file_mailed_link_url: https://www.irs.gov/es/filing/where-to-file-paper-tax-returns-with-or-without-a-payment
+          file_mailed_no_action_needed: Si ya envió su declaración por correo, no necesita hacer nada más.
+          file_rejected_html: El IRS rechazó su declaración de impuestos del %{year}.<br><br>El equipo de impuestos se comunicará con usted para explicarle el motivo y los próximos pasos.
           final_steps: Su declaración de impuestos está en camino al IRS. Le informaremos cuando sea procesada.
           info_requested: Necesitamos más documentos para terminar su declaración de impuestos.
           intake_incomplete: Aún debe finalizar su formulario de impuestos.

@@ -27,6 +27,17 @@ class PartnerRoutingService
       end
     end
 
+    if @source_param.blank? && @intake.present? && @intake.needs_help_with_backtaxes?
+      from_prior_year_routing = determine_prior_year_partner
+      return from_prior_year_routing if from_prior_year_routing.present?
+
+      unless @intake.needs_help_current_year_yes?
+        @routing_method = :at_capacity
+        return
+      end
+      # client needs help with the current year too, so fall through to the standard cascade below
+    end
+
     set_base_vita_partners(language_routing: true)
 
     from_itin_enabled = vita_partner_from_itin_enabled if @intake.present? && @intake.itin_applicant?
@@ -64,6 +75,27 @@ class PartnerRoutingService
   end
 
   private
+
+  # Cascade for clients who need help with a prior year return: zip code (no language filter),
+  # then state (with language filter), then national overflow (with language filter).
+  def determine_prior_year_partner
+    set_base_vita_partners(language_routing: false)
+    @base_sites = @base_sites.with_prior_year_capability
+    @base_orgs = @base_orgs.with_prior_year_capability
+
+    from_zip = vita_partner_from_zip_code if @zip_code.present?
+    return from_zip if from_zip.present?
+
+    set_base_vita_partners(language_routing: true)
+    @base_sites = @base_sites.with_prior_year_capability
+    @base_orgs = @base_orgs.with_prior_year_capability
+    @base_vita_partners = @base_vita_partners.with_prior_year_capability
+
+    from_state = vita_partner_from_state if @zip_code.present?
+    return from_state if from_state.present?
+
+    route_to_national_overflow_partner
+  end
 
   def set_base_vita_partners(language_routing:)
     @base_sites = if language_routing

@@ -60,6 +60,13 @@ class VitaPartner < ApplicationRecord
     where(id: org_ids).or(where(type: Site::TYPE, parent_organization_id: org_ids))
   end
 
+  scope :with_prior_year_capability, -> do
+    org_ids = Organization.with_prior_year_capability.pluck(:id)
+
+    # Organizations with prior-year capability and Sites under those Orgs
+    where(id: org_ids).or(where(type: Site::TYPE, parent_organization_id: org_ids))
+  end
+
   scope :with_capacity, -> {
     org_ids = Organization.with_capacity.pluck(:id)
 

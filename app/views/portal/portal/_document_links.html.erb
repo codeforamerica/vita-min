@@ -1,10 +1,12 @@
 <% link_attributes = local_assigns[:link_attributes] || {} %>
+<% icon = local_assigns[:icon] %>
+<% link_class = local_assigns[:link_class] %>
 <% if documents.present? %>
   <% if documents.count == 1 %>
-    <%= render "portal/portal/document_link", url: portal_document_path(id: documents.first.id), text: label, link_attributes: link_attributes %>
+    <%= render "portal/portal/document_link", url: portal_document_path(id: documents.first.id), text: label, link_attributes: link_attributes, icon: icon, link_class: link_class %>
   <% else %>
     <% documents.each do |document| %>
-      <%= render "portal/portal/document_link", url: portal_document_path(id: document.id), text: t("portal.portal.home.document_link.view_document", display_name: document.display_name), link_attributes: link_attributes %>
+      <%= render "portal/portal/document_link", url: portal_document_path(id: document.id), text: t("portal.portal.home.document_link.view_document", display_name: document.display_name), link_attributes: link_attributes, icon: icon, link_class: link_class %>
     <% end %>
   <% end %>
 <% end %>
