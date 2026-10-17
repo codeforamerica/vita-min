@@ -39,6 +39,7 @@ require "mini_magick"
 class Document < ApplicationRecord
   attr_accessor :skip_screener_rerun
   ACCEPTED_FILE_TYPES = [:browser_native_image, :document]
+  MAX_FILENAME_LENGTH = 255
   has_paper_trail on: [:destroy]
   belongs_to :intake, optional: true
   belongs_to :client, touch: true
@@ -103,9 +104,21 @@ class Document < ApplicationRecord
   validate :validate_filename_length, if: -> { upload.present? }
 
   def validate_filename_length
-    if upload.attachment&.filename.to_s.length > 255
-      errors.add(:upload, :filename_too_long)
+    if upload.attachment&.filename.to_s.length > MAX_FILENAME_LENGTH
+      errors.add(:upload, I18n.t("validators.filename_too_long", max_length: MAX_FILENAME_LENGTH))
     end
+  end
+
+  # Shortens a filename to MAX_FILENAME_LENGTH, keeping the extension when possible.
+  # Use where there is no one to show a validation error to (e.g. inbound email attachments).
+  def self.truncate_filename(filename)
+    filename = filename.to_s
+    return filename if filename.length <= MAX_FILENAME_LENGTH
+
+    extension = File.extname(filename)
+    return filename[0, MAX_FILENAME_LENGTH] if extension.length >= MAX_FILENAME_LENGTH / 2
+
+    filename.delete_suffix(extension)[0, MAX_FILENAME_LENGTH - extension.length] + extension
   end
 
   def upload=(value)
@@ -148,7 +161,7 @@ class Document < ApplicationRecord
 
     jpg_image = image.format("jpg")
 
-    upload.attach(io: File.open(jpg_image.path), filename: "#{display_name}.jpg", content_type: "image/jpeg")
+    upload.attach(io: File.open(jpg_image.path), filename: Document.truncate_filename("#{display_name}.jpg"), content_type: "image/jpeg")
     update!(display_name: upload.attachment.filename)
   end
 

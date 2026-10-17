@@ -29,6 +29,23 @@ RSpec.describe DocumentTypeUploadForm do
       end
     end
 
+    context "when the filename is too long" do
+      let(:file_upload) { fixture_file_upload("test-pattern.png") }
+      let(:params) { { upload: file_upload } }
+
+      before do
+        allow(file_upload).to receive(:original_filename).and_return "#{"a" * 1000}.png"
+      end
+
+      it "is not valid and does not create a document" do
+        form = described_class.new("Other", intake, params)
+
+        expect(form).not_to be_valid
+        expect(form.errors[:upload]).to include "The file name is too long. Please rename the file to 255 characters or fewer and upload it again."
+        expect { form.save }.not_to change(Document, :count)
+      end
+    end
+
     context "when the document model has errors" do
       let(:params) { { upload: fixture_file_upload("test-pattern.png") } }
       let!(:fake_document) { build(:document) }
