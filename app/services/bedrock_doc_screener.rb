@@ -13,7 +13,7 @@ module BedrockDocScreener
     application/pdf
   ].freeze
   MAX_RAW_IMAGE_SIZE = 3.7.megabytes
-  # Bedrock rejects images over 8000px on any side; Claude downscales anything over ~1568px anyway
+  # Bedrock rejects images over 8000px on any side, so we resize them
   MAX_IMAGE_DIMENSION = 2000
 
   PROMPT_VERSION = "v1".freeze
