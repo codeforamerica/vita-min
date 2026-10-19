@@ -265,6 +265,58 @@ RSpec.feature 'client in the portal' do
       expect(page).to have_text 'Your return is signed and on its way to the IRS.'
       expect(page).to have_link 'Message tax team', href: new_portal_message_path
     end
+
+    context "download deadline banner" do
+      around do |example|
+        Timecop.freeze(current_time) do
+          example.run
+        end
+      end
+
+      before do
+        allow(Rails.configuration).to receive(:end_of_intake).and_return(DateTime.new(2026, 10, 1))
+        allow(Rails.configuration).to receive(:end_of_in_progress_intake).and_return(DateTime.new(2026, 10, 15))
+        allow(Rails.configuration).to receive(:end_of_login).and_return(DateTime.new(2026, 10, 23))
+      end
+
+      context "within the end_of_intake to end_of_in_progress_intake window" do
+        let(:current_time) { DateTime.new(2026, 10, 10) }
+
+        scenario "shows for an accepted return" do
+          client.tax_returns.last.transition_to!(:file_accepted)
+          visit '/portal/portal2'
+
+          expect(page).to have_text "Download your return by Oct 24"
+          expect(page).to have_text "To protect your information, we remove final tax returns from your account after this date."
+          expect(page).not_to have_css(".dismissible-banner__close")
+        end
+
+        scenario "shows for a return filed by mail" do
+          client.tax_returns.last.transition_to!(:file_mailed)
+          visit '/portal/portal2'
+
+          expect(page).to have_text "Download your return by Oct 24"
+        end
+
+        scenario "does not show for other statuses" do
+          client.tax_returns.last.transition_to!(:file_rejected)
+          visit '/portal/portal2'
+
+          expect(page).not_to have_text "Download your return by"
+        end
+      end
+
+      context "outside the end_of_intake to end_of_in_progress_intake window" do
+        let(:current_time) { DateTime.new(2026, 9, 1) }
+
+        scenario "does not show even for an accepted return" do
+          client.tax_returns.last.transition_to!(:file_accepted)
+          visit '/portal/portal2'
+
+          expect(page).not_to have_text "Download your return by"
+        end
+      end
+    end
   end
 end
 

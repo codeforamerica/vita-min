@@ -2114,6 +2114,9 @@ en:
         decline_to_sign_help: If you don't sign your return, your tax team will reach out to discuss.
         document_link:
           download_final_tax_papers: Download final tax papers
+        download_deadline_banner:
+          body: To protect your information, we remove final tax returns from your account after this date.
+          header: Download your return by %{date}
         help_text:
           file_accepted_intro: The IRS accepted your %{year} return.
           file_accepted_payments_html: To pay taxes if you still owe the IRS, visit %{link}
