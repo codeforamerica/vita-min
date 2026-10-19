@@ -1,6 +1,7 @@
 module Questions
   class PhoneVerificationController < QuestionsController
     include AnonymousIntakeConcern
+    include VerificationCodeRateLimitConcern
     before_action :send_verification_code, only: [:edit]
 
     layout "intake"
@@ -14,6 +15,10 @@ module Questions
     end
 
     private
+
+    def verification_contact_info
+      current_intake.sms_phone_number
+    end
 
     def send_verification_code
       return redirect_to Questions::CellPhoneNumberController.to_path_helper if current_intake.sms_phone_number.blank?
