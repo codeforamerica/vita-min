@@ -111,8 +111,7 @@ namespace :delete_ctc_data do
     # Destroy client records having CtcIntake-specific intakes.
     # This should destroy associated intake, tax_returns, efile_submissions, documents, and has_one_attached items.
     ActiveRecord::Base.transaction do
-      f_client_records = lambda { Client.select { |c| c.intake.class == Intake::CtcIntake } }
-      client_records = f_client_records.call
+      client_records = Client.where(id: Intake::CtcIntake.select(:client_id))
 
       p 'Client records (and associated) for plain CtcIntakes ...'
       p 'Tally of Client records associated w/ CtcIntake record BEFORE: ' + client_records.size.to_s
@@ -123,8 +122,8 @@ namespace :delete_ctc_data do
       client_records.each(&:destroy!)
       p 'Deleted.'
 
-      client_records = f_client_records.call
-      p 'Tally of Client records associated w/ CtcIntake record AFTER: ' + client_records.size.to_s
+      client_records_after_tally = Client.where(id: Intake::CtcIntake.select(:client_id)).count
+      p 'Tally of Client records associated w/ CtcIntake record AFTER: ' + client_records_after_tally.to_s
       p 'Tally of CtcIntake records AFTER: ' + Intake::CtcIntake.count.to_s
       p 'Tally of all TaxReturn records AFTER: ' + TaxReturn.count.to_s
 
