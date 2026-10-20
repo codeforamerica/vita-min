@@ -236,7 +236,6 @@ module VitaMin
     # against adversarial inputs -- 194,640 matches, zero Regexp::TimeoutError, 6.5ms
     # worst case. So 1s has roughly 150x headroom, and the rest of the app has only a
     # handful of short regexes and none applied to file contents.
-    Regexp.timeout = 1
 
     # ------------------------------------------------ #
     #  END additions for Rails 8.0 defaults migration  #
