@@ -236,12 +236,7 @@ module VitaMin
     # against adversarial inputs -- 194,640 matches, zero Regexp::TimeoutError, 6.5ms
     # worst case. So 1s has roughly 150x headroom, and the rest of the app has only a
     # handful of short regexes and none applied to file contents.
-    #
-    # Starting at 5s rather than the 1s default anyway, as a staged rollout: the
-    # measurement cannot cover a slow regex inside a gem that only production traffic
-    # shapes reach. Tighten this to 1 (or delete the line to inherit the default) after
-    # one release with no Regexp::TimeoutError in Sentry.
-    Regexp.timeout = 5
+    Regexp.timeout = 1
 
     # ------------------------------------------------ #
     #  END additions for Rails 8.0 defaults migration  #
