@@ -245,7 +245,7 @@ describe BedrockDocScreener do
 
   describe ".ensure_safe_image_size" do
     let(:raw_data) { "large-binary-data" }
-    let(:mini_magick_image) { double("MiniMagick::Image", size: 5.megabytes, width: 4000, height: 3000, to_blob: "shrunk-data") }
+    let(:mini_magick_image) { double("MiniMagick::Image", size: 5.megabytes, width: 1170, height: 9000, to_blob: "shrunk-data") }
 
     before do
       allow(MiniMagick::Image).to receive(:read).and_return(mini_magick_image)
@@ -390,20 +390,24 @@ describe BedrockDocScreener do
       end
     end
 
-    context "with an image already within limits" do
-      let(:raw_data) { generate_image(800, 600, "png") }
+    [[800, 600], [4032, 3024]].each do |width, height|
+      context "with a #{width}x#{height} image already within limits" do
+        let(:raw_data) { generate_image(width, height, "png") }
 
-      before do
-        allow(upload).to receive(:content_type).and_return("image/png")
-        allow(upload).to receive(:download).and_return(raw_data)
-      end
+        before do
+          allow(upload).to receive(:content_type).and_return("image/png")
+          allow(upload).to receive(:download).and_return(raw_data)
+        end
 
-      it "sends the original bytes unchanged" do
-        described_class.screen_document!(document: document)
+        it "sends the original bytes unchanged" do
+          expect(raw_data.bytesize).to be < BedrockDocScreener::MAX_RAW_IMAGE_SIZE
 
-        expect(described_class).to have_received(:invoke_bedrock_model) do |body|
-          data = JSON.parse(body)["messages"][0]["content"][0]["source"]["data"]
-          expect(Base64.decode64(data)).to eq(raw_data)
+          described_class.screen_document!(document: document)
+
+          expect(described_class).to have_received(:invoke_bedrock_model) do |body|
+            data = JSON.parse(body)["messages"][0]["content"][0]["source"]["data"]
+            expect(Base64.decode64(data)).to eq(raw_data)
+          end
         end
       end
     end

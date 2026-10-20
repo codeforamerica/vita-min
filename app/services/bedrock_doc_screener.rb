@@ -14,7 +14,9 @@ module BedrockDocScreener
   ].freeze
   MAX_RAW_IMAGE_SIZE = 3.7.megabytes
   # Bedrock rejects images over 8000px on any side, so we resize them
-  MAX_IMAGE_DIMENSION = 2000
+  MAX_IMAGE_DIMENSION = 8000
+  # Haiku 4.5 downscales anything over 1568px itself, so shrinking to this loses nothing
+  RESIZED_IMAGE_DIMENSION = 2000
 
   PROMPT_VERSION = "v1".freeze
 
@@ -121,7 +123,7 @@ module BedrockDocScreener
     return binary_data if within_limits
 
     image.combine_options do |c|
-      c.resize "#{MAX_IMAGE_DIMENSION}x#{MAX_IMAGE_DIMENSION}>"
+      c.resize "#{RESIZED_IMAGE_DIMENSION}x#{RESIZED_IMAGE_DIMENSION}>"
       c.quality "85"
     end
 
