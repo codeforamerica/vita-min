@@ -335,25 +335,6 @@ describe BedrockDocScreener do
       end
     end
 
-    # Minimal blank single-page PDF; sizes are in points (72 per inch)
-    def generate_pdf(width_pt, height_pt)
-      objects = [
-        "<< /Type /Catalog /Pages 2 0 R >>",
-        "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
-        "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 #{width_pt} #{height_pt}] >>"
-      ]
-      pdf = +"%PDF-1.4\n"
-      offsets = objects.each_with_index.map do |object, i|
-        offset = pdf.bytesize
-        pdf << "#{i + 1} 0 obj\n#{object}\nendobj\n"
-        offset
-      end
-      xref_offset = pdf.bytesize
-      pdf << "xref\n0 #{objects.size + 1}\n0000000000 65535 f \n"
-      offsets.each { |offset| pdf << format("%010d 00000 n \n", offset) }
-      pdf << "trailer\n<< /Size #{objects.size + 1} /Root 1 0 R >>\nstartxref\n#{xref_offset}\n%%EOF\n"
-    end
-
     def sent_image_dimensions
       dimensions = []
       expect(described_class).to have_received(:invoke_bedrock_model) do |body|
@@ -413,12 +394,15 @@ describe BedrockDocScreener do
     end
 
     context "with a PDF page that renders taller than 8000px" do
-      # 50in tall page, rendered by pdftoppm at 200 DPI => 10000px
-      let(:pdf_data) { generate_pdf(612, 3600) }
-
       before do
         allow(upload).to receive(:content_type).and_return("application/pdf")
-        allow(upload).to receive(:download).and_return(pdf_data)
+        allow(upload).to receive(:download).and_return("%PDF-1.4")
+        # Stand in for pdftoppm: write a tall rendered page where it would
+        allow(described_class).to receive(:system) do |*args, **|
+          output_prefix = args[5]
+          File.binwrite("#{output_prefix}-1.png", generate_image(1200, 9000, "png"))
+          true
+        end
       end
 
       it "resizes the rendered page to fit within Bedrock's dimension limit" do
