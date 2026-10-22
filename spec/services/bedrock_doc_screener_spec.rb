@@ -385,6 +385,16 @@ describe BedrockDocScreener do
       end
     end
 
+    context "with PDF with over 20 pages" do
+      let(:doc_1) { create(:document, upload_path: Rails.root.join(
+          "spec", "fixtures", "files", "document-with-25-pages.pdf")) }
+
+      it "only takes the first 20 pages" do
+        result = described_class.pdf_to_png_base64(doc_1.upload)
+        expect(result.size).to eq(20)
+      end
+    end
+
     context "with a long PDF" do
       let!(:png_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
 
@@ -397,11 +407,6 @@ describe BedrockDocScreener do
         fake_pages = (1..25).map { |i| "/tmp/fake_dir/page-#{i}.png" }
         allow(Dir).to receive(:glob).and_return(fake_pages)
         allow(File).to receive(:binread).and_return(png_data)
-      end
-
-      it "only takes the first 20 pages" do
-        result = described_class.pdf_to_png_base64(upload)
-        expect(result.size).to eq(20)
       end
 
       it "compresses individual PDF pages if they are too large" do
