@@ -202,3 +202,8 @@ gem "aws-sdk-core", "~> 3.190"
 gem "aws-sdk-bedrockruntime", "~> 1.2"
 
 gem 'oauth2', '>= 2.0.22'
+
+# excon is a transitive dep of platform-api; forcing this version to
+# get the updated certs, per this CVE: https://security.aikido.dev/cve/AIKIDO-2026-948376
+# This line can hopefully be removed in near the future.
+gem 'excon', :git => 'https://github.com/excon/excon.git', :tag => 'v1.8.0'
