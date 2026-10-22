@@ -33,6 +33,7 @@ commands:
           command: |
             wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
             sudo apt-get update --allow-releaseinfo-change
+            sudo apt-get install -y poppler-utils
       - run:
           name: install pdftk-java
           command: ./vendor/pdftk/install
