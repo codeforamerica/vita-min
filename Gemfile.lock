@@ -10,14 +10,6 @@ GIT
       jquery-rails
       sass
 
-GIT
-  remote: https://github.com/excon/excon.git
-  revision: e71199325b430d9b037c61b5c70fd7b87c1e4d67
-  tag: v1.8.0
-  specs:
-    excon (1.8.0)
-      logger
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -268,6 +260,8 @@ GEM
       thread_safe
     erb (6.0.7)
     erubi (1.13.1)
+    excon (1.8.0)
+      logger
     execjs (2.10.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -828,7 +822,6 @@ DEPENDENCIES
   dogapi
   dotenv
   easy_translate
-  excon!
   factory_bot_rails
   faraday (>= 2.14.2)
   flamegraph
