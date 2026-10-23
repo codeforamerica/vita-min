@@ -192,7 +192,9 @@ module BedrockDocScreener
       
       Dir.mktmpdir do |tmpdir|
         output_prefix = File.join(tmpdir, "page")
-        success = system("pdftoppm", "-png", "-r", "200", pdf.path, output_prefix,
+
+        # Use `-l` arg b/c Bedrock has a 20 image limit per request
+        success = system("pdftoppm", "-png", "-r", "72", "-l", "20", pdf.path, output_prefix,
                          out: File::NULL, err: File::NULL)
         unless success
           raise "pdftoppm command failed with exit code #{$?.exitstatus}"
@@ -202,8 +204,7 @@ module BedrockDocScreener
           File.basename(f)[/(\d+)\.png$/, 1].to_i
         end
 
-        # Bedrock has a 20 image limit per request
-        png_files.take(20).each do |png_path|
+        png_files.each do |png_path|
           data = File.binread(png_path)
 
           if data.bytesize > MAX_RAW_IMAGE_SIZE

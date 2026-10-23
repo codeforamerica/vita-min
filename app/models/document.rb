@@ -71,6 +71,12 @@ class Document < ApplicationRecord
   scope :archived, ->() { where(archived: true) }
   scope :with_assessments, -> { joins(:assessments).distinct }
 
+  # Based on the discussion over at https://github.com/rails/rails/issues/37304
+  # (regarding spurious ActiveStorage::FileNotFoundError errors)
+  # the `has_one_attached` directive formerly needed to be placed after the
+  # `after_created_commit`, but as of Rails 7.1, now it should be placed before.
+  has_one_attached :upload
+
   after_create_commit do
     if uploaded_by.is_a?(Client)
       InteractionTrackingService.record_incoming_interaction(
@@ -89,9 +95,6 @@ class Document < ApplicationRecord
   after_update_commit :rerun_screener_if_document_type_changed,
                       if: -> { saved_change_to_document_type? && !skip_screener_rerun }
 
-  # has_one_attached needs to be called after defining any callbacks that access attachments, like
-  # conversion to another filetype; see https://github.com/rails/rails/issues/37304
-  has_one_attached :upload
   validates :upload, file_type_allowed: true, if: -> { upload.present? }
   validate :validate_filename_length, if: -> { upload.present? }
 
