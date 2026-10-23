@@ -173,6 +173,7 @@ describe BedrockDocScreener do
       allow(upload).to receive(:attached?).and_return(true)
       allow(upload).to receive(:content_type).and_return("image/jpeg")
       allow(upload).to receive(:download).and_return("fake-binary-data")
+      allow(described_class).to receive(:ensure_safe_image_size) { |data| data }
       allow(described_class).to receive(:invoke_bedrock_model).and_return(fake_aws_response)
     end
 
@@ -222,6 +223,7 @@ describe BedrockDocScreener do
       allow(described_class).to receive(:system).and_return(true)
       allow(Dir).to receive(:glob).and_return(%w[/tmp/fake_dir/page-1.png /tmp/fake_dir/page-2.png])
       allow(File).to receive(:binread).and_return("png-binary-data")
+      allow(described_class).to receive(:ensure_safe_image_size) { |data| data }
     end
 
     it "returns an array of png base64 hashes for each page" do
@@ -243,7 +245,7 @@ describe BedrockDocScreener do
 
   describe ".ensure_safe_image_size" do
     let(:raw_data) { "large-binary-data" }
-    let(:mini_magick_image) { double("MiniMagick::Image", size: 5.megabytes, to_blob: "shrunk-data") }
+    let(:mini_magick_image) { double("MiniMagick::Image", size: 5.megabytes, width: 1170, height: 9000, to_blob: "shrunk-data") }
 
     before do
       allow(MiniMagick::Image).to receive(:read).and_return(mini_magick_image)
@@ -296,6 +298,7 @@ describe BedrockDocScreener do
         fake_pages = (1..25).map { |i| "/tmp/fake_dir/page-#{i}.png" }
         allow(Dir).to receive(:glob).and_return(fake_pages)
         allow(File).to receive(:binread).and_return("small-png")
+        allow(described_class).to receive(:ensure_safe_image_size) { |data| data }
       end
 
       it "only takes the first 20 pages" do
@@ -311,6 +314,101 @@ describe BedrockDocScreener do
         described_class.pdf_to_png_base64(upload)
 
         expect(described_class).to have_received(:ensure_safe_image_size).with(large_page_data)
+      end
+    end
+  end
+
+  describe "image dimension limits" do
+    # Bedrock rejects any image with a side over 8000px, regardless of file size
+    let(:bedrock_max_dimension) { 8000 }
+    let(:upload) { instance_double("ActiveStorageUpload") }
+    let(:document) { instance_double("Document", upload: upload, document_type: "Employment") }
+
+    def generate_image(width, height, ext)
+      Tempfile.create(["generated", ".#{ext}"]) do |file|
+        MiniMagick.convert do |convert|
+          convert.size "#{width}x#{height}"
+          convert << "gradient:white-gray90"
+          convert << file.path
+        end
+        File.binread(file.path)
+      end
+    end
+
+    def sent_image_dimensions
+      dimensions = []
+      expect(described_class).to have_received(:invoke_bedrock_model) do |body|
+        JSON.parse(body)["messages"][0]["content"].select { |c| c["type"] == "image" }.each do |image|
+          dimensions << MiniMagick::Image.read(Base64.decode64(image["source"]["data"])).dimensions
+        end
+      end
+      dimensions
+    end
+
+    before do
+      allow(upload).to receive(:attached?).and_return(true)
+      allow(described_class).to receive(:invoke_bedrock_model).and_return(
+        double("Response", body: StringIO.new({ content: [{ type: "text", text: "{}" }] }.to_json))
+      )
+    end
+
+    [["image/png", "png"], ["image/jpeg", "jpg"]].each do |media_type, ext|
+      context "with a #{ext} under the byte limit but taller than 8000px" do
+        let(:raw_data) { generate_image(1170, 9000, ext) }
+
+        before do
+          allow(upload).to receive(:content_type).and_return(media_type)
+          allow(upload).to receive(:download).and_return(raw_data)
+        end
+
+        it "resizes it to fit within Bedrock's dimension limit" do
+          expect(raw_data.bytesize).to be < BedrockDocScreener::MAX_RAW_IMAGE_SIZE
+
+          described_class.screen_document!(document: document)
+
+          expect(sent_image_dimensions.flatten.max).to be <= bedrock_max_dimension
+        end
+      end
+    end
+
+    [[800, 600], [4032, 3024]].each do |width, height|
+      context "with a #{width}x#{height} image already within limits" do
+        let(:raw_data) { generate_image(width, height, "png") }
+
+        before do
+          allow(upload).to receive(:content_type).and_return("image/png")
+          allow(upload).to receive(:download).and_return(raw_data)
+        end
+
+        it "sends the original bytes unchanged" do
+          expect(raw_data.bytesize).to be < BedrockDocScreener::MAX_RAW_IMAGE_SIZE
+
+          described_class.screen_document!(document: document)
+
+          expect(described_class).to have_received(:invoke_bedrock_model) do |body|
+            data = JSON.parse(body)["messages"][0]["content"][0]["source"]["data"]
+            expect(Base64.decode64(data)).to eq(raw_data)
+          end
+        end
+      end
+    end
+
+    context "with a PDF page that renders taller than 8000px" do
+      before do
+        allow(upload).to receive(:content_type).and_return("application/pdf")
+        allow(upload).to receive(:download).and_return("%PDF-1.4")
+        # Stand in for pdftoppm: write a tall rendered page where it would
+        allow(described_class).to receive(:system) do |*args, **|
+          output_prefix = args[5]
+          File.binwrite("#{output_prefix}-1.png", generate_image(1200, 9000, "png"))
+          true
+        end
+      end
+
+      it "resizes the rendered page to fit within Bedrock's dimension limit" do
+        described_class.screen_document!(document: document)
+
+        expect(sent_image_dimensions.flatten.max).to be <= bedrock_max_dimension
       end
     end
   end
