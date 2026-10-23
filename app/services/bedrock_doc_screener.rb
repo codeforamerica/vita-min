@@ -15,7 +15,7 @@ module BedrockDocScreener
     image/tiff
     application/pdf
   ].freeze
-  # image formats Bedrock accepts as-is; anything else gets converted to jpeg
+  # image formats Bedrock accepts as it is, anything else gets converted to jpeg
   BEDROCK_IMAGE_TYPES = %w[
     image/png
     image/jpeg
