@@ -2205,7 +2205,7 @@ en:
       decline_signature:
         confirmation: Thanks for letting us know. Your tax team will reach out to discuss your return.
       index:
-        final_return_not_started: Final return not started
+        final_return_not_started: Not available yet
         final_tax_return: "%{year} Final tax return"
         title: Tax returns
       show:
@@ -2221,7 +2221,7 @@ en:
         title: Add a document
       error: There was an error uploading your document. Try again.
       index:
-        final_return_not_started: Final return not started
+        final_return_not_started: Not available yet
         final_tax_return: Final tax return
         message_my_tax_team: Message my tax team
         please_add_document: Please add document.
