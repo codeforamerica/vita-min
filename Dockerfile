@@ -3,7 +3,8 @@ FROM ruby:4.0.6
 # The Docker environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
 RUN apt-get update --allow-releaseinfo-change
 
-# System prerequisites
+# System prerequisites. Upgrade first so Debian security patches land even when
+# the upstream Ruby image lags behind.
 RUN apt-get update \
   && apt-get upgrade -y --no-install-recommends \
   && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript default-jre poppler-utils curl \
