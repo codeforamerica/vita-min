@@ -172,8 +172,7 @@ describe BedrockDocScreener do
     before do
       allow(upload).to receive(:attached?).and_return(true)
       allow(upload).to receive(:content_type).and_return("image/jpeg")
-      allow(upload).to receive(:download).and_return("fake-binary-data")
-      allow(described_class).to receive(:ensure_safe_image_size) { |data| data }
+      allow(upload).to receive(:download).and_return(File.binread(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")))
       allow(described_class).to receive(:invoke_bedrock_model).and_return(fake_aws_response)
     end
 
@@ -190,7 +189,19 @@ describe BedrockDocScreener do
 
       expect {
         described_class.screen_document!(document: document)
-      }.to raise_error("Unsupported media type: text/plain")
+      }.to raise_error(BedrockDocScreener::UnsupportedMediaTypeError, "Unsupported media type: text/plain")
+    end
+
+    it "sends the media type detected from the bytes, not the stored content type" do
+      allow(upload).to receive(:content_type).and_return("image/jpeg")
+      allow(upload).to receive(:download).and_return(File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")))
+
+      described_class.screen_document!(document: document)
+
+      expect(described_class).to have_received(:invoke_bedrock_model) do |arg|
+        parsed = JSON.parse(arg)
+        expect(parsed["messages"].first["content"].first["source"]["media_type"]).to eq("image/png")
+      end
     end
 
     it "returns parsed result_json and raw_response_json for supported images" do
@@ -216,14 +227,14 @@ describe BedrockDocScreener do
 
   describe ".pdf_to_png_base64" do
     let(:upload) { instance_double("ActiveStorageUpload") }
+    let!(:png_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
 
     before do
       allow(upload).to receive(:download).and_return("%PDF-1.4 ... fake pdf bytes ...") # pretend the "download" returns the PDF bytes
       allow(Dir).to receive(:mktmpdir).and_yield("/tmp/fake_dir")
       allow(described_class).to receive(:system).and_return(true)
       allow(Dir).to receive(:glob).and_return(%w[/tmp/fake_dir/page-1.png /tmp/fake_dir/page-2.png])
-      allow(File).to receive(:binread).and_return("png-binary-data")
-      allow(described_class).to receive(:ensure_safe_image_size) { |data| data }
+      allow(File).to receive(:binread).and_return(png_data)
     end
 
     it "returns an array of png base64 hashes for each page" do
@@ -232,7 +243,7 @@ describe BedrockDocScreener do
       expect(result).to all(include(:media_type, :base64_data))
       expect(result.map { |h| h[:media_type] }.uniq).to eq(["image/png"])
       result.each do |h|
-        expect(Base64.decode64(h[:base64_data])).to eq("png-binary-data")
+        expect(Base64.decode64(h[:base64_data])).to eq(png_data)
       end
     end
 
@@ -243,22 +254,47 @@ describe BedrockDocScreener do
     end
   end
 
-  describe ".ensure_safe_image_size" do
-    let(:raw_data) { "large-binary-data" }
-    let(:mini_magick_image) { double("MiniMagick::Image", size: 5.megabytes, width: 1170, height: 9000, to_blob: "shrunk-data") }
+  describe ".prepare_image" do
+    let(:png_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
 
-    before do
-      allow(MiniMagick::Image).to receive(:read).and_return(mini_magick_image)
-      allow(mini_magick_image).to receive(:combine_options).and_yield(mini_magick_image)
-      allow(mini_magick_image).to receive(:resize)
-      allow(mini_magick_image).to receive(:quality)
+    it "passes through images Bedrock supports, using the type detected from the bytes" do
+      result = described_class.prepare_image(png_data)
+
+      expect(result[:media_type]).to eq("image/png")
+      expect(Base64.decode64(result[:base64_data])).to eq(png_data)
     end
 
-    it "resizes and reduces quality of the image" do
+    it "converts image types Bedrock does not support to jpeg" do
+      tiff_data = MiniMagick::Image.read(png_data).tap { |image| image.format("tiff") }.to_blob
+
+      result = described_class.prepare_image(tiff_data)
+
+      expect(result[:media_type]).to eq("image/jpeg")
+      expect(Marcel::MimeType.for(StringIO.new(Base64.decode64(result[:base64_data])))).to eq("image/jpeg")
+    end
+
+    it "shrinks images over the size limit" do
+      large_data = "A" * 4.megabytes
+      allow(described_class).to receive(:ensure_safe_image_size).and_return("shrunk-data")
+
+      result = described_class.prepare_image(large_data)
+
+      expect(described_class).to have_received(:ensure_safe_image_size).with(large_data)
+      expect(result).to eq(media_type: "image/jpeg", base64_data: Base64.strict_encode64("shrunk-data"))
+    end
+  end
+
+  describe ".ensure_safe_image_size" do
+    let(:raw_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
+
+    it "converts the image to jpeg" do
       result = described_class.ensure_safe_image_size(raw_data)
 
-      expect(mini_magick_image).to have_received(:combine_options)
-      expect(result).to eq("shrunk-data")
+      expect(Marcel::MimeType.for(StringIO.new(result))).to eq("image/jpeg")
+    end
+
+    it "raises for data that is not an image" do
+      expect { described_class.ensure_safe_image_size("not-an-image") }.to raise_error(MiniMagick::Error)
     end
   end
 
@@ -289,6 +325,8 @@ describe BedrockDocScreener do
     end
 
     context "with a long PDF" do
+      let!(:png_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
+
       before do
         allow(upload).to receive(:content_type).and_return("application/pdf")
         allow(upload).to receive(:download).and_return("%PDF-1.4")
@@ -297,8 +335,7 @@ describe BedrockDocScreener do
 
         fake_pages = (1..25).map { |i| "/tmp/fake_dir/page-#{i}.png" }
         allow(Dir).to receive(:glob).and_return(fake_pages)
-        allow(File).to receive(:binread).and_return("small-png")
-        allow(described_class).to receive(:ensure_safe_image_size) { |data| data }
+        allow(File).to receive(:binread).and_return(png_data)
       end
 
       it "only takes the first 20 pages" do
