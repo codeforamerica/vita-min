@@ -23,6 +23,10 @@ module BedrockDocScreener
     image/webp
   ].freeze
   MAX_RAW_IMAGE_SIZE = 3.7.megabytes
+  # Bedrock rejects images over 8000px on any side, so we resize them
+  MAX_IMAGE_DIMENSION = 8000
+  # Haiku 4.5 downscales anything over 1568px itself, so shrinking to this loses nothing
+  RESIZED_IMAGE_DIMENSION = 2000
 
   class UnsupportedMediaTypeError < StandardError; end
 
@@ -125,7 +129,7 @@ module BedrockDocScreener
   def self.prepare_image(raw_data)
     media_type = Marcel::MimeType.for(StringIO.new(raw_data))
 
-    if !BEDROCK_IMAGE_TYPES.include?(media_type) || raw_data.bytesize > MAX_RAW_IMAGE_SIZE
+    unless BEDROCK_IMAGE_TYPES.include?(media_type) && within_bedrock_limits?(raw_data)
       raw_data = ensure_safe_image_size(raw_data)
       media_type = "image/jpeg"
     end
@@ -136,13 +140,20 @@ module BedrockDocScreener
     }
   end
 
+  def self.within_bedrock_limits?(binary_data)
+    return false if binary_data.bytesize > MAX_RAW_IMAGE_SIZE
+
+    image = MiniMagick::Image.read(binary_data)
+    image.width <= MAX_IMAGE_DIMENSION && image.height <= MAX_IMAGE_DIMENSION
+  end
+
   # Converts to jpeg and shrinks to fit within Bedrock's limits
   def self.ensure_safe_image_size(binary_data)
     image = MiniMagick::Image.read(binary_data)
     image.format "jpeg"
     image.combine_options do |c|
       c.colorspace "sRGB"
-      c.resize "2000x2000>"
+      c.resize "#{RESIZED_IMAGE_DIMENSION}x#{RESIZED_IMAGE_DIMENSION}>"
       c.quality "85"
     end
 
