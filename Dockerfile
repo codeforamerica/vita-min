@@ -1,4 +1,4 @@
-FROM ruby:4.0.6
+FROM ruby:4.0.9
 
 # The Docker environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
 RUN apt-get update --allow-releaseinfo-change
@@ -8,7 +8,7 @@ RUN apt-get update --allow-releaseinfo-change
 RUN apt-get update \
   && apt-get upgrade -y --no-install-recommends \
   && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript default-jre poppler-utils curl \
-  && curl -sL https://deb.nodesource.com/setup_26.x | bash - \
+  && curl -sL https://deb.nodesource.com/setup_24.x | bash - \
   && apt-get update && apt-get install -y nodejs \
   && corepack enable \
   && rm -rf /var/lib/apt/lists/*
