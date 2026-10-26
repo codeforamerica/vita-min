@@ -10,9 +10,25 @@ module BedrockDocScreener
   SUPPORTED_MEDIA_TYPES = %w[
     image/png
     image/jpeg
+    image/gif
+    image/bmp
+    image/tiff
     application/pdf
   ].freeze
+  # image formats Bedrock accepts as it is, anything else gets converted to jpeg
+  BEDROCK_IMAGE_TYPES = %w[
+    image/png
+    image/jpeg
+    image/gif
+    image/webp
+  ].freeze
   MAX_RAW_IMAGE_SIZE = 3.7.megabytes
+  # Bedrock rejects images over 8000px on any side, so we resize them
+  MAX_IMAGE_DIMENSION = 8000
+  # Haiku 4.5 downscales anything over 1568px itself, so shrinking to this loses nothing
+  RESIZED_IMAGE_DIMENSION = 2000
+
+  class UnsupportedMediaTypeError < StandardError; end
 
   PROMPT_VERSION = "v1".freeze
 
@@ -84,20 +100,12 @@ module BedrockDocScreener
     raise "Document has no upload attached" unless document.upload.attached?
 
     media_type = document.upload.content_type
-    raise "Unsupported media type: #{media_type}" unless SUPPORTED_MEDIA_TYPES.include?(media_type)
+    raise UnsupportedMediaTypeError, "Unsupported media type: #{media_type}" unless SUPPORTED_MEDIA_TYPES.include?(media_type)
 
     input = if media_type == "application/pdf"
               pdf_to_png_base64(document.upload)
             else
-              raw_data = document.upload.download
-              if raw_data.bytesize > MAX_RAW_IMAGE_SIZE
-                raw_data = ensure_safe_image_size(raw_data)
-              end
-
-              [{
-                 media_type: media_type,
-                 base64_data: Base64.strict_encode64(raw_data)
-               }]
+              [prepare_image(document.upload.download)]
             end
 
     body_hash = construct_bedrock_payload(
@@ -115,10 +123,37 @@ module BedrockDocScreener
     [result_json, raw_response_json]
   end
 
+  # The stored content_type can disagree with the actual bytes (e.g. a png named .jpg
+  # attached with identify: false), and Bedrock rejects the request when they don't match.
+  # So we detect the type from the bytes and convert anything Bedrock can't take.
+  def self.prepare_image(raw_data)
+    media_type = Marcel::MimeType.for(StringIO.new(raw_data))
+
+    unless BEDROCK_IMAGE_TYPES.include?(media_type) && within_bedrock_limits?(raw_data)
+      raw_data = ensure_safe_image_size(raw_data)
+      media_type = "image/jpeg"
+    end
+
+    {
+      media_type: media_type,
+      base64_data: Base64.strict_encode64(raw_data)
+    }
+  end
+
+  def self.within_bedrock_limits?(binary_data)
+    return false if binary_data.bytesize > MAX_RAW_IMAGE_SIZE
+
+    image = MiniMagick::Image.read(binary_data)
+    image.width <= MAX_IMAGE_DIMENSION && image.height <= MAX_IMAGE_DIMENSION
+  end
+
+  # Converts to jpeg and shrinks to fit within Bedrock's limits
   def self.ensure_safe_image_size(binary_data)
     image = MiniMagick::Image.read(binary_data)
+    image.format "jpeg"
     image.combine_options do |c|
-      c.resize "2000x2000>"
+      c.colorspace "sRGB"
+      c.resize "#{RESIZED_IMAGE_DIMENSION}x#{RESIZED_IMAGE_DIMENSION}>"
       c.quality "85"
     end
 
@@ -204,16 +239,7 @@ module BedrockDocScreener
 
         # Bedrock has a 20 image limit per request
         png_files.take(20).each do |png_path|
-          data = File.binread(png_path)
-
-          if data.bytesize > MAX_RAW_IMAGE_SIZE
-            data = ensure_safe_image_size(data)
-          end
-
-          images << {
-            media_type: "image/png",
-            base64_data: Base64.strict_encode64(data)
-          }
+          images << prepare_image(File.binread(png_path))
         end
       end
     end
