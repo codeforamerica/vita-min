@@ -497,20 +497,12 @@ describe BedrockDocScreener do
     end
 
     context "with a PDF page that renders taller than 8000px" do
-      before do
-        allow(upload).to receive(:content_type).and_return("application/pdf")
-        allow(upload).to receive(:download).and_return("%PDF-1.4")
-        # Stand in for pdftoppm: write a tall rendered page where it would
-        allow(described_class).to receive(:system) do |*args, **|
-          output_prefix = args[5]
-          File.binwrite("#{output_prefix}-1.png", generate_image(1200, 9000, "png"))
-          true
-        end
-      end
+     # 50in tall page, rendered by pdftoppm at 200 DPI => 10000px
+      let(:pdf_data) { create(:document, upload_path: Rails.root.join(
+          "spec", "fixtures", "files", "really-tall-pdf.pdf")) }
 
       it "resizes the rendered page to fit within Bedrock's dimension limit" do
-        described_class.screen_document!(document: document)
-
+        described_class.screen_document!(document: pdf_data)
         expect(sent_image_dimensions.flatten.max).to be <= bedrock_max_dimension
       end
     end
