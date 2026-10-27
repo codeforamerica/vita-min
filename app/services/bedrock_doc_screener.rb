@@ -44,7 +44,7 @@ module BedrockDocScreener
     end
   end
 
-  PROMPT_VERSION = "v2".freeze
+  PROMPT_VERSION = "v1".freeze
 
   def self.prompt_for(document_type:)
     <<~PROMPT
