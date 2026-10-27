@@ -166,7 +166,9 @@ namespace :delete_ctc_data do
         raise ActiveRecord::Rollback
       end
     else
-      delete_all_ctc_data.call
+      ActiveRecord::Base.transaction do
+        delete_all_ctc_data.call
+      end
     end
 
     p '--------------------------------'
