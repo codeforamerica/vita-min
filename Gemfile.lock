@@ -260,8 +260,7 @@ GEM
       thread_safe
     erb (6.0.7)
     erubi (1.13.1)
-    erubis (2.7.0)
-    excon (1.5.0)
+    excon (1.8.0)
       logger
     execjs (2.10.0)
     factory_bot (6.2.1)
@@ -314,11 +313,11 @@ GEM
     hashdiff (1.0.1)
     hashery (2.1.2)
     hashie (5.0.0)
-    heroics (0.1.2)
-      erubis (~> 2.0)
+    heroics (0.1.4)
+      base64
       excon
+      json
       moneta
-      multi_json (>= 1.9.2)
       webrick
     highline (3.1.2)
       reline
@@ -489,7 +488,7 @@ GEM
       activerecord (>= 5.2)
       activesupport (>= 5.2)
     phony (2.20.10)
-    platform-api (3.5.0)
+    platform-api (3.9.1)
       heroics (~> 0.1.1)
       moneta (~> 1.0.0)
       rate_throttle_client (~> 0.1.0)
