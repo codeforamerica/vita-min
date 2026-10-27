@@ -1,6 +1,6 @@
 # Can run manually via:
 #     bundle exec rake delete_ctc_data:perform[mode]
-#     ... where mode is DRY_RUN or DESTRUCTIVE
+#     ... where mode is dry_run or destructive
 namespace :delete_ctc_data do
   def get_drivers_license_ids_for_ctc_intakes
     ids = Set[]
@@ -20,13 +20,13 @@ namespace :delete_ctc_data do
     p 'STARTING delete_ctc_data:perform'
     p '--------------------------------'
 
-    if ! ['DRY_RUN', 'DESTRUCTIVE'].include? args.mode
-      p 'Specify mode, either DRY_RUN or DESTRUCTIVE'
-      return
+    if ! ['dry_run', 'destructive'].include? args.mode
+      p 'Specify mode, either dry_run or destructive'
+      next
     end
 
-    DRY_RUN = true if args.mode != 'DESTRUCTIVE'
-    if DRY_RUN
+    dry_run = true if args.mode != 'destructive'
+    if dry_run
       p 'DRY RUN! Nothing will be deleted.'
     end
 
@@ -35,54 +35,44 @@ namespace :delete_ctc_data do
     if resp.chomp != "YES"; exit(0); end
 
     #---------------------------------------------------------------------------
-    #  prep
-    #---------------------------------------------------------------------------
+    delete_all_ctc_data = lambda do
 
-    # Save DriversLicense IDs as a preliminary step; then we'll destroy the
-    # DriversLicense records later. (A PG::ForeignKeyViolation error
-    # occurs if attempting to destroy a DriversLicense record when an existing Intake
-    # record has a `primary_drivers_license_id` or `spouse_drivers_license_id`
-    # referring to the DriversLicense record in question.)
-    saved_ctc_drivers_license_ids = get_drivers_license_ids_for_ctc_intakes
+      #-------------------------------------------------------------------------
+      #  prep
+      #-------------------------------------------------------------------------
 
-    #---------------------------------------------------------------------------
-    #  general stuff
-    #---------------------------------------------------------------------------
+      # Save DriversLicense IDs as a preliminary step; then we'll destroy the
+      # DriversLicense records later. (A PG::ForeignKeyViolation error
+      # occurs if attempting to destroy a DriversLicense record when an existing Intake
+      # record has a `primary_drivers_license_id` or `spouse_drivers_license_id`
+      # referring to the DriversLicense record in question.)
+      saved_ctc_drivers_license_ids = get_drivers_license_ids_for_ctc_intakes
 
-    p '--------------------------------'
-    # Destroy all SystemNote::CtcPortalAction
-    ActiveRecord::Base.transaction do
+      #-------------------------------------------------------------------------
+      #  general stuff
+      #-------------------------------------------------------------------------
+
+      p '--------------------------------'
+      # Destroy all SystemNote::CtcPortalAction
       SystemNote::CtcPortalAction.all.each(&:destroy!) 
       p 'Destroyed all CtcPortalAction records.'
 
-      raise ActiveRecord::Rollback if DRY_RUN
-    end
-
-    p '--------------------------------'
-    # Destroy all SystemNote::CtcPortalUpdate
-    ActiveRecord::Base.transaction do
+      p '--------------------------------'
+      # Destroy all SystemNote::CtcPortalUpdate
       SystemNote::CtcPortalUpdate.all.each(&:destroy!)
       p 'Destroyed all CtcPortalUpdate records.'
 
-      raise ActiveRecord::Rollback if DRY_RUN
-    end  
-
-    p '--------------------------------'
-    # Destroy all CtcSignup records.
-    ActiveRecord::Base.transaction do
+      p '--------------------------------'
+      # Destroy all CtcSignup records.
       CtcSignup.all.each(&:destroy!)
       p 'Destroyed all CtcSignup records.'
 
-      raise ActiveRecord::Rollback if DRY_RUN
-    end
+      #-------------------------------------------------------------------------
+      #  Archived::Intake::CtcIntake2021
+      #-------------------------------------------------------------------------
 
-    #---------------------------------------------------------------------------
-    #  Archived::Intake::CtcIntake2021
-    #---------------------------------------------------------------------------
-
-    p '--------------------------------'
-    # Destroy all Client records have CtcIntake2021-specific intakes.
-    ActiveRecord::Base.transaction do
+      p '--------------------------------'
+      # Destroy all Client records have CtcIntake2021-specific intakes.
       f_client_ids = lambda { Archived::Intake::CtcIntake2021.pluck(:client_id).compact.uniq }
       client_ids = f_client_ids.call
 
@@ -92,6 +82,11 @@ namespace :delete_ctc_data do
       p 'Tally of all TaxReturn records BEFORE: ' + TaxReturn.count.to_s
 
       p 'Deleting ...' 
+      Archived::Intake::CtcIntake2021.find_each do |intake|
+        intake.bank_account&.destroy!
+        intake.dependents.each(&:destroy!)
+        intake.delete
+      end
       client_ids.each { |id| Client.find(id).destroy! }
       p 'Deleted.'
 
@@ -100,17 +95,13 @@ namespace :delete_ctc_data do
       p 'Tally of CtcIntake2021 records AFTER: ' + Archived::Intake::CtcIntake2021.count.to_s
       p 'Tally of all TaxReturn records AFTER: ' + TaxReturn.count.to_s
 
-      raise ActiveRecord::Rollback if DRY_RUN
-    end
+      #-------------------------------------------------------------------------
+      #  Intake::CtcIntake
+      #-------------------------------------------------------------------------
 
-    #---------------------------------------------------------------------------
-    #  Intake::CtcIntake
-    #---------------------------------------------------------------------------
-
-    p '--------------------------------'
-    # Destroy client records having CtcIntake-specific intakes.
-    # This should destroy associated intake, tax_returns, efile_submissions, documents, and has_one_attached items.
-    ActiveRecord::Base.transaction do
+      p '--------------------------------'
+      # Destroy client records having CtcIntake-specific intakes.
+      # This should destroy associated intake, tax_returns, efile_submissions, documents, and has_one_attached items.
       client_records = Client.where(id: Intake::CtcIntake.select(:client_id))
 
       p 'Client records (and associated) for plain CtcIntakes ...'
@@ -127,12 +118,8 @@ namespace :delete_ctc_data do
       p 'Tally of CtcIntake records AFTER: ' + Intake::CtcIntake.count.to_s
       p 'Tally of all TaxReturn records AFTER: ' + TaxReturn.count.to_s
 
-      raise ActiveRecord::Rollback if DRY_RUN
-    end
-
-    p '--------------------------------'
-    # Destroy CTC-related DriversLicense records.
-    ActiveRecord::Base.transaction do
+      p '--------------------------------'
+      # Destroy CTC-related DriversLicense records.
       p 'CTC DriversLicense records ...'
       p 'Tally BEFORE: ' + drivers_license_tally(saved_ctc_drivers_license_ids).to_s
 
@@ -141,18 +128,14 @@ namespace :delete_ctc_data do
 
       p 'Tally AFTER: ' + drivers_license_tally(saved_ctc_drivers_license_ids).to_s
 
-      raise ActiveRecord::Rollback if DRY_RUN
-    end
+      #-------------------------------------------------------------------------
+      #  delete any remaining CTC TaxReturns
+      #-------------------------------------------------------------------------
 
-    #---------------------------------------------------------------------------
-    #  delete remaining TaxReturn 
-    #---------------------------------------------------------------------------
-
-    p '--------------------------------'
-    # Destroy any remaining TaxReturn records where is_ctc is true (if any). (It's not clear
-    # if the `is_ctc` flag is/was being used consistently, at least based on the data
-    # in seeder.rb; hence this extra step just for thoroughness.)
-    ActiveRecord::Base.transaction do
+      p '--------------------------------'
+      # Destroy any remaining TaxReturn records where is_ctc is true (if any). (It's not clear
+      # if the `is_ctc` flag is/was being used consistently, at least based on the data
+      # in seeder.rb; hence this extra step just for thoroughness.)
       f_rcds = lambda { TaxReturn.where(is_ctc: true) }
       rcds = f_rcds.call
 
@@ -166,26 +149,31 @@ namespace :delete_ctc_data do
       rcds = f_rcds.call
       p 'Tally AFTER: ' + rcds.size.to_s
 
-      raise ActiveRecord::Rollback if DRY_RUN
-    end
+      #-------------------------------------------------------------------------
+      #  CTC EfileError
+      #-------------------------------------------------------------------------
 
-    #---------------------------------------------------------------------------
-    #  CTC EfileError
-    #---------------------------------------------------------------------------
-
-    p '--------------------------------'
-    ActiveRecord::Base.transaction do
+      p '--------------------------------'
       EfileError.where(service_type: :ctc).each(&:destroy!)
       p 'Destroyed CTC EfileError records.'
 
-      raise ActiveRecord::Rollback if DRY_RUN
+    end # end of lambda
+    #---------------------------------------------------------------------------
+
+    if dry_run
+      ActiveRecord::Base.transaction do
+        delete_all_ctc_data.call
+        raise ActiveRecord::Rollback
+      end
+    else
+      delete_all_ctc_data.call
     end
 
     p '--------------------------------'
     p 'FINISHED delete_ctc_data:perform'
     p '--------------------------------'
 
-    if DRY_RUN
+    if dry_run
       p 'This was a DRY RUN! Nothing was deleted.'
     end
   end
