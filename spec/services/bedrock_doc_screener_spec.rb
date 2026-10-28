@@ -317,7 +317,7 @@ describe BedrockDocScreener do
 
   describe ".prepare_image" do
     let(:png_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
-    let(:gif_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "sunflower-websafe.gif")) }
+    let(:gif_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "sunflower_websafe.gif")) }
 
     it "passes through images Bedrock supports, using the type detected from the bytes" do
       result = described_class.prepare_image(png_data)
@@ -326,7 +326,7 @@ describe BedrockDocScreener do
       expect(Base64.decode64(result[:base64_data])).to eq(png_data)
     end
 
-    it 'works with GIFs'
+    it 'works with GIFs' do
       result = described_class.prepare_image(gif_data)
       expect(result[:media_type]).to eq("image/gif")
     end
