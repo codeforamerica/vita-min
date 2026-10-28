@@ -168,4 +168,25 @@ RSpec.describe DocScreenerJob, type: :job do
       expect(assessment.error).to include("StandardError: boom")
     end
   end
+
+  context "when Bedrock returns a response that can't be parsed" do
+    let(:bedrock_response) { { "content" => [{ "type" => "text", "text" => "oops" }], "stop_reason" => "max_tokens" } }
+
+    before do
+      allow(BedrockDocScreener).to receive(:screen_document!).and_raise(
+        BedrockDocScreener::InvalidResponseError.new("Bedrock response was cut off", raw_response_json: bedrock_response)
+      )
+    end
+
+    it "marks the assessment as failed, keeps the raw response, and re-raises" do
+      expect {
+        described_class.perform_now(document_id)
+      }.to raise_error(BedrockDocScreener::InvalidResponseError)
+
+      assessment = DocAssessment.last
+      expect(assessment.status).to eq("failed")
+      expect(assessment.error).to include("cut off")
+      expect(assessment.raw_response_json).to eq(bedrock_response)
+    end
+  end
 end
