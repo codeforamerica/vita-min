@@ -28,7 +28,21 @@ module BedrockDocScreener
   # Haiku 4.5 downscales anything over 1568px itself, so shrinking to this loses nothing
   RESIZED_IMAGE_DIMENSION = 2000
 
+  MAX_TOKENS = 1024
+  # Prefilling the assistant turn makes the model continue from inside the JSON object,
+  # so it can't open with a sentence or wrap the JSON in a markdown fence
+  JSON_PREFILL = "{".freeze
+
   class UnsupportedMediaTypeError < StandardError; end
+
+  class InvalidResponseError < StandardError
+    attr_reader :raw_response_json
+
+    def initialize(message = nil, raw_response_json: nil)
+      super(message)
+      @raw_response_json = raw_response_json
+    end
+  end
 
   PROMPT_VERSION = "v1".freeze
 
@@ -79,8 +93,8 @@ module BedrockDocScreener
         "matches_doc_type_verdict": "pass" | "fail",
         "suggested_document_type": "key from available-doc-types" | null,
         "document_quality_issues": ["unreadable" | "expired" | "potentially_fake" | "other"],
-        "explanation": [Brief 1-2 sentence explanation of reason. Explain why invalid if so. The briefer the better, please do not be redundant.],
-        "confidence": number between 0.0-1.0,
+        "explanation": "Brief 1-2 sentence explanation of reason. Explain why invalid if so. The briefer the better, please do not be redundant.",
+        "confidence": number between 0.0-1.0
       }
     PROMPT
   end
@@ -116,9 +130,22 @@ module BedrockDocScreener
     response = invoke_bedrock_model(body_hash.to_json)
 
     raw_response_json = JSON.parse(response.body.read)
-    generated_text = extract_text_from_response(raw_response_json)
 
-    result_json = parse_strict_json!(generated_text)
+    if raw_response_json["stop_reason"] == "max_tokens"
+      raise InvalidResponseError.new(
+        "Bedrock response was cut off after #{MAX_TOKENS} tokens",
+        raw_response_json: raw_response_json
+      )
+    end
+
+    # the response continues from the prefill, so it doesn't include the opening brace
+    generated_text = JSON_PREFILL + extract_text_from_response(raw_response_json)
+
+    result_json = begin
+      parse_strict_json!(generated_text)
+    rescue InvalidResponseError => e
+      raise InvalidResponseError.new(e.message, raw_response_json: raw_response_json)
+    end
 
     [result_json, raw_response_json]
   end
@@ -170,7 +197,7 @@ module BedrockDocScreener
   def self.construct_bedrock_payload(images:, user_prompt:)
     {
       anthropic_version: "bedrock-2023-05-31",
-      max_tokens: 250,
+      max_tokens: MAX_TOKENS,
       messages: [{
                    role: "user",
                    content: [
@@ -179,7 +206,8 @@ module BedrockDocScreener
                      end,
                      { type: "text", text: user_prompt }
                    ]
-                 }]
+                 },
+                 { role: "assistant", content: JSON_PREFILL }]
     }
   end
 
@@ -214,7 +242,25 @@ module BedrockDocScreener
     cleaned = cleaned.sub(/\A```(?:json)?\s*/i, "").sub(/\s*```\z/, "").strip
     JSON.parse(cleaned)
   rescue JSON::ParserError => e
-    raise "Bedrock did not return valid JSON. \n Error: #{e.message} \n Output: #{text.inspect}"
+    leading_object = parse_leading_object(cleaned) if cleaned
+    return leading_object if leading_object
+
+    raise InvalidResponseError, "Bedrock did not return valid JSON. \n Error: #{e.message} \n Output: #{text.inspect}"
+  end
+
+  # The model sometimes adds a note after the object, so try each closing brace,
+  # from the last one back, until the text up to it parses
+  def self.parse_leading_object(text)
+    start = text.index("{")
+    return unless start
+
+    closing_braces = (start...text.length).select { |i| text[i] == "}" }
+    closing_braces.reverse_each do |finish|
+      return JSON.parse(text[start..finish])
+    rescue JSON::ParserError
+      next
+    end
+    nil
   end
 
   def self.pdf_to_png_base64(upload)
