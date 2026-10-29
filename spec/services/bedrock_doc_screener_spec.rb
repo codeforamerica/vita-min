@@ -472,7 +472,6 @@ describe BedrockDocScreener do
     end
 
     context "with a PDF page that renders taller than 8000px" do
-     # 50in tall page, rendered by pdftoppm at 200 DPI => 10000px
       let(:pdf_data) { create(:document, upload_path: Rails.root.join(
           "spec", "fixtures", "files", "really-tall-pdf.pdf")) }
 
