@@ -2,19 +2,6 @@
 #     bundle exec rake delete_ctc_data:perform[mode]
 #     ... where mode is dry_run or destructive
 namespace :delete_ctc_data do
-  def get_drivers_license_ids_for_ctc_intakes
-    ids = Set[]
-    Intake::CtcIntake.find_each do |intake|
-      ids.add(intake.primary_drivers_license_id) if intake.primary_drivers_license_id.present?
-      ids.add(intake.spouse_drivers_license_id) if intake.spouse_drivers_license_id.present?
-    end
-    ids
-  end
-
-  def drivers_license_tally(ids)
-    DriversLicense.where(id: ids).size
-  end
-
   task :perform, [:mode] => :environment do |_task, args|
     p '--------------------------------'
     p 'STARTING delete_ctc_data:perform'
@@ -25,158 +12,137 @@ namespace :delete_ctc_data do
       next
     end
 
-    dry_run = true if args.mode != 'destructive'
+    dry_run = args.mode == 'dry_run'
     if dry_run
       p 'DRY RUN! Nothing will be deleted.'
     end
 
     p 'Continue? Type YES and hit enter: '
-    resp = STDIN.gets
-    if resp.chomp != "YES"; exit(0); end
+    exit(0) unless STDIN.gets&.chomp == "YES"
 
     #---------------------------------------------------------------------------
-    delete_all_ctc_data = lambda do
-
-      #-------------------------------------------------------------------------
-      #  prep
-      #-------------------------------------------------------------------------
-
-      # Save DriversLicense IDs as a preliminary step; then we'll destroy the
-      # DriversLicense records later. (A PG::ForeignKeyViolation error
-      # occurs if attempting to destroy a DriversLicense record when an existing Intake
-      # record has a `primary_drivers_license_id` or `spouse_drivers_license_id`
-      # referring to the DriversLicense record in question.)
-      saved_ctc_drivers_license_ids = get_drivers_license_ids_for_ctc_intakes
-
-      #-------------------------------------------------------------------------
-      #  general stuff
-      #-------------------------------------------------------------------------
-
-      p '--------------------------------'
-      # Destroy all SystemNote::CtcPortalAction
-      SystemNote::CtcPortalAction.all.each(&:destroy!) 
-      p 'Destroyed all CtcPortalAction records.'
-
-      p '--------------------------------'
-      # Destroy all SystemNote::CtcPortalUpdate
-      SystemNote::CtcPortalUpdate.all.each(&:destroy!)
-      p 'Destroyed all CtcPortalUpdate records.'
-
-      p '--------------------------------'
-      # Destroy all CtcSignup records.
-      CtcSignup.all.each(&:destroy!)
-      p 'Destroyed all CtcSignup records.'
-
-      #-------------------------------------------------------------------------
-      #  Archived::Intake::CtcIntake2021
-      #-------------------------------------------------------------------------
-
-      p '--------------------------------'
-      # Destroy all Client records have CtcIntake2021-specific intakes.
-      f_client_ids = lambda { Archived::Intake::CtcIntake2021.pluck(:client_id).compact.uniq }
-      client_ids = f_client_ids.call
-
-      p 'Client records (and associated) for Archived::Intake::CtcIntake2021 ... '
-      p 'Tally of Client records associated w/ CtcIntake2021 record BEFORE: ' + client_ids.length.to_s
-      p 'Tally of CtcIntake2021 records BEFORE: ' + Archived::Intake::CtcIntake2021.count.to_s
-      p 'Tally of all TaxReturn records BEFORE: ' + TaxReturn.count.to_s
-
-      p 'Deleting ...' 
-      Archived::Intake::CtcIntake2021.find_each do |intake|
-        intake.bank_account&.destroy!
-        intake.dependents.each(&:destroy!)
-        intake.delete
-      end
-      client_ids.each { |id| Client.find(id).destroy! }
-      p 'Deleted.'
-
-      client_ids = f_client_ids.call
-      p 'Tally of Client records associated w/ CtcIntake2021 record AFTER: ' + client_ids.length.to_s
-      p 'Tally of CtcIntake2021 records AFTER: ' + Archived::Intake::CtcIntake2021.count.to_s
-      p 'Tally of all TaxReturn records AFTER: ' + TaxReturn.count.to_s
-
-      #-------------------------------------------------------------------------
-      #  Intake::CtcIntake
-      #-------------------------------------------------------------------------
-
-      p '--------------------------------'
-      # Destroy client records having CtcIntake-specific intakes.
-      # This should destroy associated intake, tax_returns, efile_submissions, documents, and has_one_attached items.
-      client_records = Client.where(id: Intake::CtcIntake.select(:client_id))
-
-      p 'Client records (and associated) for plain CtcIntakes ...'
-      p 'Tally of Client records associated w/ CtcIntake record BEFORE: ' + client_records.size.to_s
-      p 'Tally of CtcIntake records BEFORE: ' + Intake::CtcIntake.count.to_s
-      p 'Tally of all TaxReturn records BEFORE: ' + TaxReturn.count.to_s
-
-      p 'Deleting ...' 
-      client_records.each(&:destroy!)
-      p 'Deleted.'
-
-      client_records_after_tally = Client.where(id: Intake::CtcIntake.select(:client_id)).count
-      p 'Tally of Client records associated w/ CtcIntake record AFTER: ' + client_records_after_tally.to_s
-      p 'Tally of CtcIntake records AFTER: ' + Intake::CtcIntake.count.to_s
-      p 'Tally of all TaxReturn records AFTER: ' + TaxReturn.count.to_s
-
-      p '--------------------------------'
-      # Destroy CTC-related DriversLicense records.
-      p 'CTC DriversLicense records ...'
-      p 'Tally BEFORE: ' + drivers_license_tally(saved_ctc_drivers_license_ids).to_s
-
-      # These IDs were saved at the beginning of the script.
-      saved_ctc_drivers_license_ids.each { |id| DriversLicense.find(id).destroy! }
-
-      p 'Tally AFTER: ' + drivers_license_tally(saved_ctc_drivers_license_ids).to_s
-
-      #-------------------------------------------------------------------------
-      #  delete any remaining CTC TaxReturns
-      #-------------------------------------------------------------------------
-
-      p '--------------------------------'
-      # Destroy any remaining TaxReturn records where is_ctc is true (if any). (It's not clear
-      # if the `is_ctc` flag is/was being used consistently, at least based on the data
-      # in seeder.rb; hence this extra step just for thoroughness.)
-      f_rcds = lambda { TaxReturn.where(is_ctc: true) }
-      rcds = f_rcds.call
-
-      p 'Remaining TaxRecords (if any) where `is_ctc` is true'
-      p 'Tally BEFORE: ' + rcds.size.to_s
-
-      p 'Deleting ...' 
-      rcds.each(&:destroy!)
-      p 'Deleted.'
-
-      rcds = f_rcds.call
-      p 'Tally AFTER: ' + rcds.size.to_s
-
-      #-------------------------------------------------------------------------
-      #  CTC EfileError
-      #-------------------------------------------------------------------------
-
-      p '--------------------------------'
-      EfileError.where(service_type: :ctc).each(&:destroy!)
-      p 'Destroyed CTC EfileError records.'
-
-    end # end of lambda
+    #  which clients to delete
     #---------------------------------------------------------------------------
 
-    if dry_run
+    # clients with at least one ctc intake
+    ctc_clients = Client.where(id: Intake::CtcIntake.select(:client_id))
+                        .or(Client.where(id: Archived::Intake::CtcIntake2021.select(:client_id)))
+
+
+    # clients with at least one ctc intake but also have another type of intake (shouldn't exist but just in case)
+    non_ctc_intakes = Intake.where.not(type: Intake::CtcIntake.sti_name).or(Intake.where(type: nil))
+    non_ctc_archived_intakes = Archived::Intake2021.where.not(type: Archived::Intake::CtcIntake2021.sti_name)
+                                                   .or(Archived::Intake2021.where(type: nil))
+    mixed_clients = ctc_clients.where(id: non_ctc_intakes.select(:client_id))
+                               .or(ctc_clients.where(id: non_ctc_archived_intakes.select(:client_id)))
+
+    # don't delete clients that have another type of intake
+    clients_to_delete = ctc_clients.where.not(id: mixed_clients.select(:id))
+
+    p '--------------------------------'
+    p 'Tally of CTC Client records to delete: ' + clients_to_delete.count.to_s
+    p 'Tally of CtcIntake records: ' + Intake::CtcIntake.count.to_s
+    p 'Tally of CtcIntake2021 records: ' + Archived::Intake::CtcIntake2021.count.to_s
+    p 'Tally of ClientInteraction records on those clients: ' + ClientInteraction.where(client_id: clients_to_delete.select(:id)).count.to_s
+    p 'Tally of CTC Client records SKIPPED because they also have a non-CTC intake: ' + mixed_clients.count.to_s
+    p 'Skipped Client ids: ' + mixed_clients.pluck(:id).inspect if mixed_clients.exists?
+
+    #---------------------------------------------------------------------------
+    #  delete each client in its own transaction
+    #---------------------------------------------------------------------------
+
+    delete_client = lambda do |client|
       ActiveRecord::Base.transaction do
-        delete_all_ctc_data.call
-        raise ActiveRecord::Rollback
-      end
-    else
-      ActiveRecord::Base.transaction do
-        delete_all_ctc_data.call
+        drivers_license_ids = Intake::CtcIntake.where(client_id: client.id)
+                                               .pluck(:primary_drivers_license_id, :spouse_drivers_license_id)
+                                               .flatten.compact
+
+        document_ids = client.documents.pluck(:id)
+
+        ExperimentParticipant.where(record_type: Intake.name, record_id: Intake.where(client_id: client.id).select(:id)).delete_all
+
+        ClientInteraction.where(client_id: client.id).delete_all
+
+        Archived::Intake::CtcIntake2021.where(client_id: client.id).find_each do |intake|
+          intake.bank_account&.destroy!
+          intake.dependents.each(&:destroy!)
+          intake.delete
+        end
+
+        client.destroy!
+
+        DriversLicense.where(id: drivers_license_ids).destroy_all
+
+        PaperTrail::Version.where(item_type: Document.name, item_id: document_ids).delete_all
       end
     end
+
+    #---------------------------------------------------------------------------
+    #  general stuff
+    #---------------------------------------------------------------------------
+
+    delete_remaining_ctc_records = lambda do
+      SystemNote::CtcPortalAction.find_each(&:destroy!)
+      p 'Destroyed all CtcPortalAction records.'
+
+      SystemNote::CtcPortalUpdate.find_each(&:destroy!)
+      p 'Destroyed all CtcPortalUpdate records.'
+
+      CtcSignup.find_each(&:destroy!)
+      p 'Destroyed all CtcSignup records.'
+
+      EfileError.where(service_type: :ctc).find_each(&:destroy!)
+      p 'Destroyed CTC EfileError records.'
+    end
+
+    #---------------------------------------------------------------------------
+    #  run
+    #---------------------------------------------------------------------------
+
+    p '--------------------------------'
+    p 'Tally of CtcPortalAction records: ' + SystemNote::CtcPortalAction.count.to_s
+    p 'Tally of CtcPortalUpdate records: ' + SystemNote::CtcPortalUpdate.count.to_s
+    p 'Tally of CtcSignup records: ' + CtcSignup.count.to_s
+    p 'Tally of CTC EfileError records: ' + EfileError.where(service_type: :ctc).count.to_s
+
+    if dry_run
+      p '--------------------------------'
+      p 'FINISHED delete_ctc_data:perform'
+      p 'This was a DRY RUN! Nothing was deleted.'
+      p '--------------------------------'
+      next
+    end
+
+    p '--------------------------------'
+    p 'Deleting CTC Client records (and associated) ...'
+    deleted_count = 0
+    failed_client_ids = []
+    clients_to_delete.find_each do |client|
+      delete_client.call(client)
+      deleted_count += 1
+      p "Deleted #{deleted_count} clients so far ..." if (deleted_count % 1000).zero?
+    rescue StandardError => e
+      failed_client_ids << client.id
+      p "Failed to delete Client #{client.id}: #{e.class}: #{e.message}"
+    end
+    p 'Deleted ' + deleted_count.to_s + ' clients.'
+    p 'Failed Client ids: ' + failed_client_ids.inspect if failed_client_ids.any?
+    p 'Tally of CTC Client records remaining: ' + clients_to_delete.count.to_s
+
+    p '--------------------------------'
+    delete_remaining_ctc_records.call
+
+    #-------------------------------------------------------------------------
+    #  report (not delete) remaining is_ctc TaxReturns
+    #-------------------------------------------------------------------------
+
+    p '--------------------------------'
+    remaining_is_ctc_returns = TaxReturn.where(is_ctc: true)
+    p 'Remaining TaxReturn records where `is_ctc` is true (NOT deleted, review manually): ' + remaining_is_ctc_returns.count.to_s
+    p 'TaxReturn ids: ' + remaining_is_ctc_returns.pluck(:id).inspect if remaining_is_ctc_returns.exists?
 
     p '--------------------------------'
     p 'FINISHED delete_ctc_data:perform'
     p '--------------------------------'
-
-    if dry_run
-      p 'This was a DRY RUN! Nothing was deleted.'
-    end
   end
 end
