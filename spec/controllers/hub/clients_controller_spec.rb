@@ -375,6 +375,27 @@ RSpec.describe Hub::ClientsController do
           expect(tobias_2018_assignee).to have_text "Lindsay"
         end
 
+        it "does not make additional queries for each client listed" do
+          count_queries = lambda do
+            count = 0
+            counter = ->(*, payload) { count += 1 unless payload[:cached] || %w[SCHEMA TRANSACTION].include?(payload[:name]) }
+            ActiveSupport::Notifications.subscribed(counter, "sql.active_record") { get :index }
+            count
+          end
+          get :index # warm up
+          baseline = count_queries.call
+
+          2.times do |i|
+            client = create :client, vita_partner: organization, intake: build(:intake, :filled_out, preferred_name: "Extra #{i}")
+            create :tax_return, :intake_in_progress, client: client, year: 2019, assigned_user: assigned_user
+            create :dependent, intake: client.intake
+            create :experiment_participant, record: client.intake, experiment: Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT)
+          end
+
+          expect(count_queries.call).to eq baseline
+          expect(assigns(:clients).count).to eq 5
+        end
+
         it "loads all the non-suspended users" do
           create :user, suspended_at: Time.current, role: create(:organization_lead_role, organization: organization)
 
