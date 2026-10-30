@@ -236,12 +236,6 @@ module VitaMin
     # against adversarial inputs -- 194,640 matches, zero Regexp::TimeoutError, 6.5ms
     # worst case. So 1s has roughly 150x headroom, and the rest of the app has only a
     # handful of short regexes and none applied to file contents.
-    #
-    # Starting at 5s rather than the 1s default anyway, as a staged rollout: the
-    # measurement cannot cover a slow regex inside a gem that only production traffic
-    # shapes reach. Tighten this to 1 (or delete the line to inherit the default) after
-    # one release with no Regexp::TimeoutError in Sentry.
-    Regexp.timeout = 5
 
     # ------------------------------------------------ #
     #  END additions for Rails 8.0 defaults migration  #
@@ -261,7 +255,7 @@ module VitaMin
     #   YJIT in production/staging/demo/heroku. NOTE: the local rbenv Ruby on arm64
     #   darwin is built WITHOUT YJIT (`defined?(RubyVM::YJIT)` is nil), so this is a
     #   no-op locally and the test suite cannot exercise it. The deployed Ruby comes
-    #   from the official `ruby:3.4.10` image, which does ship YJIT, so it engages
+    #   from the official `ruby:4.0.6` image, which does ship YJIT, so it engages
     #   there. Watch RSS and p95 latency in Datadog on the first deploy.
     #
     # action_controller.escape_json_responses = false

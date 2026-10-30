@@ -72,11 +72,6 @@ class Document < ApplicationRecord
   scope :archived, ->() { where(archived: true) }
   scope :with_assessments, -> { joins(:assessments).distinct }
 
-  after_save do
-    # Skip AnalyzeJob when initially creating .heic files, since we will analyze them after JPG conversion
-    upload.blob.analyzed = true if is_heic? && !upload.blob.persisted?
-  end
-
   after_create_commit do
     if uploaded_by.is_a?(Client)
       InteractionTrackingService.record_incoming_interaction(
@@ -85,9 +80,7 @@ class Document < ApplicationRecord
         interaction_type: :document_upload
       )
 
-      is_heic? ?
-        HeicToJpgJob.perform_later(id).then(DocScreenerJob) :
-        DocScreenerJob.perform_later(id)
+      DocScreenerJob.perform_later(id)
     else
       InteractionTrackingService.record_internal_interaction(client)
     end
@@ -98,7 +91,7 @@ class Document < ApplicationRecord
                       if: -> { saved_change_to_document_type? && !skip_screener_rerun }
 
   # has_one_attached needs to be called after defining any callbacks that access attachments, like
-  # the HEIC conversion; see https://github.com/rails/rails/issues/37304
+  # conversion to another filetype; see https://github.com/rails/rails/issues/37304
   has_one_attached :upload
   validates :upload, file_type_allowed: true, if: -> { upload.present? }
   validate :validate_filename_length, if: -> { upload.present? }
@@ -138,10 +131,6 @@ class Document < ApplicationRecord
     upload&.content_type == "text/plain"
   end
 
-  def is_heic?
-    upload&.filename&.extension_without_delimiter&.downcase == "heic"
-  end
-
   def document_type_class
     DocumentTypes::ALL_TYPES.find { |doc_type_class| doc_type_class.key == document_type }
   end
@@ -154,15 +143,6 @@ class Document < ApplicationRecord
     return if display_name.present?
 
     self.display_name = upload.attachment.filename
-  end
-
-  def convert_heic_upload_to_jpg!
-    image = MiniMagick::Image.read(upload.download)
-
-    jpg_image = image.format("jpg")
-
-    upload.attach(io: File.open(jpg_image.path), filename: Document.truncate_filename("#{display_name}.jpg"), content_type: "image/jpeg")
-    update!(display_name: upload.attachment.filename)
   end
 
   def uploaded_by_name_label

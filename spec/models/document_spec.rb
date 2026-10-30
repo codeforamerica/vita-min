@@ -292,43 +292,6 @@ describe Document do
     end
   end
 
-  describe "after_create" do
-    include ActiveJob::TestHelper
-
-    # iOS 18 uses a different codec. We are relying now on safari and MMS to
-    # handle this before it gets to us. For more information, see ticket
-    # GYR1-673
-    xcontext "when the file extension is .heic" do
-      before do
-        allow(HeicToJpgJob).to receive(:perform_later).and_call_original
-      end
-
-      it "creates a job to convert the file to jpg and delays ActiveStorage::AnalyzeJob until then" do
-        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "IMG_4851.HEIC")
-        document.save!
-
-        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to eq ["HeicToJpgJob"]
-        perform_enqueued_jobs
-        expect(HeicToJpgJob).to have_received(:perform_later).with(document.id)
-
-        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to include("ActiveStorage::AnalyzeJob")
-      end
-    end
-
-    context "when the file extension is not .heic" do
-      let(:client) { create :client }
-      it "does not create a job to convert the file to jpg and enqueues the DocScreenerJob & ActiveStorage::AnalyzeJob as normal" do
-        document = build :document, uploaded_by: client, upload_path: Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")
-        allow(HeicToJpgJob).to receive(:perform_later)
-
-        document.save!
-
-        expect(HeicToJpgJob).to_not have_received(:perform_later).with(document.id)
-        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to eq ["DocScreenerJob", "ActiveStorage::AnalyzeJob"]
-      end
-    end
-  end
-
   describe "after_update_commit" do
     include ActiveJob::TestHelper
 
@@ -378,20 +341,6 @@ describe Document do
       it_behaves_like "an internal interaction" do
         let(:subject) { build :document, uploaded_by: nil }
       end
-    end
-  end
-
-  # iOS 18 uses a different codec. We are relying now on safari and MMS to
-  # handle this before it gets to us. For more information, see ticket
-  # GYR1-673
-  xdescribe "#convert_heic_upload_to_jpg!" do
-    it "converts a heic attachment to jpg" do
-      document = create :document, upload_path: Rails.root.join("spec", "fixtures", "files", "IMG_4851.HEIC")
-
-      expect {
-        document.convert_heic_upload_to_jpg!
-      }.to (change{ document.upload.attachment.filename.extension }.from("HEIC").to("jpg")).and(
-        change { document.reload.display_name }.from("IMG_4851.HEIC").to("IMG_4851.HEIC.jpg"))
     end
   end
 end
