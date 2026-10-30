@@ -1,5 +1,8 @@
 FROM ruby:4.0.6
 
+RUN useradd -u 789 -m gyruser
+USER 789:789
+
 # The Docker environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
 RUN apt-get update --allow-releaseinfo-change
 

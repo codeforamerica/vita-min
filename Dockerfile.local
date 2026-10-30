@@ -3,6 +3,9 @@
 ### First build stage used for web, worker, and shakapacker containers
 FROM ruby:4.0.6 AS base
 
+RUN useradd -u 789 -m gyruser
+USER 789:789
+
 RUN apt-get update --allow-releaseinfo-change
 
 # System prerequisites
