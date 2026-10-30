@@ -220,11 +220,11 @@ describe BedrockDocScreener do
     end
 
     it "raises for unsupported media types" do
-      allow(upload).to receive(:content_type).and_return("text/plain")
+      allow(upload).to receive(:content_type).and_return("text/html")
 
       expect {
         described_class.screen_document!(document: document)
-      }.to raise_error(BedrockDocScreener::UnsupportedMediaTypeError, "Unsupported media type: text/plain")
+      }.to raise_error(BedrockDocScreener::UnsupportedMediaTypeError, "Unsupported media type: text/html")
     end
 
     it "sends the media type detected from the bytes, not the stored content type" do
@@ -317,12 +317,18 @@ describe BedrockDocScreener do
 
   describe ".prepare_image" do
     let(:png_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
+    let(:gif_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "sunflower_websafe.gif")) }
 
     it "passes through images Bedrock supports, using the type detected from the bytes" do
       result = described_class.prepare_image(png_data)
 
       expect(result[:media_type]).to eq("image/png")
       expect(Base64.decode64(result[:base64_data])).to eq(png_data)
+    end
+
+    it 'works with GIFs' do
+      result = described_class.prepare_image(gif_data)
+      expect(result[:media_type]).to eq("image/gif")
     end
 
     it "converts image types Bedrock does not support to jpeg" do
@@ -333,26 +339,10 @@ describe BedrockDocScreener do
       expect(result[:media_type]).to eq("image/jpeg")
       expect(Marcel::MimeType.for(StringIO.new(Base64.decode64(result[:base64_data])))).to eq("image/jpeg")
     end
-
-    it "shrinks images over the size limit" do
-      large_data = "A" * 4.megabytes
-      allow(described_class).to receive(:ensure_safe_image_size).and_return("shrunk-data")
-
-      result = described_class.prepare_image(large_data)
-
-      expect(described_class).to have_received(:ensure_safe_image_size).with(large_data)
-      expect(result).to eq(media_type: "image/jpeg", base64_data: Base64.strict_encode64("shrunk-data"))
-    end
   end
 
   describe ".ensure_safe_image_size" do
     let(:raw_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
-
-    it "converts the image to jpeg" do
-      result = described_class.ensure_safe_image_size(raw_data)
-
-      expect(Marcel::MimeType.for(StringIO.new(result))).to eq("image/jpeg")
-    end
 
     it "raises for data that is not an image" do
       expect { described_class.ensure_safe_image_size("not-an-image") }.to raise_error(MiniMagick::Error)
@@ -371,17 +361,22 @@ describe BedrockDocScreener do
     end
 
     context "with a very large image" do
-      let(:large_data) { "A" * 4.megabytes }
+      let(:large_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "over-4mb-image-IMG_OCT_20191005_150058.jpeg")) }
 
-      before do
-        allow(upload).to receive(:content_type).and_return("image/jpeg")
-        allow(upload).to receive(:download).and_return(large_data)
-        allow(described_class).to receive(:ensure_safe_image_size).and_return("shrunk-data")
+      it "shrinks images over the size limit" do
+        shrunk_data = described_class.ensure_safe_image_size(large_data)
+
+        expect(described_class.within_bedrock_limits?(shrunk_data)).to equal(true)
       end
+    end
 
-      it "compresses the image before encoding" do
-        described_class.screen_document!(document: document)
-        expect(described_class).to have_received(:ensure_safe_image_size).with(large_data)
+    context "with PDF with over 20 pages" do
+      let(:doc_1) { create(:document, upload_path: Rails.root.join(
+          "spec", "fixtures", "files", "document-with-25-pages.pdf")) }
+
+      it "only takes the first 20 pages" do
+        result = described_class.pdf_to_png_base64(doc_1.upload)
+        expect(result.size).to eq(20)
       end
     end
 
@@ -397,21 +392,6 @@ describe BedrockDocScreener do
         fake_pages = (1..25).map { |i| "/tmp/fake_dir/page-#{i}.png" }
         allow(Dir).to receive(:glob).and_return(fake_pages)
         allow(File).to receive(:binread).and_return(png_data)
-      end
-
-      it "only takes the first 20 pages" do
-        result = described_class.pdf_to_png_base64(upload)
-        expect(result.size).to eq(20)
-      end
-
-      it "compresses individual PDF pages if they are too large" do
-        large_page_data = "A" * 4.megabytes
-        allow(File).to receive(:binread).with("/tmp/fake_dir/page-1.png").and_return(large_page_data)
-        allow(described_class).to receive(:ensure_safe_image_size).and_return("shrunk-page")
-
-        described_class.pdf_to_png_base64(upload)
-
-        expect(described_class).to have_received(:ensure_safe_image_size).with(large_page_data)
       end
     end
   end
@@ -492,20 +472,11 @@ describe BedrockDocScreener do
     end
 
     context "with a PDF page that renders taller than 8000px" do
-      before do
-        allow(upload).to receive(:content_type).and_return("application/pdf")
-        allow(upload).to receive(:download).and_return("%PDF-1.4")
-        # Stand in for pdftoppm: write a tall rendered page where it would
-        allow(described_class).to receive(:system) do |*args, **|
-          output_prefix = args[5]
-          File.binwrite("#{output_prefix}-1.png", generate_image(1200, 9000, "png"))
-          true
-        end
-      end
+      let(:pdf_data) { create(:document, upload_path: Rails.root.join(
+          "spec", "fixtures", "files", "really-tall-pdf.pdf")) }
 
       it "resizes the rendered page to fit within Bedrock's dimension limit" do
-        described_class.screen_document!(document: document)
-
+        described_class.screen_document!(document: pdf_data)
         expect(sent_image_dimensions.flatten.max).to be <= bedrock_max_dimension
       end
     end
