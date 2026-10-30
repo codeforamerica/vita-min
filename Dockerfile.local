@@ -3,6 +3,8 @@
 ### First build stage used for web, worker, and shakapacker containers
 FROM ruby:4.0.6 AS base
 
+RUN useradd -u 789 -m gyruser
+
 RUN apt-get update --allow-releaseinfo-change
 
 # System prerequisites
@@ -49,5 +51,7 @@ FROM base AS app
 EXPOSE 3000
 
 RUN chmod +x /app/bin/docker-entrypoint
+
+USER 789:789
 
 CMD ["bash", "./bin/docker-entrypoint"]

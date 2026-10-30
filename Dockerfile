@@ -1,5 +1,7 @@
 FROM ruby:4.0.6
 
+RUN useradd -u 789 -m gyruser
+
 # The Docker environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
 RUN apt-get update --allow-releaseinfo-change
 
@@ -62,5 +64,7 @@ RUN { set -a && . ./.aptible.env && set +a; } 2>/dev/null \
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
 
 EXPOSE 3000
+
+USER 789:789
 
 CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "3000"]
