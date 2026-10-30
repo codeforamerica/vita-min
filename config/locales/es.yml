@@ -120,6 +120,7 @@ es:
     formats:
       default: "%-m/%-d/%Y"
       long: "%-d de %B de %Y"
+      month_day: "%-d de %B"
   devise:
     failure:
       invalid: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean.
@@ -2095,6 +2096,13 @@ es:
           review_info_requested_title: Tiene un mensaje
           signature_requested: Descargue sus papeles de impuestos para revisarlos y luego firme electrónicamente.
           signature_requested_title: Se necesita su firma
+        deadline_alert:
+          info_label: 'Información:'
+          sign_by: Necesitamos su firma para presentar su declaración de impuestos.
+          sign_by_title: Firme antes del %{date}
+          tax_season_ends: Esté pendiente de las novedades del equipo de impuestos.
+          tax_season_ends_title: Esta temporada de impuestos termina el %{date}
+          warning_label: 'Advertencia:'
         decline_to_sign_help: Si no firma su declaración, el equipo de impuestos se comunicará con usted para ver sus opciones.
         document_link:
           download_final_tax_papers: Descargar papeles de impuestos

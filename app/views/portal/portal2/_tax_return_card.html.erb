@@ -67,7 +67,12 @@
                 "data-track-attribute-page": "client_portal",
                 "data-track-attribute-return_status": card_props[:return_status] %>
   <% end %>
-  <% if card_props[:call_to_action_text].present? %>
+  <% if tax_season_deadline_banner(tax_return) == :sign %>
+    <%= render "portal/portal2/deadline_alert",
+               variant: :warning,
+               heading: t("portal.portal2.home.deadline_alert.sign_by_title", date: tax_season_deadline_date),
+               body: t("portal.portal2.home.deadline_alert.sign_by") %>
+  <% elsif card_props[:call_to_action_text].present? %>
     <div class="portal-info-box">
       <p style="margin-bottom: 1rem"><b><%= card_props[:call_to_action_title] %></b>
       <p style="margin: 0.1rem"><%= card_props[:call_to_action_text] %>
