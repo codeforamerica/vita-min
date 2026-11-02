@@ -727,7 +727,7 @@ GEM
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
     stackprof (0.2.25)
-    statesman (11.0.0)
+    statesman (13.4.0)
     strong_migrations (1.6.4)
       activerecord (>= 5.2)
     terminal-table (4.0.0)
