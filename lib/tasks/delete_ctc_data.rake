@@ -14,7 +14,7 @@ namespace :delete_ctc_data do
 
     dry_run = args.mode == 'dry_run'
     if dry_run
-      p 'DRY RUN! Nothing will be deleted.'
+      p 'DRY RUN! Deletes will be attempted and rolled back. Nothing will be deleted.'
     end
 
     p 'Continue? Type YES and hit enter: '
@@ -52,7 +52,7 @@ namespace :delete_ctc_data do
     #---------------------------------------------------------------------------
 
     delete_client = lambda do |client|
-      ActiveRecord::Base.transaction do
+      ActiveRecord::Base.transaction(requires_new: true) do
         drivers_license_ids = Intake::CtcIntake.where(client_id: client.id)
                                                .pluck(:primary_drivers_license_id, :spouse_drivers_license_id)
                                                .flatten.compact
@@ -62,6 +62,8 @@ namespace :delete_ctc_data do
         ExperimentParticipant.where(record_type: Intake.name, record_id: Intake.where(client_id: client.id).select(:id)).delete_all
 
         ClientInteraction.where(client_id: client.id).delete_all
+
+        EfileSecurityInformation.where(client_id: client.id).delete_all
 
         Archived::Intake::CtcIntake2021.where(client_id: client.id).find_each do |intake|
           intake.bank_account&.destroy!
@@ -74,6 +76,8 @@ namespace :delete_ctc_data do
         DriversLicense.where(id: drivers_license_ids).destroy_all
 
         PaperTrail::Version.where(item_type: Document.name, item_id: document_ids).delete_all
+
+        raise ActiveRecord::Rollback if dry_run
       end
     end
 
@@ -82,17 +86,24 @@ namespace :delete_ctc_data do
     #---------------------------------------------------------------------------
 
     delete_remaining_ctc_records = lambda do
-      SystemNote::CtcPortalAction.find_each(&:destroy!)
-      p 'Destroyed all CtcPortalAction records.'
+      ActiveRecord::Base.transaction(requires_new: true) do
+        SystemNote::CtcPortalAction.find_each(&:destroy!)
+        p 'Destroyed all CtcPortalAction records.'
 
-      SystemNote::CtcPortalUpdate.find_each(&:destroy!)
-      p 'Destroyed all CtcPortalUpdate records.'
+        SystemNote::CtcPortalUpdate.find_each(&:destroy!)
+        p 'Destroyed all CtcPortalUpdate records.'
 
-      CtcSignup.find_each(&:destroy!)
-      p 'Destroyed all CtcSignup records.'
+        CtcSignup.find_each(&:destroy!)
+        p 'Destroyed all CtcSignup records.'
 
-      EfileError.where(service_type: :ctc).find_each(&:destroy!)
-      p 'Destroyed CTC EfileError records.'
+        EfileError.where(service_type: :ctc).find_each(&:destroy!)
+        p 'Destroyed CTC EfileError records.'
+
+        if dry_run
+          p '(DRY RUN: rolled back the destroys above)'
+          raise ActiveRecord::Rollback
+        end
+      end
     end
 
     #---------------------------------------------------------------------------
@@ -105,16 +116,8 @@ namespace :delete_ctc_data do
     p 'Tally of CtcSignup records: ' + CtcSignup.count.to_s
     p 'Tally of CTC EfileError records: ' + EfileError.where(service_type: :ctc).count.to_s
 
-    if dry_run
-      p '--------------------------------'
-      p 'FINISHED delete_ctc_data:perform'
-      p 'This was a DRY RUN! Nothing was deleted.'
-      p '--------------------------------'
-      next
-    end
-
     p '--------------------------------'
-    p 'Deleting CTC Client records (and associated) ...'
+    p dry_run ? 'Attempting (and rolling back) deletion of CTC Client records ...' : 'Deleting CTC Client records (and associated) ...'
     deleted_count = 0
     failed_client_ids = []
     clients_to_delete.find_each do |client|
@@ -125,7 +128,7 @@ namespace :delete_ctc_data do
       failed_client_ids << client.id
       p "Failed to delete Client #{client.id}: #{e.class}: #{e.message}"
     end
-    p 'Deleted ' + deleted_count.to_s + ' clients.'
+    p "#{dry_run ? 'Could delete' : 'Deleted'} #{deleted_count} clients."
     p 'Failed Client ids: ' + failed_client_ids.inspect if failed_client_ids.any?
     p 'Tally of CTC Client records remaining: ' + clients_to_delete.count.to_s
 
@@ -143,6 +146,7 @@ namespace :delete_ctc_data do
 
     p '--------------------------------'
     p 'FINISHED delete_ctc_data:perform'
+    p 'This was a DRY RUN! Nothing was deleted.' if dry_run
     p '--------------------------------'
   end
 end
