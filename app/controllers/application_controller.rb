@@ -351,10 +351,10 @@ class ApplicationController < ActionController::Base
     if app_time <= Rails.configuration.tax_deadline && open_for_gyr_intake?
       # after open intake, before tax_deadline
       :open_intake
-    elsif app_time.between?(Rails.configuration.tax_deadline, Rails.configuration.end_of_intake)
+    elsif app_time.between?(Rails.configuration.tax_deadline, end_of_intake)
       # after tax_deadline, before end_of_intake
       :open_intake_post_tax_deadline
-    elsif app_time.between?(Rails.configuration.end_of_intake, Rails.configuration.end_of_in_progress_intake)
+    elsif app_time.between?(end_of_intake, Rails.configuration.end_of_in_progress_intake)
       # after tax_deadline, before end_of_in_progress_intake
       :in_progress_intake_only
     elsif app_time.between?(Rails.configuration.end_of_in_progress_intake, Rails.configuration.end_of_login)
@@ -371,15 +371,15 @@ class ApplicationController < ActionController::Base
     # has unique link && start_of_unique_links_only_intake < time < end_of_intake
     return true if cookies[:used_unique_link] == "yes" &&
       app_time >= Rails.configuration.start_of_unique_links_only_intake &&
-      app_time <= Rails.configuration.end_of_intake
+      app_time <= end_of_intake
 
     # start_of_open_intake < time < end_of_intake
-    return app_time >= Rails.configuration.start_of_open_intake && app_time <= Rails.configuration.end_of_intake
+    return app_time >= Rails.configuration.start_of_open_intake && app_time <= end_of_intake
   end
   helper_method :open_for_gyr_intake?
 
   def open_for_finishing_in_progress_intakes?
-    app_time >= Rails.configuration.end_of_intake && app_time <= Rails.configuration.end_of_in_progress_intake
+    app_time >= end_of_intake && app_time <= Rails.configuration.end_of_in_progress_intake
   end
   helper_method :open_for_finishing_in_progress_intakes?
 
@@ -442,6 +442,13 @@ class ApplicationController < ActionController::Base
     SessionToggle.new(session, 'app_time').value || Time.current
   end
   helper_method :app_time
+
+  def end_of_intake
+    return Rails.configuration.end_of_intake if Rails.env.production?
+
+    SessionToggle.new(session, 'end_of_intake').value || Rails.configuration.end_of_intake
+  end
+  helper_method :end_of_intake
 
   def acts_like_production?
     Rails.env.production?

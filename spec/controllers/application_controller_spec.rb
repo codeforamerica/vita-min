@@ -1022,6 +1022,48 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "#end_of_intake" do
+    let(:configured_end_of_intake) { Time.find_zone("America/New_York").parse("2040-12-31 23:59:59") }
+    let(:override) { Time.find_zone("America/Los_Angeles").parse("2026-10-01 20:59") }
+
+    before do
+      allow(Rails.application.config).to receive(:end_of_intake).and_return(configured_end_of_intake)
+    end
+
+    context "without a session override" do
+      it "returns the configured end of intake" do
+        expect(subject.send(:end_of_intake)).to eq configured_end_of_intake
+      end
+    end
+
+    context "with a session override" do
+      before do
+        session[:session_toggles] = { "end_of_intake" => override.iso8601 }
+      end
+
+      it "returns the override" do
+        expect(subject.send(:end_of_intake)).to eq override
+      end
+
+      it "uses the override to decide whether in-progress intakes can be finished" do
+        allow(Rails.application.config).to receive(:end_of_in_progress_intake).and_return(Time.find_zone("America/New_York").parse("2026-10-15 23:59:59"))
+        session[:session_toggles]["app_time"] = Time.find_zone("America/Los_Angeles").parse("2026-10-05 12:00").iso8601
+
+        expect(subject.open_for_finishing_in_progress_intakes?).to eq true
+      end
+
+      context "in production" do
+        before do
+          allow(Rails.env).to receive(:production?).and_return(true)
+        end
+
+        it "ignores the override" do
+          expect(subject.send(:end_of_intake)).to eq configured_end_of_intake
+        end
+      end
+    end
+  end
+
   describe "#set_sentry_context" do
     context "user context" do
       let(:intake) { create :intake }
