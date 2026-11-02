@@ -45,7 +45,7 @@ def gemn(gem_name, *versions, next_version: nil, next_name: nil, **kwargs)
 end
 
 gem 'rack', '>= 3.2.6'
-gem 'rails', '~> 8.1.3'
+gem 'rails', '~> 8.1.4'
 gem 'puma', '>= 7.2.1'
 gem 'sass-rails', '~> 6.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
@@ -55,7 +55,7 @@ gem 'airrecord'
 
 # Use ActiveStorage variant
 gem 'image_processing', '>= 2.0.3'
-gem "mini_magick", "~> 5.0" # Used by image_processing
+gem "mini_magick", "~> 5.4" # Used by image_processing
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.5.1', require: false
@@ -68,10 +68,10 @@ gem 'will_paginate'
 gem 'sentry-delayed_job'
 gem 'sentry-rails'
 gem 'sentry-ruby'
-gem 'pdf-forms', '~> 1.3.0'
+gem 'pdf-forms', '~> 1.5.2'
 gem 'aws-sdk-s3'
 gem 'aws-sdk-route53'
-gem 'device_detector', '~> 1.0.7' # 1.1+ causes test failures, investigate someday
+gem 'device_detector', '~> 1.1.3' # 1.1+ causes test failures, investigate someday
 gem 'mixpanel-ruby'
 gem 'devise'
 gem 'bcrypt', '>= 3.1.22'
@@ -82,25 +82,25 @@ gem 'delayed_job'
 gem 'lograge'
 gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
 gem 'auto_strip_attributes'
-gem 'datadog', '~> 2.41.0', require: 'datadog/auto_instrument'
+gem 'datadog', '~> 2.47.0', require: 'datadog/auto_instrument'
 gem 'dogapi'
 gem 'http_accept_language'
 gem 'rails-i18n'
 gem 'thor'
 gem 'websocket-extensions', '>= 0.1.5'
-gem "twilio-ruby", "7.11.3"
+gem "twilio-ruby", "7.12.0"
 gem 'mailgun-ruby'
 gem 'devise_invitable'
 gem 'cancancan'
 gem 'shakapacker', '9.7.0'
 gem 'combine_pdf'
-gem 'pdf-reader', '~> 2.4.1'
+gem 'pdf-reader', '~> 2.16.0'
 gem 'rails_autolink'
 gem 'ice_nine'
 gem 'business_time'
 gem 'rubyzip', '3.7.0'
 gem 'caxlsx', '4.5.0'
-gem 'intercom', '4.1.3' # potential issue with 4.2.0
+gem 'intercom', '4.2.3' # potential issue with 4.2.0
 gem 'statesman'
 gem 'redcarpet'
 gem 'platform-api'
@@ -125,7 +125,7 @@ gem "observer", "~> 0.1.2"
 gem "csv", "~> 3.3"
 # Bundled (not default) gem from Ruby 4.0. Only reached us transitively via axe-core
 # in :test, so production boots without it. Drop once app/ stops using OpenStruct.
-gem "ostruct", "~> 0.6.0"
+gem "ostruct", "~> 0.6.3"
 gem "rexml", ">= 3.4.2"
 gem 'useragent'
 
@@ -143,20 +143,20 @@ group :demo, :development, :heroku, :staging do
 end
 
 group :development, :test do
-  gem 'annotaterb', '4.23.0'
+  gem 'annotaterb', '4.25.0'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'axe-core-rspec'
   gem 'axe-core-capybara'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver', '4.46.0'
+  gem 'selenium-webdriver', '4.51.0'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'pry-byebug'
   gem 'guard-rspec', require: false
-  gem 'rubocop', '~> 1.53.0', require: false
-  gem 'rubocop-performance', '~> 1.16.0', require: false
+  gem 'rubocop', '~> 1.92.1', require: false
+  gem 'rubocop-performance', '~> 1.27.0', require: false
   gem 'rubocop-rspec', '~> 2.18.0', require: false
   gem 'i18n-tasks', require: false
   gem 'easy_translate'
@@ -199,6 +199,6 @@ gem "openssl", ">= 3.3.1"
 
 gem "aws-sdk-core", "3.260.0"
 
-gem "aws-sdk-bedrockruntime", "~> 1.2"
+gem "aws-sdk-bedrockruntime", "~> 1.88"
 
 gem 'oauth2', '>= 2.0.22'
