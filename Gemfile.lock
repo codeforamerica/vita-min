@@ -781,7 +781,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.8.3)
-    zxcvbn-ruby (1.2.0)
+    zxcvbn-ruby (2.0.1)
 
 PLATFORMS
   ruby
