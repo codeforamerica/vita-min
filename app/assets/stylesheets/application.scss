@@ -12,6 +12,9 @@
  *
  *= require_self
  */
+// Honeycrisp's outline mixins draw the keyboard focus ring with $color-gold (!default).
+// Override it before the import so focus rings use the current brand focus color ($color-focus).
+$color-gold: #339696;
 @import "cfa_styleguide_main";
 @import "actiontext";
 @import "components/sr-only";
