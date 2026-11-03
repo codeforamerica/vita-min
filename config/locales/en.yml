@@ -2011,6 +2011,7 @@ en:
         errors:
           bad_input: Incorrect client ID or last 4 of SSN/ITIN. After 3 failed attempts, accounts are locked.
           bad_verification_code: Incorrect verification code. After 3 failed attempts, accounts are locked.
+          too_many_requests: You’ve reached the limit for code requests. You can try again in 1 hour.
       new:
         created_an_account_last_year: What if I created an account last year?
         each_tax_year: Each tax year requires a new account even if you’ve filed with us before.
@@ -2436,6 +2437,7 @@ en:
       form:
         errors:
           bad_input: Incorrect SSN/ITIN. After 3 failed attempts, accounts are locked.
+          too_many_requests: You’ve reached the limit for code requests. You can try again in 1 hour.
       new:
         email_address:
           label: Your email address
@@ -5989,6 +5991,7 @@ en:
         body: 'A message with your code has been sent to:'
         error_message: Incorrect verification code.
         title: Let's verify that contact info with a code!
+        too_many_requests: You’ve reached the limit for code requests. You can try again in 1 hour.
         verification_code_label: Enter 6 digit code
         verify: Verify
       widowed:
