@@ -73,20 +73,21 @@ Datadog (hub request logs grouped by user role) once we have them.
 3. Smoke test (about 45 seconds, one user per persona) and check there are no errors:
    ```sh
    jmeter_test/jmeter_test -t hub_clients_personas -l smoke -- -Jpreparer_threads=1 -Jtriage_threads=1 -Jgreeter_threads=1 -Jduration_seconds=45
-   ruby jmeter_test/summarize_results.rb jmeter_test/results/<smoke run>.jtl
+   ruby jmeter_test/summarize_results.rb smoke
    ```
    The local accounts in `data/local/` are the dev seed users from `app/lib/seeder.rb`.
-4. Run the real test and open the HTML report (`results/<run>-report/index.html`):
+4. Run the real test and open the HTML report (`index.html` inside the run's `results/...-report/` folder):
    `jmeter_test/jmeter_test -t hub_clients_personas -r`
 
 **Comparing two versions of the code** (e.g. before and after a performance fix): run each version on its
 own port against the same database (e.g. `git worktree add ../vita-min-baseline origin/main` and start it
 on 3001, your branch on 3002), run the plan once per port, then compare per request:
 ```sh
-jmeter_test/jmeter_test -t hub_clients_personas -p 3001 -l baseline -r
-jmeter_test/jmeter_test -t hub_clients_personas -p 3002 -l fix -r
-ruby jmeter_test/summarize_results.rb jmeter_test/results/<baseline>.jtl jmeter_test/results/<fix>.jtl
+jmeter_test/jmeter_test -t hub_clients_personas -p 3001 -l baseline -r && \
+  jmeter_test/jmeter_test -t hub_clients_personas -p 3002 -l fix -r
+ruby jmeter_test/summarize_results.rb baseline fix
 ```
+`summarize_results.rb` takes labels (the `-l` value; it picks the newest matching run) or exact `.jtl` paths.
 Run them one after the other, not at the same time, so they don't compete for CPU and the database.
 Local numbers come from development mode on a laptop: use them to compare versions, not to predict staging.
 
