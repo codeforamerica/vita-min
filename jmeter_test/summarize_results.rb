@@ -1,6 +1,14 @@
-# Summarize one or two JMeter result files (.jtl) per request label, side by side.
-#   ruby summarize_results.rb results/<baseline>.jtl [results/<fix>.jtl]
+# Summarize one or two JMeter runs per request label, side by side.
+#   ruby summarize_results.rb baseline fix                 # newest results/*-baseline-*.jtl vs newest *-fix-*.jtl
+#   ruby summarize_results.rb results/a.jtl results/b.jtl  # or exact files
 require 'csv'
+
+def resolve(arg)
+  return arg if File.file?(arg)
+
+  newest = Dir.glob(File.join(__dir__, 'results', "*-#{arg}-*.jtl")).max_by { |f| File.mtime(f) }
+  newest || abort("No results file or label matching '#{arg}' (looked for results/*-#{arg}-*.jtl)")
+end
 
 def load(path)
   rows = CSV.read(path, headers: true)
@@ -14,8 +22,8 @@ def load(path)
   end
 end
 
-files = ARGV.first(2)
-abort 'usage: ruby summarize_results.rb A.jtl [B.jtl]' if files.empty?
+abort 'usage: ruby summarize_results.rb LABEL_OR_FILE [LABEL_OR_FILE]   e.g. baseline fix' if ARGV.empty?
+files = ARGV.first(2).map { |arg| resolve(arg) }
 data = files.map { |f| load(f) }
 labels = data.flat_map(&:keys).uniq.sort
 fmt = ->(s) { s ? format('%5d %5d %5d %4d%%', s[:count], s[:p50], s[:p95], (100.0 * s[:errors] / s[:count]).round) : format('%5s %5s %5s %5s', '-', '-', '-', '-') }
