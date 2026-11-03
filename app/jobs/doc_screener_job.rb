@@ -39,7 +39,9 @@ class DocScreenerJob < ApplicationJob
   rescue => e
     assessment&.update!(
       status: "failed",
-      error: "#{e.class}: #{e.message}"
+      error: "#{e.class}: #{e.message}",
+      # keep Bedrock's response when we got one, so failures can be diagnosed (e.g. stop_reason)
+      raw_response_json: e.try(:raw_response_json) || {}
     )
     raise
   end

@@ -131,6 +131,31 @@ describe Document do
       end
     end
 
+    describe "#validate_filename_length" do
+      let(:document) { build :document }
+
+      before do
+        document.upload.attach(io: File.open(attachment), filename: filename)
+      end
+
+      context "with a filename at the maximum length" do
+        let(:filename) { "#{"a" * (Document::MAX_FILENAME_LENGTH - 4)}.png" }
+
+        it "is valid" do
+          expect(document).to be_valid
+        end
+      end
+
+      context "with a filename over the maximum length" do
+        let(:filename) { "#{"a" * (Document::MAX_FILENAME_LENGTH - 3)}.png" }
+
+        it "rejects the file with a human readable error" do
+          expect(document).not_to be_valid
+          expect(document.errors[:upload]).to include "The file name is too long. Please rename the file to 255 characters or fewer and upload it again."
+        end
+      end
+    end
+
     context "with a corrupted pdf upload" do
       let(:document) { build :document, document_type: DocumentTypes::UnsignedForm8879.key, upload_path: Rails.root.join("spec", "fixtures", "files", "corrupted.pdf") }
       it "rejects the file as invalid" do
@@ -221,6 +246,27 @@ describe Document do
           expect(unsigned_8879.errors[:tax_return_id]).to include "Form 8879 (Unsigned) must be associated with a tax year."
         end
       end
+    end
+  end
+
+  describe ".truncate_filename" do
+    it "leaves filenames at or under the maximum length unchanged" do
+      filename = "#{"a" * (Document::MAX_FILENAME_LENGTH - 4)}.pdf"
+      expect(Document.truncate_filename(filename)).to eq filename
+    end
+
+    it "shortens long filenames to the maximum length, keeping the extension" do
+      truncated = Document.truncate_filename("#{"a" * 1000}.pdf")
+
+      expect(truncated.length).to eq Document::MAX_FILENAME_LENGTH
+      expect(truncated).to end_with "aaa.pdf"
+    end
+
+    it "shortens filenames with a very long extension to the maximum length" do
+      truncated = Document.truncate_filename("a.#{"b" * 1000}")
+
+      expect(truncated.length).to eq Document::MAX_FILENAME_LENGTH
+      expect(truncated).to start_with "a.bbb"
     end
   end
 

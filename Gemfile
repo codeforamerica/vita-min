@@ -197,7 +197,7 @@ gem "pundit", "~> 2.5"
 
 gem "openssl", ">= 3.3.1"
 
-gem "aws-sdk-core", "~> 3.190"
+gem "aws-sdk-core", "3.260.0"
 
 gem "aws-sdk-bedrockruntime", "~> 1.2"
 

@@ -30,8 +30,8 @@ describe BedrockDocScreener do
       payload = described_class.construct_bedrock_payload(images: images, user_prompt: user_prompt)
 
       expect(payload[:anthropic_version]).to eq("bedrock-2023-05-31")
-      expect(payload[:max_tokens]).to eq(250)
-      expect(payload[:messages].size).to eq(1)
+      expect(payload[:max_tokens]).to eq(BedrockDocScreener::MAX_TOKENS)
+      expect(payload[:messages].size).to eq(2)
 
       message = payload[:messages].first
       expect(message[:role]).to eq("user")
@@ -52,6 +52,12 @@ describe BedrockDocScreener do
 
       expect(text_part[:type]).to eq("text")
       expect(text_part[:text]).to eq(user_prompt)
+    end
+
+    it "prefills the assistant turn with an opening brace" do
+      payload = described_class.construct_bedrock_payload(images: images, user_prompt: user_prompt)
+
+      expect(payload[:messages].last).to eq(role: "assistant", content: "{")
     end
   end
 
@@ -132,11 +138,42 @@ describe BedrockDocScreener do
       end
     end
 
+    context "when the JSON is followed by a note" do
+      let(:text) do
+        <<~TEXT
+          {
+            "matches_doc_type_verdict": "pass",
+            "suggested_document_type": "W2",
+            "document_quality_issues": ["N/A"],
+            "explanation": "Looks valid",
+            "confidence": 0.95
+          }
+
+          Note: the {employer} section is partially cropped but still legible.
+        TEXT
+      end
+
+      it "parses the JSON object and ignores the note" do
+        result = described_class.parse_strict_json!(text)
+
+        expect(result["matches_doc_type_verdict"]).to eq("pass")
+        expect(result["confidence"]).to eq(0.95)
+      end
+    end
+
     context "when JSON is invalid" do
       it "raises with a helpful error message" do
         text = "not-json-at-all"
 
-        expect { described_class.parse_strict_json!(text) }.to raise_error(RuntimeError, /Bedrock did not return valid JSON/)
+        expect { described_class.parse_strict_json!(text) }.to raise_error(BedrockDocScreener::InvalidResponseError, /Bedrock did not return valid JSON/)
+      end
+    end
+
+    context "when the JSON has a trailing comma" do
+      it "raises InvalidResponseError" do
+        text = '{"matches_doc_type_verdict": "pass", "confidence": 0.95,}'
+
+        expect { described_class.parse_strict_json!(text) }.to raise_error(BedrockDocScreener::InvalidResponseError)
       end
     end
   end
@@ -145,24 +182,22 @@ describe BedrockDocScreener do
     let(:upload) { instance_double("ActiveStorageUpload") }
     let(:document) { instance_double("Document", upload: upload, document_type: "Employment") }
 
+    let(:stop_reason) { "end_turn" }
+    # the model continues from the "{" prefill, so the response has no opening brace
+    let(:generated_text) do
+      <<~JSON_TEXT
+          "matches_doc_type_verdict": "pass",
+          "suggested_document_type": "Employment",
+          "document_quality_issues": [],
+          "explanation": "Valid doc",
+          "confidence": 0.99
+        }
+      JSON_TEXT
+    end
     let(:raw_model_response_hash) do
       {
-        "content" => [
-          {
-            "type" => "text",
-            "text" => <<~JSON_TEXT
-              ```json
-              {
-                "matches_doc_type_verdict": "pass",
-                "suggested_document_type": "Employment",
-                "document_quality_issues": [],
-                "explanation": "Valid doc",
-                "confidence": 0.99
-              }
-              ```
-            JSON_TEXT
-          }
-        ]
+        "content" => [{ "type" => "text", "text" => generated_text }],
+        "stop_reason" => stop_reason
       }
     end
 
@@ -221,6 +256,32 @@ describe BedrockDocScreener do
       expect(described_class).to have_received(:invoke_bedrock_model) do |arg|
         parsed = JSON.parse(arg)
         expect(parsed["messages"].first["content"].last["text"]).to include("Selected document type: Employment")
+        expect(parsed["messages"].last).to eq("role" => "assistant", "content" => "{")
+      end
+    end
+
+    context "when the response was cut off at max_tokens" do
+      let(:stop_reason) { "max_tokens" }
+      let(:generated_text) { '"matches_doc_type_verdict": "pass", "explanation": "The document' }
+
+      it "raises InvalidResponseError carrying the raw response" do
+        expect {
+          described_class.screen_document!(document: document)
+        }.to raise_error(BedrockDocScreener::InvalidResponseError, /cut off/) { |e|
+          expect(e.raw_response_json).to eq(raw_model_response_hash)
+        }
+      end
+    end
+
+    context "when the response is not valid JSON" do
+      let(:generated_text) { '"matches_doc_type_verdict": "pass", "confidence": 0.95,}' }
+
+      it "raises InvalidResponseError carrying the raw response" do
+        expect {
+          described_class.screen_document!(document: document)
+        }.to raise_error(BedrockDocScreener::InvalidResponseError, /did not return valid JSON/) { |e|
+          expect(e.raw_response_json).to eq(raw_model_response_hash)
+        }
       end
     end
   end
@@ -305,7 +366,7 @@ describe BedrockDocScreener do
     before do
       allow(upload).to receive(:attached?).and_return(true)
       allow(described_class).to receive(:invoke_bedrock_model).and_return(
-        double("Response", body: StringIO.new({ content: [{ type: "text", text: "{}" }] }.to_json))
+        double("Response", body: StringIO.new({ content: [{ type: "text", text: "}" }] }.to_json))
       )
     end
 
@@ -385,7 +446,7 @@ describe BedrockDocScreener do
     before do
       allow(upload).to receive(:attached?).and_return(true)
       allow(described_class).to receive(:invoke_bedrock_model).and_return(
-        double("Response", body: StringIO.new({ content: [{ type: "text", text: "{}" }] }.to_json))
+        double("Response", body: StringIO.new({ content: [{ type: "text", text: "}" }] }.to_json))
       )
     end
 

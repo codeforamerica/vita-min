@@ -60,7 +60,7 @@ module Hub
         users_to_suspend = @organization.team_members
       end
       users_to_suspend_count = users_to_suspend.active.count
-      users_to_suspend.active.each(&:suspend!)
+      User.suspend_and_unassign_clients(users_to_suspend.active)
 
       flash[:alert] = I18n.t("hub.organizations.suspended_all.success", count: users_to_suspend_count)
       redirect_to edit_hub_organization_path(id: @organization.id)
