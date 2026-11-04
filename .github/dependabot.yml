@@ -3,9 +3,9 @@ updates:
   - package-ecosystem: "bundler"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     cooldown:
-      default-days: 7
+      default-days: 3
     groups:
       bundler-minor-patch:
         patterns:
@@ -17,9 +17,9 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     cooldown:
-      default-days: 7
+      default-days: 3
     groups:
       npm-minor-patch:
         patterns:
@@ -31,9 +31,9 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     cooldown:
-      default-days: 7
+      default-days: 3
     groups:
       github-actions-minor-patch:
         patterns:
