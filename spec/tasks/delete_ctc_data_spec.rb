@@ -110,6 +110,18 @@ describe 'delete_ctc_data:perform' do
       expect(gyr_tax_return.reload.assigned_user).to eq(user)
     end
 
+    it "deletes CTC clients whose efile security information references an efile submission" do
+      ctc_client = ctc_intake.client
+      efile_submission = create(:efile_submission, :ctc, client: ctc_client)
+      security_information = create(:efile_security_information, client: ctc_client, efile_submission_id: efile_submission.id)
+
+      run_task('destructive')
+
+      expect(Client.where(id: ctc_client.id)).to be_empty
+      expect(EfileSubmission.where(id: efile_submission.id)).to be_empty
+      expect(EfileSecurityInformation.where(id: security_information.id)).to be_empty
+    end
+
     it "deletes CTC portal system notes" do
       ctc_portal_action = SystemNote::CtcPortalAction.create!(client: mixed_client, body: "action")
       ctc_portal_update = SystemNote::CtcPortalUpdate.create!(client: mixed_client, body: "update")
@@ -168,8 +180,17 @@ describe 'delete_ctc_data:perform' do
     it "deletes nothing" do
       expect { run_task('dry_run') }.not_to change {
         [Client.count, Intake.count, Archived::Intake2021.count, DriversLicense.count, ClientInteraction.count,
-         ExperimentParticipant.count, CtcSignup.count, EfileError.count, TaxReturn.count]
+         ExperimentParticipant.count, CtcSignup.count, EfileError.count, TaxReturn.count, Document.count]
       }
+    end
+
+    it "reports clients whose deletion would fail" do
+      allow_any_instance_of(Client).to receive(:destroy!).and_raise(ActiveRecord::InvalidForeignKey, "fk violation")
+
+      run_task('dry_run')
+
+      expect($stdout.string).to include("Failed to delete Client #{ctc_intake.client_id}: ActiveRecord::InvalidForeignKey: fk violation")
+      expect(Client.where(id: ctc_intake.client_id)).to exist
     end
   end
 end
