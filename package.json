@@ -27,7 +27,7 @@
     "regenerator-runtime": "^0.13.7",
     "shakapacker": "^9.7.0",
     "stickybits": "^3.7.9",
-    "style-loader": "^2.0.0",
+    "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5",
     "trix": "^2.1.19",
     "turbolinks": "^5.2.0",
