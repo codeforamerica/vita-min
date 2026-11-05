@@ -205,6 +205,18 @@ body {
     }
   }
 
+  // Must come after .button and .button--primary above: same specificity, so source order wins
+  @each $modifier, $cta-color in $gyr-flow-ctas {
+    .button--#{$modifier}#{$gyr-cta-exclusions} {
+      &,
+      &:hover,
+      &:active,
+      &:visited {
+        background-color: $cta-color;
+      }
+    }
+  }
+
   .slab--footer {
     background-color: $color-confidence-blue;
     color: $color-clarity-white;

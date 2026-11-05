@@ -61,6 +61,12 @@ $gyr-service-card-ctas: (
   "simple-file": $color-periwinkle,
 );
 
+// Flow-specific CTA modifiers; colors match the service card CTA for each flow
+$gyr-flow-ctas: (
+  "file-myself-peach": $color-coral,
+  "assist-green": $color-olive,
+);
+
 $color-link-unvisited: #007C7C;
 $color-link-visited: #4c2c92;
 $color-link-default: $color-link-unvisited;
