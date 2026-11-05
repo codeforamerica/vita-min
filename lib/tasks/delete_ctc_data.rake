@@ -37,7 +37,7 @@ namespace :delete_ctc_data do
                                .or(ctc_clients.where(id: non_ctc_archived_intakes.select(:client_id)))
 
     # don't delete clients that have another type of intake
-    clients_to_delete = ctc_clients.where.not(id: mixed_clients.select(:id)).distinct
+    clients_to_delete = ctc_clients.where.not(id: mixed_clients.select(:id))
 
     p '--------------------------------'
     p 'Tally of CTC Client records to delete: ' + clients_to_delete.count.to_s
@@ -55,29 +55,27 @@ namespace :delete_ctc_data do
       ActiveRecord::Base.transaction(requires_new: true) do
         drivers_license_ids = Intake::CtcIntake.where(client_id: client.id)
                                                .pluck(:primary_drivers_license_id, :spouse_drivers_license_id)
-                                               .flatten.compact.uniq
+                                               .flatten.compact
 
         document_ids = client.documents.pluck(:id)
 
-        ExperimentParticipant.where(record_type: Intake.name, record_id: Intake.where(client_id: client.id).select(:id)).distinct.each(&:destroy!)
+        ExperimentParticipant.where(record_type: Intake.name, record_id: Intake.where(client_id: client.id).select(:id)).delete_all
 
-        ClientInteraction.where(client_id: client.id).distinct.each(&:destroy!)
+        ClientInteraction.where(client_id: client.id).delete_all
 
-        #EfileSecurityInformation.where(client_id: client.id).each(&:destroy!)
-
-        #EfileSecurityInformation.where(efile_submission_id: client.efile_submissions.select(:id)).each(&:destroy!)
+        EfileSecurityInformation.where(client_id: client.id).delete_all
 
         Archived::Intake::CtcIntake2021.where(client_id: client.id).find_each do |intake|
           intake.bank_account&.destroy!
           intake.dependents.each(&:destroy!)
-          intake.destroy!
+          intake.delete
         end
 
         client.destroy!
 
-        DriversLicense.where(id: drivers_license_ids).distinct.each(&:destroy!)
+        DriversLicense.where(id: drivers_license_ids).destroy_all
 
-        PaperTrail::Version.where(item_type: Document.name, item_id: document_ids).each(&:destroy!)
+        PaperTrail::Version.where(item_type: Document.name, item_id: document_ids).delete_all
 
         raise ActiveRecord::Rollback if dry_run
       end
