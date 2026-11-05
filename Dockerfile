@@ -65,6 +65,8 @@ RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
 
 EXPOSE 3000
 
+RUN chown -R 789:789 /app
+RUN chmod 700 /app
 USER 789:789
 
 CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "3000"]
