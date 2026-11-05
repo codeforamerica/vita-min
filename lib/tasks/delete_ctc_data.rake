@@ -65,6 +65,9 @@ namespace :delete_ctc_data do
 
         EfileSecurityInformation.where(client_id: client.id).delete_all
 
+        EfileSecurityInformation.where(efile_submission_id: client.efile_submissions.select(:id))
+                                .update_all(efile_submission_id: nil)
+
         Archived::Intake::CtcIntake2021.where(client_id: client.id).find_each do |intake|
           intake.bank_account&.destroy!
           intake.dependents.each(&:destroy!)

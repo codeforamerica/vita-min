@@ -122,6 +122,18 @@ describe 'delete_ctc_data:perform' do
       expect(EfileSecurityInformation.where(id: security_information.id)).to be_empty
     end
 
+    it "deletes CTC clients whose efile submission is referenced by another client's efile security information" do
+      ctc_client = ctc_intake.client
+      efile_submission = create(:efile_submission, :ctc, client: ctc_client)
+      other_security_information = create(:efile_security_information, client: gyr_intake.client, efile_submission_id: efile_submission.id)
+
+      run_task('destructive')
+
+      expect(Client.where(id: ctc_client.id)).to be_empty
+      expect(EfileSubmission.where(id: efile_submission.id)).to be_empty
+      expect(other_security_information.reload.efile_submission_id).to be_nil
+    end
+
     it "deletes CTC portal system notes" do
       ctc_portal_action = SystemNote::CtcPortalAction.create!(client: mixed_client, body: "action")
       ctc_portal_update = SystemNote::CtcPortalUpdate.create!(client: mixed_client, body: "update")
