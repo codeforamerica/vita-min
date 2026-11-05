@@ -3,8 +3,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby_version = File.read(File.join(File.dirname(__FILE__), '.ruby-version')).strip
 ruby ruby_version
 
-gem "json", "< 3"
-
 # Dual-boot harness. Nothing diverges between the two boots right now: there is no
 # Gemfile_next.lock, and bootboot's after-install-all hook bails when that file is
 # absent, so this costs a normal `bundle install` nothing. To start a dual boot --
