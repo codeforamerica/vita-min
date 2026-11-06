@@ -3,6 +3,13 @@
 <% content_for :card do %>
   <h2 class="spacing-below-10"><%= t(".title", name: current_client.intake.preferred_name) %></h2>
 
+  <% if show_tax_season_ends_banner?(@tax_returns) %>
+    <%= render "deadline_alert",
+               variant: :info,
+               heading: t(".deadline_alert.tax_season_ends_title", date: tax_season_deadline_date),
+               body: t(".deadline_alert.tax_season_ends") %>
+  <% end %>
+
   <% if @tax_returns.present? %>
     <% @tax_returns.each_with_index do |tax_return, index| %>
       <div class="spacing-below-25">

@@ -61,6 +61,47 @@
   }
 }
 
+.portal-alert {
+  border: 1px solid;
+  border-radius: 0.4rem;
+  color: #121212;
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 2.5rem;
+  padding: 1.6rem;
+
+  &__icon {
+    flex-shrink: 0;
+  }
+
+  &__heading {
+    font-weight: $font-weight-bold;
+    margin-bottom: 0.8rem;
+  }
+
+  &__body {
+    margin-bottom: 0;
+  }
+
+  &--info {
+    background-color: #f4f3fc;
+    border-color: #1b059a;
+
+    .portal-alert__icon {
+      color: #2206c0;
+    }
+  }
+
+  &--warning {
+    background-color: #fffbf1;
+    border-color: #8c6000;
+
+    .portal-alert__icon {
+      color: #8c6000;
+    }
+  }
+}
+
 .portal-info-box {
   background-color: #fff4d1;
   border: 3px solid #fab323;

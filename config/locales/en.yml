@@ -121,6 +121,7 @@ en:
     formats:
       default: "%-m/%-d/%Y"
       long: "%B %-d, %Y"
+      month_day: "%B %-d"
   devise:
     failure:
       invalid: Incorrect email or password. After 5 login attempts, accounts are locked.
@@ -2111,6 +2112,13 @@ en:
           review_info_requested_title: You have a message
           signature_requested: Download your final tax papers to review, then sign electronically.
           signature_requested_title: Signature needed
+        deadline_alert:
+          info_label: 'Information:'
+          sign_by: We need your signature to file your return.
+          sign_by_title: Sign by %{date}
+          tax_season_ends: Check for updates from your tax team.
+          tax_season_ends_title: This tax season ends %{date}
+          warning_label: 'Warning:'
         decline_to_sign_help: If you don't sign your return, your tax team will reach out to discuss.
         document_link:
           download_final_tax_papers: Download final tax papers
