@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -1633,11 +1633,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
     t.boolean "with_vita_approved_photo_id", default: false
     t.boolean "with_vita_approved_taxpayer_id", default: false
     t.string "zip_code"
+    t.string "hashed_email"
     t.index ["canonical_email_address"], name: "index_intakes_on_canonical_email_address"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["completed_at"], name: "index_intakes_on_completed_at", where: "(completed_at IS NOT NULL)"
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["email_domain"], name: "index_intakes_on_email_domain"
+    t.index ["hashed_email"], name: "index_intakes_on_hashed_email"
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
     t.index ["locale"], name: "index_intakes_on_locale"
     t.index ["matching_previous_year_intake_id"], name: "index_intakes_on_matching_previous_year_intake_id"
@@ -1989,6 +1991,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
     t.integer "tax_year"
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
+    t.string "hashed_email"
   end
 
   create_table "state_file_az1099_r_followups", force: :cascade do |t|
@@ -2078,8 +2081,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
     t.string "visitor_id"
     t.integer "was_incarcerated", default: 0, null: false
     t.integer "withdraw_amount"
+    t.string "hashed_email"
     t.index ["created_at"], name: "index_state_file_az_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_az_intakes_on_email_address"
+    t.index ["hashed_email"], name: "index_state_file_az_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_az_intakes_on_hashed_ssn"
     t.index ["id"], name: "index_state_file_az_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
     t.index ["id"], name: "index_state_file_az_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
@@ -2228,8 +2233,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
     t.decimal "veterans_support_fund_donation", precision: 12, scale: 2
     t.string "visitor_id"
     t.integer "withdraw_amount"
+    t.string "hashed_email"
     t.index ["created_at"], name: "index_state_file_id_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_id_intakes_on_email_address"
+    t.index ["hashed_email"], name: "index_state_file_id_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_id_intakes_on_hashed_ssn"
     t.index ["id"], name: "index_state_file_id_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
     t.index ["id"], name: "index_state_file_id_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
@@ -2349,8 +2356,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
     t.string "visitor_id"
     t.decimal "withdraw_amount", precision: 12, scale: 2
     t.string "zip_code"
+    t.string "hashed_email"
     t.index ["created_at"], name: "index_state_file_md_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_md_intakes_on_email_address"
+    t.index ["hashed_email"], name: "index_state_file_md_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_md_intakes_on_hashed_ssn"
     t.index ["id"], name: "index_state_file_md_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
     t.index ["id"], name: "index_state_file_md_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
@@ -2450,7 +2459,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
     t.string "visitor_id"
     t.integer "withdraw_amount"
     t.string "zip_code"
+    t.string "hashed_email"
     t.index ["created_at"], name: "index_state_file_nc_intakes_on_created_at"
+    t.index ["hashed_email"], name: "index_state_file_nc_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_nc_intakes_on_hashed_ssn"
     t.index ["id"], name: "index_state_file_nc_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
     t.index ["id"], name: "index_state_file_nc_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
@@ -2610,8 +2621,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
+    t.string "hashed_email"
     t.index ["created_at"], name: "index_state_file_nj_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_nj_intakes_on_email_address"
+    t.index ["hashed_email"], name: "index_state_file_nj_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_nj_intakes_on_hashed_ssn"
     t.index ["id"], name: "index_state_file_nj_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
     t.index ["id"], name: "index_state_file_nj_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
@@ -2753,7 +2766,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
+    t.string "hashed_email"
     t.index ["email_address"], name: "index_state_file_ny_intakes_on_email_address"
+    t.index ["hashed_email"], name: "index_state_file_ny_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_ny_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_ny_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_ny_intakes_on_spouse_state_id_id"

@@ -78,6 +78,7 @@ class StateFileBaseIntake < ApplicationRecord
 
   before_save :save_nil_enums_with_unfilled
   before_save :sanitize_bank_details
+  before_save :set_hashed_email, if: :email_address_changed?
 
   def self.maximum_attempts
     3
@@ -512,6 +513,10 @@ class StateFileBaseIntake < ApplicationRecord
     StateFile::StateInformationService.state_intake_classes.map do |klass|
       klass.where(email_address: email).where(unsubscribed_from_email: true)
     end.inject([], :+)
+  end
+
+  def set_hashed_email
+    self.hashed_email = EmailHashingService.hash(email_address)
   end
 
   def sanitize_bank_details

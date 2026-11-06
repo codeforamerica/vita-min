@@ -20,7 +20,8 @@ module StateFile
           df_data_imported_at: Time.now
         )
         intake.update(
-          hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn)
+          hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn),
+          hashed_email: EmailHashingService.hash(intake.email_address)
         )
 
         required_fields = [:raw_direct_file_data, :raw_direct_file_intake_data, :federal_submission_id, :federal_return_status, :hashed_ssn]

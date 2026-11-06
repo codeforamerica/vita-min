@@ -466,6 +466,9 @@ class Intake < ApplicationRecord
       self.email_domain = email_address.split('@').last.downcase
       self.canonical_email_address = CanonicalEmail.get(email_address)
     end
+    if email_address_changed?
+      self.hashed_email = EmailHashingService.hash(email_address)
+    end
     if primary_ssn_changed?
       self.primary_last_four_ssn = primary_ssn&.last(4)
       self.hashed_primary_ssn = DeduplicationService.sensitive_attribute_hashed(self, :primary_ssn)
