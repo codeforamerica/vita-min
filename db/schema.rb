@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -1633,11 +1633,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_28_193552) do
     t.boolean "with_vita_approved_photo_id", default: false
     t.boolean "with_vita_approved_taxpayer_id", default: false
     t.string "zip_code"
+    t.string "hashed_email"
     t.index ["canonical_email_address"], name: "index_intakes_on_canonical_email_address"
     t.index ["client_id"], name: "index_intakes_on_client_id"
     t.index ["completed_at"], name: "index_intakes_on_completed_at", where: "(completed_at IS NOT NULL)"
     t.index ["email_address"], name: "index_intakes_on_email_address"
     t.index ["email_domain"], name: "index_intakes_on_email_domain"
+    t.index ["hashed_email"], name: "index_intakes_on_hashed_email"
     t.index ["hashed_primary_ssn"], name: "index_intakes_on_hashed_primary_ssn"
     t.index ["locale"], name: "index_intakes_on_locale"
     t.index ["matching_previous_year_intake_id"], name: "index_intakes_on_matching_previous_year_intake_id"
