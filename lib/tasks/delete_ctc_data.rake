@@ -70,7 +70,7 @@ namespace :delete_ctc_data do
           intake.dependents.each(&:destroy!)
 
           Archived::Dependent2021.where(archived_intakes_2021_id: intake.id).find_each do |dep|
-            dependent.destroy!
+            dep.destroy!
           end
 
           intake.delete
