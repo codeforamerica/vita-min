@@ -99,7 +99,8 @@ module BedrockDocScreener
   end
 
   # Bedrock constrains the response to this schema, so it always comes back as parseable JSON
-  # with exactly these keys. Numerical constraints (minimum/maximum) aren't supported, so
+  # with exactly these keys. 
+  # Numerical constraints (minimum/maximum) aren't supported, so
   # confidence is limited to the discrete values the prompt asks for instead.
   def self.output_schema
     {
