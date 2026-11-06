@@ -68,7 +68,16 @@ namespace :delete_ctc_data do
         Archived::Intake::CtcIntake2021.where(client_id: client.id).find_each do |intake|
           intake.bank_account&.destroy!
           intake.dependents.each(&:destroy!)
+
+          Archived::Dependent2021.where(archived_intakes_2021_id: intake.id).find_each do |dep|
+            dependent.destroy!
+          end
+
           intake.delete
+        end
+
+        Intake::CtcIntake.where(client_id: client.id).find_each do |intake|
+          intake.bank_account&.destroy!
         end
 
         client.destroy!
