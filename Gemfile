@@ -111,7 +111,7 @@ gem 'strong_migrations'
 gem 'zxcvbn-ruby', require: 'zxcvbn'
 gem 'omniauth'
 gem "omniauth-google-oauth2", "~> 1.2"
-gem 'omniauth-rails_csrf_protection', '~>1.0'
+gem 'omniauth-rails_csrf_protection', '~>2.0'
 gem 'openssl-oaep'
 gem 'pycall'
 gem 'acts_as_list'
