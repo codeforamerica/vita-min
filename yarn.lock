@@ -2160,6 +2160,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rails/ujs@npm:7.1.600":
+  version: 7.1.600
+  resolution: "@rails/ujs@npm:7.1.600"
+  checksum: 10c0/0ccaa68a08fbc7b084ab89a1fe49520a5cba6d99f4b0feaf0cb3d00334c59d8d798932d7e49b84aa388875d039ea1e17eb115ed96a80ad157e408a13eceef53e
+  languageName: node
+  linkType: hard
+
 "@sinclair/typebox@npm:^0.27.8":
   version: 0.27.12
   resolution: "@sinclair/typebox@npm:0.27.12"
