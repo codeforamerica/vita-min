@@ -2133,10 +2133,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rails/actioncable@npm:7.2.301":
-  version: 7.2.301
-  resolution: "@rails/actioncable@npm:7.2.301"
-  checksum: 10c0/22706e6c701832254fc5511120d7af1cf586dd89994139cc1ef75bb04f464a5ae2406058e7600b062e02cd093b16dd31f2d1e82d8bfa984fe29c037e5c871c92
+"@rails/actioncable@npm:8.1.400":
+  version: 8.1.400
+  resolution: "@rails/actioncable@npm:8.1.400"
+  checksum: 10c0/69dd0c3ef4e72bfe281e0f22b18aea9766057ce6725a47832fd714db889948e439c5918279fcffcf644ed86c16c6abb55bf32fd6d8aad160d4d7ef8773bd9980
   languageName: node
   linkType: hard
 
@@ -2157,13 +2157,6 @@ __metadata:
   dependencies:
     spark-md5: "npm:^3.0.1"
   checksum: 10c0/1716ac0162250c8ff509be75f20771dba4d97dd76da5bfeab8a24db971e9b73aeacb35a1e12f02d7f6505d036b1405aafdda2480882a05b5bb1835ebe56aea9e
-  languageName: node
-  linkType: hard
-
-"@rails/ujs@npm:7.1.3-4":
-  version: 7.1.3-4
-  resolution: "@rails/ujs@npm:7.1.3-4"
-  checksum: 10c0/af352f9c5a85b068611eac422dbcb100a2d7db8abade0c23215455e262a4cd98297554356667183ef3ee6a07a8358afcb5d64242218d66c15c6d75c07e91b525
   languageName: node
   linkType: hard
 
@@ -2940,10 +2933,10 @@ __metadata:
     "@babel/plugin-transform-runtime": "npm:^7"
     "@babel/preset-env": "npm:^7"
     "@babel/runtime": "npm:^7"
-    "@rails/actioncable": "npm:7.2.301"
+    "@rails/actioncable": "npm:8.1.400"
     "@rails/actiontext": "npm:8.1.400"
     "@rails/activestorage": "npm:8.1.400"
-    "@rails/ujs": "npm:7.1.3-4"
+    "@rails/ujs": "npm:7.1.600"
     "@yaireo/tagify": "npm:4.9.8"
     babel-loader: "npm:^9"
     braces: "npm:^3.0.3"
