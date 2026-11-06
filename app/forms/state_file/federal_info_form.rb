@@ -162,10 +162,7 @@ module StateFile
             raw_direct_file_data: intake.direct_file_data.to_s
           )
       )
-      @intake.update(
-        hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn),
-        hashed_email: EmailHashingService.hash(intake.email_address)
-      )
+      @intake.update(hashed_ssn: SsnHashingService.hash(intake.direct_file_data.primary_ssn))
       @intake.synchronize_df_dependents_to_database
       @intake.synchronize_df_1099_rs_to_database
       @intake.synchronize_df_w2s_to_database

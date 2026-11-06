@@ -1991,7 +1991,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
     t.integer "tax_year"
     t.boolean "unsubscribed_from_email", default: false, null: false
     t.datetime "updated_at", null: false
-    t.string "hashed_email"
   end
 
   create_table "state_file_az1099_r_followups", force: :cascade do |t|
@@ -2081,10 +2080,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
     t.string "visitor_id"
     t.integer "was_incarcerated", default: 0, null: false
     t.integer "withdraw_amount"
-    t.string "hashed_email"
     t.index ["created_at"], name: "index_state_file_az_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_az_intakes_on_email_address"
-    t.index ["hashed_email"], name: "index_state_file_az_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_az_intakes_on_hashed_ssn"
     t.index ["id"], name: "index_state_file_az_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
     t.index ["id"], name: "index_state_file_az_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
@@ -2233,10 +2230,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
     t.decimal "veterans_support_fund_donation", precision: 12, scale: 2
     t.string "visitor_id"
     t.integer "withdraw_amount"
-    t.string "hashed_email"
     t.index ["created_at"], name: "index_state_file_id_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_id_intakes_on_email_address"
-    t.index ["hashed_email"], name: "index_state_file_id_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_id_intakes_on_hashed_ssn"
     t.index ["id"], name: "index_state_file_id_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
     t.index ["id"], name: "index_state_file_id_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
@@ -2356,10 +2351,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
     t.string "visitor_id"
     t.decimal "withdraw_amount", precision: 12, scale: 2
     t.string "zip_code"
-    t.string "hashed_email"
     t.index ["created_at"], name: "index_state_file_md_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_md_intakes_on_email_address"
-    t.index ["hashed_email"], name: "index_state_file_md_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_md_intakes_on_hashed_ssn"
     t.index ["id"], name: "index_state_file_md_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
     t.index ["id"], name: "index_state_file_md_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
@@ -2459,9 +2452,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
     t.string "visitor_id"
     t.integer "withdraw_amount"
     t.string "zip_code"
-    t.string "hashed_email"
     t.index ["created_at"], name: "index_state_file_nc_intakes_on_created_at"
-    t.index ["hashed_email"], name: "index_state_file_nc_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_nc_intakes_on_hashed_ssn"
     t.index ["id"], name: "index_state_file_nc_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
     t.index ["id"], name: "index_state_file_nc_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
@@ -2621,10 +2612,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
-    t.string "hashed_email"
     t.index ["created_at"], name: "index_state_file_nj_intakes_on_created_at"
     t.index ["email_address"], name: "index_state_file_nj_intakes_on_email_address"
-    t.index ["hashed_email"], name: "index_state_file_nj_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_nj_intakes_on_hashed_ssn"
     t.index ["id"], name: "index_state_file_nj_intakes_email_verified", where: "((email_address IS NOT NULL) AND (email_address_verified_at IS NOT NULL))"
     t.index ["id"], name: "index_state_file_nj_intakes_phone_verified", where: "((phone_number IS NOT NULL) AND (phone_number_verified_at IS NOT NULL))"
@@ -2766,9 +2755,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.integer "withdraw_amount"
-    t.string "hashed_email"
     t.index ["email_address"], name: "index_state_file_ny_intakes_on_email_address"
-    t.index ["hashed_email"], name: "index_state_file_ny_intakes_on_hashed_email"
     t.index ["hashed_ssn"], name: "index_state_file_ny_intakes_on_hashed_ssn"
     t.index ["primary_state_id_id"], name: "index_state_file_ny_intakes_on_primary_state_id_id"
     t.index ["spouse_state_id_id"], name: "index_state_file_ny_intakes_on_spouse_state_id_id"

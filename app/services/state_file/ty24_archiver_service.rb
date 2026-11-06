@@ -89,7 +89,6 @@ module StateFile
         state_code: state_code,
         tax_year: tax_year,
         hashed_ssn: intake.hashed_ssn,
-        hashed_email: intake.hashed_email,
         email_address: intake.email_address,
         phone_number: intake.phone_number,
         contact_preference: intake.contact_preference,
