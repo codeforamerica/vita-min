@@ -47,11 +47,11 @@ def gemn(gem_name, *versions, next_version: nil, next_name: nil, **kwargs)
 end
 
 gem 'rack', '>= 3.2.6'
-gem 'rails', '~> 8.1.4'
+gem 'rails', '~> 8.1.4', '>= 8.1.4.1'
 gem 'puma', '>= 7.2.1'
 gem 'sass-rails', '~> 6.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
-gem 'nokogiri', '1.19.4'
+gem 'nokogiri', '>= 1.19.3'
 gem 'recaptcha'
 gem 'airrecord'
 
@@ -111,7 +111,7 @@ gem 'strong_migrations'
 gem 'zxcvbn-ruby', require: 'zxcvbn'
 gem 'omniauth'
 gem "omniauth-google-oauth2", "~> 1.2"
-gem 'omniauth-rails_csrf_protection', '~>1.0'
+gem 'omniauth-rails_csrf_protection', '~>2.0'
 gem 'openssl-oaep'
 gem 'pycall'
 gem 'acts_as_list'
