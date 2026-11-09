@@ -83,7 +83,7 @@ gem 'delayed_job'
 gem 'lograge'
 gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
 gem 'auto_strip_attributes'
-gem 'datadog', '~> 2.47.0', require: 'datadog/auto_instrument'
+gem 'datadog', '~> 2.48.0', require: 'datadog/auto_instrument'
 gem 'dogapi'
 gem 'http_accept_language'
 gem 'rails-i18n'
@@ -198,8 +198,8 @@ gem "pundit", "~> 2.5"
 
 gem "openssl", ">= 3.3.1"
 
-gem "aws-sdk-core", "3.263.0"
+gem "aws-sdk-core", "3.264.0"
 
-gem "aws-sdk-bedrockruntime", "~> 1.90"
+gem "aws-sdk-bedrockruntime", "~> 1.91"
 
 gem 'oauth2', '>= 2.0.22'
