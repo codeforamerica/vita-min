@@ -7,6 +7,7 @@
 #  email_address             :string
 #  email_notification_opt_in :integer          default("unfilled")
 #  filing_frequency          :integer          default("unfilled")
+#  hashed_email              :string
 #  locale                    :string
 #  preferred_first_name      :string
 #  received_1099             :integer          default("unfilled"), not null
@@ -21,6 +22,10 @@
 #  updated_at                :datetime         not null
 #  visitor_id                :string
 #
+# Indexes
+#
+#  index_diy_intakes_on_hashed_email  (hashed_email)
+#
 class DiyIntake < ApplicationRecord
   attr_accessor :email_address_confirmation
 
@@ -32,6 +37,8 @@ class DiyIntake < ApplicationRecord
   has_secure_token :token
 
   validates :email_address, 'valid_email_2/email': { mx: true }, confirmation: true
+
+  before_save :set_hashed_email, if: :email_address_changed?
 
   scope :sms_contactable, lambda {
     where.not(sms_phone_number: [nil, ""])
@@ -51,6 +58,10 @@ class DiyIntake < ApplicationRecord
 
   def campaign_contact
     CampaignContact.where("? = ANY(diy_intake_ids)", id).first
+  end
+
+  def set_hashed_email
+    self.hashed_email = EmailHashingService.hash(email_address)
   end
 
   def create_or_update_campaign_contact

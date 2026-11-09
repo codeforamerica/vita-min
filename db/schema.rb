@@ -849,6 +849,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
     t.datetime "updated_at", null: false
     t.string "visitor_id"
     t.string "zip_code"
+    t.string "hashed_email"
+    t.index ["hashed_email"], name: "index_diy_intakes_on_hashed_email"
   end
 
   create_table "doc_assessment_feedbacks", force: :cascade do |t|
