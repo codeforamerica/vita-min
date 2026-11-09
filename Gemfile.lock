@@ -115,11 +115,11 @@ GEM
       execjs (~> 2)
     awesome_print (1.9.2)
     aws-eventstream (1.4.1)
-    aws-partitions (1.1300.0)
-    aws-sdk-bedrockruntime (1.90.0)
-      aws-sdk-core (~> 3, >= 3.263.0)
+    aws-partitions (1.1302.0)
+    aws-sdk-bedrockruntime (1.91.0)
+      aws-sdk-core (~> 3, >= 3.264.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-core (3.263.0)
+    aws-sdk-core (3.264.0)
       aws-eventstream (~> 1, >= 1.4.1)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
@@ -128,14 +128,14 @@ GEM
       jmespath (~> 1, >= 1.6.1)
       logger
       rexml (~> 3.4, >= 3.4.2)
-    aws-sdk-kms (1.136.0)
-      aws-sdk-core (~> 3, >= 3.260.0)
+    aws-sdk-kms (1.138.0)
+      aws-sdk-core (~> 3, >= 3.263.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-route53 (1.142.0)
-      aws-sdk-core (~> 3, >= 3.260.0)
+    aws-sdk-route53 (1.144.0)
+      aws-sdk-core (~> 3, >= 3.263.0)
       aws-sigv4 (~> 1.5)
-    aws-sdk-s3 (1.235.0)
-      aws-sdk-core (~> 3, >= 3.258.0)
+    aws-sdk-s3 (1.237.0)
+      aws-sdk-core (~> 3, >= 3.263.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.12.1)
@@ -205,7 +205,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0)
     database_cleaner-core (2.0.1)
-    datadog (2.47.0)
+    datadog (2.48.0)
       cgi
       datadog-ruby_core_source (~> 3.5, >= 3.5.6)
       libdatadog (~> 46.1.0.1.1)
@@ -504,7 +504,7 @@ GEM
       nio4r (~> 2.0)
     pundit (2.5.2)
       activesupport (>= 3.0.0)
-    pycall (1.5.4)
+    pycall (1.5.5)
       fiddle (>= 1.0.0)
     racc (1.8.1)
     rack (3.2.8)
@@ -782,8 +782,8 @@ DEPENDENCIES
   annotaterb (= 4.26.0)
   auto_strip_attributes
   awesome_print
-  aws-sdk-bedrockruntime (~> 1.90)
-  aws-sdk-core (= 3.263.0)
+  aws-sdk-bedrockruntime (~> 1.91)
+  aws-sdk-core (= 3.264.0)
   aws-sdk-route53
   aws-sdk-s3
   axe-core-capybara
@@ -801,7 +801,7 @@ DEPENDENCIES
   csv (~> 3.3)
   data_migrate (>= 10.0)
   database_cleaner
-  datadog (~> 2.47.0)
+  datadog (~> 2.48.0)
   delayed_job
   delayed_job_active_record
   delayed_job_web
