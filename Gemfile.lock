@@ -579,7 +579,6 @@ GEM
       prism (>= 1.6.0)
       rbs (>= 4.0.0)
       tsort
-    recaptcha (5.21.2)
     redcarpet (3.6.1)
     redis (6.0.0)
       redis-client (= 0.30.1)
@@ -865,7 +864,6 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n
   rails_autolink
-  recaptcha
   redcarpet
   redis
   rexml (>= 3.4.2)
