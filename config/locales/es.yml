@@ -2098,6 +2098,9 @@ es:
         decline_to_sign_help: Si no firma su declaración, el equipo de impuestos se comunicará con usted para ver sus opciones.
         document_link:
           download_final_tax_papers: Descargar papeles de impuestos
+        download_deadline_banner:
+          body: Para proteger su información, las declaraciones de impuestos solo están en su cuenta hasta esa fecha.
+          header: Descargue su declaración hasta el %{date}
         help_text:
           file_accepted_intro: El IRS aceptó su declaración de impuestos del %{year}.
           file_accepted_payments_html: Para pagar impuestos si todavía le debe al IRS, %{link}

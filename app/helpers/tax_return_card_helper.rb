@@ -315,6 +315,19 @@ module TaxReturnCardHelper
             "data-track-attribute-return_status": return_status)
   end
 
+  def show_download_deadline_banner?(tax_returns)
+    app_time.between?(Rails.configuration.end_of_intake, Rails.configuration.end_of_in_progress_intake) &&
+      tax_returns.any? { |tax_return| [:file_accepted, :file_mailed].include?(tax_return.current_state&.to_sym) }
+  end
+
+  # EN vs ES date formats aren't consistent with each other (:short vs :medium)
+  # so a function to match copy.
+  def download_deadline_banner_date
+    date = Rails.configuration.end_of_login.to_date + 1.day
+    format = locale == :es ? :medium : :short
+    I18n.l(date, format: format, locale: locale)
+  end
+
   private
 
   def signature_type_awaited(tax_return)
