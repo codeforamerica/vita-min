@@ -20,6 +20,16 @@ updates:
       interval: "daily"
     cooldown:
       default-days: 3
+    # Jest 30 breaks our JS test suite; hold at 29.x until we can upgrade.
+    # Scoping by update-types keeps security updates flowing (a name-only
+    # ignore would block those too).
+    ignore:
+      - dependency-name: "jest"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "jest-environment-jsdom"
+        update-types:
+          - "version-update:semver-major"
     groups:
       npm-minor-patch:
         patterns:
