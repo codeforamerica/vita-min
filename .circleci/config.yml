@@ -70,6 +70,12 @@ commands:
       - save_cache:
           key: bundle-{{ checksum "<< parameters.lockfile >>" }}
           paths: [/mnt/ramdisk/vendor/bundle]
+  install_doppler:
+    description: "Install the Doppler CLI, used to verify fnox.toml against the Doppler dev config"
+    steps:
+      - run:
+          name: install doppler cli
+          command: curl -Ls --tlsv1.2 --proto "=https" --retry 3 https://cli.doppler.com/install.sh | sudo sh
   check_production_boot:
     description: "Boot with the production gem set (no development/test groups) against the test DB"
     steps:
@@ -144,6 +150,17 @@ jobs:
       - install_ruby_dependencies
       - setup_test_db
       - run: bundle exec annotaterb models --frozen
+  check_fnox_doppler:
+    executor: ruby_executor
+    steps:
+      - checkout
+      - install_ruby_dependencies
+      - install_doppler
+      - run:
+          name: check fnox.toml against the Doppler dev config
+          command: bundle exec rspec spec/fnox_toml_spec.rb
+          environment:
+            REQUIRE_DOPPLER_CHECK: "1"
   run_ruby_tests:
     parameters:
       executor:
@@ -269,6 +286,8 @@ workflows:
       - run_js_tests:
           context: tax-bot
       - run_ruby_tests:
+          context: tax-bot
+      - check_fnox_doppler:
           context: tax-bot
       - run_annotate
       - deploy_to_aptible--demo:
