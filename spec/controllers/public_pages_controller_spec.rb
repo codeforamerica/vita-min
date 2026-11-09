@@ -32,6 +32,35 @@ RSpec.describe PublicPagesController do
       end
     end
 
+    describe "service comparison triage link" do
+      let(:triage_link_text) { I18n.t("views.shared.service_comparison.triage_link_text") }
+
+      context "when the app is open for gyr intake" do
+        before do
+          allow(subject).to receive(:open_for_gyr_intake?).and_return(true)
+        end
+
+        it "shows the link to the service selection flow" do
+          get :home
+
+          expect(response.body).to include triage_link_text
+        end
+      end
+
+      context "when the app is not open for gyr intake" do
+        before do
+          allow(subject).to receive(:open_for_gyr_intake?).and_return(false)
+        end
+
+        it "does not show the link to the service selection flow" do
+          get :home
+
+          expect(response.body).not_to include triage_link_text
+          expect(response.body).not_to include I18n.t("views.shared.service_comparison.subtitle_2")
+        end
+      end
+    end
+
     context "in production" do
       before do
         allow(Rails).to receive(:env).and_return("production".inquiry)

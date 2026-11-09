@@ -131,6 +131,31 @@ describe Document do
       end
     end
 
+    describe "#validate_filename_length" do
+      let(:document) { build :document }
+
+      before do
+        document.upload.attach(io: File.open(attachment), filename: filename)
+      end
+
+      context "with a filename at the maximum length" do
+        let(:filename) { "#{"a" * (Document::MAX_FILENAME_LENGTH - 4)}.png" }
+
+        it "is valid" do
+          expect(document).to be_valid
+        end
+      end
+
+      context "with a filename over the maximum length" do
+        let(:filename) { "#{"a" * (Document::MAX_FILENAME_LENGTH - 3)}.png" }
+
+        it "rejects the file with a human readable error" do
+          expect(document).not_to be_valid
+          expect(document.errors[:upload]).to include "The file name is too long. Please rename the file to 255 characters or fewer and upload it again."
+        end
+      end
+    end
+
     context "with a corrupted pdf upload" do
       let(:document) { build :document, document_type: DocumentTypes::UnsignedForm8879.key, upload_path: Rails.root.join("spec", "fixtures", "files", "corrupted.pdf") }
       it "rejects the file as invalid" do
@@ -224,6 +249,27 @@ describe Document do
     end
   end
 
+  describe ".truncate_filename" do
+    it "leaves filenames at or under the maximum length unchanged" do
+      filename = "#{"a" * (Document::MAX_FILENAME_LENGTH - 4)}.pdf"
+      expect(Document.truncate_filename(filename)).to eq filename
+    end
+
+    it "shortens long filenames to the maximum length, keeping the extension" do
+      truncated = Document.truncate_filename("#{"a" * 1000}.pdf")
+
+      expect(truncated.length).to eq Document::MAX_FILENAME_LENGTH
+      expect(truncated).to end_with "aaa.pdf"
+    end
+
+    it "shortens filenames with a very long extension to the maximum length" do
+      truncated = Document.truncate_filename("a.#{"b" * 1000}")
+
+      expect(truncated.length).to eq Document::MAX_FILENAME_LENGTH
+      expect(truncated).to start_with "a.bbb"
+    end
+  end
+
   describe "before_save" do
     context "when created with a display_name and attachment" do
       let(:document) { build :document, display_name: "HumanReadable.jpg" }
@@ -242,43 +288,6 @@ describe Document do
         document.save
 
         expect(document.display_name).to eq "test-pattern.png"
-      end
-    end
-  end
-
-  describe "after_create" do
-    include ActiveJob::TestHelper
-
-    # iOS 18 uses a different codec. We are relying now on safari and MMS to
-    # handle this before it gets to us. For more information, see ticket
-    # GYR1-673
-    xcontext "when the file extension is .heic" do
-      before do
-        allow(HeicToJpgJob).to receive(:perform_later).and_call_original
-      end
-
-      it "creates a job to convert the file to jpg and delays ActiveStorage::AnalyzeJob until then" do
-        document = build :document, upload_path: Rails.root.join("spec", "fixtures", "files", "IMG_4851.HEIC")
-        document.save!
-
-        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to eq ["HeicToJpgJob"]
-        perform_enqueued_jobs
-        expect(HeicToJpgJob).to have_received(:perform_later).with(document.id)
-
-        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to include("ActiveStorage::AnalyzeJob")
-      end
-    end
-
-    context "when the file extension is not .heic" do
-      let(:client) { create :client }
-      it "does not create a job to convert the file to jpg and enqueues the DocScreenerJob & ActiveStorage::AnalyzeJob as normal" do
-        document = build :document, uploaded_by: client, upload_path: Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")
-        allow(HeicToJpgJob).to receive(:perform_later)
-
-        document.save!
-
-        expect(HeicToJpgJob).to_not have_received(:perform_later).with(document.id)
-        expect(ActiveJob::Base.queue_adapter.enqueued_jobs.map { |x| x["job_class"] }).to eq ["DocScreenerJob", "ActiveStorage::AnalyzeJob"]
       end
     end
   end
@@ -332,20 +341,6 @@ describe Document do
       it_behaves_like "an internal interaction" do
         let(:subject) { build :document, uploaded_by: nil }
       end
-    end
-  end
-
-  # iOS 18 uses a different codec. We are relying now on safari and MMS to
-  # handle this before it gets to us. For more information, see ticket
-  # GYR1-673
-  xdescribe "#convert_heic_upload_to_jpg!" do
-    it "converts a heic attachment to jpg" do
-      document = create :document, upload_path: Rails.root.join("spec", "fixtures", "files", "IMG_4851.HEIC")
-
-      expect {
-        document.convert_heic_upload_to_jpg!
-      }.to (change{ document.upload.attachment.filename.extension }.from("HEIC").to("jpg")).and(
-        change { document.reload.display_name }.from("IMG_4851.HEIC").to("IMG_4851.HEIC.jpg"))
     end
   end
 end

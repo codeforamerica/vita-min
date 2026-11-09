@@ -113,6 +113,44 @@ RSpec.describe DocScreenerJob, type: :job do
     end
   end
 
+  context "when the document is a text file" do
+    let(:document) do
+      create(:document).tap do |doc|
+        doc.upload.attach(
+          io: StringIO.new("Unusable file with unknown or unsupported file type."),
+          filename: "invalid-attachment.txt",
+          content_type: "text/plain;charset=UTF-8",
+          identify: false
+        )
+      end
+    end
+
+    it "skips screening and does not create an assessment" do
+      expect { described_class.perform_now(document_id) }.not_to change(DocAssessment, :count)
+      expect(BedrockDocScreener).not_to have_received(:screen_document!)
+    end
+  end
+
+  context "when the screener raises an error caused by the file" do
+    [
+      Aws::BedrockRuntime::Errors::ValidationException.new(nil, "Could not process image"),
+      BedrockDocScreener::UnsupportedMediaTypeError.new("Unsupported media type: image/x-icon"),
+      MiniMagick::Error.new("convert failed")
+    ].each do |error|
+      it "marks the assessment as failed without raising for #{error.class}" do
+        allow(BedrockDocScreener).to receive(:screen_document!).and_raise(error)
+
+        expect do
+          expect { described_class.perform_now(document_id) }.not_to raise_error
+        end.to change(DocAssessment, :count).by(1)
+
+        assessment = DocAssessment.last
+        expect(assessment.status).to eq("failed")
+        expect(assessment.error).to eq("#{error.class}: #{error.message}")
+      end
+    end
+  end
+
   context "when the screener raises an error" do
     let(:error) { StandardError.new("boom") }
 
@@ -128,6 +166,27 @@ RSpec.describe DocScreenerJob, type: :job do
       assessment = DocAssessment.last
       expect(assessment.status).to eq("failed")
       expect(assessment.error).to include("StandardError: boom")
+    end
+  end
+
+  context "when Bedrock returns a response that can't be parsed" do
+    let(:bedrock_response) { { "content" => [{ "type" => "text", "text" => "oops" }], "stop_reason" => "max_tokens" } }
+
+    before do
+      allow(BedrockDocScreener).to receive(:screen_document!).and_raise(
+        BedrockDocScreener::InvalidResponseError.new("Bedrock response was cut off", raw_response_json: bedrock_response)
+      )
+    end
+
+    it "marks the assessment as failed, keeps the raw response, and re-raises" do
+      expect {
+        described_class.perform_now(document_id)
+      }.to raise_error(BedrockDocScreener::InvalidResponseError)
+
+      assessment = DocAssessment.last
+      expect(assessment.status).to eq("failed")
+      expect(assessment.error).to include("cut off")
+      expect(assessment.raw_response_json).to eq(bedrock_response)
     end
   end
 end

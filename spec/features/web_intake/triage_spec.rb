@@ -127,4 +127,23 @@ RSpec.feature "triage flow" do
       end
     end
   end
+
+  context "when the client only checks W-2 wages and requests virtual VITA" do
+    it "recommends GYR" do
+      visit "/en/questions/eligibility-wages"
+      select "$20,001 - $26,000", from: I18n.t("questions.eligibility_wages.edit.income_level.label")
+      check I18n.t("questions.eligibility_wages.edit.vita_income_ineligible.options.w2s")
+      choose "eligibility_wages_form_have_income_tax_documents_yes"
+      click_on I18n.t("general.continue")
+
+      choose "eligibility_state_form_service_preference_virtual_vita"
+      click_on I18n.t("general.continue")
+
+      choose I18n.t("questions.eligibility_household.edit.household_status.single")
+      select "California", from: I18n.t("questions.eligibility_household.edit.residence_state")
+      click_on I18n.t("general.continue")
+
+      expect(page).to have_current_path(Questions::TriageGyrController.to_path_helper)
+    end
+  end
 end

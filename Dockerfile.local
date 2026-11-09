@@ -3,12 +3,15 @@
 ### First build stage used for web, worker, and shakapacker containers
 FROM ruby:4.0.6 AS base
 
+RUN useradd -u 789 -m gyruser
+
 RUN apt-get update --allow-releaseinfo-change
 
 # System prerequisites
 RUN apt-get update \
+ && apt-get upgrade -y --no-install-recommends \
  && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript default-jre poppler-utils curl \
- && curl -sL https://deb.nodesource.com/setup_20.x | bash - \
+ && curl -sL https://deb.nodesource.com/setup_24.x | bash - \
  && apt-get update && apt-get install -y nodejs \
  && corepack enable \
  && rm -rf /var/lib/apt/lists/*
@@ -48,5 +51,9 @@ FROM base AS app
 EXPOSE 3000
 
 RUN chmod +x /app/bin/docker-entrypoint
+
+RUN chown -R 789:789 /app
+RUN chmod 700 /app
+USER 789:789
 
 CMD ["bash", "./bin/docker-entrypoint"]

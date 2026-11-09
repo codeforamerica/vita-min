@@ -18,8 +18,8 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
 
     it "generates basic components of return" do
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
-      expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
-      expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
+      expect(xml.document.at('AuthenticationHeader').namespace.href).to eq('http://www.irs.gov/efile')
+      expect(xml.document.at('ReturnHeaderState').namespace.href).to eq('http://www.irs.gov/efile')
     end
 
     it "includes the SpecialProgram node in the RetrunHeaderState" do
@@ -55,8 +55,8 @@ describe SubmissionBuilder::Ty2022::States::Az::AzReturnXml, required_schema: "a
       it "generates xml" do
         expect(xml.at("FilingStatus").text).to eq('MarriedJoint')
         expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
-        expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
-        expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
+        expect(xml.document.at('AuthenticationHeader').namespace.href).to eq('http://www.irs.gov/efile')
+        expect(xml.document.at('ReturnHeaderState').namespace.href).to eq('http://www.irs.gov/efile')
       end
     end
 

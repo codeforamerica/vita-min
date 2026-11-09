@@ -304,7 +304,9 @@ class ApplicationController < ActionController::Base
         "INFO"
       end
 
-    current_user_id = current_user&.id rescue nil
+    # Read the session only: current_user runs warden strategies, which can sign a user in from
+    # params after the action has failed (e.g. after an invalid authenticity token).
+    current_user_id = request.env["warden"]&.user(:user)&.id rescue nil
 
     payload[:request_details] = {
       current_user_id: current_user_id,
@@ -586,6 +588,7 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from 'ActionController::InvalidAuthenticityToken' do
+    request.env["devise.allow_params_authentication"] = false
     reset_session
     DatadogApi.increment("rails.invalid_authenticity_token")
     flash[:alert] = I18n.t('general.authenticity_token_invalid')

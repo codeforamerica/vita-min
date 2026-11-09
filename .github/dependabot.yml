@@ -5,14 +5,39 @@ updates:
     schedule:
       interval: "daily"
     cooldown:
-      default-days: 7
-    # don't make PRs for regular dependency things, just security updates
-    open-pull-requests-limit: 0
+      default-days: 3
+    groups:
+      bundler-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"
     cooldown:
-      default-days: 7
-    # don't make PRs for regular dependency things, just security updates
-    open-pull-requests-limit: 0
+      default-days: 3
+    groups:
+      npm-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 3
+    groups:
+      github-actions-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
