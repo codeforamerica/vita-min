@@ -159,7 +159,7 @@ group :development, :test do
   gem 'guard-rspec', require: false
   gem 'rubocop', '~> 1.92.2', require: false
   gem 'rubocop-performance', '~> 1.27.0', require: false
-  gem 'rubocop-rspec', '~> 2.18.0', require: false
+  gem 'rubocop-rspec', '~> 3.10.2', require: false
   gem 'i18n-tasks', require: false
   gem 'easy_translate'
   gem 'bundle-audit'
