@@ -4,6 +4,7 @@ class DocScreenerJob < ApplicationJob
   FILE_ERRORS = [
     Aws::BedrockRuntime::Errors::ValidationException,
     BedrockDocScreener::UnsupportedMediaTypeError,
+    BedrockDocScreener::ImageTooLargeError,
     MiniMagick::Error,
     MiniMagick::Invalid
   ].freeze

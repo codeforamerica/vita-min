@@ -3,6 +3,8 @@ require 'json'
 require 'base64'
 require "mini_magick"
 require "tempfile"
+require "English"
+require "open3"
 
 module BedrockDocScreener
   MODEL_ID = 'us.anthropic.claude-haiku-4-5-20251001-v1:0'.freeze
@@ -27,6 +29,13 @@ module BedrockDocScreener
   MAX_IMAGE_DIMENSION = 8000
   # Haiku 4.5 downscales anything over 1568px itself, so shrinking to this loses nothing
   RESIZED_IMAGE_DIMENSION = 2000
+  MIN_RESIZED_IMAGE_DIMENSION = 500
+
+  PDF_RENDER_DPI = 200
+  MAX_IMAGES_PER_REQUEST = 20
+  MAX_REQUEST_SIZE = 25_000_000
+  MAX_REQUEST_IMAGE_BYTES = MAX_REQUEST_SIZE - 1_000_000
+  MAX_SCREENED_PAGES = 20
 
   MAX_TOKENS = 1024
   # Prefilling the assistant turn makes the model continue from inside the JSON object,
@@ -34,6 +43,7 @@ module BedrockDocScreener
   JSON_PREFILL = "{".freeze
 
   class UnsupportedMediaTypeError < StandardError; end
+  class ImageTooLargeError < StandardError; end
 
   class InvalidResponseError < StandardError
     attr_reader :raw_response_json
@@ -46,7 +56,7 @@ module BedrockDocScreener
 
   PROMPT_VERSION = "v1".freeze
 
-  def self.prompt_for(document_type:)
+  def self.prompt_for(document_type:, page_context: nil)
     <<~PROMPT
       Clients are uploading documents and you need to verify the validity of the document using these rules:
          1) If the photo is a poor quality image (poorly lit, blurry, cropped & missing information, pixelated screen etc.) 
@@ -87,7 +97,7 @@ module BedrockDocScreener
       available-doc-types: #{available_doc_types}
 
       Selected document type: #{document_type}
-
+      #{page_context}
       Return ONLY valid JSON with this exact schema:
       {
         "matches_doc_type_verdict": "pass" | "fail",
@@ -116,16 +126,18 @@ module BedrockDocScreener
     media_type = document.upload.content_type
     raise UnsupportedMediaTypeError, "Unsupported media type: #{media_type}" unless SUPPORTED_MEDIA_TYPES.include?(media_type)
 
-    input = if media_type == "application/pdf"
-              pdf_to_png_base64(document.upload)
-            else
-              [prepare_image(document.upload.download)]
-            end
+    if media_type == "application/pdf"
+      screen_pdf!(document.upload, document_type: document.document_type)
+    else
+      request_screening!(
+        images: [prepare_image(document.upload.download)],
+        user_prompt: prompt_for(document_type: document.document_type)
+      )
+    end
+  end
 
-    body_hash = construct_bedrock_payload(
-      images: input,
-      user_prompt: prompt_for(document_type: document.document_type)
-    )
+  def self.request_screening!(images:, user_prompt:)
+    body_hash = construct_bedrock_payload(images: images, user_prompt: user_prompt)
 
     response = invoke_bedrock_model(body_hash.to_json)
 
@@ -148,6 +160,106 @@ module BedrockDocScreener
     end
 
     [result_json, raw_response_json]
+  end
+
+  def self.screen_pdf!(upload, document_type:)
+    with_pdf_file(upload) do |pdf_path|
+      total_pages = pdf_page_count(pdf_path)
+      chunks = []
+      skips = []
+
+      pages = render_pdf_pages(pdf_path, 1, [total_pages, MAX_SCREENED_PAGES].min).filter_map do |page_number, png_data|
+        [page_number, prepare_image(png_data)]
+      rescue ImageTooLargeError, MiniMagick::Error, MiniMagick::Invalid => e
+        skips << { pages: [page_number], error: e }
+        nil
+      end
+
+      group_pages_into_requests(pages).each do |request_pages|
+        screen_pdf_chunk(request_pages, total_pages: total_pages, document_type: document_type, chunks: chunks, skips: skips)
+      end
+
+      raise skips.first[:error] if chunks.empty? && skips.any?
+      raise "pdf produced no pages" if chunks.empty?
+
+      merged_result = merge_chunk_results(chunks).merge(
+        "total_pages" => total_pages,
+        "screened_pages" => chunks.flat_map { |chunk| chunk[:pages] }.sort,
+        "page_limit_reached" => total_pages > MAX_SCREENED_PAGES,
+        "skipped" => skips.map { |skip| { "pages" => skip[:pages], "reason" => "#{skip[:error].class}: #{skip[:error].message}" } },
+        "chunks" => chunks.map { |chunk| { "pages" => chunk[:pages], "result" => chunk[:result] } }
+      )
+      raw_response_json = { "chunks" => chunks.map { |chunk| { "pages" => chunk[:pages], "response" => chunk[:raw_response_json] } } }
+
+      [merged_result, raw_response_json]
+    end
+  end
+
+  def self.group_pages_into_requests(pages)
+    pages.each_with_object([[]]) do |page, requests|
+      request = requests.last
+      request_bytes = request.sum { |_page_number, image| image[:base64_data].bytesize }
+      page_bytes = page.last[:base64_data].bytesize
+
+      if request.any? && (request.size >= MAX_IMAGES_PER_REQUEST || request_bytes + page_bytes > MAX_REQUEST_IMAGE_BYTES)
+        requests << []
+      end
+      requests.last << page
+    end.reject(&:empty?)
+  end
+
+  def self.screen_pdf_chunk(pages, total_pages:, document_type:, chunks:, skips:)
+    return if pages.empty?
+
+    page_numbers = pages.map(&:first)
+
+    result_json, raw_response_json = request_screening!(
+      images: pages.map(&:last),
+      user_prompt: prompt_for(
+        document_type: document_type,
+        page_context: page_context_for(page_numbers, total_pages: total_pages, previous_chunks: chunks)
+      )
+    )
+    chunks << { pages: page_numbers, result: result_json, raw_response_json: raw_response_json }
+  rescue Aws::BedrockRuntime::Errors::ValidationException, InvalidResponseError => e
+    if pages.size > 1
+      pages.each_slice((pages.size / 2.0).ceil) do |half|
+        screen_pdf_chunk(half, total_pages: total_pages, document_type: document_type, chunks: chunks, skips: skips)
+      end
+    else
+      skips << { pages: page_numbers, error: e }
+    end
+  end
+
+  def self.page_context_for(page_numbers, total_pages:, previous_chunks:)
+    return if page_numbers.size >= total_pages
+
+    context = "These images are pages #{page_numbers.first}-#{page_numbers.last} of a #{total_pages}-page upload. " \
+              "The upload may contain several different documents, and a document may continue onto pages not shown here. " \
+              "Assess only the pages shown.\n"
+    return context if previous_chunks.empty?
+
+    summaries = previous_chunks.map do |chunk|
+      result = chunk[:result]
+      "- Pages #{chunk[:pages].first}-#{chunk[:pages].last}: verdict=#{result['matches_doc_type_verdict']}, " \
+        "suggested_document_type=#{result['suggested_document_type'] || 'null'}, explanation: #{result['explanation']}\n"
+    end
+
+    context +
+      "Earlier pages of this upload were already assessed:\n#{summaries.join}" \
+      "If the pages shown continue a document from those earlier pages, treat them as part of that document.\n"
+  end
+
+  def self.merge_chunk_results(chunks)
+    results = chunks.map { |chunk| chunk[:result] }
+    passing_results = results.select { |result| result["matches_doc_type_verdict"] == "pass" }
+    deciding_results = passing_results.presence || results
+
+    primary_result = deciding_results.max_by { |result| result["confidence"].to_f }
+    quality_issues = deciding_results.flat_map { |result| Array(result["document_quality_issues"]) }.uniq
+    quality_issues -= ["N/A"] if (quality_issues - ["N/A"]).any?
+
+    primary_result.merge("document_quality_issues" => quality_issues)
   end
 
   # The stored content_type can disagree with the actual bytes (e.g. a png named .jpg
@@ -186,7 +298,11 @@ module BedrockDocScreener
 
     result = image.to_blob
 
-    if result.bytesize > MAX_RAW_IMAGE_SIZE
+    while result.bytesize > MAX_RAW_IMAGE_SIZE
+      if [image.width, image.height].max / 2 < MIN_RESIZED_IMAGE_DIMENSION
+        raise ImageTooLargeError, "Image is still #{result.bytesize} bytes after resizing to #{image.width}x#{image.height}"
+      end
+
       image.resize "50%"
       result = image.to_blob
     end
@@ -263,36 +379,34 @@ module BedrockDocScreener
     nil
   end
 
-  def self.pdf_to_png_base64(upload)
-    images = []
-
+  def self.with_pdf_file(upload)
     Tempfile.create(["upload", ".pdf"]) do |pdf|
       pdf.binmode
       pdf.write(upload.download)
       pdf.flush
-      
-      Dir.mktmpdir do |tmpdir|
-        output_prefix = File.join(tmpdir, "page")
-        success = system("pdftoppm", "-png", "-r", "200", pdf.path, output_prefix,
-                         out: File::NULL, err: File::NULL)
-        unless success
-          raise "pdftoppm command failed with exit code #{$?.exitstatus}"
-        end
-        
-        png_files = Dir.glob(File.join(tmpdir, "page-*.png")).sort_by do |f|
-          File.basename(f)[/(\d+)\.png$/, 1].to_i
-        end
 
-        # Bedrock has a 20 image limit per request
-        png_files.take(20).each do |png_path|
-          images << prepare_image(File.binread(png_path))
-        end
-      end
+      yield pdf.path
     end
+  end
 
-    raise "pdf produced no pages" if images.empty?
-    images
-  rescue StandardError => e
-    raise "failed to convert pdf pages to images (pdftoppm issue). #{e.class}: #{e.message}"
+  def self.pdf_page_count(pdf_path)
+    output, status = Open3.capture2("pdfinfo", pdf_path, err: File::NULL)
+    page_count = output[/^Pages:\s+(\d+)/, 1] if status.success?
+    raise "failed to read pdf page count (pdfinfo exit code #{status.exitstatus})" unless page_count
+
+    page_count.to_i
+  end
+
+  def self.render_pdf_pages(pdf_path, first_page, last_page)
+    Dir.mktmpdir do |tmpdir|
+      output_prefix = File.join(tmpdir, "page")
+      success = system("pdftoppm", "-png", "-r", PDF_RENDER_DPI.to_s, "-f", first_page.to_s, "-l", last_page.to_s,
+                       pdf_path, output_prefix, out: File::NULL, err: File::NULL)
+      raise "failed to convert pdf pages to images (pdftoppm exit code #{$CHILD_STATUS&.exitstatus})" unless success
+
+      Dir.glob(File.join(tmpdir, "page-*.png"))
+         .map { |png_path| [File.basename(png_path)[/(\d+)\.png$/, 1].to_i, File.binread(png_path)] }
+         .sort_by(&:first)
+    end
   end
 end
