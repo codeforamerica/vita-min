@@ -17,7 +17,7 @@
     "core-js": "^3.9.0",
     "css-loader": "^7.1.5",
     "css-minimizer-webpack-plugin": "^8.0.0",
-    "html-template-tag": "^4.0.1",
+    "html-template-tag": "^5.0.0",
     "imports-loader": "5.0.0",
     "jquery": "^3.5.1",
     "jquery-mask-plugin": "^1.14.16",
