@@ -2314,7 +2314,7 @@ en:
     new:
       header: We'd love to work with you next year to help you file your taxes for free!
       opt_in_message:
-        01_intro: 'Note: Providing your phone number means you have opted in to the following in order to use the GetYourRefund service:'
+        01_intro_html: By clicking continue, you agree to receive tax return updates, service information, and occasional surveys. We will not share your information with any outside parties. See our <a href="%{terms_url}">SMS Terms and Conditions</a> and <a href="%{privacy_url}">Privacy Policy</a>.
         02_list:
         - Receiving a GetYourRefund Verification Code
         - Tax return notifications
