@@ -251,8 +251,7 @@ GEM
       thread_safe
     erb (6.0.7)
     erubi (1.13.1)
-    excon (1.8.0)
-      logger
+    excon (1.11.0)
     execjs (2.10.0)
     factory_bot (6.6.0)
       activesupport (>= 6.1.0)
