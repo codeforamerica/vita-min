@@ -22,9 +22,5 @@ module Documents
       document_types += ["Requested"] if include_requested_documents
       document_types
     end
-
-    def illustration_path
-      "documents.svg"
-    end
   end
 end
