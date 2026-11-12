@@ -4,6 +4,12 @@ module ApplicationHelper
     @mobile ||= UserAgent.parse(request.user_agent).mobile?
   end
 
+  # GYR question/document pages use the illustration-free spacing. Portal pages render the
+  # same layouts but keep their existing spacing.
+  def gyr_question_layout_class
+    "question-layout--gyr" if controller.is_a?(Questions::QuestionsController)
+  end
+
   def number_in_words(number)
     number.ordinalize_in_full
   end
