@@ -1,14 +1,10 @@
 <% @main_heading = t("views.questions.returning_client.title") %>
 <% content_for :page_title, @main_heading %>
 
-<section class="slab slab--white">
+<section class="slab slab--white question-layout--gyr">
   <div class="grid">
     <div class="grid__item width-three-fourths">
       <div class="main-content-inner">
-        <div class="question__illustration spacing-above-0">
-          <%= image_tag("returning-client.svg", alt: "") %>
-        </div>
-
         <h1 class="form-question">
           <%= @main_heading %>
         </h1>
