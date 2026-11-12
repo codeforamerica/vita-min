@@ -6,7 +6,7 @@
     <%= yield :form_question %>
   <% end %>
 
-  <section class="slab slab--white slab--not-padded question-layout">
+  <section class="slab slab--white slab--not-padded question-layout <%= gyr_question_layout_class %>">
     <div class="grid">
       <div class="grid__item question-wrapper">
         <div class="form-card form-card--yes-no">
@@ -20,11 +20,6 @@
           </div>
           <div class="main-content-inner">
             <%= form_with model: @form, url: { action: :update }, local: true, method: "put", builder: VitaMinFormBuilder do |f| %>
-              <% if illustration_path.present? %>
-                <div class="question__illustration">
-                  <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
-                </div>
-              <% end %>
               <h1 class="form-question" id="main-question">
                 <%= yield :form_question %>
               </h1>
