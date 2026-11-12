@@ -457,7 +457,7 @@ GEM
       omniauth (~> 2.0)
     openssl (4.0.2)
     openssl-oaep (0.1.0)
-    ordinalize_full (3.1.0)
+    ordinalize_full (4.0.0)
       i18n (~> 1.8)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
@@ -769,7 +769,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.8.3)
-    zxcvbn-ruby (1.2.0)
+    zxcvbn-ruby (2.0.1)
 
 PLATFORMS
   ruby

@@ -406,8 +406,8 @@ RSpec.describe Users::InvitationsController do
         {
           user: {
             name: "Cher Cherimoya",
-            password: "vitavitavitavita",
-            password_confirmation: "vitavitavitavita",
+            password: "correct-horse-battery-staple",
+            password_confirmation: "correct-horse-battery-staple",
             invitation_token: raw_invitation_token,
             timezone: "America/Los_Angeles",
           }
@@ -431,8 +431,8 @@ RSpec.describe Users::InvitationsController do
         {
           user: {
             name: "",
-            password: "vitavitavitavita",
-            password_confirmation: "vitavitavitavita",
+            password: "correct-horse-battery-staple",
+            password_confirmation: "correct-horse-battery-staple",
             invitation_token: raw_invitation_token
           }
         }
