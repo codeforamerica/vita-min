@@ -1,0 +1,3 @@
+# Real staging/production test-account credentials: never commit
+data/staging/
+data/production/

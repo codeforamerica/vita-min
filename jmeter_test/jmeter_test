@@ -3,20 +3,44 @@
 vita_min_protocol="http"
 vita_min_faq_host="localhost"
 vita_min_host="statefile.localhost"
+vita_min_gyr_host="localhost"
 vita_min_port=3000
+environment="dev"
+data_dir="data/local"
+port_override=""
+label=""
+html_report=false
 gui=false
 test_plan=""
 
 cd "$(dirname "$0")"
 
-while getopts e:ght: flag
+usage() {
+  echo "USAGE: jmeter_test -t <TEST_PLAN> [-e dev|staging|production] [-p PORT] [-l LABEL] [-r] [-g] [-- <extra jmeter args, e.g. -Jpreparer_threads=60>]"
+}
+
+while getopts e:ghl:p:rt: flag
 do
   if [[ "$flag" == "e" ]]; then
+    environment=${OPTARG}
     if [[ ${OPTARG} == "staging" ]]; then
       vita_min_protocol="https"
       vita_min_faq_host="staging.getyourrefund.org"
       vita_min_host="staging.fileyourstatetaxes.org"
+      vita_min_gyr_host="staging.getyourrefund.org"
       vita_min_port="443"
+      data_dir="data/staging"
+    elif [[ ${OPTARG} == "production" ]]; then
+      if [[ "${I_HAVE_APPROVAL_TO_LOAD_TEST_PRODUCTION}" != "yes" ]]; then
+        echo "Refusing to run against production without I_HAVE_APPROVAL_TO_LOAD_TEST_PRODUCTION=yes (see README)."
+        exit 1
+      fi
+      vita_min_protocol="https"
+      vita_min_faq_host="www.getyourrefund.org"
+      vita_min_host="www.fileyourstatetaxes.org"
+      vita_min_gyr_host="www.getyourrefund.org"
+      vita_min_port="443"
+      data_dir="data/production"
     elif [[ ${OPTARG} != "dev" ]]; then
       echo "Unknown environment: ${OPTARG}"
       exit 1
@@ -24,25 +48,51 @@ do
   elif [[ "$flag" == "g" ]]; then
     gui=true
   elif [[ "$flag" == "h" ]]; then
-    echo "USAGE: jmeter_test -t <TEST_PLAN> <-e <ENVIRONMENT>> <-g>"
+    usage
+    exit 0
+  elif [[ "$flag" == "l" ]]; then
+    label=${OPTARG}
+  elif [[ "$flag" == "p" ]]; then
+    port_override=${OPTARG}
+  elif [[ "$flag" == "r" ]]; then
+    html_report=true
   elif [[ "$flag" == "t" ]]; then
     test_plan=${OPTARG}
   fi
 done
+shift $((OPTIND - 1))
+[[ "$1" == "--" ]] && shift
+
+if [[ -n "${port_override}" ]]; then
+  vita_min_port=${port_override}
+fi
 
 cmd="jmeter"
 if [[ $gui == false ]]; then
   cmd="${cmd} -n"
   if [[ -z "${test_plan}" ]]; then
     echo "Please specify a test plan!"
+    usage
     exit 1
   fi
 fi
 
 if [[ ! -z "${test_plan}" ]]; then
-  cmd="${cmd} -t ${test_plan}.jmx -l results/${test_plan}.jtl"
+  run_name="${test_plan}-${environment}-${vita_min_port}${label:+-${label}}-$(date +%Y%m%d-%H%M%S)"
+  mkdir -p results
+  cmd="${cmd} -t ${test_plan}.jmx"
+  if [[ $gui == false ]]; then
+    cmd="${cmd} -l results/${run_name}.jtl -j results/${run_name}.log"
+    if [[ $html_report == true ]]; then
+      cmd="${cmd} -e -o results/${run_name}-report"
+    fi
+  fi
 fi
 
-cmd="${cmd} -Jvita_min_protocol=${vita_min_protocol} -Jvita_min_port=${vita_min_port} -Jvita_min_faq_host=${vita_min_faq_host} -Jvita_min_host=${vita_min_host}"
+cmd="${cmd} -Jvita_min_protocol=${vita_min_protocol} -Jvita_min_port=${vita_min_port} -Jvita_min_faq_host=${vita_min_faq_host} -Jvita_min_host=${vita_min_host} -Jvita_min_gyr_host=${vita_min_gyr_host} -Jdata_dir=${data_dir}"
+if [[ $# -gt 0 ]]; then
+  cmd="${cmd} $*"
+fi
 
+echo "${cmd}"
 eval "${cmd}"
