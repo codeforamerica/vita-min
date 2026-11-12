@@ -1,6 +1,6 @@
 module Portal
   class UploadDocumentsController < PortalController
-    helper_method :prev_path, :next_path, :illustration_path, :illustration_folder, :current_path, :document_type, :destroy_document_path
+    helper_method :prev_path, :next_path, :current_path, :document_type, :destroy_document_path
     layout "document_upload"
     helper_method :document_type_keys
     before_action :set_paper_trail_whodunnit
@@ -68,8 +68,6 @@ module Portal
     def document_type
       @document_type || DocumentTypes::Other
     end
-
-    def illustration_path; end
 
     def destroy_document_path(document)
       portal_upload_document_path(id: document.id, document_type: document.document_type)
