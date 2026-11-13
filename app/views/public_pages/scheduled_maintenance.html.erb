@@ -1,0 +1,27 @@
+<% content_for :page_title, t("controllers.application_controller.maintenance_page.title") %>
+<% content_for :header do %>
+  <%= render 'shared/header', variation: "gyr", home_link: root_path %>
+<% end %>
+<% content_for :footer do %>
+  <%= render "shared/footer" %>
+<% end %>
+
+<div class="main-content-inner">
+  <section class="slab slab--white">
+    <div class="grid">
+      <div class="grid__item width-three-fourths">
+        <div class="main-content-inner">
+          <h1 class="offboarding--title">
+            <%= content_for(:page_title) %>
+          </h1>
+
+          <div class="offboarding--help-text">
+            <p>
+              <%= t("controllers.application_controller.maintenance_page.body") %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -93,6 +93,9 @@ es:
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará inactivo para mantenimiento programado durante aproximadamente 1 hora a partir de %{time}.
+      maintenance_page:
+        title: Estamos realizando mantenimiento programado
+        body: Actualmente estamos realizando mantenimiento programado para mejorar nuestros sistemas. Volveremos en breve. Gracias por su paciencia.
       redirect: Usted ha perdidio su tiquete. En producción,  lo redireccionaremos al inicio.
     dependents_controller:
       removed_dependent: Eliminó %{full_name}.
