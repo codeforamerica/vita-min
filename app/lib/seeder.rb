@@ -803,7 +803,14 @@ class Seeder
   def add_fake_doc_assessment(doc, pass: true)
     matches_doc_type_verdict = pass ? "pass" : "fail"
     suggested_document_type = pass ? doc.document_type : nil
-    document_quality_issues = pass ? ["N/A"] : ["other"]
+    document_quality_issues = pass ? [] : ["other"]
+    result_json = {
+      "matches_doc_type_verdict" => matches_doc_type_verdict,
+      "suggested_document_type" => suggested_document_type,
+      "document_quality_issues" => document_quality_issues,
+      "explanation" => "This Form W-2 (Wage and Tax Statement) doc is #{pass ? 'valid' : 'invalid'}.",
+      "confidence" => 0.95
+    }
 
     DocAssessment.create!(
       document_id: doc.id,
@@ -813,16 +820,10 @@ class Seeder
       status: "complete",
       raw_response_json: { "id" => "msg_bdrk_idxxxxxx", "role" => "assistant", "type" => "message", "model" => "claude-haiku-4-5-20251001",
                            "usage" => { "input_tokens" => 17728, "output_tokens" => 90, "cache_creation" => { "ephemeral_1h_input_tokens" => 0, "ephemeral_5m_input_tokens" => 0 }, "cache_read_input_tokens" => 0, "cache_creation_input_tokens" => 0 },
-                           "content" => [{ "text" => "```json\n{\n  \"matches_doc_type_verdict\": \"#{matches_doc_type_verdict}\",\n  \"suggested_document_type\": #{suggested_document_type.to_json},\n  \"document_quality_issues\": #{document_quality_issues.to_json},\n  \"explanation\": \"This Form W-2 (Wage and Tax Statement) doc is #{pass ? 'valid' : 'invalid'}.\",\n  \"confidence\": 0.99\n}\n```", "type" => "text" }],
+                           "content" => [{ "text" => result_json.to_json, "type" => "text" }],
                            "stop_reason" => "end_turn",
                            "stop_sequence" => nil },
-      result_json: {
-        "matches_doc_type_verdict" => matches_doc_type_verdict,
-        "suggested_document_type" => suggested_document_type,
-        "document_quality_issues" => document_quality_issues,
-        "confidence" => 0.99,
-        "explanation" => "This Form W-2 (Wage and Tax Statement) doc is #{pass ? 'valid' : 'invalid'}."
-      }
+      result_json: result_json
     )
   end
 

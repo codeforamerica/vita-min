@@ -31,7 +31,7 @@ describe BedrockDocScreener do
 
       expect(payload[:anthropic_version]).to eq("bedrock-2023-05-31")
       expect(payload[:max_tokens]).to eq(BedrockDocScreener::MAX_TOKENS)
-      expect(payload[:messages].size).to eq(2)
+      expect(payload[:messages].size).to eq(1)
 
       message = payload[:messages].first
       expect(message[:role]).to eq("user")
@@ -54,10 +54,38 @@ describe BedrockDocScreener do
       expect(text_part[:text]).to eq(user_prompt)
     end
 
-    it "prefills the assistant turn with an opening brace" do
+    it "constrains the response to the output schema instead of prefilling the assistant turn" do
       payload = described_class.construct_bedrock_payload(images: images, user_prompt: user_prompt)
 
-      expect(payload[:messages].last).to eq(role: "assistant", content: "{")
+      expect(payload[:output_config]).to eq(format: { type: "json_schema", schema: described_class.output_schema })
+      expect(payload[:messages].map { |m| m[:role] }).to eq(["user"])
+    end
+  end
+
+  describe ".output_schema" do
+    before do
+      allow(described_class)
+        .to receive(:available_doc_types)
+              .and_return([{ key: "w2", label: "W-2" },
+                           { key: "1099", label: "1099-MISC" }])
+    end
+
+    it "requires every result key and allows no others" do
+      schema = described_class.output_schema
+
+      expect(schema[:required]).to match_array(%w[matches_doc_type_verdict suggested_document_type document_quality_issues explanation confidence])
+      expect(schema[:properties].keys.map(&:to_s)).to match_array(schema[:required])
+      expect(schema[:additionalProperties]).to eq(false)
+    end
+
+    it "limits suggested_document_type to the available doc type keys or null" do
+      expect(described_class.output_schema[:properties][:suggested_document_type]).to eq(
+        anyOf: [{ type: "string", enum: %w[w2 1099] }, { type: "null" }]
+      )
+    end
+
+    it "limits confidence to the discrete levels in the prompt" do
+      expect(described_class.output_schema[:properties][:confidence]).to eq(type: "number", enum: [0.95, 0.8, 0.5, 0.2])
     end
   end
 
@@ -86,36 +114,6 @@ describe BedrockDocScreener do
   end
 
   describe ".parse_strict_json!" do
-    context "when JSON is inside a ```json fenced code block" do
-      let(:text) do
-        <<~TEXT
-          Some preamble
-
-          ```json
-          {
-            "matches_doc_type_verdict": "pass",
-            "suggested_document_type": "W2",
-            "document_quality_issues": [],
-            "explanation": "Looks valid",
-            "confidence": 0.95
-          }
-          ```
-        TEXT
-      end
-
-      it "extracts and parses the JSON" do
-        result = described_class.parse_strict_json!(text)
-
-        expect(result).to eq(
-                            "matches_doc_type_verdict" => "pass",
-                            "suggested_document_type" => "W2",
-                            "document_quality_issues" => [],
-                            "explanation" => "Looks valid",
-                            "confidence" => 0.95
-                          )
-      end
-    end
-
     context "when text is just raw JSON" do
       let(:text) do
         <<~JSON
@@ -138,26 +136,12 @@ describe BedrockDocScreener do
       end
     end
 
-    context "when the JSON is followed by a note" do
-      let(:text) do
-        <<~TEXT
-          {
-            "matches_doc_type_verdict": "pass",
-            "suggested_document_type": "W2",
-            "document_quality_issues": ["N/A"],
-            "explanation": "Looks valid",
-            "confidence": 0.95
-          }
+    # structured outputs rule these shapes out, so seeing one means the schema wasn't applied
+    context "when the JSON is wrapped in a markdown fence" do
+      it "raises InvalidResponseError" do
+        text = "```json\n{\"matches_doc_type_verdict\": \"pass\"}\n```"
 
-          Note: the {employer} section is partially cropped but still legible.
-        TEXT
-      end
-
-      it "parses the JSON object and ignores the note" do
-        result = described_class.parse_strict_json!(text)
-
-        expect(result["matches_doc_type_verdict"]).to eq("pass")
-        expect(result["confidence"]).to eq(0.95)
+        expect { described_class.parse_strict_json!(text) }.to raise_error(BedrockDocScreener::InvalidResponseError)
       end
     end
 
@@ -183,16 +167,14 @@ describe BedrockDocScreener do
     let(:document) { instance_double("Document", upload: upload, document_type: "Employment") }
 
     let(:stop_reason) { "end_turn" }
-    # the model continues from the "{" prefill, so the response has no opening brace
     let(:generated_text) do
-      <<~JSON_TEXT
-          "matches_doc_type_verdict": "pass",
-          "suggested_document_type": "Employment",
-          "document_quality_issues": [],
-          "explanation": "Valid doc",
-          "confidence": 0.99
-        }
-      JSON_TEXT
+      {
+        matches_doc_type_verdict: "pass",
+        suggested_document_type: "Employment",
+        document_quality_issues: [],
+        explanation: "Valid doc",
+        confidence: 0.95
+      }.to_json
     end
     let(:raw_model_response_hash) do
       {
@@ -248,7 +230,7 @@ describe BedrockDocScreener do
                                "suggested_document_type" => "Employment",
                                "document_quality_issues" => [],
                                "explanation" => "Valid doc",
-                               "confidence" => 0.99
+                               "confidence" => 0.95
                              )
       expect(raw_response_json).to eq(raw_model_response_hash)
 
@@ -256,13 +238,26 @@ describe BedrockDocScreener do
       expect(described_class).to have_received(:invoke_bedrock_model) do |arg|
         parsed = JSON.parse(arg)
         expect(parsed["messages"].first["content"].last["text"]).to include("Selected document type: Employment")
-        expect(parsed["messages"].last).to eq("role" => "assistant", "content" => "{")
+        expect(parsed.dig("output_config", "format", "type")).to eq("json_schema")
+      end
+    end
+
+    context "when Bedrock refuses to screen the document" do
+      let(:stop_reason) { "refusal" }
+      let(:generated_text) { "" }
+
+      it "raises InvalidResponseError carrying the raw response" do
+        expect {
+          described_class.screen_document!(document: document)
+        }.to raise_error(BedrockDocScreener::InvalidResponseError, /declined/) { |e|
+          expect(e.raw_response_json).to eq(raw_model_response_hash)
+        }
       end
     end
 
     context "when the response was cut off at max_tokens" do
       let(:stop_reason) { "max_tokens" }
-      let(:generated_text) { '"matches_doc_type_verdict": "pass", "explanation": "The document' }
+      let(:generated_text) { '{"matches_doc_type_verdict": "pass", "explanation": "The document' }
 
       it "raises InvalidResponseError carrying the raw response" do
         expect {
@@ -274,7 +269,7 @@ describe BedrockDocScreener do
     end
 
     context "when the response is not valid JSON" do
-      let(:generated_text) { '"matches_doc_type_verdict": "pass", "confidence": 0.95,}' }
+      let(:generated_text) { '{"matches_doc_type_verdict": "pass", "confidence": 0.95,}' }
 
       it "raises InvalidResponseError carrying the raw response" do
         expect {
@@ -366,7 +361,7 @@ describe BedrockDocScreener do
     before do
       allow(upload).to receive(:attached?).and_return(true)
       allow(described_class).to receive(:invoke_bedrock_model).and_return(
-        double("Response", body: StringIO.new({ content: [{ type: "text", text: "}" }] }.to_json))
+        double("Response", body: StringIO.new({ content: [{ type: "text", text: "{}" }] }.to_json))
       )
     end
 
@@ -446,7 +441,7 @@ describe BedrockDocScreener do
     before do
       allow(upload).to receive(:attached?).and_return(true)
       allow(described_class).to receive(:invoke_bedrock_model).and_return(
-        double("Response", body: StringIO.new({ content: [{ type: "text", text: "}" }] }.to_json))
+        double("Response", body: StringIO.new({ content: [{ type: "text", text: "{}" }] }.to_json))
       )
     end
 

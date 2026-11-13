@@ -29,9 +29,8 @@ module BedrockDocScreener
   RESIZED_IMAGE_DIMENSION = 2000
 
   MAX_TOKENS = 1024
-  # Prefilling the assistant turn makes the model continue from inside the JSON object,
-  # so it can't open with a sentence or wrap the JSON in a markdown fence
-  JSON_PREFILL = "{".freeze
+  DOCUMENT_QUALITY_ISSUES = %w[unreadable expired potentially_fake other].freeze
+  CONFIDENCE_LEVELS = [0.95, 0.8, 0.5, 0.2].freeze
 
   class UnsupportedMediaTypeError < StandardError; end
 
@@ -54,7 +53,7 @@ module BedrockDocScreener
          2) If the document does not fit any of the doc types in the available-doc-types list,
             then set suggested_document_type=null and set matches_doc_type_verdict="fail".
             If the document seems to be a valid document, readable and the selected document type matches,
-            then set document_quality_issues=["N/A"] and matches_doc_type_verdict="pass".
+            then set document_quality_issues=[] and matches_doc_type_verdict="pass".
          3) If it does not appear to match the stated doc type (in this case #{document_type}) 
             but does match another type in the available-doc-types list, then set matches_doc_type_verdict="fail" 
             and set suggested_document_type to the key of the doc-type that matches.
@@ -66,7 +65,7 @@ module BedrockDocScreener
          6) matches_doc_type_verdict should ONLY be determined by whether the document type matches, 
             not by document_quality_issues such as being expired, potentially fake, or unreadable.
             A document can pass the type match even if it has quality issues.
-         7) If there is another reason that the document is not valid, then set document_quality_issues="other"
+         7) If there is another reason that the document is not valid, then add "other" to document_quality_issues array.
          8) Do not include any keys other than "matches_doc_type_verdict", "suggested_document_type", "document_quality_issues", "explanation" and "confidence"
          9) matches_doc_type_verdict should only be "pass" or "fail"
          10) Always set suggested_document_type to the key of the doc type that best matches the document.
@@ -94,9 +93,28 @@ module BedrockDocScreener
         "suggested_document_type": "key from available-doc-types" | null,
         "document_quality_issues": ["unreadable" | "expired" | "potentially_fake" | "other"],
         "explanation": "Brief 1-2 sentence explanation of reason. Explain why invalid if so. The briefer the better, please do not be redundant.",
-        "confidence": number between 0.0-1.0
+        "confidence": 0.95 | 0.8 | 0.5 | 0.2
       }
     PROMPT
+  end
+
+  # Bedrock constrains the response to this schema, so it always comes back as parseable JSON
+  # with exactly these keys. 
+  # Numerical constraints (minimum/maximum) aren't supported, so
+  # confidence is limited to the discrete values the prompt asks for instead.
+  def self.output_schema
+    {
+      type: "object",
+      properties: {
+        matches_doc_type_verdict: { type: "string", enum: %w[pass fail] },
+        suggested_document_type: { anyOf: [{ type: "string", enum: available_doc_types.map { |d| d[:key] } }, { type: "null" }] },
+        document_quality_issues: { type: "array", items: { type: "string", enum: DOCUMENT_QUALITY_ISSUES } },
+        explanation: { type: "string" },
+        confidence: { type: "number", enum: CONFIDENCE_LEVELS }
+      },
+      required: %w[matches_doc_type_verdict suggested_document_type document_quality_issues explanation confidence],
+      additionalProperties: false
+    }
   end
 
   def self.available_doc_types
@@ -131,15 +149,21 @@ module BedrockDocScreener
 
     raw_response_json = JSON.parse(response.body.read)
 
-    if raw_response_json["stop_reason"] == "max_tokens"
+    # in both cases the output may not match the schema
+    case raw_response_json["stop_reason"]
+    when "max_tokens"
       raise InvalidResponseError.new(
         "Bedrock response was cut off after #{MAX_TOKENS} tokens",
         raw_response_json: raw_response_json
       )
+    when "refusal"
+      raise InvalidResponseError.new(
+        "Bedrock declined to screen the document",
+        raw_response_json: raw_response_json
+      )
     end
 
-    # the response continues from the prefill, so it doesn't include the opening brace
-    generated_text = JSON_PREFILL + extract_text_from_response(raw_response_json)
+    generated_text = extract_text_from_response(raw_response_json)
 
     result_json = begin
       parse_strict_json!(generated_text)
@@ -206,8 +230,12 @@ module BedrockDocScreener
                      end,
                      { type: "text", text: user_prompt }
                    ]
-                 },
-                 { role: "assistant", content: JSON_PREFILL }]
+                 }],
+      # replaces the old "{" assistant prefill, which newer Claude models reject and which can't be
+      # combined with structured outputs
+      output_config: {
+        format: { type: "json_schema", schema: output_schema }
+      }
     }
   end
 
@@ -229,38 +257,12 @@ module BedrockDocScreener
       .join("\n")
   end
 
+  # Structured outputs guarantee the text is the JSON object on its own (no markdown fence or
+  # surrounding note), so anything that doesn't parse is a real failure
   def self.parse_strict_json!(text)
-    s = text.to_s
-
-    blocks = s.scan(/```(?:json)?\s*(\{.*?\})\s*```/m)
-    if blocks.any?
-      json_str = blocks.last.first
-      return JSON.parse(json_str)
-    end
-
-    cleaned = s.strip
-    cleaned = cleaned.sub(/\A```(?:json)?\s*/i, "").sub(/\s*```\z/, "").strip
-    JSON.parse(cleaned)
+    JSON.parse(text.to_s)
   rescue JSON::ParserError => e
-    leading_object = parse_leading_object(cleaned) if cleaned
-    return leading_object if leading_object
-
     raise InvalidResponseError, "Bedrock did not return valid JSON. \n Error: #{e.message} \n Output: #{text.inspect}"
-  end
-
-  # The model sometimes adds a note after the object, so try each closing brace,
-  # from the last one back, until the text up to it parses
-  def self.parse_leading_object(text)
-    start = text.index("{")
-    return unless start
-
-    closing_braces = (start...text.length).select { |i| text[i] == "}" }
-    closing_braces.reverse_each do |finish|
-      return JSON.parse(text[start..finish])
-    rescue JSON::ParserError
-      next
-    end
-    nil
   end
 
   def self.pdf_to_png_base64(upload)
