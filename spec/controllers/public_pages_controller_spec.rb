@@ -61,6 +61,17 @@ RSpec.describe PublicPagesController do
       end
     end
 
+    describe "simple file card" do
+      it "shows a sign up button that links to the signup page" do
+        get :home
+
+        html = Nokogiri::HTML.parse(response.body)
+        button = html.at_css(".service-card--simple-file a.button--simple-file-blue")
+        expect(button.text.strip).to eq I18n.t("general.register")
+        expect(button["href"]).to eq new_signup_path
+      end
+    end
+
     context "in production" do
       before do
         allow(Rails).to receive(:env).and_return("production".inquiry)
