@@ -14,6 +14,7 @@ module BedrockDocScreener
     image/bmp
     image/tiff
     application/pdf
+    text/plain
   ].freeze
   # image formats Bedrock accepts as it is, anything else gets converted to jpeg
   BEDROCK_IMAGE_TYPES = %w[
@@ -118,6 +119,8 @@ module BedrockDocScreener
 
     input = if media_type == "application/pdf"
               pdf_to_png_base64(document.upload)
+            elsif media_type == 'text/plain'
+              [prep_plain_text_payload(document.upload.download)]
             else
               [prepare_image(document.upload.download)]
             end
@@ -150,15 +153,30 @@ module BedrockDocScreener
     [result_json, raw_response_json]
   end
 
+  def self.prep_plain_text_payload(txt)
+    { media_type: 'text/plain',
+      content: txt }
+  end
+
+  def self.convert_to_jpg(bin_data)
+    img = MiniMagick::Image.read(bin_data)
+    img.format 'jpeg'
+    img.to_blob
+  end
+
   # The stored content_type can disagree with the actual bytes (e.g. a png named .jpg
   # attached with identify: false), and Bedrock rejects the request when they don't match.
   # So we detect the type from the bytes and convert anything Bedrock can't take.
   def self.prepare_image(raw_data)
     media_type = Marcel::MimeType.for(StringIO.new(raw_data))
 
-    unless BEDROCK_IMAGE_TYPES.include?(media_type) && within_bedrock_limits?(raw_data)
-      raw_data = ensure_safe_image_size(raw_data)
+    unless BEDROCK_IMAGE_TYPES.include?(media_type)
+      raw_data = convert_to_jpg(raw_data)
       media_type = "image/jpeg"
+    end
+
+    unless within_bedrock_limits?(raw_data)
+      raw_data = ensure_safe_image_size(raw_data)
     end
 
     {
@@ -174,10 +192,9 @@ module BedrockDocScreener
     image.width <= MAX_IMAGE_DIMENSION && image.height <= MAX_IMAGE_DIMENSION
   end
 
-  # Converts to jpeg and shrinks to fit within Bedrock's limits
+  # shrinks to fit within Bedrock's limits
   def self.ensure_safe_image_size(binary_data)
     image = MiniMagick::Image.read(binary_data)
-    image.format "jpeg"
     image.combine_options do |c|
       c.colorspace "sRGB"
       c.resize "#{RESIZED_IMAGE_DIMENSION}x#{RESIZED_IMAGE_DIMENSION}>"
@@ -273,7 +290,9 @@ module BedrockDocScreener
       
       Dir.mktmpdir do |tmpdir|
         output_prefix = File.join(tmpdir, "page")
-        success = system("pdftoppm", "-png", "-r", "200", pdf.path, output_prefix,
+
+        # Use `-l` arg b/c Bedrock has a 20 image limit per request
+        success = system("pdftoppm", "-png", "-r", "72", "-l", "20", pdf.path, output_prefix,
                          out: File::NULL, err: File::NULL)
         unless success
           raise "pdftoppm command failed with exit code #{$?.exitstatus}"
@@ -283,8 +302,7 @@ module BedrockDocScreener
           File.basename(f)[/(\d+)\.png$/, 1].to_i
         end
 
-        # Bedrock has a 20 image limit per request
-        png_files.take(20).each do |png_path|
+        png_files.each do |png_path|
           images << prepare_image(File.binread(png_path))
         end
       end
