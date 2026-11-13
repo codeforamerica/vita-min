@@ -2298,10 +2298,7 @@ es:
     new:
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarle gratuitamente a declarar sus impuestos!"
       opt_in_message:
-        01_intro: 'Aviso: Proporcionar su número de teléfono significa que usted ha optado por lo siguiente para usar el servicio GetYourRefund:'
-        02_list:
-        - Recibir un código de verificación de GetYourRefund
-        - Notificaciones sobre la declaración de impuestos
+        01_intro_html: Al hacer clic en Continuar, usted acepta recibir actualizaciones sobre su declaración de impuestos, información sobre nuestros servicios y encuestas ocasionales. No compartiremos su información con terceros. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.
         03_message_freq: La frecuencia de los mensajes varía. Se aplican las tarifas estándar de los mensajes. Envíe HELP al 11111 para obtener ayuda. Envíe STOP al 11111 para cancelarlo. Los operadores (por ejemplo, AT&T, Verizon, etc.) no son responsables de los mensajes no entregados o retrasados.
         04_detail_links_html: Favor de consultar nuestras <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Condiciones generales</a> y <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Política de privacidad.</a>
       subheader: Regístrese aquí para recibir una notificación cuando abramos en enero.
