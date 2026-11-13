@@ -1303,10 +1303,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7":
-  version: 7.29.10
-  resolution: "@babel/runtime@npm:7.29.10"
-  checksum: 10c0/32f975da8e9c2cae6b33e1a477f8fe8bbff6722c982b5ce35f99affaf3a7a1b612c8272b43afa0e51d3000928d6f3ba38f9296301115db5640264907c027b0cd
+"@babel/runtime@npm:^8":
+  version: 8.1.0
+  resolution: "@babel/runtime@npm:8.1.0"
+  checksum: 10c0/4531254e3a031cb392b5a363eecce35592c944c656fb7a3a7ac619cbcc05007a8ceca56e3f438aabca17a5ef0d1d18ab54957cd6c5d16a0f2d088850b10a1a83
   languageName: node
   linkType: hard
 
@@ -2918,7 +2918,7 @@ __metadata:
     "@babel/core": "npm:^7"
     "@babel/plugin-transform-runtime": "npm:^7"
     "@babel/preset-env": "npm:^7"
-    "@babel/runtime": "npm:^7"
+    "@babel/runtime": "npm:^8"
     "@rails/actioncable": "npm:8.1.400"
     "@rails/actiontext": "npm:8.1.400"
     "@rails/activestorage": "npm:8.1.400"
