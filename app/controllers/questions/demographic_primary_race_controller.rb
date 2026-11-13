@@ -8,8 +8,6 @@ module Questions
       intake.demographic_questions_opt_in_yes?
     end
 
-    def illustration_path; end
-
     def next_path
       default_next_path = super
       if default_next_path.nil?

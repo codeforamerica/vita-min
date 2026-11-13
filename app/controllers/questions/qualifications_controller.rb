@@ -10,7 +10,5 @@ module Questions
     def self.form_class
       NullForm
     end
-
-    def illustration_path; end
   end
 end

@@ -4,8 +4,6 @@ module Questions
 
     layout "intake"
 
-    def illustration_path; end
-
     def form_params
       super.merge(
         ip: request.remote_ip,

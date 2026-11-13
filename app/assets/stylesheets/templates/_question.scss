@@ -28,3 +28,28 @@
     max-width: $intake-max-width;
   }
 }
+
+// GYR Assist and File Myself pages (2026 brand, no illustrations).
+// Spacing from Figma "GYR (full flow) 2026", e.g. node 18157-5357; same values on mobile and desktop.
+section.question-layout--gyr {
+  padding-top: 3.5rem; // top of content area -> back link, or H1 when there is no back link
+
+  .back {
+    margin-bottom: 3.5rem; // back link -> progress bar, or H1 when there is no progress bar
+
+    a {
+      // measure from the button's edges rather than its text line
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+
+  h1 {
+    margin-top: 0;
+
+    // H1 -> help text. H1 -> form fields keeps the existing spacing.
+    &:has(+ p, + .text--help) {
+      margin-bottom: 1.5rem;
+    }
+  }
+}

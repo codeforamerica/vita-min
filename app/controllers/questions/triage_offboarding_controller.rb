@@ -18,11 +18,5 @@ module Questions
     def next_path
       nil
     end
-
-    private
-
-    def illustration_path
-      "no_file.svg"
-    end
   end
 end

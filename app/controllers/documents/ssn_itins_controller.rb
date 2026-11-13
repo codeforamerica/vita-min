@@ -16,9 +16,5 @@ module Documents
       next_state = has_all_required_docs?(current_intake) ? :intake_ready : :intake_needs_doc_help
       intake_transition_to(current_intake, next_state)
     end
-
-    def illustration_path
-      'ssn-itins.svg'
-    end
   end
 end

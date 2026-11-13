@@ -109,8 +109,14 @@ module StateFile
         end
       end
 
+      def illustration_folder
+        "questions"
+      end
+      helper_method :illustration_folder
+
       # by default, most state file questions have no illustration
       def illustration_path; end
+      helper_method :illustration_path
 
       def update_for_device_id_collection(efile_device_info)
         @form = initialized_update_form

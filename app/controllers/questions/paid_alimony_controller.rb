@@ -7,9 +7,5 @@ module Questions
     def self.show?(intake)
       intake.ever_married_yes?
     end
-
-    def illustration_path
-      "alimony.svg"
-    end
   end
 end
