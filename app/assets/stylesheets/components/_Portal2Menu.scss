@@ -1,5 +1,27 @@
-$portal2-menu-width: 34rem;
+$portal2-menu-width: 20rem;
 $portal2-menu-bg: $color-clarity-white;
+
+// Positioning context for the trigger/closer pair and the dropdown, so that the dropdown
+// always opens directly under the trigger instead of the far edge of the page.
+.portal2-menu-wrapper {
+  // Fixed size (not min-width/min-height) so the box never resizes when the trigger
+  // ("Menu" text) swaps for the close icon
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6.2rem;
+  margin-top: -5px;
+  // container has no text baseline, so it defaults to using its
+  // bottom edge as its baseline, which pushes shorter text siblings (Espanol, Sign out)
+  // down to line up with it. Pin to middle alignment instead of the baseline default and pad manually
+  vertical-align: middle;
+  padding-top: 26px;
+  &.open {
+    padding-top: 0;
+  }
+}
 
 .portal2-menu-trigger {
   cursor: pointer;
@@ -14,20 +36,19 @@ $portal2-menu-bg: $color-clarity-white;
   }
 }
 
+// Exactly overlays the trigger's box (via inset: 0 on the shared wrapper) so the X
+// visually replaces "Menu" in place, rather than appearing as a separate element.
 .portal2-menu-closer {
   visibility: hidden;
   opacity: 0;
   cursor: pointer;
-  border: 0;
+  border: 1px solid $color-grey-medium-light;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 6rem;
-  height: 6rem;
   position: absolute;
-  top: 0;
-  right: 0;
+  inset: 0;
   background-color: $color-white;
   z-index: 1001;
   &.open {
@@ -37,6 +58,7 @@ $portal2-menu-bg: $color-clarity-white;
   }
 }
 
+// Transparent click-catcher: closes the dropdown on outside click, no page dimming.
 .portal2-menu-overlay {
   position: fixed;
   top: 0;
@@ -46,30 +68,33 @@ $portal2-menu-bg: $color-clarity-white;
   visibility: hidden;
   opacity: 0;
   z-index: 998;
+  background-color: transparent;
   &.open {
     visibility: visible;
     opacity: 1;
-    transition: opacity .3s;
-    background-color: transparentize($color-black, .42);
   }
 }
 
 .portal2-menu {
-  position: fixed;
-  top: 6rem;
+  // Anchored to .portal2-menu-wrapper (its DOM parent), not the viewport, so that menu opens
+  // directly under the trigger/closer
+  position: absolute;
+  top: 100%;
   right: 0;
-  bottom: 0;
-  width: 100%;
-  max-width: $portal2-menu-width;
+  width: $portal2-menu-width;
+  max-width: calc(100vw - 2rem);
+  max-height: 80vh;
   background: $portal2-menu-bg;
+  border: 1px solid $color-grey-medium-light;
+  box-shadow: 0 .4rem 1.2rem rgba(0, 0, 0, .15);
   z-index: 999;
   overflow-y: auto;
-  transform: translateX(100%);
   visibility: hidden;
-  transition: transform .3s ease, visibility .3s;
+  opacity: 0;
+  transition: opacity .15s ease, visibility .15s;
   &.open {
-    transform: translateX(0);
     visibility: visible;
+    opacity: 1;
   }
 
   &__list {
@@ -80,25 +105,34 @@ $portal2-menu-bg: $color-clarity-white;
 
   &__item {
     border-bottom: 1px solid $color-grey-medium-light;
-    margin: 0 2rem;
+    &:last-child {
+      border-bottom: 0;
+    }
   }
 
   &__item &__link {
     display: block;
-    padding: 2rem 0;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 700;
-    color: $color-black;
     text-decoration: none;
     border-bottom: 0;
+    transition: background-color .15s ease;
+    // Cover :link (unvisited) at the same specificity as :visited/:active/
+    // :hover/:focus -- some other site-wide link rule was winning for
+    // the unvisited case and changing text color
+    &:link,
+    &:visited,
     &:hover,
-    &:focus,
     &:active,
-    &:visited {
+    &:focus {
       color: $color-black;
       text-decoration: none;
       border-bottom: 0;
+    }
+    &:hover,
+    &:focus {
+      //background-color: #F4F3FC;
     }
   }
 }

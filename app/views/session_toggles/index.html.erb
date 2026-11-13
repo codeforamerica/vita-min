@@ -29,6 +29,29 @@
               <%= "Clear" %>
             </button>
           <% end %>
+
+          <%= form_for(@end_of_intake_toggle, url: { action: :create }, method: :post, local: true, namespace: "end_of_intake", builder: VitaMinFormBuilder, html: { class: "form-card form-card--long" }) do |f| %>
+            <%= f.hidden_field :name %>
+            <%=
+              f.cfa_input_field(
+                :value,
+                "End of intake override (Pacific)",
+                type: 'datetime-local',
+                help_text: "On Heroku review apps and staging, end of intake defaults to 2040 so intake stays open. Usually it is October 1, 2026 at 11:59 PM ET (8:59 PM Pacific).",
+                options: {
+                  value: f.object.value&.in_time_zone("America/Los_Angeles")&.strftime('%Y-%m-%dT%H:%M')
+                },
+                classes: ['form-width--long'],
+              )
+            %>
+
+            <button class="button button--cta spacing-above-0" type="submit">
+              <%= t("general.save") %>
+            </button>
+            <button class="button button--cta spacing-above-0" type="submit" name="clear">
+              <%= "Clear" %>
+            </button>
+          <% end %>
         </div>
 
         <hr class="spacing-above-5 spacing-below-15"/>
