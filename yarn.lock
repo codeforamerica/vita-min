@@ -2133,25 +2133,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rails/actioncable@npm:8.1.400":
-  version: 8.1.400
-  resolution: "@rails/actioncable@npm:8.1.400"
-  checksum: 10c0/69dd0c3ef4e72bfe281e0f22b18aea9766057ce6725a47832fd714db889948e439c5918279fcffcf644ed86c16c6abb55bf32fd6d8aad160d4d7ef8773bd9980
+"@rails/actioncable@npm:8.1.401":
+  version: 8.1.401
+  resolution: "@rails/actioncable@npm:8.1.401"
+  checksum: 10c0/d15bd660c2013e1214e8785237ce81f2bfed8f6e0342525e05073300825761b8483b421aece7b04cb415d779fab0b9169719b7541481369a82eaf13a34c86d84
   languageName: node
   linkType: hard
 
-"@rails/actiontext@npm:8.1.400":
-  version: 8.1.400
-  resolution: "@rails/actiontext@npm:8.1.400"
+"@rails/actiontext@npm:8.1.401":
+  version: 8.1.401
+  resolution: "@rails/actiontext@npm:8.1.401"
   dependencies:
     "@rails/activestorage": "npm:>= 8.1.0-alpha"
   peerDependencies:
     trix: ^2.0.0
-  checksum: 10c0/cc165d5582e5064d15488beaf79ad9a50a97978e6256a99e61be7f05ba11751cd4d14aaf905bf6dd1e74a6a04eface6a5f17c80ad512ec194e806eb260d13235
+  checksum: 10c0/4d2b50048969588c5015cb87b3b631e6fe304e83d4aa1cca30258b7de61d41ce8d6b45bf56467da300f454a98a1d2fcc503249328b84bc2636e8882df1ee51c9
   languageName: node
   linkType: hard
 
-"@rails/activestorage@npm:8.1.400, @rails/activestorage@npm:>= 8.1.0-alpha":
+"@rails/activestorage@npm:8.1.401":
+  version: 8.1.401
+  resolution: "@rails/activestorage@npm:8.1.401"
+  dependencies:
+    spark-md5: "npm:^3.0.1"
+  checksum: 10c0/24562233ad03a80bf825cf432e9ac747627e6dcb1d0edf0af40137c5be9f1a07ca7b01439ba515c70115acf82bea79a1218efea6843518d76a550fd976be414b
+  languageName: node
+  linkType: hard
+
+"@rails/activestorage@npm:>= 8.1.0-alpha":
   version: 8.1.400
   resolution: "@rails/activestorage@npm:8.1.400"
   dependencies:
@@ -2746,12 +2755,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yaireo/tagify@npm:4.9.8":
-  version: 4.9.8
-  resolution: "@yaireo/tagify@npm:4.9.8"
+"@yaireo/tagify@npm:4.39.0":
+  version: 4.39.0
+  resolution: "@yaireo/tagify@npm:4.39.0"
   peerDependencies:
-    prop-types: ^15.7.2
-  checksum: 10c0/7279f40bc91b1fa66cedb6e3defb5d7448a4b264f8b20002163fd282e2d385bd9af75a80b463e2dc68ba62ae77907bc8df044dfd786ce8e6d83038c87b2f5136
+    prop-types: ">15.5.7"
+    react: "*"
+    react-dom: "*"
+  checksum: 10c0/114c319b0f328e3e8aa7ad7661be076775ba205e081a9d2149d7d833a4a5147fd303228940d76f7446dc63f699be4d850009fd6413f0aec8167b29fd8ac27a4f
   languageName: node
   linkType: hard
 
@@ -2919,11 +2930,11 @@ __metadata:
     "@babel/plugin-transform-runtime": "npm:^7"
     "@babel/preset-env": "npm:^7"
     "@babel/runtime": "npm:^7"
-    "@rails/actioncable": "npm:8.1.400"
-    "@rails/actiontext": "npm:8.1.400"
-    "@rails/activestorage": "npm:8.1.400"
+    "@rails/actioncable": "npm:8.1.401"
+    "@rails/actiontext": "npm:8.1.401"
+    "@rails/activestorage": "npm:8.1.401"
     "@rails/ujs": "npm:7.1.600"
-    "@yaireo/tagify": "npm:4.9.8"
+    "@yaireo/tagify": "npm:4.39.0"
     babel-loader: "npm:^9"
     braces: "npm:^3.0.3"
     compression-webpack-plugin: "npm:^12.0.0"
