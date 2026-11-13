@@ -21,8 +21,6 @@ module Questions
       nil
     end
 
-    def illustration_path; end
-
     ##
     # sets new intake id in session and associates triage source to that intake
     def after_update_success

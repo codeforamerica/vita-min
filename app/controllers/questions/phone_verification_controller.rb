@@ -26,9 +26,5 @@ module Questions
         service_type: :gyr
       )
     end
-
-    def illustration_path
-      "contact-preference.svg"
-    end
   end
 end
