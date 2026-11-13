@@ -95,8 +95,8 @@ en:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance for about 1 hour starting at %{time}.
       maintenance_page:
-        title: We're performing scheduled maintenance
         body: We're currently performing scheduled maintenance to improve our systems. We'll be back shortly. Thank you for your patience.
+        title: We're performing scheduled maintenance
       redirect: You're missing a ticket or intake. In production, we would have redirected you to the beginning.
     dependents_controller:
       removed_dependent: Removed %{full_name}.
