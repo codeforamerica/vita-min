@@ -6,8 +6,6 @@ module Questions
 
     def self.show?(intake) = false
 
-    def illustration_path; end
-
     private
 
     def next_path
