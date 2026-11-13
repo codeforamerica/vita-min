@@ -4,6 +4,34 @@
     padding: $s35/2 4rem;
   }
 
+  .main-header{
+    .toolbar{
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 368px;
+
+      @media screen and (min-width: 768px) {
+        max-width: 688px;
+      }
+
+      @media screen and (min-width: 1280px) {
+        max-width: 944px;
+      }
+
+      @media screen and (min-width: 1536px) {
+        max-width: 1344px;
+      }
+
+      //prevents a display issue with menu hide/show
+      .is-mobile-hidden, .is-mobile-hidden--inline{
+        @media screen and (max-width: 600px) {
+          display: none !important;
+        }
+      }
+    }
+
+  }
+
   .slab{
     .grid{
 
