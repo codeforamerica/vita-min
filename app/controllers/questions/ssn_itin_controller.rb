@@ -6,8 +6,6 @@ module Questions
       !intake.itin_applicant?
     end
 
-    def illustration_path; end
-
     def tracking_data
       {}
     end
