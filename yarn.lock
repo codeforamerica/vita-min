@@ -2909,7 +2909,7 @@ __metadata:
     mini-css-extract-plugin: "npm:^2.7.6"
     prop-types: "npm:^15.7.2"
     regenerator-runtime: "npm:^0.14.1"
-    shakapacker: "npm:^9.7.0"
+    shakapacker: "npm:^10.3.2"
     stickybits: "npm:^3.7.9"
     style-loader: "npm:^4.0.0"
     terser-webpack-plugin: "npm:^5"
@@ -6409,6 +6409,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pack-config-diff@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "pack-config-diff@npm:0.1.0"
+  dependencies:
+    js-yaml: "npm:^4.1.0"
+  peerDependencies:
+    ts-node: ">=10"
+  peerDependenciesMeta:
+    ts-node:
+      optional: true
+  bin:
+    pack-config-diff: bin/pack-config-diff
+  checksum: 10c0/50abe6e660856cc3d430300effbb078a1b1961997afbf74067eb8f931b9ffb9829c6b37242892fe5e7050249d5c4c32a9dda2ffdc54cdde4eec2932d39fde32d
+  languageName: node
+  linkType: hard
+
 "parse-json@npm:^5.2.0":
   version: 5.2.0
   resolution: "parse-json@npm:5.2.0"
@@ -7440,40 +7456,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shakapacker@npm:^9.7.0":
-  version: 9.7.0
-  resolution: "shakapacker@npm:9.7.0"
+"shakapacker@npm:^10.3.2":
+  version: 10.3.2
+  resolution: "shakapacker@npm:10.3.2"
   dependencies:
     js-yaml: "npm:^4.1.0"
+    pack-config-diff: "npm:^0.1.0"
     path-complete-extname: "npm:^1.0.0"
     webpack-merge: "npm:^5.8.0"
     yargs: "npm:^17.7.2"
   peerDependencies:
-    "@babel/core": ^7.17.9
-    "@babel/plugin-transform-runtime": ^7.17.0
-    "@babel/preset-env": ^7.16.11
-    "@babel/runtime": ^7.17.9
-    "@rspack/cli": ^1.0.0 || ^2.0.0-0
-    "@rspack/core": ^1.0.0 || ^2.0.0-0
-    "@rspack/plugin-react-refresh": ^1.0.0
+    "@babel/core": ^7.17.9 || ^8.0.0
+    "@babel/plugin-transform-runtime": ^7.17.0 || ^8.0.0
+    "@babel/preset-env": ^7.16.11 || ^8.0.0
+    "@babel/runtime": ^7.17.9 || ^8.0.0
+    "@rspack/cli": ^2.0.0
+    "@rspack/core": ^2.0.0
+    "@rspack/dev-server": ^2.0.0
+    "@rspack/plugin-react-refresh": ^2.0.0
     "@swc/core": ^1.3.0
     "@types/babel__core": ^7.0.0
     "@types/webpack": ^5.0.0
     babel-loader: ^8.2.4 || ^9.0.0 || ^10.0.0
     compression-webpack-plugin: ^9.0.0 || ^10.0.0 || ^11.0.0 || ^12.0.0
     css-loader: ^6.8.1 || ^7.0.0
-    esbuild: ^0.14.0 || ^0.15.0 || ^0.16.0 || ^0.17.0 || ^0.18.0 || ^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0 || ^0.25.0 || ^0.26.0 || ^0.27.0
+    esbuild: ">=0.14.0 <1.0.0"
     esbuild-loader: ^2.0.0 || ^3.0.0 || ^4.0.0
     mini-css-extract-plugin: ^2.0.0
-    rspack-manifest-plugin: ^5.0.0
+    rspack-manifest-plugin: ^5.2.2
     sass: ^1.50.0
-    sass-loader: ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+    sass-loader: ^13.0.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
     swc-loader: ^0.1.15 || ^0.2.0
     terser-webpack-plugin: ^5.3.1
-    webpack: ^5.76.0
+    webpack: ^5.101.0
     webpack-assets-manifest: ^5.0.6 || ^6.0.0
-    webpack-cli: ^4.9.2 || ^5.0.0 || ^6.0.0
-    webpack-dev-server: ^4.15.2 || ^5.2.2
+    webpack-cli: ^4.9.2 || ^5.0.0 || ^6.0.0 || ^7.0.0
+    webpack-dev-server: ^5.2.2 || ^6.0.0
     webpack-subresource-integrity: ^5.1.0
   peerDependenciesMeta:
     "@babel/core":
@@ -7487,6 +7505,8 @@ __metadata:
     "@rspack/cli":
       optional: true
     "@rspack/core":
+      optional: true
+    "@rspack/dev-server":
       optional: true
     "@rspack/plugin-react-refresh":
       optional: true
@@ -7528,7 +7548,10 @@ __metadata:
       optional: true
     webpack-subresource-integrity:
       optional: true
-  checksum: 10c0/d46e192c88840cc654bc20014422cb2c0978fdd3b2fd76bcb1e37b26603e07e459c20ee1d8f6105a4398390d61cebce2f6811f677c3ad884039a6d2b6f8251fa
+  bin:
+    diff-bundler-config: package/bin/diff-bundler-config.cjs
+    shakapacker-config: package/bin/shakapacker-config.cjs
+  checksum: 10c0/4d1641c0074bf1f0d37965f8ac886c42bf24d4ff1ac7011348cb84da08eceeef2b5be9c10244762d54036dbd3071fc288c7c6d4cb841b8bdfe24bcd98a462ba1
   languageName: node
   linkType: hard
 
