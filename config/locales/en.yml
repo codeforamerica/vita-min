@@ -471,10 +471,12 @@ en:
       1095-a: Health Insurance
       1099-r: Retirement Income
       care_provider_statement: Care Provider Statement
+      direct_deposit_information: Direct Deposit Information
       email_attachment: Email attachment
       employment: Employment Docs
       id: Photo ID
       ira_statement: IRA Statement
+      irs_ip_pin_letter: IRS IP PIN Letter
       original_13614-C: Original 13614-C
       other: Other Docs
       primary_identification:
