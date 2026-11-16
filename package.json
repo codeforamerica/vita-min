@@ -34,7 +34,7 @@
     "webpack": "^5",
     "webpack-assets-manifest": "^6",
     "webpack-cli": "^7",
-    "webpack-merge": "^5"
+    "webpack-merge": "^6"
   },
   "babel": {
     "presets": [
