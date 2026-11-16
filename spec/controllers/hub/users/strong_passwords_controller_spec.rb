@@ -52,11 +52,11 @@ RSpec.describe Hub::Users::StrongPasswordsController do
           expect {
             put :update, params: {
               user: {
-                password: "vitavitavitavita2", password_confirmation: "vitavitavitavita2"
+                password: "correct-horse-battery-staple", password_confirmation: "correct-horse-battery-staple"
               }
             }
           }.to change { non_hub_admin_user.reload.encrypted_password }
-          expect(non_hub_admin_user.valid_password?("vitavitavitavita2")).to be true
+          expect(non_hub_admin_user.valid_password?("correct-horse-battery-staple")).to be true
           expect(non_hub_admin_user.high_quality_password_as_of).to eq(DateTime.now)
           expect(response).to redirect_to(hub_assigned_clients_path)
         end
@@ -67,8 +67,8 @@ RSpec.describe Hub::Users::StrongPasswordsController do
           it "does not save the user and shows an error message" do
             put :update, params: {
               user: {
-                password: "vitavitavitavita",
-                password_confirmation: "something other than vitavitavitavita"
+                password: "correct-horse-battery-staple",
+                password_confirmation: "something-else-entirely-here"
               }
             }
             non_hub_admin_user.reload

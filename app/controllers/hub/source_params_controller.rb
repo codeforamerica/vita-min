@@ -19,6 +19,7 @@ module Hub
 
     def update
       @source_param = SourceParameter.find(params[:id])
+      authorize! :update, @source_param.vita_partner
       @source_param.update(active: params[:source_parameter][:active] == "1")
       respond_to do |format|
         format.js
@@ -27,6 +28,7 @@ module Hub
 
     def destroy
       @source_param = SourceParameter.find(params[:id])
+      authorize! :destroy, @source_param.vita_partner
 
       @source_param.destroy!
       respond_to do |format|
