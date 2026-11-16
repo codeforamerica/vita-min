@@ -125,41 +125,39 @@ class Seeder
 
     # organization lead user
     user = User.where(email: "skywalker@example.com").first_or_initialize
-    user.update(
-      name: "Luke Skywalker",
-      password: strong_shared_password)
-    user.update(role: OrganizationLeadRole.create(organization: first_org)) if user.role_type != OrganizationLeadRole::TYPE
+    user.assign_attributes(name: "Luke Skywalker", password: strong_shared_password)
+    user.role = OrganizationLeadRole.create(organization: first_org) if user.new_record? || user.role_type != OrganizationLeadRole::TYPE
+    user.save(validate: false)
 
     # site coordinator user
     user = User.where(email: "cucumber@example.com").first_or_initialize
-    user.update(
-      name: "Cindy Cucumber",
-      password: strong_shared_password)
-    user.update(role: SiteCoordinatorRole.create(sites: [first_site])) if user.role_type != SiteCoordinatorRole::TYPE
+    user.assign_attributes(name: "Cindy Cucumber", password: strong_shared_password)
+    user.role = SiteCoordinatorRole.create(sites: [first_site]) if user.new_record? || user.role_type != SiteCoordinatorRole::TYPE
+    user.save(validate: false)
 
     # site team member user
     user = User.where(email: "melon@example.com").first_or_initialize
-    user.update(
-      name: "Marty Melon",
-      password: strong_shared_password)
-    user.update(role: TeamMemberRole.create(sites: [first_site])) if user.role_type != TeamMemberRole::TYPE
+    user.assign_attributes(name: "Marty Melon", password: strong_shared_password)
+    user.role = TeamMemberRole.create(sites: [first_site]) if user.new_record? || user.role_type != TeamMemberRole::TYPE
+    user.save(validate: false)
 
     # coalition lead user
     user = User.where(email: "lemon@example.com").first_or_initialize
-    user.update(
-      name: "Lola Lemon",
-      password: strong_shared_password)
-    user.update(role: CoalitionLeadRole.create(coalition: koalas)) if user.role_type != CoalitionLeadRole::TYPE
+    user.assign_attributes(name: "Lola Lemon", password: strong_shared_password)
+    user.role = CoalitionLeadRole.create(coalition: koalas) if user.new_record? || user.role_type != CoalitionLeadRole::TYPE
+    user.save(validate: false)
 
     # additional user
     additional_user = User.where(email: "princess@example.com").first_or_initialize
-    additional_user.update(name: "Lea Amidala Organa", password: strong_shared_password)
-    additional_user.update(role: OrganizationLeadRole.create(organization: first_org)) if additional_user.role_type != OrganizationLeadRole::TYPE
+    additional_user.assign_attributes(name: "Lea Amidala Organa", password: strong_shared_password)
+    additional_user.role = OrganizationLeadRole.create(organization: first_org) if additional_user.new_record? || additional_user.role_type != OrganizationLeadRole::TYPE
+    additional_user.save(validate: false)
 
     # nj user
     nj_user = User.where(email: "stew@example.com").first_or_initialize
-    nj_user.update(name: "Stewart Stringbean", password: strong_shared_password)
-    nj_user.update(role: StateFileNjStaffRole.create) if nj_user.role_type != StateFileNjStaffRole::TYPE
+    nj_user.assign_attributes(name: "Stewart Stringbean", password: strong_shared_password)
+    nj_user.role = StateFileNjStaffRole.create if nj_user.new_record? || nj_user.role_type != StateFileNjStaffRole::TYPE
+    nj_user.save(validate: false)
 
     if Rails.configuration.google_login_enabled
       pairs_file_data = YAML.safe_load(File.read(Rails.root.join(".pairs")))
@@ -167,26 +165,21 @@ class Seeder
       admin_emails = pairs_file_data["email_addresses"]
       admin_emails.each do |initials, email_address|
         admin_user = User.where(email: email_address).first_or_initialize
-        admin_user.update(
-          name: admin_names[initials],
-          password: Devise.friendly_token[0, 20])
-        admin_user.update(role: AdminRole.create(engineer: true, state_file: true)) if admin_user.role_type != AdminRole::TYPE
+        admin_user.assign_attributes(name: admin_names[initials], password: Devise.friendly_token[0, 20])
+        admin_user.role = AdminRole.create(engineer: true, state_file: true) if admin_user.new_record? || admin_user.role_type != AdminRole::TYPE
+        admin_user.save(validate: false)
       end
     end
 
     admin_user = User.where(email: "admin@example.com").first_or_initialize
-    admin_user.update(
-      name: "Admin Amdapynurian",
-      password: "theforcevita")
-    admin_user.update(role: AdminRole.create(state_file: true)) if admin_user.role_type != AdminRole::TYPE
+    admin_user.assign_attributes(name: "Admin Amdapynurian", password: "theforcevita")
+    admin_user.role = AdminRole.create(state_file: true) if admin_user.new_record? || admin_user.role_type != AdminRole::TYPE
+    admin_user.save(validate: false)
 
     greeter_user = User.where(email: "greeter@example.com").first_or_initialize
-    greeter_user.update(
-      name: "Greeter Greg (GYR Greeter)",
-      password: strong_shared_password
-    )
-
-    greeter_user.update(role: GreeterRole.create) if greeter_user.role_type != GreeterRole::TYPE
+    greeter_user.assign_attributes(name: "Greeter Greg (GYR Greeter)", password: strong_shared_password)
+    greeter_user.role = GreeterRole.create if greeter_user.new_record? || greeter_user.role_type != GreeterRole::TYPE
+    greeter_user.save(validate: false)
 
     intake = find_or_create_intake_and_client(
       Intake::GyrIntake,
