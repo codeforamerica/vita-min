@@ -2,7 +2,7 @@ module DocumentTypes
   class DirectDepositInformation < DocumentType
     class << self
       def relevant_to?(_intake)
-        true #Set to always true until rules are implemented. This ensures that the type always shows in the meantime
+        false #False to avoid polluting document_types_possibly_needed while rules are implemented
       end
 
       def description
