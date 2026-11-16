@@ -1,0 +1,8 @@
+// Values for Honeycrisp variables declared with !default.
+// Must be imported before "cfa_styleguide_main" so Honeycrisp picks them up.
+
+$color-focus: #339696;
+
+// Honeycrisp's outline mixins draw the keyboard focus ring with $color-gold.
+// The name comes from the gem and can't be changed here; the value is our focus color.
+$color-gold: $color-focus;

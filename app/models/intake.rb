@@ -199,6 +199,7 @@
 #  has_primary_ip_pin                                   :integer          default(0), not null
 #  has_spouse_ip_pin                                    :integer          default(0), not null
 #  has_ssn_of_alimony_recipient                         :integer          default(0), not null
+#  hashed_email                                         :string
 #  hashed_primary_ssn                                   :string
 #  hashed_spouse_ssn                                    :string
 #  have_income_tax_documents                            :integer          default(0)
@@ -387,6 +388,7 @@
 #  index_intakes_on_completed_at                           (completed_at) WHERE (completed_at IS NOT NULL)
 #  index_intakes_on_email_address                          (email_address)
 #  index_intakes_on_email_domain                           (email_domain)
+#  index_intakes_on_hashed_email                           (hashed_email)
 #  index_intakes_on_hashed_primary_ssn                     (hashed_primary_ssn)
 #  index_intakes_on_locale                                 (locale)
 #  index_intakes_on_matching_previous_year_intake_id       (matching_previous_year_intake_id)
@@ -465,6 +467,9 @@ class Intake < ApplicationRecord
     if email_address.present?
       self.email_domain = email_address.split('@').last.downcase
       self.canonical_email_address = CanonicalEmail.get(email_address)
+    end
+    if email_address_changed?
+      self.hashed_email = EmailHashingService.hash(email_address)
     end
     if primary_ssn_changed?
       self.primary_last_four_ssn = primary_ssn&.last(4)

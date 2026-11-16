@@ -12,7 +12,7 @@ class SessionTogglesController < ApplicationController
           SessionToggleTime.new(name: 'Start of unique-links only intake', property: :start_of_unique_links_only_intake),
           SessionToggleTime.new(name: 'Start of open intake', property: :start_of_open_intake),
           SessionToggleTime.new(name: 'Tax deadline', property: :tax_deadline),
-          SessionToggleTime.new(name: 'End of intake', property: :end_of_intake),
+          SessionToggleTime.new(name: 'End of intake', property: :end_of_intake, value: end_of_intake),
           SessionToggleTime.new(name: 'End of documents upload', property: :end_of_docs),
           SessionToggleTime.new(name: 'End of finishing in-progress intakes', property: :end_of_in_progress_intake),
           SessionToggleTime.new(name: 'End of login', property: :end_of_login),
@@ -29,10 +29,12 @@ class SessionTogglesController < ApplicationController
       }
     ]
     @toggle = SessionToggle.new(session, 'app_time')
+    @end_of_intake_toggle = SessionToggle.new(session, 'end_of_intake')
   end
 
   def create
-    @toggle = SessionToggle.new(session, 'app_time')
+    toggle_name = SessionToggle::TOGGLE_TYPES.key?(params.dig(:session_toggle, :name)) ? params[:session_toggle][:name] : 'app_time'
+    @toggle = SessionToggle.new(session, toggle_name)
     if params[:clear]
       @toggle.clear
     else
@@ -46,13 +48,14 @@ class SessionTogglesController < ApplicationController
   class SessionToggleTime
     attr_accessor :name
 
-    def initialize(name:, property:)
+    def initialize(name:, property:, value: nil)
       @name = name
       @property = property
+      @value = value
     end
 
     def value
-      Rails.configuration.send(@property)
+      @value || Rails.configuration.send(@property)
     end
 
     def past?(app_time)

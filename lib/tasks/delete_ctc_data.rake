@@ -140,6 +140,8 @@ namespace :delete_ctc_data do
     p "#{dry_run ? 'Could delete' : 'Deleted'} #{deleted_count} clients."
     p 'Failed Client ids: ' + failed_client_ids.inspect if failed_client_ids.any?
     p 'Tally of CTC Client records remaining: ' + clients_to_delete.count.to_s
+    p 'Tally of CtcIntake records remaining: ' + Intake::CtcIntake.count.to_s
+    p 'Tally of CtcIntake2021 records remaining: ' + Archived::Intake::CtcIntake2021.count.to_s
 
     p '--------------------------------'
     delete_remaining_ctc_records.call

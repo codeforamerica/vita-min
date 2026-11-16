@@ -121,6 +121,7 @@ en:
     formats:
       default: "%-m/%-d/%Y"
       long: "%B %-d, %Y"
+      month_day: "%B %-d"
   devise:
     failure:
       invalid: Incorrect email or password. After 5 login attempts, accounts are locked.
@@ -2111,6 +2112,13 @@ en:
           review_info_requested_title: You have a message
           signature_requested: Download your final tax papers to review, then sign electronically.
           signature_requested_title: Signature needed
+        deadline_alert:
+          info_label: 'Information:'
+          sign_by: We need your signature to file your return.
+          sign_by_title: Sign by %{date}
+          tax_season_ends: Check for updates from your tax team.
+          tax_season_ends_title: This tax season ends %{date}
+          warning_label: 'Warning:'
         decline_to_sign_help: If you don't sign your return, your tax team will reach out to discuss.
         document_link:
           download_final_tax_papers: Download final tax papers
@@ -2205,7 +2213,7 @@ en:
       decline_signature:
         confirmation: Thanks for letting us know. Your tax team will reach out to discuss your return.
       index:
-        final_return_not_started: Final return not started
+        final_return_not_started: Not available yet
         final_tax_return: "%{year} Final tax return"
         title: Tax returns
       show:
@@ -2221,7 +2229,7 @@ en:
         title: Add a document
       error: There was an error uploading your document. Try again.
       index:
-        final_return_not_started: Final return not started
+        final_return_not_started: Not available yet
         final_tax_return: Final tax return
         message_my_tax_team: Message my tax team
         please_add_document: Please add document.

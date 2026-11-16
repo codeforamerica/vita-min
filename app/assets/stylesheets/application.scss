@@ -12,6 +12,7 @@
  *
  *= require_self
  */
+@import "honeycrisp-overrides";
 @import "cfa_styleguide_main";
 @import "actiontext";
 @import "components/sr-only";
@@ -111,6 +112,7 @@
 @import "components/verification_attempts";
 @import "components/ClientMenu";
 @import "components/Portal2Menu";
+@import "components/Portal2Home";
 @import "components/dependents-list";
 @import "components/hub-image-rotator";
 @import "components/smart_scan-list";
@@ -202,6 +204,18 @@ body {
       background-color: darken($color-primary-lime, 8%);
       border-color: $color-button-border;
       color: $color-confidence-blue;
+    }
+  }
+
+  // Must come after .button and .button--primary above: same specificity, so source order wins
+  @each $modifier, $cta-color in $gyr-flow-ctas {
+    .button--#{$modifier}#{$gyr-cta-exclusions} {
+      &,
+      &:hover,
+      &:active,
+      &:visited {
+        background-color: $cta-color;
+      }
     }
   }
 

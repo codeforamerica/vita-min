@@ -52,7 +52,6 @@ gem 'puma', '>= 7.2.1'
 gem 'sass-rails', '~> 6.0'
 gem 'cfa-styleguide', '0.17.1', git: 'https://github.com/codeforamerica/honeycrisp-gem', branch: 'main', ref: '40a4356dd217dacfba82a7b92010111999954c91'
 gem 'nokogiri', '>= 1.19.3'
-gem 'recaptcha'
 gem 'airrecord'
 
 # Use ActiveStorage variant
@@ -84,7 +83,7 @@ gem 'delayed_job'
 gem 'lograge'
 gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
 gem 'auto_strip_attributes'
-gem 'datadog', '~> 2.47.0', require: 'datadog/auto_instrument'
+gem 'datadog', '~> 2.48.0', require: 'datadog/auto_instrument'
 gem 'dogapi'
 gem 'http_accept_language'
 gem 'rails-i18n'
@@ -159,7 +158,7 @@ group :development, :test do
   gem 'guard-rspec', require: false
   gem 'rubocop', '~> 1.92.2', require: false
   gem 'rubocop-performance', '~> 1.27.0', require: false
-  gem 'rubocop-rspec', '~> 2.18.0', require: false
+  gem 'rubocop-rspec', '~> 3.10.2', require: false
   gem 'i18n-tasks', require: false
   gem 'easy_translate'
   gem 'bundle-audit'
@@ -199,8 +198,8 @@ gem "pundit", "~> 2.5"
 
 gem "openssl", ">= 3.3.1"
 
-gem "aws-sdk-core", "3.263.0"
+gem "aws-sdk-core", "3.264.0"
 
-gem "aws-sdk-bedrockruntime", "~> 1.90"
+gem "aws-sdk-bedrockruntime", "~> 1.91"
 
 gem 'oauth2', '>= 2.0.22'
