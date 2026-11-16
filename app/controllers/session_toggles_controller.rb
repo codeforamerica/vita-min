@@ -16,6 +16,7 @@ class SessionTogglesController < ApplicationController
           SessionToggleTime.new(name: 'End of documents upload', property: :end_of_docs),
           SessionToggleTime.new(name: 'End of finishing in-progress intakes', property: :end_of_in_progress_intake),
           SessionToggleTime.new(name: 'End of login', property: :end_of_login),
+          SessionToggleTime.new(name: 'Simple File close', property: :simple_file_close),
         ]
       },
       {
