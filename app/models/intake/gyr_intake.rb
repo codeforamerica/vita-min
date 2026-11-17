@@ -687,16 +687,7 @@ class Intake::GyrIntake < Intake
   end
 
   def document_types_definitely_needed
-    relevant_document_types.select(&:needed_if_relevant?).reject do |document_type|
-      document_types = if document_type == DocumentTypes::Identity
-                         DocumentTypes::IDENTITY_TYPES.map(&:key)
-                       elsif document_type == DocumentTypes::SsnItin
-                         DocumentTypes::SECONDARY_IDENTITY_TYPES.map(&:key)
-                       else
-                         document_type.key
-                       end
-      documents.where(document_type: document_types).present?
-    end
+    DocumentChecklist.new(self).missing_required.map(&:document_type)
   end
 
   # create a faux bank account to turn bank account data into a BankAccount object
@@ -712,11 +703,7 @@ class Intake::GyrIntake < Intake
   end
 
   def document_types_possibly_needed
-    relevant_document_types.reject(&:needed_if_relevant?).reject do |document_type|
-      document_type == DocumentTypes::Other
-    end.reject do |document_type|
-      documents.where(document_type: document_type.key).present?
-    end
+    DocumentChecklist.new(self).missing_recommended.map(&:document_type)
   end
 
   def filing_jointly?
