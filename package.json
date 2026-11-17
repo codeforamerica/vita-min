@@ -19,7 +19,7 @@
     "css-minimizer-webpack-plugin": "^8.0.0",
     "html-template-tag": "^5.0.0",
     "imports-loader": "5.0.0",
-    "jquery": "^3.5.1",
+    "jquery": "^4.0.0",
     "jquery-mask-plugin": "^1.14.16",
     "jquery-ui": "^1.13.2",
     "mini-css-extract-plugin": "^2.7.6",
