@@ -2,7 +2,8 @@ class SessionToggle
   include ActiveModel::Model
 
   TOGGLE_TYPES = {
-    'app_time' => 'datetime'
+    'app_time' => 'datetime',
+    'end_of_intake' => 'datetime'
   }
 
   attr_reader :name

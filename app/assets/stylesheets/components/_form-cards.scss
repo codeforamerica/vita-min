@@ -82,7 +82,7 @@
     }
     .button--link {
       margin-bottom: -1.5rem; // Account for the "secret" hover padding added to the object.
-      color: black;
+      color: $color-confidence-blue;
       font-weight: bold;
 
       &:hover,

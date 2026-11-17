@@ -81,7 +81,7 @@ class MailgunWebhooksController < ActionController::Base
           if (FileTypeAllowedValidator.mime_types(Document).include? attachment.content_type) && (size > 0)
             {
               io: attachment,
-              filename: attachment.original_filename,
+              filename: Document.truncate_filename(attachment.original_filename),
               content_type: attachment.content_type,
               identify: false # false = don't infer content type from extension
             }
@@ -94,7 +94,7 @@ class MailgunWebhooksController < ActionController::Base
             TEXT
             {
               io: io,
-              filename: "invalid-#{attachment.original_filename}.txt",
+              filename: Document.truncate_filename("invalid-#{attachment.original_filename}.txt"),
               content_type: "text/plain;charset=UTF-8",
               identify: false
             }

@@ -235,6 +235,23 @@ RSpec.describe MailgunWebhooksController do
             expect(documents.fifth.upload.blob.content_type).to eq("text/plain;charset=UTF-8")
           end
 
+          it "truncates filenames that are too long instead of failing" do
+            expect do
+              post :create_incoming_email, params: params.update({
+                "attachment-count": 2,
+                "attachment-1" => Rack::Test::UploadedFile.new(StringIO.new(File.binread("spec/fixtures/files/test-pattern.png")), "image/png", original_filename: "#{"a" * 1000}.png"),
+                "attachment-2" => Rack::Test::UploadedFile.new(StringIO.new("spreadsheet"), "application/vnd.ms-excel", original_filename: "#{"b" * 1000}.xls"),
+              })
+            end.to change(Document, :count).by(2)
+
+            expect(response).to be_ok
+            documents = client.documents.order(:id)
+            expect(documents.first.upload.blob.filename.to_s.length).to eq Document::MAX_FILENAME_LENGTH
+            expect(documents.first.upload.blob.filename.to_s).to end_with(".png")
+            expect(documents.second.upload.blob.filename.to_s.length).to eq Document::MAX_FILENAME_LENGTH
+            expect(documents.second.upload.blob.filename.to_s).to start_with("invalid-").and end_with(".txt")
+          end
+
           it 'excludes files with .mail extensions even if they have supported content_type' do
             expect do
               post :create_incoming_email, params: params.update({

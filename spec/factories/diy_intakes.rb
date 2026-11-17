@@ -7,6 +7,7 @@
 #  email_address             :string
 #  email_notification_opt_in :integer          default("unfilled")
 #  filing_frequency          :integer          default("unfilled")
+#  hashed_email              :string
 #  locale                    :string
 #  preferred_first_name      :string
 #  received_1099             :integer          default("unfilled"), not null
@@ -20,6 +21,10 @@
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #  visitor_id                :string
+#
+# Indexes
+#
+#  index_diy_intakes_on_hashed_email  (hashed_email)
 #
 FactoryBot.define do
   factory :diy_intake do

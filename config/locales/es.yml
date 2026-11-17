@@ -93,6 +93,9 @@ es:
   controllers:
     application_controller:
       maintenance: GetYourRefund.org estará inactivo para mantenimiento programado durante aproximadamente 1 hora a partir de %{time}.
+      maintenance_page:
+        body: Actualmente estamos realizando mantenimiento programado para mejorar nuestros sistemas. Volveremos en breve. Gracias por su paciencia.
+        title: Estamos realizando mantenimiento programado
       redirect: Usted ha perdidio su tiquete. En producción,  lo redireccionaremos al inicio.
     dependents_controller:
       removed_dependent: Eliminó %{full_name}.
@@ -120,6 +123,7 @@ es:
     formats:
       default: "%-m/%-d/%Y"
       long: "%-d de %B de %Y"
+      month_day: "%-d de %B"
   devise:
     failure:
       invalid: Correo o contraseña incorrectos. Después de 5 intentos de inicio de sesión, las cuentas se bloquean.
@@ -2095,6 +2099,13 @@ es:
           review_info_requested_title: Tiene un mensaje
           signature_requested: Descargue sus papeles de impuestos para revisarlos y luego firme electrónicamente.
           signature_requested_title: Se necesita su firma
+        deadline_alert:
+          info_label: 'Información:'
+          sign_by: Necesitamos su firma para presentar su declaración de impuestos.
+          sign_by_title: Firme antes del %{date}
+          tax_season_ends: Esté pendiente de las novedades del equipo de impuestos.
+          tax_season_ends_title: Esta temporada de impuestos termina el %{date}
+          warning_label: 'Advertencia:'
         decline_to_sign_help: Si no firma su declaración, el equipo de impuestos se comunicará con usted para ver sus opciones.
         document_link:
           download_final_tax_papers: Descargar papeles de impuestos
@@ -2192,7 +2203,7 @@ es:
       decline_signature:
         confirmation: Gracias por avisarnos. Su equipo de impuestos se comunicará con usted para conversar sobre su declaración.
       index:
-        final_return_not_started: Retorno final no iniciado
+        final_return_not_started: Aún no está disponible
         final_tax_return: Declaración de impuestos final de %{year}
         title: Declaraciones de impuestos
       show:
@@ -2208,7 +2219,7 @@ es:
         title: Agregar un documento
       error: Hubo un error al cargar su documento. Intentar otra vez.
       index:
-        final_return_not_started: Retorno final no iniciado
+        final_return_not_started: Aún no está disponible
         final_tax_return: última declaración de impuestos
         message_my_tax_team: Mensaje a mi equipo de impuestos
         please_add_document: Por favor agregue documento.
@@ -4972,6 +4983,7 @@ es:
     ein: 'El EIN, o en español: Número de Identificación del Empleador, debe ser un número de 9 dígitos.'
     file_type: Por favor sube un tipo de documento válido. Los tipos aceptados incluyen %{valid_types}
     file_zero_length: Sube un archivo válido. El archivo que cargó parece estar vacío.
+    filename_too_long: El nombre del archivo es demasiado largo. Cambie el nombre del archivo a %{max_length} caracteres o menos y vuelva a subirlo.
     ip_pin: El IP PIN debe ser un número de 6 dígitos.
     irs_business_name: Solo se aceptan números del 0 al 9, letras A-Z y a-z, hash, guión, paréntesis, el signo &, apóstrofe y espacios simples.
     irs_city: Solo se aceptan letras A-Z, a-z y espacio.
@@ -5283,7 +5295,7 @@ es:
           body: De acuerdo con las normas nacionales del IRS, toda la información de identificación personal (PII, por sus siglas en inglés) que los contribuyentes proporcionan debe estar protegida. Mantenemos tu información segura y protegida.
           header: Nos comprometemos a mantener la seguridad de tu información
         subheader: Reclama miles de dólares a través de los créditos tributarios que te corresponden. Te ayudamos a obtener tu mayor reembolso.
-        subheader_offseason: "¡Regístrese para la próxima temporada de impuestos ahora! Le notificaremos tan pronto que nuestro servicio vuelva a abrir a finales de enero."
+        subheader_offseason: "¡Regístrate ahora para la próxima temporada de impuestos! Te avisaremos en cuanto comience nuestro servicio, a finales de enero."
         subheader_warning: Envía tu solicitud antes del %{tax_day} para evitar penalizaciones.
         title: Ayuda gratuita para declarar sus impuestos ofrecida por voluntarios certificados por el IRS.
       maybe_ineligible:

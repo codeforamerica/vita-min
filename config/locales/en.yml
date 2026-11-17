@@ -94,6 +94,9 @@ en:
   controllers:
     application_controller:
       maintenance: GetYourRefund.org will be down for scheduled maintenance for about 1 hour starting at %{time}.
+      maintenance_page:
+        body: We're currently performing scheduled maintenance to improve our systems. We'll be back shortly. Thank you for your patience.
+        title: We're performing scheduled maintenance
       redirect: You're missing a ticket or intake. In production, we would have redirected you to the beginning.
     dependents_controller:
       removed_dependent: Removed %{full_name}.
@@ -121,6 +124,7 @@ en:
     formats:
       default: "%-m/%-d/%Y"
       long: "%B %-d, %Y"
+      month_day: "%B %-d"
   devise:
     failure:
       invalid: Incorrect email or password. After 5 login attempts, accounts are locked.
@@ -2111,6 +2115,13 @@ en:
           review_info_requested_title: You have a message
           signature_requested: Download your final tax papers to review, then sign electronically.
           signature_requested_title: Signature needed
+        deadline_alert:
+          info_label: 'Information:'
+          sign_by: We need your signature to file your return.
+          sign_by_title: Sign by %{date}
+          tax_season_ends: Check for updates from your tax team.
+          tax_season_ends_title: This tax season ends %{date}
+          warning_label: 'Warning:'
         decline_to_sign_help: If you don't sign your return, your tax team will reach out to discuss.
         document_link:
           download_final_tax_papers: Download final tax papers
@@ -2208,7 +2219,7 @@ en:
       decline_signature:
         confirmation: Thanks for letting us know. Your tax team will reach out to discuss your return.
       index:
-        final_return_not_started: Final return not started
+        final_return_not_started: Not available yet
         final_tax_return: "%{year} Final tax return"
         title: Tax returns
       show:
@@ -2224,7 +2235,7 @@ en:
         title: Add a document
       error: There was an error uploading your document. Try again.
       index:
-        final_return_not_started: Final return not started
+        final_return_not_started: Not available yet
         final_tax_return: Final tax return
         message_my_tax_team: Message my tax team
         please_add_document: Please add document.
@@ -4985,6 +4996,7 @@ en:
     ein: EIN must be a 9 digit number.
     file_type: Please upload a valid document type. Accepted types include %{valid_types}.
     file_zero_length: Please upload a valid file. The file you uploaded appears to be empty.
+    filename_too_long: The file name is too long. Please rename the file to %{max_length} characters or fewer and upload it again.
     ip_pin: IP PINs must be a 6 digit number.
     irs_business_name: Only numbers 0-9, letters A-Z and a-z, hash, hyphen, parentheses, ampersand, apostrophe and single spaces are accepted.
     irs_city: Only letters A-Z, a-z, and space are accepted.

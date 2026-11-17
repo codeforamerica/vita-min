@@ -11,8 +11,8 @@ describe SubmissionBuilder::Ty2024::States::Id::IdReturnXml, required_schema: "i
 
     it "generates basic components of return" do
       expect(xml.document.root.namespaces).to include({ "xmlns:efile" => "http://www.irs.gov/efile", "xmlns" => "http://www.irs.gov/efile" })
-      expect(xml.document.at('AuthenticationHeader').to_s).to include('xmlns="http://www.irs.gov/efile"')
-      expect(xml.document.at('ReturnHeaderState').to_s).to include('xmlns="http://www.irs.gov/efile"')
+      expect(xml.document.at('AuthenticationHeader').namespace.href).to eq('http://www.irs.gov/efile')
+      expect(xml.document.at('ReturnHeaderState').namespace.href).to eq('http://www.irs.gov/efile')
 
       expect(build_response.errors).not_to be_present
     end

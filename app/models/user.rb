@@ -322,9 +322,29 @@ class User < ApplicationRecord
     super && !suspended?
   end
 
+  # Suspends the given users (keeping the original suspended_at for anyone already suspended) and
+  # unassigns every tax return assigned to them. Uses bulk updates, so the TaxReturn callbacks that
+  # touch the client and refresh the search index are replicated here.
+  def self.suspend_and_unassign_clients(users)
+    user_ids = users.pluck(:id)
+    return if user_ids.empty?
+
+    tax_returns = TaxReturn.where(assigned_user_id: user_ids)
+    affected_client_ids = tax_returns.distinct.pluck(:client_id)
+    now = Time.current
+
+    transaction do
+      tax_returns.update_all(assigned_user_id: nil, updated_at: now)
+      Client.where(id: affected_client_ids).update_all(last_internal_or_outgoing_interaction_at: now, updated_at: now)
+      where(id: user_ids, suspended_at: nil).update_all(suspended_at: now)
+    end
+
+    affected_client_ids.each_slice(1000) { |client_ids| SearchIndexer.refresh_filterable_properties(client_ids) }
+  end
+
   def suspend!
-    assigned_tax_returns.update(assigned_user: nil)
-    update_columns(suspended_at: DateTime.now)
+    self.class.suspend_and_unassign_clients(User.where(id: id))
+    reload
   end
 
   def activate!

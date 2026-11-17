@@ -1,12 +1,16 @@
 FROM ruby:4.0.6
 
+RUN useradd -u 789 -m gyruser
+
 # The Docker environment is based on Debian buster, which used to be called stable Debian, but is now called oldstable.
 RUN apt-get update --allow-releaseinfo-change
 
-# System prerequisites
+# System prerequisites. Upgrade first so Debian security patches land even when
+# the upstream Ruby image lags behind.
 RUN apt-get update \
+  && apt-get upgrade -y --no-install-recommends \
   && apt-get -y install ca-certificates libgnutls30 build-essential libpq-dev ghostscript default-jre poppler-utils curl \
-  && curl -sL https://deb.nodesource.com/setup_20.x | bash - \
+  && curl -sL https://deb.nodesource.com/setup_24.x | bash - \
   && apt-get update && apt-get install -y nodejs \
   && corepack enable \
   && rm -rf /var/lib/apt/lists/*
@@ -60,5 +64,9 @@ RUN { set -a && . ./.aptible.env && set +a; } 2>/dev/null \
 RUN echo "IRB.conf[:USE_AUTOCOMPLETE] = false" > ./.irbrc
 
 EXPOSE 3000
+
+RUN chown -R 789:789 /app
+RUN chmod 700 /app
+USER 789:789
 
 CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0", "-p", "3000"]

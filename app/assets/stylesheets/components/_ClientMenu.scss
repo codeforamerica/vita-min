@@ -37,8 +37,14 @@
     a {
       text-align: center;
       text-decoration: none;
-      color: $color-black;
+      color: $color-confidence-blue;
       align-items: center;
+
+      // Overrides the header's clarity-white :visited color, which has no contrast against the menu background
+      &:hover,
+      &:visited {
+        color: $color-confidence-blue;
+      }
     }
   }
 }

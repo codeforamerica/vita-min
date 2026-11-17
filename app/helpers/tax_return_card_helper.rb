@@ -326,6 +326,28 @@ module TaxReturnCardHelper
     date = Rails.configuration.end_of_login.to_date + 1.day
     format = locale == :es ? :medium : :short
     I18n.l(date, format: format, locale: locale)
+  def tax_season_deadline_banner(tax_return)
+    return unless open_for_finishing_in_progress_intakes?
+
+    state = tax_return.current_state.to_sym
+    return unless TaxReturnStateMachine::STATES_BY_STAGE["review"].map(&:to_sym).include?(state)
+
+    if state == :review_signature_requested &&
+       signature_type_awaited(tax_return).present? &&
+       tax_return.final_tax_documents.any?
+      :sign
+    else
+      :check_for_updates
+    end
+  end
+
+  def show_tax_season_ends_banner?(tax_returns)
+    banners = tax_returns.map { |tax_return| tax_season_deadline_banner(tax_return) }
+    banners.include?(:check_for_updates) && !banners.include?(:sign)
+  end
+
+  def tax_season_deadline_date
+    I18n.l(Rails.configuration.end_of_in_progress_intake.to_date, format: :month_day)
   end
 
   private

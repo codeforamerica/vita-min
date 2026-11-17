@@ -3,10 +3,11 @@ export default function Portal2MenuComponent() {
     const trigger = document.querySelector('[data-component="Portal2MenuTrigger"]');
     const closer = document.querySelector('[data-component="Portal2MenuCloser"]');
     const overlay = document.querySelector('[data-component="Portal2MenuOverlay"]');
+    const wrapper = document.querySelector('[data-component="Portal2MenuWrapper"]');
 
     if (!menu || !trigger) return;
 
-    const toggles = [menu, trigger, closer, overlay];
+    const toggles = [menu, trigger, closer, overlay, wrapper];
     const open = () => {
         toggles.forEach((el) => el && el.classList.add("open"));
         trigger.setAttribute("aria-expanded", "true");

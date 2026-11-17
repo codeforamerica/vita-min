@@ -19,34 +19,36 @@
           <%= f.submit value: t("general.sign_out"), class: "button--link" %>
         <% end %>
       <% end %>
-      <button type="button" data-component="Portal2MenuTrigger" class="portal2-menu-trigger toolbar__item text--small" aria-controls="portal2-menu" aria-expanded="false">
-        <%= t("general.menu") %>
-      </button>
-      <button type="button" data-component="Portal2MenuCloser" class="portal2-menu-closer" aria-label="<%= t("general.close") %>">
-        <%= image_tag "icons/close.svg", alt: "" %>
-      </button>
+      <div class="toolbar__item portal2-menu-wrapper" data-component="Portal2MenuWrapper">
+        <button type="button" data-component="Portal2MenuTrigger" class="portal2-menu-trigger text--small" aria-controls="portal2-menu" aria-expanded="false">
+          <%= t("general.menu") %>
+        </button>
+        <button type="button" data-component="Portal2MenuCloser" class="portal2-menu-closer" aria-label="<%= t("general.close") %>">
+          <%= image_tag "icons/close.svg", alt: "" %>
+        </button>
+
+        <div data-component="Portal2MenuOverlay" class="portal2-menu-overlay"></div>
+
+        <nav id="portal2-menu" data-component="Portal2Menu" class="portal2-menu" aria-label="<%= t(".aria_label") %>">
+          <ul class="portal2-menu__list">
+            <li class="portal2-menu__item">
+              <%= link_to t(".home"), portal_portal2_path, class: "portal2-menu__link", data: { "portal2-menu-item": "home" } %>
+            </li>
+            <li class="portal2-menu__item">
+              <%= link_to t(".messages"), new_portal_message_path, class: "portal2-menu__link", data: { "portal2-menu-item": "messages" } %>
+            </li>
+            <li class="portal2-menu__item">
+              <%= link_to t(".documents"), portal_overview_documents_path, class: "portal2-menu__link", data: { "portal2-menu-item": "documents" } %>
+            </li>
+            <li class="portal2-menu__item">
+              <%= link_to t(".tax_returns"), portal_tax_returns_path, class: "portal2-menu__link", data: { "portal2-menu-item": "tax returns" } %>
+            </li>
+            <li class="portal2-menu__item">
+              <%= link_to t(".settings"), portal_settings_path, class: "portal2-menu__link", data: { "portal2-menu-item": "settings" } %>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
 </div>
-
-<div data-component="Portal2MenuOverlay" class="portal2-menu-overlay"></div>
-
-<nav id="portal2-menu" data-component="Portal2Menu" class="portal2-menu" aria-label="<%= t(".aria_label") %>">
-  <ul class="portal2-menu__list">
-    <li class="portal2-menu__item">
-      <%= link_to t(".home"), portal_portal2_path, class: "portal2-menu__link", data: { "portal2-menu-item": "home" } %>
-    </li>
-    <li class="portal2-menu__item">
-      <%= link_to t(".messages"), new_portal_message_path, class: "portal2-menu__link", data: { "portal2-menu-item": "messages" } %>
-    </li>
-    <li class="portal2-menu__item">
-      <%= link_to t(".documents"), portal_overview_documents_path, class: "portal2-menu__link", data: { "portal2-menu-item": "documents" } %>
-    </li>
-    <li class="portal2-menu__item">
-      <%= link_to t(".tax_returns"), portal_tax_returns_path, class: "portal2-menu__link", data: { "portal2-menu-item": "tax returns" } %>
-    </li>
-    <li class="portal2-menu__item">
-      <%= link_to t(".settings"), portal_settings_path, class: "portal2-menu__link", data: { "portal2-menu-item": "settings" } %>
-    </li>
-  </ul>
-</nav>

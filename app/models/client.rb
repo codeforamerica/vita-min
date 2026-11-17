@@ -88,8 +88,8 @@ class Client < ApplicationRecord
   has_many :outbound_calls, dependent: :destroy
   has_many :users_assigned_to_tax_returns, through: :tax_returns, source: :assigned_user
   has_many :experiment_participants, through: :intake
-  has_many :efile_submissions, through: :tax_returns
   has_many :efile_security_informations, dependent: :destroy
+  has_many :efile_submissions, through: :tax_returns
   has_many :recaptcha_scores, dependent: :destroy
   has_many :verification_attempts, dependent: :destroy
   has_many :client_interactions

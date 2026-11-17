@@ -39,7 +39,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check out ${{ vars.TARGET_BRANCH }} branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
         with:
           ref: ${{ vars.TARGET_BRANCH }}
           fetch-tags: true

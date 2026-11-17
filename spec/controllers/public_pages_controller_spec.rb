@@ -32,6 +32,46 @@ RSpec.describe PublicPagesController do
       end
     end
 
+    describe "service comparison triage link" do
+      let(:triage_link_text) { I18n.t("views.shared.service_comparison.triage_link_text") }
+
+      context "when the app is open for gyr intake" do
+        before do
+          allow(subject).to receive(:open_for_gyr_intake?).and_return(true)
+        end
+
+        it "shows the link to the service selection flow" do
+          get :home
+
+          expect(response.body).to include triage_link_text
+        end
+      end
+
+      context "when the app is not open for gyr intake" do
+        before do
+          allow(subject).to receive(:open_for_gyr_intake?).and_return(false)
+        end
+
+        it "does not show the link to the service selection flow" do
+          get :home
+
+          expect(response.body).not_to include triage_link_text
+          expect(response.body).not_to include I18n.t("views.shared.service_comparison.subtitle_2")
+        end
+      end
+    end
+
+    describe "simple file card" do
+      it "shows a sign up button that links to the signup page" do
+        get :home
+
+        html = Nokogiri::HTML.parse(response.body)
+        button = html.at_css(".service-card--simple-file a.button--simple-file-blue")
+        expect(button.text.strip).to eq I18n.t("general.register")
+        expect(button["href"]).to eq new_signup_path
+      end
+    end
+
     context "in production" do
       before do
         allow(Rails).to receive(:env).and_return("production".inquiry)

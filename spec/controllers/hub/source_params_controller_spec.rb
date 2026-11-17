@@ -112,4 +112,32 @@ describe Hub::SourceParamsController do
     end
 
   end
+
+  describe "cross-tenant access" do
+    # A team member belongs to a single site of ONE organization. This
+    # reproduces that user acting on a SourceParameter belonging to a
+    # completely unrelated organization, via #update and #destroy.
+    let!(:other_org_source_parameter) { create :source_parameter, vita_partner: create(:organization), code: "unrelated-org-code" }
+    let(:attacker_site) { create :site }
+    let(:attacker) { create :user, role: create(:team_member_role, sites: [attacker_site]) }
+
+    before { sign_in attacker }
+
+    it "denies an unrelated team member trying to deactivate another org's source parameter" do
+      post :update, format: :js, params: { id: other_org_source_parameter.id, source_parameter: { active: "0" } }
+
+      expect(response).to be_forbidden
+      other_org_source_parameter.reload
+      expect(other_org_source_parameter.active).to eq true
+    end
+
+    it "denies an unrelated team member trying to destroy another org's source parameter" do
+      expect {
+        delete :destroy, params: { id: other_org_source_parameter.id }, format: :js, xhr: true
+      }.not_to change(SourceParameter, :count)
+
+      expect(response).to be_forbidden
+      expect(SourceParameter.exists?(other_org_source_parameter.id)).to eq true
+    end
+  end
 end

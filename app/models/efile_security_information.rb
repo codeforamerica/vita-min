@@ -29,6 +29,7 @@
 #
 class EfileSecurityInformation < ApplicationRecord
   belongs_to :client
+  belongs_to :efile_submission, optional: true
   validates_presence_of :device_id,
                      :user_agent,
                      :browser_language,
