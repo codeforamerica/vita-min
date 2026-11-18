@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe VitaMinFormBuilder do
   let(:template) do
-    template = OpenStruct.new(output_buffer: "")
+    template = Struct.new(:output_buffer).new("")
     template.extend ActionView::Helpers::FormHelper
     template.extend ActionView::Helpers::DateHelper
     template.extend ActionView::Helpers::FormTagHelper

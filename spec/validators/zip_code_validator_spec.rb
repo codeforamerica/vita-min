@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ZipCodeValidator do
   subject { described_class.new(attributes: [:zip_code], zip_code_lengths: zip_code_lengths) }
 
-  let!(:record) { OpenStruct.new(errors: ActiveModel::Errors.new(nil)) }
+  let!(:record) { Struct.new(:errors).new(ActiveModel::Errors.new(nil)) }
 
   context "with default length of 5 digits" do
     let(:zip_code_lengths) { [5] }

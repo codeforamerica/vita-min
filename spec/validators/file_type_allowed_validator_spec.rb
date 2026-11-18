@@ -4,17 +4,18 @@ RSpec.describe FileTypeAllowedValidator do
   let(:attr_name) { :document }
   subject { described_class.new(attributes: [attr_name]) }
 
-  let!(:record) { OpenStruct.new(errors: ActiveModel::Errors.new(nil)) }
+  let(:record_class) do
+    Struct.new(:errors) do
+      const_set(:ACCEPTED_FILE_TYPES, [:browser_native_image, :other_image, :document])
+    end
+  end
+  let!(:record) { record_class.new(ActiveModel::Errors.new(nil)) }
   let(:attachment) do
     ActiveStorage::Blob.create_and_upload!(
       io: File.open(Rails.root.join("spec", "fixtures", "files", filename), 'rb'),
       filename: filename,
       content_type: content_type
     )
-  end
-
-  before do
-    stub_const("OpenStruct::ACCEPTED_FILE_TYPES", [:browser_native_image, :other_image, :document])
   end
 
   context "png" do

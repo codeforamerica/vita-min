@@ -3,7 +3,8 @@ require "rails_helper"
 describe IntakeProgressCalculator do
   describe "#get_progress" do
     let(:intake) { create :intake }
-    let(:controller) { OpenStruct.new(visitor_record: intake) }
+    let(:visitor_context) { Struct.new(:visitor_record) }
+    let(:controller) { visitor_context.new(intake) }
 
     it "returns 0 for the progress of the starting controller and intake" do
       progress = IntakeProgressCalculator.get_progress(Questions::LifeSituationsController, controller)
@@ -23,8 +24,8 @@ describe IntakeProgressCalculator do
       ever_married_unfilled = Intake::GyrIntake.new
       controller_before_question = Questions::IssuedIdentityPinController
 
-      expect(IntakeProgressCalculator.get_progress(controller_before_question, OpenStruct.new(visitor_record: ever_married_yes))).to be < IntakeProgressCalculator.get_progress(controller_before_question, OpenStruct.new(visitor_record: ever_married_no))
-      expect(IntakeProgressCalculator.get_progress(controller_before_question, OpenStruct.new(visitor_record: ever_married_no))).to eq IntakeProgressCalculator.get_progress(controller_before_question, OpenStruct.new(visitor_record: ever_married_unfilled))
+      expect(IntakeProgressCalculator.get_progress(controller_before_question, visitor_context.new(ever_married_yes))).to be < IntakeProgressCalculator.get_progress(controller_before_question, visitor_context.new(ever_married_no))
+      expect(IntakeProgressCalculator.get_progress(controller_before_question, visitor_context.new(ever_married_no))).to eq IntakeProgressCalculator.get_progress(controller_before_question, visitor_context.new(ever_married_unfilled))
     end
   end
 end
