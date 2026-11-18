@@ -775,6 +775,64 @@ RSpec.describe ApplicationController do
     end
   end
 
+  describe "mini profiler authorization" do
+    controller do
+      def index
+        head :ok
+      end
+    end
+
+    let(:mini_profiler) { double(authorize_request: nil) }
+
+    before do
+      stub_const("Rack::MiniProfiler", mini_profiler)
+    end
+
+    context "with an engineer admin" do
+      before do
+        sign_in create(:admin_user, role: create(:admin_role, engineer: true))
+      end
+
+      it "authorizes the request" do
+        get :index
+
+        expect(mini_profiler).to have_received(:authorize_request)
+      end
+    end
+
+    context "with a non-engineer admin" do
+      before do
+        sign_in create(:admin_user)
+      end
+
+      it "does not authorize the request" do
+        get :index
+
+        expect(mini_profiler).not_to have_received(:authorize_request)
+      end
+    end
+
+    context "with a non-admin user" do
+      before do
+        sign_in create(:team_member_user)
+      end
+
+      it "does not authorize the request" do
+        get :index
+
+        expect(mini_profiler).not_to have_received(:authorize_request)
+      end
+    end
+
+    context "with no user" do
+      it "does not authorize the request" do
+        get :index
+
+        expect(mini_profiler).not_to have_received(:authorize_request)
+      end
+    end
+  end
+
   describe '#check_maintenance_mode' do
     controller do
       def index
