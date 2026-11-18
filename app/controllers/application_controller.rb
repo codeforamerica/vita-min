@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   after_action :track_page_view, :track_form_submission
 
   before_action do
-    if defined?(Rack::MiniProfiler) && current_user&.admin?
+    if defined?(Rack::MiniProfiler) && current_user&.admin? && current_user.role.engineer?
       Rack::MiniProfiler.authorize_request
     end
   end
