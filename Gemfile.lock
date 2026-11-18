@@ -459,7 +459,6 @@ GEM
     ordinalize_full (4.0.0)
       i18n (~> 1.8)
     orm_adapter (0.5.0)
-    ostruct (0.6.3)
     package_json (0.2.0)
     paper_trail (17.0.0)
       activerecord (>= 7.1)
@@ -492,9 +491,10 @@ GEM
       prettyprint
     prettyprint (0.2.1)
     prism (1.9.0)
-    pry (0.14.2)
+    pry (0.16.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
+      reline (>= 0.6.0)
     pry-byebug (3.12.0)
       byebug (~> 13.0)
       pry (>= 0.13, < 0.17)
@@ -843,7 +843,6 @@ DEPENDENCIES
   openssl (>= 3.3.1)
   openssl-oaep
   ordinalize_full
-  ostruct (~> 0.6.3)
   paper_trail (~> 17.0)
   parallel_tests
   pdf-forms (~> 1.5.2)
