@@ -1,6 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   layout "hub"
-  prepend_before_action :redirect_if_requires_google_login, except: [:new]
+  prepend_before_action :redirect_if_requires_google_login, only: [:create]
   prepend_before_action :reject_query_string_credentials, only: [:create]
   # Devise prepends allow_params_authentication!, which lets any later current_user call sign the
   # user in from params. Verify the CSRF token before any of that runs.

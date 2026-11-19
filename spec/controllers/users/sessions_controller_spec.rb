@@ -154,6 +154,22 @@ RSpec.describe Users::SessionsController do
     end
   end
 
+  describe "#destroy" do
+    let(:user) { create(:user) }
+
+    before do
+      allow(Rails.configuration).to receive(:google_login_enabled).and_return true
+      sign_in user
+    end
+
+    it "signs the user out without requiring user params" do
+      delete :destroy
+
+      expect(response).to redirect_to root_path
+      expect(subject.current_user).to be_nil
+    end
+  end
+
   describe "invalid params handling" do
     context "with null bytes that only a robot would send us" do
       let(:params) {

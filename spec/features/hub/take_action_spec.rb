@@ -18,7 +18,7 @@ RSpec.feature "Change tax return status on a client", :js do
       visit hub_client_notes_path(client_id: client.id)
       click_on "Take action"
 
-      expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
+      expect(page).to have_current_path(edit_take_action_hub_client_path(id: tax_return.client), ignore_query: true)
       expect(page).to have_select("hub_take_action_form_status")
       select "Preparing", from: "Updated status"
       select "2019", from: "Filing year"
@@ -31,7 +31,7 @@ RSpec.feature "Change tax return status on a client", :js do
       fill_in "Add an internal note", with: "Leaving a note to the client"
       click_on "Send"
 
-      expect(current_path).to eq hub_client_path(id: client.id)
+      expect(page).to have_current_path(hub_client_path(id: client.id), ignore_query: true)
       click_on "Notes"
       expect(page).to have_text("Leaving a note to the client")
       click_on "Messages"
@@ -48,7 +48,7 @@ RSpec.feature "Change tax return status on a client", :js do
         click_on "Update"
       end
 
-      expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
+      expect(page).to have_current_path(edit_take_action_hub_client_path(id: tax_return.client), ignore_query: true)
 
       expect(page).to have_text("You can login securely and upload those documents here")
       select "Accepted", from: "Updated status"
@@ -63,7 +63,7 @@ RSpec.feature "Change tax return status on a client", :js do
 
       click_on "Send"
 
-      expect(current_path).to eq(hub_client_path(id: tax_return.client))
+      expect(page).to have_current_path(hub_client_path(id: tax_return.client), ignore_query: true)
       within "#tax-return-#{tax_return.id}" do
         expect(page).to have_select("Status", selected: "Accepted")
       end
@@ -81,10 +81,10 @@ RSpec.feature "Change tax return status on a client", :js do
         click_on "Update"
       end
 
-      expect(current_path).to eq(edit_take_action_hub_client_path(id: tax_return.client))
+      expect(page).to have_current_path(edit_take_action_hub_client_path(id: tax_return.client), ignore_query: true)
       click_on "Cancel"
 
-      expect(current_path).to eq(hub_client_path(id: client.id))
+      expect(page).to have_current_path(hub_client_path(id: client.id), ignore_query: true)
       expect(page).to have_select("tax_return[current_state]", selected: "Not ready")
     end
 
