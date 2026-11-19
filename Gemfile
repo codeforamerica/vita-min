@@ -124,6 +124,10 @@ gem "net-imap", ">= 0.6.4"
 gem 'redis'
 gem "observer", "~> 0.1.2"
 gem "csv", "~> 3.3"
+# Bundled (not default) gem from Ruby 4.0. Our code no longer uses OpenStruct (see
+# spec/lib/no_open_struct_spec.rb), but cfa-styleguide's CfaFormBuilder#cfa_date_select
+# does, without declaring the dependency. Drop once honeycrisp-gem stops using it.
+gem "ostruct", "~> 0.6.3"
 gem "rexml", ">= 3.4.2"
 gem 'useragent'
 

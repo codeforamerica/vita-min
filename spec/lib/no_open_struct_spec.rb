@@ -1,9 +1,9 @@
 require "rails_helper"
 
-# The ostruct gem is not in the Gemfile (it stopped being a default gem in Ruby 4.0).
-# OpenStruct is only referenced inside method bodies, so neither eager loading nor
-# bin/check_production_boot would notice it coming back: it would fail at runtime in
-# production with NameError. Use Struct or Data instead.
+# Our code must not use OpenStruct: it stopped being a default gem in Ruby 4.0, and the
+# ostruct gem stays in the Gemfile only for cfa-styleguide until honeycrisp-gem drops it.
+# Keeping our side clean means removing the gem later needs no app changes. Use Struct
+# or Data instead.
 describe "OpenStruct usage" do
   it "does not appear in app/, lib/ or config/" do
     offenders = Dir[Rails.root.join("{app,lib,config}/**/*.{rb,erb,rake}")].flat_map do |path|

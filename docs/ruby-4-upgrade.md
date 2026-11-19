@@ -166,8 +166,14 @@ Rollback: revert the PR and redeploy. A Ruby bump has no migrations.
 
 ## 11. Follow-ups
 
-- Replace `OpenStruct` in `app/` (5 places) with `Struct`/`Data`, then drop
-  `gem "ostruct"`. `bin/check_production_boot` will catch a missed spot. Do this after Ruby 4 is already in Prod. https://codeforamerica.atlassian.net/browse/GYR1-1269
+- ~~Replace `OpenStruct` in `app/` (5 places) with `Struct`/`Data`~~. Done in GYR1-1269.
+  `spec/lib/no_open_struct_spec.rb` now fails if `OpenStruct` comes back in `app/`,
+  `lib/` or `config/`. https://codeforamerica.atlassian.net/browse/GYR1-1269
+- Drop `gem "ostruct"`. Blocked on `cfa-styleguide`: `CfaFormBuilder#cfa_date_select`
+  (honeycrisp-gem `app/helpers/cfa/styleguide/cfa_form_builder.rb`, still on `main` as
+  of v0.18.0) uses `OpenStruct` without declaring it, and we use date selects on client
+  forms (dependents, bank details, state ID). Fix it upstream, bump the `ref`, then drop
+  the gem.
 - RuboCop bump. 1.53 can't target Ruby above 3.3, and it isn't run in CI.
 - Optional: bump Bundler from 2.3.5. https://codeforamerica.atlassian.net/browse/GYR1-1271
 - Remove bin/check_production_boot file after we fix the OpenStruct gem issue. https://codeforamerica.atlassian.net/browse/GYR1-1270

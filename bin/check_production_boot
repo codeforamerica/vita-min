@@ -25,9 +25,10 @@ unless LOCAL_DB_HOSTS.include?(db_host)
 end
 
 # Constants from gems that stopped being default gems (Ruby 3.4 / 4.0) and that app/,
-# lib/ or config/ reference. Deliberately checked with const_defined? rather than
-# required here: requiring them would hide the exact failure this script exists to find.
-RUNTIME_CONSTANTS = %w[CSV CGI Base64 BigDecimal Logger].freeze
+# lib/, config/ or a runtime gem reference (OpenStruct: cfa-styleguide's date select).
+# Deliberately checked with const_defined? rather than required here: requiring them
+# would hide the exact failure this script exists to find.
+RUNTIME_CONSTANTS = %w[OpenStruct CSV CGI Base64 BigDecimal Logger].freeze
 
 env = {
   "BUNDLE_WITHOUT" => "development:test",
