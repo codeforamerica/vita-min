@@ -81,7 +81,7 @@ gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'delayed_job'
 gem 'lograge'
-gem 'valid_email2', '~> 4.0.6' # test failures on 5.x, try again if you're bold
+gem 'valid_email2', '~> 7.1.0' # test failures on 5.x, try again if you're bold
 gem 'auto_strip_attributes'
 gem 'datadog', '~> 2.49.0', require: 'datadog/auto_instrument'
 gem 'dogapi'
