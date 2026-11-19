@@ -2826,7 +2826,7 @@ __metadata:
     imports-loader: "npm:5.0.0"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
-    jest-junit: "npm:^16.0.0"
+    jest-junit: "npm:^17.0.0"
     jquery: "npm:^3.5.1"
     jquery-mask-plugin: "npm:^1.14.16"
     jquery-ui: "npm:^1.13.2"
@@ -5128,15 +5128,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-junit@npm:^16.0.0":
-  version: 16.0.0
-  resolution: "jest-junit@npm:16.0.0"
+"jest-junit@npm:^17.0.0":
+  version: 17.0.0
+  resolution: "jest-junit@npm:17.0.0"
   dependencies:
     mkdirp: "npm:^1.0.4"
     strip-ansi: "npm:^6.0.1"
-    uuid: "npm:^8.3.2"
+    uuid: "npm:^14.0.0"
     xml: "npm:^1.0.1"
-  checksum: 10c0/d813d4d142341c2b51b634db7ad6ceb9849514cb58f96ec5e7e4cf4031a557133490452710c2d9dec9b1dd546334d9ca663e042d3070c3e8f102ce6217bd8e2e
+  checksum: 10c0/24206792c48064a474cb13deba5edac6212667065f79dc024677cb6f34615b96991ed231cb61846fd32eca2d5f97011e5dfb714d8a30b583f5e584b41b0878da
   languageName: node
   linkType: hard
 
