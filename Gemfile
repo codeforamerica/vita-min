@@ -151,7 +151,7 @@ group :development, :test do
   gem 'axe-core-capybara'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver', '4.53.0'
+  gem 'selenium-webdriver', '4.52.0'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'pry-byebug'
