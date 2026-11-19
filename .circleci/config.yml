@@ -43,7 +43,7 @@ commands:
           key: yarn-v4-{{ checksum "yarn.lock" }}
       - run:
           name: enable corepack
-          command: sudo corepack enable
+          command: sudo npm install -g corepack && sudo corepack enable
       - run:
           name: yarn install --immutable
           command: yarn install --immutable
