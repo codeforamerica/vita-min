@@ -16,6 +16,11 @@ Capybara.register_driver :selenium_chrome_headless do |app|
 
     opts.add_argument('--window-size=1280x1280')
     opts.add_option('goog:loggingPrefs', {browser: 'ALL'})
+
+    # Chrome 158 rejects the "*" origin Capybara 3.40 uses in reset!, breaking every JS spec.
+    # Selenium Manager downloads Chrome for Testing 157 instead of using the system Chrome.
+    # Remove once Capybara ships a fix: https://github.com/teamcapybara/capybara/issues/2865
+    opts.browser_version = '157'
   end
 
   if ENV['DOCKER']

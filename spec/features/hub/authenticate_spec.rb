@@ -16,7 +16,10 @@ RSpec.feature "Logging in and out to the volunteer portal" do
     # Expect to be redirected to dashboard
     expect(page).to have_text "My Clients"
 
-    click_on "Sign out"
+    # Sidebar sign out is a real form (no JS / data-method needed)
+    within ".main-menu .bottom" do
+      click_on "Sign out"
+    end
     # Should be redirected to home page
     expect(page).to have_text "You've been successfully signed out."
     expect(page).to have_text "Free tax filing"
