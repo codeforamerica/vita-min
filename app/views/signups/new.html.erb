@@ -22,12 +22,7 @@
             <%= f.continue t("general.sign_up") %>
 
             <div class="spacing-above-60">
-              <p><%= t(".opt_in_message.01_intro") %></p>
-              <ul class="list--bulleted">
-                <% t(".opt_in_message.02_list").each do |line| %>
-                  <li><%= line %></li>
-                <% end %>
-              </ul>
+              <p><%= t(".opt_in_message.01_intro_html", terms_url: sms_terms_path, privacy_url: privacy_path) %></p>
               <p>
                 <%= t(".opt_in_message.03_message_freq") %>
                 <%= t(".opt_in_message.04_detail_links_html", terms_link: sms_terms_path, privacy_link: privacy_path) %>
