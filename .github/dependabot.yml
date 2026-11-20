@@ -30,6 +30,15 @@ updates:
       - dependency-name: "jest-environment-jsdom"
         update-types:
           - "version-update:semver-major"
+      - dependency-name: "@babel/preset-env"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "shakapacker"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "jquery"
+        update-types:
+          - "version-update:semver-major"
     groups:
       npm-minor-patch:
         patterns:

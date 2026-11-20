@@ -87,12 +87,37 @@ describe Portal::UploadDocumentsController do
           let!(:needs_doc_help_tax_return) { create :tax_return, :intake_needs_doc_help, year: 2020, client: client }
           let!(:in_review_tax_return) { create :tax_return, :intake_reviewing, year: 2019, client: client }
 
-          it "updates those tax return statuses to ready for review" do
-            put :update
+          context "when all required documents are present" do
+            before do
+              create :document, intake: intake, document_type: DocumentTypes::PrimaryIdentification::Passport.key
+              create :document, intake: intake, document_type: DocumentTypes::SecondaryIdentification::Ssn.key
+            end
 
-            expect(not_ready_tax_return.reload.current_state).to eq "intake_ready"
-            expect(needs_doc_help_tax_return.reload.current_state).to eq "intake_ready"
-            expect(in_review_tax_return.reload.current_state).to eq "intake_reviewing"
+            it "updates those tax return statuses to ready for review" do
+              put :update
+
+              expect(not_ready_tax_return.reload.current_state).to eq "intake_ready"
+              expect(needs_doc_help_tax_return.reload.current_state).to eq "intake_ready"
+              expect(in_review_tax_return.reload.current_state).to eq "intake_reviewing"
+            end
+          end
+
+          context "when required documents are missing" do
+            before do
+              intake.update(had_retirement_income: "yes")
+              create :document, intake: intake, document_type: DocumentTypes::PrimaryIdentification::Passport.key
+              create :document, intake: intake, document_type: DocumentTypes::SecondaryIdentification::Ssn.key
+            end
+
+            it "does not change any tax return statuses" do
+              expect {
+                put :update
+              }.not_to change(TaxReturnTransition, :count)
+
+              expect(not_ready_tax_return.reload.current_state).to eq "intake_in_progress"
+              expect(needs_doc_help_tax_return.reload.current_state).to eq "intake_needs_doc_help"
+              expect(in_review_tax_return.reload.current_state).to eq "intake_reviewing"
+            end
           end
         end
       end

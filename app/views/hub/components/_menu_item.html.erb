@@ -1,6 +1,4 @@
-<% link_method ||= "" %>
-<a class="menu-item" href="<%= link %>"
-  <% if link_method.present? %>data-method="<%= link_method %>" <% end %>>
+<a class="menu-item" href="<%= link %>">
   <%= image_tag(icon_path) %>
   <div>
     <p><%= item_label %></p>

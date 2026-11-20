@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   after_action :track_page_view, :track_form_submission
 
   before_action do
-    if defined?(Rack::MiniProfiler) && current_user&.admin?
+    if defined?(Rack::MiniProfiler) && current_user&.admin? && current_user.role.engineer?
       Rack::MiniProfiler.authorize_request
     end
   end
@@ -512,7 +512,9 @@ class ApplicationController < ActionController::Base
   end
 
   def check_maintenance_mode
-    if ENV['MAINTENANCE_MODE'].present?
+    if ENV['SCHEDULED_MAINTENANCE'].present?
+      return render 'public_pages/scheduled_maintenance', status: 503, layout: 'application'
+    elsif ENV['MAINTENANCE_MODE'].present?
       return render 'public_pages/maintenance', status: 503, layout: 'application'
     elsif ENV['MAINTENANCE_MODE_SCHEDULED'].present?
       flash.now[:warning] = I18n.t("controllers.application_controller.maintenance", time: ENV['MAINTENANCE_MODE_SCHEDULED'])
