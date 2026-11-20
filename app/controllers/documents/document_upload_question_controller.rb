@@ -106,7 +106,7 @@ module Documents
     end
 
     def set_required_person_names
-      @names = DocumentRequirements.for_document_type(self.class.document_type).required_persons(current_intake).map(&:first_and_last_name)
+      @names = self.class.document_type.required_persons(current_intake).map(&:first_and_last_name)
     end
   end
 end

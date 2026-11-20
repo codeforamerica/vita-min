@@ -1,6 +1,10 @@
 module DocumentTypes
   class SsnItin < DocumentType
     class << self
+      def relevant_to?(intake)
+        !ReturningClientExperimentService.new(intake).skip_identity_documents?
+      end
+
       def description
         "Social Security cards are a valid SSN document"
       end
@@ -9,7 +13,23 @@ module DocumentTypes
         "SSN or ITIN"
       end
 
+      def needed_if_relevant?
+        true
+      end
+
       def blocks_progress?
+        true
+      end
+
+      def provide_doc_help?
+        true
+      end
+
+      def needed_for_spouse
+        true
+      end
+
+      def needed_for_dependents
         true
       end
     end

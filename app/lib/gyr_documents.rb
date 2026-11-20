@@ -1,10 +1,10 @@
 module GyrDocuments
   def has_all_required_docs?(intake)
-    DocumentChecklist.new(intake).all_required_satisfied?
-  end
-
-  def next_intake_state(intake)
-    has_all_required_docs?(intake) ? :intake_ready : :intake_needs_doc_help
+    intake_doc_types = intake.documents.pluck(:document_type)
+    required_docs = []
+    DocumentTypes::IDENTITY_TYPES.map(&:key).intersect?(intake_doc_types) &&
+      DocumentTypes::SECONDARY_IDENTITY_TYPES.map(&:key).intersect?(intake_doc_types) &&
+      required_docs.all? {|key| intake_doc_types.include?(key) }
   end
 
   def intake_transition_to(intake, next_state)

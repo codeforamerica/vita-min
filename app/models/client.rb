@@ -317,11 +317,18 @@ class Client < ApplicationRecord
   def required_document_counts
     return {} if intake.blank? || intake.is_ctc?
 
-    checklist = DocumentChecklist.new(intake)
-    checklist.requirements.required.each_with_object({}) do |requirement, result|
-      provided_count = checklist.provided_count(requirement)
-      required_count = requirement.required_persons(intake).length
-      result[requirement.key] = {
+    intake.relevant_document_types.select(&:needed_if_relevant?).each_with_object({}) do |document_type, result|
+      acceptable_doc_type_keys = if document_type == DocumentTypes::Identity
+                                   DocumentTypes::IDENTITY_TYPES
+                                 elsif document_type == DocumentTypes::SsnItin
+                                   DocumentTypes::SECONDARY_IDENTITY_TYPES
+                                 else
+                                   [document_type]
+                                 end.map(&:key)
+      provided_count = documents.count { |d| acceptable_doc_type_keys.include?(d.document_type) }
+
+      required_count = document_type.required_persons(intake).length
+      result[document_type.key] = {
         required_count: required_count,
         provided_count: provided_count,
         clamped_provided_count: [required_count, provided_count].min

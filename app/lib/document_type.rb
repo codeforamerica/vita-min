@@ -1,7 +1,7 @@
 class DocumentType
   class << self
-    def relevant_to?(intake)
-      DocumentRequirements.for_document_type(self)&.applies_to?(intake) || false
+    def relevant_to?(_intake)
+      raise NotImplementedError "Child classes must define when they are relevant to an intake"
     end
 
     def key
@@ -16,7 +16,7 @@ class DocumentType
     # Are we quite sure that, if this document is relevant to an intake, VITA won't interview you until
     # you have this document?
     def needed_if_relevant?
-      DocumentRequirements.for_document_type(self)&.required? || false
+      false
     end
 
     def must_be_associated_with_tax_return
@@ -28,7 +28,7 @@ class DocumentType
     end
 
     def provide_doc_help?
-      DocumentRequirements.for_document_type(self)&.offer_doc_help? || false
+      false
     end
 
     def skip_dont_have?
@@ -53,6 +53,25 @@ class DocumentType
 
     def translated_label_with_description(locale)
       I18n.t("general.document_types.with_descriptions.#{to_param}", default: key, locale: locale)
+    end
+
+    def needed_for_spouse
+      false
+    end
+
+    def needed_for_dependents
+      false
+    end
+
+    def required_persons(intake)
+      result = [intake.primary]
+      if needed_for_spouse && intake.filing_joint_yes?
+        result << intake.spouse
+      end
+      if needed_for_dependents && intake.dependents.present?
+        result.concat(intake.dependents)
+      end
+      result
     end
   end
 end

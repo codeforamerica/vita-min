@@ -1,6 +1,5 @@
 module Portal
   class UploadDocumentsController < PortalController
-    include GyrDocuments
     helper_method :prev_path, :next_path, :illustration_path, :illustration_folder, :current_path, :document_type, :destroy_document_path
     layout "document_upload"
     helper_method :document_type_keys
@@ -40,10 +39,8 @@ module Portal
       @form = form_class.new(current_client.intake, form_params)
       if @form.valid?
         @form.save
-        if has_all_required_docs?(current_client.intake)
-          current_client.tax_returns.each do |tax_return|
-            tax_return.transition_to!(:intake_ready) if %w(intake_in_progress intake_needs_doc_help).include? tax_return.current_state
-          end
+        current_client.tax_returns.each do |tax_return|
+          tax_return.transition_to!(:intake_ready) if %w(intake_in_progress intake_needs_doc_help).include? tax_return.current_state
         end
         flash[:notice] = I18n.t("portal.upload_documents.success")
         redirect_to portal_upload_documents_path(document_type: form_params[:document_type])
