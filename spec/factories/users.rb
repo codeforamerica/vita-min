@@ -146,11 +146,27 @@ FactoryBot.define do
     end
 
     factory :invited_user do
-      association :invited_by, factory: :admin_user
-      invitation_created_at { 1.day.ago - 1.minute }
-      invitation_sent_at { 1.day.ago }
-      sequence(:invitation_token) do |n|
-        Devise.token_generator.digest(User, :invitation_token, "InvitationToken#{n}")
+      transient do
+        invited_by { create(:admin_user) }
+        invitation_created_at { 1.day.ago - 1.minute }
+        invitation_sent_at { 1.day.ago }
+        invitation_accepted_at { nil }
+        sequence(:invitation_token) do |n|
+          Devise.token_generator.digest(User, :invitation_token, "InvitationToken#{n}")
+        end
+      end
+
+      after(:create) do |user, evaluator|
+        create(
+          :devise_invitation,
+          invitable: user,
+          invited_by: evaluator.invited_by,
+          invitation_created_at: evaluator.invitation_created_at,
+          invitation_sent_at: evaluator.invitation_sent_at,
+          invitation_accepted_at: evaluator.invitation_accepted_at,
+          invitation_token: evaluator.invitation_token
+        )
+        user.reload
       end
 
       factory :accepted_invite_user do

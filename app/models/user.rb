@@ -55,7 +55,9 @@
 class User < ApplicationRecord
   include PgSearch::Model
   devise :database_authenticatable, :lockable, :timeoutable, :trackable, :invitable, :recoverable,
-         :omniauthable, omniauth_providers: [:google_oauth2]
+         :omniauthable, omniauth_providers: [:google_oauth2], create_resource_on_invitation: true
+
+  self.ignored_columns = %w[invitation_token invitation_created_at invitation_sent_at invitation_accepted_at invited_by_id]
 
   pg_search_scope :search, against: [
     :email, :id, :name, :phone_number, :role_type
