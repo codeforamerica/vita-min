@@ -10,10 +10,6 @@ module Questions
       intake.sms_phone_number.blank? && intake.sms_notification_opt_in_yes?
     end
 
-    def illustration_path
-      "phone-number.svg"
-    end
-
     def after_update_success
       if @form.intake.sms_notification_opt_in_yes?
         ClientMessagingService.send_system_text_message(

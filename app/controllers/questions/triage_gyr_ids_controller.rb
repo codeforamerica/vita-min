@@ -11,10 +11,6 @@ module Questions
 
     private
 
-    def illustration_path
-      "id-guidance.svg"
-    end
-
     def form_class; NullForm; end
   end
 end

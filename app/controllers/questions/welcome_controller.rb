@@ -17,9 +17,5 @@ module Questions
     def self.deprecated_controller?
       true
     end
-
-    private
-
-    def illustration_path; end
   end
 end

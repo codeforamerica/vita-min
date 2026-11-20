@@ -1,6 +1,6 @@
 <% content_for :page_title, (yield :form_question) %>
 <% content_for :main do %>
-  <section class="slab slab--white slab--not-padded question-layout">
+  <section class="slab slab--white slab--not-padded question-layout <%= gyr_question_layout_class %>">
     <div class="grid">
       <div class="grid__item width-three-fourths">
         <% if prev_path %>
@@ -10,11 +10,6 @@
         <% end %>
         <%= render "shared/progress_bar" %>
         <div class="main-content-inner form-card--long">
-          <% if illustration_path.present? %>
-            <div class="question__illustration">
-              <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
-            </div>
-          <% end %>
           <h1 class="form-question">
             <%= yield :form_question %>
           </h1>

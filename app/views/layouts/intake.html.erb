@@ -5,7 +5,7 @@
     <%= yield :form_question %>
   <% end %>
 
-  <section class="slab slab--white question-layout">
+  <section class="slab slab--white question-layout <%= gyr_question_layout_class %>">
     <div class="grid">
       <div class="grid__item question-wrapper">
         <%= yield :notices %>
@@ -18,11 +18,6 @@
           <%= render "shared/progress_bar" %>
         </div>
         <div class="main-content-inner">
-          <% if illustration_path.present? %>
-            <div class="question__illustration">
-              <%= image_tag("#{illustration_folder}/#{illustration_path}", alt: "") %>
-            </div>
-          <% end %>
           <%= yield :card %>
         </div>
       </div>

@@ -10,10 +10,6 @@ module Questions
 
     private
 
-    def illustration_path
-      'error.svg'
-    end
-
     def form_class; NullForm; end
   end
 end

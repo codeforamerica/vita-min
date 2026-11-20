@@ -6,7 +6,7 @@ module Questions
     delegate :form_name, to: :class
     delegate :form_class, to: :class
 
-    helper_method :current_path, :illustration_folder, :illustration_path, :next_path, :prev_path, :has_unsure_option?, :method_name, :form_name
+    helper_method :current_path, :next_path, :prev_path, :has_unsure_option?, :method_name, :form_name
 
     layout "intake"
 
@@ -66,14 +66,6 @@ module Questions
 
     def method_name
       controller_name
-    end
-
-    def illustration_folder
-      "questions"
-    end
-
-    def illustration_path
-      controller_name.dasherize + ".svg"
     end
 
     def self.show?(intake)

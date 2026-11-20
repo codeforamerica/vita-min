@@ -4,8 +4,6 @@ module Questions
     layout "intake"
     before_action :check_required_attributes
 
-    def illustration_path; end
-
     def next_path
       current_intake.itin_applicant? && current_intake.has_duplicate? ? returning_client_questions_path : super
     end

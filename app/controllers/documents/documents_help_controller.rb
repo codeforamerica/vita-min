@@ -38,8 +38,6 @@ module Documents
       redirect_back(fallback_location: portal_root_path) unless params[:next_path].present?
     end
 
-    def illustration_path; end
-
     def next_path
       params[:next_path].to_s
     end

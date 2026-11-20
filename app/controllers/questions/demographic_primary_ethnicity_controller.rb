@@ -6,8 +6,6 @@ module Questions
 
     def self.show?(intake) = false
 
-    def illustration_path; end
-
     def next_path
       default_next_path = super
       if default_next_path.nil?
