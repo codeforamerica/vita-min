@@ -286,35 +286,6 @@ describe BedrockDocScreener do
     end
   end
 
-  describe ".pdf_to_png_base64" do
-    let(:upload) { instance_double("ActiveStorageUpload") }
-    let!(:png_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
-
-    before do
-      allow(upload).to receive(:download).and_return("%PDF-1.4 ... fake pdf bytes ...") # pretend the "download" returns the PDF bytes
-      allow(Dir).to receive(:mktmpdir).and_yield("/tmp/fake_dir")
-      allow(described_class).to receive(:system).and_return(true)
-      allow(Dir).to receive(:glob).and_return(%w[/tmp/fake_dir/page-1.png /tmp/fake_dir/page-2.png])
-      allow(File).to receive(:binread).and_return(png_data)
-    end
-
-    it "returns an array of png base64 hashes for each page" do
-      result = described_class.pdf_to_png_base64(upload)
-
-      expect(result).to all(include(:media_type, :base64_data))
-      expect(result.map { |h| h[:media_type] }.uniq).to eq(["image/png"])
-      result.each do |h|
-        expect(Base64.decode64(h[:base64_data])).to eq(png_data)
-      end
-    end
-
-    it "raises error when conversion fails" do
-      allow(described_class).to receive(:system).and_return(false)
-
-      expect { described_class.pdf_to_png_base64(upload) }.to raise_error(/failed to convert pdf pages to images/)
-    end
-  end
-
   describe ".prepare_image" do
     let(:png_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
 
@@ -357,6 +328,306 @@ describe BedrockDocScreener do
     it "raises for data that is not an image" do
       expect { described_class.ensure_safe_image_size("not-an-image") }.to raise_error(MiniMagick::Error)
     end
+
+    it "raises ImageTooLargeError when the image can't be shrunk under the limit" do
+      stub_const("BedrockDocScreener::MAX_RAW_IMAGE_SIZE", 10)
+
+      expect { described_class.ensure_safe_image_size(raw_data) }.to raise_error(BedrockDocScreener::ImageTooLargeError)
+    end
+  end
+
+  describe ".prompt_for with page context" do
+    it "includes the page context when given" do
+      prompt = described_class.prompt_for(document_type: "Employment", page_context: "These images are pages 6-10 of a 14-page upload.\n")
+
+      expect(prompt).to include("Selected document type: Employment\nThese images are pages 6-10 of a 14-page upload.\n\nReturn ONLY")
+    end
+
+    it "leaves the prompt unchanged without page context" do
+      prompt = described_class.prompt_for(document_type: "Employment")
+
+      expect(prompt).to include("Selected document type: Employment\n\nReturn ONLY")
+    end
+  end
+
+  describe ".merge_chunk_results" do
+    def chunk(verdict:, suggested:, issues:, confidence:, explanation: "chunk")
+      {
+        pages: [1],
+        result: {
+          "matches_doc_type_verdict" => verdict,
+          "suggested_document_type" => suggested,
+          "document_quality_issues" => issues,
+          "explanation" => explanation,
+          "confidence" => confidence
+        }
+      }
+    end
+
+    it "passes when any chunk matches the selected type, using the most confident passing chunk" do
+      merged = described_class.merge_chunk_results([
+                                                     chunk(verdict: "fail", suggested: "Receipts", issues: ["unreadable"], confidence: 0.95, explanation: "receipts"),
+                                                     chunk(verdict: "pass", suggested: "Employment", issues: ["N/A"], confidence: 0.5, explanation: "maybe w2"),
+                                                     chunk(verdict: "pass", suggested: "Employment", issues: ["expired"], confidence: 0.8, explanation: "w2")
+                                                   ])
+
+      expect(merged).to eq(
+        "matches_doc_type_verdict" => "pass",
+        "suggested_document_type" => "Employment",
+        "document_quality_issues" => ["expired"],
+        "explanation" => "w2",
+        "confidence" => 0.8
+      )
+    end
+
+    it "fails when no chunk matches, using the most confident chunk and every chunk's issues" do
+      merged = described_class.merge_chunk_results([
+                                                     chunk(verdict: "fail", suggested: "Receipts", issues: ["unreadable"], confidence: 0.5),
+                                                     chunk(verdict: "fail", suggested: "Form1099INT", issues: ["N/A"], confidence: 0.95),
+                                                     chunk(verdict: "fail", suggested: nil, issues: ["unreadable", "other"], confidence: 0.2)
+                                                   ])
+
+      expect(merged["matches_doc_type_verdict"]).to eq("fail")
+      expect(merged["suggested_document_type"]).to eq("Form1099INT")
+      expect(merged["confidence"]).to eq(0.95)
+      expect(merged["document_quality_issues"]).to contain_exactly("unreadable", "other")
+    end
+
+    it "keeps N/A when no chunk found issues" do
+      merged = described_class.merge_chunk_results([
+                                                     chunk(verdict: "pass", suggested: "Employment", issues: ["N/A"], confidence: 0.95),
+                                                     chunk(verdict: "pass", suggested: "Employment", issues: [], confidence: 0.8)
+                                                   ])
+
+      expect(merged["document_quality_issues"]).to eq(["N/A"])
+    end
+  end
+
+  describe "screening a PDF" do
+    let(:upload) { instance_double("ActiveStorageUpload") }
+    let(:document) { instance_double("Document", upload: upload, document_type: "Employment") }
+    let(:png_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
+    let(:total_pages) { 14 }
+    let(:page_data) { ->(_page_number) { png_data } }
+    let(:rendered_ranges) { [] }
+    let(:bedrock_requests) { [] }
+    let(:bedrock_result) { ->(_request) { { "matches_doc_type_verdict" => "pass", "suggested_document_type" => "Employment", "document_quality_issues" => ["N/A"], "explanation" => "ok", "confidence" => 0.95 } } }
+
+    def bedrock_response(result)
+      body = { "content" => [{ "type" => "text", "text" => result.to_json.delete_prefix("{") }], "stop_reason" => "end_turn" }
+      double("Response", body: StringIO.new(body.to_json))
+    end
+
+    def image_count(request)
+      request["messages"][0]["content"].count { |c| c["type"] == "image" }
+    end
+
+    def prompt(request)
+      request["messages"][0]["content"].last["text"]
+    end
+
+    before do
+      allow(upload).to receive(:attached?).and_return(true)
+      allow(upload).to receive(:content_type).and_return("application/pdf")
+      allow(upload).to receive(:download).and_return("%PDF-1.4")
+      allow(described_class).to receive(:pdf_page_count).and_return(total_pages)
+      allow(described_class).to receive(:system) do |*args, **|
+        first_page = args[args.index("-f") + 1].to_i
+        last_page = args[args.index("-l") + 1].to_i
+        rendered_ranges << (first_page..last_page)
+        (first_page..last_page).each { |n| File.binwrite("#{args.last}-#{n.to_s.rjust(2, "0")}.png", page_data.call(n)) }
+        true
+      end
+      allow(described_class).to receive(:invoke_bedrock_model) do |body|
+        request = JSON.parse(body)
+        bedrock_requests << request
+        bedrock_response(bedrock_result.call(request))
+      end
+    end
+
+    it "sends every page in one request when they fit" do
+      result_json, raw_response_json = described_class.screen_document!(document: document)
+
+      expect(rendered_ranges).to eq([1..14])
+      expect(bedrock_requests.map { |r| image_count(r) }).to eq([14])
+      expect(prompt(bedrock_requests.first)).not_to include("These images are pages")
+
+      expect(result_json).to include(
+        "matches_doc_type_verdict" => "pass",
+        "total_pages" => 14,
+        "screened_pages" => (1..14).to_a,
+        "page_limit_reached" => false,
+        "skipped" => []
+      )
+      expect(result_json["chunks"].map { |c| c["pages"] }).to eq([(1..14).to_a])
+      expect(raw_response_json["chunks"].size).to eq(1)
+    end
+
+    context "when the pages are over the request size limit" do
+      before do
+        stub_const("BedrockDocScreener::MAX_REQUEST_IMAGE_BYTES", Base64.strict_encode64(png_data).bytesize * 5)
+      end
+
+      it "splits them into as few requests as fit under the limit" do
+        result_json, raw_response_json = described_class.screen_document!(document: document)
+
+        expect(bedrock_requests.map { |r| image_count(r) }).to eq([5, 5, 4])
+        expect(prompt(bedrock_requests[1])).to include("These images are pages 6-10 of a 14-page upload.")
+        expect(result_json["screened_pages"]).to eq((1..14).to_a)
+        expect(result_json["chunks"].map { |c| c["pages"] }).to eq([(1..5).to_a, (6..10).to_a, (11..14).to_a])
+        expect(raw_response_json["chunks"].size).to eq(3)
+      end
+    end
+
+    context "when there are more pages than images allowed per request" do
+      before do
+        stub_const("BedrockDocScreener::MAX_IMAGES_PER_REQUEST", 6)
+      end
+
+      it "splits them by image count" do
+        described_class.screen_document!(document: document)
+
+        expect(bedrock_requests.map { |r| image_count(r) }).to eq([6, 6, 2])
+      end
+    end
+
+    context "when the selected document type is only in a later chunk" do
+      before do
+        stub_const("BedrockDocScreener::MAX_REQUEST_IMAGE_BYTES", Base64.strict_encode64(png_data).bytesize * 5)
+      end
+
+      let(:bedrock_result) do
+        lambda do |request|
+          if prompt(request).include?("pages 11-14")
+            { "matches_doc_type_verdict" => "pass", "suggested_document_type" => "Employment", "document_quality_issues" => ["N/A"], "explanation" => "W-2 found", "confidence" => 0.8 }
+          else
+            { "matches_doc_type_verdict" => "fail", "suggested_document_type" => "Receipts", "document_quality_issues" => ["N/A"], "explanation" => "receipts", "confidence" => 0.95 }
+          end
+        end
+      end
+
+      it "merges the chunks into a passing result" do
+        result_json, = described_class.screen_document!(document: document)
+
+        expect(result_json).to include(
+          "matches_doc_type_verdict" => "pass",
+          "suggested_document_type" => "Employment",
+          "explanation" => "W-2 found"
+        )
+      end
+
+      it "tells each request what the earlier chunks were assessed as" do
+        described_class.screen_document!(document: document)
+
+        expect(prompt(bedrock_requests[0])).not_to include("Earlier pages of this upload")
+        expect(prompt(bedrock_requests[1])).to include(
+          "Earlier pages of this upload were already assessed:\n" \
+          "- Pages 1-5: verdict=fail, suggested_document_type=Receipts, explanation: receipts\n" \
+          "If the pages shown continue a document"
+        )
+        expect(prompt(bedrock_requests[2])).to include(
+          "- Pages 1-5: verdict=fail, suggested_document_type=Receipts, explanation: receipts\n" \
+          "- Pages 6-10: verdict=fail, suggested_document_type=Receipts, explanation: receipts\n"
+        )
+      end
+    end
+
+    context "with a single page PDF" do
+      let(:total_pages) { 1 }
+
+      it "sends one request without page context" do
+        described_class.screen_document!(document: document)
+
+        expect(bedrock_requests.size).to eq(1)
+        expect(prompt(bedrock_requests.first)).not_to include("These images are pages")
+      end
+    end
+
+    context "with a PDF longer than the page limit" do
+      let(:total_pages) { 200 }
+
+      it "only renders and screens up to the limit and records that it was hit" do
+        result_json, = described_class.screen_document!(document: document)
+
+        expect(rendered_ranges).to eq([1..BedrockDocScreener::MAX_SCREENED_PAGES])
+        expect(bedrock_requests.map { |r| image_count(r) }).to eq([BedrockDocScreener::MAX_SCREENED_PAGES])
+        expect(result_json).to include(
+          "total_pages" => 200,
+          "screened_pages" => (1..20).to_a,
+          "page_limit_reached" => true
+        )
+      end
+    end
+
+    context "when a page is still too large after resizing" do
+      let(:total_pages) { 3 }
+      let(:large_page) { "A" * 4.megabytes }
+      let(:page_data) { ->(n) { n == 2 ? large_page : png_data } }
+
+      before do
+        allow(described_class).to receive(:ensure_safe_image_size).and_call_original
+        allow(described_class).to receive(:ensure_safe_image_size).with(large_page)
+          .and_raise(BedrockDocScreener::ImageTooLargeError, "still too big")
+      end
+
+      it "tries to resize it, then skips it and screens the other pages" do
+        result_json, = described_class.screen_document!(document: document)
+
+        expect(described_class).to have_received(:ensure_safe_image_size).with(large_page)
+        expect(image_count(bedrock_requests.first)).to eq(2)
+        expect(result_json["screened_pages"]).to eq([1, 3])
+        expect(result_json["skipped"]).to eq([{ "pages" => [2], "reason" => "BedrockDocScreener::ImageTooLargeError: still too big" }])
+      end
+    end
+
+    context "when Bedrock rejects a request" do
+      let(:total_pages) { 3 }
+      let(:bad_page_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "picture_id.jpg")) }
+      let(:page_data) { ->(n) { n == 2 ? bad_page_data : png_data } }
+      let(:bad_page_base64) { Base64.strict_encode64(bad_page_data) }
+
+      before do
+        allow(described_class).to receive(:invoke_bedrock_model) do |body|
+          request = JSON.parse(body)
+          bedrock_requests << request
+          if request["messages"][0]["content"].any? { |c| c.dig("source", "data") == bad_page_base64 }
+            raise Aws::BedrockRuntime::Errors::ValidationException.new(nil, "Could not process image")
+          end
+          bedrock_response(bedrock_result.call(request))
+        end
+      end
+
+      it "retries it in halves and skips the page that still fails" do
+        result_json, = described_class.screen_document!(document: document)
+
+        expect(bedrock_requests.map { |r| image_count(r) }).to eq([3, 2, 1, 1, 1])
+        expect(result_json["screened_pages"]).to eq([1, 3])
+        expect(result_json["skipped"]).to eq([{ "pages" => [2], "reason" => "Aws::BedrockRuntime::Errors::ValidationException: Could not process image" }])
+      end
+
+      context "when every page fails" do
+        let(:total_pages) { 1 }
+        let(:page_data) { ->(_n) { bad_page_data } }
+
+        it "raises the error" do
+          expect {
+            described_class.screen_document!(document: document)
+          }.to raise_error(Aws::BedrockRuntime::Errors::ValidationException, "Could not process image")
+        end
+      end
+    end
+
+    context "when pdftoppm fails" do
+      before do
+        allow(described_class).to receive(:system).and_return(false)
+      end
+
+      it "raises" do
+        expect {
+          described_class.screen_document!(document: document)
+        }.to raise_error(/failed to convert pdf pages to images/)
+      end
+    end
   end
 
   describe "compression and limits in processing" do
@@ -382,36 +653,6 @@ describe BedrockDocScreener do
       it "compresses the image before encoding" do
         described_class.screen_document!(document: document)
         expect(described_class).to have_received(:ensure_safe_image_size).with(large_data)
-      end
-    end
-
-    context "with a long PDF" do
-      let!(:png_data) { File.binread(Rails.root.join("spec", "fixtures", "files", "test-pattern.png")) }
-
-      before do
-        allow(upload).to receive(:content_type).and_return("application/pdf")
-        allow(upload).to receive(:download).and_return("%PDF-1.4")
-        allow(Dir).to receive(:mktmpdir).and_yield("/tmp/fake_dir")
-        allow(described_class).to receive(:system).and_return(true)
-
-        fake_pages = (1..25).map { |i| "/tmp/fake_dir/page-#{i}.png" }
-        allow(Dir).to receive(:glob).and_return(fake_pages)
-        allow(File).to receive(:binread).and_return(png_data)
-      end
-
-      it "only takes the first 20 pages" do
-        result = described_class.pdf_to_png_base64(upload)
-        expect(result.size).to eq(20)
-      end
-
-      it "compresses individual PDF pages if they are too large" do
-        large_page_data = "A" * 4.megabytes
-        allow(File).to receive(:binread).with("/tmp/fake_dir/page-1.png").and_return(large_page_data)
-        allow(described_class).to receive(:ensure_safe_image_size).and_return("shrunk-page")
-
-        described_class.pdf_to_png_base64(upload)
-
-        expect(described_class).to have_received(:ensure_safe_image_size).with(large_page_data)
       end
     end
   end
@@ -495,9 +736,10 @@ describe BedrockDocScreener do
       before do
         allow(upload).to receive(:content_type).and_return("application/pdf")
         allow(upload).to receive(:download).and_return("%PDF-1.4")
+        allow(described_class).to receive(:pdf_page_count).and_return(1)
         # Stand in for pdftoppm: write a tall rendered page where it would
         allow(described_class).to receive(:system) do |*args, **|
-          output_prefix = args[5]
+          output_prefix = args.last
           File.binwrite("#{output_prefix}-1.png", generate_image(1200, 9000, "png"))
           true
         end

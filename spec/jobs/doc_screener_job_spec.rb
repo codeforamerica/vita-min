@@ -135,6 +135,7 @@ RSpec.describe DocScreenerJob, type: :job do
     [
       Aws::BedrockRuntime::Errors::ValidationException.new(nil, "Could not process image"),
       BedrockDocScreener::UnsupportedMediaTypeError.new("Unsupported media type: image/x-icon"),
+      BedrockDocScreener::ImageTooLargeError.new("Image is still too large after resizing"),
       MiniMagick::Error.new("convert failed")
     ].each do |error|
       it "marks the assessment as failed without raising for #{error.class}" do
