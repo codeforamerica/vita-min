@@ -1,9 +1,12 @@
-<div class="dismissible-banner" data-dismissible-banner data-dismissible-banner-id="<%= local_assigns[:banner_id] || "default" %>">
+<% dismissible = local_assigns.fetch(:dismissible, true) %>
+<div class="dismissible-banner<%= " #{local_assigns[:extra_class]}" if local_assigns[:extra_class].present? %>" role="status" <%= "data-dismissible-banner data-dismissible-banner-id=\"#{local_assigns[:banner_id] || 'default'}\"".html_safe if dismissible %>>
   <%= image_tag('info--purple.svg', alt: "") %>
 
   <div class="dismissible-banner__text">
     <div class="dismissible-banner__header"><%= banner_header %></div>
     <div><%= banner_body %></div>
   </div>
-  <button type="button" class="dismissible-banner__close" data-dismissible-banner-close aria-label="Dismiss banner">&times;</button>
+  <% if dismissible %>
+    <button type="button" class="dismissible-banner__close" data-dismissible-banner-close aria-label="Dismiss banner">&times;</button>
+  <% end %>
 </div>
