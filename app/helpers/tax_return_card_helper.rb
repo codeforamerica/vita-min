@@ -326,6 +326,8 @@ module TaxReturnCardHelper
     date = Rails.configuration.end_of_login.to_date + 1.day
     format = locale == :es ? :medium : :short
     I18n.l(date, format: format, locale: locale)
+  end
+
   def tax_season_deadline_banner(tax_return)
     return unless open_for_finishing_in_progress_intakes?
 
