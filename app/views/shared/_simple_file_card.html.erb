@@ -10,7 +10,12 @@
   <% if show_get_started %>
     <div class="button-wrapper">
       <div>
-        <%= link_to t("general.register"), new_signup_path, "data-track-click": "service-comparison-in-person-vita-providers", class: "button text--centered button--wide button--simple-file-blue" %>
+        <% if simple_file_closed? %>
+          <%= link_to t("general.register"), new_signup_path, "data-track-click": "service-comparison-in-person-vita-providers", class: "button text--centered button--wide button--simple-file-blue" %>
+        <% else %>
+          <% simple_file_path = SimpleFileUrlService.new(intake: nil, locale: I18n.locale, source: "gyrhomepage").welcome_url %>
+          <%= link_to t("general.get_started"), simple_file_path, "data-track-click": "service-comparison-in-person-vita-providers", class: "button text--centered button--wide button--simple-file-blue no-external" %>
+        <% end %>
       </div>
     </div>
   <% end %>
