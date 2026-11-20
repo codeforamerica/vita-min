@@ -900,7 +900,7 @@ DEPENDENCIES
   zxcvbn-ruby
 
 RUBY VERSION
-  ruby 4.0.6p0
+  ruby 4.0.10
 
 BUNDLED WITH
   4.0.16
