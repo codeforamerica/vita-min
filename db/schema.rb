@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_19_004052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -820,6 +820,29 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
     t.integer "was_student", default: 0, null: false
     t.index ["creation_token"], name: "index_dependents_on_creation_token"
     t.index ["intake_id"], name: "index_dependents_on_intake_id"
+  end
+
+  create_table "devise_invitations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "invitation_accepted_at"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.string "invitation_token"
+    t.bigint "invitable_id"
+    t.string "invitable_type"
+    t.json "invite_key", default: {}, null: false
+    t.string "invite_key_digest", null: false
+    t.bigint "invited_by_id"
+    t.string "invited_by_type"
+    t.datetime "resource_created_at"
+    t.datetime "revoked_at"
+    t.datetime "superseded_at"
+    t.string "superseded_reason"
+    t.datetime "updated_at", null: false
+    t.index ["invitable_type", "invitable_id"], name: "index_devise_invitations_on_invitable"
+    t.index ["invitable_type", "invite_key_digest"], name: "index_devise_invitations_on_type_and_invite_key"
+    t.index ["invitation_token"], name: "index_devise_invitations_on_invitation_token", unique: true
+    t.index ["invited_by_type", "invited_by_id"], name: "index_devise_invitations_on_invited_by"
   end
 
   create_table "df_data_import_errors", force: :cascade do |t|

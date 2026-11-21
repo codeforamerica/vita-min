@@ -35,7 +35,7 @@ RSpec.feature "Inviting site coordinator" do
       end
 
       # resend invitation
-      invited_user = User.where(invited_by: user).last
+      invited_user = User.created_by_invite.last
       expect(invited_user).to be_present
       within("#invitation-#{invited_user.id}") do
         click_on "Resend invitation email"
@@ -43,7 +43,7 @@ RSpec.feature "Inviting site coordinator" do
       within(".flash--notice") do
         expect(page).to have_text "Invitation re-sent to colleague@cauliflower.org"
       end
-      invited_user = User.where(invited_by: user).last
+      invited_user = User.created_by_invite.last
       expect(invited_user.invitation_sent_at).to be_within(2.seconds).of(Time.now)
 
       logout

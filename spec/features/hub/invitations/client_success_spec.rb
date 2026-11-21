@@ -31,7 +31,7 @@ RSpec.feature "Inviting client success" do
         expect(page).to have_text "chard@clientsuccess.org"
         expect(page).to have_text "Client Success"
       end
-      invited_user = User.where(invited_by: user).last
+      invited_user = User.created_by_invite.last
       expect(invited_user).to be_present
 
       # resend invitation
@@ -42,7 +42,7 @@ RSpec.feature "Inviting client success" do
       within(".flash--notice") do
         page_change_check("Invitation re-sent to chard@clientsuccess.org")
       end
-      invited_user = User.where(invited_by: user).last
+      invited_user = User.created_by_invite.last
       expect(invited_user.invitation_token).to be_present
 
       logout
