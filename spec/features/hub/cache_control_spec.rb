@@ -11,7 +11,8 @@ RSpec.feature "Cache control", js: true do
     it "cache is cleared and redirects to the login page" do
       visit hub_user_profile_path
       page_change_check("My profile")
-      click_link 'Sign out'
+      click_button "Sign out"
+      expect(page).to have_text "You've been successfully signed out."
 
       page.evaluate_script('window.history.back()')
       sleep 0.5
@@ -23,7 +24,8 @@ RSpec.feature "Cache control", js: true do
     it "cache is cleared and redirects to the login page" do
       visit hub_clients_path
       sleep 0.5
-      click_link 'Sign out'
+      click_button "Sign out"
+      expect(page).to have_text "You've been successfully signed out."
 
       page.evaluate_script('window.history.back()')
       sleep 0.5
