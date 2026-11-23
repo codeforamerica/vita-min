@@ -22,6 +22,11 @@
 #  index_efile_submissions_on_tax_return_id_and_id  (tax_return_id,id DESC)
 #
 class EfileSubmission < ApplicationRecord
+  # Returned by #generate_verified_address when no USPS lookup is needed.
+  AddressAlreadyVerified = Data.define do
+    def valid? = true
+  end
+
   belongs_to :tax_return, optional: true
   belongs_to :data_source, polymorphic: true, optional: true
   has_one :intake, through: :tax_return
@@ -153,9 +158,9 @@ class EfileSubmission < ApplicationRecord
 
   def generate_verified_address(i = 0)
     # TODO(state-file)
-    return OpenStruct.new(valid?: true) unless intake
+    return AddressAlreadyVerified.new unless intake
 
-    return OpenStruct.new(valid?: true) if verified_address.present?
+    return AddressAlreadyVerified.new if verified_address.present?
 
     address_service = StandardizeAddressService.new(intake, read_timeout: 1500)
 

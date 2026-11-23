@@ -26,6 +26,14 @@ module Hub
 
     private
 
+    # Stands in for an Intake on the tax return cards. TaxReturnCardHelper calls
+    # #current_step, #pseudo? and #client (via `intake.client&.`), so all three are needed.
+    PseudoIntake = Data.define(:current_step) do
+      def pseudo? = true
+
+      def client = nil
+    end
+
     class PseudoTaxReturn
       attr_reader :current_state
       attr_reader :final_tax_documents
@@ -67,7 +75,7 @@ module Hub
       end
 
       def intake
-        OpenStruct.new(current_step: @current_step, pseudo?:true)
+        PseudoIntake.new(current_step: @current_step)
       end
 
       def id

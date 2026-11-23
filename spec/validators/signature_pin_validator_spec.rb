@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe SignaturePinValidator do
   subject { described_class.new(attributes: [:signature_pin]) }
 
-  let!(:record) { OpenStruct.new(errors: ActiveModel::Errors.new(nil)) }
+  let!(:record) { Struct.new(:errors, :primary_signature_pin, :spouse_signature_pin).new(errors: ActiveModel::Errors.new(nil)) }
 
   specify do
     assert_invalid("000000")

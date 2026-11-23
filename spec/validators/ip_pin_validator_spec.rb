@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe IpPinValidator do
   subject { described_class.new(attributes: [:ip_pin]) }
 
-  let!(:record) { OpenStruct.new(errors: ActiveModel::Errors.new(nil)) }
+  let!(:record) { Struct.new(:errors).new(ActiveModel::Errors.new(nil)) }
 
   specify do
     assert_invalid("000000")

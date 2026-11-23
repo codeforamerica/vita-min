@@ -22,7 +22,7 @@ describe ExperimentService do
       allow(ExperimentParticipant).to receive(:create!) do |*args|
         treatment = args[0][:treatment]
         @treatments << treatment
-        OpenStruct.new(treatment: treatment)
+        instance_double(ExperimentParticipant, treatment: treatment)
       end
 
       1000.times do
