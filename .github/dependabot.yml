@@ -30,6 +30,12 @@ updates:
       - dependency-name: "jest-environment-jsdom"
         update-types:
           - "version-update:semver-major"
+      - dependency-name: "@babel/core"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "@babel/plugin-transform-runtime"
+        update-types:
+          - "version-update:semver-major"
       - dependency-name: "@babel/preset-env"
         update-types:
           - "version-update:semver-major"
@@ -53,6 +59,10 @@ updates:
       interval: "daily"
     cooldown:
       default-days: 3
+    ignore:
+      - dependency-name: "akhileshns/heroku-deploy"
+        update-types:
+          - "version-update:semver-major"
     groups:
       github-actions-minor-patch:
         patterns:
