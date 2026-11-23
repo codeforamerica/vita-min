@@ -10,6 +10,16 @@
                body: t(".deadline_alert.tax_season_ends") %>
   <% end %>
 
+  <% if show_download_deadline_banner?(@tax_returns) %>
+    <div class="spacing-below-25">
+      <%= render "shared/dismissible_banner",
+                 dismissible: false,
+                 extra_class: "dismissible-banner--card-width",
+                 banner_header: t(".download_deadline_banner.header", date: download_deadline_banner_date),
+                 banner_body: t(".download_deadline_banner.body") %>
+    </div>
+  <% end %>
+
   <% if @tax_returns.present? %>
     <% @tax_returns.each_with_index do |tax_return, index| %>
       <div class="spacing-below-25">
