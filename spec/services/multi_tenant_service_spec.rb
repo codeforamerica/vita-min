@@ -161,9 +161,9 @@ describe MultiTenantService do
     it "looks up credentials using upcased, service-specific env var names" do
       service_types = { gyr: "GYR", ctc: "CTC", statefile: "STATEFILE" }
       service_types.each do |service_type, upcased|
-        expect(EnvironmentCredentials).to receive(:[]).with("TWILIO_#{upcased}_ACCOUNT_SID").and_return("sid")
-        expect(EnvironmentCredentials).to receive(:[]).with("TWILIO_#{upcased}_AUTH_TOKEN").and_return("token")
-        expect(EnvironmentCredentials).to receive(:[]).with("TWILIO_#{upcased}_MESSAGING_SERVICE_SID").and_return("messaging_sid")
+        expect(ENV).to receive(:[]).with("TWILIO_#{upcased}_ACCOUNT_SID").and_return("sid")
+        expect(ENV).to receive(:[]).with("TWILIO_#{upcased}_AUTH_TOKEN").and_return("token")
+        expect(ENV).to receive(:[]).with("TWILIO_#{upcased}_MESSAGING_SERVICE_SID").and_return("messaging_sid")
 
         creds = described_class.new(service_type).twilio_creds
         expect(creds).to eq(account_sid: "sid", auth_token: "token", messaging_service_sid: "messaging_sid")
