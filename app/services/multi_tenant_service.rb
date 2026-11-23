@@ -113,15 +113,6 @@ class MultiTenantService
     filing_years(time).without(current_tax_year(time))
   end
 
-  def twilio_creds
-    key_prefix = "TWILIO_#{service_type.to_s.upcase}"
-    @_twlio_creds ||= {
-      account_sid: EnvironmentCredentials["#{key_prefix}_ACCOUNT_SID"],
-      auth_token: EnvironmentCredentials["#{key_prefix}_AUTH_TOKEN"],
-      messaging_service_sid: EnvironmentCredentials["#{key_prefix}_MESSAGING_SERVICE_SID"]
-    }
-  end
-
   def twilio_status_webhook_url(outgoing_message_status_id)
     twilio_update_status_url(outgoing_message_status_id, locale: nil) if service_type == :gyr
   end
