@@ -474,10 +474,12 @@ es:
       1095-a: Seguro de salud
       1099-r: Ingreso de jubilación
       care_provider_statement: Declaración del Proveedor de Cuidados
+      direct_deposit_information: Información de depósito directo
       email_attachment: Adjunto de correo electrónico
       employment: Documentos de empleo
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
+      irs_ip_pin_letter: Carta del PIN de Protección de Identidad (IP PIN) del IRS
       original_13614-C: Original 13614-C
       other: Otros documentos
       primary_identification:
@@ -2109,6 +2111,9 @@ es:
         decline_to_sign_help: Si no firma su declaración, el equipo de impuestos se comunicará con usted para ver sus opciones.
         document_link:
           download_final_tax_papers: Descargar papeles de impuestos
+        download_deadline_banner:
+          body: Para proteger su información, las declaraciones de impuestos solo están en su cuenta hasta esa fecha.
+          header: Descargue su declaración hasta el %{date}
         help_text:
           file_accepted_intro: El IRS aceptó su declaración de impuestos del %{year}.
           file_accepted_payments_html: Para pagar impuestos si todavía le debe al IRS, %{link}
@@ -2301,10 +2306,7 @@ es:
     new:
       header: "¡Nos daría mucho gusto trabajar con usted y ayudarle gratuitamente a declarar sus impuestos!"
       opt_in_message:
-        01_intro: 'Aviso: Proporcionar su número de teléfono significa que usted ha optado por lo siguiente para usar el servicio GetYourRefund:'
-        02_list:
-        - Recibir un código de verificación de GetYourRefund
-        - Notificaciones sobre la declaración de impuestos
+        01_intro_html: Al hacer clic en Continuar, usted acepta recibir actualizaciones sobre su declaración de impuestos, información sobre nuestros servicios y encuestas ocasionales. No compartiremos su información con terceros. Consulte nuestros <a href="%{terms_url}">Términos y Condiciones</a> y <a href="%{privacy_url}">Política de Privacidad</a>.
         03_message_freq: La frecuencia de los mensajes varía. Se aplican las tarifas estándar de los mensajes. Envíe HELP al 11111 para obtener ayuda. Envíe STOP al 11111 para cancelarlo. Los operadores (por ejemplo, AT&T, Verizon, etc.) no son responsables de los mensajes no entregados o retrasados.
         04_detail_links_html: Favor de consultar nuestras <a href="%{terms_link}" target="_blank" rel="noopener noreferrer">Condiciones generales</a> y <a href="%{privacy_link}" target="_blank" rel="noopener noreferrer">Política de privacidad.</a>
       subheader: Regístrese aquí para recibir una notificación cuando abramos en enero.

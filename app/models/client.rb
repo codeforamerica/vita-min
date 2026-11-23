@@ -116,7 +116,7 @@ class Client < ApplicationRecord
   delegate *delegated_intake_attributes, to: :intake
   scope :after_consent, -> { where.not(consented_to_service_at: nil) }
   scope :assigned_to, ->(user) { joins(:tax_returns).where({ tax_returns: { assigned_user_id: user } }).distinct }
-  scope :with_eager_loaded_associations, -> { includes(:vita_partner, :tax_returns, :documents, tax_returns: [:assigned_user]) }
+  scope :with_eager_loaded_associations, -> { includes(:vita_partner, :tax_returns, :documents, tax_returns: [:assigned_user], intake: [:dependents, :experiment_participants]) }
   scope :sla_tracked, -> do
     distinct.joins(:tax_returns, :intake)
             .where(intake: { product_year: Rails.configuration.product_year })
@@ -317,18 +317,11 @@ class Client < ApplicationRecord
   def required_document_counts
     return {} if intake.blank? || intake.is_ctc?
 
-    intake.relevant_document_types.select(&:needed_if_relevant?).each_with_object({}) do |document_type, result|
-      acceptable_doc_type_keys = if document_type == DocumentTypes::Identity
-                                   DocumentTypes::IDENTITY_TYPES
-                                 elsif document_type == DocumentTypes::SsnItin
-                                   DocumentTypes::SECONDARY_IDENTITY_TYPES
-                                 else
-                                   [document_type]
-                                 end.map(&:key)
-      provided_count = documents.count { |d| acceptable_doc_type_keys.include?(d.document_type) }
-
-      required_count = document_type.required_persons(intake).length
-      result[document_type.key] = {
+    checklist = DocumentChecklist.new(intake)
+    checklist.requirements.required.each_with_object({}) do |requirement, result|
+      provided_count = checklist.provided_count(requirement)
+      required_count = requirement.required_persons(intake).length
+      result[requirement.key] = {
         required_count: required_count,
         provided_count: provided_count,
         clamped_provided_count: [required_count, provided_count].min

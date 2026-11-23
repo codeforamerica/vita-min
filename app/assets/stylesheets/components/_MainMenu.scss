@@ -96,6 +96,23 @@
     }
   }
 
+  .menu-item-form {
+    margin: 0;
+  }
+
+  // Sign out is a form button (so it works without JS); make it look like the link items
+  .menu-item--button {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    font: inherit;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+  }
+
   &.collapsed .menu-item {
     img {
       margin-right: 0px;
