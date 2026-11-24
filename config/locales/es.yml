@@ -1133,7 +1133,7 @@ es:
         add_doc: Agregar documento
         archived_documents: Documentos archivados
         client_doc: Cliente
-        edit_file_info: Editar información del archivo
+        edit_file_info: Editar
         empty_file: "(archivo vacío)"
         file_name: Nombre de archivo
         needs_review: Needs Review
