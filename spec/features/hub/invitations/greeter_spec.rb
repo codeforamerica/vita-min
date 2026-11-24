@@ -32,7 +32,7 @@ RSpec.feature "Inviting greeters" do
         expect(page).to have_text "colleague@ginger.org"
         expect(page).to have_text "Greeter"
       end
-      invited_user = User.where(invited_by: user).last
+      invited_user = User.created_by_invite.last
       expect(invited_user).to be_present
 
       # resend invitation
@@ -47,7 +47,7 @@ RSpec.feature "Inviting greeters" do
         expect(page).to have_text "colleague@ginger.org"
         expect(page).to have_text "Greeter"
       end
-      invited_user = User.where(invited_by: user).last
+      invited_user = User.created_by_invite.last
       expect(invited_user.invitation_token).to be_present
 
       logout

@@ -25,13 +25,13 @@ RSpec.describe Hub::UsersController do
             :organization_lead_user,
             name: "Adam Avocado",
             created_at: created_at_time,
-            invitation_accepted_at: accepted_invite_time,
             timezone: "America/New_York",
             organization: organization
           )
         end
 
         before do
+          create(:devise_invitation, invitable: user, invitation_accepted_at: accepted_invite_time) if accepted_invite_time
           sign_in user
         end
 
@@ -475,7 +475,7 @@ RSpec.describe Hub::UsersController do
       context "with a logged in admin" do
         let!(:resending_user) { create :admin_user, email: "resent@example.com" }
         let(:original_invited_by_user) { create :admin_user, email: "orginal@example.com" }
-        let!(:invited_user) { create :user, invited_by: original_invited_by_user }
+        let!(:invited_user) { create :invited_user, invited_by: original_invited_by_user }
 
         before { sign_in resending_user }
 
@@ -507,7 +507,7 @@ RSpec.describe Hub::UsersController do
 
       context "with an non-admin user" do
         let!(:resending_user) { create :user }
-        let(:invited_user) { create :user }
+        let(:invited_user) { create :invited_user }
 
         before { sign_in resending_user }
 

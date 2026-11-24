@@ -13,11 +13,7 @@
 #  external_uid                    :string
 #  failed_attempts                 :integer          default(0), not null
 #  high_quality_password_as_of     :datetime
-#  invitation_accepted_at          :datetime
-#  invitation_created_at           :datetime
 #  invitation_limit                :integer
-#  invitation_sent_at              :datetime
-#  invitation_token                :string
 #  invitations_count               :integer          default(0)
 #  last_sign_in_at                 :datetime
 #  last_sign_in_ip                 :string
@@ -36,7 +32,6 @@
 #  timezone                        :string           default("America/New_York"), not null
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
-#  invited_by_id                   :bigint
 #  role_id                         :bigint           not null
 #
 # Indexes
@@ -55,7 +50,9 @@
 class User < ApplicationRecord
   include PgSearch::Model
   devise :database_authenticatable, :lockable, :timeoutable, :trackable, :invitable, :recoverable,
-         :omniauthable, omniauth_providers: [:google_oauth2]
+         :omniauthable, omniauth_providers: [:google_oauth2], create_resource_on_invitation: true
+
+  self.ignored_columns = %w[invitation_token invitation_created_at invitation_sent_at invitation_accepted_at invited_by_id]
 
   pg_search_scope :search, against: [
     :email, :id, :name, :phone_number, :role_type
