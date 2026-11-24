@@ -7,11 +7,11 @@ class InvitationsController < ApplicationController
   layout "hub"
 
   def index
-    @unaccepted_invitations = invited_by_current_user.order(name: :asc)
+    @unaccepted_invitations = User.where(invited_by: current_user, invitation_accepted_at: nil).order(name: :asc)
   end
 
   def resend_invitation
-    user = invited_by_current_user.find_by(id: params[:user_id])
+    user = User.find_by(id: params[:user_id], invited_by: current_user)
     flash[:notice] = if user&.invite!(current_user)
                        "Invitation re-sent to #{user.email}"
                      else
@@ -19,11 +19,5 @@ class InvitationsController < ApplicationController
                      end
 
     redirect_back(fallback_location: invitations_path)
-  end
-
-  private
-
-  def invited_by_current_user
-    User.where(id: DeviseInvitable::Invitation.pending.provisioning.where(invitable_type: "User", invited_by: current_user).select(:invitable_id))
   end
 end

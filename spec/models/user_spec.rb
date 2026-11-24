@@ -13,7 +13,11 @@
 #  external_uid                    :string
 #  failed_attempts                 :integer          default(0), not null
 #  high_quality_password_as_of     :datetime
+#  invitation_accepted_at          :datetime
+#  invitation_created_at           :datetime
 #  invitation_limit                :integer
+#  invitation_sent_at              :datetime
+#  invitation_token                :string
 #  invitations_count               :integer          default(0)
 #  last_sign_in_at                 :datetime
 #  last_sign_in_ip                 :string
@@ -32,6 +36,7 @@
 #  timezone                        :string           default("America/New_York"), not null
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
+#  invited_by_id                   :bigint
 #  role_id                         :bigint           not null
 #
 # Indexes

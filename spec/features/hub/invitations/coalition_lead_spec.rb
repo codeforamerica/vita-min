@@ -34,7 +34,7 @@ RSpec.feature "Inviting coalition leads" do
         expect(page).to have_text "colleague@cauliflower.org"
         expect(page).to have_text "Coalition Lead"
       end
-      invited_user = User.created_by_invite.last
+      invited_user = User.where(invited_by: user).last
       expect(invited_user).to be_present
 
       # resend invitation
@@ -44,7 +44,7 @@ RSpec.feature "Inviting coalition leads" do
       within(".flash--notice") do
         page_change_check("Invitation re-sent to colleague@cauliflower.org")
       end
-      invited_user = User.created_by_invite.last
+      invited_user = User.where(invited_by: user).last
       expect(invited_user.invitation_token).to be_present
 
       logout
