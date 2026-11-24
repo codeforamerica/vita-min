@@ -18,6 +18,7 @@
 #  spouse_signature    :string
 #  spouse_signed_at    :datetime
 #  spouse_signed_ip    :inet
+#  was_auto_advanced   :boolean          default(FALSE)
 #  year                :integer          not null
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null

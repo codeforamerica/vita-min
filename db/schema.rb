@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_24_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "pg_catalog.plpgsql"
@@ -2888,6 +2888,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_06_000000) do
     t.inet "spouse_signed_ip"
     t.datetime "updated_at", null: false
     t.integer "year", null: false
+    t.boolean "was_auto_advanced", default: false
     t.index ["assigned_user_id"], name: "index_tax_returns_on_assigned_user_id"
     t.index ["client_id"], name: "index_tax_returns_on_client_id"
     t.index ["current_state"], name: "index_tax_returns_on_current_state"
