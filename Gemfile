@@ -15,8 +15,8 @@ gem "json", "< 3"
 # any one of them leaves a harness that looks installed and silently resolves the
 # next boot against the current versions; that was the state of this file for a long
 # time. See docs/2026-09-01-rails-8-upgrade-plan.md, Phase 1.
-plugin 'bootboot', '~> 0.2.2'
-gem 'bootboot', '~> 0.2.2'
+#plugin 'bootboot', '~> 0.2.2'
+#gem 'bootboot', '~> 0.2.2'
 
 # `plugin` above only declares/installs bootboot; it has to be loaded here for its
 # Bundler::Dsl patch (which defines `enable_dual_booting`) to exist while this Gemfile
