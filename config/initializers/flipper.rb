@@ -18,6 +18,7 @@ begin
   Flipper.disable :sms_notifications unless Flipper.exist?(:sms_notifications)
   Flipper.disable :use_pundit unless Flipper.exist?(:use_pundit)
   Flipper.disable :use_env_secrets unless Flipper.exist?(:use_env_secrets)
+  Flipper.disable :sentry_credentials_notifications unless Flipper.exist?(:sentry_credentials_notifications)
   if Rails.env.heroku? || Rails.env.demo?
     Flipper.disable :prevent_duplicate_accepted_statefile_submissions unless Flipper.exist?(:prevent_duplicate_accepted_statefile_submissions)
     Flipper.disable :prevent_duplicate_ssn_messaging unless Flipper.exist?(:prevent_duplicate_ssn_messaging)

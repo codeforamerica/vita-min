@@ -59,6 +59,8 @@ class EnvironmentCredentials
     end
 
     def report_credentials_read(name)
+      return unless Flipper.enabled?(:sentry_credentials_notifications)
+
       return unless defined?(Sentry) && Sentry.initialized?
       return unless REPORTED_CREDENTIALS_READS.add?(name)
 
