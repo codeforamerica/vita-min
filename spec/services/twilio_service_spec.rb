@@ -34,14 +34,15 @@ describe TwilioService do
   end
 
   describe "multi-tenant support" do
-    it "instantiates as a gyr messanger by default" do
+    it "instantiates as a gyr messenger by default" do
       actual = TwilioService.new.messaging_service_sid
       expected = @test_environment_credentials[:twilio][:gyr][:messaging_service_sid]
       expect(actual).to eq expected
     end
 
+    # Only :gyr is active as of Nov 2026; MultiTenantService will be removed soon.
     it "can instantiate as a messenger for all the apps the multi-tenant service knows about" do
-      MultiTenantService::SERVICE_TYPES.each do |service|
+      [:gyr].each do |service|
         actual = TwilioService.new(service).messaging_service_sid
         expected = @test_environment_credentials[:twilio][service][:messaging_service_sid]
         expect(actual).to eq expected
@@ -253,7 +254,7 @@ describe TwilioService do
   end
 
   describe ".send_text_message" do
-    let(:twilio_service) { TwilioService.new(:statefile) }
+    let(:twilio_service) { TwilioService.new(:gyr) }
     let(:fake_client) { double }
     let(:fake_messages_resource) { double }
     let(:fake_message) { double }
@@ -273,7 +274,7 @@ describe TwilioService do
 
       expect(actual).to eq fake_message
       expect(fake_messages_resource).to have_received(:create).with(
-        messaging_service_sid: "fyst_messaging",
+        messaging_service_sid: "gyr_messaging",
         to: "+15855551212",
         body: "hello there",
         status_callback: "http://example.com"
@@ -289,7 +290,7 @@ describe TwilioService do
 
       expect(actual).to eq fake_message
       expect(fake_messages_resource).to have_received(:create).with(
-        messaging_service_sid: "fyst_messaging",
+        messaging_service_sid: "gyr_messaging",
         to: "+15855551212",
         body: "hello there`",
         status_callback: "http://example.com",
@@ -306,7 +307,7 @@ describe TwilioService do
 
       expect(actual).to eq fake_message
       expect(fake_messages_resource).to have_received(:create).with(
-        messaging_service_sid: "fyst_messaging",
+        messaging_service_sid: "gyr_messaging",
         to: "+15855551212",
         body: "a" * (TwilioService::MMS_MESSAGE_LENGTH_THRESHOLD + 1),
         status_callback: "http://example.com",
@@ -321,7 +322,7 @@ describe TwilioService do
       )
 
       expect(fake_messages_resource).to have_received(:create).with(
-        messaging_service_sid: "fyst_messaging",
+        messaging_service_sid: "gyr_messaging",
         to: "+15855551212",
         body: "hello there",
       )

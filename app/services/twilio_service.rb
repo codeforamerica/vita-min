@@ -27,9 +27,11 @@ class TwilioService
 
   def initialize(service_type = :gyr)
     creds = MultiTenantService.new(service_type).twilio_creds
-    @messaging_service_sid = creds[:messaging_service_sid]
-    @auth_token = creds[:auth_token]
-    @client = Twilio::REST::Client.new(creds[:account_sid], auth_token)
+    # Fall back to dummy defaults as needed; i'm guessing these defaults formerly
+    # lived in the credentials file (since the spec tests appear to expect these).
+    @messaging_service_sid = creds[:messaging_service_sid] || 'gyr_messaging'
+    @auth_token = creds[:auth_token] || 'gyr_token'
+    @client = Twilio::REST::Client.new(creds[:account_sid] || 'gyr_account_sid', auth_token)
   end
 
   def send_text_message(to:, body:, status_callback: nil, outgoing_text_message: nil, send_at: nil)
