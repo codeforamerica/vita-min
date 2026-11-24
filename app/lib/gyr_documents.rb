@@ -13,7 +13,7 @@ module GyrDocuments
     intake.tax_returns.each do |tax_return|
       if when_current_is
         tax_return.transition_to(next_state) if tax_return.current_state.to_sym != next_state && 
-          (when_current_in.include? tax_return.current_state.to_sym)
+          (when_current_is.include? tax_return.current_state.to_sym)
       else
         tax_return.transition_to(next_state) if tax_return.current_state.to_sym != next_state
       end
