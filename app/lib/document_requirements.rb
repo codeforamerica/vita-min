@@ -21,40 +21,40 @@ class DocumentRequirements
     DocumentRequirement.new(DocumentTypes::Form1098T, required: false) do |intake|
       intake.paid_post_secondary_educational_expenses_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Form1099A, required: false) do |intake|
+    DocumentRequirement.new(DocumentTypes::Form1099B, required: true, offer_doc_help: true) do |intake|
+      intake.had_asset_sale_income_yes? || intake.sold_assets_yes? || intake.reported_asset_sale_loss_yes?
+    end,
+    DocumentRequirement.new(DocumentTypes::Form1099C, required: true, accepted_document_types: [DocumentTypes::Form1099C, DocumentTypes::Form1099A]) do |intake|
       intake.had_debt_forgiven_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Form1099B, required: false, offer_doc_help: true) do |intake|
-      intake.had_asset_sale_income_yes?
-    end,
-    DocumentRequirement.new(DocumentTypes::Form1099C, required: false) do |intake|
+    DocumentRequirement.new(DocumentTypes::Form1099A, required: true, accepted_document_types: [DocumentTypes::Form1099C, DocumentTypes::Form1099A]) do |intake|
       intake.had_debt_forgiven_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Form1099Div, required: false, offer_doc_help: true) do |intake|
-      intake.had_interest_income_yes?
-    end,
-    DocumentRequirement.new(DocumentTypes::Form1099G, required: false) do |intake|
+    DocumentRequirement.new(DocumentTypes::Form1099G, required: true) do |intake|
       intake.had_unemployment_income_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Form1099Int, required: false) do |intake|
+    DocumentRequirement.new(DocumentTypes::Form1099Int, required: true, accepted_document_types: [DocumentTypes::Form1099Int, DocumentTypes::Form1099Div]) do |intake|
+      intake.had_interest_income_yes?
+    end,
+    DocumentRequirement.new(DocumentTypes::Form1099Div, required: true, accepted_document_types: [DocumentTypes::Form1099Int, DocumentTypes::Form1099Div], offer_doc_help: true) do |intake|
       intake.had_interest_income_yes?
     end,
     DocumentRequirement.new(DocumentTypes::Form1099R, required: true, offer_doc_help: true) do |intake|
       intake.had_retirement_income_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Form1099S, required: false) do |intake|
-      intake.had_asset_sale_income_yes? || intake.sold_a_home_yes?
+    DocumentRequirement.new(DocumentTypes::Form1099S, required: true) do |intake|
+      intake.sold_a_home_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Form1099Sa, required: false) do |intake|
+    DocumentRequirement.new(DocumentTypes::Form1099Sa, required: true, accepted_document_types: [DocumentTypes::Form1099Sa, DocumentTypes::Form5498Sa]) do |intake|
       intake.had_hsa_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Rrb1099, required: false, offer_doc_help: true) do |intake|
+    DocumentRequirement.new(DocumentTypes::Ssa1099, required: true, accepted_document_types: [DocumentTypes::Ssa1099, DocumentTypes::Rrb1099], offer_doc_help: true) do |intake|
       intake.had_social_security_income_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Ssa1099, required: false, offer_doc_help: true) do |intake|
+    DocumentRequirement.new(DocumentTypes::Rrb1099, required: true, accepted_document_types: [DocumentTypes::Ssa1099, DocumentTypes::Rrb1099], offer_doc_help: true) do |intake|
       intake.had_social_security_income_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Form5498Sa, required: false) do |intake|
+    DocumentRequirement.new(DocumentTypes::Form5498Sa, required: true, accepted_document_types: [DocumentTypes::Form1099Sa, DocumentTypes::Form5498Sa]) do |intake|
       intake.had_hsa_yes?
     end,
     DocumentRequirement.new(DocumentTypes::IraStatement, required: false) do |intake|
@@ -72,7 +72,7 @@ class DocumentRequirements
     DocumentRequirement.new(DocumentTypes::StudentAccountStatement, required: false) do |intake|
       intake.any_students?
     end,
-    DocumentRequirement.new(DocumentTypes::W2G, required: false) do |intake|
+    DocumentRequirement.new(DocumentTypes::W2G, required: true) do |intake|
       intake.had_gambling_income_yes?
     end,
   ].freeze
@@ -86,7 +86,7 @@ class DocumentRequirements
   end
 
   def all
-    @all ||= RULES.select { |rule| rule.applies_to?(@intake) }
+    @all ||= RULES.select { |rule| rule.applies_to?(@intake) }.uniq { |rule| rule.accepted_document_types.to_set }
   end
 
   def required
