@@ -14,7 +14,7 @@ module SubmissionBuilder
       end
 
       def included_documents
-        supported_documents.map { |item| OpenStruct.new(**item, kwargs: item[:kwargs] || {}) if item[:include] }.compact
+        supported_documents.filter_map { |item| SupportedDocument.new(**item) if item[:include] }
       end
 
       def supported_documents

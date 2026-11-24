@@ -25,6 +25,7 @@ module DocumentTypes
     DocumentTypes::SecondaryIdentification::BirthCertificate,
   ].freeze
   OTHER_TYPES = [
+    DocumentTypes::DirectDepositInformation,
     DocumentTypes::Employment,
     DocumentTypes::FinalTaxDocument,
     DocumentTypes::Form1040,
@@ -48,6 +49,7 @@ module DocumentTypes
     DocumentTypes::UnsignedForm8879,
     DocumentTypes::CompletedForm8879,
     DocumentTypes::IraStatement,
+    DocumentTypes::IrsIpPinLetter,
     DocumentTypes::PriorYearTaxReturn,
     DocumentTypes::CareProviderStatement,
     DocumentTypes::PropertyTaxStatement,

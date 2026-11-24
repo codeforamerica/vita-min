@@ -29,6 +29,17 @@ class DocumentChecklist
   private
 
   def uploaded_document_type_keys
-    @uploaded_document_type_keys ||= (@intake.client&.documents || Document.none).active.pluck(:document_type)
+    @uploaded_document_type_keys ||= begin
+      documents = @intake.client&.documents
+      if documents.nil?
+        []
+      elsif documents.loaded?
+        # Hub list pages preload documents (Client.with_eager_loaded_associations);
+        # filter in memory so each row doesn't issue its own query.
+        documents.reject(&:archived?).map(&:document_type)
+      else
+        documents.active.pluck(:document_type)
+      end
+    end
   end
 end

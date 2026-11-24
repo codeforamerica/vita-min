@@ -16,6 +16,15 @@ class ReturningClientExperimentService
   def treatment
     experiment = Experiment.find_by(key: ExperimentService::RETURNING_CLIENT_EXPERIMENT)
     return unless experiment
-    ExperimentParticipant.find_by(experiment: experiment, record: @intake)&.treatment
+
+    # Hub list pages preload participants; only use the association when it's already loaded, since
+    # ExperimentService can create a participant after it was loaded. Archived intakes don't have it.
+    participants = @intake.try(:experiment_participants)
+    participant = if participants&.loaded?
+                    participants.find { |ep| ep.experiment_id == experiment.id }
+                  else
+                    ExperimentParticipant.find_by(experiment: experiment, record: @intake)
+                  end
+    participant&.treatment
   end
 end

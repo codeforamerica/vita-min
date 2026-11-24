@@ -1,4 +1,6 @@
 class SignupFollowupMailer < ApplicationMailer
+  Message = Data.define(:email_body, :service_type, :email_subject)
+
   def followup(email_address:, message:)
     @body = message.email_body
 

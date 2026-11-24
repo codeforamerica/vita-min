@@ -1,0 +1,8 @@
+filter_name,filter_query
+breached_sla,status=intake&last_contact=breached_sla
+approaching_sla,last_contact=approaching_sla&active_returns=true
+spanish,language=es
+sort_by_state,column=state_of_residence&order=asc
+sort_by_created,column=created_at&order=desc
+flagged,flagged=true
+unassigned,unassigned=true

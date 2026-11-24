@@ -339,7 +339,7 @@ describe TwilioService do
       let(:outgoing_message_status) { create(:outgoing_message_status, message_type: :sms) }
 
       before do
-        allow(fake_messages_resource).to receive(:create).and_raise(Twilio::REST::RestError.new(400, OpenStruct.new(body: {}, status_code: 21211)))
+        allow(fake_messages_resource).to receive(:create).and_raise(Twilio::REST::RestError.new(400, Twilio::Response.new(21211, "{}")))
       end
 
       it "records twilio_error on the provided record" do

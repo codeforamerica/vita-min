@@ -27,7 +27,7 @@ module BulkAction
             outgoing_text_message: outgoing_message_status
           )&.sid
         when "email"
-          SignupFollowupMailer.new.followup(email_address: signup.email_address, message: OpenStruct.new(
+          SignupFollowupMailer.new.followup(email_address: signup.email_address, message: SignupFollowupMailer::Message.new(
             email_body: bulk_signup_message.message,
             service_type: service_info.service_type,
             email_subject: bulk_signup_message.subject
