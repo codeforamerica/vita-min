@@ -476,8 +476,8 @@ en:
       care_provider_statement: Care Provider Statement
       direct_deposit_information: Direct Deposit Information
       email_attachment: Email attachment
-      estimated_tax_receipts: Estimated Tax Receipts
       employment: Employment Docs
+      estimated_tax_receipts: Estimated Tax Receipts
       id: Photo ID
       ira_statement: IRA Statement
       irs_ip_pin_letter: IRS IP PIN Letter
