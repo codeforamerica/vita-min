@@ -55,6 +55,8 @@ module DocumentTypes
     DocumentTypes::PropertyTaxStatement,
     DocumentTypes::StudentAccountStatement,
     DocumentTypes::W2G,
+    DocumentTypes::EstimatedTaxReceipts,
+    DocumentTypes::PersonalLedger,
     DocumentTypes::Other,
     DocumentTypes::RequestedLater,
     DocumentTypes::EmailAttachment,

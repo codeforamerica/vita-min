@@ -476,12 +476,14 @@ es:
       care_provider_statement: Declaración del Proveedor de Cuidados
       direct_deposit_information: Información de depósito directo
       email_attachment: Adjunto de correo electrónico
+      estimated_tax_receipts: Recibos de pagos de impuestos estimados
       employment: Documentos de empleo
       id: Identificación
       ira_statement: Declaración de plan de pensión (IRA)
       irs_ip_pin_letter: Carta del PIN de Protección de Identidad (IP PIN) del IRS
       original_13614-C: Original 13614-C
       other: Otros documentos
+      personal_ledger: Registro personal
       primary_identification:
         drivers_license: Licencia de conducción (EE. UU.)
         employer_id: Identificación del empleador

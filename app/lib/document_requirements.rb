@@ -75,6 +75,18 @@ class DocumentRequirements
     DocumentRequirement.new(DocumentTypes::W2G, required: false) do |intake|
       intake.had_gambling_income_yes?
     end,
+    DocumentRequirement.new(DocumentTypes::IrsIpPinLetter, required: false) do |intake|
+      intake.issued_identity_pin_yes? || intake.spouse_issued_identity_pin_yes?
+    end,
+    DocumentRequirement.new(DocumentTypes::EstimatedTaxReceipts, required: true) do |intake|
+      intake.made_estimated_tax_payments_yes? || intake.cv_last_years_refund_applied_to_this_yr_cb_yes?
+    end,
+    DocumentRequirement.new(DocumentTypes::DirectDepositInformation, required: false) do |intake|
+      intake.refund_direct_deposit_yes?
+    end,
+    DocumentRequirement.new(DocumentTypes::PersonalLedger, required: false) do |intake|
+      intake.had_tips_yes?
+    end,
   ].freeze
 
   def self.for_document_type(document_type)

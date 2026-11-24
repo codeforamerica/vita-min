@@ -76,6 +76,76 @@ describe DocumentRequirements do
     end
   end
 
+  describe "IP PIN letter rule" do
+    it "is recommended when primary or spouse issued an identity pin" do
+      intake_with_pin = create(:intake, issued_identity_pin: "yes")
+      reqs = described_class.new(intake_with_pin)
+      expect(reqs.recommended.map(&:document_type)).to include(DocumentTypes::IrsIpPinLetter)
+      expect(reqs.required.map(&:document_type)).not_to include(DocumentTypes::IrsIpPinLetter)
+    end
+
+    it "is recommended when spouse issued an identity pin" do
+      intake_with_spouse_pin = create(:intake, spouse_issued_identity_pin: "yes")
+      reqs = described_class.new(intake_with_spouse_pin)
+      expect(reqs.recommended.map(&:document_type)).to include(DocumentTypes::IrsIpPinLetter)
+    end
+
+    it "is not included when neither has an identity pin" do
+      intake_no_pin = create(:intake, issued_identity_pin: "no", spouse_issued_identity_pin: "no")
+      reqs = described_class.new(intake_no_pin)
+      expect(reqs.all.map(&:document_type)).not_to include(DocumentTypes::IrsIpPinLetter)
+    end
+  end
+
+  describe "estimated tax receipts rule" do
+    it "is required when made estimated tax payments" do
+      intake_est = create(:intake, made_estimated_tax_payments: "yes")
+      reqs = described_class.new(intake_est)
+      expect(reqs.required.map(&:document_type)).to include(DocumentTypes::EstimatedTaxReceipts)
+    end
+
+    it "is required when applied prior year refund" do
+      intake_refund = create(:intake, cv_last_years_refund_applied_to_this_yr_cb: "yes")
+      reqs = described_class.new(intake_refund)
+      expect(reqs.required.map(&:document_type)).to include(DocumentTypes::EstimatedTaxReceipts)
+    end
+
+    it "is not included when neither applies" do
+      reqs = described_class.new(create(:intake))
+      expect(reqs.all.map(&:document_type)).not_to include(DocumentTypes::EstimatedTaxReceipts)
+    end
+  end
+
+  describe "direct deposit information rule" do
+    it "is recommended when direct deposit is selected" do
+      intake_dd = create(:intake, refund_direct_deposit: "yes")
+      reqs = described_class.new(intake_dd)
+      expect(reqs.recommended.map(&:document_type)).to include(DocumentTypes::DirectDepositInformation)
+      expect(reqs.required.map(&:document_type)).not_to include(DocumentTypes::DirectDepositInformation)
+    end
+
+    it "is not included when direct deposit is not selected" do
+      intake_no_dd = create(:intake, refund_direct_deposit: "no")
+      reqs = described_class.new(intake_no_dd)
+      expect(reqs.all.map(&:document_type)).not_to include(DocumentTypes::DirectDepositInformation)
+    end
+  end
+
+  describe "personal ledger rule" do
+    it "is recommended when client had tips" do
+      intake_tips = create(:intake, had_tips: "yes")
+      reqs = described_class.new(intake_tips)
+      expect(reqs.recommended.map(&:document_type)).to include(DocumentTypes::PersonalLedger)
+      expect(reqs.required.map(&:document_type)).not_to include(DocumentTypes::PersonalLedger)
+    end
+
+    it "is not included when client did not have tips" do
+      intake_no_tips = create(:intake, had_tips: "no")
+      reqs = described_class.new(intake_no_tips)
+      expect(reqs.all.map(&:document_type)).not_to include(DocumentTypes::PersonalLedger)
+    end
+  end
+
   describe "document types reading from the rules" do
     it "makes a document type relevant when its rule applies" do
       expect(DocumentTypes::Form1099R.relevant_to?(intake)).to eq true
