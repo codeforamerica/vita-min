@@ -38,7 +38,7 @@ RSpec.feature "Inviting team members" do
         expect(page).to have_text "Team Member"
         expect(page).to have_text "Squash Site"
       end
-      invited_user = User.created_by_invite.last
+      invited_user = User.where(invited_by: user).last
       expect(invited_user).to be_present
 
       # resend invitation
@@ -54,7 +54,7 @@ RSpec.feature "Inviting team members" do
         expect(page).to have_text "Team Member"
         expect(page).to have_text "Squash Site"
       end
-      invited_user = User.created_by_invite.last
+      invited_user = User.where(invited_by: user).last
       expect(invited_user.invitation_token).to be_present
 
       logout

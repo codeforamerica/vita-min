@@ -44,7 +44,7 @@ RSpec.describe InvitationsController do
   describe "#resend_invitation" do
     context "invited by current user" do
       let(:creating_user) { create :user }
-      let(:invited_user) { create :invited_user, invited_by: creating_user }
+      let(:invited_user) { create :user, invited_by: creating_user }
 
       before { sign_in creating_user }
 
@@ -64,7 +64,7 @@ RSpec.describe InvitationsController do
 
     context "invited by someone else" do
       let(:logged_in_user) { create :user }
-      let(:invited_user) { create :invited_user, invited_by: (create :user) }
+      let(:invited_user) { create :user, invited_by: (create :user) }
 
       before { sign_in logged_in_user }
 

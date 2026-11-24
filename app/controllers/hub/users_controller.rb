@@ -53,7 +53,7 @@ module Hub
                    @users.search(params[:search])
                  end
       end
-      @users = @users.order(suspended_at: :desc).includes(:pending_invitations)
+      @users = @users.order(suspended_at: :desc)
       @users = @users.page(params[:page])
     end
 

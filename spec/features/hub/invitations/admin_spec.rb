@@ -42,7 +42,7 @@ RSpec.feature "Inviting admin users" do
         expect(page).to have_text "aileen@codeforamerica.org"
         expect(page).to have_text "Admin"
       end
-      invited_user = User.created_by_invite.last
+      invited_user = User.where(invited_by: user).last
       expect(invited_user).to be_present
 
       # resend invitation
@@ -52,7 +52,7 @@ RSpec.feature "Inviting admin users" do
       within(".flash--notice") do
         page_change_check("Invitation re-sent to aileen@codeforamerica.org")
       end
-      invited_user = User.created_by_invite.last
+      invited_user = User.where(invited_by: user).last
       expect(invited_user.invitation_sent_at).to be_within(2.seconds).of(Time.now)
 
       logout

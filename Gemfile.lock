@@ -237,9 +237,9 @@ GEM
     devise-i18n (1.16.1)
       devise (>= 5.0.0)
       rails-i18n
-    devise_invitable (3.1.0)
-      actionmailer (>= 7.0)
-      devise (>= 5.0)
+    devise_invitable (2.0.9)
+      actionmailer (>= 5.0)
+      devise (>= 4.6)
     diff-lcs (1.6.2)
     docile (1.4.0)
     dogapi (1.45.0)
