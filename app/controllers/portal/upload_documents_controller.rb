@@ -41,10 +41,7 @@ module Portal
       if @form.valid?
         @form.save
         if has_all_required_docs?(current_client.intake)
-          #current_client.tax_returns.each do |tax_return|
-          #  tax_return.transition_to!(:intake_ready) if %w(intake_in_progress intake_needs_doc_help).include? tax_return.current_state
-          #end
-          intake_transition_to(intake, next_intake_state(intake),
+          intake_transition_to(current_client.intake, next_intake_state(current_client.intake),
                                [:intake_in_progress, :intake_needs_doc_help])
         end
         flash[:notice] = I18n.t("portal.upload_documents.success")

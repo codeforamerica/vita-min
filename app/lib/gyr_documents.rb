@@ -7,9 +7,11 @@ module GyrDocuments
     has_all_required_docs?(intake) ? :intake_ready : :intake_needs_doc_help
   end
 
-  def intake_transition_to(intake, next_state, when_current_in = nil, flag_auto_advancement_when_next_in = nil)
+  def intake_transition_to(intake, next_state, when_current_is = nil, flag_auto_advancement_when_next_is = nil)
+    # `when_current_is` -- will only transition if current state is included
+    # in this list of states (as symbols)
     intake.tax_returns.each do |tax_return|
-      if when_current_in
+      if when_current_is
         tax_return.transition_to(next_state) if tax_return.current_state.to_sym != next_state && 
           (when_current_in.include? tax_return.current_state.to_sym)
       else
