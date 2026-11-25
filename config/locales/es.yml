@@ -1132,7 +1132,6 @@ es:
       index:
         add_doc: Agregar documento
         archived_documents: Documentos archivados
-        client_doc: Cliente
         edit_file_info: Editar información del archivo
         empty_file: "(archivo vacío)"
         file_name: Nombre de archivo
@@ -1142,6 +1141,7 @@ es:
         smart_scan: Smart Scan
         system_generated_doc: Auto-generado
         upload_date: Fecha de carga
+        uploaded_by: Subido por
       smart_scan_card:
         is_accurate: "%{document_type} is accurate"
         is_inaccurate: 'Suggested document type: %{document_type}.'

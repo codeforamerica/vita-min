@@ -1,5 +1,4 @@
-<% new_order = @sort_column == column_name && @sort_order == "asc" ? "desc" : "asc"
-   new_order = 'desc' if @sort_column != 'tax_return' && column_name == 'tax_return' %>
+<% new_order = @sort_column == column_name && @sort_order == "asc" ? "desc" : "asc" %>
 
 <%= link_to ({ column: column_name, order: new_order, status: params[:status] }), id: "sort-#{column_name}", class: "sortable-column-link" do %>
   <% if @sort_column == column_name %>
@@ -9,6 +8,6 @@
       <span><%= title %></span><%= image_tag "icons/arrow_up.svg", alt: "", class: "sort-arrow" %>
     <% end %>
   <% else %>
-      <span><%= title %></span><%= image_tag "icons/arrow_stacked.svg", alt: "", class: "sort-arrow" %>
+      <span><%= title %></span><%= image_tag "icons/arrow_stacked.svg", alt: "", class: "sort-arrow sort-arrow--inactive" %>
   <% end %>
 <% end %>

@@ -343,4 +343,22 @@ describe Document do
       end
     end
   end
+
+  describe "#uploaded_by_name_label" do
+    it "returns the volunteer's name when a user uploaded it" do
+      document = build :document, uploaded_by: build(:user, name: "Vera Volunteer")
+      expect(document.uploaded_by_name_label).to eq "Vera Volunteer"
+    end
+
+    it "returns the client's preferred name when the client uploaded it" do
+      client = create :client, intake: build(:intake, preferred_name: "Carla Client")
+      document = build :document, client: client, uploaded_by: client
+      expect(document.uploaded_by_name_label).to eq "Carla Client"
+    end
+
+    it "returns the auto-generated label when there is no uploader" do
+      document = build :document, uploaded_by: nil
+      expect(document.uploaded_by_name_label).to eq "Auto-generated"
+    end
+  end
 end

@@ -3,10 +3,6 @@
     color: inherit;
   }
 
-  .index-table__cell:first-child {
-    font-weight: $font-weight-bold;
-  }
-
   .archived-documents-link-row {
     a {
       display: flex;
@@ -18,5 +14,94 @@
       height: 100%;
       margin-right: .5rem;
     }
+  }
+}
+
+// Styles from Figma "The Hub".
+// Scoped to this table(based on ticket) so other .index-table views are unaffected.
+.documents-index-table {
+  $cell-padding-x: 0.9rem;
+  border: 1px solid $color-table-text;
+  font-size: 1.3rem;
+  color: $color-table-text;
+
+  .index-table__head {
+    border-top: none;
+    border-bottom: 1px solid $color-table-text;
+  }
+
+  .index-table__row > .index-table__header,
+  .index-table__row > .index-table__header:first-child,
+  .index-table__row > .index-table__header:last-child {
+    height: 3.6rem;
+    padding: 0 $cell-padding-x;
+    background-color: $color-table-header-bg;
+    color: $color-table-header-text;
+    font-size: 1.3rem;
+    font-weight: $font-weight-normal;
+
+    .sortable-column-link {
+      gap: 0.2rem;
+    }
+
+    .sort-arrow {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .sort-arrow--inactive {
+      opacity: 0.35;
+    }
+  }
+
+  tbody .index-table__row:nth-child(n) {
+    background-color: white;
+    border-bottom: 1px solid $color-table-border-secondary;
+
+    td {
+      background-color: white;
+    }
+  }
+
+  .index-table__cell,
+  .index-table__cell:first-child,
+  .index-table__cell:last-child {
+    height: 4.6rem;
+    padding: 0.6rem $cell-padding-x;
+    font-weight: $font-weight-normal;
+    line-height: 1.5;
+    vertical-align: middle;
+  }
+
+  .document-column__file-name a {
+    color: $color-table-link;
+    text-decoration: underline;
+  }
+
+  .document-column__edit-action .button {
+    min-width: 0;
+    padding: 0.2rem $cell-padding-x;
+    border: 1px solid $color-black;
+    border-radius: 3px;
+    background-color: white;
+    color: $color-black;
+    font-size: 1.3rem;
+    font-weight: $font-weight-normal;
+    line-height: normal;
+    box-shadow: none;
+  }
+
+  .label--status {
+    display: inline-flex;
+    align-items: center;
+    height: 2.8rem;
+    padding: 0.5rem $cell-padding-x;
+    border: none;
+    border-radius: 3px;
+    color: $color-black;
+    font-size: 1.3rem;
+    font-weight: $font-weight-normal;
+    text-transform: none;
+    letter-spacing: normal;
   }
 }
