@@ -90,7 +90,7 @@ gem 'http_accept_language'
 gem 'rails-i18n'
 gem 'thor'
 gem 'websocket-extensions', '>= 0.1.5'
-gem "twilio-ruby", "7.13.0"
+gem "twilio-ruby", "7.13.1"
 gem 'mailgun-ruby'
 gem 'devise_invitable'
 gem 'cancancan'
@@ -153,12 +153,12 @@ group :development, :test do
   gem 'axe-core-capybara'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver', '4.52.0'
+  gem 'selenium-webdriver', '4.53.0'
   gem 'rspec-rails'
   gem 'rails-controller-testing'
   gem 'pry-byebug'
   gem 'guard-rspec', require: false
-  gem 'rubocop', '~> 1.92.2', require: false
+  gem 'rubocop', '~> 1.92.3', require: false
   gem 'rubocop-performance', '~> 1.27.0', require: false
   gem 'rubocop-rspec', '~> 3.10.2', require: false
   gem 'i18n-tasks', require: false
@@ -200,8 +200,8 @@ gem "pundit", "~> 2.5"
 
 gem "openssl", ">= 3.3.1"
 
-gem "aws-sdk-core", "3.268.0"
+gem "aws-sdk-core", "3.271.1"
 
-gem "aws-sdk-bedrockruntime", "~> 1.95"
+gem "aws-sdk-bedrockruntime", "~> 1.98"
 
 gem 'oauth2', '>= 2.0.22'
