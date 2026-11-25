@@ -109,6 +109,7 @@ module VitaMin
     config.end_of_closing = et.parse('2026-10-15 23:59:59')
     config.end_of_in_progress_intake = et.parse('2026-10-15 23:59:59')
     config.end_of_login = et.parse('2026-10-23 23:59:00')
+    config.simple_file_close = et.parse('2026-11-16 00:00:00')
 
     config.tax_year_filing_seasons = {
       2025 => [et.parse("2026-01-29 00:00:00"), et.parse("2026-04-15 23:59:59")],

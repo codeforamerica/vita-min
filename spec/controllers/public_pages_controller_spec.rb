@@ -62,13 +62,34 @@ RSpec.describe PublicPagesController do
     end
 
     describe "simple file card" do
-      it "shows a sign up button that links to the signup page" do
-        get :home
+      context "before simple file close" do
+        before do
+          allow(Rails.configuration).to receive(:simple_file_close).and_return(1.minute.from_now)
+        end
 
-        html = Nokogiri::HTML.parse(response.body)
-        button = html.at_css(".service-card--simple-file a.button--simple-file-blue")
-        expect(button.text.strip).to eq I18n.t("general.register")
-        expect(button["href"]).to eq new_signup_path
+        it "shows a get started button that links to simple file" do
+          get :home
+
+          html = Nokogiri::HTML.parse(response.body)
+          button = html.at_css(".service-card--simple-file a.button--simple-file-blue")
+          expect(button.text.strip).to eq I18n.t("general.get_started")
+          expect(button["href"]).to eq SimpleFileUrlService.new(intake: nil, locale: I18n.locale, source: "gyrhomepage").welcome_url
+        end
+      end
+
+      context "after simple file close" do
+        before do
+          allow(Rails.configuration).to receive(:simple_file_close).and_return(1.minute.ago)
+        end
+
+        it "shows a sign up button that links to the signup page" do
+          get :home
+
+          html = Nokogiri::HTML.parse(response.body)
+          button = html.at_css(".service-card--simple-file a.button--simple-file-blue")
+          expect(button.text.strip).to eq I18n.t("general.register")
+          expect(button["href"]).to eq new_signup_path
+        end
       end
     end
 

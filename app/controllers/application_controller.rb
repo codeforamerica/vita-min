@@ -393,6 +393,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :open_for_diy?
 
+  def simple_file_closed?
+    app_time >= Rails.configuration.simple_file_close
+  end
+  helper_method :simple_file_closed?
+
   def open_for_state_file_intake?
     app_time.between?(Rails.configuration.state_file_start_of_open_intake, Rails.configuration.state_file_end_of_in_progress_intakes)
   end
