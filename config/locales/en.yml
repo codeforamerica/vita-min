@@ -477,11 +477,13 @@ en:
       direct_deposit_information: Direct Deposit Information
       email_attachment: Email attachment
       employment: Employment Docs
+      estimated_tax_receipts: Estimated Tax Receipts
       id: Photo ID
       ira_statement: IRA Statement
       irs_ip_pin_letter: IRS IP PIN Letter
       original_13614-C: Original 13614-C
       other: Other Docs
+      personal_ledger: Personal Ledger
       primary_identification:
         drivers_license: Driver's License (U.S.)
         employer_id: Employer ID
