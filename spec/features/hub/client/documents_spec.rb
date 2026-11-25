@@ -34,7 +34,9 @@ RSpec.feature "View and edit documents for a client" do
       expect(page).to have_selector("h1", text: "Bart Simpson")
       expect(page).to have_selector("#document-#{document_1.id}", text: "ID.jpg")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Care Provider Statement")
-      expect(page).to have_selector("#document-#{document_1.id}", text: "2019")
+      expect(page).to have_selector("#document-#{document_1.id} .document-column__uploaded-by", text: "Bart Simpson")
+      expect(page).to have_selector("#document-#{document_3.id} .document-column__uploaded-by", text: "Auto-generated")
+      expect(page).not_to have_selector("th", text: "Tax return")
 
       within "#document-#{document_1.id}" do
         click_on "Edit"
@@ -50,7 +52,7 @@ RSpec.feature "View and edit documents for a client" do
 
       expect(page).to have_selector("h1", text: "Bart Simpson")
       expect(page).to have_selector("#document-#{document_1.id}", text: "Updated Document Title")
-      expect(page).to have_selector("#document-#{document_1.id}", text: "2017")
+      expect(document_1.reload.tax_return.year).to eq 2017
       expect(page).to have_selector("#document-#{document_1.id}", text: "Secondary ID")
 
       # Smart Scan column should be hidden for non-admin users.
@@ -139,9 +141,10 @@ RSpec.feature "View and edit documents for a client" do
       click_on "Yes"
 
       within "#document-#{Document.last.id}" do
-        expect(page).to have_content("2017")
         expect(page).to have_content("Final Tax Document")
+        expect(page).to have_selector(".document-column__uploaded-by", text: "Org Lead")
       end
+      expect(Document.last.tax_return.year).to eq 2017
       expect(client.documents.count).to eq original_document_count + 1
     end
 
