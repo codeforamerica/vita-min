@@ -4,11 +4,21 @@
 
 <ul class="tax-return-list">
   <% client.tax_returns.sort_by(&:year).each do |tax_return| %>
+    <!-- rounded border around each tax return row/bar -->
+    <div style="border: solid 1px #cccccc; padding: 10px; border-radius: 6px; margin-bottom: 5px">
+
+    <% if tax_return.was_auto_advanced && tax_return.current_state.to_sym == :intake_ready %>
+      <div class="notice--success spacing-below-5" style="border-radius: 6px">
+        WAS AUTO-ADVANCED
+      </div>
+    <% end %>
+
     <li id="tax-return-<%= tax_return.id %>">
       <div class="tax-return-list__assignment">
         <div class="tax-return-list__year">
           <%= tax_return.year %>
         </div>
+
         <div class="tax-return-list__service-type">
           <% if tax_return.service_type == "drop_off" %>
             <span class="tooltip" data-position="bottom" title="<%= t("general.drop_off") %>">
@@ -57,8 +67,10 @@
           </div>
       <% end %>
     </li>
+  </div> <!-- END rounded border around each tax return row/bar -->
   <% end %>
   <% if tax_return_creatable && !client_has_return_for_every_gyr_filing_year?(client) %>
     <%= link_to t("views.shared.tax_return_list.add_tax_year"), new_hub_client_tax_return_path(client_id: client.id), class: "button button--small" %>
   <% end %>
+
 </ul>

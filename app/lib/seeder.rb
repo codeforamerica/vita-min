@@ -315,7 +315,7 @@ class Seeder
         vita_partner: first_org
       },
       tax_return_attributes: [
-        { year: 2024, assigned_user: user, current_state: "intake_ready" },
+        { year: 2024, assigned_user: user, current_state: "intake_ready", was_auto_advanced: true },
       ]
     )
 

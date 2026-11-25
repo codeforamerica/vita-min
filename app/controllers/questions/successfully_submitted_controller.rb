@@ -3,7 +3,8 @@ module Questions
     include AuthenticatedClientConcern, GyrDocuments
 
     before_action do
-      intake_transition_to(current_intake, next_intake_state(current_intake))
+      intake_transition_to(current_intake, next_intake_state(current_intake),
+                           auto_advanced_flag: true)
     end
 
     def include_analytics?
