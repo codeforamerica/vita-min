@@ -75,6 +75,14 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           expect(fourth_doc_element).to have_text("zero-bytes.jpg (empty file)")
         end
 
+        it "renders columns in the expected order without a tax return column" do
+          get :index, params: params
+
+          html = Nokogiri::HTML.parse(response.body)
+          headers = html.css("thead th").map { |th| th.text.squish }
+          expect(headers).to eq ["Document type", "Edit File Info", "File Name", "Upload Date", "Uploaded By"]
+        end
+
         it "excludes archived documents but has a link for them in last row of the table" do
           get :index, params: params
 
@@ -99,23 +107,50 @@ RSpec.describe Hub::DocumentsController, type: :controller do
           end
         end
 
-        context "with sort param of tax_return - sorts by tax_return year" do
-          let!(:tax_return_1) { create :tax_return, client: client, year: 2024 }
-          let!(:tax_return_2) { create :tax_return, client: client, year: 2019 }
-          let!(:tax_return_3) { create :tax_return, client: client, year: 2023 }
-          let(:params) { { client_id: client.id, column: "tax_return", order: "asc" } }
-          let!(:document_2024) { create :document, created_at: 1.day.ago, display_name: "Zebra doc", client: client, tax_return: tax_return_1 }
-          let!(:document_2019) { create :document, created_at: 1.hour.ago, display_name: "Alligator doc", client: client, tax_return: tax_return_2 }
-          let!(:document_2023) { create :document, created_at: 1.minute.ago, display_name: "Giraffe doc", client: client, tax_return: tax_return_3 }
+        context "with sort param of uploaded_by - sorts by uploader name" do
+          let(:zed_volunteer) { create :user, name: "Zed Volunteer" }
+          let(:bob_volunteer) { create :user, name: "bob Volunteer" }
+          let!(:zed_document) { create :document, created_at: 3.days.ago, client: client, uploaded_by: zed_volunteer }
+          let!(:client_document) { create :document, created_at: 2.days.ago, client: client, uploaded_by: client }
+          let!(:system_document) { create :document, created_at: 1.day.ago, client: client, uploaded_by: nil }
+          let!(:bob_document) { create :document, created_at: 1.hour.ago, client: client, uploaded_by: bob_volunteer }
 
-          it "orders documents by that column" do
+          before { client.intake.update!(preferred_name: "Marge Client") }
+
+          context "ascending" do
+            let(:params) { { client_id: client.id, column: "uploaded_by", order: "asc" } }
+
+            it "orders documents case-insensitively by the uploader's displayed name" do
+              get :index, params: params
+
+              expect(assigns[:sort_column]).to eq("uploaded_by")
+              expect(assigns[:sort_order]).to eq("asc")
+              # Auto-generated, bob Volunteer, Marge Client, Zed Volunteer
+              expect(assigns(:documents)).to eq [system_document, bob_document, client_document, zed_document]
+            end
+          end
+
+          context "descending" do
+            let(:params) { { client_id: client.id, column: "uploaded_by", order: "desc" } }
+
+            it "reverses the order" do
+              get :index, params: params
+
+              expect(assigns(:documents)).to eq [zed_document, client_document, bob_document, system_document]
+            end
+          end
+        end
+
+        context "with the removed tax_return sort param" do
+          let!(:identity_document) { create :document, client: client, document_type: DocumentTypes::Identity.key }
+          let!(:employment_document) { create :document, client: client, document_type: DocumentTypes::Employment.key }
+          let(:params) { { client_id: client.id, column: "tax_return", order: "asc" } }
+
+          it "falls back to sorting by document_type" do
             get :index, params: params
 
-            expect(assigns[:sort_column]).to eq("tax_return")
-            expect(assigns[:sort_order]).to eq("asc")
-            # Note: w/o sorting, default would be to display them in order of creation.
-            expect(assigns(:documents)).to eq [document_2019, document_2023, document_2024]
-
+            expect(assigns[:sort_column]).to eq("document_type")
+            expect(assigns(:documents)).to eq [employment_document, identity_document]
           end
         end
 
