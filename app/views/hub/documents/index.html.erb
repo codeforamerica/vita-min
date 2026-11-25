@@ -33,10 +33,6 @@
     <table class="index-table documents-index-table">
       <thead class="index-table__head">
       <tr class="index-table__row">
-        <th scope="col" class="index-table__header document-column__tax-return">
-          <%= render "shared/column_sort_link", title: t("general.tax_return"), column_name: "tax_return" %>
-        </th>
-
         <th scope="col" class="index-table__header document-column__doc-type">
           <%= render "shared/column_sort_link", title: t("general.document_type"), column_name: "document_type" %>
         </th>
@@ -59,7 +55,10 @@
         <th scope="col" class="index-table__header document-column__upload-date">
           <%= render "shared/column_sort_link", title: t(".upload_date"), column_name: "created_at" %>
         </th>
-        <th></th>
+
+        <th scope="col" class="index-table__header document-column__uploaded-by">
+          <%= render "shared/column_sort_link", title: t(".uploaded_by"), column_name: "uploaded_by" %>
+        </th>
       </tr>
       </thead>
 
@@ -67,11 +66,6 @@
       <% if @documents.present? %>
         <% @documents.each do |document| %>
           <tr id="document-<%= document.id %>" class="index-table__row">
-
-            <td class="index-table__cell">
-              <%= document.tax_return&.year %>
-            </td>
-
             <td class="index-table__cell document-column__doc-type">
               <% id_prefix = "" %>
               <% id_prefix = "ID - " if DocumentTypes::IDENTITY_TYPES.map(&:label).include?(document.document_type_label) %>
@@ -112,13 +106,17 @@
             <td class="index-table__cell document-column__upload-date">
               <%= timestamp document.created_at %>
             </td>
+
+            <td class="index-table__cell document-column__uploaded-by">
+              <%= document.uploaded_by_name_label %>
+            </td>
           </tr>
         <% end %>
       <% end %>
 
       <% if !@show_archived_index && @client.documents.archived.exists? %>
         <tr class="index-table__row archived-documents-link-row">
-          <td class="index-table__cell archived-documents-cell" colspan="6">
+          <td class="index-table__cell archived-documents-cell" colspan="<%= can?(:read, DocAssessment) ? 6 : 5 %>">
             <%= link_to archived_hub_client_documents_path do %>
               <%= t(".archived_documents") %>
             <% end %>
