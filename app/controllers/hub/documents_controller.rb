@@ -95,9 +95,26 @@ module Hub
     def sorted_documents
       @sort_order = sort_order
       @sort_column = sort_column
-      @sort_column == 'tax_return' ?
-        @documents.except(:order).includes(:tax_return).order('tax_return.year' => @sort_order) :
-        @documents.except(:order).order({ @sort_column => @sort_order })
+      documents = @documents.except(:order).includes(:uploaded_by)
+      return documents.order({ @sort_column => @sort_order }) unless @sort_column == "uploaded_by"
+
+      documents
+        .joins("LEFT JOIN users uploaded_by_users ON documents.uploaded_by_type = 'User' AND uploaded_by_users.id = documents.uploaded_by_id")
+        .joins("LEFT JOIN intakes uploaded_by_intakes ON documents.uploaded_by_type = 'Client' AND uploaded_by_intakes.client_id = documents.uploaded_by_id")
+        .order(Arel.sql(uploaded_by_sort_sql))
+    end
+
+    # Mirrors Document#uploaded_by_name_label so the column sorts by the name volunteers see.
+    def uploaded_by_sort_sql
+      system_label = Document.connection.quote(I18n.t("hub.documents.index.system_generated_doc"))
+      direction = @sort_order == "desc" ? "DESC" : "ASC"
+      <<~SQL.squish
+        LOWER(CASE documents.uploaded_by_type
+          WHEN 'User' THEN uploaded_by_users.name
+          WHEN 'Client' THEN uploaded_by_intakes.preferred_name
+          ELSE #{system_label}
+        END) #{direction}, documents.id #{direction}
+      SQL
     end
 
     def log_document_access!
@@ -116,7 +133,7 @@ module Hub
     end
 
     def sort_column
-      %w[created_at display_name document_type tax_return].include?(params[:column]) ? params[:column] : "document_type"
+      %w[created_at display_name document_type uploaded_by].include?(params[:column]) ? params[:column] : "document_type"
     end
 
     def sort_order
