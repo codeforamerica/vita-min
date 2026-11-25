@@ -31,6 +31,46 @@ describe DocumentRequirements do
     end
   end
 
+  describe "income and life event requirements" do
+    def required_keys_for(**answers)
+      described_class.new(create(:intake, **answers)).required.map(&:key) - [DocumentTypes::Identity.key, DocumentTypes::SsnItin.key]
+    end
+
+    {
+      { had_unemployment_income: "yes" } => DocumentTypes::Form1099G,
+      { had_interest_income: "yes" } => DocumentTypes::Form1099Int,
+      { had_asset_sale_income: "yes" } => DocumentTypes::Form1099B,
+      { sold_assets: "yes" } => DocumentTypes::Form1099B,
+      { reported_asset_sale_loss: "yes" } => DocumentTypes::Form1099B,
+      { had_social_security_income: "yes" } => DocumentTypes::Ssa1099,
+      { had_hsa: "yes" } => DocumentTypes::Form1099Sa,
+      { had_gambling_income: "yes" } => DocumentTypes::W2G,
+      { sold_a_home: "yes" } => DocumentTypes::Form1099S,
+      { had_debt_forgiven: "yes" } => DocumentTypes::Form1099C,
+    }.each do |answers, document_type|
+      it "requires #{document_type.key} when #{answers.keys.first} is yes" do
+        expect(required_keys_for(**answers)).to eq [document_type.key]
+      end
+    end
+
+    it "does not require 1099-S for asset sale income alone" do
+      expect(required_keys_for(had_asset_sale_income: "yes")).not_to include DocumentTypes::Form1099S.key
+    end
+
+    [
+      [DocumentTypes::Form1099Int, DocumentTypes::Form1099Div],
+      [DocumentTypes::Ssa1099, DocumentTypes::Rrb1099],
+      [DocumentTypes::Form1099Sa, DocumentTypes::Form5498Sa],
+      [DocumentTypes::Form1099C, DocumentTypes::Form1099A],
+    ].each do |accepted_types|
+      it "accepts #{accepted_types.map(&:key).join(' or ')} on the rule for each of those document types" do
+        accepted_types.each do |document_type|
+          expect(described_class.for_document_type(document_type).accepted_document_types).to match_array accepted_types
+        end
+      end
+    end
+  end
+
   describe "#recommended" do
     it "includes relevant document types that are not needed if relevant, excluding Other" do
       expect(subject.recommended.map(&:document_type)).to eq [DocumentTypes::StudentAccountStatement]

@@ -80,6 +80,16 @@ describe DocumentChecklist do
       end
     end
 
+    context "when a requirement accepts more than one document type" do
+      let(:intake) { create :intake, had_interest_income: "yes" }
+
+      it "is satisfied by either document type" do
+        create :document, intake: intake, document_type: DocumentTypes::Form1099Div.key
+
+        expect(subject.satisfied?(requirement_for(DocumentTypes::Form1099Int))).to eq true
+      end
+    end
+
     it "counts documents attached to the client but not the intake" do
       create :document, intake: nil, client: intake.client, document_type: DocumentTypes::Employment.key
 
