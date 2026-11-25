@@ -13,9 +13,5 @@ module Questions
     def tracking_data
       {}
     end
-
-    def illustration_path
-      "email-address.svg"
-    end
   end
 end

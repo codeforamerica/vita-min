@@ -11,9 +11,5 @@ module Documents
     def self.document_type
       nil
     end
-
-    def illustration_path
-      "id-guidance.svg"
-    end
   end
 end

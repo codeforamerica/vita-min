@@ -11,9 +11,5 @@ module Questions
       end
     end
 
-    def illustration_path
-      "calendar.svg"
-    end
-
   end
 end

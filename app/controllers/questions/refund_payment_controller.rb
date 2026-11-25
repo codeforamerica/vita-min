@@ -6,10 +6,6 @@ module Questions
 
     private
 
-    def illustration_path
-      "hand-holding-check.svg"
-    end
-
     def method_name
       'refund_direct_deposit'
     end

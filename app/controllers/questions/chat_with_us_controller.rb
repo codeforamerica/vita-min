@@ -18,10 +18,6 @@ module Questions
 
     private
 
-    def illustration_path
-      "chat-with-us.svg"
-    end
-
     def self.form_class
       NullForm
     end

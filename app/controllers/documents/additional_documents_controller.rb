@@ -7,11 +7,5 @@ module Documents
     def self.document_type
       DocumentTypes::Other
     end
-
-    private
-
-    def illustration_path
-      "documents.svg"
-    end
   end
 end

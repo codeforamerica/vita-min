@@ -15,9 +15,5 @@ module Documents
     def after_update_success
       intake_transition_to(current_intake, next_intake_state(current_intake))
     end
-
-    def illustration_path
-      'ssn-itins.svg'
-    end
   end
 end
