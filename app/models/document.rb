@@ -149,7 +149,7 @@ class Document < ApplicationRecord
     if uploaded_by.is_a? User
       uploaded_by.name || ""
     elsif uploaded_by.is_a? Client
-      I18n.t("hub.documents.index.client_doc")
+      uploaded_by.preferred_name || ""
     else
       I18n.t("hub.documents.index.system_generated_doc")
     end
