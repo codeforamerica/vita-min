@@ -13,7 +13,8 @@ module Documents
     end
 
     def after_update_success
-      intake_transition_to(current_intake, next_intake_state(current_intake))
+      intake_transition_to(current_intake, next_intake_state(current_intake),
+                           auto_advanced_flag: true)
     end
 
     def illustration_path

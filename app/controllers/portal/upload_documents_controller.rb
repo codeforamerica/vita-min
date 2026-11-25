@@ -42,7 +42,8 @@ module Portal
         @form.save
         if has_all_required_docs?(current_client.intake)
           intake_transition_to(current_client.intake, next_intake_state(current_client.intake),
-                               [:intake_in_progress, :intake_needs_doc_help])
+                               when_current_is: [:intake_in_progress, :intake_needs_doc_help],
+                               auto_advanced_flag: true)
         end
         flash[:notice] = I18n.t("portal.upload_documents.success")
         redirect_to portal_upload_documents_path(document_type: form_params[:document_type])
