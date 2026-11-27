@@ -474,10 +474,13 @@ en:
       1095-a: Health Insurance
       1099-r: Retirement Income
       care_provider_statement: Care Provider Statement
+      debt_forgiveness: Debt Forgiveness
       direct_deposit_information: Direct Deposit Information
       email_attachment: Email attachment
       employment: Employment Docs
+      health_savings_account: Health Savings Account
       id: Photo ID
+      interest_dividend_income: Interest & Dividend Income
       ira_statement: IRA Statement
       irs_ip_pin_letter: IRS IP PIN Letter
       original_13614-C: Original 13614-C
@@ -506,6 +509,7 @@ en:
         ssa_notice: SSA Notice
         ssn: Social Security Card
         w2: Current Year W-2
+      social_security_income: Social Security Income
       ssn_or_itin: Secondary ID
       student_account_statement: Student Account Statement
       text_message_attachment: Text message attachment

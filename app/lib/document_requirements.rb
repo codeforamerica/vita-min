@@ -21,23 +21,17 @@ class DocumentRequirements
     DocumentRequirement.new(DocumentTypes::Form1098T, required: false) do |intake|
       intake.paid_post_secondary_educational_expenses_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Form1099A, required: false) do |intake|
+    DocumentRequirement.new(DocumentTypes::DebtForgiveness, required: false, accepted_document_types: [DocumentTypes::Form1099C, DocumentTypes::Form1099A]) do |intake|
       intake.had_debt_forgiven_yes?
     end,
     DocumentRequirement.new(DocumentTypes::Form1099B, required: false, offer_doc_help: true) do |intake|
       intake.had_asset_sale_income_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Form1099C, required: false) do |intake|
-      intake.had_debt_forgiven_yes?
-    end,
-    DocumentRequirement.new(DocumentTypes::Form1099Div, required: false, offer_doc_help: true) do |intake|
+    DocumentRequirement.new(DocumentTypes::InterestDividendIncome, required: false, offer_doc_help: true, accepted_document_types: [DocumentTypes::Form1099Int, DocumentTypes::Form1099Div]) do |intake|
       intake.had_interest_income_yes?
     end,
     DocumentRequirement.new(DocumentTypes::Form1099G, required: false) do |intake|
       intake.had_unemployment_income_yes?
-    end,
-    DocumentRequirement.new(DocumentTypes::Form1099Int, required: false) do |intake|
-      intake.had_interest_income_yes?
     end,
     DocumentRequirement.new(DocumentTypes::Form1099R, required: true, offer_doc_help: true) do |intake|
       intake.had_retirement_income_yes?
@@ -45,17 +39,11 @@ class DocumentRequirements
     DocumentRequirement.new(DocumentTypes::Form1099S, required: false) do |intake|
       intake.had_asset_sale_income_yes? || intake.sold_a_home_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Form1099Sa, required: false) do |intake|
+    DocumentRequirement.new(DocumentTypes::HealthSavingsAccount, required: false, accepted_document_types: [DocumentTypes::Form1099Sa, DocumentTypes::Form5498Sa]) do |intake|
       intake.had_hsa_yes?
     end,
-    DocumentRequirement.new(DocumentTypes::Rrb1099, required: false, offer_doc_help: true) do |intake|
+    DocumentRequirement.new(DocumentTypes::SocialSecurityIncome, required: false, offer_doc_help: true, accepted_document_types: [DocumentTypes::Ssa1099, DocumentTypes::Rrb1099]) do |intake|
       intake.had_social_security_income_yes?
-    end,
-    DocumentRequirement.new(DocumentTypes::Ssa1099, required: false, offer_doc_help: true) do |intake|
-      intake.had_social_security_income_yes?
-    end,
-    DocumentRequirement.new(DocumentTypes::Form5498Sa, required: false) do |intake|
-      intake.had_hsa_yes?
     end,
     DocumentRequirement.new(DocumentTypes::IraStatement, required: false) do |intake|
       intake.paid_retirement_contributions_yes?

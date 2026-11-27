@@ -13,9 +13,18 @@
         <h2 class="document-list__heading text--small"><%= t("views.documents.additional_documents.document_list_title") %></h2>
         <ul class="document-list list--bulleted">
           <% current_intake.document_types_possibly_needed.map do |document_type| %>
-            <li>
-              <h3 class="text--small"><%= document_type.label %></h3>
-            </li>
+            <% accepted_document_types = DocumentRequirements.for_document_type(document_type)&.accepted_document_types || [document_type] %>
+            <% if accepted_document_types.length > 1 %>
+              <% accepted_document_types.each do |accepted_document_type| %>
+                <li>
+                  <h3 class="text--small"><%= accepted_document_type.label %></h3>
+                </li>
+              <% end %>
+            <% else %>
+              <li>
+                <h3 class="text--small"><%= document_type.label %></h3>
+              </li>
+            <% end %>
           <% end %>
         </ul>
       </strong>

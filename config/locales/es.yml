@@ -474,10 +474,13 @@ es:
       1095-a: Seguro de salud
       1099-r: Ingreso de jubilación
       care_provider_statement: Declaración del Proveedor de Cuidados
+      debt_forgiveness: Condonación de deuda
       direct_deposit_information: Información de depósito directo
       email_attachment: Adjunto de correo electrónico
       employment: Documentos de empleo
+      health_savings_account: Cuenta de ahorros para la salud
       id: Identificación
+      interest_dividend_income: Ingresos por intereses y dividendos
       ira_statement: Declaración de plan de pensión (IRA)
       irs_ip_pin_letter: Carta del PIN de Protección de Identidad (IP PIN) del IRS
       original_13614-C: Original 13614-C
@@ -506,6 +509,7 @@ es:
         ssa_notice: Aviso SSA
         ssn: Tarjeta de Seguridad Social
         w2: Año actual W-2
+      social_security_income: Ingresos del Seguro Social
       ssn_or_itin: Identificación secundaria
       student_account_statement: Estado de cuenta del estudiante
       text_message_attachment: Adjunto de mensaje de texto

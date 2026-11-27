@@ -25,6 +25,7 @@ module DocumentTypes
     DocumentTypes::SecondaryIdentification::BirthCertificate,
   ].freeze
   OTHER_TYPES = [
+    DocumentTypes::DebtForgiveness,
     DocumentTypes::DirectDepositInformation,
     DocumentTypes::Employment,
     DocumentTypes::FinalTaxDocument,
@@ -43,8 +44,11 @@ module DocumentTypes
     DocumentTypes::Form1099S,
     DocumentTypes::Form1099Sa,
     DocumentTypes::Form15080,
+    DocumentTypes::HealthSavingsAccount,
+    DocumentTypes::InterestDividendIncome,
     DocumentTypes::Rrb1099,
     DocumentTypes::Ssa1099,
+    DocumentTypes::SocialSecurityIncome,
     DocumentTypes::Form5498Sa,
     DocumentTypes::UnsignedForm8879,
     DocumentTypes::CompletedForm8879,
