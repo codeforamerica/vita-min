@@ -88,8 +88,8 @@ describe DocumentRequirements do
     end
 
     it "offers doc help when its rule offers doc help" do
-      expect(DocumentTypes::Form1099Div.provide_doc_help?).to eq true
-      expect(DocumentTypes::Form1099Int.provide_doc_help?).to eq false
+      expect(DocumentTypes::InterestDividendIncome.provide_doc_help?).to eq true
+      expect(DocumentTypes::Form1099G.provide_doc_help?).to eq false
     end
 
     it "treats document types without a rule as not relevant, not needed, and without doc help" do
